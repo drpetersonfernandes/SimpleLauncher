@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM 履歴の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">ブラウザの起動中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">このゲームをお気に入りから削除中にエラーが発生しました。</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">エラーレポート送信中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ファイル削除中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' を起動しようとした際にエラーが発生しました。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">オープンソースのエミュレーター用フロントエンド</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">ウィンドウを選択するとすぐにスクリーンショットが撮られ、選択したシステムの画像フォルダーに保存されます。</system:String>
     <system:String x:Key="BaseTheme">基本テーマ</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">ISO を XISO に一括変換</system:String>
-    <system:String x:Key="BatchConvertTo7z">バッチ変換を7zに</system:String>
     <system:String x:Key="BatchConvertToCHD">バッチ変換をCHDに</system:String>
-    <system:String x:Key="BatchConvertToZip">バッチ変換をZipに</system:String>
     <system:String x:Key="Blue">青</system:String>
     <system:String x:Key="Brown">茶色</system:String>
-    <system:String x:Key="BugReport">バグ報告</system:String>
-    <system:String x:Key="Bugreportsent">バグレポートが正常に送信されました。</system:String>
     <system:String x:Key="ButIfoundabackupfile">しかし、バックアップファイルが見つかりました。</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">システムを編集</system:String>
     <system:String x:Key="EditSystemEasyMode">システムを編集 - 簡単モード</system:String>
     <system:String x:Key="EditSystemtofixit">修正するためにシステムを編集してください。</system:String>
-    <system:String x:Key="Emailoptional">メールアドレス (任意)</system:String>
     <system:String x:Key="Emerald">エメラルド</system:String>
     <system:String x:Key="Emulator">エミュレーター</system:String>
     <system:String x:Key="Emulator1Location">エミュレーター1の場所</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">モーヴ</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">インターネット接続に問題があるか、GitHub サーバーがオフラインになっている可能性があります。</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">関連するデータが提供されているため、名前が必要です。</system:String>
-    <system:String x:Key="Nameoptional">名前 (任意)</system:String>
     <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">詳細は利用できません:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">選択したシステムにはお気に入りのゲームが見つかりませんでした。</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">これを修正するには、このシステムを編集してください。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">検索語を入力してください。</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">バグの詳細を入力してください。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">手動で修正するか、削除してください。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">編集ウィンドウでそれを修正してください。</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">これらを修正して続行してください。</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">エミュレーター 5 を選択してください。</system:String>
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
-    <system:String x:Key="SendBugReport">バグレポートを送信する</system:String>
     <system:String x:Key="SetButtonAspectRatio">ボタンの縦横比を設定</system:String>
     <system:String x:Key="SetButtonSize">ボタンのサイズを設定</system:String>
     <system:String x:Key="SetEmulator1Location">エミュレーター1の場所を設定</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">ティール</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">ウイルス対策ソフトを一時的に無効にして、再試行してください。</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">アンチウイルスソフトウェアを一時的に無効化し、再試行してください。</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">アプリケーションはエラーレポートを送信できません。</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">アプリケーションは直ちに終了します。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">アプリケーションが終了します。</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">バグが開発者に報告され、修正される予定です。</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' がアプリケーションフォルダー内に見つかりません。</system:String>
     <system:String x:Key="Updating">更新中</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">複数の拡張子を追加するにはカンマ [ , ] を使用してください</system:String>
-    <system:String x:Key="Usetheformbelow">下記のフォームを使用してバグを報告してください</system:String>
     <system:String x:Key="Validationerrors">検証エラー</system:String>
     <system:String x:Key="Version">バージョン:</system:String>
     <system:String x:Key="Video">ビデオ</system:String>

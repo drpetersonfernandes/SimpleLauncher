@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Terjadi kesalahan saat memuat riwayat ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Terjadi kesalahan saat membuka browser.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Terjadi kesalahan saat menghapus game ini dari favorit.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Kesilapan berlaku semasa menghantar laporan ralat.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Terjadi kesalahan saat mencoba menghapus file.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Terjadi kesalahan saat mencoba meluncurkan 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Frontend emulator sumber terbuka</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Segera setelah Anda memilih jendela, tangkapan layar akan diambil dan disimpan di folder gambar sistem yang dipilih.</system:String>
     <system:String x:Key="BaseTheme">Tema Dasar</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Konversi massal dari Iso ke Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">Konversi Batch ke 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Konversi Batch ke CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Konversi Batch ke Zip</system:String>
     <system:String x:Key="Blue">Biru</system:String>
     <system:String x:Key="Brown">Coklat</system:String>
-    <system:String x:Key="BugReport">Laporan Bug</system:String>
-    <system:String x:Key="Bugreportsent">Laporan bug berhasil dikirim.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Edit Sistem</system:String>
     <system:String x:Key="EditSystemEasyMode">Edit Sistem - Mode Mudah</system:String>
     <system:String x:Key="EditSystemtofixit">Edit sistem untuk memperbaikinya.</system:String>
-    <system:String x:Key="Emailoptional">Email (opsional)</system:String>
     <system:String x:Key="Emerald">Hijau Zamrud</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
     <system:String x:Key="Emulator1Location">Lokasi Emulator 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Ungu Muda</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Mungkin ada masalah dengan koneksi internet Anda atau server GitHub sedang offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">nama diperlukan karena data terkait telah disediakan.</system:String>
-    <system:String x:Key="Nameoptional">Nama (opsional)</system:String>
     <system:String x:Key="Next_&gt;">Selanjutnya &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Tidak ada game favorit yang ditemukan untuk sistem yang dipilih.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Silakan edit sistem ini untuk memperbaikinya.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Silakan masukkan kueri pencarian.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Silakan masukkan kata pencarian.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Silakan masukkan detail bug.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Harap perbaiki secara manual atau hapus.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Harap perbaiki untuk melanjutkan.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Pilih Folder Ekstraksi</system:String>
-    <system:String x:Key="SendBugReport">Kirim Laporan Bug</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
     <system:String x:Key="SetButtonSize">Atur Ukuran Tombol</system:String>
     <system:String x:Key="SetEmulator1Location">Atur Lokasi Emulator 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Hijau Toska</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Nonaktifkan antivirus Anda sementara dan coba lagi.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Matikan sementara perisian antivirus anda dan cuba lagi.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">Aplikasi tidak dapat menghantar laporan ralat.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Aplikasi sekarang akan ditutup.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Aplikasi akan ditutup.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Pepijat telah dilaporkan kepada pembangun, dan mereka akan cuba membetulkannya.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="Updating">Memperbarui</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Gunakan koma [ , ] untuk menambahkan beberapa ekstensi</system:String>
-    <system:String x:Key="Usetheformbelow">Gunakan formulir di bawah ini untuk melaporkan bug</system:String>
     <system:String x:Key="Validationerrors">Kesalahan validasi</system:String>
     <system:String x:Key="Version">Versi:</system:String>
     <system:String x:Key="Video">Video</system:String>

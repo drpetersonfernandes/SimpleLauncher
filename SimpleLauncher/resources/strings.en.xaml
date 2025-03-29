@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">An error occurred while loading ROM history.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">An error occurred while opening the browser.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">An error occurred while removing this game from favorites.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">An error occurred while sending the bug report.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">An error occurred while trying to delete the file</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">An error occurred while trying to launch 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">An open source emulator frontend</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">Batch Convert To 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Batch Convert To Zip</system:String>
     <system:String x:Key="Blue">Blue</system:String>
     <system:String x:Key="Brown">Brown</system:String>
-    <system:String x:Key="BugReport">Bug Report</system:String>
-    <system:String x:Key="Bugreportsent">Bug report sent successfully.</system:String>
     <system:String x:Key="ButIfoundabackupfile">But I found a backup file.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Edit System</system:String>
     <system:String x:Key="EditSystemEasyMode">Edit System - Easy Mode</system:String>
     <system:String x:Key="EditSystemtofixit">Edit System to fix it.</system:String>
-    <system:String x:Key="Emailoptional">Email (optional)</system:String>
     <system:String x:Key="Emerald">Emerald</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
     <system:String x:Key="Emulator1Location">Emulator 1 Location</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Maybe there is a problem with your internet access or the GitHub server is offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">name is required because related data has been provided.</system:String>
-    <system:String x:Key="Nameoptional">Name (optional)</system:String>
     <system:String x:Key="Next_&gt;">Next &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">No details available for</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No favorite games found for the selected system.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Please edit this system to fix that.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Please enter a search query.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Please enter a search term.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Please enter the details of the bug.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Please fix it manually or delete it.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Please fix that in the Edit window.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Please fix them to proceed.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
-    <system:String x:Key="SendBugReport">Send Bug Report</system:String>
     <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
     <system:String x:Key="SetButtonSize">Set Button Size</system:String>
     <system:String x:Key="SetEmulator1Location">Set Emulator 1 Location</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Teal</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Temporarily disable your antivirus software and try again.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Temporarily disable your antivirus software and try again.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">The application will not be able to send the Bug Report.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">The application will now shutdown.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">The application will shutdown.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">The bug was reported to the developer that will try to fix the issue.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' not found in the application directory.</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Use a comma [ , ] to add multiple extensions</system:String>
-    <system:String x:Key="Usetheformbelow">Use the form below to report any bug</system:String>
     <system:String x:Key="Validationerrors">Validation errors</system:String>
     <system:String x:Key="Version">Version:</system:String>
     <system:String x:Key="Video">Video</system:String>
@@ -583,14 +572,28 @@
     <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>    
     <system:String x:Key="GrantSimpleLauncheradministrative2">Grant 'Simple Launcher' administrative access and try again.</system:String>
     
-    BatchVerifyCHDFiles
-    MemoryAccessViolationError
-    WhatIsMemoryAccess
-    HowToFixMemoryAccess
-    MemorySolution1
-    MemorySolution2
-    MemorySolution3
-    MemorySolution4
-    receiveNotificationEmulatorError
+    <system:String x:Key="BatchConvertToCompressedFile">Batch Convert To Compressed File</system:String>
+    <system:String x:Key="BatchVerifyCHDFiles">Batch Verify CHD Files</system:String>
+    <system:String x:Key="BatchVerifyCompressedFiles">Batch Verify Compressed Files</system:String>
+    <system:String x:Key="SupportRequest">Support Request</system:String>
+    <system:String x:Key="MemoryAccessViolationError">A Memory Access Violation occurred while running the emulator. This happens when a program attempts to access memory that it either doesn't have permission to access or memory that has been freed/doesn't exist. This is common in emulators that manipulate memory directly to achieve accurate emulation of other systems.</system:String>
+    <system:String x:Key="WhatIsMemoryAccess">Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.</system:String>
+    <system:String x:Key="HowToFixMemoryAccess">You can try the following solutions:</system:String>
+    <system:String x:Key="MemorySolution1">1. Run the application with administrator privileges.</system:String>
+    <system:String x:Key="MemorySolution2">2. Check if your antivirus is blocking the emulator's memory operations.</system:String>
+    <system:String x:Key="MemorySolution3">3. Update your emulator to the latest version which may have fixed memory handling issues.</system:String>
+    <system:String x:Key="MemorySolution4">4. Try adjusting memory allocation settings in the emulator configuration if available.</system:String>
+    <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">The application will not be able to send the support request.</system:String>
+    <system:String x:Key="Pleaseenterthedetailsofthesupportrequest">Please enter the details of the support request.</system:String>
+    <system:String x:Key="Pleaseenterthename">Please enter the name.</system:String>
+    <system:String x:Key="Pleaseentertheemail">Please enter the email.</system:String>
+    <system:String x:Key="Supportrequestsentsuccessfully">Support request sent successfully.</system:String>
+    <system:String x:Key="Anerroroccurredwhilesendingthesupportrequest">An error occurred while sending the support request.</system:String>
+    <system:String x:Key="Support">Support</system:String>
+    <system:String x:Key="UsetheformbelowToGetSupport">Use the form below to get support</system:String>
+    <system:String x:Key="Name">Name</system:String>
+    <system:String x:Key="Email">Email</system:String>
+    <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
+    <system:String x:Key="receiveNotificationEmulatorError">Receive a Notification on Emulator Error?</system:String>
     
 </ResourceDictionary>

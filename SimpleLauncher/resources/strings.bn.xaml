@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM ইতিহাস লোড করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">ব্রাউজার খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">এই গেমটি ফেভারিট থেকে মুছে ফেলার সময় একটি ত্রুটি ঘটেছে।</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">বাগ রিপোর্ট পাঠানোর সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ফাইলটি মুছে ফেলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' চালু করার চেষ্টা করার সময়ে একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">একটি ওপেন সোর্স এমুলেটর ফ্রন্টেন্ড</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">উইন্ডোটি নির্বাচন করার সাথে সাথেই স্ক্রিনশট নেওয়া হবে এবং এটি সিস্টেম ইমেজ ফোল্ডারে সংরক্ষণ করা হবে</system:String>
     <system:String x:Key="BaseTheme">মৌলিক থিম</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">ব্যাচ কনভার্ট Iso থেকে Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">ব্যাচ কনভার্ট টু 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">ব্যাচ কনভার্ট টু CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">ব্যাচ কনভার্ট টু Zip</system:String>
     <system:String x:Key="Blue">নীল</system:String>
     <system:String x:Key="Brown">বাদামি</system:String>
-    <system:String x:Key="BugReport">বাগ রিপোর্ট</system:String>
-    <system:String x:Key="Bugreportsent">বাগ রিপোর্ট সফলভাবে পাঠানো হয়েছে।</system:String>
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">সিস্টেম সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystemEasyMode">সিস্টেম সম্পাদনা করুন - সহজ মোড</system:String>
     <system:String x:Key="EditSystemtofixit">এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
-    <system:String x:Key="Emailoptional">ইমেইল (ঐচ্ছিক)</system:String>
     <system:String x:Key="Emerald">পান্না</system:String>
     <system:String x:Key="Emulator">ইমুলেটর</system:String>
     <system:String x:Key="Emulator1Location">এমুলেটর ১ অবস্থান</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">ফিকে বেগুনি</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">সম্ভবত আপনার ইন্টারনেট সংযোগে কোনো সমস্যা রয়েছে অথবা GitHub সার্ভার অফলাইন।</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">নাম প্রয়োজন কারণ সম্পর্কিত ডেটা প্রদান করা হয়েছে।</system:String>
-    <system:String x:Key="Nameoptional">নাম (ঐচ্ছিক)</system:String>
     <system:String x:Key="Next_&gt;">পরবর্তী&gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">এর জন্য কোনো বিবরণ উপলব্ধ নেই</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">নির্বাচিত সিস্টেমের জন্য কোনো প্রিয় গেম পাওয়া যায়নি</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">অনুগ্রহ করে এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">অনুগ্রহ করে একটি অনুসন্ধান শব্দ দিন</system:String>
     <system:String x:Key="Pleaseenterasearchterm">অনুসন্ধান পানি জন্য কিছু লিখুন।</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">দয়া করে বাগের বিবরণ প্রদান করুন।</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">দয়া করে এটি ম্যানুয়ালি ঠিক করুন অথবা মুছুন।</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">এডিট উইন্ডোতে এটি ঠিক করুন।</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">অনুগ্রহ করে এই সমস্যাগুলি সমাধান করুন।</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">ইমুলেটর ৫ নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectSystem">সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="SelecttheExtractionFolder">এক্সট্রাকশন ফোল্ডার নির্বাচন করুন</system:String>
-    <system:String x:Key="SendBugReport">বাগ রিপোর্ট পাঠান</system:String>
     <system:String x:Key="SetButtonAspectRatio">বাটন আকৃতির অনুপাত সেট করুন</system:String>
     <system:String x:Key="SetButtonSize">বাটনের আকার সেট করুন</system:String>
     <system:String x:Key="SetEmulator1Location">এমুলেটর ১ অবস্থান নির্ধারণ করুন</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">গাঢ় সবুজাভ নীল</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">আপনার অ্যান্টিভাইরাস সফটওয়্যারটি সাময়িকভাবে নিষ্ক্রিয় করুন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">আপনার অ্যান্টিভাইরাস সফটওয়্যারটি সাময়িকভাবে বন্ধ করুন এবং আবার চেষ্টা করুন।</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">অ্যাপ্লিকেশনটি বাগ রিপোর্ট পাঠাতে সক্ষম হবে না।</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">অ্যাপ্লিকেশন এখন বন্ধ হবে।</system:String>
     <system:String x:Key="Theapplicationwillshutdown">অ্যাপ্লিকেশনটি বন্ধ হয়ে যাবে।</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">বাগটি ডেভেলপারকে রিপোর্ট করা হয়েছে যিনি সমস্যাটি ঠিক করার চেষ্টা করবেন।</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">অ্যাপ্লিকেশন ডিরেক্টরিতে 'Updater.exe' পাওয়া যায়নি।</system:String>
     <system:String x:Key="Updating">প্রক্রিয়া।</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">অনেক এক্সটেনশন যোগ করতে কমা [ , ] ব্যবহার করুন</system:String>
-    <system:String x:Key="Usetheformbelow">কোনো বাগ রিপোর্ট করতে নিচের ফর্মটি ব্যবহার করুন</system:String>
     <system:String x:Key="Validationerrors">যাচাইকরণ ত্রুটি</system:String>
     <system:String x:Key="Version">সংস্করণ:</system:String>
     <system:String x:Key="Video">ভিডিও</system:String>

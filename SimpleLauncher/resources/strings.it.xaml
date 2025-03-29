@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Si è verificato un errore durante il caricamento della cronologia ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Si è verificato un errore durante l'apertura del browser.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Si è verificato un errore durante la rimozione di questo gioco dai preferiti.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Si è verificato un errore durante l'invio del report di errore.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Si è verificato un errore durante il tentativo di eliminare il file.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Si è verificato un errore durante il tentativo di avviare 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Un'interfaccia frontend open source per emulatori</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Non appena selezioni una finestra, verrà catturata una schermata e salvata nella cartella immagini del sistema selezionato.</system:String>
     <system:String x:Key="BaseTheme">Tema di base</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Conversione in batch da Iso a Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">Conversione Batch in 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Conversione Batch in CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Conversione Batch in Zip</system:String>
     <system:String x:Key="Blue">Blu</system:String>
     <system:String x:Key="Brown">Marrone</system:String>
-    <system:String x:Key="BugReport">Segnala bug</system:String>
-    <system:String x:Key="Bugreportsent">Segnalazione del problema inviata con successo.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Ma ho trovato un file di backup.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet non trovato</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Modifica sistema</system:String>
     <system:String x:Key="EditSystemEasyMode">Modifica sistema - Modalità facile</system:String>
     <system:String x:Key="EditSystemtofixit">Modifica il sistema per risolverlo.</system:String>
-    <system:String x:Key="Emailoptional">Email (opzionale)</system:String>
     <system:String x:Key="Emerald">Smeraldo</system:String>
     <system:String x:Key="Emulator">Emulatore</system:String>
     <system:String x:Key="Emulator1Location">Posizione emulatore 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Forse c'è un problema con la tua connessione internet o il server di GitHub è offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">è richiesto perché sono stati forniti dati correlati.</system:String>
-    <system:String x:Key="Nameoptional">Nome (opzionale)</system:String>
     <system:String x:Key="Next_&gt;">Successivo &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Nessun dettaglio disponibile per</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nessun gioco preferito trovato per il sistema selezionato.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Modifica questo sistema per risolvere il problema.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Inserisci una query di ricerca.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Inserisci un termine di ricerca.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Per favore, inserisci i dettagli del problema.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Correggilo manualmente o eliminalo.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Per favore, correggi questo nella finestra di modifica.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Per favore, correggili per continuare.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Seleziona Emulatore 5.</system:String>
     <system:String x:Key="SelectSystem">Seleziona Sistema</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Seleziona la cartella di estrazione</system:String>
-    <system:String x:Key="SendBugReport">Invia rapporto bug</system:String>
     <system:String x:Key="SetButtonAspectRatio">Imposta proporzioni pulsante</system:String>
     <system:String x:Key="SetButtonSize">Imposta dimensione pulsante</system:String>
     <system:String x:Key="SetEmulator1Location">Imposta posizione emulatore 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Verde acqua</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Disabilita temporaneamente il tuo antivirus e riprova.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Disattiva temporaneamente il software antivirus e riprova.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">L'applicazione non sarà in grado di inviare report di errori.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">L'applicazione verrà ora chiusa.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">L'applicazione verrà chiusa.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Il bug è stato segnalato allo sviluppatore che cercherà di risolverlo.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' non trovato nella directory dell'applicazione.</system:String>
     <system:String x:Key="Updating">Aggiornamento in corso</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Usa una virgola [ , ] per aggiungere più estensioni</system:String>
-    <system:String x:Key="Usetheformbelow">Usa il modulo sottostante per segnalare un bug</system:String>
     <system:String x:Key="Validationerrors">Errori di convalida</system:String>
     <system:String x:Key="Version">Versione:</system:String>
     <system:String x:Key="Video">Video</system:String>

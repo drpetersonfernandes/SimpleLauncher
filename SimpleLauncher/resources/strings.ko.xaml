@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM 기록을 로드하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">브라우저를 여는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">이 게임을 즐겨찾기에서 제거하는 중 오류가 발생했습니다.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">오류 보고서를 전송하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">파일 삭제 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe'를 실행하려는 도중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">창을 선택하자마자 스크린샷이 찍히며, 해당 시스템의 이미지 폴더에 저장됩니다.</system:String>
     <system:String x:Key="BaseTheme">기본 테마</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Iso를 Xiso로 일괄 변환</system:String>
-    <system:String x:Key="BatchConvertTo7z">배치 변환: 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">배치 변환: CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">배치 변환: Zip</system:String>
     <system:String x:Key="Blue">파랑</system:String>
     <system:String x:Key="Brown">갈색</system:String>
-    <system:String x:Key="BugReport">버그 신고</system:String>
-    <system:String x:Key="Bugreportsent">버그 보고가 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">시스템 편집</system:String>
     <system:String x:Key="EditSystemEasyMode">시스템 편집 - 간편 모드</system:String>
     <system:String x:Key="EditSystemtofixit">문제를 해결하려면 시스템을 수정하세요.</system:String>
-    <system:String x:Key="Emailoptional">이메일 (선택 사항)</system:String>
     <system:String x:Key="Emerald">에메랄드</system:String>
     <system:String x:Key="Emulator">에뮬레이터</system:String>
     <system:String x:Key="Emulator1Location">에뮬레이터 1 경로</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">모브</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">인터넷 연결에 문제가 있거나 GitHub 서버가 오프라인일 수 있습니다.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
-    <system:String x:Key="Nameoptional">이름 (선택 사항)</system:String>
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">세부 정보가 없습니다:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">선택한 시스템에서 즐겨찾는 게임을 찾을 수 없습니다.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">이 문제를 해결하려면 시스템을 편집하세요.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">검색 쿼리를 입력하세요.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">검색어를 입력하세요.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">버그에 대한 세부 정보를 입력해 주세요.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">수동으로 수정하거나 삭제해주세요.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">편집 창에서 이 문제를 해결하세요.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">진행하려면 이것들을 수정하세요.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
-    <system:String x:Key="SendBugReport">버그 보고서 보내기</system:String>
     <system:String x:Key="SetButtonAspectRatio">단추 가로 세로 비율 설정</system:String>
     <system:String x:Key="SetButtonSize">단추 크기 설정</system:String>
     <system:String x:Key="SetEmulator1Location">에뮬레이터 1 경로 설정</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">틸</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">안티바이러스를 일시적으로 비활성화하고 다시 시도하세요.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">바이러스 백신 소프트웨어를 일시적으로 비활성화하고 다시 시도하십시오.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">애플리케이션은 오류 보고서를 전송할 수 없습니다.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">애플리케이션이 이제 종료됩니다.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">애플리케이션이 종료됩니다.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">버그가 개발자에게 보고되었으며 문제를 해결할 예정입니다.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe'가 애플리케이션 디렉토리에서 찾을 수 없습니다.</system:String>
     <system:String x:Key="Updating">업데이트 중</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">여러 확장자를 추가하려면 쉼표 [ , ] 를 사용하세요</system:String>
-    <system:String x:Key="Usetheformbelow">아래 양식을 사용하여 버그를 신고하세요</system:String>
     <system:String x:Key="Validationerrors">검증 오류</system:String>
     <system:String x:Key="Version">버전:</system:String>
     <system:String x:Key="Video">비디오</system:String>

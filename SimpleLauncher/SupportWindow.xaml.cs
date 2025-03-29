@@ -2,8 +2,10 @@
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
@@ -12,6 +14,7 @@ public partial class SupportWindow
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
+    private static string ApiBaseUrl { get; set; }
 
     public SupportWindow()
     {
@@ -19,7 +22,7 @@ public partial class SupportWindow
         App.ApplyThemeToWindow(this);
         DataContext = this;
 
-        // Load the API key
+        // Load the API key and base URL
         LoadConfiguration();
     }
 
@@ -30,6 +33,7 @@ public partial class SupportWindow
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
             ApiKey = config[nameof(ApiKey)]?.ToString();
+            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "http://localhost:5116"; // Default if not specified
         }
         else
         {
@@ -88,14 +92,34 @@ public partial class SupportWindow
 
     private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
-        // Prepare the POST data
-        var formData = new MultipartFormDataContent
+        // Check if the API base URL is configured
+        if (string.IsNullOrEmpty(ApiBaseUrl))
         {
-            { new StringContent("contact@purelogiccode.com"), "recipient" },
-            { new StringContent("Support Request from SimpleLauncher"), "subject" },
-            { new StringContent("Name"), "name" },
-            { new StringContent(fullMessage), "message" }
+            // Notify developer
+            const string contextMessage = "Email API base URL is not properly configured in 'appsettings.json'.";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ApiKeyErrorMessageBox();
+            return;
+        }
+
+        // Create the request payload for the new API
+        var requestPayload = new
+        {
+            to = "contact@purelogiccode.com",
+            subject = "Support Request from SimpleLauncher",
+            body = fullMessage,
+            applicationName = "SimpleLauncher",
+            isHtml = false
         };
+
+        // Convert to JSON
+        var jsonContent = new StringContent(
+            JsonConvert.SerializeObject(requestPayload),
+            Encoding.UTF8,
+            "application/json");
 
         // Set the API Key from the loaded configuration
         HttpClient.DefaultRequestHeaders.Remove("X-API-KEY");
@@ -113,13 +137,15 @@ public partial class SupportWindow
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
-
             return;
         }
 
         try
         {
-            var response = await HttpClient.PostAsync("https://purelogiccode.com/simplelauncher/send_email.php", formData);
+            // Construct the full API URL
+            var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}/api/send-customer-email";
+            
+            var response = await HttpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -132,8 +158,11 @@ public partial class SupportWindow
             }
             else
             {
+                // Get error details from response
+                var errorContent = await response.Content.ReadAsStringAsync();
+                
                 // Notify developer
-                const string contextMessage = "An error occurred while sending the Support Request.";
+                var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

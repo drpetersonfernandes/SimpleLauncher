@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Произошла ошибка при загрузке истории ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Произошла ошибка при открытии браузера.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Произошла ошибка при удалении этой игры из избранного.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Произошла ошибка при отправке отчета об ошибке.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Произошла ошибка при попытке удалить файл.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Произошла ошибка при попытке запустить 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Открытая фронтенд-платформа для эмуляторов</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Как только вы выберете окно, будет сделан скриншот и сохранён в папке изображений выбранной системы.</system:String>
     <system:String x:Key="BaseTheme">Базовая тема</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Пакетное преобразование ISO в XISO</system:String>
-    <system:String x:Key="BatchConvertTo7z">Пакетное преобразование в 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Пакетное преобразование в CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Пакетное преобразование в Zip</system:String>
     <system:String x:Key="Blue">Синий</system:String>
     <system:String x:Key="Brown">Коричневый</system:String>
-    <system:String x:Key="BugReport">Сообщить об ошибке</system:String>
-    <system:String x:Key="Bugreportsent">Отчет об ошибке успешно отправлен.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
     <system:String x:Key="EditSystemEasyMode">Редактировать систему - Упрощённый режим</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
-    <system:String x:Key="Emailoptional">Электронная почта (необязательно)</system:String>
     <system:String x:Key="Emerald">Изумрудный</system:String>
     <system:String x:Key="Emulator">Эмулятор</system:String>
     <system:String x:Key="Emulator1Location">Расположение эмулятора 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Лавандовый</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Возможно, возникли проблемы с вашим интернет-соединением, либо сервер GitHub недоступен.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
-    <system:String x:Key="Nameoptional">Имя (необязательно)</system:String>
     <system:String x:Key="Next_&gt;">Следующая &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Для выбранной системы избранные игры не найдены.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Отредактируйте данную систему, чтобы устранить проблему.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Пожалуйста, введите поисковый запрос.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Пожалуйста, введите детали ошибки.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Исправьте его вручную или удалите.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Исправьте это в окне редактирования.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Исправьте их, чтобы продолжить.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Выберите папку для извлечения</system:String>
-    <system:String x:Key="SendBugReport">Отправить отчет об ошибке</system:String>
     <system:String x:Key="SetButtonAspectRatio">Задать соотношение сторон кнопки</system:String>
     <system:String x:Key="SetButtonSize">Задать размер кнопки</system:String>
     <system:String x:Key="SetEmulator1Location">Установить расположение эмулятора 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Бирюзовый</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Временно отключите антивирус и попробуйте снова.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Временно отключите антивирусное программное обеспечение и попробуйте снова.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">Приложение не сможет отправить отчеты об ошибках.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Приложение будет немедленно завершено.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Приложение будет закрыто.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Ошибка была отправлена разработчику и будет исправлена.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">Файл 'Updater.exe' не найден в папке приложения.</system:String>
     <system:String x:Key="Updating">Обновление</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Используйте запятую [ , ], чтобы добавить несколько расширений</system:String>
-    <system:String x:Key="Usetheformbelow">Используйте форму ниже, чтобы сообщить об ошибке</system:String>
     <system:String x:Key="Validationerrors">Ошибки проверки</system:String>
     <system:String x:Key="Version">Версия:</system:String>
     <system:String x:Key="Video">Видео</system:String>

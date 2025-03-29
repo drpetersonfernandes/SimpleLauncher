@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM کی ہسٹری لوڈ کرتے وقت ایک خامی پیش آئی۔</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">براؤزر کھولتے وقت ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">اس گیم کو فیوورٹس سے ہٹانے میں ایرر آیا ہے۔</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">خرابی کی رپورٹ بھیجتے وقت ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">فائل کو حذف کرنے کی کوشش میں ایرر آیا ہے۔</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' کو چلانے کی کوشش کے دوران ایک خامی پیش آئی۔</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">ایک اوپن سورس ایمولیٹر فرنٹ اینڈ</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">جیسے ہی آپ ونڈو منتخب کرتے ہیں، ایک اسکرین شاٹ لیا جائے گا اور منتخب سسٹم کے امیج فولڈر میں محفوظ کیا جائے گا۔</system:String>
     <system:String x:Key="BaseTheme">بنیادی تھیم</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">ISO کو XISO میں بیچ کنورٹ کریں</system:String>
-    <system:String x:Key="BatchConvertTo7z">بیچ کنورٹ کریں: 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">بیچ کنورٹ کریں: CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">بیچ کنورٹ کریں: Zip</system:String>
     <system:String x:Key="Blue">نیلا</system:String>
     <system:String x:Key="Brown">بھورا</system:String>
-    <system:String x:Key="BugReport">بگ رپورٹ</system:String>
-    <system:String x:Key="Bugreportsent">بگ رپورٹ کامیابی کے ساتھ بھیج دی گئی۔</system:String>
     <system:String x:Key="ButIfoundabackupfile">لیکن مجھے ایک بیک اپ فائل ملی۔</system:String>
     <system:String x:Key="Cabinet">کابینہ</system:String>
     <system:String x:Key="Cabinetnotfound">کابینہ نہیں ملی</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">سسٹم ترمیم کریں</system:String>
     <system:String x:Key="EditSystemEasyMode">سسٹم ترمیم کریں - آسان موڈ</system:String>
     <system:String x:Key="EditSystemtofixit">اسے درست کرنے کے لئے سسٹم ایڈٹ کریں۔</system:String>
-    <system:String x:Key="Emailoptional">ای میل (اختیاری)</system:String>
     <system:String x:Key="Emerald">زمرد</system:String>
     <system:String x:Key="Emulator">ایمولیٹر</system:String>
     <system:String x:Key="Emulator1Location">ایمولیٹر 1 لوکیشن</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">مالوے</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ممکن ہے آپ کے انٹرنیٹ کنیکشن میں مسئلہ ہو یا GitHub سرور آف لائن ہو۔</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">نام ضروری ہے کیونکہ متعلقہ ڈیٹا فراہم کیا گیا ہے۔</system:String>
-    <system:String x:Key="Nameoptional">نام (اختیاری)</system:String>
     <system:String x:Key="Next_&gt;">اگلا &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">کے لئے تفصیلات دستیاب نہیں ہیں</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">منتخب شدہ سسٹم کے لیے کوئی پسندیدہ گیم نہیں ملا۔</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">مسئلہ ٹھیک کرنے کے لئے اس سسٹم کو ایڈٹ کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchquery">براہ کرم تلاش کا سوال درج کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchterm">براہ کرم تلاش کی اصطلاح درج کریں۔</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">براہ کرم بگ کی تفصیلات درج کریں۔</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">براہ کرم اسے دستی طور پر ٹھیک کریں یا حذف کریں۔</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">براہ کرم اسے ایڈیٹ ونڈو میں درست کریں۔</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">براہ کرم انہیں درست کریں۔</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">ایمولیٹر 5 منتخب کریں۔</system:String>
     <system:String x:Key="SelectSystem">سسٹم منتخب کریں</system:String>
     <system:String x:Key="SelecttheExtractionFolder">ایکسٹریکشن فولڈر منتخب کریں</system:String>
-    <system:String x:Key="SendBugReport">بگ رپورٹ بھیجیں</system:String>
     <system:String x:Key="SetButtonAspectRatio">بٹن کا تناسب سیٹ کریں</system:String>
     <system:String x:Key="SetButtonSize">بٹن کا سائز سیٹ کریں</system:String>
     <system:String x:Key="SetEmulator1Location">ایمولیٹر 1 لوکیشن سیٹ کریں</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">‌ٹیئل</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">اپنا اینٹی وائرس عارضی طور پر غیر فعال کریں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">اپنے اینٹی وائرس سافٹ ویئر کو عارضی طور پر غیر فعال کریں اور دوبارہ کوشش کریں۔</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">ایپلی کیشن خرابی کی رپورٹس نہیں بھیج سکے گی۔</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">ایپلیکیشن اب بند ہو جائے گی۔</system:String>
     <system:String x:Key="Theapplicationwillshutdown">ایپلیکیشن بند ہو جائے گی۔</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">خرابی کو ڈویلپر کو رپورٹ کیا گیا ہے اور اسے حل کیا جائے گا۔</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' ایپلیکیشن فولڈر میں موجود نہیں۔</system:String>
     <system:String x:Key="Updating">اپ ڈیٹ ہو رہا ہے</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">متعدد ایکسٹینشنز شامل کرنے کے لیے کوما [ , ] استعمال کریں</system:String>
-    <system:String x:Key="Usetheformbelow">نیچے دی گئی فارم کا استعمال کسی مسئلے کی رپورٹ کرنے کے لیے کریں</system:String>
     <system:String x:Key="Validationerrors">تصدیقی خامیاں</system:String>
     <system:String x:Key="Version">ورژن:</system:String>
     <system:String x:Key="Video">ویڈیو</system:String>

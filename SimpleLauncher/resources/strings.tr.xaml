@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">ROM geçmişi yüklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Tarayıcı açılırken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Bu oyun favorilerden kaldırılırken bir hata oluştu.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Hata raporunu gönderirken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Dosya silinmeye çalışılırken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' başlatılırken bir hata meydana geldi.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Açık kaynaklı bir emülatör ön yüzü</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Bir pencere seçer seçmez bir ekran görüntüsü alınacak ve seçilen sistemin resim klasörüne kaydedilecektir.</system:String>
     <system:String x:Key="BaseTheme">Temel Tema</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">ISO dosyalarını toplu olarak XISO'ya dönüştür</system:String>
-    <system:String x:Key="BatchConvertTo7z">Toplu Olarak 7z'ye Dönüştür</system:String>
     <system:String x:Key="BatchConvertToCHD">Toplu Olarak CHD'ye Dönüştür</system:String>
-    <system:String x:Key="BatchConvertToZip">Toplu Olarak Zip'e Dönüştür</system:String>
     <system:String x:Key="Blue">Mavi</system:String>
     <system:String x:Key="Brown">Kahverengi</system:String>
-    <system:String x:Key="BugReport">Hata Bildir</system:String>
-    <system:String x:Key="Bugreportsent">Hata raporu başarıyla gönderildi.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
     <system:String x:Key="EditSystemEasyMode">Sistemi Düzenle - Kolay Mod</system:String>
     <system:String x:Key="EditSystemtofixit">Sorunu düzeltmek için sistemi düzenleyin.</system:String>
-    <system:String x:Key="Emailoptional">E-posta (isteğe bağlı)</system:String>
     <system:String x:Key="Emerald">Zümrüt</system:String>
     <system:String x:Key="Emulator">Emülatör</system:String>
     <system:String x:Key="Emulator1Location">Emülatör 1 konumu</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Eflatun</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Belki internet bağlantınızda bir sorun vardır ya da GitHub sunucusu çevrim dışıdır.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">ilgili veriler sağlandığı için gereklidir.</system:String>
-    <system:String x:Key="Nameoptional">Ad (isteğe bağlı)</system:String>
     <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">İçin detay bulunamadı</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Seçilen sistem için favori oyun bulunamadı.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Sorunu düzeltmek için bu sistemi düzenleyin.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Lütfen bir arama terimi girin.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Lütfen hatanın detaylarını girin.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Lütfen el ile düzeltin ya da dosyayı silin.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Bunu düzenleme penceresinden düzeltin.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Lütfen devam etmek için bunları düzeltin.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
-    <system:String x:Key="SendBugReport">Hata Raporunu Gönder</system:String>
     <system:String x:Key="SetButtonAspectRatio">Düğme En Boy Oranını Ayarla</system:String>
     <system:String x:Key="SetButtonSize">Düğme Boyutunu Ayarla</system:String>
     <system:String x:Key="SetEmulator1Location">Emülatör 1 konumunu ayarla</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Cam Göbeği</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Antivirüsünüzü geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">Uygulama hata raporları gönderemeyecek.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Uygulama şimdi kapatılacaktır.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Uygulama kapatılacak.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Hata geliştiriciye bildirildi ve sorunun çözülmesi planlanıyor.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe', uygulama dizininde bulunamadı.</system:String>
     <system:String x:Key="Updating">Güncelleme yapılıyor</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Birden fazla uzantı eklemek için virgül [ , ] kullanın</system:String>
-    <system:String x:Key="Usetheformbelow">Bir hata bildirmek için aşağıdaki formu kullanın</system:String>
     <system:String x:Key="Validationerrors">Doğrulama hataları</system:String>
     <system:String x:Key="Version">Sürüm:</system:String>
     <system:String x:Key="Video">Video</system:String>

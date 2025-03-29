@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Đã xảy ra lỗi khi tải lịch sử ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Đã xảy ra lỗi khi mở trình duyệt.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Đã xảy ra lỗi khi xoá trò chơi này khỏi danh sách yêu thích.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Đã xảy ra lỗi khi gửi báo cáo lỗi.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Đã xảy ra lỗi khi cố gắng xoá tệp.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Đã xảy ra lỗi khi cố khởi chạy 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Một giao diện trình giả lập mã nguồn mở</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Ngay khi bạn chọn một cửa sổ, một ảnh chụp màn hình sẽ được tạo và lưu vào thư mục hình ảnh của hệ thống được chọn.</system:String>
     <system:String x:Key="BaseTheme">Chủ đề cơ bản</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Chuyển đổi hàng loạt từ ISO sang XISO</system:String>
-    <system:String x:Key="BatchConvertTo7z">Chuyển đổi hàng loạt sang 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Chuyển đổi hàng loạt sang CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Chuyển đổi hàng loạt sang Zip</system:String>
     <system:String x:Key="Blue">Xanh dương</system:String>
     <system:String x:Key="Brown">Nâu</system:String>
-    <system:String x:Key="BugReport">Báo cáo lỗi</system:String>
-    <system:String x:Key="Bugreportsent">Báo cáo lỗi đã được gửi thành công.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Nhưng tôi đã tìm thấy một tệp sao lưu.</system:String>
     <system:String x:Key="Cabinet">Tủ</system:String>
     <system:String x:Key="Cabinetnotfound">Không tìm thấy tủ</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
     <system:String x:Key="EditSystemEasyMode">Chỉnh sửa hệ thống - Chế độ dễ</system:String>
     <system:String x:Key="EditSystemtofixit">Chỉnh sửa hệ thống để khắc phục.</system:String>
-    <system:String x:Key="Emailoptional">Email (không bắt buộc)</system:String>
     <system:String x:Key="Emerald">Lục bảo</system:String>
     <system:String x:Key="Emulator">Trình giả lập</system:String>
     <system:String x:Key="Emulator1Location">Vị trí của trình giả lập 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Hồng nhạt</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Có thể có vấn đề với kết nối internet của bạn hoặc máy chủ GitHub đang ngoại tuyến.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">là bắt buộc vì có liên quan đến dữ liệu được cung cấp.</system:String>
-    <system:String x:Key="Nameoptional">Tên (không bắt buộc)</system:String>
     <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Không có chi tiết nào khả dụng cho</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Không tìm thấy trò chơi yêu thích nào cho hệ thống đã chọn.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Chỉnh sửa hệ thống này để khắc phục vấn đề.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Vui lòng nhập từ khóa tìm kiếm.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Vui lòng nhập một từ khóa tìm kiếm.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Vui lòng nhập chi tiết về lỗi.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Vui lòng sửa nó thủ công hoặc xóa nó.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Vui lòng sửa lỗi đó trong cửa sổ Chỉnh sửa.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Vui lòng sửa chúng để tiếp tục.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
-    <system:String x:Key="SendBugReport">Gửi báo cáo lỗi</system:String>
     <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
     <system:String x:Key="SetButtonSize">Đặt kích thước nút</system:String>
     <system:String x:Key="SetEmulator1Location">Đặt vị trí của trình giả lập 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Xanh ngọc</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Tạm thời tắt phần mềm diệt virus của bạn và thử lại.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Tạm thời vô hiệu hóa phần mềm diệt virus của bạn và thử lại.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">Ứng dụng sẽ không thể gửi báo cáo lỗi.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Ứng dụng sẽ tắt ngay bây giờ.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ bị đóng.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Lỗi đã được báo cáo tới nhà phát triển và sẽ được sửa chữa.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' không tìm thấy trong thư mục ứng dụng.</system:String>
     <system:String x:Key="Updating">Đang Cập Nhật</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Sử dụng dấu phẩy [ , ] để thêm nhiều phần mở rộng</system:String>
-    <system:String x:Key="Usetheformbelow">Sử dụng biểu mẫu bên dưới để báo cáo lỗi</system:String>
     <system:String x:Key="Validationerrors">Lỗi xác nhận</system:String>
     <system:String x:Key="Version">Phiên bản:</system:String>
     <system:String x:Key="Video">Video</system:String>

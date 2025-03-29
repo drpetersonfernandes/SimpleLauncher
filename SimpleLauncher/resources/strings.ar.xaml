@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">حدث خطأ أثناء تحميل تاريخ ROM.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">حدث خطأ أثناء فتح المتصفح.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">حدث خطأ أثناء إزالة هذه اللعبة من المفضلات.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">حدث خطأ أثناء إرسال تقرير الخطأ.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">حدث خطأ أثناء محاولة تشغيل 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">بمجرد تحديد نافذة، سيتم التقاط لقطة وحفظها في مجلد الصور للنظام المختار.</system:String>
     <system:String x:Key="BaseTheme">السمة الأساسية</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">تحويل دفعة من ملفات Iso إلى Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">التحويل المجمع إلى 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">التحويل المجمع إلى CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">التحويل المجمع إلى Zip</system:String>
     <system:String x:Key="Blue">أزرق</system:String>
     <system:String x:Key="Brown">بني</system:String>
-    <system:String x:Key="BugReport">تقرير الأخطاء</system:String>
-    <system:String x:Key="Bugreportsent">تم إرسال تقرير المشكلة بنجاح.</system:String>
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
     <system:String x:Key="EditSystemEasyMode">تحرير النظام - الوضع السهل</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
-    <system:String x:Key="Emailoptional">البريد الإلكتروني (اختياري)</system:String>
     <system:String x:Key="Emerald">زمردي</system:String>
     <system:String x:Key="Emulator">المحاكي</system:String>
     <system:String x:Key="Emulator1Location">موقع المحاكي 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
-    <system:String x:Key="Nameoptional">الاسم (اختياري)</system:String>
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">يرجى تحرير هذا النظام لإصلاح ذلك.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">يرجى إدخال مصطلح البحث.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">يرجى إدخال تفاصيل المشكلة.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">يرجى إصلاحه يدويًا أو حذفه.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">يرجى تصحيحها للمتابعة.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
     <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
-    <system:String x:Key="SendBugReport">إرسال تقرير الخطأ</system:String>
     <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
     <system:String x:Key="SetButtonSize">تعيين حجم الزر</system:String>
     <system:String x:Key="SetEmulator1Location">تعيين موقع المحاكي 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">فيروزي</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">قم بتعطيل برنامج مكافحة الفيروسات مؤقتًا وحاول مرة أخرى.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">قم بتعطيل برنامج مكافحة الفيروسات الخاص بك مؤقتًا وحاول مرة أخرى.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">لن يتمكن التطبيق من إرسال تقرير الخطأ.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">سيتم إغلاق التطبيق الآن.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">سيتم إغلاق التطبيق.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">لم يتم العثور على "Updater.exe" في مجلد التطبيق.</system:String>
     <system:String x:Key="Updating">جارٍ التحديث</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">استخدم فاصلة [ , ] لإضافة امتدادات متعددة</system:String>
-    <system:String x:Key="Usetheformbelow">استخدم النموذج أدناه للإبلاغ عن أي خطأ</system:String>
     <system:String x:Key="Validationerrors">أخطاء التحقق</system:String>
     <system:String x:Key="Version">الإصدار:</system:String>
     <system:String x:Key="Video">الفيديو</system:String>

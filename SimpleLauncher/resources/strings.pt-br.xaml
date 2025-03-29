@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Ocorreu um erro ao carregar o histórico de ROMs.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Ocorreu um erro ao abrir o navegador.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Ocorreu um erro ao remover este jogo dos favoritos.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Ocorreu um erro ao enviar o relatório de erro.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Ocorreu um erro ao tentar excluir o arquivo.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Ocorreu um erro ao tentar iniciar o 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Uma interface de frontend de emuladores de código aberto</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Assim que você selecionar uma janela, uma captura de tela será feita e salva na pasta de imagens do sistema selecionado.</system:String>
     <system:String x:Key="BaseTheme">Tema Base</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Conversão em lote de ISO para XISO</system:String>
-    <system:String x:Key="BatchConvertTo7z">Converter em Lote para 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Converter em Lote para CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Converter em Lote para Zip</system:String>
     <system:String x:Key="Blue">Azul</system:String>
     <system:String x:Key="Brown">Marrom</system:String>
-    <system:String x:Key="BugReport">Relatar Problema</system:String>
-    <system:String x:Key="Bugreportsent">Relatório de erro enviado com sucesso.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Mas encontrei um arquivo de backup.</system:String>
     <system:String x:Key="Cabinet">Arcade</system:String>
     <system:String x:Key="Cabinetnotfound">Arcade não encontrado</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Editar Sistema</system:String>
     <system:String x:Key="EditSystemEasyMode">Editar Sistema - Modo Fácil</system:String>
     <system:String x:Key="EditSystemtofixit">Edite o sistema para corrigir isso.</system:String>
-    <system:String x:Key="Emailoptional">E-mail (opcional)</system:String>
     <system:String x:Key="Emerald">Esmeralda</system:String>
     <system:String x:Key="Emulator">Emulador</system:String>
     <system:String x:Key="Emulator1Location">Localização do emulador 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Talvez haja um problema com sua conexão de internet ou o servidor do GitHub esteja offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">é necessário porque os dados relacionados foram fornecidos.</system:String>
-    <system:String x:Key="Nameoptional">Nome (opcional)</system:String>
     <system:String x:Key="Next_&gt;">Próximo &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Nenhum detalhe disponível para</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nenhum jogo favorito encontrado para o sistema selecionado.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Edite este sistema para corrigir o problema.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Por favor, insira uma consulta de pesquisa.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Por favor, insira um termo de pesquisa.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Por favor, insira os detalhes do erro.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Corrija manualmente ou exclua o arquivo.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Por favor, corrija isso na janela de Edição.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Corrija-os para continuar.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Selecione o Emulador 5.</system:String>
     <system:String x:Key="SelectSystem">Selecionar Sistema</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Selecione a pasta de extração</system:String>
-    <system:String x:Key="SendBugReport">Enviar relatório de bug</system:String>
     <system:String x:Key="SetButtonAspectRatio">Definir proporção do botão</system:String>
     <system:String x:Key="SetButtonSize">Definir tamanho do botão</system:String>
     <system:String x:Key="SetEmulator1Location">Definir a localização do emulador 1</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Verde-azulado</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Desative temporariamente seu antivírus e tente novamente.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Desative temporariamente o software antivírus e tente novamente.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">O aplicativo não poderá enviar relatórios de erro.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">O aplicativo será encerrado agora.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">O aplicativo será encerrado.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">O erro foi reportado ao desenvolvedor e será corrigido.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">O 'Updater.exe' não foi encontrado no diretório do aplicativo.</system:String>
     <system:String x:Key="Updating">Atualizando</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Use uma vírgula [ , ] para adicionar várias extensões</system:String>
-    <system:String x:Key="Usetheformbelow">Use o formulário abaixo para relatar um bug</system:String>
     <system:String x:Key="Validationerrors">Erros de validação</system:String>
     <system:String x:Key="Version">Versão:</system:String>
     <system:String x:Key="Video">Vídeo</system:String>

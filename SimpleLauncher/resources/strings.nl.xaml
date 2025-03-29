@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Er is een fout opgetreden bij het laden van de ROM-geschiedenis.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Er is een fout opgetreden bij het openen van de browser.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Er is een fout opgetreden bij het verwijderen van dit spel uit de favorieten.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Er is een fout opgetreden tijdens het verzenden van de foutmelding.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Er is een fout opgetreden bij het proberen het bestand te verwijderen.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Er deed zich een fout voor bij het proberen te starten van 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Zodra je een venster selecteert, wordt er een schermafbeelding gemaakt en opgeslagen in de afbeeldingsmap van het gekozen systeem.</system:String>
     <system:String x:Key="BaseTheme">Basisthema</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Batchconversie van ISO naar XISO</system:String>
-    <system:String x:Key="BatchConvertTo7z">Batch Converteren naar 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Batch Converteren naar CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Batch Converteren naar Zip</system:String>
     <system:String x:Key="Blue">Blauw</system:String>
     <system:String x:Key="Brown">Bruin</system:String>
-    <system:String x:Key="BugReport">Bugrapport</system:String>
-    <system:String x:Key="Bugreportsent">Foutrapport succesvol verzonden.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
     <system:String x:Key="EditSystemEasyMode">Systeem bewerken - Gemakkelijke modus</system:String>
     <system:String x:Key="EditSystemtofixit">Bewerk het systeem om dit op te lossen.</system:String>
-    <system:String x:Key="Emailoptional">E-mail (optioneel)</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
     <system:String x:Key="Emulator1Location">Locatie van emulator 1</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
-    <system:String x:Key="Nameoptional">Naam (optioneel)</system:String>
     <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Bewerk dit systeem om het probleem op te lossen.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Voer een zoekterm in.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Voer de details van de fout in.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Los dit handmatig op of verwijder het bestand.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Los dit op in het Bewerken-venster.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Los dit op om verder te gaan.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Selecteer de extractiemap</system:String>
-    <system:String x:Key="SendBugReport">Bugrapport verzenden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
     <system:String x:Key="SetButtonSize">Knopgrootte instellen</system:String>
     <system:String x:Key="SetEmulator1Location">Emulator 1-locatie instellen</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Groenblauw</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Schakel tijdelijk uw antivirus uit en probeer het opnieuw.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Schakel uw antivirussoftware tijdelijk uit en probeer het opnieuw.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">De applicatie kan geen foutmeldingen verzenden.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">De applicatie wordt nu afgesloten.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">De bug is gemeld aan de ontwikkelaar en zal worden verholpen.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' kon niet worden gevonden in de applicatiemap.</system:String>
     <system:String x:Key="Updating">Bezig met bijwerken</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Gebruik een komma [ , ] om meerdere extensies toe te voegen</system:String>
-    <system:String x:Key="Usetheformbelow">Gebruik het onderstaande formulier om een bug te melden</system:String>
     <system:String x:Key="Validationerrors">Validatiefouten</system:String>
     <system:String x:Key="Version">Versie:</system:String>
     <system:String x:Key="Video">Video</system:String>

@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">Ein Fehler ist beim Laden der ROM-Historie aufgetreten.</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">Ein Fehler ist beim Öffnen des Browsers aufgetreten.</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">Beim Entfernen dieses Spiels aus den Favoriten ist ein Fehler aufgetreten.</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">Beim Senden des Fehlerberichts ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Beim Versuch, die Datei zu löschen, ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Ein Fehler ist aufgetreten, während versucht wurde, 'FindRomCover.exe' zu starten.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Eine Open-Source-Oberfläche für Emulatoren</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">Sobald Sie ein Fenster ausgewählt haben, wird ein Screenshot erstellt und im Bildordner des ausgewählten Systems gespeichert.</system:String>
     <system:String x:Key="BaseTheme">Grunddesign</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Batch-Konvertierung von Iso zu Xiso</system:String>
-    <system:String x:Key="BatchConvertTo7z">Stapelkonvertierung zu 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">Stapelkonvertierung zu CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">Stapelkonvertierung zu Zip</system:String>
     <system:String x:Key="Blue">Blau</system:String>
     <system:String x:Key="Brown">Braun</system:String>
-    <system:String x:Key="BugReport">Fehler melden</system:String>
-    <system:String x:Key="Bugreportsent">Fehlerbericht erfolgreich gesendet.</system:String>
     <system:String x:Key="ButIfoundabackupfile">Aber ich habe eine Sicherungsdatei gefunden.</system:String>
     <system:String x:Key="Cabinet">Gehäuse</system:String>
     <system:String x:Key="Cabinetnotfound">Gehäuse nicht gefunden</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">System bearbeiten</system:String>
     <system:String x:Key="EditSystemEasyMode">System bearbeiten - Einfacher Modus</system:String>
     <system:String x:Key="EditSystemtofixit">Bearbeiten Sie das System, um es zu beheben.</system:String>
-    <system:String x:Key="Emailoptional">E-Mail (optional)</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
     <system:String x:Key="Emulator1Location">Emulator 1 Speicherort</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">Malve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Möglicherweise gibt es ein Problem mit Ihrer Internetverbindung oder der GitHub-Server ist offline.</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">ist erforderlich, da zugehörige Daten bereitgestellt wurden.</system:String>
-    <system:String x:Key="Nameoptional">Name (optional)</system:String>
     <system:String x:Key="Next_&gt;">Weiter &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Keine Details verfügbar für</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Keine Lieblingsspiele für das ausgewählte System gefunden.</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">Bitte bearbeiten Sie dieses System, um das Problem zu beheben.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Bitte geben Sie eine Suchanfrage ein.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Bitte geben Sie einen Suchbegriff ein.</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">Bitte geben Sie die Details des Fehlers ein.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Bitte reparieren Sie es manuell oder löschen Sie es.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Bitte beheben Sie das im Bearbeitungsfenster.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Bitte korrigieren Sie diese, um fortzufahren.</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">Wählen Sie Emulator 5 aus.</system:String>
     <system:String x:Key="SelectSystem">System auswählen</system:String>
     <system:String x:Key="SelecttheExtractionFolder">Wählen Sie den Extraktionsordner aus</system:String>
-    <system:String x:Key="SendBugReport">Fehlerbericht senden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Seitenverhältnis der Schaltfläche festlegen</system:String>
     <system:String x:Key="SetButtonSize">Schaltflächengröße festlegen</system:String>
     <system:String x:Key="SetEmulator1Location">Emulator 1 Speicherort festlegen</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">Blaugrün</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Deaktivieren Sie Ihr Antivirenprogramm vorübergehend und versuchen Sie es erneut.</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">Deaktivieren Sie vorübergehend Ihre Antivirensoftware und versuchen Sie es erneut.</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">Die Anwendung wird keine Fehlerberichte senden können.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Die Anwendung wird jetzt beendet.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Die Anwendung wird beendet.</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">Der Fehler wurde an den Entwickler gemeldet, der versuchen wird, ihn zu korrigieren.</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">'Updater.exe' wurde im Anwendungsverzeichnis nicht gefunden.</system:String>
     <system:String x:Key="Updating">Aktualisiere</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Verwenden Sie ein Komma [ , ], um mehrere Erweiterungen hinzuzufügen</system:String>
-    <system:String x:Key="Usetheformbelow">Verwenden Sie das untenstehende Formular, um einen Fehler zu melden</system:String>
     <system:String x:Key="Validationerrors">Validierungsfehler</system:String>
     <system:String x:Key="Version">Version:</system:String>
     <system:String x:Key="Video">Video</system:String>

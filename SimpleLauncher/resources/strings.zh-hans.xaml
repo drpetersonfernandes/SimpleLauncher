@@ -46,7 +46,6 @@
     <system:String x:Key="AnerroroccurredwhileloadingROMhistory">加载ROM历史记录时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhileopeningthebrowser">打开浏览器时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhileremoving">从最爱中移除此游戏时出现错误。</system:String>
-    <system:String x:Key="Anerroroccurredwhilesending">发送错误报告时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">尝试删除文件时发生错误。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">尝试启动 'FindRomCover.exe' 时发生错误。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">一个开源的仿真器前端</system:String>
@@ -57,13 +56,9 @@
     <system:String x:Key="assoonasyouselectawindow">一旦您选择了一个窗口，将会截图并将其保存到所选系统的图像文件夹中。</system:String>
     <system:String x:Key="BaseTheme">基础主题</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">批量将ISO转换为XISO</system:String>
-    <system:String x:Key="BatchConvertTo7z">批量转换为 7z</system:String>
     <system:String x:Key="BatchConvertToCHD">批量转换为 CHD</system:String>
-    <system:String x:Key="BatchConvertToZip">批量转换为 Zip</system:String>
     <system:String x:Key="Blue">蓝色</system:String>
     <system:String x:Key="Brown">棕色</system:String>
-    <system:String x:Key="BugReport">错误报告</system:String>
-    <system:String x:Key="Bugreportsent">错误报告已成功发送。</system:String>
     <system:String x:Key="ButIfoundabackupfile">但我找到了一个备份文件。</system:String>
     <system:String x:Key="Cabinet">机柜</system:String>
     <system:String x:Key="Cabinetnotfound">未找到机柜</system:String>
@@ -130,7 +125,6 @@
     <system:String x:Key="EditSystem">编辑系统</system:String>
     <system:String x:Key="EditSystemEasyMode">编辑系统 - 简易模式</system:String>
     <system:String x:Key="EditSystemtofixit">编辑系统以修复问题。</system:String>
-    <system:String x:Key="Emailoptional">邮箱（可选）</system:String>
     <system:String x:Key="Emerald">祖母绿</system:String>
     <system:String x:Key="Emulator">模拟器</system:String>
     <system:String x:Key="Emulator1Location">模拟器1位置</system:String>
@@ -242,7 +236,6 @@
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">可能是您的互联网连接有问题，或者 GitHub 服务器当前不可用。</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因为提供了相关数据。</system:String>
-    <system:String x:Key="Nameoptional">姓名（可选）</system:String>
     <system:String x:Key="Next_&gt;">下一页 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">暂无可用详细信息</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">未找到选定系统的收藏游戏。</system:String>
@@ -277,7 +270,6 @@
     <system:String x:Key="Pleaseeditthissystemto">请编辑此系统以修复问题。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">请输入搜索查询。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">请输入搜索词。</system:String>
-    <system:String x:Key="Pleaseenterthedetailsofthebug">请输入错误的详细信息。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">请手动修复或删除。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">请在编辑窗口中修复。</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">请修正它们以继续。</system:String>
@@ -325,7 +317,6 @@
     <system:String x:Key="SelectEmulator5">选择模拟器 5。</system:String>
     <system:String x:Key="SelectSystem">选择系统</system:String>
     <system:String x:Key="SelecttheExtractionFolder">选择解压文件夹</system:String>
-    <system:String x:Key="SendBugReport">发送错误报告</system:String>
     <system:String x:Key="SetButtonAspectRatio">设置按钮纵横比</system:String>
     <system:String x:Key="SetButtonSize">设置按钮大小</system:String>
     <system:String x:Key="SetEmulator1Location">设置模拟器1位置</system:String>
@@ -380,7 +371,6 @@
     <system:String x:Key="Teal">水鸭色</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">请暂时关闭杀毒软件后重试。</system:String>
     <system:String x:Key="Temporarilydisableyourantivirussoftware">暂时禁用您的杀毒软件并重试。</system:String>
-    <system:String x:Key="Theapplicationwillnotbeableto">应用程序将无法发送错误报告。</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">应用程序将立即关闭。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">应用将会关闭。</system:String>
     <system:String x:Key="Thebugwasreportedtothedeveloper">错误已报告给开发者，并将被修复。</system:String>
@@ -470,7 +460,6 @@
     <system:String x:Key="Updaterexenotfoundintheapplication">在应用程序文件夹未找到 'Updater.exe'。</system:String>
     <system:String x:Key="Updating">正在更新</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">使用逗号 [ , ] 添加多个扩展名</system:String>
-    <system:String x:Key="Usetheformbelow">使用以下表单报告一个错误</system:String>
     <system:String x:Key="Validationerrors">验证错误</system:String>
     <system:String x:Key="Version">版本:</system:String>
     <system:String x:Key="Video">视频</system:String>

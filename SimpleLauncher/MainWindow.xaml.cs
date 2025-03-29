@@ -1489,6 +1489,42 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
+    
+    private void BatchVerifyCompressedFiles_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var batchVerifyCompressedFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles.exe");
+
+            if (File.Exists(batchVerifyCompressedFilesPath))
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = batchVerifyCompressedFilesPath,
+                    UseShellExecute = true
+                });
+            }
+            else
+            {
+                // Notify developer
+                const string contextMessage = "'BatchVerifyCompressedFiles.exe' was not found.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "An error occurred while launching 'BatchVerifyCompressedFiles.exe'.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
+        }
+    }
 
     private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
     {
