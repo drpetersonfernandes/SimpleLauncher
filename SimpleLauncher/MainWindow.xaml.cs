@@ -1418,17 +1418,17 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private void BatchConvertTo7z_Click(object sender, RoutedEventArgs e)
+    private void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            var batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
+            var batchConvertToCompressedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
 
-            if (File.Exists(batchConvertTo7ZPath))
+            if (File.Exists(batchConvertToCompressedFilePath))
             {
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = batchConvertTo7ZPath,
+                    FileName = batchConvertToCompressedFilePath,
                     UseShellExecute = true
                 });
             }
@@ -1453,43 +1453,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-
-    private void BatchConvertToZip_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            var batchConvertToZipPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToZip", "BatchConvertToZip.exe");
-
-            if (File.Exists(batchConvertToZipPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = batchConvertToZipPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchConvertToZip.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchConvertToZip.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
-        }
-    }
-    
+   
     private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
     {
         try

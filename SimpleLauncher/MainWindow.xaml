@@ -330,14 +330,8 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="BatchConvertTo7z_Click"
-                          Header="{DynamicResource BatchConvertTo7z}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
-                <MenuItem Click="BatchConvertToZip_Click"
-                          Header="{DynamicResource BatchConvertToZip}">
+                <MenuItem Click="BatchConvertToCompressedFile_Click"
+                          Header="{DynamicResource BatchConvertToCompressedFile}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>

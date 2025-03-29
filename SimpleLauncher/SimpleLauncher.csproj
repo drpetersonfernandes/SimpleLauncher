@@ -349,21 +349,6 @@
     <None Update="tools\BatchConvertToCHD\chdman.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertToZip\BatchConvertToZip.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToZip\BatchConvertToZip.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToZip\BatchConvertToZip.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToZip\BatchConvertToZip.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToZip\BatchConvertToZip.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\BatchConvertTo7z\7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -883,5 +868,8 @@
     <Page Remove="title_snapshots\**" />
     <Page Remove="videos\**" />
     <Page Remove="walkthrough\**" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="tools\BatchConvertToCompressedFile\" />
   </ItemGroup>
 </Project>

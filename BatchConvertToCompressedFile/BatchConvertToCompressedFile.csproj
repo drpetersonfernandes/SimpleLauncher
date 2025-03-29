@@ -10,7 +10,7 @@
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <AssemblyVersion>1.0.0</AssemblyVersion>
     <FileVersion>1.0.0</FileVersion>
-    <RootNamespace>BatchConvertTo7z</RootNamespace>
+    <RootNamespace>BatchConvertToCompressedFile</RootNamespace>
   </PropertyGroup>
 
   <ItemGroup>
