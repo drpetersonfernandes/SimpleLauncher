@@ -30,9 +30,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CreateBatchFilesForXbox360X
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToCHD", "BatchConvertToCHD\BatchConvertToCHD.csproj", "{C268169A-757C-4498-B776-0AD9A02D007B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertTo7z", "BatchConvertTo7z\BatchConvertTo7z.csproj", "{40CB05DC-4456-4FE5-A994-44F3B38DCA5E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToZip", "BatchConvertToZip\BatchConvertToZip.csproj", "{5EF49680-FA9B-4A92-8228-48DA88BFE20A}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToCompressedFile", "BatchConvertToCompressedFile\BatchConvertToCompressedFile.csproj", "{40CB05DC-4456-4FE5-A994-44F3B38DCA5E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertIsoToXiso", "BatchConvertIsoToXiso\BatchConvertIsoToXiso.csproj", "{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}"
 EndProject
@@ -82,10 +80,6 @@ Global
 		{40CB05DC-4456-4FE5-A994-44F3B38DCA5E}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{40CB05DC-4456-4FE5-A994-44F3B38DCA5E}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{40CB05DC-4456-4FE5-A994-44F3B38DCA5E}.Release|Any CPU.Build.0 = Release|Any CPU
-		{5EF49680-FA9B-4A92-8228-48DA88BFE20A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{5EF49680-FA9B-4A92-8228-48DA88BFE20A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{5EF49680-FA9B-4A92-8228-48DA88BFE20A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{5EF49680-FA9B-4A92-8228-48DA88BFE20A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.ActiveCfg = Release|Any CPU

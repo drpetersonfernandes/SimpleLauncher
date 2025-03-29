@@ -8,12 +8,12 @@ using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
 
-public partial class BugReportWindow
+public partial class SupportWindow
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
 
-    public BugReportWindow()
+    public SupportWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -59,39 +59,41 @@ public partial class BugReportWindow
         }
     }
 
-    private async void SendBugReport_Click(object sender, RoutedEventArgs e)
+    private async void SendSupportRequest_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             var nameText = NameTextBox.Text;
             var emailText = EmailTextBox.Text;
-            var bugReportText = BugReportTextBox.Text;
+            var supportRequestText = SupportTextBox.Text;
             var applicationVersion = ApplicationVersion;
 
-            if (CheckIfBugReportIsNullOrEmpty(bugReportText)) return;
+            if (CheckIfNameIsNullOrEmpty(nameText)) return;
+            if (CheckIfEmailIsNullOrEmpty(emailText)) return;
+            if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return;
 
             var fullMessage = $"\n\n{applicationVersion}\n" +
                               $"Name: {nameText}\n" +
                               $"Email: {emailText}\n" +
-                              $"Bug Report:\n\n{bugReportText}";
-            await SendBugReportToApiAsync(fullMessage);
+                              $"Bug Report:\n\n{supportRequestText}";
+            await SendSupportRequestToApiAsync(fullMessage);
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error in the SendBugReport_Click method.";
+            const string contextMessage = "Error in the SendSupportRequest_Click method.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
-    private async Task SendBugReportToApiAsync(string fullMessage)
+    private async Task SendSupportRequestToApiAsync(string fullMessage)
     {
         // Prepare the POST data
         var formData = new MultipartFormDataContent
         {
             { new StringContent("contact@purelogiccode.com"), "recipient" },
-            { new StringContent("Bug Report from SimpleLauncher"), "subject" },
-            { new StringContent("SimpleLauncher User"), "name" },
+            { new StringContent("Support Request from SimpleLauncher"), "subject" },
+            { new StringContent("Name"), "name" },
             { new StringContent(fullMessage), "message" }
         };
 
@@ -123,39 +125,65 @@ public partial class BugReportWindow
             {
                 NameTextBox.Clear();
                 EmailTextBox.Clear();
-                BugReportTextBox.Clear();
+                SupportTextBox.Clear();
 
                 // Notify user
-                MessageBoxLibrary.BugReportSuccessMessageBox();
+                MessageBoxLibrary.SupportRequestSuccessMessageBox();
             }
             else
             {
                 // Notify developer
-                const string contextMessage = "An error occurred while sending the bug report.";
+                const string contextMessage = "An error occurred while sending the Support Request.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.BugReportSendErrorMessageBox();
+                MessageBoxLibrary.SupportRequestSendErrorMessageBox();
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "Error sending the bug report.";
+            const string contextMessage = "Error sending the Support Request.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.BugReportSendErrorMessageBox();
+            MessageBoxLibrary.SupportRequestSendErrorMessageBox();
         }
     }
 
-    private static bool CheckIfBugReportIsNullOrEmpty(string bugReportText)
+    private static bool CheckIfNameIsNullOrEmpty(string nameText)
     {
-        if (string.IsNullOrWhiteSpace(bugReportText))
+        if (string.IsNullOrWhiteSpace(nameText))
         {
             // Notify user
-            MessageBoxLibrary.EnterBugDetailsMessageBox();
+            MessageBoxLibrary.EnterNameMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static bool CheckIfEmailIsNullOrEmpty(string emailText)
+    {
+        if (string.IsNullOrWhiteSpace(emailText))
+        {
+            // Notify user
+            MessageBoxLibrary.EnterEmailMessageBox();
+
+            return true;
+        }
+
+        return false;
+    }
+    
+    private static bool CheckIfSupportRequestIsNullOrEmpty(string supportRequestText)
+    {
+        if (string.IsNullOrWhiteSpace(supportRequestText))
+        {
+            // Notify user
+            MessageBoxLibrary.EnterSupportRequestMessageBox();
 
             return true;
         }

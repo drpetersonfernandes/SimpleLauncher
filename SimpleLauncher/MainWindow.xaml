@@ -384,10 +384,10 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource BugReport}">
-                <MenuItem Click="BugReport_Click" Header="{DynamicResource BugReport}">
+            <MenuItem Header="{DynamicResource SupportRequest}">
+                <MenuItem Click="SupportRequest_Click" Header="{DynamicResource SupportRequest}">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/bug.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/support.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

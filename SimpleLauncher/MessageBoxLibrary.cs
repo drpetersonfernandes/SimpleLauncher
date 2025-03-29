@@ -1044,12 +1044,12 @@ public static class MessageBoxLibrary
     internal static void RequiredFileMissingMessageBox()
     {
         var fileappsettingsjsonismissing2 = (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
-        var theapplicationwillnotbeableto2 = (string)Application.Current.TryFindResource("Theapplicationwillnotbeableto") ?? "The application will not be able to send the Bug Report.";
+        var theapplicationwillnotbeabletosendthesupportrequest2 = (string)Application.Current.TryFindResource("Theapplicationwillnotbeabletosendthesupportrequest") ?? "The application will not be able to send the support request.";
         var doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
         var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
         var messageBoxResult = MessageBox.Show(
             $"{fileappsettingsjsonismissing2}\n\n" +
-            $"{theapplicationwillnotbeableto2}\n\n" +
+            $"{theapplicationwillnotbeabletosendthesupportrequest2}\n\n" +
             $"{doyouwanttoautomaticallyreinstall2}",
             warning2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (messageBoxResult == MessageBoxResult.Yes)
@@ -1064,11 +1064,27 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void EnterBugDetailsMessageBox()
+    internal static void EnterSupportRequestMessageBox()
     {
-        var pleaseenterthedetailsofthebug2 = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthebug") ?? "Please enter the details of the bug.";
+        var pleaseenterthedetailsofthesupportrequest2 = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthesupportrequest") ?? "Please enter the details of the support request.";
         var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(pleaseenterthedetailsofthebug2,
+        MessageBox.Show(pleaseenterthedetailsofthesupportrequest2,
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void EnterNameMessageBox()
+    {
+        var pleaseenterthename2 = (string)Application.Current.TryFindResource("Pleaseenterthename") ?? "Please enter the name.";
+        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(pleaseenterthename2,
+            info2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+    
+    internal static void EnterEmailMessageBox()
+    {
+        var pleaseentertheemail2 = (string)Application.Current.TryFindResource("Pleaseentertheemail") ?? "Please enter the email.";
+        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        MessageBox.Show(pleaseentertheemail2,
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
@@ -1082,20 +1098,20 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void BugReportSuccessMessageBox()
+    internal static void SupportRequestSuccessMessageBox()
     {
-        var bugreportsent2 = (string)Application.Current.TryFindResource("Bugreportsent") ?? "Bug report sent successfully.";
+        var supportrequestsentsuccessfully2 = (string)Application.Current.TryFindResource("Supportrequestsentsuccessfully") ?? "Support request sent successfully.";
         var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        MessageBox.Show(bugreportsent2,
+        MessageBox.Show(supportrequestsentsuccessfully2,
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 
-    internal static void BugReportSendErrorMessageBox()
+    internal static void SupportRequestSendErrorMessageBox()
     {
-        var anerroroccurredwhilesending2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesending") ?? "An error occurred while sending the bug report.";
+        var anerroroccurredwhilesendingthesupportrequest2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesendingthesupportrequest") ?? "An error occurred while sending the support request.";
         var thebugwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{anerroroccurredwhilesending2}\n\n" +
+        MessageBox.Show($"{anerroroccurredwhilesendingthesupportrequest2}\n\n" +
                         $"{thebugwasreportedtothedeveloper2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Information);
     }

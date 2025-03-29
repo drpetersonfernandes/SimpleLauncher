@@ -601,6 +601,8 @@
     <Resource Include="images\dice.png" />
     <None Remove="images\playhistory.png" />
     <Resource Include="images\playhistory.png" />
+    <None Remove="images\support.png" />
+    <Resource Include="images\support.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

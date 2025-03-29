@@ -1,7 +1,7 @@
 using System.Net.Http;
 using System.Net.Http.Json;
 
-namespace BatchConvertTo7z;
+namespace BatchConvertToCompressedFile;
 
 /// <summary>
 /// Service responsible for silently sending bug reports to the BugReport API

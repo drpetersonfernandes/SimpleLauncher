@@ -1,7 +1,7 @@
 ﻿using System.Text;
 using System.Windows.Threading;
 
-namespace BatchConvertTo7z;
+namespace BatchConvertToCompressedFile;
 
 /// <summary>
 /// Interaction logic for App.xaml
@@ -11,7 +11,7 @@ public partial class App
     // Bug Report API configuration
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
-    private const string ApplicationName = "BatchConvertTo7z";
+    private const string ApplicationName = "BatchConvertToCompressedFile";
 
     private readonly BugReportService? _bugReportService;
 
@@ -80,7 +80,7 @@ public partial class App
         return sb.ToString();
     }
 
-    private void AppendExceptionDetails(StringBuilder sb, Exception exception, int level = 0)
+    private static void AppendExceptionDetails(StringBuilder sb, Exception exception, int level = 0)
     {
         var indent = new string(' ', level * 2);
 

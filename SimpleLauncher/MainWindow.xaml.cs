@@ -1010,10 +1010,10 @@ public partial class MainWindow : INotifyPropertyChanged
         setGamepadDeadZoneWindow.ShowDialog();
     }
 
-    private void BugReport_Click(object sender, RoutedEventArgs e)
+    private void SupportRequest_Click(object sender, RoutedEventArgs e)
     {
-        BugReportWindow bugReportWindow = new();
-        bugReportWindow.ShowDialog();
+        SupportWindow supportRequestWindow = new();
+        supportRequestWindow.ShowDialog();
     }
 
     private void Donate_Click(object sender, RoutedEventArgs e)
@@ -1422,7 +1422,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         try
         {
-            var batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertTo7z", "BatchConvertTo7z.exe");
+            var batchConvertTo7ZPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
 
             if (File.Exists(batchConvertTo7ZPath))
             {
@@ -1435,7 +1435,7 @@ public partial class MainWindow : INotifyPropertyChanged
             else
             {
                 // Notify developer
-                const string contextMessage = "'BatchConvertTo7z.exe' was not found.";
+                const string contextMessage = "'BatchConvertToCompressedFile.exe' was not found.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -1446,7 +1446,7 @@ public partial class MainWindow : INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchConvertTo7z.exe'.";
+            const string contextMessage = "An error occurred while launching 'BatchConvertToCompressedFile.exe'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
