@@ -108,8 +108,8 @@ public partial class MainWindow
         var inputFolder = InputFolderTextBox.Text;
         var outputFolder = OutputFolderTextBox.Text;
         var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
-        var use7zFormat = SevenZipRadioButton.IsChecked ?? true;
-        var compressionFormat = use7zFormat ? "7z" : "zip";
+        var use7ZFormat = SevenZipRadioButton.IsChecked ?? true;
+        var compressionFormat = use7ZFormat ? "7z" : "zip";
 
         if (string.IsNullOrEmpty(inputFolder))
         {
