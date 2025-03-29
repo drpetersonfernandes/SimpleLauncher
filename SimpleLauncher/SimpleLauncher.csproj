@@ -418,6 +418,30 @@
     <None Update="tools\BatchVerifyCHDFiles\chdman.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\BatchConvertToCompressedFile\7z.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\7z.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\7z_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.pdb">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.deps.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.runtimeconfig.json">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -868,8 +892,5 @@
     <Page Remove="title_snapshots\**" />
     <Page Remove="videos\**" />
     <Page Remove="walkthrough\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tools\BatchConvertToCompressedFile\" />
   </ItemGroup>
 </Project>

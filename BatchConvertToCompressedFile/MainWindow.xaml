@@ -10,6 +10,7 @@
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
             <RowDefinition Height="*"/>
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
@@ -38,16 +39,29 @@
             <Button x:Name="BrowseOutputButton" Grid.Column="2" Content="Browse" Click="BrowseOutputButton_Click" Padding="10,5"/>
         </Grid>
         
+        <!-- Compression Format Selection -->
+        <Grid Grid.Row="2" Margin="10,5,10,5">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Label Grid.Column="0" Content="Compression Format:" VerticalAlignment="Center"/>
+            <StackPanel Grid.Column="1" Orientation="Horizontal" Margin="5,0,0,0">
+                <RadioButton x:Name="SevenZipRadioButton" Content="7z" Margin="0,0,20,0" IsChecked="True" VerticalAlignment="Center"/>
+                <RadioButton x:Name="ZipRadioButton" Content="zip" VerticalAlignment="Center"/>
+            </StackPanel>
+        </Grid>
+        
         <!-- Delete Files Checkbox -->
         <CheckBox x:Name="DeleteFilesCheckBox" 
-                  Grid.Row="2"
+                  Grid.Row="3"
                   Content="Delete original files after compression" 
                   Margin="10,5,10,5"
                   HorizontalAlignment="Left"/>
         
         <!-- Start Compression Button -->
         <Button x:Name="StartButton" 
-                Grid.Row="3" 
+                Grid.Row="4" 
                 Content="Start Compression" 
                 Click="StartButton_Click" 
                 Margin="10,10,10,15" 
@@ -57,7 +71,7 @@
         
         <!-- Log TextBox -->
         <TextBox x:Name="LogViewer"
-                 Grid.Row="4"
+                 Grid.Row="5"
                  AcceptsReturn="True"
                  VerticalScrollBarVisibility="Visible"
                  IsReadOnly="True"
@@ -65,7 +79,7 @@
                  FontFamily="Consolas"/>
         
         <!-- Progress Bar -->
-        <Grid Grid.Row="5" Margin="10,5,10,10">
+        <Grid Grid.Row="6" Margin="10,5,10,10">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="Auto"/>

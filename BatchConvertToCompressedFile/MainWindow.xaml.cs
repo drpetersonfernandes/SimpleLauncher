@@ -11,6 +11,7 @@ public partial class MainWindow
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
+    private readonly string _sevenZipPath; // Path to the appropriate 7z executable
 
     // Bug Report API configuration
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
@@ -31,25 +32,25 @@ public partial class MainWindow
         LogMessage("Please follow these steps:");
         LogMessage("1. Select the input folder containing files to compress");
         LogMessage("2. Select the output folder where the compressed files will be saved");
-        LogMessage("3. Choose whether to delete original files after compression");
-        LogMessage("4. Click 'Start Compression' to begin the process");
+        LogMessage("3. Choose the compression format (.7z or .zip)");
+        LogMessage("4. Choose whether to delete original files after compression");
+        LogMessage("5. Click 'Start Compression' to begin the process");
         LogMessage("");
 
-        // Verify 7z.exe exists
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var sevenZipPath = Path.Combine(appDirectory, "7z.exe");
-
-        if (File.Exists(sevenZipPath))
+        // Determine and verify the appropriate 7z executable
+        _sevenZipPath = GetAppropriateSevenZipPath();
+        
+        if (File.Exists(_sevenZipPath))
         {
-            LogMessage("7z.exe found in the application directory.");
+            LogMessage($"Using {Path.GetFileName(_sevenZipPath)} for {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")} system.");
         }
         else
         {
-            LogMessage("WARNING: 7z.exe not found in the application directory!");
-            LogMessage("Please ensure 7z.exe is in the same folder as this application.");
+            LogMessage($"WARNING: {Path.GetFileName(_sevenZipPath)} not found in the application directory!");
+            LogMessage("Please ensure the required 7z executables are in the same folder as this application.");
 
             // Report this as a potential issue
-            Task.Run(async () => await ReportBugAsync("7z.exe not found in the application directory. This will prevent the application from functioning correctly."));
+            Task.Run(async () => await ReportBugAsync($"{Path.GetFileName(_sevenZipPath)} not found in the application directory. This will prevent the application from functioning correctly."));
         }
     }
 
@@ -93,23 +94,22 @@ public partial class MainWindow
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var sevenZipPath = Path.Combine(appDirectory, "7z.exe");
-
-        if (!File.Exists(sevenZipPath))
+        if (!File.Exists(_sevenZipPath))
         {
-            LogMessage("Error: 7z.exe not found in the application folder.");
-            ShowError("7z.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+            LogMessage($"Error: {Path.GetFileName(_sevenZipPath)} not found in the application folder.");
+            ShowError($"{Path.GetFileName(_sevenZipPath)} is missing from the application folder. Please ensure it's in the same directory as this application.");
 
             // Report this issue
-            await ReportBugAsync("7z.exe not found when trying to start compression",
-                new FileNotFoundException("The required 7z.exe file was not found.", sevenZipPath));
+            await ReportBugAsync($"{Path.GetFileName(_sevenZipPath)} not found when trying to start compression",
+                new FileNotFoundException($"The required {Path.GetFileName(_sevenZipPath)} file was not found.", _sevenZipPath));
             return;
         }
 
         var inputFolder = InputFolderTextBox.Text;
         var outputFolder = OutputFolderTextBox.Text;
         var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
+        var use7zFormat = SevenZipRadioButton.IsChecked ?? true;
+        var compressionFormat = use7zFormat ? "7z" : "zip";
 
         if (string.IsNullOrEmpty(inputFolder))
         {
@@ -136,14 +136,15 @@ public partial class MainWindow
         SetControlsState(false);
 
         LogMessage("Starting batch compression process...");
-        LogMessage($"Using 7z.exe: {sevenZipPath}");
+        LogMessage($"Using {Path.GetFileName(_sevenZipPath)}: {_sevenZipPath}");
         LogMessage($"Input folder: {inputFolder}");
         LogMessage($"Output folder: {outputFolder}");
+        LogMessage($"Compression format: {compressionFormat}");
         LogMessage($"Delete original files: {deleteFiles}");
 
         try
         {
-            await PerformBatchCompressionAsync(sevenZipPath, inputFolder, outputFolder, deleteFiles);
+            await PerformBatchCompressionAsync(_sevenZipPath, inputFolder, outputFolder, compressionFormat, deleteFiles);
         }
         catch (OperationCanceledException)
         {
@@ -177,6 +178,8 @@ public partial class MainWindow
         BrowseOutputButton.IsEnabled = enabled;
         DeleteFilesCheckBox.IsEnabled = enabled;
         StartButton.IsEnabled = enabled;
+        SevenZipRadioButton.IsEnabled = enabled;
+        ZipRadioButton.IsEnabled = enabled;
 
         // Show/hide progress controls
         ProgressBar.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
@@ -193,7 +196,12 @@ public partial class MainWindow
         return dialog.ShowDialog() == true ? dialog.FolderName : null;
     }
 
-    private async Task PerformBatchCompressionAsync(string sevenZipPath, string inputFolder, string outputFolder, bool deleteFiles)
+    private async Task PerformBatchCompressionAsync(
+        string sevenZipPath, 
+        string inputFolder, 
+        string outputFolder, 
+        string compressionFormat, 
+        bool deleteFiles)
     {
         try
         {
@@ -223,7 +231,7 @@ public partial class MainWindow
 
                 var inputFile = files[i];
                 var fileName = Path.GetFileNameWithoutExtension(inputFile);
-                var outputFile = Path.Combine(outputFolder, fileName + ".7z");
+                var outputFile = Path.Combine(outputFolder, fileName + "." + compressionFormat);
 
                 if (File.Exists(outputFile))
                 {
@@ -231,12 +239,12 @@ public partial class MainWindow
                     File.Delete(outputFile);
                 }
 
-                LogMessage($"[{i + 1}/{files.Length}] Compressing: {fileName}");
-                var success = await CompressFileAsync(sevenZipPath, inputFile, outputFile);
+                LogMessage($"[{i + 1}/{files.Length}] Compressing: {fileName} to {compressionFormat} format");
+                var success = await CompressFileAsync(sevenZipPath, inputFile, outputFile, compressionFormat);
 
                 if (success)
                 {
-                    LogMessage($"Compression successful: {fileName}");
+                    LogMessage($"Compression successful: {fileName}.{compressionFormat}");
                     successCount++;
 
                     if (deleteFiles)
@@ -291,16 +299,24 @@ public partial class MainWindow
         }
     }
 
-    private async Task<bool> CompressFileAsync(string sevenZipPath, string inputFile, string outputFile)
+    private async Task<bool> CompressFileAsync(
+        string sevenZipPath, 
+        string inputFile, 
+        string outputFile, 
+        string compressionFormat)
     {
         try
         {
+            // Build the arguments for 7z.exe - same command 'a' (add) works for both formats
+            // The archive type is determined by the extension of the output file
+            var arguments = $"a \"{outputFile}\" \"{inputFile}\"";
+
             var process = new Process
             {
                 StartInfo = new ProcessStartInfo
                 {
                     FileName = sevenZipPath,
-                    Arguments = $"a \"{outputFile}\" \"{inputFile}\"",
+                    Arguments = arguments,
                     RedirectStandardOutput = true,
                     RedirectStandardError = true,
                     UseShellExecute = false,
@@ -409,5 +425,55 @@ public partial class MainWindow
         {
             // Silently fail if error reporting itself fails
         }
+    }
+    
+    /// <summary>
+    /// Determines the appropriate 7z executable path based on the system architecture
+    /// </summary>
+    /// <returns>The path to the appropriate 7z executable</returns>
+    private string GetAppropriateSevenZipPath()
+    {
+        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        
+        // Check if we're running on a 64-bit operating system
+        if (Environment.Is64BitOperatingSystem)
+        {
+            return Path.Combine(appDirectory, "7z.exe");
+        }
+        else
+        {
+            return Path.Combine(appDirectory, "7z_x86.exe");
+        }
+    }
+    
+    /// <summary>
+    /// Checks if both 7z executables exist and logs their status
+    /// </summary>
+    /// <returns>True if at least one executable exists</returns>
+    private bool VerifySevenZipExecutables()
+    {
+        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var x64Exists = File.Exists(Path.Combine(appDirectory, "7z.exe"));
+        var x86Exists = File.Exists(Path.Combine(appDirectory, "7z_x86.exe"));
+        
+        if (x64Exists) 
+        {
+            LogMessage("7z.exe (64-bit) found in the application directory.");
+        }
+        else
+        {
+            LogMessage("WARNING: 7z.exe (64-bit) not found in the application directory!");
+        }
+        
+        if (x86Exists)
+        {
+            LogMessage("7z_x86.exe (32-bit) found in the application directory.");
+        }
+        else
+        {
+            LogMessage("WARNING: 7z_x86.exe (32-bit) not found in the application directory!");
+        }
+        
+        return x64Exists || x86Exists;
     }
 }
