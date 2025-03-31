@@ -561,7 +561,7 @@ public partial class MainWindow
             if (match.Success)
             {
                 // Get the percentage string, handling both decimal point and comma formats
-                string percentageStr = match.Groups[1].Value;
+                var percentageStr = match.Groups[1].Value;
             
                 // Replace comma with period to ensure proper parsing regardless of culture
                 percentageStr = percentageStr.Replace(',', '.');

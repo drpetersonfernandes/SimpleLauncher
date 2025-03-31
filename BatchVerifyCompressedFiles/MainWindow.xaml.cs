@@ -482,9 +482,9 @@ public partial class MainWindow
         // Extract and format archive information from 7z output
         // First, add archive properties
         var lines = rawInfo.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
-        bool inArchiveSection = false;
-        bool inFileSection = false;
-        int fileCount = 0;
+        var inArchiveSection = false;
+        var inFileSection = false;
+        var fileCount = 0;
         long uncompressedSize = 0;
 
         foreach (var line in lines)
@@ -528,7 +528,7 @@ public partial class MainWindow
                 }
                 else if (line.StartsWith("Size ="))
                 {
-                    if (long.TryParse(line.Substring("Size =".Length).Trim(), out long size))
+                    if (long.TryParse(line.Substring("Size =".Length).Trim(), out var size))
                     {
                         uncompressedSize += size;
                     }
