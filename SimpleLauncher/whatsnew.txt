@@ -1,8 +1,16 @@
 release3.12
 -----------
 
-03/22/2025
-- 
+03/31/2025
+- Added an option to turn off emulator error notifications from 'Simple Launcher'. Users can configure this per emulator in the 'Edit System - Expert Mode'.
+- Updated the 'Batch Convert to CHD' tool application to accept new input formats, including ZIP files.
+- Added the 'Batch Convert to Compressed File' tool.
+- Added the 'Batch Verify CHD Files' tool.
+- Added the 'Batch Verify Compressed Files' tool.
+- Added a 'Support Request' window. Users can send questions to the developers.
+- Updated emulators to the latest version.
+- Updated the MAME database to the latest version (v0.276).
+- Updated `history.xml`, available at arcade-history.com, to the latest version.
 
 release3.11.1
 -------------
