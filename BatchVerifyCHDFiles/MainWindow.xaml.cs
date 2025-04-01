@@ -20,12 +20,12 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCHDFiles";
-    
+
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
-        
+
         // Initialize the bug report service
         _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
@@ -302,7 +302,7 @@ public partial class MainWindow
             // Update progress bar values
             ProgressBar.Value = current;
             ProgressBar.Maximum = total;
-        
+
             // Update batch progress text
             BatchProgressText.Text = $"Overall Progress: {current} of {total} files ({percentage:F1}%)";
         }));

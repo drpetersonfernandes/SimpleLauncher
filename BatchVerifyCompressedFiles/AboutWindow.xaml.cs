@@ -10,7 +10,7 @@ public partial class AboutWindow
     public AboutWindow()
     {
         InitializeComponent();
-            
+
         // Set version information
         AppVersionTextBlock.Text = $"Version: {GetApplicationVersion()}";
     }
@@ -40,9 +40,9 @@ public partial class AboutWindow
                 "https://www.purelogiccode.com/bugreport/api/send-bug-report",
                 "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e",
                 "BatchVerifyCompressedFiles");
-                
+
             _ = bugReportService.SendBugReportAsync($"Error opening URL: {e.Uri.AbsoluteUri}. Exception: {ex.Message}");
-                
+
             // Show error to user
             MessageBox.Show($"Unable to open link: {ex.Message}", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }

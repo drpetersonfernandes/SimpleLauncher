@@ -144,7 +144,7 @@ public partial class SupportWindow
         {
             // Construct the full API URL
             var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}/api/send-customer-email";
-            
+
             var response = await HttpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode)
@@ -160,7 +160,7 @@ public partial class SupportWindow
             {
                 // Get error details from response
                 var errorContent = await response.Content.ReadAsStringAsync();
-                
+
                 // Notify developer
                 var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                 var ex = new Exception(contextMessage);
@@ -193,7 +193,7 @@ public partial class SupportWindow
 
         return false;
     }
-    
+
     private static bool CheckIfEmailIsNullOrEmpty(string emailText)
     {
         if (string.IsNullOrWhiteSpace(emailText))
@@ -206,7 +206,7 @@ public partial class SupportWindow
 
         return false;
     }
-    
+
     private static bool CheckIfSupportRequestIsNullOrEmpty(string supportRequestText)
     {
         if (string.IsNullOrWhiteSpace(supportRequestText))

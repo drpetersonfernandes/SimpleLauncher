@@ -20,12 +20,12 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCompressedFiles";
-    
+
     public MainWindow()
     {
         InitializeComponent();
         _cts = new CancellationTokenSource();
-        
+
         // Initialize the bug report service
         _bugReportService = new BugReportService(BugReportApiUrl, BugReportApiKey, ApplicationName);
 
@@ -115,7 +115,7 @@ public partial class MainWindow
 
         var inputFolder = InputFolderTextBox.Text;
         var includeSubfolders = IncludeSubfoldersCheckBox.IsChecked ?? false;
-        
+
         // Check which file types to verify
         var verifyZip = ZipFilesCheckBox.IsChecked ?? false;
         var verifySevenZip = SevenZipFilesCheckBox.IsChecked ?? false;
@@ -158,9 +158,9 @@ public partial class MainWindow
         LogMessage($"Using {Path.GetFileName(sevenZipPath)}: {sevenZipPath}");
         LogMessage($"Input folder: {inputFolder}");
         LogMessage($"Include subfolders: {includeSubfolders}");
-        LogMessage($"File types: " + 
-                   (verifyZip ? "ZIP " : "") + 
-                   (verifySevenZip ? "7Z " : "") + 
+        LogMessage($"File types: " +
+                   (verifyZip ? "ZIP " : "") +
+                   (verifySevenZip ? "7Z " : "") +
                    (verifyRar ? "RAR" : ""));
 
         // Start timer
@@ -168,7 +168,7 @@ public partial class MainWindow
 
         try
         {
-            await PerformBatchVerificationAsync(sevenZipPath, inputFolder, includeSubfolders, 
+            await PerformBatchVerificationAsync(sevenZipPath, inputFolder, includeSubfolders,
                 verifyZip, verifySevenZip, verifyRar);
         }
         catch (OperationCanceledException)
@@ -341,7 +341,7 @@ public partial class MainWindow
             // Update progress bar values
             ProgressBar.Value = current;
             ProgressBar.Maximum = total;
-        
+
             // Update batch progress text
             BatchProgressText.Text = $"Overall Progress: {current} of {total} files ({percentage:F1}%)";
         }));
@@ -375,12 +375,12 @@ public partial class MainWindow
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     // Log progress or status information
-                    if (args.Data.Contains("%") || args.Data.Contains("Testing") || 
+                    if (args.Data.Contains("%") || args.Data.Contains("Testing") ||
                         args.Data.Contains("Everything is Ok") || args.Data.Contains("Error"))
                     {
                         LogMessage($"  {args.Data.Trim()}");
                     }
-                    
+
                     outputBuilder.AppendLine(args.Data);
                 }
             };
@@ -502,9 +502,9 @@ public partial class MainWindow
             // When we find the archive properties, add them
             if (inArchiveSection && !inFileSection)
             {
-                if (line.StartsWith("Type =") || 
-                    line.StartsWith("Method =") || 
-                    line.StartsWith("Solid =") || 
+                if (line.StartsWith("Type =") ||
+                    line.StartsWith("Method =") ||
+                    line.StartsWith("Solid =") ||
                     line.StartsWith("Blocks =") ||
                     line.StartsWith("Physical Size =") ||
                     line.StartsWith("Headers Size ="))
@@ -540,7 +540,7 @@ public partial class MainWindow
         sb.AppendLine(new string('-', 40));
         sb.AppendLine($"Total files: {fileCount}");
         sb.AppendLine($"Uncompressed size: {FormatFileSize(uncompressedSize)}");
-        
+
         // Calculate compression ratio if possible
         var compressedSize = new FileInfo(archiveFile).Length;
         if (uncompressedSize > 0 && compressedSize > 0)
@@ -689,7 +689,7 @@ public partial class MainWindow
             _ = ReportBugAsync("Error opening About window", ex);
         }
     }
-    
+
     /// <summary>
     /// Gets the appropriate 7-Zip executable path based on the system architecture
     /// </summary>
@@ -700,7 +700,7 @@ public partial class MainWindow
         // For 64-bit systems, use 7z.exe
         // For 32-bit systems, use 7z_x86.exe
         var executableName = Environment.Is64BitOperatingSystem ? "7z.exe" : "7z_x86.exe";
-        
+
         // Get the full path
         return Path.Combine(appDirectory, executableName);
     }

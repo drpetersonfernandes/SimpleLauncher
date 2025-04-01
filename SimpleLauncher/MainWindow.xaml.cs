@@ -1453,7 +1453,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-   
+
     private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -1489,7 +1489,7 @@ public partial class MainWindow : INotifyPropertyChanged
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
-    
+
     private void BatchVerifyCompressedFiles_Click(object sender, RoutedEventArgs e)
     {
         try

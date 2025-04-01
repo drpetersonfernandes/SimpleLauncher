@@ -39,7 +39,7 @@ public partial class MainWindow
 
         // Determine and verify the appropriate 7z executable
         _sevenZipPath = GetAppropriateSevenZipPath();
-        
+
         if (File.Exists(_sevenZipPath))
         {
             LogMessage($"Using {Path.GetFileName(_sevenZipPath)} for {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")} system.");
@@ -197,10 +197,10 @@ public partial class MainWindow
     }
 
     private async Task PerformBatchCompressionAsync(
-        string sevenZipPath, 
-        string inputFolder, 
-        string outputFolder, 
-        string compressionFormat, 
+        string sevenZipPath,
+        string inputFolder,
+        string outputFolder,
+        string compressionFormat,
         bool deleteFiles)
     {
         try
@@ -300,9 +300,9 @@ public partial class MainWindow
     }
 
     private async Task<bool> CompressFileAsync(
-        string sevenZipPath, 
-        string inputFile, 
-        string outputFile, 
+        string sevenZipPath,
+        string inputFile,
+        string outputFile,
         string compressionFormat)
     {
         try
@@ -426,7 +426,7 @@ public partial class MainWindow
             // Silently fail if error reporting itself fails
         }
     }
-    
+
     /// <summary>
     /// Determines the appropriate 7z executable path based on the system architecture
     /// </summary>
@@ -434,7 +434,7 @@ public partial class MainWindow
     private string GetAppropriateSevenZipPath()
     {
         var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        
+
         // Check if we're running on a 64-bit operating system
         if (Environment.Is64BitOperatingSystem)
         {
@@ -445,7 +445,7 @@ public partial class MainWindow
             return Path.Combine(appDirectory, "7z_x86.exe");
         }
     }
-    
+
     /// <summary>
     /// Checks if both 7z executables exist and logs their status
     /// </summary>
@@ -455,8 +455,8 @@ public partial class MainWindow
         var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var x64Exists = File.Exists(Path.Combine(appDirectory, "7z.exe"));
         var x86Exists = File.Exists(Path.Combine(appDirectory, "7z_x86.exe"));
-        
-        if (x64Exists) 
+
+        if (x64Exists)
         {
             LogMessage("7z.exe (64-bit) found in the application directory.");
         }
@@ -464,7 +464,7 @@ public partial class MainWindow
         {
             LogMessage("WARNING: 7z.exe (64-bit) not found in the application directory!");
         }
-        
+
         if (x86Exists)
         {
             LogMessage("7z_x86.exe (32-bit) found in the application directory.");
@@ -473,7 +473,7 @@ public partial class MainWindow
         {
             LogMessage("WARNING: 7z_x86.exe (32-bit) not found in the application directory!");
         }
-        
+
         return x64Exists || x86Exists;
     }
 }

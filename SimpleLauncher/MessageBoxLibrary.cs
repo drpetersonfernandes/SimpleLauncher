@@ -1071,7 +1071,7 @@ public static class MessageBoxLibrary
         MessageBox.Show(pleaseenterthedetailsofthesupportrequest2,
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
-    
+
     internal static void EnterNameMessageBox()
     {
         var pleaseenterthename2 = (string)Application.Current.TryFindResource("Pleaseenterthename") ?? "Please enter the name.";
@@ -1079,7 +1079,7 @@ public static class MessageBoxLibrary
         MessageBox.Show(pleaseenterthename2,
             info2, MessageBoxButton.OK, MessageBoxImage.Information);
     }
-    
+
     internal static void EnterEmailMessageBox()
     {
         var pleaseentertheemail2 = (string)Application.Current.TryFindResource("Pleaseentertheemail") ?? "Please enter the email.";

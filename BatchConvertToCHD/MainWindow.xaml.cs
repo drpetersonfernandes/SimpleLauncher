@@ -194,7 +194,7 @@ public partial class MainWindow
         ProgressBar.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
         CancelButton.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
         ProgressText.Visibility = enabled ? Visibility.Collapsed : Visibility.Visible;
-    
+
         // When re-enabling the controls, make sure to clear any progress display
         if (enabled)
         {
@@ -306,20 +306,20 @@ public partial class MainWindow
             ProgressBar.Value = current;
             ProgressBar.Maximum = total;
             ProgressBar.Visibility = Visibility.Visible;
-        
+
             // Update the progress text
             ProgressText.Text = $"Processing file {current} of {total}: {Path.GetFileName(currentFile)} ({percentage:F1}%)";
             ProgressText.Visibility = Visibility.Visible;
         });
     }
-    
+
     private void ClearProgressDisplay()
     {
         Application.Current.Dispatcher.Invoke(() =>
         {
             // Hide the progress bar
             ProgressBar.Visibility = Visibility.Collapsed;
-        
+
             // Clear and hide the progress text
             ProgressText.Text = string.Empty;
             ProgressText.Visibility = Visibility.Collapsed;
@@ -426,7 +426,7 @@ public partial class MainWindow
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     errorBuilder.AppendLine(args.Data);
-        
+
                     // Check if this is a progress update or completion message rather than an actual error
                     if (args.Data.Contains("Compressing") && args.Data.Contains("%") ||
                         args.Data.Contains("Compression complete"))
@@ -562,11 +562,11 @@ public partial class MainWindow
             {
                 // Get the percentage string, handling both decimal point and comma formats
                 var percentageStr = match.Groups[1].Value;
-            
-                // Replace comma with period to ensure proper parsing regardless of culture
+
+                // Replace comma with a period to ensure proper parsing regardless of culture
                 percentageStr = percentageStr.Replace(',', '.');
-            
-                if (double.TryParse(percentageStr, System.Globalization.NumberStyles.Any, 
+
+                if (double.TryParse(percentageStr, System.Globalization.NumberStyles.Any,
                         System.Globalization.CultureInfo.InvariantCulture, out var percentage))
                 {
                     // Ensure percentage is within the expected range (0-100)
@@ -810,7 +810,7 @@ public partial class MainWindow
 
         return referencedFiles;
     }
-    
+
     private void ExitMenuItem_Click(object sender, RoutedEventArgs e)
     {
         // This will close the application
@@ -830,7 +830,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             LogMessage($"Error opening About window: {ex.Message}");
-        
+
             // Report the exception to our bug reporting service
             Task.Run(async () => await ReportBugAsync("Error opening About window", ex));
         }
