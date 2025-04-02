@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -45,25 +43,6 @@ public partial class PlayHistoryWindow
 
         App.ApplyThemeToWindow(this);
         LoadPlayHistory();
-        Closing += PlayHistory_Closing;
-    }
-
-    private static void PlayHistory_Closing(object sender, CancelEventArgs e)
-    {
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule == null) return;
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = processModule.FileName,
-            UseShellExecute = true
-        };
-
-        // Start the new application instance
-        Process.Start(startInfo);
-
-        // Shutdown the current application instance
-        Application.Current.Shutdown();
-        Environment.Exit(0);
     }
 
     private void LoadPlayHistory()

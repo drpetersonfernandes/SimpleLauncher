@@ -80,7 +80,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private List<string> _currentSearchResults = [];
 
     // Define and Instantiate variables
-    private readonly List<SystemConfig> _systemConfigs;
+    private List<SystemConfig> _systemConfigs;
     private readonly LetterNumberMenu _letterNumberMenu = new();
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
@@ -972,12 +972,18 @@ public partial class MainWindow : INotifyPropertyChanged
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    private void EasyMode_Click(object sender, RoutedEventArgs e)
+    private async void EasyMode_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
+        EditSystemEasyModeAddSystemWindow editSystemEasyModeAddSystemWindow = new();
+        editSystemEasyModeAddSystemWindow.ShowDialog();
 
-        EditSystemEasyModeWindow editSystemEasyModeWindow = new(_settings);
-        editSystemEasyModeWindow.ShowDialog();
+        // ReLoad and Sort _systemConfigs
+        _systemConfigs = SystemConfig.LoadSystemConfigs();
+        var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
+        SystemComboBox.ItemsSource = sortedSystemNames;
+
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
@@ -1213,10 +1219,16 @@ public partial class MainWindow : INotifyPropertyChanged
         MainWindow_Restart();
     }
 
-    private void GlobalSearch_Click(object sender, RoutedEventArgs e)
+    private async void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
         var globalSearchWindow = new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
+
+        _favoritesManager = FavoritesManager.LoadFavorites();
+        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
 
     private void GlobalStats_Click(object sender, RoutedEventArgs e)
@@ -1225,20 +1237,28 @@ public partial class MainWindow : INotifyPropertyChanged
         globalStatsWindow.Show();
     }
 
-    private void Favorites_Click(object sender, RoutedEventArgs e)
+    private async void Favorites_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
-
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
+
+        _favoritesManager = FavoritesManager.LoadFavorites();
+        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
 
-    private void PlayHistory_Click(object sender, RoutedEventArgs e)
+    private async void PlayHistory_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
-
         var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         playHistoryWindow.Show();
+
+        _favoritesManager = FavoritesManager.LoadFavorites();
+        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
 
     private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)

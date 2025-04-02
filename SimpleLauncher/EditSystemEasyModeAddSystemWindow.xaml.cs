@@ -872,23 +872,6 @@ public partial class EditSystemEasyModeAddSystemWindow
     private void CloseWindowRoutine(object sender, EventArgs e)
     {
         _manager = null;
-
-        // Prepare the process start info
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule == null) return;
-
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = processModule.FileName,
-            UseShellExecute = true
-        };
-
-        // Start the new application instance
-        Process.Start(startInfo);
-
-        // Shutdown the current application instance
-        Application.Current.Shutdown();
-        Environment.Exit(0);
     }
 
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)

@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -39,25 +37,6 @@ public partial class FavoritesWindow
 
         App.ApplyThemeToWindow(this);
         LoadFavorites();
-        Closing += Favorites_Closing;
-    }
-
-    private static void Favorites_Closing(object sender, CancelEventArgs e)
-    {
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule == null) return;
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = processModule.FileName,
-            UseShellExecute = true
-        };
-
-        // Start the new application instance
-        Process.Start(startInfo);
-
-        // Shutdown the current application instance
-        Application.Current.Shutdown();
-        Environment.Exit(0);
     }
 
     private void LoadFavorites()
