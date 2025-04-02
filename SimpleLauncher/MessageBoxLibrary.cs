@@ -2179,4 +2179,20 @@ public static class MessageBoxLibrary
 
         return result == MessageBoxResult.Yes;
     }
+
+    internal static void SsltlsErrorMessageBox()
+    {
+        var therewasanSsltlsError = (string)Application.Current.TryFindResource("TherewasanSSLTLSError") ?? "There was an SSL/TLS Error.";
+        var therootcausemaybe = (string)Application.Current.TryFindResource("Therootcausemaybe") ?? "The root cause may be:";
+        var outdatedOSlackingsupportformodernTlSprotocols = (string)Application.Current.TryFindResource("OutdatedOSlackingsupportformodernTLSprotocols") ?? "1. Outdated OS lacking support for modern TLS protocols/cipher suites.";
+        var outdatedNeTruntime = (string)Application.Current.TryFindResource("OutdatedNETruntime") ?? "2. Outdated .NET runtime.";
+        var networkinterception = (string)Application.Current.TryFindResource("Networkinterception") ?? "3. Network interception (proxies, firewalls) interfering with TLS handshake.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{therewasanSsltlsError}\n\n" +
+                        $"{therootcausemaybe}\n" +
+                        $"{outdatedOSlackingsupportformodernTlSprotocols}\n" +
+                        $"{outdatedNeTruntime}\n" +
+                        $"{networkinterception}",
+            error, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
 }

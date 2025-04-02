@@ -476,8 +476,6 @@ public partial class EditSystemEasyModeAddSystemWindow
 
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
     {
-        HttpClient localClient = null;
-
         try
         {
             // First try with the main HTTP client
@@ -487,46 +485,23 @@ public partial class EditSystemEasyModeAddSystemWindow
                                               (ex.InnerException is IOException ioEx &&
                                                ioEx.Message.Contains("decryption operation failed")))
         {
-            // Handle SSL/TLS errors with fallback method
-            DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue. Trying alternate connection method...");
-
+            // Handle SSL/TLS errors
+            DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue.");
+            
             // Notify developer
             const string contextMessage = "SSL/TLS error.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            try
-            {
-                // Create a fallback handler with relaxed SSL validation
-                var fallbackHandler = new HttpClientHandler
-                {
-                    ServerCertificateCustomValidationCallback = (sender, certificate, chain, errors) => true,
-                    SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13
-                };
-
-                // Create a new client for this fallback attempt
-                localClient = new HttpClient(fallbackHandler)
-                {
-                    Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
-                };
-
-                // Try download with the fallback client
-                await PerformDownloadAsync(localClient, downloadUrl, destinationPath, true, cancellationToken);
-            }
-            catch (Exception fallbackEx)
-            {
-                // Notify developer
-                const string contextMessage2 = "Fallback download method failed";
-                _ = LogErrors.LogErrorAsync(fallbackEx, contextMessage2);
-
-                throw;
-            }
+            
+            // Notify user
+            MessageBoxLibrary.SsltlsErrorMessageBox();
         }
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             HandleDownloadError(ex,
                 "ErrorTherequestedfilewasnotfoundontheserver",
                 "Error: The requested file was not found on the server.",
-                $"The requested file was not available on the server.\n\nURL: {downloadUrl}",
+                $"The requested file was not available on the server.\n\n" +
+                $"URL: {downloadUrl}",
                 downloadUrl);
             throw;
         }
@@ -535,7 +510,8 @@ public partial class EditSystemEasyModeAddSystemWindow
             HandleDownloadError(ex,
                 "ErrorNetworkerrorduringfiledownload",
                 "Error: Network error during file download.",
-                $"Network error during file download.\n\nURL: {downloadUrl}",
+                $"Network error during file download.\n\n" +
+                $"URL: {downloadUrl}",
                 downloadUrl);
             throw;
         }
@@ -577,10 +553,6 @@ public partial class EditSystemEasyModeAddSystemWindow
                 $"Generic download error.\n\nURL: {downloadUrl}",
                 downloadUrl);
             throw;
-        }
-        finally
-        {
-            localClient?.Dispose();
         }
 
         // Private methods defined as local functions

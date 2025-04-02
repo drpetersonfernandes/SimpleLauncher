@@ -374,15 +374,16 @@ public partial class MainWindow
             var command = "createcd"; // Default for CD-ROM formats
             var extension = Path.GetExtension(inputFile).ToLower();
 
-            if (extension == ".img")
+            switch (extension)
             {
-                // For .img files, we could be dealing with a hard disk or raw image
-                // You might need a more sophisticated way to determine this
-                command = "createhd";
-            }
-            else if (extension == ".raw")
-            {
-                command = "createraw";
+                case ".img":
+                    // For .img files, we could be dealing with a hard disk or raw image
+                    // You might need a more sophisticated way to determine this
+                    command = "createhd";
+                    break;
+                case ".raw":
+                    command = "createraw";
+                    break;
             }
 
             LogMessage($"Using CHDMAN command: {command}");
