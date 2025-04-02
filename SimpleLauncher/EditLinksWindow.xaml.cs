@@ -32,7 +32,7 @@ public partial class EditLinksWindow
             : EncodeForXml(InfoLinkTextBox.Text);
 
         _settingsManager.Save();
-        
+
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
     }

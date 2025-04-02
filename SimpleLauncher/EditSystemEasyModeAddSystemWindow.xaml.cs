@@ -487,11 +487,11 @@ public partial class EditSystemEasyModeAddSystemWindow
         {
             // Handle SSL/TLS errors
             DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue.");
-            
+
             // Notify developer
             const string contextMessage = "SSL/TLS error.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            
+
             // Notify user
             MessageBoxLibrary.SsltlsErrorMessageBox();
         }
