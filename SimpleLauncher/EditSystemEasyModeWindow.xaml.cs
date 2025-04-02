@@ -17,7 +17,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemEasyModeAddSystemWindow
+public partial class EditSystemEasyModeWindow
 {
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
@@ -50,7 +50,7 @@ public partial class EditSystemEasyModeAddSystemWindow
         }
     }
 
-    public EditSystemEasyModeAddSystemWindow()
+    public EditSystemEasyModeWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);

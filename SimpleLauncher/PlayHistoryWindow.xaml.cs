@@ -85,7 +85,7 @@ public partial class PlayHistoryWindow
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
-    private DateTime TryParseDateTime(string dateStr, string timeStr)
+    private static DateTime TryParseDateTime(string dateStr, string timeStr)
     {
         try
         {
