@@ -994,14 +994,18 @@ public partial class MainWindow : INotifyPropertyChanged
         downloadImagePack.ShowDialog();
     }
 
-    private void EditLinks_Click(object sender, RoutedEventArgs e)
+    private async void EditLinks_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
-
         EditLinksWindow editLinksWindow = new(_settings);
         editLinksWindow.ShowDialog();
+        
+        // Reload Settings
+        _settings.Load();
+        
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
-
+    
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();

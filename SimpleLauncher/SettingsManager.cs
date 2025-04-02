@@ -4,14 +4,9 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using SimpleLauncher.models;
 
 namespace SimpleLauncher;
-
-public class SystemPlayTime
-{
-    public string SystemName { get; init; }
-    public string PlayTime { get; set; }
-}
 
 public class SettingsManager
 {
@@ -57,7 +52,7 @@ public class SettingsManager
         Load();
     }
 
-    private void Load()
+    internal void Load()
     {
         if (!File.Exists(_filePath))
         {

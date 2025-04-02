@@ -1,6 +1,3 @@
-using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.Windows;
 
 namespace SimpleLauncher;
@@ -16,8 +13,6 @@ public partial class EditLinksWindow
         // Load Config
         _settingsManager = settingsManager;
         LoadLinks();
-
-        Closing += EditLinks_Closing;
     }
 
     private void LoadLinks()
@@ -37,7 +32,7 @@ public partial class EditLinksWindow
             : EncodeForXml(InfoLinkTextBox.Text);
 
         _settingsManager.Save();
-
+        
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
     }
@@ -68,23 +63,5 @@ public partial class EditLinksWindow
             .Replace(">", "&gt;")
             .Replace("\"", "&quot;")
             .Replace("'", "&apos;");
-    }
-
-    private static void EditLinks_Closing(object sender, CancelEventArgs e)
-    {
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule != null)
-        {
-            var startInfo = new ProcessStartInfo
-            {
-                FileName = processModule.FileName,
-                UseShellExecute = true
-            };
-
-            Process.Start(startInfo);
-
-            Application.Current.Shutdown();
-            Environment.Exit(0);
-        }
     }
 }
