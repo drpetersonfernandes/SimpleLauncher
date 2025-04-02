@@ -259,9 +259,6 @@ public static class GameLauncher
                                      $"Error: {error}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                // Ignore
             }
         }
         catch (Exception ex)
@@ -273,9 +270,6 @@ public static class GameLauncher
                                  $"Output: {output}\n" +
                                  $"Error: {error}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
     }
 
@@ -308,9 +302,6 @@ public static class GameLauncher
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                // Ignore
             }
         }
         catch (Exception ex)
@@ -320,9 +311,6 @@ public static class GameLauncher
                                  $"Shortcut file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
     }
 
@@ -355,9 +343,6 @@ public static class GameLauncher
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                // Ignore
             }
         }
         catch (Exception ex)
@@ -367,9 +352,6 @@ public static class GameLauncher
                                  $"Executable file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
     }
 
@@ -565,9 +547,6 @@ public static class GameLauncher
             // Notify developer
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
         catch (Exception ex)
         {
@@ -579,9 +558,6 @@ public static class GameLauncher
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
     }
 
@@ -995,9 +971,6 @@ public static class GameLauncher
                                  $"Calling parameters: {psi.Arguments}";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
 
         return Task.CompletedTask;

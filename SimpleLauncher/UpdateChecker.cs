@@ -67,9 +67,6 @@ public static partial class UpdateChecker
             // Notify user
             const string contextMessage = "Error checking for updates.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // Ignore
         }
     }
 

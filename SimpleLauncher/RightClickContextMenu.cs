@@ -149,11 +149,6 @@ public static class RightClickContextMenu
                 // Notify user
                 MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
             }
-            // else
-            // {
-            //     // Notify user
-            //     MessageBoxLibrary.FileIsNotInFavoritesMessageBox(fileNameWithExtension);
-            // }
         }
         catch (Exception ex)
         {
@@ -646,9 +641,11 @@ public static class RightClickContextMenu
             {
                 await mainWindow.LoadGameFilesAsync();
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore
+                // Notify developer
+                const string contextMessage = "There was a problem loading the Game Files.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
         }
         catch (Exception ex)
@@ -693,9 +690,11 @@ public static class RightClickContextMenu
                     {
                         await mainWindow.LoadGameFilesAsync();
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // ignore
+                        // Notify developer
+                        const string contextMessage = "There was a problem loading the Game Files.";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
                     }
                 }
                 catch (Exception ex)

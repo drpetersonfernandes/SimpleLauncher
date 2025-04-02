@@ -255,9 +255,6 @@ public class GamePadController : IDisposable
             ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
-
-            // Notify user
-            // Ignore
         }
     }
 

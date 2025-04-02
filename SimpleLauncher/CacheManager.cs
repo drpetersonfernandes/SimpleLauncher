@@ -29,9 +29,6 @@ public class CacheManager
             // Notify developer
             const string contextMessage = "Error creating cache directory. User was not notified.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            // ignore
         }
     }
 
@@ -42,7 +39,6 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null || gameCount == 0)
         {
-            // Ignore
             // Return an empty list
             return [];
         }
@@ -68,7 +64,6 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null)
         {
-            // Ignore
             // Return an empty list
             return [];
         }
@@ -91,9 +86,6 @@ public class CacheManager
                 // Notify developer
                 var contextMessage = $"Error caching files for {systemName}.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                // ignore
             }
 
             return fileList;
@@ -130,9 +122,6 @@ public class CacheManager
             // Notify developer
             var errorMessage = $"Error saving cache for {systemName}.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            // ignore
         }
     }
 
@@ -151,9 +140,6 @@ public class CacheManager
             // Notify developer
             var errorMessage = $"Error loading cache file {cacheFilePath}.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            // ignore
 
             // Return an empty cache
             return new GameCache { FileCount = 0, FileNames = [] };
