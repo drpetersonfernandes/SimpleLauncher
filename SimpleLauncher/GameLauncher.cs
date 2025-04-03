@@ -417,24 +417,39 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
+            
+            // Add a small delay to ensure the process is properly initialized
+            await Task.Delay(100);
 
-            process.BeginOutputReadLine();
-            process.BeginErrorReadLine();
-            await process.WaitForExitAsync();
-
+            // Only setup output redirection if the process is still running
             if (!process.HasExited)
             {
-                throw new InvalidOperationException("Process has not exited as expected.");
+                process.BeginOutputReadLine();
+                process.BeginErrorReadLine();
+                await process.WaitForExitAsync();
             }
 
-            if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
-            if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
-
-            await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
+            // Check process state before accessing properties
+            if (process.HasExited)
+            {
+                if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+                if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
+                await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
+            }
         }
 
         catch (InvalidOperationException ex)
         {
+            // Ensure the process is disposed if it failed to start
+            try
+            {
+                process?.Dispose();
+            }
+            catch
+            {
+                // ignored
+            }
+
             // Notify developer
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
