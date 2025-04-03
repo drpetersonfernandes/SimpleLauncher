@@ -292,11 +292,15 @@ public class GamePadController : IDisposable
         var normalizedX = Math.Max(-1, thumbX / MaxThumbValue);
         var normalizedY = Math.Max(-1, thumbY / MaxThumbValue);
 
-        var resultX = (Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX)));
-        var resultY = (Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY)));
+        var resultX = Math.Abs(normalizedX) < dzX ? 0 : (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX));
+        var resultY = Math.Abs(normalizedY) < dzY ? 0 : (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY));
 
-        if (dzX > 0) resultX *= 10 / (1 - dzX);
-        if (dzY > 0) resultY *= 10 / (1 - dzY);
+        // Always apply base scaling (10x), then additional scaling based on deadzone
+        resultX *= 10;
+        resultY *= 10;
+    
+        if (dzX > 0) resultX /= (1 - dzX);
+        if (dzY > 0) resultY /= (1 - dzY);
 
         return (resultX, resultY);
     }
@@ -344,27 +348,27 @@ public class GamePadController : IDisposable
 
     private static (float, float) ProcessLeftThumbStickDirectInput(short thumbX, short thumbY, float dzX, float dzY)
     {
-        // Normalize the thumbstick values to the range [-1, 1]
         var normalizedX = thumbX / MaxThumbValue;
         var normalizedY = thumbY / MaxThumbValue;
 
-        // Apply the dead zone for X
         float resultX = 0;
         if (Math.Abs(normalizedX) > dzX)
         {
             resultX = (Math.Abs(normalizedX) - dzX) * (normalizedX / Math.Abs(normalizedX));
         }
 
-        // Apply the dead zone for Y
         float resultY = 0;
         if (Math.Abs(normalizedY) > dzY)
         {
             resultY = (Math.Abs(normalizedY) - dzY) * (normalizedY / Math.Abs(normalizedY));
         }
 
-        // Scale the values after dead zone adjustment
-        if (dzX > 0) resultX *= 7 / (1 - dzX);
-        if (dzY > 0) resultY *= 7 / (1 - dzY);
+        // Always apply base scaling (7x), then additional scaling based on deadzone
+        resultX *= 7;
+        resultY *= 7;
+    
+        if (dzX > 0) resultX /= (1 - dzX);
+        if (dzY > 0) resultY /= (1 - dzY);
 
         return (resultX, resultY);
     }

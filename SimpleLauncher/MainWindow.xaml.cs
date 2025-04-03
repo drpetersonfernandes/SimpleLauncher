@@ -974,6 +974,24 @@ public partial class MainWindow : INotifyPropertyChanged
 
     private async void EasyMode_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         EditSystemEasyModeWindow editSystemEasyModeAddSystemWindow = new();
         editSystemEasyModeAddSystemWindow.ShowDialog();
 
@@ -986,8 +1004,26 @@ public partial class MainWindow : INotifyPropertyChanged
         await LoadGameFilesAsync();
     }
 
-    private async void ExpertMode_Click(object sender, RoutedEventArgs e)
+    private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         EditSystemWindow editSystemWindow = new(_settings);
         editSystemWindow.ShowDialog();
 
@@ -995,13 +1031,28 @@ public partial class MainWindow : INotifyPropertyChanged
         _systemConfigs = SystemConfig.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
-
-        // Refresh GameList
-        await LoadGameFilesAsync();
     }
 
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         DownloadImagePackWindow downloadImagePack = new();
         downloadImagePack.ShowDialog();
     }
@@ -1010,9 +1061,6 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         EditLinksWindow editLinksWindow = new(_settings);
         editLinksWindow.ShowDialog();
-
-        // Reload Settings
-        _settings.Load();
 
         // Refresh GameList
         await LoadGameFilesAsync();
@@ -1024,8 +1072,6 @@ public partial class MainWindow : INotifyPropertyChanged
 
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
-
-        _settings.Load();
 
         // Update the GamePadController dead zone settings from SettingsManager
         GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
@@ -1225,7 +1271,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private void GamesPerPage_Click(object sender, RoutedEventArgs e)
+    private async void GamesPerPage_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem clickedItem) return;
         var pageText = clickedItem.Name.Replace("Page", "");
@@ -1237,20 +1283,35 @@ public partial class MainWindow : INotifyPropertyChanged
         _settings.Save();
         UpdateNumberOfGamesPerPageCheckMarks(newPage);
 
-        _settings.Load();
-        SystemComboBox.SelectedItem = -1;
+        // Refresh GameList
+        await LoadGameFilesAsync();
     }
 
-    private async void GlobalSearch_Click(object sender, RoutedEventArgs e)
+    private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         var globalSearchWindow = new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-
-        // Refresh GameList
-        await LoadGameFilesAsync();
     }
 
     private void GlobalStats_Click(object sender, RoutedEventArgs e)
@@ -1259,28 +1320,58 @@ public partial class MainWindow : INotifyPropertyChanged
         globalStatsWindow.Show();
     }
 
-    private async void Favorites_Click(object sender, RoutedEventArgs e)
+    private void Favorites_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-
-        // Refresh GameList
-        await LoadGameFilesAsync();
     }
 
-    private async void PlayHistory_Click(object sender, RoutedEventArgs e)
+    private void PlayHistory_Click(object sender, RoutedEventArgs e)
     {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
+        
         var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         playHistoryWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-
-        // Refresh GameList
-        await LoadGameFilesAsync();
     }
 
 
