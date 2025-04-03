@@ -1,4 +1,4 @@
-namespace SimpleLauncher.models;
+namespace SimpleLauncher;
 
 public class SystemPlayTime
 {
