@@ -591,13 +591,13 @@ public partial class MainWindow : INotifyPropertyChanged
                     const string errorMessage = "Selected system is null.";
                     var ex = new Exception(errorMessage);
                     _ = LogErrors.LogErrorAsync(ex, errorMessage);
-                    
+
                     // Notify user
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
-                    
+
                     return;
                 }
-                
+
                 if (selectedConfig != null)
                 {
                     // Populate EmulatorComboBox with the emulators for the selected system
@@ -653,7 +653,7 @@ public partial class MainWindow : INotifyPropertyChanged
             // Notify developer
             const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
-            
+
             // Notify user
             MessageBoxLibrary.InvalidSystemConfigMessageBox();
         }
@@ -1007,7 +1007,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         EditSystemEasyModeWindow editSystemEasyModeAddSystemWindow = new();
         editSystemEasyModeAddSystemWindow.ShowDialog();
 
@@ -1039,7 +1039,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         EditSystemWindow editSystemWindow = new(_settings);
         editSystemWindow.ShowDialog();
 
@@ -1068,7 +1068,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         DownloadImagePackWindow downloadImagePack = new();
         downloadImagePack.ShowDialog();
     }
@@ -1322,7 +1322,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         var globalSearchWindow = new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
 
@@ -1355,7 +1355,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
 
@@ -1382,7 +1382,7 @@ public partial class MainWindow : INotifyPropertyChanged
         PlayTime = "00:00:00";
 
         AddNoSystemMessage();
-        
+
         var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         playHistoryWindow.Show();
 

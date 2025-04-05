@@ -298,7 +298,7 @@ public class GamePadController : IDisposable
         // Always apply base scaling (10x), then additional scaling based on deadzone
         resultX *= 10;
         resultY *= 10;
-    
+
         if (dzX > 0) resultX /= (1 - dzX);
         if (dzY > 0) resultY /= (1 - dzY);
 
@@ -366,7 +366,7 @@ public class GamePadController : IDisposable
         // Always apply base scaling (7x), then additional scaling based on deadzone
         resultX *= 7;
         resultY *= 7;
-    
+
         if (dzX > 0) resultX /= (1 - dzX);
         if (dzY > 0) resultY /= (1 - dzY);
 

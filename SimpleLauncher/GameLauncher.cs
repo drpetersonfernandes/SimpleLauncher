@@ -119,12 +119,12 @@ public static class GameLauncher
                     {
                         await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
-                    
+
                     else if (selectedSystem.Contains("aquarius", StringComparison.InvariantCultureIgnoreCase) && selectedEmulatorName != null && selectedEmulatorName.Contains("mame", StringComparison.InvariantCultureIgnoreCase))
                     {
                         await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     }
-                    
+
                     else if (selectedEmulatorName != null && (selectedEmulatorName.Contains("fusion", StringComparison.InvariantCultureIgnoreCase) ||
                                                               selectedEmulatorName.Contains("mastergear", StringComparison.InvariantCultureIgnoreCase) ||
                                                               selectedEmulatorName.Contains("project64", StringComparison.InvariantCultureIgnoreCase) ||
@@ -418,7 +418,7 @@ public static class GameLauncher
                     {
                         throw new InvalidOperationException("Failed to start the process.");
                     }
-            
+
                     // Add a small delay to ensure the process is properly initialized
                     await Task.Delay(100);
 
