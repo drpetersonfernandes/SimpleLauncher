@@ -582,9 +582,22 @@ public partial class MainWindow : INotifyPropertyChanged
 
             if (SystemComboBox.SelectedItem != null)
             {
-                var selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedSystem = SystemComboBox.SelectedItem?.ToString();
                 var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
+                if (selectedSystem == null)
+                {
+                    // Notify developer
+                    const string errorMessage = "Selected system is null.";
+                    var ex = new Exception(errorMessage);
+                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                    
+                    // Notify user
+                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                    
+                    return;
+                }
+                
                 if (selectedConfig != null)
                 {
                     // Populate EmulatorComboBox with the emulators for the selected system
@@ -640,6 +653,9 @@ public partial class MainWindow : INotifyPropertyChanged
             // Notify developer
             const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            
+            // Notify user
+            MessageBoxLibrary.InvalidSystemConfigMessageBox();
         }
     }
 
