@@ -1,14 +1,10 @@
 using System;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Threading;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
+using System.Diagnostics;
 using Microsoft.Win32;
 using Application = System.Windows.Application;
 
@@ -17,11 +13,7 @@ namespace SimpleLauncher;
 public partial class DownloadImagePackWindow : IDisposable
 {
     private EasyModeManager _manager;
-    private CancellationTokenSource _cancellationTokenSource;
-    private readonly HttpClient _httpClient;
-    private const int HttpTimeoutSeconds = 60;
-    private bool _isDownloadCompleted;
-    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+    private readonly DownloadManager _downloadManager;
     private bool _disposed;
 
     public DownloadImagePackWindow()
@@ -29,16 +21,15 @@ public partial class DownloadImagePackWindow : IDisposable
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        // Initialize HttpClient with a timeout
-        _httpClient = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
-        };
+        // Initialize the DownloadManager
+        _downloadManager = new DownloadManager();
+        _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Load Config
         _manager = EasyModeManager.Load();
         PopulateSystemDropdown();
 
+        // Set up event handlers
         Closed += CloseWindowRoutine;
     }
 
@@ -83,9 +74,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
         try
         {
-            // Reset the flag at the start of the download
-            _isDownloadCompleted = false;
-
+            // Get the download URL
             var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
 
             // Determine the extraction folder
@@ -93,114 +82,77 @@ public partial class DownloadImagePackWindow : IDisposable
                 ? ExtractionFolderTextBox.Text
                 : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
-            var downloadFilePath = Path.Combine(_tempFolder, Path.GetFileName(extrasDownloadUrl) ??
-                                                             throw new InvalidOperationException("'Simple Launcher' could not get extrasDownloadUrl"));
+            // Update UI elements
+            DownloadProgressBar.Visibility = Visibility.Visible;
+            DownloadProgressBar.Value = 0;
+            StopDownloadButton.IsEnabled = true;
+            DownloadExtrasButton.IsEnabled = false;
 
-            // Create temp directory if it doesn't exist
-            Directory.CreateDirectory(_tempFolder);
+            // Show the PleaseWaitExtraction window for extraction
+            // We'll use the DownloadManager to handle the download and extraction
+            var downloadSuccess = await _downloadManager.DownloadFileAsync(extrasDownloadUrl);
 
-            // Check available disk space
-            if (!CheckAvailableDiskSpace(_tempFolder))
+            if (downloadSuccess != null && _downloadManager.IsDownloadCompleted)
             {
-                MessageBoxLibrary.InsufficientDiskSpaceMessageBox();
-                return;
-            }
+                var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
+                UpdateStatus($"{downloadcompleteStartingextractionto2} {extractionFolder}...");
 
-            try
-            {
-                // Update UI elements
-                DownloadProgressBar.Visibility = Visibility.Visible;
-                DownloadProgressBar.Value = 0;
-                StopDownloadButton.IsEnabled = true;
-                DownloadExtrasButton.IsEnabled = false;
+                // Show the PleaseWaitExtraction window
+                var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+                pleaseWaitWindow.Show();
 
-                var preparingtodownloadfrom2 = (string)Application.Current.TryFindResource("Preparingtodownloadfrom") ?? "Preparing to download from";
-                UpdateStatus($"{preparingtodownloadfrom2} {extrasDownloadUrl}...");
+                var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, extractionFolder);
 
-                // Initialize cancellation token source
-                _cancellationTokenSource?.Dispose();
-                _cancellationTokenSource = new CancellationTokenSource();
+                // Close the PleaseWaitExtraction window
+                pleaseWaitWindow.Close();
 
-                // Create a progress reporter
-                var progress = new Progress<DownloadProgressInfo>(OnDownloadProgressChanged);
-
-                // Start download
-                await DownloadWithProgressAsync(extrasDownloadUrl, downloadFilePath, progress, _cancellationTokenSource.Token);
-
-                // Only proceed with extraction if the download completed successfully
-                if (_isDownloadCompleted)
+                if (extractionSuccess)
                 {
-                    var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
-                    UpdateStatus($"{downloadcompleteStartingextractionto2} {extractionFolder}...");
+                    // Notify user
+                    MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
 
-                    // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                    pleaseWaitWindow.Show();
+                    var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
+                    UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
 
-                    var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync(downloadFilePath, extractionFolder);
-
-                    // Close the PleaseWaitExtraction window
-                    pleaseWaitWindow.Close();
-
-                    if (extractionSuccess)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
-
-                        var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
-                        UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
-
-                        TryToDeleteDownloadedFile(downloadFilePath);
-
-                        // Mark as downloaded and disable button
-                        DownloadExtrasButton.IsEnabled = false;
-                    }
-                    else // Extraction fail
-                    {
-                        // Notify developer
-                        var contextMessage = $"Image Pack extraction failed.\n" +
-                                             $"File: {extrasDownloadUrl}";
-                        var ex = new Exception(contextMessage);
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                        // Notify user
-                        MessageBoxLibrary.ExtractionFailedMessageBox();
-
-                        var extractionfailedSeeerrormessagefordetails2 = (string)Application.Current.TryFindResource("ExtractionfailedSeeerrormessagefordetails") ?? "Extraction failed. See error message for details.";
-                        UpdateStatus(extractionfailedSeeerrormessagefordetails2);
-                    }
+                    // Mark as downloaded and disable button
+                    DownloadExtrasButton.IsEnabled = false;
                 }
-                else
+                else // Extraction fail
                 {
-                    var downloadwasnotcompletedsuccessfully2 = (string)Application.Current.TryFindResource("Downloadwasnotcompletedsuccessfully") ?? "Download was not completed successfully.";
-                    UpdateStatus(downloadwasnotcompletedsuccessfully2);
+                    // Notify developer
+                    var contextMessage = $"Image Pack extraction failed.\n" +
+                                         $"File: {extrasDownloadUrl}";
+                    var ex = new Exception(contextMessage);
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                    var extractionfailedSeeerrormessagefordetails2 = (string)Application.Current.TryFindResource("ExtractionfailedSeeerrormessagefordetails") ?? "Extraction failed. See error message for details.";
+                    UpdateStatus(extractionfailedSeeerrormessagefordetails2);
+                        
+                    // Re-enable download button
+                    DownloadExtrasButton.IsEnabled = true;
                 }
             }
-            catch (Exception ex)
+            else if (_downloadManager.IsUserCancellation)
             {
-                // Notify developer
-                var contextMessage = $"Error downloading the Image Pack.\n" +
-                                     $"File: {extrasDownloadUrl}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
+                var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
+                UpdateStatus(downloadcanceled2);
+                    
+                // Re-enable download button
+                DownloadExtrasButton.IsEnabled = true;
+            }
+            else
+            {
+                var downloadwasnotcompletedsuccessfully2 = (string)Application.Current.TryFindResource("Downloadwasnotcompletedsuccessfully") ?? "Download was not completed successfully.";
+                UpdateStatus(downloadwasnotcompletedsuccessfully2);
+                    
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
-
-                var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror2") ?? "Download error";
-                UpdateStatus($"{downloaderror2}: {ex.Message}");
-            }
-            finally
-            {
-                StopDownloadButton.IsEnabled = false;
+                    
+                // Re-enable download button
                 DownloadExtrasButton.IsEnabled = true;
-                TryToDeleteDownloadedFile(downloadFilePath);
-
-                // Dispose cancellation token source
-                if (_cancellationTokenSource != null)
-                {
-                    _cancellationTokenSource.Dispose();
-                    _cancellationTokenSource = null;
-                }
             }
         }
         catch (Exception ex)
@@ -215,6 +167,10 @@ public partial class DownloadImagePackWindow : IDisposable
             var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
             UpdateStatus($"{error2}: {ex.Message}");
             DownloadExtrasButton.IsEnabled = true;
+        }
+        finally
+        {
+            StopDownloadButton.IsEnabled = false;
         }
     }
 
@@ -276,260 +232,13 @@ public partial class DownloadImagePackWindow : IDisposable
         return true;
     }
 
-    private static bool CheckAvailableDiskSpace(string folderPath)
+    private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
     {
-        try
-        {
-            var driveInfo = new DriveInfo(Path.GetPathRoot(folderPath) ?? throw new InvalidOperationException("Could not get the HDD info"));
-            // Require at least 1GB free space (adjust as needed)
-            const long requiredSpace = 1024 * 1024 * 1024;
-            return driveInfo.AvailableFreeSpace > requiredSpace;
-        }
-        catch
-        {
-            // If we can't check disk space, assume it's enough
-            return true;
-        }
-    }
-
-    private static void TryToDeleteDownloadedFile(string file)
-    {
-        if (!File.Exists(file)) return;
-        try
-        {
-            File.Delete(file);
-        }
-        catch (Exception)
-        {
-            // ignore
-        }
-    }
-
-    // Handle progress updates on UI thread
-    private void OnDownloadProgressChanged(DownloadProgressInfo progressInfo)
-    {
-        DownloadProgressBar.Value = progressInfo.ProgressPercentage;
-        UpdateStatus(progressInfo.StatusMessage);
-    }
-
-    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath,
-        IProgress<DownloadProgressInfo> progress, CancellationToken cancellationToken)
-    {
-        try
-        {
-            using var response = await _httpClient.GetAsync(downloadUrl,
-                HttpCompletionOption.ResponseHeadersRead, cancellationToken);
-            response.EnsureSuccessStatusCode();
-
-            var unknownsize2 = (string)Application.Current.TryFindResource("unknownsize") ?? "unknown size";
-            var totalBytes = response.Content.Headers.ContentLength;
-            var totalSizeFormatted = totalBytes.HasValue
-                ? FormatFileSize(totalBytes.Value)
-                : unknownsize2;
-
-            var startingdownload2 = (string)Application.Current.TryFindResource("Startingdownload2") ?? "Starting download";
-            progress.Report(new DownloadProgressInfo
-            {
-                BytesReceived = 0,
-                TotalBytesToReceive = totalBytes,
-                ProgressPercentage = 0,
-                StatusMessage = $"{startingdownload2}: {Path.GetFileName(downloadUrl)} ({totalSizeFormatted})"
-            });
-
-            await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var fileStream = new FileStream(destinationPath, FileMode.Create,
-                FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
-
-            var buffer = new byte[8192];
-            long totalBytesRead = 0;
-            int bytesRead;
-            var lastProgressUpdate = DateTime.Now;
-
-            while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
-            {
-                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
-                totalBytesRead += bytesRead;
-
-                // Limit progress updates to reduce UI thread congestion (update every ~100ms)
-                var now = DateTime.Now;
-                if ((now - lastProgressUpdate).TotalMilliseconds >= 100)
-                {
-                    var progressPercentage = totalBytes.HasValue
-                        ? (double)totalBytesRead / totalBytes.Value * 100
-                        : 0;
-
-                    var sizeStatus = totalBytes.HasValue
-                        ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
-                        : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
-
-                    var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-                    progress.Report(new DownloadProgressInfo
-                    {
-                        BytesReceived = totalBytesRead,
-                        TotalBytesToReceive = totalBytes,
-                        ProgressPercentage = progressPercentage,
-                        StatusMessage = $"{downloading2}: {sizeStatus} ({progressPercentage:F1}%)"
-                    });
-
-                    lastProgressUpdate = now;
-                }
-            }
-
-            // Check if the file was fully downloaded
-            if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
-            {
-                _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete2") ?? "Download complete";
-                progress.Report(new DownloadProgressInfo
-                {
-                    BytesReceived = totalBytesRead,
-                    TotalBytesToReceive = totalBytes,
-                    ProgressPercentage = 100,
-                    StatusMessage = $"{downloadcomplete2}: {FormatFileSize(totalBytesRead)}"
-                });
-            }
-            else if (totalBytes.HasValue)
-            {
-                _isDownloadCompleted = false;
-                var downloadincomplete2 = (string)Application.Current.TryFindResource("Downloadincomplete") ?? "Download incomplete";
-                var expected2 = (string)Application.Current.TryFindResource("Expected") ?? "Expected";
-                var butreceived2 = (string)Application.Current.TryFindResource("butreceived") ?? "but received";
-                progress.Report(new DownloadProgressInfo
-                {
-                    BytesReceived = totalBytesRead,
-                    TotalBytesToReceive = totalBytes,
-                    ProgressPercentage = 0,
-                    StatusMessage = $"{downloadincomplete2}: {expected2} {FormatFileSize(totalBytes.Value)} {butreceived2} {FormatFileSize(totalBytesRead)}"
-                });
-                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
-            }
-            else
-            {
-                // If the server didn't provide a content length, we assume the download is complete
-                _isDownloadCompleted = true;
-                var downloadcomplete2 = (string)Application.Current.TryFindResource("Downloadcomplete2") ?? "Download complete";
-                progress.Report(new DownloadProgressInfo
-                {
-                    BytesReceived = totalBytesRead,
-                    TotalBytesToReceive = totalBytesRead, // Use received as total
-                    ProgressPercentage = 100,
-                    StatusMessage = $"{downloadcomplete2}: {FormatFileSize(totalBytesRead)}"
-                });
-            }
-        }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
-        {
-            // Notify developer
-            var contextMessage = $"The requested file was not available on the server.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.DownloadErrorMessageBox();
-            var errorFilenotfoundontheserver2 = (string)Application.Current.TryFindResource("ErrorFilenotfoundontheserver") ?? "Error: File not found on the server";
-            progress.Report(new DownloadProgressInfo
-            {
-                ProgressPercentage = 0,
-                StatusMessage = errorFilenotfoundontheserver2
-            });
-        }
-        catch (HttpRequestException ex)
-        {
-            // Notify developer
-            var contextMessage = $"Network error during file download.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.DownloadErrorMessageBox();
-            var networkerror2 = (string)Application.Current.TryFindResource("Networkerror") ?? "Network error";
-            progress.Report(new DownloadProgressInfo
-            {
-                ProgressPercentage = 0,
-                StatusMessage = $"{networkerror2}: {ex.Message}"
-            });
-        }
-        catch (IOException ex)
-        {
-            // Notify developer
-            var contextMessage = $"File read/write error after file download.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.IoExceptionMessageBox(_tempFolder);
-            var fileerror2 = (string)Application.Current.TryFindResource("Fileerror") ?? "File error";
-            progress.Report(new DownloadProgressInfo
-            {
-                ProgressPercentage = 0,
-                StatusMessage = $"{fileerror2}: {ex.Message}"
-            });
-        }
-        catch (TaskCanceledException ex)
-        {
-            if (cancellationToken.IsCancellationRequested)
-            {
-                // Notify developer
-                var contextMessage = $"Download was canceled by the user. User was not notified.\n" +
-                                     $"URL: {downloadUrl}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                var downloadcanceledbyuser2 = (string)Application.Current.TryFindResource("Downloadcanceledbyuser2") ?? "Download canceled by user";
-                progress.Report(new DownloadProgressInfo
-                {
-                    ProgressPercentage = 0,
-                    StatusMessage = downloadcanceledbyuser2
-                });
-            }
-            else
-            {
-                // Notify developer
-                var contextMessage = $"Download timed out or was canceled unexpectedly.\n" +
-                                     $"URL: {downloadUrl}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.DownloadErrorMessageBox();
-                var downloadtimedoutorwascanceledunexpectedly2 = (string)Application.Current.TryFindResource("Downloadtimedoutorwascanceledunexpectedly") ?? "Download timed out or was canceled unexpectedly";
-                progress.Report(new DownloadProgressInfo
-                {
-                    ProgressPercentage = 0,
-                    StatusMessage = downloadtimedoutorwascanceledunexpectedly2
-                });
-            }
-
-            TryToDeleteDownloadedFile(destinationPath);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            var contextMessage = $"Generic download error.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.DownloadErrorMessageBox();
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            progress.Report(new DownloadProgressInfo
-            {
-                ProgressPercentage = 0,
-                StatusMessage = $"{error2}: {ex.Message}"
-            });
-        }
-    }
-
-    private static string FormatFileSize(long bytes)
-    {
-        string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
-        var counter = 0;
-        double size = bytes;
-        while (size > 1024 && counter < suffixes.Length - 1)
-        {
-            size /= 1024;
-            counter++;
-        }
-
-        return $"{size:F2} {suffixes[counter]}";
+        // Update the progress bar
+        DownloadProgressBar.Value = e.ProgressPercentage;
+        
+        // Update status text
+        UpdateStatus(e.StatusMessage);
     }
 
     private void UpdateStatus(string message)
@@ -540,16 +249,13 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_cancellationTokenSource == null) return;
-
         // Cancel the ongoing download
-        _cancellationTokenSource.Cancel();
+        _downloadManager.CancelDownload();
 
-        // Disable the stop button once the download is canceled
+        // Disable the stop button
         StopDownloadButton.IsEnabled = false;
 
-        // Reset completion flag and progress
-        _isDownloadCompleted = false;
+        // Reset progress
         DownloadProgressBar.Value = 0;
         var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
         UpdateStatus(downloadcanceled2);
@@ -601,8 +307,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
         if (disposing)
         {
-            _cancellationTokenSource?.Dispose();
-            _httpClient?.Dispose();
+            _downloadManager?.Dispose();
         }
 
         _disposed = true;
@@ -611,14 +316,5 @@ public partial class DownloadImagePackWindow : IDisposable
     ~DownloadImagePackWindow()
     {
         Dispose(false);
-    }
-
-    // Progress information class
-    private class DownloadProgressInfo
-    {
-        public long BytesReceived { get; set; }
-        public long? TotalBytesToReceive { get; set; }
-        public double ProgressPercentage { get; set; }
-        public string StatusMessage { get; set; }
     }
 }

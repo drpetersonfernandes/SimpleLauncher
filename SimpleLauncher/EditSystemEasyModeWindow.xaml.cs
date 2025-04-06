@@ -1,12 +1,7 @@
 ﻿using System;
-using System.ComponentModel;
-using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Net;
-using System.Net.Http;
-using System.Security.Authentication;
-using System.Threading;
+using System.Diagnostics;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -22,12 +17,8 @@ public partial class EditSystemEasyModeWindow
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
-    private CancellationTokenSource _cancellationTokenSource;
-    private readonly HttpClient _httpClient;
-    private const int HttpTimeoutSeconds = 60;
-    private bool _isDownloadCompleted;
-    private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-    private bool _isUserCancellation;
+    private readonly DownloadManager _downloadManager;
+    private bool _disposed;
 
     // Download component types
     private enum DownloadType
@@ -55,24 +46,13 @@ public partial class EditSystemEasyModeWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
+        // Initialize the DownloadManager
+        _downloadManager = new DownloadManager();
+        _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
+
         // Load Config
         _manager = EasyModeManager.Load();
         PopulateSystemDropdown();
-
-        // Initialize HttpClient with custom handler to configure TLS
-        var handler = new HttpClientHandler();
-
-        // Configure TLS 1.2 and 1.3 if available
-        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-
-        // Initialize HttpClient with a timeout
-        _httpClient = new HttpClient
-        {
-            Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
-        };
-
-        // Initialize temp folder
-        Directory.CreateDirectory(_tempFolder);
 
         Closed += CloseWindowRoutine;
     }
@@ -81,9 +61,9 @@ public partial class EditSystemEasyModeWindow
     {
         if (_manager?.Systems == null) return;
         var sortedSystemNames = _manager.Systems
-            .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink)) // only if EmulatorDownloadLink is not null
+            .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
             .Select(system => system.SystemName)
-            .OrderBy(name => name) // order by name
+            .OrderBy(name => name)
             .ToList();
 
         SystemNameDropdown.ItemsSource = sortedSystemNames;
@@ -156,55 +136,21 @@ public partial class EditSystemEasyModeWindow
 
         var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
 
-        // Re-enable the button if not successful and not user-canceled
+        // Re-enable the button if not successful
         if (!success)
         {
             DownloadExtrasButton.IsEnabled = true;
         }
     }
 
-    private async Task<bool> TryDownloadWithRetryAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
-    {
-        const int maxRetries = 3;
-        var currentRetry = 0;
-
-        while (currentRetry < maxRetries)
-        {
-            try
-            {
-                await DownloadWithProgressAsync(downloadUrl, destinationPath, cancellationToken);
-                return true; // Success
-            }
-            catch (IOException ex) when (ex.InnerException is Win32Exception winEx &&
-                                         unchecked((uint)winEx.NativeErrorCode == 0x80090330))
-            {
-                currentRetry++;
-                if (currentRetry >= maxRetries)
-                    throw; // Re-throw if max retries reached
-
-                // Log retry attempt
-                var retryAttempt = (string)Application.Current.TryFindResource("RetryingDownload") ?? $"SSL connection error, retrying ({currentRetry}/{maxRetries})...";
-                DownloadStatus = retryAttempt;
-
-                // Wait before retrying
-                await Task.Delay(2000, cancellationToken);
-            }
-        }
-
-        return false;
-    }
-
     private async Task<bool> DownloadAndExtractAsync(DownloadType downloadType)
     {
-        _isDownloadCompleted = false;
-        _isUserCancellation = false; // Reset the cancellation flag
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return false;
 
         string downloadUrl;
         string destinationPath;
         string componentName;
-        string downloadFilePath;
 
         // Configure based on the download type
         switch (downloadType)
@@ -236,24 +182,6 @@ public partial class EditSystemEasyModeWindow
             return false;
         }
 
-        // Setup download file path
-        try
-        {
-            var fileName = Path.GetFileName(downloadUrl);
-            downloadFilePath = Path.Combine(_tempFolder, fileName);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            var contextMessage = $"Error creating download path for {componentName}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-
-            return false;
-        }
-
         try
         {
             // Reset status
@@ -265,120 +193,104 @@ public partial class EditSystemEasyModeWindow
             DownloadProgressBar.Value = 0;
             StopDownloadButton.IsEnabled = true;
 
-            // Initialize cancellation token source
-            _cancellationTokenSource = new CancellationTokenSource();
+            // Download and extract
+            bool success;
 
-            // Start download with retry logic
-            var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-            DownloadStatus = $"{downloading2} {componentName}...";
-
-            // Implement retry logic
-            const int maxRetries = 3;
-            var currentRetry = 0;
-            const int baseDelay = 1000; // 1 second initial delay
-            var downloadSuccess = false;
-
-            while (currentRetry < maxRetries && !_isUserCancellation)
+            // Special handling for emulator download that might need extension change
+            if (downloadType == DownloadType.Emulator && selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
             {
-                try
+                // For emulators that need extension renaming, download first
+                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+                    
+                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
-                    await DownloadWithProgressAsync(downloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-                    downloadSuccess = _isDownloadCompleted;
-                    if (downloadSuccess) break; // Exit retry loop on success
-
-                    currentRetry++;
-                    if (currentRetry < maxRetries && !_isUserCancellation)
+                    // Rename the extension if needed
+                    var newFilePath = Path.ChangeExtension(downloadedFile, ".7z");
+                    try
                     {
-                        // Calculate delay with exponential backoff
-                        var delay = baseDelay * (int)Math.Pow(2, currentRetry - 1);
-                        var retrying = (string)Application.Current.TryFindResource("RetryingDownload") ??
-                                       $"Download incomplete, retrying ({currentRetry}/{maxRetries})...";
-                        DownloadStatus = retrying;
-                        await Task.Delay(delay, _cancellationTokenSource.Token);
+                        if (File.Exists(downloadedFile) && !File.Exists(newFilePath))
+                        {
+                            File.Move(downloadedFile, newFilePath);
+                            downloadedFile = newFilePath;
+                        }
+                    }
+                    catch
+                    {
+                        // If rename fails, use the original file
+                    }
+                        
+                    // Extract
+                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+                    pleaseWaitWindow.Show();
+                        
+                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                        
+                    pleaseWaitWindow.Close();
+                        
+                    // Clean up
+                    if (File.Exists(downloadedFile))
+                    {
+                        try
+                        {
+                            File.Delete(downloadedFile);
+                        }
+                        catch
+                        {
+                            /* ignore */
+                        }
                     }
                 }
-                catch (TaskCanceledException)
+                else
                 {
-                    if (_isUserCancellation) break; // Exit if user canceled
-
-                    currentRetry++;
-                    if (currentRetry < maxRetries)
-                    {
-                        // Calculate delay with exponential backoff
-                        var delay = baseDelay * (int)Math.Pow(2, currentRetry - 1);
-                        var retrying = (string)Application.Current.TryFindResource("RetryingDownload") ??
-                                       $"Connection timeout, retrying ({currentRetry}/{maxRetries})...";
-                        DownloadStatus = retrying;
-                        await Task.Delay(delay, _cancellationTokenSource.Token);
-                    }
+                    success = false;
                 }
-                catch (HttpRequestException ex)
+            }
+            else
+            {
+                // Standard download and extract
+                var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+                    
+                // Use the DownloadAndExtractAsync method in DownloadManager
+                var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+                DownloadStatus = $"{downloading2} {componentName}...";
+                    
+                // First download
+                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+                    
+                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
-                    // Notify developer
-                    var contextMessage = $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    currentRetry++;
-                    if (currentRetry < maxRetries && !_isUserCancellation)
-                    {
-                        // Calculate delay with exponential backoff
-                        var delay = baseDelay * (int)Math.Pow(2, currentRetry - 1);
-                        var retrying = (string)Application.Current.TryFindResource("RetryingDownload") ??
-                                       $"Connection error, retrying ({currentRetry}/{maxRetries})...";
-                        DownloadStatus = retrying;
-                        await Task.Delay(delay, _cancellationTokenSource.Token);
-                    }
+                    // Then extract
+                    var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                    DownloadStatus = $"{extracting2} {componentName}...";
+                        
+                    pleaseWaitWindow.Show();
+                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                    pleaseWaitWindow.Close();
                 }
-                catch (Exception ex)
+                else
                 {
-                    // Notify developer
-                    var contextMessage = $"Unexpected error during download attempt {currentRetry + 1}: {ex.Message}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    currentRetry++;
-                    if (currentRetry < maxRetries && !_isUserCancellation)
-                    {
-                        // Calculate delay with exponential backoff
-                        var delay = baseDelay * (int)Math.Pow(2, currentRetry - 1);
-                        var retrying = (string)Application.Current.TryFindResource("RetryingDownload") ??
-                                       $"Error occurred, retrying ({currentRetry}/{maxRetries})...";
-                        DownloadStatus = retrying;
-                        await Task.Delay(delay, _cancellationTokenSource.Token);
-                    }
+                    success = false;
                 }
             }
 
-            // Only proceed with extraction if download was successful
-            if (downloadSuccess)
+            // Update UI based on the result
+            if (success)
             {
-                // Special handling for emulator download that might need extension change
-                if (downloadType == DownloadType.Emulator)
+                // Notify user
+                var hasbeensuccessfullydownloadedandinstalled2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled2}";
+                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+
+                StopDownloadButton.IsEnabled = false;
+                return true;
+            }
+            else
+            {
+                if (_downloadManager.IsUserCancellation)
                 {
-                    downloadFilePath = ChangeFileExtensionFunction(selectedSystem, downloadFilePath);
-                }
-
-                // Show the extraction window
-                var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                DownloadStatus = $"{extracting2} {componentName}...";
-                var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                pleaseWaitWindow.Show();
-
-                var extractionSuccess = await ExtractCompressedFile.ExtractDownloadFilesAsync(downloadFilePath, destinationPath);
-
-                // Close extraction window
-                pleaseWaitWindow.Close();
-
-                if (extractionSuccess)
-                {
-                    // Notify user
-                    var hasbeensuccessfullydownloadedandinstalled2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
-                    DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled2}";
-                    MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                    // Clean up the downloaded file only if extraction is successful
-                    TryDeleteFile(downloadFilePath);
-
-                    return true;
+                    var downloadof2 = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                    var wascanceled2 = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                    DownloadStatus = $"{downloadof2} {componentName} {wascanceled2}";
                 }
                 else
                 {
@@ -386,55 +298,27 @@ public partial class EditSystemEasyModeWindow
                     var errorFailedtoextract2 = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     DownloadStatus = $"{errorFailedtoextract2} {componentName}.";
 
-                    // Notify developer
-                    var contextMessage = $"{componentName} extraction failed.\n\n" +
-                                         $"File: {downloadFilePath}";
-                    var ex = new Exception(contextMessage);
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.ExtractionFailedMessageBox();
+                    // Show an error message based on component type
+                    switch (downloadType)
+                    {
+                        case DownloadType.Emulator:
+                            await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        case DownloadType.Core:
+                            await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        case DownloadType.ImagePack:
+                            await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        default:
+                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                            break;
+                    }
                 }
+
+                StopDownloadButton.IsEnabled = false;
+                return false;
             }
-            else if (!_isUserCancellation) // Only show error if not user-canceled
-            {
-                // Log download failure after all retries
-                var errorFailedtodownload2 = (string)Application.Current.TryFindResource("ErrorFailedtodownload") ?? "Error: Failed to download";
-                DownloadStatus = $"{errorFailedtodownload2} {componentName} after {maxRetries} attempts.";
-
-                // Notify developer
-                var contextMessage = $"{componentName} download failed after {maxRetries} attempts.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-            }
-        }
-        catch (TaskCanceledException)
-        {
-            if (_isUserCancellation)
-            {
-                var downloadof2 = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
-                var wascanceled2 = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
-                DownloadStatus = $"{downloadof2} {componentName} {wascanceled2}";
-                // Don't show an error message for user cancellation
-            }
-            else
-            {
-                var errorDownloadtimedout2 = (string)Application.Current.TryFindResource("ErrorDownloadtimedout") ?? "Error: Download timed out.";
-                DownloadStatus = errorDownloadtimedout2;
-
-                // Notify developer
-                const string contextMessage = "Download timed out";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-            }
-
-            TryDeleteFile(downloadFilePath);
         }
         catch (Exception ex)
         {
@@ -444,11 +328,10 @@ public partial class EditSystemEasyModeWindow
 
             // Notify developer
             var contextMessage = $"Error downloading {componentName}.\n" +
-                                 $"File: {downloadFilePath}";
+                                 $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            // Show the appropriate error message based on the download type
+            // Notify user with the appropriate error message
             switch (downloadType)
             {
                 case DownloadType.Emulator:
@@ -464,208 +347,19 @@ public partial class EditSystemEasyModeWindow
                     MessageBoxLibrary.DownloadExtractionFailedMessageBox();
                     break;
             }
-        }
-        finally
-        {
-            StopDownloadButton.IsEnabled = false;
-            TryDeleteFile(downloadFilePath);
-        }
 
-        return false;
+            StopDownloadButton.IsEnabled = false;
+            return false;
+        }
     }
 
-    private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
+    private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
     {
-        try
-        {
-            // First try with the main HTTP client
-            await PerformDownloadAsync(_httpClient, downloadUrl, destinationPath, false, cancellationToken);
-        }
-        catch (HttpRequestException ex) when (ex.InnerException is AuthenticationException ||
-                                              (ex.InnerException is IOException ioEx &&
-                                               ioEx.Message.Contains("decryption operation failed")))
-        {
-            // Handle SSL/TLS errors
-            DownloadStatus = GetLocalizedString("ErrorSSLConnection", "SSL/TLS connection issue.");
-
-            // Notify developer
-            const string contextMessage = "SSL/TLS error.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SsltlsErrorMessageBox();
-        }
-        catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
-        {
-            HandleDownloadError(ex,
-                "ErrorTherequestedfilewasnotfoundontheserver",
-                "Error: The requested file was not found on the server.",
-                $"The requested file was not available on the server.\n\n" +
-                $"URL: {downloadUrl}",
-                downloadUrl);
-            throw;
-        }
-        catch (HttpRequestException ex)
-        {
-            HandleDownloadError(ex,
-                "ErrorNetworkerrorduringfiledownload",
-                "Error: Network error during file download.",
-                $"Network error during file download.\n\n" +
-                $"URL: {downloadUrl}",
-                downloadUrl);
-            throw;
-        }
-        catch (IOException ex)
-        {
-            HandleDownloadError(ex,
-                "ErrorFilereadwriteerrorduringdownload",
-                "Error: File read/write error during download.",
-                $"File read/write error during file download.\n\nURL: {downloadUrl}",
-                downloadUrl);
-            throw;
-        }
-        catch (TaskCanceledException ex)
-        {
-            if (cancellationToken.IsCancellationRequested && _isUserCancellation)
-            {
-                HandleDownloadError(ex,
-                    "Downloadcanceledbyuser",
-                    "Download canceled by user.",
-                    $"Download was canceled by the user.\n\nURL: {downloadUrl}",
-                    downloadUrl);
-            }
-            else
-            {
-                HandleDownloadError(ex,
-                    "ErrorDownloadtimedoutorwascanceledunexpectedly",
-                    "Error: Download timed out or was canceled unexpectedly.",
-                    $"Download timed out or was canceled unexpectedly.\n\nURL: {downloadUrl}",
-                    downloadUrl);
-            }
-
-            throw;
-        }
-        catch (Exception ex)
-        {
-            HandleDownloadError(ex,
-                "ErrorUnexpectederrorduringdownload",
-                "Error: Unexpected error during download.",
-                $"Generic download error.\n\nURL: {downloadUrl}",
-                downloadUrl);
-            throw;
-        }
-
-        // Private methods defined as local functions
-        async Task PerformDownloadAsync(HttpClient client, string url, string filePath, bool isFallback, CancellationToken token)
-        {
-            using var response = await client.GetAsync(url, HttpCompletionOption.ResponseHeadersRead, token);
-            response.EnsureSuccessStatusCode();
-
-            var totalBytes = response.Content.Headers.ContentLength;
-            var totalMb = totalBytes.HasValue ? Math.Round((double)totalBytes.Value / (1024 * 1024), 2) : 0;
-
-            // Set initial download status
-            var statusKey = isFallback ? "FallbackDownload" : "Startingdownload";
-            var defaultMsg = isFallback ? "Using fallback connection:" : "Starting download:";
-            var fallbackSuffix = isFallback ? " [fallback]" : "";
-
-            DownloadStatus = $"{GetLocalizedString(statusKey, defaultMsg)} {(totalMb > 0
-                ? $"{totalMb} MB {GetLocalizedString("total", "total")}"
-                : GetLocalizedString("sizeunknown", "size unknown"))}{fallbackSuffix}";
-
-            await using var contentStream = await response.Content.ReadAsStreamAsync(token);
-            await using var fileStream = new FileStream(filePath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite, 8192, true);
-
-            var buffer = new byte[8192];
-            long totalBytesRead = 0;
-            int bytesRead;
-
-            // For throttling UI updates
-            var lastUpdateTime = DateTime.Now;
-            const int updateIntervalMs = 100; // Update UI every 100 ms
-            var lastProgressReported = 0.0;
-
-            while ((bytesRead = await contentStream.ReadAsync(buffer, token)) > 0)
-            {
-                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), token);
-                totalBytesRead += bytesRead;
-
-                // Update UI with throttling
-                var now = DateTime.Now;
-                var progress = totalBytes.HasValue ? (double)totalBytesRead / totalBytes.Value * 100 : 0;
-                var significantChange = Math.Abs(progress - lastProgressReported) >= 1.0; // 1% change threshold
-
-                if ((now - lastUpdateTime).TotalMilliseconds >= updateIntervalMs || significantChange)
-                {
-                    lastUpdateTime = now;
-                    lastProgressReported = progress;
-                    UpdateDownloadProgress(totalBytes, totalBytesRead, totalMb, progress, isFallback);
-                }
-            }
-
-            // Check if the file was fully downloaded
-            VerifyDownloadCompletion(totalBytes, totalBytesRead, isFallback);
-        }
-
-        void UpdateDownloadProgress(long? totalBytes, long bytesRead, double totalMb, double progress, bool isFallback)
-        {
-            var downloadedMb = Math.Round((double)bytesRead / (1024 * 1024), 2);
-            var downloadedText = GetLocalizedString("Downloaded", "Downloaded");
-            var fallbackSuffix = isFallback ? " [fallback]" : "";
-
-            if (totalBytes.HasValue)
-            {
-                DownloadProgressBar.Value = progress;
-                DownloadStatus = $"{downloadedText} {downloadedMb} MB of {totalMb} MB ({progress:F1}%){fallbackSuffix}";
-            }
-            else
-            {
-                var sizeUnknownText = GetLocalizedString("totalsizeunknown", "total size unknown");
-                DownloadStatus = $"{downloadedText} {downloadedMb} MB ({sizeUnknownText}){fallbackSuffix}";
-            }
-        }
-
-        void VerifyDownloadCompletion(long? totalBytes, long bytesRead, bool isFallback)
-        {
-            var fallbackSuffix = isFallback ? " [fallback]" : "";
-            var downloadedMb = Math.Round((double)bytesRead / (1024 * 1024), 2);
-
-            if (totalBytes.HasValue && bytesRead == totalBytes.Value)
-            {
-                _isDownloadCompleted = true;
-                var completeText = GetLocalizedString("Downloadcomplete", "Download complete:");
-                DownloadStatus = $"{completeText} {downloadedMb} MB{fallbackSuffix}";
-            }
-            else if (totalBytes.HasValue)
-            {
-                _isDownloadCompleted = false;
-                var incompleteText = GetLocalizedString("DownloadincompleteDownloadedbytesdonotmatchexpectedfilesize",
-                    "Download incomplete. Downloaded bytes do not match expected file size.");
-                DownloadStatus = incompleteText;
-                throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
-            }
-            else
-            {
-                // If we don't know the total size, assume it's complete
-                _isDownloadCompleted = true;
-                var completeText = GetLocalizedString("Downloadcomplete", "Download complete:");
-                DownloadStatus = $"{completeText} {downloadedMb} MB{fallbackSuffix}";
-            }
-        }
-
-        void HandleDownloadError(Exception ex, string resourceKey, string defaultMessage, string logContext, string url)
-        {
-            DownloadStatus = GetLocalizedString(resourceKey, defaultMessage);
-
-            // Notify developer
-            var contextMessage = $"{logContext}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-        }
-
-        string GetLocalizedString(string resourceKey, string defaultValue)
-        {
-            return (string)Application.Current.TryFindResource(resourceKey) ?? defaultValue;
-        }
+        // Update progress bar
+        DownloadProgressBar.Value = e.ProgressPercentage;
+        
+        // Update status
+        DownloadStatus = e.StatusMessage;
     }
 
     private EasyModeSystemConfig GetSelectedSystem()
@@ -677,26 +371,16 @@ public partial class EditSystemEasyModeWindow
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
-        if (_cancellationTokenSource != null)
-        {
-            // Set flag to indicate this is a user-initiated cancellation
-            _isUserCancellation = true;
-
-            var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
-            DownloadStatus = cancelingdownload2;
-            _cancellationTokenSource.Cancel(); // Cancel the ongoing download
-            StopDownloadButton.IsEnabled = false; // Disable the stop button once the download is canceled
-
-            // Reset completion flag and progress
-            _isDownloadCompleted = false;
-            DownloadProgressBar.Value = 0;
-
-            // Reinitialize the cancellation token source for the next download
-            _cancellationTokenSource = new CancellationTokenSource();
-
-            // The relevant download button will be re-enabled in the finally block
-            // of the download method when it catches the TaskCanceledException
-        }
+        // Cancel the download
+        _downloadManager.CancelDownload();
+            
+        // Update UI
+        var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
+        DownloadStatus = cancelingdownload2;
+        StopDownloadButton.IsEnabled = false;
+            
+        // Reset progress
+        DownloadProgressBar.Value = 0;
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)
@@ -872,6 +556,7 @@ public partial class EditSystemEasyModeWindow
     private void CloseWindowRoutine(object sender, EventArgs e)
     {
         _manager = null;
+        Dispose();
     }
 
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
@@ -896,38 +581,13 @@ public partial class EditSystemEasyModeWindow
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
     }
-
-    private static void TryDeleteFile(string file)
+        
+    private void Dispose()
     {
-        if (string.IsNullOrEmpty(file) || !File.Exists(file)) return;
-        try
-        {
-            File.Delete(file);
-        }
-        catch (Exception)
-        {
-            // ignore
-        }
-    }
-
-    private static string ChangeFileExtensionFunction(EasyModeSystemConfig selectedSystem, string downloadFilePath)
-    {
-        if (!selectedSystem.Emulators.Emulator.EmulatorDownloadRename) return downloadFilePath;
-
-        var newFilePath = Path.ChangeExtension(downloadFilePath, ".7z");
-        if (File.Exists(downloadFilePath) && !File.Exists(newFilePath))
-        {
-            try
-            {
-                File.Move(downloadFilePath, newFilePath);
-                return newFilePath;
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
-        }
-
-        return downloadFilePath;
+        if (_disposed) return;
+            
+        _downloadManager?.Dispose();
+            
+        _disposed = true;
     }
 }
