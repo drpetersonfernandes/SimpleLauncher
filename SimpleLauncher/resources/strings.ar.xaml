@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
+    
+    <system:String x:Key="SuperWider">سوبر أوسع</system:String>
+    <system:String x:Key="SuperTaller">سوبر أطول</system:String>
 </ResourceDictionary>

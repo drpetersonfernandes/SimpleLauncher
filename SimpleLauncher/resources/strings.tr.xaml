@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
+    
+    <system:String x:Key="SuperWider">Süper daha geniş</system:String>
+    <system:String x:Key="SuperTaller">Süper daha yüksek</system:String>
 </ResourceDictionary>

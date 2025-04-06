@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
+    
+    <system:String x:Key="SuperWider">Супер шире</system:String>
+    <system:String x:Key="SuperTaller">Супер выше</system:String>
 </ResourceDictionary>

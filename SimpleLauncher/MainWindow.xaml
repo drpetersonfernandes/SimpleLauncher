@@ -195,9 +195,17 @@
                         Click="ButtonAspectRatio_Click"
                         Header="{DynamicResource Wider}" />
                     <MenuItem
+                        x:Name="SuperWider"
+                        Click="ButtonAspectRatio_Click"
+                        Header="{DynamicResource SuperWider}" />
+                    <MenuItem
                         x:Name="Taller"
                         Click="ButtonAspectRatio_Click"
                         Header="{DynamicResource Taller}" />
+                    <MenuItem
+                        x:Name="SuperTaller"
+                        Click="ButtonAspectRatio_Click"
+                        Header="{DynamicResource SuperTaller}" />
                 </MenuItem>
                 <MenuItem Header="{DynamicResource SetNumberOfGamesPerPage}">
                     <MenuItem.Icon>

@@ -14,7 +14,7 @@ public class SettingsManager
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
-    private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "Taller"];
+    private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "Taller", "SuperTaller"];
 
     public int ThumbnailSize { get; set; }
     public int GamesPerPage { get; set; }

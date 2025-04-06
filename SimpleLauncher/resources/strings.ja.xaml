@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
+    
+    <system:String x:Key="SuperWider">スーパー・ワイダー</system:String>
+    <system:String x:Key="SuperTaller">スーパー・タラー</system:String>
 </ResourceDictionary>

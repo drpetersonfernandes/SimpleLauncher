@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
+    
+    <system:String x:Key="SuperWider">Super più largo</system:String>
+    <system:String x:Key="SuperTaller">Super più alto</system:String>
 </ResourceDictionary>

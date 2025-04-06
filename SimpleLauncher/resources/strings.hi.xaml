@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
+    
+    <system:String x:Key="SuperWider">सुपर चौड़ा</system:String>
+    <system:String x:Key="SuperTaller">सुपर ऊँचा</system:String>
 </ResourceDictionary>

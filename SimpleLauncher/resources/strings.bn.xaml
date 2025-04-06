@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
+    
+    <system:String x:Key="SuperWider">সুপার উইডার</system:String>
+    <system:String x:Key="SuperTaller">সুপার টলার</system:String>
 </ResourceDictionary>

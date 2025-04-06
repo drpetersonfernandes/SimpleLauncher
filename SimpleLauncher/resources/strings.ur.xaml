@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
+    
+    <system:String x:Key="SuperWider">سپر چوڑا</system:String>
+    <system:String x:Key="SuperTaller">سپر اونچا</system:String>
 </ResourceDictionary>

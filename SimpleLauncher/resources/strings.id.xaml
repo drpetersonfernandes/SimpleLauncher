@@ -569,4 +569,7 @@
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
+    
+    <system:String x:Key="SuperWider">Super lebih lebar</system:String>
+    <system:String x:Key="SuperTaller">Super lebih tinggi</system:String>
 </ResourceDictionary>
