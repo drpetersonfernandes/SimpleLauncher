@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'a Sistem Ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">İndirme sonrası dosya okuma/yazma hatası oluştu.</system:String>
     <system:String x:Key="Alert">Uyarı</system:String>
     <system:String x:Key="alreadyexists">zaten mevcut.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Ayrıca emulatorün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">Mavi</system:String>
     <system:String x:Key="Brown">Kahverengi</system:String>
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
-    <system:String x:Key="butreceived">alınan</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
     <system:String x:Key="DefaultImageFolder">[Varsayılan görsel klasörü kullanılıyor]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' dosyası eksik.</system:String>
-    <system:String x:Key="DeleteExistingSystem">Mevcut Sistemi Sil</system:String>
     <system:String x:Key="DeleteGame">Oyunu Sil</system:String>
     <system:String x:Key="DeleteSelectedSystem">Seçilen sistemi sil</system:String>
     <system:String x:Key="DEPSolution1">1. 'Simple Launcher'ı yönetici ayrıcalıklarıyla çalıştırın.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">Görüntü paketini indir ve çıkar (uygunsa)</system:String>
     <system:String x:Key="DownloadandInstall">Emülatörü ve çekirdeği indirip yükle</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">İndirme kullanıcı tarafından iptal edildi</system:String>
-    <system:String x:Key="Downloadcomplete2">İndirme tamamlandı</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">İndirme tamamlandı. Çıkartma işlemi başlıyor</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
     <system:String x:Key="Downloadedfileislocked">İndirilen dosya kilitli.</system:String>
     <system:String x:Key="Downloadedfileismissing">İndirilen dosya eksik.</system:String>
     <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
     <system:String x:Key="Downloaderror">İndirme hatası.</system:String>
-    <system:String x:Key="Downloaderror2">İndirme hatası</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
-    <system:String x:Key="Downloadincomplete">İndirme tamamlanmadı</system:String>
     <system:String x:Key="Downloading">İndiriliyor</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">İndirme ve arşivden çıkarma işlemleri başarıyla tamamlandı.</system:String>
     <system:String x:Key="Downloadof">in indirimi</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">İndirme zaman aşımına uğradı veya beklenmedik şekilde iptal edildi</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">İndirme başarıyla tamamlanamadı.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' uygulamasını yeniden kurarak sorunu çözmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM geçmişini çevrimiçi aramak ister misiniz?</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
-    <system:String x:Key="EditExistingSystem">Mevcut Sistemi Düzenle</system:String>
     <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
-    <system:String x:Key="EditSystemEasyMode">Sistemi Düzenle - Kolay Mod</system:String>
     <system:String x:Key="EditSystemtofixit">Sorunu düzeltmek için sistemi düzenleyin.</system:String>
     <system:String x:Key="Email">E-posta</system:String>
     <system:String x:Key="Emerald">Zümrüt</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Dosyayı çıkarmak için sabit diskte yeterli alan olduğundan emin olun.</system:String>
     <system:String x:Key="Error">Hata</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">Hata: İndirme süresi doldu.</system:String>
     <system:String x:Key="Errorduring">sırasında hata</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistemin eklenememesi.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">Hata: İndirme başarısız</system:String>
     <system:String x:Key="ErrorFailedtoextract">Hata: Çıkartma başarısız</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">Hata: Dosya sunucuda bulunamadı</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' dosyasını yüklerken hata oluştu.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Hata: için indirme URL'si yok</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Güncelleme Geçmişi penceresi açılırken hata oluştu.</system:String>
     <system:String x:Key="Exit">Çıkış</system:String>
-    <system:String x:Key="Expected">Beklenen</system:String>
     <system:String x:Key="ExpertMode">Uzman Mod</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘Çıkarmadan Sonra Başlatılacak Uzantı’, ‘Başlatmadan Önce Dosyayı Çıkar’ etkin olduğunda gereklidir.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Çıkarımdan sonra başlatılacak uzantı</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
     <system:String x:Key="Filedeleted2">Dosya silindi</system:String>
-    <system:String x:Key="Fileerror">Dosya hatası</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">Favori Listesi</system:String>
     <system:String x:Key="ListView">Liste Görünümü</system:String>
     <system:String x:Key="Magenta">Eflatun</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="Manual">Kılavuz</system:String>
     <system:String x:Key="Manualnotfound">Kılavuz bulunamadı</system:String>
     <system:String x:Key="Mauve">Eflatun</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. Mümkünse, emülatör yapılandırmasında bellek tahsis ayarlarını düzenlemeyi deneyin.</system:String>
     <system:String x:Key="Name">İsim</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">ilgili veriler sağlandığı için gereklidir.</system:String>
-    <system:String x:Key="Networkerror">Ağ hatası</system:String>
     <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">İçin detay bulunamadı</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Seçilen sistem için favori oyun bulunamadı.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">Sistem resim klasörünü seçin.</system:String>
     <system:String x:Key="PleaseWait">Lütfen bekleyin</system:String>
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">İndirmeye hazırlanıyor</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="Purple">Mor</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
-    <system:String x:Key="RetryingDownload">SSL bağlantı hatası, yeniden deniyor...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     <system:String x:Key="RomHistory">ROM Geçmişi</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM geçmişi bulunamadı</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher', 'settings.xml' dosyasına yazmak için gerekli izinlere sahip değil.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher', erişim sorunu nedeniyle 'temp' klasörünü açamadı.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
     <system:String x:Key="SortByDate">Tarihe Göre Sırala</system:String>
     <system:String x:Key="SortByPlayTime">Oynatma Süresine Göre Sırala</system:String>
     <system:String x:Key="SortByTimesPlayed">Oynatma Sayısına Göre Sırala</system:String>
     <system:String x:Key="Square">Kare</system:String>
-    <system:String x:Key="Startingdownload2">İndirme başlatılıyor</system:String>
     <system:String x:Key="Steel">Çelik</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
     <system:String x:Key="Support">Destek</system:String>
-    <system:String x:Key="SupportRequest">Destek Talebi</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Destek talebi başarıyla gönderildi.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="System2">Sistem</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">Bağlantı açılamıyor.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' yüklenirken beklenmeyen bir hata oluştu.</system:String>
     <system:String x:Key="Unknown">Bilinmiyor</system:String>
-    <system:String x:Key="unknownsize">bilinmeyen boyut</system:String>
     <system:String x:Key="UpdateAvailable">Güncelleme Mevcut</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' bulunamadı.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
     <system:String x:Key="Wealsosupport">Bu tür dosyaları gerektiren sistemleri de destekliyoruz, ancak bu durumda "Uzman Modu"nu kullanarak manuel olarak yüklemeniz gerekiyor.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">Ne yapmak istiyorsunuz?</system:String>
     <system:String x:Key="WhatIsDEP">DEP, virüsler ve diğer güvenlik tehditlerinden kaynaklanan zararları önlemeye yardımcı olan bir güvenlik özelliğidir.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Bellek Erişim İhlalleri, programların tahsis edilen alanlarının dışındaki belleğe erişmesini veya bu belleği değiştirmesini engelleyen güvenlik mekanizmalarıdır ve bu durum sisteminizi çökertmeye veya güvenlik açıkları yaratmaya neden olabilir.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘Başlatmadan Önce Dosyayı Çıkar’ etkinse, ‘Sistem Klasöründe Aranacak Uzantı’ ‘zip’, ‘7z’ veya ‘rar’ içermelidir.</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Manuel olarak yüklemek veya güncellemek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'ı manuel olarak indirmek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">İndirilen dosyayı görüntülemek için 'temp' klasörünü açmak ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Son yedeği geri yüklemek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
     <system:String x:Key="Yellow">Sarı</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Bu dosyayı indirmek için yeterli disk alanınız yok.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
 </ResourceDictionary>

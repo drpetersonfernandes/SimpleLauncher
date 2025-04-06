@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">시스템 추가</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'에 시스템 추가</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">다운로드 후 파일 읽기/쓰기 오류가 발생했습니다.</system:String>
     <system:String x:Key="Alert">경고</system:String>
     <system:String x:Key="alreadyexists">이미 존재합니다.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">에뮬레이터와 그 종속성의 무결성을 확인하세요.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">파랑</system:String>
     <system:String x:Key="Brown">갈색</system:String>
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
-    <system:String x:Key="butreceived">수신됨</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">데드존 Y</system:String>
     <system:String x:Key="DefaultImageFolder">[기본 이미지 폴더를 사용 중]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' 파일이 없습니다.</system:String>
-    <system:String x:Key="DeleteExistingSystem">기존 시스템 삭제</system:String>
     <system:String x:Key="DeleteGame">게임 삭제</system:String>
     <system:String x:Key="DeleteSelectedSystem">선택한 시스템 삭제</system:String>
     <system:String x:Key="DEPSolution1">1. 관리자 권한으로 'Simple Launcher'를 실행합니다.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">이미지 팩 다운로드 및 추출(사용 가능한 경우)</system:String>
     <system:String x:Key="DownloadandInstall">에뮬레이터 및 코어 다운로드 및 설치</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">사용자가 다운로드를 취소했습니다</system:String>
-    <system:String x:Key="Downloadcomplete2">다운로드 완료</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">다운로드 완료. 압축 해제 시작:</system:String>
     <system:String x:Key="DownloadCore">코어 다운로드</system:String>
     <system:String x:Key="Downloadedfileislocked">다운로드된 파일이 잠겨 있습니다.</system:String>
     <system:String x:Key="Downloadedfileismissing">다운로드된 파일이 없습니다.</system:String>
     <system:String x:Key="DownloadEmulator">에뮬레이터 다운로드</system:String>
     <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
-    <system:String x:Key="Downloaderror2">다운로드 오류</system:String>
     <system:String x:Key="DownloadImagePack">이미지 팩 다운로드</system:String>
-    <system:String x:Key="Downloadincomplete">다운로드 미완료</system:String>
     <system:String x:Key="Downloading">다운로드 중</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">다운로드와 압축 해제가 성공적으로 완료되었습니다.</system:String>
     <system:String x:Key="Downloadof">의 다운로드</system:String>
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">다운로드 시간 초과 또는 예기치 않게 취소되었습니다</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">다운로드가 성공적으로 완료되지 않았습니다.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">문제를 해결하려면 'Simple Launcher'를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM 히스토리를 온라인에서 검색하시겠습니까?</system:String>
     <system:String x:Key="EasyMode">간단 모드</system:String>
-    <system:String x:Key="EditExistingSystem">기존 시스템 편집</system:String>
     <system:String x:Key="EditLinks">링크 편집</system:String>
     <system:String x:Key="EditSystem">시스템 편집</system:String>
-    <system:String x:Key="EditSystemEasyMode">시스템 편집 - 간편 모드</system:String>
     <system:String x:Key="EditSystemtofixit">문제를 해결하려면 시스템을 수정하세요.</system:String>
     <system:String x:Key="Email">이메일</system:String>
     <system:String x:Key="Emerald">에메랄드</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리에 있는지 확인하세요.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">파일을 추출하기 위한 하드 디스크의 여유 공간이 충분한지 확인하세요.</system:String>
     <system:String x:Key="Error">오류</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">오류: 다운로드 시간이 초과되었습니다.</system:String>
     <system:String x:Key="Errorduring">동안 오류</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템 추가 실패.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">오류: 다운로드 실패</system:String>
     <system:String x:Key="ErrorFailedtoextract">오류: 추출 실패</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">오류: 서버에서 파일을 찾을 수 없습니다</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' 파일을 로드하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">오류: 의 다운로드 URL이 없습니다</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">업데이트 기록 창을 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Exit">종료</system:String>
-    <system:String x:Key="Expected">예상</system:String>
     <system:String x:Key="ExpertMode">전문가 모드</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘추출 후 실행할 확장자’는 ‘실행 전 파일 추출’이 활성화된 경우 필수입니다.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">추출 후 실행할 확장자</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' 파일이 누락되었습니다.</system:String>
     <system:String x:Key="Filedeleted2">파일이 삭제되었습니다</system:String>
-    <system:String x:Key="Fileerror">파일 오류</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">즐겨찾기 목록</system:String>
     <system:String x:Key="ListView">리스트 보기</system:String>
     <system:String x:Key="Magenta">마젠타</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' 폴더가 쓰기 가능한 디렉터리에 있는지 확인하십시오.</system:String>
     <system:String x:Key="Manual">매뉴얼</system:String>
     <system:String x:Key="Manualnotfound">매뉴얼을 찾을 수 없습니다.</system:String>
     <system:String x:Key="Mauve">모브</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. 가능한 경우 에뮬레이터 설정에서 메모리 할당 설정을 조정해 보세요.</system:String>
     <system:String x:Key="Name">이름</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
-    <system:String x:Key="Networkerror">네트워크 오류</system:String>
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">세부 정보가 없습니다:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">선택한 시스템에서 즐겨찾는 게임을 찾을 수 없습니다.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">시스템 이미지 폴더를 선택하세요.</system:String>
     <system:String x:Key="PleaseWait">잠시만 기다려주세요</system:String>
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">다운로드 준비 중:</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
     <system:String x:Key="Purple">보라</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">기록에서 제거</system:String>
     <system:String x:Key="Reportsavedsuccessfully">보고서가 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="RestoreBackup">백업을 복원하시겠습니까?</system:String>
-    <system:String x:Key="RetryingDownload">SSL 연결 오류, 재시도 중...</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
     <system:String x:Key="RomHistory">ROM 히스토리</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM 히스토리를 찾을 수 없습니다</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher'에는 'settings.xml' 파일에 쓸 수 있는 충분한 권한이 없습니다.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher'가 접근 문제로 인해 'temp' 폴더를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher'는 마지막 백업을 복원할 수 없었습니다.</system:String>
     <system:String x:Key="SortByDate">날짜별 정렬</system:String>
     <system:String x:Key="SortByPlayTime">재생 시간별 정렬</system:String>
     <system:String x:Key="SortByTimesPlayed">재생 횟수별 정렬</system:String>
     <system:String x:Key="Square">정사각형</system:String>
-    <system:String x:Key="Startingdownload2">다운로드 시작 중</system:String>
     <system:String x:Key="Steel">스틸</system:String>
     <system:String x:Key="StopDownload">다운로드 중지</system:String>
     <system:String x:Key="Success">성공</system:String>
     <system:String x:Key="Support">지원</system:String>
-    <system:String x:Key="SupportRequest">지원 요청</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">지원 요청이 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="System">시스템:</system:String>
     <system:String x:Key="System2">시스템</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">링크를 열 수 없습니다.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml'을 로드하는 중에 예기치 않은 오류가 발생했습니다.</system:String>
     <system:String x:Key="Unknown">알 수 없음</system:String>
-    <system:String x:Key="unknownsize">알 수 없는 크기</system:String>
     <system:String x:Key="UpdateAvailable">업데이트 가능</system:String>
     <system:String x:Key="UpdateHistory">업데이트 기록</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe'를 찾을 수 없습니다.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
     <system:String x:Key="Wealsosupport">이 파일이 필요한 시스템도 지원하지만, 그런 경우 "전문가 모드"를 사용하여 직접 설치해야 합니다.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">무엇을 하시겠습니까?</system:String>
     <system:String x:Key="WhatIsDEP">DEP는 바이러스 및 기타 보안 위협으로 인한 피해를 방지하는 데 도움이 되는 보안 기능입니다.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">메모리 접근 위반은 프로그램이 할당된 공간 외부의 메모리에 접근하거나 수정하는 것을 방지하는 보안 메커니즘으로, 시스템이 충돌하거나 보안 취약점을 생성할 수 있습니다.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'를 수동으로 다운로드하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">다운로드된 파일을 보기 위해 'temp' 폴더를 여시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketorestore">마지막 백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
     <system:String x:Key="Yellow">노랑</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">사용자 지정 게임패드 데드존을 정의할 수 있습니다.</system:String>
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">이 파일을 다운로드할 디스크 공간이 부족합니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
 </ResourceDictionary>

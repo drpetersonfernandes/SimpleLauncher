@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">Thêm hệ thống vào 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">Đã xảy ra lỗi đọc/ghi tệp sau khi tải xuống.</system:String>
     <system:String x:Key="Alert">Cảnh báo</system:String>
     <system:String x:Key="alreadyexists">đã tồn tại.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Cũng kiểm tra tính toàn vẹn của trình giả lập và các phụ thuộc của nó.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">Xanh dương</system:String>
     <system:String x:Key="Brown">Nâu</system:String>
     <system:String x:Key="ButIfoundabackupfile">Nhưng tôi đã tìm thấy một tệp sao lưu.</system:String>
-    <system:String x:Key="butreceived">nhưng nhận được</system:String>
     <system:String x:Key="Cabinet">Tủ</system:String>
     <system:String x:Key="Cabinetnotfound">Không tìm thấy tủ</system:String>
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">Vùng chết Y</system:String>
     <system:String x:Key="DefaultImageFolder">[Đang sử dụng thư mục ảnh mặc định]</system:String>
     <system:String x:Key="defaultpngfileismissing">Tệp 'default.png' bị thiếu.</system:String>
-    <system:String x:Key="DeleteExistingSystem">Xóa hệ thống hiện có</system:String>
     <system:String x:Key="DeleteGame">Xóa trò chơi</system:String>
     <system:String x:Key="DeleteSelectedSystem">Xóa hệ thống đã chọn</system:String>
     <system:String x:Key="DEPSolution1">1. Chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">Tải xuống và giải nén gói hình ảnh (nếu có)</system:String>
     <system:String x:Key="DownloadandInstall">Tải xuống và cài đặt trình giả lập và lõi</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">Tải xuống bị người dùng hủy bỏ</system:String>
-    <system:String x:Key="Downloadcomplete2">Tải xuống hoàn tất</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Tải xuống hoàn tất. Bắt đầu giải nén vào</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
     <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
     <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
     <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
-    <system:String x:Key="Downloaderror2">Lỗi tải xuống</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
-    <system:String x:Key="Downloadincomplete">Tải xuống chưa hoàn tất</system:String>
     <system:String x:Key="Downloading">Đang tải xuống</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Tải xuống và giải nén đã hoàn tất thành công.</system:String>
     <system:String x:Key="Downloadof">Tải xuống của</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>
     <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Tải xuống đã hết thời gian hoặc bị hủy bất ngờ</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">Tải xuống không hoàn tất thành công.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để sửa chữa vấn đề không?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Bạn có muốn tìm kiếm lịch sử ROM trực tuyến không?</system:String>
     <system:String x:Key="EasyMode">Chế độ dễ</system:String>
-    <system:String x:Key="EditExistingSystem">Chỉnh sửa hệ thống hiện có</system:String>
     <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
-    <system:String x:Key="EditSystemEasyMode">Chỉnh sửa hệ thống - Chế độ dễ</system:String>
     <system:String x:Key="EditSystemtofixit">Chỉnh sửa hệ thống để khắc phục.</system:String>
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Lục bảo</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Hãy đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Đảm bảo bạn có đủ dung lượng ổ cứng để giải nén tập tin.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">Lỗi: Hết thời gian tải xuống.</system:String>
     <system:String x:Key="Errorduring">Lỗi trong khi</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Lỗi: Thêm hệ thống thất bại.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">Lỗi: Tải xuống thất bại</system:String>
     <system:String x:Key="ErrorFailedtoextract">Lỗi: Giải nén thất bại</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">Lỗi: Không tìm thấy tệp trên máy chủ</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Lỗi khi tải tệp 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Lỗi: Không có URL tải xuống cho</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Lỗi khi mở cửa sổ Lịch sử Cập nhật.</system:String>
     <system:String x:Key="Exit">Thoát</system:String>
-    <system:String x:Key="Expected">Dự kiến</system:String>
     <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Phần mở rộng để khởi động sau khi giải nén" là bắt buộc khi "Giải nén tệp trước khi khởi động" được bật.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Phần mở rộng để khởi chạy sau khi giải nén</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">Cảm thấy May Mắn</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Thiếu tệp 'appsettings.json'.</system:String>
     <system:String x:Key="Filedeleted2">Tệp đã bị xóa</system:String>
-    <system:String x:Key="Fileerror">Lỗi tệp</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
     <system:String x:Key="Flyernotfound">Không tìm thấy tờ rơi</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">Danh sách yêu thích</system:String>
     <system:String x:Key="ListView">Dạng danh sách</system:String>
     <system:String x:Key="Magenta">Đỏ tím</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="Manual">Hướng dẫn</system:String>
     <system:String x:Key="Manualnotfound">Không tìm thấy hướng dẫn</system:String>
     <system:String x:Key="Mauve">Hồng nhạt</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. Cố gắng điều chỉnh các thiết lập phân bổ bộ nhớ trong cấu hình của trình giả lập nếu có sẵn.</system:String>
     <system:String x:Key="Name">Tên</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">là bắt buộc vì có liên quan đến dữ liệu được cung cấp.</system:String>
-    <system:String x:Key="Networkerror">Lỗi mạng</system:String>
     <system:String x:Key="Next_&gt;">Tiếp &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Không có chi tiết nào khả dụng cho</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Không tìm thấy trò chơi yêu thích nào cho hệ thống đã chọn.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">Vui lòng chọn thư mục ảnh hệ thống.</system:String>
     <system:String x:Key="PleaseWait">Vui lòng đợi</system:String>
     <system:String x:Key="Preparingtodownload">Đang chuẩn bị tải xuống</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">Đang chuẩn bị tải xuống từ</system:String>
     <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
     <system:String x:Key="Purple">Tím</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">Xóa khỏi lịch sử</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Báo cáo đã được lưu thành công.</system:String>
     <system:String x:Key="RestoreBackup">Khôi phục sao lưu?</system:String>
-    <system:String x:Key="RetryingDownload">Lỗi kết nối SSL, đang thử lại...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
     <system:String x:Key="RomHistory">Lịch Sử ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Không tìm thấy lịch sử ROM</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' đã tạo một thư mục ảnh cho hệ thống này tại:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' không có đủ quyền để ghi vào tệp 'settings.xml'.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' không thể mở thư mục 'temp' do sự cố truy cập.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' không thể khôi phục bản sao lưu gần đây nhất.</system:String>
     <system:String x:Key="SortByDate">Sắp xếp theo ngày</system:String>
     <system:String x:Key="SortByPlayTime">Sắp xếp theo thời gian phát</system:String>
     <system:String x:Key="SortByTimesPlayed">Sắp xếp theo số lần phát</system:String>
     <system:String x:Key="Square">Hình vuông</system:String>
-    <system:String x:Key="Startingdownload2">Đang bắt đầu tải xuống</system:String>
     <system:String x:Key="Steel">Thép</system:String>
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
     <system:String x:Key="Success">Thành công</system:String>
     <system:String x:Key="Support">Hỗ Trợ</system:String>
-    <system:String x:Key="SupportRequest">Yêu Cầu Hỗ Trợ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Yêu cầu hỗ trợ đã được gửi thành công.</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>
     <system:String x:Key="System2">Hệ thống</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">Không thể mở liên kết.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Lỗi không mong muốn khi tải tệp 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Không xác định</system:String>
-    <system:String x:Key="unknownsize">kích thước không xác định</system:String>
     <system:String x:Key="UpdateAvailable">Bản Cập Nhật Có Sẵn</system:String>
     <system:String x:Key="UpdateHistory">Lịch sử cập nhật</system:String>
     <system:String x:Key="Updaterexenotfound">Tệp 'Updater.exe' không được tìm thấy.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">đã bị hủy.</system:String>
     <system:String x:Key="wasremovedfromfavorites">đã bị xóa khỏi mục yêu thích.</system:String>
     <system:String x:Key="Wealsosupport">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu các tệp này, nhưng bạn sẽ cần sử dụng "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">Bạn muốn làm gì?</system:String>
     <system:String x:Key="WhatIsDEP">DEP là một tính năng bảo mật giúp ngăn chặn thiệt hại từ virus và các mối đe dọa bảo mật khác.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Vi phạm truy cập bộ nhớ là các cơ chế bảo mật ngăn các chương trình truy cập hoặc sửa đổi bộ nhớ bên ngoài không gian đã được phân bổ của chúng, điều này có thể làm hệ thống của bạn sập hoặc tạo ra các lỗ hổng bảo mật.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống 'Simple Launcher' để tải về thủ công không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">Bạn có muốn mở thư mục 'temp' để xem tệp đã tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Bạn có muốn khôi phục lại bản sao lưu cuối cùng không?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
     <system:String x:Key="Yellow">Vàng</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Bạn có thể xác định vùng chết gamepad tùy chỉnh</system:String>
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Bạn không có đủ dung lượng ổ đĩa để tải tệp này.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
 </ResourceDictionary>

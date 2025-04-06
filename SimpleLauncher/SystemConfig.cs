@@ -166,14 +166,14 @@ public class SystemConfig
                                 if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
                                     throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
 
-                                // Parse the ReceiveANotificationOnEmulatorError value with default = true
-                                var receiveNotification = true; // Default to true
+                                // Parse the ReceiveANotificationOnEmulatorError value with default = false
+                                var receiveNotification = false; // Default to false
                                 if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
                                 {
-                                    // Only set to false if explicitly "false", otherwise keep default (true)
+                                    // Only set to true if explicitly "true", otherwise keep default (false)
                                     if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
                                     {
-                                        receiveNotification = true; // Reset to default if parsing fails
+                                        receiveNotification = false; // Reset to default if parsing fails
                                     }
                                 }
 

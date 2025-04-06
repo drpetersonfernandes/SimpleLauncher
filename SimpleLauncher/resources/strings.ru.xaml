@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">Добавить систему</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">Добавить систему в 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">Произошла ошибка чтения/записи файла после загрузки.</system:String>
     <system:String x:Key="Alert">Предупреждение</system:String>
     <system:String x:Key="alreadyexists">уже существует.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Также проверьте целостность эмулятора и его зависимостей.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">Синий</system:String>
     <system:String x:Key="Brown">Коричневый</system:String>
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
-    <system:String x:Key="butreceived">но получено</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
     <system:String x:Key="DefaultImageFolder">[Используется папка изображений по умолчанию]</system:String>
     <system:String x:Key="defaultpngfileismissing">Файл 'default.png' отсутствует.</system:String>
-    <system:String x:Key="DeleteExistingSystem">Удалить существующую систему</system:String>
     <system:String x:Key="DeleteGame">Удалить игру</system:String>
     <system:String x:Key="DeleteSelectedSystem">Удалить выбранную систему</system:String>
     <system:String x:Key="DEPSolution1">1. Запустите 'Simple Launcher' с правами администратора.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">Скачать и извлечь пакет изображений (если доступно)</system:String>
     <system:String x:Key="DownloadandInstall">Скачать и установить эмулятор и ядро</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">Загрузка отменена пользователем</system:String>
-    <system:String x:Key="Downloadcomplete2">Загрузка завершена</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Загрузка завершена. Начинается распаковка в</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
     <system:String x:Key="Downloadedfileislocked">Загруженный файл заблокирован.</system:String>
     <system:String x:Key="Downloadedfileismissing">Загруженный файл отсутствует.</system:String>
     <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
     <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
-    <system:String x:Key="Downloaderror2">Ошибка загрузки</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
-    <system:String x:Key="Downloadincomplete">Загрузка не завершена</system:String>
     <system:String x:Key="Downloading">Загрузка</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Загрузка и распаковка успешно завершены.</system:String>
     <system:String x:Key="Downloadof">Загрузка</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Время загрузки истекло или она была неожиданно отменена</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">Загрузка не была успешно завершена.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Вы хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Хотите выполнить поиск истории ROM в интернете?</system:String>
     <system:String x:Key="EasyMode">Простой режим</system:String>
-    <system:String x:Key="EditExistingSystem">Редактировать существующую систему</system:String>
     <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
-    <system:String x:Key="EditSystemEasyMode">Редактировать систему - Упрощённый режим</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
     <system:String x:Key="Email">Электронная почта</system:String>
     <system:String x:Key="Emerald">Изумрудный</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Убедитесь, что папка 'Simple Launcher' находится в директории с правами на запись.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Убедитесь, что на жестком диске достаточно места для извлечения файла.</system:String>
     <system:String x:Key="Error">Ошибка</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">Ошибка: Время загрузки истекло.</system:String>
     <system:String x:Key="Errorduring">Ошибка во время</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Ошибка: Не удалось добавить систему.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">Ошибка: Не удалось загрузить</system:String>
     <system:String x:Key="ErrorFailedtoextract">Ошибка: Не удалось извлечь</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">Ошибка: Файл не найден на сервере</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Ошибка при загрузке файла 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Ошибка: Нет URL для загрузки для</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Ошибка при открытии окна истории обновлений.</system:String>
     <system:String x:Key="Exit">Выход</system:String>
-    <system:String x:Key="Expected">Ожидалось</system:String>
     <system:String x:Key="ExpertMode">Экспертный режим</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">«Расширение для запуска после извлечения» требуется, если «Извлечение файла перед запуском» включено.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Расширение для запуска после извлечения</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">Чувствую Удачу</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Файл 'appsettings.json' отсутствует.</system:String>
     <system:String x:Key="Filedeleted2">Файл удален</system:String>
-    <system:String x:Key="Fileerror">Ошибка файла</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">Список избранного</system:String>
     <system:String x:Key="ListView">Списком</system:String>
     <system:String x:Key="Magenta">Пурпурный</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
     <system:String x:Key="Manual">Руководство</system:String>
     <system:String x:Key="Manualnotfound">Руководство не найдено</system:String>
     <system:String x:Key="Mauve">Лавандовый</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. Попробуйте настроить параметры распределения памяти в конфигурации эмулятора, если это возможно.</system:String>
     <system:String x:Key="Name">Имя</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
-    <system:String x:Key="Networkerror">Ошибка сети</system:String>
     <system:String x:Key="Next_&gt;">Следующая &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Для выбранной системы избранные игры не найдены.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">Выберите папку с изображениями системы.</system:String>
     <system:String x:Key="PleaseWait">Пожалуйста, подождите</system:String>
     <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">Подготовка к загрузке из</system:String>
     <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Отчёт успешно сохранён.</system:String>
     <system:String x:Key="RestoreBackup">Восстановить резервную копию?</system:String>
-    <system:String x:Key="RetryingDownload">Ошибка подключения SSL, повторная попытка...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     <system:String x:Key="RomHistory">История ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">История ROM не найдена</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' недостаточно привилегий для записи в файл 'settings.xml'.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' не удалось открыть папку 'temp' из-за проблем с доступом.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
     <system:String x:Key="SortByDate">Сортировать по дате</system:String>
     <system:String x:Key="SortByPlayTime">Сортировать по времени воспроизведения</system:String>
     <system:String x:Key="SortByTimesPlayed">Сортировать по количеству воспроизведений</system:String>
     <system:String x:Key="Square">Квадрат</system:String>
-    <system:String x:Key="Startingdownload2">Начало загрузки</system:String>
     <system:String x:Key="Steel">Стальной</system:String>
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
     <system:String x:Key="Success">Успех</system:String>
     <system:String x:Key="Support">Поддержка</system:String>
-    <system:String x:Key="SupportRequest">Запрос поддержки</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Запрос на поддержку успешно отправлен.</system:String>
     <system:String x:Key="System">Система:</system:String>
     <system:String x:Key="System2">Система</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">Невозможно открыть ссылку.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Неожиданная ошибка при загрузке файла 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Неизвестно</system:String>
-    <system:String x:Key="unknownsize">неизвестный размер</system:String>
     <system:String x:Key="UpdateAvailable">Доступно обновление</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
     <system:String x:Key="Updaterexenotfound">Файл 'Updater.exe' не найден.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
     <system:String x:Key="Wealsosupport">Мы также поддерживаем системы, которые требуют эти файлы, но для этого вам нужно будет использовать "Режим эксперта" и установить их вручную.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">Что вы хотите сделать?</system:String>
     <system:String x:Key="WhatIsDEP">DEP — это функция безопасности, которая помогает предотвратить ущерб от вирусов и других угроз безопасности.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Ошибки доступа к памяти — это механизмы безопасности, которые предотвращают доступ программ к памяти вне их выделенного пространства или изменение её, что потенциально может привести к сбою системы или созданию уязвимостей безопасности.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Если включено «Извлечение файла перед запуском», «Расширение для поиска в системной папке» должно содержать «zip», «7z» или «rar».</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу скачивания 'Simple Launcher' для ручной загрузки?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">Хотите открыть папку 'temp', чтобы просмотреть загруженный файл?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Хотите восстановить последнюю резервную копию?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
     <system:String x:Key="Yellow">Желтый</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Вы можете задать пользовательскую мертвую зону геймпада</system:String>
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Недостаточно места на диске для загрузки этого файла.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
 </ResourceDictionary>

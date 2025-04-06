@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">حدث خطأ في قراءة/كتابة الملف بعد التحميل.</system:String>
     <system:String x:Key="Alert">تنبيه</system:String>
     <system:String x:Key="alreadyexists">موجود بالفعل.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">أزرق</system:String>
     <system:String x:Key="Brown">بني</system:String>
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
-    <system:String x:Key="butreceived">لكن تم استلام</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">المنطقة الميتة Y</system:String>
     <system:String x:Key="DefaultImageFolder">[استخدام مجلد الصور الافتراضي]</system:String>
     <system:String x:Key="defaultpngfileismissing">ملف 'default.png' مفقود.</system:String>
-    <system:String x:Key="DeleteExistingSystem">حذف النظام الحالي</system:String>
     <system:String x:Key="DeleteGame">حذف اللعبة</system:String>
     <system:String x:Key="DeleteSelectedSystem">حذف النظام المحدد</system:String>
     <system:String x:Key="DEPSolution1">1. تشغيل 'Simple Launcher' بصلاحيات المسؤول.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">تنزيل واستخراج حزمة الصور (إن وجدت)</system:String>
     <system:String x:Key="DownloadandInstall">تنزيل وتثبيت المحاكي والنواة</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">تم إلغاء التحميل بواسطة المستخدم</system:String>
-    <system:String x:Key="Downloadcomplete2">اكتمل التحميل</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">اكتمل التنزيل. بدء الاستخراج إلى</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
     <system:String x:Key="Downloadedfileislocked">الملف الذي تم تنزيله مقفل.</system:String>
     <system:String x:Key="Downloadedfileismissing">الملف الذي تم تنزيله مفقود.</system:String>
     <system:String x:Key="DownloadEmulator">تنزيل المحاكي</system:String>
     <system:String x:Key="Downloaderror">خطأ في التنزيل.</system:String>
-    <system:String x:Key="Downloaderror2">خطأ في التحميل</system:String>
     <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
-    <system:String x:Key="Downloadincomplete">التنزيل غير مكتمل</system:String>
     <system:String x:Key="Downloading">جارٍ التنزيل</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">تم التنزيل والاستخراج بنجاح.</system:String>
     <system:String x:Key="Downloadof">تحميل لـ</system:String>
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
     <system:String x:Key="downloadprocess">عملية التحميل.</system:String>
     <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">انتهت مهلة التنزيل أو تم إلغاؤه بشكل غير متوقع</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">لم يكتمل التنزيل بنجاح.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttosearchonline">هل تريد البحث عبر الإنترنت عن تاريخ روم؟</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
-    <system:String x:Key="EditExistingSystem">تحرير النظام الحالي</system:String>
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
-    <system:String x:Key="EditSystemEasyMode">تحرير النظام - الوضع السهل</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
     <system:String x:Key="Email">البريد الإلكتروني</system:String>
     <system:String x:Key="Emerald">زمردي</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">تأكد من أن مجلد 'Simple Launcher' مجلد قابل للكتابة.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">تأكد من وجود مساحة كافية في القرص الثابت لاستخراج الملف.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">خطأ: انتهاء مهلة التحميل.</system:String>
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">خطأ: فشل التحميل</system:String>
     <system:String x:Key="ErrorFailedtoextract">خطأ: فشل الاستخراج</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">خطأ: الملف غير موجود على الخادم</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">حدث خطأ أثناء تحميل ملف "easymode.xml".</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خطأ: لا يوجد عنوان تحميل لـ</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">خطأ في فتح نافذة سجل التحديث.</system:String>
     <system:String x:Key="Exit">خروج</system:String>
-    <system:String x:Key="Expected">متوقع</system:String>
     <system:String x:Key="ExpertMode">الوضع المتقدم</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'الامتداد المطلوب تشغيله بعد الاستخراج' مطلوب عند تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">الامتداد للتشغيل بعد الاستخراج</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">محظوظ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
     <system:String x:Key="Filedeleted2">تم حذف الملف</system:String>
-    <system:String x:Key="Fileerror">خطأ في الملف</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">قائمة المفضلة</system:String>
     <system:String x:Key="ListView">عرض قائمة</system:String>
     <system:String x:Key="Magenta">قرمزي</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' موجود في دليل قابل للكتابة.</system:String>
     <system:String x:Key="Manual">الدليل</system:String>
     <system:String x:Key="Manualnotfound">لم يتم العثور على الدليل.</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. حاول تعديل إعدادات تخصيص الذاكرة في تكوين المحاكي إذا كانت متوفرة.</system:String>
     <system:String x:Key="Name">الاسم</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
-    <system:String x:Key="Networkerror">خطأ في الشبكة</system:String>
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">يرجى اختيار مجلد صور النظام.</system:String>
     <system:String x:Key="PleaseWait">يرجى الانتظار</system:String>
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">جارٍ التحضير للتنزيل من</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
     <system:String x:Key="RestoreBackup">استعادة النسخة الاحتياطية؟</system:String>
-    <system:String x:Key="RetryingDownload">خطأ في اتصال SSL، إعادة المحاولة...</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     <system:String x:Key="RomHistory">تاريخ روم</system:String>
     <system:String x:Key="ROMHistorynotfound">لم يتم العثور على تاريخ روم</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' يفتقر إلى الصلاحيات الكافية للكتابة في ملف 'settings.xml'.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' لم يتمكن من فتح مجلد 'temp' بسبب مشكلات في الوصول.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
     <system:String x:Key="SortByDate">ترتيب حسب التاريخ</system:String>
     <system:String x:Key="SortByPlayTime">ترتيب حسب وقت التشغيل</system:String>
     <system:String x:Key="SortByTimesPlayed">ترتيب حسب عدد مرات التشغيل</system:String>
     <system:String x:Key="Square">مربع</system:String>
-    <system:String x:Key="Startingdownload2">بدء التحميل</system:String>
     <system:String x:Key="Steel">فولاذي</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
     <system:String x:Key="Support">الدعم</system:String>
-    <system:String x:Key="SupportRequest">طلب دعم</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">تم إرسال طلب الدعم بنجاح.</system:String>
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="System2">النظام</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">غير قادر على فتح الرابط.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">خطأ غير متوقع أثناء تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">غير معروف</system:String>
-    <system:String x:Key="unknownsize">حجم غير معروف</system:String>
     <system:String x:Key="UpdateAvailable">تحديث متاح</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
     <system:String x:Key="Updaterexenotfound">لم يتم العثور على 'Updater.exe'.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
     <system:String x:Key="wasremovedfromfavorites">تمت إزالته من المفضلة.</system:String>
     <system:String x:Key="Wealsosupport">نحن ندعم أيضًا الأنظمة التي تتطلب هذه الملفات، ولكن بالنسبة لهذه الأنظمة، ستحتاج إلى استخدام "الوضع الخبير" وتثبيتها بنفسك.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">ماذا تريد أن تفعل؟</system:String>
     <system:String x:Key="WhatIsDEP">DEP هي ميزة أمان تساعد في منع الضرر الناتج من الفيروسات والتهديدات الأمنية الأخرى.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">انتهاكات وصول الذاكرة هي آليات أمان تمنع البرامج من الوصول إلى أو تعديل الذاكرة خارج مساحتها المخصصة، مما قد يؤدي إلى تعطل نظامك أو خلق ثغرات أمنية.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل 'Simple Launcher' لتحميله يدويًا؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">هل تريد فتح مجلد 'temp' لمعاينة الملف الذي تم تنزيله؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">هل ترغب في استعادة النسخة الاحتياطية الأخيرة؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
     <system:String x:Key="Yellow">أصفر</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">لا تملك مساحة كافية على القرص لتنزيل هذا الملف.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
 </ResourceDictionary>

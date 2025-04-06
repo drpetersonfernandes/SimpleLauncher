@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'-এ সিস্টেম যোগ করুন।</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">ফাইলটি ডাউনলোড করার পরে পড়া/লিখার ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Alert">সতর্কতা</system:String>
     <system:String x:Key="alreadyexists">আগেই বিদ্যমান।</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">এছাড়াও, এমুলেটর এবং এর নির্ভরশীলতাগুলির অখণ্ডতা পরীক্ষা করুন।</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">নীল</system:String>
     <system:String x:Key="Brown">বাদামি</system:String>
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
-    <system:String x:Key="butreceived">কিন্তু পাওয়া গেল</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">ডেডজোন Y</system:String>
     <system:String x:Key="DefaultImageFolder">[ডিফল্ট ইমেজ ফোল্ডার ব্যবহার করা হচ্ছে]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' ফাইলটি অনুপস্থিত।</system:String>
-    <system:String x:Key="DeleteExistingSystem">বিদ্যমান সিস্টেম মুছে দিন</system:String>
     <system:String x:Key="DeleteGame">গেম মুছুন</system:String>
     <system:String x:Key="DeleteSelectedSystem">নির্বাচিত সিস্টেম মুছে দিন</system:String>
     <system:String x:Key="DEPSolution1">1. প্রশাসক অধিকার সহ 'Simple Launcher' চালান।</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">ইমেজ প্যাক ডাউনলোড এবং এক্সট্রাক্ট করুন (যদি উপলব্ধ থাকে)</system:String>
     <system:String x:Key="DownloadandInstall">এমুলেটর এবং কোর ডাউনলোড এবং ইনস্টল করুন</system:String>
     <system:String x:Key="Downloadcanceled">ডাউনলোড বাতিল করা হয়েছে</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">ব্যবহারকারী দ্বারা ডাউনলোড বাতিল করা হয়েছে</system:String>
-    <system:String x:Key="Downloadcomplete2">ডাউনলোড সম্পন্ন হয়েছে</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">ডাউনলোড সম্পন্ন। এখানে এক্সট্র্যাকশন শুরু হচ্ছে</system:String>
     <system:String x:Key="DownloadCore">কোর ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloadedfileislocked">ডাউনলোড করা ফাইলটি লক করা হয়েছে।</system:String>
     <system:String x:Key="Downloadedfileismissing">ডাউনলোড করা ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="DownloadEmulator">এমুলেটর ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloaderror">ডাউনলোড করার সময় ত্রুটি।</system:String>
-    <system:String x:Key="Downloaderror2">ডাউনলোড ত্রুটি</system:String>
     <system:String x:Key="DownloadImagePack">ছবির প্যাক ডাউনলোড</system:String>
-    <system:String x:Key="Downloadincomplete">ডাউনলোড অসম্পূর্ণ</system:String>
     <system:String x:Key="Downloading">ডাউনলোড হচ্ছে</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">ডাউনলোড এবং উত্তোলন সফল হয়েছে।</system:String>
     <system:String x:Key="Downloadof">এর ডাউনলোড</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে</system:String>
     <system:String x:Key="downloadprocess">ডাউনলোড প্রসেস.</system:String>
     <system:String x:Key="DownloadProgress">ডাউনলোডের অগ্রগতি</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ডাউনলোড টাইম আউট হয়েছে বা অপ্রত্যাশিতভাবে বাতিল হয়েছে</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">ডাউনলোড সফলভাবে সম্পন্ন হয়নি।</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher' সমস্যা সমাধানের জন্য স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">সমস্যা ঠিক করতে আপনি কি 'Simple Launcher' পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">অনলাইন অনুসন্ধান করতে চান?</system:String>
     <system:String x:Key="EasyMode">সহজ মোড</system:String>
-    <system:String x:Key="EditExistingSystem">বিদ্যমান সিস্টেম সম্পাদনা করুন</system:String>
     <system:String x:Key="EditLinks">লিঙ্ক সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystem">সিস্টেম সম্পাদনা করুন</system:String>
-    <system:String x:Key="EditSystemEasyMode">সিস্টেম সম্পাদনা করুন - সহজ মোড</system:String>
     <system:String x:Key="EditSystemtofixit">এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="Email">ইমেল</system:String>
     <system:String x:Key="Emerald">পান্না</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' ফোল্ডারটি লেখার জন্য উপযোগী একটি ডিরেক্টরি নিশ্চিত করুন।</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">ফাইল এক্সট্র্যাক্ট করার জন্য হার্ড ডিস্কে পর্যাপ্ত স্থান আছে কিনা নিশ্চিত করুন।</system:String>
     <system:String x:Key="Error">সমস্যা</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">ত্রুটি: ডাউনলোড টাইমআউট.</system:String>
     <system:String x:Key="Errorduring">দুর্ঘটনা সময়</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">ত্রুটি: সিস্টেম যুক্ত করতে ব্যর্থ হয়েছে।</system:String>
-    <system:String x:Key="ErrorFailedtodownload">ত্রুটি: ডাউনলোড করতে ব্যর্থ</system:String>
     <system:String x:Key="ErrorFailedtoextract">ত্রুটি: আনতে ব্যর্থ</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">ত্রুটি: সার্ভারে ফাইল পাওয়া যায়নি</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' ফাইল লোড করার সময় ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">ত্রুটি: এর জন্য কোন ডাউনলোড URL নেই</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ডাউনলোড লিঙ্ক খোলার সময় ত্রুটি।</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">আপডেট ইতিহাস উইন্ডো খোলা যাচ্ছে না।</system:String>
     <system:String x:Key="Exit">প্রস্থান</system:String>
-    <system:String x:Key="Expected">প্রত্যাশিত</system:String>
     <system:String x:Key="ExpertMode">বিশেষজ্ঞ মোড</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘এক্সট্র্যাকশন পরে লঞ্চ করার এক্সটেনশন’ প্রয়োজন যখন ‘এক্সট্র্যাকশন লঞ্চ করার আগে’ সেট করা হয়।</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">এক্সট্রাকশনের পরে চালানোর জন্য এক্সটেনশন</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">লাকি</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="Filedeleted2">ফাইল মুছে ফেলা হয়েছে</system:String>
-    <system:String x:Key="Fileerror">ফাইল ত্রুটি</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
     <system:String x:Key="Flyernotfound">ফ্লায়ার পাওয়া যায়নি</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">প্রিয় তালিকা</system:String>
     <system:String x:Key="ListView">তালিকা ভিউ</system:String>
     <system:String x:Key="Magenta">ম্যাজেন্টা</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">'Simple Launcher' ফোল্ডারটি লেখার যোগ্য একটি ডিরেক্টরিতে আছে তা নিশ্চিত করুন।</system:String>
     <system:String x:Key="Manual">ম্যানুয়াল</system:String>
     <system:String x:Key="Manualnotfound">ম্যানুয়াল পাওয়া যায়নি।</system:String>
     <system:String x:Key="Mauve">ফিকে বেগুনি</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. উপলভ্য থাকলে এমুলেটর কনফিগারেশনে মেমরি বরাদ্দ সেটিংস সমন্বয় করার চেষ্টা করুন।</system:String>
     <system:String x:Key="Name">নাম</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">নাম প্রয়োজন কারণ সম্পর্কিত ডেটা প্রদান করা হয়েছে।</system:String>
-    <system:String x:Key="Networkerror">নেটওয়ার্ক ত্রুটি</system:String>
     <system:String x:Key="Next_&gt;">পরবর্তী&gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">এর জন্য কোনো বিবরণ উপলব্ধ নেই</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">নির্বাচিত সিস্টেমের জন্য কোনো প্রিয় গেম পাওয়া যায়নি</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">দয়া করে সিস্টেম চিত্রের ফোল্ডারটি নির্বাচন করুন।</system:String>
     <system:String x:Key="PleaseWait">দয়া করে অপেক্ষা করুন</system:String>
     <system:String x:Key="Preparingtodownload">ডাউনলোডের জন্য প্রস্তুতি নিচ্ছে</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">ডাউনলোড করার জন্য প্রস্তুত হচ্ছে</system:String>
     <system:String x:Key="PreviewImage">ইমেজ পূর্বরূপ</system:String>
     <system:String x:Key="Processingpleasewait">প্রসেসিং, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
     <system:String x:Key="RestoreBackup">ব্যাকআপ পুনরুদ্ধার।</system:String>
-    <system:String x:Key="RetryingDownload">SSL সংযোগ ত্রুটি, পুনরায় চেষ্টা করা হচ্ছে...</system:String>
     <system:String x:Key="ReverttoDefaultValues">ডিফল্ট মানে পুনঃস্থাপন করুন</system:String>
     <system:String x:Key="RomHistory">পূর্ব জ্ঞান রম।</system:String>
     <system:String x:Key="ROMHistorynotfound">কোনো সন্ধান পাওয়া যায়নি।</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' এই সিস্টেমটির জন্য একটি ছবি ফোল্ডার তৈরি করেছে</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' এই সিস্টেমটির জন্য প্রয়োজনীয় ফোল্ডার তৈরি করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' এর 'settings.xml' ফাইল লিখতে পর্যাপ্ত অধিকার নেই।</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' অ্যাক্সেস সমস্যার কারণে 'temp' ফোল্ডার খুলতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' শেষ ব্যাকআপটি পুনরুদ্ধার করতে অক্ষম ছিল।</system:String>
     <system:String x:Key="SortByDate">তারিখ অনুযায়ী সাজান</system:String>
     <system:String x:Key="SortByPlayTime">প্লের সময় অনুযায়ী সাজান</system:String>
     <system:String x:Key="SortByTimesPlayed">খেলেছে বলে সংখ্যার ভিত্তিতে সাজান</system:String>
     <system:String x:Key="Square">বর্গাকার</system:String>
-    <system:String x:Key="Startingdownload2">ডাউনলোড শুরু হচ্ছে</system:String>
     <system:String x:Key="Steel">ইস্পাত</system:String>
     <system:String x:Key="StopDownload">ডাউনলোড বন্ধ করুন</system:String>
     <system:String x:Key="Success">সফল</system:String>
     <system:String x:Key="Support">সমর্থন</system:String>
-    <system:String x:Key="SupportRequest">সমর্থন অনুরোধ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">সমর্থন অনুরোধ সফলভাবে পাঠানো হয়েছে।</system:String>
     <system:String x:Key="System">সিস্টেম:</system:String>
     <system:String x:Key="System2">সিস্টেম</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">লিঙ্কটি খোলা যাচ্ছে না।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' লোড করার সময় অপ্রত্যাশিত একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Unknown">অজানা</system:String>
-    <system:String x:Key="unknownsize">অজানা আকার</system:String>
     <system:String x:Key="UpdateAvailable">আপডেটসহ।</system:String>
     <system:String x:Key="UpdateHistory">আপডেট ইতিহাস</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' পাওয়া যায়নি।</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="wasremovedfromfavorites">পছন্দের তালিকা থেকে সরানো হয়েছে।</system:String>
     <system:String x:Key="Wealsosupport">আমরা এমন সিস্টেমগুলিকেও সমর্থন করি যেগুলির জন্য এই ফাইলগুলি প্রয়োজন, তবে সেগুলির জন্য আপনাকে 'এক্সপার্ট মোড' ব্যবহার করতে হবে এবং নিজে নিজে ইনস্টল করতে হবে।</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">আপনি কি করতে চান?</system:String>
     <system:String x:Key="WhatIsDEP">DEP হল একটি সিকিউরিটি ফিচার যা ভাইরাস এবং অন্যান্য সিকিউরিটি হুমকির থেকে ক্ষতি প্রতিরোধে সাহায্য করে।</system:String>
     <system:String x:Key="WhatIsMemoryAccess">মেমরি অ্যাক্সেস লঙ্ঘন হল নিরাপত্তা মেকানিজম যা প্রোগ্রামগুলিকে তাদের বরাদ্দকৃত স্থান ছাড়া মেমরিতে অ্যাক্সেস বা পরিবর্তন করতে বাধা দেয়, যা আপনার সিস্টেম ক্র্যাশ করতে বা নিরাপত্তা দুর্বলতা সৃষ্টি করতে পারে।</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">ম্যানুয়ালি ইনস্টল বা আপডেট করতে ডাউনলোড পৃষ্ঠায় যাওয়ার জন্য আপনাকে পুনঃনির্দেশিত করা হবে কি?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' ম্যানুয়ালি ডাউনলোড করতে ডাউনলোড পৃষ্ঠায় যাওয়ার জন্য আপনাকে পুনঃনির্দেশ করা হবে কি?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">ডাউনলোড করা ফাইলটি দেখতে 'temp' ফোল্ডারটি খুলতে চান?</system:String>
     <system:String x:Key="Wouldyouliketorestore">ব্যাকআপ পুনরায় ইন্সটল চাওয়া।</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">আপনি কি ফলাফল সহ একটি রিপোর্ট সংরক্ষণ করতে চান?</system:String>
     <system:String x:Key="Yellow">হলুদ</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">আপনি কাস্টম গেমপ্যাড ডেডজোন সংজ্ঞায়িত করতে পারেন</system:String>
     <system:String x:Key="YoucandefinecustomURL">আপনি ভিডিও লিংক বোতাম এবং তথ্য লিংক বোতামের জন্য একটি কাস্টম URL নির্ধারণ করতে পারেন</system:String>
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">এই ফাইলটি ডাউনলোড করার জন্য আপনার পর্যাপ্ত ডিস্ক স্পেস নেই।</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
 </ResourceDictionary>

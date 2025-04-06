@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">添加系统</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">将系统添加到 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">添加到收藏夹</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">下载后发生文件读写错误。</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="alreadyexists">已存在。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">此外请检查模拟器及其依赖库的完整性。</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">蓝色</system:String>
     <system:String x:Key="Brown">棕色</system:String>
     <system:String x:Key="ButIfoundabackupfile">但我找到了一个备份文件。</system:String>
-    <system:String x:Key="butreceived">但收到</system:String>
     <system:String x:Key="Cabinet">机柜</system:String>
     <system:String x:Key="Cabinetnotfound">未找到机柜</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下载...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">死区 Y</system:String>
     <system:String x:Key="DefaultImageFolder">[使用默认图片文件夹]</system:String>
     <system:String x:Key="defaultpngfileismissing">缺少文件“default.png”。</system:String>
-    <system:String x:Key="DeleteExistingSystem">删除现有系统</system:String>
     <system:String x:Key="DeleteGame">删除游戏</system:String>
     <system:String x:Key="DeleteSelectedSystem">删除所选系统</system:String>
     <system:String x:Key="DEPSolution1">1. 以管理员权限运行“Simple Launcher”。</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">下载并解压图像包（如果可用）</system:String>
     <system:String x:Key="DownloadandInstall">下载并安装模拟器及其核心</system:String>
     <system:String x:Key="Downloadcanceled">下载已取消</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">用户取消下载</system:String>
-    <system:String x:Key="Downloadcomplete2">下载完成</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">下载完成。开始解压到</system:String>
     <system:String x:Key="DownloadCore">下载核心</system:String>
     <system:String x:Key="Downloadedfileislocked">下载的文件被锁定。</system:String>
     <system:String x:Key="Downloadedfileismissing">下载的文件丢失。</system:String>
     <system:String x:Key="DownloadEmulator">下载模拟器</system:String>
     <system:String x:Key="Downloaderror">下载错误。</system:String>
-    <system:String x:Key="Downloaderror2">下载错误</system:String>
     <system:String x:Key="DownloadImagePack">下载图像包</system:String>
-    <system:String x:Key="Downloadincomplete">下载未完成</system:String>
     <system:String x:Key="Downloading">正在下载</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">下载和解压成功完成。</system:String>
     <system:String x:Key="Downloadof">的下载</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下载或解压失败</system:String>
     <system:String x:Key="downloadprocess">下载过程。</system:String>
     <system:String x:Key="DownloadProgress">下载进度</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">下载超时或意外取消</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">下载未成功完成。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自动重新安装 'Simple Launcher' 来解决问题？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">是否要自动重新安装“Simple Launcher”以解决问题？</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您希望重新安装'Simple Launcher'以修复问题吗?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">您想在线搜索 ROM 历史记录吗？</system:String>
     <system:String x:Key="EasyMode">简单模式</system:String>
-    <system:String x:Key="EditExistingSystem">编辑现有系统</system:String>
     <system:String x:Key="EditLinks">编辑链接</system:String>
     <system:String x:Key="EditSystem">编辑系统</system:String>
-    <system:String x:Key="EditSystemEasyMode">编辑系统 - 简易模式</system:String>
     <system:String x:Key="EditSystemtofixit">编辑系统以修复问题。</system:String>
     <system:String x:Key="Email">电子邮件</system:String>
     <system:String x:Key="Emerald">祖母绿</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">请确保 'Simple Launcher' 文件夹位于一个具有写入权限的目录中。</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">请确保硬盘有足够的空间来解压文件。</system:String>
     <system:String x:Key="Error">错误</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">错误：下载超时。</system:String>
     <system:String x:Key="Errorduring">期间发生错误</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">错误：添加系统失败。</system:String>
-    <system:String x:Key="ErrorFailedtodownload">错误：下载失败</system:String>
     <system:String x:Key="ErrorFailedtoextract">错误：提取失败</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">错误：服务器上未找到文件</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">加载 'easymode.xml' 文件时出错。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">错误：没有下载URL为</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">打开下载链接时出错。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">打开更新历史窗口时出错。</system:String>
     <system:String x:Key="Exit">退出</system:String>
-    <system:String x:Key="Expected">预期</system:String>
     <system:String x:Key="ExpertMode">专家模式</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">当启用了“启动前解压文件”时，“解压后启动的扩展名”是必需的。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">提取后启动的扩展</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
     <system:String x:Key="Filedeleted2">文件已删除</system:String>
-    <system:String x:Key="Fileerror">文件错误</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">收藏列表</system:String>
     <system:String x:Key="ListView">列表视图</system:String>
     <system:String x:Key="Magenta">洋红色</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">确保 'Simple Launcher' 文件夹位于具有写入权限的目录中。</system:String>
     <system:String x:Key="Manual">手册</system:String>
     <system:String x:Key="Manualnotfound">找不到手册</system:String>
     <system:String x:Key="Mauve">淡紫色</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. 如果可用，尝试调整模拟器配置中的内存分配设置。</system:String>
     <system:String x:Key="Name">姓名</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因为提供了相关数据。</system:String>
-    <system:String x:Key="Networkerror">网络错误</system:String>
     <system:String x:Key="Next_&gt;">下一页 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">暂无可用详细信息</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">未找到选定系统的收藏游戏。</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">请选定系统图片文件夹。</system:String>
     <system:String x:Key="PleaseWait">请稍候</system:String>
     <system:String x:Key="Preparingtodownload">准备下载</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">正在准备从以下位置下载</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
     <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
     <system:String x:Key="Purple">紫色</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">从历史中移除</system:String>
     <system:String x:Key="Reportsavedsuccessfully">报告已成功保存。</system:String>
     <system:String x:Key="RestoreBackup">恢复备份？</system:String>
-    <system:String x:Key="RetryingDownload">SSL连接错误，正在重试...</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢复为默认值</system:String>
     <system:String x:Key="RomHistory">ROM 历史记录</system:String>
     <system:String x:Key="ROMHistorynotfound">未找到 ROM 历史记录</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 为此系统创建了一个图片文件夹：</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 无法为此系统创建所需文件夹。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">“Simple Launcher”没有对“settings.xml”文件的写入权限。</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' 因访问问题无法打开 'temp' 文件夹。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">“Simple Launcher”未能恢复最近的备份。</system:String>
     <system:String x:Key="SortByDate">按日期排序</system:String>
     <system:String x:Key="SortByPlayTime">按播放时间排序</system:String>
     <system:String x:Key="SortByTimesPlayed">按播放次数排序</system:String>
     <system:String x:Key="Square">正方形</system:String>
-    <system:String x:Key="Startingdownload2">开始下载</system:String>
     <system:String x:Key="Steel">钢铁色</system:String>
     <system:String x:Key="StopDownload">停止下载</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="Support">支持</system:String>
-    <system:String x:Key="SupportRequest">支持请求</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">支持请求已成功发送。</system:String>
     <system:String x:Key="System">系统：</system:String>
     <system:String x:Key="System2">系统</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">无法打开链接。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">加载文件“helpuser.xml”时发生意外错误。</system:String>
     <system:String x:Key="Unknown">未知</system:String>
-    <system:String x:Key="unknownsize">未知大小</system:String>
     <system:String x:Key="UpdateAvailable">有可用更新</system:String>
     <system:String x:Key="UpdateHistory">更新历史</system:String>
     <system:String x:Key="Updaterexenotfound">未找到文件“Updater.exe”。</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">已取消。</system:String>
     <system:String x:Key="wasremovedfromfavorites">已从收藏夹中移除。</system:String>
     <system:String x:Key="Wealsosupport">我们也支持需要这些文件的系统，但您需要使用“专家模式”并手动安装它们。</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">您想做什么？</system:String>
     <system:String x:Key="WhatIsDEP">DEP是一项安全功能，有助于防止病毒和其他安全威胁造成的损害。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">内存访问违规是安全机制，防止程序访问或修改其分配空间之外的内存，这可能导致系统崩溃或创建安全漏洞。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">当启用了“启动前解压文件”时，“在系统文件夹中搜索的扩展名”必须包含“zip”、“7z”或“rar”。</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳转到下载页面以手动安装或更新？</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您是否希望跳转到 'Simple Launcher' 下载页面以手动下载？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想打开 'error_user.log' 文件来调查此问题？</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">您想打开 'temp' 文件夹以查看下载的文件吗？</system:String>
     <system:String x:Key="Wouldyouliketorestore">您希望恢复最新的备份吗？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您是否希望保存包含结果的报告？</system:String>
     <system:String x:Key="Yellow">黄色</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自定义游戏手柄死区</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">您没有足够的磁盘空间来下载此文件。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
 </ResourceDictionary>

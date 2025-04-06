@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">システムを追加</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' にシステムを追加する</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">ダウンロード後にファイルの読み書きエラーが発生しました。</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="alreadyexists">既に存在します。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">エミュレーターとその依存関係の整合性を確認してください。</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">青</system:String>
     <system:String x:Key="Brown">茶色</system:String>
     <system:String x:Key="ButIfoundabackupfile">しかし、バックアップファイルが見つかりました。</system:String>
-    <system:String x:Key="butreceived">実際の値</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">デッドゾーンY</system:String>
     <system:String x:Key="DefaultImageFolder">[デフォルトの画像フォルダを使用中]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' ファイルが見つかりません。</system:String>
-    <system:String x:Key="DeleteExistingSystem">既存のシステムを削除</system:String>
     <system:String x:Key="DeleteGame">ゲームを削除</system:String>
     <system:String x:Key="DeleteSelectedSystem">選択したシステムを削除</system:String>
     <system:String x:Key="DEPSolution1">1. 管理者権限で「Simple Launcher」を実行します。</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">イメージパックをダウンロードして抽出する（利用可能な場合）</system:String>
     <system:String x:Key="DownloadandInstall">エミュレーターとコアをダウンロードおよびインストールする</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">ユーザーによってダウンロードがキャンセルされました</system:String>
-    <system:String x:Key="Downloadcomplete2">ダウンロード完了</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">ダウンロード完了。展開を開始：</system:String>
     <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
     <system:String x:Key="Downloadedfileislocked">ダウンロードしたファイルがロックされています。</system:String>
     <system:String x:Key="Downloadedfileismissing">ダウンロードしたファイルが存在しません。</system:String>
     <system:String x:Key="DownloadEmulator">エミュレーターをダウンロード</system:String>
     <system:String x:Key="Downloaderror">ダウンロードエラー。</system:String>
-    <system:String x:Key="Downloaderror2">ダウンロードエラー</system:String>
     <system:String x:Key="DownloadImagePack">画像パックをダウンロード</system:String>
-    <system:String x:Key="Downloadincomplete">ダウンロード未完了</system:String>
     <system:String x:Key="Downloading">ダウンロード中</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">ダウンロードと展開が成功しました。</system:String>
     <system:String x:Key="Downloadof">のダウンロード</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
     <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>
     <system:String x:Key="DownloadProgress">ダウンロード進行状況</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">ダウンロードがタイムアウトまたは予期せずキャンセルされました</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">ダウンロードが正常に完了しませんでした。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">問題を解決するために「Simple Launcher」を再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM履歴をオンラインで検索しますか？</system:String>
     <system:String x:Key="EasyMode">簡単モード</system:String>
-    <system:String x:Key="EditExistingSystem">既存のシステムを編集</system:String>
     <system:String x:Key="EditLinks">リンクを編集</system:String>
     <system:String x:Key="EditSystem">システムを編集</system:String>
-    <system:String x:Key="EditSystemEasyMode">システムを編集 - 簡単モード</system:String>
     <system:String x:Key="EditSystemtofixit">修正するためにシステムを編集してください。</system:String>
     <system:String x:Key="Email">メールアドレス</system:String>
     <system:String x:Key="Emerald">エメラルド</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' フォルダーが書き込み可能なディレクトリにあることを確認してください。</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">ファイルを展開するためのハードディスクの空き容量が十分にあることを確認してください。</system:String>
     <system:String x:Key="Error">エラー</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">エラー: ダウンロードがタイムアウトしました。</system:String>
     <system:String x:Key="Errorduring">エラー中</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">エラー: システムの追加に失敗しました。</system:String>
-    <system:String x:Key="ErrorFailedtodownload">エラー: ダウンロードに失敗しました</system:String>
     <system:String x:Key="ErrorFailedtoextract">エラー: 抽出に失敗しました</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">エラー：サーバー上にファイルが見つかりません</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' ファイルの読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">エラー: のダウンロードURLがありません</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ダウンロードリンクの開封中にエラーが発生しました。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">アップデート履歴ウィンドウを開く際にエラーが発生しました。</system:String>
     <system:String x:Key="Exit">終了</system:String>
-    <system:String x:Key="Expected">予期値</system:String>
     <system:String x:Key="ExpertMode">エキスパートモード</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">「抽出後に起動する拡張子」は、「起動前にファイルを抽出」がオンになっている場合に必要です。</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">抽出後に起動する拡張機能</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">フェイリングラッキー</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ファイルが見つかりません。</system:String>
     <system:String x:Key="Filedeleted2">ファイルが削除されました</system:String>
-    <system:String x:Key="Fileerror">ファイルエラー</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">お気に入りリスト</system:String>
     <system:String x:Key="ListView">リストビュー</system:String>
     <system:String x:Key="Magenta">マゼンタ</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
     <system:String x:Key="Manual">マニュアル</system:String>
     <system:String x:Key="Manualnotfound">マニュアルが見つかりませんでした。</system:String>
     <system:String x:Key="Mauve">モーヴ</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. エミュレーターの設定でメモリ割り当て設定を調整してみてください（利用可能な場合）。</system:String>
     <system:String x:Key="Name">名前</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">関連するデータが提供されているため、名前が必要です。</system:String>
-    <system:String x:Key="Networkerror">ネットワークエラー</system:String>
     <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">詳細は利用できません:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">選択したシステムにはお気に入りのゲームが見つかりませんでした。</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">システム画像フォルダーを選択してください。</system:String>
     <system:String x:Key="PleaseWait">お待ちください</system:String>
     <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">ダウンロードの準備中：</system:String>
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
     <system:String x:Key="Purple">紫</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">履歴から削除</system:String>
     <system:String x:Key="Reportsavedsuccessfully">レポートが正常に保存されました。</system:String>
     <system:String x:Key="RestoreBackup">バックアップを復元しますか？</system:String>
-    <system:String x:Key="RetryingDownload">SSL接続エラー、再試行中...</system:String>
     <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
     <system:String x:Key="RomHistory">ROM履歴</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM履歴が見つかりませんでした</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' は 'settings.xml' ファイルの書き込み権限が不十分です。</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">『Simple Launcher』はアクセス関連の問題で『temp』フォルダーを開けませんでした。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
     <system:String x:Key="SortByDate">日付で並べ替え</system:String>
     <system:String x:Key="SortByPlayTime">再生時間で並べ替え</system:String>
     <system:String x:Key="SortByTimesPlayed">再生回数で並べ替え</system:String>
     <system:String x:Key="Square">正方形</system:String>
-    <system:String x:Key="Startingdownload2">ダウンロードを開始しています</system:String>
     <system:String x:Key="Steel">スチール</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="Support">サポート</system:String>
-    <system:String x:Key="SupportRequest">サポートリクエスト</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">サポートリクエストが正常に送信されました。</system:String>
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="System2">システム</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">リンクを開くことができません。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' の読み込み中に予期しないエラーが発生しました。</system:String>
     <system:String x:Key="Unknown">不明</system:String>
-    <system:String x:Key="unknownsize">不明なサイズ</system:String>
     <system:String x:Key="UpdateAvailable">更新が利用可能です</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' が見つかりません。</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">がキャンセルされました。</system:String>
     <system:String x:Key="wasremovedfromfavorites">お気に入りから削除されました。</system:String>
     <system:String x:Key="Wealsosupport">BIOSやシステムファイルを必要とするシステムもサポートしていますが、それには「エキスパートモード」を使用して手動でインストールする必要があります。</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">何をしたいですか？</system:String>
     <system:String x:Key="WhatIsDEP">DEPは、ウイルスやその他のセキュリティ脅威からの損害を防ぐのに役立つセキュリティ機能です。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">メモリアクセス違反は、プログラムが割り当てられた領域外のメモリにアクセスまたは変更するのを防ぐセキュリティメカニズムであり、システムのクラッシュやセキュリティ脆弱性を引き起こす可能性があります。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">「起動前にファイルを抽出」がオンの場合、「システムフォルダー内で検索する拡張子」には「zip」、「7z」、または「rar」を含める必要があります。</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">手動でインストールまたは更新するためにダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">手動でダウンロードするために 'Simple Launcher' のダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">ダウンロードしたファイルを見るために『temp』フォルダを開きますか？</system:String>
     <system:String x:Key="Wouldyouliketorestore">最後のバックアップを復元しますか？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
     <system:String x:Key="Yellow">黄色</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">カスタムゲームパッドのデッドゾーンを定義できます</system:String>
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">このファイルをダウンロードするための十分なディスク容量がありません。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
 </ResourceDictionary>

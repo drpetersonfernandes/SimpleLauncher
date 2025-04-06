@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">Adicionar sistema</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">Adicionar Sistema no 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Adicionar aos Favoritos</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">Ocorreu um erro de leitura/gravação do arquivo após o download.</system:String>
     <system:String x:Key="Alert">Alerta</system:String>
     <system:String x:Key="alreadyexists">já existe.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Verifique também a integridade do emulador e de suas dependências.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">Azul</system:String>
     <system:String x:Key="Brown">Marrom</system:String>
     <system:String x:Key="ButIfoundabackupfile">Mas encontrei um arquivo de backup.</system:String>
-    <system:String x:Key="butreceived">mas recebido</system:String>
     <system:String x:Key="Cabinet">Arcade</system:String>
     <system:String x:Key="Cabinetnotfound">Arcade não encontrado</system:String>
     <system:String x:Key="Cancelingdownload">Cancelando download...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">Zona morta Y</system:String>
     <system:String x:Key="DefaultImageFolder">[Usando a pasta de imagens padrão]</system:String>
     <system:String x:Key="defaultpngfileismissing">O arquivo 'default.png' está ausente.</system:String>
-    <system:String x:Key="DeleteExistingSystem">Excluir Sistema Existente</system:String>
     <system:String x:Key="DeleteGame">Excluir Jogo</system:String>
     <system:String x:Key="DeleteSelectedSystem">Excluir o sistema selecionado</system:String>
     <system:String x:Key="DEPSolution1">1. Execute o 'Simple Launcher' com privilégios de administrador.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">Baixar e extrair pacote de imagens (se disponível)</system:String>
     <system:String x:Key="DownloadandInstall">Baixar e instalar o emulador e o núcleo</system:String>
     <system:String x:Key="Downloadcanceled">Download cancelado</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">Download cancelado pelo usuário</system:String>
-    <system:String x:Key="Downloadcomplete2">Download concluído</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Download concluído. Iniciando extração para</system:String>
     <system:String x:Key="DownloadCore">Baixar núcleo</system:String>
     <system:String x:Key="Downloadedfileislocked">Arquivo baixado está bloqueado.</system:String>
     <system:String x:Key="Downloadedfileismissing">Arquivo baixado está faltando.</system:String>
     <system:String x:Key="DownloadEmulator">Baixar emulador</system:String>
     <system:String x:Key="Downloaderror">Erro de download.</system:String>
-    <system:String x:Key="Downloaderror2">Erro de download</system:String>
     <system:String x:Key="DownloadImagePack">Baixar Pacote de Imagens</system:String>
-    <system:String x:Key="Downloadincomplete">Download incompleto</system:String>
     <system:String x:Key="Downloading">Baixando</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">O download e a extração foram concluídos com sucesso.</system:String>
     <system:String x:Key="Downloadof">Download de</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Falha ao baixar ou extrair</system:String>
     <system:String x:Key="downloadprocess">processo de download.</system:String>
     <system:String x:Key="DownloadProgress">Progresso do download</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download expirou ou foi cancelado inesperadamente</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">O download não foi concluído com sucesso.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Você deseja reinstalar o 'Simple Launcher' para corrigir o problema?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Deseja procurar o histórico de ROMs online?</system:String>
     <system:String x:Key="EasyMode">Modo Fácil</system:String>
-    <system:String x:Key="EditExistingSystem">Editar Sistema Existente</system:String>
     <system:String x:Key="EditLinks">Editar Links</system:String>
     <system:String x:Key="EditSystem">Editar Sistema</system:String>
-    <system:String x:Key="EditSystemEasyMode">Editar Sistema - Modo Fácil</system:String>
     <system:String x:Key="EditSystemtofixit">Edite o sistema para corrigir isso.</system:String>
     <system:String x:Key="Email">E-mail</system:String>
     <system:String x:Key="Emerald">Esmeralda</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Certifique-se de que a pasta 'Simple Launcher' está em um diretório com permissões de escrita.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Certifique-se de ter espaço suficiente no HD para extrair o arquivo.</system:String>
     <system:String x:Key="Error">Erro</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">Erro: Tempo de download expirado.</system:String>
     <system:String x:Key="Errorduring">Erro durante</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Erro: Falha ao adicionar sistema.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">Erro: Falha ao baixar</system:String>
     <system:String x:Key="ErrorFailedtoextract">Erro: Falha ao extrair</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">Erro: Arquivo não encontrado no servidor</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Erro ao carregar o arquivo 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Erro: Nenhuma URL de download para</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Erro ao abrir o link de download.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Erro ao abrir a janela de Histórico de Atualizações.</system:String>
     <system:String x:Key="Exit">Sair</system:String>
-    <system:String x:Key="Expected">Esperado</system:String>
     <system:String x:Key="ExpertMode">Modo Avançado</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">A "Extensão para executar após a extração" é obrigatória quando "Extrair arquivo antes da execução" está ativado.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensão para iniciar após a extração</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">Sentindo-se Sortudo</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">O arquivo 'appsettings.json' está faltando.</system:String>
     <system:String x:Key="Filedeleted2">Arquivo excluído</system:String>
-    <system:String x:Key="Fileerror">Erro de arquivo</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' não foi encontrado no caminho esperado.</system:String>
     <system:String x:Key="Flyer">Panfleto</system:String>
     <system:String x:Key="Flyernotfound">Panfleto não encontrado</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">Lista de favoritos</system:String>
     <system:String x:Key="ListView">Visualização em Lista</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">Certifique-se de que a pasta 'Simple Launcher' está localizada em um diretório com permissão de gravação.</system:String>
     <system:String x:Key="Manual">Manual</system:String>
     <system:String x:Key="Manualnotfound">Manual não encontrado</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. Tente ajustar as configurações de alocação de memória na configuração do emulador, se disponível.</system:String>
     <system:String x:Key="Name">Nome</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">é necessário porque os dados relacionados foram fornecidos.</system:String>
-    <system:String x:Key="Networkerror">Erro de rede</system:String>
     <system:String x:Key="Next_&gt;">Próximo &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Nenhum detalhe disponível para</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nenhum jogo favorito encontrado para o sistema selecionado.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">Por favor, selecione a pasta de imagens do sistema.</system:String>
     <system:String x:Key="PleaseWait">Aguarde</system:String>
     <system:String x:Key="Preparingtodownload">Preparando para baixar</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">Preparando para baixar de</system:String>
     <system:String x:Key="PreviewImage">Pré-visualizar imagem</system:String>
     <system:String x:Key="Processingpleasewait">Processando, por favor aguarde...</system:String>
     <system:String x:Key="Purple">Roxo</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">Remover do histórico</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Relatório salvo com sucesso.</system:String>
     <system:String x:Key="RestoreBackup">Restaurar backup?</system:String>
-    <system:String x:Key="RetryingDownload">Erro de conexão SSL, tentando novamente...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restaurar para os valores padrão</system:String>
     <system:String x:Key="RomHistory">Histórico de ROMs</system:String>
     <system:String x:Key="ROMHistorynotfound">Histórico de ROMs não encontrado</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">O 'Simple Launcher' criou uma pasta de imagens para este sistema em:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">O 'Simple Launcher' falhou ao criar as pastas necessárias para este sistema.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">O 'Simple Launcher' não possui privilégios suficientes para gravar no arquivo 'settings.xml'.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">O 'Simple Launcher' não conseguiu abrir a pasta 'temp' devido a problemas de acesso.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">O 'Simple Launcher' não conseguiu restaurar o backup mais recente.</system:String>
     <system:String x:Key="SortByDate">Ordenar por data</system:String>
     <system:String x:Key="SortByPlayTime">Ordenar por tempo de reprodução</system:String>
     <system:String x:Key="SortByTimesPlayed">Ordenar por número de reproduções</system:String>
     <system:String x:Key="Square">Quadrado</system:String>
-    <system:String x:Key="Startingdownload2">Iniciando download</system:String>
     <system:String x:Key="Steel">Aço</system:String>
     <system:String x:Key="StopDownload">Parar download</system:String>
     <system:String x:Key="Success">Sucesso</system:String>
     <system:String x:Key="Support">Suporte</system:String>
-    <system:String x:Key="SupportRequest">Solicitação de Suporte</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Solicitação de suporte enviada com sucesso.</system:String>
     <system:String x:Key="System">Sistema:</system:String>
     <system:String x:Key="System2">Sistema</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">Não foi possível abrir o link.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Erro inesperado ao carregar 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Desconhecido</system:String>
-    <system:String x:Key="unknownsize">tamanho desconhecido</system:String>
     <system:String x:Key="UpdateAvailable">Atualização disponível</system:String>
     <system:String x:Key="UpdateHistory">Histórico de atualizações</system:String>
     <system:String x:Key="Updaterexenotfound">O 'Updater.exe' não foi encontrado.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">foi cancelado.</system:String>
     <system:String x:Key="wasremovedfromfavorites">foi removido dos favoritos.</system:String>
     <system:String x:Key="Wealsosupport">Também damos suporte a sistemas que necessitam desses arquivos, mas, neste caso, você precisará usar o "Modo Avançado" e instalá-los manualmente.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">O que você deseja fazer?</system:String>
     <system:String x:Key="WhatIsDEP">DEP é um recurso de segurança que ajuda a prevenir danos causados por vírus e outras ameaças de segurança.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Violação de Acesso à Memória são mecanismos de segurança que impedem que programas acessem ou modifiquem memória fora do espaço alocado, o que pode potencialmente travar seu sistema ou criar vulnerabilidades de segurança.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Quando "Extrair arquivo antes da execução" estiver ativado, a "Extensão para pesquisar na pasta do sistema" deve incluir "zip", "7z" ou "rar".</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Gostaria de ser redirecionado para a página de download para instalá-lo ou atualizá-lo manualmente?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Gostaria de ser redirecionado para a página de download do 'Simple Launcher' para baixá-lo manualmente?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Você gostaria de abrir o arquivo 'error_user.log' para investigar este problema?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">Você gostaria de abrir a pasta 'temp' para visualizar o arquivo baixado?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Deseja restaurar o último backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Você gostaria de salvar um relatório com os resultados?</system:String>
     <system:String x:Key="Yellow">Amarelo</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Você pode definir uma zona morta personalizada do gamepad</system:String>
     <system:String x:Key="YoucandefinecustomURL">Você pode definir uma URL personalizada para usar no botão de link do vídeo e no botão de link de informações.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Você pode usar os operadores lógicos AND / OR.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Você não tem espaço em disco suficiente para baixar este arquivo.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Você pode colocar as imagens de capa deste sistema dentro desta pasta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
 </ResourceDictionary>

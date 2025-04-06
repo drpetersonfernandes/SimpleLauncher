@@ -35,15 +35,6 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void InsufficientDiskSpaceMessageBox()
-    {
-        var youdonothaveenoughdiskspacetodownloadthisfile2 = (string)Application.Current.TryFindResource("Youdonothaveenoughdiskspacetodownloadthisfile") ?? "You do not have enough disk space to download this file.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{youdonothaveenoughdiskspacetodownloadthisfile2}\n\n" +
-                        $"{error2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
     internal static void GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
         var isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
@@ -1222,49 +1213,6 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void IoExceptionMessageBox(string tempFolder)
-    {
-        var afilereadwriteerroroccurred2 = (string)Application.Current.TryFindResource("Afilereadwriteerroroccurred") ?? "A file read/write error occurred after the file was downloaded.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        var makesuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("MakesuretheSimpleLauncher") ?? "Make sure the 'Simple Launcher' folder is located in a writable directory.";
-        var wouldyouliketoopenthetemp2 = (string)Application.Current.TryFindResource("Wouldyouliketoopenthetemp") ?? "Would you like to open the 'temp' folder to view the downloaded file?";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var result = MessageBox.Show($"{afilereadwriteerroroccurred2}\n\n" +
-                                     $"{grantSimpleLauncheradministrative2}\n\n" +
-                                     $"{temporarilydisableyourantivirus2}\n\n" +
-                                     $"{makesuretheSimpleLauncher2}\n\n" +
-                                     $"{wouldyouliketoopenthetemp2}",
-            error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-        if (result != MessageBoxResult.Yes) return;
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = tempFolder,
-                UseShellExecute = true
-            });
-        }
-        catch (Exception)
-        {
-            var simpleLauncherwasunabletoopenthe2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletoopenthe") ?? "'Simple Launcher' was unable to open the 'temp' folder due to access issues.";
-            MessageBox.Show($"{simpleLauncherwasunabletoopenthe2}\n\n" +
-                            $"{tempFolder}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    internal static void DownloadErrorMessageBox()
-    {
-        var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{downloaderror2}\n\n" +
-                        $"{theerrorwasreportedtothedeveloper2}",
-            error2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
     internal static void ErrorLoadingEasyModeXmlMessageBox()
     {
         var errorloadingthefileeasymodexml2 = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
@@ -2178,21 +2126,5 @@ public static class MessageBoxLibrary
             MessageBoxImage.Warning);
 
         return result == MessageBoxResult.Yes;
-    }
-
-    internal static void SsltlsErrorMessageBox()
-    {
-        var therewasanSsltlsError = (string)Application.Current.TryFindResource("TherewasanSSLTLSError") ?? "There was an SSL/TLS Error.";
-        var therootcausemaybe = (string)Application.Current.TryFindResource("Therootcausemaybe") ?? "The root cause may be:";
-        var outdatedOSlackingsupportformodernTlSprotocols = (string)Application.Current.TryFindResource("OutdatedOSlackingsupportformodernTLSprotocols") ?? "1. Outdated OS lacking support for modern TLS protocols/cipher suites.";
-        var outdatedNeTruntime = (string)Application.Current.TryFindResource("OutdatedNETruntime") ?? "2. Outdated .NET runtime.";
-        var networkinterception = (string)Application.Current.TryFindResource("Networkinterception") ?? "3. Network interception (proxies, firewalls) interfering with TLS handshake.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        MessageBox.Show($"{therewasanSsltlsError}\n\n" +
-                        $"{therootcausemaybe}\n" +
-                        $"{outdatedOSlackingsupportformodernTlSprotocols}\n" +
-                        $"{outdatedNeTruntime}\n" +
-                        $"{networkinterception}",
-            error, MessageBoxButton.OK, MessageBoxImage.Information);
     }
 }

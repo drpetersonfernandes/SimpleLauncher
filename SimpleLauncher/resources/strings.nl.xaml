@@ -42,7 +42,6 @@
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddSystemIntoSimpleLauncher">Systeem toevoegen aan 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
-    <system:String x:Key="Afilereadwriteerroroccurred">Er is een lees/schrijffout opgetreden na de download.</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
     <system:String x:Key="alreadyexists">bestaat al.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
@@ -76,7 +75,6 @@
     <system:String x:Key="Blue">Blauw</system:String>
     <system:String x:Key="Brown">Bruin</system:String>
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
-    <system:String x:Key="butreceived">maar ontvangen</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
@@ -111,7 +109,6 @@
     <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
     <system:String x:Key="DefaultImageFolder">[Standaard afbeeldingenmap wordt gebruikt]</system:String>
     <system:String x:Key="defaultpngfileismissing">Het bestand 'default.png' ontbreekt.</system:String>
-    <system:String x:Key="DeleteExistingSystem">Bestaand systeem verwijderen</system:String>
     <system:String x:Key="DeleteGame">Verwijder spel</system:String>
     <system:String x:Key="DeleteSelectedSystem">Geselecteerd systeem verwijderen</system:String>
     <system:String x:Key="DEPSolution1">1. Voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
@@ -127,24 +124,19 @@
     <system:String x:Key="DownloadandExtractImage">Download en pak het afbeeldingspakket uit (indien beschikbaar)</system:String>
     <system:String x:Key="DownloadandInstall">Download en installeer de emulator en de kern</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
-    <system:String x:Key="Downloadcanceledbyuser2">Download door gebruiker geannuleerd</system:String>
-    <system:String x:Key="Downloadcomplete2">Download voltooid</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Download voltooid. Begin met uitpakken naar</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
     <system:String x:Key="Downloadedfileislocked">Gedownload bestand is vergrendeld.</system:String>
     <system:String x:Key="Downloadedfileismissing">Gedownload bestand ontbreekt.</system:String>
     <system:String x:Key="DownloadEmulator">Download emulator</system:String>
     <system:String x:Key="Downloaderror">Downloadfout.</system:String>
-    <system:String x:Key="Downloaderror2">Downloadfout</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
-    <system:String x:Key="Downloadincomplete">Download onvolledig</system:String>
     <system:String x:Key="Downloading">Downloaden</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Downloaden en uitpakken was succesvol.</system:String>
     <system:String x:Key="Downloadof">Download van</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="downloadprocess">downloadproces.</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
-    <system:String x:Key="Downloadtimedoutorwascanceledunexpectedly">Download time-out of onverwacht geannuleerd</system:String>
     <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download is niet succesvol voltooid.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
@@ -157,10 +149,8 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Wil je online zoeken naar de ROM-geschiedenis?</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
-    <system:String x:Key="EditExistingSystem">Bestaand systeem bewerken</system:String>
     <system:String x:Key="EditLinks">Links bewerken</system:String>
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
-    <system:String x:Key="EditSystemEasyMode">Systeem bewerken - Gemakkelijke modus</system:String>
     <system:String x:Key="EditSystemtofixit">Bewerk het systeem om dit op te lossen.</system:String>
     <system:String x:Key="Email">E-mail</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
@@ -192,18 +182,14 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Zorg ervoor dat de map 'Simple Launcher' zich in een beschrijfbare directory bevindt.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Zorg ervoor dat u voldoende ruimte op de harde schijf heeft om het bestand uit te pakken.</system:String>
     <system:String x:Key="Error">Fout</system:String>
-    <system:String x:Key="ErrorDownloadtimedout">Fout: Download time-out.</system:String>
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
-    <system:String x:Key="ErrorFailedtodownload">Fout: Download mislukt</system:String>
     <system:String x:Key="ErrorFailedtoextract">Fout: Extractie mislukt</system:String>
-    <system:String x:Key="ErrorFilenotfoundontheserver">Fout: Bestand niet gevonden op de server</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Fout bij het laden van het bestand 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fout bij het openen van het updategeschiedenisvenster.</system:String>
     <system:String x:Key="Exit">Afsluiten</system:String>
-    <system:String x:Key="Expected">Verwacht</system:String>
     <system:String x:Key="ExpertMode">Expertmodus</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">De 'Extensie om na extractie te starten' is vereist wanneer 'Bestand extraheren vóór starten' is ingeschakeld.</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction2">Extensie om te starten na extractie</system:String>
@@ -229,7 +215,6 @@
     <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Het bestand 'appsettings.json' ontbreekt.</system:String>
     <system:String x:Key="Filedeleted2">Bestand verwijderd</system:String>
-    <system:String x:Key="Fileerror">Bestandsfout</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>
@@ -289,7 +274,6 @@
     <system:String x:Key="ListofFavorites">Favorietenlijst</system:String>
     <system:String x:Key="ListView">Lijstweergave</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
-    <system:String x:Key="MakesuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
     <system:String x:Key="Manual">Handleiding</system:String>
     <system:String x:Key="Manualnotfound">Handleiding niet gevonden</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
@@ -301,7 +285,6 @@
     <system:String x:Key="MemorySolution4">4. Probeer de geheugenallocatie-instellingen aan te passen in de emulatorconfiguratie indien beschikbaar.</system:String>
     <system:String x:Key="Name">Naam</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
-    <system:String x:Key="Networkerror">Netwerkfout</system:String>
     <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
@@ -364,7 +347,6 @@
     <system:String x:Key="PleaseselecttheSystemImage">Selecteer de systeemafbeeldingsmap.</system:String>
     <system:String x:Key="PleaseWait">Even geduld</system:String>
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
-    <system:String x:Key="Preparingtodownloadfrom">Voorbereiden om te downloaden van</system:String>
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="Purple">Paars</system:String>
@@ -379,7 +361,6 @@
     <system:String x:Key="RemovefromHistory">Verwijderen uit geschiedenis</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport succesvol opgeslagen.</system:String>
     <system:String x:Key="RestoreBackup">Back-up herstellen?</system:String>
-    <system:String x:Key="RetryingDownload">SSL-verbinding fouten, opnieuw proberen...</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     <system:String x:Key="RomHistory">ROM-geschiedenis</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM-geschiedenis niet gevonden</system:String>
@@ -429,18 +410,15 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' heeft onvoldoende rechten om naar het bestand 'settings.xml' te schrijven.</system:String>
-    <system:String x:Key="SimpleLauncherwasunabletoopenthe">'Simple Launcher' kon de temp-map niet openen vanwege toegangsproblemen.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
     <system:String x:Key="SortByDate">Sorteren op datum</system:String>
     <system:String x:Key="SortByPlayTime">Sorteren op afspeeltijd</system:String>
     <system:String x:Key="SortByTimesPlayed">Sorteren op aantal keer afgespeeld</system:String>
     <system:String x:Key="Square">Vierkant</system:String>
-    <system:String x:Key="Startingdownload2">Download starten</system:String>
     <system:String x:Key="Steel">Staal</system:String>
     <system:String x:Key="StopDownload">Stop download</system:String>
     <system:String x:Key="Success">Succes</system:String>
     <system:String x:Key="Support">Ondersteuning</system:String>
-    <system:String x:Key="SupportRequest">Ondersteuningsverzoek</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Ondersteuningsverzoek succesvol verzonden.</system:String>
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="System2">Systeem</system:String>
@@ -554,7 +532,6 @@
     <system:String x:Key="Unabletoopenthelink">Kan de link niet openen.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Er is een onverwachte fout opgetreden bij het laden van 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Onbekend</system:String>
-    <system:String x:Key="unknownsize">onbekende grootte</system:String>
     <system:String x:Key="UpdateAvailable">Update beschikbaar</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' niet gevonden.</system:String>
@@ -575,7 +552,6 @@
     <system:String x:Key="wascanceled">is geannuleerd.</system:String>
     <system:String x:Key="wasremovedfromfavorites">is verwijderd uit favorieten.</system:String>
     <system:String x:Key="Wealsosupport">We ondersteunen ook systemen die deze bestanden wel nodig hebben, maar daarvoor moet je de "Expertmodus" gebruiken en deze handmatig installeren.</system:String>
-    <system:String x:Key="Whatdoyouwanttodo">Wat wilt u doen?</system:String>
     <system:String x:Key="WhatIsDEP">DEP is een beveiligingsfunctie die helpt schade door virussen en andere beveiligingsbedreigingen te voorkomen.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Geheugen toegangsbreuken zijn beveiligingsmechanismen die voorkomen dat programma's toegang hebben tot of geheugen buiten hun toegewezen ruimte te wijzigen, wat mogelijk uw systeem kan laten crashen of beveiligingslekken kan creëren.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Als 'Bestand extraheren vóór starten' is ingeschakeld, moet de 'Extensie om te zoeken in de systeemmap' 'zip', '7z' of 'rar' bevatten.</system:String>
@@ -584,7 +560,6 @@
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u doorverwezen worden naar de downloadpagina van 'Simple Launcher' om deze handmatig te downloaden?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
-    <system:String x:Key="Wouldyouliketoopenthetemp">Wilt u de temp-map openen om het gedownloade bestand te bekijken?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Wil je de laatste back-up herstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
     <system:String x:Key="Yellow">Geel</system:String>
@@ -592,7 +567,6 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">U kunt een aangepaste gamepad-dode zone definiëren</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
-    <system:String x:Key="Youdonothaveenoughdiskspacetodownloadthisfile">Je hebt niet genoeg schijfruimte om dit bestand te downloaden.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
 </ResourceDictionary>
