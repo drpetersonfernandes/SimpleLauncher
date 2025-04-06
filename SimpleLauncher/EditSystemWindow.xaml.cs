@@ -68,11 +68,11 @@ public partial class EditSystemWindow
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        ReceiveANotificationOnEmulatorError1.SelectedItem = -1;
-        ReceiveANotificationOnEmulatorError2.SelectedItem = -1;
-        ReceiveANotificationOnEmulatorError3.SelectedItem = -1;
-        ReceiveANotificationOnEmulatorError4.SelectedItem = -1;
-        ReceiveANotificationOnEmulatorError5.SelectedItem = -1;
+        ReceiveANotificationOnEmulatorError1.SelectedItem = null;
+        ReceiveANotificationOnEmulatorError2.SelectedItem = null;
+        ReceiveANotificationOnEmulatorError3.SelectedItem = null;
+        ReceiveANotificationOnEmulatorError4.SelectedItem = null;
+        ReceiveANotificationOnEmulatorError5.SelectedItem = null;
         
         // Store the original system name for later use
         _originalSystemName = SystemNameDropdown.SelectedItem?.ToString();
@@ -231,7 +231,7 @@ public partial class EditSystemWindow
                 }
             }
         }
-
+        
         // Create SystemFolder default
         if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
         {
@@ -261,6 +261,42 @@ public partial class EditSystemWindow
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        
+        // Update ReceiveANotificationOnEmulatorError
+        if (string.IsNullOrEmpty(Emulator1NameTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator1LocationTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator1ParametersTextBox.Text))
+        {
+            ReceiveANotificationOnEmulatorError1.SelectedItem = null;
+        }
+        
+        if (string.IsNullOrEmpty(Emulator2NameTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator2LocationTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator2ParametersTextBox.Text))
+        {
+            ReceiveANotificationOnEmulatorError2.SelectedItem = null;
+        }
+        
+        if (string.IsNullOrEmpty(Emulator3NameTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator3LocationTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator3ParametersTextBox.Text))
+        {
+            ReceiveANotificationOnEmulatorError3.SelectedItem = null;
+        }
+        
+        if (string.IsNullOrEmpty(Emulator4NameTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator4LocationTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator4ParametersTextBox.Text))
+        {
+            ReceiveANotificationOnEmulatorError4.SelectedItem = null;
+        }
+        
+        if (string.IsNullOrEmpty(Emulator5NameTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator5LocationTextBox.Text) || 
+            string.IsNullOrEmpty(Emulator5ParametersTextBox.Text))
+        {
+            ReceiveANotificationOnEmulatorError5.SelectedItem = null;
+        }
     }
 
     private void MarkInvalid(TextBox textBox, bool isValid)
