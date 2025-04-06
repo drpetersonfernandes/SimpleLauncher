@@ -375,8 +375,22 @@ public static class GameLauncher
     private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
     {
         var filePathToLaunch = filePath;
-        var selectedEmulator = emulatorComboBox.SelectedItem.ToString();
-        var selectedSystem = systemComboBox.SelectedItem.ToString();
+        var selectedEmulator = emulatorComboBox?.SelectedItem.ToString();
+        var selectedSystem = systemComboBox?.SelectedItem.ToString();
+        
+        if (string.IsNullOrEmpty(selectedEmulator) || string.IsNullOrEmpty(selectedSystem))
+        {
+            // Notify developer
+            const string contextMessage = "selectedEmulator or selectedSystem is null";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+        
+            return;
+        }
+        
         var selectedSystemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
         
         if (selectedSystemConfig == null)
@@ -534,6 +548,20 @@ public static class GameLauncher
         var filePathToLaunch = filePath;
         var selectedEmulator = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
+        
+        if (string.IsNullOrEmpty(selectedEmulator) || string.IsNullOrEmpty(selectedSystem))
+        {
+            // Notify developer
+            const string contextMessage = "selectedEmulator or selectedSystem is null";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+        
+            return;
+        }
+
         var selectedSystemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
         
         if (selectedSystemConfig == null)
@@ -804,7 +832,7 @@ public static class GameLauncher
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user only if he wants
-                    if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                    if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
                     {
                         MessageBoxLibrary.InvalidOperationExceptionMessageBox();
                     }
@@ -821,7 +849,7 @@ public static class GameLauncher
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user only if he wants
-                    if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                    if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
                     {
                         MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
                     }
@@ -952,7 +980,7 @@ public static class GameLauncher
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user only if he wants
-                        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
                         {
                             MessageBoxLibrary.InvalidOperationExceptionMessageBox();
                         }
@@ -969,7 +997,7 @@ public static class GameLauncher
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user only if he wants
-                        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+                        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
                         {
                             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
                         }
@@ -1091,7 +1119,7 @@ public static class GameLauncher
 
     private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
     {
-        if (process.ExitCode != 0)
+        if (process.ExitCode != 0 || ContainsEmulatorError(output, error))
         {
             // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
@@ -1104,18 +1132,18 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user only if he wants
-            if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+            if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
             {
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
             }
         }
 
-        return null;
+        return Task.CompletedTask;
     }
 
     private static Task CheckForExitCodeWithErrorAnyWithoutUserNotification(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
-        if (process.ExitCode != 0)
+        if (process.ExitCode != 0 || ContainsEmulatorError(output, error))
         {
             // Notify developer
             var contextMessage = $"Emulator error. User was not notified.\n" +
@@ -1128,7 +1156,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
-        return null;
+        return Task.CompletedTask;
     }
 
     private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
@@ -1146,7 +1174,7 @@ public static class GameLauncher
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user only if he wants
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.CheckForMemoryAccessViolation();
         }
@@ -1169,7 +1197,7 @@ public static class GameLauncher
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
         // Notify user only if he wants
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.DepViolationMessageBox();
         }
@@ -1205,5 +1233,23 @@ public static class GameLauncher
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
 
         return Task.FromResult(true);
+    }
+    
+    private static bool ContainsEmulatorError(StringBuilder output, StringBuilder error)
+    {
+        if (output == null && error == null) return false;
+    
+        // Common RetroArch error messages
+        var errorMessages = new[]
+        {
+            "File open/read error"
+        };
+    
+        var outputStr = output?.ToString() ?? string.Empty;
+        var errorStr = error?.ToString() ?? string.Empty;
+    
+        return errorMessages.Any(errorMsg => 
+            outputStr.Contains(errorMsg, StringComparison.OrdinalIgnoreCase) || 
+            errorStr.Contains(errorMsg, StringComparison.OrdinalIgnoreCase));
     }
 }

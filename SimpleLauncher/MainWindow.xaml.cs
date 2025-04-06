@@ -1104,7 +1104,7 @@ public partial class MainWindow : INotifyPropertyChanged
         }
     }
 
-    private void SupportRequest_Click(object sender, RoutedEventArgs e)
+    private void Support_Click(object sender, RoutedEventArgs e)
     {
         SupportWindow supportRequestWindow = new();
         supportRequestWindow.ShowDialog();

@@ -384,8 +384,8 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-            <MenuItem Header="{DynamicResource SupportRequest}">
-                <MenuItem Click="SupportRequest_Click" Header="{DynamicResource SupportRequest}">
+            <MenuItem Header="{DynamicResource Support}">
+                <MenuItem Click="Support_Click" Header="{DynamicResource Support}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/support.png" Width="16" Height="16" />
                     </MenuItem.Icon>
