@@ -1430,9 +1430,9 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         Square.IsChecked = (selectedValue == "Square");
         Wider.IsChecked = (selectedValue == "Wider");
-        Wider.IsChecked = (selectedValue == "SuperWider");
+        SuperWider.IsChecked = (selectedValue == "SuperWider");
         Taller.IsChecked = (selectedValue == "Taller");
-        Taller.IsChecked = (selectedValue == "SuperTaller");
+        SuperTaller.IsChecked = (selectedValue == "SuperTaller");
     }
 
     private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
