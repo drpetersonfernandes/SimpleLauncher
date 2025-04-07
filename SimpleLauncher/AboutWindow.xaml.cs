@@ -26,14 +26,11 @@ public partial class AboutWindow
     {
         try
         {
-            var process = Process.Start(new ProcessStartInfo
+            using var process = Process.Start(new ProcessStartInfo
             {
                 FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true
             });
-
-            // Dispose the Process object if non-null
-            process?.Dispose();
         }
         catch (Exception ex)
         {
