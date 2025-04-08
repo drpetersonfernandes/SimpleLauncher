@@ -446,7 +446,8 @@ public static class GameLauncher
             RedirectStandardError = true
         };
 
-        var process = new Process { StartInfo = psi };
+        using var process = new Process();
+        process.StartInfo = psi;
         StringBuilder output = new();
         StringBuilder error = new();
 
@@ -497,16 +498,6 @@ public static class GameLauncher
 
         catch (InvalidOperationException ex)
         {
-            // Ensure the process is disposed if it failed to start
-            try
-            {
-                process?.Dispose();
-            }
-            catch
-            {
-                // ignored
-            }
-
             // Notify developer
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -752,7 +743,8 @@ public static class GameLauncher
                         RedirectStandardError = true
                     };
 
-                    var process = new Process { StartInfo = psi };
+                    using var process = new Process();
+                    process.StartInfo = psi;
                     StringBuilder output = new();
                     StringBuilder error = new();
 

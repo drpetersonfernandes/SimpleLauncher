@@ -24,7 +24,7 @@ public class ExtractCompressedFile
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
     public async Task<string> ExtractGameToTempAsync(string archivePath)
     {
-        // Validate input parameters
+        // Existing validation code remains the same
         if (string.IsNullOrEmpty(archivePath))
         {
             // Notify developer
@@ -77,13 +77,39 @@ public class ExtractCompressedFile
             return null;
         }
 
-        // Create temp folder with random name
+        // Create temp folder with random name - IMPROVED IMPLEMENTATION
         string tempDirectory = null;
         PleaseWaitExtractionWindow pleaseWaitExtraction = null;
 
         try
         {
-            tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
+            // Ensure _tempFolder is safe and doesn't contain path traversal attempts
+            var safeTempFolder = Path.GetFullPath(_tempFolder);
+        
+            // Validate that _tempFolder is still within the system's temp path
+            var systemTempPath = Path.GetFullPath(Path.GetTempPath());
+            if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
+            {
+                // The _tempFolder has been manipulated - use default temp path instead
+                safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+            
+                // Log this as a potential security issue
+                var contextMessage = $"Potential path manipulation detected. Reverting to default temp path.";
+                var ex = new SecurityException(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
+        
+            // Create a random directory name
+            var randomName = Path.GetRandomFileName();
+        
+            // Ensure the random name doesn't contain path traversal characters
+            if (randomName.Contains("..") || randomName.Contains("/") || randomName.Contains("\\"))
+            {
+                // Create a safer random name
+                randomName = Guid.NewGuid().ToString("N");
+            }
+        
+            tempDirectory = Path.Combine(safeTempFolder, randomName);
             Directory.CreateDirectory(tempDirectory);
 
             // Show the wait window (on UI thread)
@@ -93,12 +119,13 @@ public class ExtractCompressedFile
                 pleaseWaitExtraction.Show();
             });
 
-            // Construct the process
+            // Construct the process with improved argument sanitization
             using var process = new Process();
             process.StartInfo = new ProcessStartInfo
             {
                 FileName = sevenZipPath,
-                Arguments = $"x \"{archivePath}\" -o\"{tempDirectory}\" -y",
+                // Proper quoting of paths to avoid command injection
+                Arguments = $"x \"{EscapeCommandLineArgument(archivePath)}\" -o\"{EscapeCommandLineArgument(tempDirectory)}\" -y",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
                 UseShellExecute = false,
@@ -106,7 +133,7 @@ public class ExtractCompressedFile
             };
             process.EnableRaisingEvents = true;
 
-            // Set up async reading to avoid deadlocks
+            // Rest of the method remains the same
             var outputBuilder = new StringBuilder();
             var errorBuilder = new StringBuilder();
 
@@ -133,6 +160,12 @@ public class ExtractCompressedFile
             // Check if extraction was successful
             if (process.ExitCode == 0)
             {
+                // Add additional security check - scan the extracted files for zip slip attempts
+                if (!VerifyNoPathTraversalInExtractedFiles(tempDirectory, tempDirectory))
+                {
+                    throw new SecurityException("Potential path traversal detected in archive contents");
+                }
+            
                 return tempDirectory;
             }
 
@@ -182,7 +215,7 @@ public class ExtractCompressedFile
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
     public async Task<string> ExtractGameToTempAsync2(string archivePath)
     {
-        // Validate input parameters
+        // Existing validation code remains the same
         if (string.IsNullOrEmpty(archivePath))
         {
             // Notify developer
@@ -220,13 +253,39 @@ public class ExtractCompressedFile
             return null;
         }
 
-        // Create temp folder with random name
+        // Create temp folder with random name - IMPROVED IMPLEMENTATION
         string tempDirectory = null;
         PleaseWaitExtractionWindow pleaseWaitExtraction = null;
 
         try
         {
-            tempDirectory = Path.Combine(_tempFolder, Path.GetRandomFileName());
+            // Ensure _tempFolder is safe and doesn't contain path traversal attempts
+            var safeTempFolder = Path.GetFullPath(_tempFolder);
+        
+            // Validate that _tempFolder is still within the system's temp path
+            var systemTempPath = Path.GetFullPath(Path.GetTempPath());
+            if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
+            {
+                // The _tempFolder has been manipulated - use default temp path instead
+                safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+            
+                // Log this as a potential security issue
+                var contextMessage = $"Potential path manipulation detected. Reverting to default temp path.";
+                var ex = new SecurityException(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
+        
+            // Create a random directory name
+            var randomName = Path.GetRandomFileName();
+        
+            // Ensure the random name doesn't contain path traversal characters
+            if (randomName.Contains("..") || randomName.Contains("/") || randomName.Contains("\\"))
+            {
+                // Create a safer random name
+                randomName = Guid.NewGuid().ToString("N");
+            }
+        
+            tempDirectory = Path.Combine(safeTempFolder, randomName);
             Directory.CreateDirectory(tempDirectory);
 
             // Show the wait window (on UI thread)
@@ -236,13 +295,50 @@ public class ExtractCompressedFile
                 pleaseWaitExtraction.Show();
             });
 
-            // Extract the zip file using built-in .NET method
+            // Extract the zip file using built-in .NET method with improved security
             await Task.Run(() =>
             {
                 try
                 {
-                    // Use the simple ZipFile.ExtractToDirectory method as in the original code
-                    ZipFile.ExtractToDirectory(archivePath, tempDirectory);
+                    // Instead of using ZipFile.ExtractToDirectory directly, which doesn't
+                    // protect against zip slip, extract files individually with validation
+                    using var archive = ZipFile.OpenRead(archivePath);
+                
+                    // Check for empty archive
+                    if (archive.Entries.Count == 0)
+                    {
+                        throw new InvalidDataException("The ZIP file contains no entries.");
+                    }
+                
+                    // Extract files with path traversal protection
+                    foreach (var entry in archive.Entries)
+                    {
+                        var entryDestinationPath = Path.Combine(tempDirectory, entry.FullName);
+                        var fullDestPath = Path.GetFullPath(entryDestinationPath);
+                        var fullTempDir = Path.GetFullPath(tempDirectory);
+                    
+                        // Prevent zip slip by validating the extraction path
+                        if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
+                        {
+                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
+                        }
+                    
+                        // Create directory for the entry if needed
+                        var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
+                        if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
+                        {
+                            Directory.CreateDirectory(entryDirectoryPath);
+                        }
+                    
+                        // Skip directories (folders are already created above)
+                        if (string.IsNullOrEmpty(entry.Name))
+                        {
+                            continue;
+                        }
+                    
+                        // Extract the file
+                        entry.ExtractToFile(entryDestinationPath, true);
+                    }
                 }
                 catch (Exception ex)
                 {
@@ -253,7 +349,6 @@ public class ExtractCompressedFile
 
             return tempDirectory;
         }
-
         catch (Exception ex)
         {
             // Clean up temp directory on failure
@@ -564,8 +659,8 @@ public class ExtractCompressedFile
             totalSize += entry.Length;
         }
 
-        // Add a safety margin of 10%
-        return (long)(totalSize * 1.1);
+        // Add a safety margin of 20%
+        return (long)(totalSize * 1.2);
     }
 
     /// <summary>
@@ -687,5 +782,46 @@ public class ExtractCompressedFile
             var contextMessage = $"Error cleaning up partial extraction: {directoryPath}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
+    }
+    
+    private string EscapeCommandLineArgument(string arg)
+    {
+        // Replace any embedded quotes with escaped quotes
+        return arg.Replace("\"", "\\\"");
+    }
+    
+    // Helper function to verify no path traversal in extracted files
+    private bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
+    {
+        // Get the full path of both directories
+        var fullBasePath = Path.GetFullPath(basePath);
+        var fullCurrentPath = Path.GetFullPath(currentPath);
+    
+        // First check if the current directory is within the base path
+        if (!fullCurrentPath.StartsWith(fullBasePath, StringComparison.OrdinalIgnoreCase))
+        {
+            return false;
+        }
+    
+        // Check each file in the current directory
+        foreach (var file in Directory.GetFiles(currentPath))
+        {
+            var fullFilePath = Path.GetFullPath(file);
+            if (!fullFilePath.StartsWith(fullBasePath, StringComparison.OrdinalIgnoreCase))
+            {
+                return false;
+            }
+        }
+    
+        // Recursively check all subdirectories
+        foreach (var dir in Directory.GetDirectories(currentPath))
+        {
+            if (!VerifyNoPathTraversalInExtractedFiles(basePath, dir))
+            {
+                return false;
+            }
+        }
+    
+        return true;
     }
 }

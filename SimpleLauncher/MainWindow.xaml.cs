@@ -85,7 +85,7 @@ public partial class MainWindow : INotifyPropertyChanged
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
-    private readonly SettingsManager _settings = new();
+    private readonly SettingsManager _settings;
     private FavoritesManager _favoritesManager;
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup; // Used for faster lookup of MAME machine names
@@ -98,6 +98,9 @@ public partial class MainWindow : INotifyPropertyChanged
     public MainWindow()
     {
         InitializeComponent();
+        
+        // Initialize settings from App
+        _settings = App.Settings;
 
         // Check for Command-line Args
         // Show UpdateHistory after the MainWindow is fully loaded

@@ -11,6 +11,7 @@ namespace SimpleLauncher;
 public partial class App
 {
     private static SettingsManager _settings;
+    public static SettingsManager Settings => _settings;
 
     protected override void OnStartup(StartupEventArgs e)
     {
