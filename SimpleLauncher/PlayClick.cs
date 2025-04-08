@@ -21,22 +21,32 @@ public static class PlayClick
 
     private static void PlaySound(string soundFileName)
     {
-        try
+        var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
+        if (File.Exists(soundPath))
         {
-            var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
-            _mediaPlayer = new MediaPlayer();
-            _mediaPlayer.MediaEnded += (_, _) =>
+            try
             {
-                _mediaPlayer.Close();
-                _mediaPlayer = null;
-            };
-            _mediaPlayer?.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
-            _mediaPlayer?.Play();
+                _mediaPlayer = new MediaPlayer();
+                _mediaPlayer.MediaEnded += (_, _) =>
+                {
+                    _mediaPlayer.Close();
+                    _mediaPlayer = null;
+                };
+                _mediaPlayer?.Open(new Uri(soundPath, UriKind.RelativeOrAbsolute));
+                _mediaPlayer?.Play();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"Error playing '{soundFileName}' sound.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }            
         }
-        catch (Exception ex)
+        else
         {
             // Notify developer
-            var contextMessage = $"Error playing '{soundFileName}' sound.";
+            var contextMessage = $"The file '{soundFileName}' could not be found in the audio folder.";
+            var ex = new FileNotFoundException(contextMessage, soundPath);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }

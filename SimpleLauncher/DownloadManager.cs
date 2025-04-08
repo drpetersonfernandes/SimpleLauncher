@@ -658,7 +658,7 @@ public class DownloadManager : IDisposable
     /// <param name="folderPath">The folder path to check.</param>
     /// <param name="requiredSpace">The required space in bytes (default is 1GB).</param>
     /// <returns>True if enough space is available, otherwise false.</returns>
-    private bool CheckAvailableDiskSpace(string folderPath, long requiredSpace = 1073741824)
+    private static bool CheckAvailableDiskSpace(string folderPath, long requiredSpace = 1073741824)
     {
         try
         {
