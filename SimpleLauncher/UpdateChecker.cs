@@ -285,7 +285,7 @@ public static partial class UpdateChecker
             GC.Collect(); // Force garbage collection
             GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
             Application.Current.Shutdown(); // Shutdown the application
-            Process.GetCurrentProcess().Kill(); // Forcefully kill the process
+            Process.GetCurrentProcess()?.Kill(); // Forcefully kill the process
         });
     }
 

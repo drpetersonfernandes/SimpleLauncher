@@ -476,7 +476,7 @@ public partial class MainWindow : INotifyPropertyChanged
     {
         SaveApplicationSettings();
 
-        var processModule = Process.GetCurrentProcess().MainModule;
+        var processModule = Process.GetCurrentProcess()?.MainModule;
         if (processModule == null) return;
         var startInfo = new ProcessStartInfo
         {
@@ -619,10 +619,10 @@ public partial class MainWindow : INotifyPropertyChanged
                     // Display the system info
                     var systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
-                    var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                    var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
 
                     // Display SystemInfo for that system
-                    SystemManager.DisplaySystemInfo(systemFolderPath, gameCount, selectedConfig, _gameFileGrid);
+                    SystemManager.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
 
                     // Update Image Folder and Rom Folder Variables
                     _selectedRomFolder = selectedConfig.SystemFolder;
@@ -636,7 +636,7 @@ public partial class MainWindow : INotifyPropertyChanged
                     ResetPaginationButtons();
 
                     // Load files from cache or rescan if needed
-                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, gameCount);
+                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
                 }
                 else
                 {
@@ -782,12 +782,12 @@ public partial class MainWindow : INotifyPropertyChanged
                 // Recount the number of files in the system folder
                 var systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
-                var gameCount = FileManager.CountFiles(systemFolderPath, fileExtensions);
+                var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
-                if (cachedFilesCount != gameCount)
+                if (cachedFilesCount != await gameCount)
                 {
                     // If the cached file list is not up to date, rescan the system folder
-                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, gameCount);
+                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
                 }
 
                 if (_cachedFiles is { Count: > 0 })

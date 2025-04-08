@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
 using System.Xml.Linq;
@@ -29,65 +30,77 @@ public partial class RomHistoryWindow
         RomDescriptionTextBox.Text = _searchTerm;
         RomDescriptionTextBox.Visibility = Visibility.Collapsed;
 
-        // Load history synchronously after window initialization
-        Loaded += (_, _) => LoadRomHistory();
+        // Load history asynchronously after window initialization
+        Loaded += async (_, _) => await LoadRomHistoryAsync();
     }
 
-    private void LoadRomHistory()
+    private async Task LoadRomHistoryAsync()
     {
         try
         {
             var historyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "history.xml");
 
-            if (!File.Exists(historyFilePath))
+            // Check file existence asynchronously
+            if (!await Task.Run(() => File.Exists(historyFilePath)))
             {
                 // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
-                HistoryTextBlock.Text = nohistoryxmlfilefound2;
+                // Update UI on the UI thread
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
+                    HistoryTextBlock.Text = nohistoryxmlfilefound2;
 
-                MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
+                    MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
+                });
 
                 return;
             }
 
-            var doc = XDocument.Load(historyFilePath);
+            // Load and parse XML in a background thread
+            var entry = await Task.Run(() =>
+            {
+                var doc = XDocument.Load(historyFilePath);
 
-            var entry = doc.Descendants("entry")
-                            .FirstOrDefault(e => e.Element("systems")?.Elements("system")
-                                .Any(system => system.Attribute("name")?.Value == _romName) == true)
-                        ?? doc.Descendants("entry")
-                            .FirstOrDefault(e => e.Element("software")?.Elements("item")
-                                .Any(item => item.Attribute("name")?.Value == _romName) == true);
+                return doc.Descendants("entry")
+                           .FirstOrDefault(e => e.Element("systems")?.Elements("system")
+                               .Any(system => system.Attribute("name")?.Value == _romName) == true)
+                       ?? doc.Descendants("entry")
+                           .FirstOrDefault(e => e.Element("software")?.Elements("item")
+                               .Any(item => item.Attribute("name")?.Value == _romName) == true);
+            });
 
-            RomNameTextBox.Text = _romName;
-
-            // Only show _searchTerm in RomDescriptionTextBox if SystemIsMame is true
-            if (_systemConfig.SystemIsMame)
+            // Update UI on the UI thread
+            await Dispatcher.InvokeAsync(() =>
             {
                 RomNameTextBox.Text = _romName;
-                RomDescriptionTextBox.Text = _searchTerm;
-                RomDescriptionTextBox.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                RomDescriptionTextBox.Visibility = Visibility.Collapsed;
-            }
 
-            if (entry != null)
-            {
-                var notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
-                var historyText = entry.Element("text")?.Value ?? notextavailable2;
-                SetHistoryTextWithLinks(historyText);
-            }
-            else
-            {
-                PromptForOnlineSearch();
-            }
+                // Only show _searchTerm in RomDescriptionTextBox if SystemIsMame is true
+                if (_systemConfig.SystemIsMame)
+                {
+                    RomNameTextBox.Text = _romName;
+                    RomDescriptionTextBox.Text = _searchTerm;
+                    RomDescriptionTextBox.Visibility = Visibility.Visible;
+                }
+                else
+                {
+                    RomDescriptionTextBox.Visibility = Visibility.Collapsed;
+                }
+
+                if (entry != null)
+                {
+                    var notextavailable2 = (string)Application.Current.TryFindResource("Notextavailable") ?? "No text available.";
+                    var historyText = entry.Element("text")?.Value ?? notextavailable2;
+                    SetHistoryTextWithLinks(historyText);
+                }
+                else
+                {
+                    PromptForOnlineSearch();
+                }
+            });
         }
         catch (Exception ex)
         {
@@ -95,8 +108,8 @@ public partial class RomHistoryWindow
             const string contextMessage = "An error occurred while loading ROM history.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
+            // Notify user on the UI thread
+            await Dispatcher.InvokeAsync(MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox);
         }
     }
 
