@@ -108,7 +108,7 @@ public static class Stats
             var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
 
             // Send the POST request.
-            var response = await _httpClient.PostAsync(apiUrl, jsonContent);
+            using var response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode) return true; // Success.
 

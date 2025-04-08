@@ -117,7 +117,7 @@ public static class LogErrors
             request.Headers.Add("X-API-KEY", ApiKey);
 
             // Send the request
-            var response = await HttpClient.SendAsync(request);
+            using var response = await HttpClient.SendAsync(request);
             return response.IsSuccessStatusCode;
         }
         catch (Exception)

@@ -145,7 +145,7 @@ public partial class SupportWindow
             // Construct the full API URL
             var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}/api/send-customer-email";
 
-            var response = await HttpClient.PostAsync(apiUrl, jsonContent);
+            using var response = await HttpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
