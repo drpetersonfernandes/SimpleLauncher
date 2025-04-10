@@ -482,7 +482,7 @@ public partial class MainWindow : IDisposable
     {
         // Dispose of the cancellation token source
         _cts?.Dispose();
-        _cts = null;
+        // _cts = null;
 
         // Dispose of the bug report service if it implements IDisposable
         if (_bugReportService is IDisposable bugReportService)

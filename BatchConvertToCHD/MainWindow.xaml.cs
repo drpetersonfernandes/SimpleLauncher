@@ -850,7 +850,7 @@ public partial class MainWindow : IDisposable
         // Dispose the cancellation token source
         _cts?.Cancel();
         _cts?.Dispose();
-        _cts = null;
+        // _cts = null;
 
         // Dispose the bug report service
         _bugReportService?.Dispose();

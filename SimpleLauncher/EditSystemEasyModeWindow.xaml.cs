@@ -589,5 +589,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
         _downloadManager?.Dispose();
             
         _disposed = true;
+        
+        GC.SuppressFinalize(this);
     }
 }

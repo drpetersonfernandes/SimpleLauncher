@@ -605,7 +605,7 @@ public partial class MainWindow : IDisposable
     {
         // Dispose the cancellation token source
         _cts?.Dispose();
-        _cts = null;
+        // _cts = null;
 
         // Dispose the bug report service
         _bugReportService?.Dispose();
@@ -616,7 +616,6 @@ public partial class MainWindow : IDisposable
             _processingTimer.Stop();
         }
 
-        // Unregister any event handlers if needed
-        // (none appear to be explicitly registered in the provided code)
+        GC.SuppressFinalize(this);
     }
 }

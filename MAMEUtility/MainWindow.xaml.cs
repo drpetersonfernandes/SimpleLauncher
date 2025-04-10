@@ -561,16 +561,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Close and dispose the log window if it exists
-        if (_logWindow != null)
-        {
-            _logWindow.Close();
-
-            // If LogWindow implements IDisposable, it should be disposed
-            if (_logWindow is IDisposable disposableLogWindow)
-            {
-                disposableLogWindow.Dispose();
-            }
-        }
+        _logWindow?.Close();
 
         // Suppress finalization since we've manually disposed resources
         GC.SuppressFinalize(this);

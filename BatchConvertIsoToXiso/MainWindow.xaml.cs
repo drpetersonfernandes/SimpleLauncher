@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace BatchConvertIsoToXiso;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
@@ -520,5 +520,22 @@ public partial class MainWindow
         {
             // Silently fail if error reporting itself fails
         }
+    }
+
+    public void Dispose()
+    {
+        // Cancel any ongoing operations
+        if (_cts != null)
+        {
+            _cts.Cancel();
+            _cts.Dispose();
+            _cts = null!;
+        }
+
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }
