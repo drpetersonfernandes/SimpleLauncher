@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace BatchConvertToCompressedFile;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
@@ -476,5 +476,21 @@ public partial class MainWindow
         }
 
         return x64Exists || x86Exists;
+    }
+
+    public void Dispose()
+    {
+        // Dispose of the cancellation token source
+        _cts?.Dispose();
+        _cts = null;
+
+        // Dispose of the bug report service if it implements IDisposable
+        if (_bugReportService is IDisposable bugReportService)
+        {
+            bugReportService.Dispose();
+        }
+
+        // Suppress finalization for better performance
+        GC.SuppressFinalize(this);
     }
 }

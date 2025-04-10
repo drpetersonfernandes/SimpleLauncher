@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace CreateBatchFilesForScummVMGames;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private readonly BugReportService _bugReportService;
 
@@ -301,5 +301,16 @@ public partial class MainWindow
         {
             // Silently fail if error reporting itself fails
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // If there are any other disposable resources, dispose them here
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

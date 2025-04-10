@@ -18,7 +18,7 @@ using KeyEventArgs = System.Windows.Input.KeyEventArgs;
 
 namespace SimpleLauncher;
 
-public partial class MainWindow : INotifyPropertyChanged
+public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
     // Declare Controller Detection
     private DispatcherTimer _controllerCheckTimer;
@@ -1936,4 +1936,53 @@ public partial class MainWindow : INotifyPropertyChanged
     }
 
     #endregion
+    
+    public void Dispose()
+    {
+        // Stop and dispose timers
+        if (_controllerCheckTimer != null)
+        {
+            _controllerCheckTimer.Stop();
+            _controllerCheckTimer = null;
+        }
+
+        // // Dispose CacheManager
+        // _cacheManager?.Dispose();
+
+        // Dispose TrayIconManager
+        _trayIconManager?.Dispose();
+
+        // // Dispose PlayHistoryManager
+        // _playHistoryManager?.Dispose();
+        //
+        // // Dispose FavoritesManager
+        // _favoritesManager?.Dispose();
+        //
+        // // Dispose GameListFactory
+        // _gameListFactory?.Dispose();
+        //
+        // // Dispose GameButtonFactory
+        // _gameButtonFactory?.Dispose();
+
+        // // Dispose MameManagers
+        // if (_machines != null)
+        // {
+        //     foreach (var machine in _machines)
+        //     {
+        //         machine?.Dispose();
+        //     }
+        // }
+
+        // // Dispose SettingsManager
+        // _settings?.Dispose();
+
+        // Clean up collections
+        GameListItems?.Clear();
+        _cachedFiles?.Clear();
+        _currentSearchResults?.Clear();
+        _systemConfigs?.Clear();
+
+        // Notify garbage collector
+        GC.SuppressFinalize(this);
+    }
 }

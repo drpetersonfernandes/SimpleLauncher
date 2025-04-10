@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace BatchVerifyCHDFiles;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
@@ -599,5 +599,24 @@ public partial class MainWindow
         {
             _ = ReportBugAsync("Error opening About window", ex);
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the cancellation token source
+        _cts?.Dispose();
+        _cts = null;
+
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Stop the processing timer if it's running
+        if (_processingTimer.IsRunning)
+        {
+            _processingTimer.Stop();
+        }
+
+        // Unregister any event handlers if needed
+        // (none appear to be explicitly registered in the provided code)
     }
 }

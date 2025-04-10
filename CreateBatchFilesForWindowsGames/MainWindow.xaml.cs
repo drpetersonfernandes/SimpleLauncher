@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace CreateBatchFilesForWindowsGames;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private readonly BugReportService _bugReportService;
 
@@ -337,5 +337,14 @@ public partial class MainWindow
         {
             // Silently fail if error reporting itself fails
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the bug report service if it exists
+        _bugReportService?.Dispose();
+
+        // Suppress finalization since we're explicitly disposing
+        GC.SuppressFinalize(this);
     }
 }

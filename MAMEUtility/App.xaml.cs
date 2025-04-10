@@ -6,7 +6,7 @@ namespace MAMEUtility;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App
+public partial class App : IDisposable
 {
     private BugReportService? _bugReportService;
 
@@ -66,5 +66,23 @@ public partial class App
         {
             // Ignore exceptions in the exception handler
         }
+    }
+
+    public void Dispose()
+    {
+        // Unregister from event handlers to prevent memory leaks
+        AppDomain.CurrentDomain.UnhandledException -= OnUnhandledException;
+        DispatcherUnhandledException -= OnDispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= OnUnobservedTaskException;
+
+        // Dispose the bug report service if it exists
+        if (_bugReportService != null)
+        {
+            _bugReportService.Dispose();
+            _bugReportService = null;
+        }
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

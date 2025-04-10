@@ -11,7 +11,7 @@ using SaveFileDialog = Microsoft.Win32.SaveFileDialog;
 
 namespace MameUtility;
 
-public partial class MainWindow : INotifyPropertyChanged
+public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
     private readonly BackgroundWorker _worker;
     private readonly LogWindow _logWindow;
@@ -549,5 +549,30 @@ public partial class MainWindow : INotifyPropertyChanged
         {
             Log("No folder selected. Operation cancelled.");
         }
+    }
+
+    public void Dispose()
+    {
+        // Unregister event handlers to prevent memory leaks
+        if (_worker != null)
+        {
+            _worker.ProgressChanged -= Worker_ProgressChanged;
+            // BackgroundWorker doesn't implement IDisposable, but we should remove event handlers
+        }
+
+        // Close and dispose the log window if it exists
+        if (_logWindow != null)
+        {
+            _logWindow.Close();
+
+            // If LogWindow implements IDisposable, it should be disposed
+            if (_logWindow is IDisposable disposableLogWindow)
+            {
+                disposableLogWindow.Dispose();
+            }
+        }
+
+        // Suppress finalization since we've manually disposed resources
+        GC.SuppressFinalize(this);
     }
 }

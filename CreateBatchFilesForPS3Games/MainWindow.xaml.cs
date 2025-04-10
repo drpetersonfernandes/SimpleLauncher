@@ -10,7 +10,7 @@ using static System.BitConverter;
 
 namespace CreateBatchFilesForPS3Games;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private readonly BugReportService _bugReportService;
 
@@ -673,4 +673,13 @@ public partial class MainWindow
 
     [GeneratedRegex(@"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex2();
+
+    public void Dispose()
+    {
+        // Dispose the bug report service if it's not null
+        _bugReportService?.Dispose();
+
+        // Suppress finalization since we've now cleaned up resources
+        GC.SuppressFinalize(this);
+    }
 }

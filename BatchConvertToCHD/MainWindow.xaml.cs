@@ -9,7 +9,7 @@ using Microsoft.Win32;
 
 namespace BatchConvertToCHD;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
@@ -844,4 +844,18 @@ public partial class MainWindow
 
     [System.Text.RegularExpressions.GeneratedRegex(@"ratio=(\d+[\.,]\d+)%")]
     private static partial System.Text.RegularExpressions.Regex MyRegex1();
+
+    public void Dispose()
+    {
+        // Dispose the cancellation token source
+        _cts?.Cancel();
+        _cts?.Dispose();
+        _cts = null;
+
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Suppress finalization since we've explicitly disposed resources
+        GC.SuppressFinalize(this);
+    }
 }

@@ -8,7 +8,7 @@ using Microsoft.Win32;
 
 namespace BatchVerifyCompressedFiles;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private CancellationTokenSource _cts;
     private readonly BugReportService _bugReportService;
@@ -706,5 +706,21 @@ public partial class MainWindow
 
         // Get the full path
         return Path.Combine(appDirectory, executableName);
+    }
+
+    public void Dispose()
+    {
+        // Dispose the cancellation token source
+        _cts?.Dispose();
+        _cts = null;
+
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Dispose the stopwatch if needed
+        _processingTimer?.Stop();
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

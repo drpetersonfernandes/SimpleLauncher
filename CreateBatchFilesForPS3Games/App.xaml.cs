@@ -7,7 +7,7 @@ namespace CreateBatchFilesForPS3Games;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App
+public partial class App : IDisposable
 {
     // Bug Report API configuration
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
@@ -97,5 +97,19 @@ public partial class App
             sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
             AppendExceptionDetails(sb, exception.InnerException, level + 1);
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Unsubscribe from global exception handlers to prevent memory leaks
+        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+        DispatcherUnhandledException -= App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

@@ -7,7 +7,7 @@ using Microsoft.Win32;
 
 namespace CreateBatchFilesForXbox360XBLAGames;
 
-public partial class MainWindow
+public partial class MainWindow : IDisposable
 {
     private readonly BugReportService _bugReportService;
 
@@ -424,5 +424,14 @@ public partial class MainWindow
         {
             // Silently fail if error reporting itself fails
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Suppress finalization since there's no need for it
+        GC.SuppressFinalize(this);
     }
 }

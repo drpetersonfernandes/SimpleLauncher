@@ -12,7 +12,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemEasyModeWindow
+public partial class EditSystemEasyModeWindow : IDisposable
 {
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
@@ -581,8 +581,8 @@ public partial class EditSystemEasyModeWindow
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
     }
-        
-    private void Dispose()
+
+    public void Dispose()
     {
         if (_disposed) return;
             

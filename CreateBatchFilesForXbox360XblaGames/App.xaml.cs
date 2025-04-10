@@ -7,7 +7,7 @@ namespace CreateBatchFilesForXbox360XBLAGames;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App
+public partial class App : IDisposable
 {
     // Bug Report API configuration
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
@@ -97,5 +97,19 @@ public partial class App
             sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
             AppendExceptionDetails(sb, exception.InnerException, level + 1);
         }
+    }
+
+    public void Dispose()
+    {
+        // Clean up event handlers
+        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+        DispatcherUnhandledException -= App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+
+        // Dispose the bug report service if it exists
+        _bugReportService?.Dispose();
+
+        // Suppress finalization since we've manually disposed resources
+        GC.SuppressFinalize(this);
     }
 }
