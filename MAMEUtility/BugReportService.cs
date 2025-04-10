@@ -1,3 +1,4 @@
+using System.Globalization;
 using System.Net.Http;
 using System.Text;
 using System.Text.Json;
@@ -61,25 +62,25 @@ public class BugReportService
     private static string FormatExceptionMessage(Exception exception)
     {
         var sb = new StringBuilder();
-        sb.AppendLine($"Exception: {exception.GetType().Name}");
-        sb.AppendLine($"Message: {exception.Message}");
-        sb.AppendLine($"Stack Trace: {exception.StackTrace}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Exception: {exception.GetType().Name}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace: {exception.StackTrace}");
 
         // Add version info
-        sb.AppendLine($"App Version: {AboutWindow.ApplicationVersion}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"App Version: {AboutWindow.ApplicationVersion}");
 
         // Add OS info
-        sb.AppendLine($"OS: {Environment.OSVersion}");
-        sb.AppendLine($".NET Version: {Environment.Version}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
 
         // Add additional information about inner exceptions if present
         var innerException = exception.InnerException;
         if (innerException != null)
         {
             sb.AppendLine("\nInner Exception:");
-            sb.AppendLine($"Type: {innerException.GetType().Name}");
-            sb.AppendLine($"Message: {innerException.Message}");
-            sb.AppendLine($"Stack Trace: {innerException.StackTrace}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Type: {innerException.GetType().Name}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {innerException.Message}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace: {innerException.StackTrace}");
         }
 
         return sb.ToString();

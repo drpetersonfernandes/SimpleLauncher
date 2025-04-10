@@ -18,7 +18,7 @@ public static class MameSourcefile
                 .Where(s => !string.IsNullOrEmpty(s));
 
             var enumerable = sourceFiles.ToList();
-            var totalSourceFiles = enumerable.Count();
+            var totalSourceFiles = enumerable.Count;
             var sourceFilesProcessed = 0;
 
             // Iterate over each source file and create an XML for each

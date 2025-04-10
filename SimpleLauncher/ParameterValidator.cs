@@ -9,7 +9,7 @@ namespace SimpleLauncher;
 /// <summary>
 /// Provides methods for validating file paths and parameters used in emulator configurations.
 /// </summary>
-public static class ParameterValidator
+public static partial class ParameterValidator
 {
     // Regular expression to detect potential paths in parameter strings
     // private static readonly Regex PathRegex = new(
@@ -29,6 +29,12 @@ public static class ParameterValidator
         "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
         "-L", "-g", "-rompath"
     };
+
+    private static readonly char[] Separator = new[] { '\\', '/' };
+    private static readonly char[] Separator2 = new[] { ';' };
+    private static readonly char[] Separator3 = new[] { ';' };
+    private static readonly char[] Separator4 = new[] { ' ', '\t' };
+    private static readonly char[] Separator5 = new[] { ';' };
 
     /// <summary>
     /// Checks if a path exists (either as an absolute path or relative to the application directory)
@@ -95,11 +101,11 @@ public static class ParameterValidator
     {
         // Check for directory-like structures with multiple segments
         var hasDrivePrefix = text.Length >= 2 && text[1] == ':';
-        var hasMultipleSegments = text.Split(new[] { '\\', '/' }, StringSplitOptions.RemoveEmptyEntries).Length > 1;
+        var hasMultipleSegments = text.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Length > 1;
 
         return (hasDrivePrefix && hasMultipleSegments) ||
-               (text.Contains("\\") && hasMultipleSegments) ||
-               (text.Contains("/") && hasMultipleSegments);
+               (text.Contains('\\') && hasMultipleSegments) ||
+               (text.Contains('/') && hasMultipleSegments);
     }
 
     /// <summary>
@@ -171,7 +177,7 @@ public static class ParameterValidator
         if (string.IsNullOrWhiteSpace(parameters)) return result;
 
         // Match parameter flags followed by paths
-        var flaggedPathRegex = new Regex(@"(-\w+)\s+(?:""([^""]+)""|'([^']+)'|(\S+))");
+        var flaggedPathRegex = MyRegex();
         var matches = flaggedPathRegex.Matches(parameters);
 
         foreach (Match match in matches)
@@ -215,7 +221,7 @@ public static class ParameterValidator
                 case "-rompath":
                 {
                     // For rompath, split by semicolons and validate each directory
-                    var romPaths = path.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                    var romPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var romPath in romPaths)
                     {
                         var trimmedPath = romPath.Trim();
@@ -259,7 +265,7 @@ public static class ParameterValidator
         }
 
         // Process all quoted paths that might not be associated with flags
-        var quotedPathsRegex = new Regex(@"(?:""([^""]+)""|'([^']+)')");
+        var quotedPathsRegex = MyRegex1();
         var quotedMatches = quotedPathsRegex.Matches(parameters);
         foreach (Match match in quotedMatches)
         {
@@ -273,10 +279,10 @@ public static class ParameterValidator
                 parameterPaths.Any(p => p.Path == quotedPath)) continue;
 
             // Handle multi-paths separated by semicolons (like in -rompath)
-            if (quotedPath.Contains(";"))
+            if (quotedPath.Contains(';'))
             {
                 // Split by semicolons and validate each part
-                var subPaths = quotedPath.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                var subPaths = quotedPath.Split(Separator3, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var subPath in subPaths)
                 {
                     var trimmedSubPath = subPath.Trim();
@@ -303,11 +309,11 @@ public static class ParameterValidator
         }
 
         // Process remaining unquoted potential paths (less common)
-        var remainingParams = Regex.Replace(parameters, @"(?:""[^""]*""|'[^']*')", " ");
-        var flagsRemoved = new Regex(@"-\w+\s+").Replace(remainingParams, " ");
+        var remainingParams = MyRegex2().Replace(parameters, " ");
+        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
 
         // Split by whitespace and check each token
-        var words = flagsRemoved.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+        var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
         foreach (var word in words)
         {
             // Skip known parameter flags or placeholders
@@ -389,7 +395,7 @@ public static class ParameterValidator
                     // For rompath, check all semicolon-separated paths
                     if (path != null)
                     {
-                        var romPaths = path.Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+                        var romPaths = path.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
                         foreach (var romPath in romPaths)
                         {
                             var trimmedPath = romPath.Trim();
@@ -407,4 +413,16 @@ public static class ParameterValidator
 
         return (true, null); // No error
     }
+
+    [GeneratedRegex(@"(-\w+)\s+(?:""([^""]+)""|'([^']+)'|(\S+))")]
+    private static partial Regex MyRegex();
+
+    [GeneratedRegex(@"(?:""([^""]+)""|'([^']+)')")]
+    private static partial Regex MyRegex1();
+
+    [GeneratedRegex(@"(?:""[^""]*""|'[^']*')")]
+    private static partial Regex MyRegex2();
+
+    [GeneratedRegex(@"-\w+\s+")]
+    private static partial Regex MyRegex3();
 }

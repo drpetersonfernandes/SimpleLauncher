@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.IO.Compression;
 using System.Text;
@@ -17,6 +18,7 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchConvertToCHD";
+    private static readonly char[] Separator = new[] { ' ', '\t' };
 
     public MainWindow()
     {
@@ -221,7 +223,7 @@ public partial class MainWindow
             // Restrict to supported file types
             var supportedExtensions = new[] { ".cue", ".iso", ".img", ".gdi", ".toc", ".raw", ".zip" };
             var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly)
-                .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLower()))
+                .Where(file => supportedExtensions.Contains(Path.GetExtension(file).ToLowerInvariant()))
                 .ToArray();
 
             LogMessage($"Found {files.Length} files to convert.");
@@ -372,7 +374,7 @@ public partial class MainWindow
         {
             // Determine which command to use based on file extension
             var command = "createcd"; // Default for CD-ROM formats
-            var extension = Path.GetExtension(inputFile).ToLower();
+            var extension = Path.GetExtension(inputFile).ToLowerInvariant();
 
             switch (extension)
             {
@@ -414,7 +416,7 @@ public partial class MainWindow
                     outputBuilder.AppendLine(args.Data);
 
                     // Check for progress information
-                    if (args.Data.Contains("Compressing") && args.Data.Contains("%"))
+                    if (args.Data.Contains("Compressing") && args.Data.Contains('%'))
                     {
                         // Extract percentage and update UI
                         UpdateConversionProgress(args.Data);
@@ -429,7 +431,7 @@ public partial class MainWindow
                     errorBuilder.AppendLine(args.Data);
 
                     // Check if this is a progress update or completion message rather than an actual error
-                    if (args.Data.Contains("Compressing") && args.Data.Contains("%") ||
+                    if (args.Data.Contains("Compressing") && args.Data.Contains('%') ||
                         args.Data.Contains("Compression complete"))
                     {
                         // This is a progress update or completion message, not an error
@@ -493,10 +495,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -508,9 +510,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -518,8 +520,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }
@@ -558,7 +560,7 @@ public partial class MainWindow
         try
         {
             // Extract percentage from a line like "Compressing, 45.6% complete... (ratio=40.5%)"
-            var match = System.Text.RegularExpressions.Regex.Match(progressLine, @"(\d+[\.,]\d+)%");
+            var match = MyRegex().Match(progressLine);
             if (match.Success)
             {
                 // Get the percentage string, handling both decimal point and comma formats
@@ -567,8 +569,8 @@ public partial class MainWindow
                 // Replace comma with a period to ensure proper parsing regardless of culture
                 percentageStr = percentageStr.Replace(',', '.');
 
-                if (double.TryParse(percentageStr, System.Globalization.NumberStyles.Any,
-                        System.Globalization.CultureInfo.InvariantCulture, out var percentage))
+                if (double.TryParse(percentageStr, NumberStyles.Any,
+                        CultureInfo.InvariantCulture, out var percentage))
                 {
                     // Ensure percentage is within the expected range (0-100)
                     // If it's consistently 10x too high, divide by 10
@@ -579,7 +581,7 @@ public partial class MainWindow
 
                     // Get the ratio if available
                     var ratio = "unknown";
-                    var ratioMatch = System.Text.RegularExpressions.Regex.Match(progressLine, @"ratio=(\d+[\.,]\d+)%");
+                    var ratioMatch = MyRegex1().Match(progressLine);
                     if (ratioMatch.Success)
                     {
                         ratio = ratioMatch.Groups[1].Value.Replace(',', '.') + "%";
@@ -606,7 +608,7 @@ public partial class MainWindow
             var tempDir = string.Empty;
 
             // Check if the file is a ZIP
-            if (Path.GetExtension(inputFile).ToLower() == ".zip")
+            if (Path.GetExtension(inputFile).Equals(".zip", StringComparison.OrdinalIgnoreCase))
             {
                 LogMessage($"Processing ZIP file: {Path.GetFileName(inputFile)}");
                 var extractResult = await ExtractZipFileAsync(inputFile);
@@ -718,7 +720,7 @@ public partial class MainWindow
             // Find the first supported file in the extracted directory
             var supportedExtensions = new[] { ".cue", ".iso", ".img", ".gdi", ".toc", ".raw" };
             var supportedFile = Directory.GetFiles(tempDir, "*.*", SearchOption.AllDirectories)
-                .FirstOrDefault(f => supportedExtensions.Contains(Path.GetExtension(f).ToLower()));
+                .FirstOrDefault(f => supportedExtensions.Contains(Path.GetExtension(f).ToLowerInvariant()));
 
             if (supportedFile != null)
             {
@@ -740,14 +742,14 @@ public partial class MainWindow
             // For .cue files, get all referenced files first
             var filesToDelete = new List<string>();
 
-            if (Path.GetExtension(inputFile).ToLower() == ".cue")
+            if (Path.GetExtension(inputFile).Equals(".cue", StringComparison.OrdinalIgnoreCase))
             {
                 // Get all files referenced in the .cue file
                 var referencedFiles = GetReferencedFilesFromCue(inputFile);
                 filesToDelete.AddRange(referencedFiles);
             }
             // Handle GDI files similarly to CUE files
-            else if (Path.GetExtension(inputFile).ToLower() == ".gdi")
+            else if (Path.GetExtension(inputFile).Equals(".gdi", StringComparison.OrdinalIgnoreCase))
             {
                 var referencedFiles = GetReferencedFilesFromGdi(inputFile);
                 filesToDelete.AddRange(referencedFiles);
@@ -792,7 +794,7 @@ public partial class MainWindow
                     continue;
 
                 // GDI format: Track LBA Type SectorSize FileName
-                var parts = trimmedLine.Split(new[] { ' ', '\t' }, StringSplitOptions.RemoveEmptyEntries);
+                var parts = trimmedLine.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
                 if (parts.Length >= 5)
                 {
                     var fileName = parts[4].Trim('"');
@@ -836,4 +838,10 @@ public partial class MainWindow
             Task.Run(async () => await ReportBugAsync("Error opening About window", ex));
         }
     }
+
+    [System.Text.RegularExpressions.GeneratedRegex(@"(\d+[\.,]\d+)%")]
+    private static partial System.Text.RegularExpressions.Regex MyRegex();
+
+    [System.Text.RegularExpressions.GeneratedRegex(@"ratio=(\d+[\.,]\d+)%")]
+    private static partial System.Text.RegularExpressions.Regex MyRegex1();
 }

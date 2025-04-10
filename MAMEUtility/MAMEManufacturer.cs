@@ -19,7 +19,7 @@ public partial class MameManufacturer
                 .Where(m => !string.IsNullOrEmpty(m));
 
             var enumerable = manufacturers.ToList();
-            var totalManufacturers = enumerable.Count();
+            var totalManufacturers = enumerable.Count;
             var manufacturersProcessed = 0;
 
             // Iterate over each manufacturer and create an XML for each

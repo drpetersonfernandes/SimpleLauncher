@@ -125,13 +125,13 @@ public partial class GlobalSearchWindow
                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
                     // First check: Does the filename itself match the search terms?
-                    if (MatchesSearchQuery(fileNameWithoutExtension.ToLower(), searchTerms))
+                    if (MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms))
                         return true;
 
                     // Second check: Look up the machine description using the dictionary.
                     if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
                     {
-                        return MatchesSearchQuery(description.ToLower(), searchTerms);
+                        return MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
                     }
 
                     return false;
@@ -221,11 +221,11 @@ public partial class GlobalSearchWindow
     private static List<string> ParseSearchTerms(string searchTerm)
     {
         var terms = new List<string>();
-        var matches = Regex.Matches(searchTerm, @"[\""].+?[\""]|[^ ]+");
+        var matches = MyRegex().Matches(searchTerm);
 
         foreach (Match match in matches)
         {
-            terms.Add(match.Value.Trim('"').ToLower());
+            terms.Add(match.Value.Trim('"').ToLowerInvariant());
         }
 
         return terms;
@@ -830,4 +830,7 @@ public partial class GlobalSearchWindow
 
         return true;
     }
+
+    [GeneratedRegex(@"[\""].+?[\""]|[^ ]+")]
+    private static partial Regex MyRegex();
 }

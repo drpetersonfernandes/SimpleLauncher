@@ -20,7 +20,7 @@ public static class MameYear
                     .Where(y => !string.IsNullOrEmpty(y));
 
                 var enumerable = years.ToList();
-                var totalYears = enumerable.Count();
+                var totalYears = enumerable.Count;
                 var yearsProcessed = 0;
 
                 // Iterate over each unique year
