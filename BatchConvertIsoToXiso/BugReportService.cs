@@ -6,12 +6,13 @@ namespace BatchConvertIsoToXiso;
 /// <summary>
 /// Service responsible for silently sending bug reports to the BugReport API
 /// </summary>
-public class BugReportService
+public class BugReportService : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiUrl;
     private readonly string _apiKey;
     private readonly string _applicationName;
+    private bool _disposed;
 
     public BugReportService(string apiUrl, string apiKey, string applicationName)
     {
@@ -51,6 +52,25 @@ public class BugReportService
         {
             // Silently fail if there's an exception
             return false;
+        }
+    }
+
+    public void Dispose()
+    {
+        Dispose(true);
+        GC.SuppressFinalize(this);
+    }
+
+    protected virtual void Dispose(bool disposing)
+    {
+        if (!_disposed)
+        {
+            if (disposing)
+            {
+                _httpClient.Dispose();
+            }
+
+            _disposed = true;
         }
     }
 }
