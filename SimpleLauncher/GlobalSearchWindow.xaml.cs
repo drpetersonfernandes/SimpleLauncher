@@ -115,7 +115,7 @@ public partial class GlobalSearchWindow
 
             // Get all files matching the file's extensions for this system
             var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
-                .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLower()));
+                .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
             // If the system is MAME-based and the lookup is available, use it to filter files.
             if (systemConfig.SystemIsMame && _mameLookup != null)
@@ -140,7 +140,7 @@ public partial class GlobalSearchWindow
             else
             {
                 // For non-MAME systems, filter by filename.
-                files = files.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLower(), searchTerms));
+                files = files.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
             }
 
             // Map each file into a SearchResult object.
@@ -186,7 +186,7 @@ public partial class GlobalSearchWindow
     {
         foreach (var result in results)
         {
-            result.Score = CalculateScore(result.FileName.ToLower(), searchTerms);
+            result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
         }
 
         return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();

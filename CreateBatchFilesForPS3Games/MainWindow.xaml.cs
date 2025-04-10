@@ -6,6 +6,7 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Windows;
 using Microsoft.Win32;
+using static System.BitConverter;
 
 namespace CreateBatchFilesForPS3Games;
 
@@ -324,7 +325,7 @@ public partial class MainWindow
             if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out var value))
                 return "";
 
-            return value.ToUpper();
+            return value.ToUpperInvariant();
         }
         catch (Exception ex)
         {
@@ -344,7 +345,7 @@ public partial class MainWindow
             if (sfoData == null || !sfoData.TryGetValue("TITLE_ID", out var value))
                 return "";
 
-            return value.ToUpper();
+            return value.ToUpperInvariant();
         }
         catch (Exception ex)
         {
@@ -407,8 +408,8 @@ public partial class MainWindow
             filename = filename.Replace("™", "").Replace("®", "");
 
             // Add space between letters and numbers
-            filename = Regex.Replace(filename, @"(\p{L})(\p{N})", "$1 $2");
-            filename = Regex.Replace(filename, @"(\p{N})(\p{L})", "$1 $2");
+            filename = MyRegex().Replace(filename, "$1 $2");
+            filename = MyRegex1().Replace(filename, "$1 $2");
 
             // Split the filename into words
             var words = filename.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
@@ -417,11 +418,11 @@ public partial class MainWindow
                 // Convert Roman numerals to uppercase
                 if (IsRomanNumeral(words[i]))
                 {
-                    words[i] = words[i].ToUpper();
+                    words[i] = words[i].ToUpperInvariant();
                 }
                 else
                 {
-                    words[i] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words[i].ToLower());
+                    words[i] = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(words[i].ToLowerInvariant());
                 }
             }
 
@@ -449,7 +450,7 @@ public partial class MainWindow
 
     private static bool IsRomanNumeral(string word)
     {
-        return Regex.IsMatch(word, @"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase);
+        return MyRegex2().IsMatch(word);
     }
 
     private Dictionary<string, string>? ReadSfo(string sfoFilePath)
@@ -461,8 +462,8 @@ public partial class MainWindow
         }
 
         var result = new Dictionary<string, string>();
-        var headerSize = Marshal.SizeOf(typeof(SfoHeader));
-        var indexSize = Marshal.SizeOf(typeof(SfoTableEntry));
+        var headerSize = Marshal.SizeOf<SfoHeader>();
+        var indexSize = Marshal.SizeOf<SfoTableEntry>();
 
         try
         {
@@ -472,7 +473,7 @@ public partial class MainWindow
             try
             {
                 var handle = GCHandle.Alloc(sfo, GCHandleType.Pinned);
-                sfoHeader = (SfoHeader)(Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoHeader)) ?? throw new InvalidOperationException());
+                sfoHeader = Marshal.PtrToStructure<SfoHeader>(handle.AddrOfPinnedObject());
                 handle.Free();
             }
             catch (Exception ex)
@@ -494,7 +495,7 @@ public partial class MainWindow
                 try
                 {
                     var handle = GCHandle.Alloc(sfoEntry, GCHandleType.Pinned);
-                    sfoTableEntry = (SfoTableEntry)(Marshal.PtrToStructure(handle.AddrOfPinnedObject(), typeof(SfoTableEntry)) ?? throw new InvalidOperationException());
+                    sfoTableEntry = Marshal.PtrToStructure<SfoTableEntry>(handle.AddrOfPinnedObject());
                     handle.Free();
                 }
                 catch (Exception ex)
@@ -520,7 +521,7 @@ public partial class MainWindow
                             val = Encoding.UTF8.GetString(strBytes).TrimEnd('\0');
                             break;
                         case 0x0404: //uint32
-                            val = BitConverter.ToUInt32(sfo, (int)entryValueOffset).ToString();
+                            val = ToUInt32(sfo, (int)entryValueOffset).ToString(CultureInfo.InvariantCulture);
                             break;
                     }
 
@@ -586,10 +587,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -601,9 +602,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -611,8 +612,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }
@@ -651,8 +652,8 @@ public partial class MainWindow
 
                 fullReport.AppendLine();
                 fullReport.AppendLine("=== Configuration ===");
-                fullReport.AppendLine($"RPCS3 Path: {rpcs3Path}");
-                fullReport.AppendLine($"Games Folder: {gameFolderPath}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"RPCS3 Path: {rpcs3Path}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Games Folder: {gameFolderPath}");
             }
 
             // Silently send the report
@@ -663,4 +664,13 @@ public partial class MainWindow
             // Silently fail if error reporting itself fails
         }
     }
+
+    [GeneratedRegex(@"(\p{L})(\p{N})")]
+    private static partial Regex MyRegex();
+
+    [GeneratedRegex(@"(\p{N})(\p{L})")]
+    private static partial Regex MyRegex1();
+
+    [GeneratedRegex(@"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase, "pt-BR")]
+    private static partial Regex MyRegex2();
 }

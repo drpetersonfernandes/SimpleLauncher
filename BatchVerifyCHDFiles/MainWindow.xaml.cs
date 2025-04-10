@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -20,6 +21,7 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCHDFiles";
+    private static readonly char[] Separator = new[] { '\r', '\n' };
 
     public MainWindow()
     {
@@ -438,12 +440,12 @@ public partial class MainWindow
         var sb = new StringBuilder();
 
         // Add file path
-        sb.AppendLine($"File: {chdFile}");
-        sb.AppendLine($"Size: {FormatFileSize(new FileInfo(chdFile).Length)}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"File: {chdFile}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Size: {FormatFileSize(new FileInfo(chdFile).Length)}");
         sb.AppendLine(new string('-', 40));
 
         // Process the raw info from chdman
-        var lines = rawInfo.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = rawInfo.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
 
         // Skip the first line which is usually the chdman version
         for (var i = 1; i < lines.Length; i++)
@@ -480,9 +482,9 @@ public partial class MainWindow
     {
         Application.Current.Dispatcher.Invoke((Action)(() =>
         {
-            TotalFilesValue.Text = _totalFiles.ToString();
-            VerifiedOkValue.Text = _verifiedOkCount.ToString();
-            FailedValue.Text = _failedCount.ToString();
+            TotalFilesValue.Text = _totalFiles.ToString(CultureInfo.InvariantCulture);
+            VerifiedOkValue.Text = _verifiedOkCount.ToString(CultureInfo.InvariantCulture);
+            FailedValue.Text = _failedCount.ToString(CultureInfo.InvariantCulture);
         }));
     }
 
@@ -518,10 +520,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -533,9 +535,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -543,8 +545,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }

@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -118,7 +119,7 @@ public class GameListFactory(
                 : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
 
             // Get times played
-            timesPlayed = playHistoryItem.TimesPlayed.ToString();
+            timesPlayed = playHistoryItem.TimesPlayed.ToString(CultureInfo.InvariantCulture);
         }
 
         // Create the GameListViewItem with file details

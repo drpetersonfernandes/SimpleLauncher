@@ -253,7 +253,7 @@ public partial class UpdateForm : Form
         logTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
     }
 
-    private static Regex MyRegex() => new Regex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled);
+    private static Regex MyRegex() => MyRegex1();
 
     private static string NormalizeVersion(string version)
     {
@@ -269,4 +269,7 @@ public partial class UpdateForm : Form
         // Remove any trailing dots (if any)
         return version.TrimEnd('.');
     }
+
+    [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
+    private static partial Regex MyRegex1();
 }

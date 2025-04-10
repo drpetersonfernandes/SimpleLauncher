@@ -265,10 +265,11 @@ public class SettingsManager
         }
 
         // Parse the existing playtime and add the new time
-        var existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime);
+        var existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
         var updatedPlayTime = existingPlayTime + playTime;
 
+
         // Update the playtime in the correct format
-        systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss");
+        systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
     }
 }

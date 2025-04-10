@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -20,6 +21,7 @@ public partial class MainWindow
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCompressedFiles";
+    private static readonly char[] Separator = new[] { '\r', '\n' };
 
     public MainWindow()
     {
@@ -232,7 +234,7 @@ public partial class MainWindow
         {
             LogMessage("Searching for compressed files...");
 
-            // Create search pattern based on selected file types
+            // Create a search pattern based on selected file types
             var fileExtensions = new List<string>();
             if (verifyZip) fileExtensions.Add("*.zip");
             if (verifySevenZip) fileExtensions.Add("*.7z");
@@ -275,7 +277,7 @@ public partial class MainWindow
 
                 var compressedFile = files[i];
                 var fileName = Path.GetFileName(compressedFile);
-                var fileType = Path.GetExtension(compressedFile).TrimStart('.').ToUpper();
+                var fileType = Path.GetExtension(compressedFile).TrimStart('.').ToUpperInvariant();
 
                 // Show progress information
                 UpdateProgressStatus(i + 1, files.Length, fileName);
@@ -375,7 +377,7 @@ public partial class MainWindow
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     // Log progress or status information
-                    if (args.Data.Contains("%") || args.Data.Contains("Testing") ||
+                    if (args.Data.Contains('%') || args.Data.Contains("Testing") ||
                         args.Data.Contains("Everything is Ok") || args.Data.Contains("Error"))
                     {
                         LogMessage($"  {args.Data.Trim()}");
@@ -475,13 +477,13 @@ public partial class MainWindow
         var sb = new StringBuilder();
 
         // Add file path and size
-        sb.AppendLine($"File: {archiveFile}");
-        sb.AppendLine($"Size: {FormatFileSize(new FileInfo(archiveFile).Length)}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"File: {archiveFile}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Size: {FormatFileSize(new FileInfo(archiveFile).Length)}");
         sb.AppendLine(new string('-', 40));
 
         // Extract and format archive information from 7z output
         // First, add archive properties
-        var lines = rawInfo.Split(new[] { '\r', '\n' }, StringSplitOptions.RemoveEmptyEntries);
+        var lines = rawInfo.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
         var inArchiveSection = false;
         var inFileSection = false;
         var fileCount = 0;
@@ -502,18 +504,19 @@ public partial class MainWindow
             // When we find the archive properties, add them
             if (inArchiveSection && !inFileSection)
             {
-                if (line.StartsWith("Type =") ||
-                    line.StartsWith("Method =") ||
-                    line.StartsWith("Solid =") ||
-                    line.StartsWith("Blocks =") ||
-                    line.StartsWith("Physical Size =") ||
-                    line.StartsWith("Headers Size ="))
+                if (line.StartsWith("Type =", StringComparison.Ordinal) ||
+                    line.StartsWith("Method =", StringComparison.Ordinal) ||
+                    line.StartsWith("Solid =", StringComparison.Ordinal) ||
+                    line.StartsWith("Blocks =", StringComparison.Ordinal) ||
+                    line.StartsWith("Physical Size =", StringComparison.Ordinal) ||
+                    line.StartsWith("Headers Size =", StringComparison.Ordinal))
                 {
                     sb.AppendLine(line);
                 }
 
+
                 // Check if we're entering the file section
-                if (line.StartsWith("Path ="))
+                if (line.StartsWith("Path =", StringComparison.Ordinal))
                 {
                     inFileSection = true;
                     fileCount++;
@@ -522,11 +525,11 @@ public partial class MainWindow
             else if (inFileSection)
             {
                 // Count files and accumulated size
-                if (line.StartsWith("Path ="))
+                if (line.StartsWith("Path =", StringComparison.Ordinal))
                 {
                     fileCount++;
                 }
-                else if (line.StartsWith("Size ="))
+                else if (line.StartsWith("Size =", StringComparison.Ordinal))
                 {
                     if (long.TryParse(line.Substring("Size =".Length).Trim(), out var size))
                     {
@@ -538,15 +541,15 @@ public partial class MainWindow
 
         // Add summary information
         sb.AppendLine(new string('-', 40));
-        sb.AppendLine($"Total files: {fileCount}");
-        sb.AppendLine($"Uncompressed size: {FormatFileSize(uncompressedSize)}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Total files: {fileCount}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Uncompressed size: {FormatFileSize(uncompressedSize)}");
 
         // Calculate compression ratio if possible
         var compressedSize = new FileInfo(archiveFile).Length;
         if (uncompressedSize > 0 && compressedSize > 0)
         {
             var ratio = (double)compressedSize / uncompressedSize;
-            sb.AppendLine($"Compression ratio: {ratio:P1}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"Compression ratio: {ratio:P1}");
         }
 
         return sb.ToString();
@@ -571,9 +574,9 @@ public partial class MainWindow
     {
         Application.Current.Dispatcher.Invoke((Action)(() =>
         {
-            TotalFilesValue.Text = _totalFiles.ToString();
-            VerifiedOkValue.Text = _verifiedOkCount.ToString();
-            FailedValue.Text = _failedCount.ToString();
+            TotalFilesValue.Text = _totalFiles.ToString(CultureInfo.InvariantCulture);
+            VerifiedOkValue.Text = _verifiedOkCount.ToString(CultureInfo.InvariantCulture);
+            FailedValue.Text = _failedCount.ToString(CultureInfo.InvariantCulture);
         }));
     }
 
@@ -609,10 +612,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -624,9 +627,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -634,8 +637,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }

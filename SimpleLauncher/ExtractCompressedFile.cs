@@ -53,7 +53,7 @@ public class ExtractCompressedFile
         }
 
         // Check file extension
-        var extension = Path.GetExtension(archivePath).ToLower();
+        var extension = Path.GetExtension(archivePath).ToLowerInvariant();
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
             // Notify user
@@ -103,7 +103,7 @@ public class ExtractCompressedFile
             var randomName = Path.GetRandomFileName();
         
             // Ensure the random name doesn't contain path traversal characters
-            if (randomName.Contains("..") || randomName.Contains("/") || randomName.Contains("\\"))
+            if (randomName.Contains("..") || randomName.Contains('/') || randomName.Contains('\\'))
             {
                 // Create a safer random name
                 randomName = Guid.NewGuid().ToString("N");
@@ -244,7 +244,7 @@ public class ExtractCompressedFile
         }
 
         // Check file extension
-        var extension = Path.GetExtension(archivePath).ToLower();
+        var extension = Path.GetExtension(archivePath).ToLowerInvariant();
         if (extension != ".zip")
         {
             // Notify user
@@ -279,7 +279,7 @@ public class ExtractCompressedFile
             var randomName = Path.GetRandomFileName();
         
             // Ensure the random name doesn't contain path traversal characters
-            if (randomName.Contains("..") || randomName.Contains("/") || randomName.Contains("\\"))
+            if (randomName.Contains("..") || randomName.Contains('/') || randomName.Contains('\\'))
             {
                 // Create a safer random name
                 randomName = Guid.NewGuid().ToString("N");
@@ -479,7 +479,7 @@ public class ExtractCompressedFile
         }
 
         // Check file extension
-        var extension = Path.GetExtension(filePath).ToLower();
+        var extension = Path.GetExtension(filePath).ToLowerInvariant();
 
         // Verify this is a supported format
         if (extension != ".zip")
@@ -677,7 +677,7 @@ public class ExtractCompressedFile
 
         while (currentEx != null)
         {
-            sb.AppendLine($"[Level {level}] {currentEx.GetType().Name}: {currentEx.Message}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"[Level {level}] {currentEx.GetType().Name}: {currentEx.Message}");
             level++;
             currentEx = currentEx.InnerException;
         }

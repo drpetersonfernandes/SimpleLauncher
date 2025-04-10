@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -117,7 +118,7 @@ public static class SystemManager
         {
             var systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
             hasErrors = true;
-            errorMessages.AppendLine($"{systemFolderpathisnotvalid2} '{systemFolder}'\n\n");
+            errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{systemFolderpathisnotvalid2} '{systemFolder}'\n\n");
         }
 
         // Validate the system image folder path if it's provided. Allow null or empty.
@@ -125,7 +126,7 @@ public static class SystemManager
         {
             var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
-            errorMessages.AppendLine($"{systemImageFolderpathisnotvalid2} '{selectedConfig.SystemImageFolder}'\n\n");
+            errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{systemImageFolderpathisnotvalid2} '{selectedConfig.SystemImageFolder}'\n\n");
         }
 
         // Validate each emulator's location path if it's provided. Allow null or empty.
@@ -135,7 +136,7 @@ public static class SystemManager
                 IsValidPath(emulator.EmulatorLocation)) continue;
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;
-            errorMessages.AppendLine($"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
+            errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");
         }
 
         // Display all error messages if there are any errors

@@ -6,7 +6,7 @@ namespace BatchVerifyCHDFiles;
 /// <summary>
 /// Service responsible for silently sending bug reports to the BugReport API
 /// </summary>
-public class BugReportService
+public class BugReportService : IDisposable
 {
     private readonly HttpClient _httpClient;
     private readonly string _apiUrl;
@@ -52,5 +52,14 @@ public class BugReportService
             // Silently fail if there's an exception
             return false;
         }
+    }
+
+    public void Dispose()
+    {
+        // Dispose the HttpClient
+        _httpClient?.Dispose();
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

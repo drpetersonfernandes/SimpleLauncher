@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 
 namespace SimpleLauncher;
@@ -38,7 +39,17 @@ public class EasyModeManager
 
             // Open the file
             using var fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-            var config = (EasyModeManager)serializer.Deserialize(fileStream);
+            // Create XmlReaderSettings to disable DTD processing and set XmlResolver to null
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
+
+            // Create XmlReader with the settings
+            using var xmlReader = XmlReader.Create(fileStream, settings);
+
+            var config = (EasyModeManager)serializer.Deserialize(xmlReader);
 
             // Validate configuration if not null.
             if (config != null)

@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -224,10 +225,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -239,9 +240,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -249,8 +250,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }
@@ -289,8 +290,8 @@ public partial class MainWindow
 
                 fullReport.AppendLine();
                 fullReport.AppendLine("=== Configuration ===");
-                fullReport.AppendLine($"ScummVM Path: {scummvmPath}");
-                fullReport.AppendLine($"Games Folder: {gameFolderPath}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"ScummVM Path: {scummvmPath}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Games Folder: {gameFolderPath}");
             }
 
             // Silently send the report

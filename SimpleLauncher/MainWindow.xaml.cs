@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
@@ -395,7 +396,7 @@ public partial class MainWindow : INotifyPropertyChanged
                         : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
 
                     // Update times played
-                    gameItem.TimesPlayed = historyItem.TimesPlayed.ToString();
+                    gameItem.TimesPlayed = historyItem.TimesPlayed.ToString(CultureInfo.InvariantCulture);
 
                     // Force refresh of DataGrid
                     GameDataGrid.Items.Refresh();
@@ -852,7 +853,7 @@ public partial class MainWindow : INotifyPropertyChanged
                                 allFiles.FindAll(file =>
                                 {
                                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                    return fileNameWithoutExtension.IndexOf(searchQuery, StringComparison.OrdinalIgnoreCase) >= 0;
+                                    return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
                                 }).ToList());
                         }
 

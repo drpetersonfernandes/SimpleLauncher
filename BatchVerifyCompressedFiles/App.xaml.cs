@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Globalization;
+using System.Text;
 using System.Windows.Threading;
 
 namespace BatchVerifyCompressedFiles;
@@ -67,10 +68,10 @@ public partial class App
     private string BuildExceptionReport(Exception exception, string source)
     {
         var sb = new StringBuilder();
-        sb.AppendLine($"Error Source: {source}");
-        sb.AppendLine($"Date and Time: {DateTime.Now}");
-        sb.AppendLine($"OS Version: {Environment.OSVersion}");
-        sb.AppendLine($".NET Version: {Environment.Version}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Error Source: {source}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Date and Time: {DateTime.Now}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"OS Version: {Environment.OSVersion}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
         sb.AppendLine();
 
         // Add exception details
@@ -84,16 +85,16 @@ public partial class App
     {
         var indent = new string(' ', level * 2);
 
-        sb.AppendLine($"{indent}Type: {exception.GetType().FullName}");
-        sb.AppendLine($"{indent}Message: {exception.Message}");
-        sb.AppendLine($"{indent}Source: {exception.Source}");
-        sb.AppendLine($"{indent}StackTrace:");
-        sb.AppendLine($"{indent}{exception.StackTrace}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Type: {exception.GetType().FullName}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Message: {exception.Message}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Source: {exception.Source}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}StackTrace:");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}{exception.StackTrace}");
 
         // If there's an inner exception, include it too
         if (exception.InnerException != null)
         {
-            sb.AppendLine($"{indent}Inner Exception:");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
             AppendExceptionDetails(sb, exception.InnerException, level + 1);
         }
     }

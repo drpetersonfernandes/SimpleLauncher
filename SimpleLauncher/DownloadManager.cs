@@ -498,9 +498,9 @@ public class DownloadManager : IDisposable
             var lastProgressUpdate = DateTime.Now;
                 
             // Read and write the data in chunks
-            while ((bytesRead = await contentStream.ReadAsync(buffer, 0, buffer.Length, cancellationToken)) > 0)
+            while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
             {
-                await fileStream.WriteAsync(buffer, 0, bytesRead, cancellationToken);
+                await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                 totalBytesRead += bytesRead;
                     
                 // Limit progress updates to reduce UI thread congestion (update every ~100ms)
