@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace SimpleLauncher;
 
@@ -77,45 +78,58 @@ public abstract class FileManager
 
     public static async Task<int> CountFilesAsync(string folderPath, List<string> fileExtensions)
     {
-        return await Task.Run(() =>
+        // Create and show the PleaseWaitWindow
+        var pleaseWaitWindow = new PleaseWaitWindow();
+        try
         {
-            if (!Directory.Exists(folderPath))
+            // Show the window on the UI thread
+            await Application.Current.Dispatcher.InvokeAsync(() => pleaseWaitWindow.Show());
+        
+            return await Task.Run(() =>
             {
-                return 0;
-            }
-
-            try
-            {
-                var totalCount = 0;
-                foreach (var extension in fileExtensions)
+                if (!Directory.Exists(folderPath))
                 {
-                    try
-                    {
-                        var searchPattern = $"*.{extension}";
-                        totalCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
-                    }
-                    catch (Exception innerEx)
-                    {
-                        // Log the specific extension that caused the problem but continue counting
-                        var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
-                        _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
-                    }
+                    return 0;
                 }
 
-                return totalCount;
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                var contextMessage = "An error occurred while counting files.\n" +
-                                     $"Folder path: {folderPath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                try
+                {
+                    var totalCount = 0;
+                    foreach (var extension in fileExtensions)
+                    {
+                        try
+                        {
+                            var searchPattern = $"*.{extension}";
+                            totalCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
+                        }
+                        catch (Exception innerEx)
+                        {
+                            // Log the specific extension that caused the problem but continue counting
+                            var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
+                            _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                        }
+                    }
 
-                // Notify user
-                MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);
+                    return totalCount;
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    var contextMessage = "An error occurred while counting files.\n" +
+                                         $"Folder path: {folderPath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                return 0; // return 0 if an error occurs
-            }
-        });
+                    // Notify user
+                    MessageBoxLibrary.ErrorWhileCountingFilesMessageBox(LogPath);
+
+                    return 0; // return 0 if an error occurs
+                }
+            });
+        }
+        finally
+        {
+            // Close the window on the UI thread
+            await Application.Current.Dispatcher.InvokeAsync(() => pleaseWaitWindow.Close());
+        }
     }
 }
