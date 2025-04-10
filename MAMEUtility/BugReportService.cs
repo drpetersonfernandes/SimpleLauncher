@@ -5,7 +5,7 @@ using System.Text.Json;
 
 namespace MAMEUtility;
 
-public class BugReportService
+public class BugReportService : IDisposable
 {
     private readonly string _apiUrl;
     private readonly string _apiKey;
@@ -84,5 +84,14 @@ public class BugReportService
         }
 
         return sb.ToString();
+    }
+
+    public void Dispose()
+    {
+        // Dispose of the HttpClient to release resources
+        _httpClient?.Dispose();
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

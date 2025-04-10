@@ -2,6 +2,7 @@ using System;
 using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Serialization;
 using MessagePack;
 
@@ -98,7 +99,15 @@ public class FavoritesManager
             // Create an XML serializer for the legacy format
             var serializer = new XmlSerializer(typeof(XmlFavoritesManager));
 
-            using var reader = new StreamReader(XmlFilePath);
+            // Create secure XML reader settings
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit, // Disable DTD processing
+                XmlResolver = null, // Disable external references
+                CloseInput = true // Ensure the reader is closed
+            };
+
+            using var reader = XmlReader.Create(XmlFilePath, settings);
             // Deserialize using the legacy format
             xmlManager = (XmlFavoritesManager)serializer.Deserialize(reader);
         }

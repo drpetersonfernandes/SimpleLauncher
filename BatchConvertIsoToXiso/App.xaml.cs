@@ -7,7 +7,7 @@ namespace BatchConvertIsoToXiso;
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
-public partial class App
+public partial class App : IDisposable
 {
     // Bug Report API configuration
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
@@ -104,5 +104,19 @@ public partial class App
 
             break;
         }
+    }
+
+    public void Dispose()
+    {
+        // Clean up event handlers
+        AppDomain.CurrentDomain.UnhandledException -= CurrentDomain_UnhandledException;
+        DispatcherUnhandledException -= App_DispatcherUnhandledException;
+        TaskScheduler.UnobservedTaskException -= TaskScheduler_UnobservedTaskException;
+
+        // Dispose the bug report service
+        _bugReportService?.Dispose();
+
+        // Suppress finalization
+        GC.SuppressFinalize(this);
     }
 }

@@ -268,7 +268,7 @@ public partial class GlobalStatsWindow
             var matchedRomName = romFileBaseNames.FirstOrDefault(rom =>
                 string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
 
-            if (matchedRomName == null || matchedRomName.Equals(imageFileName)) continue;
+            if (matchedRomName == null || matchedRomName.Equals(imageFileName, StringComparison.Ordinal)) continue;
             var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
                 matchedRomName + Path.GetExtension(imageFile));
             try

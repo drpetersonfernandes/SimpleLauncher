@@ -1,26 +1,13 @@
 using System;
 using System.Collections.Generic;
 using System.Runtime.InteropServices;
-using System.Text;
 
 namespace SimpleLauncher;
 
-public static class WindowManager
+public static partial class WindowManager
 {
-    // Import native methods
-    [DllImport("user32.dll")]
-    private static extern bool EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
-
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern int GetWindowText(IntPtr hWnd, StringBuilder lpString, int nMaxCount);
-
-    [DllImport("user32.dll", SetLastError = true)]
-    private static extern int GetWindowTextLength(IntPtr hWnd);
-
-    [DllImport("user32.dll")]
-    private static extern bool IsWindowVisible(IntPtr hWnd);
-
     // Delegate for the EnumWindows callback
+    [UnmanagedFunctionPointer(CallingConvention.StdCall)]
     private delegate bool EnumWindowsProc(IntPtr hWnd, IntPtr lParam);
 
     /// <summary>
@@ -66,14 +53,34 @@ public static class WindowManager
         if (length <= 0)
             return string.Empty;
 
-        var builder = new StringBuilder(length + 1);
-        var result = GetWindowText(hWnd, builder, builder.Capacity);
-        if (result == 0)
+        // Allocate buffer for the window title
+        Span<char> buffer = stackalloc char[length + 1];
+        unsafe
         {
-            // Optionally log an error or handle the failure
-            return string.Empty;
+            fixed (char* bufferPtr = buffer)
+            {
+                var result = GetWindowText(hWnd, bufferPtr, buffer.Length);
+                if (result == 0)
+                {
+                    return string.Empty;
+                }
+            }
         }
 
-        return builder.ToString();
+        return new string(buffer.Slice(0, length));
     }
+
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial void EnumWindows(EnumWindowsProc enumProc, IntPtr lParam);
+
+    [LibraryImport("user32.dll", SetLastError = true, StringMarshalling = StringMarshalling.Utf16)]
+    private static unsafe partial int GetWindowText(IntPtr hWnd, char* lpString, int nMaxCount);
+
+    [LibraryImport("user32.dll", SetLastError = true)]
+    private static partial int GetWindowTextLength(IntPtr hWnd);
+
+    [LibraryImport("user32.dll")]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool IsWindowVisible(IntPtr hWnd);
 }

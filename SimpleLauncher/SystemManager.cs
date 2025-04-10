@@ -51,7 +51,7 @@ public static class SystemManager
         // Add the number of games in the system folder
         var gameCountTextBlock = new TextBlock();
         gameCountTextBlock.Inlines.Add(new LineBreak());
-        gameCountTextBlock.Inlines.Add(new Run(string.Format(totalGamesCount2, gameCount)));
+        gameCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, totalGamesCount2, gameCount)));
         verticalStackPanel.Children.Add(gameCountTextBlock);
 
         // Determine the image folder to search
@@ -71,7 +71,7 @@ public static class SystemManager
             var imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
 
             var imageCountTextBlock = new TextBlock();
-            imageCountTextBlock.Inlines.Add(new Run(string.Format(numberOfImages2, imageCount)));
+            imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));
             verticalStackPanel.Children.Add(imageCountTextBlock);
         }
         else

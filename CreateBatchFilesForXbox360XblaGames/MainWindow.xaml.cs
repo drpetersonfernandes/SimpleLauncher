@@ -1,4 +1,5 @@
 using System.ComponentModel;
+using System.Globalization;
 using System.IO;
 using System.Text;
 using System.Windows;
@@ -61,7 +62,7 @@ public partial class MainWindow
                 LogMessage("Warning: The selected Xenia executable file does not exist.");
                 await ReportBugAsync("Selected Xenia executable does not exist: " + xeniaExePath);
             }
-            else if (!Path.GetFileName(xeniaExePath).ToLower().Contains("xenia"))
+            else if (!Path.GetFileName(xeniaExePath).Contains("xenia", StringComparison.CurrentCultureIgnoreCase))
             {
                 LogMessage("Warning: The selected file does not appear to be a Xenia executable.");
                 await ReportBugAsync("Selected file may not be Xenia executable: " + xeniaExePath);
@@ -276,7 +277,7 @@ public partial class MainWindow
             {
                 // If we couldn't find the 000D0000 directory, let's try to report the directory structure
                 var directoryStructure = new StringBuilder();
-                directoryStructure.AppendLine($"Directory structure for {Path.GetFileName(gameDirectory)}:");
+                directoryStructure.AppendLine(CultureInfo.InvariantCulture, $"Directory structure for {Path.GetFileName(gameDirectory)}:");
 
                 try
                 {
@@ -284,7 +285,7 @@ public partial class MainWindow
                     var topLevelDirs = Directory.GetDirectories(gameDirectory);
                     foreach (var dir in topLevelDirs)
                     {
-                        directoryStructure.AppendLine($"- {Path.GetFileName(dir)}");
+                        directoryStructure.AppendLine(CultureInfo.InvariantCulture, $"- {Path.GetFileName(dir)}");
 
                         // Get second-level subdirectories (limited to keep the report reasonable)
                         try
@@ -292,12 +293,12 @@ public partial class MainWindow
                             var secondLevelDirs = Directory.GetDirectories(dir);
                             foreach (var subDir in secondLevelDirs.Take(5)) // Only report up to 5 subdirectories
                             {
-                                directoryStructure.AppendLine($"  - {Path.GetFileName(subDir)}");
+                                directoryStructure.AppendLine(CultureInfo.InvariantCulture, $"  - {Path.GetFileName(subDir)}");
                             }
 
                             if (secondLevelDirs.Length > 5)
                             {
-                                directoryStructure.AppendLine($"  - ... and {secondLevelDirs.Length - 5} more directories");
+                                directoryStructure.AppendLine(CultureInfo.InvariantCulture, $"  - ... and {secondLevelDirs.Length - 5} more directories");
                             }
                         }
                         catch
@@ -308,7 +309,7 @@ public partial class MainWindow
                 }
                 catch (Exception ex)
                 {
-                    directoryStructure.AppendLine($"Error accessing directory structure: {ex.Message}");
+                    directoryStructure.AppendLine(CultureInfo.InvariantCulture, $"Error accessing directory structure: {ex.Message}");
                 }
 
                 await ReportBugAsync($"No 000D0000 directory found for game: {Path.GetFileName(gameDirectory)}",
@@ -347,10 +348,10 @@ public partial class MainWindow
             // Add system information
             fullReport.AppendLine("=== Bug Report ===");
             fullReport.AppendLine($"Application: {ApplicationName}");
-            fullReport.AppendLine($"Version: {GetType().Assembly.GetName().Version}");
-            fullReport.AppendLine($"OS: {Environment.OSVersion}");
-            fullReport.AppendLine($".NET Version: {Environment.Version}");
-            fullReport.AppendLine($"Date/Time: {DateTime.Now}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Version: {GetType().Assembly.GetName().Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $".NET Version: {Environment.Version}");
+            fullReport.AppendLine(CultureInfo.InvariantCulture, $"Date/Time: {DateTime.Now}");
             fullReport.AppendLine();
 
             // Add a message
@@ -362,9 +363,9 @@ public partial class MainWindow
             if (exception != null)
             {
                 fullReport.AppendLine("=== Exception Details ===");
-                fullReport.AppendLine($"Type: {exception.GetType().FullName}");
-                fullReport.AppendLine($"Message: {exception.Message}");
-                fullReport.AppendLine($"Source: {exception.Source}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.GetType().FullName}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.Message}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Source: {exception.Source}");
                 fullReport.AppendLine("Stack Trace:");
                 fullReport.AppendLine(exception.StackTrace);
 
@@ -372,8 +373,8 @@ public partial class MainWindow
                 if (exception.InnerException != null)
                 {
                     fullReport.AppendLine("Inner Exception:");
-                    fullReport.AppendLine($"Type: {exception.InnerException.GetType().FullName}");
-                    fullReport.AppendLine($"Message: {exception.InnerException.Message}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Type: {exception.InnerException.GetType().FullName}");
+                    fullReport.AppendLine(CultureInfo.InvariantCulture, $"Message: {exception.InnerException.Message}");
                     fullReport.AppendLine("Stack Trace:");
                     fullReport.AppendLine(exception.InnerException.StackTrace);
                 }
@@ -412,8 +413,8 @@ public partial class MainWindow
 
                 fullReport.AppendLine();
                 fullReport.AppendLine("=== Configuration ===");
-                fullReport.AppendLine($"Xenia Path: {xeniaPath}");
-                fullReport.AppendLine($"Game Folder Path: {gameFolderPath}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Xenia Path: {xeniaPath}");
+                fullReport.AppendLine(CultureInfo.InvariantCulture, $"Game Folder Path: {gameFolderPath}");
             }
 
             // Silently send the report
