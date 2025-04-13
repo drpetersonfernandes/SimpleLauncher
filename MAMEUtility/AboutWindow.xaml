@@ -31,7 +31,7 @@
 
         <StackPanel Grid.Row="1" Margin="10">
             <TextBlock FontWeight="Bold" Text="MAME Utility" />
-            <TextBlock Margin="0,10,0,0" Text="{Binding ApplicationVersion}" />
+            <TextBlock Margin="0,10,0,0" Text="{Binding ApplicationVersion}" d:DataContext="{d:DesignInstance }" />
             <TextBlock Margin="0,10,0,0">
                 <Hyperlink NavigateUri="https://purelogiccode.com" RequestNavigate="Hyperlink_RequestNavigate">https://purelogiccode.com</Hyperlink>
             </TextBlock>

@@ -94,76 +94,83 @@ public partial class MainWindow : IDisposable
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var extractXisoPath = Path.Combine(appDirectory, "extract-xiso.exe");
-
-        if (!File.Exists(extractXisoPath))
-        {
-            LogMessage("Error: extract-xiso.exe not found in the application folder.");
-            ShowError("extract-xiso.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
-
-            // Report this issue
-            await ReportBugAsync("extract-xiso.exe not found when trying to start conversion",
-                new FileNotFoundException("The required extract-xiso.exe file was not found.", extractXisoPath));
-
-            return;
-        }
-
-        var inputFolder = InputFolderTextBox.Text;
-        var outputFolder = OutputFolderTextBox.Text;
-        var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
-
-        if (string.IsNullOrEmpty(inputFolder))
-        {
-            LogMessage("Error: No input folder selected.");
-            ShowError("Please select the input folder containing ISO files to convert.");
-
-            return;
-        }
-
-        if (string.IsNullOrEmpty(outputFolder))
-        {
-            LogMessage("Error: No output folder selected.");
-            ShowError("Please select the output folder where converted XISO files will be saved.");
-
-            return;
-        }
-
-        // Reset cancellation token if it was previously used
-        if (_cts.IsCancellationRequested)
-        {
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-        }
-
-        // Disable input controls during conversion
-        SetControlsState(false);
-
-        LogMessage("Starting batch conversion process...");
-        LogMessage($"Using extract-xiso.exe: {extractXisoPath}");
-        LogMessage($"Input folder: {inputFolder}");
-        LogMessage($"Output folder: {outputFolder}");
-        LogMessage($"Delete original files: {deleteFiles}");
-
         try
         {
-            await PerformBatchConversionAsync(extractXisoPath, inputFolder, outputFolder, deleteFiles);
-        }
-        catch (OperationCanceledException)
-        {
-            LogMessage("Operation was canceled by user.");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var extractXisoPath = Path.Combine(appDirectory, "extract-xiso.exe");
+
+            if (!File.Exists(extractXisoPath))
+            {
+                LogMessage("Error: extract-xiso.exe not found in the application folder.");
+                ShowError("extract-xiso.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+                // Report this issue
+                await ReportBugAsync("extract-xiso.exe not found when trying to start conversion",
+                    new FileNotFoundException("The required extract-xiso.exe file was not found.", extractXisoPath));
+
+                return;
+            }
+
+            var inputFolder = InputFolderTextBox.Text;
+            var outputFolder = OutputFolderTextBox.Text;
+            var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
+
+            if (string.IsNullOrEmpty(inputFolder))
+            {
+                LogMessage("Error: No input folder selected.");
+                ShowError("Please select the input folder containing ISO files to convert.");
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(outputFolder))
+            {
+                LogMessage("Error: No output folder selected.");
+                ShowError("Please select the output folder where converted XISO files will be saved.");
+
+                return;
+            }
+
+            // Reset cancellation token if it was previously used
+            if (_cts.IsCancellationRequested)
+            {
+                _cts.Dispose();
+                _cts = new CancellationTokenSource();
+            }
+
+            // Disable input controls during conversion
+            SetControlsState(false);
+
+            LogMessage("Starting batch conversion process...");
+            LogMessage($"Using extract-xiso.exe: {extractXisoPath}");
+            LogMessage($"Input folder: {inputFolder}");
+            LogMessage($"Output folder: {outputFolder}");
+            LogMessage($"Delete original files: {deleteFiles}");
+
+            try
+            {
+                await PerformBatchConversionAsync(extractXisoPath, inputFolder, outputFolder, deleteFiles);
+            }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Operation was canceled by user.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error: {ex.Message}");
+
+                // Report the exception to our bug reporting service
+                await ReportBugAsync("Error during batch conversion process", ex);
+            }
+            finally
+            {
+                // Re-enable input controls
+                SetControlsState(true);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error: {ex.Message}");
-
-            // Report the exception to our bug reporting service
             await ReportBugAsync("Error during batch conversion process", ex);
-        }
-        finally
-        {
-            // Re-enable input controls
-            SetControlsState(true);
         }
     }
 

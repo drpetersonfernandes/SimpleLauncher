@@ -4,6 +4,7 @@ using System.Windows.Threading;
 
 namespace BatchConvertToCompressedFile;
 
+/// <inheritdoc cref="System.Windows.Application" />
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
@@ -83,19 +84,26 @@ public partial class App : IDisposable
 
     private static void AppendExceptionDetails(StringBuilder sb, Exception exception, int level = 0)
     {
-        var indent = new string(' ', level * 2);
-
-        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Type: {exception.GetType().FullName}");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Message: {exception.Message}");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Source: {exception.Source}");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}StackTrace:");
-        sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}{exception.StackTrace}");
-
-        // If there's an inner exception, include it too
-        if (exception.InnerException != null)
+        while (true)
         {
-            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
-            AppendExceptionDetails(sb, exception.InnerException, level + 1);
+            var indent = new string(' ', level * 2);
+
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Type: {exception.GetType().FullName}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Message: {exception.Message}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Source: {exception.Source}");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}StackTrace:");
+            sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}{exception.StackTrace}");
+
+            // If there's an inner exception, include it too
+            if (exception.InnerException != null)
+            {
+                sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
+                exception = exception.InnerException;
+                level = level + 1;
+                continue;
+            }
+
+            break;
         }
     }
 

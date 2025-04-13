@@ -79,56 +79,63 @@ public partial class MainWindow : IDisposable
 
     private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
     {
-        var rpcs3ExePath = Rpcs3PathTextBox.Text;
-        var rootFolder = GameFolderTextBox.Text;
-
-        if (string.IsNullOrEmpty(rpcs3ExePath))
-        {
-            LogMessage("Error: No RPCS3 executable selected.");
-            ShowError("Please select the RPCS3 executable file (rpcs3.exe).");
-            return;
-        }
-
-        if (!File.Exists(rpcs3ExePath))
-        {
-            LogMessage($"Error: RPCS3 executable not found at path: {rpcs3ExePath}");
-            ShowError("The selected RPCS3 executable file does not exist.");
-            await ReportBugAsync("RPCS3 executable not found", new FileNotFoundException("The RPCS3 executable was not found", rpcs3ExePath));
-            return;
-        }
-
-        if (string.IsNullOrEmpty(rootFolder))
-        {
-            LogMessage("Error: No game folder selected.");
-            ShowError("Please select the root folder containing your PS3 game folders.");
-            return;
-        }
-
-        if (!Directory.Exists(rootFolder))
-        {
-            LogMessage($"Error: Game folder not found at path: {rootFolder}");
-            ShowError("The selected game folder does not exist.");
-            await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
-            return;
-        }
-
         try
         {
-            CreateBatchFilesForFolders(rootFolder, rpcs3ExePath);
+            var rpcs3ExePath = Rpcs3PathTextBox.Text;
+            var rootFolder = GameFolderTextBox.Text;
 
-            var rpcs3GameFolder = rpcs3ExePath.Replace("rpcs3.exe", "dev_hdd0\\game");
+            if (string.IsNullOrEmpty(rpcs3ExePath))
+            {
+                LogMessage("Error: No RPCS3 executable selected.");
+                ShowError("Please select the RPCS3 executable file (rpcs3.exe).");
+                return;
+            }
 
-            CreateBatchFilesForFolders2(rootFolder, rpcs3GameFolder, rpcs3ExePath);
+            if (!File.Exists(rpcs3ExePath))
+            {
+                LogMessage($"Error: RPCS3 executable not found at path: {rpcs3ExePath}");
+                ShowError("The selected RPCS3 executable file does not exist.");
+                await ReportBugAsync("RPCS3 executable not found", new FileNotFoundException("The RPCS3 executable was not found", rpcs3ExePath));
+                return;
+            }
 
-            LogMessage("");
-            LogMessage("All batch files have been successfully created.");
+            if (string.IsNullOrEmpty(rootFolder))
+            {
+                LogMessage("Error: No game folder selected.");
+                ShowError("Please select the root folder containing your PS3 game folders.");
+                return;
+            }
 
-            ShowMessageBox("All batch files have been successfully created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (!Directory.Exists(rootFolder))
+            {
+                LogMessage($"Error: Game folder not found at path: {rootFolder}");
+                ShowError("The selected game folder does not exist.");
+                await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
+                return;
+            }
+
+            try
+            {
+                CreateBatchFilesForFolders(rootFolder, rpcs3ExePath);
+
+                var rpcs3GameFolder = rpcs3ExePath.Replace("rpcs3.exe", "dev_hdd0\\game");
+
+                CreateBatchFilesForFolders2(rootFolder, rpcs3GameFolder, rpcs3ExePath);
+
+                LogMessage("");
+                LogMessage("All batch files have been successfully created.");
+
+                ShowMessageBox("All batch files have been successfully created.", "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error creating batch files: {ex.Message}");
+                ShowError($"An error occurred while creating batch files: {ex.Message}");
+                await ReportBugAsync("Error creating batch files", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error creating batch files: {ex.Message}");
-            ShowError($"An error occurred while creating batch files: {ex.Message}");
             await ReportBugAsync("Error creating batch files", ex);
         }
     }
@@ -671,7 +678,7 @@ public partial class MainWindow : IDisposable
     [GeneratedRegex(@"(\p{N})(\p{L})")]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase, "pt-BR")]
+    [GeneratedRegex("^M{0,4}(CM|CD|D?C{0,3})(XC|XL|L?X{0,3})(IX|IV|V?I{0,3})$", RegexOptions.IgnoreCase, "pt-BR")]
     private static partial Regex MyRegex2();
 
     public void Dispose()

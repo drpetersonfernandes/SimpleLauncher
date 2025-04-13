@@ -4,6 +4,7 @@ using System.Windows.Threading;
 
 namespace BatchConvertToCHD;
 
+/// <inheritdoc cref="System.Windows.Application" />
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
@@ -106,6 +107,7 @@ public partial class App : IDisposable
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Releases all resources used by the App.
     /// </summary>

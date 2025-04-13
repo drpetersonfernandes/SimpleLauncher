@@ -75,17 +75,6 @@ public partial class MameManufacturer
 
     private static XDocument CreateFilteredDocument(XDocument inputDoc, string manufacturer)
     {
-        bool Predicate(XElement machine) =>
-            (machine.Element("manufacturer")?.Value ?? "") == manufacturer &&
-            //!(machine.Attribute("name")?.Value.Contains("bootleg", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            //!(machine.Element("description")?.Value.Contains("bootleg", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            //!(machine.Element("description")?.Value.Contains("prototype", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            //!(machine.Element("description")?.Value.Contains("playchoice", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            //machine.Attribute("cloneof") == null &&
-            !(machine.Attribute("name")?.Value.Contains("bios", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            !(machine.Element("description")?.Value.Contains("bios", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
-            (machine.Element("driver")?.Attribute("emulation")?.Value ?? "") == "good";
-
         // Retrieve the matched machines
         var matchedMachines = inputDoc.Descendants("machine").Where(Predicate).ToList();
 
@@ -100,6 +89,21 @@ public partial class MameManufacturer
             )
         );
         return filteredDoc;
+
+        bool Predicate(XElement machine)
+        {
+            return (machine.Element("manufacturer")?.Value ?? "") == manufacturer &&
+                   //!(machine.Attribute("name")?.Value.Contains("bootleg", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                   //!(machine.Element("description")?.Value.Contains("bootleg", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                   //!(machine.Element("description")?.Value.Contains("prototype", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                   //!(machine.Element("description")?.Value.Contains("playchoice", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                   //machine.Attribute("cloneof") == null &&
+                   !(machine.Attribute("name")?.Value.Contains("bios", StringComparison.InvariantCultureIgnoreCase) ??
+                     false) &&
+                   !(machine.Element("description")?.Value
+                       .Contains("bios", StringComparison.InvariantCultureIgnoreCase) ?? false) &&
+                   (machine.Element("driver")?.Attribute("emulation")?.Value ?? "") == "good";
+        }
     }
 
     private static string RemoveExtraWhitespace(string input)

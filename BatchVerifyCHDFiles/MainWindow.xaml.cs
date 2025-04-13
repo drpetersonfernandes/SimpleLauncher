@@ -98,80 +98,87 @@ public partial class MainWindow : IDisposable
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var chdmanPath = Path.Combine(appDirectory, "chdman.exe");
-
-        if (!File.Exists(chdmanPath))
-        {
-            LogMessage("Error: chdman.exe not found in the application folder.");
-            ShowError("chdman.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
-
-            // Report this issue
-            await ReportBugAsync("chdman.exe not found when trying to start verification",
-                new FileNotFoundException("The required chdman.exe file was not found.", chdmanPath));
-            return;
-        }
-
-        var inputFolder = InputFolderTextBox.Text;
-        var includeSubfolders = IncludeSubfoldersCheckBox.IsChecked ?? false;
-
-        if (string.IsNullOrEmpty(inputFolder))
-        {
-            LogMessage("Error: No input folder selected.");
-            ShowError("Please select the input folder containing CHD files to verify.");
-            return;
-        }
-
-        // Reset cancellation token if it was previously used
-        if (_cts.IsCancellationRequested)
-        {
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-        }
-
-        // Reset counters
-        _totalFiles = 0;
-        _verifiedOkCount = 0;
-        _failedCount = 0;
-        UpdateCounters();
-
-        // Clear file info
-        DisplayFileInfo("");
-
-        // Disable input controls during verification
-        SetControlsState(false);
-
-        LogMessage("Starting batch verification process...");
-        LogMessage($"Using chdman.exe: {chdmanPath}");
-        LogMessage($"Input folder: {inputFolder}");
-        LogMessage($"Include subfolders: {includeSubfolders}");
-
-        // Start timer
-        _processingTimer.Restart();
-
         try
         {
-            await PerformBatchVerificationAsync(chdmanPath, inputFolder, includeSubfolders);
-        }
-        catch (OperationCanceledException)
-        {
-            LogMessage("Operation was canceled by user.");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var chdmanPath = Path.Combine(appDirectory, "chdman.exe");
+
+            if (!File.Exists(chdmanPath))
+            {
+                LogMessage("Error: chdman.exe not found in the application folder.");
+                ShowError("chdman.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+                // Report this issue
+                await ReportBugAsync("chdman.exe not found when trying to start verification",
+                    new FileNotFoundException("The required chdman.exe file was not found.", chdmanPath));
+                return;
+            }
+
+            var inputFolder = InputFolderTextBox.Text;
+            var includeSubfolders = IncludeSubfoldersCheckBox.IsChecked ?? false;
+
+            if (string.IsNullOrEmpty(inputFolder))
+            {
+                LogMessage("Error: No input folder selected.");
+                ShowError("Please select the input folder containing CHD files to verify.");
+                return;
+            }
+
+            // Reset cancellation token if it was previously used
+            if (_cts.IsCancellationRequested)
+            {
+                _cts.Dispose();
+                _cts = new CancellationTokenSource();
+            }
+
+            // Reset counters
+            _totalFiles = 0;
+            _verifiedOkCount = 0;
+            _failedCount = 0;
+            UpdateCounters();
+
+            // Clear file info
+            DisplayFileInfo("");
+
+            // Disable input controls during verification
+            SetControlsState(false);
+
+            LogMessage("Starting batch verification process...");
+            LogMessage($"Using chdman.exe: {chdmanPath}");
+            LogMessage($"Input folder: {inputFolder}");
+            LogMessage($"Include subfolders: {includeSubfolders}");
+
+            // Start timer
+            _processingTimer.Restart();
+
+            try
+            {
+                await PerformBatchVerificationAsync(chdmanPath, inputFolder, includeSubfolders);
+            }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Operation was canceled by user.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error: {ex.Message}");
+
+                // Report the exception to our bug reporting service
+                await ReportBugAsync("Error during batch verification process", ex);
+            }
+            finally
+            {
+                // Stop timer
+                _processingTimer.Stop();
+                UpdateProcessingTime();
+
+                // Re-enable input controls
+                SetControlsState(true);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error: {ex.Message}");
-
-            // Report the exception to our bug reporting service
             await ReportBugAsync("Error during batch verification process", ex);
-        }
-        finally
-        {
-            // Stop timer
-            _processingTimer.Stop();
-            UpdateProcessingTime();
-
-            // Re-enable input controls
-            SetControlsState(true);
         }
     }
 
@@ -493,7 +500,7 @@ public partial class MainWindow : IDisposable
         var elapsed = _processingTimer.Elapsed;
         Application.Current.Dispatcher.Invoke((Action)(() =>
         {
-            ProcessingTimeValue.Text = $"{elapsed:hh\\:mm\\:ss}";
+            ProcessingTimeValue.Text = $@"{elapsed:hh\:mm\:ss}";
         }));
     }
 

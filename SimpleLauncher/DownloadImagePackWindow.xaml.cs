@@ -130,7 +130,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
                     var extractionfailedSeeerrormessagefordetails2 = (string)Application.Current.TryFindResource("ExtractionfailedSeeerrormessagefordetails") ?? "Extraction failed. See error message for details.";
                     UpdateStatus(extractionfailedSeeerrormessagefordetails2);
-                        
+
                     // Re-enable download button
                     DownloadExtrasButton.IsEnabled = true;
                 }
@@ -139,7 +139,7 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
                 UpdateStatus(downloadcanceled2);
-                    
+
                 // Re-enable download button
                 DownloadExtrasButton.IsEnabled = true;
             }
@@ -147,10 +147,10 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 var downloadwasnotcompletedsuccessfully2 = (string)Application.Current.TryFindResource("Downloadwasnotcompletedsuccessfully") ?? "Download was not completed successfully.";
                 UpdateStatus(downloadwasnotcompletedsuccessfully2);
-                    
+
                 // Notify user
                 MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
-                    
+
                 // Re-enable download button
                 DownloadExtrasButton.IsEnabled = true;
             }
@@ -236,7 +236,7 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         // Update the progress bar
         DownloadProgressBar.Value = e.ProgressPercentage;
-        
+
         // Update status text
         UpdateStatus(e.StatusMessage);
     }

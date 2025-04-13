@@ -45,7 +45,7 @@ public static class MameSoftwareList
             softwareList.AddRange(softwares);
 
             processedCount++;
-            progress?.Report((processedCount * 100) / files.Length);
+            progress?.Report(processedCount * 100 / files.Length);
             logWindow.AppendLog($"Processed {processedCount}/{files.Length} files.");
         }
 

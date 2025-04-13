@@ -199,7 +199,7 @@ public partial class GlobalSearchWindow
         foreach (var index in searchTerms.Select(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase)).Where(index => index >= 0))
         {
             score += 10;
-            score += (text.Length - index);
+            score += text.Length - index;
         }
 
         return score;
@@ -342,6 +342,7 @@ public partial class GlobalSearchWindow
         try
         {
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+
             var fileNameWithoutExtension = selectedResult.FileName;
             var fileNameWithExtension = selectedResult.FileNameWithExtension;
             var filePath = selectedResult.FilePath;
@@ -704,6 +705,7 @@ public partial class GlobalSearchWindow
                 var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
                 if (result != MessageBoxResult.Yes) return;
+
                 try
                 {
                     RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeGameFileGrid, _mainWindow);
@@ -747,6 +749,7 @@ public partial class GlobalSearchWindow
         try
         {
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+
             PlayClick.PlayClickSound();
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         }
@@ -831,6 +834,6 @@ public partial class GlobalSearchWindow
         return true;
     }
 
-    [GeneratedRegex(@"[\""].+?[\""]|[^ ]+")]
+    [GeneratedRegex("""[\"].+?[\"]|[^ ]+""")]
     private static partial Regex MyRegex();
 }

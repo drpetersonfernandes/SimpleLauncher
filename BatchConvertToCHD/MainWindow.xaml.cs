@@ -104,76 +104,83 @@ public partial class MainWindow : IDisposable
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var chdmanPath = Path.Combine(appDirectory, "chdman.exe");
-
-        if (!File.Exists(chdmanPath))
-        {
-            LogMessage("Error: chdman.exe not found in the application folder.");
-            ShowError("chdman.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
-
-            // Report this issue
-            await ReportBugAsync("chdman.exe not found when trying to start conversion",
-                new FileNotFoundException("The required chdman.exe file was not found.", chdmanPath));
-            return;
-        }
-
-        var inputFolder = InputFolderTextBox.Text;
-        var outputFolder = OutputFolderTextBox.Text;
-        var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
-
-        if (string.IsNullOrEmpty(inputFolder))
-        {
-            LogMessage("Error: No input folder selected.");
-            ShowError("Please select the input folder containing files to convert.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(outputFolder))
-        {
-            LogMessage("Error: No output folder selected.");
-            ShowError("Please select the output folder where CHD files will be saved.");
-            return;
-        }
-
-        // Reset cancellation token if it was previously used
-        if (_cts.IsCancellationRequested)
-        {
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-        }
-
-        // Clear any previous progress display
-        ClearProgressDisplay();
-
-        // Disable input controls during conversion
-        SetControlsState(false);
-
-        LogMessage("Starting batch conversion process...");
-        LogMessage($"Using chdman.exe: {chdmanPath}");
-        LogMessage($"Input folder: {inputFolder}");
-        LogMessage($"Output folder: {outputFolder}");
-        LogMessage($"Delete original files: {deleteFiles}");
-
         try
         {
-            await PerformBatchConversionAsync(chdmanPath, inputFolder, outputFolder, deleteFiles);
-        }
-        catch (OperationCanceledException)
-        {
-            LogMessage("Operation was canceled by user.");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var chdmanPath = Path.Combine(appDirectory, "chdman.exe");
+
+            if (!File.Exists(chdmanPath))
+            {
+                LogMessage("Error: chdman.exe not found in the application folder.");
+                ShowError("chdman.exe is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+                // Report this issue
+                await ReportBugAsync("chdman.exe not found when trying to start conversion",
+                    new FileNotFoundException("The required chdman.exe file was not found.", chdmanPath));
+                return;
+            }
+
+            var inputFolder = InputFolderTextBox.Text;
+            var outputFolder = OutputFolderTextBox.Text;
+            var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
+
+            if (string.IsNullOrEmpty(inputFolder))
+            {
+                LogMessage("Error: No input folder selected.");
+                ShowError("Please select the input folder containing files to convert.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(outputFolder))
+            {
+                LogMessage("Error: No output folder selected.");
+                ShowError("Please select the output folder where CHD files will be saved.");
+                return;
+            }
+
+            // Reset cancellation token if it was previously used
+            if (_cts.IsCancellationRequested)
+            {
+                _cts.Dispose();
+                _cts = new CancellationTokenSource();
+            }
+
+            // Clear any previous progress display
+            ClearProgressDisplay();
+
+            // Disable input controls during conversion
+            SetControlsState(false);
+
+            LogMessage("Starting batch conversion process...");
+            LogMessage($"Using chdman.exe: {chdmanPath}");
+            LogMessage($"Input folder: {inputFolder}");
+            LogMessage($"Output folder: {outputFolder}");
+            LogMessage($"Delete original files: {deleteFiles}");
+
+            try
+            {
+                await PerformBatchConversionAsync(chdmanPath, inputFolder, outputFolder, deleteFiles);
+            }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Operation was canceled by user.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error: {ex.Message}");
+
+                // Report the exception to our bug reporting service
+                await ReportBugAsync("Error during batch conversion process", ex);
+            }
+            finally
+            {
+                // Re-enable input controls
+                SetControlsState(true);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error: {ex.Message}");
-
-            // Report the exception to our bug reporting service
             await ReportBugAsync("Error during batch conversion process", ex);
-        }
-        finally
-        {
-            // Re-enable input controls
-            SetControlsState(true);
         }
     }
 
@@ -409,7 +416,7 @@ public partial class MainWindow : IDisposable
             var outputBuilder = new StringBuilder();
             var errorBuilder = new StringBuilder();
 
-            process.OutputDataReceived += (sender, args) =>
+            process.OutputDataReceived += (_, args) =>
             {
                 if (!string.IsNullOrEmpty(args.Data))
                 {
@@ -424,14 +431,14 @@ public partial class MainWindow : IDisposable
                 }
             };
 
-            process.ErrorDataReceived += (sender, args) =>
+            process.ErrorDataReceived += (_, args) =>
             {
                 if (!string.IsNullOrEmpty(args.Data))
                 {
                     errorBuilder.AppendLine(args.Data);
 
                     // Check if this is a progress update or completion message rather than an actual error
-                    if (args.Data.Contains("Compressing") && args.Data.Contains('%') ||
+                    if ((args.Data.Contains("Compressing") && args.Data.Contains('%')) ||
                         args.Data.Contains("Compression complete"))
                     {
                         // This is a progress update or completion message, not an error

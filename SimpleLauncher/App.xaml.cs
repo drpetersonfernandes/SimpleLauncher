@@ -10,15 +10,14 @@ namespace SimpleLauncher;
 
 public partial class App
 {
-    private static SettingsManager _settings;
-    public static SettingsManager Settings => _settings;
+    public static SettingsManager Settings { get; private set; }
 
     protected override void OnStartup(StartupEventArgs e)
     {
         base.OnStartup(e);
-        _settings = new SettingsManager();
-        ApplyTheme(_settings.BaseTheme, _settings.AccentColor);
-        ApplyLanguage(_settings.Language);
+        Settings = new SettingsManager();
+        ApplyTheme(Settings.BaseTheme, Settings.AccentColor);
+        ApplyLanguage(Settings.Language);
     }
 
     private void ApplyLanguage(string cultureCode = null)
@@ -89,16 +88,16 @@ public partial class App
 
     public static void ApplyThemeToWindow(Window window)
     {
-        var baseTheme = _settings.BaseTheme;
-        var accentColor = _settings.AccentColor;
+        var baseTheme = Settings.BaseTheme;
+        var accentColor = Settings.AccentColor;
         ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
     }
 
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
         ApplyTheme(baseTheme, accentColor);
-        _settings.BaseTheme = baseTheme;
-        _settings.AccentColor = accentColor;
-        _settings.Save();
+        Settings.BaseTheme = baseTheme;
+        Settings.AccentColor = accentColor;
+        Settings.Save();
     }
 }

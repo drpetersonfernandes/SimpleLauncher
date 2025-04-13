@@ -60,6 +60,7 @@ public partial class EditSystemWindow
     private void PopulateSystemNamesDropdown()
     {
         if (_xmlDoc == null) return;
+
         SystemNameDropdown.ItemsSource = _xmlDoc.Descendants("SystemConfig")
             .Select(element => element.Element("SystemName")?.Value)
             .OrderBy(name => name)
@@ -73,7 +74,7 @@ public partial class EditSystemWindow
         ReceiveANotificationOnEmulatorError3.SelectedItem = null;
         ReceiveANotificationOnEmulatorError4.SelectedItem = null;
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
-        
+
         // Store the original system name for later use
         _originalSystemName = SystemNameDropdown.SelectedItem?.ToString();
 
@@ -103,7 +104,7 @@ public partial class EditSystemWindow
                 .Select(x => x.Value)
                 .ToArray();
             FormatToSearchTextBox.Text = formatToSearchValues != null
-                ? String.Join(", ", formatToSearchValues)
+                ? string.Join(", ", formatToSearchValues)
                 : string.Empty;
 
             var extractFileBeforeLaunchValue = selectedSystem.Element("ExtractFileBeforeLaunch")?.Value == "true"
@@ -231,7 +232,7 @@ public partial class EditSystemWindow
                 }
             }
         }
-        
+
         // Create SystemFolder default
         if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
         {
@@ -261,38 +262,38 @@ public partial class EditSystemWindow
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
-        
+
         // Update ReceiveANotificationOnEmulatorError
-        if (string.IsNullOrEmpty(Emulator1NameTextBox.Text) || 
-            string.IsNullOrEmpty(Emulator1LocationTextBox.Text) || 
+        if (string.IsNullOrEmpty(Emulator1NameTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator1LocationTextBox.Text) ||
             string.IsNullOrEmpty(Emulator1ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError1.SelectedItem = null;
         }
-        
-        if (string.IsNullOrEmpty(Emulator2NameTextBox.Text) || 
-            string.IsNullOrEmpty(Emulator2LocationTextBox.Text) || 
+
+        if (string.IsNullOrEmpty(Emulator2NameTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator2LocationTextBox.Text) ||
             string.IsNullOrEmpty(Emulator2ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError2.SelectedItem = null;
         }
-        
-        if (string.IsNullOrEmpty(Emulator3NameTextBox.Text) || 
-            string.IsNullOrEmpty(Emulator3LocationTextBox.Text) || 
+
+        if (string.IsNullOrEmpty(Emulator3NameTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator3LocationTextBox.Text) ||
             string.IsNullOrEmpty(Emulator3ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError3.SelectedItem = null;
         }
-        
-        if (string.IsNullOrEmpty(Emulator4NameTextBox.Text) || 
-            string.IsNullOrEmpty(Emulator4LocationTextBox.Text) || 
+
+        if (string.IsNullOrEmpty(Emulator4NameTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator4LocationTextBox.Text) ||
             string.IsNullOrEmpty(Emulator4ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError4.SelectedItem = null;
         }
-        
-        if (string.IsNullOrEmpty(Emulator5NameTextBox.Text) || 
-            string.IsNullOrEmpty(Emulator5LocationTextBox.Text) || 
+
+        if (string.IsNullOrEmpty(Emulator5NameTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator5LocationTextBox.Text) ||
             string.IsNullOrEmpty(Emulator5ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError5.SelectedItem = null;
@@ -667,24 +668,24 @@ public partial class EditSystemWindow
         ValidateAndWarnAboutParameters(parameterTexts);
 
         // Get the notification settings, defaulting to false if not selected or null
-        var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem item1 && 
-                                   item1.Content != null && 
+        var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem item1 &&
+                                   item1.Content != null &&
                                    item1.Content.ToString() == "true"; // Default to false
-        
-        var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem item2 && 
-                                   item2.Content != null && 
+
+        var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem item2 &&
+                                   item2.Content != null &&
                                    item2.Content.ToString() == "true"; // Default to false
-        
-        var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem item3 && 
-                                   item3.Content != null && 
+
+        var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem item3 &&
+                                   item3.Content != null &&
                                    item3.Content.ToString() == "true"; // Default to false
-        
-        var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem item4 && 
-                                   item4.Content != null && 
+
+        var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem item4 &&
+                                   item4.Content != null &&
                                    item4.Content.ToString() == "true"; // Default to false
-        
-        var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem item5 && 
-                                   item5.Content != null && 
+
+        var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem item5 &&
+                                   item5.Content != null &&
                                    item5.Content.ToString() == "true"; // Default to false
 
         ////////////////

@@ -130,7 +130,7 @@ public class FavoritesManager
                         xmlManager.FavoriteList.Select(xmlFav => new Favorite
                         {
                             FileName = xmlFav.FileName,
-                            SystemName = xmlFav.SystemName,
+                            SystemName = xmlFav.SystemName
                             // Copy other properties as needed
                         })
                     )

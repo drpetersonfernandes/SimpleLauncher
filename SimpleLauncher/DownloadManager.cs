@@ -9,6 +9,7 @@ using System.Windows;
 
 namespace SimpleLauncher;
 
+/// <inheritdoc />
 /// <summary>
 /// Manages the download and extraction of files with progress reporting and cancellation support.
 /// </summary>
@@ -19,7 +20,8 @@ public class DownloadManager : IDisposable
     /// Event raised when download progress changes.
     /// </summary>
     public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
-        
+
+    /// <inheritdoc />
     /// <summary>
     /// Event args for download progress updates.
     /// </summary>
@@ -29,94 +31,91 @@ public class DownloadManager : IDisposable
         /// Gets or sets the number of bytes received.
         /// </summary>
         public long BytesReceived { get; set; }
-            
+
         /// <summary>
         /// Gets or sets the total number of bytes to receive.
         /// </summary>
         public long? TotalBytesToReceive { get; set; }
-            
+
         /// <summary>
         /// Gets or sets the progress percentage (0-100).
         /// </summary>
         public double ProgressPercentage { get; set; }
-            
+
         /// <summary>
         /// Gets or sets the status message.
         /// </summary>
         public string StatusMessage { get; set; }
     }
-        
+
     // Constants
     private const int HttpTimeoutSeconds = 60;
     private const int RetryMaxAttempts = 3;
     private const int RetryBaseDelayMs = 1000;
-        
+
     // Private fields
     private readonly HttpClient _httpClient;
     private CancellationTokenSource _cancellationTokenSource;
-    private readonly string _tempFolder;
-    private bool _isDownloadCompleted;
-    private bool _isUserCancellation;
     private bool _disposed;
-        
+
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
     public DownloadManager()
     {
         // Initialize temp folder
-        _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        Directory.CreateDirectory(_tempFolder);
-            
+        TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+        Directory.CreateDirectory(TempFolder);
+
         // Initialize the HTTP client with custom handler for TLS configuration
         var handler = new HttpClientHandler();
-            
+
         // Configure TLS 1.2 and 1.3 if available
         handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
-            
+
         // Initialize HTTP client
         _httpClient = new HttpClient(handler)
         {
             Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
         };
-            
+
         // Initialize cancellation token source
         _cancellationTokenSource = new CancellationTokenSource();
     }
-        
+
     // Properties
     /// <summary>
     /// Gets a value indicating whether the download was completed successfully.
     /// </summary>
-    public bool IsDownloadCompleted => _isDownloadCompleted;
-        
+    public bool IsDownloadCompleted { get; private set; }
+
     /// <summary>
     /// Gets a value indicating whether the download was canceled by the user.
     /// </summary>
-    public bool IsUserCancellation => _isUserCancellation;
-        
+    public bool IsUserCancellation { get; private set; }
+
     /// <summary>
     /// Gets the temporary folder used for downloads.
     /// </summary>
-    public string TempFolder => _tempFolder;
-        
+    private string TempFolder { get; }
+
     // Methods
     /// <summary>
     /// Cancels any ongoing download operation.
     /// </summary>
     public void CancelDownload()
     {
-        _isUserCancellation = true;
+        IsUserCancellation = true;
         _cancellationTokenSource?.Cancel();
         ResetCancellationToken();
     }
-        
+
     private void ResetCancellationToken()
     {
         _cancellationTokenSource?.Dispose();
         _cancellationTokenSource = new CancellationTokenSource();
     }
-        
+
     /// <summary>
     /// Downloads a file from the specified URL to a temporary location.
     /// </summary>
@@ -125,9 +124,9 @@ public class DownloadManager : IDisposable
     /// <returns>The path to the downloaded file, or null if the download failed.</returns>
     public async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
     {
-        _isDownloadCompleted = false;
-        _isUserCancellation = false;
-            
+        IsDownloadCompleted = false;
+        IsUserCancellation = false;
+
         // Determine file name if not provided
         if (string.IsNullOrEmpty(fileName))
         {
@@ -144,70 +143,70 @@ public class DownloadManager : IDisposable
                 fileName = "download_" + Guid.NewGuid().ToString("N");
             }
         }
-            
+
         // Create temp file path
-        var downloadFilePath = Path.Combine(_tempFolder, fileName);
-            
+        var downloadFilePath = Path.Combine(TempFolder, fileName);
+
         // Check disk space
-        if (!CheckAvailableDiskSpace(_tempFolder))
+        if (!CheckAvailableDiskSpace(TempFolder))
         {
             OnProgressChanged(new DownloadProgressEventArgs
             {
                 ProgressPercentage = 0,
                 StatusMessage = GetResourceString("InsufficientDiskSpace", "Insufficient disk space.")
             });
-                
+
             throw new IOException("Insufficient disk space");
         }
-            
+
         try
         {
             // Perform download with retry logic
             var currentRetry = 0;
-                
-            while (currentRetry < RetryMaxAttempts && !_isUserCancellation)
+
+            while (currentRetry < RetryMaxAttempts && !IsUserCancellation)
             {
                 try
                 {
                     await DownloadWithProgressAsync(downloadUrl, downloadFilePath, _cancellationTokenSource.Token);
-                        
-                    if (_isDownloadCompleted)
+
+                    if (IsDownloadCompleted)
                         break;
-                        
+
                     currentRetry++;
-                    if (currentRetry < RetryMaxAttempts && !_isUserCancellation)
+                    if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
                     {
                         // Calculate delay with exponential backoff
                         var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
-                            
+
                         OnProgressChanged(new DownloadProgressEventArgs
                         {
                             ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownload", 
+                            StatusMessage = GetResourceString("RetryingDownload",
                                 $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
                         });
-                            
+
                         await Task.Delay(delay, _cancellationTokenSource.Token);
                     }
                 }
                 catch (TaskCanceledException)
                 {
-                    if (_isUserCancellation)
+                    if (IsUserCancellation)
                         break;
-                        
+
                     currentRetry++;
                     if (currentRetry < RetryMaxAttempts)
                     {
                         // Calculate delay with exponential backoff
                         var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
-                            
+
                         OnProgressChanged(new DownloadProgressEventArgs
                         {
                             ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownloadTimeout", 
+                            StatusMessage = GetResourceString("RetryingDownloadTimeout",
                                 $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
                         });
-                            
+
                         await Task.Delay(delay, _cancellationTokenSource.Token);
                     }
                     else
@@ -219,20 +218,20 @@ public class DownloadManager : IDisposable
                 {
                     // Log error
                     await LogErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
-                        
+
                     currentRetry++;
-                    if (currentRetry < RetryMaxAttempts && !_isUserCancellation)
+                    if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
                     {
                         // Calculate delay with exponential backoff
                         var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
-                            
+
                         OnProgressChanged(new DownloadProgressEventArgs
                         {
                             ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownloadError", 
+                            StatusMessage = GetResourceString("RetryingDownloadError",
                                 $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
                         });
-                            
+
                         await Task.Delay(delay, _cancellationTokenSource.Token);
                     }
                     else
@@ -241,14 +240,14 @@ public class DownloadManager : IDisposable
                     }
                 }
             }
-                
-            if (_isDownloadCompleted)
+
+            if (IsDownloadCompleted)
             {
                 return downloadFilePath;
             }
             else
             {
-                if (_isUserCancellation)
+                if (IsUserCancellation)
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
@@ -261,11 +260,11 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("DownloadFailedAfterRetries", 
+                        StatusMessage = GetResourceString("DownloadFailedAfterRetries",
                             $"Download failed after {RetryMaxAttempts} attempts.")
                     });
                 }
-                    
+
                 // Clean up failed download
                 TryDeleteFile(downloadFilePath);
                 return null;
@@ -275,10 +274,10 @@ public class DownloadManager : IDisposable
         {
             // Clean up failed download
             TryDeleteFile(downloadFilePath);
-                
+
             // Reset flags
-            _isDownloadCompleted = false;
-                
+            IsDownloadCompleted = false;
+
             // Handle specific exceptions
             if (ex is HttpRequestException httpEx)
             {
@@ -287,7 +286,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorFilenotfoundontheserver", 
+                        StatusMessage = GetResourceString("ErrorFilenotfoundontheserver",
                             "Error: File not found on the server.")
                     });
                 }
@@ -296,7 +295,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorSSLConnection", 
+                        StatusMessage = GetResourceString("ErrorSSLConnection",
                             "SSL/TLS connection issue.")
                     });
                 }
@@ -305,7 +304,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Networkerror", 
+                        StatusMessage = GetResourceString("Networkerror",
                             $"Network error: {httpEx.Message}")
                     });
                 }
@@ -315,18 +314,18 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("Fileerror", 
+                    StatusMessage = GetResourceString("Fileerror",
                         $"File error: {ex.Message}")
                 });
             }
             else if (ex is TaskCanceledException)
             {
-                if (_isUserCancellation)
+                if (IsUserCancellation)
                 {
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Downloadcanceledbyuser", 
+                        StatusMessage = GetResourceString("Downloadcanceledbyuser",
                             "Download canceled by user.")
                     });
                 }
@@ -335,7 +334,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorDownloadtimedout", 
+                        StatusMessage = GetResourceString("ErrorDownloadtimedout",
                             "Download timed out.")
                     });
                 }
@@ -345,18 +344,18 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("Error", 
+                    StatusMessage = GetResourceString("Error",
                         $"Error: {ex.Message}")
                 });
             }
-                
+
             // Log error
             await LogErrors.LogErrorAsync(ex, $"Error downloading file: {downloadUrl}");
-                
+
             throw;
         }
     }
-        
+
     /// <summary>
     /// Extracts a compressed file to the specified destination.
     /// </summary>
@@ -370,18 +369,18 @@ public class DownloadManager : IDisposable
             OnProgressChanged(new DownloadProgressEventArgs
             {
                 ProgressPercentage = 0,
-                StatusMessage = GetResourceString("Extracting", 
+                StatusMessage = GetResourceString("Extracting",
                     $"Extracting to {destinationPath}...")
             });
-                
+
             var result = await ExtractCompressedFile.ExtractDownloadFilesAsync(filePath, destinationPath);
-                
+
             if (result)
             {
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 100,
-                    StatusMessage = GetResourceString("ExtractionCompleted", 
+                    StatusMessage = GetResourceString("ExtractionCompleted",
                         "Extraction completed successfully.")
                 });
             }
@@ -390,11 +389,11 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("ExtractionFailed", 
+                    StatusMessage = GetResourceString("ExtractionFailed",
                         "Extraction failed.")
                 });
             }
-                
+
             return result;
         }
         catch (Exception ex)
@@ -402,17 +401,17 @@ public class DownloadManager : IDisposable
             OnProgressChanged(new DownloadProgressEventArgs
             {
                 ProgressPercentage = 0,
-                StatusMessage = GetResourceString("ExtractionError", 
+                StatusMessage = GetResourceString("ExtractionError",
                     $"Extraction error: {ex.Message}")
             });
-                
+
             // Log error
             await LogErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
-                
+
             return false;
         }
     }
-        
+
     /// <summary>
     /// Downloads a file and extracts it to the specified destination in a single operation.
     /// </summary>
@@ -425,35 +424,35 @@ public class DownloadManager : IDisposable
         try
         {
             // Reset flags
-            _isDownloadCompleted = false;
-            _isUserCancellation = false;
-                
+            IsDownloadCompleted = false;
+            IsUserCancellation = false;
+
             // Download file
             var downloadedFilePath = await DownloadFileAsync(downloadUrl, fileName);
-                
-            if (string.IsNullOrEmpty(downloadedFilePath) || !_isDownloadCompleted)
+
+            if (string.IsNullOrEmpty(downloadedFilePath) || !IsDownloadCompleted)
             {
                 return false;
             }
-                
+
             try
             {
                 // Extract file
                 var extractionResult = await ExtractFileAsync(downloadedFilePath, extractionPath);
-                    
+
                 // Clean up downloaded file
                 TryDeleteFile(downloadedFilePath);
-                    
+
                 return extractionResult;
             }
             catch (Exception ex)
             {
                 // Log error
                 await LogErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
-                    
+
                 // Clean up downloaded file
                 TryDeleteFile(downloadedFilePath);
-                    
+
                 return false;
             }
         }
@@ -461,11 +460,11 @@ public class DownloadManager : IDisposable
         {
             // Log error
             await LogErrors.LogErrorAsync(ex, $"Error during download and extract: {downloadUrl} to {extractionPath}");
-                
+
             return false;
         }
     }
-        
+
     private async Task DownloadWithProgressAsync(string downloadUrl, string destinationPath, CancellationToken cancellationToken)
     {
         try
@@ -477,7 +476,7 @@ public class DownloadManager : IDisposable
             var totalSizeFormatted = totalBytes.HasValue
                 ? FormatFileSize(totalBytes.Value)
                 : GetResourceString("unknownsize", "unknown size");
-                
+
             // Report initial progress
             OnProgressChanged(new DownloadProgressEventArgs
             {
@@ -486,23 +485,23 @@ public class DownloadManager : IDisposable
                 ProgressPercentage = 0,
                 StatusMessage = $"{GetResourceString("Startingdownload2", "Starting download")}: {Path.GetFileName(downloadUrl)} ({totalSizeFormatted})"
             });
-                
+
             // Open file stream for writing
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
             await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
-                
+
             // Set up buffer and tracking variables
             var buffer = new byte[8192];
             long totalBytesRead = 0;
             int bytesRead;
             var lastProgressUpdate = DateTime.Now;
-                
+
             // Read and write the data in chunks
             while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
             {
                 await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                 totalBytesRead += bytesRead;
-                    
+
                 // Limit progress updates to reduce UI thread congestion (update every ~100ms)
                 var now = DateTime.Now;
                 if ((now - lastProgressUpdate).TotalMilliseconds >= 100)
@@ -510,11 +509,11 @@ public class DownloadManager : IDisposable
                     var progressPercentage = totalBytes.HasValue
                         ? (double)totalBytesRead / totalBytes.Value * 100
                         : 0;
-                        
+
                     var sizeStatus = totalBytes.HasValue
                         ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
                         : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
-                        
+
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         BytesReceived = totalBytesRead,
@@ -522,16 +521,16 @@ public class DownloadManager : IDisposable
                         ProgressPercentage = progressPercentage,
                         StatusMessage = $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
                     });
-                        
+
                     lastProgressUpdate = now;
                 }
             }
-                
+
             // Check if the file was fully downloaded
-            if (totalBytes.HasValue && totalBytesRead == totalBytes.Value)
+            if (totalBytesRead == totalBytes)
             {
-                _isDownloadCompleted = true;
-                    
+                IsDownloadCompleted = true;
+
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     BytesReceived = totalBytesRead,
@@ -542,8 +541,8 @@ public class DownloadManager : IDisposable
             }
             else if (totalBytes.HasValue)
             {
-                _isDownloadCompleted = false;
-                    
+                IsDownloadCompleted = false;
+
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     BytesReceived = totalBytesRead,
@@ -553,14 +552,14 @@ public class DownloadManager : IDisposable
                                     $"{GetResourceString("Expected", "Expected")} {FormatFileSize(totalBytes.Value)} " +
                                     $"{GetResourceString("butreceived", "but received")} {FormatFileSize(totalBytesRead)}"
                 });
-                    
+
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
             }
             else
             {
                 // If the server didn't provide a content length, assume the download is complete
-                _isDownloadCompleted = true;
-                    
+                IsDownloadCompleted = true;
+
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     BytesReceived = totalBytesRead,
@@ -671,7 +670,7 @@ public class DownloadManager : IDisposable
             return true;
         }
     }
-        
+
     /// <summary>
     /// Safely attempts to delete a file.
     /// </summary>
@@ -679,7 +678,7 @@ public class DownloadManager : IDisposable
     private static void TryDeleteFile(string filePath)
     {
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
-            
+
         try
         {
             File.Delete(filePath);
@@ -689,7 +688,7 @@ public class DownloadManager : IDisposable
             // Ignore deletion errors
         }
     }
-        
+
     /// <summary>
     /// Formats a byte size into a human-readable format.
     /// </summary>
@@ -700,16 +699,16 @@ public class DownloadManager : IDisposable
         string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
         var counter = 0;
         double size = bytes;
-            
+
         while (size > 1024 && counter < suffixes.Length - 1)
         {
             size /= 1024;
             counter++;
         }
-            
+
         return $"{size:F2} {suffixes[counter]}";
     }
-        
+
     /// <summary>
     /// Gets a localized string from resources.
     /// </summary>
@@ -720,7 +719,7 @@ public class DownloadManager : IDisposable
     {
         return (string)Application.Current.TryFindResource(resourceKey) ?? defaultValue;
     }
-        
+
     /// <summary>
     /// Raises the DownloadProgressChanged event.
     /// </summary>
@@ -729,9 +728,10 @@ public class DownloadManager : IDisposable
     {
         DownloadProgressChanged?.Invoke(this, e);
     }
-        
+
     #region IDisposable Implementation
-        
+
+    /// <inheritdoc />
     /// <summary>
     /// Disposes the DownloadManager.
     /// </summary>
@@ -740,7 +740,7 @@ public class DownloadManager : IDisposable
         Dispose(true);
         GC.SuppressFinalize(this);
     }
-        
+
     /// <summary>
     /// Disposes the DownloadManager resources.
     /// </summary>
@@ -748,16 +748,16 @@ public class DownloadManager : IDisposable
     protected virtual void Dispose(bool disposing)
     {
         if (_disposed) return;
-            
+
         if (disposing)
         {
             _cancellationTokenSource?.Dispose();
             _httpClient?.Dispose();
         }
-            
+
         _disposed = true;
     }
-        
+
     /// <summary>
     /// Finalizer.
     /// </summary>
@@ -765,6 +765,6 @@ public class DownloadManager : IDisposable
     {
         Dispose(false);
     }
-        
+
     #endregion
 }

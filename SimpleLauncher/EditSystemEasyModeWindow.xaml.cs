@@ -60,6 +60,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
     private void PopulateSystemDropdown()
     {
         if (_manager?.Systems == null) return;
+
         var sortedSystemNames = _manager.Systems
             .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
             .Select(system => system.SystemName)
@@ -201,7 +202,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
             {
                 // For emulators that need extension renaming, download first
                 var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-                    
+
                 if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
                     // Rename the extension if needed
@@ -218,15 +219,15 @@ public partial class EditSystemEasyModeWindow : IDisposable
                     {
                         // If rename fails, use the original file
                     }
-                        
+
                     // Extract
                     var pleaseWaitWindow = new PleaseWaitExtractionWindow();
                     pleaseWaitWindow.Show();
-                        
+
                     success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-                        
+
                     pleaseWaitWindow.Close();
-                        
+
                     // Clean up
                     if (File.Exists(downloadedFile))
                     {
@@ -249,20 +250,20 @@ public partial class EditSystemEasyModeWindow : IDisposable
             {
                 // Standard download and extract
                 var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                    
+
                 // Use the DownloadAndExtractAsync method in DownloadManager
                 var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
                 DownloadStatus = $"{downloading2} {componentName}...";
-                    
+
                 // First download
                 var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-                    
+
                 if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
                 {
                     // Then extract
                     var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
                     DownloadStatus = $"{extracting2} {componentName}...";
-                        
+
                     pleaseWaitWindow.Show();
                     success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
                     pleaseWaitWindow.Close();
@@ -357,7 +358,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
     {
         // Update progress bar
         DownloadProgressBar.Value = e.ProgressPercentage;
-        
+
         // Update status
         DownloadStatus = e.StatusMessage;
     }
@@ -373,12 +374,12 @@ public partial class EditSystemEasyModeWindow : IDisposable
     {
         // Cancel the download
         _downloadManager.CancelDownload();
-            
+
         // Update UI
         var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
         DownloadStatus = cancelingdownload2;
         StopDownloadButton.IsEnabled = false;
-            
+
         // Reset progress
         DownloadProgressBar.Value = 0;
     }
@@ -585,11 +586,11 @@ public partial class EditSystemEasyModeWindow : IDisposable
     public void Dispose()
     {
         if (_disposed) return;
-            
+
         _downloadManager?.Dispose();
-            
+
         _disposed = true;
-        
+
         GC.SuppressFinalize(this);
     }
 }

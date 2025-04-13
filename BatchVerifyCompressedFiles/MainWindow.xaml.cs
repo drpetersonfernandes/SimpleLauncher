@@ -100,98 +100,105 @@ public partial class MainWindow : IDisposable
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var sevenZipPath = GetSevenZipExecutablePath(appDirectory);
-        var executableName = Path.GetFileName(sevenZipPath);
-
-        if (!File.Exists(sevenZipPath))
-        {
-            LogMessage($"Error: {executableName} not found in the application folder.");
-            ShowError($"{executableName} is missing from the application folder. Please ensure it's in the same directory as this application.");
-
-            // Report this issue
-            await ReportBugAsync($"{executableName} not found when trying to start verification",
-                new FileNotFoundException($"The required {executableName} file was not found.", sevenZipPath));
-            return;
-        }
-
-        var inputFolder = InputFolderTextBox.Text;
-        var includeSubfolders = IncludeSubfoldersCheckBox.IsChecked ?? false;
-
-        // Check which file types to verify
-        var verifyZip = ZipFilesCheckBox.IsChecked ?? false;
-        var verifySevenZip = SevenZipFilesCheckBox.IsChecked ?? false;
-        var verifyRar = RarFilesCheckBox.IsChecked ?? false;
-
-        if (!verifyZip && !verifySevenZip && !verifyRar)
-        {
-            LogMessage("Error: No file types selected for verification.");
-            ShowError("Please select at least one file type (ZIP, 7Z, or RAR) to verify.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(inputFolder))
-        {
-            LogMessage("Error: No input folder selected.");
-            ShowError("Please select the input folder containing compressed files to verify.");
-            return;
-        }
-
-        // Reset cancellation token if it was previously used
-        if (_cts.IsCancellationRequested)
-        {
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-        }
-
-        // Reset counters
-        _totalFiles = 0;
-        _verifiedOkCount = 0;
-        _failedCount = 0;
-        UpdateCounters();
-
-        // Clear file info
-        DisplayFileInfo("");
-
-        // Disable input controls during verification
-        SetControlsState(false);
-
-        LogMessage("Starting batch verification process...");
-        LogMessage($"Using {Path.GetFileName(sevenZipPath)}: {sevenZipPath}");
-        LogMessage($"Input folder: {inputFolder}");
-        LogMessage($"Include subfolders: {includeSubfolders}");
-        LogMessage($"File types: " +
-                   (verifyZip ? "ZIP " : "") +
-                   (verifySevenZip ? "7Z " : "") +
-                   (verifyRar ? "RAR" : ""));
-
-        // Start timer
-        _processingTimer.Restart();
-
         try
         {
-            await PerformBatchVerificationAsync(sevenZipPath, inputFolder, includeSubfolders,
-                verifyZip, verifySevenZip, verifyRar);
-        }
-        catch (OperationCanceledException)
-        {
-            LogMessage("Operation was canceled by user.");
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var sevenZipPath = GetSevenZipExecutablePath(appDirectory);
+            var executableName = Path.GetFileName(sevenZipPath);
+
+            if (!File.Exists(sevenZipPath))
+            {
+                LogMessage($"Error: {executableName} not found in the application folder.");
+                ShowError($"{executableName} is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+                // Report this issue
+                await ReportBugAsync($"{executableName} not found when trying to start verification",
+                    new FileNotFoundException($"The required {executableName} file was not found.", sevenZipPath));
+                return;
+            }
+
+            var inputFolder = InputFolderTextBox.Text;
+            var includeSubfolders = IncludeSubfoldersCheckBox.IsChecked ?? false;
+
+            // Check which file types to verify
+            var verifyZip = ZipFilesCheckBox.IsChecked ?? false;
+            var verifySevenZip = SevenZipFilesCheckBox.IsChecked ?? false;
+            var verifyRar = RarFilesCheckBox.IsChecked ?? false;
+
+            if (!verifyZip && !verifySevenZip && !verifyRar)
+            {
+                LogMessage("Error: No file types selected for verification.");
+                ShowError("Please select at least one file type (ZIP, 7Z, or RAR) to verify.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(inputFolder))
+            {
+                LogMessage("Error: No input folder selected.");
+                ShowError("Please select the input folder containing compressed files to verify.");
+                return;
+            }
+
+            // Reset cancellation token if it was previously used
+            if (_cts.IsCancellationRequested)
+            {
+                _cts.Dispose();
+                _cts = new CancellationTokenSource();
+            }
+
+            // Reset counters
+            _totalFiles = 0;
+            _verifiedOkCount = 0;
+            _failedCount = 0;
+            UpdateCounters();
+
+            // Clear file info
+            DisplayFileInfo("");
+
+            // Disable input controls during verification
+            SetControlsState(false);
+
+            LogMessage("Starting batch verification process...");
+            LogMessage($"Using {Path.GetFileName(sevenZipPath)}: {sevenZipPath}");
+            LogMessage($"Input folder: {inputFolder}");
+            LogMessage($"Include subfolders: {includeSubfolders}");
+            LogMessage("File types: " +
+                       (verifyZip ? "ZIP " : "") +
+                       (verifySevenZip ? "7Z " : "") +
+                       (verifyRar ? "RAR" : ""));
+
+            // Start timer
+            _processingTimer.Restart();
+
+            try
+            {
+                await PerformBatchVerificationAsync(sevenZipPath, inputFolder, includeSubfolders,
+                    verifyZip, verifySevenZip, verifyRar);
+            }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Operation was canceled by user.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error: {ex.Message}");
+
+                // Report the exception to our bug reporting service
+                await ReportBugAsync("Error during batch verification process", ex);
+            }
+            finally
+            {
+                // Stop timer
+                _processingTimer.Stop();
+                UpdateProcessingTime();
+
+                // Re-enable input controls
+                SetControlsState(true);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error: {ex.Message}");
-
-            // Report the exception to our bug reporting service
             await ReportBugAsync("Error during batch verification process", ex);
-        }
-        finally
-        {
-            // Stop timer
-            _processingTimer.Stop();
-            UpdateProcessingTime();
-
-            // Re-enable input controls
-            SetControlsState(true);
         }
     }
 
@@ -585,7 +592,7 @@ public partial class MainWindow : IDisposable
         var elapsed = _processingTimer.Elapsed;
         Application.Current.Dispatcher.Invoke((Action)(() =>
         {
-            ProcessingTimeValue.Text = $"{elapsed:hh\\:mm\\:ss}";
+            ProcessingTimeValue.Text = $@"{elapsed:hh\:mm\:ss}";
         }));
     }
 

@@ -56,10 +56,6 @@ public static class MameSourcefile
 
     private static async Task CreateAndSaveFilteredDocumentAsync(XDocument inputDoc, string outputPath, string sourceFile)
     {
-        // Filtering condition based on the source file
-        bool Predicate(XElement machine) =>
-            (string?)machine.Attribute("sourcefile") == sourceFile;
-
         // Create a new XML document for machines based on the predicate
         XDocument filteredDoc = new(
             new XElement("Machines",
@@ -81,6 +77,14 @@ public static class MameSourcefile
         catch (Exception ex)
         {
             Console.WriteLine($"Failed to create file for {sourceFile}. Error: {ex.Message}");
+        }
+
+        return;
+
+        // Filtering condition based on the source file
+        bool Predicate(XElement machine)
+        {
+            return (string?)machine.Attribute("sourcefile") == sourceFile;
         }
     }
 
