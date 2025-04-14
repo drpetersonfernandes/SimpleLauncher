@@ -51,72 +51,76 @@ public partial class MainWindow : IDisposable
     private void BrowseScummVMButton_Click(object sender, RoutedEventArgs e)
     {
         var scummvmExePath = SelectFile();
-        if (!string.IsNullOrEmpty(scummvmExePath))
-        {
-            ScummVmPathTextBox.Text = scummvmExePath;
-            LogMessage($"ScummVM executable selected: {scummvmExePath}");
+        if (string.IsNullOrEmpty(scummvmExePath)) return;
 
-            if (!scummvmExePath.EndsWith("scummvm.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                LogMessage("Warning: The selected file does not appear to be scummvm.exe.");
-                _ = ReportBugAsync("User selected a file that doesn't appear to be scummvm.exe: " + scummvmExePath);
-            }
-        }
+        ScummVmPathTextBox.Text = scummvmExePath;
+        LogMessage($"ScummVM executable selected: {scummvmExePath}");
+
+        if (scummvmExePath.EndsWith("scummvm.exe", StringComparison.OrdinalIgnoreCase)) return;
+
+        LogMessage("Warning: The selected file does not appear to be scummvm.exe.");
+        _ = ReportBugAsync("User selected a file that doesn't appear to be scummvm.exe: " + scummvmExePath);
     }
 
     private void BrowseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var rootFolder = SelectFolder();
-        if (!string.IsNullOrEmpty(rootFolder))
-        {
-            GameFolderTextBox.Text = rootFolder;
-            LogMessage($"Game folder selected: {rootFolder}");
-        }
+        if (string.IsNullOrEmpty(rootFolder)) return;
+
+        GameFolderTextBox.Text = rootFolder;
+        LogMessage($"Game folder selected: {rootFolder}");
     }
 
     private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
     {
-        var scummvmExePath = ScummVmPathTextBox.Text;
-        var rootFolder = GameFolderTextBox.Text;
-
-        if (string.IsNullOrEmpty(scummvmExePath))
-        {
-            LogMessage("Error: No ScummVM executable selected.");
-            ShowError("Please select the ScummVM executable file (scummvm.exe).");
-            return;
-        }
-
-        if (!File.Exists(scummvmExePath))
-        {
-            LogMessage($"Error: ScummVM executable not found at path: {scummvmExePath}");
-            ShowError("The selected ScummVM executable file does not exist.");
-            await ReportBugAsync("ScummVM executable not found", new FileNotFoundException("The ScummVM executable was not found", scummvmExePath));
-            return;
-        }
-
-        if (string.IsNullOrEmpty(rootFolder))
-        {
-            LogMessage("Error: No game folder selected.");
-            ShowError("Please select the root folder containing your ScummVM game folders.");
-            return;
-        }
-
-        if (!Directory.Exists(rootFolder))
-        {
-            LogMessage($"Error: Game folder not found at path: {rootFolder}");
-            ShowError("The selected game folder does not exist.");
-            await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
-            return;
-        }
-
         try
         {
-            CreateBatchFilesForScummVmGames(rootFolder, scummvmExePath);
+            var scummvmExePath = ScummVmPathTextBox.Text;
+            var rootFolder = GameFolderTextBox.Text;
+
+            if (string.IsNullOrEmpty(scummvmExePath))
+            {
+                LogMessage("Error: No ScummVM executable selected.");
+                ShowError("Please select the ScummVM executable file (scummvm.exe).");
+                return;
+            }
+
+            if (!File.Exists(scummvmExePath))
+            {
+                LogMessage($"Error: ScummVM executable not found at path: {scummvmExePath}");
+                ShowError("The selected ScummVM executable file does not exist.");
+                await ReportBugAsync("ScummVM executable not found", new FileNotFoundException("The ScummVM executable was not found", scummvmExePath));
+                return;
+            }
+
+            if (string.IsNullOrEmpty(rootFolder))
+            {
+                LogMessage("Error: No game folder selected.");
+                ShowError("Please select the root folder containing your ScummVM game folders.");
+                return;
+            }
+
+            if (!Directory.Exists(rootFolder))
+            {
+                LogMessage($"Error: Game folder not found at path: {rootFolder}");
+                ShowError("The selected game folder does not exist.");
+                await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
+                return;
+            }
+
+            try
+            {
+                CreateBatchFilesForScummVmGames(rootFolder, scummvmExePath);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error creating batch files: {ex.Message}");
+                ShowError($"An error occurred while creating batch files: {ex.Message}");
+                await ReportBugAsync("Error creating batch files", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error creating batch files: {ex.Message}");
-            ShowError($"An error occurred while creating batch files: {ex.Message}");
             await ReportBugAsync("Error creating batch files", ex);
         }
     }

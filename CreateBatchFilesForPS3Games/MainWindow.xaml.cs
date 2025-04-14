@@ -54,27 +54,24 @@ public partial class MainWindow : IDisposable
     private void BrowseRPCS3Button_Click(object sender, RoutedEventArgs e)
     {
         var rpcs3ExePath = SelectFile();
-        if (!string.IsNullOrEmpty(rpcs3ExePath))
-        {
-            Rpcs3PathTextBox.Text = rpcs3ExePath;
-            LogMessage($"RPCS3 executable selected: {rpcs3ExePath}");
+        if (string.IsNullOrEmpty(rpcs3ExePath)) return;
 
-            if (!rpcs3ExePath.EndsWith("rpcs3.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                LogMessage("Warning: The selected file does not appear to be rpcs3.exe.");
-                _ = ReportBugAsync("User selected a file that doesn't appear to be rpcs3.exe: " + rpcs3ExePath);
-            }
-        }
+        Rpcs3PathTextBox.Text = rpcs3ExePath;
+        LogMessage($"RPCS3 executable selected: {rpcs3ExePath}");
+
+        if (rpcs3ExePath.EndsWith("rpcs3.exe", StringComparison.OrdinalIgnoreCase)) return;
+
+        LogMessage("Warning: The selected file does not appear to be rpcs3.exe.");
+        _ = ReportBugAsync("User selected a file that doesn't appear to be rpcs3.exe: " + rpcs3ExePath);
     }
 
     private void BrowseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var rootFolder = SelectFolder();
-        if (!string.IsNullOrEmpty(rootFolder))
-        {
-            GameFolderTextBox.Text = rootFolder;
-            LogMessage($"Game folder selected: {rootFolder}");
-        }
+        if (string.IsNullOrEmpty(rootFolder)) return;
+
+        GameFolderTextBox.Text = rootFolder;
+        LogMessage($"Game folder selected: {rootFolder}");
     }
 
     private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
@@ -490,13 +487,12 @@ public partial class MainWindow : IDisposable
                 return null;
             }
 
-            var indexOffset = headerSize;
             var keyOffset = sfoHeader.key_table_start;
             var valueOffset = sfoHeader.data_table_start;
             for (var i = 0; i < sfoHeader.tables_entries; i++)
             {
                 var sfoEntry = new byte[indexSize];
-                Array.Copy(sfo, indexOffset + i * indexSize, sfoEntry, 0, indexSize);
+                Array.Copy(sfo, headerSize + i * indexSize, sfoEntry, 0, indexSize);
 
                 SfoTableEntry sfoTableEntry;
                 try
@@ -518,7 +514,7 @@ public partial class MainWindow : IDisposable
 
                 try
                 {
-                    var keyBytes = Encoding.UTF8.GetString(sfo.Skip((int)entryKeyOffset).TakeWhile(b => !b.Equals(0)).ToArray());
+                    var keyBytes = Encoding.UTF8.GetString(sfo.Skip((int)entryKeyOffset).TakeWhile(static b => !b.Equals(0)).ToArray());
                     switch (sfoTableEntry.data_fmt)
                     {
                         case 0x0004: //non-null string

@@ -21,7 +21,7 @@ public partial class MainWindow : IDisposable
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCHDFiles";
-    private static readonly char[] Separator = new[] { '\r', '\n' };
+    private static readonly char[] Separator = ['\r', '\n'];
 
     public MainWindow()
     {
@@ -89,11 +89,10 @@ public partial class MainWindow : IDisposable
     private void BrowseInputButton_Click(object sender, RoutedEventArgs e)
     {
         var inputFolder = SelectFolder("Select the folder containing CHD files to verify");
-        if (!string.IsNullOrEmpty(inputFolder))
-        {
-            InputFolderTextBox.Text = inputFolder;
-            LogMessage($"Input folder selected: {inputFolder}");
-        }
+        if (string.IsNullOrEmpty(inputFolder)) return;
+
+        InputFolderTextBox.Text = inputFolder;
+        LogMessage($"Input folder selected: {inputFolder}");
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -349,21 +348,20 @@ public partial class MainWindow : IDisposable
 
             process.ErrorDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
+                if (string.IsNullOrEmpty(args.Data)) return;
+
+                // Check if this is a progress update rather than an actual error
+                if (args.Data.Contains("Verifying,") && args.Data.Contains("% complete"))
                 {
-                    // Check if this is a progress update rather than an actual error
-                    if (args.Data.Contains("Verifying,") && args.Data.Contains("% complete"))
-                    {
-                        // This is a progress update, not an error
-                        // Log it with a better prefix
-                        LogMessage($"{args.Data}");
-                    }
-                    else
-                    {
-                        // This is an actual error
-                        errorBuilder.AppendLine(args.Data);
-                        LogMessage($"[ERROR] {args.Data}");
-                    }
+                    // This is a progress update, not an error
+                    // Log it with a better prefix
+                    LogMessage($"{args.Data}");
+                }
+                else
+                {
+                    // This is an actual error
+                    errorBuilder.AppendLine(args.Data);
+                    LogMessage($"[ERROR] {args.Data}");
                 }
             };
 
@@ -472,7 +470,7 @@ public partial class MainWindow : IDisposable
 
     private static string FormatFileSize(long bytes)
     {
-        string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
         var counter = 0;
         decimal number = bytes;
 

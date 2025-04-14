@@ -4,6 +4,7 @@ using System.Windows.Threading;
 
 namespace BatchVerifyCHDFiles;
 
+/// <inheritdoc cref="System.Windows.Application" />
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>
