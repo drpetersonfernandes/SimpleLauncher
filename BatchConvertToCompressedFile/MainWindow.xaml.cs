@@ -76,92 +76,97 @@ public partial class MainWindow : IDisposable
     private void BrowseInputButton_Click(object sender, RoutedEventArgs e)
     {
         var inputFolder = SelectFolder("Select the folder containing files to compress");
-        if (!string.IsNullOrEmpty(inputFolder))
-        {
-            InputFolderTextBox.Text = inputFolder;
-            LogMessage($"Input folder selected: {inputFolder}");
-        }
+        if (string.IsNullOrEmpty(inputFolder)) return;
+
+        InputFolderTextBox.Text = inputFolder;
+        LogMessage($"Input folder selected: {inputFolder}");
     }
 
     private void BrowseOutputButton_Click(object sender, RoutedEventArgs e)
     {
         var outputFolder = SelectFolder("Select the output folder where compressed files will be saved");
-        if (!string.IsNullOrEmpty(outputFolder))
-        {
-            OutputFolderTextBox.Text = outputFolder;
-            LogMessage($"Output folder selected: {outputFolder}");
-        }
+        if (string.IsNullOrEmpty(outputFolder)) return;
+
+        OutputFolderTextBox.Text = outputFolder;
+        LogMessage($"Output folder selected: {outputFolder}");
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
-        if (!File.Exists(_sevenZipPath))
-        {
-            LogMessage($"Error: {Path.GetFileName(_sevenZipPath)} not found in the application folder.");
-            ShowError($"{Path.GetFileName(_sevenZipPath)} is missing from the application folder. Please ensure it's in the same directory as this application.");
-
-            // Report this issue
-            await ReportBugAsync($"{Path.GetFileName(_sevenZipPath)} not found when trying to start compression",
-                new FileNotFoundException($"The required {Path.GetFileName(_sevenZipPath)} file was not found.", _sevenZipPath));
-            return;
-        }
-
-        var inputFolder = InputFolderTextBox.Text;
-        var outputFolder = OutputFolderTextBox.Text;
-        var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
-        var use7ZFormat = SevenZipRadioButton.IsChecked ?? true;
-        var compressionFormat = use7ZFormat ? "7z" : "zip";
-
-        if (string.IsNullOrEmpty(inputFolder))
-        {
-            LogMessage("Error: No input folder selected.");
-            ShowError("Please select the input folder containing files to compress.");
-            return;
-        }
-
-        if (string.IsNullOrEmpty(outputFolder))
-        {
-            LogMessage("Error: No output folder selected.");
-            ShowError("Please select the output folder where compressed files will be saved.");
-            return;
-        }
-
-        // Reset cancellation token if it was previously used
-        if (_cts.IsCancellationRequested)
-        {
-            _cts.Dispose();
-            _cts = new CancellationTokenSource();
-        }
-
-        // Disable input controls during compression
-        SetControlsState(false);
-
-        LogMessage("Starting batch compression process...");
-        LogMessage($"Using {Path.GetFileName(_sevenZipPath)}: {_sevenZipPath}");
-        LogMessage($"Input folder: {inputFolder}");
-        LogMessage($"Output folder: {outputFolder}");
-        LogMessage($"Compression format: {compressionFormat}");
-        LogMessage($"Delete original files: {deleteFiles}");
-
         try
         {
-            await PerformBatchCompressionAsync(_sevenZipPath, inputFolder, outputFolder, compressionFormat, deleteFiles);
-        }
-        catch (OperationCanceledException)
-        {
-            LogMessage("Operation was canceled by user.");
+            if (!File.Exists(_sevenZipPath))
+            {
+                LogMessage($"Error: {Path.GetFileName(_sevenZipPath)} not found in the application folder.");
+                ShowError($"{Path.GetFileName(_sevenZipPath)} is missing from the application folder. Please ensure it's in the same directory as this application.");
+
+                // Report this issue
+                await ReportBugAsync($"{Path.GetFileName(_sevenZipPath)} not found when trying to start compression",
+                    new FileNotFoundException($"The required {Path.GetFileName(_sevenZipPath)} file was not found.", _sevenZipPath));
+                return;
+            }
+
+            var inputFolder = InputFolderTextBox.Text;
+            var outputFolder = OutputFolderTextBox.Text;
+            var deleteFiles = DeleteFilesCheckBox.IsChecked ?? false;
+            var use7ZFormat = SevenZipRadioButton.IsChecked ?? true;
+            var compressionFormat = use7ZFormat ? "7z" : "zip";
+
+            if (string.IsNullOrEmpty(inputFolder))
+            {
+                LogMessage("Error: No input folder selected.");
+                ShowError("Please select the input folder containing files to compress.");
+                return;
+            }
+
+            if (string.IsNullOrEmpty(outputFolder))
+            {
+                LogMessage("Error: No output folder selected.");
+                ShowError("Please select the output folder where compressed files will be saved.");
+                return;
+            }
+
+            // Reset cancellation token if it was previously used
+            if (_cts.IsCancellationRequested)
+            {
+                _cts.Dispose();
+                _cts = new CancellationTokenSource();
+            }
+
+            // Disable input controls during compression
+            SetControlsState(false);
+
+            LogMessage("Starting batch compression process...");
+            LogMessage($"Using {Path.GetFileName(_sevenZipPath)}: {_sevenZipPath}");
+            LogMessage($"Input folder: {inputFolder}");
+            LogMessage($"Output folder: {outputFolder}");
+            LogMessage($"Compression format: {compressionFormat}");
+            LogMessage($"Delete original files: {deleteFiles}");
+
+            try
+            {
+                await PerformBatchCompressionAsync(_sevenZipPath, inputFolder, outputFolder, compressionFormat, deleteFiles);
+            }
+            catch (OperationCanceledException)
+            {
+                LogMessage("Operation was canceled by user.");
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error: {ex.Message}");
+
+                // Report the exception to our bug reporting service
+                await ReportBugAsync("Error during batch compression process", ex);
+            }
+            finally
+            {
+                // Re-enable input controls
+                SetControlsState(true);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error: {ex.Message}");
-
-            // Report the exception to our bug reporting service
             await ReportBugAsync("Error during batch compression process", ex);
-        }
-        finally
-        {
-            // Re-enable input controls
-            SetControlsState(true);
         }
     }
 

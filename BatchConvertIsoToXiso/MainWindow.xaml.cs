@@ -75,21 +75,19 @@ public partial class MainWindow : IDisposable
     private void BrowseInputButton_Click(object sender, RoutedEventArgs e)
     {
         var inputFolder = SelectFolder("Select the folder containing ISO files to convert");
-        if (!string.IsNullOrEmpty(inputFolder))
-        {
-            InputFolderTextBox.Text = inputFolder;
-            LogMessage($"Input folder selected: {inputFolder}");
-        }
+        if (string.IsNullOrEmpty(inputFolder)) return;
+
+        InputFolderTextBox.Text = inputFolder;
+        LogMessage($"Input folder selected: {inputFolder}");
     }
 
     private void BrowseOutputButton_Click(object sender, RoutedEventArgs e)
     {
         var outputFolder = SelectFolder("Select the output folder where converted XISO files will be saved");
-        if (!string.IsNullOrEmpty(outputFolder))
-        {
-            OutputFolderTextBox.Text = outputFolder;
-            LogMessage($"Output folder selected: {outputFolder}");
-        }
+        if (string.IsNullOrEmpty(outputFolder)) return;
+
+        OutputFolderTextBox.Text = outputFolder;
+        LogMessage($"Output folder selected: {outputFolder}");
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -316,18 +314,17 @@ public partial class MainWindow : IDisposable
 
             // Step 4: Handle the original file
             var renamedFilePath = inputFile + ".old";
-            if (File.Exists(renamedFilePath))
+            if (!File.Exists(renamedFilePath)) return true;
+
+            if (deleteFiles)
             {
-                if (deleteFiles)
-                {
-                    LogMessage($"Deleting original file: {fileName}");
-                    await Task.Run(() => File.Delete(renamedFilePath), _cts.Token);
-                }
-                else
-                {
-                    LogMessage($"Restoring original file: {fileName}");
-                    await Task.Run(() => File.Move(renamedFilePath, inputFile, true), _cts.Token);
-                }
+                LogMessage($"Deleting original file: {fileName}");
+                await Task.Run(() => File.Delete(renamedFilePath), _cts.Token);
+            }
+            else
+            {
+                LogMessage($"Restoring original file: {fileName}");
+                await Task.Run(() => File.Move(renamedFilePath, inputFile, true), _cts.Token);
             }
 
             return true;
@@ -389,17 +386,16 @@ public partial class MainWindow : IDisposable
             var cancellationRegistration = _cts.Token.Register(() =>
             {
                 // ReSharper disable once AccessToDisposedClosure
-                if (!process.HasExited)
+                if (process.HasExited) return;
+
+                try
                 {
-                    try
-                    {
-                        // ReSharper disable once AccessToDisposedClosure
-                        process.Kill();
-                    }
-                    catch
-                    {
-                        // Ignore errors if the process already exited
-                    }
+                    // ReSharper disable once AccessToDisposedClosure
+                    process.Kill();
+                }
+                catch
+                {
+                    // Ignore errors if the process already exited
                 }
             });
 
@@ -421,9 +417,9 @@ public partial class MainWindow : IDisposable
         }
     }
 
-    private async Task<string> FindConvertedFileAsync(string fileName)
+    private Task<string> FindConvertedFileAsync(string fileName)
     {
-        return await Task.Run(() =>
+        return Task.Run(() =>
         {
             // Check potential locations
             var locations = new[]
@@ -435,11 +431,10 @@ public partial class MainWindow : IDisposable
             foreach (var location in locations)
             {
                 LogMessage($"Checking for converted file at: {location}");
-                if (File.Exists(location))
-                {
-                    LogMessage($"Found converted file at: {location}");
-                    return location;
-                }
+                if (!File.Exists(location)) continue;
+
+                LogMessage($"Found converted file at: {location}");
+                return location;
             }
 
             return string.Empty;
@@ -532,7 +527,7 @@ public partial class MainWindow : IDisposable
     public void Dispose()
     {
         // Cancel any ongoing operations
-        if (_cts != null)
+        if (true)
         {
             _cts.Cancel();
             _cts.Dispose();

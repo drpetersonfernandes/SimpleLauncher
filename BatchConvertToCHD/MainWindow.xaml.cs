@@ -18,7 +18,7 @@ public partial class MainWindow : IDisposable
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchConvertToCHD";
-    private static readonly char[] Separator = new[] { ' ', '\t' };
+    private static readonly char[] Separator = [' ', '\t'];
 
     public MainWindow()
     {
@@ -85,21 +85,19 @@ public partial class MainWindow : IDisposable
     private void BrowseInputButton_Click(object sender, RoutedEventArgs e)
     {
         var inputFolder = SelectFolder("Select the folder containing files to convert");
-        if (!string.IsNullOrEmpty(inputFolder))
-        {
-            InputFolderTextBox.Text = inputFolder;
-            LogMessage($"Input folder selected: {inputFolder}");
-        }
+        if (string.IsNullOrEmpty(inputFolder)) return;
+
+        InputFolderTextBox.Text = inputFolder;
+        LogMessage($"Input folder selected: {inputFolder}");
     }
 
     private void BrowseOutputButton_Click(object sender, RoutedEventArgs e)
     {
         var outputFolder = SelectFolder("Select the output folder where CHD files will be saved");
-        if (!string.IsNullOrEmpty(outputFolder))
-        {
-            OutputFolderTextBox.Text = outputFolder;
-            LogMessage($"Output folder selected: {outputFolder}");
-        }
+        if (string.IsNullOrEmpty(outputFolder)) return;
+
+        OutputFolderTextBox.Text = outputFolder;
+        LogMessage($"Output folder selected: {outputFolder}");
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -348,20 +346,17 @@ public partial class MainWindow : IDisposable
             foreach (var line in lines)
             {
                 var trimmedLine = line.Trim();
-                if (trimmedLine.StartsWith("FILE ", StringComparison.OrdinalIgnoreCase))
-                {
-                    // Extract filename from the FILE line
-                    // Format: FILE "filename.ext" FILETYPE
-                    var parts = trimmedLine.Split('"');
-                    if (parts.Length >= 2)
-                    {
-                        var fileName = parts[1];
-                        var filePath = Path.Combine(cueDir, fileName);
+                if (!trimmedLine.StartsWith("FILE ", StringComparison.OrdinalIgnoreCase)) continue;
+                // Extract filename from the FILE line
+                // Format: FILE "filename.ext" FILETYPE
+                var parts = trimmedLine.Split('"');
+                if (parts.Length < 2) continue;
 
-                        LogMessage($"Found referenced file in CUE: {fileName}");
-                        referencedFiles.Add(filePath);
-                    }
-                }
+                var fileName = parts[1];
+                var filePath = Path.Combine(cueDir, fileName);
+
+                LogMessage($"Found referenced file in CUE: {fileName}");
+                referencedFiles.Add(filePath);
             }
         }
         catch (Exception ex)
@@ -418,44 +413,42 @@ public partial class MainWindow : IDisposable
 
             process.OutputDataReceived += (_, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    outputBuilder.AppendLine(args.Data);
+                if (string.IsNullOrEmpty(args.Data)) return;
 
-                    // Check for progress information
-                    if (args.Data.Contains("Compressing") && args.Data.Contains('%'))
-                    {
-                        // Extract percentage and update UI
-                        UpdateConversionProgress(args.Data);
-                    }
+                outputBuilder.AppendLine(args.Data);
+
+                // Check for progress information
+                if (args.Data.Contains("Compressing") && args.Data.Contains('%'))
+                {
+                    // Extract percentage and update UI
+                    UpdateConversionProgress(args.Data);
                 }
             };
 
             process.ErrorDataReceived += (_, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    errorBuilder.AppendLine(args.Data);
+                if (string.IsNullOrEmpty(args.Data)) return;
 
-                    // Check if this is a progress update or completion message rather than an actual error
-                    if ((args.Data.Contains("Compressing") && args.Data.Contains('%')) ||
-                        args.Data.Contains("Compression complete"))
+                errorBuilder.AppendLine(args.Data);
+
+                // Check if this is a progress update or completion message rather than an actual error
+                if ((args.Data.Contains("Compressing") && args.Data.Contains('%')) ||
+                    args.Data.Contains("Compression complete"))
+                {
+                    // This is a progress update or completion message, not an error
+                    if (args.Data.Contains("Compression complete"))
                     {
-                        // This is a progress update or completion message, not an error
-                        if (args.Data.Contains("Compression complete"))
-                        {
-                            LogMessage($"Compression completed with {args.Data.Substring(args.Data.IndexOf("ratio =", StringComparison.Ordinal) + 8)}");
-                        }
-                        else
-                        {
-                            UpdateConversionProgress(args.Data);
-                        }
+                        LogMessage($"Compression completed with {args.Data.Substring(args.Data.IndexOf("ratio =", StringComparison.Ordinal) + 8)}");
                     }
                     else
                     {
-                        // This is likely an actual error
-                        LogMessage($"[ERROR] {args.Data}");
+                        UpdateConversionProgress(args.Data);
                     }
+                }
+                else
+                {
+                    // This is likely an actual error
+                    LogMessage($"[ERROR] {args.Data}");
                 }
             };
 
@@ -568,36 +561,34 @@ public partial class MainWindow : IDisposable
         {
             // Extract percentage from a line like "Compressing, 45.6% complete... (ratio=40.5%)"
             var match = MyRegex().Match(progressLine);
-            if (match.Success)
+            if (!match.Success) return;
+
+            // Get the percentage string, handling both decimal point and comma formats
+            var percentageStr = match.Groups[1].Value;
+
+            // Replace comma with a period to ensure proper parsing regardless of culture
+            percentageStr = percentageStr.Replace(',', '.');
+
+            if (!double.TryParse(percentageStr, NumberStyles.Any,
+                    CultureInfo.InvariantCulture, out var percentage)) return;
+
+            // Ensure percentage is within the expected range (0-100)
+            // If it's consistently 10x too high, divide by 10
+            if (percentage > 100)
             {
-                // Get the percentage string, handling both decimal point and comma formats
-                var percentageStr = match.Groups[1].Value;
-
-                // Replace comma with a period to ensure proper parsing regardless of culture
-                percentageStr = percentageStr.Replace(',', '.');
-
-                if (double.TryParse(percentageStr, NumberStyles.Any,
-                        CultureInfo.InvariantCulture, out var percentage))
-                {
-                    // Ensure percentage is within the expected range (0-100)
-                    // If it's consistently 10x too high, divide by 10
-                    if (percentage > 100)
-                    {
-                        percentage = percentage / 10;
-                    }
-
-                    // Get the ratio if available
-                    var ratio = "unknown";
-                    var ratioMatch = MyRegex1().Match(progressLine);
-                    if (ratioMatch.Success)
-                    {
-                        ratio = ratioMatch.Groups[1].Value.Replace(',', '.') + "%";
-                    }
-
-                    // Just log the progress without adding file-specific progress bars
-                    LogMessage($"Converting: {percentage:F1}% complete (compression ratio: {ratio})");
-                }
+                percentage = percentage / 10;
             }
+
+            // Get the ratio if available
+            var ratio = "unknown";
+            var ratioMatch = MyRegex1().Match(progressLine);
+            if (ratioMatch.Success)
+            {
+                ratio = ratioMatch.Groups[1].Value.Replace(',', '.') + "%";
+            }
+
+            // Just log the progress without adding file-specific progress bars
+            LogMessage($"Converting: {percentage:F1}% complete (compression ratio: {ratio})");
         }
         catch (Exception ex)
         {
@@ -643,26 +634,25 @@ public partial class MainWindow : IDisposable
                 var success = await ConvertToChdAsync(chdmanPath, fileToProcess, outputFile);
 
                 // Handle cleanup
-                if (success && deleteOriginal)
+                if (!success || !deleteOriginal) return success;
+
+                if (isZipFile)
                 {
-                    if (isZipFile)
+                    // For ZIP files, delete the original ZIP file
+                    try
                     {
-                        // For ZIP files, delete the original ZIP file
-                        try
-                        {
-                            File.Delete(inputFile);
-                            LogMessage($"Deleted original ZIP file: {Path.GetFileName(inputFile)}");
-                        }
-                        catch (Exception ex)
-                        {
-                            LogMessage($"Failed to delete ZIP file: {ex.Message}");
-                        }
+                        File.Delete(inputFile);
+                        LogMessage($"Deleted original ZIP file: {Path.GetFileName(inputFile)}");
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // For regular files, delete according to existing logic
-                        await DeleteOriginalFilesAsync(fileToProcess);
+                        LogMessage($"Failed to delete ZIP file: {ex.Message}");
                     }
+                }
+                else
+                {
+                    // For regular files, delete according to existing logic
+                    await DeleteOriginalFilesAsync(fileToProcess);
                 }
 
                 return success;
@@ -768,11 +758,10 @@ public partial class MainWindow : IDisposable
             // Delete all files
             foreach (var fileToDelete in filesToDelete)
             {
-                if (File.Exists(fileToDelete))
-                {
-                    File.Delete(fileToDelete);
-                    LogMessage($"Deleted file: {Path.GetFileName(fileToDelete)}");
-                }
+                if (!File.Exists(fileToDelete)) continue;
+
+                File.Delete(fileToDelete);
+                LogMessage($"Deleted file: {Path.GetFileName(fileToDelete)}");
             }
         }
         catch (Exception ex)
@@ -802,14 +791,13 @@ public partial class MainWindow : IDisposable
 
                 // GDI format: Track LBA Type SectorSize FileName
                 var parts = trimmedLine.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
-                if (parts.Length >= 5)
-                {
-                    var fileName = parts[4].Trim('"');
-                    var filePath = Path.Combine(gdiDir, fileName);
+                if (parts.Length < 5) continue;
 
-                    LogMessage($"Found referenced file in GDI: {fileName}");
-                    referencedFiles.Add(filePath);
-                }
+                var fileName = parts[4].Trim('"');
+                var filePath = Path.Combine(gdiDir, fileName);
+
+                LogMessage($"Found referenced file in GDI: {fileName}");
+                referencedFiles.Add(filePath);
             }
         }
         catch (Exception ex)

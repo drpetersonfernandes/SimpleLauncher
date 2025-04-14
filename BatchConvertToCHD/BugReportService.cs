@@ -3,23 +3,16 @@ using System.Net.Http.Json;
 
 namespace BatchConvertToCHD;
 
+/// <inheritdoc />
 /// <summary>
 /// Service responsible for silently sending bug reports to the BugReport API
 /// </summary>
-public class BugReportService : IDisposable
+public class BugReportService(string apiUrl, string apiKey, string applicationName) : IDisposable
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _apiUrl;
-    private readonly string _apiKey;
-    private readonly string _applicationName;
-
-    public BugReportService(string apiUrl, string apiKey, string applicationName)
-    {
-        _httpClient = new HttpClient();
-        _apiUrl = apiUrl;
-        _apiKey = apiKey;
-        _applicationName = applicationName;
-    }
+    private readonly HttpClient _httpClient = new();
+    private readonly string _apiUrl = apiUrl;
+    private readonly string _apiKey = apiKey;
+    private readonly string _applicationName = applicationName;
 
     /// <summary>
     /// Silently sends a bug report to the API
@@ -54,6 +47,7 @@ public class BugReportService : IDisposable
         }
     }
 
+    /// <inheritdoc />
     /// <summary>
     /// Releases all resources used by the BugReportService.
     /// </summary>

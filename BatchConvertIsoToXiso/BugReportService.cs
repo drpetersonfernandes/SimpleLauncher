@@ -3,24 +3,17 @@ using System.Net.Http.Json;
 
 namespace BatchConvertIsoToXiso;
 
+/// <inheritdoc />
 /// <summary>
 /// Service responsible for silently sending bug reports to the BugReport API
 /// </summary>
-public class BugReportService : IDisposable
+public class BugReportService(string apiUrl, string apiKey, string applicationName) : IDisposable
 {
-    private readonly HttpClient _httpClient;
-    private readonly string _apiUrl;
-    private readonly string _apiKey;
-    private readonly string _applicationName;
+    private readonly HttpClient _httpClient = new();
     private bool _disposed;
-
-    public BugReportService(string apiUrl, string apiKey, string applicationName)
-    {
-        _httpClient = new HttpClient();
-        _apiUrl = apiUrl;
-        _apiKey = apiKey;
-        _applicationName = applicationName;
-    }
+    private readonly string _apiUrl = apiUrl;
+    private readonly string _apiKey = apiKey;
+    private readonly string _applicationName = applicationName;
 
     /// <summary>
     /// Silently sends a bug report to the API
@@ -63,14 +56,13 @@ public class BugReportService : IDisposable
 
     protected virtual void Dispose(bool disposing)
     {
-        if (!_disposed)
-        {
-            if (disposing)
-            {
-                _httpClient.Dispose();
-            }
+        if (_disposed) return;
 
-            _disposed = true;
+        if (disposing)
+        {
+            _httpClient.Dispose();
         }
+
+        _disposed = true;
     }
 }

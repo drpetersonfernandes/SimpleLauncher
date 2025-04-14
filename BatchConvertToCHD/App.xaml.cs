@@ -99,7 +99,7 @@ public partial class App : IDisposable
             {
                 sb.AppendLine(CultureInfo.InvariantCulture, $"{indent}Inner Exception:");
                 exception = exception.InnerException;
-                level = level + 1;
+                level += 1;
                 continue;
             }
 
