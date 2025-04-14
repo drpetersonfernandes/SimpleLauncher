@@ -3,6 +3,7 @@ using System.Windows.Threading;
 
 namespace MAMEUtility;
 
+/// <inheritdoc cref="System.Windows.Application" />
 /// <summary>
 /// Interaction logic for App.xaml
 /// </summary>

@@ -13,9 +13,9 @@ public static class MameSourcefile
         {
             // Extract unique source files
             var sourceFiles = inputDoc.Descendants("machine")
-                .Select(m => (string?)m.Attribute("sourcefile"))
+                .Select(static m => (string?)m.Attribute("sourcefile"))
                 .Distinct()
-                .Where(s => !string.IsNullOrEmpty(s));
+                .Where(static s => !string.IsNullOrEmpty(s));
 
             var enumerable = sourceFiles.ToList();
             var totalSourceFiles = enumerable.Count;
@@ -54,7 +54,7 @@ public static class MameSourcefile
         }
     }
 
-    private static async Task CreateAndSaveFilteredDocumentAsync(XDocument inputDoc, string outputPath, string sourceFile)
+    private static async Task CreateAndSaveFilteredDocumentAsync(XContainer inputDoc, string outputPath, string sourceFile)
     {
         // Create a new XML document for machines based on the predicate
         XDocument filteredDoc = new(

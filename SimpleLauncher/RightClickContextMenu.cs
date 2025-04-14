@@ -104,51 +104,50 @@ public static class RightClickContextMenu
             var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                                               && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            if (favoriteToRemove != null)
+            if (favoriteToRemove == null) return;
+
+            favorites.FavoriteList.Remove(favoriteToRemove);
+
+            // Save the updated favorites list
+            favoritesManager.FavoriteList = favorites.FavoriteList;
+            favoritesManager.SaveFavorites();
+
+            // Update the button's view model by locating the button using the composite tag.
+            try
             {
-                favorites.FavoriteList.Remove(favoriteToRemove);
+                var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
+                var button = gameFileGrid.Children.OfType<Button>()
+                    .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                         string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
-                // Save the updated favorites list
-                favoritesManager.FavoriteList = favorites.FavoriteList;
-                favoritesManager.SaveFavorites();
-
-                // Update the button's view model by locating the button using the composite tag.
-                try
+                if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                 {
-                    var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
-                    var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
-
-                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
-                    {
-                        viewModel.IsFavorite = false; // This will collapse the star overlay.
-                    }
+                    viewModel.IsFavorite = false; // This will collapse the star overlay.
                 }
-                catch (Exception)
-                {
-                    // ignore
-                }
-
-                // Find the GameListViewItem and update its IsFavorite property
-                try
-                {
-                    var gameItem = mainWindow.GameListItems
-                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
-
-                    if (gameItem != null)
-                    {
-                        gameItem.IsFavorite = false;
-                    }
-                }
-                catch (Exception)
-                {
-                    // ignore
-                }
-
-                // Notify user
-                MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
             }
+            catch (Exception)
+            {
+                // ignore
+            }
+
+            // Find the GameListViewItem and update its IsFavorite property
+            try
+            {
+                var gameItem = mainWindow.GameListItems
+                    .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+
+                if (gameItem != null)
+                {
+                    gameItem.IsFavorite = false;
+                }
+            }
+            catch (Exception)
+            {
+                // ignore
+            }
+
+            // Notify user
+            MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
         }
         catch (Exception ex)
         {
@@ -263,7 +262,10 @@ public static class RightClickContextMenu
         // Ensure the systemImageFolder considers both absolute and relative paths
         if (!Path.IsPathRooted(systemImageFolder))
         {
-            if (systemImageFolder != null) systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+            if (systemImageFolder != null)
+            {
+                systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
+            }
         }
 
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
@@ -293,11 +295,10 @@ public static class RightClickContextMenu
             foreach (var extension in imageExtensions)
             {
                 var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
-                if (File.Exists(imagePath))
-                {
-                    foundPath = imagePath;
-                    return true;
-                }
+                if (!File.Exists(imagePath)) continue;
+
+                foundPath = imagePath;
+                return true;
             }
 
             foundPath = null;
@@ -316,6 +317,7 @@ public static class RightClickContextMenu
         {
             var titleSnapshotPath = Path.Combine(titleSnapshotDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(titleSnapshotPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(titleSnapshotPath);
             imageViewerWindow.Show();
@@ -337,6 +339,7 @@ public static class RightClickContextMenu
         {
             var gameplaySnapshotPath = Path.Combine(gameplaySnapshotDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(gameplaySnapshotPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(gameplaySnapshotPath);
             imageViewerWindow.Show();
@@ -358,6 +361,7 @@ public static class RightClickContextMenu
         {
             var cartPath = Path.Combine(cartDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(cartPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(cartPath);
             imageViewerWindow.Show();
@@ -379,6 +383,7 @@ public static class RightClickContextMenu
         {
             var videoPath = Path.Combine(videoDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(videoPath)) continue;
+
             Process.Start(new ProcessStartInfo
             {
                 FileName = videoPath,
@@ -402,6 +407,7 @@ public static class RightClickContextMenu
         {
             var manualPath = Path.Combine(manualDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(manualPath)) continue;
+
             try
             {
                 // Use the default PDF viewer to open the file
@@ -440,6 +446,7 @@ public static class RightClickContextMenu
         {
             var walkthroughPath = Path.Combine(walkthroughDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(walkthroughPath)) continue;
+
             try
             {
                 // Use the default PDF viewer to open the file
@@ -479,6 +486,7 @@ public static class RightClickContextMenu
         {
             var cabinetPath = Path.Combine(cabinetDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(cabinetPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(cabinetPath);
             imageViewerWindow.Show();
@@ -500,6 +508,7 @@ public static class RightClickContextMenu
         {
             var flyerPath = Path.Combine(flyerDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(flyerPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(flyerPath);
             imageViewerWindow.Show();
@@ -521,6 +530,7 @@ public static class RightClickContextMenu
         {
             var pcbPath = Path.Combine(pcbDirectory, fileNameWithoutExtension + extension);
             if (!File.Exists(pcbPath)) continue;
+
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(pcbPath);
             imageViewerWindow.Show();

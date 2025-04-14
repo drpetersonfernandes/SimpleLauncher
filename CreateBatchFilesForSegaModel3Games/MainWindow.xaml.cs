@@ -51,72 +51,76 @@ public partial class MainWindow : IDisposable
     private void BrowseSupermodelButton_Click(object sender, RoutedEventArgs e)
     {
         var supermodelExePath = SelectFile();
-        if (!string.IsNullOrEmpty(supermodelExePath))
-        {
-            SupermodelPathTextBox.Text = supermodelExePath;
-            LogMessage($"Supermodel executable selected: {supermodelExePath}");
+        if (string.IsNullOrEmpty(supermodelExePath)) return;
 
-            if (!supermodelExePath.EndsWith("Supermodel.exe", StringComparison.OrdinalIgnoreCase))
-            {
-                LogMessage("Warning: The selected file does not appear to be Supermodel.exe.");
-                _ = ReportBugAsync("User selected a file that doesn't appear to be Supermodel.exe: " + supermodelExePath);
-            }
-        }
+        SupermodelPathTextBox.Text = supermodelExePath;
+        LogMessage($"Supermodel executable selected: {supermodelExePath}");
+
+        if (supermodelExePath.EndsWith("Supermodel.exe", StringComparison.OrdinalIgnoreCase)) return;
+
+        LogMessage("Warning: The selected file does not appear to be Supermodel.exe.");
+        _ = ReportBugAsync("User selected a file that doesn't appear to be Supermodel.exe: " + supermodelExePath);
     }
 
     private void BrowseFolderButton_Click(object sender, RoutedEventArgs e)
     {
         var romFolder = SelectFolder();
-        if (!string.IsNullOrEmpty(romFolder))
-        {
-            RomFolderTextBox.Text = romFolder;
-            LogMessage($"ROM folder selected: {romFolder}");
-        }
+        if (string.IsNullOrEmpty(romFolder)) return;
+
+        RomFolderTextBox.Text = romFolder;
+        LogMessage($"ROM folder selected: {romFolder}");
     }
 
     private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
     {
-        var supermodelExePath = SupermodelPathTextBox.Text;
-        var romFolder = RomFolderTextBox.Text;
-
-        if (string.IsNullOrEmpty(supermodelExePath))
-        {
-            LogMessage("Error: No Supermodel executable selected.");
-            ShowError("Please select the Supermodel executable file (Supermodel.exe).");
-            return;
-        }
-
-        if (!File.Exists(supermodelExePath))
-        {
-            LogMessage($"Error: Supermodel executable not found at path: {supermodelExePath}");
-            ShowError("The selected Supermodel executable file does not exist.");
-            await ReportBugAsync("Supermodel executable not found", new FileNotFoundException("The Supermodel executable was not found", supermodelExePath));
-            return;
-        }
-
-        if (string.IsNullOrEmpty(romFolder))
-        {
-            LogMessage("Error: No ROM folder selected.");
-            ShowError("Please select the folder containing your Sega Model 3 ROM zip files.");
-            return;
-        }
-
-        if (!Directory.Exists(romFolder))
-        {
-            LogMessage($"Error: ROM folder not found at path: {romFolder}");
-            ShowError("The selected ROM folder does not exist.");
-            await ReportBugAsync("ROM folder not found", new DirectoryNotFoundException($"ROM folder not found: {romFolder}"));
-            return;
-        }
-
         try
         {
-            CreateBatchFilesForModel3Games(romFolder, supermodelExePath);
+            var supermodelExePath = SupermodelPathTextBox.Text;
+            var romFolder = RomFolderTextBox.Text;
+
+            if (string.IsNullOrEmpty(supermodelExePath))
+            {
+                LogMessage("Error: No Supermodel executable selected.");
+                ShowError("Please select the Supermodel executable file (Supermodel.exe).");
+                return;
+            }
+
+            if (!File.Exists(supermodelExePath))
+            {
+                LogMessage($"Error: Supermodel executable not found at path: {supermodelExePath}");
+                ShowError("The selected Supermodel executable file does not exist.");
+                await ReportBugAsync("Supermodel executable not found", new FileNotFoundException("The Supermodel executable was not found", supermodelExePath));
+                return;
+            }
+
+            if (string.IsNullOrEmpty(romFolder))
+            {
+                LogMessage("Error: No ROM folder selected.");
+                ShowError("Please select the folder containing your Sega Model 3 ROM zip files.");
+                return;
+            }
+
+            if (!Directory.Exists(romFolder))
+            {
+                LogMessage($"Error: ROM folder not found at path: {romFolder}");
+                ShowError("The selected ROM folder does not exist.");
+                await ReportBugAsync("ROM folder not found", new DirectoryNotFoundException($"ROM folder not found: {romFolder}"));
+                return;
+            }
+
+            try
+            {
+                CreateBatchFilesForModel3Games(romFolder, supermodelExePath);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error creating batch files: {ex.Message}");
+                ShowError($"An error occurred while creating batch files: {ex.Message}");
+                await ReportBugAsync("Error creating batch files", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error creating batch files: {ex.Message}");
-            ShowError($"An error occurred while creating batch files: {ex.Message}");
             await ReportBugAsync("Error creating batch files", ex);
         }
     }

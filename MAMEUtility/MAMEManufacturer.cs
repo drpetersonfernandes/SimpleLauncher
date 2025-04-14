@@ -14,9 +14,9 @@ public partial class MameManufacturer
         {
             // Extract unique manufacturers
             var manufacturers = inputDoc.Descendants("machine")
-                .Select(m => (string?)m.Element("manufacturer"))
+                .Select(static m => (string?)m.Element("manufacturer"))
                 .Distinct()
-                .Where(m => !string.IsNullOrEmpty(m));
+                .Where(static m => !string.IsNullOrEmpty(m));
 
             var enumerable = manufacturers.ToList();
             var totalManufacturers = enumerable.Count;
@@ -25,31 +25,30 @@ public partial class MameManufacturer
             // Iterate over each manufacturer and create an XML for each
             foreach (var manufacturer in enumerable)
             {
-                if (manufacturer != null)
-                {
-                    var safeManufacturerName = RemoveExtraWhitespace(manufacturer
-                            .Replace("<", "")
-                            .Replace(">", "")
-                            .Replace(":", "")
-                            .Replace("\"", "")
-                            .Replace("/", "")
-                            .Replace("\\", "")
-                            .Replace("|", "")
-                            .Replace("?", "")
-                            .Replace("*", "")
-                            .Replace("unknown", "UnknownManufacturer")
-                            .Trim())
-                        .Replace("&amp;", "&"); // Replace &amp; with & in the filename.
+                if (manufacturer == null) continue;
 
-                    var outputFilePath = Path.Combine(outputFolderMameManufacturer, $"{safeManufacturerName}.xml");
-                    Console.WriteLine($"Attempting to create file for: {safeManufacturerName}.xml");
+                var safeManufacturerName = RemoveExtraWhitespace(manufacturer
+                        .Replace("<", "")
+                        .Replace(">", "")
+                        .Replace(":", "")
+                        .Replace("\"", "")
+                        .Replace("/", "")
+                        .Replace("\\", "")
+                        .Replace("|", "")
+                        .Replace("?", "")
+                        .Replace("*", "")
+                        .Replace("unknown", "UnknownManufacturer")
+                        .Trim())
+                    .Replace("&amp;", "&"); // Replace &amp; with & in the filename.
 
-                    await CreateAndSaveFilteredDocumentAsync(inputDoc, outputFilePath, manufacturer, safeManufacturerName);
+                var outputFilePath = Path.Combine(outputFolderMameManufacturer, $"{safeManufacturerName}.xml");
+                Console.WriteLine($"Attempting to create file for: {safeManufacturerName}.xml");
 
-                    manufacturersProcessed++;
-                    var progressPercentage = (double)manufacturersProcessed / totalManufacturers * 100;
-                    progress.Report((int)progressPercentage);
-                }
+                await CreateAndSaveFilteredDocumentAsync(inputDoc, outputFilePath, manufacturer, safeManufacturerName);
+
+                manufacturersProcessed++;
+                var progressPercentage = (double)manufacturersProcessed / totalManufacturers * 100;
+                progress.Report((int)progressPercentage);
             }
         }
         catch (Exception ex)
@@ -58,7 +57,7 @@ public partial class MameManufacturer
         }
     }
 
-    private static async Task CreateAndSaveFilteredDocumentAsync(XDocument inputDoc, string outputPath, string manufacturer, string safeManufacturerName)
+    private static async Task CreateAndSaveFilteredDocumentAsync(XContainer inputDoc, string outputPath, string manufacturer, string safeManufacturerName)
     {
         var filteredDoc = CreateFilteredDocument(inputDoc, manufacturer);
 
@@ -73,7 +72,7 @@ public partial class MameManufacturer
         }
     }
 
-    private static XDocument CreateFilteredDocument(XDocument inputDoc, string manufacturer)
+    private static XDocument CreateFilteredDocument(XContainer inputDoc, string manufacturer)
     {
         // Retrieve the matched machines
         var matchedMachines = inputDoc.Descendants("machine").Where(Predicate).ToList();

@@ -26,11 +26,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         get => _overallProgress;
         set
         {
-            if (_overallProgress != value)
-            {
-                _overallProgress = value;
-                OnPropertyChanged(nameof(OverallProgress));
-            }
+            if (_overallProgress == value) return;
+
+            _overallProgress = value;
+            OnPropertyChanged(nameof(OverallProgress));
         }
     }
 
@@ -90,50 +89,57 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async void CreateMAMEFull_Click(object sender, RoutedEventArgs e)
     {
-        OverallProgress = 0;
-
-        Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
-        OpenFileDialog openFileDialog = new()
+        try
         {
-            Title = "Select MAME full driver information in XML",
-            Filter = "XML files (*.xml)|*.xml"
-        };
+            OverallProgress = 0;
 
-        if (openFileDialog.ShowDialog() == true)
-        {
-            var inputFilePath = openFileDialog.FileName;
-
-            Log("Put a name to your output file.");
-            SaveFileDialog saveFileDialog = new()
+            Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
+            OpenFileDialog openFileDialog = new()
             {
-                Title = "Save MAMEFull",
-                Filter = "XML files (*.xml)|*.xml",
-                FileName = "MAMEFull.xml"
+                Title = "Select MAME full driver information in XML",
+                Filter = "XML files (*.xml)|*.xml"
             };
 
-            if (saveFileDialog.ShowDialog() == true)
+            if (openFileDialog.ShowDialog() == true)
             {
-                var outputFilePathMameFull = saveFileDialog.FileName;
+                var inputFilePath = openFileDialog.FileName;
 
-                try
+                Log("Put a name to your output file.");
+                SaveFileDialog saveFileDialog = new()
                 {
-                    var inputDoc = XDocument.Load(inputFilePath);
-                    await MameFull.CreateAndSaveMameFullAsync(inputDoc, outputFilePathMameFull, _worker);
-                    Log("Output file saved.");
+                    Title = "Save MAMEFull",
+                    Filter = "XML files (*.xml)|*.xml",
+                    FileName = "MAMEFull.xml"
+                };
+
+                if (saveFileDialog.ShowDialog() == true)
+                {
+                    var outputFilePathMameFull = saveFileDialog.FileName;
+
+                    try
+                    {
+                        var inputDoc = XDocument.Load(inputFilePath);
+                        await MameFull.CreateAndSaveMameFullAsync(inputDoc, outputFilePathMameFull, _worker);
+                        Log("Output file saved.");
+                    }
+                    catch (Exception ex)
+                    {
+                        Log("An error occurred: " + ex.Message);
+                    }
                 }
-                catch (Exception ex)
+                else
                 {
-                    Log("An error occurred: " + ex.Message);
+                    Log("No output file specified for MAMEFull.xml. Operation cancelled.");
                 }
             }
             else
             {
-                Log("No output file specified for MAMEFull.xml. Operation cancelled.");
+                Log("No input file selected. Operation cancelled.");
             }
         }
-        else
+        catch (Exception ex)
         {
-            Log("No input file selected. Operation cancelled.");
+            
         }
     }
 
@@ -450,24 +456,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     Multiselect = true
                 };
 
-                if (openFileDialog.ShowDialog() == true)
+                if (openFileDialog.ShowDialog() != true) return;
+
+                string[] xmlFilePaths = openFileDialog.FileNames;
+
+                try
                 {
-                    string[] xmlFilePaths = openFileDialog.FileNames;
-
-                    try
+                    var progress = new Progress<int>(value =>
                     {
-                        var progress = new Progress<int>(value =>
-                        {
-                            OverallProgress = value;
-                        });
+                        OverallProgress = value;
+                    });
 
-                        await CopyImages.CopyImagesFromXmlAsync(xmlFilePaths, sourceDirectory, destinationDirectory, progress);
-                        Log("Image copy operation is finished.");
-                    }
-                    catch (Exception ex)
-                    {
-                        Log("An error occurred: " + ex.Message);
-                    }
+                    await CopyImages.CopyImagesFromXmlAsync(xmlFilePaths, sourceDirectory, destinationDirectory, progress);
+                    Log("Image copy operation is finished.");
+                }
+                catch (Exception ex)
+                {
+                    Log("An error occurred: " + ex.Message);
                 }
             }
             else
@@ -486,14 +491,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         OverallProgress = e.ProgressPercentage;
     }
 
-    public class ProgressBarProgressReporter : IProgress<int>
+    public class ProgressBarProgressReporter(BackgroundWorker worker) : IProgress<int>
     {
-        private readonly BackgroundWorker _worker;
-
-        public ProgressBarProgressReporter(BackgroundWorker worker)
-        {
-            _worker = worker;
-        }
+        private readonly BackgroundWorker _worker = worker;
 
         public void Report(int value)
         {
@@ -554,7 +554,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     public void Dispose()
     {
         // Unregister event handlers to prevent memory leaks
-        if (_worker != null)
+        if (true)
         {
             _worker.ProgressChanged -= Worker_ProgressChanged;
             // BackgroundWorker doesn't implement IDisposable, but we should remove event handlers

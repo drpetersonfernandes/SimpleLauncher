@@ -38,8 +38,8 @@ public static class CopyRoms
         }
 
         var machineNames = xmlDoc.Descendants("Machine")
-            .Select(machine => machine.Element("MachineName")?.Value)
-            .Where(name => !string.IsNullOrEmpty(name))
+            .Select(static machine => machine.Element("MachineName")?.Value)
+            .Where(static name => !string.IsNullOrEmpty(name))
             .ToList();
 
         var totalRoms = machineNames.Count;
@@ -70,7 +70,7 @@ public static class CopyRoms
 
                 if (File.Exists(sourceFile))
                 {
-                    File.Copy(sourceFile, destinationFile, overwrite: true);
+                    File.Copy(sourceFile, destinationFile, true);
                     Console.WriteLine($"Successfully copied: {machineName}.zip to {destinationDirectory}");
                 }
                 else
@@ -90,7 +90,7 @@ public static class CopyRoms
         // Check if the root element is "Machines" and if it contains at least one "Machine" element
         // with both "MachineName" and "Description" child elements.
         var isValid = xmlDoc.Root?.Name.LocalName == "Machines" &&
-                      xmlDoc.Descendants("Machine").Any(machine =>
+                      xmlDoc.Descendants("Machine").Any(static machine =>
                           machine.Element("MachineName") != null &&
                           machine.Element("Description") != null);
 

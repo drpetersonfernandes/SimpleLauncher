@@ -15,9 +15,20 @@ public static class PlayClick
     // Keep a reference to prevent garbage collection
     private static MediaPlayer? _mediaPlayer;
 
-    public static void PlayClickSound() => PlaySound(ClickSoundFile);
-    public static void PlayShutterSound() => PlaySound(ShutterSoundFile);
-    public static void PlayTrashSound() => PlaySound(TrashSoundFile);
+    public static void PlayClickSound()
+    {
+        PlaySound(ClickSoundFile);
+    }
+
+    public static void PlayShutterSound()
+    {
+        PlaySound(ShutterSoundFile);
+    }
+
+    public static void PlayTrashSound()
+    {
+        PlaySound(TrashSoundFile);
+    }
 
     private static void PlaySound(string soundFileName)
     {
@@ -27,7 +38,7 @@ public static class PlayClick
             try
             {
                 _mediaPlayer = new MediaPlayer();
-                _mediaPlayer.MediaEnded += (_, _) =>
+                _mediaPlayer.MediaEnded += static (_, _) =>
                 {
                     _mediaPlayer.Close();
                     _mediaPlayer = null;
@@ -40,7 +51,7 @@ public static class PlayClick
                 // Notify developer
                 var contextMessage = $"Error playing '{soundFileName}' sound.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }            
+            }
         }
         else
         {

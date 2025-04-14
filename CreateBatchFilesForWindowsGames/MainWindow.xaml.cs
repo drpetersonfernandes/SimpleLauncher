@@ -53,9 +53,11 @@ public partial class MainWindow : IDisposable
 
     private async void BrowseGameExeButton_Click(object sender, RoutedEventArgs e)
     {
-        var gameExePath = SelectGameExecutable();
-        if (!string.IsNullOrEmpty(gameExePath))
+        try
         {
+            var gameExePath = SelectGameExecutable();
+            if (string.IsNullOrEmpty(gameExePath)) return;
+
             GameExePathTextBox.Text = gameExePath;
             LogMessage($"Game executable selected: {gameExePath}");
 
@@ -74,25 +76,31 @@ public partial class MainWindow : IDisposable
             // Update the Save As button status
             UpdateCreateButtonStatus();
         }
+        catch (Exception ex)
+        {
+            await ReportBugAsync("Error in BrowseGameExeButton_Click", ex);
+        }
     }
 
     private async void SaveBatchFileButton_Click(object sender, RoutedEventArgs e)
     {
-        var gameExePath = GameExePathTextBox.Text;
-        if (string.IsNullOrEmpty(gameExePath))
-        {
-            ShowError("Please select a game executable first.");
-            return;
-        }
-
         try
         {
-            var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
-            var folderName = Path.GetFileName(gameFolderPath.TrimEnd(Path.DirectorySeparatorChar));
-
-            var batchFilePath = SaveBatchFile(folderName);
-            if (!string.IsNullOrEmpty(batchFilePath))
+            var gameExePath = GameExePathTextBox.Text;
+            if (string.IsNullOrEmpty(gameExePath))
             {
+                ShowError("Please select a game executable first.");
+                return;
+            }
+
+            try
+            {
+                var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
+                var folderName = Path.GetFileName(gameFolderPath.TrimEnd(Path.DirectorySeparatorChar));
+
+                var batchFilePath = SaveBatchFile(folderName);
+                if (string.IsNullOrEmpty(batchFilePath)) return;
+
                 BatchFilePathTextBox.Text = batchFilePath;
                 LogMessage($"Batch file location selected: {batchFilePath}");
 
@@ -122,70 +130,81 @@ public partial class MainWindow : IDisposable
                 // Update the Create button status
                 UpdateCreateButtonStatus();
             }
+            catch (Exception ex)
+            {
+                LogMessage($"Error selecting batch file location: {ex.Message}");
+                ShowError($"Error selecting batch file location: {ex.Message}");
+                await ReportBugAsync("Error selecting batch file location", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error selecting batch file location: {ex.Message}");
-            ShowError($"Error selecting batch file location: {ex.Message}");
-            await ReportBugAsync("Error selecting batch file location", ex);
+            await ReportBugAsync("Error in SaveBatchFileButton_Click", ex);
         }
     }
 
     private async void CreateBatchFileButton_Click(object sender, RoutedEventArgs e)
     {
-        var gameExePath = GameExePathTextBox.Text;
-        var batchFilePath = BatchFilePathTextBox.Text;
-
-        if (string.IsNullOrEmpty(gameExePath))
-        {
-            LogMessage("Error: No game executable selected.");
-            ShowError("Please select a game executable file.");
-            return;
-        }
-
-        if (!File.Exists(gameExePath))
-        {
-            LogMessage($"Error: Game executable not found at path: {gameExePath}");
-            ShowError("The selected game executable file does not exist.");
-            await ReportBugAsync("Game executable not found", new FileNotFoundException("The game executable was not found", gameExePath));
-            return;
-        }
-
-        if (string.IsNullOrEmpty(batchFilePath))
-        {
-            LogMessage("Error: No batch file location selected.");
-            ShowError("Please select where to save the batch file.");
-            return;
-        }
-
-        // Create the batch file
         try
         {
-            var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
-            var gameFileName = Path.GetFileName(gameExePath);
+            var gameExePath = GameExePathTextBox.Text;
+            var batchFilePath = BatchFilePathTextBox.Text;
 
-            await using (StreamWriter sw = new(batchFilePath))
+            if (string.IsNullOrEmpty(gameExePath))
             {
-                await sw.WriteLineAsync("@echo off");
-                await sw.WriteLineAsync($"cd /d \"{gameFolderPath}\"");
-                await sw.WriteLineAsync($"start {gameFileName}");
+                LogMessage("Error: No game executable selected.");
+                ShowError("Please select a game executable file.");
+                return;
             }
 
-            LogMessage("");
-            LogMessage($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.");
+            if (!File.Exists(gameExePath))
+            {
+                LogMessage($"Error: Game executable not found at path: {gameExePath}");
+                ShowError("The selected game executable file does not exist.");
+                await ReportBugAsync("Game executable not found", new FileNotFoundException("The game executable was not found", gameExePath));
+                return;
+            }
 
-            ShowMessageBox($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.",
-                "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+            if (string.IsNullOrEmpty(batchFilePath))
+            {
+                LogMessage("Error: No batch file location selected.");
+                ShowError("Please select where to save the batch file.");
+                return;
+            }
 
-            // Show the "Create Another" button and hide the "Create" button
-            CreateBatchFileButton.Visibility = Visibility.Collapsed;
-            CreateAnotherButton.Visibility = Visibility.Visible;
+            // Create the batch file
+            try
+            {
+                var gameFolderPath = Path.GetDirectoryName(gameExePath) ?? "";
+                var gameFileName = Path.GetFileName(gameExePath);
+
+                await using (StreamWriter sw = new(batchFilePath))
+                {
+                    await sw.WriteLineAsync("@echo off");
+                    await sw.WriteLineAsync($"cd /d \"{gameFolderPath}\"");
+                    await sw.WriteLineAsync($"start {gameFileName}");
+                }
+
+                LogMessage("");
+                LogMessage($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.");
+
+                ShowMessageBox($"Batch file '{Path.GetFileName(batchFilePath)}' has been successfully created.",
+                    "Success", MessageBoxButton.OK, MessageBoxImage.Information);
+
+                // Show the "Create Another" button and hide the "Create" button
+                CreateBatchFileButton.Visibility = Visibility.Collapsed;
+                CreateAnotherButton.Visibility = Visibility.Visible;
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error creating batch file: {ex.Message}");
+                ShowError($"Error creating batch file: {ex.Message}");
+                await ReportBugAsync("Error creating batch file", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error creating batch file: {ex.Message}");
-            ShowError($"Error creating batch file: {ex.Message}");
-            await ReportBugAsync("Error creating batch file", ex);
+            await ReportBugAsync("Error in CreateBatchFileButton_Click", ex);
         }
     }
 

@@ -5,20 +5,13 @@ using System.Text.Json;
 
 namespace MAMEUtility;
 
-public class BugReportService : IDisposable
+public class BugReportService(string apiUrl, string apiKey, string applicationName = "MAME Utility")
+    : IDisposable
 {
-    private readonly string _apiUrl;
-    private readonly string _apiKey;
-    private readonly string _applicationName;
-    private readonly HttpClient _httpClient;
-
-    public BugReportService(string apiUrl, string apiKey, string applicationName = "MAME Utility")
-    {
-        _apiUrl = apiUrl;
-        _apiKey = apiKey;
-        _applicationName = applicationName;
-        _httpClient = new HttpClient();
-    }
+    private readonly string _apiUrl = apiUrl;
+    private readonly string _apiKey = apiKey;
+    private readonly string _applicationName = applicationName;
+    private readonly HttpClient _httpClient = new();
 
     public async Task SendExceptionReportAsync(Exception exception)
     {
@@ -75,13 +68,12 @@ public class BugReportService : IDisposable
 
         // Add additional information about inner exceptions if present
         var innerException = exception.InnerException;
-        if (innerException != null)
-        {
-            sb.AppendLine("\nInner Exception:");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Type: {innerException.GetType().Name}");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {innerException.Message}");
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace: {innerException.StackTrace}");
-        }
+        if (innerException == null) return sb.ToString();
+
+        sb.AppendLine("\nInner Exception:");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Type: {innerException.GetType().Name}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Message: {innerException.Message}");
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace: {innerException.StackTrace}");
 
         return sb.ToString();
     }

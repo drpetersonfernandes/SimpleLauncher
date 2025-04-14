@@ -38,8 +38,8 @@ public static class CopyImages
         }
 
         var machineNames = xmlDoc.Descendants("Machine")
-            .Select(machine => machine.Element("MachineName")?.Value)
-            .Where(name => !string.IsNullOrEmpty(name))
+            .Select(static machine => machine.Element("MachineName")?.Value)
+            .Where(static name => !string.IsNullOrEmpty(name))
             .ToList();
 
         var totalImages = machineNames.Count;
@@ -74,7 +74,7 @@ public static class CopyImages
         {
             if (File.Exists(sourceFile))
             {
-                File.Copy(sourceFile, destinationFile, overwrite: true);
+                File.Copy(sourceFile, destinationFile, true);
                 Console.WriteLine($"Copied: {machineName}.{extension} to {destinationDirectory}");
             }
             else
@@ -89,7 +89,7 @@ public static class CopyImages
         // Check if the root element is "Machines" and if it contains at least one "Machine" element
         // with both "MachineName" and "Description" child elements.
         var isValid = xmlDoc.Root?.Name.LocalName == "Machines" &&
-                      xmlDoc.Descendants("Machine").Any(machine =>
+                      xmlDoc.Descendants("Machine").Any(static machine =>
                           machine.Element("MachineName") != null &&
                           machine.Element("Description") != null);
 

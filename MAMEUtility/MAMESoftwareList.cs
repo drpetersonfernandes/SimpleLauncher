@@ -38,7 +38,7 @@ public static class MameSoftwareList
             }
 
             var softwares = doc.Descendants("software")
-                .Select(software => new XElement("Software",
+                .Select(static software => new XElement("Software",
                     new XElement("SoftwareName", software.Attribute("name")?.Value),
                     new XElement("Description", software.Element("description")?.Value ?? "No Description")));
 
