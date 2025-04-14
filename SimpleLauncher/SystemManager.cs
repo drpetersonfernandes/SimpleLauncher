@@ -134,6 +134,7 @@ public static class SystemManager
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
                 IsValidPath(emulator.EmulatorLocation)) continue;
+
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;
             errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n");

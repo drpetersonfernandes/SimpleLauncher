@@ -40,7 +40,7 @@ public partial class App
 
             // Replace the current localization dictionary
             var existingDictionary = Resources.MergedDictionaries
-                .FirstOrDefault(d => d.Source?.OriginalString.Contains("strings.") ?? false);
+                .FirstOrDefault(static d => d.Source?.OriginalString.Contains("strings.") ?? false);
 
             if (existingDictionary != null)
             {

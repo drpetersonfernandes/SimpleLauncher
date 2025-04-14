@@ -18,23 +18,23 @@ public static partial class ParameterValidator
 
     // Known parameter placeholders that shouldn't be validated as actual paths
     private static readonly string[] KnownPlaceholders =
-    {
+    [
         "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
         "{rom}", "{game}", "{romname}", "{romfile}"
-    };
+    ];
 
     // Known parameter flags that shouldn't be validated as actual paths
     private static readonly string[] KnownParameterFlags =
-    {
+    [
         "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
         "-L", "-g", "-rompath"
-    };
+    ];
 
-    private static readonly char[] Separator = new[] { '\\', '/' };
-    private static readonly char[] Separator2 = new[] { ';' };
-    private static readonly char[] Separator3 = new[] { ';' };
-    private static readonly char[] Separator4 = new[] { ' ', '\t' };
-    private static readonly char[] Separator5 = new[] { ';' };
+    private static readonly char[] Separator = ['\\', '/'];
+    private static readonly char[] Separator2 = [';'];
+    private static readonly char[] Separator3 = [';'];
+    private static readonly char[] Separator4 = [' ', '\t'];
+    private static readonly char[] Separator5 = [';'];
 
     /// <summary>
     /// Checks if a path exists (either as an absolute path or relative to the application directory)
@@ -152,12 +152,11 @@ public static partial class ParameterValidator
                 return true;
 
             // Try as relative to system folder if provided
-            if (!string.IsNullOrEmpty(systemFolder))
-            {
-                var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));
-                if (File.Exists(systemRelativePath) || Directory.Exists(systemRelativePath))
-                    return true;
-            }
+            if (string.IsNullOrEmpty(systemFolder)) return false;
+
+            var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));
+            if (File.Exists(systemRelativePath) || Directory.Exists(systemRelativePath))
+                return true;
 
             return false;
         }
@@ -227,11 +226,10 @@ public static partial class ParameterValidator
                         var trimmedPath = romPath.Trim();
                         if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
 
-                        if (!Directory.Exists(trimmedPath))
-                        {
-                            invalidPaths.Add(trimmedPath);
-                            allPathsValid = false;
-                        }
+                        if (Directory.Exists(trimmedPath)) continue;
+
+                        invalidPaths.Add(trimmedPath);
+                        allPathsValid = false;
                     }
 
                     break;
@@ -290,21 +288,19 @@ public static partial class ParameterValidator
 
                     // Check if the path exists
                     var pathValid = Directory.Exists(trimmedSubPath) || File.Exists(trimmedSubPath);
-                    if (!pathValid)
-                    {
-                        invalidPaths.Add(trimmedSubPath);
-                        allPathsValid = false;
-                    }
+                    if (pathValid) continue;
+
+                    invalidPaths.Add(trimmedSubPath);
+                    allPathsValid = false;
                 }
             }
             else
             {
                 // Single path, validate normally
-                if (!ValidateSinglePath(quotedPath, baseDir, systemFolder))
-                {
-                    invalidPaths.Add(quotedPath);
-                    allPathsValid = false;
-                }
+                if (ValidateSinglePath(quotedPath, baseDir, systemFolder)) continue;
+
+                invalidPaths.Add(quotedPath);
+                allPathsValid = false;
             }
         }
 
@@ -320,21 +316,21 @@ public static partial class ParameterValidator
             if (IsKnownFlag(word) || ContainsPlaceholder(word)) continue;
 
             // If it looks like a path, validate it
-            if (LooksLikePath(word) && !ValidateSinglePath(word, baseDir, systemFolder))
-            {
-                invalidPaths.Add(word);
-                allPathsValid = false;
-            }
+            if (!LooksLikePath(word) || ValidateSinglePath(word, baseDir, systemFolder)) continue;
+
+            invalidPaths.Add(word);
+            allPathsValid = false;
         }
 
         // For MAME systems, we can be more lenient with some paths
         // but not for critical paths like -rompath or -L
-        if (isMameSystem && invalidPaths.Count > 0)
+        if (!isMameSystem || invalidPaths.Count <= 0) return allPathsValid;
+
         {
             // Only be lenient for certain parameters
             var criticalPaths = invalidPaths
                 .Where(path => parameterPaths.Any(p =>
-                    (p.Flag == "-rompath" || p.Flag == "-L") &&
+                    p.Flag is "-rompath" or "-L" &&
                     (p.Path == path || p.Path.Contains(path))))
                 .ToList();
 
@@ -378,19 +374,20 @@ public static partial class ParameterValidator
 
         var pathsValid = ValidateParameterPaths(parameters, out var invalidPaths, systemFolder, isMameSystem);
 
-        if (!pathsValid && invalidPaths.Count > 0)
-        {
-            // Extract all parameter paths for more detailed analysis
-            var paramPaths = ExtractParameterPaths(parameters);
+        if (pathsValid || invalidPaths.Count <= 0) return (true, null); // No error
 
-            // Add any additional invalid paths that may have been missed
-            foreach (var (flag, path) in paramPaths)
+        // Extract all parameter paths for more detailed analysis
+        var paramPaths = ExtractParameterPaths(parameters);
+
+        // Add any additional invalid paths that may have been missed
+        foreach (var (flag, path) in paramPaths)
+        {
+            switch (flag)
             {
-                if (flag == "-L" && !File.Exists(path) && !invalidPaths.Contains(path))
-                {
+                case "-L" when !File.Exists(path) && !invalidPaths.Contains(path):
                     invalidPaths.Add(path);
-                }
-                else if (flag == "-rompath")
+                    break;
+                case "-rompath":
                 {
                     // For rompath, check all semicolon-separated paths
                     if (path != null)
@@ -405,22 +402,22 @@ public static partial class ParameterValidator
                             }
                         }
                     }
+
+                    break;
                 }
             }
-
-            return (false, invalidPaths);
         }
 
-        return (true, null); // No error
+        return (false, invalidPaths);
     }
 
-    [GeneratedRegex(@"(-\w+)\s+(?:""([^""]+)""|'([^']+)'|(\S+))")]
+    [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
 
-    [GeneratedRegex(@"(?:""([^""]+)""|'([^']+)')")]
+    [GeneratedRegex("""(?:"([^"]+)"|'([^']+)')""")]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"(?:""[^""]*""|'[^']*')")]
+    [GeneratedRegex("""(?:"[^"]*"|'[^']*')""")]
     private static partial Regex MyRegex2();
 
     [GeneratedRegex(@"-\w+\s+")]

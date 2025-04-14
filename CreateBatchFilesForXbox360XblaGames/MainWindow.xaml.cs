@@ -50,9 +50,11 @@ public partial class MainWindow : IDisposable
 
     private async void BrowseXeniaButton_Click(object sender, RoutedEventArgs e)
     {
-        var xeniaExePath = SelectFile();
-        if (!string.IsNullOrEmpty(xeniaExePath))
+        try
         {
+            var xeniaExePath = SelectFile();
+            if (string.IsNullOrEmpty(xeniaExePath)) return;
+
             XeniaPathTextBox.Text = xeniaExePath;
             LogMessage($"Xenia executable selected: {xeniaExePath}");
 
@@ -68,13 +70,19 @@ public partial class MainWindow : IDisposable
                 await ReportBugAsync("Selected file may not be Xenia executable: " + xeniaExePath);
             }
         }
+        catch (Exception ex)
+        {
+            await ReportBugAsync("Error in method BrowseXeniaButton_Click", ex);
+        }
     }
 
     private async void BrowseFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var rootFolder = SelectFolder();
-        if (!string.IsNullOrEmpty(rootFolder))
+        try
         {
+            var rootFolder = SelectFolder();
+            if (string.IsNullOrEmpty(rootFolder)) return;
+
             GameFolderTextBox.Text = rootFolder;
             LogMessage($"Game folder selected: {rootFolder}");
 
@@ -88,58 +96,68 @@ public partial class MainWindow : IDisposable
             {
                 // Check if the folder has any subdirectories
                 var subDirectories = Directory.GetDirectories(rootFolder);
-                if (subDirectories.Length == 0)
-                {
-                    LogMessage("Warning: The selected game folder has no subdirectories.");
-                    await ReportBugAsync("Selected game folder has no subdirectories: " + rootFolder);
-                }
+                if (subDirectories.Length != 0) return;
+
+                LogMessage("Warning: The selected game folder has no subdirectories.");
+                await ReportBugAsync("Selected game folder has no subdirectories: " + rootFolder);
             }
+        }
+        catch (Exception ex)
+        {
+            await ReportBugAsync("Error in method BrowseFolderButton_Click", ex);
         }
     }
 
     private async void CreateBatchFilesButton_Click(object sender, RoutedEventArgs e)
     {
-        var xeniaExePath = XeniaPathTextBox.Text;
-        var rootFolder = GameFolderTextBox.Text;
-
-        if (string.IsNullOrEmpty(xeniaExePath))
-        {
-            LogMessage("Error: No Xenia executable selected.");
-            ShowError("Please select the Xenia executable file (xenia.exe).");
-            return;
-        }
-
-        if (!File.Exists(xeniaExePath))
-        {
-            LogMessage($"Error: Xenia executable not found at path: {xeniaExePath}");
-            ShowError("The selected Xenia executable file does not exist.");
-            await ReportBugAsync("Xenia executable not found", new FileNotFoundException("The Xenia executable was not found", xeniaExePath));
-            return;
-        }
-
-        if (string.IsNullOrEmpty(rootFolder))
-        {
-            LogMessage("Error: No game folder selected.");
-            ShowError("Please select the root folder containing your Xbox 360 XBLA game folders.");
-            return;
-        }
-
-        if (!Directory.Exists(rootFolder))
-        {
-            LogMessage($"Error: Game folder not found at path: {rootFolder}");
-            ShowError("The selected game folder does not exist.");
-            await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
-            return;
-        }
-
         try
         {
-            await CreateBatchFilesForXboxXblaGames(rootFolder, xeniaExePath);
+            var xeniaExePath = XeniaPathTextBox.Text;
+            var rootFolder = GameFolderTextBox.Text;
+
+            if (string.IsNullOrEmpty(xeniaExePath))
+            {
+                LogMessage("Error: No Xenia executable selected.");
+                ShowError("Please select the Xenia executable file (xenia.exe).");
+                return;
+            }
+
+            if (!File.Exists(xeniaExePath))
+            {
+                LogMessage($"Error: Xenia executable not found at path: {xeniaExePath}");
+                ShowError("The selected Xenia executable file does not exist.");
+                await ReportBugAsync("Xenia executable not found", new FileNotFoundException("The Xenia executable was not found", xeniaExePath));
+                return;
+            }
+
+            if (string.IsNullOrEmpty(rootFolder))
+            {
+                LogMessage("Error: No game folder selected.");
+                ShowError("Please select the root folder containing your Xbox 360 XBLA game folders.");
+                return;
+            }
+
+            if (!Directory.Exists(rootFolder))
+            {
+                LogMessage($"Error: Game folder not found at path: {rootFolder}");
+                ShowError("The selected game folder does not exist.");
+                await ReportBugAsync("Game folder not found", new DirectoryNotFoundException($"Game folder not found: {rootFolder}"));
+                return;
+            }
+
+            try
+            {
+                await CreateBatchFilesForXboxXblaGames(rootFolder, xeniaExePath);
+            }
+            catch (Exception ex)
+            {
+                LogMessage($"Error creating batch files: {ex.Message}");
+                ShowError($"An error occurred while creating batch files: {ex.Message}");
+                await ReportBugAsync("Error creating batch files", ex);
+            }
         }
         catch (Exception ex)
         {
-            LogMessage($"Error creating batch files: {ex.Message}");
-            ShowError($"An error occurred while creating batch files: {ex.Message}");
             await ReportBugAsync("Error creating batch files", ex);
         }
     }
@@ -242,8 +260,9 @@ public partial class MainWindow : IDisposable
                 const string errorMessage = "No valid game folders found. No batch files were created.";
                 LogMessage(errorMessage);
                 ShowError(errorMessage);
-                await ReportBugAsync(errorMessage,
-                    new Exception($"Processed {directoriesProcessed} directories but created 0 batch files"));
+
+                var ex = new Exception($"Processed {directoriesProcessed} directories but created 0 batch files");
+                await ReportBugAsync(errorMessage, ex);
             }
         }
         catch (Exception ex)

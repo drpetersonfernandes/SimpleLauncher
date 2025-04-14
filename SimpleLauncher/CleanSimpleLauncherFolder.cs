@@ -10,24 +10,20 @@ public static class CleanSimpleLauncherFolder
 
     // Arrays of directories and files to clean up
     private static readonly string[] DirectoriesToClean =
-    {
+    [
         Path.Combine(AppDirectory, "temp"),
         Path.Combine(AppDirectory, "temp2"),
         Path.Combine(Path.GetTempPath(), "SimpleLauncher")
-    };
+    ];
 
     private static readonly string[] FilesToClean =
-    {
+    [
         Path.Combine(AppDirectory, "update.zip"),
         Path.Combine(AppDirectory, "mame.xml")
-    };
+    ];
 
     // Files to be excluded from cleanup
-    private static readonly HashSet<string> ExcludedFiles = new()
-    {
-        // Add any files you want to exclude from cleanup
-        // Example: Path.Combine(AppDirectory, "important.txt")
-    };
+    private static readonly HashSet<string> ExcludedFiles = [];
 
     public static void CleanupTrash()
     {
@@ -49,31 +45,29 @@ public static class CleanSimpleLauncherFolder
 
     private static void DeleteDirectorySafely(string path)
     {
-        if (Directory.Exists(path))
+        if (!Directory.Exists(path)) return;
+
+        try
         {
-            try
-            {
-                Directory.Delete(path, true);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
+            Directory.Delete(path, true);
+        }
+        catch (Exception)
+        {
+            // ignore
         }
     }
 
     private static void DeleteFileSafely(string path)
     {
-        if (File.Exists(path))
+        if (!File.Exists(path)) return;
+
+        try
         {
-            try
-            {
-                File.Delete(path);
-            }
-            catch (Exception)
-            {
-                // ignore
-            }
+            File.Delete(path);
+        }
+        catch (Exception)
+        {
+            // ignore
         }
     }
 }

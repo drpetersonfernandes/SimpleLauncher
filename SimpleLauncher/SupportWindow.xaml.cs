@@ -183,40 +183,31 @@ public partial class SupportWindow
 
     private static bool CheckIfNameIsNullOrEmpty(string nameText)
     {
-        if (string.IsNullOrWhiteSpace(nameText))
-        {
-            // Notify user
-            MessageBoxLibrary.EnterNameMessageBox();
+        if (!string.IsNullOrWhiteSpace(nameText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.EnterNameMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool CheckIfEmailIsNullOrEmpty(string emailText)
     {
-        if (string.IsNullOrWhiteSpace(emailText))
-        {
-            // Notify user
-            MessageBoxLibrary.EnterEmailMessageBox();
+        if (!string.IsNullOrWhiteSpace(emailText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.EnterEmailMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool CheckIfSupportRequestIsNullOrEmpty(string supportRequestText)
     {
-        if (string.IsNullOrWhiteSpace(supportRequestText))
-        {
-            // Notify user
-            MessageBoxLibrary.EnterSupportRequestMessageBox();
+        if (!string.IsNullOrWhiteSpace(supportRequestText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.EnterSupportRequestMessageBox();
 
-        return false;
+        return true;
     }
 }

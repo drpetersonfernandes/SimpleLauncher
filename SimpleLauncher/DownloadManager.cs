@@ -174,20 +174,19 @@ public class DownloadManager : IDisposable
                         break;
 
                     currentRetry++;
-                    if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                    if (currentRetry >= RetryMaxAttempts || IsUserCancellation) continue;
+
+                    // Calculate delay with exponential backoff
+                    var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                    OnProgressChanged(new DownloadProgressEventArgs
                     {
-                        // Calculate delay with exponential backoff
-                        var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+                        ProgressPercentage = 0,
+                        StatusMessage = GetResourceString("RetryingDownload",
+                            $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                    });
 
-                        OnProgressChanged(new DownloadProgressEventArgs
-                        {
-                            ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownload",
-                                $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
-                        });
-
-                        await Task.Delay(delay, _cancellationTokenSource.Token);
-                    }
+                    await Task.Delay(delay, _cancellationTokenSource.Token);
                 }
                 catch (TaskCanceledException)
                 {
@@ -278,75 +277,65 @@ public class DownloadManager : IDisposable
             // Reset flags
             IsDownloadCompleted = false;
 
-            // Handle specific exceptions
-            if (ex is HttpRequestException httpEx)
+            switch (ex)
             {
-                if (httpEx.StatusCode == HttpStatusCode.NotFound)
-                {
+                // Handle specific exceptions
+                case HttpRequestException { StatusCode: HttpStatusCode.NotFound }:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
                         StatusMessage = GetResourceString("ErrorFilenotfoundontheserver",
                             "Error: File not found on the server.")
                     });
-                }
-                else if (httpEx.InnerException is AuthenticationException)
-                {
+                    break;
+                case HttpRequestException { InnerException: AuthenticationException }:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
                         StatusMessage = GetResourceString("ErrorSSLConnection",
                             "SSL/TLS connection issue.")
                     });
-                }
-                else
-                {
+                    break;
+                case HttpRequestException httpEx:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
                         StatusMessage = GetResourceString("Networkerror",
                             $"Network error: {httpEx.Message}")
                     });
-                }
-            }
-            else if (ex is IOException)
-            {
-                OnProgressChanged(new DownloadProgressEventArgs
-                {
-                    ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("Fileerror",
-                        $"File error: {ex.Message}")
-                });
-            }
-            else if (ex is TaskCanceledException)
-            {
-                if (IsUserCancellation)
-                {
+                    break;
+                case IOException:
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 0,
+                        StatusMessage = GetResourceString("Fileerror",
+                            $"File error: {ex.Message}")
+                    });
+                    break;
+                case TaskCanceledException when IsUserCancellation:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
                         StatusMessage = GetResourceString("Downloadcanceledbyuser",
                             "Download canceled by user.")
                     });
-                }
-                else
-                {
+                    break;
+                case TaskCanceledException:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
                         StatusMessage = GetResourceString("ErrorDownloadtimedout",
                             "Download timed out.")
                     });
-                }
-            }
-            else
-            {
-                OnProgressChanged(new DownloadProgressEventArgs
-                {
-                    ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("Error",
-                        $"Error: {ex.Message}")
-                });
+                    break;
+                default:
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 0,
+                        StatusMessage = GetResourceString("Error",
+                            $"Error: {ex.Message}")
+                    });
+                    break;
             }
 
             // Log error
@@ -437,7 +426,7 @@ public class DownloadManager : IDisposable
 
             try
             {
-                // Extract file
+                // Extract the file
                 var extractionResult = await ExtractFileAsync(downloadedFilePath, extractionPath);
 
                 // Clean up downloaded file
@@ -504,26 +493,25 @@ public class DownloadManager : IDisposable
 
                 // Limit progress updates to reduce UI thread congestion (update every ~100ms)
                 var now = DateTime.Now;
-                if ((now - lastProgressUpdate).TotalMilliseconds >= 100)
+                if (!((now - lastProgressUpdate).TotalMilliseconds >= 100)) continue;
+
+                var progressPercentage = totalBytes.HasValue
+                    ? (double)totalBytesRead / totalBytes.Value * 100
+                    : 0;
+
+                var sizeStatus = totalBytes.HasValue
+                    ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
+                    : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
+
+                OnProgressChanged(new DownloadProgressEventArgs
                 {
-                    var progressPercentage = totalBytes.HasValue
-                        ? (double)totalBytesRead / totalBytes.Value * 100
-                        : 0;
+                    BytesReceived = totalBytesRead,
+                    TotalBytesToReceive = totalBytes,
+                    ProgressPercentage = progressPercentage,
+                    StatusMessage = $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
+                });
 
-                    var sizeStatus = totalBytes.HasValue
-                        ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
-                        : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
-
-                    OnProgressChanged(new DownloadProgressEventArgs
-                    {
-                        BytesReceived = totalBytesRead,
-                        TotalBytesToReceive = totalBytes,
-                        ProgressPercentage = progressPercentage,
-                        StatusMessage = $"{GetResourceString("Downloading", "Downloading")}: {sizeStatus} ({progressPercentage:F1}%)"
-                    });
-
-                    lastProgressUpdate = now;
-                }
+                lastProgressUpdate = now;
             }
 
             // Check if the file was fully downloaded
@@ -696,7 +684,7 @@ public class DownloadManager : IDisposable
     /// <returns>A formatted string representation of the size.</returns>
     private static string FormatFileSize(long bytes)
     {
-        string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
         var counter = 0;
         double size = bytes;
 

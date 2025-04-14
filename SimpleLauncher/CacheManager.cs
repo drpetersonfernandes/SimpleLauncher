@@ -20,6 +20,7 @@ public class CacheManager
     {
         var cacheDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory);
         if (Directory.Exists(cacheDir)) return;
+
         try
         {
             Directory.CreateDirectory(cacheDir);
@@ -47,12 +48,14 @@ public class CacheManager
 
         // Check if cache exists
         if (!File.Exists(cacheFilePath)) return await RebuildCache(systemName, systemFolderPath, fileExtensions);
+
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
 
         // Compare file count (using `gameCount` from MainWindow)
         // If cache doesn't exist or count differs, rebuild cache
         if (cachedData.FileCount != gameCount)
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
+
         _cachedGameFiles[systemName] = cachedData.FileNames;
         return cachedData.FileNames;
     }
@@ -91,11 +94,10 @@ public class CacheManager
             return fileList;
         });
 
-        if (files != null)
-        {
-            _cachedGameFiles[systemName] = files;
-            await SaveCacheToDisk(systemName, files);
-        }
+        if (files == null) return null;
+
+        _cachedGameFiles[systemName] = files;
+        await SaveCacheToDisk(systemName, files);
 
         return files;
     }

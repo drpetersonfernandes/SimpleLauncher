@@ -94,7 +94,7 @@ public class ExtractCompressedFile
                 safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
                 // Log this as a potential security issue
-                var contextMessage = $"Potential path manipulation detected. Reverting to default temp path.";
+                const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
@@ -270,7 +270,7 @@ public class ExtractCompressedFile
                 safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
                 // Log this as a potential security issue
-                var contextMessage = $"Potential path manipulation detected. Reverting to default temp path.";
+                const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
@@ -529,14 +529,15 @@ public class ExtractCompressedFile
                     {
                         try
                         {
-                            // Format the drive name properly if needed
-                            if (driveName.Length == 1)
+                            switch (driveName.Length)
                             {
-                                driveName = $"{driveName}:\\"; // Convert "C" to "C:\"
-                            }
-                            else if (driveName.Length == 2 && driveName[1] == ':')
-                            {
-                                driveName = $"{driveName}\\"; // Convert "C:" to "C:\"
+                                // Format the drive name properly if needed
+                                case 1:
+                                    driveName = $"{driveName}:\\"; // Convert "C" to "C:\"
+                                    break;
+                                case 2 when driveName[1] == ':':
+                                    driveName = $"{driveName}\\"; // Convert "C:" to "C:\"
+                                    break;
                             }
 
                             // Network paths and other formats won't work with DriveInfo
@@ -690,6 +691,7 @@ public class ExtractCompressedFile
     {
         if (!File.Exists(filePath))
             return false;
+
         try
         {
             using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
@@ -727,19 +729,18 @@ public class ExtractCompressedFile
     /// <param name="directoryPath">Path to the directory to clean up</param>
     private static void CleanupTempDirectory(string directoryPath)
     {
-        if (!string.IsNullOrEmpty(directoryPath) && Directory.Exists(directoryPath))
+        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
+
+        try
         {
-            try
-            {
-                Directory.Delete(directoryPath, true);
-            }
-            catch (Exception ex)
-            {
-                // Log error but don't throw - this is cleanup code
-                // Notify developer
-                var contextMessage = $"Failed to clean up temporary directory: {directoryPath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
+            Directory.Delete(directoryPath, true);
+        }
+        catch (Exception ex)
+        {
+            // Log error but don't throw - this is cleanup code
+            // Notify developer
+            var contextMessage = $"Failed to clean up temporary directory: {directoryPath}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 

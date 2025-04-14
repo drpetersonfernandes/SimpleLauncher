@@ -115,6 +115,7 @@ public class SystemConfig
             var invalidConfigs = new Dictionary<XElement, string>();
 
             if (doc.Root == null) return systemConfigs;
+
             {
                 foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
                 {
@@ -135,8 +136,8 @@ public class SystemConfig
                         // Validate FileFormatsToSearch
                         var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
                             ?.Elements("FormatToSearch")
-                            .Select(e => e.Value.Trim())
-                            .Where(value =>
+                            .Select(static e => e.Value.Trim())
+                            .Where(static value =>
                                 !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                             .ToList();
                         if (formatsToSearch == null || formatsToSearch.Count == 0)
@@ -146,45 +147,50 @@ public class SystemConfig
                         if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
                                 out var extractFileBeforeLaunch))
                             throw new InvalidOperationException("Invalid or missing value for 'Extract File Before Launch'.");
-                        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f == "zip" || f == "7z" || f == "rar"))
+                        if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
                             throw new InvalidOperationException("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
 
                         // Validate FileFormatsToLaunch
                         var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
                             ?.Elements("FormatToLaunch")
-                            .Select(e => e.Value.Trim())
-                            .Where(value =>
+                            .Select(static e => e.Value.Trim())
+                            .Where(static value =>
                                 !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                             .ToList();
                         if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
                             throw new InvalidOperationException("'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
                         // Validate emulator configurations
-                        var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(
-                            emulatorElement =>
-                            {
-                                if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                                    throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
+                        var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(static emulatorElement =>
+                        {
+                            if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
+                                throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
 
-                                // Parse the ReceiveANotificationOnEmulatorError value with default = false
-                                var receiveNotification = false; // Default to false
-                                if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
-                                {
-                                    // Only set to true if explicitly "true", otherwise keep default (false)
-                                    if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
-                                    {
-                                        receiveNotification = false; // Reset to default if parsing fails
-                                    }
-                                }
-
+                            // Parse the ReceiveANotificationOnEmulatorError value with default = false
+                            if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") == null)
                                 return new Emulator
                                 {
                                     EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
                                     EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                    EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
-                                    ReceiveANotificationOnEmulatorError = receiveNotification
+                                    EmulatorParameters =
+                                        emulatorElement.Element("EmulatorParameters")
+                                            ?.Value, // It's okay if this is null or empty
+                                    ReceiveANotificationOnEmulatorError = false
                                 };
-                            }).ToList();
+                            // Only set to true if explicitly "true", otherwise keep default (false)
+                            if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out var receiveNotification))
+                            {
+                                receiveNotification = false; // Reset to default if parsing fails
+                            }
+
+                            return new Emulator
+                            {
+                                EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
+                                EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
+                                EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
+                                ReceiveANotificationOnEmulatorError = receiveNotification
+                            };
+                        }).ToList();
 
                         if (emulators == null || emulators.Count == 0)
                             throw new InvalidOperationException("Emulators list should not be empty or null.");

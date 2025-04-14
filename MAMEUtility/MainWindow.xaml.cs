@@ -139,7 +139,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            
         }
     }
 

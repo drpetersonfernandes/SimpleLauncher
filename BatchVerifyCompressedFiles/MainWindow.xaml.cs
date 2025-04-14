@@ -21,7 +21,7 @@ public partial class MainWindow : IDisposable
     private const string BugReportApiUrl = "https://www.purelogiccode.com/bugreport/api/send-bug-report";
     private const string BugReportApiKey = "hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e";
     private const string ApplicationName = "BatchVerifyCompressedFiles";
-    private static readonly char[] Separator = new[] { '\r', '\n' };
+    private static readonly char[] Separator = ['\r', '\n'];
 
     public MainWindow()
     {
@@ -91,11 +91,10 @@ public partial class MainWindow : IDisposable
     private void BrowseInputButton_Click(object sender, RoutedEventArgs e)
     {
         var inputFolder = SelectFolder("Select the folder containing compressed files to verify");
-        if (!string.IsNullOrEmpty(inputFolder))
-        {
-            InputFolderTextBox.Text = inputFolder;
-            LogMessage($"Input folder selected: {inputFolder}");
-        }
+        if (string.IsNullOrEmpty(inputFolder)) return;
+
+        InputFolderTextBox.Text = inputFolder;
+        LogMessage($"Input folder selected: {inputFolder}");
     }
 
     private async void StartButton_Click(object sender, RoutedEventArgs e)
@@ -257,7 +256,7 @@ public partial class MainWindow : IDisposable
             }
 
             // Sort the files for a predictable order
-            var files = allFiles.OrderBy(f => f).ToArray();
+            var files = allFiles.OrderBy(static f => f).ToArray();
 
             _totalFiles = files.Length;
             UpdateCounters();
@@ -381,26 +380,24 @@ public partial class MainWindow : IDisposable
 
             process.OutputDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    // Log progress or status information
-                    if (args.Data.Contains('%') || args.Data.Contains("Testing") ||
-                        args.Data.Contains("Everything is Ok") || args.Data.Contains("Error"))
-                    {
-                        LogMessage($"  {args.Data.Trim()}");
-                    }
+                if (string.IsNullOrEmpty(args.Data)) return;
 
-                    outputBuilder.AppendLine(args.Data);
+                // Log progress or status information
+                if (args.Data.Contains('%') || args.Data.Contains("Testing") ||
+                    args.Data.Contains("Everything is Ok") || args.Data.Contains("Error"))
+                {
+                    LogMessage($"  {args.Data.Trim()}");
                 }
+
+                outputBuilder.AppendLine(args.Data);
             };
 
             process.ErrorDataReceived += (sender, args) =>
             {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    errorBuilder.AppendLine(args.Data);
-                    LogMessage($"[ERROR] {args.Data}");
-                }
+                if (string.IsNullOrEmpty(args.Data)) return;
+
+                errorBuilder.AppendLine(args.Data);
+                LogMessage($"[ERROR] {args.Data}");
             };
 
             // Start the process
@@ -523,11 +520,10 @@ public partial class MainWindow : IDisposable
 
 
                 // Check if we're entering the file section
-                if (line.StartsWith("Path =", StringComparison.Ordinal))
-                {
-                    inFileSection = true;
-                    fileCount++;
-                }
+                if (!line.StartsWith("Path =", StringComparison.Ordinal)) continue;
+
+                inFileSection = true;
+                fileCount++;
             }
             else if (inFileSection)
             {
@@ -553,18 +549,17 @@ public partial class MainWindow : IDisposable
 
         // Calculate compression ratio if possible
         var compressedSize = new FileInfo(archiveFile).Length;
-        if (uncompressedSize > 0 && compressedSize > 0)
-        {
-            var ratio = (double)compressedSize / uncompressedSize;
-            sb.AppendLine(CultureInfo.InvariantCulture, $"Compression ratio: {ratio:P1}");
-        }
+        if (uncompressedSize <= 0 || compressedSize <= 0) return sb.ToString();
+
+        var ratio = (double)compressedSize / uncompressedSize;
+        sb.AppendLine(CultureInfo.InvariantCulture, $"Compression ratio: {ratio:P1}");
 
         return sb.ToString();
     }
 
     private static string FormatFileSize(long bytes)
     {
-        string[] suffixes = { "B", "KB", "MB", "GB", "TB" };
+        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
         var counter = 0;
         decimal number = bytes;
 

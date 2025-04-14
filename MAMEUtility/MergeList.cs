@@ -10,17 +10,16 @@ public static class MergeList
     public static void MergeAndSaveBoth(string[] inputFilePaths, string xmlOutputPath, string datOutputPath)
     {
         var mergedDoc = MergeDocumentsFromPaths(inputFilePaths);
-        if (mergedDoc != null)
-        {
-            // Save as XML
-            mergedDoc.Save(xmlOutputPath);
-            Console.WriteLine($"Merged XML saved successfully to: {xmlOutputPath}");
+        if (mergedDoc == null) return;
 
-            // Save as MessagePack DAT file
-            var machines = ConvertXmlToMachines(mergedDoc);
-            SaveMachinesToDat(machines, datOutputPath);
-            Console.WriteLine($"Merged DAT file saved successfully to: {datOutputPath}");
-        }
+        // Save as XML
+        mergedDoc.Save(xmlOutputPath);
+        Console.WriteLine($"Merged XML saved successfully to: {xmlOutputPath}");
+
+        // Save as MessagePack DAT file
+        var machines = ConvertXmlToMachines(mergedDoc);
+        SaveMachinesToDat(machines, datOutputPath);
+        Console.WriteLine($"Merged DAT file saved successfully to: {datOutputPath}");
     }
 
     // Helper method to merge documents from paths
@@ -42,7 +41,10 @@ public static class MergeList
                 }
 
                 // Merge normalized content
-                if (normalizedRoot != null) mergedDoc = MergeDocuments(mergedDoc, normalizedRoot);
+                if (normalizedRoot != null)
+                {
+                    mergedDoc = MergeDocuments(mergedDoc, normalizedRoot);
+                }
             }
             catch (Exception ex)
             {
@@ -66,25 +68,23 @@ public static class MergeList
         }
 
         // Check for Softwares format
-        if (doc.Root?.Name.LocalName == "Softwares" && doc.Root.Elements("Software").Any())
-        {
-            // Normalize Softwares to Machines format
-            normalizedRoot = new XElement("Machines",
-                doc.Root.Elements("Software").Select(software =>
-                    new XElement("Machine",
-                        new XElement("MachineName", software.Element("SoftwareName")?.Value),
-                        software.Element("Description")
-                    )
+        if (doc.Root?.Name.LocalName != "Softwares" || !doc.Root.Elements("Software").Any()) return false;
+
+        // Normalize Softwares to Machines format
+        normalizedRoot = new XElement("Machines",
+            doc.Root.Elements("Software").Select(static software =>
+                new XElement("Machine",
+                    new XElement("MachineName", software.Element("SoftwareName")?.Value),
+                    software.Element("Description")
                 )
-            );
-            return true;
-        }
+            )
+        );
+        return true;
 
         // Invalid structure
-        return false;
     }
 
-    private static XDocument MergeDocuments(XDocument doc1, XElement normalizedRoot)
+    private static XDocument MergeDocuments(XDocument doc1, XContainer normalizedRoot)
     {
         // Ensure that the first document has a non-null Root element before attempting to merge.
         if (doc1.Root == null)
@@ -103,7 +103,7 @@ public static class MergeList
     {
         var machines = new List<MachineInfo>();
 
-        foreach (var machineElement in doc.Root?.Elements("Machine") ?? Enumerable.Empty<XElement>())
+        foreach (var machineElement in doc.Root?.Elements("Machine") ?? [])
         {
             var machine = new MachineInfo
             {

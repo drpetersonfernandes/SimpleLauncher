@@ -13,7 +13,7 @@ public class GamePadController : IDisposable
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    private static readonly Lazy<GamePadController> Instance = new(() => new GamePadController());
+    private static readonly Lazy<GamePadController> Instance = new(static () => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;
 
     // Add an Action for error logging
@@ -160,32 +160,40 @@ public class GamePadController : IDisposable
     {
         try
         {
-            if (!_xinputController.IsConnected && _directInputController == null)
+            switch (_xinputController.IsConnected)
             {
-                // Attempt to reconnect controllers if not already attempting
-                if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
+                case false when _directInputController == null:
+                {
+                    // Attempt to reconnect controllers if not already attempting
+                    if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
 
-                CheckAndReconnectControllers();
-                _lastReconnectAttempt = DateTime.Now;
-                return; // Exit Update to avoid further processing until next cycle.
-            }
+                    CheckAndReconnectControllers();
+                    _lastReconnectAttempt = DateTime.Now;
+                    return; // Exit Update to avoid further processing until next cycle.
+                }
+                case true:
+                {
+                    // Handle Xbox Controller Input
+                    _xinputController.GetState(out var state);
+                    HandleXInputMovement(state);
+                    HandleXInputScroll(state);
+                    HandleXInputLeftButton(state);
+                    HandleXInputRightButton(state);
+                    break;
+                }
+                default:
+                {
+                    if (_directInputController != null)
+                    {
+                        // Handle PlayStation Controller Input
+                        var state = _directInputController.GetCurrentState();
+                        HandleDirectInputMovement(state);
+                        HandleDirectInputButtons(state);
+                        HandleDirectInputScroll(state);
+                    }
 
-            if (_xinputController.IsConnected)
-            {
-                // Handle Xbox Controller Input
-                _xinputController.GetState(out var state);
-                HandleXInputMovement(state);
-                HandleXInputScroll(state);
-                HandleXInputLeftButton(state);
-                HandleXInputRightButton(state);
-            }
-            else if (_directInputController != null)
-            {
-                // Handle PlayStation Controller Input
-                var state = _directInputController.GetCurrentState();
-                HandleDirectInputMovement(state);
-                HandleDirectInputButtons(state);
-                HandleDirectInputScroll(state);
+                    break;
+                }
             }
         }
         catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
@@ -229,25 +237,24 @@ public class GamePadController : IDisposable
             foreach (var deviceInstance in devices)
             {
                 // Check if the device matches the previously connected controller's GUID
-                if (_playStationControllerGuid == Guid.Empty || deviceInstance.InstanceGuid == _playStationControllerGuid)
-                {
-                    _directInputController?.Unacquire();
-                    _directInputController?.Dispose();
+                if (_playStationControllerGuid != Guid.Empty &&
+                    deviceInstance.InstanceGuid != _playStationControllerGuid) continue;
 
-                    _directInputController = new Joystick(directInput, deviceInstance.InstanceGuid);
-                    _directInputController.Acquire();
-                    _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
-                    found = true;
+                _directInputController?.Unacquire();
+                _directInputController?.Dispose();
 
-                    break;
-                }
+                _directInputController = new Joystick(directInput, deviceInstance.InstanceGuid);
+                _directInputController.Acquire();
+                _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
+                found = true;
+
+                break;
             }
 
-            if (!found)
-            {
-                _directInputController = null;
-                _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
-            }
+            if (found) return;
+
+            _directInputController = null;
+            _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
         }
         catch (Exception ex)
         {
@@ -261,16 +268,32 @@ public class GamePadController : IDisposable
     private void HandleXInputRightButton(State state)
     {
         var isBDown = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);
-        if (isBDown && !_wasBDown) _mouseSimulator.RightButtonDown();
-        if (!isBDown && _wasBDown) _mouseSimulator.RightButtonUp();
+        switch (isBDown)
+        {
+            case true when !_wasBDown:
+                _mouseSimulator.RightButtonDown();
+                break;
+            case false when _wasBDown:
+                _mouseSimulator.RightButtonUp();
+                break;
+        }
+
         _wasBDown = isBDown;
     }
 
     private void HandleXInputLeftButton(State state)
     {
         var isADown = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.A);
-        if (isADown && !_wasADown) _mouseSimulator.LeftButtonDown();
-        if (!isADown && _wasADown) _mouseSimulator.LeftButtonUp();
+        switch (isADown)
+        {
+            case true when !_wasADown:
+                _mouseSimulator.LeftButtonDown();
+                break;
+            case false when _wasADown:
+                _mouseSimulator.LeftButtonUp();
+                break;
+        }
+
         _wasADown = isADown;
     }
 
@@ -298,9 +321,16 @@ public class GamePadController : IDisposable
         // Always apply base scaling (10x), then additional scaling based on deadzone
         resultX *= 10;
         resultY *= 10;
-    
-        if (dzX > 0) resultX /= (1 - dzX);
-        if (dzY > 0) resultY /= (1 - dzY);
+
+        if (dzX > 0)
+        {
+            resultX /= 1 - dzX;
+        }
+
+        if (dzY > 0)
+        {
+            resultY /= 1 - dzY;
+        }
 
         return (resultX, resultY);
     }
@@ -308,13 +338,29 @@ public class GamePadController : IDisposable
     private void HandleDirectInputButtons(JoystickState state)
     {
         var isCrossDown = state.Buttons[1];
-        if (isCrossDown && !_wasCrossDown) _mouseSimulator.LeftButtonDown(); // Cross Button
-        if (!isCrossDown && _wasCrossDown) _mouseSimulator.LeftButtonUp();
+        switch (isCrossDown)
+        {
+            case true when !_wasCrossDown:
+                _mouseSimulator.LeftButtonDown(); // Cross Button
+                break;
+            case false when _wasCrossDown:
+                _mouseSimulator.LeftButtonUp();
+                break;
+        }
+
         _wasCrossDown = isCrossDown;
 
         var isCircleDown = state.Buttons[2];
-        if (isCircleDown && !_wasCircleDown) _mouseSimulator.RightButtonDown(); // Circle Button
-        if (!isCircleDown && _wasCircleDown) _mouseSimulator.RightButtonUp();
+        switch (isCircleDown)
+        {
+            case true when !_wasCircleDown:
+                _mouseSimulator.RightButtonDown(); // Circle Button
+                break;
+            case false when _wasCircleDown:
+                _mouseSimulator.RightButtonUp();
+                break;
+        }
+
         _wasCircleDown = isCircleDown;
     }
 
@@ -366,9 +412,16 @@ public class GamePadController : IDisposable
         // Always apply base scaling (7x), then additional scaling based on deadzone
         resultX *= 7;
         resultY *= 7;
-    
-        if (dzX > 0) resultX /= (1 - dzX);
-        if (dzY > 0) resultY /= (1 - dzY);
+
+        if (dzX > 0)
+        {
+            resultX /= 1 - dzX;
+        }
+
+        if (dzY > 0)
+        {
+            resultY /= 1 - dzY;
+        }
 
         return (resultX, resultY);
     }
@@ -394,8 +447,15 @@ public class GamePadController : IDisposable
         }
 
         // Scale the values after dead zone adjustment
-        if (dzX > 0) resultX *= 1 / (1 - dzX);
-        if (dzY > 0) resultY *= 1 / (1 - dzY);
+        if (dzX > 0)
+        {
+            resultX *= 1 / (1 - dzX);
+        }
+
+        if (dzY > 0)
+        {
+            resultY *= 1 / (1 - dzY);
+        }
 
         return (resultX, resultY);
     }
