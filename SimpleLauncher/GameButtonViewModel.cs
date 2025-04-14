@@ -11,11 +11,10 @@ public class GameButtonViewModel : INotifyPropertyChanged
         get => _isFavorite;
         set
         {
-            if (_isFavorite != value)
-            {
-                _isFavorite = value;
-                OnPropertyChanged(nameof(IsFavorite));
-            }
+            if (_isFavorite == value) return;
+
+            _isFavorite = value;
+            OnPropertyChanged(nameof(IsFavorite));
         }
     }
 

@@ -11,9 +11,9 @@ public abstract class FileManager
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    public static async Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
+    public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
-        return await Task.Run(() =>
+        return Task.Run(() =>
         {
             try
             {
@@ -57,18 +57,18 @@ public abstract class FileManager
         });
     }
 
-    public static async Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
+    public static Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
     {
-        return await Task.Run(() =>
+        return Task.Run(() =>
         {
             if (string.IsNullOrEmpty(startLetter))
                 return files; // If no startLetter is provided, no filtering is required
 
             if (startLetter == "#")
             {
-                return files.Where(file => !string.IsNullOrEmpty(file) &&
-                                           file.Length > 0 &&
-                                           char.IsDigit(Path.GetFileName(file)[0])).ToList();
+                return files.Where(static file => !string.IsNullOrEmpty(file) &&
+                                                  file.Length > 0 &&
+                                                  char.IsDigit(Path.GetFileName(file)[0])).ToList();
             }
 
             return files.Where(file => !string.IsNullOrEmpty(file) &&
@@ -84,7 +84,7 @@ public abstract class FileManager
         {
             // Show the window on the UI thread
             await Application.Current.Dispatcher.InvokeAsync(() => pleaseWaitWindow.Show());
-        
+
             return await Task.Run(() =>
             {
                 if (!Directory.Exists(folderPath))

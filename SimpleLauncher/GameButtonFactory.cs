@@ -23,6 +23,14 @@ internal class GameButtonFactory(
     WrapPanel gameFileGrid,
     MainWindow mainWindow)
 {
+    private readonly ComboBox _emulatorComboBox = emulatorComboBox;
+    private readonly ComboBox _systemComboBox = systemComboBox;
+    private readonly List<SystemConfig> _systemConfigs = systemConfigs;
+    private readonly List<MameManager> _machines = machines;
+    private readonly SettingsManager _settings = settings;
+    private readonly FavoritesManager _favoritesManager = favoritesManager;
+    private readonly WrapPanel _gameFileGrid = gameFileGrid;
+    private readonly MainWindow _mainWindow = mainWindow;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
@@ -38,7 +46,7 @@ internal class GameButtonFactory(
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel
         {
-            IsFavorite = favoritesManager.FavoriteList.Any(f =>
+            IsFavorite = _favoritesManager.FavoriteList.Any(f =>
                 f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                 f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase))
         };
@@ -68,7 +76,7 @@ internal class GameButtonFactory(
         // For MAME systems, add a second row for the description if available.
         if (systemConfig.SystemIsMame)
         {
-            var machine = machines.FirstOrDefault(
+            var machine = _machines.FirstOrDefault(
                 m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
@@ -94,7 +102,7 @@ internal class GameButtonFactory(
         double aspectHeight;
 
         // Use the ButtonAspectRatio value from settings:
-        switch (settings.ButtonAspectRatio)
+        switch (_settings.ButtonAspectRatio)
         {
             case "Wider":
                 aspectWidth = 1.5;
@@ -212,7 +220,7 @@ internal class GameButtonFactory(
         button.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemConfig, fileNameWithExtension, fileNameWithoutExtension, button);
@@ -239,7 +247,7 @@ internal class GameButtonFactory(
         launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -258,7 +266,7 @@ internal class GameButtonFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -277,7 +285,7 @@ internal class GameButtonFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -296,7 +304,7 @@ internal class GameButtonFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, machines, settings);
+            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open Info Link Context Menu
@@ -315,7 +323,7 @@ internal class GameButtonFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, machines, settings);
+            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open History Context Menu
@@ -334,7 +342,7 @@ internal class GameButtonFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, _machines);
         };
 
         // Open Cover Context Menu
@@ -548,8 +556,8 @@ internal class GameButtonFactory(
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button, mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button, _mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Delete Game Context Menu
@@ -598,9 +606,10 @@ internal class GameButtonFactory(
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
             if (result != MessageBoxResult.Yes) return;
+
             try
             {
-                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, gameFileGrid, mainWindow);
+                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, _gameFileGrid, _mainWindow);
             }
             catch (Exception ex)
             {
@@ -612,7 +621,7 @@ internal class GameButtonFactory(
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         }
     }
 
@@ -624,6 +633,7 @@ internal class GameButtonFactory(
 
         if (string.IsNullOrWhiteSpace(imagePath))
             throw new ArgumentException(@"Invalid image path.", nameof(imagePath));
+
         try
         {
             BitmapImage bitmapImage = null;

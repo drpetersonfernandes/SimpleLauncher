@@ -48,42 +48,59 @@ public partial class GlobalSearchWindow
 
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
     {
-        var searchTerm = SearchTextBox.Text;
-        if (CheckIfSearchTermIsEmpty(searchTerm)) return;
-
-        LaunchButton.IsEnabled = false;
-        _searchResults.Clear();
-
-        // Show a "Please Wait" window.
-        _pleaseWaitWindow = new PleaseWaitSearchWindow
-        {
-            Owner = this
-        };
-        _pleaseWaitWindow.Show();
-
         try
         {
-            var results = await Task.Run(() => PerformSearch(searchTerm));
+            var searchTerm = SearchTextBox.Text;
+            if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
-            if (results != null && results.Count != 0)
+            LaunchButton.IsEnabled = false;
+            _searchResults.Clear();
+
+            // Show a "Please Wait" window.
+            _pleaseWaitWindow = new PleaseWaitSearchWindow
             {
-                foreach (var result in results)
+                Owner = this
+            };
+            _pleaseWaitWindow.Show();
+
+            try
+            {
+                var results = await Task.Run(() => PerformSearch(searchTerm));
+
+                if (results != null && results.Count != 0)
                 {
-                    _searchResults.Add(result);
+                    foreach (var result in results)
+                    {
+                        _searchResults.Add(result);
+                    }
+
+                    LaunchButton.IsEnabled = true;
                 }
-
-                LaunchButton.IsEnabled = true;
-            }
-            else
-            {
-                var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ??
-                                      "No results found.";
-                _searchResults.Add(new SearchResult
+                else
                 {
-                    FileName = noresultsfound2,
-                    FolderName = "",
-                    Size = 0
-                });
+                    var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ??
+                                          "No results found.";
+                    _searchResults.Add(new SearchResult
+                    {
+                        FileName = noresultsfound2,
+                        FolderName = "",
+                        Size = 0
+                    });
+                }
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "That was an error using the SearchButton_Click.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.GlobalSearchErrorMessageBox();
+            }
+            finally
+            {
+                // Close the "Please Wait" window
+                _pleaseWaitWindow.Close();
             }
         }
         catch (Exception ex)
@@ -91,14 +108,6 @@ public partial class GlobalSearchWindow
             // Notify developer
             const string contextMessage = "That was an error using the SearchButton_Click.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.GlobalSearchErrorMessageBox();
-        }
-        finally
-        {
-            // Close the "Please Wait" window
-            _pleaseWaitWindow.Close();
         }
     }
 
@@ -171,7 +180,7 @@ public partial class GlobalSearchWindow
             return machine?.Description ?? string.Empty;
         }
 
-        string GetFullPath(string path)
+        static string GetFullPath(string path)
         {
             if (path.StartsWith(@".\", StringComparison.Ordinal))
             {
@@ -189,14 +198,14 @@ public partial class GlobalSearchWindow
             result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
         }
 
-        return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();
+        return results.OrderByDescending(static r => r.Score).ThenBy(static r => r.FileName).ToList();
     }
 
     private static int CalculateScore(string text, List<string> searchTerms)
     {
         var score = 0;
 
-        foreach (var index in searchTerms.Select(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase)).Where(index => index >= 0))
+        foreach (var index in searchTerms.Select(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase)).Where(static index => index >= 0))
         {
             score += 10;
             score += text.Length - index;
@@ -212,10 +221,10 @@ public partial class GlobalSearchWindow
 
         if (hasAnd)
         {
-            return searchTerms.Where(term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+            return searchTerms.Where(static term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
         }
 
-        return hasOr ? searchTerms.Where(term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase)) : searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+        return hasOr ? searchTerms.Where(static term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase)) : searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
     }
 
     private static List<string> ParseSearchTerms(string searchTerm)
@@ -290,10 +299,10 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            _mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            _mockSystemComboBox.ItemsSource = _systemConfigs.Select(static config => config.SystemName).ToList();
             _mockSystemComboBox.SelectedItem = systemConfig.SystemName;
 
-            _mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+            _mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
             _mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
             await GameLauncher.HandleButtonClick(filePath, _mockEmulatorComboBox, _mockSystemComboBox, _systemConfigs, _settings, _mainWindow);

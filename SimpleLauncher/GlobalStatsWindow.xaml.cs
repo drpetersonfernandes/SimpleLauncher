@@ -27,44 +27,65 @@ public partial class GlobalStatsWindow
     {
         try
         {
-            ProgressBar.Visibility = Visibility.Visible;
-            SaveButton.Visibility = Visibility.Collapsed;
-
             try
             {
-                // Execute the long-running operations asynchronously
-                _systemStats = await Task.Run(PopulateSystemStatsTable);
+                ProgressBar.Visibility = Visibility.Visible;
+                SaveButton.Visibility = Visibility.Collapsed;
 
-                // Update the global stats asynchronously
-                _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
+                try
+                {
+                    // Execute the long-running operations asynchronously
+                    _systemStats = await Task.Run(PopulateSystemStatsTable);
 
-                GlobalInfoTextBlock.Text = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
-                                           $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
-                                           $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
-                                           $"{TryFindResource("TotalImages") as string ?? "Total Number of Matched Images:"} {_globalStats.TotalImages:N0}\n" +
-                                           $"{TryFindResource("ApplicationFolder") as string ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                                           $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
+                    // Update the global stats asynchronously
+                    _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
 
-                ProgressBar.Visibility = Visibility.Collapsed;
+                    GlobalInfoTextBlock.Text = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
+                                               $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
+                                               $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
+                                               $"{TryFindResource("TotalImages") as string ?? "Total Number of Matched Images:"} {_globalStats.TotalImages:N0}\n" +
+                                               $"{TryFindResource("ApplicationFolder") as string ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
+                                               $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                // Ask the user if they want to save a report
-                DoYouWantToSaveTheReportMessageBox();
+                    ProgressBar.Visibility = Visibility.Collapsed;
 
-                SaveButton.Visibility = Visibility.Visible;
+                    // Ask the user if they want to save a report
+                    DoYouWantToSaveTheReportMessageBox();
+
+                    SaveButton.Visibility = Visibility.Visible;
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "An error occurred while calculating Global Statistics.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
+                }
+                finally
+                {
+                    // Ensure that ProgressBar is hidden even if an error occurs
+                    ProgressBar.Visibility = Visibility.Collapsed;
+                }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "An error occurred while calculating Global Statistics.";
+                const string contextMessage = "Error in the GlobalStats_Loaded method.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
             }
-            finally
+
+            return;
+
+            void DoYouWantToSaveTheReportMessageBox()
             {
-                // Ensure that ProgressBar is hidden even if an error occurs
-                ProgressBar.Visibility = Visibility.Collapsed;
+                var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
+
+                if (result == MessageBoxResult.Yes)
+                {
+                    SaveReport(_globalStats, _systemStats);
+                }
             }
         }
         catch (Exception ex)
@@ -72,16 +93,6 @@ public partial class GlobalStatsWindow
             // Notify developer
             const string contextMessage = "Error in the GlobalStats_Loaded method.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-        }
-
-        void DoYouWantToSaveTheReportMessageBox()
-        {
-            var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
-
-            if (result == MessageBoxResult.Yes)
-            {
-                SaveReport(_globalStats, _systemStats);
-            }
         }
     }
 
@@ -92,7 +103,7 @@ public partial class GlobalStatsWindow
         foreach (var config in _systemConfigs)
         {
             // Asynchronous file count and base filenames of ROMs/ISOs
-            var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList());
+            var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList());
 
             // Create a case-insensitive HashSet for ROM base filenames
             var romFileBaseNames = new HashSet<string>(
@@ -100,7 +111,7 @@ public partial class GlobalStatsWindow
                 StringComparer.OrdinalIgnoreCase);
 
             // Calculate the total disk size for the ROM/ISO files
-            var totalDiskSize = romFiles.Sum(file => new FileInfo(file).Length);
+            var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
 
             var systemImagePath = config.SystemImageFolder;
             systemImagePath = string.IsNullOrEmpty(systemImagePath)
@@ -114,9 +125,9 @@ public partial class GlobalStatsWindow
 
                 // Get image files with .png, .jpg, .jpeg extensions
                 var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                                   file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                   file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+                    .Where(static file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                                          file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                                          file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
                     .Select(Path.GetFileNameWithoutExtension)
                     .ToList();
 
@@ -159,10 +170,10 @@ public partial class GlobalStatsWindow
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {
         var totalSystems = systemStats.Count;
-        var totalEmulators = _systemConfigs.Sum(config => config.Emulators.Count);
-        var totalGames = systemStats.Sum(stats => stats.NumberOfFiles);
-        var totalImages = systemStats.Sum(stats => stats.NumberOfImages);
-        var totalDiskSize = systemStats.Sum(stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
+        var totalEmulators = _systemConfigs.Sum(static config => config.Emulators.Count);
+        var totalGames = systemStats.Sum(static stats => stats.NumberOfFiles);
+        var totalImages = systemStats.Sum(static stats => stats.NumberOfImages);
+        var totalDiskSize = systemStats.Sum(static stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
 
         return new GlobalStatsData
         {
@@ -174,7 +185,7 @@ public partial class GlobalStatsWindow
         };
     }
 
-    private class GlobalStatsData
+    private sealed class GlobalStatsData
     {
         public int TotalSystems { get; init; }
         public int TotalEmulators { get; init; }
@@ -235,7 +246,7 @@ public partial class GlobalStatsWindow
         report += "System-Specific Stats\n";
         report += "---------------------\n";
 
-        return systemStats.Aggregate(report, (current, system) => current + ($"System Name: {system.SystemName}\n" + $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" + $"Number of Matched Images: {system.NumberOfImages}\n\n"));
+        return systemStats.Aggregate(report, static (current, system) => current + $"System Name: {system.SystemName}\n" + $"Number of ROMs or ISOs: {system.NumberOfFiles}\n" + $"Number of Matched Images: {system.NumberOfImages}\n\n");
     }
 
     private void SaveReport_Click(object sender, RoutedEventArgs routedEventArgs)
@@ -257,9 +268,9 @@ public partial class GlobalStatsWindow
             return Task.CompletedTask;
 
         var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-            .Where(file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                           file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                           file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+            .Where(static file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
+                                  file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
+                                  file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
             .ToList();
 
         foreach (var imageFile in imageFiles)
@@ -269,6 +280,7 @@ public partial class GlobalStatsWindow
                 string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
 
             if (matchedRomName == null || matchedRomName.Equals(imageFileName, StringComparison.Ordinal)) continue;
+
             var newImagePath = Path.Combine(Path.GetDirectoryName(imageFile) ?? throw new InvalidOperationException("Could not get the directory of the imageFile"),
                 matchedRomName + Path.GetExtension(imageFile));
             try

@@ -24,6 +24,14 @@ public class GameListFactory(
 {
     private readonly WrapPanel _fakeFileGrid = new();
     private readonly Button _fakeButton = new();
+    private readonly ComboBox _systemComboBox = systemComboBox;
+    private readonly ComboBox _emulatorComboBox = emulatorComboBox;
+    private readonly List<SystemConfig> _systemConfigs = systemConfigs;
+    private readonly List<MameManager> _machines = machines;
+    private readonly SettingsManager _settings = settings;
+    private readonly FavoritesManager _favoritesManager = favoritesManager;
+    private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
+    private readonly MainWindow _mainWindow = mainWindow;
 
     public class GameListViewItem : INotifyPropertyChanged
     {
@@ -99,12 +107,12 @@ public class GameListFactory(
         var machineDescription = systemConfig.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
-        var isFavorite = favoritesManager.FavoriteList
+        var isFavorite = _favoritesManager.FavoriteList
             .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                       f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
         // Get playtime from playHistoryManager
-        var playHistoryItem = playHistoryManager.PlayHistoryList
+        var playHistoryItem = _playHistoryManager.PlayHistoryList
             .FirstOrDefault(h => h.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
                                  h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
@@ -160,7 +168,7 @@ public class GameListFactory(
         launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -179,7 +187,7 @@ public class GameListFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
+            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -198,7 +206,7 @@ public class GameListFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -217,7 +225,7 @@ public class GameListFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, machines, settings);
+            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open Info Link Context Menu
@@ -236,7 +244,7 @@ public class GameListFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, machines, settings);
+            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open History Context Menu
@@ -255,7 +263,7 @@ public class GameListFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, _machines);
         };
 
         // Open Cover Context Menu
@@ -467,8 +475,8 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Delete Game Context Menu
@@ -518,24 +526,23 @@ public class GameListFactory(
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
-            if (result == MessageBoxResult.Yes)
+            if (result != MessageBoxResult.Yes) return;
+
+            try
             {
-                try
-                {
-                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeFileGrid, mainWindow);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error deleting the file.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
-                }
-
-                RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, favoritesManager, _fakeFileGrid, mainWindow);
+                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeFileGrid, _mainWindow);
             }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error deleting the file.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+            }
+
+            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         }
     }
 
@@ -545,15 +552,15 @@ public class GameListFactory(
 
         var filePath = selectedItem.FilePath;
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var selectedSystem = systemComboBox.SelectedItem as string;
-        var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+        var selectedSystem = _systemComboBox.SelectedItem as string;
+        var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
         if (systemConfig == null) return;
 
         // Get the preview image path
         var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
 
         // Clear previous image first to avoid memory leaks
-        mainWindow.PreviewImage.Source = null;
+        _mainWindow.PreviewImage.Source = null;
 
         // Set the preview image if a valid path is returned
         if (!string.IsNullOrEmpty(previewImagePath))
@@ -578,7 +585,7 @@ public class GameListFactory(
                     fileStream.ReadExactly(imageData, 0, (int)fileStream.Length);
                 }
 
-                mainWindow.Dispatcher.Invoke(() =>
+                _mainWindow.Dispatcher.Invoke(() =>
                 {
                     try
                     {
@@ -593,7 +600,7 @@ public class GameListFactory(
                         bitmapFrame.Freeze();
 
                         // Set as the image source
-                        mainWindow.PreviewImage.Source = bitmapFrame;
+                        _mainWindow.PreviewImage.Source = bitmapFrame;
                         // MemoryStream is disposed automatically by the using block
                     }
                     catch (Exception ex)
@@ -606,7 +613,7 @@ public class GameListFactory(
             }
             catch (Exception ex)
             {
-                mainWindow.PreviewImage.Source = null;
+                _mainWindow.PreviewImage.Source = null;
 
                 // Notify developer
                 var contextMessage = $"An error occurred while loading the preview image.\n" +
@@ -617,7 +624,7 @@ public class GameListFactory(
         else
         {
             // Clear the image if no preview is available
-            mainWindow.PreviewImage.Source = null;
+            _mainWindow.PreviewImage.Source = null;
 
             // Notify user
             MessageBoxLibrary.DefaultImageNotFoundMessageBox();
@@ -626,20 +633,22 @@ public class GameListFactory(
 
     private string GetMachineDescription(string fileName)
     {
-        var machine = machines.FirstOrDefault(m => m.MachineName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
+        var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileName, StringComparison.OrdinalIgnoreCase));
         return machine?.Description ?? string.Empty;
     }
 
-    public async Task HandleDoubleClick(GameListViewItem selectedItem)
+    public Task HandleDoubleClick(GameListViewItem selectedItem)
     {
-        if (selectedItem == null) return;
+        if (selectedItem == null) return Task.CompletedTask;
 
-        var selectedSystem = systemComboBox.SelectedItem as string;
-        var systemConfig = systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+        var selectedSystem = _systemComboBox.SelectedItem as string;
+        var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
         if (systemConfig != null)
         {
-            await GameLauncher.HandleButtonClick(selectedItem.FilePath, emulatorComboBox, systemComboBox, systemConfigs, settings, mainWindow);
+            return GameLauncher.HandleButtonClick(selectedItem.FilePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         }
+
+        return Task.CompletedTask;
     }
 }
