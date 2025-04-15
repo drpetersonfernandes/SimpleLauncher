@@ -62,9 +62,9 @@ public partial class EditSystemEasyModeWindow : IDisposable
         if (_manager?.Systems == null) return;
 
         var sortedSystemNames = _manager.Systems
-            .Where(system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
-            .Select(system => system.SystemName)
-            .OrderBy(name => name)
+            .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
+            .Select(static system => system.SystemName)
+            .OrderBy(static name => name)
             .ToList();
 
         SystemNameDropdown.ItemsSource = sortedSystemNames;
@@ -75,72 +75,92 @@ public partial class EditSystemEasyModeWindow : IDisposable
         if (SystemNameDropdown.SelectedItem == null) return;
 
         var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-        if (selectedSystem != null)
-        {
-            DownloadEmulatorButton.IsEnabled = true;
-            DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
-            DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
+        if (selectedSystem == null) return;
 
-            // Reset download status
-            _isEmulatorDownloaded = false;
-            _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
+        DownloadEmulatorButton.IsEnabled = true;
+        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
+        DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
 
-            UpdateAddSystemButtonState();
-        }
+        // Reset download status
+        _isEmulatorDownloaded = false;
+        _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
+
+        UpdateAddSystemButtonState();
     }
 
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
     {
-        DownloadEmulatorButton.IsEnabled = false;
-        _isEmulatorDownloaded = false;
-        UpdateAddSystemButtonState();
-
-        var success = await DownloadAndExtractAsync(DownloadType.Emulator);
-
-        if (success)
+        try
         {
-            _isEmulatorDownloaded = true;
-        }
-        else
-        {
-            // Re-enable the button unless it was a successful download
-            DownloadEmulatorButton.IsEnabled = true;
-        }
+            DownloadEmulatorButton.IsEnabled = false;
+            _isEmulatorDownloaded = false;
+            UpdateAddSystemButtonState();
 
-        UpdateAddSystemButtonState();
+            var success = await DownloadAndExtractAsync(DownloadType.Emulator);
+
+            if (success)
+            {
+                _isEmulatorDownloaded = true;
+            }
+            else
+            {
+                // Re-enable the button unless it was a successful download
+                DownloadEmulatorButton.IsEnabled = true;
+            }
+
+            UpdateAddSystemButtonState();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error downloading emulator.");
+        }
     }
 
     private async void DownloadCoreButton_Click(object sender, RoutedEventArgs e)
     {
-        DownloadCoreButton.IsEnabled = false;
-        _isCoreDownloaded = false;
-        UpdateAddSystemButtonState();
-
-        var success = await DownloadAndExtractAsync(DownloadType.Core);
-
-        if (success)
+        try
         {
-            _isCoreDownloaded = true;
-        }
-        else
-        {
-            // Re-enable the button unless it was a successful download
-            DownloadCoreButton.IsEnabled = true;
-        }
+            DownloadCoreButton.IsEnabled = false;
+            _isCoreDownloaded = false;
+            UpdateAddSystemButtonState();
 
-        UpdateAddSystemButtonState();
+            var success = await DownloadAndExtractAsync(DownloadType.Core);
+
+            if (success)
+            {
+                _isCoreDownloaded = true;
+            }
+            else
+            {
+                // Re-enable the button unless it was a successful download
+                DownloadCoreButton.IsEnabled = true;
+            }
+
+            UpdateAddSystemButtonState();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error downloading core.");
+        }
     }
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
-        DownloadExtrasButton.IsEnabled = false;
-
-        var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
-
-        // Re-enable the button if not successful
-        if (!success)
+        try
         {
-            DownloadExtrasButton.IsEnabled = true;
+            DownloadExtrasButton.IsEnabled = false;
+
+            var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
+
+            // Re-enable the button if not successful
+            if (!success)
+            {
+                DownloadExtrasButton.IsEnabled = true;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error downloading image pack.");
         }
     }
 
@@ -428,10 +448,10 @@ public partial class EditSystemEasyModeWindow : IDisposable
                 existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
                 existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
                 existingSystem.Element("FileFormatsToSearch")?.Remove();
-                existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))));
+                existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))));
                 existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
                 existingSystem.Element("FileFormatsToLaunch")?.Remove();
-                existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(format => new XElement("FormatToLaunch", format))));
+                existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))));
                 existingSystem.Element("Emulators")?.Remove();
                 existingSystem.Add(new XElement("Emulators",
                     new XElement("Emulator",
@@ -449,9 +469,9 @@ public partial class EditSystemEasyModeWindow : IDisposable
                     new XElement("SystemFolder", systemFolder),
                     new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
                     new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
-                    new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(format => new XElement("FormatToSearch", format))),
+                    new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
                     new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
-                    new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(format => new XElement("FormatToLaunch", format))),
+                    new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
                     new XElement("Emulators",
                         new XElement("Emulator",
                             new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
@@ -467,7 +487,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
 
             // Sort the systems alphabetically by SystemName
             xmlDoc.Root?.ReplaceNodes(xmlDoc.Root.Elements("SystemConfig")
-                .OrderBy(systemElement => systemElement.Element("SystemName")?.Value));
+                .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value));
 
             // Save the updated XML document
             xmlDoc.Save(systemXmlPath);

@@ -70,10 +70,11 @@ public class HelpUserManager
                         return null; // Ignore invalid system entries
                     }
                 })
-                .Where(helper => helper != null) // Filter out invalid entries
+                .Where(static helper => helper != null) // Filter out invalid entries
                 .ToList();
 
             if (Systems.Count != 0) return;
+
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in the file 'helpuser.xml'.";
@@ -101,7 +102,7 @@ public class HelpUserManager
 
         // Process each line to remove leading spaces while keeping line breaks
         var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
-        return string.Join(Environment.NewLine, lines.Select(line => line.TrimStart()));
+        return string.Join(Environment.NewLine, lines.Select(static line => line.TrimStart()));
     }
 
     public class SystemHelper

@@ -133,6 +133,7 @@ public partial class RomHistoryWindow
 
         // Notify user
         DidNotFindRomHistoryMessageBox();
+        return;
 
         void DidNotFindRomHistoryMessageBox()
         {
@@ -189,6 +190,7 @@ public partial class RomHistoryWindow
 
                     // If there's a match for the bold pattern, make it bold
                     if (boldIndex >= boldMatches.Count) continue;
+
                     HistoryTextBlock.Inlines.Add(new Bold(new Run(boldMatches[boldIndex].Value)));
                     boldIndex++;
                 }
@@ -200,13 +202,14 @@ public partial class RomHistoryWindow
 
             // If there's a link, make it bold and clickable
             if (index >= matches.Count) continue;
+
             var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
             {
                 NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
                     ? matches[index].Value
                     : "http://" + matches[index].Value)
             };
-            hyperlink.RequestNavigate += (_, e) =>
+            hyperlink.RequestNavigate += static (_, e) =>
             {
                 Process.Start(new ProcessStartInfo
                 {

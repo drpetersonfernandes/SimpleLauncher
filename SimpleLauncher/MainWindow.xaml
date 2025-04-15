@@ -613,9 +613,9 @@
             <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0"
                         Orientation="Horizontal">
                 <Label Content="{DynamicResource System}" Margin="5,0,5,0" />
-                <Label Content="{Binding SelectedSystem}" Margin="5,0" />
+                <Label Content="{Binding SelectedSystem}" Margin="5,0" d:DataContext="{d:DesignInstance }" />
                 <Label Content="{DynamicResource Playtime}" Margin="5,0,5,0" />
-                <Label Content="{Binding PlayTime}" Margin="5,0" />
+                <Label Content="{Binding PlayTime}" Margin="5,0" d:DataContext="{d:DesignInstance }" />
             </StackPanel>
 
         </Grid>

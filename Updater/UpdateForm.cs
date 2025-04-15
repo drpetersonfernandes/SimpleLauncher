@@ -12,7 +12,7 @@ public partial class UpdateForm : Form
 
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
-    static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     public UpdateForm()
     {
@@ -217,11 +217,10 @@ public partial class UpdateForm : Form
             {
                 foreach (var asset in assetsElement.EnumerateArray())
                 {
-                    if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                    {
-                        assetUrl = downloadUrlElement.GetString() ?? string.Empty; // Handle potential null here
-                        break;
-                    }
+                    if (!asset.TryGetProperty("browser_download_url", out var downloadUrlElement)) continue;
+
+                    assetUrl = downloadUrlElement.GetString() ?? string.Empty; // Handle potential null here
+                    break;
                 }
             }
 
@@ -253,7 +252,10 @@ public partial class UpdateForm : Form
         logTextBox.AppendText($"{DateTime.Now:HH:mm:ss} - {message}{Environment.NewLine}");
     }
 
-    private static Regex MyRegex() => MyRegex1();
+    private static Regex MyRegex()
+    {
+        return MyRegex1();
+    }
 
     private static string NormalizeVersion(string version)
     {

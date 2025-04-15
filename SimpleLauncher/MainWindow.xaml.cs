@@ -108,7 +108,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("whatsnew"))
         {
-            Loaded += (_, _) => OpenUpdateHistory();
+            Loaded += static (_, _) => OpenUpdateHistory();
         }
 
         // DataContext set to the MainWindow instance
@@ -126,16 +126,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Load _machines and _mameLookup
         _machines = MameManager.LoadFromDat();
         _mameLookup = _machines
-            .GroupBy(m => m.MachineName, StringComparer.OrdinalIgnoreCase)
-            .ToDictionary(g => g.Key, g => g.First().Description, StringComparer.OrdinalIgnoreCase);
+            .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
+            .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
         // Load and Sort _systemConfigs
         _systemConfigs = SystemConfig.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
+        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Initialize the GamePadController
-        GamePadController.Instance2.ErrorLogger = (ex, msg) => _ = LogErrors.LogErrorAsync(ex, msg);
+        GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
             GamePadController.Instance2.Start();
@@ -179,7 +179,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
 
         // Call Stats API
-        Loaded += async (_, _) => await Stats.CallApiAsync();
+        Loaded += static async (_, _) => await Stats.CallApiAsync();
 
         // Attach the Load and Close events
         Loaded += MainWindow_Loaded;
@@ -241,15 +241,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
-    private async Task Letter_Click(string selectedLetter)
+    private Task Letter_Click(string selectedLetter)
     {
         ResetPaginationButtons(); // Ensure pagination is reset at the beginning
         SearchTextBox.Text = ""; // Clear SearchTextBox
         _currentFilter = selectedLetter; // Update current filter
-        await LoadGameFilesAsync(selectedLetter); // Load games
+        return LoadGameFilesAsync(selectedLetter); // Load games
     }
 
-    private async Task Favorites_Click()
+    private Task Favorites_Click()
     {
         // Change filter to ShowAll
         _settings.ShowGames = "ShowAll";
@@ -265,13 +265,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         if (favoriteGames.Count != 0)
         {
             _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
-            await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
+            return LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
         }
         else
         {
             AddNoFilesMessage();
             MessageBoxLibrary.NoFavoriteFoundMessageBox();
         }
+
+        return Task.CompletedTask;
     }
 
     private async void FeelingLucky_Click(object sender, RoutedEventArgs e)
@@ -304,7 +306,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 List<string> gameFiles;
 
                 // Otherwise, use the cached files for the selected system
-                if (_cachedFiles != null && _cachedFiles.Count > 0)
+                if (_cachedFiles is { Count: > 0 })
                 {
                     gameFiles = _cachedFiles;
                 }
@@ -312,7 +314,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 else
                 {
                     var systemFolderPath = selectedConfig.SystemFolder;
-                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
                     gameFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
 
@@ -331,18 +333,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Reset letter selection in the UI and current search
                 _letterNumberMenu.DeselectLetter();
                 SearchTextBox.Text = "";
-                _currentSearchResults = new List<string> { selectedGame };
+                _currentSearchResults = [selectedGame];
 
                 // Load just this game to display it
                 await LoadGameFilesAsync(null, "RANDOM_SELECTION");
 
                 // If in list view, select the game in the DataGrid
-                if (_settings.ViewMode == "ListView" && GameDataGrid.Items.Count > 0)
-                {
-                    GameDataGrid.SelectedIndex = 0;
-                    GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
-                    GameDataGrid.Focus();
-                }
+                if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
+
+                GameDataGrid.SelectedIndex = 0;
+                GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
+                GameDataGrid.Focus();
             }
             catch (Exception)
             {
@@ -480,8 +481,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         SaveApplicationSettings();
 
-        var processModule = Process.GetCurrentProcess()?.MainModule;
+        var processModule = Process.GetCurrentProcess().MainModule;
         if (processModule == null) return;
+
         var startInfo = new ProcessStartInfo
         {
             FileName = processModule.FileName,
@@ -542,6 +544,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
+
         var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
@@ -605,7 +608,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 if (selectedConfig != null)
                 {
                     // Populate EmulatorComboBox with the emulators for the selected system
-                    EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+                    EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
 
                     // Select the first emulator
                     if (EmulatorComboBox.Items.Count > 0)
@@ -622,7 +625,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                     // Display the system info
                     var systemFolderPath = selectedConfig.SystemFolder;
-                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"{ext}").ToList();
+                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"{ext}").ToList();
                     var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
 
                     // Display SystemInfo for that system
@@ -785,7 +788,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                 // Recount the number of files in the system folder
                 var systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(ext => $"*.{ext}").ToList();
+                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
                 var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
                 if (cachedFilesCount != await gameCount)
@@ -994,34 +997,41 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async void EasyMode_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
+        try
+        {
+            // Ensure pagination is reset at the beginning
+            ResetPaginationButtons();
 
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
+            // Clear SearchTextBox
+            SearchTextBox.Text = "";
 
-        // Update current filter
-        _currentFilter = null;
+            // Update current filter
+            _currentFilter = null;
 
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
+            // Empty SystemComboBox
+            _selectedSystem = null;
+            SystemComboBox.SelectedItem = null;
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+            SelectedSystem = nosystemselected;
+            PlayTime = "00:00:00";
 
-        AddNoSystemMessage();
+            AddNoSystemMessage();
 
-        EditSystemEasyModeWindow editSystemEasyModeAddSystemWindow = new();
-        editSystemEasyModeAddSystemWindow.ShowDialog();
+            EditSystemEasyModeWindow editSystemEasyModeAddSystemWindow = new();
+            editSystemEasyModeAddSystemWindow.ShowDialog();
 
-        // ReLoad and Sort _systemConfigs
-        _systemConfigs = SystemConfig.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
-        SystemComboBox.ItemsSource = sortedSystemNames;
+            // ReLoad and Sort _systemConfigs
+            _systemConfigs = SystemConfig.LoadSystemConfigs();
+            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
+            SystemComboBox.ItemsSource = sortedSystemNames;
 
-        // Refresh GameList
-        await LoadGameFilesAsync();
+            // Refresh GameList
+            await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method EasyMode_Click.");
+        }
     }
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
@@ -1049,7 +1059,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // ReLoad and Sort _systemConfigs
         _systemConfigs = SystemConfig.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(config => config.SystemName).OrderBy(name => name).ToList();
+        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
     }
 
@@ -1079,11 +1089,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
     {
-        EditLinksWindow editLinksWindow = new(_settings);
-        editLinksWindow.ShowDialog();
+        try
+        {
+            EditLinksWindow editLinksWindow = new(_settings);
+            editLinksWindow.ShowDialog();
 
-        // Refresh GameList
-        await LoadGameFilesAsync();
+            // Refresh GameList
+            await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+        }
     }
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
@@ -1150,7 +1167,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ShowAllGames_Click(object sender, RoutedEventArgs e)
     {
         // Show all games regardless of cover
-        UpdateGameVisibility(visibilityCondition: _ => true);
+        UpdateGameVisibility(static _ => true);
         UpdateShowGamesSetting("ShowAll");
         UpdateMenuCheckMarks("ShowAll");
     }
@@ -1158,10 +1175,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
     {
         // Show games that have covers (not using the default image)
-        UpdateGameVisibility(visibilityCondition: btn =>
+        UpdateGameVisibility(static btn =>
         {
             if (btn.Tag is GameButtonTag tag)
                 return !tag.IsDefaultImage;
+
             return false;
         });
         UpdateShowGamesSetting("ShowWithCover");
@@ -1171,10 +1189,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
     {
         // Show games that are using the default image (no cover available)
-        UpdateGameVisibility(visibilityCondition: btn =>
+        UpdateGameVisibility(static btn =>
         {
             if (btn.Tag is GameButtonTag tag)
                 return tag.IsDefaultImage;
+
             return false;
         });
         UpdateShowGamesSetting("ShowWithoutCover");
@@ -1208,6 +1227,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
+
         try
         {
             // Update the settings
@@ -1245,6 +1265,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             var sizeText = clickedItem.Name.Replace("Size", "");
 
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
+
             _gameButtonFactory.ImageHeight = newSize; // Update the image height
             _settings.ThumbnailSize = newSize;
             _settings.Save();
@@ -1293,18 +1314,27 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async void GamesPerPage_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is not MenuItem clickedItem) return;
-        var pageText = clickedItem.Name.Replace("Page", "");
-        if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
-        _filesPerPage = newPage;
-        _paginationThreshold = newPage;
-        _settings.GamesPerPage = newPage;
+        try
+        {
+            if (sender is not MenuItem clickedItem) return;
 
-        _settings.Save();
-        UpdateNumberOfGamesPerPageCheckMarks(newPage);
+            var pageText = clickedItem.Name.Replace("Page", "");
+            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
-        // Refresh GameList
-        await LoadGameFilesAsync();
+            _filesPerPage = newPage;
+            _paginationThreshold = newPage;
+            _settings.GamesPerPage = newPage;
+
+            _settings.Save();
+            UpdateNumberOfGamesPerPageCheckMarks(newPage);
+
+            // Refresh GameList
+            await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+        }
     }
 
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
@@ -1397,46 +1427,46 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
-        Size100.IsChecked = (selectedSize == 100);
-        Size150.IsChecked = (selectedSize == 150);
-        Size200.IsChecked = (selectedSize == 200);
-        Size250.IsChecked = (selectedSize == 250);
-        Size300.IsChecked = (selectedSize == 300);
-        Size350.IsChecked = (selectedSize == 350);
-        Size400.IsChecked = (selectedSize == 400);
-        Size450.IsChecked = (selectedSize == 450);
-        Size500.IsChecked = (selectedSize == 500);
-        Size550.IsChecked = (selectedSize == 550);
-        Size600.IsChecked = (selectedSize == 600);
-        Size650.IsChecked = (selectedSize == 650);
-        Size700.IsChecked = (selectedSize == 700);
-        Size750.IsChecked = (selectedSize == 750);
-        Size800.IsChecked = (selectedSize == 800);
+        Size100.IsChecked = selectedSize == 100;
+        Size150.IsChecked = selectedSize == 150;
+        Size200.IsChecked = selectedSize == 200;
+        Size250.IsChecked = selectedSize == 250;
+        Size300.IsChecked = selectedSize == 300;
+        Size350.IsChecked = selectedSize == 350;
+        Size400.IsChecked = selectedSize == 400;
+        Size450.IsChecked = selectedSize == 450;
+        Size500.IsChecked = selectedSize == 500;
+        Size550.IsChecked = selectedSize == 550;
+        Size600.IsChecked = selectedSize == 600;
+        Size650.IsChecked = selectedSize == 650;
+        Size700.IsChecked = selectedSize == 700;
+        Size750.IsChecked = selectedSize == 750;
+        Size800.IsChecked = selectedSize == 800;
     }
 
     private void UpdateNumberOfGamesPerPageCheckMarks(int selectedSize)
     {
-        Page100.IsChecked = (selectedSize == 100);
-        Page200.IsChecked = (selectedSize == 200);
-        Page300.IsChecked = (selectedSize == 300);
-        Page400.IsChecked = (selectedSize == 400);
-        Page500.IsChecked = (selectedSize == 500);
+        Page100.IsChecked = selectedSize == 100;
+        Page200.IsChecked = selectedSize == 200;
+        Page300.IsChecked = selectedSize == 300;
+        Page400.IsChecked = selectedSize == 400;
+        Page500.IsChecked = selectedSize == 500;
     }
 
     private void UpdateShowGamesCheckMarks(string selectedValue)
     {
-        ShowAll.IsChecked = (selectedValue == "ShowAll");
-        ShowWithCover.IsChecked = (selectedValue == "ShowWithCover");
-        ShowWithoutCover.IsChecked = (selectedValue == "ShowWithoutCover");
+        ShowAll.IsChecked = selectedValue == "ShowAll";
+        ShowWithCover.IsChecked = selectedValue == "ShowWithCover";
+        ShowWithoutCover.IsChecked = selectedValue == "ShowWithoutCover";
     }
 
     private void UpdateButtonAspectRatioCheckMarks(string selectedValue)
     {
-        Square.IsChecked = (selectedValue == "Square");
-        Wider.IsChecked = (selectedValue == "Wider");
-        SuperWider.IsChecked = (selectedValue == "SuperWider");
-        Taller.IsChecked = (selectedValue == "Taller");
-        SuperTaller.IsChecked = (selectedValue == "SuperTaller");
+        Square.IsChecked = selectedValue == "Square";
+        Wider.IsChecked = selectedValue == "Wider";
+        SuperWider.IsChecked = selectedValue == "SuperWider";
+        Taller.IsChecked = selectedValue == "Taller";
+        SuperTaller.IsChecked = selectedValue == "SuperTaller";
     }
 
     private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
@@ -1535,6 +1565,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
+
         var selectedLanguage = menuItem.Name switch
         {
             "LanguageArabic" => "ar",
@@ -1575,6 +1606,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ChangeBaseTheme_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
+
         var baseTheme = menuItem.Name;
         var currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
         App.ChangeTheme(baseTheme, currentAccent);
@@ -1586,6 +1618,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void ChangeAccentColor_Click(object sender, RoutedEventArgs e)
     {
         if (sender is not MenuItem menuItem) return;
+
         var accentColor = menuItem.Name;
         var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
         App.ChangeTheme(currentBaseTheme, accentColor);
@@ -1738,6 +1771,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         try
         {
             if (_currentPage <= 1) return;
+
             _currentPage--;
             if (_currentSearchResults.Count != 0)
             {
@@ -1765,17 +1799,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
 
-            if (_currentPage < totalPages)
+            if (_currentPage >= totalPages) return;
+
+            _currentPage++;
+            if (_currentSearchResults.Count != 0)
             {
-                _currentPage++;
-                if (_currentSearchResults.Count != 0)
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
+                await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+            }
+            else
+            {
+                await LoadGameFilesAsync(_currentFilter);
             }
         }
         catch (Exception ex)

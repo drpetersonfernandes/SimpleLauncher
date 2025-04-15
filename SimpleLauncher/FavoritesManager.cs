@@ -63,25 +63,24 @@ public class FavoritesManager
     private static void CheckForXmlDeletionMarker()
     {
         var markerPath = XmlFilePath + ".delete";
-        if (File.Exists(markerPath))
-        {
-            try
-            {
-                // Delete the marker first
-                File.Delete(markerPath);
+        if (!File.Exists(markerPath)) return;
 
-                // Then try to delete the XML file
-                if (File.Exists(XmlFilePath))
-                {
-                    File.Delete(XmlFilePath);
-                }
-            }
-            catch (Exception ex)
+        try
+        {
+            // Delete the marker first
+            File.Delete(markerPath);
+
+            // Then try to delete the XML file
+            if (File.Exists(XmlFilePath))
             {
-                // Notify developer
-                const string contextMessage = "Error deleting marked favorites.xml";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                File.Delete(XmlFilePath);
             }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error deleting marked favorites.xml";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -127,7 +126,7 @@ public class FavoritesManager
                 var manager = new FavoritesManager
                 {
                     FavoriteList = new ObservableCollection<Favorite>(
-                        xmlManager.FavoriteList.Select(xmlFav => new Favorite
+                        xmlManager.FavoriteList.Select(static xmlFav => new Favorite
                         {
                             FileName = xmlFav.FileName,
                             SystemName = xmlFav.SystemName
@@ -177,7 +176,7 @@ public class FavoritesManager
     {
         // Order the favorites only by FileName
         var orderedFavorites = new ObservableCollection<Favorite>(
-            FavoriteList.OrderBy(fav => fav.FileName)
+            FavoriteList.OrderBy(static fav => fav.FileName)
         );
         FavoriteList = orderedFavorites;
 

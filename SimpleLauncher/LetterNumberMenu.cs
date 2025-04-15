@@ -38,7 +38,7 @@ public class LetterNumberMenu
 
     private void InitializeLetterButtons()
     {
-        foreach (var c in Enumerable.Range('A', 26).Select(x => (char)x))
+        foreach (var c in Enumerable.Range('A', 26).Select(static x => (char)x))
         {
             Button button = new() { Content = c.ToString(), Width = 32, Height = 32 };
 
@@ -130,6 +130,7 @@ public class LetterNumberMenu
     public void DeselectLetter()
     {
         if (_selectedButton == null) return;
+
         _selectedButton.ClearValue(Control.BackgroundProperty);
         _selectedButton = null;
     }

@@ -135,7 +135,7 @@ public partial class MainWindow : IDisposable
         return dialog.ShowDialog() == true ? dialog.FolderName : null;
     }
 
-    private string? SelectFile()
+    private static string? SelectFile()
     {
         var dialog = new OpenFileDialog
         {

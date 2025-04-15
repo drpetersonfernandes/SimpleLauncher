@@ -202,7 +202,7 @@ public static partial class ParameterValidator
     /// </summary>
     public static bool ValidateParameterPaths(string parameters, out List<string> invalidPaths, string systemFolder = null, bool isMameSystem = false)
     {
-        invalidPaths = new List<string>();
+        invalidPaths = [];
         if (string.IsNullOrWhiteSpace(parameters)) return true;
 
         var allPathsValid = true;

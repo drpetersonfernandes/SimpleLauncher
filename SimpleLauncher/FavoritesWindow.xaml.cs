@@ -111,41 +111,40 @@ public partial class FavoritesWindow
     {
         try
         {
-            if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+            if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
+
+            if (selectedFavorite.FileName == null)
             {
-                if (selectedFavorite.FileName == null)
-                {
-                    // Notify developer
-                    const string contextMessage = "Favorite filename is null";
-                    var ex = new Exception(contextMessage);
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                // Notify developer
+                const string contextMessage = "Favorite filename is null";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                    // Notify user
-                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+                // Notify user
+                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
 
-                    return;
-                }
-
-                var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-                if (systemConfig == null)
-                {
-                    // Notify developer
-                    const string contextMessage = "systemConfig is null for the selected favorite";
-                    var ex = new Exception(contextMessage);
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-                    return;
-                }
-
-                var fileNameWithExtension = selectedFavorite.FileName;
-                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-                var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
-
-                AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
+                return;
             }
+
+            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemConfig == null)
+            {
+                // Notify developer
+                const string contextMessage = "systemConfig is null for the selected favorite";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                return;
+            }
+
+            var fileNameWithExtension = selectedFavorite.FileName;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
+            var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
+
+            AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
         }
         catch (Exception ex)
         {
@@ -276,6 +275,7 @@ public partial class FavoritesWindow
             PlayClick.PlayClickSound();
 
             if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+
             RightClickContextMenu.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig1);
         };
 
@@ -472,6 +472,7 @@ public partial class FavoritesWindow
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
             if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+
             _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig1, _fakebutton, _mainWindow);
 
             _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
@@ -502,6 +503,7 @@ public partial class FavoritesWindow
                 var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
                 if (result != MessageBoxResult.Yes) return;
+
                 try
                 {
                     RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakebutton, _fakeGameFileGrid, _mainWindow);
@@ -638,9 +640,9 @@ public partial class FavoritesWindow
 
             var mockSystemComboBox = new ComboBox();
             var mockEmulatorComboBox = new ComboBox();
-            mockSystemComboBox.ItemsSource = _systemConfigs.Select(config => config.SystemName).ToList();
+            mockSystemComboBox.ItemsSource = _systemConfigs.Select(static config => config.SystemName).ToList();
             mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(emulator => emulator.EmulatorName).ToList();
+            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
             mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
             // Launch Game
@@ -673,6 +675,7 @@ public partial class FavoritesWindow
         try
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
+
             PlayClick.PlayClickSound();
             await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
         }

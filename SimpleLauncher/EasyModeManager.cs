@@ -77,7 +77,7 @@ public class EasyModeManager
 
     public void Validate()
     {
-        Systems = Systems?.Where(system => system.IsValid()).ToList() ?? [];
+        Systems = Systems?.Where(static system => system.IsValid()).ToList() ?? [];
     }
 }
 

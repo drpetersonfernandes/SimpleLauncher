@@ -268,6 +268,7 @@ public static class MessageBoxLibrary
             error2, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -338,6 +339,7 @@ public static class MessageBoxLibrary
                                      $"{dowanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -404,6 +406,7 @@ public static class MessageBoxLibrary
                                      $"{dowanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -558,6 +561,7 @@ public static class MessageBoxLibrary
             $"{wouldyouliketoopentheerroruserlog}",
             error, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -967,6 +971,7 @@ public static class MessageBoxLibrary
                                      $"{wouldyouliketoopentheerroruserlog}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -993,6 +998,7 @@ public static class MessageBoxLibrary
             $"{wouldyouliketoberedirectedtothedownloadpage2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (messageBoxResult != MessageBoxResult.Yes) return;
+
         var downloadPageUrl = $"https://github.com/{repoOwner}/{repoName}/releases/latest";
         try
         {
@@ -1017,6 +1023,7 @@ public static class MessageBoxLibrary
                                                $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (messageBoxResult != MessageBoxResult.Yes) return;
+
         var downloadPageUrl = $"https://github.com/{repoOwner}/{repoName}/releases/latest";
         try
         {
@@ -1192,6 +1199,7 @@ public static class MessageBoxLibrary
                                      $"{wouldyouliketoberedirected2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1300,29 +1308,28 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{downloaderror2}\n\n" +
                                      $"{wouldyouliketoberedirected2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex2)
-            {
-                // Notify developer
-                const string contextMessage2 = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+        if (result != MessageBoxResult.Yes) return Task.CompletedTask;
 
-                // Notify user
-                var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = selectedSystem.Emulators.Emulator.EmulatorDownloadLink,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex2)
+        {
+            // Notify developer
+            const string contextMessage2 = "Error opening the download link.";
+            _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+
+            // Notify user
+            var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+            var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         return Task.CompletedTask;
@@ -1336,29 +1343,28 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{downloaderror2}\n\n" +
                                      $"{wouldyouliketoberedirected2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex2)
-            {
-                // Notify developer
-                const string contextMessage2 = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+        if (result != MessageBoxResult.Yes) return Task.CompletedTask;
 
-                // Notify user
-                var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = selectedSystem.Emulators.Emulator.CoreDownloadLink,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex2)
+        {
+            // Notify developer
+            const string contextMessage2 = "Error opening the download link.";
+            _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+
+            // Notify user
+            var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+            var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         return Task.CompletedTask;
@@ -1391,29 +1397,28 @@ public static class MessageBoxLibrary
         var result = MessageBox.Show($"{downloaderror2}\n\n" +
                                      $"{wouldyouliketoberedirected2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-        if (result == MessageBoxResult.Yes)
-        {
-            try
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception ex2)
-            {
-                // Notify developer
-                const string contextMessage2 = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+        if (result != MessageBoxResult.Yes) return Task.CompletedTask;
 
-                // Notify user
-                var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
-            }
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
+                UseShellExecute = true
+            });
+        }
+        catch (Exception ex2)
+        {
+            // Notify developer
+            const string contextMessage2 = "Error opening the download link.";
+            _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+
+            // Notify user
+            var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+            var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper2}",
+                error2, MessageBoxButton.OK, MessageBoxImage.Error);
         }
 
         return Task.CompletedTask;
@@ -1705,6 +1710,7 @@ public static class MessageBoxLibrary
                                      $"{doyouwanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1731,6 +1737,7 @@ public static class MessageBoxLibrary
                                      $"{doyouwanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1760,6 +1767,7 @@ public static class MessageBoxLibrary
                                      $"{doyouwanttoopenthefile2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1792,6 +1800,7 @@ public static class MessageBoxLibrary
             $"{doyouwanttoopenthefile2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1833,6 +1842,7 @@ public static class MessageBoxLibrary
                                      $"{doyouwanttoopenthefileerroruserlog2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo
@@ -1872,6 +1882,7 @@ public static class MessageBoxLibrary
             $"{doyouwanttoopenthefileerror2}",
             error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
         if (result != MessageBoxResult.Yes) return;
+
         try
         {
             Process.Start(new ProcessStartInfo

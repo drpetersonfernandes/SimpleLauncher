@@ -50,13 +50,12 @@ public class TrayIconManager : IDisposable
 
     private void MainWindow_StateChanged(object sender, EventArgs e)
     {
-        if (_mainWindow.WindowState == WindowState.Minimized)
-        {
-            _mainWindow.Hide();
-            // Retrieve the dynamic resource string
-            var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
-            ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
-        }
+        if (_mainWindow.WindowState != WindowState.Minimized) return;
+
+        _mainWindow.Hide();
+        // Retrieve the dynamic resource string
+        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
+        ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
     }
 
     // Handle "Open" context menu item or tray icon double-click
@@ -99,11 +98,10 @@ public class TrayIconManager : IDisposable
         {
             foreach (var item in _trayMenu.Items)
             {
-                if (item is MenuItem menuItem)
-                {
-                    menuItem.Click -= OnOpen;
-                    menuItem.Click -= OnExit;
-                }
+                if (item is not MenuItem menuItem) continue;
+
+                menuItem.Click -= OnOpen;
+                menuItem.Click -= OnExit;
             }
         }
 

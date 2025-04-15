@@ -62,8 +62,8 @@ public partial class EditSystemWindow
         if (_xmlDoc == null) return;
 
         SystemNameDropdown.ItemsSource = _xmlDoc.Descendants("SystemConfig")
-            .Select(element => element.Element("SystemName")?.Value)
-            .OrderBy(name => name)
+            .Select(static element => element.Element("SystemName")?.Value)
+            .OrderBy(static name => name)
             .ToList();
     }
 
@@ -101,7 +101,7 @@ public partial class EditSystemWindow
 
             // Handle multiple FormatToSearch values
             var formatToSearchValues = selectedSystem.Element("FileFormatsToSearch")?.Elements("FormatToSearch")
-                .Select(x => x.Value)
+                .Select(static x => x.Value)
                 .ToArray();
             FormatToSearchTextBox.Text = formatToSearchValues != null
                 ? string.Join(", ", formatToSearchValues)
@@ -116,10 +116,10 @@ public partial class EditSystemWindow
 
             // Handle multiple FormatToLaunch values
             var formatToLaunchValues = selectedSystem.Element("FileFormatsToLaunch")?.Elements("FormatToLaunch")
-                .Select(x => x.Value)
+                .Select(static x => x.Value)
                 .ToArray();
             FormatToLaunchTextBox.Text = formatToLaunchValues != null
-                ? String.Join(", ", formatToLaunchValues)
+                ? string.Join(", ", formatToLaunchValues)
                 : string.Empty;
 
             var emulators = selectedSystem.Element("Emulators")?.Elements("Emulator").ToList();
@@ -341,13 +341,12 @@ public partial class EditSystemWindow
         };
 
         // Show dialog and handle result
-        if (openFolderDialog.ShowDialog() == true)
-        {
-            var foldername = openFolderDialog.FolderName;
-            SystemFolderTextBox.Text = foldername;
+        if (openFolderDialog.ShowDialog() != true) return;
 
-            MarkValid(SystemFolderTextBox);
-        }
+        var foldername = openFolderDialog.FolderName;
+        SystemFolderTextBox.Text = foldername;
+
+        MarkValid(SystemFolderTextBox);
     }
 
     private void ChooseSystemImageFolder(object sender, RoutedEventArgs e)
@@ -664,28 +663,26 @@ public partial class EditSystemWindow
                 isEmulator5LocationValid)) return;
 
         // Check parameter paths
-        string[] parameterTexts = { emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText };
+        string[] parameterTexts =
+        [
+            emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText
+        ];
         ValidateAndWarnAboutParameters(parameterTexts);
 
         // Get the notification settings, defaulting to false if not selected or null
-        var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem item1 &&
-                                   item1.Content != null &&
+        var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem { Content: not null } item1 &&
                                    item1.Content.ToString() == "true"; // Default to false
 
-        var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem item2 &&
-                                   item2.Content != null &&
+        var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem { Content: not null } item2 &&
                                    item2.Content.ToString() == "true"; // Default to false
 
-        var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem item3 &&
-                                   item3.Content != null &&
+        var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem { Content: not null } item3 &&
                                    item3.Content.ToString() == "true"; // Default to false
 
-        var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem item4 &&
-                                   item4.Content != null &&
+        var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem { Content: not null } item4 &&
                                    item4.Content.ToString() == "true"; // Default to false
 
-        var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem item5 &&
-                                   item5.Content != null &&
+        var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem { Content: not null } item5 &&
                                    item5.Content.ToString() == "true"; // Default to false
 
         ////////////////
@@ -738,22 +735,21 @@ public partial class EditSystemWindow
             }
 
             // If the emulator name is provided, check for uniqueness and add the emulator details to XML
-            if (!string.IsNullOrEmpty(emulatorName))
+            if (string.IsNullOrEmpty(emulatorName)) continue;
+
+            // Check for uniqueness
+            if (!emulatorNames.Add(emulatorName))
             {
-                // Check for uniqueness
-                if (!emulatorNames.Add(emulatorName))
-                {
-                    // Notify user
-                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox2(emulatorName);
+                // Notify user
+                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox2(emulatorName);
 
-                    return;
-                }
-
-                ////////////////
-                // XML factory//
-                ////////////////
-                AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters, receiveNotification);
+                return;
             }
+
+            ////////////////
+            // XML factory//
+            ////////////////
+            AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters, receiveNotification);
         }
 
         // Check if we're updating an existing system
@@ -871,10 +867,10 @@ public partial class EditSystemWindow
             new XElement("SystemImageFolder", systemImageFolderText),
             new XElement("SystemIsMAME", systemIsMame),
             new XElement("FileFormatsToSearch",
-                formatsToSearch.Select(format => new XElement("FormatToSearch", format))),
+                formatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("ExtractFileBeforeLaunch", extractFileBeforeLaunch),
             new XElement("FileFormatsToLaunch",
-                formatsToLaunch.Select(format => new XElement("FormatToLaunch", format))),
+                formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
             emulatorsElement);
         return newSystem;
     }
@@ -888,10 +884,10 @@ public partial class EditSystemWindow
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
         existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
         existingSystem.Element("FileFormatsToSearch")
-            ?.ReplaceNodes(formatsToSearch.Select(format => new XElement("FormatToSearch", format)));
+            ?.ReplaceNodes(formatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
         existingSystem.Element("FileFormatsToLaunch")
-            ?.ReplaceNodes(formatsToLaunch.Select(format => new XElement("FormatToLaunch", format)));
+            ?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")
             ?.Remove(); // Remove the existing emulators section before adding updated one
         existingSystem.Add(emulatorsElement);
@@ -901,56 +897,47 @@ public partial class EditSystemWindow
         bool isEmulator2LocationValid, bool isEmulator3LocationValid, bool isEmulator4LocationValid,
         bool isEmulator5LocationValid)
     {
-        if (!isSystemFolderValid || !isSystemImageFolderValid || !isEmulator1LocationValid || !isEmulator2LocationValid ||
-            !isEmulator3LocationValid || !isEmulator4LocationValid || !isEmulator5LocationValid)
-        {
-            // Notify user
-            MessageBoxLibrary.PathOrParameterInvalidMessageBox();
+        if (isSystemFolderValid && isSystemImageFolderValid && isEmulator1LocationValid && isEmulator2LocationValid &&
+            isEmulator3LocationValid && isEmulator4LocationValid && isEmulator5LocationValid) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.PathOrParameterInvalidMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool ValidateEmulator1Name(string emulator1NameText)
     {
-        if (string.IsNullOrEmpty(emulator1NameText))
-        {
-            // Notify user
-            MessageBoxLibrary.Emulator1RequiredMessageBox();
+        if (!string.IsNullOrEmpty(emulator1NameText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.Emulator1RequiredMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch,
         out List<string> formatsToLaunch)
     {
         formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
-            .Select(format => format.Trim())
-            .Where(format => !string.IsNullOrEmpty(format))
+            .Select(static format => format.Trim())
+            .Where(static format => !string.IsNullOrEmpty(format))
             .ToList();
 
-        if (formatsToLaunch.Count == 0 && extractFileBeforeLaunch)
-        {
-            // Notify user
-            MessageBoxLibrary.ExtensionToLaunchIsRequiredMessageBox();
+        if (formatsToLaunch.Count != 0 || !extractFileBeforeLaunch) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.ExtensionToLaunchIsRequiredMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch,
         out List<string> formatsToSearch)
     {
         formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
-            .Select(format => format.Trim())
-            .Where(format => !string.IsNullOrEmpty(format))
+            .Select(static format => format.Trim())
+            .Where(static format => !string.IsNullOrEmpty(format))
             .ToList();
         if (formatsToSearch.Count == 0)
         {
@@ -960,15 +947,12 @@ public partial class EditSystemWindow
             return true;
         }
 
-        if (extractFileBeforeLaunch && !formatsToSearch.All(f => f is "zip" or "7z" or "rar"))
-        {
-            // Notify user
-            MessageBoxLibrary.FileMustBeCompressedMessageBox();
+        if (!extractFileBeforeLaunch || formatsToSearch.All(static f => f is "zip" or "7z" or "rar")) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.FileMustBeCompressedMessageBox();
 
-        return false;
+        return true;
     }
 
     private bool ValidateSystemImageFolder(string systemNameText, ref string systemImageFolderText)
@@ -995,15 +979,12 @@ public partial class EditSystemWindow
             }
         }
 
-        if (string.IsNullOrEmpty(systemImageFolderText))
-        {
-            // Notify user
-            MessageBoxLibrary.SystemImageFolderCanNotBeEmptyMessageBox();
+        if (!string.IsNullOrEmpty(systemImageFolderText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.SystemImageFolderCanNotBeEmptyMessageBox();
 
-        return false;
+        return true;
     }
 
     private bool ValidateSystemFolder(string systemNameText, ref string systemFolderText)
@@ -1030,28 +1011,22 @@ public partial class EditSystemWindow
             }
         }
 
-        if (string.IsNullOrEmpty(systemFolderText))
-        {
-            // Notify user
-            MessageBoxLibrary.SystemFolderCanNotBeEmptyMessageBox();
+        if (!string.IsNullOrEmpty(systemFolderText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.SystemFolderCanNotBeEmptyMessageBox();
 
-        return false;
+        return true;
     }
 
     private static bool ValidateSystemName(string systemNameText)
     {
-        if (string.IsNullOrEmpty(systemNameText))
-        {
-            // Notify user
-            MessageBoxLibrary.SystemNameCanNotBeEmptyMessageBox();
+        if (!string.IsNullOrEmpty(systemNameText)) return false;
 
-            return true;
-        }
+        // Notify user
+        MessageBoxLibrary.SystemNameCanNotBeEmptyMessageBox();
 
-        return false;
+        return true;
     }
 
     private void HandleValidationAlerts(bool isSystemFolderValid, bool isSystemImageFolderValid,
@@ -1113,6 +1088,7 @@ public partial class EditSystemWindow
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
     {
         if (string.IsNullOrEmpty(name)) return; // Check if the emulator name is not empty
+
         var emulatorElement = new XElement("Emulator",
             new XElement("EmulatorName", name),
             new XElement("EmulatorLocation", location),
@@ -1136,6 +1112,7 @@ public partial class EditSystemWindow
         var selectedSystemName = SystemNameDropdown.SelectedItem.ToString();
 
         if (_xmlDoc == null) return;
+
         var systemNode = _xmlDoc.Descendants("SystemConfig")
             .FirstOrDefault(element => element.Element("SystemName")?.Value == selectedSystemName);
 
@@ -1147,15 +1124,14 @@ public partial class EditSystemWindow
             void DoYouWanToDeleteSystemMessageBox()
             {
                 var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-                if (result == MessageBoxResult.Yes)
-                {
-                    systemNode.Remove();
-                    _xmlDoc.Save(XmlFilePath);
-                    PopulateSystemNamesDropdown();
-                    ClearFields();
+                if (result != MessageBoxResult.Yes) return;
 
-                    MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
-                }
+                systemNode.Remove();
+                _xmlDoc.Save(XmlFilePath);
+                PopulateSystemNamesDropdown();
+                ClearFields();
+
+                MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
             }
         }
         else
@@ -1195,11 +1171,11 @@ public partial class EditSystemWindow
     {
         // Validate Emulator Parameter Text Boxes
         TextBox[] parameterTextBoxes =
-        {
+        [
             Emulator1ParametersTextBox, Emulator2ParametersTextBox,
             Emulator3ParametersTextBox, Emulator4ParametersTextBox,
             Emulator5ParametersTextBox
-        };
+        ];
 
         foreach (var textBox in parameterTextBoxes)
         {
@@ -1222,18 +1198,18 @@ public partial class EditSystemWindow
         var hasInvalidParameters = false;
         var allInvalidPaths = new List<string>();
         string[] emulatorNames =
-        {
+        [
             Emulator1NameTextBox.Text, Emulator2NameTextBox.Text,
             Emulator3NameTextBox.Text, Emulator4NameTextBox.Text,
             Emulator5NameTextBox.Text
-        };
+        ];
 
         TextBox[] parameterTextBoxes =
-        {
+        [
             Emulator1ParametersTextBox, Emulator2ParametersTextBox,
             Emulator3ParametersTextBox, Emulator4ParametersTextBox,
             Emulator5ParametersTextBox
-        };
+        ];
 
         // Check if this is a MAME emulator
         var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
@@ -1247,11 +1223,10 @@ public partial class EditSystemWindow
             var areParametersValid = ParameterValidator.ValidateParameterPaths(parameterTexts[i], out var invalidPaths, systemFolder, isMameSystem);
 
             MarkInvalid(parameterTextBoxes[i], areParametersValid);
-            if (!areParametersValid)
-            {
-                hasInvalidParameters = true;
-                allInvalidPaths.AddRange(invalidPaths.Select(path => $"{emulatorNames[i]}: {path}"));
-            }
+            if (areParametersValid) continue;
+
+            hasInvalidParameters = true;
+            allInvalidPaths.AddRange(invalidPaths.Select(path => $"{emulatorNames[i]}: {path}"));
         }
 
         // Show detailed warning if invalid parameters found, but still continue with save
