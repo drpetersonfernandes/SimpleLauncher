@@ -35,8 +35,6 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertToCompressedFil
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchConvertIsoToXiso", "BatchConvertIsoToXiso\BatchConvertIsoToXiso.csproj", "{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MAMEUtility", "MAMEUtility\MAMEUtility.csproj", "{62F2DEF4-6279-49D5-8565-EAE067AB343A}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchVerifyCHDFiles", "BatchVerifyCHDFiles\BatchVerifyCHDFiles.csproj", "{D3DADE0F-A9B8-45D2-9374-B83B8849A080}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.csproj", "{AD2FAEC7-F96B-490D-B4DB-E12C1A97BCA9}"
@@ -87,10 +85,6 @@ Global
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{2974AC09-0CD9-4B0C-BB0C-7643CA00461D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{62F2DEF4-6279-49D5-8565-EAE067AB343A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{D3DADE0F-A9B8-45D2-9374-B83B8849A080}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{D3DADE0F-A9B8-45D2-9374-B83B8849A080}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D3DADE0F-A9B8-45D2-9374-B83B8849A080}.Release|Any CPU.ActiveCfg = Release|Any CPU
