@@ -54,7 +54,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _logWindow.Show();
     }
 
-    private void Log(string message)
+    private void LogMessage(string message)
     {
         _logWindow.AppendLog(message);
     }
@@ -93,7 +93,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             OverallProgress = 0;
 
-            Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
+            LogMessage("Select MAME full driver information in XML. You can download this file from the MAME Website.");
             OpenFileDialog openFileDialog = new()
             {
                 Title = "Select MAME full driver information in XML",
@@ -104,7 +104,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 var inputFilePath = openFileDialog.FileName;
 
-                Log("Put a name to your output file.");
+                LogMessage("Put a name to your output file.");
                 SaveFileDialog saveFileDialog = new()
                 {
                     Title = "Save MAMEFull",
@@ -120,21 +120,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     {
                         var inputDoc = XDocument.Load(inputFilePath);
                         await MameFull.CreateAndSaveMameFullAsync(inputDoc, outputFilePathMameFull, _worker);
-                        Log("Output file saved.");
+                        LogMessage("Output file saved.");
                     }
                     catch (Exception ex)
                     {
-                        Log("An error occurred: " + ex.Message);
+                        LogMessage("An error occurred: " + ex.Message);
                     }
                 }
                 else
                 {
-                    Log("No output file specified for MAMEFull.xml. Operation cancelled.");
+                    LogMessage("No output file specified for MAMEFull.xml. Operation cancelled.");
                 }
             }
             else
             {
-                Log("No input file selected. Operation cancelled.");
+                LogMessage("No input file selected. Operation cancelled.");
             }
         }
         catch (Exception ex)
@@ -146,7 +146,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
+        LogMessage("Select MAME full driver information in XML. You can download this file from the MAME Website.");
         OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
@@ -157,7 +157,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var inputFilePath = openFileDialog.FileName;
 
-            Log("Select Output Folder.");
+            LogMessage("Select Output Folder.");
             var folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Select Output Folder"
@@ -177,21 +177,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     });
 
                     await MameManufacturer.CreateAndSaveMameManufacturerAsync(inputDoc, outputFolderMameManufacturer, progress);
-                    Log("Data extracted and saved successfully for all manufacturers.");
+                    LogMessage("Data extracted and saved successfully for all manufacturers.");
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No output folder specified. Operation cancelled.");
+                LogMessage("No output folder specified. Operation cancelled.");
             }
         }
         else
         {
-            Log("No input file selected. Operation cancelled.");
+            LogMessage("No input file selected. Operation cancelled.");
         }
     }
 
@@ -199,7 +199,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
+        LogMessage("Select MAME full driver information in XML. You can download this file from the MAME Website.");
         OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
@@ -210,7 +210,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var inputFilePath = openFileDialog.FileName;
 
-            Log("Select Output Folder.");
+            LogMessage("Select Output Folder.");
             var folderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Select Output Folder"
@@ -230,21 +230,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     });
 
                     await Task.Run(() => MameYear.CreateAndSaveMameYear(inputDoc, outputFolderMameYear, progress));
-                    Log("XML files created successfully for all years.");
+                    LogMessage("XML files created successfully for all years.");
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No output folder specified. Operation cancelled.");
+                LogMessage("No output folder specified. Operation cancelled.");
             }
         }
         else
         {
-            Log("No input file selected. Operation cancelled.");
+            LogMessage("No input file selected. Operation cancelled.");
         }
     }
 
@@ -252,7 +252,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select MAME full driver information in XML. You can download this file from the MAME Website.");
+        LogMessage("Select MAME full driver information in XML. You can download this file from the MAME Website.");
         OpenFileDialog openFileDialog = new()
         {
             Title = "Select MAME full driver information in XML",
@@ -263,7 +263,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var inputFilePath = openFileDialog.FileName;
 
-            Log("Select Output Folder.");
+            LogMessage("Select Output Folder.");
             FolderBrowserDialog folderBrowserDialog = new()
             {
                 Description = "Select Output Folder"
@@ -283,21 +283,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     });
 
                     await MameSourcefile.CreateAndSaveMameSourcefileAsync(inputDoc, outputFolderMameSourcefile, progress);
-                    Log("Data extracted and saved successfully for all source files.");
+                    LogMessage("Data extracted and saved successfully for all source files.");
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No output folder specified. Operation cancelled.");
+                LogMessage("No output folder specified. Operation cancelled.");
             }
         }
         else
         {
-            Log("No input file selected. Operation cancelled.");
+            LogMessage("No input file selected. Operation cancelled.");
         }
     }
 
@@ -305,7 +305,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select XML files to merge. You can select multiple XML files.");
+        LogMessage("Select XML files to merge. You can select multiple XML files.");
         OpenFileDialog openFileDialog = new()
         {
             Title = "Select XML files to merge",
@@ -317,7 +317,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             string[] inputFilePaths = openFileDialog.FileNames; // Get all selected file paths
 
-            Log("Select where to save the merged XML file.");
+            LogMessage("Select where to save the merged XML file.");
             SaveFileDialog saveFileDialog = new()
             {
                 Title = "Save Merged XML",
@@ -336,23 +336,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 {
                     // Use the new method that creates both XML and DAT files
                     MergeList.MergeAndSaveBoth(inputFilePaths, outputXmlPath, outputDatPath);
-                    Log($"Merging completed. Created XML file ({outputXmlPath}) and DAT file ({outputDatPath}).");
+                    LogMessage($"Merging completed. Created XML file ({outputXmlPath}) and DAT file ({outputDatPath}).");
 
                     OverallProgress = 100;
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No output file specified for merged XML. Operation cancelled.");
+                LogMessage("No output file specified for merged XML. Operation cancelled.");
             }
         }
         else
         {
-            Log("No input file selected. Operation cancelled.");
+            LogMessage("No input file selected. Operation cancelled.");
         }
     }
 
@@ -360,7 +360,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select the source directory containing the ROMs.");
+        LogMessage("Select the source directory containing the ROMs.");
         var sourceFolderBrowserDialog = new FolderBrowserDialog
         {
             Description = "Select the source directory containing the ROMs"
@@ -370,7 +370,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var sourceDirectory = sourceFolderBrowserDialog.SelectedPath;
 
-            Log("Select the destination directory for the ROMs.");
+            LogMessage("Select the destination directory for the ROMs.");
             var destinationFolderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Select the destination directory for the ROMs"
@@ -380,7 +380,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 var destinationDirectory = destinationFolderBrowserDialog.SelectedPath;
 
-                Log("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
+                LogMessage("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
                 OpenFileDialog openFileDialog = new()
                 {
                     Title = "Please select the XML file(s) containing ROM information",
@@ -400,26 +400,26 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         });
 
                         await CopyRoms.CopyRomsFromXmlAsync(xmlFilePaths, sourceDirectory, destinationDirectory, progress);
-                        Log("ROM copy operation is finished.");
+                        LogMessage("ROM copy operation is finished.");
                     }
                     catch (Exception ex)
                     {
-                        Log($"An error occurred: {ex.Message}");
+                        LogMessage($"An error occurred: {ex.Message}");
                     }
                 }
                 else
                 {
-                    Log("You did not provide the XML file(s) containing ROM information. Operation cancelled.");
+                    LogMessage("You did not provide the XML file(s) containing ROM information. Operation cancelled.");
                 }
             }
             else
             {
-                Log("You did not select a destination directory for the ROMs. Operation cancelled.");
+                LogMessage("You did not select a destination directory for the ROMs. Operation cancelled.");
             }
         }
         else
         {
-            Log("You did not provide the source directory containing the ROMs. Operation cancelled.");
+            LogMessage("You did not provide the source directory containing the ROMs. Operation cancelled.");
         }
     }
 
@@ -427,7 +427,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select the source directory containing the images.");
+        LogMessage("Select the source directory containing the images.");
         var sourceFolderBrowserDialog = new FolderBrowserDialog
         {
             Description = "Select the source directory containing the images"
@@ -437,7 +437,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var sourceDirectory = sourceFolderBrowserDialog.SelectedPath;
 
-            Log("Select the destination directory for the images.");
+            LogMessage("Select the destination directory for the images.");
             var destinationFolderBrowserDialog = new FolderBrowserDialog
             {
                 Description = "Select the destination directory for the images"
@@ -447,7 +447,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 var destinationDirectory = destinationFolderBrowserDialog.SelectedPath;
 
-                Log("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
+                LogMessage("Please select the XML file(s) containing ROM information. You can select multiple XML files.");
                 OpenFileDialog openFileDialog = new()
                 {
                     Title = "Please select the XML file(s) containing ROM information",
@@ -467,21 +467,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     });
 
                     await CopyImages.CopyImagesFromXmlAsync(xmlFilePaths, sourceDirectory, destinationDirectory, progress);
-                    Log("Image copy operation is finished.");
+                    LogMessage("Image copy operation is finished.");
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No destination directory selected. Operation cancelled.");
+                LogMessage("No destination directory selected. Operation cancelled.");
             }
         }
         else
         {
-            Log("No source directory selected. Operation cancelled.");
+            LogMessage("No source directory selected. Operation cancelled.");
         }
     }
 
@@ -504,7 +504,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         OverallProgress = 0;
 
-        Log("Select the folder containing XML files to process.");
+        LogMessage("Select the folder containing XML files to process.");
         using var folderBrowserDialog = new FolderBrowserDialog();
         folderBrowserDialog.Description = "Select the folder containing XML files to process";
 
@@ -512,7 +512,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var inputFolderPath = folderBrowserDialog.SelectedPath;
 
-            Log("Choose a location to save the consolidated output XML file.");
+            LogMessage("Choose a location to save the consolidated output XML file.");
             SaveFileDialog saveFileDialog = new()
             {
                 Title = "Save Consolidated XML File",
@@ -532,21 +532,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     });
 
                     MameSoftwareList.CreateAndSaveSoftwareList(inputFolderPath, outputFilePath, progress, _logWindow);
-                    Log("Consolidated XML file created successfully.");
+                    LogMessage("Consolidated XML file created successfully.");
                 }
                 catch (Exception ex)
                 {
-                    Log("An error occurred: " + ex.Message);
+                    LogMessage("An error occurred: " + ex.Message);
                 }
             }
             else
             {
-                Log("No output file specified. Operation cancelled.");
+                LogMessage("No output file specified. Operation cancelled.");
             }
         }
         else
         {
-            Log("No folder selected. Operation cancelled.");
+            LogMessage("No folder selected. Operation cancelled.");
         }
     }
 
