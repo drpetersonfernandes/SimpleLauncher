@@ -54,6 +54,7 @@ public partial class MameManufacturer
         catch (Exception ex)
         {
             Console.WriteLine("An error occurred: " + ex.Message);
+            await LogError.LogAsync(ex, "Error in method MAMEManufacturer.CreateAndSaveMameManufacturerAsync");
         }
     }
 
@@ -69,6 +70,7 @@ public partial class MameManufacturer
         catch (Exception ex)
         {
             Console.WriteLine($"Failed to create file for {safeManufacturerName}. Error: {ex.Message}");
+            await LogError.LogAsync(ex, "Error in method MAMEManufacturer.CreateAndSaveFilteredDocumentAsync");
         }
     }
 

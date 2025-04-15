@@ -22,6 +22,7 @@ public static class CopyRoms
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred processing {Path.GetFileName(xmlFilePath)}: {ex.Message}");
+                await LogError.LogAsync(ex, $"An error occurred processing {Path.GetFileName(xmlFilePath)}");
             }
         }
     }
@@ -34,6 +35,8 @@ public static class CopyRoms
         if (!ValidateXmlStructure(xmlDoc))
         {
             Console.WriteLine($"The file {Path.GetFileName(xmlFilePath)} does not match the required XML structure. Operation cancelled.");
+            await LogError.LogMessageAsync($"The file {Path.GetFileName(xmlFilePath)} does not match the required XML structure. Operation cancelled.", LogLevel.Warning);
+
             return; // Stop processing this XML file
         }
 
@@ -57,7 +60,7 @@ public static class CopyRoms
 
     private static Task CopyRomAsync(string sourceDirectory, string destinationDirectory, string? machineName)
     {
-        return Task.Run(() =>
+        return Task.Run(async () =>
         {
             Console.WriteLine($"Attempting to copy ROM for machine: {machineName}");
             try
@@ -81,6 +84,7 @@ public static class CopyRoms
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred copying ROM for {machineName}: {ex.Message}");
+                await LogError.LogAsync(ex, $"An error occurred copying ROM for {machineName}");
             }
         });
     }

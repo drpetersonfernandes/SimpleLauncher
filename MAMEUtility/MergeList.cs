@@ -1,5 +1,6 @@
 ﻿using System.IO;
 using System.Xml.Linq;
+using MAMEUtility;
 using MessagePack;
 
 namespace MameUtility;
@@ -49,6 +50,8 @@ public static class MergeList
             catch (Exception ex)
             {
                 Console.WriteLine($"An error occurred while loading the file {inputFilePath}: {ex.Message}");
+                _ = LogError.LogAsync(ex, $"An error occurred while loading the file {inputFilePath}: {ex.Message}");
+
                 return null; // Stop processing if there's an error loading a file
             }
         }

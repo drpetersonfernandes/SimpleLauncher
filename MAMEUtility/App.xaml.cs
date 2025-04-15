@@ -10,6 +10,7 @@ namespace MAMEUtility;
 public partial class App : IDisposable
 {
     private BugReportService? _bugReportService;
+    private LogError? _logError;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -22,6 +23,10 @@ public partial class App : IDisposable
             config.BugReportApiKey
         );
 
+        // Initialize error logging
+        _logError = new LogError(_bugReportService);
+        LogError.Initialize(_bugReportService);
+
         // Set up global exception handling
         AppDomain.CurrentDomain.UnhandledException += OnUnhandledException;
         DispatcherUnhandledException += OnDispatcherUnhandledException;
@@ -32,13 +37,13 @@ public partial class App : IDisposable
     {
         if (e.ExceptionObject is Exception exception)
         {
-            ReportException(exception);
+            LogAndReportException(exception);
         }
     }
 
     private void OnDispatcherUnhandledException(object? sender, DispatcherUnhandledExceptionEventArgs e)
     {
-        ReportException(e.Exception);
+        LogAndReportException(e.Exception);
 
         // Mark as handled to prevent application from crashing
         e.Handled = true;
@@ -46,21 +51,21 @@ public partial class App : IDisposable
 
     private void OnUnobservedTaskException(object? sender, UnobservedTaskExceptionEventArgs e)
     {
-        ReportException(e.Exception);
+        LogAndReportException(e.Exception);
         e.SetObserved();
     }
 
-    private void ReportException(Exception exception)
+    private void LogAndReportException(Exception exception)
     {
         try
         {
             // Log exception to console for debugging purposes
             Console.WriteLine($"Error: {exception.Message}");
 
-            // Asynchronously send to bug report API
-            if (_bugReportService != null)
+            // Use our LogError class to handle the exception
+            if (_logError != null)
             {
-                _ = _bugReportService.SendExceptionReportAsync(exception);
+                _ = _logError.LogExceptionAsync(exception);
             }
         }
         catch

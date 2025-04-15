@@ -9,7 +9,7 @@ public static class MameYear
     {
         Console.WriteLine($"Output folder for MAME Year: {outputFolderMameYear}");
 
-        return Task.Run(() =>
+        return Task.Run(async () =>
         {
             try
             {
@@ -56,6 +56,7 @@ public static class MameYear
             catch (Exception ex)
             {
                 Console.WriteLine("An error occurred: " + ex.Message);
+                await LogError.LogAsync(ex, "Error in method MAMEYear.CreateAndSaveMameYear");
             }
         });
     }

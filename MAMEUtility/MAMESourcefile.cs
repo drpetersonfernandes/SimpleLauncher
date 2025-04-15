@@ -51,6 +51,7 @@ public static class MameSourcefile
         catch (Exception ex)
         {
             Console.WriteLine("An error occurred: " + ex.Message);
+            await LogError.LogAsync(ex, "Error in method MAMESourcefile.CreateAndSaveMameSourcefileAsync");
         }
     }
 
@@ -77,6 +78,7 @@ public static class MameSourcefile
         catch (Exception ex)
         {
             Console.WriteLine($"Failed to create file for {sourceFile}. Error: {ex.Message}");
+            await LogError.LogAsync(ex, "Error in method MAMESourcefile.CreateAndSaveFilteredDocumentAsync");
         }
 
         return;

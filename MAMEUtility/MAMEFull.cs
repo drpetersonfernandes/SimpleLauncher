@@ -5,12 +5,12 @@ namespace MAMEUtility;
 
 public static class MameFull
 {
-    public static void CreateAndSaveMameFullAsync(XDocument inputDoc, string outputFilePathMameFull,
-        BackgroundWorker worker)
+    public static Task CreateAndSaveMameFullAsync(XDocument inputDoc, string outputFilePathMameFull, BackgroundWorker worker)
+
     {
         Console.WriteLine($"Output folder for MAME Full: {outputFilePathMameFull}");
 
-        Task.Run(() =>
+        return Task.Run(() =>
         {
             var totalMachines = inputDoc.Descendants("machine").Count();
             var machinesProcessed = 0;
