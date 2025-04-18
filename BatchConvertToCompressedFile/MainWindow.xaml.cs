@@ -212,7 +212,7 @@ public partial class MainWindow : IDisposable
         try
         {
             LogMessage("Preparing for batch compression...");
-            var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly).ToArray();
+            var files = Directory.GetFiles(inputFolder, "*.*", SearchOption.TopDirectoryOnly);
             LogMessage($"Found {files.Length} files to compress.");
 
             if (files.Length == 0)
@@ -450,37 +450,6 @@ public partial class MainWindow : IDisposable
         {
             return Path.Combine(appDirectory, "7z_x86.exe");
         }
-    }
-
-    /// <summary>
-    /// Checks if both 7z executables exist and logs their status
-    /// </summary>
-    /// <returns>True if at least one executable exists</returns>
-    private bool VerifySevenZipExecutables()
-    {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var x64Exists = File.Exists(Path.Combine(appDirectory, "7z.exe"));
-        var x86Exists = File.Exists(Path.Combine(appDirectory, "7z_x86.exe"));
-
-        if (x64Exists)
-        {
-            LogMessage("7z.exe (64-bit) found in the application directory.");
-        }
-        else
-        {
-            LogMessage("WARNING: 7z.exe (64-bit) not found in the application directory!");
-        }
-
-        if (x86Exists)
-        {
-            LogMessage("7z_x86.exe (32-bit) found in the application directory.");
-        }
-        else
-        {
-            LogMessage("WARNING: 7z_x86.exe (32-bit) not found in the application directory!");
-        }
-
-        return x64Exists || x86Exists;
     }
 
     public void Dispose()

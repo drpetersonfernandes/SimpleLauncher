@@ -401,7 +401,7 @@ public static class GameLauncher
 
         if (selectedSystemConfig.ExtractFileBeforeLaunch)
         {
-            filePathToLaunch = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig, filePathToLaunch);
+            filePathToLaunch = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig);
         }
 
         if (string.IsNullOrEmpty(filePathToLaunch) || !File.Exists(filePathToLaunch))
@@ -503,7 +503,7 @@ public static class GameLauncher
             const string contextMessage = "Invalid Operation Exception";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user only if he wants
+            // Notify the user only if he wants
             if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -520,7 +520,7 @@ public static class GameLauncher
                                  $"Calling parameters: {psi.Arguments}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user only if he wants
+            // Notify the user only if he wants
             if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -647,7 +647,7 @@ public static class GameLauncher
                 const string contextMessage = "Invalid Operation Exception";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user only if he wants
+                // Notify the user only if he wants
                 if (emulatorConfig.ReceiveANotificationOnEmulatorError)
                 {
                     MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -664,7 +664,7 @@ public static class GameLauncher
                                      $"Calling parameters: {psi.Arguments}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user only if he wants
+                // Notify the user only if he wants
                 if (emulatorConfig.ReceiveANotificationOnEmulatorError)
                 {
                     MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
@@ -705,7 +705,7 @@ public static class GameLauncher
             // Extract File if Needed
             if (systemConfig.ExtractFileBeforeLaunch)
             {
-                gamePathToLaunch = await ExtractFilesBeforeLaunch(filePath, systemConfig, gamePathToLaunch);
+                gamePathToLaunch = await ExtractFilesBeforeLaunch(filePath, systemConfig);
             }
 
             if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
@@ -796,7 +796,7 @@ public static class GameLauncher
                         const string contextMessage = "Invalid Operation Exception.";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                        // Notify user only if he wants
+                        // Notify the user only if he wants
                         if (emulatorConfig.ReceiveANotificationOnEmulatorError)
                         {
                             MessageBoxLibrary.InvalidOperationExceptionMessageBox();
@@ -813,7 +813,7 @@ public static class GameLauncher
                                              $"Calling parameters: {psi.Arguments}";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                        // Notify user only if he wants
+                        // Notify the user only if he wants
                         if (emulatorConfig.ReceiveANotificationOnEmulatorError)
                         {
                             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -824,7 +824,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig, string gamePathToLaunch)
+    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig)
     {
         var fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
@@ -832,107 +832,80 @@ public static class GameLauncher
         {
             case ".ZIP":
             {
-                // Use a native .net library to extract
-                // Only accept zip
-                // Create Instance of ExtractCompressedFile
                 var extractCompressedFile = new ExtractCompressedFile();
-                var tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
 
-                var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
-                if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
+                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemConfig);
+                if (!string.IsNullOrEmpty(extractedFileToLaunch))
+                    return extractedFileToLaunch;
 
                 break;
             }
             case ".7Z" or ".RAR":
             {
-                // Use 7z to extract
-                // Can extract zip, 7z, rar
-                // Create Instance of ExtractCompressedFile
                 var extractCompressedFile = new ExtractCompressedFile();
-                var tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync(filePath);
 
-                var extractFilesBeforeLaunch = await ValidateAndFindGameFile(tempExtractLocation);
-                if (extractFilesBeforeLaunch != null) return extractFilesBeforeLaunch;
+                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemConfig);
+                if (!string.IsNullOrEmpty(extractedFileToLaunch))
+                    return extractedFileToLaunch;
 
                 break;
             }
             default:
             {
-                // Notify developer
                 var contextMessage = $"Can not extract file: {filePath}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
                 MessageBoxLibrary.CannotExtractThisFileMessageBox(filePath);
 
-                return gamePathToLaunch;
+                break;
             }
         }
 
-        return gamePathToLaunch;
+        return null;
 
-        Task<string> ValidateAndFindGameFile(string tempExtractLocation)
+        Task<string> ValidateAndFindGameFile(string tempExtractLocation, SystemConfig sysConfig)
         {
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
-                // Notify developer
-                var contextMessage = $"gameFile path is invalid: {tempExtractLocation}";
+                var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
 
-                return Task.FromResult(gamePathToLaunch);
+                return Task.FromResult<string>(null);
             }
 
-            if (systemConfig.FileFormatsToLaunch == null)
+            if (sysConfig.FileFormatsToLaunch == null || sysConfig.FileFormatsToLaunch.Count == 0)
             {
-                // Notify developer
-                const string contextMessage = "FileFormatsToLaunch is null.";
+                const string contextMessage = "FileFormatsToLaunch is null or empty.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
 
-                return Task.FromResult(gamePathToLaunch);
+                return Task.FromResult<string>(null);
             }
 
-            // Iterate through the formats to launch and find the first file with the specified extension
-            var fileFound = false;
-            foreach (var files in systemConfig.FileFormatsToLaunch.Select(formatToLaunch => Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}")).Where(static files => files.Length > 0))
+            // Search for any file with specified extensions recursively
+            foreach (var formatToLaunch in sysConfig.FileFormatsToLaunch)
             {
-                gamePathToLaunch = files[0];
-                fileFound = true;
-                break;
+                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
+                if (files.Length > 0)
+                {
+                    return Task.FromResult(files[0]); // Return the first found file
+                }
             }
 
-            if (string.IsNullOrEmpty(gamePathToLaunch))
-            {
-                // Notify developer
-                var contextMessage = $"gamePath is null or empty: {gamePathToLaunch}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            const string notFoundContext = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
+            var exNotFound = new Exception(notFoundContext);
+            _ = LogErrors.LogErrorAsync(exNotFound, notFoundContext);
 
-                // Notify user
-                MessageBoxLibrary.CouldNotFindAFileMessageBox();
-
-                return Task.FromResult(gamePathToLaunch);
-            }
-
-            if (fileFound) return Task.FromResult<string>(null);
-
-            // Notify developer
-            const string contextMessage2 = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
-            var ex2 = new Exception(contextMessage2);
-            _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
-
-            // Notify user
             MessageBoxLibrary.CouldNotFindAFileMessageBox();
-
-            return Task.FromResult(gamePathToLaunch);
+            return Task.FromResult<string>(null);
         }
     }
 
@@ -950,7 +923,7 @@ public static class GameLauncher
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user only if he wants
+        // Notify the user only if he wants
         if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -973,7 +946,7 @@ public static class GameLauncher
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user only if he wants
+        // Notify the user only if he wants
         if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.CheckForMemoryAccessViolation();
@@ -996,7 +969,7 @@ public static class GameLauncher
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user only if he wants
+        // Notify the user only if he wants
         if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.DepViolationMessageBox();

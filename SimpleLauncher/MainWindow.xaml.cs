@@ -847,7 +847,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                     }
 
                                     return false;
-                                }).ToList());
+                                }));
                         }
                         else
                         {
@@ -857,7 +857,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                 {
                                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
                                     return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
-                                }).ToList());
+                                }));
                         }
 
                         // Create the search results

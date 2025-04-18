@@ -24,7 +24,7 @@ public class HelpUserManager
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                if (MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox()) return;
+                MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
 
                 return;
             }
@@ -42,7 +42,7 @@ public class HelpUserManager
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                if (MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox()) return;
+                MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
 
                 return;
             }

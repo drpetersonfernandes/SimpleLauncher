@@ -76,8 +76,7 @@ internal class GameButtonFactory(
         // For MAME systems, add a second row for the description if available.
         if (systemConfig.SystemIsMame)
         {
-            var machine = _machines.FirstOrDefault(
-                m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var descriptionTextBlock = new TextBlock
@@ -135,7 +134,7 @@ internal class GameButtonFactory(
         var grid = new Grid
         {
             Width = baseSize
-            // Notice: NOT setting a fixed Height for the grid,
+            // Notice: NOT setting a fixed Height for the grid
             // so that the text row (Row 1) can expand.
         };
         grid.RowDefinitions.Add(new RowDefinition { Height = new GridLength(imageAreaHeight) });
@@ -702,7 +701,7 @@ internal class GameButtonFactory(
         else
         {
             // Notify user
-            // If even the global default image is not found, ask user to reinstall 'Simple Launcher'
+            // If even the global default image is not found, ask the user to reinstall 'Simple Launcher'
             MessageBoxLibrary.DefaultImageNotFoundMessageBox();
         }
     }

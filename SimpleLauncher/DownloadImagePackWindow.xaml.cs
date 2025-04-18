@@ -194,8 +194,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Get the selected system
-        selectedSystem = _manager.Systems.FirstOrDefault(
-            system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
 
         if (selectedSystem == null)
         {
