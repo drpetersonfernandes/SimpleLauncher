@@ -25,8 +25,11 @@ public static class CheckIfDirectoryIsWritable
 
             return true;
         }
-        catch
+        catch (Exception ex)
         {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Failed to check if directory is writable.");
+
             return false;
         }
     }

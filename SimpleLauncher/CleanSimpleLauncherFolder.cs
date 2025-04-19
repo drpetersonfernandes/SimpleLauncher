@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.IO;
 
 namespace SimpleLauncher;
@@ -22,24 +21,12 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "mame.xml")
     ];
 
-    // Files to be excluded from cleanup
-    private static readonly HashSet<string> ExcludedFiles = [];
-
     public static void CleanupTrash()
     {
         // Clean directories
         foreach (var directory in DirectoriesToClean)
         {
             DeleteDirectorySafely(directory);
-        }
-
-        // Clean files
-        foreach (var file in FilesToClean)
-        {
-            if (!ExcludedFiles.Contains(file))
-            {
-                DeleteFileSafely(file);
-            }
         }
     }
 
@@ -51,9 +38,9 @@ public static class CleanSimpleLauncherFolder
         {
             Directory.Delete(path, true);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // ignore
+            _ = LogErrors.LogErrorAsync(ex, "Failed to delete directory.");
         }
     }
 
@@ -65,9 +52,9 @@ public static class CleanSimpleLauncherFolder
         {
             File.Delete(path);
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // ignore
+            _ = LogErrors.LogErrorAsync(ex, "Failed to delete files.");
         }
     }
 }

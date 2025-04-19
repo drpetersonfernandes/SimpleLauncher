@@ -32,43 +32,74 @@ public partial class App
             Thread.CurrentThread.CurrentCulture = culture;
             Thread.CurrentThread.CurrentUICulture = culture;
 
-            // Load the resource dictionary
+            // Find and remove ALL existing localization dictionaries
+            // Use ToList() to avoid modifying the collection while enumerating it
+            var existingDictionaries = Resources.MergedDictionaries
+                .Where(static d => d.Source?.OriginalString.Contains("strings.") ?? false)
+                .ToList();
+
+            foreach (var existingDictionary in existingDictionaries)
+            {
+                Resources.MergedDictionaries.Remove(existingDictionary);
+            }
+
+            // Create the resource dictionary for the requested culture
             var dictionary = new ResourceDictionary
             {
                 Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
             };
 
-            // Replace the current localization dictionary
-            var existingDictionary = Resources.MergedDictionaries
-                .FirstOrDefault(static d => d.Source?.OriginalString.Contains("strings.") ?? false);
-
-            if (existingDictionary != null)
+            try
             {
-                Resources.MergedDictionaries.Remove(existingDictionary);
+                // Attempt to add the new dictionary
+                Resources.MergedDictionaries.Add(dictionary);
+
+                // Apply the culture to the application
+                FrameworkElement.LanguageProperty.OverrideMetadata(
+                    typeof(FrameworkElement),
+                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
             }
+            catch (Exception innerEx)
+            {
+                // Handle failure to load the requested language resource file
+                var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
+                _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
 
-            Resources.MergedDictionaries.Add(dictionary);
+                // Notify user
+                MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
-            // Apply the culture to the application
-            FrameworkElement.LanguageProperty.OverrideMetadata(
-                typeof(FrameworkElement),
-                new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+                // Fallback to English
+                var fallbackDictionary = new ResourceDictionary
+                {
+                    Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+                };
+                // Ensure the fallback is added even if the requested one failed
+                Resources.MergedDictionaries.Add(fallbackDictionary);
+
+                // Log the fallback usage (optional but helpful for debugging)
+                _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources."), "Using fallback language.");
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            var contextMessage = $"Failed to load language resources for {cultureCode}";
+            // This outer catch handles errors *before* attempting to load the new dictionary
+            // (e.g., invalid cultureCode format).
+            var contextMessage = $"Failed to determine or set culture for {cultureCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
+            // Notify user (reusing the same message for simplicity)
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
-            // Fallback to English
-            var fallbackDictionary = new ResourceDictionary
+            // Ensure a language dictionary is present - add English fallback if none exists
+            if (!Resources.MergedDictionaries.Any(static d => d.Source?.OriginalString.Contains("strings.") ?? false))
             {
-                Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
-            };
-            Resources.MergedDictionaries.Add(fallbackDictionary);
+                var fallbackDictionary = new ResourceDictionary
+                {
+                    Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+                };
+                Resources.MergedDictionaries.Add(fallbackDictionary);
+                _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources due to initial culture error."), "Using fallback language.");
+            }
         }
     }
 

@@ -216,7 +216,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             AddNoSystemMessage();
         }
 
-        // Check if application has write access
+        // Check if the application has write access
         if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
