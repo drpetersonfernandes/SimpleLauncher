@@ -155,20 +155,15 @@
     <system:String x:Key="Email">E-mail</system:String>
     <system:String x:Key="Emerald">Esmeralda</system:String>
     <system:String x:Key="Emulator">Emulador</system:String>
-    <system:String x:Key="Emulator1Location">Localização do emulador 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">O "Nome do Emulador 1" é obrigatório.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nome do emulador 1 (obrigatório)</system:String>
     <system:String x:Key="Emulator1Parameters">Parâmetros do emulador 1</system:String>
-    <system:String x:Key="Emulator2Location">Localização do emulador 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nome do emulador 2 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator2Parameters">Parâmetros do emulador 2</system:String>
-    <system:String x:Key="Emulator3Location">Localização do emulador 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nome do emulador 3 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator3Parameters">Parâmetros do emulador 3</system:String>
-    <system:String x:Key="Emulator4Location">Localização do emulador 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nome do emulador 4 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator4Parameters">Parâmetros do emulador 4</system:String>
-    <system:String x:Key="Emulator5Location">Localização do emulador 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nome do emulador 5 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator5Parameters">Parâmetros do emulador 5</system:String>
     <system:String x:Key="EmulatorLocation">Localização do Emulador</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">Enviar Solicitação de Suporte</system:String>
     <system:String x:Key="SetButtonAspectRatio">Definir proporção do botão</system:String>
     <system:String x:Key="SetButtonSize">Definir tamanho do botão</system:String>
-    <system:String x:Key="SetEmulator1Location">Definir a localização do emulador 1</system:String>
-    <system:String x:Key="SetEmulator2Location">Definir a localização do emulador 2</system:String>
-    <system:String x:Key="SetEmulator3Location">Definir a localização do emulador 3</system:String>
-    <system:String x:Key="SetEmulator4Location">Definir a localização do emulador 4</system:String>
-    <system:String x:Key="SetEmulator5Location">Definir a localização do emulador 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Definir zona morta do gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Definir Número de Jogos por Página</system:String>
     <system:String x:Key="SetSystemFolder">Definir a pasta do sistema</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">Super mais largo</system:String>
     <system:String x:Key="SuperTaller">Super mais alto</system:String>
+    
+    <system:String x:Key="Emulator1Path">Caminho do Emulador 1</system:String>
+    <system:String x:Key="SetEmulator1Path">Definir Caminho do Emulador 1</system:String>
+    <system:String x:Key="Emulator2Path">Caminho do Emulador 2</system:String>
+    <system:String x:Key="SetEmulator2Path">Definir Caminho do Emulador 2</system:String>
+    <system:String x:Key="Emulator3Path">Caminho do Emulador 3</system:String>
+    <system:String x:Key="SetEmulator3Path">Definir Caminho do Emulador 3</system:String>
+    <system:String x:Key="Emulator4Path">Caminho do Emulador 4</system:String>
+    <system:String x:Key="SetEmulator4Path">Definir Caminho do Emulador 4</system:String>
+    <system:String x:Key="Emulator5Path">Caminho do Emulador 5</system:String>
+    <system:String x:Key="SetEmulator5Path">Definir Caminho do Emulador 5</system:String>
 </ResourceDictionary>

@@ -129,7 +129,7 @@ public partial class EditSystemWindow
                 if (emulator1 != null)
                 {
                     Emulator1NameTextBox.Text = emulator1.Element("EmulatorName")?.Value ?? string.Empty;
-                    Emulator1LocationTextBox.Text = emulator1.Element("EmulatorLocation")?.Value ?? string.Empty;
+                    Emulator1PathTextBox.Text = emulator1.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator1ParametersTextBox.Text = emulator1.Element("EmulatorParameters")?.Value ?? string.Empty;
 
                     // Get the notification value, default to "false" if not found
@@ -142,7 +142,7 @@ public partial class EditSystemWindow
                 else
                 {
                     Emulator1NameTextBox.Clear();
-                    Emulator1LocationTextBox.Clear();
+                    Emulator1PathTextBox.Clear();
                     Emulator1ParametersTextBox.Clear();
                     ReceiveANotificationOnEmulatorError1.SelectedItem = -1;
                 }
@@ -151,7 +151,7 @@ public partial class EditSystemWindow
                 if (emulator2 != null)
                 {
                     Emulator2NameTextBox.Text = emulator2.Element("EmulatorName")?.Value ?? string.Empty;
-                    Emulator2LocationTextBox.Text = emulator2.Element("EmulatorLocation")?.Value ?? string.Empty;
+                    Emulator2PathTextBox.Text = emulator2.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator2ParametersTextBox.Text = emulator2.Element("EmulatorParameters")?.Value ?? string.Empty;
 
                     var receiveNotificationValue = emulator2.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
@@ -163,7 +163,7 @@ public partial class EditSystemWindow
                 else
                 {
                     Emulator2NameTextBox.Clear();
-                    Emulator2LocationTextBox.Clear();
+                    Emulator2PathTextBox.Clear();
                     Emulator2ParametersTextBox.Clear();
                     ReceiveANotificationOnEmulatorError2.SelectedItem = -1;
                 }
@@ -172,7 +172,7 @@ public partial class EditSystemWindow
                 if (emulator3 != null)
                 {
                     Emulator3NameTextBox.Text = emulator3.Element("EmulatorName")?.Value ?? string.Empty;
-                    Emulator3LocationTextBox.Text = emulator3.Element("EmulatorLocation")?.Value ?? string.Empty;
+                    Emulator3PathTextBox.Text = emulator3.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator3ParametersTextBox.Text = emulator3.Element("EmulatorParameters")?.Value ?? string.Empty;
 
                     var receiveNotificationValue = emulator3.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
@@ -184,7 +184,7 @@ public partial class EditSystemWindow
                 else
                 {
                     Emulator3NameTextBox.Clear();
-                    Emulator3LocationTextBox.Clear();
+                    Emulator3PathTextBox.Clear();
                     Emulator3ParametersTextBox.Clear();
                     ReceiveANotificationOnEmulatorError3.SelectedItem = -1;
                 }
@@ -193,7 +193,7 @@ public partial class EditSystemWindow
                 if (emulator4 != null)
                 {
                     Emulator4NameTextBox.Text = emulator4.Element("EmulatorName")?.Value ?? string.Empty;
-                    Emulator4LocationTextBox.Text = emulator4.Element("EmulatorLocation")?.Value ?? string.Empty;
+                    Emulator4PathTextBox.Text = emulator4.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator4ParametersTextBox.Text = emulator4.Element("EmulatorParameters")?.Value ?? string.Empty;
 
                     var receiveNotificationValue = emulator4.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
@@ -205,7 +205,7 @@ public partial class EditSystemWindow
                 else
                 {
                     Emulator4NameTextBox.Clear();
-                    Emulator4LocationTextBox.Clear();
+                    Emulator4PathTextBox.Clear();
                     Emulator4ParametersTextBox.Clear();
                     ReceiveANotificationOnEmulatorError4.SelectedItem = -1;
                 }
@@ -214,7 +214,7 @@ public partial class EditSystemWindow
                 if (emulator5 != null)
                 {
                     Emulator5NameTextBox.Text = emulator5.Element("EmulatorName")?.Value ?? string.Empty;
-                    Emulator5LocationTextBox.Text = emulator5.Element("EmulatorLocation")?.Value ?? string.Empty;
+                    Emulator5PathTextBox.Text = emulator5.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator5ParametersTextBox.Text = emulator5.Element("EmulatorParameters")?.Value ?? string.Empty;
 
                     var receiveNotificationValue = emulator5.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
@@ -226,7 +226,7 @@ public partial class EditSystemWindow
                 else
                 {
                     Emulator5NameTextBox.Clear();
-                    Emulator5LocationTextBox.Clear();
+                    Emulator5PathTextBox.Clear();
                     Emulator5ParametersTextBox.Clear();
                     ReceiveANotificationOnEmulatorError5.SelectedItem = -1;
                 }
@@ -250,11 +250,11 @@ public partial class EditSystemWindow
         MarkInvalid(SystemImageFolderTextBox, ParameterValidator.IsValidPath(SystemImageFolderTextBox.Text));
 
         // Validate Emulator Location Text Boxes (considered valid if empty)
-        MarkInvalid(Emulator1LocationTextBox, string.IsNullOrWhiteSpace(Emulator1LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator1LocationTextBox.Text));
-        MarkInvalid(Emulator2LocationTextBox, string.IsNullOrWhiteSpace(Emulator2LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator2LocationTextBox.Text));
-        MarkInvalid(Emulator3LocationTextBox, string.IsNullOrWhiteSpace(Emulator3LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator3LocationTextBox.Text));
-        MarkInvalid(Emulator4LocationTextBox, string.IsNullOrWhiteSpace(Emulator4LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator4LocationTextBox.Text));
-        MarkInvalid(Emulator5LocationTextBox, string.IsNullOrWhiteSpace(Emulator5LocationTextBox.Text) || ParameterValidator.IsValidPath(Emulator5LocationTextBox.Text));
+        MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator1PathTextBox.Text));
+        MarkInvalid(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator2PathTextBox.Text));
+        MarkInvalid(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator3PathTextBox.Text));
+        MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator4PathTextBox.Text));
+        MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator5PathTextBox.Text));
 
         // Validate Parameter fields
         ValidateParameterFields();
@@ -265,35 +265,35 @@ public partial class EditSystemWindow
 
         // Update ReceiveANotificationOnEmulatorError
         if (string.IsNullOrEmpty(Emulator1NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator1LocationTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator1PathTextBox.Text) ||
             string.IsNullOrEmpty(Emulator1ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError1.SelectedItem = null;
         }
 
         if (string.IsNullOrEmpty(Emulator2NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator2LocationTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator2PathTextBox.Text) ||
             string.IsNullOrEmpty(Emulator2ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError2.SelectedItem = null;
         }
 
         if (string.IsNullOrEmpty(Emulator3NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator3LocationTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator3PathTextBox.Text) ||
             string.IsNullOrEmpty(Emulator3ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError3.SelectedItem = null;
         }
 
         if (string.IsNullOrEmpty(Emulator4NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator4LocationTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator4PathTextBox.Text) ||
             string.IsNullOrEmpty(Emulator4ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError4.SelectedItem = null;
         }
 
         if (string.IsNullOrEmpty(Emulator5NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator5LocationTextBox.Text) ||
+            string.IsNullOrEmpty(Emulator5PathTextBox.Text) ||
             string.IsNullOrEmpty(Emulator5ParametersTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError5.SelectedItem = null;
@@ -369,7 +369,7 @@ public partial class EditSystemWindow
         MarkValid(SystemImageFolderTextBox);
     }
 
-    private void ChooseEmulator1Location(object sender, RoutedEventArgs e)
+    private void ChooseEmulator1Path(object sender, RoutedEventArgs e)
     {
         var selectEmulator12 = (string)Application.Current.TryFindResource("SelectEmulator1") ?? "Select Emulator 1";
         var dialog = new OpenFileDialog
@@ -382,8 +382,8 @@ public partial class EditSystemWindow
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator1LocationTextBox.Text = filename;
-            MarkValid(Emulator1LocationTextBox);
+            Emulator1PathTextBox.Text = filename;
+            MarkValid(Emulator1PathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -391,7 +391,7 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
-    private void ChooseEmulator2Location(object sender, RoutedEventArgs e)
+    private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
     {
         var selectEmulator22 = (string)Application.Current.TryFindResource("SelectEmulator2") ?? "Select Emulator 2";
         var dialog = new OpenFileDialog
@@ -405,8 +405,8 @@ public partial class EditSystemWindow
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator2LocationTextBox.Text = filename;
-            MarkValid(Emulator2LocationTextBox);
+            Emulator2PathTextBox.Text = filename;
+            MarkValid(Emulator2PathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -414,7 +414,7 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
-    private void ChooseEmulator3Location(object sender, RoutedEventArgs e)
+    private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
     {
         var selectEmulator32 = (string)Application.Current.TryFindResource("SelectEmulator3") ?? "Select Emulator 3";
         var dialog = new OpenFileDialog
@@ -428,8 +428,8 @@ public partial class EditSystemWindow
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator3LocationTextBox.Text = filename;
-            MarkValid(Emulator3LocationTextBox);
+            Emulator3PathTextBox.Text = filename;
+            MarkValid(Emulator3PathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -437,7 +437,7 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
-    private void ChooseEmulator4Location(object sender, RoutedEventArgs e)
+    private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
     {
         var selectEmulator42 = (string)Application.Current.TryFindResource("SelectEmulator4") ?? "Select Emulator 4";
         var dialog = new OpenFileDialog
@@ -451,8 +451,8 @@ public partial class EditSystemWindow
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator4LocationTextBox.Text = filename;
-            MarkValid(Emulator4LocationTextBox);
+            Emulator4PathTextBox.Text = filename;
+            MarkValid(Emulator4PathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -460,7 +460,7 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
-    private void ChooseEmulator5Location(object sender, RoutedEventArgs e)
+    private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
     {
         var selectEmulator52 = (string)Application.Current.TryFindResource("SelectEmulator5") ?? "Select Emulator 5";
         var dialog = new OpenFileDialog
@@ -473,8 +473,8 @@ public partial class EditSystemWindow
         if (result == true)
         {
             var filename = dialog.FileName;
-            Emulator5LocationTextBox.Text = filename;
-            MarkValid(Emulator5LocationTextBox);
+            Emulator5PathTextBox.Text = filename;
+            MarkValid(Emulator5PathTextBox);
         }
 
         // Update the HelpUserTextBlock
@@ -523,8 +523,8 @@ public partial class EditSystemWindow
         Emulator1NameTextBox.IsReadOnly = false;
         Emulator1NameTextBox.IsEnabled = true;
 
-        Emulator1LocationTextBox.IsReadOnly = false;
-        Emulator1LocationTextBox.IsEnabled = true;
+        Emulator1PathTextBox.IsReadOnly = false;
+        Emulator1PathTextBox.IsEnabled = true;
 
         Emulator1ParametersTextBox.IsReadOnly = false;
         Emulator1ParametersTextBox.IsEnabled = true;
@@ -535,8 +535,8 @@ public partial class EditSystemWindow
         Emulator2NameTextBox.IsReadOnly = false;
         Emulator2NameTextBox.IsEnabled = true;
 
-        Emulator2LocationTextBox.IsReadOnly = false;
-        Emulator2LocationTextBox.IsEnabled = true;
+        Emulator2PathTextBox.IsReadOnly = false;
+        Emulator2PathTextBox.IsEnabled = true;
 
         Emulator2ParametersTextBox.IsReadOnly = false;
         Emulator2ParametersTextBox.IsEnabled = true;
@@ -547,8 +547,8 @@ public partial class EditSystemWindow
         Emulator3NameTextBox.IsReadOnly = false;
         Emulator3NameTextBox.IsEnabled = true;
 
-        Emulator3LocationTextBox.IsReadOnly = false;
-        Emulator3LocationTextBox.IsEnabled = true;
+        Emulator3PathTextBox.IsReadOnly = false;
+        Emulator3PathTextBox.IsEnabled = true;
 
         Emulator3ParametersTextBox.IsReadOnly = false;
         Emulator3ParametersTextBox.IsEnabled = true;
@@ -559,8 +559,8 @@ public partial class EditSystemWindow
         Emulator4NameTextBox.IsReadOnly = false;
         Emulator4NameTextBox.IsEnabled = true;
 
-        Emulator4LocationTextBox.IsReadOnly = false;
-        Emulator4LocationTextBox.IsEnabled = true;
+        Emulator4PathTextBox.IsReadOnly = false;
+        Emulator4PathTextBox.IsEnabled = true;
 
         Emulator4ParametersTextBox.IsReadOnly = false;
         Emulator4ParametersTextBox.IsEnabled = true;
@@ -571,8 +571,8 @@ public partial class EditSystemWindow
         Emulator5NameTextBox.IsReadOnly = false;
         Emulator5NameTextBox.IsEnabled = true;
 
-        Emulator5LocationTextBox.IsReadOnly = false;
-        Emulator5LocationTextBox.IsEnabled = true;
+        Emulator5PathTextBox.IsReadOnly = false;
+        Emulator5PathTextBox.IsEnabled = true;
 
         Emulator5ParametersTextBox.IsReadOnly = false;
         Emulator5ParametersTextBox.IsEnabled = true;
@@ -582,11 +582,11 @@ public partial class EditSystemWindow
 
         ChooseSystemFolderButton.IsEnabled = true;
         ChooseSystemImageFolderButton.IsEnabled = true;
-        ChooseEmulator1LocationButton.IsEnabled = true;
-        ChooseEmulator2LocationButton.IsEnabled = true;
-        ChooseEmulator3LocationButton.IsEnabled = true;
-        ChooseEmulator4LocationButton.IsEnabled = true;
-        ChooseEmulator5LocationButton.IsEnabled = true;
+        ChooseEmulator1PathButton.IsEnabled = true;
+        ChooseEmulator2PathButton.IsEnabled = true;
+        ChooseEmulator3PathButton.IsEnabled = true;
+        ChooseEmulator4PathButton.IsEnabled = true;
+        ChooseEmulator5PathButton.IsEnabled = true;
     }
 
     private void ClearFields()
@@ -600,23 +600,23 @@ public partial class EditSystemWindow
         ExtractFileBeforeLaunchComboBox.SelectedItem = null;
         FormatToLaunchTextBox.Text = string.Empty;
         Emulator1NameTextBox.Text = string.Empty;
-        Emulator1LocationTextBox.Text = string.Empty;
+        Emulator1PathTextBox.Text = string.Empty;
         Emulator1ParametersTextBox.Text = string.Empty;
         ReceiveANotificationOnEmulatorError1.SelectedItem = null;
         Emulator2NameTextBox.Text = string.Empty;
-        Emulator2LocationTextBox.Text = string.Empty;
+        Emulator2PathTextBox.Text = string.Empty;
         Emulator2ParametersTextBox.Text = string.Empty;
         ReceiveANotificationOnEmulatorError2.SelectedItem = null;
         Emulator3NameTextBox.Text = string.Empty;
-        Emulator3LocationTextBox.Text = string.Empty;
+        Emulator3PathTextBox.Text = string.Empty;
         Emulator3ParametersTextBox.Text = string.Empty;
         ReceiveANotificationOnEmulatorError3.SelectedItem = null;
         Emulator4NameTextBox.Text = string.Empty;
-        Emulator4LocationTextBox.Text = string.Empty;
+        Emulator4PathTextBox.Text = string.Empty;
         Emulator4ParametersTextBox.Text = string.Empty;
         ReceiveANotificationOnEmulatorError4.SelectedItem = null;
         Emulator5NameTextBox.Text = string.Empty;
-        Emulator5LocationTextBox.Text = string.Empty;
+        Emulator5PathTextBox.Text = string.Empty;
         Emulator5ParametersTextBox.Text = string.Empty;
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
@@ -844,11 +844,11 @@ public partial class EditSystemWindow
         emulator3NameText = Emulator3NameTextBox.Text.Trim();
         emulator4NameText = Emulator4NameTextBox.Text.Trim();
         emulator5NameText = Emulator5NameTextBox.Text.Trim();
-        emulator1LocationText = Emulator1LocationTextBox.Text.Trim();
-        emulator2LocationText = Emulator2LocationTextBox.Text.Trim();
-        emulator3LocationText = Emulator3LocationTextBox.Text.Trim();
-        emulator4LocationText = Emulator4LocationTextBox.Text.Trim();
-        emulator5LocationText = Emulator5LocationTextBox.Text.Trim();
+        emulator1LocationText = Emulator1PathTextBox.Text.Trim();
+        emulator2LocationText = Emulator2PathTextBox.Text.Trim();
+        emulator3LocationText = Emulator3PathTextBox.Text.Trim();
+        emulator4LocationText = Emulator4PathTextBox.Text.Trim();
+        emulator5LocationText = Emulator5PathTextBox.Text.Trim();
         emulator1ParametersText = Emulator1ParametersTextBox.Text.Trim();
         emulator2ParametersText = Emulator2ParametersTextBox.Text.Trim();
         emulator3ParametersText = Emulator3ParametersTextBox.Text.Trim();
@@ -1035,11 +1035,11 @@ public partial class EditSystemWindow
     {
         MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
         MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
-        MarkInvalid(Emulator1LocationTextBox, isEmulator1LocationValid);
-        MarkInvalid(Emulator2LocationTextBox, isEmulator2LocationValid);
-        MarkInvalid(Emulator3LocationTextBox, isEmulator3LocationValid);
-        MarkInvalid(Emulator4LocationTextBox, isEmulator4LocationValid);
-        MarkInvalid(Emulator5LocationTextBox, isEmulator5LocationValid);
+        MarkInvalid(Emulator1PathTextBox, isEmulator1LocationValid);
+        MarkInvalid(Emulator2PathTextBox, isEmulator2LocationValid);
+        MarkInvalid(Emulator3PathTextBox, isEmulator3LocationValid);
+        MarkInvalid(Emulator4PathTextBox, isEmulator4LocationValid);
+        MarkInvalid(Emulator5PathTextBox, isEmulator5LocationValid);
     }
 
     private static void CreateFolders(string systemNameText)
@@ -1062,7 +1062,7 @@ public partial class EditSystemWindow
 
             try
             {
-                // Check if the folder exists, and create it if it doesn't
+                // Check if the folder exists and create it if it doesn't
                 if (!Directory.Exists(newFolderPath))
                 {
                     Directory.CreateDirectory(newFolderPath);

@@ -155,20 +155,15 @@
     <system:String x:Key="Email">이메일</system:String>
     <system:String x:Key="Emerald">에메랄드</system:String>
     <system:String x:Key="Emulator">에뮬레이터</system:String>
-    <system:String x:Key="Emulator1Location">에뮬레이터 1 경로</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘에뮬레이터 1 이름’이 필요합니다.</system:String>
     <system:String x:Key="Emulator1NameRequired">에뮬레이터 1 이름 (필수)</system:String>
     <system:String x:Key="Emulator1Parameters">에뮬레이터 1 매개변수</system:String>
-    <system:String x:Key="Emulator2Location">에뮬레이터 2 경로</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">에뮬레이터 2 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator2Parameters">에뮬레이터 2 매개변수</system:String>
-    <system:String x:Key="Emulator3Location">에뮬레이터 3 경로</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">에뮬레이터 3 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator3Parameters">에뮬레이터 3 매개변수</system:String>
-    <system:String x:Key="Emulator4Location">에뮬레이터 4 경로</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">에뮬레이터 4 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator4Parameters">에뮬레이터 4 매개변수</system:String>
-    <system:String x:Key="Emulator5Location">에뮬레이터 5 경로</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">에뮬레이터 5 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
     <system:String x:Key="EmulatorLocation">에뮬레이터 위치</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">지원 요청 보내기</system:String>
     <system:String x:Key="SetButtonAspectRatio">단추 가로 세로 비율 설정</system:String>
     <system:String x:Key="SetButtonSize">단추 크기 설정</system:String>
-    <system:String x:Key="SetEmulator1Location">에뮬레이터 1 경로 설정</system:String>
-    <system:String x:Key="SetEmulator2Location">에뮬레이터 2 경로 설정</system:String>
-    <system:String x:Key="SetEmulator3Location">에뮬레이터 3 경로 설정</system:String>
-    <system:String x:Key="SetEmulator4Location">에뮬레이터 4 경로 설정</system:String>
-    <system:String x:Key="SetEmulator5Location">에뮬레이터 5 경로 설정</system:String>
     <system:String x:Key="SetGamepadDeadZone">게임패드 데드존 설정</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">페이지당 게임 수 설정</system:String>
     <system:String x:Key="SetSystemFolder">시스템 폴더 설정</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">슈퍼 와이더</system:String>
     <system:String x:Key="SuperTaller">슈퍼 톨러</system:String>
+    
+    <system:String x:Key="Emulator1Path">에뮬레이터 1 경로</system:String>
+    <system:String x:Key="SetEmulator1Path">에뮬레이터 1 경로 설정</system:String>
+    <system:String x:Key="Emulator2Path">에뮬레이터 2 경로</system:String>
+    <system:String x:Key="SetEmulator2Path">에뮬레이터 2 경로 설정</system:String>
+    <system:String x:Key="Emulator3Path">에뮬레이터 3 경로</system:String>
+    <system:String x:Key="SetEmulator3Path">에뮬레이터 3 경로 설정</system:String>
+    <system:String x:Key="Emulator4Path">에뮬레이터 4 경로</system:String>
+    <system:String x:Key="SetEmulator4Path">에뮬레이터 4 경로 설정</system:String>
+    <system:String x:Key="Emulator5Path">에뮬레이터 5 경로</system:String>
+    <system:String x:Key="SetEmulator5Path">에뮬레이터 5 경로 설정</system:String>
 </ResourceDictionary>

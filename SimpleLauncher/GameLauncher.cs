@@ -418,9 +418,9 @@ public static class GameLauncher
             return;
         }
 
-        var selectedEmulatorConfig = selectedSystemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulator);
+        var emulatorConfig = selectedSystemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulator);
 
-        if (selectedEmulatorConfig == null)
+        if (emulatorConfig == null)
         {
             // Notify developer
             const string contextMessage = "selectedEmulatorConfig is null";
@@ -434,8 +434,8 @@ public static class GameLauncher
         }
 
         // Construct the PSI
-        var programLocation = selectedEmulatorConfig.EmulatorLocation;
-        var parameters = selectedEmulatorConfig.EmulatorParameters;
+        var programLocation = emulatorConfig.EmulatorLocation;
+        var parameters = emulatorConfig.EmulatorParameters;
         var arguments = $"{parameters} \"{filePathToLaunch}\"";
 
         var psi = new ProcessStartInfo
@@ -491,10 +491,10 @@ public static class GameLauncher
             // Check process state before accessing properties
             if (process.HasExited)
             {
-                if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorConfig)) return;
-                if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorConfig)) return;
+                if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
+                if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
 
-                await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorConfig);
+                await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
             }
         }
 
@@ -505,7 +505,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify the user only if he wants
-            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox();
             }
@@ -513,16 +513,31 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+            {
+                var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                     $"User was notified.\n\n" +
+                                     $"Exit code: {process.ExitCode}\n" +
+                                     $"Emulator: {psi.FileName}\n" +
+                                     $"Emulator output: {output}\n" +
+                                     $"Emulator error: {error}\n" +
+                                     $"Calling parameters: {psi.Arguments}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
+            else
+            {
+                var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                     $"User was not notified.\n\n" +
+                                     $"Exit code: {process.ExitCode}\n" +
+                                     $"Emulator: {psi.FileName}\n" +
+                                     $"Emulator output: {output}\n" +
+                                     $"Emulator error: {error}\n" +
+                                     $"Calling parameters: {psi.Arguments}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
 
             // Notify the user only if he wants
-            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
             }
@@ -657,13 +672,28 @@ public static class GameLauncher
             catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                     $"Exit code: {process.ExitCode}\n" +
-                                     $"Emulator: {psi.FileName}\n" +
-                                     $"Emulator output: {output}\n" +
-                                     $"Emulator error: {error}\n" +
-                                     $"Calling parameters: {psi.Arguments}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+                {
+                    var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                         $"User was notified.\n\n" +
+                                         $"Exit code: {process.ExitCode}\n" +
+                                         $"Emulator: {psi.FileName}\n" +
+                                         $"Emulator output: {output}\n" +
+                                         $"Emulator error: {error}\n" +
+                                         $"Calling parameters: {psi.Arguments}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                }
+                else
+                {
+                    var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                         $"User was not notified.\n\n" +
+                                         $"Exit code: {process.ExitCode}\n" +
+                                         $"Emulator: {psi.FileName}\n" +
+                                         $"Emulator output: {output}\n" +
+                                         $"Emulator error: {error}\n" +
+                                         $"Calling parameters: {psi.Arguments}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                }
 
                 // Notify the user only if he wants
                 if (emulatorConfig.ReceiveANotificationOnEmulatorError)
@@ -806,13 +836,28 @@ public static class GameLauncher
                     catch (Exception ex)
                     {
                         // Notify developer
-                        var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                             $"Exit code: {process.ExitCode}\n" +
-                                             $"Emulator: {psi.FileName}\n" +
-                                             $"Emulator output: {output}\n" +
-                                             $"Emulator error: {error}\n" +
-                                             $"Calling parameters: {psi.Arguments}";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+                        {
+                            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                                 $"User was notified.\n\n" +
+                                                 $"Exit code: {process.ExitCode}\n" +
+                                                 $"Emulator: {psi.FileName}\n" +
+                                                 $"Emulator output: {output}\n" +
+                                                 $"Emulator error: {error}\n" +
+                                                 $"Calling parameters: {psi.Arguments}";
+                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        }
+                        else
+                        {
+                            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                                 $"User was not notified.\n\n" +
+                                                 $"Exit code: {process.ExitCode}\n" +
+                                                 $"Emulator: {psi.FileName}\n" +
+                                                 $"Emulator output: {output}\n" +
+                                                 $"Emulator error: {error}\n" +
+                                                 $"Calling parameters: {psi.Arguments}";
+                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        }
 
                         // Notify the user only if he wants
                         if (emulatorConfig.ReceiveANotificationOnEmulatorError)
@@ -915,14 +960,30 @@ public static class GameLauncher
         if (process.ExitCode == 0 && !ContainsEmulatorError(output, error)) return Task.CompletedTask;
 
         // Notify developer
-        var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+        {
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                 $"User was notified.\n\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
+        else
+        {
+            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                                 $"User was not notified.\n\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
 
         // Notify the user only if he wants
         if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)

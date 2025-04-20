@@ -2,14 +2,6 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    
-
-    
-
-    
-    
-    
-    
     <system:String x:Key="&lt;_Prev">&lt; Prev</system:String>
     <system:String x:Key="100games">100 games</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
@@ -155,20 +147,15 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Emerald</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
-    <system:String x:Key="Emulator1Location">Emulator 1 Location</system:String>
     <system:String x:Key="Emulator1Nameisrequired">'Emulator 1 Name' is required.</system:String>
     <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (Required)</system:String>
     <system:String x:Key="Emulator1Parameters">Emulator 1 Parameters</system:String>
-    <system:String x:Key="Emulator2Location">Emulator 2 Location</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Emulator 2 Name (May be Required)</system:String>
     <system:String x:Key="Emulator2Parameters">Emulator 2 Parameters</system:String>
-    <system:String x:Key="Emulator3Location">Emulator 3 Location</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Emulator 3 Name (May be Required)</system:String>
     <system:String x:Key="Emulator3Parameters">Emulator 3 Parameters</system:String>
-    <system:String x:Key="Emulator4Location">Emulator 4 Location</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Emulator 4 Name (May be Required)</system:String>
     <system:String x:Key="Emulator4Parameters">Emulator 4 Parameters</system:String>
-    <system:String x:Key="Emulator5Location">Emulator 5 Location</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (May be Required)</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
     <system:String x:Key="EmulatorLocation">Emulator Location</system:String>
@@ -386,11 +373,6 @@
     <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
     <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
     <system:String x:Key="SetButtonSize">Set Button Size</system:String>
-    <system:String x:Key="SetEmulator1Location">Set Emulator 1 Location</system:String>
-    <system:String x:Key="SetEmulator2Location">Set Emulator 2 Location</system:String>
-    <system:String x:Key="SetEmulator3Location">Set Emulator 3 Location</system:String>
-    <system:String x:Key="SetEmulator4Location">Set Emulator 4 Location</system:String>
-    <system:String x:Key="SetEmulator5Location">Set Emulator 5 Location</system:String>
     <system:String x:Key="SetGamepadDeadZone">Set Gamepad DeadZone</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Set Number of Games Per Page</system:String>
     <system:String x:Key="SetSystemFolder">Set System Folder</system:String>
@@ -569,8 +551,18 @@
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
-    
     <system:String x:Key="SuperWider">Super Wider</system:String>
-    <system:String x:Key="SuperTaller">Super Taller</system:String>    
+    <system:String x:Key="SuperTaller">Super Taller</system:String>
     
+    <system:String x:Key="Emulator1Path">Emulator 1 Path</system:String>
+    <system:String x:Key="SetEmulator1Path">Set Emulator 1 Path</system:String>
+    <system:String x:Key="Emulator2Path">Emulator 2 Path</system:String>
+    <system:String x:Key="SetEmulator2Path">Set Emulator 2 Path</system:String>
+    <system:String x:Key="Emulator3Path">Emulator 3 Path</system:String>
+    <system:String x:Key="SetEmulator3Path">Set Emulator 3 Path</system:String>
+    <system:String x:Key="Emulator4Path">Emulator 4 Path</system:String>
+    <system:String x:Key="SetEmulator4Path">Set Emulator 4 Path</system:String>
+    <system:String x:Key="Emulator5Path">Emulator 5 Path</system:String>
+    <system:String x:Key="SetEmulator5Path">Set Emulator 5 Path</system:String>
+
 </ResourceDictionary>

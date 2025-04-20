@@ -155,20 +155,15 @@
     <system:String x:Key="Email">ईमेल</system:String>
     <system:String x:Key="Emerald">पन्ना</system:String>
     <system:String x:Key="Emulator">एमुलेटर</system:String>
-    <system:String x:Key="Emulator1Location">एमुलेटर 1 का स्थान</system:String>
     <system:String x:Key="Emulator1Nameisrequired">"एमुलेटर 1 का नाम" आवश्यक है।</system:String>
     <system:String x:Key="Emulator1NameRequired">एमुलेटर 1 का नाम (आवश्यक)</system:String>
     <system:String x:Key="Emulator1Parameters">एमुलेटर 1 पैरामीटर</system:String>
-    <system:String x:Key="Emulator2Location">एमुलेटर 2 का स्थान</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">एमुलेटर 2 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator2Parameters">एमुलेटर 2 पैरामीटर</system:String>
-    <system:String x:Key="Emulator3Location">एमुलेटर 3 का स्थान</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">एमुलेटर 3 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator3Parameters">एमुलेटर 3 पैरामीटर</system:String>
-    <system:String x:Key="Emulator4Location">एमुलेटर 4 का स्थान</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">एमुलेटर 4 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator4Parameters">एमुलेटर 4 पैरामीटर</system:String>
-    <system:String x:Key="Emulator5Location">एमुलेटर 5 का स्थान</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">एमुलेटर 5 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator5Parameters">एमुलेटर 5 पैरामीटर</system:String>
     <system:String x:Key="EmulatorLocation">एमुलेटर का स्थान</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">समर्थन अनुरोध भेजें</system:String>
     <system:String x:Key="SetButtonAspectRatio">बटन पहलू अनुपात सेट करें</system:String>
     <system:String x:Key="SetButtonSize">बटन का आकार सेट करें</system:String>
-    <system:String x:Key="SetEmulator1Location">एमुलेटर 1 स्थान सेट करें</system:String>
-    <system:String x:Key="SetEmulator2Location">एमुलेटर 2 स्थान सेट करें</system:String>
-    <system:String x:Key="SetEmulator3Location">एमुलेटर 3 स्थान सेट करें</system:String>
-    <system:String x:Key="SetEmulator4Location">एमुलेटर 4 स्थान सेट करें</system:String>
-    <system:String x:Key="SetEmulator5Location">एमुलेटर 5 स्थान सेट करें</system:String>
     <system:String x:Key="SetGamepadDeadZone">गेमपैड डेड ज़ोन सेट करें</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">प्रति पृष्ठ खेलों की संख्या सेट करें</system:String>
     <system:String x:Key="SetSystemFolder">सिस्टम फ़ोल्डर सेट करें</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">सुपर चौड़ा</system:String>
     <system:String x:Key="SuperTaller">सुपर ऊँचा</system:String>
+    
+    <system:String x:Key="Emulator1Path">इम्यूलेटर 1 पथ</system:String>
+    <system:String x:Key="SetEmulator1Path">इम्यूलेटर 1 पथ सेट करें</system:String>
+    <system:String x:Key="Emulator2Path">इम्यूलेटर 2 पथ</system:String>
+    <system:String x:Key="SetEmulator2Path">इम्यूलेटर 2 पथ सेट करें</system:String>
+    <system:String x:Key="Emulator3Path">इम्यूलेटर 3 पथ</system:String>
+    <system:String x:Key="SetEmulator3Path">इम्यूलेटर 3 पथ सेट करें</system:String>
+    <system:String x:Key="Emulator4Path">इम्यूलेटर 4 पथ</system:String>
+    <system:String x:Key="SetEmulator4Path">इम्यूलेटर 4 पथ सेट करें</system:String>
+    <system:String x:Key="Emulator5Path">इम्यूलेटर 5 पथ</system:String>
+    <system:String x:Key="SetEmulator5Path">इम्यूलेटर 5 पथ सेट करें</system:String>
 </ResourceDictionary>

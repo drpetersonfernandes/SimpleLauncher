@@ -417,11 +417,11 @@ public class ExtractCompressedFile
     /// <returns>True if extraction was successful, false otherwise</returns>
     public static async Task<bool> ExtractDownloadFilesAsync(string filePath, string destinationFolder)
     {
-        // Parameter validation
-        if (string.IsNullOrEmpty(filePath))
+        // Check filePath
+        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
             // Notify developer
-            const string contextMessage = "File path cannot be null or empty";
+            const string contextMessage = "File path is invalid.";
             var ex = new ArgumentNullException(nameof(filePath));
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -431,59 +431,12 @@ public class ExtractCompressedFile
             return false;
         }
 
+        // Check destinationFolder
         if (string.IsNullOrEmpty(destinationFolder))
         {
             // Notify developer
             const string contextMessage = "Destination folder cannot be null or empty";
             var ex = new ArgumentNullException(nameof(destinationFolder));
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
-
-            return false;
-        }
-
-        // Check if the downloaded file exists and has content
-        if (!File.Exists(filePath) || new FileInfo(filePath).Length == 0)
-        {
-            // Notify developer
-            var contextMessage = $"The filepath is invalid or file is empty.\n" +
-                                 $"Filepath: {filePath}";
-            var ex = new FileNotFoundException(contextMessage, filePath);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
-
-            return false;
-        }
-
-        // Validate destination path safety
-        try
-        {
-            // Convert to the full path and check for potential path traversal issues
-            var fullDestPath = Path.GetFullPath(destinationFolder);
-            var appBasePath = Path.GetFullPath(AppDomain.CurrentDomain.BaseDirectory);
-
-            if (!fullDestPath.StartsWith(appBasePath, StringComparison.OrdinalIgnoreCase))
-            {
-                // Notify developer
-                var contextMessage = $"Destination folder must be within the application directory.\n" +
-                                     $"Requested path: {fullDestPath}";
-                var ex = new UnauthorizedAccessException(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ExtractionFailedMessageBox();
-
-                return false;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            var contextMessage = $"Invalid destination path: {destinationFolder}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -595,18 +548,18 @@ public class ExtractCompressedFile
                     {
                         var entryDestinationPath = Path.Combine(destinationFolder, entry.FullName);
 
-                        // Make sure the destination path is still within the target directory
-                        // (protection against zip slip vulnerability)
-                        if (!Path.GetFullPath(entryDestinationPath).StartsWith(Path.GetFullPath(destinationFolder), StringComparison.OrdinalIgnoreCase))
-                        {
-                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
-                        }
-
                         // Create directory for the entry if needed
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
-                            Directory.CreateDirectory(entryDirectoryPath);
+                            try
+                            {
+                                Directory.CreateDirectory(entryDirectoryPath);
+                            }
+                            catch (Exception ex)
+                            {
+                                throw new IOException($"Could not create the necessary directory: {ex.Message}");
+                            }
                         }
 
                         // Skip directories (folders are already created above)

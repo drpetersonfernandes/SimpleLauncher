@@ -10,6 +10,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
+            <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
 
@@ -323,10 +324,10 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator1Location}" />
+                                Content="{DynamicResource Emulator1Path}" />
                             <TextBox
                                 Margin="0,0,10,10"
-                                x:Name="Emulator1LocationTextBox"
+                                x:Name="Emulator1PathTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 IsReadOnly="True"
@@ -334,11 +335,11 @@
                                 HorizontalAlignment="Stretch" />
                             <Button
                                 Margin="0,0,10,10"
-                                x:Name="ChooseEmulator1LocationButton"
+                                x:Name="ChooseEmulator1PathButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Click="ChooseEmulator1Location"
-                                Content="{DynamicResource SetEmulator1Location}"
+                                Click="ChooseEmulator1Path"
+                                Content="{DynamicResource SetEmulator1Path}"
                                 IsEnabled="False"
                                 HorizontalAlignment="Left" />
                             <Label
@@ -419,10 +420,10 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator2Location}" />
+                                Content="{DynamicResource Emulator2Path}" />
                             <TextBox
                                 Margin="0,0,10,10"
-                                x:Name="Emulator2LocationTextBox"
+                                x:Name="Emulator2PathTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 IsReadOnly="True"
@@ -430,11 +431,11 @@
                                 HorizontalAlignment="Stretch" />
                             <Button
                                 Margin="0,0,10,10"
-                                x:Name="ChooseEmulator2LocationButton"
+                                x:Name="ChooseEmulator2PathButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Click="ChooseEmulator2Location"
-                                Content="{DynamicResource SetEmulator2Location}"
+                                Click="ChooseEmulator2Path"
+                                Content="{DynamicResource SetEmulator2Path}"
                                 IsEnabled="False"
                                 HorizontalAlignment="Left" />
                             <Label
@@ -514,10 +515,10 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator3Location}" />
+                                Content="{DynamicResource Emulator3Path}" />
                             <TextBox
                                 Margin="0,0,10,10"
-                                x:Name="Emulator3LocationTextBox"
+                                x:Name="Emulator3PathTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 IsReadOnly="True"
@@ -525,11 +526,11 @@
                                 HorizontalAlignment="Stretch" />
                             <Button
                                 Margin="0,0,10,10"
-                                x:Name="ChooseEmulator3LocationButton"
+                                x:Name="ChooseEmulator3PathButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Click="ChooseEmulator3Location"
-                                Content="{DynamicResource SetEmulator3Location}"
+                                Click="ChooseEmulator3Path"
+                                Content="{DynamicResource SetEmulator3Path}"
                                 IsEnabled="False"
                                 HorizontalAlignment="Left" />
                             <Label
@@ -609,10 +610,10 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator4Location}" />
+                                Content="{DynamicResource Emulator4Path}" />
                             <TextBox
                                 Margin="0,0,10,10"
-                                x:Name="Emulator4LocationTextBox"
+                                x:Name="Emulator4PathTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 IsReadOnly="True"
@@ -620,11 +621,11 @@
                                 HorizontalAlignment="Stretch" />
                             <Button
                                 Margin="0,0,10,10"
-                                x:Name="ChooseEmulator4LocationButton"
+                                x:Name="ChooseEmulator4PathButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Click="ChooseEmulator4Location"
-                                Content="{DynamicResource SetEmulator4Location}"
+                                Click="ChooseEmulator4Path"
+                                Content="{DynamicResource SetEmulator4Path}"
                                 IsEnabled="False"
                                 HorizontalAlignment="Left" />
                             <Label
@@ -704,10 +705,10 @@
                                 Grid.Row="1"
                                 Grid.Column="0"
                                 VerticalAlignment="Center"
-                                Content="{DynamicResource Emulator5Location}" />
+                                Content="{DynamicResource Emulator5Path}" />
                             <TextBox
                                 Margin="0,0,10,10"
-                                x:Name="Emulator5LocationTextBox"
+                                x:Name="Emulator5PathTextBox"
                                 Grid.Row="1"
                                 Grid.Column="1"
                                 IsReadOnly="True"
@@ -715,11 +716,11 @@
                                 HorizontalAlignment="Stretch" />
                             <Button
                                 Margin="0,0,10,10"
-                                x:Name="ChooseEmulator5LocationButton"
+                                x:Name="ChooseEmulator5PathButton"
                                 Grid.Row="1"
                                 Grid.Column="2"
-                                Click="ChooseEmulator5Location"
-                                Content="{DynamicResource SetEmulator5Location}"
+                                Click="ChooseEmulator5Path"
+                                Content="{DynamicResource SetEmulator5Path}"
                                 IsEnabled="False"
                                 HorizontalAlignment="Left" />
                             <Label
@@ -769,8 +770,17 @@
             </ScrollViewer>
         </Grid>
 
+        <!-- GridSplitter between columns 0 and 2 -->
+        <GridSplitter Grid.Column="1"
+                      Width="5"
+                      HorizontalAlignment="Stretch"
+                      VerticalAlignment="Stretch"
+                      Background="Gray"
+                      ResizeBehavior="PreviousAndNext"
+                      ResizeDirection="Columns" />
+
         <!-- Right column -->
-        <Grid Grid.Column="1" Margin="10">
+        <Grid Grid.Column="2" Margin="10">
             <Grid.RowDefinitions>
                 <RowDefinition Height="Auto" />
                 <RowDefinition Height="*" />

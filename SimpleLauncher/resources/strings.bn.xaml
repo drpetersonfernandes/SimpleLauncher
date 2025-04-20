@@ -155,20 +155,15 @@
     <system:String x:Key="Email">ইমেল</system:String>
     <system:String x:Key="Emerald">পান্না</system:String>
     <system:String x:Key="Emulator">ইমুলেটর</system:String>
-    <system:String x:Key="Emulator1Location">এমুলেটর ১ অবস্থান</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘ইমুলেটর ১ নাম’ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator1NameRequired">এমুলেটর ১ নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator1Parameters">এমুলেটর ১ প্যারামিটার</system:String>
-    <system:String x:Key="Emulator2Location">এমুলেটর ২ অবস্থান</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">এমুলেটর ২ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator2Parameters">এমুলেটর ২ প্যারামিটার</system:String>
-    <system:String x:Key="Emulator3Location">এমুলেটর ৩ অবস্থান</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">এমুলেটর ৩ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator3Parameters">এমুলেটর ৩ প্যারামিটার</system:String>
-    <system:String x:Key="Emulator4Location">এমুলেটর ৪ অবস্থান</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">এমুলেটর ৪ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator4Parameters">এমুলেটর ৪ প্যারামিটার</system:String>
-    <system:String x:Key="Emulator5Location">এমুলেটর ৫ অবস্থান</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">এমুলেটর ৫ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator5Parameters">এমুলেটর ৫ প্যারামিটার</system:String>
     <system:String x:Key="EmulatorLocation">এমুলেটর অবস্থান</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">সমর্থন অনুরোধ পাঠান</system:String>
     <system:String x:Key="SetButtonAspectRatio">বাটন আকৃতির অনুপাত সেট করুন</system:String>
     <system:String x:Key="SetButtonSize">বাটনের আকার সেট করুন</system:String>
-    <system:String x:Key="SetEmulator1Location">এমুলেটর ১ অবস্থান নির্ধারণ করুন</system:String>
-    <system:String x:Key="SetEmulator2Location">এমুলেটর ২ অবস্থান নির্ধারণ করুন</system:String>
-    <system:String x:Key="SetEmulator3Location">এমুলেটর ৩ অবস্থান নির্ধারণ করুন</system:String>
-    <system:String x:Key="SetEmulator4Location">এমুলেটর ৪ অবস্থান নির্ধারণ করুন</system:String>
-    <system:String x:Key="SetEmulator5Location">এমুলেটর ৫ অবস্থান নির্ধারণ করুন</system:String>
     <system:String x:Key="SetGamepadDeadZone">গেমপ্যাড ডেডজোন সেট করুন</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">একটি পৃষ্ঠায় গেম সংখ্যা নির্ধারণ করুন</system:String>
     <system:String x:Key="SetSystemFolder">সিস্টেম ফোল্ডার নির্ধারণ করুন</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">সুপার উইডার</system:String>
     <system:String x:Key="SuperTaller">সুপার টলার</system:String>
+    
+    <system:String x:Key="Emulator1Path">ইমুলেটর ১ পথ</system:String>
+    <system:String x:Key="SetEmulator1Path">ইমুলেটর ১ পথ সেট করুন</system:String>
+    <system:String x:Key="Emulator2Path">ইমুলেটর ২ পথ</system:String>
+    <system:String x:Key="SetEmulator2Path">ইমুলেটর ২ পথ সেট করুন</system:String>
+    <system:String x:Key="Emulator3Path">ইমুলেটর ৩ পথ</system:String>
+    <system:String x:Key="SetEmulator3Path">ইমুলেটর ৩ পথ সেট করুন</system:String>
+    <system:String x:Key="Emulator4Path">ইমুলেটর ৪ পথ</system:String>
+    <system:String x:Key="SetEmulator4Path">ইমুলেটর ৪ পথ সেট করুন</system:String>
+    <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
+    <system:String x:Key="SetEmulator5Path">ইমুলেটর ৫ পথ সেট করুন</system:String>
 </ResourceDictionary>

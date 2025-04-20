@@ -155,20 +155,15 @@
     <system:String x:Key="Email">E-mail</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
-    <system:String x:Key="Emulator1Location">Locatie van emulator 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘Emulator 1 naam’ is vereist.</system:String>
     <system:String x:Key="Emulator1NameRequired">Naam van emulator 1 (verplicht)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameters van emulator 1</system:String>
-    <system:String x:Key="Emulator2Location">Locatie van emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Naam van emulator 2 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameters van emulator 2</system:String>
-    <system:String x:Key="Emulator3Location">Locatie van emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Naam van emulator 3 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameters van emulator 3</system:String>
-    <system:String x:Key="Emulator4Location">Locatie van emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Naam van emulator 4 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameters van emulator 4</system:String>
-    <system:String x:Key="Emulator5Location">Locatie van emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Naam van emulator 5 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
     <system:String x:Key="EmulatorLocation">Locatie van de emulator</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">Ondersteuningsverzoek Verzenden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
     <system:String x:Key="SetButtonSize">Knopgrootte instellen</system:String>
-    <system:String x:Key="SetEmulator1Location">Emulator 1-locatie instellen</system:String>
-    <system:String x:Key="SetEmulator2Location">Emulator 2-locatie instellen</system:String>
-    <system:String x:Key="SetEmulator3Location">Emulator 3-locatie instellen</system:String>
-    <system:String x:Key="SetEmulator4Location">Emulator 4-locatie instellen</system:String>
-    <system:String x:Key="SetEmulator5Location">Emulator 5-locatie instellen</system:String>
     <system:String x:Key="SetGamepadDeadZone">Gamepad-dode zone instellen</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Aantal spellen per pagina instellen</system:String>
     <system:String x:Key="SetSystemFolder">Systeemmap instellen</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">Super breder</system:String>
     <system:String x:Key="SuperTaller">Super hoger</system:String>
+    
+    <system:String x:Key="Emulator1Path">Emulator 1 Pad</system:String>
+    <system:String x:Key="SetEmulator1Path">Stel Emulator 1 Pad in</system:String>
+    <system:String x:Key="Emulator2Path">Emulator 2 Pad</system:String>
+    <system:String x:Key="SetEmulator2Path">Stel Emulator 2 Pad in</system:String>
+    <system:String x:Key="Emulator3Path">Emulator 3 Pad</system:String>
+    <system:String x:Key="SetEmulator3Path">Stel Emulator 3 Pad in</system:String>
+    <system:String x:Key="Emulator4Path">Emulator 4 Pad</system:String>
+    <system:String x:Key="SetEmulator4Path">Stel Emulator 4 Pad in</system:String>
+    <system:String x:Key="Emulator5Path">Emulator 5 Pad</system:String>
+    <system:String x:Key="SetEmulator5Path">Stel Emulator 5 Pad in</system:String>
 </ResourceDictionary>

@@ -155,20 +155,15 @@
     <system:String x:Key="Email">电子邮件</system:String>
     <system:String x:Key="Emerald">祖母绿</system:String>
     <system:String x:Key="Emulator">模拟器</system:String>
-    <system:String x:Key="Emulator1Location">模拟器1位置</system:String>
     <system:String x:Key="Emulator1Nameisrequired">“模拟器1名称”是必需的。</system:String>
     <system:String x:Key="Emulator1NameRequired">模拟器1名称（必填）</system:String>
     <system:String x:Key="Emulator1Parameters">模拟器1参数</system:String>
-    <system:String x:Key="Emulator2Location">模拟器2位置</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">模拟器2名称（可能需要）</system:String>
     <system:String x:Key="Emulator2Parameters">模拟器2参数</system:String>
-    <system:String x:Key="Emulator3Location">模拟器3位置</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">模拟器3名称（可能需要）</system:String>
     <system:String x:Key="Emulator3Parameters">模拟器3参数</system:String>
-    <system:String x:Key="Emulator4Location">模拟器4位置</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">模拟器4名称（可能需要）</system:String>
     <system:String x:Key="Emulator4Parameters">模拟器4参数</system:String>
-    <system:String x:Key="Emulator5Location">模拟器5位置</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">模拟器5名称（可能需要）</system:String>
     <system:String x:Key="Emulator5Parameters">模拟器5参数</system:String>
     <system:String x:Key="EmulatorLocation">模拟器位置</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">发送支持请求</system:String>
     <system:String x:Key="SetButtonAspectRatio">设置按钮纵横比</system:String>
     <system:String x:Key="SetButtonSize">设置按钮大小</system:String>
-    <system:String x:Key="SetEmulator1Location">设置模拟器1位置</system:String>
-    <system:String x:Key="SetEmulator2Location">设置模拟器2位置</system:String>
-    <system:String x:Key="SetEmulator3Location">设置模拟器3位置</system:String>
-    <system:String x:Key="SetEmulator4Location">设置模拟器4位置</system:String>
-    <system:String x:Key="SetEmulator5Location">设置模拟器5位置</system:String>
     <system:String x:Key="SetGamepadDeadZone">设置游戏手柄死区</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">设置每页游戏数量</system:String>
     <system:String x:Key="SetSystemFolder">设置系统文件夹</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">超宽</system:String>
     <system:String x:Key="SuperTaller">超高</system:String>
+    
+    <system:String x:Key="Emulator1Path">模拟器1路径</system:String>
+    <system:String x:Key="SetEmulator1Path">设置模拟器1路径</system:String>
+    <system:String x:Key="Emulator2Path">模拟器2路径</system:String>
+    <system:String x:Key="SetEmulator2Path">设置模拟器2路径</system:String>
+    <system:String x:Key="Emulator3Path">模拟器3路径</system:String>
+    <system:String x:Key="SetEmulator3Path">设置模拟器3路径</system:String>
+    <system:String x:Key="Emulator4Path">模拟器4路径</system:String>
+    <system:String x:Key="SetEmulator4Path">设置模拟器4路径</system:String>
+    <system:String x:Key="Emulator5Path">模拟器5路径</system:String>
+    <system:String x:Key="SetEmulator5Path">设置模拟器5路径</system:String>
 </ResourceDictionary>

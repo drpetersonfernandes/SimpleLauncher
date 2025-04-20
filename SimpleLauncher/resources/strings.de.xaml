@@ -155,20 +155,15 @@
     <system:String x:Key="Email">E-Mail</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
-    <system:String x:Key="Emulator1Location">Emulator 1 Speicherort</system:String>
     <system:String x:Key="Emulator1Nameisrequired">"Emulator 1 Name" ist erforderlich.</system:String>
     <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (erforderlich)</system:String>
     <system:String x:Key="Emulator1Parameters">Emulator 1 Parameter</system:String>
-    <system:String x:Key="Emulator2Location">Emulator 2 Speicherort</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Emulator 2 Name (kann erforderlich sein)</system:String>
     <system:String x:Key="Emulator2Parameters">Emulator 2 Parameter</system:String>
-    <system:String x:Key="Emulator3Location">Emulator 3 Speicherort</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Emulator 3 Name (kann erforderlich sein)</system:String>
     <system:String x:Key="Emulator3Parameters">Emulator 3 Parameter</system:String>
-    <system:String x:Key="Emulator4Location">Emulator 4 Speicherort</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Emulator 4 Name (kann erforderlich sein)</system:String>
     <system:String x:Key="Emulator4Parameters">Emulator 4 Parameter</system:String>
-    <system:String x:Key="Emulator5Location">Emulator 5 Speicherort</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (kann erforderlich sein)</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameter</system:String>
     <system:String x:Key="EmulatorLocation">Speicherort des Emulators</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">Support-Anfrage senden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Seitenverhältnis der Schaltfläche festlegen</system:String>
     <system:String x:Key="SetButtonSize">Schaltflächengröße festlegen</system:String>
-    <system:String x:Key="SetEmulator1Location">Emulator 1 Speicherort festlegen</system:String>
-    <system:String x:Key="SetEmulator2Location">Emulator 2 Speicherort festlegen</system:String>
-    <system:String x:Key="SetEmulator3Location">Emulator 3 Speicherort festlegen</system:String>
-    <system:String x:Key="SetEmulator4Location">Emulator 4 Speicherort festlegen</system:String>
-    <system:String x:Key="SetEmulator5Location">Emulator 5 Speicherort festlegen</system:String>
     <system:String x:Key="SetGamepadDeadZone">Gamepad-Totzone festlegen</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Anzahl der Spiele pro Seite festlegen</system:String>
     <system:String x:Key="SetSystemFolder">Systemordner festlegen</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">Super breiter</system:String>
     <system:String x:Key="SuperTaller">Super höher</system:String>
+    
+    <system:String x:Key="Emulator1Path">Emulator 1 Pfad</system:String>
+    <system:String x:Key="SetEmulator1Path">Emulator 1 Pfad festlegen</system:String>
+    <system:String x:Key="Emulator2Path">Emulator 2 Pfad</system:String>
+    <system:String x:Key="SetEmulator2Path">Emulator 2 Pfad festlegen</system:String>
+    <system:String x:Key="Emulator3Path">Emulator 3 Pfad</system:String>
+    <system:String x:Key="SetEmulator3Path">Emulator 3 Pfad festlegen</system:String>
+    <system:String x:Key="Emulator4Path">Emulator 4 Pfad</system:String>
+    <system:String x:Key="SetEmulator4Path">Emulator 4 Pfad festlegen</system:String>
+    <system:String x:Key="Emulator5Path">Emulator 5 Pfad</system:String>
+    <system:String x:Key="SetEmulator5Path">Emulator 5 Pfad festlegen</system:String>
 </ResourceDictionary>

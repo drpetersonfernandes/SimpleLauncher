@@ -155,20 +155,15 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Lục bảo</system:String>
     <system:String x:Key="Emulator">Trình giả lập</system:String>
-    <system:String x:Key="Emulator1Location">Vị trí của trình giả lập 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">Tên "Trình giả lập 1" là bắt buộc.</system:String>
     <system:String x:Key="Emulator1NameRequired">Tên của trình giả lập 1 (bắt buộc)</system:String>
     <system:String x:Key="Emulator1Parameters">Tham số cho trình giả lập 1</system:String>
-    <system:String x:Key="Emulator2Location">Vị trí của trình giả lập 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Tên của trình giả lập 2 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator2Parameters">Tham số cho trình giả lập 2</system:String>
-    <system:String x:Key="Emulator3Location">Vị trí của trình giả lập 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Tên của trình giả lập 3 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator3Parameters">Tham số cho trình giả lập 3</system:String>
-    <system:String x:Key="Emulator4Location">Vị trí của trình giả lập 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Tên của trình giả lập 4 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator4Parameters">Tham số cho trình giả lập 4</system:String>
-    <system:String x:Key="Emulator5Location">Vị trí của trình giả lập 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
     <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">Gửi Yêu Cầu Hỗ Trợ</system:String>
     <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
     <system:String x:Key="SetButtonSize">Đặt kích thước nút</system:String>
-    <system:String x:Key="SetEmulator1Location">Đặt vị trí của trình giả lập 1</system:String>
-    <system:String x:Key="SetEmulator2Location">Đặt vị trí của trình giả lập 2</system:String>
-    <system:String x:Key="SetEmulator3Location">Đặt vị trí của trình giả lập 3</system:String>
-    <system:String x:Key="SetEmulator4Location">Đặt vị trí của trình giả lập 4</system:String>
-    <system:String x:Key="SetEmulator5Location">Đặt vị trí của trình giả lập 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Đặt vùng chết gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Đặt số trò chơi mỗi trang</system:String>
     <system:String x:Key="SetSystemFolder">Đặt thư mục hệ thống</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">Siêu rộng hơn</system:String>
     <system:String x:Key="SuperTaller">Siêu cao hơn</system:String>
+    
+    <system:String x:Key="Emulator1Path">Đường dẫn Máy giả lập 1</system:String>
+    <system:String x:Key="SetEmulator1Path">Đặt Đường dẫn Máy giả lập 1</system:String>
+    <system:String x:Key="Emulator2Path">Đường dẫn Máy giả lập 2</system:String>
+    <system:String x:Key="SetEmulator2Path">Đặt Đường dẫn Máy giả lập 2</system:String>
+    <system:String x:Key="Emulator3Path">Đường dẫn Máy giả lập 3</system:String>
+    <system:String x:Key="SetEmulator3Path">Đặt Đường dẫn Máy giả lập 3</system:String>
+    <system:String x:Key="Emulator4Path">Đường dẫn Máy giả lập 4</system:String>
+    <system:String x:Key="SetEmulator4Path">Đặt Đường dẫn Máy giả lập 4</system:String>
+    <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
+    <system:String x:Key="SetEmulator5Path">Đặt Đường dẫn Máy giả lập 5</system:String>
 </ResourceDictionary>

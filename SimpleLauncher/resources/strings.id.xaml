@@ -155,20 +155,15 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Hijau Zamrud</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
-    <system:String x:Key="Emulator1Location">Lokasi Emulator 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">"Nama Emulator 1" diperlukan.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nama Emulator 1 (Wajib)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameter Emulator 1</system:String>
-    <system:String x:Key="Emulator2Location">Lokasi Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nama Emulator 2 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameter Emulator 2</system:String>
-    <system:String x:Key="Emulator3Location">Lokasi Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nama Emulator 3 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameter Emulator 3</system:String>
-    <system:String x:Key="Emulator4Location">Lokasi Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nama Emulator 4 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameter Emulator 4</system:String>
-    <system:String x:Key="Emulator5Location">Lokasi Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nama Emulator 5 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
     <system:String x:Key="EmulatorLocation">Lokasi Emulator</system:String>
@@ -386,11 +381,6 @@
     <system:String x:Key="SendSupportRequest">Kirim Permintaan Dukungan</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
     <system:String x:Key="SetButtonSize">Atur Ukuran Tombol</system:String>
-    <system:String x:Key="SetEmulator1Location">Atur Lokasi Emulator 1</system:String>
-    <system:String x:Key="SetEmulator2Location">Atur Lokasi Emulator 2</system:String>
-    <system:String x:Key="SetEmulator3Location">Atur Lokasi Emulator 3</system:String>
-    <system:String x:Key="SetEmulator4Location">Atur Lokasi Emulator 4</system:String>
-    <system:String x:Key="SetEmulator5Location">Atur Lokasi Emulator 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Atur Zona Mati Gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Atur Jumlah Permainan Per Halaman</system:String>
     <system:String x:Key="SetSystemFolder">Atur Folder Sistem</system:String>
@@ -572,4 +562,15 @@
     
     <system:String x:Key="SuperWider">Super lebih lebar</system:String>
     <system:String x:Key="SuperTaller">Super lebih tinggi</system:String>
+    
+    <system:String x:Key="Emulator1Path">Jalur Emulator 1</system:String>
+    <system:String x:Key="SetEmulator1Path">Atur Jalur Emulator 1</system:String>
+    <system:String x:Key="Emulator2Path">Jalur Emulator 2</system:String>
+    <system:String x:Key="SetEmulator2Path">Atur Jalur Emulator 2</system:String>
+    <system:String x:Key="Emulator3Path">Jalur Emulator 3</system:String>
+    <system:String x:Key="SetEmulator3Path">Atur Jalur Emulator 3</system:String>
+    <system:String x:Key="Emulator4Path">Jalur Emulator 4</system:String>
+    <system:String x:Key="SetEmulator4Path">Atur Jalur Emulator 4</system:String>
+    <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
+    <system:String x:Key="SetEmulator5Path">Atur Jalur Emulator 5</system:String>
 </ResourceDictionary>
