@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-    
-
-    
     <system:String x:Key="&lt;_Prev">&lt; پچھلا</system:String>
     <system:String x:Key="100games">100 کھیل</system:String>
     <system:String x:Key="100pixels">100 پکسلز</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">ایمولیٹر 1 کا نام ضروری ہے۔</system:String>
     <system:String x:Key="Emulator1NameRequired">ایمولیٹر 1 کا نام (ضروری)</system:String>
     <system:String x:Key="Emulator1Parameters">ایمولیٹر 1 پیرامیٹرز</system:String>
+    <system:String x:Key="Emulator1Path">ایمولیٹر 1 کا راستہ</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">ایمولیٹر 2 کا نام (شاید ضروری ہو)</system:String>
     <system:String x:Key="Emulator2Parameters">ایمولیٹر 2 پیرامیٹرز</system:String>
+    <system:String x:Key="Emulator2Path">ایمولیٹر 2 کا راستہ</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">ایمولیٹر 3 کا نام (شاید ضروری ہو)</system:String>
     <system:String x:Key="Emulator3Parameters">ایمولیٹر 3 پیرامیٹرز</system:String>
+    <system:String x:Key="Emulator3Path">ایمولیٹر 3 کا راستہ</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">ایمولیٹر 4 کا نام (شاید ضروری ہو)</system:String>
     <system:String x:Key="Emulator4Parameters">ایمولیٹر 4 پیرامیٹرز</system:String>
+    <system:String x:Key="Emulator4Path">ایمولیٹر 4 کا راستہ</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">ایمولیٹر 5 کا نام (شاید ضروری ہو)</system:String>
     <system:String x:Key="Emulator5Parameters">ایمولیٹر 5 پیرامیٹرز</system:String>
+    <system:String x:Key="Emulator5Path">ایمولیٹر 5 کا راستہ</system:String>
     <system:String x:Key="EmulatorLocation">ایمولیٹر کا مقام</system:String>
     <system:String x:Key="EmulatorName">ایمولیٹر کا نام</system:String>
     <system:String x:Key="EmulatorParameters">ایمولیٹر کے پیرامیٹرز</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">سپورٹ کی درخواست بھیجیں</system:String>
     <system:String x:Key="SetButtonAspectRatio">بٹن کا تناسب سیٹ کریں</system:String>
     <system:String x:Key="SetButtonSize">بٹن کا سائز سیٹ کریں</system:String>
+    <system:String x:Key="SetEmulator1Path">ایمولیٹر 1 کا راستہ مقرر کریں</system:String>
+    <system:String x:Key="SetEmulator2Path">ایمولیٹر 2 کا راستہ مقرر کریں</system:String>
+    <system:String x:Key="SetEmulator3Path">ایمولیٹر 3 کا راستہ مقرر کریں</system:String>
+    <system:String x:Key="SetEmulator4Path">ایمولیٹر 4 کا راستہ مقرر کریں</system:String>
+    <system:String x:Key="SetEmulator5Path">ایمولیٹر 5 کا راستہ مقرر کریں</system:String>
     <system:String x:Key="SetGamepadDeadZone">گیم پیڈ ڈیڈ زون سیٹ کریں</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">ایک صفحے پر کھیلوں کی تعداد سیٹ کریں</system:String>
     <system:String x:Key="SetSystemFolder">سسٹم فولڈر سیٹ کریں</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">اسٹیل</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
+    <system:String x:Key="SuperTaller">سپر اونچا</system:String>
+    <system:String x:Key="SuperWider">سپر چوڑا</system:String>
     <system:String x:Key="Support">سپورٹ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">سپورٹ کی درخواست کامیابی سے بھیجی گئی۔</system:String>
     <system:String x:Key="System">سسٹم:</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
-    
-    <system:String x:Key="SuperWider">سپر چوڑا</system:String>
-    <system:String x:Key="SuperTaller">سپر اونچا</system:String>
-    
-    <system:String x:Key="Emulator1Path">ایمولیٹر 1 کا راستہ</system:String>
-    <system:String x:Key="SetEmulator1Path">ایمولیٹر 1 کا راستہ مقرر کریں</system:String>
-    <system:String x:Key="Emulator2Path">ایمولیٹر 2 کا راستہ</system:String>
-    <system:String x:Key="SetEmulator2Path">ایمولیٹر 2 کا راستہ مقرر کریں</system:String>
-    <system:String x:Key="Emulator3Path">ایمولیٹر 3 کا راستہ</system:String>
-    <system:String x:Key="SetEmulator3Path">ایمولیٹر 3 کا راستہ مقرر کریں</system:String>
-    <system:String x:Key="Emulator4Path">ایمولیٹر 4 کا راستہ</system:String>
-    <system:String x:Key="SetEmulator4Path">ایمولیٹر 4 کا راستہ مقرر کریں</system:String>
-    <system:String x:Key="Emulator5Path">ایمولیٹر 5 کا راستہ</system:String>
-    <system:String x:Key="SetEmulator5Path">ایمولیٹر 5 کا راستہ مقرر کریں</system:String>
 </ResourceDictionary>

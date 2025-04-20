@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-
-    
-    
     <system:String x:Key="&lt;_Prev">&lt; Sebelumnya</system:String>
     <system:String x:Key="100games">100 permainan</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">"Nama Emulator 1" diperlukan.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nama Emulator 1 (Wajib)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameter Emulator 1</system:String>
+    <system:String x:Key="Emulator1Path">Jalur Emulator 1</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nama Emulator 2 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameter Emulator 2</system:String>
+    <system:String x:Key="Emulator2Path">Jalur Emulator 2</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nama Emulator 3 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameter Emulator 3</system:String>
+    <system:String x:Key="Emulator3Path">Jalur Emulator 3</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nama Emulator 4 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameter Emulator 4</system:String>
+    <system:String x:Key="Emulator4Path">Jalur Emulator 4</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nama Emulator 5 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
+    <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
     <system:String x:Key="EmulatorLocation">Lokasi Emulator</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
     <system:String x:Key="EmulatorParameters">Parameter Emulator</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">Kirim Permintaan Dukungan</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
     <system:String x:Key="SetButtonSize">Atur Ukuran Tombol</system:String>
+    <system:String x:Key="SetEmulator1Path">Atur Jalur Emulator 1</system:String>
+    <system:String x:Key="SetEmulator2Path">Atur Jalur Emulator 2</system:String>
+    <system:String x:Key="SetEmulator3Path">Atur Jalur Emulator 3</system:String>
+    <system:String x:Key="SetEmulator4Path">Atur Jalur Emulator 4</system:String>
+    <system:String x:Key="SetEmulator5Path">Atur Jalur Emulator 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Atur Zona Mati Gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Atur Jumlah Permainan Per Halaman</system:String>
     <system:String x:Key="SetSystemFolder">Atur Folder Sistem</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">Biru Baja</system:String>
     <system:String x:Key="StopDownload">Hentikan Unduhan</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
+    <system:String x:Key="SuperTaller">Super lebih tinggi</system:String>
+    <system:String x:Key="SuperWider">Super lebih lebar</system:String>
     <system:String x:Key="Support">Dukungan</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Permintaan dukungan berhasil dikirim.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
-    
-    <system:String x:Key="SuperWider">Super lebih lebar</system:String>
-    <system:String x:Key="SuperTaller">Super lebih tinggi</system:String>
-    
-    <system:String x:Key="Emulator1Path">Jalur Emulator 1</system:String>
-    <system:String x:Key="SetEmulator1Path">Atur Jalur Emulator 1</system:String>
-    <system:String x:Key="Emulator2Path">Jalur Emulator 2</system:String>
-    <system:String x:Key="SetEmulator2Path">Atur Jalur Emulator 2</system:String>
-    <system:String x:Key="Emulator3Path">Jalur Emulator 3</system:String>
-    <system:String x:Key="SetEmulator3Path">Atur Jalur Emulator 3</system:String>
-    <system:String x:Key="Emulator4Path">Jalur Emulator 4</system:String>
-    <system:String x:Key="SetEmulator4Path">Atur Jalur Emulator 4</system:String>
-    <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
-    <system:String x:Key="SetEmulator5Path">Atur Jalur Emulator 5</system:String>
 </ResourceDictionary>

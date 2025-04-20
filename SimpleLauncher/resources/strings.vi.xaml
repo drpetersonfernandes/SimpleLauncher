@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-
-    
-    
     <system:String x:Key="&lt;_Prev">&lt; Trước</system:String>
     <system:String x:Key="100games">100 trò chơi</system:String>
     <system:String x:Key="100pixels">100 pixel</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">Tên "Trình giả lập 1" là bắt buộc.</system:String>
     <system:String x:Key="Emulator1NameRequired">Tên của trình giả lập 1 (bắt buộc)</system:String>
     <system:String x:Key="Emulator1Parameters">Tham số cho trình giả lập 1</system:String>
+    <system:String x:Key="Emulator1Path">Đường dẫn Máy giả lập 1</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Tên của trình giả lập 2 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator2Parameters">Tham số cho trình giả lập 2</system:String>
+    <system:String x:Key="Emulator2Path">Đường dẫn Máy giả lập 2</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Tên của trình giả lập 3 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator3Parameters">Tham số cho trình giả lập 3</system:String>
+    <system:String x:Key="Emulator3Path">Đường dẫn Máy giả lập 3</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Tên của trình giả lập 4 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator4Parameters">Tham số cho trình giả lập 4</system:String>
+    <system:String x:Key="Emulator4Path">Đường dẫn Máy giả lập 4</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
+    <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
     <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
     <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
     <system:String x:Key="EmulatorParameters">Tham số của Trình giả lập</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">Gửi Yêu Cầu Hỗ Trợ</system:String>
     <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
     <system:String x:Key="SetButtonSize">Đặt kích thước nút</system:String>
+    <system:String x:Key="SetEmulator1Path">Đặt Đường dẫn Máy giả lập 1</system:String>
+    <system:String x:Key="SetEmulator2Path">Đặt Đường dẫn Máy giả lập 2</system:String>
+    <system:String x:Key="SetEmulator3Path">Đặt Đường dẫn Máy giả lập 3</system:String>
+    <system:String x:Key="SetEmulator4Path">Đặt Đường dẫn Máy giả lập 4</system:String>
+    <system:String x:Key="SetEmulator5Path">Đặt Đường dẫn Máy giả lập 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Đặt vùng chết gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Đặt số trò chơi mỗi trang</system:String>
     <system:String x:Key="SetSystemFolder">Đặt thư mục hệ thống</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">Thép</system:String>
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
     <system:String x:Key="Success">Thành công</system:String>
+    <system:String x:Key="SuperTaller">Siêu cao hơn</system:String>
+    <system:String x:Key="SuperWider">Siêu rộng hơn</system:String>
     <system:String x:Key="Support">Hỗ Trợ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Yêu cầu hỗ trợ đã được gửi thành công.</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
-    
-    <system:String x:Key="SuperWider">Siêu rộng hơn</system:String>
-    <system:String x:Key="SuperTaller">Siêu cao hơn</system:String>
-    
-    <system:String x:Key="Emulator1Path">Đường dẫn Máy giả lập 1</system:String>
-    <system:String x:Key="SetEmulator1Path">Đặt Đường dẫn Máy giả lập 1</system:String>
-    <system:String x:Key="Emulator2Path">Đường dẫn Máy giả lập 2</system:String>
-    <system:String x:Key="SetEmulator2Path">Đặt Đường dẫn Máy giả lập 2</system:String>
-    <system:String x:Key="Emulator3Path">Đường dẫn Máy giả lập 3</system:String>
-    <system:String x:Key="SetEmulator3Path">Đặt Đường dẫn Máy giả lập 3</system:String>
-    <system:String x:Key="Emulator4Path">Đường dẫn Máy giả lập 4</system:String>
-    <system:String x:Key="SetEmulator4Path">Đặt Đường dẫn Máy giả lập 4</system:String>
-    <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
-    <system:String x:Key="SetEmulator5Path">Đặt Đường dẫn Máy giả lập 5</system:String>
 </ResourceDictionary>

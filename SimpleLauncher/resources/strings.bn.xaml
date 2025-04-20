@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-    
-
-    
     <system:String x:Key="&lt;_Prev">&lt;পূর্ববর্তী</system:String>
     <system:String x:Key="100games">১০০ গেম</system:String>
     <system:String x:Key="100pixels">১০০ পিক্সেল</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">‘ইমুলেটর ১ নাম’ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator1NameRequired">এমুলেটর ১ নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator1Parameters">এমুলেটর ১ প্যারামিটার</system:String>
+    <system:String x:Key="Emulator1Path">ইমুলেটর ১ পথ</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">এমুলেটর ২ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator2Parameters">এমুলেটর ২ প্যারামিটার</system:String>
+    <system:String x:Key="Emulator2Path">ইমুলেটর ২ পথ</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">এমুলেটর ৩ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator3Parameters">এমুলেটর ৩ প্যারামিটার</system:String>
+    <system:String x:Key="Emulator3Path">ইমুলেটর ৩ পথ</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">এমুলেটর ৪ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator4Parameters">এমুলেটর ৪ প্যারামিটার</system:String>
+    <system:String x:Key="Emulator4Path">ইমুলেটর ৪ পথ</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">এমুলেটর ৫ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator5Parameters">এমুলেটর ৫ প্যারামিটার</system:String>
+    <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
     <system:String x:Key="EmulatorLocation">এমুলেটর অবস্থান</system:String>
     <system:String x:Key="EmulatorName">এমুলেটর নাম</system:String>
     <system:String x:Key="EmulatorParameters">এমুলেটর প্যারামিটার</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">সমর্থন অনুরোধ পাঠান</system:String>
     <system:String x:Key="SetButtonAspectRatio">বাটন আকৃতির অনুপাত সেট করুন</system:String>
     <system:String x:Key="SetButtonSize">বাটনের আকার সেট করুন</system:String>
+    <system:String x:Key="SetEmulator1Path">ইমুলেটর ১ পথ সেট করুন</system:String>
+    <system:String x:Key="SetEmulator2Path">ইমুলেটর ২ পথ সেট করুন</system:String>
+    <system:String x:Key="SetEmulator3Path">ইমুলেটর ৩ পথ সেট করুন</system:String>
+    <system:String x:Key="SetEmulator4Path">ইমুলেটর ৪ পথ সেট করুন</system:String>
+    <system:String x:Key="SetEmulator5Path">ইমুলেটর ৫ পথ সেট করুন</system:String>
     <system:String x:Key="SetGamepadDeadZone">গেমপ্যাড ডেডজোন সেট করুন</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">একটি পৃষ্ঠায় গেম সংখ্যা নির্ধারণ করুন</system:String>
     <system:String x:Key="SetSystemFolder">সিস্টেম ফোল্ডার নির্ধারণ করুন</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">ইস্পাত</system:String>
     <system:String x:Key="StopDownload">ডাউনলোড বন্ধ করুন</system:String>
     <system:String x:Key="Success">সফল</system:String>
+    <system:String x:Key="SuperTaller">সুপার টলার</system:String>
+    <system:String x:Key="SuperWider">সুপার উইডার</system:String>
     <system:String x:Key="Support">সমর্থন</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">সমর্থন অনুরোধ সফলভাবে পাঠানো হয়েছে।</system:String>
     <system:String x:Key="System">সিস্টেম:</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
-    
-    <system:String x:Key="SuperWider">সুপার উইডার</system:String>
-    <system:String x:Key="SuperTaller">সুপার টলার</system:String>
-    
-    <system:String x:Key="Emulator1Path">ইমুলেটর ১ পথ</system:String>
-    <system:String x:Key="SetEmulator1Path">ইমুলেটর ১ পথ সেট করুন</system:String>
-    <system:String x:Key="Emulator2Path">ইমুলেটর ২ পথ</system:String>
-    <system:String x:Key="SetEmulator2Path">ইমুলেটর ২ পথ সেট করুন</system:String>
-    <system:String x:Key="Emulator3Path">ইমুলেটর ৩ পথ</system:String>
-    <system:String x:Key="SetEmulator3Path">ইমুলেটর ৩ পথ সেট করুন</system:String>
-    <system:String x:Key="Emulator4Path">ইমুলেটর ৪ পথ</system:String>
-    <system:String x:Key="SetEmulator4Path">ইমুলেটর ৪ পথ সেট করুন</system:String>
-    <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
-    <system:String x:Key="SetEmulator5Path">ইমুলেটর ৫ পথ সেট করুন</system:String>
 </ResourceDictionary>

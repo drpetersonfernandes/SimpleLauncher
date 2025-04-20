@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-    
-
-    
     <system:String x:Key="&lt;_Prev">&lt; السابق</system:String>
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">'اسم المحاكي 1' مطلوب.</system:String>
     <system:String x:Key="Emulator1NameRequired">اسم المحاكي 1 (مطلوب)</system:String>
     <system:String x:Key="Emulator1Parameters">معلمات المحاكي 1</system:String>
+    <system:String x:Key="Emulator1Path">مسار المحاكي 1</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">اسم المحاكي 2 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator2Parameters">معلمات المحاكي 2</system:String>
+    <system:String x:Key="Emulator2Path">مسار المحاكي 2</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">اسم المحاكي 3 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator3Parameters">معلمات المحاكي 3</system:String>
+    <system:String x:Key="Emulator3Path">مسار المحاكي 3</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">اسم المحاكي 4 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator4Parameters">معلمات المحاكي 4</system:String>
+    <system:String x:Key="Emulator4Path">مسار المحاكي 4</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
+    <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
     <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">إرسال طلب الدعم</system:String>
     <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
     <system:String x:Key="SetButtonSize">تعيين حجم الزر</system:String>
+    <system:String x:Key="SetEmulator1Path">تعيين مسار المحاكي 1</system:String>
+    <system:String x:Key="SetEmulator2Path">تعيين مسار المحاكي 2</system:String>
+    <system:String x:Key="SetEmulator3Path">تعيين مسار المحاكي 3</system:String>
+    <system:String x:Key="SetEmulator4Path">تعيين مسار المحاكي 4</system:String>
+    <system:String x:Key="SetEmulator5Path">تعيين مسار المحاكي 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">تعيين المنطقة الميتة لوحدة التحكم</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">تعيين عدد الألعاب لكل صفحة</system:String>
     <system:String x:Key="SetSystemFolder">تعيين مجلد النظام</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">فولاذي</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
     <system:String x:Key="Success">تم بنجاح</system:String>
+    <system:String x:Key="SuperTaller">سوبر أطول</system:String>
+    <system:String x:Key="SuperWider">سوبر أوسع</system:String>
     <system:String x:Key="Support">الدعم</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">تم إرسال طلب الدعم بنجاح.</system:String>
     <system:String x:Key="System">النظام:</system:String>
@@ -559,19 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
-    
-    <system:String x:Key="SuperWider">سوبر أوسع</system:String>
-    <system:String x:Key="SuperTaller">سوبر أطول</system:String>
-    
-    <system:String x:Key="Emulator1Path">مسار المحاكي 1</system:String>
-    <system:String x:Key="SetEmulator1Path">تعيين مسار المحاكي 1</system:String>
-    <system:String x:Key="Emulator2Path">مسار المحاكي 2</system:String>
-    <system:String x:Key="SetEmulator2Path">تعيين مسار المحاكي 2</system:String>
-    <system:String x:Key="Emulator3Path">مسار المحاكي 3</system:String>
-    <system:String x:Key="SetEmulator3Path">تعيين مسار المحاكي 3</system:String>
-    <system:String x:Key="Emulator4Path">مسار المحاكي 4</system:String>
-    <system:String x:Key="SetEmulator4Path">تعيين مسار المحاكي 4</system:String>
-    <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
-    <system:String x:Key="SetEmulator5Path">تعيين مسار المحاكي 5</system:String>
-    
 </ResourceDictionary>

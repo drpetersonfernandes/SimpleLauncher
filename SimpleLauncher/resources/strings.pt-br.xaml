@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    
-    
-    
-    
-    
-    
-    
-    
     <system:String x:Key="&lt;_Prev">&lt; Anterior</system:String>
     <system:String x:Key="100games">100 jogos</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">O "Nome do Emulador 1" é obrigatório.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nome do emulador 1 (obrigatório)</system:String>
     <system:String x:Key="Emulator1Parameters">Parâmetros do emulador 1</system:String>
+    <system:String x:Key="Emulator1Path">Caminho do Emulador 1</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nome do emulador 2 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator2Parameters">Parâmetros do emulador 2</system:String>
+    <system:String x:Key="Emulator2Path">Caminho do Emulador 2</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nome do emulador 3 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator3Parameters">Parâmetros do emulador 3</system:String>
+    <system:String x:Key="Emulator3Path">Caminho do Emulador 3</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nome do emulador 4 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator4Parameters">Parâmetros do emulador 4</system:String>
+    <system:String x:Key="Emulator4Path">Caminho do Emulador 4</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nome do emulador 5 (pode ser obrigatório)</system:String>
     <system:String x:Key="Emulator5Parameters">Parâmetros do emulador 5</system:String>
+    <system:String x:Key="Emulator5Path">Caminho do Emulador 5</system:String>
     <system:String x:Key="EmulatorLocation">Localização do Emulador</system:String>
     <system:String x:Key="EmulatorName">Nome do Emulador</system:String>
     <system:String x:Key="EmulatorParameters">Parâmetros do Emulador</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">Enviar Solicitação de Suporte</system:String>
     <system:String x:Key="SetButtonAspectRatio">Definir proporção do botão</system:String>
     <system:String x:Key="SetButtonSize">Definir tamanho do botão</system:String>
+    <system:String x:Key="SetEmulator1Path">Definir Caminho do Emulador 1</system:String>
+    <system:String x:Key="SetEmulator2Path">Definir Caminho do Emulador 2</system:String>
+    <system:String x:Key="SetEmulator3Path">Definir Caminho do Emulador 3</system:String>
+    <system:String x:Key="SetEmulator4Path">Definir Caminho do Emulador 4</system:String>
+    <system:String x:Key="SetEmulator5Path">Definir Caminho do Emulador 5</system:String>
     <system:String x:Key="SetGamepadDeadZone">Definir zona morta do gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Definir Número de Jogos por Página</system:String>
     <system:String x:Key="SetSystemFolder">Definir a pasta do sistema</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">Aço</system:String>
     <system:String x:Key="StopDownload">Parar download</system:String>
     <system:String x:Key="Success">Sucesso</system:String>
+    <system:String x:Key="SuperTaller">Super mais alto</system:String>
+    <system:String x:Key="SuperWider">Super mais largo</system:String>
     <system:String x:Key="Support">Suporte</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Solicitação de suporte enviada com sucesso.</system:String>
     <system:String x:Key="System">Sistema:</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">Você pode usar os operadores lógicos AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Você pode colocar as imagens de capa deste sistema dentro desta pasta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
-    
-    <system:String x:Key="SuperWider">Super mais largo</system:String>
-    <system:String x:Key="SuperTaller">Super mais alto</system:String>
-    
-    <system:String x:Key="Emulator1Path">Caminho do Emulador 1</system:String>
-    <system:String x:Key="SetEmulator1Path">Definir Caminho do Emulador 1</system:String>
-    <system:String x:Key="Emulator2Path">Caminho do Emulador 2</system:String>
-    <system:String x:Key="SetEmulator2Path">Definir Caminho do Emulador 2</system:String>
-    <system:String x:Key="Emulator3Path">Caminho do Emulador 3</system:String>
-    <system:String x:Key="SetEmulator3Path">Definir Caminho do Emulador 3</system:String>
-    <system:String x:Key="Emulator4Path">Caminho do Emulador 4</system:String>
-    <system:String x:Key="SetEmulator4Path">Definir Caminho do Emulador 4</system:String>
-    <system:String x:Key="Emulator5Path">Caminho do Emulador 5</system:String>
-    <system:String x:Key="SetEmulator5Path">Definir Caminho do Emulador 5</system:String>
 </ResourceDictionary>

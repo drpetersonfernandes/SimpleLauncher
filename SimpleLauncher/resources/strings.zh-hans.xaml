@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-
-    
-    
-    
-    
-    
-
-    
     <system:String x:Key="&lt;_Prev">&lt; 上一页</system:String>
     <system:String x:Key="100games">100 个游戏</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">“模拟器1名称”是必需的。</system:String>
     <system:String x:Key="Emulator1NameRequired">模拟器1名称（必填）</system:String>
     <system:String x:Key="Emulator1Parameters">模拟器1参数</system:String>
+    <system:String x:Key="Emulator1Path">模拟器1路径</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">模拟器2名称（可能需要）</system:String>
     <system:String x:Key="Emulator2Parameters">模拟器2参数</system:String>
+    <system:String x:Key="Emulator2Path">模拟器2路径</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">模拟器3名称（可能需要）</system:String>
     <system:String x:Key="Emulator3Parameters">模拟器3参数</system:String>
+    <system:String x:Key="Emulator3Path">模拟器3路径</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">模拟器4名称（可能需要）</system:String>
     <system:String x:Key="Emulator4Parameters">模拟器4参数</system:String>
+    <system:String x:Key="Emulator4Path">模拟器4路径</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">模拟器5名称（可能需要）</system:String>
     <system:String x:Key="Emulator5Parameters">模拟器5参数</system:String>
+    <system:String x:Key="Emulator5Path">模拟器5路径</system:String>
     <system:String x:Key="EmulatorLocation">模拟器位置</system:String>
     <system:String x:Key="EmulatorName">模拟器名称</system:String>
     <system:String x:Key="EmulatorParameters">模拟器参数</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">发送支持请求</system:String>
     <system:String x:Key="SetButtonAspectRatio">设置按钮纵横比</system:String>
     <system:String x:Key="SetButtonSize">设置按钮大小</system:String>
+    <system:String x:Key="SetEmulator1Path">设置模拟器1路径</system:String>
+    <system:String x:Key="SetEmulator2Path">设置模拟器2路径</system:String>
+    <system:String x:Key="SetEmulator3Path">设置模拟器3路径</system:String>
+    <system:String x:Key="SetEmulator4Path">设置模拟器4路径</system:String>
+    <system:String x:Key="SetEmulator5Path">设置模拟器5路径</system:String>
     <system:String x:Key="SetGamepadDeadZone">设置游戏手柄死区</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">设置每页游戏数量</system:String>
     <system:String x:Key="SetSystemFolder">设置系统文件夹</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">钢铁色</system:String>
     <system:String x:Key="StopDownload">停止下载</system:String>
     <system:String x:Key="Success">成功</system:String>
+    <system:String x:Key="SuperTaller">超高</system:String>
+    <system:String x:Key="SuperWider">超宽</system:String>
     <system:String x:Key="Support">支持</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">支持请求已成功发送。</system:String>
     <system:String x:Key="System">系统：</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
-    
-    <system:String x:Key="SuperWider">超宽</system:String>
-    <system:String x:Key="SuperTaller">超高</system:String>
-    
-    <system:String x:Key="Emulator1Path">模拟器1路径</system:String>
-    <system:String x:Key="SetEmulator1Path">设置模拟器1路径</system:String>
-    <system:String x:Key="Emulator2Path">模拟器2路径</system:String>
-    <system:String x:Key="SetEmulator2Path">设置模拟器2路径</system:String>
-    <system:String x:Key="Emulator3Path">模拟器3路径</system:String>
-    <system:String x:Key="SetEmulator3Path">设置模拟器3路径</system:String>
-    <system:String x:Key="Emulator4Path">模拟器4路径</system:String>
-    <system:String x:Key="SetEmulator4Path">设置模拟器4路径</system:String>
-    <system:String x:Key="Emulator5Path">模拟器5路径</system:String>
-    <system:String x:Key="SetEmulator5Path">设置模拟器5路径</system:String>
 </ResourceDictionary>

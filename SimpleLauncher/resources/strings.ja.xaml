@@ -1,15 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    
-    
-    
-    
-    
-    
-    
-    
     <system:String x:Key="&lt;_Prev">&lt; 前へ</system:String>
     <system:String x:Key="100games">100 ゲーム</system:String>
     <system:String x:Key="100pixels">100 ピクセル</system:String>
@@ -158,14 +149,19 @@
     <system:String x:Key="Emulator1Nameisrequired">「エミュレーター1の名前」が必要です。</system:String>
     <system:String x:Key="Emulator1NameRequired">エミュレーター1の名前（必須）</system:String>
     <system:String x:Key="Emulator1Parameters">エミュレーター1のパラメーター</system:String>
+    <system:String x:Key="Emulator1Path">エミュレーター1のパス</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">エミュレーター2の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator2Parameters">エミュレーター2のパラメーター</system:String>
+    <system:String x:Key="Emulator2Path">エミュレーター2のパス</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">エミュレーター3の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator3Parameters">エミュレーター3のパラメーター</system:String>
+    <system:String x:Key="Emulator3Path">エミュレーター3のパス</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">エミュレーター4の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator4Parameters">エミュレーター4のパラメーター</system:String>
+    <system:String x:Key="Emulator4Path">エミュレーター4のパス</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
+    <system:String x:Key="Emulator5Path">エミュレーター5のパス</system:String>
     <system:String x:Key="EmulatorLocation">エミュレーターの場所</system:String>
     <system:String x:Key="EmulatorName">エミュレーター名</system:String>
     <system:String x:Key="EmulatorParameters">エミュレーターのパラメーター</system:String>
@@ -381,6 +377,11 @@
     <system:String x:Key="SendSupportRequest">サポートリクエストを送信</system:String>
     <system:String x:Key="SetButtonAspectRatio">ボタンの縦横比を設定</system:String>
     <system:String x:Key="SetButtonSize">ボタンのサイズを設定</system:String>
+    <system:String x:Key="SetEmulator1Path">エミュレーター1のパスを設定</system:String>
+    <system:String x:Key="SetEmulator2Path">エミュレーター2のパスを設定</system:String>
+    <system:String x:Key="SetEmulator3Path">エミュレーター3のパスを設定</system:String>
+    <system:String x:Key="SetEmulator4Path">エミュレーター4のパスを設定</system:String>
+    <system:String x:Key="SetEmulator5Path">エミュレーター5のパスを設定</system:String>
     <system:String x:Key="SetGamepadDeadZone">ゲームパッドのデッドゾーンを設定</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">1ページあたりのゲーム数を設定</system:String>
     <system:String x:Key="SetSystemFolder">システムフォルダーを設定</system:String>
@@ -408,6 +409,8 @@
     <system:String x:Key="Steel">スチール</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
     <system:String x:Key="Success">成功</system:String>
+    <system:String x:Key="SuperTaller">スーパー・タラー</system:String>
+    <system:String x:Key="SuperWider">スーパー・ワイダー</system:String>
     <system:String x:Key="Support">サポート</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">サポートリクエストが正常に送信されました。</system:String>
     <system:String x:Key="System">システム：</system:String>
@@ -559,18 +562,4 @@
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
-    
-    <system:String x:Key="SuperWider">スーパー・ワイダー</system:String>
-    <system:String x:Key="SuperTaller">スーパー・タラー</system:String>
-    
-    <system:String x:Key="Emulator1Path">エミュレーター1のパス</system:String>
-    <system:String x:Key="SetEmulator1Path">エミュレーター1のパスを設定</system:String>
-    <system:String x:Key="Emulator2Path">エミュレーター2のパス</system:String>
-    <system:String x:Key="SetEmulator2Path">エミュレーター2のパスを設定</system:String>
-    <system:String x:Key="Emulator3Path">エミュレーター3のパス</system:String>
-    <system:String x:Key="SetEmulator3Path">エミュレーター3のパスを設定</system:String>
-    <system:String x:Key="Emulator4Path">エミュレーター4のパス</system:String>
-    <system:String x:Key="SetEmulator4Path">エミュレーター4のパスを設定</system:String>
-    <system:String x:Key="Emulator5Path">エミュレーター5のパス</system:String>
-    <system:String x:Key="SetEmulator5Path">エミュレーター5のパスを設定</system:String>
 </ResourceDictionary>
