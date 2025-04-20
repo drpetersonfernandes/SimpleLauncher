@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

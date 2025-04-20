@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -18,7 +19,7 @@ public class EasyModeManager
         const string xmlFile = "easymode.xml";
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
 
-        // Check if the file exists before proceeding.
+        // Check if xmlFile exists before proceeding.
         if (!File.Exists(xmlFilePath))
         {
             // Notify developer
@@ -39,6 +40,7 @@ public class EasyModeManager
 
             // Open the file
             using var fileStream = new FileStream(xmlFilePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
+
             // Create XmlReaderSettings to disable DTD processing and set XmlResolver to null
             var settings = new XmlReaderSettings
             {
@@ -63,12 +65,18 @@ public class EasyModeManager
             // Notify developer
             const string contextMessage = "The file 'easymode.xml' is corrupted or invalid.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Return an empty config to avoid further null reference issues
+            return new EasyModeManager { Systems = [] };
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "An unexpected error occurred while loading the file 'easymode.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Return an empty config to avoid further null reference issues
+            return new EasyModeManager { Systems = [] };
         }
 
         // Return an empty config to avoid further null reference issues

@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -288,15 +289,7 @@ public static partial class UpdateChecker
         // Close Simple Launcher
         Application.Current.Dispatcher.Invoke(static () =>
         {
-            foreach (Window window in Application.Current.Windows)
-            {
-                window.Close(); // Close each window
-            }
-
-            GC.Collect(); // Force garbage collection
-            GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
-            Application.Current.Shutdown(); // Shutdown the application
-            Process.GetCurrentProcess().Kill(); // Forcefully kill the process
+            QuitApplication.ForcefullyQuitApplication();
         });
     }
 

@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

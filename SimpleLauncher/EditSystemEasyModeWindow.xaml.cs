@@ -8,6 +8,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Xml.Linq;
 using Microsoft.Win32;
+using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -57,6 +58,20 @@ public partial class EditSystemEasyModeWindow : IDisposable
         Closed += CloseWindowRoutine;
     }
 
+    /// Populates the system dropdown with a sorted list of system names based on the configuration data.
+    /// The method retrieves the list of system configurations from the EasyModeManager. It filters systems
+    /// that have a non-empty and valid `EmulatorDownloadLink` in their corresponding emulator configuration.
+    /// System names are then sorted alphabetically before being assigned to the `ItemsSource` property of the
+    /// dropdown UI element.
+    /// Preconditions:
+    /// - `_manager` should be initialized and its `Systems` property should not be null.
+    /// - `SystemNameDropdown` should refer to a valid ComboBox.
+    /// Postconditions:
+    /// - The dropdown is populated with a sorted list of valid system names. If no valid systems are found,
+    /// the dropdown is left empty.
+    /// Applies to:
+    /// - The method is specifically designed for use in the `EditSystemEasyModeWindow` class and interacts
+    /// with its UI components
     private void PopulateSystemDropdown()
     {
         if (_manager?.Systems == null) return;
@@ -608,6 +623,9 @@ public partial class EditSystemEasyModeWindow : IDisposable
         if (_disposed) return;
 
         _downloadManager?.Dispose();
+
+        // NOTE: _manager (EasyModeManager) doesn't implement IDisposable
+        // If EasyModeManager implements IDisposable in the future, it should be disposed here
 
         _disposed = true;
 

@@ -6,6 +6,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
 using Microsoft.Win32;
+using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
@@ -33,6 +34,17 @@ public partial class DownloadImagePackWindow : IDisposable
         Closed += CloseWindowRoutine;
     }
 
+    /// Populates the system dropdown menu with a list of system names for which
+    /// image packs are available. The system names are sourced from the associated
+    /// EasyModeManager instance, filtered to include only systems with a valid
+    /// ExtrasDownloadLink, and sorted alphabetically.
+    /// The method retrieves the list of systems from the EasyModeManager instance.
+    /// If the list is null or not present, no action is performed. Otherwise, the
+    /// systems are filtered to include only those with a non-empty ExtrasDownloadLink
+    /// property. The resulting names are then set as the items source for the
+    /// SystemNameDropdown control, which allows the user to select a system.
+    /// This method indirectly relies on the initialization of EasyModeManager to
+    /// ensure the systems are correctly loaded before it is called.
     private void PopulateSystemDropdown()
     {
         if (_manager?.Systems == null) return;

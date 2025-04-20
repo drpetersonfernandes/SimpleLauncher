@@ -6,6 +6,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -156,7 +157,7 @@ public class DownloadManager : IDisposable
                 StatusMessage = GetResourceString("InsufficientDiskSpace", "Insufficient disk space.")
             });
 
-            throw new IOException("Insufficient disk space");
+            throw new IOException("Insufficient disk space in 'Simple Launcher' HDD or disk space *cannot* be checked.");
         }
 
         try
@@ -265,14 +266,14 @@ public class DownloadManager : IDisposable
                 }
 
                 // Clean up failed download
-                TryDeleteFile(downloadFilePath);
+                DeleteFiles.TryDeleteFile(downloadFilePath);
                 return null;
             }
         }
         catch (Exception ex)
         {
             // Clean up failed download
-            TryDeleteFile(downloadFilePath);
+            DeleteFiles.TryDeleteFile(downloadFilePath);
 
             // Reset flags
             IsDownloadCompleted = false;
@@ -284,56 +285,49 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorFilenotfoundontheserver",
-                            "Error: File not found on the server.")
+                        StatusMessage = GetResourceString("ErrorFilenotfoundontheserver", "Error: File not found on the server.")
                     });
                     break;
                 case HttpRequestException { InnerException: AuthenticationException }:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorSSLConnection",
-                            "SSL/TLS connection issue.")
+                        StatusMessage = GetResourceString("ErrorSSLConnection", "SSL/TLS connection issue.")
                     });
                     break;
                 case HttpRequestException httpEx:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Networkerror",
-                            $"Network error: {httpEx.Message}")
+                        StatusMessage = GetResourceString("Networkerror", $"Network error: {httpEx.Message}")
                     });
                     break;
                 case IOException:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Fileerror",
-                            $"File error: {ex.Message}")
+                        StatusMessage = GetResourceString("Fileerror", $"File error: {ex.Message}")
                     });
                     break;
                 case TaskCanceledException when IsUserCancellation:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Downloadcanceledbyuser",
-                            "Download canceled by user.")
+                        StatusMessage = GetResourceString("Downloadcanceledbyuser", "Download canceled by user.")
                     });
                     break;
                 case TaskCanceledException:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("ErrorDownloadtimedout",
-                            "Download timed out.")
+                        StatusMessage = GetResourceString("ErrorDownloadtimedout", "Download timed out.")
                     });
                     break;
                 default:
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("Error",
-                            $"Error: {ex.Message}")
+                        StatusMessage = GetResourceString("Error", $"Error: {ex.Message}")
                     });
                     break;
             }
@@ -430,7 +424,7 @@ public class DownloadManager : IDisposable
                 var extractionResult = await ExtractFileAsync(downloadedFilePath, extractionPath);
 
                 // Clean up downloaded file
-                TryDeleteFile(downloadedFilePath);
+                DeleteFiles.TryDeleteFile(downloadedFilePath);
 
                 return extractionResult;
             }
@@ -440,7 +434,7 @@ public class DownloadManager : IDisposable
                 await LogErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
 
                 // Clean up downloaded file
-                TryDeleteFile(downloadedFilePath);
+                DeleteFiles.TryDeleteFile(downloadedFilePath);
 
                 return false;
             }
@@ -643,9 +637,9 @@ public class DownloadManager : IDisposable
     /// Checks if there is enough disk space available in the specified folder.
     /// </summary>
     /// <param name="folderPath">The folder path to check.</param>
-    /// <param name="requiredSpace">The required space in bytes (default is 1GB).</param>
+    /// <param name="requiredSpace">The required space in bytes (default is 5GB).</param>
     /// <returns>True if enough space is available, otherwise false.</returns>
-    private static bool CheckAvailableDiskSpace(string folderPath, long requiredSpace = 1073741824)
+    private static bool CheckAvailableDiskSpace(string folderPath, long requiredSpace = 5368709120)
     {
         try
         {
@@ -654,26 +648,9 @@ public class DownloadManager : IDisposable
         }
         catch
         {
-            // If we can't check disk space, assume it's enough
-            return true;
-        }
-    }
-
-    /// <summary>
-    /// Safely attempts to delete a file.
-    /// </summary>
-    /// <param name="filePath">The path to the file to delete.</param>
-    private static void TryDeleteFile(string filePath)
-    {
-        if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) return;
-
-        try
-        {
-            File.Delete(filePath);
-        }
-        catch
-        {
-            // Ignore deletion errors
+            // If we can't check disk space, assume it's false
+            // If disk space *cannot* be checked (e.g., network drive issues, permissions), assumes there's not enough space.
+            return false;
         }
     }
 

@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

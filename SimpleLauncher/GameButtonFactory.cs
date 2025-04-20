@@ -9,6 +9,8 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Services;
+using SimpleLauncher.ViewModel;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;

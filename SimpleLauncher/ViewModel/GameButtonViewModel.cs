@@ -1,6 +1,6 @@
 using System.ComponentModel;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.ViewModel;
 
 public class GameButtonViewModel : INotifyPropertyChanged
 {

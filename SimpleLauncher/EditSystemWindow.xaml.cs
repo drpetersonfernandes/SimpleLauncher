@@ -10,6 +10,7 @@ using System.Windows.Media;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Win32;
+using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 using TextBox = System.Windows.Controls.TextBox;
@@ -48,8 +49,7 @@ public partial class EditSystemWindow
             MessageBoxLibrary.SystemXmlNotFoundMessageBox();
 
             // Shutdown SimpleLauncher
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            QuitApplication.SimpleQuitApplication();
         }
         else
         {

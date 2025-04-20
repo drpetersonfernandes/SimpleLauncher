@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -235,8 +236,7 @@ public static class MessageBoxLibrary
                             $"{theapplicationwillshutdown2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
 
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            QuitApplication.SimpleQuitApplication();
         }
     }
 
@@ -734,9 +734,7 @@ public static class MessageBoxLibrary
                             $"{theapplicationwillshutdown2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
 
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            QuitApplication.SimpleQuitApplication();
         }
     }
 
@@ -760,9 +758,7 @@ public static class MessageBoxLibrary
                             $"{theapplicationwillshutdown2}",
                 error2, MessageBoxButton.OK, MessageBoxImage.Error);
 
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            QuitApplication.SimpleQuitApplication();
         }
     }
 
@@ -787,9 +783,7 @@ public static class MessageBoxLibrary
                         $"{theapplicationwillnowshutdown2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Question);
 
-        // Shutdown the application and exit
-        Application.Current.Shutdown();
-        Environment.Exit(0);
+        QuitApplication.SimpleQuitApplication();
     }
 
     internal static void ErrorLoadingRomHistoryMessageBox()
@@ -929,9 +923,7 @@ public static class MessageBoxLibrary
             }
         }
 
-        // Shutdown the application and exit
-        Application.Current.Shutdown();
-        Environment.Exit(0);
+        QuitApplication.SimpleQuitApplication();
     }
 
     internal static void SystemModelXmlIsMissingMessageBox()
@@ -956,9 +948,7 @@ public static class MessageBoxLibrary
                             $"{theapplicationwillshutdown2}",
                 warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            // Shutdown the application and exit
-            Application.Current.Shutdown();
-            Environment.Exit(0);
+            QuitApplication.SimpleQuitApplication();
         }
     }
 

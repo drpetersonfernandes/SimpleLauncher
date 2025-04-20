@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

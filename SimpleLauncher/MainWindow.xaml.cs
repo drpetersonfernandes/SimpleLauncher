@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ControlzEx.Theming;
+using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
 using KeyEventArgs = System.Windows.Input.KeyEventArgs;
@@ -82,7 +83,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     // Define and Instantiate variables
     private List<SystemConfig> _systemConfigs;
-    private readonly LetterNumberMenu _letterNumberMenu = new();
+    private readonly CreateLetterNumberMenu _createLetterNumberMenu = new();
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
@@ -145,20 +146,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             GamePadController.Instance2.Stop();
         }
 
-        // Add _letterNumberMenu to the UI
+        // Add _createLetterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
-        LetterNumberMenu.Children.Add(_letterNumberMenu.LetterPanel);
+        LetterNumberMenu.Children.Add(_createLetterNumberMenu.LetterPanel);
 
-        // Create and integrate LetterNumberMenu
-        _letterNumberMenu.OnLetterSelected += async selectedLetter =>
+        // Create and integrate CreateLetterNumberMenu
+        _createLetterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
             await Letter_Click(selectedLetter);
         };
-        _letterNumberMenu.OnFavoritesSelected += async () =>
+        _createLetterNumberMenu.OnFavoritesSelected += async () =>
         {
             await Favorites_Click();
         };
-        _letterNumberMenu.OnFeelingLuckySelected += () =>
+        _createLetterNumberMenu.OnFeelingLuckySelected += () =>
         {
             FeelingLucky_Click(null, null);
         };
@@ -331,7 +332,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var selectedGame = gameFiles[randomIndex];
 
                 // Reset letter selection in the UI and current search
-                _letterNumberMenu.DeselectLetter();
+                _createLetterNumberMenu.DeselectLetter();
                 SearchTextBox.Text = "";
                 _currentSearchResults = [selectedGame];
 
@@ -474,28 +475,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _trayIconManager?.Dispose();
     }
 
-    // Used in cases that need to reload system.xml or update the pagination settings
-    // Used when user set the Language
-    // Used when user set the GamesPerPage
-    private void MainWindow_Restart()
-    {
-        SaveApplicationSettings();
-
-        var processModule = Process.GetCurrentProcess().MainModule;
-        if (processModule == null) return;
-
-        var startInfo = new ProcessStartInfo
-        {
-            FileName = processModule.FileName,
-            UseShellExecute = true
-        };
-
-        Process.Start(startInfo);
-
-        Application.Current.Shutdown();
-        Environment.Exit(0);
-    }
-
     private List<string> GetFavoriteGamesForSelectedSystem()
     {
         // Reload favorites to ensure we have the latest data
@@ -626,7 +605,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     // Display the system info
                     var systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"{ext}").ToList();
-                    var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
+                    var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
 
                     // Display SystemInfo for that system
                     SystemManager.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
@@ -638,7 +617,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         : selectedConfig.SystemImageFolder;
 
                     // Call DeselectLetter to clear any selected letter
-                    _letterNumberMenu.DeselectLetter();
+                    _createLetterNumberMenu.DeselectLetter();
 
                     ResetPaginationButtons();
 
@@ -691,7 +670,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _letterNumberMenu.DeselectLetter();
+        _createLetterNumberMenu.DeselectLetter();
     }
 
     private void AddNoFilesMessage()
@@ -720,7 +699,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _letterNumberMenu.DeselectLetter();
+        _createLetterNumberMenu.DeselectLetter();
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
@@ -789,7 +768,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Recount the number of files in the system folder
                 var systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
-                var gameCount = FileManager.CountFilesAsync(systemFolderPath, fileExtensions);
+                var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
                 if (cachedFilesCount != await gameCount)
                 {
@@ -1596,7 +1575,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Update checked status
         SetLanguageAndCheckMenu(selectedLanguage);
 
-        MainWindow_Restart();
+        SaveApplicationSettings();
+
+        QuitApplication.RestartApplication();
     }
 
     #endregion
@@ -1876,7 +1857,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _currentSearchResults.Clear();
 
         // Call DeselectLetter to clear any selected letter
-        _letterNumberMenu.DeselectLetter();
+        _createLetterNumberMenu.DeselectLetter();
 
         var searchQuery = SearchTextBox.Text.Trim();
 

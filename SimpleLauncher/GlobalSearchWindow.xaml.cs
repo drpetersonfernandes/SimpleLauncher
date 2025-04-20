@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Services;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
@@ -123,7 +124,7 @@ public partial class GlobalSearchWindow
                 continue;
 
             // Get all files matching the file's extensions for this system
-            var files = Directory.GetFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
+            var files = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
             // If the system is MAME-based and the lookup is available, use it to filter files.

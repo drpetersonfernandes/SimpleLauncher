@@ -3,11 +3,11 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.IO.Compression;
-using System.Runtime.InteropServices;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -63,7 +63,7 @@ public class ExtractCompressedFile
         }
 
         // Choose the correct 7z executable
-        var sevenZipPath = Get7ZipExecutablePath();
+        var sevenZipPath = Get7ZipPath.Get7ZipExecutablePath();
         if (string.IsNullOrEmpty(sevenZipPath) || !File.Exists(sevenZipPath))
         {
             // Notify developer
@@ -77,7 +77,7 @@ public class ExtractCompressedFile
             return null;
         }
 
-        // Create temp folder with random name - IMPROVED IMPLEMENTATION
+        // Create temp folder with random name
         string tempDirectory = null;
         PleaseWaitExtractionWindow pleaseWaitExtraction = null;
 
@@ -110,7 +110,21 @@ public class ExtractCompressedFile
             }
 
             tempDirectory = Path.Combine(safeTempFolder, randomName);
-            Directory.CreateDirectory(tempDirectory);
+            try
+            {
+                Directory.CreateDirectory(tempDirectory);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Could not create the temp directory.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                return null;
+            }
 
             // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -180,7 +194,7 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             // Clean up temp directory on failure
-            CleanupTempDirectory(tempDirectory);
+            CleanFolder.CleanupTempDirectory(tempDirectory);
 
             // Notify developer
             const string contextMessage = $"Extraction of the compressed file failed.\n" +
@@ -286,7 +300,21 @@ public class ExtractCompressedFile
             }
 
             tempDirectory = Path.Combine(safeTempFolder, randomName);
-            Directory.CreateDirectory(tempDirectory);
+            try
+            {
+                Directory.CreateDirectory(tempDirectory);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Could not create the temp directory.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                return null;
+            }
 
             // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -352,7 +380,7 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             // Clean up temp directory on failure
-            CleanupTempDirectory(tempDirectory);
+            CleanFolder.CleanupTempDirectory(tempDirectory);
 
             // Notify developer
             var contextMessage = $"Extraction of the compressed file failed.\n" +
@@ -601,7 +629,7 @@ public class ExtractCompressedFile
             // Remove the tracking file on successful extraction
             if (File.Exists(extractionTrackingFile))
             {
-                File.Delete(extractionTrackingFile);
+                DeleteFiles.TryDeleteFile(extractionTrackingFile);
             }
 
             extractionSuccessful = true;
@@ -634,7 +662,7 @@ public class ExtractCompressedFile
                     if (File.Exists(extractionTrackingFile))
                     {
                         // Remove all content from this folder as it's a partial extraction
-                        CleanupPartialExtraction(destinationFolder);
+                        CleanFolder.CleanupPartialExtraction(destinationFolder);
                     }
                 }
                 catch (Exception cleanupEx)
@@ -707,92 +735,14 @@ public class ExtractCompressedFile
         }
     }
 
-    // Determine the 7z executable based on user environment
-    private static string Get7ZipExecutablePath()
-    {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-
-        switch (RuntimeInformation.ProcessArchitecture)
-        {
-            case Architecture.X64:
-                return Path.Combine(baseDirectory, "7z.exe");
-            case Architecture.X86:
-                return Path.Combine(baseDirectory, "7z_x86.exe");
-            default:
-                throw new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
-        }
-    }
-
-    /// <summary>
-    /// Safely cleans up a temporary directory and its contents
-    /// </summary>
-    /// <param name="directoryPath">Path to the directory to clean up</param>
-    private static void CleanupTempDirectory(string directoryPath)
-    {
-        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath)) return;
-
-        try
-        {
-            Directory.Delete(directoryPath, true);
-        }
-        catch (Exception ex)
-        {
-            // Log error but don't throw - this is cleanup code
-            // Notify developer
-            var contextMessage = $"Failed to clean up temporary directory: {directoryPath}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-        }
-    }
-
-    /// <summary>
-    /// Cleans up partially extracted files from a failed extraction
-    /// </summary>
-    /// <param name="directoryPath">Directory containing partial extraction</param>
-    private static void CleanupPartialExtraction(string directoryPath)
-    {
-        if (string.IsNullOrEmpty(directoryPath) || !Directory.Exists(directoryPath))
-        {
-            return;
-        }
-
-        try
-        {
-            // Delete the tracking file first
-            var trackingFile = Path.Combine(directoryPath, ".extraction_in_progress");
-            if (File.Exists(trackingFile))
-            {
-                File.Delete(trackingFile);
-            }
-
-            // Delete all files in the directory
-            foreach (var file in Directory.GetFiles(directoryPath))
-            {
-                File.Delete(file);
-            }
-
-            // Recursively delete subdirectories
-            foreach (var subDir in Directory.GetDirectories(directoryPath))
-            {
-                Directory.Delete(subDir, true);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Log but don't throw - this is cleanup code
-            // Notify developer
-            var contextMessage = $"Error cleaning up partial extraction: {directoryPath}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-        }
-    }
-
-    private string EscapeCommandLineArgument(string arg)
+    private static string EscapeCommandLineArgument(string arg)
     {
         // Replace any embedded quotes with escaped quotes
         return arg.Replace("\"", "\\\"");
     }
 
     // Helper function to verify no path traversal in extracted files
-    private bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
+    private static bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
     {
         // Get the full path of both directories
         var fullBasePath = Path.GetFullPath(basePath);

@@ -7,7 +7,7 @@ using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher;
 
-public class LetterNumberMenu
+public class CreateLetterNumberMenu
 {
     public StackPanel LetterPanel { get; } = new() { Orientation = Orientation.Horizontal };
     private Button _selectedButton;
@@ -16,7 +16,7 @@ public class LetterNumberMenu
     public event Action OnFavoritesSelected;
     public event Action OnFeelingLuckySelected;
 
-    public LetterNumberMenu()
+    public CreateLetterNumberMenu()
     {
         InitializeAllButton();
         InitializeNumberButton();

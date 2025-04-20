@@ -8,7 +8,7 @@ using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class LogErrors
 {

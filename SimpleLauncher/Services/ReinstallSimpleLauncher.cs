@@ -3,7 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Windows;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class ReinstallSimpleLauncher
 {

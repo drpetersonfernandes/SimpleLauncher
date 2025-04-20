@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

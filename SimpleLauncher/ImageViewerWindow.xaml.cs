@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

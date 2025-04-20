@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

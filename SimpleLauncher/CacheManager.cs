@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -94,7 +95,11 @@ public class CacheManager
             return fileList;
         });
 
-        if (files == null) return null;
+        if (files == null)
+        {
+            // Return an empty list
+            return [];
+        }
 
         _cachedGameFiles[systemName] = files;
         await SaveCacheToDisk(systemName, files);

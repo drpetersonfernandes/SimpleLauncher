@@ -7,6 +7,8 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Services;
+using SimpleLauncher.ViewModel;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;

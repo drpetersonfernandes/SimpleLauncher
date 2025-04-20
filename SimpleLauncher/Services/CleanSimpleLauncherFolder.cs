@@ -1,7 +1,7 @@
 using System;
 using System.IO;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class CleanSimpleLauncherFolder
 {
@@ -27,6 +27,12 @@ public static class CleanSimpleLauncherFolder
         foreach (var directory in DirectoriesToClean)
         {
             DeleteDirectorySafely(directory);
+        }
+
+        // Clean files
+        foreach (var file in FilesToClean)
+        {
+            DeleteFileSafely(file);
         }
     }
 

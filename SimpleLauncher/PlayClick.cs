@@ -2,6 +2,7 @@
 using System;
 using System.IO;
 using System.Windows.Media;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

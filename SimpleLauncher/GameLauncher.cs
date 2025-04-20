@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -893,7 +894,7 @@ public static class GameLauncher
             // Search for any file with specified extensions recursively
             foreach (var formatToLaunch in sysConfig.FileFormatsToLaunch)
             {
-                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
+                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.TopDirectoryOnly);
                 if (files.Length > 0)
                 {
                     return Task.FromResult(files[0]); // Return the first found file

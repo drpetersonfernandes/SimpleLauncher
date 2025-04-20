@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -70,7 +71,7 @@ public class TrayIconManager : IDisposable
     private void OnExit(object sender, RoutedEventArgs e)
     {
         _taskbarIcon.Visibility = Visibility.Collapsed;
-        Application.Current.Shutdown();
+        QuitApplication.SimpleQuitApplication();
     }
 
     // Display a balloon message

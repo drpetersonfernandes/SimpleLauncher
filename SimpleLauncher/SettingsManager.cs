@@ -4,6 +4,8 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using SimpleLauncher.Models;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
