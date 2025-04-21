@@ -53,7 +53,7 @@ public class SettingsManager
         Load();
     }
 
-    internal void Load()
+    private void Load()
     {
         if (!File.Exists(_filePath))
         {

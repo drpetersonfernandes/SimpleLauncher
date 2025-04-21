@@ -563,5 +563,6 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
     
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     
 </ResourceDictionary>

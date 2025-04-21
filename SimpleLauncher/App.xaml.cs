@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
 using SimpleLauncher.Services;
-using System.Reflection; // Add this using
+using System.Reflection;
 
 namespace SimpleLauncher;
 
@@ -28,7 +28,7 @@ public partial class App
     {
         // --- Single Instance Check ---
         // Check if the application is being restarted via a specific command-line argument
-        var isRestarting = e.Args.Any(arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
+        var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {

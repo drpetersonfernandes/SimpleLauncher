@@ -455,7 +455,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
             if (existingSystem != null)
             {
                 // Ask user if they want to overwrite the existing system
-                if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
+                // if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
 
                 // Overwrite existing system
                 existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
@@ -521,6 +521,8 @@ public partial class EditSystemEasyModeWindow : IDisposable
 
             // Disable Add System Button
             AddSystemButton.IsEnabled = false;
+
+            Close();
         }
         catch (Exception ex)
         {

@@ -23,6 +23,8 @@ public static class SystemManager
             Margin = new Thickness(10, 30, 10, 10)
         };
 
+        var clickontheletterbuttonsabove2 = (string)Application.Current.TryFindResource("Clickontheletterbuttonsabove") ?? "Click on the letter buttons above to see the games";
+
         var systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";
         var systemImageFolder2 = (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
         var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
@@ -33,6 +35,9 @@ public static class SystemManager
 
         // Create System Info TextBlock with LineBreaks
         var systemInfoTextBlock = new TextBlock();
+        systemInfoTextBlock.Inlines.Add(new Run($"{clickontheletterbuttonsabove2}"));
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
+        systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedConfig.SystemImageFolder ?? defaultImageFolder2}"));

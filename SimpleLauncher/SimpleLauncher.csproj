@@ -10,6 +10,7 @@
     <Nullable>disable</Nullable>
     <NeutralLanguage>en-US</NeutralLanguage>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
+    <ApplicationManifest>app.manifest</ApplicationManifest>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
