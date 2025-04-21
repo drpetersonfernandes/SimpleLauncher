@@ -1087,6 +1087,38 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        try
+        {
+            // Update the settings
+            _settings.EnableGamePadNavigation = menuItem.IsChecked;
+
+            _settings.Save();
+
+            // Start or stop the GamePadController
+            if (menuItem.IsChecked)
+            {
+                GamePadController.Instance2.Start();
+            }
+            else
+            {
+                GamePadController.Instance2.Stop();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Failed to toggle gamepad.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ToggleGamepadFailureMessageBox();
+        }
+    }
+
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
         SaveApplicationSettings();
@@ -1106,6 +1138,66 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         else
         {
             GamePadController.Instance2.Stop();
+        }
+    }
+
+    private async void ToggleFuzzyMatching_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (sender is not MenuItem menuItem) return;
+
+            try
+            {
+                _settings.EnableFuzzyMatching = menuItem.IsChecked;
+                _settings.Save();
+
+                // Re-load game files to apply the new setting
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Failed to toggle fuzzy matching.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in method ToggleFuzzyMatching_Click");
+        }
+    }
+
+    private void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
+    {
+        SaveApplicationSettings();
+
+        try
+        {
+            // Pass the current settings manager to the dialog
+            var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
+            setThresholdWindow.ShowDialog(); // Use ShowDialog() to make it modal
+
+            // After the dialog closes, the settings are saved within the dialog.
+            // No need to explicitly save here.
+            // Re-load game files to apply the new threshold if fuzzy matching is enabled
+            if (_settings.EnableFuzzyMatching)
+            {
+                // Use _ = to suppress the warning about not awaiting the Task
+                _ = LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Failed to open Set Fuzzy Matching Threshold window.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.SetFuzzyMatchingThresholdFailureMessageBox();
         }
     }
 
@@ -1206,38 +1298,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         ShowAll.IsChecked = selectedMenu == "ShowAll";
         ShowWithCover.IsChecked = selectedMenu == "ShowWithCover";
         ShowWithoutCover.IsChecked = selectedMenu == "ShowWithoutCover";
-    }
-
-    private void ToggleGamepad_Click(object sender, RoutedEventArgs e)
-    {
-        if (sender is not MenuItem menuItem) return;
-
-        try
-        {
-            // Update the settings
-            _settings.EnableGamePadNavigation = menuItem.IsChecked;
-
-            _settings.Save();
-
-            // Start or stop the GamePadController
-            if (menuItem.IsChecked)
-            {
-                GamePadController.Instance2.Start();
-            }
-            else
-            {
-                GamePadController.Instance2.Stop();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Failed to toggle gamepad.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ToggleGamepadFailureMessageBox();
-        }
     }
 
     private async void ButtonSize_Click(object sender, RoutedEventArgs e)
@@ -1952,70 +2012,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)
     {
         LaunchTools.OrganizeSystemImages_Click(_selectedImageFolder, _selectedRomFolder, _logPath);
-    }
-
-    #endregion
-
-    #region Fuzzy Matching
-
-    private async void ToggleFuzzyMatching_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (sender is not MenuItem menuItem) return;
-
-            try
-            {
-                _settings.EnableFuzzyMatching = menuItem.IsChecked;
-                _settings.Save();
-
-                // Re-load game files to apply the new setting
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Failed to toggle fuzzy matching.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Error in method ToggleFuzzyMatching_Click");
-        }
-    }
-
-    private void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
-    {
-        SaveApplicationSettings();
-
-        try
-        {
-            // Pass the current settings manager to the dialog
-            var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
-            setThresholdWindow.ShowDialog(); // Use ShowDialog() to make it modal
-
-            // After the dialog closes, the settings are saved within the dialog.
-            // No need to explicitly save here.
-            // Re-load game files to apply the new threshold if fuzzy matching is enabled
-            if (_settings.EnableFuzzyMatching)
-            {
-                // Use _ = to suppress the warning about not awaiting the Task
-                _ = LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Failed to open Set Fuzzy Matching Threshold window.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SetFuzzyMatchingThresholdFailureMessageBox();
-        }
     }
 
     #endregion
