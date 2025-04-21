@@ -6,7 +6,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class SetFuzzyMatchingWindow
+public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
 {
     private readonly SettingsManager _settings;
 
@@ -22,58 +22,52 @@ public partial class SetFuzzyMatchingWindow
             ThemeManager.Current.ChangeTheme(this, detectedTheme.BaseColorScheme, detectedTheme.ColorScheme);
         }
 
-        // Display the current threshold
-        CurrentThresholdLabel.Content = _settings.FuzzyMatchingThreshold.ToString("F2", CultureInfo.InvariantCulture);
-        NewThresholdTextBox.Text = _settings.FuzzyMatchingThreshold.ToString("F2", CultureInfo.InvariantCulture); // Pre-fill with current value
+        // Display the current threshold as percentage
+        CurrentThresholdLabel.Content = _settings.FuzzyMatchingThreshold.ToString("P0", CultureInfo.InvariantCulture);
+
+        // Set the slider's initial value
+        // Ensure the initial value is within the slider's min/max range (0.7 to 1.0)
+        ThresholdSlider.Value = Math.Max(ThresholdSlider.Minimum, Math.Min(ThresholdSlider.Maximum, _settings.FuzzyMatchingThreshold));
     }
 
     private void OkButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Get the input text
-            var inputText = NewThresholdTextBox.Text.Trim();
+            // Get the value directly from the slider
+            var newThreshold = ThresholdSlider.Value;
 
-            // Attempt to parse the input as a double using invariant culture
-            if (double.TryParse(inputText, NumberStyles.Any, CultureInfo.InvariantCulture, out var newThreshold))
+            // The slider already constrains the value between 0.7 and 1.0,
+            // so explicit range validation here is mostly for robustness,
+            // though technically redundant if the slider min/max are correct.
+            // We'll keep a simple check.
+            if (newThreshold is >= 0.7 and <= 1.0)
             {
-                // Validate the parsed value is within the acceptable range [0.0, 1.0]
-                if (newThreshold is >= 0.0 and <= 1.0)
-                {
-                    // Update the setting
-                    _settings.FuzzyMatchingThreshold = newThreshold;
-                    _settings.Save();
+                // Update the setting
+                _settings.FuzzyMatchingThreshold = newThreshold;
+                _settings.Save();
 
-                    // Set DialogResult to true and close the window
-                    DialogResult = true;
-                    Close();
-                }
-                else
-                {
-                    // Value is outside the valid range
-                    var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
-                    var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "Please enter a valid number between 0.0 and 1.0 for the threshold.";
-                    MessageBoxLibrary.ShowErrorMessageBox(invalidInputMessageTitle, invalidInputMessageText);
-                }
+                // Set DialogResult to true and close the window
+                DialogResult = true;
+                Close();
             }
             else
             {
-                // Parsing failed
-                var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
-                var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "Please enter a valid number between 0.0 and 1.0 for the threshold.";
-                MessageBoxLibrary.ShowErrorMessageBox(invalidInputMessageTitle, invalidInputMessageText);
+                // This case should ideally not be hit with the slider configuration.
+                // If it is, something is wrong with the slider setup or binding.
+                MessageBoxLibrary.FuzzyMatchingErrorMessageBox();
+                // Do not close the window
             }
         }
         catch (Exception ex)
         {
             // Log the error
-            const string contextMessage = "Error setting fuzzy matching threshold.";
+            const string contextMessage = "Error setting fuzzy matching threshold from slider.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify the user
-            var errorTitle = (string)Application.Current.TryFindResource("SetFuzzyMatchingThresholdFailureMessageBoxTitle") ?? "Error";
-            var errorMessage = (string)Application.Current.TryFindResource("SetFuzzyMatchingThresholdFailureMessageBoxText") ?? "Failed to set fuzzy matching threshold.";
-            MessageBoxLibrary.ShowErrorMessageBox(errorTitle, errorMessage);
+            MessageBoxLibrary.FuzzyMatchingErrorMessageBox2();
+            // Do not close the window on error
         }
     }
 

@@ -2119,16 +2119,30 @@ public static class MessageBoxLibrary
 
     public static void SetFuzzyMatchingThresholdFailureMessageBox()
     {
-        throw new NotImplementedException();
+        var therewasanerrorsettingupthefuzzymatchingthreshold = (string)Application.Current.TryFindResource("Therewasanerrorsettingupthefuzzymatchingthreshold") ?? "There was an error setting up the fuzzy matching threshold.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(therewasanerrorsettingupthefuzzymatchingthreshold, error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
     public static void ToggleFuzzyMatchingFailureMessageBox()
     {
-        throw new NotImplementedException();
+        var therewasanerrortogglingthefuzzymatchinglogic = (string)Application.Current.TryFindResource("Therewasanerrortogglingthefuzzymatchinglogic") ?? "There was an error toggling the fuzzy matching logic.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(therewasanerrortogglingthefuzzymatchinglogic,
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    public static void ShowErrorMessageBox(string invalidInputMessageTitle, string invalidInputMessageText)
+    public static void FuzzyMatchingErrorMessageBox()
     {
-        throw new NotImplementedException();
+        var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "The selected threshold is outside the valid range (70% to 100%).";
+        var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
+        MessageBox.Show(invalidInputMessageText, invalidInputMessageTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    public static void FuzzyMatchingErrorMessageBox2()
+    {
+        var errorMessage = (string)Application.Current.TryFindResource("SetFuzzyMatchingThresholdFailureMessageBoxText") ?? "Failed to set fuzzy matching threshold.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(errorMessage, error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 }
