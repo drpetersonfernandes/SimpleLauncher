@@ -17,12 +17,9 @@ public static class CleanFolder
         {
             Directory.Delete(directoryPath, true);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Log error but don't throw - this is cleanup code
-            // Notify developer
-            var contextMessage = $"Failed to clean up temporary directory: {directoryPath}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            // Ignore - this is cleanup code
         }
     }
 
@@ -58,12 +55,9 @@ public static class CleanFolder
                 Directory.Delete(subDir, true);
             }
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            // Log but don't throw - this is cleanup code
-            // Notify developer
-            var contextMessage = $"Error cleaning up partial extraction: {directoryPath}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            // Ignore - this is cleanup code
         }
     }
 }

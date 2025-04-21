@@ -44,9 +44,10 @@ public static class CleanSimpleLauncherFolder
         {
             Directory.Delete(path, true);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to delete directory.");
+            // _ = LogErrors.LogErrorAsync(ex, "Failed to delete directory.");
+            // Ignore
         }
     }
 
@@ -58,9 +59,10 @@ public static class CleanSimpleLauncherFolder
         {
             File.Delete(path);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to delete files.");
+            // _ = LogErrors.LogErrorAsync(ex, "Failed to delete files.");
+            // Ignore
         }
     }
 }

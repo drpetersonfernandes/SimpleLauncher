@@ -13,9 +13,9 @@ public static class DeleteFiles
         {
             File.Delete(filePath);
         }
-        catch (Exception ex)
+        catch (Exception)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to delete file: {filePath}");
+            // Ignore - this is cleanup code
         }
     }
 }

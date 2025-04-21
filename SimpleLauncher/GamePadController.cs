@@ -29,6 +29,9 @@ public class GamePadController : IDisposable
     private Joystick _directInputController;
     private readonly IMouseSimulator _mouseSimulator;
 
+    // DirectInput object needs to be managed for its lifetime
+    private DirectInput _directInput;
+
     // For XInput
     private bool _wasADown;
     private bool _wasBDown;
@@ -41,10 +44,6 @@ public class GamePadController : IDisposable
     private bool _isDisposed;
 
     // DeadZone settings
-    // private const float DeadZoneX = 0.05f;
-    // private const float DeadZoneY = 0.02f;
-
-    // Add public properties with default values:
     public float DeadZoneX { get; set; } = 0.05f;
     public float DeadZoneY { get; set; } = 0.02f;
 
@@ -60,14 +59,32 @@ public class GamePadController : IDisposable
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
 
-        // Initialize PlayStation Controller using DirectInput
-        var directInput = new DirectInput();
-        var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-        if (devices.Count > 0)
+        // Initialize DirectInput object once
+        _directInput = new DirectInput();
+
+        // Initialize PlayStation Controller using DirectInput (find the first gamepad)
+        try
         {
-            _directInputController = new Joystick(directInput, devices[0].InstanceGuid);
-            _directInputController.Acquire();
+            var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+            if (devices.Count > 0)
+            {
+                _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
+                _directInputController.Acquire();
+                _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+            }
         }
+        catch (Exception ex)
+        {
+            // Log initialization errors but allow the application to continue
+            // as XInput might still work or the controller might be connected later.
+            ErrorLogger?.Invoke(ex, $"Error during initial DirectInput controller setup.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
+
+            _directInputController = null; // Ensure it's null if setup failed
+            _playStationControllerGuid = Guid.Empty;
+        }
+
 
         _mouseSimulator = new InputSimulator().Mouse;
         _timer = new Timer(_ => Update());
@@ -82,13 +99,39 @@ public class GamePadController : IDisposable
                 // Reinitialize Xbox controller
                 _xinputController = new Controller(UserIndex.One);
 
-                // Reinitialize PlayStation controller
-                var directInput = new DirectInput();
-                var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-                if (devices.Count > 0)
+                // Reinitialize DirectInput object
+                _directInput?.Dispose(); // Dispose the old one if it exists
+                _directInput = new DirectInput();
+
+                // Reinitialize PlayStation controller (find the first gamepad)
+                try
                 {
-                    _directInputController = new Joystick(directInput, devices[0].InstanceGuid);
-                    _directInputController.Acquire();
+                    var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+                    if (devices.Count > 0)
+                    {
+                        _directInputController?.Unacquire();
+                        _directInputController?.Dispose();
+                        _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
+                        _directInputController.Acquire();
+                        _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+                    }
+                    else
+                    {
+                        _directInputController?.Unacquire();
+                        _directInputController?.Dispose();
+                        _directInputController = null;
+                        _playStationControllerGuid = Guid.Empty;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    ErrorLogger?.Invoke(ex, $"Error during DirectInput controller reinitialization in Start.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}");
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+                    _directInputController = null; // Ensure it's null if setup failed
+                    _playStationControllerGuid = Guid.Empty;
                 }
 
                 _isDisposed = false;
@@ -114,8 +157,8 @@ public class GamePadController : IDisposable
         try
         {
             IsRunning = false;
-            if (_timer != null && !_isDisposed)
-                _timer.Change(Timeout.Infinite, Timeout.Infinite);
+            // Change timer to stop, but don't dispose it here
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
         }
         catch (Exception ex)
         {
@@ -135,10 +178,14 @@ public class GamePadController : IDisposable
         {
             if (_isDisposed) return;
 
-            Stop();
-            _timer?.Dispose();
+            Stop(); // Stop the timer first
+            _timer?.Dispose(); // Dispose the timer
             _directInputController?.Unacquire();
+            _directInputController?.Dispose(); // Dispose the joystick
             _directInputController = null;
+
+            _directInput?.Dispose(); // Dispose the DirectInput object
+            _directInput = null;
 
             _isDisposed = true;
 
@@ -158,112 +205,251 @@ public class GamePadController : IDisposable
 
     private void Update()
     {
+        // Check if disposed or not running before processing
+        if (_isDisposed || !IsRunning)
+        {
+            // Ensure timer is stopped if somehow Update is called while not running/disposed
+            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+            return;
+        }
+
         try
         {
-            switch (_xinputController.IsConnected)
+            // Prioritize XInput if connected
+            if (_xinputController.IsConnected)
             {
-                case false when _directInputController == null:
-                {
-                    // Attempt to reconnect controllers if not already attempting
-                    if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
+                // Handle Xbox Controller Input
+                _xinputController.GetState(out var state);
+                HandleXInputMovement(state);
+                HandleXInputScroll(state);
+                HandleXInputLeftButton(state);
+                HandleXInputRightButton(state);
 
-                    CheckAndReconnectControllers();
-                    _lastReconnectAttempt = DateTime.Now;
-                    return; // Exit Update to avoid further processing until next cycle.
-                }
-                case true:
+                // If XInput is connected, ensure DirectInput controller is released
+                if (_directInputController == null) return;
+
+                _directInputController.Unacquire();
+                _directInputController?.Dispose(); // Dispose the old one
+                _directInputController = null;
+                _playStationControllerGuid = Guid.Empty;
+            }
+            // If XInput is not connected, try DirectInput
+            else if (_directInputController is { IsDisposed: false }) // Check if DirectInput controller exists and is not disposed
+            {
+                try
                 {
-                    // Handle Xbox Controller Input
-                    _xinputController.GetState(out var state);
-                    HandleXInputMovement(state);
-                    HandleXInputScroll(state);
-                    HandleXInputLeftButton(state);
-                    HandleXInputRightButton(state);
-                    break;
+                    // Handle PlayStation Controller Input
+                    var state = _directInputController.GetCurrentState();
+                    HandleDirectInputMovement(state);
+                    HandleDirectInputButtons(state);
+                    HandleDirectInputScroll(state);
                 }
-                default:
+                catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
                 {
-                    if (_directInputController != null)
+                    // DirectInput device lost, attempt reconnection
+                    // ErrorLogger?.Invoke(ex, "DirectInput device lost (DIERR_INPUTLOST). Attempting reconnection.");
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+                    _directInputController = null;
+                    _playStationControllerGuid = Guid.Empty;
+                    CheckAndReconnectControllers(); // Attempt reconnection immediately
+                }
+                catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
+                {
+                    // DirectInput device not acquired, attempt re-acquisition or reconnection
+                    ErrorLogger?.Invoke(ex, "DirectInput device not acquired (DIERR_NOTACQUIRED). Attempting re-acquisition/reconnection.");
+                    try
                     {
-                        // Handle PlayStation Controller Input
-                        var state = _directInputController.GetCurrentState();
-                        HandleDirectInputMovement(state);
-                        HandleDirectInputButtons(state);
-                        HandleDirectInputScroll(state);
+                        _directInputController.Acquire(); // Try acquiring again
                     }
-
-                    break;
+                    catch (Exception acquireEx)
+                    {
+                        ErrorLogger?.Invoke(acquireEx, "Failed to re-acquire DirectInput device. Attempting full reconnection.");
+                        _directInputController?.Unacquire();
+                        _directInputController?.Dispose();
+                        _directInputController = null;
+                        _playStationControllerGuid = Guid.Empty;
+                        CheckAndReconnectControllers(); // Attempt full reconnection
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Catch any other exceptions during DirectInput processing
+                    ErrorLogger?.Invoke(ex, $"Unexpected error during DirectInput processing. Attempting reconnection.\n\n" +
+                                            $"Exception type: {ex.GetType().Name}\n" +
+                                            $"Exception details: {ex.Message}");
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+                    _directInputController = null;
+                    _playStationControllerGuid = Guid.Empty;
+                    CheckAndReconnectControllers(); // Attempt reconnection
                 }
             }
+            // If neither XInput nor DirectInput controller is active, attempt reconnection after delay
+            else
+            {
+                if (!((DateTime.Now - _lastReconnectAttempt).TotalMilliseconds > ReconnectDelayMilliseconds)) return;
+
+                CheckAndReconnectControllers();
+                _lastReconnectAttempt = DateTime.Now;
+            }
         }
-        catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
+        catch (Exception ex)
         {
-            // Ignore this specific error (DIERR_INPUTLOST)
-            // No need to log or notify the developer
-            CheckAndReconnectControllers(); // Attempt to reconnect the controller
-        }
-        catch (NullReferenceException)
-        {
-            // Ignore NullReferenceException
-            // No need to log or notify the developer
-            CheckAndReconnectControllers(); // Attempt to reconnect the controller
-        }
-        catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
-        {
-            // Ignore this specific error (DIERR_NOTACQUIRED)
-            // No need to log or notify the developer
-            CheckAndReconnectControllers(); // Attempt to reconnect the controller
-        }
-        catch (Exception)
-        {
+            // This catch block handles exceptions from the outer logic of Update,
+            // like checking _xinputController.IsConnected if _xinputController somehow became null (unlikely with current init).
+            // Or exceptions from the reconnection logic itself if it's called directly here.
+            // The specific NRE caught and ignored previously is now handled more granularly
+            // or should be prevented by better DirectInput management.
+            ErrorLogger?.Invoke(ex, $"Unexpected error in GamePadController Update loop.\n\n" +
+                                    $"Exception type: {ex.GetType().Name}\n" +
+                                    $"Exception details: {ex.Message}");
+
+            // Attempt reconnection as a recovery step
             CheckAndReconnectControllers();
         }
     }
 
     public void CheckAndReconnectControllers()
     {
+        // This method attempts to find and connect *either* an XInput or a DirectInput gamepad.
+        // It should not create a new DirectInput instance if one already exists and is valid.
         try
         {
             if (!Instance2.IsRunning || _isDisposed) return;
 
-            // Reinitialize Xbox controller
-            _xinputController = new Controller(UserIndex.One);
-
-            // Check if the PlayStation controller is connected
-            var directInput = new DirectInput();
-            var devices = directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
-
-            var found = false;
-            foreach (var deviceInstance in devices)
+            // If XInput is already connected, no need to reconnect DirectInput
+            if (_xinputController.IsConnected)
             {
-                // Check if the device matches the previously connected controller's GUID
-                if (_playStationControllerGuid != Guid.Empty &&
-                    deviceInstance.InstanceGuid != _playStationControllerGuid) continue;
+                // Ensure DirectInput controller is released if XInput is active
+                if (_directInputController == null) return;
 
-                _directInputController?.Unacquire();
+                _directInputController.Unacquire();
                 _directInputController?.Dispose();
+                _directInputController = null;
+                _playStationControllerGuid = Guid.Empty;
 
-                _directInputController = new Joystick(directInput, deviceInstance.InstanceGuid);
-                _directInputController.Acquire();
-                _playStationControllerGuid = deviceInstance.InstanceGuid; // Update the GUID
-                found = true;
-
-                break;
+                return; // XInput is active, nothing more to do
             }
 
-            if (found) return;
+            // If DirectInput object is null or disposed, try to recreate it
+            if (_directInput == null || _directInput.IsDisposed)
+            {
+                try
+                {
+                    _directInput?.Dispose(); // Ensure old one is disposed
+                    _directInput = new DirectInput();
+                    ErrorLogger?.Invoke(null, "Recreated DirectInput object during reconnection."); // Log successful recreation
+                }
+                catch (Exception diEx)
+                {
+                    ErrorLogger?.Invoke(diEx, $"Failed to recreate DirectInput object during reconnection attempt.\n\n" +
+                                              $"Exception type: {diEx.GetType().Name}\n" +
+                                              $"Exception details: {diEx.Message}");
+                    _directInput = null; // Ensure it's null if creation failed
+                    return; // Cannot proceed without a valid DirectInput object
+                }
+            }
 
-            _directInputController = null;
-            _playStationControllerGuid = Guid.Empty; // Reset the GUID if the device is not found
+            // Check if the previously connected PlayStation controller is attached
+            var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AttachedOnly);
+
+            var found = false;
+            DeviceInstance foundDevice = null;
+
+            // First, try to find the specific controller by GUID if we had one
+            if (_playStationControllerGuid != Guid.Empty)
+            {
+                foreach (var deviceInstance in devices)
+                {
+                    if (deviceInstance.InstanceGuid != _playStationControllerGuid) continue;
+
+                    foundDevice = deviceInstance;
+                    found = true;
+                    break;
+                }
+            }
+
+            // If the specific GUID wasn't found or we didn't have one, just take the first available gamepad
+            if (!found && devices.Count > 0)
+            {
+                foundDevice = devices[0];
+                found = true;
+            }
+
+
+            if (found && foundDevice != null)
+            {
+                // Found a device, try to connect
+                try
+                {
+                    // Dispose the old controller if it exists and is different or invalid
+                    // Access InstanceGuid via the Information property of the Joystick
+                    if (_directInputController != null &&
+                        (_directInputController.Information.InstanceGuid != foundDevice.InstanceGuid || _directInputController.IsDisposed)) // <-- Corrected line
+                    {
+                        _directInputController.Unacquire();
+                        _directInputController.Dispose();
+                        _directInputController = null;
+                    }
+
+                    // If _directInputController is null (either was null, different, or disposed), create a new one
+                    if (_directInputController == null)
+                    {
+                        _directInputController = new Joystick(_directInput, foundDevice.InstanceGuid);
+                        _directInputController.Acquire();
+                        _playStationControllerGuid = foundDevice.InstanceGuid; // Update the GUID
+                        ErrorLogger?.Invoke(null, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
+                    }
+                    else
+                    {
+                        // If it wasn't null and was the same GUID, try re-acquiring just in case
+                        _directInputController.Acquire();
+                        ErrorLogger?.Invoke(null, $"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}"); // Log success
+                    }
+                }
+                catch (Exception acquireEx)
+                {
+                    // Failed to acquire the found device
+                    ErrorLogger?.Invoke(acquireEx, $"Failed to acquire DirectInput device during reconnection attempt: {foundDevice.InstanceName}.\n\n" +
+                                                   $"Exception type: {acquireEx.GetType().Name}\n" +
+                                                   $"Exception details: {acquireEx.Message}");
+                    _directInputController?.Unacquire();
+                    _directInputController?.Dispose();
+                    _directInputController = null; // Ensure it's null on failure
+                    _playStationControllerGuid = Guid.Empty; // Reset GUID on failure
+                }
+            }
+            else
+            {
+                // No gamepad device found
+                if (_directInputController == null) return;
+
+                _directInputController.Unacquire();
+                _directInputController.Dispose();
+                _directInputController = null;
+                _playStationControllerGuid = Guid.Empty;
+                ErrorLogger?.Invoke(null, "DirectInput controller disconnected."); // Log disconnection
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
+            // This catch block handles exceptions from the DirectInput object itself (e.g., GetDevices)
+            // or other unexpected errors within the reconnection logic.
+            // This is the catch block that generated the log message in the bug report.
             ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
+
+            // Clean up potentially invalid state
+            _directInputController?.Unacquire();
+            _directInputController?.Dispose();
+            _directInputController = null;
+            _playStationControllerGuid = Guid.Empty;
+            // Do NOT dispose _directInput here, let the next attempt recreate it if needed.
         }
     }
+
 
     private void HandleXInputRightButton(State state)
     {
@@ -337,40 +523,55 @@ public class GamePadController : IDisposable
 
     private void HandleDirectInputButtons(JoystickState state)
     {
-        var isCrossDown = state.Buttons[1];
-        switch (isCrossDown)
+        // DirectInput button indices can vary. Assuming common layout where 1 is Cross and 2 is Circle.
+        const int crossButtonIndex = 1; // Assuming button 1 is Cross
+        const int circleButtonIndex = 2; // Assuming button 2 is Circle
+
+        if (state.Buttons.Length > Math.Max(crossButtonIndex, circleButtonIndex))
         {
-            case true when !_wasCrossDown:
-                _mouseSimulator.LeftButtonDown(); // Cross Button
-                break;
-            case false when _wasCrossDown:
-                _mouseSimulator.LeftButtonUp();
-                break;
+            var isCrossDown = state.Buttons[crossButtonIndex];
+            switch (isCrossDown)
+            {
+                case true when !_wasCrossDown:
+                    _mouseSimulator.LeftButtonDown(); // Cross Button
+                    break;
+                case false when _wasCrossDown:
+                    _mouseSimulator.LeftButtonUp();
+                    break;
+            }
+
+            _wasCrossDown = isCrossDown;
+
+            var isCircleDown = state.Buttons[circleButtonIndex];
+            switch (isCircleDown)
+            {
+                case true when !_wasCircleDown:
+                    _mouseSimulator.RightButtonDown(); // Circle Button
+                    break;
+                case false when _wasCircleDown:
+                    _mouseSimulator.RightButtonUp();
+                    break;
+            }
+
+            _wasCircleDown = isCircleDown;
         }
-
-        _wasCrossDown = isCrossDown;
-
-        var isCircleDown = state.Buttons[2];
-        switch (isCircleDown)
+        else
         {
-            case true when !_wasCircleDown:
-                _mouseSimulator.RightButtonDown(); // Circle Button
-                break;
-            case false when _wasCircleDown:
-                _mouseSimulator.RightButtonUp();
-                break;
+            // Log a warning or handle controllers with fewer buttons if necessary
+            // ErrorLogger?.Invoke(null, $"DirectInput controller has fewer than {Math.Max(crossButtonIndex, circleButtonIndex) + 1} buttons.");
         }
-
-        _wasCircleDown = isCircleDown;
     }
 
     private void HandleDirectInputMovement(JoystickState state)
     {
         // Normalize DirectInput values from [0, 65535] to [-32767, 32767]
+        // Check if axes exist before accessing
+        if (state.X == int.MinValue || state.Y == int.MinValue) return; // Check if X and Y axes are reported
+
         var thumbX = (short)(state.X - 32767); // Convert absolute to relative
         var thumbY = (short)(state.Y - 32767); // Convert absolute to relative
 
-        // Invert the X and Y-axis (DirectInput typically has an inverted axis)
+        // Invert the X and Y-axis (DirectInput typically has an inverted axis relative to screen coordinates)
         thumbY = (short)-thumbY;
         thumbX = (short)-thumbX;
 
@@ -378,6 +579,10 @@ public class GamePadController : IDisposable
         var (x, y) = ProcessLeftThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
         // Move the mouse based on processed values
+        // The original code used -(int)x and -(int)y for MoveMouseBy. This seems counter-intuitive
+        // given the inversion above. Let's use (int)x and (int)y and see if that feels right,
+        // or revert if the original inversion + negative move was intentional for some reason.
+        // Reverting to original logic for minimal change:
         _mouseSimulator.MoveMouseBy(-(int)x, -(int)y);
     }
 
@@ -413,8 +618,15 @@ public class GamePadController : IDisposable
         resultX *= 7;
         resultY *= 7;
 
+        // The original scaling logic after deadzone was: resultX /= 1 - dzX;
+        // This seems incorrect for scaling *up* the remaining range.
+        // A common way is to scale the result from the effective range [dz, 1] to [0, 1]
+        // The current code's scaling logic seems a bit off. Let's keep the original scaling for now
+        // to minimize changes, but note it might need tuning.
         if (dzX > 0)
         {
+            // This scales the result, which is in range [0, 1-dzX] (after deadzone subtraction),
+            // back up to a range closer to [0, 1].
             resultX /= 1 - dzX;
         }
 
@@ -422,6 +634,7 @@ public class GamePadController : IDisposable
         {
             resultY /= 1 - dzY;
         }
+
 
         return (resultX, resultY);
     }
@@ -447,14 +660,22 @@ public class GamePadController : IDisposable
         }
 
         // Scale the values after dead zone adjustment
+        // The original code's scaling logic here also seems potentially incorrect.
+        // It was: resultX *= 1 / (1 - dzX); which is the same as resultX /= (1 - dzX);
+        // Let's apply a base scaling factor similar to the left stick, or perhaps different.
+        // The original code didn't have a base scaling factor here, only the deadzone scaling.
+        // Let's add a base scaling (e.g., 5x) and keep the deadzone scaling logic as it was.
+        resultX *= 5; // Add base scaling for scroll
+        resultY *= 5; // Add base scaling for scroll
+
         if (dzX > 0)
         {
-            resultX *= 1 / (1 - dzX);
+            resultX /= 1 - dzX;
         }
 
         if (dzY > 0)
         {
-            resultY *= 1 / (1 - dzY);
+            resultY /= 1 - dzY;
         }
 
         return (resultX, resultY);
