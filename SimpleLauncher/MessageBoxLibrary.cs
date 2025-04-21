@@ -1414,18 +1414,6 @@ public static class MessageBoxLibrary
         return Task.CompletedTask;
     }
 
-    // internal static bool OverwriteSystemMessageBox(EasyModeSystemConfig selectedSystem)
-    // {
-    //     var thesystem3 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-    //     var alreadyexists2 = (string)Application.Current.TryFindResource("alreadyexists") ?? "already exists.";
-    //     var doyouwanttooverwriteit2 = (string)Application.Current.TryFindResource("Doyouwanttooverwriteit") ?? "Do you want to overwrite it?";
-    //     var systemAlreadyExists2 = (string)Application.Current.TryFindResource("SystemAlreadyExists") ?? "System Already Exists";
-    //     var result = MessageBox.Show($"{thesystem3} '{selectedSystem.SystemName}' {alreadyexists2}\n\n" +
-    //                                  $"{doyouwanttooverwriteit2}",
-    //         systemAlreadyExists2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-    //     return result == MessageBoxResult.No;
-    // }
-
     internal static void SystemAddedMessageBox(string systemFolder, string fullImageFolderPathForMessage, EasyModeSystemConfig selectedSystem)
     {
         var thesystem2 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
@@ -2127,5 +2115,20 @@ public static class MessageBoxLibrary
             MessageBoxImage.Warning);
 
         return result == MessageBoxResult.Yes;
+    }
+
+    public static void SetFuzzyMatchingThresholdFailureMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void ToggleFuzzyMatchingFailureMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void ShowErrorMessageBox(string invalidInputMessageTitle, string invalidInputMessageText)
+    {
+        throw new NotImplementedException();
     }
 }

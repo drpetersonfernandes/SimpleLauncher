@@ -643,6 +643,10 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
+    <None Remove="images\match.png" />
+    <Resource Include="images\match.png" />
+    <None Remove="images\setthreshold.png" />
+    <Resource Include="images\setthreshold.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

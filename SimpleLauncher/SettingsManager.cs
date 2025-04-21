@@ -37,6 +37,10 @@ public class SettingsManager
     public float DeadZoneY { get; set; }
     public string ButtonAspectRatio { get; set; }
 
+    // New properties for Fuzzy Matching
+    public bool EnableFuzzyMatching { get; set; }
+    public double FuzzyMatchingThreshold { get; set; } // Store as double (0.0 to 1.0)
+
     // List to hold multiple SystemPlayTime instances
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
@@ -95,6 +99,16 @@ public class SettingsManager
             }
 
             DeadZoneY = deadZoneY;
+
+            // Load Fuzzy Matching settings
+            EnableFuzzyMatching = ParseBoolSetting(settings, "EnableFuzzyMatching");
+            if (!double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fuzzyThreshold))
+            {
+                fuzzyThreshold = 0.90; // default value
+            }
+
+            FuzzyMatchingThreshold = fuzzyThreshold;
+
 
             // Load multiple SystemPlayTime elements
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
@@ -192,6 +206,8 @@ public class SettingsManager
         DeadZoneX = 0.05f;
         DeadZoneY = 0.02f;
         ButtonAspectRatio = "Square";
+        EnableFuzzyMatching = true; // Default to enabled
+        FuzzyMatchingThreshold = 0.90; // Default threshold
         SystemPlayTimes = [];
         Save();
     }
@@ -226,6 +242,8 @@ public class SettingsManager
             new XElement("DeadZoneX", DeadZoneX),
             new XElement("DeadZoneY", DeadZoneY),
             new XElement("ButtonAspectRatio", ButtonAspectRatio),
+            new XElement("EnableFuzzyMatching", EnableFuzzyMatching), // Save fuzzy matching state
+            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold), // Save fuzzy matching threshold
             systemPlayTimesElement
         ).Save(_filePath);
     }

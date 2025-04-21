@@ -564,5 +564,17 @@
     
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">Set Fuzzy Matching Threshold</system:String>
+    <system:String x:Key="CurrentThresholdLabel">Current Threshold:</system:String>
+    <system:String x:Key="NewThresholdLabel">New Threshold:</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHint">Enter a value between 0.0 (no similarity required) and 1.0 (exact match required). Recommended: 0.85 to 0.95.</system:String>
+    <system:String x:Key="OkButtonText">OK</system:String>
+    <system:String x:Key="CancelButtonText">Cancel</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
+    <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxTitle">Error</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Failed to set fuzzy matching threshold.</system:String>
+    <system:String x:Key="FuzzyImageMatching">Fuzzy Image Matching</system:String>
+    <system:String x:Key="SetThreshold">SetThreshold</system:String>
     
 </ResourceDictionary>

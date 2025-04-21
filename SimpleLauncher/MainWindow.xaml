@@ -274,6 +274,18 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{DynamicResource FuzzyImageMatching}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/match.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}" Click="ToggleFuzzyMatching_Click"
+                              IsCheckable="True" />
+                    <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThreshold_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/setthreshold.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
             </MenuItem>
 
             <MenuItem

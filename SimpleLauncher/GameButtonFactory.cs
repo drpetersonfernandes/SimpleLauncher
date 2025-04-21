@@ -38,12 +38,26 @@ internal class GameButtonFactory(
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
     {
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+        var originalFileNameWithoutExtension = fileNameWithoutExtension; // Keep original for lookup
         var fileNameWithExtension = Path.GetFileName(filePath);
-        fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension);
+        fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension); // Use TitleCase for display
 
-        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+        // Pass the original filename without extension for image lookup
+        var imagePath = FindCoverImage.FindCoverImagePath(originalFileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+
         // Determine if it's a default image (isDefaultImage is a bool)
-        var isDefaultImage = imagePath.EndsWith("default.png", StringComparison.Ordinal);
+        // We now need to check if it's the *actual* default.png file path,
+        // not just if the path ends with default.png, because a fuzzy match
+        // might coincidentally end with default.png if the rom name is similar.
+        // A better check is needed if we want to distinguish fuzzy matches from default.
+        // For now, let's assume ending with default.png means it's the default fallback.
+        // If FindCoverImage returns the global default, it will end with default.png.
+        // If FindCoverImage returns the system default, it will end with default.png.
+        // If FindCoverImage returns a fuzzy match, it won't end with default.png unless
+        // the fuzzy match *was* the default.png file itself (which is unlikely to be the best match).
+        // So, the existing check is probably sufficient for the *intent* (is this the generic fallback image).
+        var isDefaultImage = imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
+
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel
@@ -64,13 +78,13 @@ internal class GameButtonFactory(
         // Always show the filename on the first row.
         var filenameTextBlock = new TextBlock
         {
-            Text = fileNameWithoutExtension,
+            Text = fileNameWithoutExtension, // Use TitleCase for display
             HorizontalAlignment = HorizontalAlignment.Center,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeights.Bold,
             TextTrimming = TextTrimming.CharacterEllipsis,
             FontSize = 13,
-            ToolTip = fileNameWithoutExtension,
+            ToolTip = fileNameWithoutExtension, // Use TitleCase for tooltip
             TextWrapping = TextWrapping.Wrap
         };
         textPanel.Children.Add(filenameTextBlock);
@@ -78,7 +92,8 @@ internal class GameButtonFactory(
         // For MAME systems, add a second row for the description if available.
         if (systemConfig.SystemIsMame)
         {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            // Use original filename without extension for MAME lookup
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(originalFileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var descriptionTextBlock = new TextBlock
@@ -206,7 +221,7 @@ internal class GameButtonFactory(
         };
 
         // Create a unique key for the favorite status
-        var key = $"{systemName}|{Path.GetFileNameWithoutExtension(filePath)}";
+        var key = $"{systemName}|{originalFileNameWithoutExtension}"; // Use original filename for key
 
         // Create the composite tag object
         var tag = new GameButtonTag
@@ -242,11 +257,11 @@ internal class GameButtonFactory(
         // --- END MODIFIED CLICK HANDLER ---
 
 
-        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemConfig, fileNameWithExtension, fileNameWithoutExtension, button);
+        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemConfig, fileNameWithExtension, originalFileNameWithoutExtension, button); // Pass original filename
     }
 
     private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemConfig systemConfig,
-        string fileNameWithExtension, string fileNameWithoutExtension, Button button)
+        string fileNameWithExtension, string fileNameWithoutExtension, Button button) // Use original filename here
     {
         var contextMenu = new ContextMenu();
 
@@ -646,7 +661,7 @@ internal class GameButtonFactory(
 
     public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
     {
-        var imageFileName = Path.GetFileName(imagePath);
+        // var imageFileName = Path.GetFileName(imagePath);
 
         ArgumentNullException.ThrowIfNull(imageControl);
 
@@ -679,22 +694,26 @@ internal class GameButtonFactory(
         {
             // If an exception occurs (e.g., the image is corrupt), will load the default image
             // This uses the dispatcher to ensure UI elements are accessed on the UI thread
-            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button, "default.png"));
+            // Note: LoadFallbackImage is static, doesn't need instance members.
+            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button)); // Pass only necessary args
 
-            // Notify user
-            MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
+            // Notify user (optional, might be noisy for many missing images)
+            // MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
         }
     }
 
-    private static void LoadFallbackImage(Image imageControl, Button button, string defaultImagePath)
+    // Modified LoadFallbackImage to use FindCoverImage's global default logic
+    private static void LoadFallbackImage(Image imageControl, Button button)
     {
-        var fallbackImagePath = defaultImagePath;
+        // FindCoverImage.FindCoverImagePath already handles the system default and global default fallback.
+        // However, this LoadFallbackImage method is called *only* when LoadImageAsync fails.
+        // It seems the original intent was to load a *specific* default image path passed in.
+        // Let's revert this to just load the global default if the primary load failed.
+        // If the goal was to retry the *finding* logic, that should happen before calling LoadImageAsync.
+        // Given the context (called on LoadImageAsync failure), this method should just load a known fallback.
+        // The simplest known fallback is the global default.
 
-        // If the specific default image doesn't exist, try the global default image
-        if (!File.Exists(fallbackImagePath))
-        {
-            fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
-        }
+        var fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
 
         if (File.Exists(fallbackImagePath))
         {
@@ -709,13 +728,28 @@ internal class GameButtonFactory(
                 bitmapImage.EndInit();
                 bitmapImage.Freeze();
                 imageControl.Source = bitmapImage; // Assign the fallback image
-                button.Tag = "DefaultImage"; // Tagging the button to indicate a default image is used
+                // Tagging the button to indicate a default image is used
+                // We need to be careful here. The button.Tag is already set to GameButtonTag.
+                // We should update the IsDefaultImage property of the existing tag.
+                if (button?.Tag is GameButtonTag gameButtonTag)
+                {
+                    gameButtonTag.IsDefaultImage = true;
+                }
+                else if (button != null)
+                {
+                     // If tag is not GameButtonTag (unexpected), set a simple tag
+                     button.Tag = "DefaultImage";
+                }
             }
             catch (Exception ex)
             {
                 // Notify developer
                 const string contextMessage = "Fail to load the fallback image in the method LoadFallbackImage.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // If even the global default image fails to load, there's a serious issue.
+                // Notify user
+                MessageBoxLibrary.DefaultImageNotFoundMessageBox();
             }
         }
         else
@@ -726,3 +760,4 @@ internal class GameButtonFactory(
         }
     }
 }
+
