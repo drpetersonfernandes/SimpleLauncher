@@ -218,11 +218,29 @@ internal class GameButtonFactory(
         // Assign it to the button's Tag property
         button.Tag = tag;
 
-        button.Click += async (_, _) =>
+        // --- MODIFIED CLICK HANDLER ---
+        button.Click += async (sender, _) =>
         {
-            PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            if (sender is not Button clickedButton) return;
+
+            // Prevent multiple clicks while launching
+            if (!clickedButton.IsEnabled) return;
+
+            clickedButton.IsEnabled = false; // Disable the button
+
+            try
+            {
+                PlayClick.PlayClickSound(); // Play sound *before* launching
+                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            }
+            finally
+            {
+                // Re-enable the button after the game process exits
+                clickedButton.IsEnabled = true;
+            }
         };
+        // --- END MODIFIED CLICK HANDLER ---
+
 
         return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemConfig, fileNameWithExtension, fileNameWithoutExtension, button);
     }
