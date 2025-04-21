@@ -401,3 +401,7 @@ FodyWeavers.xsd
 !/.idea/
 !/SimpleLauncher_analysis_20250408_220315.md
 !/SimpleLauncher/appsettings.json
+!/SimpleLauncher/obj/
+!/.gitignore
+!/.gitignore
+!/.gitignore
