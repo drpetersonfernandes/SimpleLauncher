@@ -1990,6 +1990,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
     {
+        SaveApplicationSettings();
+
         try
         {
             // Pass the current settings manager to the dialog

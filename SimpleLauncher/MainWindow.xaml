@@ -268,7 +268,7 @@
                     </MenuItem.Icon>
                     <MenuItem x:Name="ToggleGamepad" Header="{DynamicResource Enable}" Click="ToggleGamepad_Click"
                               IsCheckable="True" />
-                    <MenuItem Click="SetGamepadDeadZone_Click" Header="{DynamicResource SetGamepadDeadZone}">
+                    <MenuItem Header="{DynamicResource SetGamepadDeadZone}" Click="SetGamepadDeadZone_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/setdeadzone.png" Width="16" Height="16" />
                         </MenuItem.Icon>
