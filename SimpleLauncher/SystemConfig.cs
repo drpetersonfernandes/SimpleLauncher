@@ -41,59 +41,79 @@ public class SystemConfig
 
         try
         {
+            // Check if system.xml exists
             if (!File.Exists(XmlPath))
             {
-                // Search for backup files in the application directory
                 var directoryPath = Path.GetDirectoryName(XmlPath);
+                var backupRestored = false;
 
-                try
+                if (directoryPath != null)
                 {
-                    if (directoryPath != null)
+                    try
                     {
+                        // Search for backup files in the application directory
                         var backupFiles = Directory.GetFiles(directoryPath, "system_backup*.xml").ToList();
                         if (backupFiles.Count > 0)
                         {
                             // Sort the backup files by their creation time to find the most recent one
                             var mostRecentBackupFile = backupFiles.MaxBy(File.GetCreationTime);
 
-                            // Notify user
-                            FileSystemXmlNotFindMessageBox(mostRecentBackupFile);
-                        }
-                        else
-                        {
-                            // Create 'system.xml' using a prefilled 'system_model.xml'
-                            var systemModel = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system_model.xml");
+                            // Notify user and ask to restore
+                            var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
 
-                            if (File.Exists(systemModel))
+                            if (restoreResult == MessageBoxResult.Yes)
                             {
-                                File.Copy(systemModel, XmlPath, false);
-                            }
-                            else
-                            {
-                                // Notify developer
-                                const string contextMessage = "'system_model.xml' was not found in the application folder.";
-                                var ex = new Exception(contextMessage);
-                                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                                // Notify user
-                                MessageBoxLibrary.SystemModelXmlIsMissingMessageBox();
+                                try
+                                {
+                                    // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
+                                    File.Copy(mostRecentBackupFile, XmlPath, true);
+                                    backupRestored = true;
+                                    // Optionally notify user backup was successful
+                                    // MessageBox.Show("Backup restored successfully.", "Restore Successful", MessageBoxButton.OK, MessageBoxImage.Information);
+                                }
+                                catch (Exception ex)
+                                {
+                                    // Notify developer and user if backup restoration fails
+                                    const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
+                                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                                    MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
+                                    // backupRestored remains false, proceed to create empty file
+                                }
                             }
                         }
                     }
+                    catch (Exception ex)
+                    {
+                        // Error during backup search/restore attempt (e.g., directory access issues)
+                        const string contextMessage = "Error during backup file handling.";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        // Proceed to create empty file as backup handling failed
+                    }
                 }
-                catch (Exception ex)
+
+                // If no backup was restored, create a new empty system.xml file
+                if (!backupRestored)
                 {
-                    // Notify developer
-                    const string contextMessage = "The file 'system.xml' is corrupted or could not be open.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
-
-                    return null;
+                    try
+                    {
+                        // Create a new XDocument with the root element
+                        var emptyDoc = new XDocument(new XElement("SystemConfigs"));
+                        emptyDoc.Save(XmlPath);
+                        // No user notification needed for creating an expected empty file
+                    }
+                    catch (Exception createEx)
+                    {
+                        // Notify developer and user if creating the empty file fails
+                        const string contextMessage = "Error creating empty 'system.xml'.";
+                        _ = LogErrors.LogErrorAsync(createEx, contextMessage);
+                        // Use existing message box for critical file error
+                        MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
+                        return null; // Cannot proceed without the file
+                    }
                 }
             }
 
+            // At this point, system.xml exists (either original, restored backup, or newly created empty)
             XDocument doc;
 
             try
@@ -115,165 +135,154 @@ public class SystemConfig
             var systemConfigs = new List<SystemConfig>();
             var invalidConfigs = new Dictionary<XElement, string>();
 
+            // If the root is null (e.g., empty file or invalid XML structure before root), return empty list
             if (doc.Root == null) return systemConfigs;
 
+            // Iterate through SystemConfig elements. This loop will be skipped if the file is empty (<SystemConfigs/>).
+            foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
             {
-                foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
+                try
                 {
-                    try
+                    // Attempt to parse each system configuration.
+                    // These validations will only run if SystemConfig elements exist.
+                    if (sysConfigElement.Element("SystemName") == null ||
+                        string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
+                        throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
+
+                    if (sysConfigElement.Element("SystemFolder") == null ||
+                        string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
+                        throw new InvalidOperationException("Missing or empty 'System Folder' in XML.");
+
+                    if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
+                        throw new InvalidOperationException("Invalid or missing value for 'System Is MAME'.");
+
+                    // Validate FileFormatsToSearch
+                    var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
+                        ?.Elements("FormatToSearch")
+                        .Select(static e => e.Value.Trim())
+                        .Where(static value =>
+                            !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
+                        .ToList();
+                    if (formatsToSearch == null || formatsToSearch.Count == 0)
+                        throw new InvalidOperationException("'File Extension To Search' should have at least one value.");
+
+                    // Validate ExtractFileBeforeLaunch
+                    if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
+                            out var extractFileBeforeLaunch))
+                        throw new InvalidOperationException("Invalid or missing value for 'Extract File Before Launch'.");
+                    if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
+                        throw new InvalidOperationException("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
+
+                    // Validate FileFormatsToLaunch
+                    var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
+                        ?.Elements("FormatToLaunch")
+                        .Select(static e => e.Value.Trim())
+                        .Where(static value =>
+                            !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
+                        .ToList();
+                    // This check was slightly modified: formatsToLaunch can be null/empty if ExtractFileBeforeLaunch is false.
+                    // The original code had a check that failed if ExtractFileBeforeLaunch was true AND formatsToLaunch was null/empty.
+                    // Let's keep the original logic's intent: if ExtractFileBeforeLaunch is true, FileFormatsToLaunch must have values.
+                    if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
+                        throw new InvalidOperationException("'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
+
+
+                    // Validate emulator configurations
+                    var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(static emulatorElement =>
                     {
-                        // Attempt to parse each system configuration.
-                        if (sysConfigElement.Element("SystemName") == null ||
-                            string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
-                            throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
+                        if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
+                            throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
 
-                        if (sysConfigElement.Element("SystemFolder") == null ||
-                            string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
-                            throw new InvalidOperationException("Missing or empty 'System Folder' in XML.");
-
-                        if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
-                            throw new InvalidOperationException("Invalid or missing value for 'System Is MAME'.");
-
-                        // Validate FileFormatsToSearch
-                        var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
-                            ?.Elements("FormatToSearch")
-                            .Select(static e => e.Value.Trim())
-                            .Where(static value =>
-                                !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
-                            .ToList();
-                        if (formatsToSearch == null || formatsToSearch.Count == 0)
-                            throw new InvalidOperationException("'File Extension To Search' should have at least one value.");
-
-                        // Validate ExtractFileBeforeLaunch
-                        if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
-                                out var extractFileBeforeLaunch))
-                            throw new InvalidOperationException("Invalid or missing value for 'Extract File Before Launch'.");
-                        if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
-                            throw new InvalidOperationException("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
-
-                        // Validate FileFormatsToLaunch
-                        var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
-                            ?.Elements("FormatToLaunch")
-                            .Select(static e => e.Value.Trim())
-                            .Where(static value =>
-                                !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
-                            .ToList();
-                        if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                            throw new InvalidOperationException("'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
-
-                        // Validate emulator configurations
-                        var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(static emulatorElement =>
-                        {
-                            if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                                throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
-
-                            // Parse the ReceiveANotificationOnEmulatorError value with default = false
-                            if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") == null)
-                                return new Emulator
-                                {
-                                    EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
-                                    EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                    EmulatorParameters =
-                                        emulatorElement.Element("EmulatorParameters")
-                                            ?.Value, // It's okay if this is null or empty
-                                    ReceiveANotificationOnEmulatorError = false
-                                };
-                            // Only set to true if explicitly "true", otherwise keep default (false)
-                            if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out var receiveNotification))
-                            {
-                                receiveNotification = false; // Reset to default if parsing fails
-                            }
-
+                        // Parse the ReceiveANotificationOnEmulatorError value with default = false
+                        // If the element is missing or parsing fails, it defaults to false.
+                        var receiveNotification = false; // Default value
+                        if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") == null)
                             return new Emulator
                             {
                                 EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
                                 EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
+                                EmulatorParameters =
+                                    emulatorElement.Element("EmulatorParameters")
+                                        ?.Value, // It's okay if this is null or empty
                                 ReceiveANotificationOnEmulatorError = receiveNotification
                             };
-                        }).ToList();
 
-                        if (emulators == null || emulators.Count == 0)
-                            throw new InvalidOperationException("Emulators list should not be empty or null.");
-
-                        systemConfigs.Add(new SystemConfig
+                        if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
                         {
-                            SystemName = sysConfigElement.Element("SystemName")?.Value,
-                            SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
-                            SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
-                            SystemIsMame = systemIsMame,
-                            ExtractFileBeforeLaunch = extractFileBeforeLaunch,
-                            FileFormatsToSearch = formatsToSearch,
-                            FileFormatsToLaunch = formatsToLaunch,
-                            Emulators = emulators
-                        });
-                    }
-                    catch (Exception ex)
-                    {
-                        var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
-                        if (!invalidConfigs.ContainsKey(sysConfigElement))
-                        {
-                            invalidConfigs[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
+                            receiveNotification = false; // Reset to default if parsing fails
                         }
 
-                        invalidConfigs[sysConfigElement] += $"- {ex.Message}\n";
+                        return new Emulator
+                        {
+                            EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
+                            EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
+                            EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
+                            ReceiveANotificationOnEmulatorError = receiveNotification
+                        };
+                    }).ToList();
+
+                    if (emulators == null || emulators.Count == 0)
+                        throw new InvalidOperationException("Emulators list should not be empty or null.");
+
+                    systemConfigs.Add(new SystemConfig
+                    {
+                        SystemName = sysConfigElement.Element("SystemName")?.Value,
+                        SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
+                        SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
+                        SystemIsMame = systemIsMame,
+                        ExtractFileBeforeLaunch = extractFileBeforeLaunch,
+                        FileFormatsToSearch = formatsToSearch,
+                        FileFormatsToLaunch = formatsToLaunch,
+                        Emulators = emulators
+                    });
+                }
+                catch (Exception ex)
+                {
+                    var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
+                    if (!invalidConfigs.ContainsKey(sysConfigElement))
+                    {
+                        invalidConfigs[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
                     }
-                }
 
-                // Remove any invalid configurations from the XML document
-                foreach (var invalidConfig in invalidConfigs.Keys)
-                {
-                    invalidConfig.Remove();
-                }
-
-                // Save the corrected XML back to disk if any invalid configurations were removed
-                if (invalidConfigs.Count != 0)
-                {
-                    doc.Save(XmlPath);
-                }
-
-                // Notify user about each invalid configuration in a single message per system
-                foreach (var error in invalidConfigs.Values)
-                {
-                    // Notify user
-                    MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+                    invalidConfigs[sysConfigElement] += $"- {ex.Message}\n";
                 }
             }
 
+            // Remove any invalid configurations from the XML document
+            foreach (var invalidConfig in invalidConfigs.Keys)
+            {
+                invalidConfig.Remove();
+            }
+
+            // Save the corrected XML back to disk if any invalid configurations were removed
+            if (invalidConfigs.Count != 0)
+            {
+                doc.Save(XmlPath);
+            }
+
+            // Notify user about each invalid configuration in a single message per system
+            foreach (var error in invalidConfigs.Values)
+            {
+                // Notify user
+                MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+            }
+
+            // Return the list of valid system configurations (could be empty)
             return systemConfigs;
         }
         catch (Exception ex)
         {
-            // Notify developer
+            // Catch any other unexpected errors during the loading process
             const string contextMessage = "Error loading system configurations from 'system.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
 
-            return null;
+            return null; // Return null on critical failure
         }
 
-        void FileSystemXmlNotFindMessageBox(string mostRecentBackupFile)
-        {
-            var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
-
-            if (restoreResult != MessageBoxResult.Yes) return;
-
-            // Rename the most recent backup file to system.xml
-            try
-            {
-                File.Copy(mostRecentBackupFile, XmlPath, false);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
-            }
-        }
+        // The FileSystemXmlNotFindMessageBox helper method is no longer needed
+        // as its logic is now integrated directly into the main method flow.
     }
 }

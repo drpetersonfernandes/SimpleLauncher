@@ -94,7 +94,7 @@ public static partial class UpdateChecker
                 else
                 {
                     // Notify user
-                    ThereIsNoUpdateAvailableMessageBox();
+                    MessageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(mainWindow, CurrentVersion);
                 }
             }
         }
@@ -105,29 +105,7 @@ public static partial class UpdateChecker
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            ErrorCheckingForUpdatesMessageBox();
-        }
-
-        return;
-
-        void ThereIsNoUpdateAvailableMessageBox()
-        {
-            var thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
-            var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-            var noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
-            MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
-                                        $"{thecurrentversionis2} {CurrentVersion}",
-                noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-
-        void ErrorCheckingForUpdatesMessageBox()
-        {
-            var therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
-            var maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates2}\n\n" +
-                                        $"{maybethereisaproblemwithyourinternet2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
         }
     }
 

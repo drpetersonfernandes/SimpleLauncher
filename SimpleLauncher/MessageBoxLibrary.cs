@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Services;
@@ -2117,14 +2118,14 @@ public static class MessageBoxLibrary
         return result == MessageBoxResult.Yes;
     }
 
-    public static void SetFuzzyMatchingThresholdFailureMessageBox()
+    internal static void SetFuzzyMatchingThresholdFailureMessageBox()
     {
         var therewasanerrorsettingupthefuzzymatchingthreshold = (string)Application.Current.TryFindResource("Therewasanerrorsettingupthefuzzymatchingthreshold") ?? "There was an error setting up the fuzzy matching threshold.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show(therewasanerrorsettingupthefuzzymatchingthreshold, error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    public static void ToggleFuzzyMatchingFailureMessageBox()
+    internal static void ToggleFuzzyMatchingFailureMessageBox()
     {
         var therewasanerrortogglingthefuzzymatchinglogic = (string)Application.Current.TryFindResource("Therewasanerrortogglingthefuzzymatchinglogic") ?? "There was an error toggling the fuzzy matching logic.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
@@ -2132,17 +2133,45 @@ public static class MessageBoxLibrary
             error, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    public static void FuzzyMatchingErrorMessageBox()
+    internal static void FuzzyMatchingErrorMessageBox()
     {
         var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "The selected threshold is outside the valid range (70% to 100%).";
         var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
         MessageBox.Show(invalidInputMessageText, invalidInputMessageTitle, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    public static void FuzzyMatchingErrorMessageBox2()
+    internal static void FuzzyMatchingErrorMessageBox2()
     {
         var errorMessage = (string)Application.Current.TryFindResource("SetFuzzyMatchingThresholdFailureMessageBoxText") ?? "Failed to set fuzzy matching threshold.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show(errorMessage, error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void ListOfErrorsMessageBox(StringBuilder errorMessages)
+    {
+        var editSystemtofixit2 = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
+        var validationerrors2 = (string)Application.Current.TryFindResource("Validationerrors") ?? "Validation errors";
+        MessageBox.Show(errorMessages + editSystemtofixit2,
+            validationerrors2, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void ThereIsNoUpdateAvailableMessageBox(Window mainWindow, string currentVersion)
+    {
+        var thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+        var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+        var noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+        MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
+                                    $"{thecurrentversionis2} {currentVersion}",
+            noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void ErrorCheckingForUpdatesMessageBox(Window mainWindow)
+    {
+        var therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
+        var maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
+        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates2}\n\n" +
+                                    $"{maybethereisaproblemwithyourinternet2}",
+            error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
     }
 }

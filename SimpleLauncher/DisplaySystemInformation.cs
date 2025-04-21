@@ -7,10 +7,11 @@ using System.Text;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public static class SystemManager
+public static class DisplaySystemInformation
 {
     public static void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig, WrapPanel gameFileGrid)
     {
@@ -119,7 +120,7 @@ public static class SystemManager
         var hasErrors = false;
 
         // Validate the system folder path
-        if (!IsValidPath(systemFolder))
+        if (!CheckPaths.IsValidPath(systemFolder))
         {
             var systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
             hasErrors = true;
@@ -127,7 +128,7 @@ public static class SystemManager
         }
 
         // Validate the system image folder path if it's provided. Allow null or empty.
-        if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !IsValidPath(selectedConfig.SystemImageFolder))
+        if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !CheckPaths.IsValidPath(selectedConfig.SystemImageFolder))
         {
             var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
@@ -138,7 +139,7 @@ public static class SystemManager
         foreach (var emulator in selectedConfig.Emulators)
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
-                IsValidPath(emulator.EmulatorLocation)) continue;
+                CheckPaths.IsValidPath(emulator.EmulatorLocation)) continue;
 
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;
@@ -149,32 +150,6 @@ public static class SystemManager
         if (!hasErrors) return;
 
         // Notify user
-        ListOfErrorsMessageBox(errorMessages);
-    }
-
-    private static void ListOfErrorsMessageBox(StringBuilder errorMessages)
-    {
-        var editSystemtofixit2 = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
-        var validationerrors2 = (string)Application.Current.TryFindResource("Validationerrors") ?? "Validation errors";
-        MessageBox.Show(errorMessages + editSystemtofixit2,
-            validationerrors2, MessageBoxButton.OK, MessageBoxImage.Error);
-    }
-
-    // Check paths in SystemFolder, SystemImageFolder and EmulatorLocation. Allow relative paths.
-    private static bool IsValidPath(string path)
-    {
-        // Check if the path is not null or whitespace
-        if (string.IsNullOrWhiteSpace(path)) return false;
-
-        // Check if the path is an absolute path and exists
-        if (Directory.Exists(path) || File.Exists(path)) return true;
-
-        // Assume the path might be relative and combine it with the base directory
-        // Allow relative paths
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var fullPath = Path.Combine(basePath, path);
-
-        // Check if the combined path exists
-        return Directory.Exists(fullPath) || File.Exists(fullPath);
+        MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
     }
 }
