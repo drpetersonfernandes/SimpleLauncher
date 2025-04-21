@@ -471,7 +471,7 @@ public class DownloadManager : IDisposable
 
             // Open file stream for writing
             await using var contentStream = await response.Content.ReadAsStreamAsync(cancellationToken);
-            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.None, 8192, true);
+            await using var fileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite, 8192, true);
 
             // Set up buffer and tracking variables
             var buffer = new byte[8192];

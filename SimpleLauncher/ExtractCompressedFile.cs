@@ -493,7 +493,8 @@ public class ExtractCompressedFile
             {
                 try
                 {
-                    using var archive = ZipFile.OpenRead(filePath);
+                    using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using var archive = new ZipArchive(fileStream, ZipArchiveMode.Read);
 
                     // Perform basic validation of zip file contents
                     if (archive.Entries.Count == 0)
@@ -675,7 +676,7 @@ public class ExtractCompressedFile
 
         try
         {
-            using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.Delete);
+            using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
             return false;
         }
         catch (IOException)
