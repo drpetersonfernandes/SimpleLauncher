@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">토프</system:String>
     <system:String x:Key="Teal">틸</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">안티바이러스를 일시적으로 비활성화하고 다시 시도하세요.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">바이러스 백신 소프트웨어를 일시적으로 비활성화하고 다시 시도하십시오.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">애플리케이션이 지원 요청을 보낼 수 없습니다.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">애플리케이션이 이제 종료됩니다.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">애플리케이션이 종료됩니다.</system:String>

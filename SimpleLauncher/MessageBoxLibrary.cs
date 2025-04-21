@@ -397,7 +397,7 @@ public static class MessageBoxLibrary
     {
         var anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
@@ -551,7 +551,7 @@ public static class MessageBoxLibrary
     {
         var anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show(
@@ -825,7 +825,7 @@ public static class MessageBoxLibrary
         var simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
         var areyourunningasecondinstance2 = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative2") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite2}\n\n" +
@@ -1148,7 +1148,7 @@ public static class MessageBoxLibrary
     {
         var downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{downloadedfileislocked2}\n\n" +
@@ -1163,7 +1163,7 @@ public static class MessageBoxLibrary
         var imagePackdownloadorextraction2 = (string)Application.Current.TryFindResource("ImagePackdownloadorextraction") ?? "Image Pack download or extraction failed!";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
         var ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirussoftware") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{imagePackdownloadorextraction2}\n\n" +
                         $"{grantSimpleLauncheradministrative2}\n\n" +
@@ -1273,7 +1273,7 @@ public static class MessageBoxLibrary
         var downloadorextractionfailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
         var grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
         var ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{downloadorextractionfailed2}\n\n" +
                         $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
@@ -1665,7 +1665,7 @@ public static class MessageBoxLibrary
     {
         var simpleLauncherfailedtocreatethe2 = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
         MessageBox.Show($"{simpleLauncherfailedtocreatethe2}\n\n" +
@@ -1748,7 +1748,7 @@ public static class MessageBoxLibrary
     {
         var therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
@@ -1811,7 +1811,7 @@ public static class MessageBoxLibrary
     {
         var failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
         var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
         var alsochecktheintegrityoftheemulator2 = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
         var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
         MessageBox.Show($"{failedtostarttheemulator2}\n\n" +

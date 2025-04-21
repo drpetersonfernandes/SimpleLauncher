@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">トープ</system:String>
     <system:String x:Key="Teal">ティール</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">ウイルス対策ソフトを一時的に無効にして、再試行してください。</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">アンチウイルスソフトウェアを一時的に無効化し、再試行してください。</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">アプリケーションはサポートリクエストを送信できません。</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">アプリケーションは直ちに終了します。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">アプリケーションが終了します。</system:String>

@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Toprak</system:String>
     <system:String x:Key="Teal">Cam Göbeği</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Antivirüsünüzü geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakın ve tekrar deneyin.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Uygulama destek talebini gönderemeyecek.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Uygulama şimdi kapatılacaktır.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Uygulama kapatılacak.</system:String>

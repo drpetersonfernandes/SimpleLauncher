@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Abu-abu Coklat</system:String>
     <system:String x:Key="Teal">Hijau Toska</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Nonaktifkan antivirus Anda sementara dan coba lagi.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Matikan sementara perisian antivirus anda dan cuba lagi.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Aplikasi tidak akan dapat mengirim permintaan dukungan.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Aplikasi sekarang akan ditutup.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Aplikasi akan ditutup.</system:String>

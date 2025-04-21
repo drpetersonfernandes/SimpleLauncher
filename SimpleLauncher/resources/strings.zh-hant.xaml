@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">灰褐色</system:String>
     <system:String x:Key="Teal">青綠色</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">請暫時停用您的防毒軟件後再試。</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">暫時停用您的防毒軟體後重試。</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">應用程式將無法發送支援請求。</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">應用程式即將關閉。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">應用程序將關機。</system:String>

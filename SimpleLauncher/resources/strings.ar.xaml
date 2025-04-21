@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">رمادي بني</system:String>
     <system:String x:Key="Teal">فيروزي</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">قم بتعطيل برنامج مكافحة الفيروسات مؤقتًا وحاول مرة أخرى.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">قم بتعطيل برنامج مكافحة الفيروسات الخاص بك مؤقتًا وحاول مرة أخرى.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">لن يكون التطبيق قادرًا على إرسال طلب الدعم.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">سيتم إغلاق التطبيق الآن.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">سيتم إغلاق التطبيق.</system:String>

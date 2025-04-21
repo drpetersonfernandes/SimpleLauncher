@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">褐灰色</system:String>
     <system:String x:Key="Teal">水鸭色</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">请暂时关闭杀毒软件后重试。</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">暂时禁用您的杀毒软件并重试。</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">应用程序将无法发送支持请求。</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">应用程序将立即关闭。</system:String>
     <system:String x:Key="Theapplicationwillshutdown">应用将会关闭。</system:String>

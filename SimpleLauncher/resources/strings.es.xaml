@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Topo</system:String>
     <system:String x:Key="Teal">Verde azulado</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Desactiva temporalmente tu antivirus e inténtalo de nuevo.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Desactive temporalmente su software antivirus e intente de nuevo.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">La aplicación no podrá enviar la solicitud de soporte.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">La aplicación se cerrará ahora.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">La aplicación se cerrará.</system:String>

@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Taupe</system:String>
     <system:String x:Key="Teal">Groenblauw</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Schakel tijdelijk uw antivirus uit en probeer het opnieuw.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Schakel uw antivirussoftware tijdelijk uit en probeer het opnieuw.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">De applicatie kan het ondersteuningsverzoek niet verzenden.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">De applicatie wordt nu afgesloten.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">De applicatie wordt afgesloten.</system:String>

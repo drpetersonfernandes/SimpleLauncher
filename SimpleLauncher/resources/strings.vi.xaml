@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Nâu xám</system:String>
     <system:String x:Key="Teal">Xanh ngọc</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Tạm thời tắt phần mềm diệt virus của bạn và thử lại.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Tạm thời vô hiệu hóa phần mềm diệt virus của bạn và thử lại.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Ứng dụng sẽ không thể gửi yêu cầu hỗ trợ.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Ứng dụng sẽ tắt ngay bây giờ.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Ứng dụng sẽ bị đóng.</system:String>

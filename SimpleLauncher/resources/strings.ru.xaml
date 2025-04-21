@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">Серо-коричневый</system:String>
     <system:String x:Key="Teal">Бирюзовый</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">Временно отключите антивирус и попробуйте снова.</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">Временно отключите антивирусное программное обеспечение и попробуйте снова.</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">Приложение не сможет отправить запрос на поддержку.</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">Приложение будет немедленно завершено.</system:String>
     <system:String x:Key="Theapplicationwillshutdown">Приложение будет закрыто.</system:String>

@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">टोपी</system:String>
     <system:String x:Key="Teal">टील</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">अपने एंटीवायरस को अस्थायी रूप से निष्क्रिय करें और फिर प्रयास करें।</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">अपना एंटीवायरस सॉफ़्टवेयर अस्थायी रूप से अक्षम करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">एप्लिकेशन समर्थन अनुरोध भेजने में सक्षम नहीं होगा।</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">एप्लिकेशन अब बंद हो जाएगा।</system:String>
     <system:String x:Key="Theapplicationwillshutdown">एप्लिकेशन बंद हो जाएगा।</system:String>

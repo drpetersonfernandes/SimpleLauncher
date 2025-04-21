@@ -437,7 +437,6 @@
     <system:String x:Key="Taupe">ধূসর বাদামি</system:String>
     <system:String x:Key="Teal">গাঢ় সবুজাভ নীল</system:String>
     <system:String x:Key="Temporarilydisableyourantivirus">আপনার অ্যান্টিভাইরাস সফটওয়্যারটি সাময়িকভাবে নিষ্ক্রিয় করুন এবং আবার চেষ্টা করুন।</system:String>
-    <system:String x:Key="Temporarilydisableyourantivirussoftware">আপনার অ্যান্টিভাইরাস সফটওয়্যারটি সাময়িকভাবে বন্ধ করুন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="Theapplicationwillnotbeabletosendthesupportrequest">অ্যাপ্লিকেশনটি সমর্থন অনুরোধ পাঠাতে সক্ষম হবে না।</system:String>
     <system:String x:Key="Theapplicationwillnowshutdown">অ্যাপ্লিকেশন এখন বন্ধ হবে।</system:String>
     <system:String x:Key="Theapplicationwillshutdown">অ্যাপ্লিকেশনটি বন্ধ হয়ে যাবে।</system:String>
