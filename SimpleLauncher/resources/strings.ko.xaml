@@ -49,7 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">파일 삭제 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe'를 실행하려는 도중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
-<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">다른 Simple Launcher 인스턴스가 이미 실행 중입니다.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">다른 Simple Launcher 인스턴스가 이미 실행 중입니다.</system:String>
     <system:String x:Key="ApplicationFolder">애플리케이션 폴더:</system:String>
     <system:String x:Key="areyourunningasecondinstance">'Simple Launcher'의 두 번째 인스턴스를 실행 중이신가요? 그렇다면 한 번에 하나의 인스턴스만 열어주세요, 그렇지 않으면 문제가 발생할 수 있습니다.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">이 파일을 삭제하시겠습니까?</system:String>
@@ -68,7 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
-<system:String x:Key="CancelButtonText">취소</system:String>
+    <system:String x:Key="CancelButtonText">취소</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
     <system:String x:Key="cannotbeextracted">을(를) 추출할 수 없습니다.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">압축 해제 폴더를 생성하거나 접근할 수 없습니다</system:String>
@@ -79,7 +79,7 @@
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseFolder">폴더 선택</system:String>
     <system:String x:Key="ChoosefolderwithROMs">이 시스템에 대한 ROM 또는 ISO가 포함된 폴더를 선택하세요</system:String>
-<system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
     <system:String x:Key="Close">닫기</system:String>
     <system:String x:Key="Cobalt">코발트</system:String>
     <system:String x:Key="Confirmation">확인</system:String>
@@ -95,7 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA 게임용 배치 파일 생성</system:String>
     <system:String x:Key="Creatingsystemfolders">시스템 폴더 생성 중...</system:String>
     <system:String x:Key="Crimson">진홍색</system:String>
-<system:String x:Key="CurrentThresholdLabel">현재 임계값:</system:String>
+    <system:String x:Key="CurrentThresholdLabel">현재 임계값:</system:String>
     <system:String x:Key="Cyan">청록</system:String>
     <system:String x:Key="Dark">어두움</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">데드존 값이 성공적으로 저장되었습니다.</system:String>
@@ -200,10 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">이미지 뷰어 창에서 이미지를 로드할 수 없습니다.</system:String>
     <system:String x:Key="Failedtoopenthemanual">매뉴얼을 열지 못했습니다.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">워크스루 파일을 열지 못했습니다.</system:String>
-<system:String x:Key="Failedtorestarttheapplication">앱 재시작 실패.</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">앱 재시작 실패.</system:String>
     <system:String x:Key="Failedtosavescreenshot">스크린샷을 저장하지 못했습니다.</system:String>
     <system:String x:Key="Failedtosavethereport">보고서를 저장하지 못했습니다.</system:String>
-<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher 시작 실패. 기존 인스턴스 확인 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher 시작 실패. 기존 인스턴스 확인 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Failedtostarttheemulator">에뮬레이터를 시작하지 못했거나 예상대로 종료되지 않았습니다.</system:String>
     <system:String x:Key="Failedtotogglegamepad">게임패드 전환에 실패했습니다.</system:String>
     <system:String x:Key="Favorites">즐겨찾기</system:String>
@@ -213,8 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>
-<system:String x:Key="FuzzyImageMatching">퍼지 이미지 매칭</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">퍼지 매칭 임계값 설정</system:String>
+    <system:String x:Key="FuzzyImageMatching">퍼지 이미지 매칭</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">퍼지 매칭 임계값 설정</system:String>
     <system:String x:Key="GamepadSupport">게임패드 지원</system:String>
     <system:String x:Key="GameplaySnapshot">게임플레이 스냅샷</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">게임플레이 스냅샷을 찾을 수 없습니다</system:String>
@@ -251,8 +251,8 @@
     <system:String x:Key="Inthiswindow">이 창에서 BIOS나 시스템 파일이 필요하지 않은 에뮬레이터를 쉽게 다운로드하고 설치할 수 있습니다.</system:String>
     <system:String x:Key="InvalidDownloadLink">잘못된 다운로드 링크</system:String>
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
-<system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
-<system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
+    <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
@@ -284,7 +284,7 @@
     <system:String x:Key="MemorySolution4">4. 가능한 경우 에뮬레이터 설정에서 메모리 할당 설정을 조정해 보세요.</system:String>
     <system:String x:Key="Name">이름</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
-<system:String x:Key="NewThresholdLabel">새 임계값:</system:String>
+    <system:String x:Key="NewThresholdLabel">새 임계값:</system:String>
     <system:String x:Key="Next_&gt;">다음 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">세부 정보가 없습니다:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">선택한 시스템에서 즐겨찾는 게임을 찾을 수 없습니다.</system:String>
@@ -302,7 +302,7 @@
     <system:String x:Key="Noupdateavailable">사용 가능한 업데이트가 없습니다</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' 파일에서 유효한 시스템을 찾을 수 없습니다.</system:String>
     <system:String x:Key="NumberOfImages">시스템 이미지 폴더 내 이미지 수: {0}</system:String>
-<system:String x:Key="OkButtonText">확인</system:String>
+    <system:String x:Key="OkButtonText">확인</system:String>
     <system:String x:Key="Olive">올리브</system:String>
     <system:String x:Key="Oneormorepathsorparameters">하나 이상의 경로 또는 매개 변수가 잘못되었습니다.</system:String>
     <system:String x:Key="Open">열기</system:String>
@@ -361,7 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemovefromHistory">기록에서 제거</system:String>
     <system:String x:Key="Reportsavedsuccessfully">보고서가 성공적으로 저장되었습니다.</system:String>
-<system:String x:Key="RestartError">재시작 오류</system:String>
+    <system:String x:Key="RestartError">재시작 오류</system:String>
     <system:String x:Key="RestoreBackup">백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
     <system:String x:Key="RomHistory">ROM 히스토리</system:String>
@@ -393,14 +393,14 @@
     <system:String x:Key="SetEmulator3Path">에뮬레이터 3 경로 설정</system:String>
     <system:String x:Key="SetEmulator4Path">에뮬레이터 4 경로 설정</system:String>
     <system:String x:Key="SetEmulator5Path">에뮬레이터 5 경로 설정</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">퍼지 매칭 임계값 설정 실패.</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdTitle">퍼지 매칭 임계값 설정</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">퍼지 매칭 임계값 설정 실패.</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">퍼지 매칭 임계값 설정</system:String>
     <system:String x:Key="SetGamepadDeadZone">게임패드 데드존 설정</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">페이지당 게임 수 설정</system:String>
     <system:String x:Key="SetSystemFolder">시스템 폴더 설정</system:String>
     <system:String x:Key="SetSystemImageFolder">시스템 이미지 폴더 설정</system:String>
     <system:String x:Key="Setthegamewindowto">게임 창을 전체 화면이 아닌 모드로 설정하세요. 이는 중요합니다.</system:String>
-<system:String x:Key="SetThreshold">임계값 설정</system:String>
+    <system:String x:Key="SetThreshold">임계값 설정</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowGames">게임 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
@@ -413,10 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher'에서 이미지 팩 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
-<system:String x:Key="SimpleLauncherError">Simple Launcher 오류</system:String>
+    <system:String x:Key="SimpleLauncherError">Simple Launcher 오류</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher'에는 'settings.xml' 파일에 쓸 수 있는 충분한 권한이 없습니다.</system:String>
-<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher'는 64비트 또는 32비트 윈도우가 필요합니다.</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher'는 64비트 또는 32비트 윈도우가 필요합니다.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher'는 마지막 백업을 복원할 수 없었습니다.</system:String>
     <system:String x:Key="SortByDate">날짜별 정렬</system:String>
     <system:String x:Key="SortByPlayTime">재생 시간별 정렬</system:String>
@@ -504,8 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">게임 목록을 로드하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">시스템 구성을 로드하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">기부 링크를 여는 동안 오류가 발생했습니다.</system:String>
-<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">퍼지 매칭 임계값 설정 중 오류가 발생했습니다.</system:String>
-<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">퍼지 매칭 로직 전환 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">퍼지 매칭 임계값 설정 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">퍼지 매칭 로직 전환 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">커버 이미지를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">글로벌 검색을 사용하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">보기 모드를 변경하는 동안 오류가 발생했습니다.</system:String>
@@ -541,7 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">링크를 열 수 없습니다.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml'을 로드하는 중에 예기치 않은 오류가 발생했습니다.</system:String>
     <system:String x:Key="Unknown">알 수 없음</system:String>
-<system:String x:Key="Unsupportedarchitecturefor7zextraction">7z 압축 해제에 지원되지 않는 아키텍처입니다.</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">7z 압축 해제에 지원되지 않는 아키텍처입니다.</system:String>
     <system:String x:Key="UpdateAvailable">업데이트 가능</system:String>
     <system:String x:Key="UpdateHistory">업데이트 기록</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe'를 찾을 수 없습니다.</system:String>
@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">퍼지 매칭 임계값 설정</system:String>
-
 </ResourceDictionary>

@@ -49,7 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Ocorreu um erro ao tentar excluir o arquivo.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Ocorreu um erro ao tentar iniciar o 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Uma interface de frontend de emuladores de código aberto</system:String>
-<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Outra instância do Simple Launcher já está em execução.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Outra instância do Simple Launcher já está em execução.</system:String>
     <system:String x:Key="ApplicationFolder">Pasta do aplicativo:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Você está executando uma segunda instância do 'Simple Launcher'? Se sim, por favor, abra apenas uma instância por vez ou poderá encontrar problemas.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Tem certeza de que deseja excluir o arquivo?</system:String>
@@ -68,7 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">Mas encontrei um arquivo de backup.</system:String>
     <system:String x:Key="Cabinet">Arcade</system:String>
     <system:String x:Key="Cabinetnotfound">Arcade não encontrado</system:String>
-<system:String x:Key="CancelButtonText">Cancelar</system:String>
+    <system:String x:Key="CancelButtonText">Cancelar</system:String>
     <system:String x:Key="Cancelingdownload">Cancelando download...</system:String>
     <system:String x:Key="cannotbeextracted">não pode ser extraído.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Não é possível criar ou acessar a pasta de extração</system:String>
@@ -79,7 +79,7 @@
     <system:String x:Key="Chooseasystem">Escolha um sistema</system:String>
     <system:String x:Key="ChooseFolder">Escolher pasta</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Escolha a pasta com as ROMs ou ISOs para este sistema</system:String>
-<system:String x:Key="Clickontheletterbuttonsabove">Clique nos botões de letras acima para ver os jogos</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">Clique nos botões de letras acima para ver os jogos</system:String>
     <system:String x:Key="Close">Fechar</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
     <system:String x:Key="Confirmation">Confirmação</system:String>
@@ -95,7 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Criar Arquivos em Lote para Jogos Xbox 360 XBLA</system:String>
     <system:String x:Key="Creatingsystemfolders">Criando pastas do sistema...</system:String>
     <system:String x:Key="Crimson">Carmesim</system:String>
-<system:String x:Key="CurrentThresholdLabel">Limite Atual:</system:String>
+    <system:String x:Key="CurrentThresholdLabel">Limite Atual:</system:String>
     <system:String x:Key="Cyan">Ciano</system:String>
     <system:String x:Key="Dark">Escuro</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valores da zona morta salvos com sucesso.</system:String>
@@ -200,10 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">Falha ao carregar a imagem no visualizador de imagens.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Falha ao abrir o manual.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Falha ao abrir o arquivo de walkthrough.</system:String>
-<system:String x:Key="Failedtorestarttheapplication">Falha ao reiniciar o aplicativo.</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">Falha ao reiniciar o aplicativo.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Falha ao salvar a captura de tela.</system:String>
     <system:String x:Key="Failedtosavethereport">Falha ao salvar o relatório.</system:String>
-<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Falha ao iniciar o Simple Launcher. Ocorreu um erro ao verificar instâncias existentes.</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Falha ao iniciar o Simple Launcher. Ocorreu um erro ao verificar instâncias existentes.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Falha ao iniciar o emulador ou ele não foi encerrado conforme o esperado.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Falha ao alternar o estado do gamepad.</system:String>
     <system:String x:Key="Favorites">Favoritos</system:String>
@@ -213,8 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' não foi encontrado no caminho esperado.</system:String>
     <system:String x:Key="Flyer">Panfleto</system:String>
     <system:String x:Key="Flyernotfound">Panfleto não encontrado</system:String>
-<system:String x:Key="FuzzyImageMatching">Correspondência Difusa de Imagem</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">Defina o limite de correspondência difusa</system:String>
+    <system:String x:Key="FuzzyImageMatching">Correspondência Difusa de Imagem</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">Defina o limite de correspondência difusa</system:String>
     <system:String x:Key="GamepadSupport">Suporte para gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Captura de Tela do Gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Captura de Tela do Gameplay não encontrada</system:String>
@@ -251,8 +251,8 @@
     <system:String x:Key="Inthiswindow">Nesta janela, você pode baixar e instalar facilmente emuladores que não necessitam de arquivos BIOS ou de sistema para funcionar.</system:String>
     <system:String x:Key="InvalidDownloadLink">Link de Download Inválido</system:String>
     <system:String x:Key="InvalidExtractionFolder">Pasta de Extração Inválida</system:String>
-<system:String x:Key="InvalidInputMessageText">Por favor, insira um número válido entre 0,0 e 1,0 para o limite.</system:String>
-<system:String x:Key="InvalidInputMessageTitle">Entrada Inválida</system:String>
+    <system:String x:Key="InvalidInputMessageText">Por favor, insira um número válido entre 0,0 e 1,0 para o limite.</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">Entrada Inválida</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuração de sistema inválida</system:String>
     <system:String x:Key="isalreadyinfavorites">já está nos favoritos.</system:String>
     <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
@@ -284,7 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Tente ajustar as configurações de alocação de memória na configuração do emulador, se disponível.</system:String>
     <system:String x:Key="Name">Nome</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">é necessário porque os dados relacionados foram fornecidos.</system:String>
-<system:String x:Key="NewThresholdLabel">Novo Limite:</system:String>
+    <system:String x:Key="NewThresholdLabel">Novo Limite:</system:String>
     <system:String x:Key="Next_&gt;">Próximo &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Nenhum detalhe disponível para</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Nenhum jogo favorito encontrado para o sistema selecionado.</system:String>
@@ -302,7 +302,7 @@
     <system:String x:Key="Noupdateavailable">Nenhuma atualização disponível</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Nenhum sistema válido encontrado no arquivo 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Número de imagens na Pasta de Imagens do Sistema: {0}</system:String>
-<system:String x:Key="OkButtonText">OK</system:String>
+    <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Oliva</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Um ou mais caminhos ou parâmetros são inválidos.</system:String>
     <system:String x:Key="Open">Abrir</system:String>
@@ -361,7 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Remover dos Favoritos</system:String>
     <system:String x:Key="RemovefromHistory">Remover do histórico</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Relatório salvo com sucesso.</system:String>
-<system:String x:Key="RestartError">Erro de Reinício</system:String>
+    <system:String x:Key="RestartError">Erro de Reinício</system:String>
     <system:String x:Key="RestoreBackup">Restaurar backup?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restaurar para os valores padrão</system:String>
     <system:String x:Key="RomHistory">Histórico de ROMs</system:String>
@@ -393,14 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Definir Caminho do Emulador 3</system:String>
     <system:String x:Key="SetEmulator4Path">Definir Caminho do Emulador 4</system:String>
     <system:String x:Key="SetEmulator5Path">Definir Caminho do Emulador 5</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Falha ao definir o limite de correspondência difusa.</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdTitle">Definir Limite de Correspondência Difusa</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Falha ao definir o limite de correspondência difusa.</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">Definir Limite de Correspondência Difusa</system:String>
     <system:String x:Key="SetGamepadDeadZone">Definir zona morta do gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Definir Número de Jogos por Página</system:String>
     <system:String x:Key="SetSystemFolder">Definir a pasta do sistema</system:String>
     <system:String x:Key="SetSystemImageFolder">Definir a pasta de imagens do sistema</system:String>
     <system:String x:Key="Setthegamewindowto">Defina a janela do jogo para um modo que não seja tela cheia. Isso é essencial.</system:String>
-<system:String x:Key="SetThreshold">Definir Limite</system:String>
+    <system:String x:Key="SetThreshold">Definir Limite</system:String>
     <system:String x:Key="ShowAllGames">Exibir Todos os Jogos</system:String>
     <system:String x:Key="ShowGames">Exibir Jogos</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Exibir Apenas Jogos com Capa</system:String>
@@ -413,10 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' não pôde carregar o arquivo 'mame.dat' ou ele está corrompido.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">O 'Simple Launcher' não conseguiu abrir o link de download do pacote de imagens.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">O 'Simple Launcher' criou uma pasta de imagens para este sistema em:</system:String>
-<system:String x:Key="SimpleLauncherError">Erro do Simple Launcher</system:String>
+    <system:String x:Key="SimpleLauncherError">Erro do Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">O 'Simple Launcher' falhou ao criar as pastas necessárias para este sistema.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">O 'Simple Launcher' não possui privilégios suficientes para gravar no arquivo 'settings.xml'.</system:String>
-<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' requer Windows de 64 bits ou 32 bits para executar.</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' requer Windows de 64 bits ou 32 bits para executar.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">O 'Simple Launcher' não conseguiu restaurar o backup mais recente.</system:String>
     <system:String x:Key="SortByDate">Ordenar por data</system:String>
     <system:String x:Key="SortByPlayTime">Ordenar por tempo de reprodução</system:String>
@@ -504,8 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">Ocorreu um erro ao carregar a lista de jogos.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Ocorreu um erro ao carregar a configuração do sistema.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Ocorreu um erro ao abrir o link de doação.</system:String>
-<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Ocorreu um erro ao configurar o limite de correspondência difusa.</system:String>
-<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Ocorreu um erro ao alternar a lógica de correspondência difusa.</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Ocorreu um erro ao configurar o limite de correspondência difusa.</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Ocorreu um erro ao alternar a lógica de correspondência difusa.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Ocorreu um erro ao tentar abrir a imagem de capa.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">Ocorreu um erro ao usar a pesquisa global.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Ocorreu um erro ao alterar o modo de visualização.</system:String>
@@ -541,7 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Não foi possível abrir o link.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Erro inesperado ao carregar 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Desconhecido</system:String>
-<system:String x:Key="Unsupportedarchitecturefor7zextraction">Arquitetura não suportada para extração de 7z.</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">Arquitetura não suportada para extração de 7z.</system:String>
     <system:String x:Key="UpdateAvailable">Atualização disponível</system:String>
     <system:String x:Key="UpdateHistory">Histórico de atualizações</system:String>
     <system:String x:Key="Updaterexenotfound">O 'Updater.exe' não foi encontrado.</system:String>
@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">Você pode usar os operadores lógicos AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Você pode colocar as imagens de capa deste sistema dentro desta pasta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">Defina o limite de correspondência difusa</system:String>
-
 </ResourceDictionary>

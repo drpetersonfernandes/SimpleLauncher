@@ -51,7 +51,7 @@
     <system:String x:Key="Anopensourceemulatorfrontend">An open source emulator frontend</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Another instance of Simple Launcher is already running.</system:String>
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
-    <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>    
+    <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Are you sure you want to delete this system?</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Are you sure you want to remove all play history?</system:String>
@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
-    <system:String x:Key="FuzzyMatchingThresholdHintSlider">Set the fuzzy matching threshold</system:String>
-    
 </ResourceDictionary>

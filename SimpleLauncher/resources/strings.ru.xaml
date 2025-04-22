@@ -49,7 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Произошла ошибка при попытке удалить файл.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Произошла ошибка при попытке запустить 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Открытая фронтенд-платформа для эмуляторов</system:String>
-<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Другой экземпляр Simple Launcher уже запущен.</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Другой экземпляр Simple Launcher уже запущен.</system:String>
     <system:String x:Key="ApplicationFolder">Папка приложения:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Вы запускаете вторую копию 'Simple Launcher'? Если да, пожалуйста, открывайте только одну копию за раз, иначе могут возникнуть проблемы.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Вы уверены, что хотите удалить файл?</system:String>
@@ -68,7 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
-<system:String x:Key="CancelButtonText">Отмена</system:String>
+    <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
     <system:String x:Key="cannotbeextracted">не может быть извлечён.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Невозможно создать или получить доступ к папке распаковки</system:String>
@@ -79,7 +79,7 @@
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Выберите папку с ROM или ISO файлами для этой системы</system:String>
-<system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
     <system:String x:Key="Close">Закрыть</system:String>
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
     <system:String x:Key="Confirmation">Подтверждение</system:String>
@@ -95,7 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Создать пакеты для игр Xbox 360 XBLA</system:String>
     <system:String x:Key="Creatingsystemfolders">Создание папок системы...</system:String>
     <system:String x:Key="Crimson">Малиновый</system:String>
-<system:String x:Key="CurrentThresholdLabel">Текущий порог:</system:String>
+    <system:String x:Key="CurrentThresholdLabel">Текущий порог:</system:String>
     <system:String x:Key="Cyan">Голубой</system:String>
     <system:String x:Key="Dark">Темная</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
@@ -200,10 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">Не удалось загрузить изображение в окне просмотра изображений.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Не удалось открыть руководство.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Не удалось открыть файл прохождения.</system:String>
-<system:String x:Key="Failedtorestarttheapplication">Не удалось перезапустить приложение.</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">Не удалось перезапустить приложение.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Не удалось сохранить скриншот.</system:String>
     <system:String x:Key="Failedtosavethereport">Не удалось сохранить отчет.</system:String>
-<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Не удалось запустить Simple Launcher. Произошла ошибка при проверке существующих экземпляров.</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Не удалось запустить Simple Launcher. Произошла ошибка при проверке существующих экземпляров.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Не удалось запустить эмулятор или он не завершился согласно ожиданиям.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Не удалось переключить состояние геймпада.</system:String>
     <system:String x:Key="Favorites">Избранное</system:String>
@@ -213,8 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>
-<system:String x:Key="FuzzyImageMatching">Нечеткое сопоставление изображений</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">Установите порог нечеткого сопоставления</system:String>
+    <system:String x:Key="FuzzyImageMatching">Нечеткое сопоставление изображений</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">Установите порог нечеткого сопоставления</system:String>
     <system:String x:Key="GamepadSupport">Поддержка геймпада</system:String>
     <system:String x:Key="GameplaySnapshot">Скриншот игрового процесса</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Скриншот игрового процесса не найден</system:String>
@@ -251,8 +251,8 @@
     <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
     <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
-<system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
-<system:String x:Key="InvalidInputMessageTitle">Недопустимый ввод</system:String>
+    <system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">Недопустимый ввод</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
@@ -284,7 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Попробуйте настроить параметры распределения памяти в конфигурации эмулятора, если это возможно.</system:String>
     <system:String x:Key="Name">Имя</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
-<system:String x:Key="NewThresholdLabel">Новый порог:</system:String>
+    <system:String x:Key="NewThresholdLabel">Новый порог:</system:String>
     <system:String x:Key="Next_&gt;">Следующая &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Для выбранной системы избранные игры не найдены.</system:String>
@@ -302,7 +302,7 @@
     <system:String x:Key="Noupdateavailable">Обновления отсутствуют</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">В файле 'helpuser.xml' не найдено действительных систем.</system:String>
     <system:String x:Key="NumberOfImages">Количество изображений в папке изображений системы: {0}</system:String>
-<system:String x:Key="OkButtonText">ОК</system:String>
+    <system:String x:Key="OkButtonText">ОК</system:String>
     <system:String x:Key="Olive">Оливковый</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Один или несколько путей или параметров недействительны.</system:String>
     <system:String x:Key="Open">Открыть</system:String>
@@ -361,7 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Отчёт успешно сохранён.</system:String>
-<system:String x:Key="RestartError">Ошибка перезапуска</system:String>
+    <system:String x:Key="RestartError">Ошибка перезапуска</system:String>
     <system:String x:Key="RestoreBackup">Восстановить резервную копию?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     <system:String x:Key="RomHistory">История ROM</system:String>
@@ -393,14 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Установить путь эмулятора 3</system:String>
     <system:String x:Key="SetEmulator4Path">Установить путь эмулятора 4</system:String>
     <system:String x:Key="SetEmulator5Path">Установить путь эмулятора 5</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Не удалось установить порог нечеткого сопоставления.</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdTitle">Установить порог нечеткого сопоставления</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Не удалось установить порог нечеткого сопоставления.</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">Установить порог нечеткого сопоставления</system:String>
     <system:String x:Key="SetGamepadDeadZone">Задать мертвую зону геймпада</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Установить количество игр на странице</system:String>
     <system:String x:Key="SetSystemFolder">Установить папку системы</system:String>
     <system:String x:Key="SetSystemImageFolder">Установить папку изображений системы</system:String>
     <system:String x:Key="Setthegamewindowto">Установите окно игры в режим, отличный от полноэкранного. Это важно.</system:String>
-<system:String x:Key="SetThreshold">Установить порог</system:String>
+    <system:String x:Key="SetThreshold">Установить порог</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowGames">Показать игры</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
@@ -413,10 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
-<system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
+    <system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' недостаточно привилегий для записи в файл 'settings.xml'.</system:String>
-<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">Для работы 'Simple Launcher' требуется Windows 64-бит или 32-бит.</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">Для работы 'Simple Launcher' требуется Windows 64-бит или 32-бит.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
     <system:String x:Key="SortByDate">Сортировать по дате</system:String>
     <system:String x:Key="SortByPlayTime">Сортировать по времени воспроизведения</system:String>
@@ -504,8 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">Произошла ошибка при загрузке списка игр.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Произошла ошибка при загрузке конфигурации системы.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Произошла ошибка при открытии ссылки на пожертвование.</system:String>
-<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Произошла ошибка при установке порога нечеткого сопоставления.</system:String>
-<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Произошла ошибка при переключении логики нечеткого сопоставления.</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Произошла ошибка при установке порога нечеткого сопоставления.</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Произошла ошибка при переключении логики нечеткого сопоставления.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Произошла ошибка при попытке открыть обложку.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">Произошла ошибка при использовании глобального поиска.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Произошла ошибка при изменении режима отображения.</system:String>
@@ -541,7 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Невозможно открыть ссылку.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Неожиданная ошибка при загрузке файла 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Неизвестно</system:String>
-<system:String x:Key="Unsupportedarchitecturefor7zextraction">Неподдерживаемая архитектура для распаковки 7z.</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">Неподдерживаемая архитектура для распаковки 7z.</system:String>
     <system:String x:Key="UpdateAvailable">Доступно обновление</system:String>
     <system:String x:Key="UpdateHistory">История обновлений</system:String>
     <system:String x:Key="Updaterexenotfound">Файл 'Updater.exe' не найден.</system:String>
@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">Установите порог нечеткого сопоставления</system:String>
-
 </ResourceDictionary>

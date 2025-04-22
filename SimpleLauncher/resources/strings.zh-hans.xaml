@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
-    <system:String x:Key="FuzzyMatchingThresholdHintSlider">设置模糊匹配阈值</system:String>
-
 </ResourceDictionary>

@@ -49,7 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ফাইলটি মুছে ফেলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' চালু করার চেষ্টা করার সময়ে একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">একটি ওপেন সোর্স এমুলেটর ফ্রন্টেন্ড</system:String>
-<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher-এর আরেকটি ইনস্ট্যান্স ইতিমধ্যেই চলছে।</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher-এর আরেকটি ইনস্ট্যান্স ইতিমধ্যেই চলছে।</system:String>
     <system:String x:Key="ApplicationFolder">অ্যাপ্লিকেশন ফোল্ডার:</system:String>
     <system:String x:Key="areyourunningasecondinstance">আপনি কি 'Simple Launcher' এর একটি দ্বিতীয় ইনস্ট্যান্স চালাচ্ছেন? যদি হ্যাঁ, অনুগ্রহ করে এক সময়ে শুধুমাত্র একটি ইনস্ট্যান্স খুলুন অথবা আপনি সমস্যার সম্মুখীন হতে পারেন।</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">আপনি কি নিশ্চিত যে আপনি ফাইল মুছতে চান?</system:String>
@@ -68,7 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
-<system:String x:Key="CancelButtonText">বাতিল করুন</system:String>
+    <system:String x:Key="CancelButtonText">বাতিল করুন</system:String>
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
     <system:String x:Key="cannotbeextracted">এক্সট্র্যাক্ট করা যাবে না।</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">এক্সট্র্যাকশন ফোল্ডার তৈরি বা অ্যাক্সেস করা যাচ্ছে না</system:String>
@@ -79,7 +79,7 @@
     <system:String x:Key="Chooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseFolder">ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="ChoosefolderwithROMs">এই সিস্টেমের জন্য ROM বা ISO ফাইলগুলির ফোল্ডার নির্বাচন করুন</system:String>
-<system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
     <system:String x:Key="Close">বন্ধ করুন</system:String>
     <system:String x:Key="Cobalt">কোবাল্ট</system:String>
     <system:String x:Key="Confirmation">নিশ্চিতকরণ</system:String>
@@ -95,7 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA গেমগুলির জন্য ব্যাচ ফাইল তৈরি করুন</system:String>
     <system:String x:Key="Creatingsystemfolders">সিস্টেম ফোল্ডার তৈরি হচ্ছে...</system:String>
     <system:String x:Key="Crimson">গাঢ় লাল</system:String>
-<system:String x:Key="CurrentThresholdLabel">বর্তমান থ্রেশহোল্ড:</system:String>
+    <system:String x:Key="CurrentThresholdLabel">বর্তমান থ্রেশহোল্ড:</system:String>
     <system:String x:Key="Cyan">আকাশনীল</system:String>
     <system:String x:Key="Dark">গাঢ়</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ডেডজোন মান সফলভাবে সংরক্ষিত হয়েছে।</system:String>
@@ -200,10 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">চিত্র দর্শক উইন্ডোতে চিত্র লোড করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtoopenthemanual">ম্যানুয়াল খুলতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">ওয়াকথ্রু ফাইল খুলতে ব্যর্থ হয়েছে।</system:String>
-<system:String x:Key="Failedtorestarttheapplication">অ্যাপ্লিকেশন পুনরায় চালু করতে ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">অ্যাপ্লিকেশন পুনরায় চালু করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtosavescreenshot">স্ক্রিনশট সংরক্ষণ করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtosavethereport">রিপোর্ট সংরক্ষণ করতে ব্যর্থ হয়েছে।</system:String>
-<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher চালু করতে ব্যর্থ। বিদ্যমান ইনস্ট্যান্সের জন্য চেক করার সময় একটি ত্রুটি ঘটেছে।</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher চালু করতে ব্যর্থ। বিদ্যমান ইনস্ট্যান্সের জন্য চেক করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Failedtostarttheemulator">এমুলেটর চালু করতে ব্যর্থ হয়েছে অথবা প্রত্যাশিতভাবে বন্ধ হয়নি।</system:String>
     <system:String x:Key="Failedtotogglegamepad">গেমপ্যাড পরিবর্তন করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Favorites">প্রিয়সমূহ</system:String>
@@ -213,8 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
     <system:String x:Key="Flyernotfound">ফ্লায়ার পাওয়া যায়নি</system:String>
-<system:String x:Key="FuzzyImageMatching">ফাজি ইমেজ ম্যাচিং</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
+    <system:String x:Key="FuzzyImageMatching">ফাজি ইমেজ ম্যাচিং</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
     <system:String x:Key="GamepadSupport">গেমপ্যাড সমর্থন</system:String>
     <system:String x:Key="GameplaySnapshot">গেমপ্লে স্ন্যাপশট</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">গেমপ্লে স্ন্যাপশট পাওয়া যায়নি</system:String>
@@ -251,8 +251,8 @@
     <system:String x:Key="Inthiswindow">এই উইন্ডোতে, আপনি সহজেই এমুলেটর ডাউনলোড এবং ইনস্টল করতে পারবেন যা BIOS বা সিস্টেম ফাইল ছাড়া সম্পূর্ণ কাজ করে।</system:String>
     <system:String x:Key="InvalidDownloadLink">অবৈধ ডাউনলোড লিঙ্ক</system:String>
     <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
-<system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
-<system:String x:Key="InvalidInputMessageTitle">অবৈধ ইনপুট</system:String>
+    <system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">অবৈধ ইনপুট</system:String>
     <system:String x:Key="InvalidSystemConfiguration">অবৈধ সিস্টেম কনফিগারেশন</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
@@ -284,7 +284,7 @@
     <system:String x:Key="MemorySolution4">4. উপলভ্য থাকলে এমুলেটর কনফিগারেশনে মেমরি বরাদ্দ সেটিংস সমন্বয় করার চেষ্টা করুন।</system:String>
     <system:String x:Key="Name">নাম</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">নাম প্রয়োজন কারণ সম্পর্কিত ডেটা প্রদান করা হয়েছে।</system:String>
-<system:String x:Key="NewThresholdLabel">নতুন থ্রেশহোল্ড:</system:String>
+    <system:String x:Key="NewThresholdLabel">নতুন থ্রেশহোল্ড:</system:String>
     <system:String x:Key="Next_&gt;">পরবর্তী&gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">এর জন্য কোনো বিবরণ উপলব্ধ নেই</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">নির্বাচিত সিস্টেমের জন্য কোনো প্রিয় গেম পাওয়া যায়নি</system:String>
@@ -302,7 +302,7 @@
     <system:String x:Key="Noupdateavailable">কোন আপডেটপরিচিত।</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' ফাইলে কোনো বৈধ সিস্টেম পাওয়া যায়নি।</system:String>
     <system:String x:Key="NumberOfImages">সিস্টেম ইমেজ ফোল্ডারের ইমেজ সংখ্যা: {0}</system:String>
-<system:String x:Key="OkButtonText">ঠিক আছে</system:String>
+    <system:String x:Key="OkButtonText">ঠিক আছে</system:String>
     <system:String x:Key="Olive">জলপাই</system:String>
     <system:String x:Key="Oneormorepathsorparameters">এক বা একাধিক পাথ বা প্যারামিটার ভুল হয়েছে।</system:String>
     <system:String x:Key="Open">খুলুন</system:String>
@@ -361,7 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
-<system:String x:Key="RestartError">পুনরায় চালু ত্রুটি</system:String>
+    <system:String x:Key="RestartError">পুনরায় চালু ত্রুটি</system:String>
     <system:String x:Key="RestoreBackup">ব্যাকআপ পুনরুদ্ধার।</system:String>
     <system:String x:Key="ReverttoDefaultValues">ডিফল্ট মানে পুনঃস্থাপন করুন</system:String>
     <system:String x:Key="RomHistory">পূর্ব জ্ঞান রম।</system:String>
@@ -393,14 +393,14 @@
     <system:String x:Key="SetEmulator3Path">ইমুলেটর ৩ পথ সেট করুন</system:String>
     <system:String x:Key="SetEmulator4Path">ইমুলেটর ৪ পথ সেট করুন</system:String>
     <system:String x:Key="SetEmulator5Path">ইমুলেটর ৫ পথ সেট করুন</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করা ব্যর্থ হয়েছে।</system:String>
-<system:String x:Key="SetFuzzyMatchingThresholdTitle">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করা ব্যর্থ হয়েছে।</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
     <system:String x:Key="SetGamepadDeadZone">গেমপ্যাড ডেডজোন সেট করুন</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">একটি পৃষ্ঠায় গেম সংখ্যা নির্ধারণ করুন</system:String>
     <system:String x:Key="SetSystemFolder">সিস্টেম ফোল্ডার নির্ধারণ করুন</system:String>
     <system:String x:Key="SetSystemImageFolder">সিস্টেম ইমেজ ফোল্ডার নির্ধারণ করুন</system:String>
     <system:String x:Key="Setthegamewindowto">গেম উইন্ডোটিকে ফুলস্ক্রিন না করে সেট করুন। এটি গুরুত্বপূর্ণ</system:String>
-<system:String x:Key="SetThreshold">থ্রেশহোল্ড সেট করুন</system:String>
+    <system:String x:Key="SetThreshold">থ্রেশহোল্ড সেট করুন</system:String>
     <system:String x:Key="ShowAllGames">সব গেম দেখান</system:String>
     <system:String x:Key="ShowGames">গেমগুলি দেখান</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">শুধুমাত্র প্রচ্ছদ সহ গেম দেখান</system:String>
@@ -413,10 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' ফাইলটি লোড করতে পারেনি অথবা এটি নষ্ট হয়ে গেছে।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' চিত্র প্যাক ডাউনলোড লিঙ্কটি খুলতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' এই সিস্টেমটির জন্য একটি ছবি ফোল্ডার তৈরি করেছে</system:String>
-<system:String x:Key="SimpleLauncherError">Simple Launcher ত্রুটি</system:String>
+    <system:String x:Key="SimpleLauncherError">Simple Launcher ত্রুটি</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' এই সিস্টেমটির জন্য প্রয়োজনীয় ফোল্ডার তৈরি করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' এর 'settings.xml' ফাইল লিখতে পর্যাপ্ত অধিকার নেই।</system:String>
-<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' চালাতে 64-বিট বা 32-বিট উইন্ডোজ দরকার।</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' চালাতে 64-বিট বা 32-বিট উইন্ডোজ দরকার।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' শেষ ব্যাকআপটি পুনরুদ্ধার করতে অক্ষম ছিল।</system:String>
     <system:String x:Key="SortByDate">তারিখ অনুযায়ী সাজান</system:String>
     <system:String x:Key="SortByPlayTime">প্লের সময় অনুযায়ী সাজান</system:String>
@@ -504,8 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">গেম তালিকা লোড করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">systemConfig লোড করার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">দান লিঙ্কটি খুলতে সমস্যা হয়েছে।</system:String>
-<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">ফাজি ম্যাচিং থ্রেশহোল্ড সেট আপ করতে একটি ত্রুটি হয়েছে।</system:String>
-<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">ফাজি ম্যাচিং লজিক টগল করতে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">ফাজি ম্যাচিং থ্রেশহোল্ড সেট আপ করতে একটি ত্রুটি হয়েছে।</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">ফাজি ম্যাচিং লজিক টগল করতে একটি ত্রুটি হয়েছে।</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">কভার ইমেজ খোলার সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">গ্লোবাল সার্চ ব্যবহারের সময় একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">ভিউ মোড পরিবর্তন করার সময় একটি ত্রুটি ঘটেছে।</system:String>
@@ -541,7 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">লিঙ্কটি খোলা যাচ্ছে না।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' লোড করার সময় অপ্রত্যাশিত একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="Unknown">অজানা</system:String>
-<system:String x:Key="Unsupportedarchitecturefor7zextraction">7z এক্সট্র্যাকশনের জন্য অপ্রতিপত্তি আর্কিটেকচার।</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">7z এক্সট্র্যাকশনের জন্য অপ্রতিপত্তি আর্কিটেকচার।</system:String>
     <system:String x:Key="UpdateAvailable">আপডেটসহ।</system:String>
     <system:String x:Key="UpdateHistory">আপডেট ইতিহাস</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' পাওয়া যায়নি।</system:String>
@@ -580,6 +580,4 @@
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
-<system:String x:Key="FuzzyMatchingThresholdHintSlider">ফাজি ম্যাচিং থ্রেশহোল্ড সেট করুন</system:String>
-
 </ResourceDictionary>
