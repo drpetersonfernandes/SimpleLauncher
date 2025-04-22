@@ -279,7 +279,7 @@ public static partial class UpdateChecker
                 break;
             }
 
-            var versionMatch = MyRegex().Match(versionTag ?? string.Empty);
+            var versionMatch = MyRegex3().Match(versionTag ?? string.Empty);
             if (versionMatch.Success)
             {
                 return (NormalizeVersion(versionMatch.Value), assetUrl);
@@ -301,11 +301,6 @@ public static partial class UpdateChecker
         }
 
         return (null, null);
-    }
-
-    private static Regex MyRegex()
-    {
-        return MyRegex3();
     }
 
     private static string NormalizeVersion(string version)
