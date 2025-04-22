@@ -2174,4 +2174,53 @@ public static class MessageBoxLibrary
                                     $"{maybethereisaproblemwithyourinternet2}",
             error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
     }
+
+    internal static void AnotherInstanceIsRunningMessageBox()
+    {
+        var anotherinstanceofSimpleLauncherisalreadyrunning = (string)Application.Current.TryFindResource("AnotherinstanceofSimpleLauncherisalreadyrunning") ?? "Another instance of Simple Launcher is already running.";
+        MessageBox.Show(anotherinstanceofSimpleLauncherisalreadyrunning,
+            "Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Information);
+    }
+
+    internal static void FailedToStartSimpleLauncherMessageBox()
+    {
+        var failedtostartSimpleLauncherAnerroroccurred = (string)Application.Current.TryFindResource("FailedtostartSimpleLauncherAnerroroccurred") ?? "Failed to start Simple Launcher. An error occurred while checking for existing instances.";
+        var simpleLauncherError = (string)Application.Current.TryFindResource("SimpleLauncherError") ?? "Simple Launcher Error";
+        MessageBox.Show(failedtostartSimpleLauncherAnerroroccurred,
+            simpleLauncherError, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void UnsupportedArchitectureMessageBox()
+    {
+        var unsupportedarchitecturefor7Zextraction = (string)Application.Current.TryFindResource("Unsupportedarchitecturefor7zextraction") ?? "Unsupported architecture for 7z extraction.";
+        var simpleLauncherrequires64Bitor32BitWindowstorun = (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor32bitWindowstorun") ?? "'Simple Launcher' requires 64-bit or 32-bit Windows to run.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        MessageBox.Show($"{unsupportedarchitecturefor7Zextraction}\n\n" +
+                        $"{simpleLauncherrequires64Bitor32BitWindowstorun}",
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void FailedToRestartMessageBox()
+    {
+        var failedtorestarttheapplication = (string)Application.Current.TryFindResource("Failedtorestarttheapplication") ?? "Failed to restart the application.";
+        var restartError = (string)Application.Current.TryFindResource("RestartError") ?? "Restart Error";
+        MessageBox.Show(failedtorestarttheapplication,
+            restartError, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static MessageBoxResult DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion, Window owner)
+    {
+        var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+        var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+        var theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+        var doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
+        var updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
+        var message = $"{thereisasoftwareupdateavailable2}\n" +
+                      $"{thecurrentversionis2} {currentVersion}\n" +
+                      $"{theupdateversionis2} {latestVersion}\n\n" +
+                      $"{doyouwanttodownloadandinstall2}";
+        var messageBoxResult = MessageBox.Show(owner, message,
+            updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
+        return messageBoxResult;
+    }
 }

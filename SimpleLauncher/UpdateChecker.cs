@@ -114,7 +114,7 @@ public static partial class UpdateChecker
         try
         {
             // Notify user
-            var result = DoYouWantToUpdateMessageBox();
+            var result = MessageBoxLibrary.DoYouWantToUpdateMessageBox(currentVersion, latestVersion, owner);
 
             if (result != MessageBoxResult.Yes) return;
 
@@ -169,24 +169,6 @@ public static partial class UpdateChecker
                     logWindow.Log("Please update it manually.");
                     logWindow.Close();
                 });
-            }
-
-            return;
-
-            MessageBoxResult DoYouWantToUpdateMessageBox()
-            {
-                var thereisasoftwareupdateavailable2 = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
-                var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-                var theupdateversionis2 = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
-                var doyouwanttodownloadandinstall2 = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
-                var updateAvailable2 = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
-                var message = $"{thereisasoftwareupdateavailable2}\n" +
-                              $"{thecurrentversionis2} {currentVersion}\n" +
-                              $"{theupdateversionis2} {latestVersion}\n\n" +
-                              $"{doyouwanttodownloadandinstall2}";
-                var messageBoxResult1 = MessageBox.Show(owner, message,
-                    updateAvailable2, MessageBoxButton.YesNo, MessageBoxImage.Information);
-                return messageBoxResult1;
             }
         }
         catch (Exception ex)

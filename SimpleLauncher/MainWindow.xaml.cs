@@ -453,7 +453,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
         _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked; // Save fuzzy matching state
 
-
         // Save theme settings
         var detectedTheme = ThemeManager.Current.DetectTheme(this);
         if (detectedTheme != null)
@@ -1121,8 +1120,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
-
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
 
@@ -1173,8 +1170,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
     {
-        SaveApplicationSettings();
-
         try
         {
             // Pass the current settings manager to the dialog

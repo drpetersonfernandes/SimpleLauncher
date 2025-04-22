@@ -49,8 +49,10 @@ public partial class App
                     // You might want to bring the existing instance to the foreground here instead of just showing a message.
                     // This requires finding the existing window handle, which is more complex.
                     // For now, we'll just show a message and exit.
-                    MessageBox.Show("Another instance of Simple Launcher is already running.", "Simple Launcher", MessageBoxButton.OK, MessageBoxImage.Information);
+                    MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
+
                     Shutdown(); // Exit the application
+
                     return; // Stop further startup logic
                 }
             }
@@ -60,8 +62,11 @@ public partial class App
                 // Log the error and decide whether to proceed or exit.
                 // Exiting is safer if we can't guarantee single instance.
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
-                MessageBox.Show("Failed to start Simple Launcher. An error occurred while checking for existing instances.", "Simple Launcher Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
+
                 Shutdown();
+
                 return;
             }
         }

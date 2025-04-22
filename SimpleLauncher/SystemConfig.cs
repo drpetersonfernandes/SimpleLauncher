@@ -68,8 +68,6 @@ public class SystemConfig
                                     // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
                                     File.Copy(mostRecentBackupFile, XmlPath, true);
                                     backupRestored = true;
-                                    // Optionally notify user backup was successful
-                                    // MessageBox.Show("Backup restored successfully.", "Restore Successful", MessageBoxButton.OK, MessageBoxImage.Information);
                                 }
                                 catch (Exception ex)
                                 {

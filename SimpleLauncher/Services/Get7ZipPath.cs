@@ -1,7 +1,6 @@
 using System;
 using System.IO;
 using System.Runtime.InteropServices;
-using System.Windows;
 
 namespace SimpleLauncher.Services;
 
@@ -23,8 +22,7 @@ public static class Get7ZipPath
                 _ = LogErrors.LogErrorAsync(ex, "Unsupported architecture for 7z extraction.");
 
                 // Notify user
-                MessageBox.Show("Unsupported architecture for 7z extraction.\n\n" +
-                                "'Simple Launcher' requires 64-bit or 32-bit Windows to run.", "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBoxLibrary.UnsupportedArchitectureMessageBox();
 
                 return null;
         }

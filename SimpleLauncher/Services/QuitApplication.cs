@@ -25,10 +25,12 @@ public static class QuitApplication
         }
         catch (Exception ex)
         {
-            // Log error if starting the new process fails
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to start new process during application restart.");
-            // Optionally inform the user
-            MessageBox.Show("Failed to restart the application.", "Restart Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+            // Notify user
+            MessageBoxLibrary.FailedToRestartMessageBox();
+
             // Don't shut down the current instance if the new one couldn't start
             return;
         }
