@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">將系統新增至 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">新增到收藏</system:String>
     <system:String x:Key="Alert">警告</system:String>
-    <system:String x:Key="alreadyexists">已存在。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">檢查模擬器及其依賴的完整性。</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">請確保您是以正確的參數調用模擬器。</system:String>
     <system:String x:Key="Amber">琥珀色</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">嘗試刪除文件時出現錯誤。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">嘗試啟動 'FindRomCover.exe' 時發生錯誤。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">一個開源的模擬器前端</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher的另一個實例已在執行中。</system:String>
     <system:String x:Key="ApplicationFolder">應用程式資料夾：</system:String>
     <system:String x:Key="areyourunningasecondinstance">您是否正在運行第二個 'Simple Launcher' 實例？如果是，請一次只打開一個實例，否則可能會遇到問題。</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">您確定要刪除此檔案嗎？</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">但我找到了一個備份文件。</system:String>
     <system:String x:Key="Cabinet">機台</system:String>
     <system:String x:Key="Cabinetnotfound">找不到機台</system:String>
+    <system:String x:Key="CancelButtonText">取消</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下載...</system:String>
     <system:String x:Key="cannotbeextracted">無法解壓。</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">無法建立或存取解壓資料夾</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">選擇一個系統</system:String>
     <system:String x:Key="ChooseFolder">選擇資料夾</system:String>
     <system:String x:Key="ChoosefolderwithROMs">選擇此系統的 ROM 或 ISO 檔案夾</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">點擊上方的字母按鈕查看遊戲</system:String>
     <system:String x:Key="Close">關閉</system:String>
     <system:String x:Key="Cobalt">鈷藍色</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">為 Xbox 360 XBLA 遊戲建立批次檔案</system:String>
     <system:String x:Key="Creatingsystemfolders">正在創建系統資料夾...</system:String>
     <system:String x:Key="Crimson">深紅色</system:String>
+    <system:String x:Key="CurrentThresholdLabel">目前閾值：</system:String>
     <system:String x:Key="Cyan">青色</system:String>
     <system:String x:Key="Dark">深色</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">死區值已成功儲存。</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">您是否希望自動下載並安裝最新版本？</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">是否要開啟檔案 'error_user.log' 來進行錯誤排查？</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">您是否想打開文件 'error_user.log' 來除錯？</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">您想覆蓋它嗎？</system:String>
     <system:String x:Key="Doyouwanttoreinstall">您是否想重新安裝 'Simple Launcher' 來解決此問題？</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否希望重新安裝 'Simple Launcher' 以修復問題？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">您想在線搜尋 ROM 歷史記錄嗎？</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">無法在圖像檢視器視窗中載入圖像。</system:String>
     <system:String x:Key="Failedtoopenthemanual">無法打開手冊。</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">無法打開操作說明文件。</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">重新啟動應用程式失敗。</system:String>
     <system:String x:Key="Failedtosavescreenshot">無法儲存截屏。</system:String>
     <system:String x:Key="Failedtosavethereport">無法儲存報告。</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">啟動Simple Launcher失敗。檢查現有實例時發生錯誤。</system:String>
     <system:String x:Key="Failedtostarttheemulator">無法啟動模擬器或模擬器未按預期結束。</system:String>
     <system:String x:Key="Failedtotogglegamepad">切換遊戲手柄狀態失敗。</system:String>
     <system:String x:Key="Favorites">收藏夾</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在預期路徑中未找到。</system:String>
     <system:String x:Key="Flyer">傳單</system:String>
     <system:String x:Key="Flyernotfound">找不到傳單</system:String>
+    <system:String x:Key="FuzzyImageMatching">模糊影像配對</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">設定模糊配對閾值</system:String>
     <system:String x:Key="GamepadSupport">手柄支援</system:String>
     <system:String x:Key="GameplaySnapshot">遊戲截圖</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">找不到遊戲截圖</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">在此視窗中，您可以輕鬆下載和安裝不需要 BIOS 或系統檔案即可運行的模擬器。</system:String>
     <system:String x:Key="InvalidDownloadLink">無效的下載連結</system:String>
     <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
+    <system:String x:Key="InvalidInputMessageText">請輸入介於0.0與1.0之間的有效數字作為閾值。</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">無效輸入</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系統配置無效</system:String>
     <system:String x:Key="isalreadyinfavorites">已經在收藏中。</system:String>
     <system:String x:Key="isminimizedtothetray">已縮小至系統匣。</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. 如果可用，嘗試調整模擬器配置中的內存分配設置。</system:String>
     <system:String x:Key="Name">姓名</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因為已提供相關資料。</system:String>
+    <system:String x:Key="NewThresholdLabel">新閾值：</system:String>
     <system:String x:Key="Next_&gt;">下一頁 &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">暫無可用詳細資訊</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">未找到選定系統的收藏遊戲。</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">沒有可用的更新</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">在檔案「helpuser.xml」中找不到有效的系統。</system:String>
     <system:String x:Key="NumberOfImages">系統圖片資料夾中的圖片數量：{0}</system:String>
+    <system:String x:Key="OkButtonText">確定</system:String>
     <system:String x:Key="Olive">橄欖色</system:String>
     <system:String x:Key="Oneormorepathsorparameters">一個或多個路徑或參數無效。</system:String>
     <system:String x:Key="Open">打開</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">從收藏中移除</system:String>
     <system:String x:Key="RemovefromHistory">從歷史中移除</system:String>
     <system:String x:Key="Reportsavedsuccessfully">報告已成功儲存。</system:String>
+    <system:String x:Key="RestartError">重新啟動錯誤</system:String>
     <system:String x:Key="RestoreBackup">是否恢復備份？</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
     <system:String x:Key="RomHistory">ROM 歷史記錄</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">設置模擬器3路徑</system:String>
     <system:String x:Key="SetEmulator4Path">設置模擬器4路徑</system:String>
     <system:String x:Key="SetEmulator5Path">設置模擬器5路徑</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">設定模糊配對閾值失敗。</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">設定模糊配對閾值</system:String>
     <system:String x:Key="SetGamepadDeadZone">設定遊戲手把死區</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">設定每頁遊戲數量</system:String>
     <system:String x:Key="SetSystemFolder">設置系統資料夾</system:String>
     <system:String x:Key="SetSystemImageFolder">設置系統圖片資料夾</system:String>
     <system:String x:Key="Setthegamewindowto">請將遊戲視窗設為非全螢幕模式。這很重要。</system:String>
+    <system:String x:Key="SetThreshold">設定閾值</system:String>
     <system:String x:Key="ShowAllGames">顯示所有遊戲</system:String>
     <system:String x:Key="ShowGames">顯示遊戲</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">僅顯示有封面的遊戲</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 無法載入檔案 'mame.dat' 或檔案已損壞。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">「Simple Launcher」無法開啟圖片包的下載鏈接。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 為此系統創建了一個圖片資料夾：</system:String>
+    <system:String x:Key="SimpleLauncherError">Simple Launcher錯誤</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 未能為此系統創建所需資料夾。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">「Simple Launcher」沒有足夠的權限寫入檔案「settings.xml」。</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher'需要64位元或32位元Windows才能執行。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">「Simple Launcher」無法還原最近的備份。</system:String>
     <system:String x:Key="SortByDate">按日期排序</system:String>
     <system:String x:Key="SortByPlayTime">按播放時間排序</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">支援請求已成功發送。</system:String>
     <system:String x:Key="System">系統：</system:String>
     <system:String x:Key="System2">系統</system:String>
-    <system:String x:Key="SystemAlreadyExists">系統已存在</system:String>
     <system:String x:Key="SystemFolder">系統資料夾</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「系統文件夾」不能為空或僅包含空格。</system:String>
     <system:String x:Key="SystemFolderOptional">系統資料夾（可選）</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">加載遊戲清單時出現錯誤。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">載入系統配置時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">打開捐贈連結時出現錯誤。</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">設定模糊配對閾值時發生錯誤。</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">切換模糊配對邏輯時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">嘗試打開封面圖像時有錯誤。</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">使用全域搜尋時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">更改視圖模式時出現錯誤。</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">無法打開鏈接。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">載入「helpuser.xml」檔案時發生意外錯誤。</system:String>
     <system:String x:Key="Unknown">未知</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">不支援的7z解壓架構。</system:String>
     <system:String x:Key="UpdateAvailable">有更新可用</system:String>
     <system:String x:Key="UpdateHistory">更新歷史</system:String>
     <system:String x:Key="Updaterexenotfound">找不到檔案「Updater.exe」。</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">您希望保存包含結果的報告嗎？</system:String>
     <system:String x:Key="Yellow">黃色</system:String>
     <system:String x:Key="Youcanaddanewsystem">現在，您可以新增一個新的系統。</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">您也可以暫時停用您的防毒軟體，或將「Simple Launcher」資料夾加入防毒軟體的排除清單。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自訂遊戲手把死區</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自訂一個 URL，用於視頻連結按鈕和信息連結按鈕。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您應該更改模擬器的參數，使其不會以全螢幕模式啟動。</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">設定模糊配對閾值</system:String>
+
 </ResourceDictionary>

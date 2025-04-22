@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">Tambahkan sistem ke 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
     <system:String x:Key="Alert">Peringatan</system:String>
-    <system:String x:Key="alreadyexists">sudah ada.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Periksa juga integritas emulator dan dependensinya.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Pastikan juga Anda memanggil emulator dengan parameter yang benar.</system:String>
     <system:String x:Key="Amber">Kuning Jingga</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Terjadi kesalahan saat mencoba menghapus file.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Terjadi kesalahan saat mencoba meluncurkan 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Frontend emulator sumber terbuka</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Instansi lain dari Simple Launcher sudah berjalan.</system:String>
     <system:String x:Key="ApplicationFolder">Folder Aplikasi:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Apakah Anda menjalankan instance kedua dari 'Simple Launcher'? Jika ya, harap hanya buka satu instance pada satu waktu atau Anda mungkin mengalami masalah.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Apakah Anda yakin ingin menghapus file</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
+<system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
     <system:String x:Key="cannotbeextracted">tidak dapat diekstraksi.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Tidak dapat membuat atau mengakses folder ekstraksi</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Pilih folder dengan ROM atau ISO untuk sistem ini</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
     <system:String x:Key="Close">Tutup</system:String>
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Buat Berkas Batch untuk Permainan Xbox 360 XBLA</system:String>
     <system:String x:Key="Creatingsystemfolders">Membuat folder sistem...</system:String>
     <system:String x:Key="Crimson">Merah Tua</system:String>
+<system:String x:Key="CurrentThresholdLabel">Ambang Batas Saat Ini:</system:String>
     <system:String x:Key="Cyan">Sian</system:String>
     <system:String x:Key="Dark">Gelap</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Nilai zona mati berhasil disimpan.</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Apakah Anda ingin mengunduh dan menginstal versi terbaru secara otomatis?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Apakah Anda ingin membuka file 'error_user.log' untuk memeriksa kesalahan?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk memperbaiki kesalahan?</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">Apakah Anda ingin menimpanya?</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Apakah Anda ingin mencari riwayat ROM secara online?</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">Gambar gagal dimuat di jendela penampil gambar.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Gagal membuka panduan.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Gagal membuka file panduan.</system:String>
+<system:String x:Key="Failedtorestarttheapplication">Gagal memulai ulang aplikasi.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Gagal menyimpan tangkapan layar.</system:String>
     <system:String x:Key="Failedtosavethereport">Gagal menyimpan laporan.</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Gagal memulai Simple Launcher. Terjadi kesalahan saat memeriksa instansi yang ada.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Gagal memulai emulator atau emulator tidak keluar seperti yang diharapkan.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Gagal mengalihkan gamepad.</system:String>
     <system:String x:Key="Favorites">Favorit</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>
+<system:String x:Key="FuzzyImageMatching">Pencocokan Gambar Fuzzy</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Atur ambang batas pencocokan fuzzy</system:String>
     <system:String x:Key="GamepadSupport">Dukungan Gamepad</system:String>
     <system:String x:Key="GameplaySnapshot">Snapshot Gameplay</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Snapshot Gameplay tidak ditemukan</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">Di jendela ini, Anda dapat dengan mudah mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau berkas sistem untuk bekerja.</system:String>
     <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
+<system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
+<system:String x:Key="InvalidInputMessageTitle">Input Tidak Valid</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Cobalah menyesuaikan pengaturan alokasi memori dalam konfigurasi emulator jika tersedia.</system:String>
     <system:String x:Key="Name">Nama</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">nama diperlukan karena data terkait telah disediakan.</system:String>
+<system:String x:Key="NewThresholdLabel">Ambang Batas Baru:</system:String>
     <system:String x:Key="Next_&gt;">Selanjutnya &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Tidak ada game favorit yang ditemukan untuk sistem yang dipilih.</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">Tidak ada pembaruan</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Tidak ada sistem valid yang ditemukan dalam file 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Jumlah gambar di Folder Gambar Sistem: {0}</system:String>
+<system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Hijau Zaitun</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Satu atau lebih jalur atau parameter tidak valid.</system:String>
     <system:String x:Key="Open">Buka</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemovefromHistory">Hapus dari riwayat</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Laporan berhasil disimpan.</system:String>
+<system:String x:Key="RestartError">Kesalahan Restart</system:String>
     <system:String x:Key="RestoreBackup">Pulihkan Cadangan?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
     <system:String x:Key="RomHistory">Riwayat ROM</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Atur Jalur Emulator 3</system:String>
     <system:String x:Key="SetEmulator4Path">Atur Jalur Emulator 4</system:String>
     <system:String x:Key="SetEmulator5Path">Atur Jalur Emulator 5</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Gagal mengatur ambang batas pencocokan fuzzy.</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">Atur Ambang Batas Pencocokan Fuzzy</system:String>
     <system:String x:Key="SetGamepadDeadZone">Atur Zona Mati Gamepad</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Atur Jumlah Permainan Per Halaman</system:String>
     <system:String x:Key="SetSystemFolder">Atur Folder Sistem</system:String>
     <system:String x:Key="SetSystemImageFolder">Atur Folder Gambar Sistem</system:String>
     <system:String x:Key="Setthegamewindowto">Atur jendela game ke non-layar penuh. Ini penting.</system:String>
+<system:String x:Key="SetThreshold">Atur Ambang Batas</system:String>
     <system:String x:Key="ShowAllGames">Tampilkan Semua Permainan</system:String>
     <system:String x:Key="ShowGames">Tampilkan Permainan</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
+<system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' tidak memiliki hak istimewa yang cukup untuk menulis ke file 'settings.xml'.</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' memerlukan Windows 64-bit atau 32-bit untuk dijalankan.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' tidak dapat memulihkan cadangan terakhir.</system:String>
     <system:String x:Key="SortByDate">Urutkan Berdasarkan Tanggal</system:String>
     <system:String x:Key="SortByPlayTime">Urutkan Berdasarkan Waktu Pemutaran</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">Permintaan dukungan berhasil dikirim.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="System2">Sistem</system:String>
-    <system:String x:Key="SystemAlreadyExists">Sistem sudah ada</system:String>
     <system:String x:Key="SystemFolder">Folder Sistem</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">"Folder Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
     <system:String x:Key="SystemFolderOptional">Folder Sistem (Opsional)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">Terjadi kesalahan saat memuat daftar game.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Terjadi kesalahan saat memuat konfigurasi sistem.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Terjadi kesalahan saat membuka tautan donasi.</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Terjadi kesalahan saat mengatur ambang batas pencocokan fuzzy.</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Terjadi kesalahan saat mengubah logika pencocokan fuzzy.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Terjadi kesalahan saat mencoba membuka gambar sampul.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">Terjadi kesalahan saat menggunakan pencarian global.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Terjadi kesalahan saat mengubah mode tampilan.</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Tidak dapat membuka tautan.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Kesalahan tak terduga saat memuat 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Tidak Diketahui</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">Arsitektur tidak didukung untuk ekstraksi 7z.</system:String>
     <system:String x:Key="UpdateAvailable">Pembaruan Tersedia</system:String>
     <system:String x:Key="UpdateHistory">Riwayat Pembaruan</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' tidak ditemukan.</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">Apakah Anda ingin menyimpan laporan dengan hasilnya?</system:String>
     <system:String x:Key="Yellow">Kuning</system:String>
     <system:String x:Key="Youcanaddanewsystem">Anda dapat menambahkan sistem baru sekarang.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Anda juga dapat menonaktifkan perangkat lunak antivirus Anda sementara atau menambahkan folder 'Simple Launcher' ke daftar pengecualian antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Anda Dapat Menentukan Zona Mati Gamepad Kustom</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Atur ambang batas pencocokan fuzzy</system:String>
+
 </ResourceDictionary>

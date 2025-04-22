@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' में सिस्टम जोड़ें।</system:String>
     <system:String x:Key="AddToFavorites">पसंदीदा में जोड़ें</system:String>
     <system:String x:Key="Alert">चेतावनी</system:String>
-    <system:String x:Key="alreadyexists">पहले से मौजूद है।</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">एमुलेटर और उसकी निर्भरताओं की अखंडता की जांच करें।</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">सुनिश्चित करें कि आप एमुलेटर को सही पैरामीटर के साथ कॉल कर रहे हैं।</system:String>
     <system:String x:Key="Amber">एम्बर</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">फ़ाइल को हटाने के प्रयास में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' को लॉन्च करने की कोशिश करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">एक ओपन सोर्स एम्युलेटर फ्रंटेंड</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher का एक और उदाहरण पहले से ही चल रहा है।</system:String>
     <system:String x:Key="ApplicationFolder">एप्लिकेशन फ़ोल्डर:</system:String>
     <system:String x:Key="areyourunningasecondinstance">क्या आप 'Simple Launcher' की दूसरी इंस्टेंस चला रहे हैं? यदि हाँ, तो कृपया एक समय में केवल एक ही इंस्टेंस खोलें नहीं तो आपको समस्याओं का सामना करना पड़ सकता है।</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">क्या आप वाकई इस फ़ाइल को हटाना चाहते हैं?</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">लेकिन मुझे एक बैकअप फाइल मिली।</system:String>
     <system:String x:Key="Cabinet">केबिनेट</system:String>
     <system:String x:Key="Cabinetnotfound">केबिनेट नहीं मिला</system:String>
+<system:String x:Key="CancelButtonText">रद्द करें</system:String>
     <system:String x:Key="Cancelingdownload">डाउनलोड रद्द कर रहा है...</system:String>
     <system:String x:Key="cannotbeextracted">को एक्सट्रैक्ट नहीं किया जा सकता।</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">निकालने का फ़ोल्डर नहीं बना सकते या उस तक पहुंच नहीं सकते</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">एक सिस्टम चुनें</system:String>
     <system:String x:Key="ChooseFolder">फ़ोल्डर चुनें</system:String>
     <system:String x:Key="ChoosefolderwithROMs">इस सिस्टम के लिए ROMs या ISOs के साथ एक फोल्डर चुनें</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">खिलाड़ियों को देखने के लिए ऊपर अक्षर बटन पर क्लिक करें</system:String>
     <system:String x:Key="Close">बंद करें</system:String>
     <system:String x:Key="Cobalt">कोबाल्ट</system:String>
     <system:String x:Key="Confirmation">पुष्टि</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA खेलों के लिए बैच फाइलें बनाएं</system:String>
     <system:String x:Key="Creatingsystemfolders">सिस्टम फ़ोल्डर बना रहा है...</system:String>
     <system:String x:Key="Crimson">गहरा लाल</system:String>
+<system:String x:Key="CurrentThresholdLabel">वर्तमान सीमा:</system:String>
     <system:String x:Key="Cyan">सियान</system:String>
     <system:String x:Key="Dark">गहरा</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">डेड ज़ोन मान सफलतापूर्वक सहेजे गए।</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">क्या आप नवीनतम संस्करण को स्वचालित रूप से डाउनलोड और इंस्टॉल करना चाहेंगे?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">क्या आप 'error_user.log' फ़ाइल को त्रुटि को डिबग करने के लिए खोलना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">क्या आप त्रुटि का निवारण करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">क्या आप इसे ओवरराइट करना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttoreinstall">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">क्या आप रोम इतिहास को ऑनलाइन खोजने का प्रयास करना चाहेंगे?</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">इमेज व्यूअर विंडो में इमेज लोड करने में विफल।</system:String>
     <system:String x:Key="Failedtoopenthemanual">मैनुअल खोलने में विफल।</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">वॉकथ्रू फ़ाइल खोलने में विफल।</system:String>
+<system:String x:Key="Failedtorestarttheapplication">एप्लिकेशन पुनः प्रारंभ करने में विफल।</system:String>
     <system:String x:Key="Failedtosavescreenshot">स्क्रीनशॉट सहेजने में विफल।</system:String>
     <system:String x:Key="Failedtosavethereport">रिपोर्ट सहेजने में असफल।</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher शुरू करने में विफल। मौजूदा उदाहरणों की जाँच के दौरान त्रुटि हुई।</system:String>
     <system:String x:Key="Failedtostarttheemulator">एम्युलेटर शुरू करने में विफल रहा या यह अपेक्षित रूप से बंद नहीं हुआ।</system:String>
     <system:String x:Key="Failedtotogglegamepad">गेमपैड को स्विच करने में विफल।</system:String>
     <system:String x:Key="Favorites">पसंदीदा</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' अपेक्षित पथ में नहीं मिला।</system:String>
     <system:String x:Key="Flyer">फ्लायर</system:String>
     <system:String x:Key="Flyernotfound">फ्लायर नहीं मिला</system:String>
+<system:String x:Key="FuzzyImageMatching">फजी इमेज मैचिंग</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">फजी मैचिंग सीमा सेट करें</system:String>
     <system:String x:Key="GamepadSupport">गेमपैड समर्थन</system:String>
     <system:String x:Key="GameplaySnapshot">गेमप्ले स्नैपशॉट</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">गेमप्ले स्नैपशॉट नहीं मिला</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">इस विंडो में, आप आसानी से उन एमुलेटर को डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें काम करने के लिए BIOS या सिस्टम फ़ाइलों की आवश्यकता नहीं होती है।</system:String>
     <system:String x:Key="InvalidDownloadLink">अमान्य डाउनलोड लिंक</system:String>
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
+<system:String x:Key="InvalidInputMessageText">कृपया सीमा के लिए 0.0 और 1.0 के बीच एक मान्य संख्या दर्ज करें।</system:String>
+<system:String x:Key="InvalidInputMessageTitle">अमान्य इनपुट</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
     <system:String x:Key="isminimizedtothetray">ट्रे में न्यूनतम कर दिया गया है।</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. यदि उपलब्ध हो तो एमुलेटर कॉन्फ़िगरेशन में मेमोरी आवंटन सेटिंग्स को समायोजित करने का प्रयास करें।</system:String>
     <system:String x:Key="Name">नाम</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">आवश्यक है क्योंकि संबंधित डेटा प्रदान किया गया है।</system:String>
+<system:String x:Key="NewThresholdLabel">नई सीमा:</system:String>
     <system:String x:Key="Next_&gt;">अगला &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">इसके लिए कोई विवरण उपलब्ध नहीं है</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">चयनित सिस्टम के लिए कोई पसंदीदा खेल नहीं मिला।</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">कोई अपडेट उपलब्ध नहीं</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' फाइल में कोई वैध सिस्टम नहीं मिला।</system:String>
     <system:String x:Key="NumberOfImages">सिस्टम छवि फ़ोल्डर में छवियों की संख्या: {0}</system:String>
+<system:String x:Key="OkButtonText">ठीक है</system:String>
     <system:String x:Key="Olive">जैतून</system:String>
     <system:String x:Key="Oneormorepathsorparameters">एक या अधिक मार्ग/पैरामीटर अमान्य हैं।</system:String>
     <system:String x:Key="Open">खोलें</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">पसंदीदा से हटाएं</system:String>
     <system:String x:Key="RemovefromHistory">इतिहास से हटाएं</system:String>
     <system:String x:Key="Reportsavedsuccessfully">रिपोर्ट सफलतापूर्वक सहेजी गई।</system:String>
+<system:String x:Key="RestartError">पुनः प्रारंभ त्रुटि</system:String>
     <system:String x:Key="RestoreBackup">बैकअप पुनर्स्थापित करें?</system:String>
     <system:String x:Key="ReverttoDefaultValues">डिफ़ॉल्ट मानों पर पुनर्स्थापित करें</system:String>
     <system:String x:Key="RomHistory">रोम इतिहास</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">इम्यूलेटर 3 पथ सेट करें</system:String>
     <system:String x:Key="SetEmulator4Path">इम्यूलेटर 4 पथ सेट करें</system:String>
     <system:String x:Key="SetEmulator5Path">इम्यूलेटर 5 पथ सेट करें</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">फजी मैचिंग सीमा निर्धारित करने में विफल रहा।</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">फजी मैचिंग सीमा निर्धारित करें</system:String>
     <system:String x:Key="SetGamepadDeadZone">गेमपैड डेड ज़ोन सेट करें</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">प्रति पृष्ठ खेलों की संख्या सेट करें</system:String>
     <system:String x:Key="SetSystemFolder">सिस्टम फ़ोल्डर सेट करें</system:String>
     <system:String x:Key="SetSystemImageFolder">सिस्टम इमेज फ़ोल्डर सेट करें</system:String>
     <system:String x:Key="Setthegamewindowto">खेल की विंडो को पूर्ण स्क्रीन से हटाकर सेट करें। यह आवश्यक है।</system:String>
+<system:String x:Key="SetThreshold">सीमा निर्धारित करें</system:String>
     <system:String x:Key="ShowAllGames">सभी खेल दिखाएँ</system:String>
     <system:String x:Key="ShowGames">खेल दिखाएँ</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">केवल कवर वाले खेल दिखाएँ</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' फ़ाइल को लोड नहीं कर सका या यह खराब है।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' इमेज पैक डाउनलोड लिंक खोलने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ने इस सिस्टम के लिए एक छवि फ़ोल्डर बनाया</system:String>
+<system:String x:Key="SimpleLauncherError">Simple Launcher त्रुटि</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' के पास 'settings.xml' फाइल में लिखने के लिए पर्याप्त अनुमति नहीं है।</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' को चलाने के लिए 64-बिट या 32-बिट विंडोज़ की आवश्यकता होती है।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' अंतिम बैकअप को पुनर्स्थापित करने में असमर्थ था।</system:String>
     <system:String x:Key="SortByDate">तारीख के अनुसार क्रमबद्ध करें</system:String>
     <system:String x:Key="SortByPlayTime">प्ले समय के अनुसार क्रमबद्ध करें</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">समर्थन अनुरोध सफलतापूर्वक भेजा गया।</system:String>
     <system:String x:Key="System">सिस्टम:</system:String>
     <system:String x:Key="System2">सिस्टम</system:String>
-    <system:String x:Key="SystemAlreadyExists">सिस्टम पहले से ही मौजूद है</system:String>
     <system:String x:Key="SystemFolder">सिस्टम फ़ोल्डर</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'सिस्टम फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
     <system:String x:Key="SystemFolderOptional">सिस्टम फ़ोल्डर (ऐच्छिक)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">गेम सूची लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">सिस्टम कॉन्फ़िगरेशन लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">डोनेशन लिंक खोलने में एक त्रुटि हुई।</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">फजी मैचिंग सीमा सेट करने में त्रुटि हुई।</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">फजी मैचिंग तर्क टॉगल करने में त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">कवर इमेज खोलने के प्रयास में एक त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">ग्लोबल सर्च का उपयोग करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">व्यू मोड बदलते समय एक त्रुटि हुई।</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">लिंक खोलने में असमर्थ।</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' लोड करते समय अप्रत्याशित त्रुटि।</system:String>
     <system:String x:Key="Unknown">अज्ञात</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">7z एक्सट्रैक्शन के लिए असमर्थित वास्तुकला।</system:String>
     <system:String x:Key="UpdateAvailable">अपडेट उपलब्ध</system:String>
     <system:String x:Key="UpdateHistory">अपडेट इतिहास</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' नहीं मिला।</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">क्या आप परिणामों के साथ एक रिपोर्ट सहेजना चाहेंगे?</system:String>
     <system:String x:Key="Yellow">पीला</system:String>
     <system:String x:Key="Youcanaddanewsystem">अब आप एक नया सिस्टम जोड़ सकते हैं।</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">आप अस्थायी रूप से अपना एंटीवायरस सॉफ़्टवेयर निष्क्रिय कर सकते हैं या 'Simple Launcher' फ़ोल्डर को एंटीवायरस बहिष्कार सूची में जोड़ सकते हैं।</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">आप कस्टम गेमपैड डेड ज़ोन परिभाषित कर सकते हैं</system:String>
     <system:String x:Key="YoucandefinecustomURL">आप वीडियो लिंक बटन और जानकारी लिंक बटन में उपयोग करने के लिए एक कस्टम URL परिभाषित कर सकते हैं।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">फजी मैचिंग सीमा सेट करें</system:String>
+
 </ResourceDictionary>

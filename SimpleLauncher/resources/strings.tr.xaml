@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'a Sistem Ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
     <system:String x:Key="Alert">Uyarı</system:String>
-    <system:String x:Key="alreadyexists">zaten mevcut.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Ayrıca emulatorün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Ayrıca emulatorü doğru parametrelerle çağırdığınızdan emin olun.</system:String>
     <system:String x:Key="Amber">Kehribar</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Dosya silinmeye çalışılırken bir hata oluştu.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' başlatılırken bir hata meydana geldi.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Açık kaynaklı bir emülatör ön yüzü</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Başka bir Simple Launcher örneği zaten çalışıyor.</system:String>
     <system:String x:Key="ApplicationFolder">Uygulama klasörü:</system:String>
     <system:String x:Key="areyourunningasecondinstance">'Simple Launcher'ın ikinci bir örneğini mi çalıştırıyorsunuz? Evetse, lütfen aynı anda yalnızca bir örnek açın, aksi takdirde sorun yaşayabilirsiniz.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Dosyayı silmek istediğinizden emin misiniz?</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
+<system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
     <system:String x:Key="cannotbeextracted">çıkarılamıyor.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Çıkartma klasörü oluşturulamıyor veya erişilemiyor</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Bu sistem için ROM'ların veya ISO dosyalarının bulunduğu klasörü seçin</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">Oyunları görmek için yukarıdaki harf düğmelerine tıklayın</system:String>
     <system:String x:Key="Close">Kapat</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="Confirmation">Onay</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLA Oyunları İçin Toplu Dosyalar Oluştur</system:String>
     <system:String x:Key="Creatingsystemfolders">Sistem klasörleri oluşturuluyor...</system:String>
     <system:String x:Key="Crimson">Kızıl</system:String>
+<system:String x:Key="CurrentThresholdLabel">Mevcut Eşik:</system:String>
     <system:String x:Key="Cyan">Camgöbeği</system:String>
     <system:String x:Key="Dark">Koyu</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Son sürümü otomatik indirmek ve yüklemek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Hata ayıklamak için 'error_user.log' dosyasını açmak istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">'error_user.log' dosyasını açarak hatayı ayıklamak istiyor musunuz?</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">Üzerine yazmak istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Bu sorunu çözmek için 'Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' uygulamasını yeniden kurarak sorunu çözmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM geçmişini çevrimiçi aramak ister misiniz?</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">Resim görüntüleyici penceresinde resim yüklenemedi.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kılavuz açılamadı.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Rehber dosyası açılamadı.</system:String>
+<system:String x:Key="Failedtorestarttheapplication">Uygulama yeniden başlatılamadı.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Ekran görüntüsü kaydedilemedi.</system:String>
     <system:String x:Key="Failedtosavethereport">Rapor kaydedilemedi.</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher başlatılamadı. Mevcut örnekler kontrol edilirken hata oluştu.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Emülatör başlatılamadı veya beklenildiği gibi sonlandırılamadı.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Gamepad değiştirme işlemi başarısız oldu.</system:String>
     <system:String x:Key="Favorites">Favoriler</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
+<system:String x:Key="FuzzyImageMatching">Bulanık Görüntü Eşleştirme</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Bulanık eşleştirme eşiğini ayarla</system:String>
     <system:String x:Key="GamepadSupport">Gamepad desteği</system:String>
     <system:String x:Key="GameplaySnapshot">Oynanış Görüntüsü</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Oynanış Görüntüsü Bulunamadı</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
     <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
+<system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
+<system:String x:Key="InvalidInputMessageTitle">Geçersiz Girdi</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Mümkünse, emülatör yapılandırmasında bellek tahsis ayarlarını düzenlemeyi deneyin.</system:String>
     <system:String x:Key="Name">İsim</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">ilgili veriler sağlandığı için gereklidir.</system:String>
+<system:String x:Key="NewThresholdLabel">Yeni Eşik:</system:String>
     <system:String x:Key="Next_&gt;">Sonraki &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">İçin detay bulunamadı</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Seçilen sistem için favori oyun bulunamadı.</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">Güncelleme mevcut değil</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' dosyasında geçerli bir sistem bulunamadı.</system:String>
     <system:String x:Key="NumberOfImages">Sistem görsel klasöründeki görsel sayısı: {0}</system:String>
+<system:String x:Key="OkButtonText">Tamam</system:String>
     <system:String x:Key="Olive">Zeytin Yeşili</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Bir veya daha fazla yol veya parametre geçersiz.</system:String>
     <system:String x:Key="Open">Aç</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
     <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
+<system:String x:Key="RestartError">Yeniden Başlatma Hatası</system:String>
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     <system:String x:Key="RomHistory">ROM Geçmişi</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Emülatör 3 Yolu Ayarla</system:String>
     <system:String x:Key="SetEmulator4Path">Emülatör 4 Yolu Ayarla</system:String>
     <system:String x:Key="SetEmulator5Path">Emülatör 5 Yolu Ayarla</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Bulanık eşleştirme eşiği ayarlanamadı.</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">Bulanık Eşleştirme Eşiğini Ayarla</system:String>
     <system:String x:Key="SetGamepadDeadZone">Gamepad Ölü Bölgesini Ayarla</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Sayfa Başına Oyun Sayısını Ayarla</system:String>
     <system:String x:Key="SetSystemFolder">Sistem klasörünü ayarla</system:String>
     <system:String x:Key="SetSystemImageFolder">Sistem görüntü klasörünü ayarla</system:String>
     <system:String x:Key="Setthegamewindowto">Oyun penceresini tam ekran olmayan bir moda ayarlayın. Bu önemlidir.</system:String>
+<system:String x:Key="SetThreshold">Eşiği Ayarla</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
+<system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher', 'settings.xml' dosyasına yazmak için gerekli izinlere sahip değil.</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' çalıştırmak için 64 bit veya 32 bit Windows gerektirir.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
     <system:String x:Key="SortByDate">Tarihe Göre Sırala</system:String>
     <system:String x:Key="SortByPlayTime">Oynatma Süresine Göre Sırala</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">Destek talebi başarıyla gönderildi.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="System2">Sistem</system:String>
-    <system:String x:Key="SystemAlreadyExists">Sistem zaten mevcut</system:String>
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘Sistem Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
     <system:String x:Key="SystemFolderOptional">Sistem klasörü (isteğe bağlı)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">Oyun listesini yüklerken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Sistem yapılandırmasını yüklerken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Bağış bağlantısını açarken bir hata meydana geldi.</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Bulanık eşleştirme eşiği ayarlanırken hata oluştu.</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Bulanık eşleştirme mantığı değiştirilirken hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Kapak resmi açılırken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">Küresel arama kullanılırken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Görünüm modu değiştirilirken bir hata oluştu.</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Bağlantı açılamıyor.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' yüklenirken beklenmeyen bir hata oluştu.</system:String>
     <system:String x:Key="Unknown">Bilinmiyor</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">7z çıkarma için desteklenmeyen mimari.</system:String>
     <system:String x:Key="UpdateAvailable">Güncelleme Mevcut</system:String>
     <system:String x:Key="UpdateHistory">Güncelleme Geçmişi</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' bulunamadı.</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
     <system:String x:Key="Yellow">Sarı</system:String>
     <system:String x:Key="Youcanaddanewsystem">Artık yeni bir sistem ekleyebilirsiniz.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Bulanık eşleştirme eşiğini ayarla</system:String>
+
 </ResourceDictionary>

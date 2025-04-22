@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' にシステムを追加する</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
     <system:String x:Key="Alert">警告</system:String>
-    <system:String x:Key="alreadyexists">既に存在します。</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">エミュレーターとその依存関係の整合性を確認してください。</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">エミュレーターを正しいパラメーターでコールしていることを確認してください。</system:String>
     <system:String x:Key="Amber">アンバー</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">ファイル削除中にエラーが発生しました。</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' を起動しようとした際にエラーが発生しました。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">オープンソースのエミュレーター用フロントエンド</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">別のSimple Launcherのインスタンスがすでに実行中です。</system:String>
     <system:String x:Key="ApplicationFolder">アプリケーションフォルダー：</system:String>
     <system:String x:Key="areyourunningasecondinstance">'Simple Launcher'のセカンドインスタンスを実行していますか？もしそうなら、同時に1つのインスタンスだけを開いてください。問題が発生する可能性があります。</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">ファイルを削除してもよろしいですか？</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">しかし、バックアップファイルが見つかりました。</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
+<system:String x:Key="CancelButtonText">キャンセル</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
     <system:String x:Key="cannotbeextracted">は抽出できません。</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">展開フォルダを作成またはアクセスできません</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
     <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
     <system:String x:Key="ChoosefolderwithROMs">このシステム用のROMやISOが含まれるフォルダーを選択してください</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">上の文字ボタンをクリックしてゲームを表示します</system:String>
     <system:String x:Key="Close">閉じる</system:String>
     <system:String x:Key="Cobalt">コバルト</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Xbox 360 XBLAゲーム用バッチファイルを作成</system:String>
     <system:String x:Key="Creatingsystemfolders">システムフォルダを作成しています...</system:String>
     <system:String x:Key="Crimson">クリムゾン</system:String>
+<system:String x:Key="CurrentThresholdLabel">現在の閾値：</system:String>
     <system:String x:Key="Cyan">シアン</system:String>
     <system:String x:Key="Dark">ダーク</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">デッドゾーンの値が正常に保存されました。</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">最新バージョンを自動的にダウンロードしてインストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">エラーをデバッグするために、「error_user.log」ファイルを開きますか？</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">エラーをデバッグするために「error_user.log」ファイルを開きますか？</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">上書きしますか？</system:String>
     <system:String x:Key="Doyouwanttoreinstall">問題を解決するために 'Simple Launcher' を再インストールしますか？</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">問題を解決するために「Simple Launcher」を再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM履歴をオンラインで検索しますか？</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">画像ビューアウィンドウ内の画像を読み込めませんでした。</system:String>
     <system:String x:Key="Failedtoopenthemanual">マニュアルを開けませんでした。</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">ウォークスルーファイルを開けませんでした。</system:String>
+<system:String x:Key="Failedtorestarttheapplication">アプリケーションの再起動に失敗しました。</system:String>
     <system:String x:Key="Failedtosavescreenshot">スクリーンショットを保存できませんでした。</system:String>
     <system:String x:Key="Failedtosavethereport">レポートの保存に失敗しました。</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcherの起動に失敗しました。既存のインスタンスの確認中にエラーが発生しました。</system:String>
     <system:String x:Key="Failedtostarttheemulator">エミュレーターの開始に失敗した、または予期されるように終了しませんでした。</system:String>
     <system:String x:Key="Failedtotogglegamepad">ゲームパッドの切り替えに失敗しました。</system:String>
     <system:String x:Key="Favorites">お気に入り</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>
+<system:String x:Key="FuzzyImageMatching">ファジー画像マッチング</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">ファジーマッチングの閾値を設定</system:String>
     <system:String x:Key="GamepadSupport">ゲームパッドサポート</system:String>
     <system:String x:Key="GameplaySnapshot">ゲームプレイのスクリーンショット</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">ゲームプレイのスクリーンショットが見つかりません</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
     <system:String x:Key="InvalidDownloadLink">無効なダウンロードリンク</system:String>
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
+<system:String x:Key="InvalidInputMessageText">閾値には0.0から1.0の間の有効な数値を入力してください。</system:String>
+<system:String x:Key="InvalidInputMessageTitle">無効な入力</system:String>
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. エミュレーターの設定でメモリ割り当て設定を調整してみてください（利用可能な場合）。</system:String>
     <system:String x:Key="Name">名前</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">関連するデータが提供されているため、名前が必要です。</system:String>
+<system:String x:Key="NewThresholdLabel">新しい閾値：</system:String>
     <system:String x:Key="Next_&gt;">次へ &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">詳細は利用できません:</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">選択したシステムにはお気に入りのゲームが見つかりませんでした。</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">更新はありません</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' ファイルに有効なシステムが見つかりませんでした。</system:String>
     <system:String x:Key="NumberOfImages">システム画像フォルダ内の画像数：{0}</system:String>
+<system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">オリーブ</system:String>
     <system:String x:Key="Oneormorepathsorparameters">1つ以上のパスまたはパラメーターが無効です。</system:String>
     <system:String x:Key="Open">開く</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">お気に入りから削除</system:String>
     <system:String x:Key="RemovefromHistory">履歴から削除</system:String>
     <system:String x:Key="Reportsavedsuccessfully">レポートが正常に保存されました。</system:String>
+<system:String x:Key="RestartError">再起動エラー</system:String>
     <system:String x:Key="RestoreBackup">バックアップを復元しますか？</system:String>
     <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
     <system:String x:Key="RomHistory">ROM履歴</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">エミュレーター3のパスを設定</system:String>
     <system:String x:Key="SetEmulator4Path">エミュレーター4のパスを設定</system:String>
     <system:String x:Key="SetEmulator5Path">エミュレーター5のパスを設定</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">ファジーマッチングの閾値の設定に失敗しました。</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">ファジーマッチングの閾値を設定</system:String>
     <system:String x:Key="SetGamepadDeadZone">ゲームパッドのデッドゾーンを設定</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">1ページあたりのゲーム数を設定</system:String>
     <system:String x:Key="SetSystemFolder">システムフォルダーを設定</system:String>
     <system:String x:Key="SetSystemImageFolder">システム画像フォルダーを設定</system:String>
     <system:String x:Key="Setthegamewindowto">ゲームウィンドウを非フルスクリーンモードに設定してください。これは重要です。</system:String>
+<system:String x:Key="SetThreshold">閾値を設定</system:String>
     <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
     <system:String x:Key="ShowGames">ゲームを表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' は画像パックのダウンロードリンクを開けませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
+<system:String x:Key="SimpleLauncherError">Simple Launcherエラー</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' は 'settings.xml' ファイルの書き込み権限が不十分です。</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher'は64ビットまたは32ビットのWindowsが必要です。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
     <system:String x:Key="SortByDate">日付で並べ替え</system:String>
     <system:String x:Key="SortByPlayTime">再生時間で並べ替え</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">サポートリクエストが正常に送信されました。</system:String>
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="System2">システム</system:String>
-    <system:String x:Key="SystemAlreadyExists">システムは既に存在します</system:String>
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「システムフォルダー」は空白やスペースのみであってはいけません。</system:String>
     <system:String x:Key="SystemFolderOptional">システムフォルダー（任意）</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">ゲームリストを読み込む際にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">システム構成の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">寄付リンクを開く際にエラーが発生しました。</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">ファジーマッチングの閾値設定中にエラーが発生しました。</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">ファジーマッチングロジックの切り替え時にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">カバー画像を開く際にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">グローバル検索の使用中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">表示モードを変更する際にエラーが発生しました。</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">リンクを開くことができません。</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">'helpuser.xml' の読み込み中に予期しないエラーが発生しました。</system:String>
     <system:String x:Key="Unknown">不明</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">7z抽出に対応していないアーキテクチャです。</system:String>
     <system:String x:Key="UpdateAvailable">更新が利用可能です</system:String>
     <system:String x:Key="UpdateHistory">アップデート履歴</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' が見つかりません。</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
     <system:String x:Key="Yellow">黄色</system:String>
     <system:String x:Key="Youcanaddanewsystem">新しいシステムを追加できます。</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">アンチウイルスソフトを一時的に無効化するか、「Simple Launcher」フォルダーをアンチウイルスの除外リストに追加することもできます。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">カスタムゲームパッドのデッドゾーンを定義できます</system:String>
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">ファジーマッチングの閾値を設定</system:String>
+
 </ResourceDictionary>

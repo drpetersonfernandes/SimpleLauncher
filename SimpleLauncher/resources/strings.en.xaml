@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">Add System into 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="Alert">Alert</system:String>
-    <system:String x:Key="alreadyexists">already exists.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">An error occurred while trying to delete the file</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">An error occurred while trying to launch 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">An open source emulator frontend</system:String>
+    <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Another instance of Simple Launcher is already running.</system:String>
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>    
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">But I found a backup file.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
+    <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="cannotbeextracted">can not be extracted.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Cannot create or access the extraction folder</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Choose folder with ROMs or ISOs for this system</system:String>
+    <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Create Batch Files For Xbox 360 XBLA Games</system:String>
     <system:String x:Key="Creatingsystemfolders">Creating system folders...</system:String>
     <system:String x:Key="Crimson">Crimson</system:String>
+    <system:String x:Key="CurrentThresholdLabel">Current Threshold:</system:String>
     <system:String x:Key="Cyan">Cyan</system:String>
     <system:String x:Key="Dark">Dark</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">DeadZone values saved successfully.</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Do you want to download and install the latest version automatically?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Do you want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Do you want to open the file 'error_user.log' to debug the error?</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">Do you want to overwrite it?</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Do you want to reinstall 'Simple Launcher' to fix it?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Do you want to reinstall 'Simple Launcher' to fix the issue?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Do you want to search online for the ROM history?</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Failed to open the manual.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Failed to open the walkthrough file.</system:String>
+    <system:String x:Key="Failedtorestarttheapplication">Failed to restart the application.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Failed to save screenshot.</system:String>
     <system:String x:Key="Failedtosavethereport">Failed to save the report.</system:String>
+    <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Failed to start Simple Launcher. An error occurred while checking for existing instances.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Failed to start the emulator or it has not exited as expected.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Failed to toggle gamepad.</system:String>
     <system:String x:Key="Favorites">Favorites</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' was not found in the expected path.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer not found</system:String>
+    <system:String x:Key="FuzzyImageMatching">Fuzzy Image Matching</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">Set the fuzzy matching threshold</system:String>
     <system:String x:Key="GamepadSupport">Gamepad Support</system:String>
     <system:String x:Key="GameplaySnapshot">Gameplay Snapshot</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Gameplay Snapshot not found</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
     <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
+    <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
+    <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Try adjusting memory allocation settings in the emulator configuration if available.</system:String>
     <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">name is required because related data has been provided.</system:String>
+    <system:String x:Key="NewThresholdLabel">New Threshold:</system:String>
     <system:String x:Key="Next_&gt;">Next &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">No details available for</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No favorite games found for the selected system.</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">No update available</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">No valid systems found in the file 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Number of images in the System Image Folder: {0}</system:String>
+    <system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olive</system:String>
     <system:String x:Key="Oneormorepathsorparameters">One or more paths or parameters are invalid.</system:String>
     <system:String x:Key="Open">Open</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemovefromHistory">Remove from history</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Report saved successfully.</system:String>
+    <system:String x:Key="RestartError">Restart Error</system:String>
     <system:String x:Key="RestoreBackup">Restore Backup?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
     <system:String x:Key="RomHistory">Rom History</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Set Emulator 3 Path</system:String>
     <system:String x:Key="SetEmulator4Path">Set Emulator 4 Path</system:String>
     <system:String x:Key="SetEmulator5Path">Set Emulator 5 Path</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Failed to set fuzzy matching threshold.</system:String>
+    <system:String x:Key="SetFuzzyMatchingThresholdTitle">Set Fuzzy Matching Threshold</system:String>
     <system:String x:Key="SetGamepadDeadZone">Set Gamepad DeadZone</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Set Number of Games Per Page</system:String>
     <system:String x:Key="SetSystemFolder">Set System Folder</system:String>
     <system:String x:Key="SetSystemImageFolder">Set System Image Folder</system:String>
     <system:String x:Key="Setthegamewindowto">Set the game window to non-fullscreen. This is important.</system:String>
+    <system:String x:Key="SetThreshold">SetThreshold</system:String>
     <system:String x:Key="ShowAllGames">Show All Games</system:String>
     <system:String x:Key="ShowGames">Show Games</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
+    <system:String x:Key="SimpleLauncherError">Simple Launcher Error</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
+    <system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' requires 64-bit or 32-bit Windows to run.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="SortByDate">Sort By Date</system:String>
     <system:String x:Key="SortByPlayTime">Sort By PlayTime</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">Support request sent successfully.</system:String>
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="System2">System</system:String>
-    <system:String x:Key="SystemAlreadyExists">System Already Exists</system:String>
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemFolderOptional">System Folder (Optional)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">There was an error loading the game list.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">There was an error loading the systemConfig.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">There was an error opening the Donation Link.</system:String>
+    <system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">There was an error setting up the fuzzy matching threshold.</system:String>
+    <system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">There was an error toggling the fuzzy matching logic.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">There was an error trying to open the cover image.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">There was an error using the Global Search.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">There was an error while changing the view mode.</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Unable to open the link.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Unexpected error while loading 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Unknown</system:String>
+    <system:String x:Key="Unsupportedarchitecturefor7zextraction">Unsupported architecture for 7z extraction.</system:String>
     <system:String x:Key="UpdateAvailable">Update Available</system:String>
     <system:String x:Key="UpdateHistory">Update History</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' not found.</system:String>
@@ -556,25 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
     <system:String x:Key="Yellow">Yellow</system:String>
     <system:String x:Key="Youcanaddanewsystem">You can add a new system now.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
-    
-    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
-    <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
-    <system:String x:Key="SetFuzzyMatchingThresholdTitle">Set Fuzzy Matching Threshold</system:String>
-    <system:String x:Key="CurrentThresholdLabel">Current Threshold:</system:String>
-    <system:String x:Key="NewThresholdLabel">New Threshold:</system:String>
-    <system:String x:Key="FuzzyMatchingThresholdHint">Enter a value between 0.0 (no similarity required) and 1.0 (exact match required). Recommended: 0.85 to 0.95.</system:String>
-    <system:String x:Key="OkButtonText">OK</system:String>
-    <system:String x:Key="CancelButtonText">Cancel</system:String>
-    <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
-    <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
-    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxTitle">Error</system:String>
-    <system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Failed to set fuzzy matching threshold.</system:String>
-    <system:String x:Key="FuzzyImageMatching">Fuzzy Image Matching</system:String>
-    <system:String x:Key="SetThreshold">SetThreshold</system:String>
+    <system:String x:Key="FuzzyMatchingThresholdHintSlider">Set the fuzzy matching threshold</system:String>
     
 </ResourceDictionary>

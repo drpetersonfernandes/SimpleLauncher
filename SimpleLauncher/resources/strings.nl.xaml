@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">Systeem toevoegen aan 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
-    <system:String x:Key="alreadyexists">bestaat al.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Zorg er ook voor dat u de emulator aanroept met de juiste parameters.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">Er is een fout opgetreden bij het proberen het bestand te verwijderen.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Er deed zich een fout voor bij het proberen te starten van 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Een andere instantie van Simple Launcher draait al.</system:String>
     <system:String x:Key="ApplicationFolder">Applicatiemap:</system:String>
     <system:String x:Key="areyourunningasecondinstance">U draait een tweede instantie van 'Simple Launcher'? Zo ja, open dan slechts één instantie tegelijk, anders kunt u problemen ondervinden.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Weet je zeker dat je dit bestand wilt verwijderen?</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
+<system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
     <system:String x:Key="cannotbeextracted">kan niet worden uitgepakt.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Kan de uitpakmap niet maken of benaderen</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
     <system:String x:Key="ChoosefolderwithROMs">Kies de map met ROM's of ISO's voor dit systeem</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">Batchbestanden maken voor Xbox 360 XBLA-spellen</system:String>
     <system:String x:Key="Creatingsystemfolders">Systeemmappen worden aangemaakt...</system:String>
     <system:String x:Key="Crimson">Karmozijn</system:String>
+<system:String x:Key="CurrentThresholdLabel">Huidige drempel:</system:String>
     <system:String x:Key="Cyan">Cyaan</system:String>
     <system:String x:Key="Dark">Donker</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">Wil je de laatste versie automatisch downloaden en installeren?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Wil je het bestand 'error_user.log' openen om de fout op te sporen?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">Wilt u het overschrijven?</system:String>
     <system:String x:Key="Doyouwanttoreinstall">Wilt u 'Simple Launcher' opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Wil je online zoeken naar de ROM-geschiedenis?</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">De afbeelding kon niet worden geladen in het afbeeldingsvenster.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kon de handleiding niet openen.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">Kon het walkthrough-bestand niet openen.</system:String>
+<system:String x:Key="Failedtorestarttheapplication">Kan de applicatie niet opnieuw starten.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Kon de screenshot niet opslaan.</system:String>
     <system:String x:Key="Failedtosavethereport">Het rapport opslaan is mislukt.</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Het starten van Simple Launcher is mislukt. Er trad een fout op bij het controleren van bestaande instanties.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Het starten van de emulator is mislukt of het is niet correct gestopt.</system:String>
     <system:String x:Key="Failedtotogglegamepad">Het schakelen van de gamepad is mislukt.</system:String>
     <system:String x:Key="Favorites">Favorieten</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>
+<system:String x:Key="FuzzyImageMatching">Fuzzy beeldmatching</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Stel de fuzzy matching drempel in</system:String>
     <system:String x:Key="GamepadSupport">Gamepad-ondersteuning</system:String>
     <system:String x:Key="GameplaySnapshot">Gameplay-momentopname</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">Gameplaymomentopname niet gevonden</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
+<system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
+<system:String x:Key="InvalidInputMessageTitle">Ongeldige invoer</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. Probeer de geheugenallocatie-instellingen aan te passen in de emulatorconfiguratie indien beschikbaar.</system:String>
     <system:String x:Key="Name">Naam</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
+<system:String x:Key="NewThresholdLabel">Nieuwe drempel:</system:String>
     <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">Geen update beschikbaar</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Geen geldige systemen gevonden in het bestand 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Aantal afbeeldingen in de systeemafbeeldingenmap: {0}</system:String>
+<system:String x:Key="OkButtonText">OK</system:String>
     <system:String x:Key="Olive">Olijf</system:String>
     <system:String x:Key="Oneormorepathsorparameters">Eén of meer paden of parameters zijn ongeldig.</system:String>
     <system:String x:Key="Open">Openen</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemovefromHistory">Verwijderen uit geschiedenis</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport succesvol opgeslagen.</system:String>
+<system:String x:Key="RestartError">Herstartfout</system:String>
     <system:String x:Key="RestoreBackup">Back-up herstellen?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     <system:String x:Key="RomHistory">ROM-geschiedenis</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">Stel Emulator 3 Pad in</system:String>
     <system:String x:Key="SetEmulator4Path">Stel Emulator 4 Pad in</system:String>
     <system:String x:Key="SetEmulator5Path">Stel Emulator 5 Pad in</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">Het instellen van de fuzzy matching drempel is mislukt.</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">Stel fuzzy matching drempel in</system:String>
     <system:String x:Key="SetGamepadDeadZone">Gamepad-dode zone instellen</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">Aantal spellen per pagina instellen</system:String>
     <system:String x:Key="SetSystemFolder">Systeemmap instellen</system:String>
     <system:String x:Key="SetSystemImageFolder">Afbeeldingsmap van systeem instellen</system:String>
     <system:String x:Key="Setthegamewindowto">Stel het venster van het spel in op niet-volledig scherm. Dit is belangrijk.</system:String>
+<system:String x:Key="SetThreshold">Drempel instellen</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
+<system:String x:Key="SimpleLauncherError">Simple Launcher-fout</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' heeft onvoldoende rechten om naar het bestand 'settings.xml' te schrijven.</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' vereist 64-bit of 32-bit Windows om te draaien.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
     <system:String x:Key="SortByDate">Sorteren op datum</system:String>
     <system:String x:Key="SortByPlayTime">Sorteren op afspeeltijd</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">Ondersteuningsverzoek succesvol verzonden.</system:String>
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="System2">Systeem</system:String>
-    <system:String x:Key="SystemAlreadyExists">Systeem bestaat al</system:String>
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
     <system:String x:Key="SystemFolderOptional">Systeemmap (optioneel)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">Er is een fout opgetreden bij het laden van de lijst met spellen.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Er is een fout opgetreden bij het laden van de systeemconfiguratie.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Er is een fout opgetreden bij het openen van de donatielink.</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">Er trad een fout op bij het instellen van de fuzzy matching drempel.</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">Er trad een fout op bij het wisselen van de fuzzy matching logica.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">Er was een fout bij het proberen openen van de omslagafbeelding.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">Er is een fout opgetreden bij het gebruik van de globale zoekfunctie.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">Er is een fout opgetreden bij het wijzigen van de weergavemodus.</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">Kan de link niet openen.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">Er is een onverwachte fout opgetreden bij het laden van 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">Onbekend</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">Niet-ondersteunde architectuur voor 7z-extractie.</system:String>
     <system:String x:Key="UpdateAvailable">Update beschikbaar</system:String>
     <system:String x:Key="UpdateHistory">Updategeschiedenis</system:String>
     <system:String x:Key="Updaterexenotfound">'Updater.exe' niet gevonden.</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
     <system:String x:Key="Yellow">Geel</system:String>
     <system:String x:Key="Youcanaddanewsystem">U kunt nu een nieuw systeem toevoegen.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">U kunt ook tijdelijk uw antivirussoftware uitschakelen of de map 'Simple Launcher' toevoegen aan de uitsluitingslijst van uw antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">U kunt een aangepaste gamepad-dode zone definiëren</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">Stel de fuzzy matching drempel in</system:String>
+
 </ResourceDictionary>

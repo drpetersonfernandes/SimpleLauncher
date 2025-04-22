@@ -34,7 +34,6 @@
     <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="Alert">تنبيه</system:String>
-    <system:String x:Key="alreadyexists">موجود بالفعل.</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">أيضًا، تأكد من أنك تستدعي المحاكي بالمعامل الصحيح.</system:String>
     <system:String x:Key="Amber">كهرماني</system:String>
@@ -50,6 +49,7 @@
     <system:String x:Key="Anerroroccurredwhiletryingtodelete">حدث خطأ أثناء محاولة حذف الملف.</system:String>
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">حدث خطأ أثناء محاولة تشغيل 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
+<system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">يتم تشغيل نسخة أخرى من Simple Launcher بالفعل.</system:String>
     <system:String x:Key="ApplicationFolder">مجلد التطبيق:</system:String>
     <system:String x:Key="areyourunningasecondinstance">هل تقوم بتشغيل نسخة ثانية من 'Simple Launcher'؟ إذا كان الجواب نعم، يرجى فتح نسخة واحدة فقط في كل مرة وإلا قد تواجه مشكلات.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">هل أنت متأكد من أنك تريد حذف الملف</system:String>
@@ -68,6 +68,7 @@
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
+<system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
     <system:String x:Key="cannotbeextracted">لا يمكن استخراجه.</system:String>
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">لا يمكن إنشاء أو الوصول إلى مجلد الاستخراج</system:String>
@@ -78,6 +79,7 @@
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
     <system:String x:Key="ChoosefolderwithROMs">اختر المجلد الذي يحتوي على ملفات ROM أو ISO لهذا النظام</system:String>
+<system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
@@ -93,6 +95,7 @@
     <system:String x:Key="CreateBatchFilesForXbox360XBLAGames">إنشاء ملفات دفعة لألعاب Xbox 360 XBLA</system:String>
     <system:String x:Key="Creatingsystemfolders">جارٍ إنشاء مجلدات النظام...</system:String>
     <system:String x:Key="Crimson">أحمر داكن</system:String>
+<system:String x:Key="CurrentThresholdLabel">العتبة الحالية:</system:String>
     <system:String x:Key="Cyan">سماوي</system:String>
     <system:String x:Key="Dark">داكن</system:String>
     <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
@@ -135,7 +138,6 @@
     <system:String x:Key="Doyouwanttodownloadandinstall">هل ترغب في تنزيل وتثبيت الإصدار الأخير تلقائيًا؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">هل تريد فتح الملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
-    <system:String x:Key="Doyouwanttooverwriteit">هل تريد الكتابة فوقه؟</system:String>
     <system:String x:Key="Doyouwanttoreinstall">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttosearchonline">هل تريد البحث عبر الإنترنت عن تاريخ روم؟</system:String>
@@ -198,8 +200,10 @@
     <system:String x:Key="FailedtoloadtheimageintheImage">فشل في تحميل الصورة في نافذة عارض الصور.</system:String>
     <system:String x:Key="Failedtoopenthemanual">فشل في فتح الدليل.</system:String>
     <system:String x:Key="Failedtoopenthewalkthroughfile">فشل في فتح ملف الإرشادات.</system:String>
+<system:String x:Key="Failedtorestarttheapplication">فشل في إعادة تشغيل التطبيق.</system:String>
     <system:String x:Key="Failedtosavescreenshot">فشل في حفظ لقطة الشاشة.</system:String>
     <system:String x:Key="Failedtosavethereport">فشل في حفظ التقرير.</system:String>
+<system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">فشل في تشغيل Simple Launcher. حدث خطأ أثناء التحقق من النسخ الحالية.</system:String>
     <system:String x:Key="Failedtostarttheemulator">فشل في تشغيل المحاكي أو لم يتم إنهاؤه كما هو متوقع.</system:String>
     <system:String x:Key="Failedtotogglegamepad">فشل في تبديل وضعية جهاز التحكم.</system:String>
     <system:String x:Key="Favorites">المفضلة</system:String>
@@ -209,6 +213,8 @@
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
+<system:String x:Key="FuzzyImageMatching">مطابقة الصورة الضبابية</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">قم بضبط عتبة المطابقة الضبابية</system:String>
     <system:String x:Key="GamepadSupport">دعم وحدة التحكم</system:String>
     <system:String x:Key="GameplaySnapshot">لقطة اللعب</system:String>
     <system:String x:Key="GameplaySnapshotnotfound">لقطة اللعب غير موجودة</system:String>
@@ -245,6 +251,8 @@
     <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
     <system:String x:Key="InvalidDownloadLink">رابط التنزيل غير صالح</system:String>
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
+<system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
+<system:String x:Key="InvalidInputMessageTitle">إدخال غير صالح</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
@@ -276,6 +284,7 @@
     <system:String x:Key="MemorySolution4">4. حاول تعديل إعدادات تخصيص الذاكرة في تكوين المحاكي إذا كانت متوفرة.</system:String>
     <system:String x:Key="Name">الاسم</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
+<system:String x:Key="NewThresholdLabel">العتبة الجديدة:</system:String>
     <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
@@ -293,6 +302,7 @@
     <system:String x:Key="Noupdateavailable">لا يوجد تحديث</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">لم يتم العثور على أنظمة صالحة في ملف 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">عدد الصور في مجلد الصور للنظام: {0}</system:String>
+<system:String x:Key="OkButtonText">موافق</system:String>
     <system:String x:Key="Olive">زيتي</system:String>
     <system:String x:Key="Oneormorepathsorparameters">مسار أو أكثر أو معلمات غير صحيحة.</system:String>
     <system:String x:Key="Open">فتح</system:String>
@@ -351,6 +361,7 @@
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
+<system:String x:Key="RestartError">خطأ في إعادة التشغيل</system:String>
     <system:String x:Key="RestoreBackup">استعادة النسخة الاحتياطية؟</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     <system:String x:Key="RomHistory">تاريخ روم</system:String>
@@ -382,11 +393,14 @@
     <system:String x:Key="SetEmulator3Path">تعيين مسار المحاكي 3</system:String>
     <system:String x:Key="SetEmulator4Path">تعيين مسار المحاكي 4</system:String>
     <system:String x:Key="SetEmulator5Path">تعيين مسار المحاكي 5</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdFailureMessageBoxText">فشل في تعيين عتبة المطابقة الضبابية.</system:String>
+<system:String x:Key="SetFuzzyMatchingThresholdTitle">تعيين عتبة المطابقة الضبابية</system:String>
     <system:String x:Key="SetGamepadDeadZone">تعيين المنطقة الميتة لوحدة التحكم</system:String>
     <system:String x:Key="SetNumberOfGamesPerPage">تعيين عدد الألعاب لكل صفحة</system:String>
     <system:String x:Key="SetSystemFolder">تعيين مجلد النظام</system:String>
     <system:String x:Key="SetSystemImageFolder">تعيين مجلد صور النظام</system:String>
     <system:String x:Key="Setthegamewindowto">اضبط نافذة اللعبة على الوضع غير الكامل. هذا مهم.</system:String>
+<system:String x:Key="SetThreshold">تعيين العتبة</system:String>
     <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
     <system:String x:Key="ShowGames">عرض الألعاب</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
@@ -399,8 +413,10 @@
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
+<system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' يفتقر إلى الصلاحيات الكافية للكتابة في ملف 'settings.xml'.</system:String>
+<system:String x:Key="SimpleLauncherrequires64bitor32bitWindowstorun">'Simple Launcher' يتطلب نظام ويندوز 64-بت أو 32-بت للتشغيل.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
     <system:String x:Key="SortByDate">ترتيب حسب التاريخ</system:String>
     <system:String x:Key="SortByPlayTime">ترتيب حسب وقت التشغيل</system:String>
@@ -415,7 +431,6 @@
     <system:String x:Key="Supportrequestsentsuccessfully">تم إرسال طلب الدعم بنجاح.</system:String>
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="System2">النظام</system:String>
-    <system:String x:Key="SystemAlreadyExists">النظام موجود بالفعل</system:String>
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
     <system:String x:Key="SystemFolderOptional">مجلد النظام (اختياري)</system:String>
@@ -489,6 +504,8 @@
     <system:String x:Key="Therewasanerrorloadingthegame">حدث خطأ أثناء تحميل قائمة الألعاب.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">حدث خطأ أثناء تحميل systemConfig.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">حدث خطأ أثناء فتح رابط التبرع.</system:String>
+<system:String x:Key="Therewasanerrorsettingupthefuzzymatchingthreshold">حدث خطأ أثناء إعداد عتبة المطابقة الضبابية.</system:String>
+<system:String x:Key="Therewasanerrortogglingthefuzzymatchinglogic">حدث خطأ أثناء تبديل منطق المطابقة الضبابية.</system:String>
     <system:String x:Key="Therewasanerrortryingtoopenthe">حدث خطأ أثناء محاولة فتح صورة الغلاف.</system:String>
     <system:String x:Key="TherewasanerrorusingtheGlobal">حدث خطأ أثناء استخدام البحث العالمي.</system:String>
     <system:String x:Key="Therewasanerrorwhilechangingtheviewmode">حدث خطأ أثناء تغيير وضع العرض.</system:String>
@@ -524,6 +541,7 @@
     <system:String x:Key="Unabletoopenthelink">غير قادر على فتح الرابط.</system:String>
     <system:String x:Key="Unexpectederrorwhileloadinghelpuserxml">خطأ غير متوقع أثناء تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="Unknown">غير معروف</system:String>
+<system:String x:Key="Unsupportedarchitecturefor7zextraction">معمارية غير مدعومة لاستخراج 7z.</system:String>
     <system:String x:Key="UpdateAvailable">تحديث متاح</system:String>
     <system:String x:Key="UpdateHistory">سجل التحديثات</system:String>
     <system:String x:Key="Updaterexenotfound">لم يتم العثور على 'Updater.exe'.</system:String>
@@ -556,9 +574,12 @@
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
     <system:String x:Key="Yellow">أصفر</system:String>
     <system:String x:Key="Youcanaddanewsystem">يمكنك الآن إضافة نظام جديد.</system:String>
+    <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد "Simple Launcher" إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
+<system:String x:Key="FuzzyMatchingThresholdHintSlider">قم بضبط عتبة المطابقة الضبابية</system:String>
+
 </ResourceDictionary>
