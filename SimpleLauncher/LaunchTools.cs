@@ -6,7 +6,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public class LaunchTools
+public static class LaunchTools
 {
     internal static void CreateBatchFilesForXbox360XBLAGames_Click(string logPath)
     {

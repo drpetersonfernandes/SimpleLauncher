@@ -9,6 +9,7 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModel;
 using Image = System.Windows.Controls.Image;
@@ -18,7 +19,7 @@ namespace SimpleLauncher;
 internal class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemConfig> systemConfigs,
+    List<SystemManager> systemConfigs,
     List<MameManager> machines,
     SettingsManager settings,
     FavoritesManager favoritesManager,
@@ -27,7 +28,7 @@ internal class GameButtonFactory(
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly List<SystemConfig> _systemConfigs = systemConfigs;
+    private readonly List<SystemManager> _systemConfigs = systemConfigs;
     private readonly List<MameManager> _machines = machines;
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
@@ -35,7 +36,7 @@ internal class GameButtonFactory(
     private readonly MainWindow _mainWindow = mainWindow;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemConfig systemConfig)
+    public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
         var originalFileNameWithoutExtension = fileNameWithoutExtension; // Keep original for lookup
@@ -43,7 +44,7 @@ internal class GameButtonFactory(
         fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension); // Use TitleCase for display
 
         // Pass the original filename without extension for image lookup
-        var imagePath = FindCoverImage.FindCoverImagePath(originalFileNameWithoutExtension, systemConfig.SystemName, systemConfig);
+        var imagePath = FindCoverImage.FindCoverImagePath(originalFileNameWithoutExtension, systemManager.SystemName, systemManager);
 
         // Determine if it's a default image (isDefaultImage is a bool)
         // We now need to check if it's the *actual* default.png file path,
@@ -90,7 +91,7 @@ internal class GameButtonFactory(
         textPanel.Children.Add(filenameTextBlock);
 
         // For MAME systems, add a second row for the description if available.
-        if (systemConfig.SystemIsMame)
+        if (systemManager.SystemIsMame)
         {
             // Use original filename without extension for MAME lookup
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(originalFileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
@@ -257,10 +258,10 @@ internal class GameButtonFactory(
         // --- END MODIFIED CLICK HANDLER ---
 
 
-        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemConfig, fileNameWithExtension, originalFileNameWithoutExtension, button); // Pass original filename
+        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemManager, fileNameWithExtension, originalFileNameWithoutExtension, button); // Pass original filename
     }
 
-    private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemConfig systemConfig,
+    private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemManager systemManager,
         string fileNameWithExtension, string fileNameWithoutExtension, Button button) // Use original filename here
     {
         var contextMenu = new ContextMenu();
@@ -376,7 +377,7 @@ internal class GameButtonFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, _machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -395,7 +396,7 @@ internal class GameButtonFactory(
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemConfig);
+            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -590,7 +591,7 @@ internal class GameButtonFactory(
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, button, _mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, button, _mainWindow);
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 

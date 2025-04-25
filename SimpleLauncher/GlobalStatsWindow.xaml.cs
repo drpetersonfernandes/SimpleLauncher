@@ -11,11 +11,11 @@ namespace SimpleLauncher;
 
 public partial class GlobalStatsWindow
 {
-    private readonly List<SystemConfig> _systemConfigs;
+    private readonly List<SystemManager> _systemConfigs;
     private GlobalStatsData _globalStats;
     private List<SystemStatsData> _systemStats;
 
-    public GlobalStatsWindow(List<SystemConfig> systemConfigs)
+    public GlobalStatsWindow(List<SystemManager> systemConfigs)
     {
         InitializeComponent();
 

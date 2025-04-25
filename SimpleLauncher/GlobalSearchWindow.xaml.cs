@@ -17,7 +17,7 @@ namespace SimpleLauncher;
 public partial class GlobalSearchWindow
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
-    private readonly List<SystemConfig> _systemConfigs;
+    private readonly List<SystemManager> _systemConfigs;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitSearchWindow _pleaseWaitWindow;
@@ -31,7 +31,7 @@ public partial class GlobalSearchWindow
     private readonly ComboBox _mockSystemComboBox = new();
     private readonly ComboBox _mockEmulatorComboBox = new();
 
-    public GlobalSearchWindow(List<SystemConfig> systemConfigs, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearchWindow(List<SystemManager> systemConfigs, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -241,7 +241,7 @@ public partial class GlobalSearchWindow
         return terms;
     }
 
-    private async void LaunchGameFromSearchResult(string filePath, string systemName, SystemConfig.Emulator emulatorConfig)
+    private async void LaunchGameFromSearchResult(string filePath, string systemName, SystemManager.Emulator emulatorConfig)
     {
         try
         {
@@ -375,7 +375,7 @@ public partial class GlobalSearchWindow
     }
 
     private void AddRightClickContextMenuGlobalSearchWindow(SearchResult selectedResult, string fileNameWithoutExtension,
-        SystemConfig systemConfig, string fileNameWithExtension, string filePath)
+        SystemManager systemManager, string fileNameWithExtension, string filePath)
     {
         var contextMenu = new ContextMenu();
 
@@ -472,7 +472,7 @@ public partial class GlobalSearchWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemConfig, _machines);
+            RightClickContextMenu.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // "Cover" MenuItem
@@ -491,7 +491,7 @@ public partial class GlobalSearchWindow
         coverMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemConfig);
+            RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemManager);
         };
 
         // "Title Snapshot" MenuItem
@@ -685,7 +685,7 @@ public partial class GlobalSearchWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         };
 
@@ -813,18 +813,18 @@ public partial class GlobalSearchWindow
         public string FilePath { get; init; }
         public double Size { get; set; }
         public string SystemName { get; init; }
-        public SystemConfig.Emulator EmulatorConfig { get; init; }
+        public SystemManager.Emulator EmulatorConfig { get; init; }
         public int Score { get; set; }
         public string CoverImage { get; init; }
         public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
     }
 
-    private static bool CheckSystemConfig(SystemConfig systemConfig)
+    private static bool CheckSystemConfig(SystemManager systemManager)
     {
-        if (systemConfig != null) return false;
+        if (systemManager != null) return false;
 
         // Notify developer
-        const string contextMessage = "systemConfig is null.";
+        const string contextMessage = "systemManager is null.";
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

@@ -16,7 +16,7 @@ namespace SimpleLauncher;
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemConfig> systemConfigs,
+    List<SystemManager> systemConfigs,
     List<MameManager> machines,
     SettingsManager settings,
     FavoritesManager favoritesManager,
@@ -27,7 +27,7 @@ public class GameListFactory(
     private readonly Button _fakeButton = new();
     private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
-    private readonly List<SystemConfig> _systemConfigs = systemConfigs;
+    private readonly List<SystemManager> _systemConfigs = systemConfigs;
     private readonly List<MameManager> _machines = machines;
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
@@ -102,10 +102,10 @@ public class GameListFactory(
         }
     }
 
-    public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemConfig systemConfig)
+    public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var machineDescription = systemConfig.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
+        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
         var isFavorite = _favoritesManager.FavoriteList
@@ -137,7 +137,7 @@ public class GameListFactory(
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = filePath,
-            ContextMenu = AddRightClickContextMenuGameListFactory(filePath, systemName, systemConfig),
+            ContextMenu = AddRightClickContextMenuGameListFactory(filePath, systemName, systemManager),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime
@@ -146,7 +146,7 @@ public class GameListFactory(
         return Task.FromResult(gameListViewItem);
     }
 
-    private ContextMenu AddRightClickContextMenuGameListFactory(string filePath, string systemName, SystemConfig systemConfig)
+    private ContextMenu AddRightClickContextMenuGameListFactory(string filePath, string systemName, SystemManager systemManager)
     {
         var fileNameWithExtension = Path.GetFileName(filePath);
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
@@ -264,7 +264,7 @@ public class GameListFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemConfig, _machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -283,7 +283,7 @@ public class GameListFactory(
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemConfig);
+            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -476,7 +476,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakeButton, _mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 

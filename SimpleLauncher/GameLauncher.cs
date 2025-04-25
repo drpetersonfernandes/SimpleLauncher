@@ -14,7 +14,7 @@ public static class GameLauncher
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
-    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs, SettingsManager settings, MainWindow mainWindow)
+    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
         {
@@ -366,7 +366,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
     {
         var filePathToLaunch = filePath;
         var selectedEmulator = emulatorComboBox?.SelectedItem.ToString();
@@ -544,7 +544,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchXblaGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task LaunchXblaGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
     {
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
@@ -721,7 +721,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchMattelAquariusGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemConfig> systemConfigs)
+    private static async Task LaunchMattelAquariusGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
     {
         var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem.ToString();
@@ -870,7 +870,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemConfig systemConfig)
+    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemManager systemManager)
     {
         var fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
 
@@ -881,7 +881,7 @@ public static class GameLauncher
                 var extractCompressedFile = new ExtractCompressedFile();
                 var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
 
-                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemConfig);
+                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))
                     return extractedFileToLaunch;
 
@@ -892,7 +892,7 @@ public static class GameLauncher
                 var extractCompressedFile = new ExtractCompressedFile();
                 var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync(filePath);
 
-                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemConfig);
+                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))
                     return extractedFileToLaunch;
 
@@ -912,7 +912,7 @@ public static class GameLauncher
 
         return null;
 
-        Task<string> ValidateAndFindGameFile(string tempExtractLocation, SystemConfig sysConfig)
+        Task<string> ValidateAndFindGameFile(string tempExtractLocation, SystemManager sysConfig)
         {
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
@@ -955,7 +955,7 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
+    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
         if (process.ExitCode == 0 && !ContainsEmulatorError(output, error)) return Task.CompletedTask;
 
@@ -994,7 +994,7 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
+    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
         if (process.ExitCode != -1073741819) return Task.FromResult(false);
 
@@ -1017,7 +1017,7 @@ public static class GameLauncher
         return Task.FromResult(true);
     }
 
-    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemConfig.Emulator emulatorConfig)
+    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
         if (process.ExitCode != -1073740791) return Task.FromResult(false);
 

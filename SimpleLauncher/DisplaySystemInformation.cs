@@ -13,7 +13,7 @@ namespace SimpleLauncher;
 
 public static class DisplaySystemInformation
 {
-    public static void DisplaySystemInfo(string systemFolder, int gameCount, SystemConfig selectedConfig, WrapPanel gameFileGrid)
+    public static void DisplaySystemInfo(string systemFolder, int gameCount, SystemManager selectedManager, WrapPanel gameFileGrid)
     {
         gameFileGrid.Children.Clear();
 
@@ -41,15 +41,15 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedConfig.SystemImageFolder ?? defaultImageFolder2}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{isthesystemMamEbased2}: {selectedConfig.SystemIsMame}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{isthesystemMamEbased2}: {selectedManager.SystemIsMame}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedConfig.FileFormatsToSearch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoSearchintheSystemFolder2}: {string.Join(", ", selectedManager.FileFormatsToSearch)}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extractFileBeforeLaunch2}: {selectedConfig.ExtractFileBeforeLaunch}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{extractFileBeforeLaunch2}: {selectedManager.ExtractFileBeforeLaunch}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedConfig.FileFormatsToLaunch)}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{extensiontoLaunchAfterExtraction2}: {string.Join(", ", selectedManager.FileFormatsToLaunch)}"));
         verticalStackPanel.Children.Add(systemInfoTextBlock);
 
         var totalGamesCount2 = (string)Application.Current.TryFindResource("TotalGamesCount") ?? "Number of games in the System Folder: {0}";
@@ -61,10 +61,10 @@ public static class DisplaySystemInformation
         verticalStackPanel.Children.Add(gameCountTextBlock);
 
         // Determine the image folder to search
-        var imageFolderPath = selectedConfig.SystemImageFolder;
+        var imageFolderPath = selectedManager.SystemImageFolder;
         if (string.IsNullOrWhiteSpace(imageFolderPath))
         {
-            imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName);
+            imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName);
         }
 
         var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
@@ -93,7 +93,7 @@ public static class DisplaySystemInformation
         var receiveNotificationEmulatorError2 = (string)Application.Current.TryFindResource("receiveNotificationEmulatorError") ?? "Receive a Notification on Emulator Error?";
 
         // Dynamically create and add a TextBlock for each emulator to the vertical StackPanel
-        foreach (var emulator in selectedConfig.Emulators)
+        foreach (var emulator in selectedManager.Emulators)
         {
             var emulatorInfoTextBlock = new TextBlock();
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
@@ -111,10 +111,10 @@ public static class DisplaySystemInformation
         gameFileGrid.Children.Add(verticalStackPanel);
 
         // Validate the System
-        ValidateSystemConfiguration(systemFolder, selectedConfig);
+        ValidateSystemConfiguration(systemFolder, selectedManager);
     }
 
-    private static void ValidateSystemConfiguration(string systemFolder, SystemConfig selectedConfig)
+    private static void ValidateSystemConfiguration(string systemFolder, SystemManager selectedManager)
     {
         var errorMessages = new StringBuilder();
         var hasErrors = false;
@@ -128,15 +128,15 @@ public static class DisplaySystemInformation
         }
 
         // Validate the system image folder path if it's provided. Allow null or empty.
-        if (!string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder) && !CheckPaths.IsValidPath(selectedConfig.SystemImageFolder))
+        if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder) && !CheckPaths.IsValidPath(selectedManager.SystemImageFolder))
         {
             var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
-            errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{systemImageFolderpathisnotvalid2} '{selectedConfig.SystemImageFolder}'\n\n");
+            errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{systemImageFolderpathisnotvalid2} '{selectedManager.SystemImageFolder}'\n\n");
         }
 
         // Validate each emulator's location path if it's provided. Allow null or empty.
-        foreach (var emulator in selectedConfig.Emulators)
+        foreach (var emulator in selectedManager.Emulators)
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
                 CheckPaths.IsValidPath(emulator.EmulatorLocation)) continue;

@@ -7,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModel;
 using Image = System.Windows.Controls.Image;
@@ -227,7 +228,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig, List<MameManager> machines)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager systemManager, List<MameManager> machines)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -241,7 +242,7 @@ public static class RightClickContextMenu
 
         try
         {
-            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemConfig);
+            var historyWindow = new RomHistoryWindow(romName, systemName, searchTerm, systemManager);
             historyWindow.Show();
         }
         catch (Exception ex)
@@ -256,10 +257,10 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemConfig systemConfig)
+    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemManager systemManager)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemImageFolder = systemConfig.SystemImageFolder;
+        var systemImageFolder = systemManager.SystemImageFolder;
 
         // Ensure the systemImageFolder considers both absolute and relative paths
         if (!Path.IsPathRooted(systemImageFolder))
@@ -544,7 +545,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithoutExtension
-    public static async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemConfig systemConfig, Button button, MainWindow mainWindow)
+    public static async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemManager systemManager, Button button, MainWindow mainWindow)
     {
         try
         {
@@ -558,9 +559,9 @@ public static class RightClickContextMenu
                 // ignore
             }
 
-            var systemName = systemConfig.SystemName;
+            var systemName = systemManager.SystemName;
             var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var systemImageFolder = systemConfig.SystemImageFolder;
+            var systemImageFolder = systemManager.SystemImageFolder;
 
             if (string.IsNullOrEmpty(systemImageFolder))
             {

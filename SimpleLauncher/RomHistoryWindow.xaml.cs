@@ -16,16 +16,16 @@ public partial class RomHistoryWindow
     private readonly string _romName;
     private readonly string _systemName;
     private readonly string _searchTerm;
-    private readonly SystemConfig _systemConfig;
+    private readonly SystemManager _systemManager;
 
-    public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemConfig systemConfig)
+    public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemManager systemManager)
     {
         InitializeComponent();
 
         _romName = romName;
         _systemName = systemName;
         _searchTerm = searchTerm;
-        _systemConfig = systemConfig;
+        _systemManager = systemManager;
 
         RomNameTextBox.Text = _romName;
         RomDescriptionTextBox.Text = _searchTerm;
@@ -80,7 +80,7 @@ public partial class RomHistoryWindow
                 RomNameTextBox.Text = _romName;
 
                 // Only show _searchTerm in RomDescriptionTextBox if SystemIsMame is true
-                if (_systemConfig.SystemIsMame)
+                if (_systemManager.SystemIsMame)
                 {
                     RomNameTextBox.Text = _romName;
                     RomDescriptionTextBox.Text = _searchTerm;
@@ -118,7 +118,7 @@ public partial class RomHistoryWindow
     {
         RomNameTextBox.Text = _romName;
 
-        if (_systemConfig.SystemIsMame)
+        if (_systemManager.SystemIsMame)
         {
             RomNameTextBox.Text = _romName;
             RomDescriptionTextBox.Text = _searchTerm;

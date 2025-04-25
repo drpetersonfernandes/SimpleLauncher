@@ -9,6 +9,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Image = System.Windows.Controls.Image;
 
@@ -23,7 +24,7 @@ public partial class PlayHistoryWindow
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
     private readonly SettingsManager _settings;
-    private readonly List<SystemConfig> _systemConfigs;
+    private readonly List<SystemManager> _systemConfigs;
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
@@ -31,7 +32,7 @@ public partial class PlayHistoryWindow
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public PlayHistoryWindow(List<SystemConfig> systemConfigs, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayHistoryWindow(List<SystemManager> systemConfigs, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
     {
         InitializeComponent();
 

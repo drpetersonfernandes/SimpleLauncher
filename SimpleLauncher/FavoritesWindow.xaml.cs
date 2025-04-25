@@ -19,14 +19,14 @@ public partial class FavoritesWindow
     private readonly FavoritesManager _favoritesManager;
     private ObservableCollection<Favorite> _favoriteList;
     private readonly SettingsManager _settings;
-    private readonly List<SystemConfig> _systemConfigs;
+    private readonly List<SystemManager> _systemConfigs;
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
 
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public FavoritesWindow(SettingsManager settings, List<SystemConfig> systemConfigs, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public FavoritesWindow(SettingsManager settings, List<SystemManager> systemConfigs, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
 
@@ -159,7 +159,7 @@ public partial class FavoritesWindow
     }
 
     private void AddRightClickContextMenuFavoritesWindow(string fileNameWithExtension, Favorite selectedFavorite,
-        string fileNameWithoutExtension, SystemConfig systemConfig, string filePath)
+        string fileNameWithoutExtension, SystemManager systemManager, string filePath)
     {
         var contextMenu = new ContextMenu();
 
@@ -255,7 +255,7 @@ public partial class FavoritesWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig, _machines);
+            RightClickContextMenu.OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // "Cover" MenuItem
@@ -721,15 +721,15 @@ public partial class FavoritesWindow
         }
     }
 
-    private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemConfig systemConfig)
+    private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemManager systemManager)
     {
-        systemConfig = _systemConfigs?.FirstOrDefault(config =>
+        systemManager = _systemConfigs?.FirstOrDefault(config =>
             config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
-        if (systemConfig != null) return false;
+        if (systemManager != null) return false;
 
         // Notify developer
-        const string contextMessage = "systemConfig is null.";
+        const string contextMessage = "systemManager is null.";
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

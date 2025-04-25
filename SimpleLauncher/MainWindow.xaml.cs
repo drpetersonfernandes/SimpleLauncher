@@ -12,6 +12,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ControlzEx.Theming;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Button = System.Windows.Controls.Button;
@@ -82,8 +83,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private List<string> _currentSearchResults = [];
 
     // Define and Instantiate variables
-    private List<SystemConfig> _systemConfigs;
-    private readonly CreateLetterNumberMenu _createLetterNumberMenu = new();
+    private List<SystemManager> _systemConfigs;
+    private readonly FilterMenu _filterMenu = new();
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
@@ -134,7 +135,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
         // Load and Sort _systemConfigs
-        _systemConfigs = SystemConfig.LoadSystemConfigs();
+        _systemConfigs = SystemManager.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
 
@@ -149,20 +150,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             GamePadController.Instance2.Stop();
         }
 
-        // Add _createLetterNumberMenu to the UI
+        // Add _filterMenu to the UI
         LetterNumberMenu.Children.Clear();
-        LetterNumberMenu.Children.Add(_createLetterNumberMenu.LetterPanel);
+        LetterNumberMenu.Children.Add(_filterMenu.LetterPanel);
 
-        // Create and integrate CreateLetterNumberMenu
-        _createLetterNumberMenu.OnLetterSelected += async selectedLetter =>
+        // Create and integrate FilterMenu
+        _filterMenu.OnLetterSelected += async selectedLetter =>
         {
             await Letter_Click(selectedLetter);
         };
-        _createLetterNumberMenu.OnFavoritesSelected += async () =>
+        _filterMenu.OnFavoritesSelected += async () =>
         {
             await Favorites_Click();
         };
-        _createLetterNumberMenu.OnFeelingLuckySelected += () =>
+        _filterMenu.OnFeelingLuckySelected += () =>
         {
             FeelingLucky_Click(null, null);
         };
@@ -335,7 +336,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var selectedGame = gameFiles[randomIndex];
 
                 // Reset letter selection in the UI and current search
-                _createLetterNumberMenu.DeselectLetter();
+                _filterMenu.DeselectLetter();
                 SearchTextBox.Text = "";
                 _currentSearchResults = [selectedGame];
 
@@ -625,7 +626,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         : selectedConfig.SystemImageFolder;
 
                     // Call DeselectLetter to clear any selected letter
-                    _createLetterNumberMenu.DeselectLetter();
+                    _filterMenu.DeselectLetter();
 
                     ResetPaginationButtons();
 
@@ -678,7 +679,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _createLetterNumberMenu.DeselectLetter();
+        _filterMenu.DeselectLetter();
     }
 
     private void AddNoFilesMessage()
@@ -707,7 +708,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _createLetterNumberMenu.DeselectLetter();
+        _filterMenu.DeselectLetter();
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
@@ -1008,7 +1009,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
             // ReLoad and Sort _systemConfigs
-            _systemConfigs = SystemConfig.LoadSystemConfigs();
+            _systemConfigs = SystemManager.LoadSystemConfigs();
             var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
             SystemComboBox.ItemsSource = sortedSystemNames;
 
@@ -1045,7 +1046,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         editSystemWindow.ShowDialog();
 
         // ReLoad and Sort _systemConfigs
-        _systemConfigs = SystemConfig.LoadSystemConfigs();
+        _systemConfigs = SystemManager.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
     }
@@ -1921,7 +1922,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _currentSearchResults.Clear();
 
         // Call DeselectLetter to clear any selected letter
-        _createLetterNumberMenu.DeselectLetter();
+        _filterMenu.DeselectLetter();
 
         var searchQuery = SearchTextBox.Text.Trim();
 

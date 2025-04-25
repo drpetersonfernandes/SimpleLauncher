@@ -9,7 +9,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public class SystemConfig
+public class SystemManager
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
@@ -32,7 +32,7 @@ public class SystemConfig
 
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
-    public static List<SystemConfig> LoadSystemConfigs()
+    public static List<SystemManager> LoadSystemConfigs()
     {
         if (string.IsNullOrEmpty(XmlPath))
         {
@@ -133,7 +133,7 @@ public class SystemConfig
                 return null;
             }
 
-            var systemConfigs = new List<SystemConfig>();
+            var systemConfigs = new List<SystemManager>();
             var invalidConfigs = new Dictionary<XElement, string>();
 
             // If the root is null (e.g., empty file or invalid XML structure before root), return empty list
@@ -225,7 +225,7 @@ public class SystemConfig
                     if (emulators == null || emulators.Count == 0)
                         throw new InvalidOperationException("Emulators list should not be empty or null.");
 
-                    systemConfigs.Add(new SystemConfig
+                    systemConfigs.Add(new SystemManager
                     {
                         SystemName = sysConfigElement.Element("SystemName")?.Value,
                         SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,

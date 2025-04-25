@@ -1,7 +1,7 @@
 using System;
 using MessagePack;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Models;
 
 [MessagePackObject]
 public class PlayHistoryItem

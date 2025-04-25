@@ -14,21 +14,21 @@ public static class FindCoverImage
     // Define the maximum prefix length for Winkler adjustment
     private const int MaxPrefixLength = 4;
 
-    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemConfig systemConfig)
+    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
         string[] imageExtensions = [".png", ".jpg", ".jpeg"];
 
         string systemImagePath;
-        if (string.IsNullOrEmpty(systemConfig?.SystemImageFolder))
+        if (string.IsNullOrEmpty(systemManager?.SystemImageFolder))
         {
             systemImagePath = Path.Combine(applicationPath, "images", systemName);
         }
         else
         {
-            systemImagePath = Path.IsPathRooted(systemConfig.SystemImageFolder)
-                ? systemConfig.SystemImageFolder // If already absolute
-                : Path.Combine(applicationPath, systemConfig.SystemImageFolder); // Make it absolute
+            systemImagePath = Path.IsPathRooted(systemManager.SystemImageFolder)
+                ? systemManager.SystemImageFolder // If already absolute
+                : Path.Combine(applicationPath, systemManager.SystemImageFolder); // Make it absolute
         }
 
         // 1. Check for exact match first
