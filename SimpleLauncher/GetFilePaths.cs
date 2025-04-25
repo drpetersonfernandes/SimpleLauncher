@@ -7,7 +7,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public abstract class FileManager
+public abstract class GetFilePaths
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 

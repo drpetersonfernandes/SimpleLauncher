@@ -66,14 +66,17 @@ public class SystemConfig
                                 try
                                 {
                                     // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
-                                    File.Copy(mostRecentBackupFile, XmlPath, true);
+                                    IoOperations.FileCopy(mostRecentBackupFile, XmlPath, true);
+
                                     backupRestored = true;
                                 }
                                 catch (Exception ex)
                                 {
-                                    // Notify developer and user if backup restoration fails
+                                    // Notify developer
                                     const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
                                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                                    // Notify user
                                     MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
                                     // backupRestored remains false, proceed to create empty file
                                 }

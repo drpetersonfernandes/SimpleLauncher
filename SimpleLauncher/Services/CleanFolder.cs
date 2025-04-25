@@ -40,13 +40,13 @@ public static class CleanFolder
             var trackingFile = Path.Combine(directoryPath, ".extraction_in_progress");
             if (File.Exists(trackingFile))
             {
-                File.Delete(trackingFile);
+                DeleteFiles.TryDeleteFile(trackingFile);
             }
 
             // Delete all files in the directory
             foreach (var file in Directory.GetFiles(directoryPath))
             {
-                File.Delete(file);
+                DeleteFiles.TryDeleteFile(file);
             }
 
             // Recursively delete subdirectories

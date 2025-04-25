@@ -112,7 +112,7 @@ public class ExtractCompressedFile
             tempDirectory = Path.Combine(safeTempFolder, randomName);
             try
             {
-                Directory.CreateDirectory(tempDirectory);
+                IoOperations.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
@@ -302,7 +302,7 @@ public class ExtractCompressedFile
             tempDirectory = Path.Combine(safeTempFolder, randomName);
             try
             {
-                Directory.CreateDirectory(tempDirectory);
+                IoOperations.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
@@ -355,7 +355,7 @@ public class ExtractCompressedFile
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
-                            Directory.CreateDirectory(entryDirectoryPath);
+                            IoOperations.CreateDirectory(entryDirectoryPath);
                         }
 
                         // Skip directories (folders are already created above)
@@ -482,7 +482,7 @@ public class ExtractCompressedFile
         try
         {
             // Create the destination directory if it doesn't exist
-            Directory.CreateDirectory(destinationFolder);
+            IoOperations.CreateDirectory(destinationFolder);
 
             // Create a tracking directory to detect partial extraction
             var extractionTrackingFile = Path.Combine(destinationFolder, ".extraction_in_progress");
@@ -553,14 +553,7 @@ public class ExtractCompressedFile
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
-                            try
-                            {
-                                Directory.CreateDirectory(entryDirectoryPath);
-                            }
-                            catch (Exception ex)
-                            {
-                                throw new IOException($"Could not create the necessary directory: {ex.Message}");
-                            }
+                            IoOperations.CreateDirectory(entryDirectoryPath);
                         }
 
                         // Skip directories (folders are already created above)

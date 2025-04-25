@@ -239,7 +239,7 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             if (!Directory.Exists(extractionFolder))
             {
-                Directory.CreateDirectory(extractionFolder);
+                IoOperations.CreateDirectory(extractionFolder);
             }
         }
         catch (Exception ex)

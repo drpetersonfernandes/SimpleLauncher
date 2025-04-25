@@ -41,7 +41,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
             // so explicit range validation here is mostly for robustness,
             // though technically redundant if the slider min/max are correct.
             // We'll keep a simple check.
-            if (newThreshold is >= 0.7 and <= 1.0)
+            if (newThreshold is >= 0.7 and <= 0.95)
             {
                 // Update the setting
                 _settings.FuzzyMatchingThreshold = newThreshold;

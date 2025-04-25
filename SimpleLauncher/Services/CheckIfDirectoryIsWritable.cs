@@ -21,7 +21,7 @@ public static class CheckIfDirectoryIsWritable
                 fs.Close();
             }
 
-            File.Delete(testFile);
+            DeleteFiles.TryDeleteFile(testFile);
 
             return true;
         }

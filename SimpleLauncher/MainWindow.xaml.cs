@@ -319,7 +319,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 {
                     var systemFolderPath = selectedConfig.SystemFolder;
                     var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
-                    gameFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
+                    gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
 
                 // Check if we have any games after filtering
@@ -477,6 +477,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // Dispose tray icon resources
         _trayIconManager?.Dispose();
+
+        // Dispose instances of HttpClient
+        Stats.DisposeHttpClient();
+        UpdateChecker.DisposeHttpClient();
     }
 
     private List<string> GetFavoriteGamesForSelectedSystem()
@@ -787,13 +791,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 else
                 {
                     // Fall back to scanning the folder if no cache is available
-                    allFiles = await FileManager.GetFilesAsync(systemFolderPath, fileExtensions);
+                    allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
 
                 // Filter by TopMenu Letter if specified
                 if (!string.IsNullOrWhiteSpace(startLetter))
                 {
-                    allFiles = await FileManager.FilterFilesAsync(allFiles, startLetter);
+                    allFiles = await GetFilePaths.FilterFilesAsync(allFiles, startLetter);
                 }
 
                 // Process search query (from SearchBox)

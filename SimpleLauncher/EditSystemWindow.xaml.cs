@@ -236,13 +236,13 @@ public partial class EditSystemWindow
         // Create SystemFolder default
         if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
         {
-            Directory.CreateDirectory(SystemFolderTextBox.Text);
+            IoOperations.CreateDirectory(SystemFolderTextBox.Text);
         }
 
         // Create SystemImageFolder default
         if (SystemImageFolderTextBox.Text == $".\\images\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemImageFolderTextBox.Text))
         {
-            Directory.CreateDirectory(SystemImageFolderTextBox.Text);
+            IoOperations.CreateDirectory(SystemImageFolderTextBox.Text);
         }
 
         // Validate System Folder and System Image Folder
@@ -966,16 +966,7 @@ public partial class EditSystemWindow
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemImageFolderText))
             {
-                try
-                {
-                    Directory.CreateDirectory(systemImageFolderText);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "'Failed to create the default systemImageFolder.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
+                IoOperations.CreateDirectory(systemImageFolderText);
             }
         }
 
@@ -998,16 +989,7 @@ public partial class EditSystemWindow
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemFolderText))
             {
-                try
-                {
-                    Directory.CreateDirectory(systemFolderText);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Failed to create the default systemFolder.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
+                IoOperations.CreateDirectory(systemFolderText);
             }
         }
 
@@ -1054,7 +1036,7 @@ public partial class EditSystemWindow
             // Ensure the parent directory exists
             if (!Directory.Exists(parentDirectory))
             {
-                Directory.CreateDirectory(parentDirectory);
+                IoOperations.CreateDirectory(parentDirectory);
             }
 
             // Use SystemName as the name for the new folder inside the parent directory
@@ -1065,7 +1047,8 @@ public partial class EditSystemWindow
                 // Check if the folder exists and create it if it doesn't
                 if (!Directory.Exists(newFolderPath))
                 {
-                    Directory.CreateDirectory(newFolderPath);
+                    IoOperations.CreateDirectory(newFolderPath);
+
                     if (folderName == "images")
                     {
                         // Notify user
@@ -1149,10 +1132,9 @@ public partial class EditSystemWindow
         var backupFileName = $"system_backup{DateTime.Now:yyyyMMdd_HHmmss}.xml";
         var backupFilePath = Path.Combine(appFolderPath, backupFileName);
 
-        if (File.Exists(sourceFilePath))
-        {
-            File.Copy(sourceFilePath, backupFilePath);
-        }
+        if (!File.Exists(sourceFilePath)) return;
+
+        IoOperations.FileCopy(sourceFilePath, backupFilePath, true);
     }
 
     private void HelpLink_Click(object sender, RoutedEventArgs e)

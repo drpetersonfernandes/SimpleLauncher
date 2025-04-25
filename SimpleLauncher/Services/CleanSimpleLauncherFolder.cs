@@ -57,7 +57,7 @@ public static class CleanSimpleLauncherFolder
 
         try
         {
-            File.Delete(path);
+            DeleteFiles.TryDeleteFile(path);
         }
         catch (Exception)
         {

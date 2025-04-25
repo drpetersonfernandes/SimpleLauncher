@@ -66,7 +66,7 @@ public class DownloadManager : IDisposable
     {
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        Directory.CreateDirectory(TempFolder);
+        IoOperations.CreateDirectory(TempFolder);
 
         // Initialize the HTTP client with custom handler for TLS configuration
         var handler = new HttpClientHandler();

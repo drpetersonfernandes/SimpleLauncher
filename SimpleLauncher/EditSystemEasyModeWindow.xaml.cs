@@ -246,7 +246,8 @@ public partial class EditSystemEasyModeWindow : IDisposable
                     {
                         if (File.Exists(downloadedFile) && !File.Exists(newFilePath))
                         {
-                            File.Move(downloadedFile, newFilePath);
+                            IoOperations.FileMove(downloadedFile, newFilePath, true);
+
                             downloadedFile = newFilePath;
                         }
                     }
@@ -268,7 +269,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
                     {
                         try
                         {
-                            File.Delete(downloadedFile);
+                            DeleteFiles.TryDeleteFile(downloadedFile);
                         }
                         catch
                         {
@@ -559,13 +560,13 @@ public partial class EditSystemEasyModeWindow : IDisposable
             // Create the primary system folder if it doesn't exist
             if (!Directory.Exists(systemFolderPath))
             {
-                Directory.CreateDirectory(systemFolderPath);
+                IoOperations.CreateDirectory(systemFolderPath);
             }
 
             // Create the primary image folder if it doesn't exist
             if (!Directory.Exists(imagesFolderPath))
             {
-                Directory.CreateDirectory(imagesFolderPath);
+                IoOperations.CreateDirectory(imagesFolderPath);
             }
 
             // Create each additional folder
@@ -574,7 +575,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
                 var folderPath = Path.Combine(baseDirectory, folder, systemName);
                 if (!Directory.Exists(folderPath))
                 {
-                    Directory.CreateDirectory(folderPath);
+                    IoOperations.CreateDirectory(folderPath);
                 }
             }
         }

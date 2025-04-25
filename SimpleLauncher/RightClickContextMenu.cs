@@ -565,7 +565,7 @@ public static class RightClickContextMenu
             if (string.IsNullOrEmpty(systemImageFolder))
             {
                 systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
-                Directory.CreateDirectory(systemImageFolder);
+                IoOperations.CreateDirectory(systemImageFolder);
             }
 
             // Wait for the Game or Emulator to launch
@@ -632,7 +632,7 @@ public static class RightClickContextMenu
             // Update the button's image
             try
             {
-                if (button.Content is Grid grid)
+                if (button?.Content is Grid grid)
                 {
                     var stackPanel = grid.Children.OfType<StackPanel>().FirstOrDefault();
                     var imageControl = stackPanel?.Children.OfType<Image>().FirstOrDefault();
@@ -680,7 +680,7 @@ public static class RightClickContextMenu
             {
                 try
                 {
-                    File.Delete(filePath);
+                    DeleteFiles.TryDeleteFile(filePath);
 
                     PlayClick.PlayTrashSound();
 

@@ -24,7 +24,7 @@ public class CacheManager
 
         try
         {
-            Directory.CreateDirectory(cacheDir);
+            IoOperations.CreateDirectory(cacheDir);
         }
         catch (Exception ex)
         {

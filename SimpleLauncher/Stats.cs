@@ -152,4 +152,10 @@ public static class Stats
     {
         return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
     }
+
+    public static void DisposeHttpClient()
+    {
+        _httpClient?.Dispose();
+        _httpClient = null;
+    }
 }

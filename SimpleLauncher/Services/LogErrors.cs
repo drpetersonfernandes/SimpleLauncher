@@ -73,7 +73,7 @@ public static class LogErrors
                 {
                     try
                     {
-                        File.Delete(errorLogPath);
+                        DeleteFiles.TryDeleteFile(errorLogPath);
                     }
                     catch (Exception)
                     {

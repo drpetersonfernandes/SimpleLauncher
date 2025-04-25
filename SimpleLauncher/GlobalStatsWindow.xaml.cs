@@ -104,7 +104,7 @@ public partial class GlobalStatsWindow
         foreach (var config in _systemConfigs)
         {
             // Asynchronous file count and base filenames of ROMs/ISOs
-            var romFiles = await FileManager.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList());
+            var romFiles = await GetFilePaths.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList());
 
             // Create a case-insensitive HashSet for ROM base filenames
             var romFileBaseNames = new HashSet<string>(
@@ -286,7 +286,7 @@ public partial class GlobalStatsWindow
                 matchedRomName + Path.GetExtension(imageFile));
             try
             {
-                File.Move(imageFile, newImagePath);
+                IoOperations.FileMove(imageFile, newImagePath, true);
             }
             catch (Exception ex)
             {

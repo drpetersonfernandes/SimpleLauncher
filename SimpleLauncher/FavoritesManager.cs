@@ -69,12 +69,12 @@ public class FavoritesManager
         try
         {
             // Delete the marker first
-            File.Delete(markerPath);
+            DeleteFiles.TryDeleteFile(markerPath);
 
             // Then try to delete the XML file
             if (File.Exists(XmlFilePath))
             {
-                File.Delete(XmlFilePath);
+                DeleteFiles.TryDeleteFile(XmlFilePath);
             }
         }
         catch (Exception ex)
