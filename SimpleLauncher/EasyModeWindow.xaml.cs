@@ -13,7 +13,7 @@ using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
-public partial class EditSystemEasyModeWindow : IDisposable
+public partial class EasyModeWindow : IDisposable
 {
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
@@ -42,7 +42,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
         }
     }
 
-    public EditSystemEasyModeWindow()
+    public EasyModeWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -70,7 +70,7 @@ public partial class EditSystemEasyModeWindow : IDisposable
     /// - The dropdown is populated with a sorted list of valid system names. If no valid systems are found,
     /// the dropdown is left empty.
     /// Applies to:
-    /// - The method is specifically designed for use in the `EditSystemEasyModeWindow` class and interacts
+    /// - The method is specifically designed for use in the `EasyModeWindow` class and interacts
     /// with its UI components
     private void PopulateSystemDropdown()
     {

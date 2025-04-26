@@ -986,7 +986,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             AddNoSystemMessage();
 
-            EditSystemEasyModeWindow editSystemEasyModeAddSystemWindow = new();
+            EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
             // ReLoad and Sort _systemConfigs
@@ -1060,7 +1060,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            EditLinksWindow editLinksWindow = new(_settings);
+            SetLinksWindow editLinksWindow = new(_settings);
             editLinksWindow.ShowDialog();
 
             // Refresh GameList

@@ -2,11 +2,11 @@ using System.Windows;
 
 namespace SimpleLauncher;
 
-public partial class EditLinksWindow
+public partial class SetLinksWindow
 {
     private readonly SettingsManager _settingsManager;
 
-    public EditLinksWindow(SettingsManager settingsManager)
+    public SetLinksWindow(SettingsManager settingsManager)
     {
         InitializeComponent();
 
@@ -35,6 +35,8 @@ public partial class EditLinksWindow
 
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
+
+        Close();
     }
 
     private void RevertLinksButton_Click(object sender, RoutedEventArgs e)
@@ -49,6 +51,8 @@ public partial class EditLinksWindow
 
         // Notify user
         MessageBoxLibrary.LinksRevertedMessageBox();
+
+        Close();
     }
 
     private static string EncodeForXml(string input)

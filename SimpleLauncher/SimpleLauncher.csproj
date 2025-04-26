@@ -845,7 +845,7 @@
   </ItemGroup>
   <ItemGroup>
     <Page Remove="database\**" />
-    <Page Update="EditSystemEasyModeWindow.xaml">
+    <Page Update="EasyModeWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
