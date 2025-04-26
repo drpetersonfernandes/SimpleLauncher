@@ -761,8 +761,17 @@ public static class GameLauncher
                 var gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
                 var arguments = $"{parameters} {gameFilenameWithoutExtension}";
 
+                // Check programLocation
+                if (string.IsNullOrEmpty(programLocation))
+                {
+                    return;
+                }
+
                 // Check workingDirectory
-                if (await CheckForWorkingDirectory(workingDirectory)) return;
+                if (await CheckForWorkingDirectory(workingDirectory))
+                {
+                    return;
+                }
 
                 if (workingDirectory != null)
                 {

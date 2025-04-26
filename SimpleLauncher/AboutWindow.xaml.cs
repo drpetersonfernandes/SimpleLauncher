@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Diagnostics;
-using System.Reflection;
 using System.Windows;
 using System.Windows.Navigation;
 using SimpleLauncher.Services;
@@ -12,10 +11,11 @@ public partial class AboutWindow
     public AboutWindow()
     {
         InitializeComponent();
+
         App.ApplyThemeToWindow(this);
         DataContext = this;
 
-        AppVersionTextBlock.Text = ApplicationVersion;
+        AppVersionTextBlock.Text = GetApplicationVersion.GetVersion;
     }
 
     private void CloseButton_Click(object sender, RoutedEventArgs e)
@@ -63,17 +63,6 @@ public partial class AboutWindow
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
-        }
-    }
-
-    private static string ApplicationVersion
-    {
-        get
-        {
-            var version2 = (string)Application.Current.TryFindResource("Version") ?? "Version:";
-            var unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
-            var version = Assembly.GetExecutingAssembly().GetName().Version;
-            return $"{version2} " + (version?.ToString() ?? unknown2);
         }
     }
 

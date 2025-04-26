@@ -2,6 +2,7 @@
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
+using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -13,7 +14,7 @@ namespace SimpleLauncher;
 
 public partial class SupportWindow
 {
-    private static readonly HttpClient HttpClient = new();
+    private static HttpClient _httpClient = new();
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
 
@@ -23,8 +24,15 @@ public partial class SupportWindow
         App.ApplyThemeToWindow(this);
         DataContext = this;
 
-        // Load the API key and base URL
+        InitializeHttpClient();
         LoadConfiguration();
+    }
+
+    private static void InitializeHttpClient()
+    {
+        var handler = new HttpClientHandler();
+        handler.SslProtocols = SslProtocols.Tls12;
+        _httpClient = new HttpClient(handler);
     }
 
     private static void LoadConfiguration()
@@ -34,7 +42,7 @@ public partial class SupportWindow
         {
             var config = JObject.Parse(File.ReadAllText(configFile));
             ApiKey = config[nameof(ApiKey)]?.ToString();
-            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "https://www.purelogiccode.com/customeremailservice"; // Default if not specified
+            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "https://www.purelogiccode.com/customeremailservice";
         }
         else
         {
@@ -123,11 +131,11 @@ public partial class SupportWindow
             "application/json");
 
         // Set the API Key from the loaded configuration
-        HttpClient.DefaultRequestHeaders.Remove("X-API-KEY");
+        _httpClient.DefaultRequestHeaders.Remove("X-API-KEY");
 
         if (!string.IsNullOrEmpty(ApiKey))
         {
-            HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+            _httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
         }
         else
         {
@@ -138,6 +146,7 @@ public partial class SupportWindow
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
+
             return;
         }
 
@@ -146,7 +155,7 @@ public partial class SupportWindow
             // Construct the full API URL
             var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}/api/send-customer-email";
 
-            using var response = await HttpClient.PostAsync(apiUrl, jsonContent);
+            using var response = await _httpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -159,7 +168,7 @@ public partial class SupportWindow
             }
             else
             {
-                // Get error details from response
+                // Get error details from the response
                 var errorContent = await response.Content.ReadAsStringAsync();
 
                 // Notify developer
@@ -210,5 +219,11 @@ public partial class SupportWindow
         MessageBoxLibrary.EnterSupportRequestMessageBox();
 
         return true;
+    }
+
+    public static void DisposeHttpClient()
+    {
+        _httpClient?.Dispose();
+        _httpClient = null;
     }
 }

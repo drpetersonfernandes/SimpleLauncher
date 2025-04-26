@@ -118,8 +118,13 @@ public partial class PlayHistoryWindow
             // This will put unparseable dates at the end of the sorted list
             return DateTime.MinValue;
         }
-        catch
+        catch (Exception ex)
         {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error parsing date and time.\n" +
+                                            $"dateStr: {dateStr}\n" +
+                                            $"timeStr: {timeStr}");
+
             // In case of any exception, return a reasonable default
             return DateTime.MinValue;
         }
@@ -164,7 +169,7 @@ public partial class PlayHistoryWindow
         }
         else
         {
-            // Notify user to select a history item first
+            // Notify the user to select a history item first
             MessageBoxLibrary.SelectAHistoryItemMessageBox();
         }
     }

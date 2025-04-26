@@ -465,25 +465,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings.Save();
     }
 
-    private void MainWindow_Closing(object sender, CancelEventArgs e)
-    {
-        SaveApplicationSettings();
-
-        // Delete temp folders and files before close
-        CleanSimpleLauncherFolder.CleanupTrash();
-
-        // Dispose gamepad resources
-        GamePadController.Instance2.Stop();
-        GamePadController.Instance2.Dispose();
-
-        // Dispose tray icon resources
-        _trayIconManager?.Dispose();
-
-        // Dispose instances of HttpClient
-        Stats.DisposeHttpClient();
-        UpdateChecker.DisposeHttpClient();
-    }
-
     private List<string> GetFavoriteGamesForSelectedSystem()
     {
         // Reload favorites to ensure we have the latest data
@@ -2016,6 +1997,37 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     #endregion
 
+    private void MainWindow_Closing(object sender, CancelEventArgs e)
+    {
+        SaveApplicationSettings();
+
+        // Delete temp folders and files before close
+        CleanSimpleLauncherFolder.CleanupTrash();
+
+        // Dispose gamepad resources
+        GamePadController.Instance2.Stop();
+        GamePadController.Instance2.Dispose();
+
+        // Dispose tray icon resources
+        _trayIconManager?.Dispose();
+
+        // Dispose instances of HttpClient
+        Stats.DisposeHttpClient();
+        UpdateChecker.DisposeHttpClient();
+        SupportWindow.DisposeHttpClient();
+
+        // Stop Controller Timer
+        StopControllerTimer();
+    }
+
+    private void StopControllerTimer()
+    {
+        if (_controllerCheckTimer == null) return;
+
+        _controllerCheckTimer.Stop();
+        _controllerCheckTimer = null;
+    }
+
     public void Dispose()
     {
         // Stop and dispose timers
@@ -2025,35 +2037,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _controllerCheckTimer = null;
         }
 
-        // // Dispose CacheManager
-        // _cacheManager?.Dispose();
-
         // Dispose TrayIconManager
         _trayIconManager?.Dispose();
-
-        // // Dispose PlayHistoryManager
-        // _playHistoryManager?.Dispose();
-        //
-        // // Dispose FavoritesManager
-        // _favoritesManager?.Dispose();
-        //
-        // // Dispose GameListFactory
-        // _gameListFactory?.Dispose();
-        //
-        // // Dispose GameButtonFactory
-        // _gameButtonFactory?.Dispose();
-
-        // // Dispose MameManagers
-        // if (_machines != null)
-        // {
-        //     foreach (var machine in _machines)
-        //     {
-        //         machine?.Dispose();
-        //     }
-        // }
-
-        // // Dispose SettingsManager
-        // _settings?.Dispose();
 
         // Clean up collections
         GameListItems?.Clear();

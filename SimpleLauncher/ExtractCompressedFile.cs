@@ -446,7 +446,7 @@ public class ExtractCompressedFile
         }
 
         // Check if the file is locked
-        if (IsFileLocked(filePath))
+        if (CheckForFileLock.IsFileLocked(filePath))
         {
             // Notify developer
             var contextMessage = $"The downloaded file appears to be locked: {filePath}";
@@ -659,27 +659,6 @@ public class ExtractCompressedFile
         }
 
         return sb.ToString();
-    }
-
-    // Check if the file is locked by antivirus software
-    private static bool IsFileLocked(string filePath)
-    {
-        if (!File.Exists(filePath))
-            return false;
-
-        try
-        {
-            using FileStream stream = new(filePath, FileMode.Open, FileAccess.ReadWrite, FileShare.ReadWrite);
-            return false;
-        }
-        catch (IOException)
-        {
-            return true;
-        }
-        catch (UnauthorizedAccessException)
-        {
-            return true;
-        }
     }
 
     private static string EscapeCommandLineArgument(string arg)
