@@ -253,12 +253,14 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
     {
-        // Update the progress bar
-        DownloadProgressBar.Value = e.ProgressPercentage;
-
-        // Update status text
-        UpdateStatus(e.StatusMessage);
+        Dispatcher.InvokeAsync(() =>
+            {
+                DownloadProgressBar.Value = e.ProgressPercentage;
+                UpdateStatus(e.StatusMessage);
+            }
+        );
     }
+
 
     private void UpdateStatus(string message)
     {

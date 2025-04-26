@@ -119,7 +119,14 @@ public class SystemManager
 
             try
             {
-                doc = XDocument.Load(XmlPath);
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using var reader = XmlReader.Create(XmlPath, settings);
+                doc = XDocument.Load(reader);
             }
             catch (XmlException ex)
             {

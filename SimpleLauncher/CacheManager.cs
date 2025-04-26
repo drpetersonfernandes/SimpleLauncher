@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Threading;
 using System.Threading.Tasks;
 using MessagePack;
 using SimpleLauncher.Services;
@@ -11,6 +12,7 @@ public class CacheManager
 {
     private const string CacheDirectory = "cache";
     private readonly Dictionary<string, List<string>> _cachedGameFiles = new();
+    private readonly Lock _cacheLock = new();
 
     public CacheManager()
     {
@@ -41,23 +43,24 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null || gameCount == 0)
         {
-            // Return an empty list
-            return [];
+            return new List<string>();
         }
 
         var cacheFilePath = GetCacheFilePath(systemName);
 
-        // Check if cache exists
-        if (!File.Exists(cacheFilePath)) return await RebuildCache(systemName, systemFolderPath, fileExtensions);
+        if (!File.Exists(cacheFilePath))
+            return await RebuildCache(systemName, systemFolderPath, fileExtensions);
 
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
 
-        // Compare file count (using `gameCount` from MainWindow)
-        // If cache doesn't exist or count differs, rebuild cache
         if (cachedData.FileCount != gameCount)
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
 
-        _cachedGameFiles[systemName] = cachedData.FileNames;
+        lock (_cacheLock)
+        {
+            _cachedGameFiles[systemName] = cachedData.FileNames;
+        }
+
         return cachedData.FileNames;
     }
 
@@ -68,8 +71,7 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null)
         {
-            // Return an empty list
-            return [];
+            return new List<string>();
         }
 
         var files = await Task.Run(() =>
@@ -79,7 +81,6 @@ public class CacheManager
             {
                 foreach (var extension in fileExtensions)
                 {
-                    // Ensure the extension is in search pattern format.
                     var searchPattern = extension.StartsWith('*') ? extension : "*." + extension;
                     var foundFiles = Directory.EnumerateFiles(systemFolderPath, searchPattern, SearchOption.TopDirectoryOnly);
                     fileList.AddRange(foundFiles);
@@ -87,7 +88,6 @@ public class CacheManager
             }
             catch (Exception ex)
             {
-                // Notify developer
                 var contextMessage = $"Error caching files for {systemName}.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
@@ -97,11 +97,14 @@ public class CacheManager
 
         if (files == null)
         {
-            // Return an empty list
-            return [];
+            return new List<string>();
         }
 
-        _cachedGameFiles[systemName] = files;
+        lock (_cacheLock)
+        {
+            _cachedGameFiles[systemName] = files;
+        }
+
         await SaveCacheToDisk(systemName, files);
 
         return files;
@@ -166,7 +169,10 @@ public class CacheManager
     /// </summary>
     public List<string> GetCachedFiles(string systemName)
     {
-        return _cachedGameFiles.TryGetValue(systemName, out var files) ? files : [];
+        lock (_cacheLock)
+        {
+            return _cachedGameFiles.TryGetValue(systemName, out var files) ? files : new List<string>();
+        }
     }
 }
 

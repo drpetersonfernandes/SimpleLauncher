@@ -392,11 +392,11 @@ public partial class EditSystemEasyModeWindow : IDisposable
 
     private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
     {
-        // Update progress bar
-        DownloadProgressBar.Value = e.ProgressPercentage;
-
-        // Update status
-        DownloadStatus = e.StatusMessage;
+        Dispatcher.InvokeAsync(() =>
+        {
+            DownloadProgressBar.Value = e.ProgressPercentage;
+            DownloadStatus = e.StatusMessage;
+        });
     }
 
     private EasyModeSystemConfig GetSelectedSystem()
