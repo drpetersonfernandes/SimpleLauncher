@@ -1012,6 +1012,11 @@ Core may require BIOS files or system files to work properly.
 Core documentation can be found at [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
 ## Nintendo Game Boy Advance
 
 **Double-check the file and folder paths when entering them into 'Simple Launcher', especially in the Parameters field.**
@@ -1055,6 +1060,11 @@ Core may require BIOS files or system files to work properly.
 
 Core documentation can be found at [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 ## Nintendo GameCube
 
@@ -1118,6 +1128,11 @@ Core documentation can be found at [Libretro Website](https://docs.libretro.com/
 
 Emulator documentation can be found at [Mednafen Website](https://mednafen.github.io/documentation/).
 
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
 ## Nintendo Satellaview
 
 **Double-check the file and folder paths when entering them into 'Simple Launcher', especially in the Parameters field.**
@@ -1173,6 +1188,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** c:\emulators\snes9x\snes9x-x64.exe<br>
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 ## Nintendo SNES MSU1
 
@@ -1440,6 +1460,11 @@ The list of commands available for this emulator can be found at [MasterGear Web
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
 ## Sega Genesis
 
 **Double-check the file and folder paths when entering them into 'Simple Launcher', especially in the Parameters field.**
@@ -1483,6 +1508,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
 ## Sega Genesis 32X
 
 **Double-check the file and folder paths when entering them into 'Simple Launcher', especially in the Parameters field.**
@@ -1509,6 +1539,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 ## Sega Genesis CD
 
@@ -1546,6 +1581,11 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** --fullscreen<br>
 
 The list of command-line arguments available for this emulator can be found at [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 ## Sega Master System
 
@@ -1587,6 +1627,11 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Path (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+**Emulator Name:** JGenesis<br>
+**Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
+**Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
 
 ## Sega Model 3
 

@@ -45,7 +45,7 @@ public static class Stats
     private static void InitializeHttpClient()
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = SslProtocols.Tls12;
+        handler.SslProtocols = SslProtocols.None;
         _httpClient = new HttpClient(handler);
 
         if (!string.IsNullOrEmpty(_apiKey))

@@ -72,7 +72,7 @@ public class DownloadManager : IDisposable
         var handler = new HttpClientHandler();
 
         // Configure TLS 1.2 and 1.3 if available
-        handler.SslProtocols = SslProtocols.Tls12 | SslProtocols.Tls13;
+        handler.SslProtocols = SslProtocols.None;
 
         // Initialize HTTP client
         _httpClient = new HttpClient(handler)
