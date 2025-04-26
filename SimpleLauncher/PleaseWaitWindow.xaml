@@ -13,7 +13,7 @@
 
     <Border BorderBrush="Gray" BorderThickness="1">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{DynamicResource Searchingpleasewait}" HorizontalAlignment="Center" Margin="20" />
+            <TextBlock Text="{DynamicResource Processingpleasewait}" HorizontalAlignment="Center" Margin="20" />
             <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
         </StackPanel>
     </Border>

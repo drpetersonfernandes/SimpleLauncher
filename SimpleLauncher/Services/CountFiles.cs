@@ -15,6 +15,7 @@ public class CountFiles
     {
         // Create and show the PleaseWaitWindow
         var pleaseWaitWindow = new PleaseWaitWindow();
+
         try
         {
             // Show the window on the UI thread
