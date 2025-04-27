@@ -1,3 +1,12 @@
+release3.13
+-----------
+
+04/27/2025
+- 
+- Updated emulators to the latest version.
+- Updated the MAME database to the latest version (v0.276).
+- Updated `history.xml`, available at arcade-history.com, to the latest version.
+
 release3.12
 -----------
 

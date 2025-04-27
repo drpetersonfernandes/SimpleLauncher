@@ -26,7 +26,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
         CurrentThresholdLabel.Content = _settings.FuzzyMatchingThreshold.ToString("P0", CultureInfo.InvariantCulture);
 
         // Set the slider's initial value
-        // Ensure the initial value is within the slider's min/max range (0.7 to 1.0)
+        // Ensure the initial value is within the slider's min/max range (0.7 to 0.95)
         ThresholdSlider.Value = Math.Max(ThresholdSlider.Minimum, Math.Min(ThresholdSlider.Maximum, _settings.FuzzyMatchingThreshold));
     }
 
@@ -37,7 +37,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
             // Get the value directly from the slider
             var newThreshold = ThresholdSlider.Value;
 
-            // The slider already constrains the value between 0.7 and 1.0,
+            // The slider already constrains the value between 0.7 and 0.95,
             // so explicit range validation here is mostly for robustness,
             // though technically redundant if the slider min/max are correct.
             // We'll keep a simple check.
