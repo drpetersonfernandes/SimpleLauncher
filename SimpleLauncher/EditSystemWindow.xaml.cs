@@ -154,6 +154,7 @@ public partial class EditSystemWindow
                     Emulator2PathTextBox.Text = emulator2.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator2ParametersTextBox.Text = emulator2.Element("EmulatorParameters")?.Value ?? string.Empty;
 
+                    // Get the notification value, default to "false" if not found
                     var receiveNotificationValue = emulator2.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
                         ? "true"
                         : "false";
@@ -175,6 +176,7 @@ public partial class EditSystemWindow
                     Emulator3PathTextBox.Text = emulator3.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator3ParametersTextBox.Text = emulator3.Element("EmulatorParameters")?.Value ?? string.Empty;
 
+                    // Get the notification value, default to "false" if not found
                     var receiveNotificationValue = emulator3.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
                         ? "true"
                         : "false";
@@ -196,6 +198,7 @@ public partial class EditSystemWindow
                     Emulator4PathTextBox.Text = emulator4.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator4ParametersTextBox.Text = emulator4.Element("EmulatorParameters")?.Value ?? string.Empty;
 
+                    // Get the notification value, default to "false" if not found
                     var receiveNotificationValue = emulator4.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
                         ? "true"
                         : "false";
@@ -217,6 +220,7 @@ public partial class EditSystemWindow
                     Emulator5PathTextBox.Text = emulator5.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator5ParametersTextBox.Text = emulator5.Element("EmulatorParameters")?.Value ?? string.Empty;
 
+                    // Get the notification value, default to "false" if not found
                     var receiveNotificationValue = emulator5.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
                         ? "true"
                         : "false";
@@ -264,37 +268,27 @@ public partial class EditSystemWindow
         HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
 
         // Update ReceiveANotificationOnEmulatorError
-        if (string.IsNullOrEmpty(Emulator1NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator1PathTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator1ParametersTextBox.Text))
+        if (string.IsNullOrEmpty(Emulator1NameTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError1.SelectedItem = null;
         }
 
-        if (string.IsNullOrEmpty(Emulator2NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator2PathTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator2ParametersTextBox.Text))
+        if (string.IsNullOrEmpty(Emulator2NameTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError2.SelectedItem = null;
         }
 
-        if (string.IsNullOrEmpty(Emulator3NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator3PathTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator3ParametersTextBox.Text))
+        if (string.IsNullOrEmpty(Emulator3NameTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError3.SelectedItem = null;
         }
 
-        if (string.IsNullOrEmpty(Emulator4NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator4PathTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator4ParametersTextBox.Text))
+        if (string.IsNullOrEmpty(Emulator4NameTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError4.SelectedItem = null;
         }
 
-        if (string.IsNullOrEmpty(Emulator5NameTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator5PathTextBox.Text) ||
-            string.IsNullOrEmpty(Emulator5ParametersTextBox.Text))
+        if (string.IsNullOrEmpty(Emulator5NameTextBox.Text))
         {
             ReceiveANotificationOnEmulatorError5.SelectedItem = null;
         }

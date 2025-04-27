@@ -557,6 +557,7 @@ The list of required files can be found at [Xemu Website](https://xemu.app/docs/
 
 The ISO file needs to be formated in XBOX format, as the original XBOX discs.
 You can find information about that at [Xemu Website](https://xemu.app/docs/disc-images/).
+You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
 
 ## Microsoft Xbox 360
 
@@ -573,22 +574,7 @@ You can find information about that at [Xemu Website](https://xemu.app/docs/disc
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-## Microsoft Xbox 360 XBLA Using Compressed Folders
-
-**Double-check file and folder paths when entering them in Simple Launcher, especially in the Parameters field. While relative paths might work, I don’t recommend using them.**
-
-**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z, rar<br>
-**Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** bin<br>
-
-**Emulator Name:** Xenia<br>
-**Emulator Path (Example):** c:\emulators\xenia\xenia.exe<br>
-**Emulator Parameters:** <br>
-**Fullscreen Parameter:** <br>
-
-## Microsoft Xbox 360 XBLA Using BAT files
+## Microsoft Xbox 360 XBLA
 
 **Double-check file and folder paths when entering them in Simple Launcher, especially in the Parameters field. While relative paths might work, I don’t recommend using them.**
 
@@ -603,7 +589,7 @@ You can find information about that at [Xemu Website](https://xemu.app/docs/disc
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-Use the 'Simple Launcher' tools menu to generate BAT files for you.
+You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
 
 ## NEC PC Engine / TurboGrafx-16
 
@@ -1185,6 +1171,7 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 Command line parameters can be found at [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
+
 Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Sega Dreamcast
@@ -1422,7 +1409,7 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-Use the 'Simple Launcher' tools menu to generate BAT files for you.
+You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
 
 ## Sega Saturn
 

@@ -146,12 +146,12 @@ public static partial class ParameterValidator
             if (File.Exists(path) || Directory.Exists(path))
                 return true;
 
-            // Try as relative to app directory
+            // Try as relative to the app directory
             var appRelativePath = Path.GetFullPath(Path.Combine(baseDir, path));
             if (File.Exists(appRelativePath) || Directory.Exists(appRelativePath))
                 return true;
 
-            // Try as relative to system folder if provided
+            // Try as relative to the system folder if provided
             if (string.IsNullOrEmpty(systemFolder)) return false;
 
             var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));

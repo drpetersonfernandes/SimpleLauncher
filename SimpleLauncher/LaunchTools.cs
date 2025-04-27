@@ -80,7 +80,7 @@ public static class LaunchTools
         }
     }
 
-    internal static void OrganizeSystemImages_Click(string selectedImageFolder, string selectedRomFolder, string logPath)
+    internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder, string logPath)
     {
         try
         {

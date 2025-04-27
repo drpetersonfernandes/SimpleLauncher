@@ -191,7 +191,7 @@ public class SettingsManager
         GamesPerPage = 100;
         ShowGames = "ShowAll";
         ViewMode = "GridView";
-        EnableGamePadNavigation = false;
+        EnableGamePadNavigation = true; // Default to enabled
         VideoUrl = "https://www.youtube.com/results?search_query=";
         InfoUrl = "https://www.igdb.com/search?q=";
         MainWindowWidth = 900;

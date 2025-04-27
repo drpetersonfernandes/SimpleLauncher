@@ -2015,9 +2015,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         LaunchTools.CreateBatchFilesForWindowsGames_Click(_logPath);
     }
 
-    private void OrganizeSystemImages_Click(object sender, RoutedEventArgs e)
+    private void FindRomCover_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.OrganizeSystemImages_Click(_selectedImageFolder, _selectedRomFolder, _logPath);
+        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder, _logPath);
     }
 
     #endregion

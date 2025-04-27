@@ -2080,14 +2080,14 @@ public static class MessageBoxLibrary
         MessageBox.Show(warningMessage, "Parameter Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
     }
 
-    internal static bool AskUserToProceedWithInvalidPath(string programLocation, List<string> invalidPaths = null)
+    internal static bool AskUserToProceedWithInvalidPath(List<string> invalidPaths = null)
     {
         var message = "There are issues with the emulator configuration:";
 
-        if (!string.IsNullOrEmpty(programLocation))
-        {
-            message += $"\n\n• Program location may be invalid or inaccessible: \"{programLocation}\"";
-        }
+        // if (!string.IsNullOrEmpty(programLocation))
+        // {
+        //     message += $"\n\n• Program location may be invalid or inaccessible: \"{programLocation}\"";
+        // }
 
         if (invalidPaths is { Count: > 0 })
         {

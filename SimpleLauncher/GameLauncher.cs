@@ -86,7 +86,7 @@ public static class GameLauncher
             return;
         }
 
-        var programLocation = emulatorConfig.EmulatorLocation;
+        // var programLocation = emulatorConfig.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
 
         // Check if this is a MAME system
@@ -94,15 +94,13 @@ public static class GameLauncher
         var systemFolder = systemConfig.SystemFolder;
 
         // Validate program location and parameters but collect results rather than returning immediately
-        var (programLocationValid, invalidProgramLocation) = ParameterValidator.ValidateProgramLocation(programLocation);
+        // var (programLocationValid, invalidProgramLocation) = ParameterValidator.ValidateProgramLocation(programLocation);
         var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(parameters, systemFolder, isMameSystem);
 
         // If either validation failed, ask the user if they want to proceed
-        if (!programLocationValid || !parametersValid)
+        if (!parametersValid)
         {
-            var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(
-                programLocationValid ? null : invalidProgramLocation,
-                invalidPaths);
+            var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
 
             if (!proceedAnyway)
             {
@@ -139,19 +137,7 @@ public static class GameLauncher
                     await LaunchExecutable(filePath);
                     break;
                 default:
-                    if (selectedSystem.Contains("XBLA", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        await LaunchXblaGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
-                    }
-                    else if (selectedSystem.Contains("aquarius", StringComparison.InvariantCultureIgnoreCase) && selectedEmulatorName != null && selectedEmulatorName.Contains("mame", StringComparison.InvariantCultureIgnoreCase))
-                    {
-                        await LaunchMattelAquariusGame(filePath, emulatorComboBox, systemComboBox, systemConfigs);
-                    }
-                    else
-                    {
-                        await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
-                    }
-
+                    await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
                     break;
             }
         }
@@ -436,12 +422,42 @@ public static class GameLauncher
         // Construct the PSI
         var programLocation = emulatorConfig.EmulatorLocation;
         var parameters = emulatorConfig.EmulatorParameters;
+        var workingDirectory = Path.GetDirectoryName(programLocation);
         var arguments = $"{parameters} \"{filePathToLaunch}\"";
+
+        // Check programLocation
+        if (string.IsNullOrEmpty(programLocation))
+        {
+            // Notify developer
+            var contextMessage = $"programLocation is null or empty: {programLocation}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return;
+        }
+
+        // Check workingDirectory
+        if (string.IsNullOrEmpty(workingDirectory))
+        {
+            // Notify developer
+            var contextMessage = $"workingDirectory is null or empty: {workingDirectory}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return;
+        }
 
         var psi = new ProcessStartInfo
         {
             FileName = programLocation,
             Arguments = arguments,
+            WorkingDirectory = workingDirectory,
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true
@@ -540,341 +556,6 @@ public static class GameLauncher
             if (emulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-            }
-        }
-    }
-
-    private static async Task LaunchXblaGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
-    {
-        var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        var selectedSystem = systemComboBox.SelectedItem.ToString();
-        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-
-        if (systemConfig == null) return;
-
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-
-        string gamePathToLaunch = null;
-
-        // Force extraction of the compressed file even if the config is wrongly set to false
-        systemConfig.ExtractFileBeforeLaunch = true;
-
-        // Check if extraction is needed
-        if (systemConfig.ExtractFileBeforeLaunch)
-        {
-            var fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
-
-            // Accept ZIP, 7Z and RAR files
-            if (fileExtension is ".ZIP" or ".7Z" or ".RAR")
-            {
-                // Create Instance of ExtractCompressedFile
-                var extractCompressedFile = new ExtractCompressedFile();
-                var tempExtractLocation = await extractCompressedFile.ExtractGameToTempAsync(filePath);
-
-                if (await CheckForTempExtractLocation(tempExtractLocation)) return;
-
-                gamePathToLaunch = await FindXblaGamePath(tempExtractLocation); // Search within the extracted folder
-            }
-            else
-            {
-                MessageBoxLibrary.CannotExtractThisFileMessageBox(filePath);
-
-                return;
-            }
-        }
-
-        if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-        {
-            // Notify developer
-            var contextMessage = $"Invalid gamePathToLaunch: {gamePathToLaunch}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        // Construct the PSI
-        if (emulatorConfig == null) return;
-
-        {
-            var programLocation = emulatorConfig.EmulatorLocation;
-            var parameters = emulatorConfig.EmulatorParameters;
-            var arguments = $"{parameters} \"{gamePathToLaunch}\"";
-
-            var psi = new ProcessStartInfo
-            {
-                FileName = programLocation,
-                Arguments = arguments,
-                UseShellExecute = false,
-                RedirectStandardOutput = true,
-                RedirectStandardError = true
-            };
-
-            using var process = new Process();
-            process.StartInfo = psi;
-            StringBuilder output = new();
-            StringBuilder error = new();
-
-            process.OutputDataReceived += (_, args) =>
-            {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    output.AppendLine(args.Data);
-                }
-            };
-
-            process.ErrorDataReceived += (_, args) =>
-            {
-                if (!string.IsNullOrEmpty(args.Data))
-                {
-                    error.AppendLine(args.Data);
-                }
-            };
-
-            try
-            {
-                var processStarted = process.Start();
-
-                if (!processStarted)
-                {
-                    throw new InvalidOperationException("Failed to start the process.");
-                }
-
-                process.BeginOutputReadLine();
-                process.BeginErrorReadLine();
-                await process.WaitForExitAsync();
-
-                if (!process.HasExited)
-                {
-                    throw new InvalidOperationException("Process has not exited as expected.");
-                }
-
-                if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
-                if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
-
-                await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
-            }
-            catch (InvalidOperationException ex)
-            {
-                // Notify developer
-                const string contextMessage = "Invalid Operation Exception";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify the user only if he wants
-                if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                {
-                    MessageBoxLibrary.InvalidOperationExceptionMessageBox();
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                {
-                    var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                         $"User was notified.\n\n" +
-                                         $"Exit code: {process.ExitCode}\n" +
-                                         $"Emulator: {psi.FileName}\n" +
-                                         $"Emulator output: {output}\n" +
-                                         $"Emulator error: {error}\n" +
-                                         $"Calling parameters: {psi.Arguments}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
-                else
-                {
-                    var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                         $"User was not notified.\n\n" +
-                                         $"Exit code: {process.ExitCode}\n" +
-                                         $"Emulator: {psi.FileName}\n" +
-                                         $"Emulator output: {output}\n" +
-                                         $"Emulator error: {error}\n" +
-                                         $"Calling parameters: {psi.Arguments}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
-
-                // Notify the user only if he wants
-                if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                {
-                    MessageBoxLibrary.EmulatorCouldNotOpenXboxXblaSimpleMessageBox(LogPath);
-                }
-            }
-        }
-
-        return;
-
-        static Task<string> FindXblaGamePath(string rootFolderPath)
-        {
-            var directories = Directory.GetDirectories(rootFolderPath, "000D0000", SearchOption.AllDirectories);
-            foreach (var directory in directories)
-            {
-                var files = Directory.GetFiles(directory);
-                if (files.Length > 0)
-                {
-                    return Task.FromResult(files[0]); // Return the first file found
-                }
-            }
-
-            return Task.FromResult(string.Empty);
-        }
-    }
-
-    private static async Task LaunchMattelAquariusGame(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
-    {
-        var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        var selectedSystem = systemComboBox.SelectedItem.ToString();
-        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-
-        if (systemConfig != null)
-        {
-            var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-
-            var gamePathToLaunch = filePath;
-
-            // Extract File if Needed
-            if (systemConfig.ExtractFileBeforeLaunch)
-            {
-                gamePathToLaunch = await ExtractFilesBeforeLaunch(filePath, systemConfig);
-            }
-
-            if (string.IsNullOrEmpty(gamePathToLaunch) || !File.Exists(gamePathToLaunch))
-            {
-                // Notify developer
-                var contextMessage = $"Invalid gamePathToLaunch: {gamePathToLaunch}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-                return;
-            }
-
-            // Construct the PSI
-            if (emulatorConfig != null)
-            {
-                var programLocation = emulatorConfig.EmulatorLocation;
-                var parameters = emulatorConfig.EmulatorParameters;
-                var workingDirectory = Path.GetDirectoryName(programLocation);
-                var gameFilenameWithoutExtension = Path.GetFileNameWithoutExtension(gamePathToLaunch);
-                var arguments = $"{parameters} {gameFilenameWithoutExtension}";
-
-                // Check programLocation
-                if (string.IsNullOrEmpty(programLocation))
-                {
-                    return;
-                }
-
-                // Check workingDirectory
-                if (await CheckForWorkingDirectory(workingDirectory))
-                {
-                    return;
-                }
-
-                if (workingDirectory != null)
-                {
-                    var psi = new ProcessStartInfo
-                    {
-                        FileName = programLocation,
-                        Arguments = arguments,
-                        WorkingDirectory = workingDirectory,
-                        UseShellExecute = false,
-                        RedirectStandardOutput = true,
-                        RedirectStandardError = true
-                    };
-
-                    using var process = new Process();
-                    process.StartInfo = psi;
-                    StringBuilder output = new();
-                    StringBuilder error = new();
-
-                    process.OutputDataReceived += (_, args) =>
-                    {
-                        if (!string.IsNullOrEmpty(args.Data))
-                        {
-                            output.AppendLine(args.Data);
-                        }
-                    };
-
-                    process.ErrorDataReceived += (_, args) =>
-                    {
-                        if (!string.IsNullOrEmpty(args.Data))
-                        {
-                            error.AppendLine(args.Data);
-                        }
-                    };
-
-                    try
-                    {
-                        var processStarted = process.Start();
-
-                        if (!processStarted)
-                        {
-                            throw new InvalidOperationException("Failed to start the process.");
-                        }
-
-                        process.BeginOutputReadLine();
-                        process.BeginErrorReadLine();
-                        await process.WaitForExitAsync();
-
-                        if (!process.HasExited)
-                        {
-                            throw new InvalidOperationException("Process has not exited as expected.");
-                        }
-
-                        if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
-                        if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
-
-                        await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
-                    }
-
-                    catch (InvalidOperationException ex)
-                    {
-                        // Notify developer
-                        const string contextMessage = "Invalid Operation Exception.";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                        // Notify the user only if he wants
-                        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                        {
-                            MessageBoxLibrary.InvalidOperationExceptionMessageBox();
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                        {
-                            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                                 $"User was notified.\n\n" +
-                                                 $"Exit code: {process.ExitCode}\n" +
-                                                 $"Emulator: {psi.FileName}\n" +
-                                                 $"Emulator output: {output}\n" +
-                                                 $"Emulator error: {error}\n" +
-                                                 $"Calling parameters: {psi.Arguments}";
-                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                        }
-                        else
-                        {
-                            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                                 $"User was not notified.\n\n" +
-                                                 $"Exit code: {process.ExitCode}\n" +
-                                                 $"Emulator: {psi.FileName}\n" +
-                                                 $"Emulator output: {output}\n" +
-                                                 $"Emulator error: {error}\n" +
-                                                 $"Calling parameters: {psi.Arguments}";
-                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                        }
-
-                        // Notify the user only if he wants
-                        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
-                        {
-                            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-                        }
-                    }
-                }
             }
         }
     }
@@ -1060,21 +741,6 @@ public static class GameLauncher
 
         // Notify user
         MessageBoxLibrary.ExtractionFailedMessageBox();
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckForWorkingDirectory(string workingDirectory)
-    {
-        if (!string.IsNullOrEmpty(workingDirectory)) return Task.FromResult(false);
-
-        // Notify developer
-        var contextMessage = $"workingDirectory is null or empty: {workingDirectory}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
 
         return Task.FromResult(true);
     }

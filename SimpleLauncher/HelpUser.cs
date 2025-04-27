@@ -120,8 +120,6 @@ public static partial class HelpUser
             { "Xbox 360 XBLA", MicrosoftXbox360XblaDetails },
             { "Xbox360 XBLA", MicrosoftXbox360XblaDetails },
             { "XBLA", MicrosoftXbox360XblaDetails },
-            { "Microsoft Xbox 360 XBLA Using Compressed Folders", MicrosoftXbox360XblaUsingCompressedFoldersDetails },
-            { "Microsoft Xbox 360 XBLA Using BAT files", MicrosoftXbox360XblaUsingBaTfilesDetails },
             { "NEC PC Engine", NecpcEngineDetails },
             { "PC Engine", NecpcEngineDetails },
             { "PCEngine", NecpcEngineDetails },
@@ -430,16 +428,6 @@ public static partial class HelpUser
     private static string MicrosoftXbox360XblaDetails()
     {
         return GetSystemDetails("Microsoft Xbox 360 XBLA");
-    }
-
-    private static string MicrosoftXbox360XblaUsingCompressedFoldersDetails()
-    {
-        return GetSystemDetails("Microsoft Xbox 360 XBLA Using Compressed Folders");
-    }
-
-    private static string MicrosoftXbox360XblaUsingBaTfilesDetails()
-    {
-        return GetSystemDetails("Microsoft Xbox 360 XBLA Using BAT files");
     }
 
     private static string NecpcEngineDetails()

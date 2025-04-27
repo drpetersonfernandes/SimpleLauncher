@@ -398,7 +398,7 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="OrganizeSystemImages_Click" Header="{DynamicResource OrganizeSystemImages}">
+                <MenuItem Click="FindRomCover_Click" Header="FindRomCover">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
