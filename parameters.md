@@ -1245,6 +1245,11 @@ The list of commands available for this emulator can be found at [MasterGear Web
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sega Genesis
 
 **Double-check file and folder paths when entering them in Simple Launcher, especially in the Parameters field. While relative paths might work, I don’t recommend using them.**
@@ -1397,6 +1402,11 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Sega Model 3
 
 **Double-check file and folder paths when entering them in Simple Launcher, especially in the Parameters field. While relative paths might work, I don’t recommend using them.**
@@ -1521,6 +1531,11 @@ The list of command-line arguments available for this emulator can be found at [
 
 **Emulator Name:** Kega Fusion<br>
 **Emulator Path (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 

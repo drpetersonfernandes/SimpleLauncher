@@ -2,9 +2,11 @@ release3.13
 -----------
 
 04/27/2025
-- 
+- Update tool [Batch Convert To Compressed File] to skip already compressed files.
+- Improve UI in windows [Easy Mode] and [Download Image Pack].
+- Added code to impose a single instance of the Application.
+- Implemented a Fuzzy Image Matching logic to improve user experience. Logic will find a cover image that partially matches the rom filename. Users can turn off this feature.
 - Updated emulators to the latest version.
-- Updated the MAME database to the latest version (v0.276).
 - Updated `history.xml`, available at arcade-history.com, to the latest version.
 
 release3.12
@@ -165,7 +167,7 @@ release3.6.0
 
 11/23/2024
 - I performed a major refactoring of the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window. This was necessary to prevent users from entering incorrect values.
-- I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user about a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is useful in case of a corrupted `system.xml` file.
+- I improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads. Instead of warning the user about a corrupted file and shutting down the application, it will now remove any corrupted systems, alert the user, and preserve the well-formatted systems. This is useful in the case of a corrupted `system.xml` file.
 - I implemented in-memory download and extraction of files as a backup method in case the regular extraction method fails. This was done because some users were encountering extraction errors of newly downloaded files due to file locks.
 - Added different versions of the `7z` executable for x86 and x64. The extraction method will automatically detect the user environment and use the appropriate executable.
 - Added code to automatically convert [url formatted text] into real links in the `RomHistory` window.
@@ -219,7 +221,7 @@ release3.3.2
 -------------
 
 10/27/2024
-- I have improved the field validation on the "Edit System" window to trim input values and prevent the input of empty spaces.
+- I have improved the field validation in the "Edit System" window to trim input values and prevent the input of empty spaces.
 - I have enhanced support for Xbox 360 XBLA games in the Launcher. The frontend will extract the compressed file inside the temp folder, then look inside each extracted folder to find a folder named 000D0000. From within that folder, it will select the first found file and try to launch it with the Xenia emulator. For this to work, the 'System Name' needs to include 'XBLA' in it. Also, the system must be configured to extract the file before launch.
 - I have fixed the download of the 'ares' emulator. This emulator is the default in the 'Easy Mode' window for Nintendo Satellaview and Sega Genesis CD.
 - I have fixed the download of the 'Redream' emulator. This emulator is the default in the 'Easy Mode' window for Sega Dreamcast.
@@ -318,7 +320,7 @@ release2.14.4
 06/06/2024
 I have improved the Global Search algorithm. Now it accepts logical operators AND OR.
 Fix a hidden bug found in the [Main] Window search engine.
-Add option for user to select ROM Folder in the [Easy Mode - Add System] Window.
+Add an option for the user to select ROM Folder in the [Easy Mode - Add System] Window.
 Improve the algorithm for detection of emulator parameters. It was wrongly picking parameters as invalid. This algorithm is hard to develop due to the variety of possible arguments in the parameter field.
 I remove the parameter validation requirement to save a System in the [Expert Mode] Window.
 Update the emulator version and emulator download links in the easymode.xml.
@@ -482,7 +484,7 @@ release2.6.0.1
 01/24/2024
 Fix some code.
 Improve error checking for mame.xml, settings.xml and system.xml.
-Add BugReport window.
+Add a BugReport window.
 
 release2.5.0.0
 --------------
@@ -500,7 +502,7 @@ release2.4
 
 12/30/2023
 Update the system.xml to include the field SystemIsMAME. If the system is based on MAME, the application will load the ROM descriptions alongside the ROM filenames.
-Add mame.xml database containing ROM filenames and descriptions. This database is loaded into memory during application's runtime.
+Add a mame.xml database containing ROM filenames and descriptions. This database is loaded into memory during the application's runtime.
 Update the UI to display the System Directory and the number of games it contains.
 Update the parameters within the system.xml. Use this as a model to create your own system.xml.
 

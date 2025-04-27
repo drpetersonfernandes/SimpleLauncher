@@ -1596,6 +1596,11 @@ The list of commands available for this emulator can be found at [MasterGear Web
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
+
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 ]]>
         </SystemHelper>
     </System>
@@ -1772,6 +1777,11 @@ The list of command-line arguments available for this emulator can be found at [
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
+
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 ]]>
         </SystemHelper>
     </System>
@@ -1921,6 +1931,11 @@ The list of command-line arguments available for this emulator can be found at [
 
 **Emulator Name:** Kega Fusion<br>
 **Emulator Path (Example):** c:\emulators\Kega Fusion\Fusion.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 ]]>
