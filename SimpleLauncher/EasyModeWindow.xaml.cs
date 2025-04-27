@@ -101,6 +101,14 @@ public partial class EasyModeWindow : IDisposable
         _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
 
         UpdateAddSystemButtonState();
+
+        // Automatically populate the SystemFolder by the default path
+        var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        var systemName = SystemNameDropdown.SelectedItem.ToString();
+        if (systemName == null) return;
+
+        var systemFolderPath = Path.Combine(applicationDirectory, "roms", systemName);
+        SystemFolderTextBox.Text = systemFolderPath;
     }
 
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
@@ -203,8 +211,13 @@ public partial class EasyModeWindow : IDisposable
                 break;
             case DownloadType.ImagePack:
                 downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
-                destinationPath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+
+                // Determine the extraction folder
+                var imagePath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+                var appDir = AppDomain.CurrentDomain.BaseDirectory;
+                destinationPath = Path.GetFullPath(Path.Combine(appDir, imagePath));
                 componentName = "Image Pack";
+
                 break;
             default:
                 return false;
@@ -433,11 +446,25 @@ public partial class EasyModeWindow : IDisposable
             SystemFolderTextBox.Text = systemFolder;
         }
 
-        // Remove the leading dot from the SystemImageFolder for the message
-        var systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
+        // // Remove the leading dot from the SystemImageFolder for the message
+        // var systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
+        //
+        // // Combine with the base directory for the message
+        // var fullImageFolderPathForMessage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderForMessage);
 
-        // Combine with the base directory for the message
-        var fullImageFolderPathForMessage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderForMessage);
+        var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? string.Empty;
+
+        string systemImageFolderAbsolute;
+
+        if (Path.IsPathRooted(systemImageFolderRaw))
+        {
+            systemImageFolderAbsolute = Path.GetFullPath(systemImageFolderRaw);
+        }
+        else
+        {
+            // Combine the relative path with the base directory to get the absolute path
+            systemImageFolderAbsolute = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderRaw));
+        }
 
         // Path to the system.xml file
         var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
@@ -461,7 +488,7 @@ public partial class EasyModeWindow : IDisposable
                 // Overwrite existing system
                 existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
                 existingSystem.SetElementValue("SystemFolder", systemFolder);
-                existingSystem.SetElementValue("SystemImageFolder", selectedSystem.SystemImageFolder);
+                existingSystem.SetElementValue("SystemImageFolder", systemImageFolderAbsolute);
                 existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
                 existingSystem.Element("FileFormatsToSearch")?.Remove();
                 existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))));
@@ -483,7 +510,7 @@ public partial class EasyModeWindow : IDisposable
                 var newSystemElement = new XElement("SystemConfig",
                     new XElement("SystemName", selectedSystem.SystemName),
                     new XElement("SystemFolder", systemFolder),
-                    new XElement("SystemImageFolder", selectedSystem.SystemImageFolder),
+                    new XElement("SystemImageFolder", systemImageFolderAbsolute),
                     new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
                     new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
                     new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
@@ -512,13 +539,13 @@ public partial class EasyModeWindow : IDisposable
             DownloadStatus = creatingsystemfolders2;
 
             // Create the necessary folders for the system
-            CreateSystemFolders(selectedSystem.SystemName, systemFolder, fullImageFolderPathForMessage);
+            CreateSystemFolders(selectedSystem.SystemName, systemFolder, systemImageFolderAbsolute);
 
             var systemhasbeensuccessfullyadded2 = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
             DownloadStatus = systemhasbeensuccessfullyadded2;
 
             // Notify user
-            MessageBoxLibrary.SystemAddedMessageBox(systemFolder, fullImageFolderPathForMessage, selectedSystem);
+            MessageBoxLibrary.SystemAddedMessageBox(systemFolder, systemImageFolderAbsolute, selectedSystem);
 
             // Disable Add System Button
             AddSystemButton.IsEnabled = false;
@@ -550,7 +577,8 @@ public partial class EasyModeWindow : IDisposable
 
         // Paths for the primary system folder and image folder
         var systemFolderPath = Path.GetFullPath(systemFolder);
-        var imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
+        // var imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
+        var imagesFolderPath = Path.GetFullPath(systemImageFolder);
 
         // List of additional folders to create
         string[] additionalFolders = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"];

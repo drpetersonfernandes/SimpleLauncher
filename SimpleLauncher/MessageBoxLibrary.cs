@@ -2005,14 +2005,6 @@ public static class MessageBoxLibrary
             invalidExtractionFolder2, MessageBoxButton.OK, MessageBoxImage.Error);
     }
 
-    internal static void ExtractionFolderIsNullMessageBox()
-    {
-        var pleaseselectanextractionfolder2 = (string)Application.Current.TryFindResource("Pleaseselectanextractionfolder") ?? "Please select an extraction folder.";
-        var extractionFolderRequired2 = (string)Application.Current.TryFindResource("ExtractionFolderRequired") ?? "Extraction Folder Required";
-        MessageBox.Show(pleaseselectanextractionfolder2,
-            extractionFolderRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
-    }
-
     internal static void DownloadUrlIsNullMessageBox()
     {
         var theselectedsystemdoesnothaveavaliddownloadlink2 = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";

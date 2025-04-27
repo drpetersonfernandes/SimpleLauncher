@@ -3,10 +3,10 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource DownloadImagePack}"
-                      Width="550"
+                      Width="650"
                       MinWidth="550"
-                      Height="590"
-                      MinHeight="550"
+                      Height="540"
+                      MinHeight="540"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -26,105 +26,72 @@
                 <RowDefinition Height="Auto" />
             </Grid.RowDefinitions>
 
-            <TextBlock
-                Grid.Row="0"
-                Text="{DynamicResource PleaseselectanImagePack}"
-                TextWrapping="Wrap"
-                HorizontalAlignment="Center"
-                TextAlignment="Justify"
-                Margin="10" />
+            <GroupBox Grid.Row="0" Header="{DynamicResource PleaseselectanImagePack}" Margin="10" Padding="0">
+                <ComboBox x:Name="SystemNameDropdown"
+                          HorizontalAlignment="Stretch"
+                          Margin="10"
+                          SelectionChanged="SystemNameDropdown_SelectionChanged" />
+            </GroupBox>
 
-            <ComboBox Grid.Row="1"
-                      x:Name="SystemNameDropdown"
-                      HorizontalAlignment="Stretch"
-                      Margin="10"
-                      SelectionChanged="SystemNameDropdown_SelectionChanged" />
+            <GroupBox Grid.Row="2" Header="{DynamicResource Install}" Margin="10" Padding="0">
+                <Button x:Name="DownloadExtrasButton"
+                        Content="{DynamicResource DownloadImagePack}"
+                        HorizontalAlignment="Center"
+                        VerticalAlignment="Center"
+                        Padding="5"
+                        Click="DownloadImagePackButton_Click"
+                        IsEnabled="False"
+                        Margin="10" />
+            </GroupBox>
 
-            <TextBlock
-                Grid.Row="2"
-                Text="{DynamicResource SelecttheExtractionFolder}"
-                TextWrapping="Wrap"
-                HorizontalAlignment="Center"
-                TextAlignment="Justify"
-                Margin="10,10,10,0" />
+            <GroupBox Grid.Row="3" Header="{DynamicResource ProgressBar}" Margin="10" Padding="0">
+                <StackPanel>
+                    <Grid Margin="10" HorizontalAlignment="Stretch">
+                        <ProgressBar x:Name="DownloadProgressBar"
+                                     HorizontalAlignment="Stretch"
+                                     Height="29" />
+                        <TextBlock
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Text="{DynamicResource DownloadProgress}" />
+                    </Grid>
 
-            <TextBlock
-                Grid.Row="3"
-                Text="{DynamicResource Ifyoudonotchooseafolder}"
-                TextWrapping="Wrap"
-                HorizontalAlignment="Center"
-                TextAlignment="Justify"
-                Margin="10" />
+                    <TextBlock x:Name="StatusTextBlock"
+                               Margin="10"
+                               TextWrapping="Wrap" />
 
-            <Grid Grid.Row="4" Margin="10" HorizontalAlignment="Stretch">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*" />
-                    <ColumnDefinition Width="Auto" />
-                </Grid.ColumnDefinitions>
-                <TextBox Grid.Column="0" x:Name="ExtractionFolderTextBox" HorizontalAlignment="Stretch"
-                         VerticalContentAlignment="Center" />
-                <Button Grid.Column="1" Padding="5" Content="{DynamicResource ChooseFolder}"
-                        Click="ChooseExtractionFolderButton_Click" Margin="10,0,0,0" />
-            </Grid>
+                    <Button x:Name="StopDownloadButton"
+                            Content="{DynamicResource StopDownload}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="5"
+                            Margin="10"
+                            Click="StopDownloadButton_Click"
+                            IsEnabled="False" />
+                </StackPanel>
+            </GroupBox>
 
-            <Button Grid.Row="5"
-                    x:Name="DownloadExtrasButton"
-                    Content="{DynamicResource DownloadImagePack}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Padding="5"
-                    Click="DownloadImagePackButton_Click"
-                    IsEnabled="False"
-                    Margin="10,20,10,10" />
-
-            <Grid Grid.Row="6"
-                  Margin="10,20,10,10"
-                  HorizontalAlignment="Stretch">
-                <ProgressBar
-                    x:Name="DownloadProgressBar"
-                    HorizontalAlignment="Stretch"
-                    Height="29" />
-                <TextBlock
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Text="{DynamicResource DownloadProgress}" />
-            </Grid>
-
-            <TextBlock x:Name="StatusTextBlock" Grid.Row="7"
-                       Margin="10,10,10,10"
-                       TextWrapping="Wrap" />
-
-            <Button Grid.Row="8"
-                    x:Name="StopDownloadButton"
-                    Content="{DynamicResource StopDownload}"
-                    HorizontalAlignment="Center"
-                    VerticalAlignment="Center"
-                    Padding="5"
-                    Margin="10,10,10,20"
-                    Click="StopDownloadButton_Click"
-                    IsEnabled="False" />
-
-            <TextBlock Grid.Row="9"
-                       Margin="10"
+            <TextBlock Grid.Row="4"
+                       Margin="10,10,10,0"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
                        TextWrapping="Wrap"
                        Text="{DynamicResource IncasetheImagePackisnotavailable}" />
 
-            <TextBlock Grid.Row="10"
+            <TextBlock Grid.Row="5"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="10,0,10,10">
+                       Margin="10,10,10,0">
                 <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
                            RequestNavigate="Hyperlink_RequestNavigate">
                     https://github.com/libretro-thumbnails/libretro-thumbnails
                 </Hyperlink>
             </TextBlock>
 
-            <TextBlock Grid.Row="11"
+            <TextBlock Grid.Row="6"
                        VerticalAlignment="Center"
                        HorizontalAlignment="Left"
-                       Margin="10,0,10,10">
+                       Margin="10,10,10,20">
                 <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
             </TextBlock>
 

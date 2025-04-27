@@ -580,5 +580,10 @@
     <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
     <system:String x:Key="Install">Install</system:String>
+    <system:String x:Key="Emulator1">Emulator 1</system:String>
+    <system:String x:Key="Emulator2">Emulator 2</system:String>
+    <system:String x:Key="Emulator3">Emulator 3</system:String>
+    <system:String x:Key="Emulator4">Emulator 4</system:String>
+    <system:String x:Key="Emulator5">Emulator 5</system:String>
     
 </ResourceDictionary>

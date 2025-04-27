@@ -964,7 +964,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    private async void EasyMode_Click(object sender, RoutedEventArgs e)
+    private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -995,7 +995,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             SystemComboBox.ItemsSource = sortedSystemNames;
 
             // Refresh GameList
-            await LoadGameFilesAsync();
+            // await LoadGameFilesAsync();
         }
         catch (Exception ex)
         {
@@ -1005,55 +1005,80 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
+        try
+        {
+            // Ensure pagination is reset at the beginning
+            ResetPaginationButtons();
 
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
+            // Clear SearchTextBox
+            SearchTextBox.Text = "";
 
-        // Update current filter
-        _currentFilter = null;
+            // Update current filter
+            _currentFilter = null;
 
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
+            // Empty SystemComboBox
+            _selectedSystem = null;
+            SystemComboBox.SelectedItem = null;
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+            SelectedSystem = nosystemselected;
+            PlayTime = "00:00:00";
 
-        AddNoSystemMessage();
+            AddNoSystemMessage();
 
-        EditSystemWindow editSystemWindow = new(_settings);
-        editSystemWindow.ShowDialog();
+            EditSystemWindow editSystemWindow = new(_settings);
+            editSystemWindow.ShowDialog();
 
-        // ReLoad and Sort _systemConfigs
-        _systemConfigs = SystemManager.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
-        SystemComboBox.ItemsSource = sortedSystemNames;
+            // ReLoad and Sort _systemConfigs
+            _systemConfigs = SystemManager.LoadSystemConfigs();
+            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
+            SystemComboBox.ItemsSource = sortedSystemNames;
+
+            // Refresh GameList
+            // await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ExpertMode_Click.");
+        }
     }
 
     private void DownloadImagePack_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
+        try
+        {
+            // Ensure pagination is reset at the beginning
+            ResetPaginationButtons();
 
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
+            // Clear SearchTextBox
+            SearchTextBox.Text = "";
 
-        // Update current filter
-        _currentFilter = null;
+            // Update current filter
+            _currentFilter = null;
 
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
+            // Empty SystemComboBox
+            _selectedSystem = null;
+            SystemComboBox.SelectedItem = null;
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+            SelectedSystem = nosystemselected;
+            PlayTime = "00:00:00";
 
-        AddNoSystemMessage();
+            AddNoSystemMessage();
 
-        DownloadImagePackWindow downloadImagePack = new();
-        downloadImagePack.ShowDialog();
+            DownloadImagePackWindow downloadImagePack = new();
+            downloadImagePack.ShowDialog();
+
+            // ReLoad and Sort _systemConfigs
+            _systemConfigs = SystemManager.LoadSystemConfigs();
+            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
+            SystemComboBox.ItemsSource = sortedSystemNames;
+
+            // Refresh GameList
+            // await LoadGameFilesAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
+        }
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)

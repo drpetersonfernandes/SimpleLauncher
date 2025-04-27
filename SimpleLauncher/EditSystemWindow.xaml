@@ -331,8 +331,7 @@
                     </Label>
 
                     <!-- Emulator 1 -->
-                    <Border Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
-                            CornerRadius="5" Margin="10">
+                    <GroupBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -424,11 +423,10 @@
                             </ComboBox>
 
                         </Grid>
-                    </Border>
+                        </GroupBox>
 
                     <!-- Emulator 2 -->
-                    <Border Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
-                            CornerRadius="5" Margin="10">
+                    <GroupBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -519,11 +517,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </Border>
+                    </GroupBox>
 
                     <!-- Emulator 3 -->
-                    <Border Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
-                            CornerRadius="5" Margin="10">
+                    <GroupBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -614,11 +611,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </Border>
+                    </GroupBox>
 
                     <!-- Emulator 4 -->
-                    <Border Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
-                            CornerRadius="5" Margin="10">
+                    <GroupBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -709,11 +705,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </Border>
+                    </GroupBox>
 
                     <!-- Emulator 5 -->
-                    <Border Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" BorderBrush="Black" BorderThickness="1"
-                            CornerRadius="5" Margin="10">
+                    <GroupBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -804,7 +799,7 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </Border>
+                    </GroupBox>
 
                 </Grid>
             </ScrollViewer>

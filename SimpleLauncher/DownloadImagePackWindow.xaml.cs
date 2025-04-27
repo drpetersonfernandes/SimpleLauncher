@@ -5,7 +5,6 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
-using Microsoft.Win32;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 
@@ -67,12 +66,6 @@ public partial class DownloadImagePackWindow : IDisposable
         if (selectedSystem == null) return;
 
         DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
-
-        // Automatically populate the extraction path with default if available
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
-        {
-            ExtractionFolderTextBox.Text = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-        }
     }
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
@@ -91,9 +84,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
 
                 // Determine the extraction folder
-                var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
-                    ? ExtractionFolderTextBox.Text
-                    : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+                var extractionFolder = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
 
                 // Update UI elements
                 DownloadProgressBar.Visibility = Visibility.Visible;
@@ -222,17 +213,19 @@ public partial class DownloadImagePackWindow : IDisposable
             return false;
         }
 
-        // Validate extraction folder
-        if (string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text) &&
-            string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
-        {
-            MessageBoxLibrary.ExtractionFolderIsNullMessageBox();
-            return false;
-        }
+        string extractionFolder;
 
-        var extractionFolder = !string.IsNullOrWhiteSpace(ExtractionFolderTextBox.Text)
-            ? ExtractionFolderTextBox.Text
-            : selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+        if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
+        {
+            // Automatically populate the extraction path with a default path
+            var appPath = AppDomain.CurrentDomain.BaseDirectory;
+            var systemName = selectedSystem.SystemName;
+            extractionFolder = Path.Combine(appPath, "images", systemName);
+        }
+        else
+        {
+            extractionFolder = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+        }
 
         // Verify the extraction folder exists or can be created
         try
@@ -296,23 +289,6 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
         e.Handled = true;
-    }
-
-    private void ChooseExtractionFolderButton_Click(object sender, RoutedEventArgs e)
-    {
-        var selectafoldertoextracttheImagePack2 = (string)Application.Current.TryFindResource("SelectafoldertoextracttheImagePack") ?? "Select a folder to extract the Image Pack";
-
-        // Create a new StorageFolder picker
-        var openFolderDialog = new OpenFolderDialog
-        {
-            Title = selectafoldertoextracttheImagePack2
-        };
-
-        // Show the dialog and handle the result
-        if (openFolderDialog.ShowDialog() == true)
-        {
-            ExtractionFolderTextBox.Text = openFolderDialog.FolderName;
-        }
     }
 
     // IDisposable implementation
