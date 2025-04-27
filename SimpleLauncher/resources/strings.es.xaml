@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Agregando sistema a la configuración...</system:String>
     <system:String x:Key="AddNewSystem">Añadir un nuevo sistema</system:String>
     <system:String x:Key="AddSystem">Agregar sistema</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Añadir sistema a 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Añadir a favoritos</system:String>
     <system:String x:Key="Alert">Alerta</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">También verifique la integridad del emulador y sus dependencias.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Selecciona una carpeta con 'ROMs' o 'ISOs' para este sistema.</system:String>
     <system:String x:Key="Chooseasystem">Elige un sistema</system:String>
     <system:String x:Key="ChooseFolder">Elegir carpeta</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Elige la carpeta con ROMs o ISOs para este sistema</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Haga clic en los botones de letras de arriba para ver los juegos</system:String>
     <system:String x:Key="Close">Cerrar</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Mostrando archivos del 0 al</system:String>
     <system:String x:Key="Donate">Donar</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">¿Desea abrir el archivo 'error_user.log' para depurar el error?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Descargar y extraer paquete de imágenes (si está disponible)</system:String>
-    <system:String x:Key="DownloadandInstall">Descargar e instalar el emulador y núcleo</system:String>
     <system:String x:Key="Downloadcanceled">Descarga cancelada</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Descarga completa. Comenzando extracción en</system:String>
     <system:String x:Key="DownloadCore">Descargar núcleo</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Índigo</system:String>
     <system:String x:Key="Info">Información</system:String>
     <system:String x:Key="InfoLinkButton">Botón de enlace de información</system:String>
-    <system:String x:Key="Inthiswindow">En esta ventana, puedes descargar e instalar fácilmente emuladores que no requieren archivos BIOS ni del sistema para funcionar.</system:String>
     <system:String x:Key="InvalidDownloadLink">Enlace de Descarga Inválido</system:String>
     <system:String x:Key="InvalidExtractionFolder">Carpeta de Extracción Inválida</system:String>
     <system:String x:Key="InvalidInputMessageText">Por favor, ingrese un número válido entre 0.0 y 1.0 para el umbral.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Historial de Reproducción</system:String>
     <system:String x:Key="PlayHistoryList">Lista de historial de reproducción</system:String>
     <system:String x:Key="Playtime">Tiempo de juego:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Por favor, elige un sistema para añadir</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Por favor, edite este sistema para solucionarlo.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Por favor ingrese una consulta de búsqueda.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Por favor, ingrese un término de búsqueda.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Advertencia</system:String>
     <system:String x:Key="wascanceled">fue cancelada.</system:String>
     <system:String x:Key="wasremovedfromfavorites">fue eliminado de favoritos.</system:String>
-    <system:String x:Key="Wealsosupport">También admitimos sistemas que requieren esos archivos, pero para esos tendrás que usar el "Modo Experto" e instalarlos tú mismo.</system:String>
     <system:String x:Key="WhatIsDEP">DEP es una función de seguridad que ayuda a prevenir daños por virus y otras amenazas de seguridad.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Las violaciones de acceso a la memoria son mecanismos de seguridad que impiden que los programas accedan o modifiquen la memoria fuera de su espacio asignado, lo que podría potencialmente bloquear su sistema o crear vulnerabilidades de seguridad.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Cuando 'Extraer archivo antes de ejecutar' está activado, la 'Extensión para buscar en la carpeta del sistema' debe incluir 'zip', '7z' o 'rar'.</system:String>

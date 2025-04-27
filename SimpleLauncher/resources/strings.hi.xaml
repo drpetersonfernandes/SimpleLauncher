@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' में सिस्टम जोड़ें।</system:String>
     <system:String x:Key="AddToFavorites">पसंदीदा में जोड़ें</system:String>
     <system:String x:Key="Alert">चेतावनी</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">एमुलेटर और उसकी निर्भरताओं की अखंडता की जांच करें।</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">इस सिस्टम के लिए 'ROMs' या 'ISOs' के साथ एक फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="Chooseasystem">एक सिस्टम चुनें</system:String>
     <system:String x:Key="ChooseFolder">फ़ोल्डर चुनें</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">इस सिस्टम के लिए ROMs या ISOs के साथ एक फोल्डर चुनें</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">खिलाड़ियों को देखने के लिए ऊपर अक्षर बटन पर क्लिक करें</system:String>
     <system:String x:Key="Close">बंद करें</system:String>
     <system:String x:Key="Cobalt">कोबाल्ट</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">फ़ाइलें 0 से</system:String>
     <system:String x:Key="Donate">दान करें</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">क्या आप 'error_user.log' फ़ाइल को त्रुटि डिबग करने के लिए खोलना चाहते हैं?</system:String>
-    <system:String x:Key="DownloadandExtractImage">इमेज पैक डाउनलोड और निकालें (यदि उपलब्ध हो)</system:String>
-    <system:String x:Key="DownloadandInstall">एमुलेटर और कोर डाउनलोड और इंस्टॉल करें</system:String>
     <system:String x:Key="Downloadcanceled">डाउनलोड रद्द किया गया</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">डाउनलोड पूरा हुआ। निकालने की प्रक्रिया शुरू कर रहा है</system:String>
     <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">इंडिगो</system:String>
     <system:String x:Key="Info">जानकारी</system:String>
     <system:String x:Key="InfoLinkButton">जानकारी लिंक बटन</system:String>
-    <system:String x:Key="Inthiswindow">इस विंडो में, आप आसानी से उन एमुलेटर को डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें काम करने के लिए BIOS या सिस्टम फ़ाइलों की आवश्यकता नहीं होती है।</system:String>
     <system:String x:Key="InvalidDownloadLink">अमान्य डाउनलोड लिंक</system:String>
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
     <system:String x:Key="InvalidInputMessageText">कृपया सीमा के लिए 0.0 और 1.0 के बीच एक मान्य संख्या दर्ज करें।</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">प्ले इतिहास</system:String>
     <system:String x:Key="PlayHistoryList">प्ले इतिहास सूची</system:String>
     <system:String x:Key="Playtime">खेलने का समय:</system:String>
-    <system:String x:Key="Pleasechooseasystem">कृपया जोड़ने के लिए एक सिस्टम चुनें</system:String>
     <system:String x:Key="Pleaseeditthissystemto">इसे ठीक करने के लिए कृपया इस सिस्टम को संपादित करें।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">कृपया एक खोज क्वेरी दर्ज करें।</system:String>
     <system:String x:Key="Pleaseenterasearchterm">कृपया एक खोज शब्द दर्ज करें।</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">चेतावनी</system:String>
     <system:String x:Key="wascanceled">रद्द कर दिया गया था।</system:String>
     <system:String x:Key="wasremovedfromfavorites">पसंदीदा से हटा दिया गया।</system:String>
-    <system:String x:Key="Wealsosupport">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फ़ाइलों की आवश्यकता होती है, लेकिन उनके लिए आपको "एक्सपर्ट मोड" का उपयोग करना होगा और उन्हें स्वयं इंस्टॉल करना होगा।</system:String>
     <system:String x:Key="WhatIsDEP">DEP एक सुरक्षा सुविधा है जो वायरस और अन्य सुरक्षा खतरों से होने वाले नुकसान को रोकने में मदद करती है।</system:String>
     <system:String x:Key="WhatIsMemoryAccess">मेमोरी एक्सेस उल्लंघन सुरक्षा तंत्र हैं जो प्रोग्रामों को उनके आवंटित स्थान के बाहर की मेमोरी तक पहुँचने या उसे संशोधित करने से रोकते हैं, जो संभावित रूप से आपके सिस्टम को क्रैश कर सकते हैं या सुरक्षा कमजोरियाँ उत्पन्न कर सकते हैं।</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">जब 'लॉन्च से पहले फ़ाइल एक्सट्रैक्ट करें' चालू है, 'सिस्टम फ़ोल्डर में खोजने का एक्सटेंशन' को 'zip', '7z', या 'rar' शामिल करना चाहिए।</system:String>

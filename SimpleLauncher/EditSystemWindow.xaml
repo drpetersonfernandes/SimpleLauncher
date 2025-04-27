@@ -7,7 +7,7 @@
                       MinWidth="1100"
                       WindowStartupLocation="CenterScreen"
                       WindowState="Maximized">
-    
+
     <Window.Resources>
         <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
             <Setter Property="Width" Value="8" />
@@ -45,7 +45,7 @@
             </Setter>
         </Style>
     </Window.Resources>
-    
+
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="3*" />
@@ -422,7 +422,7 @@
                                 <ComboBoxItem>true</ComboBoxItem>
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
-                            
+
                         </Grid>
                     </Border>
 

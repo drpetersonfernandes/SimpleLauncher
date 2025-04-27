@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">システムを設定に追加しています...</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="AddSystem">システムを追加</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' にシステムを追加する</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">エミュレーターとその依存関係の整合性を確認してください。</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">このシステム用の 'ROMs' または 'ISOs' を含むフォルダーを選択してください。</system:String>
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
     <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">このシステム用のROMやISOが含まれるフォルダーを選択してください</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">上の文字ボタンをクリックしてゲームを表示します</system:String>
     <system:String x:Key="Close">閉じる</system:String>
     <system:String x:Key="Cobalt">コバルト</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">ファイルを0から</system:String>
     <system:String x:Key="Donate">寄付</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
-    <system:String x:Key="DownloadandExtractImage">イメージパックをダウンロードして抽出する（利用可能な場合）</system:String>
-    <system:String x:Key="DownloadandInstall">エミュレーターとコアをダウンロードおよびインストールする</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">ダウンロード完了。展開を開始：</system:String>
     <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">インディゴ</system:String>
     <system:String x:Key="Info">情報</system:String>
     <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
-    <system:String x:Key="Inthiswindow">このウィンドウでは、BIOSやシステムファイルを必要としないエミュレーターを簡単にダウンロードしてインストールできます。</system:String>
     <system:String x:Key="InvalidDownloadLink">無効なダウンロードリンク</system:String>
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="InvalidInputMessageText">閾値には0.0から1.0の間の有効な数値を入力してください。</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">再生履歴</system:String>
     <system:String x:Key="PlayHistoryList">再生履歴リスト</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
-    <system:String x:Key="Pleasechooseasystem">追加するシステムを選択してください</system:String>
     <system:String x:Key="Pleaseeditthissystemto">これを修正するには、このシステムを編集してください。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">検索クエリを入力してください。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">検索語を入力してください。</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">警告</system:String>
     <system:String x:Key="wascanceled">がキャンセルされました。</system:String>
     <system:String x:Key="wasremovedfromfavorites">お気に入りから削除されました。</system:String>
-    <system:String x:Key="Wealsosupport">BIOSやシステムファイルを必要とするシステムもサポートしていますが、それには「エキスパートモード」を使用して手動でインストールする必要があります。</system:String>
     <system:String x:Key="WhatIsDEP">DEPは、ウイルスやその他のセキュリティ脅威からの損害を防ぐのに役立つセキュリティ機能です。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">メモリアクセス違反は、プログラムが割り当てられた領域外のメモリにアクセスまたは変更するのを防ぐセキュリティメカニズムであり、システムのクラッシュやセキュリティ脆弱性を引き起こす可能性があります。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">「起動前にファイルを抽出」がオンの場合、「システムフォルダー内で検索する拡張子」には「zip」、「7z」、または「rar」を含める必要があります。</system:String>

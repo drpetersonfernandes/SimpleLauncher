@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Đang thêm hệ thống vào cấu hình...</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Thêm hệ thống vào 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
     <system:String x:Key="Alert">Cảnh báo</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Cũng kiểm tra tính toàn vẹn của trình giả lập và các phụ thuộc của nó.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Chọn một thư mục chứa các tệp 'ROM' hoặc 'ISO' cho hệ thống này.</system:String>
     <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
     <system:String x:Key="ChooseFolder">Chọn thư mục</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Chọn thư mục chứa ROM hoặc ISO cho hệ thống này</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Nhấp vào các nút chữ cái ở trên để xem các trò chơi</system:String>
     <system:String x:Key="Close">Đóng</system:String>
     <system:String x:Key="Cobalt">Cô-ban</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Hiển thị các tệp từ 0 đến</system:String>
     <system:String x:Key="Donate">Quyên góp</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Tải xuống và giải nén gói hình ảnh (nếu có)</system:String>
-    <system:String x:Key="DownloadandInstall">Tải xuống và cài đặt trình giả lập và lõi</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Tải xuống hoàn tất. Bắt đầu giải nén vào</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Chàm</system:String>
     <system:String x:Key="Info">Thông tin</system:String>
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
-    <system:String x:Key="Inthiswindow">Trong cửa sổ này, bạn có thể dễ dàng tải xuống và cài đặt các trình giả lập không yêu cầu tệp BIOS hoặc tệp hệ thống để hoạt động.</system:String>
     <system:String x:Key="InvalidDownloadLink">Liên Kết Tải Xuống Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidInputMessageText">Vui lòng nhập một số hợp lệ từ 0.0 đến 1.0 cho ngưỡng.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Lịch sử Phát</system:String>
     <system:String x:Key="PlayHistoryList">Danh sách Lịch sử Phát</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Vui lòng chọn một hệ thống để thêm</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Chỉnh sửa hệ thống này để khắc phục vấn đề.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Vui lòng nhập từ khóa tìm kiếm.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Vui lòng nhập một từ khóa tìm kiếm.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Cảnh báo</system:String>
     <system:String x:Key="wascanceled">đã bị hủy.</system:String>
     <system:String x:Key="wasremovedfromfavorites">đã bị xóa khỏi mục yêu thích.</system:String>
-    <system:String x:Key="Wealsosupport">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu các tệp này, nhưng bạn sẽ cần sử dụng "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
     <system:String x:Key="WhatIsDEP">DEP là một tính năng bảo mật giúp ngăn chặn thiệt hại từ virus và các mối đe dọa bảo mật khác.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Vi phạm truy cập bộ nhớ là các cơ chế bảo mật ngăn các chương trình truy cập hoặc sửa đổi bộ nhớ bên ngoài không gian đã được phân bổ của chúng, điều này có thể làm hệ thống của bạn sập hoặc tạo ra các lỗ hổng bảo mật.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>

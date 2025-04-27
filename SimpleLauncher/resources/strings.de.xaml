@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">System wird zur Konfiguration hinzugefügt...</system:String>
     <system:String x:Key="AddNewSystem">Neues System hinzufügen</system:String>
     <system:String x:Key="AddSystem">System hinzufügen</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">System in 'Simple Launcher' hinzufügen</system:String>
     <system:String x:Key="AddToFavorites">Zu den Favoriten hinzufügen</system:String>
     <system:String x:Key="Alert">Alarm</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Überprüfen Sie ebenfalls die Integrität des Emulators und seiner Abhängigkeiten.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Wählen Sie einen Ordner mit "ROMs" oder "ISOs" für dieses System aus.</system:String>
     <system:String x:Key="Chooseasystem">Wähle ein System</system:String>
     <system:String x:Key="ChooseFolder">Ordner auswählen</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Wählen Sie einen Ordner mit ROMs oder ISOs für dieses System</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klicken Sie auf die Buchstabentasten oben, um die Spiele zu sehen</system:String>
     <system:String x:Key="Close">Schließen</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Dateien anzeigen von 0 bis</system:String>
     <system:String x:Key="Donate">Spenden</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Bildpaket herunterladen und extrahieren (falls verfügbar)</system:String>
-    <system:String x:Key="DownloadandInstall">Emulator und Core herunterladen und installieren</system:String>
     <system:String x:Key="Downloadcanceled">Download abgebrochen</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Download abgeschlossen. Starte Extraktion nach</system:String>
     <system:String x:Key="DownloadCore">Core herunterladen</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info-Link-Schaltfläche</system:String>
-    <system:String x:Key="Inthiswindow">In diesem Fenster können Sie ganz einfach Emulatoren herunterladen und installieren, die keine BIOS- oder Systemdateien benötigen.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ungültiger Download-Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ungültiger Extraktionsordner</system:String>
     <system:String x:Key="InvalidInputMessageText">Bitte geben Sie eine gültige Zahl zwischen 0,0 und 1,0 für den Schwellenwert ein.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Wiedergabeverlauf</system:String>
     <system:String x:Key="PlayHistoryList">Liste des Wiedergabeverlaufs</system:String>
     <system:String x:Key="Playtime">Spielzeit:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Bitte wählen Sie ein System aus, das hinzugefügt werden soll</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Bitte bearbeiten Sie dieses System, um das Problem zu beheben.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Bitte geben Sie eine Suchanfrage ein.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Bitte geben Sie einen Suchbegriff ein.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Warnung</system:String>
     <system:String x:Key="wascanceled">wurde abgebrochen.</system:String>
     <system:String x:Key="wasremovedfromfavorites">wurde aus den Favoriten entfernt.</system:String>
-    <system:String x:Key="Wealsosupport">Wir unterstützen auch Systeme, die diese Dateien benötigen, aber dafür müssen Sie den "Expertenmodus" verwenden und sie manuell installieren.</system:String>
     <system:String x:Key="WhatIsDEP">DEP ist eine Sicherheitsfunktion, die hilft, Schäden durch Viren und andere Sicherheitsbedrohungen zu verhindern.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Speicherzugriffsverletzungen sind Sicherheitsmechanismen, die verhindern, dass Programme auf Speicher außerhalb ihres zugewiesenen Bereichs zugreifen oder diesen modifizieren, was Ihr System potenziell zum Absturz bringen oder Sicherheitslücken schaffen könnte.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Wenn "Datei vor dem Start extrahieren" auf "Wahr" gesetzt ist, muss "Erweiterung zum Suchen im Systemordner" "zip", "7z" oder "rar" enthalten.</system:String>

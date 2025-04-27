@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Tambahkan sistem ke 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
     <system:String x:Key="Alert">Peringatan</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Periksa juga integritas emulator dan dependensinya.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini.</system:String>
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Pilih folder dengan ROM atau ISO untuk sistem ini</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
     <system:String x:Key="Close">Tutup</system:String>
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Menampilkan berkas 0 hingga</system:String>
     <system:String x:Key="Donate">Donasi</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Unduh dan Ekstrak Paket Gambar (Jika Tersedia)</system:String>
-    <system:String x:Key="DownloadandInstall">Unduh dan Instal Emulator serta Core</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Unduhan selesai. Memulai ekstraksi ke</system:String>
     <system:String x:Key="DownloadCore">Unduh Core</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Nila</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
-    <system:String x:Key="Inthiswindow">Di jendela ini, Anda dapat dengan mudah mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau berkas sistem untuk bekerja.</system:String>
     <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Riwayat Pemutaran</system:String>
     <system:String x:Key="PlayHistoryList">Daftar Riwayat Pemutaran</system:String>
     <system:String x:Key="Playtime">Waktu Bermain:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Silakan pilih sistem untuk Ditambahkan</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Silakan edit sistem ini untuk memperbaikinya.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Silakan masukkan kueri pencarian.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Silakan masukkan kata pencarian.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Peringatan</system:String>
     <system:String x:Key="wascanceled">dibatalkan.</system:String>
     <system:String x:Key="wasremovedfromfavorites">telah dihapus dari favorit.</system:String>
-    <system:String x:Key="Wealsosupport">Kami juga mendukung sistem yang membutuhkan berkas tersebut, tetapi untuk itu Anda harus menggunakan 'Mode Ahli' dan menginstalnya sendiri.</system:String>
     <system:String x:Key="WhatIsDEP">DEP adalah fitur keamanan yang membantu mencegah kerusakan dari virus dan ancaman keamanan lainnya.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Pelanggaran Akses Memori adalah mekanisme keamanan yang mencegah program mengakses atau memodifikasi memori di luar ruang yang dialokasikan, yang bisa berpotensi menyebabkan sistem Anda crash atau menciptakan kerentanan keamanan.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true, "Ekstensi untuk Dicari di Folder Sistem" harus mencakup 'zip', '7z', atau 'rar'.</system:String>

@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">أضف النظام إلى 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="Alert">تنبيه</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">اختر مجلدًا يحتوي على "ROMs" أو "ISOs" لهذا النظام.</system:String>
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">اختر المجلد الذي يحتوي على ملفات ROM أو ISO لهذا النظام</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">عرض الملفات من 0 إلى</system:String>
     <system:String x:Key="Donate">تبرع</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
-    <system:String x:Key="DownloadandExtractImage">تنزيل واستخراج حزمة الصور (إن وجدت)</system:String>
-    <system:String x:Key="DownloadandInstall">تنزيل وتثبيت المحاكي والنواة</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">اكتمل التنزيل. بدء الاستخراج إلى</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">نيلي</system:String>
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
-    <system:String x:Key="Inthiswindow">في هذه النافذة، يمكنك بسهولة تنزيل وتثبيت المحاكيات التي لا تتطلب ملفات BIOS أو ملفات النظام للعمل.</system:String>
     <system:String x:Key="InvalidDownloadLink">رابط التنزيل غير صالح</system:String>
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">سجل التشغيل</system:String>
     <system:String x:Key="PlayHistoryList">قائمة سجل التشغيل</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
-    <system:String x:Key="Pleasechooseasystem">يرجى اختيار نظام لإضافته</system:String>
     <system:String x:Key="Pleaseeditthissystemto">يرجى تحرير هذا النظام لإصلاح ذلك.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">يرجى إدخال استعلام بحث.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">يرجى إدخال مصطلح البحث.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">تحذير</system:String>
     <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
     <system:String x:Key="wasremovedfromfavorites">تمت إزالته من المفضلة.</system:String>
-    <system:String x:Key="Wealsosupport">نحن ندعم أيضًا الأنظمة التي تتطلب هذه الملفات، ولكن بالنسبة لهذه الأنظمة، ستحتاج إلى استخدام "الوضع الخبير" وتثبيتها بنفسك.</system:String>
     <system:String x:Key="WhatIsDEP">DEP هي ميزة أمان تساعد في منع الضرر الناتج من الفيروسات والتهديدات الأمنية الأخرى.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">انتهاكات وصول الذاكرة هي آليات أمان تمنع البرامج من الوصول إلى أو تعديل الذاكرة خارج مساحتها المخصصة، مما قد يؤدي إلى تعطل نظامك أو خلق ثغرات أمنية.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>

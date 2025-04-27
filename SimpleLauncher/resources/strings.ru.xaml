@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Добавить систему в 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
     <system:String x:Key="Alert">Предупреждение</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Также проверьте целостность эмулятора и его зависимостей.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Выберите папку с файлами 'ROMs' или 'ISOs' для этой системы.</system:String>
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Выберите папку с ROM или ISO файлами для этой системы</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
     <system:String x:Key="Close">Закрыть</system:String>
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Отображение файлов с 0 до</system:String>
     <system:String x:Key="Donate">Пожертвовать</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Скачать и извлечь пакет изображений (если доступно)</system:String>
-    <system:String x:Key="DownloadandInstall">Скачать и установить эмулятор и ядро</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Загрузка завершена. Начинается распаковка в</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Индиго</system:String>
     <system:String x:Key="Info">Информация</system:String>
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
-    <system:String x:Key="Inthiswindow">В этом окне вы можете легко загрузить и установить эмуляторы, которые не требуют файлов BIOS или системных файлов для работы.</system:String>
     <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">История воспроизведения</system:String>
     <system:String x:Key="PlayHistoryList">Список истории воспроизведения</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Выберите систему для добавления</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Отредактируйте данную систему, чтобы устранить проблему.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Пожалуйста, введите поисковый запрос.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Пожалуйста, введите поисковый запрос.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Предупреждение</system:String>
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
-    <system:String x:Key="Wealsosupport">Мы также поддерживаем системы, которые требуют эти файлы, но для этого вам нужно будет использовать "Режим эксперта" и установить их вручную.</system:String>
     <system:String x:Key="WhatIsDEP">DEP — это функция безопасности, которая помогает предотвратить ущерб от вирусов и других угроз безопасности.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Ошибки доступа к памяти — это механизмы безопасности, которые предотвращают доступ программ к памяти вне их выделенного пространства или изменение её, что потенциально может привести к сбою системы или созданию уязвимостей безопасности.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Если включено «Извлечение файла перед запуском», «Расширение для поиска в системной папке» должно содержать «zip», «7z» или «rar».</system:String>

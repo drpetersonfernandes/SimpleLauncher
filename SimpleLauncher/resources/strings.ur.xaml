@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">سسٹم کو کنفیگریشن میں شامل کر رہے ہیں...</system:String>
     <system:String x:Key="AddNewSystem">نیا نظام شامل کریں</system:String>
     <system:String x:Key="AddSystem">سسٹم شامل کریں</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher' میں نظام شامل کریں۔</system:String>
     <system:String x:Key="AddToFavorites">پسندیدہ میں شامل کریں</system:String>
     <system:String x:Key="Alert">خبردار۔</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">یہ بھی چیک کریں کہ ایمولیٹر اور اس کے ڈیپینڈنسیز درست حالت میں ہیں۔</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">اس نظام کے لیے 'ROM' یا 'ISO' کی حامل فولڈر منتخب کریں۔</system:String>
     <system:String x:Key="Chooseasystem">ایک نظام منتخب کریں</system:String>
     <system:String x:Key="ChooseFolder">فولڈر منتخب کریں</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">اس نظام کے لیے ROMS یا ISOs والے فولڈر کا انتخاب کریں</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">گیمز دیکھنے کے لیے اوپر کے حرف والے بٹنوں پر کلک کریں</system:String>
     <system:String x:Key="Close">بند کریں</system:String>
     <system:String x:Key="Cobalt">کوبالٹ</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">فائلیں دکھائی جا رہی ہیں 0 سے لے کر</system:String>
     <system:String x:Key="Donate">عطیہ کریں</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">کیا آپ خرابی کو ڈیبگ کرنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
-    <system:String x:Key="DownloadandExtractImage">امیج پیک ڈاؤنلوڈ اور ایکسٹریکٹ کریں (اگر دستیاب ہو)</system:String>
-    <system:String x:Key="DownloadandInstall">ایمولیٹر اور کور ڈاؤنلوڈ اور انسٹال کریں</system:String>
     <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">ڈاؤن لوڈ مکمل۔ نکالنے کا عمل شروع ہو رہا ہے</system:String>
     <system:String x:Key="DownloadCore">کور ڈاؤنلوڈ کریں</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">نیلا جامنی</system:String>
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">معلومات لنک بٹن</system:String>
-    <system:String x:Key="Inthiswindow">اس ونڈو میں، آپ آسانی سے ان ایمولیٹرز کو ڈاؤنلوڈ اور انسٹال کر سکتے ہیں جنہیں BIOS یا سسٹم فائلز کی ضرورت نہیں ہوتی۔</system:String>
     <system:String x:Key="InvalidDownloadLink">غلط ڈاؤن لوڈ لنک</system:String>
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
     <system:String x:Key="InvalidInputMessageText">براہ کرم حد کے لیے 0.0 سے 1.0 کے درمیان ایک درست نمبر درج کریں۔</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">پلے کی تاریخ</system:String>
     <system:String x:Key="PlayHistoryList">پلے ہسٹری کی فہرست</system:String>
     <system:String x:Key="Playtime">کھیل کا وقت:</system:String>
-    <system:String x:Key="Pleasechooseasystem">براہ کرم ایک نظام منتخب کریں</system:String>
     <system:String x:Key="Pleaseeditthissystemto">مسئلہ ٹھیک کرنے کے لئے اس سسٹم کو ایڈٹ کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchquery">براہ کرم تلاش کا سوال درج کریں۔</system:String>
     <system:String x:Key="Pleaseenterasearchterm">براہ کرم تلاش کی اصطلاح درج کریں۔</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">انتباہ</system:String>
     <system:String x:Key="wascanceled">منسوخ کر دیا گیا تھا۔</system:String>
     <system:String x:Key="wasremovedfromfavorites">پسندیدہ سے ہٹا دیا گیا۔</system:String>
-    <system:String x:Key="Wealsosupport">ہم ان سسٹمز کو بھی سپورٹ کرتے ہیں جنہیں ان فائلوں کی ضرورت ہوتی ہے، لیکن ان کے لیے آپ کو 'ایکسپرٹ موڈ' کا استعمال کرتے ہوئے انسٹال کرنا ہوگا۔</system:String>
     <system:String x:Key="WhatIsDEP">DEP ایک سیکیورٹی فیچر ہے جو وائرسز اور دیگر سیکیورٹی خطرات سے نقصان کو روکنے میں مدد کرتا ہے۔</system:String>
     <system:String x:Key="WhatIsMemoryAccess">میموری ایکسیس ویولیشنز حفاظتی طریقے ہیں جو پروگراموں کو ان کے مختص کردہ جگہ کے باہر کی میموری تک رسائی یا ترمیم کرنے سے روکتی ہیں، جو ممکنہ طور پر آپ کے نظام کو کریش کر سکتی ہیں یا حفاظتی کمزوریاں پیدا کر سکتی ہیں۔</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">جب ایکسٹریکشن سے پہلے لانچ کیا جائے، 'zip', '7z', یا 'rar' ضروری ہے۔</system:String>

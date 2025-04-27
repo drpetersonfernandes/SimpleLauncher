@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'a Sistem Ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
     <system:String x:Key="Alert">Uyarı</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Ayrıca emulatorün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Bu sistem için 'ROM' veya 'ISO' içeren bir klasör seçin.</system:String>
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Bu sistem için ROM'ların veya ISO dosyalarının bulunduğu klasörü seçin</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Oyunları görmek için yukarıdaki harf düğmelerine tıklayın</system:String>
     <system:String x:Key="Close">Kapat</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">0'dan itibaren dosyalar görüntüleniyor:</system:String>
     <system:String x:Key="Donate">Bağış Yap</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Görüntü paketini indir ve çıkar (uygunsa)</system:String>
-    <system:String x:Key="DownloadandInstall">Emülatörü ve çekirdeği indirip yükle</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">İndirme tamamlandı. Çıkartma işlemi başlıyor</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Çivit Mavisi</system:String>
     <system:String x:Key="Info">Bilgi</system:String>
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
-    <system:String x:Key="Inthiswindow">Bu pencerede, BIOS veya sistem dosyaları gerektirmeyen emülatörleri kolayca indirip yükleyebilirsiniz.</system:String>
     <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Oynatma Geçmişi</system:String>
     <system:String x:Key="PlayHistoryList">Oynatma geçmişi listesi</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Eklemek istediğiniz sistemi seçin</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Sorunu düzeltmek için bu sistemi düzenleyin.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Lütfen bir arama sorgusu girin.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Lütfen bir arama terimi girin.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Uyarı</system:String>
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
-    <system:String x:Key="Wealsosupport">Bu tür dosyaları gerektiren sistemleri de destekliyoruz, ancak bu durumda "Uzman Modu"nu kullanarak manuel olarak yüklemeniz gerekiyor.</system:String>
     <system:String x:Key="WhatIsDEP">DEP, virüsler ve diğer güvenlik tehditlerinden kaynaklanan zararları önlemeye yardımcı olan bir güvenlik özelliğidir.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Bellek Erişim İhlalleri, programların tahsis edilen alanlarının dışındaki belleğe erişmesini veya bu belleği değiştirmesini engelleyen güvenlik mekanizmalarıdır ve bu durum sisteminizi çökertmeye veya güvenlik açıkları yaratmaya neden olabilir.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘Başlatmadan Önce Dosyayı Çıkar’ etkinse, ‘Sistem Klasöründe Aranacak Uzantı’ ‘zip’, ‘7z’ veya ‘rar’ içermelidir.</system:String>

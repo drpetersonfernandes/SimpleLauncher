@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">সিস্টেমটি কনফিগারেশনে যোগ করা হচ্ছে...</system:String>
     <system:String x:Key="AddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'-এ সিস্টেম যোগ করুন।</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
     <system:String x:Key="Alert">সতর্কতা</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">এছাড়াও, এমুলেটর এবং এর নির্ভরশীলতাগুলির অখণ্ডতা পরীক্ষা করুন।</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">এই সিস্টেমটির জন্য 'ROMs' বা 'ISOs' সম্বলিত একটি ফোল্ডার নির্বাচন করুন।</system:String>
     <system:String x:Key="Chooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseFolder">ফোল্ডার নির্বাচন করুন</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">এই সিস্টেমের জন্য ROM বা ISO ফাইলগুলির ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
     <system:String x:Key="Close">বন্ধ করুন</system:String>
     <system:String x:Key="Cobalt">কোবাল্ট</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">ফাইলগুলো ০ থেকে প্রদর্শন করছে</system:String>
     <system:String x:Key="Donate">দান করুন</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' ফাইলটি ডিবাগ করার জন্য কি আপনি এটি খুলতে চান?</system:String>
-    <system:String x:Key="DownloadandExtractImage">ইমেজ প্যাক ডাউনলোড এবং এক্সট্রাক্ট করুন (যদি উপলব্ধ থাকে)</system:String>
-    <system:String x:Key="DownloadandInstall">এমুলেটর এবং কোর ডাউনলোড এবং ইনস্টল করুন</system:String>
     <system:String x:Key="Downloadcanceled">ডাউনলোড বাতিল করা হয়েছে</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">ডাউনলোড সম্পন্ন। এখানে এক্সট্র্যাকশন শুরু হচ্ছে</system:String>
     <system:String x:Key="DownloadCore">কোর ডাউনলোড করুন</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">নীলের ঘন</system:String>
     <system:String x:Key="Info">তথ্য</system:String>
     <system:String x:Key="InfoLinkButton">তথ্য লিংক বোতাম</system:String>
-    <system:String x:Key="Inthiswindow">এই উইন্ডোতে, আপনি সহজেই এমুলেটর ডাউনলোড এবং ইনস্টল করতে পারবেন যা BIOS বা সিস্টেম ফাইল ছাড়া সম্পূর্ণ কাজ করে।</system:String>
     <system:String x:Key="InvalidDownloadLink">অবৈধ ডাউনলোড লিঙ্ক</system:String>
     <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
     <system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">প্লে ইতিহাস</system:String>
     <system:String x:Key="PlayHistoryList">প্লে ইতিহাসের তালিকা</system:String>
     <system:String x:Key="Playtime">খেলার সময়কাল:</system:String>
-    <system:String x:Key="Pleasechooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="Pleaseeditthissystemto">অনুগ্রহ করে এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
     <system:String x:Key="Pleaseenterasearchquery">অনুগ্রহ করে একটি অনুসন্ধান শব্দ দিন</system:String>
     <system:String x:Key="Pleaseenterasearchterm">অনুসন্ধান পানি জন্য কিছু লিখুন।</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">সতর্কতা</system:String>
     <system:String x:Key="wascanceled">বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="wasremovedfromfavorites">পছন্দের তালিকা থেকে সরানো হয়েছে।</system:String>
-    <system:String x:Key="Wealsosupport">আমরা এমন সিস্টেমগুলিকেও সমর্থন করি যেগুলির জন্য এই ফাইলগুলি প্রয়োজন, তবে সেগুলির জন্য আপনাকে 'এক্সপার্ট মোড' ব্যবহার করতে হবে এবং নিজে নিজে ইনস্টল করতে হবে।</system:String>
     <system:String x:Key="WhatIsDEP">DEP হল একটি সিকিউরিটি ফিচার যা ভাইরাস এবং অন্যান্য সিকিউরিটি হুমকির থেকে ক্ষতি প্রতিরোধে সাহায্য করে।</system:String>
     <system:String x:Key="WhatIsMemoryAccess">মেমরি অ্যাক্সেস লঙ্ঘন হল নিরাপত্তা মেকানিজম যা প্রোগ্রামগুলিকে তাদের বরাদ্দকৃত স্থান ছাড়া মেমরিতে অ্যাক্সেস বা পরিবর্তন করতে বাধা দেয়, যা আপনার সিস্টেম ক্র্যাশ করতে বা নিরাপত্তা দুর্বলতা সৃষ্টি করতে পারে।</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>

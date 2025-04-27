@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">正在将系统添加到配置中...</system:String>
     <system:String x:Key="AddNewSystem">添加新系统</system:String>
     <system:String x:Key="AddSystem">添加系统</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">将系统添加到 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">添加到收藏夹</system:String>
     <system:String x:Key="Alert">警告</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">此外请检查模拟器及其依赖库的完整性。</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">为此系统选择一个包含 'ROM' 或 'ISO' 文件的文件夹。</system:String>
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="ChooseFolder">选择文件夹</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">选择该系统的 ROM 或 ISO 文件夹</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">点击上方的字母按钮查看游戏</system:String>
     <system:String x:Key="Close">关闭</system:String>
     <system:String x:Key="Cobalt">钴蓝色</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">显示文件从 0 到</system:String>
     <system:String x:Key="Donate">捐赠</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打开文件“error_user.log”以调试错误？</system:String>
-    <system:String x:Key="DownloadandExtractImage">下载并解压图像包（如果可用）</system:String>
-    <system:String x:Key="DownloadandInstall">下载并安装模拟器及其核心</system:String>
     <system:String x:Key="Downloadcanceled">下载已取消</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">下载完成。开始解压到</system:String>
     <system:String x:Key="DownloadCore">下载核心</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">靛蓝色</system:String>
     <system:String x:Key="Info">信息</system:String>
     <system:String x:Key="InfoLinkButton">信息链接按钮</system:String>
-    <system:String x:Key="Inthiswindow">在此窗口中，您可以轻松下载和安装不需要 BIOS 或系统文件即可运行的模拟器。</system:String>
     <system:String x:Key="InvalidDownloadLink">无效的下载链接</system:String>
     <system:String x:Key="InvalidExtractionFolder">无效的解压文件夹</system:String>
     <system:String x:Key="InvalidInputMessageText">请输入0.0到1.0之间的有效数字作为阈值。</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">播放历史</system:String>
     <system:String x:Key="PlayHistoryList">播放历史列表</system:String>
     <system:String x:Key="Playtime">游玩时间：</system:String>
-    <system:String x:Key="Pleasechooseasystem">请选择一个系统添加</system:String>
     <system:String x:Key="Pleaseeditthissystemto">请编辑此系统以修复问题。</system:String>
     <system:String x:Key="Pleaseenterasearchquery">请输入搜索查询。</system:String>
     <system:String x:Key="Pleaseenterasearchterm">请输入搜索词。</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">警告</system:String>
     <system:String x:Key="wascanceled">已取消。</system:String>
     <system:String x:Key="wasremovedfromfavorites">已从收藏夹中移除。</system:String>
-    <system:String x:Key="Wealsosupport">我们也支持需要这些文件的系统，但您需要使用“专家模式”并手动安装它们。</system:String>
     <system:String x:Key="WhatIsDEP">DEP是一项安全功能，有助于防止病毒和其他安全威胁造成的损害。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">内存访问违规是安全机制，防止程序访问或修改其分配空间之外的内存，这可能导致系统崩溃或创建安全漏洞。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">当启用了“启动前解压文件”时，“在系统文件夹中搜索的扩展名”必须包含“zip”、“7z”或“rar”。</system:String>

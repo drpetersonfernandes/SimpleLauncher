@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">구성에 시스템 추가 중...</system:String>
     <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
     <system:String x:Key="AddSystem">시스템 추가</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">'Simple Launcher'에 시스템 추가</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
     <system:String x:Key="Alert">경고</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">에뮬레이터와 그 종속성의 무결성을 확인하세요.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">이 시스템에 대해 'ROMs' 또는 'ISOs'가 포함된 폴더를 선택하세요.</system:String>
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseFolder">폴더 선택</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">이 시스템에 대한 ROM 또는 ISO가 포함된 폴더를 선택하세요</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
     <system:String x:Key="Close">닫기</system:String>
     <system:String x:Key="Cobalt">코발트</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">0에서</system:String>
     <system:String x:Key="Donate">기부</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
-    <system:String x:Key="DownloadandExtractImage">이미지 팩 다운로드 및 추출(사용 가능한 경우)</system:String>
-    <system:String x:Key="DownloadandInstall">에뮬레이터 및 코어 다운로드 및 설치</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">다운로드 완료. 압축 해제 시작:</system:String>
     <system:String x:Key="DownloadCore">코어 다운로드</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">남색</system:String>
     <system:String x:Key="Info">정보</system:String>
     <system:String x:Key="InfoLinkButton">정보 링크 버튼</system:String>
-    <system:String x:Key="Inthiswindow">이 창에서 BIOS나 시스템 파일이 필요하지 않은 에뮬레이터를 쉽게 다운로드하고 설치할 수 있습니다.</system:String>
     <system:String x:Key="InvalidDownloadLink">잘못된 다운로드 링크</system:String>
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">재생 기록</system:String>
     <system:String x:Key="PlayHistoryList">재생 기록 목록</system:String>
     <system:String x:Key="Playtime">플레이 시간:</system:String>
-    <system:String x:Key="Pleasechooseasystem">추가할 시스템을 선택하세요</system:String>
     <system:String x:Key="Pleaseeditthissystemto">이 문제를 해결하려면 시스템을 편집하세요.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">검색 쿼리를 입력하세요.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">검색어를 입력하세요.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">경고</system:String>
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
-    <system:String x:Key="Wealsosupport">이 파일이 필요한 시스템도 지원하지만, 그런 경우 "전문가 모드"를 사용하여 직접 설치해야 합니다.</system:String>
     <system:String x:Key="WhatIsDEP">DEP는 바이러스 및 기타 보안 위협으로 인한 피해를 방지하는 데 도움이 되는 보안 기능입니다.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">메모리 접근 위반은 프로그램이 할당된 공간 외부의 메모리에 접근하거나 수정하는 것을 방지하는 보안 메커니즘으로, 시스템이 충돌하거나 보안 취약점을 생성할 수 있습니다.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>

@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Add System into 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="Alert">Alert</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Choose a folder with 'ROMs' or 'ISOs' for this system</system:String>
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Choose folder with ROMs or ISOs for this system</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Displaying files 0 to</system:String>
     <system:String x:Key="Donate">Donate</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Download and Extract Image Pack (If Available)</system:String>
-    <system:String x:Key="DownloadandInstall">Download and Install Emulator and Core</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Download complete. Starting extraction to</system:String>
     <system:String x:Key="DownloadCore">Download Core</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
-    <system:String x:Key="Inthiswindow">In this window, you can easily download and install emulators that don't require BIOS or system files to work.</system:String>
     <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Play History</system:String>
     <system:String x:Key="PlayHistoryList">Play history List</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Please choose a system to Add</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Please edit this system to fix that.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Please enter a search query.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Please enter a search term.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Warning</system:String>
     <system:String x:Key="wascanceled">was canceled.</system:String>
     <system:String x:Key="wasremovedfromfavorites">was removed from favorites.</system:String>
-    <system:String x:Key="Wealsosupport">We also support systems that require those files, but for those, you will have to use 'Expert Mode' and install them yourself.</system:String>
     <system:String x:Key="WhatIsDEP">DEP is a security feature that helps prevent damage from viruses and other security threats.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.</system:String>
@@ -580,4 +573,12 @@
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
+    
+    <system:String x:Key="ProgressBar">Progress Bar</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">We also support systems that require those files; however, you’ll need to switch to “Expert Mode” and install them manually.</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
+    <system:String x:Key="Install">Install</system:String>
+    
 </ResourceDictionary>

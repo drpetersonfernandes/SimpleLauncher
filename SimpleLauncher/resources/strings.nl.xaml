@@ -31,7 +31,6 @@
     <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
-    <system:String x:Key="AddSystemIntoSimpleLauncher">Systeem toevoegen aan 'Simple Launcher'</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
     <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
@@ -78,7 +77,6 @@
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Kies een map met 'ROMs' of 'ISO's voor dit systeem.</system:String>
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
-    <system:String x:Key="ChoosefolderwithROMs">Kies de map met ROM's of ISO's voor dit systeem</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
@@ -115,8 +113,6 @@
     <system:String x:Key="Displayingfiles0to">Bestanden weergeven van 0 tot</system:String>
     <system:String x:Key="Donate">Doneren</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
-    <system:String x:Key="DownloadandExtractImage">Download en pak het afbeeldingspakket uit (indien beschikbaar)</system:String>
-    <system:String x:Key="DownloadandInstall">Download en installeer de emulator en de kern</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
     <system:String x:Key="DownloadcompleteStartingextractionto">Download voltooid. Begin met uitpakken naar</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
@@ -248,7 +244,6 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Informatie</system:String>
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
-    <system:String x:Key="Inthiswindow">In dit venster kun je eenvoudig emulators downloaden en installeren die geen BIOS- of systeembestanden nodig hebben om te werken.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
@@ -320,7 +315,6 @@
     <system:String x:Key="PlayHistory">Afspeelgeschiedenis</system:String>
     <system:String x:Key="PlayHistoryList">Lijst van afspeelgeschiedenis</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
-    <system:String x:Key="Pleasechooseasystem">Kies een systeem om toe te voegen</system:String>
     <system:String x:Key="Pleaseeditthissystemto">Bewerk dit systeem om het probleem op te lossen.</system:String>
     <system:String x:Key="Pleaseenterasearchquery">Voer alstublieft een zoekopdracht in.</system:String>
     <system:String x:Key="Pleaseenterasearchterm">Voer een zoekterm in.</system:String>
@@ -561,7 +555,6 @@
     <system:String x:Key="Warning">Waarschuwing</system:String>
     <system:String x:Key="wascanceled">is geannuleerd.</system:String>
     <system:String x:Key="wasremovedfromfavorites">is verwijderd uit favorieten.</system:String>
-    <system:String x:Key="Wealsosupport">We ondersteunen ook systemen die deze bestanden wel nodig hebben, maar daarvoor moet je de "Expertmodus" gebruiken en deze handmatig installeren.</system:String>
     <system:String x:Key="WhatIsDEP">DEP is een beveiligingsfunctie die helpt schade door virussen en andere beveiligingsbedreigingen te voorkomen.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Geheugen toegangsbreuken zijn beveiligingsmechanismen die voorkomen dat programma's toegang hebben tot of geheugen buiten hun toegewezen ruimte te wijzigen, wat mogelijk uw systeem kan laten crashen of beveiligingslekken kan creëren.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Als 'Bestand extraheren vóór starten' is ingeschakeld, moet de 'Extensie om te zoeken in de systeemmap' 'zip', '7z' of 'rar' bevatten.</system:String>
