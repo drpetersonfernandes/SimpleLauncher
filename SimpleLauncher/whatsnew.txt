@@ -2,12 +2,12 @@ release3.13
 -----------
 
 04/27/2025
-- Update tool [Batch Convert To Compressed File] to skip already compressed files.
-- Improve UI in windows [Easy Mode] and [Download Image Pack].
-- Added code to impose a single instance of the Application.
-- Implemented a Fuzzy Image Matching logic to improve user experience. Logic will find a cover image that partially matches the rom filename. Users can turn off this feature.
+- Updated the [Batch Convert To Compressed File] tool to skip files that are already compressed.
+- Improved the UI in the [Easy Mode] and [Download Image Pack] windows.
+- Added code to enforce a single instance of the application.
+- Implemented fuzzy image matching to enhance the user experience. This logic finds a cover image that partially matches the ROM filename. Users can disable this feature if desired.
 - Updated emulators to the latest version.
-- Updated `history.xml`, available at arcade-history.com, to the latest version.
+- Updated `history.xml` (available at arcade-history.com) to the latest version.
 
 release3.12
 -----------
@@ -127,7 +127,7 @@ release3.7
 
 12/08/2024
 - Added a tool to generate BAT files for Xbox 360 XBLA games.
-- I have added a Helper class to assist users during system edits.
+- I have added a Helper class to help users during system edits.
 - I have improved the UI in the Edit window.
 - Added support for launching Mattel Aquarius games on MAME using the frontend.
 - Improved the code that gets the application version from GitHub.
@@ -431,7 +431,6 @@ I've implemented pagination in the main UI, allowing users to select the number 
 Additionally, I've added an option to edit the Video Link and Info Link, where users can enter their favorite search engine.
 Also, I've added an option to back up the system.xml from within the Edit System Window, useful for preventing loss of your custom configuration.
 Furthermore, I have added the option to use a custom System Image Folder. If the user does not specify an Image Folder, the application will load images from the default location, which is inside the image folder of the application folder.
-Some of these changes were suggested by the user bigroy00. Thank you for the support, Roy.
 
 release2.8.2.10
 ---------------
@@ -483,7 +482,7 @@ release2.6.0.1
 
 01/24/2024
 Fix some code.
-Improve error checking for mame.xml, settings.xml and system.xml.
+Improve error checking for mame.xml, settings.xml, and system.xml.
 Add a BugReport window.
 
 release2.5.0.0
