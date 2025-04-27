@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Kiểm tra cập nhật</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Chọn một thư mục chứa các tệp 'ROM' hoặc 'ISO' cho hệ thống này.</system:String>
     <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Chọn hệ thống để thêm</system:String>
     <system:String x:Key="ChooseFolder">Chọn thư mục</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Chọn thư mục chứa ROM hoặc ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Nhấp vào các nút chữ cái ở trên để xem các trò chơi</system:String>
     <system:String x:Key="Close">Đóng</system:String>
     <system:String x:Key="Cobalt">Cô-ban</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Lục bảo</system:String>
     <system:String x:Key="Emulator">Trình giả lập</system:String>
+    <system:String x:Key="Emulator1">Trình giả lập 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">Tên "Trình giả lập 1" là bắt buộc.</system:String>
     <system:String x:Key="Emulator1NameRequired">Tên của trình giả lập 1 (bắt buộc)</system:String>
     <system:String x:Key="Emulator1Parameters">Tham số cho trình giả lập 1</system:String>
     <system:String x:Key="Emulator1Path">Đường dẫn Máy giả lập 1</system:String>
+    <system:String x:Key="Emulator2">Trình giả lập 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Tên của trình giả lập 2 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator2Parameters">Tham số cho trình giả lập 2</system:String>
     <system:String x:Key="Emulator2Path">Đường dẫn Máy giả lập 2</system:String>
+    <system:String x:Key="Emulator3">Trình giả lập 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Tên của trình giả lập 3 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator3Parameters">Tham số cho trình giả lập 3</system:String>
     <system:String x:Key="Emulator3Path">Đường dẫn Máy giả lập 3</system:String>
+    <system:String x:Key="Emulator4">Trình giả lập 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Tên của trình giả lập 4 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator4Parameters">Tham số cho trình giả lập 4</system:String>
     <system:String x:Key="Emulator4Path">Đường dẫn Máy giả lập 4</system:String>
+    <system:String x:Key="Emulator5">Trình giả lập 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
     <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Đang giải nén tệp nén, vui lòng đợi...</system:String>
     <system:String x:Key="Extractionfailed">Giải nén thất bại.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Giải nén thất bại. Xem thông báo lỗi để biết chi tiết.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Yêu Cầu Thư Mục Giải Nén</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Không thể tải tài nguyên ngôn ngữ.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Không thể tải hình ảnh trong trình xem hình ảnh.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Không thể mở hướng dẫn.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Nếu bạn đang cố chạy MAME, hãy đảm bảo rằng bộ sưu tập ROM của bạn tương thích với phiên bản MAME đang sử dụng.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Nếu bạn đang cố chạy Retroarch, hãy đảm bảo rằng BIOS cần thiết hoặc các tệp lõi đã được cài đặt.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Nếu bạn không chọn thư mục, hình ảnh sẽ được trích xuất vào thư mục mặc định</system:String>
     <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Thư mục ảnh của hệ thống không tồn tại hoặc chưa được chỉ định.</system:String>
     <system:String x:Key="Imageloadingerror">Lỗi tải hình ảnh</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Chàm</system:String>
     <system:String x:Key="Info">Thông tin</system:String>
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
+    <system:String x:Key="Install">Cài đặt</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">Trong cửa sổ này, bạn có thể tải xuống và cài đặt trình giả lập không yêu cầu BIOS hoặc các tệp hệ thống khác.</system:String>
     <system:String x:Key="InvalidDownloadLink">Liên Kết Tải Xuống Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidInputMessageText">Vui lòng nhập một số hợp lệ từ 0.0 đến 1.0 cho ngưỡng.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Vui lòng khởi động lại 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Vui lòng chọn một mục yêu thích để xóa.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Vui lòng chọn một trò chơi để khởi chạy.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Vui lòng chọn thư mục giải nén.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Vui lòng chọn một gói hình ảnh</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Vui lòng chọn hệ thống trước khi tìm kiếm.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Vui lòng chọn một hệ thống trước khi sử dụng tính năng Cảm thấy May Mắn.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Đang chuẩn bị tải xuống</system:String>
     <system:String x:Key="PreviewImage">Xem trước hình ảnh</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
+    <system:String x:Key="ProgressBar">Thanh tiến trình</system:String>
     <system:String x:Key="Purple">Tím</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Đặt hình ảnh bìa cho hệ thống này vào</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Đặt các tập tin ROM hoặc ISO cho hệ thống này vào</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Lưu báo cáo</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
     <system:String x:Key="Searchingpleasewait">Đang tìm kiếm, vui lòng đợi...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Hãy chọn một thư mục để giải nén gói hình ảnh.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Vui lòng chọn một mục lịch sử để xóa.</system:String>
     <system:String x:Key="SelectaWindow">Chọn một cửa sổ</system:String>
     <system:String x:Key="Selectedsystemnotfound">Hệ thống được chọn không tìm thấy trong tệp XML!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectionRequired">Yêu Cầu Lựa Chọn</system:String>
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Chọn thư mục để trích xuất</system:String>
     <system:String x:Key="SendSupportRequest">Gửi Yêu Cầu Hỗ Trợ</system:String>
     <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
     <system:String x:Key="SetButtonSize">Đặt kích thước nút</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Cảnh báo</system:String>
     <system:String x:Key="wascanceled">đã bị hủy.</system:String>
     <system:String x:Key="wasremovedfromfavorites">đã bị xóa khỏi mục yêu thích.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu những tệp này; tuy nhiên, bạn cần chuyển sang "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
     <system:String x:Key="WhatIsDEP">DEP là một tính năng bảo mật giúp ngăn chặn thiệt hại từ virus và các mối đe dọa bảo mật khác.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Vi phạm truy cập bộ nhớ là các cơ chế bảo mật ngăn các chương trình truy cập hoặc sửa đổi bộ nhớ bên ngoài không gian đã được phân bổ của chúng, điều này có thể làm hệ thống của bạn sập hoặc tạo ra các lỗ hổng bảo mật.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
+
 </ResourceDictionary>

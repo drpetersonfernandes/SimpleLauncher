@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Periksa Pembaruan</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini.</system:String>
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Pilih sistem yang akan ditambahkan</system:String>
     <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Pilih folder berisi ROM atau ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
     <system:String x:Key="Close">Tutup</system:String>
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Hijau Zamrud</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
+    <system:String x:Key="Emulator1">Emulator 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">"Nama Emulator 1" diperlukan.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nama Emulator 1 (Wajib)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameter Emulator 1</system:String>
     <system:String x:Key="Emulator1Path">Jalur Emulator 1</system:String>
+    <system:String x:Key="Emulator2">Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nama Emulator 2 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameter Emulator 2</system:String>
     <system:String x:Key="Emulator2Path">Jalur Emulator 2</system:String>
+    <system:String x:Key="Emulator3">Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nama Emulator 3 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameter Emulator 3</system:String>
     <system:String x:Key="Emulator3Path">Jalur Emulator 3</system:String>
+    <system:String x:Key="Emulator4">Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nama Emulator 4 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameter Emulator 4</system:String>
     <system:String x:Key="Emulator4Path">Jalur Emulator 4</system:String>
+    <system:String x:Key="Emulator5">Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nama Emulator 5 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Mengekstrak file terkompresi, harap tunggu...</system:String>
     <system:String x:Key="Extractionfailed">Ekstraksi gagal.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ekstraksi gagal. Lihat pesan kesalahan untuk detail.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Folder Ekstraksi Diperlukan</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Gagal memuat sumber bahasa.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Gambar gagal dimuat di jendela penampil gambar.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Gagal membuka panduan.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Jika Anda mencoba menjalankan MAME, pastikan koleksi ROM Anda kompatibel dengan versi MAME yang digunakan.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Jika Anda mencoba menjalankan Retroarch, pastikan file BIOS atau file yang diperlukan untuk inti telah terinstal.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Jika Anda tidak memilih folder, gambar akan diekstrak ke folder default</system:String>
     <system:String x:Key="Ifyouleaveitempty">Jika Anda membiarkan kosong, aplikasi akan membuat folder untuk sistem ini di dalam folder 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Folder Gambar Sistem tidak ada atau tidak ditentukan.</system:String>
     <system:String x:Key="Imageloadingerror">Kesalahan saat memuat gambar.</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Nila</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
+    <system:String x:Key="Install">Instal</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">Di jendela ini, Anda dapat mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau file sistem lainnya.</system:String>
     <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Silakan mulai ulang 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Silakan pilih favorit untuk dihapus.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Silakan pilih game untuk diluncurkan.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Silakan pilih folder ekstraksi.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Silakan pilih Paket Gambar</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Silakan pilih sistem sebelum mencari.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Silakan pilih sistem sebelum menggunakan fitur Merasa Beruntung.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
     <system:String x:Key="PreviewImage">Pratinjau Gambar</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
+    <system:String x:Key="ProgressBar">Bilah Progres</system:String>
     <system:String x:Key="Purple">Ungu</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Masukkan gambar sampul untuk sistem ini di dalam</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Masukkan ROM atau ISO untuk sistem ini di dalam</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Simpan Laporan</system:String>
     <system:String x:Key="Search">Cari</system:String>
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Pilih folder untuk mengekstrak pek gambar.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Silakan pilih item riwayat untuk dihapus.</system:String>
     <system:String x:Key="SelectaWindow">Pilih Jendela</system:String>
     <system:String x:Key="Selectedsystemnotfound">Sistem yang dipilih tidak ditemukan dalam dokumen XML!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
     <system:String x:Key="SelectionRequired">Pemilihan Diperlukan</system:String>
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Pilih Folder Ekstraksi</system:String>
     <system:String x:Key="SendSupportRequest">Kirim Permintaan Dukungan</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
     <system:String x:Key="SetButtonSize">Atur Ukuran Tombol</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Peringatan</system:String>
     <system:String x:Key="wascanceled">dibatalkan.</system:String>
     <system:String x:Key="wasremovedfromfavorites">telah dihapus dari favorit.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Kami juga mendukung sistem yang memerlukan file tersebut; namun, Anda perlu beralih ke "Mode Ahli" dan menginstalnya secara manual.</system:String>
     <system:String x:Key="WhatIsDEP">DEP adalah fitur keamanan yang membantu mencegah kerusakan dari virus dan ancaman keamanan lainnya.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Pelanggaran Akses Memori adalah mekanisme keamanan yang mencegah program mengakses atau memodifikasi memori di luar ruang yang dialokasikan, yang bisa berpotensi menyebabkan sistem Anda crash atau menciptakan kerentanan keamanan.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true, "Ekstensi untuk Dicari di Folder Sistem" harus mencakup 'zip', '7z', atau 'rar'.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
+
 </ResourceDictionary>

@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Check For Update</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Choose a folder with 'ROMs' or 'ISOs' for this system</system:String>
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Emerald</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
+    <system:String x:Key="Emulator1">Emulator 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">'Emulator 1 Name' is required.</system:String>
     <system:String x:Key="Emulator1NameRequired">Emulator 1 Name (Required)</system:String>
     <system:String x:Key="Emulator1Parameters">Emulator 1 Parameters</system:String>
     <system:String x:Key="Emulator1Path">Emulator 1 Path</system:String>
+    <system:String x:Key="Emulator2">Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Emulator 2 Name (May be Required)</system:String>
     <system:String x:Key="Emulator2Parameters">Emulator 2 Parameters</system:String>
     <system:String x:Key="Emulator2Path">Emulator 2 Path</system:String>
+    <system:String x:Key="Emulator3">Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Emulator 3 Name (May be Required)</system:String>
     <system:String x:Key="Emulator3Parameters">Emulator 3 Parameters</system:String>
     <system:String x:Key="Emulator3Path">Emulator 3 Path</system:String>
+    <system:String x:Key="Emulator4">Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Emulator 4 Name (May be Required)</system:String>
     <system:String x:Key="Emulator4Parameters">Emulator 4 Parameters</system:String>
     <system:String x:Key="Emulator4Path">Emulator 4 Path</system:String>
+    <system:String x:Key="Emulator5">Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emulator 5 Name (May be Required)</system:String>
     <system:String x:Key="Emulator5Parameters">Emulator 5 Parameters</system:String>
     <system:String x:Key="Emulator5Path">Emulator 5 Path</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Extracting compressed file, please wait...</system:String>
     <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Extraction failed. See error message for details.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Extraction Folder Required</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Failed to load language resources.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Failed to open the manual.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">If you choose to delete it, 'Simple Launcher' will create a new one for you.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">If you do not choose a folder, the images will be extracted to the default folder</system:String>
     <system:String x:Key="Ifyouleaveitempty">If you leave it empty, the application will create a folder for this system inside the 'roms' folder.</system:String>
     <system:String x:Key="ImageFolderNotExist">System Image Folder does not exist or is not specified.</system:String>
     <system:String x:Key="Imageloadingerror">Image loading error</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Info Link Button</system:String>
+    <system:String x:Key="Install">Install</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
     <system:String x:Key="InvalidDownloadLink">Invalid Download Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Please restart 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Please select a favorite to remove.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Please select a game to launch.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Please select an extraction folder.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Please select an Image Pack</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Please select a system before searching.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Please select a system before using the Feeling Lucky feature.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Preparing to download</system:String>
     <system:String x:Key="PreviewImage">Preview Image</system:String>
     <system:String x:Key="Processingpleasewait">Processing, please wait...</system:String>
+    <system:String x:Key="ProgressBar">Progress Bar</system:String>
     <system:String x:Key="Purple">Purple</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Put cover images for this system inside</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Put ROMs or ISOs for this system inside</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Save Report</system:String>
     <system:String x:Key="Search">Search</system:String>
     <system:String x:Key="Searchingpleasewait">Searching, please wait...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Select a folder to extract the Image Pack</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Please select a history item to remove.</system:String>
     <system:String x:Key="SelectaWindow">Select a Window</system:String>
     <system:String x:Key="Selectedsystemnotfound">Selected system not found in the XML document!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
     <system:String x:Key="SelectionRequired">Selection Required</system:String>
     <system:String x:Key="SelectSystem">Select System</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Select the Extraction Folder</system:String>
     <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
     <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
     <system:String x:Key="SetButtonSize">Set Button Size</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Warning</system:String>
     <system:String x:Key="wascanceled">was canceled.</system:String>
     <system:String x:Key="wasremovedfromfavorites">was removed from favorites.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">We also support systems that require those files; however, you’ll need to switch to “Expert Mode” and install them manually.</system:String>
     <system:String x:Key="WhatIsDEP">DEP is a security feature that helps prevent damage from viruses and other security threats.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.</system:String>
@@ -573,17 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
-    
-    <system:String x:Key="ProgressBar">Progress Bar</system:String>
-    <system:String x:Key="InThisWindowYouCanDownload">In this window, you can download and install emulators that don’t require BIOS or other system files.</system:String>
-    <system:String x:Key="WeAlsoSupportSystems">We also support systems that require those files; however, you’ll need to switch to “Expert Mode” and install them manually.</system:String>
-    <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
-    <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
-    <system:String x:Key="Install">Install</system:String>
-    <system:String x:Key="Emulator1">Emulator 1</system:String>
-    <system:String x:Key="Emulator2">Emulator 2</system:String>
-    <system:String x:Key="Emulator3">Emulator 3</system:String>
-    <system:String x:Key="Emulator4">Emulator 4</system:String>
-    <system:String x:Key="Emulator5">Emulator 5</system:String>
     
 </ResourceDictionary>

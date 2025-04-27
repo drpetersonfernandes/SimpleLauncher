@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Проверить обновления</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Выберите папку с файлами 'ROMs' или 'ISOs' для этой системы.</system:String>
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Выберите систему для добавления</system:String>
     <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Выберите папку с ROM или ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
     <system:String x:Key="Close">Закрыть</system:String>
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">Электронная почта</system:String>
     <system:String x:Key="Emerald">Изумрудный</system:String>
     <system:String x:Key="Emulator">Эмулятор</system:String>
+    <system:String x:Key="Emulator1">Эмулятор 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">Имя «Эмулятор 1» обязательно.</system:String>
     <system:String x:Key="Emulator1NameRequired">Название эмулятора 1 (обязательно)</system:String>
     <system:String x:Key="Emulator1Parameters">Параметры эмулятора 1</system:String>
     <system:String x:Key="Emulator1Path">Путь эмулятора 1</system:String>
+    <system:String x:Key="Emulator2">Эмулятор 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Название эмулятора 2 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator2Parameters">Параметры эмулятора 2</system:String>
     <system:String x:Key="Emulator2Path">Путь эмулятора 2</system:String>
+    <system:String x:Key="Emulator3">Эмулятор 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Название эмулятора 3 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator3Parameters">Параметры эмулятора 3</system:String>
     <system:String x:Key="Emulator3Path">Путь эмулятора 3</system:String>
+    <system:String x:Key="Emulator4">Эмулятор 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Название эмулятора 4 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator4Parameters">Параметры эмулятора 4</system:String>
     <system:String x:Key="Emulator4Path">Путь эмулятора 4</system:String>
+    <system:String x:Key="Emulator5">Эмулятор 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Название эмулятора 5 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
     <system:String x:Key="Emulator5Path">Путь эмулятора 5</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Извлечение сжатого файла, пожалуйста, подождите...</system:String>
     <system:String x:Key="Extractionfailed">Распаковка не удалась.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ошибка распаковки. Подробности см. в сообщении об ошибке.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Требуется Папка для Распаковки</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Не удалось загрузить языковые ресурсы.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Не удалось загрузить изображение в окне просмотра изображений.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Не удалось открыть руководство.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Если вы пытаетесь запустить MAME, убедитесь, что ваша коллекция ROM совместима с используемой версией MAME.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Если вы пытаетесь запустить Retroarch, убедитесь, что необходимые BIOS или файлы для ядра установлены.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Если вы выберете удаление, 'Simple Launcher' создаст новый файл.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Если вы не выберете папку, изображения будут извлечены в папку по умолчанию</system:String>
     <system:String x:Key="Ifyouleaveitempty">Если оставить поле пустым, приложение создаст папку для этой системы внутри папки 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Папка изображений системы не существует или не указана.</system:String>
     <system:String x:Key="Imageloadingerror">Ошибка загрузки изображения.</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Индиго</system:String>
     <system:String x:Key="Info">Информация</system:String>
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
+    <system:String x:Key="Install">Установить</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">В этом окне вы можете скачать и установить эмуляторы, не требующие BIOS или других системных файлов.</system:String>
     <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Пожалуйста, перезапустите 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Пожалуйста, выберите избранное для удаления.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Пожалуйста, выберите игру для запуска.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Пожалуйста, выберите папку для распаковки.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Пожалуйста, выберите пакет изображений</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Пожалуйста, выберите систему перед поиском.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Пожалуйста, выберите систему перед использованием функции Чувствую Удачу.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
     <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
+    <system:String x:Key="ProgressBar">Индикатор выполнения</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Поместите обложки для этой системы в</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Поместите ROM или ISO для этой системы в</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Сохранить отчет</system:String>
     <system:String x:Key="Search">Поиск</system:String>
     <system:String x:Key="Searchingpleasewait">Поиск в процессе, пожалуйста, подождите...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Выберите папку для извлечения пакета изображений.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Пожалуйста, выберите элемент истории для удаления.</system:String>
     <system:String x:Key="SelectaWindow">Выберите окно</system:String>
     <system:String x:Key="Selectedsystemnotfound">Выбранная система не найдена в XML-документе!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
     <system:String x:Key="SelectionRequired">Требуется Выбор</system:String>
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Выберите папку для извлечения</system:String>
     <system:String x:Key="SendSupportRequest">Отправить запрос на поддержку</system:String>
     <system:String x:Key="SetButtonAspectRatio">Задать соотношение сторон кнопки</system:String>
     <system:String x:Key="SetButtonSize">Задать размер кнопки</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Предупреждение</system:String>
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Мы также поддерживаем системы, которым требуются эти файлы; однако вам нужно будет переключиться в "Экспертный режим" и установить их вручную.</system:String>
     <system:String x:Key="WhatIsDEP">DEP — это функция безопасности, которая помогает предотвратить ущерб от вирусов и других угроз безопасности.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Ошибки доступа к памяти — это механизмы безопасности, которые предотвращают доступ программ к памяти вне их выделенного пространства или изменение её, что потенциально может привести к сбою системы или созданию уязвимостей безопасности.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Если включено «Извлечение файла перед запуском», «Расширение для поиска в системной папке» должно содержать «zip», «7z» или «rar».</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
+
 </ResourceDictionary>

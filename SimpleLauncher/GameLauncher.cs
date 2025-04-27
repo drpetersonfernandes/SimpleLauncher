@@ -966,7 +966,7 @@ public static class GameLauncher
 
     private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode == 0 && !ContainsEmulatorError(output, error)) return Task.CompletedTask;
+        if (process.ExitCode == 0) return Task.CompletedTask;
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError)
@@ -1077,23 +1077,5 @@ public static class GameLauncher
         MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
 
         return Task.FromResult(true);
-    }
-
-    private static bool ContainsEmulatorError(StringBuilder output, StringBuilder error)
-    {
-        if (output == null && error == null) return false;
-
-        // Common RetroArch error messages
-        var errorMessages = new[]
-        {
-            "File open/read error"
-        };
-
-        var outputStr = output?.ToString() ?? string.Empty;
-        var errorStr = error?.ToString() ?? string.Empty;
-
-        return errorMessages.Any(errorMsg =>
-            outputStr.Contains(errorMsg, StringComparison.OrdinalIgnoreCase) ||
-            errorStr.Contains(errorMsg, StringComparison.OrdinalIgnoreCase));
     }
 }

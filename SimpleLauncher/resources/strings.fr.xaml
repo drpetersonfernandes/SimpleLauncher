@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Vérifier les mises à jour</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Choisissez un dossier contenant des 'ROMs' ou des 'ISOs' pour ce système.</system:String>
     <system:String x:Key="Chooseasystem">Choisir un système</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Sélectionnez un système à ajouter</system:String>
     <system:String x:Key="ChooseFolder">Choisir un dossier</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Sélectionnez un dossier contenant des ROM ou des ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Cliquez sur les boutons des lettres ci-dessus pour voir les jeux</system:String>
     <system:String x:Key="Close">Fermer</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">Email</system:String>
     <system:String x:Key="Emerald">Émeraude</system:String>
     <system:String x:Key="Emulator">Émulateur</system:String>
+    <system:String x:Key="Emulator1">Émulateur 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">Le 'Nom de l'Émulateur 1' est requis.</system:String>
     <system:String x:Key="Emulator1NameRequired">Nom de l'émulateur 1 (obligatoire)</system:String>
     <system:String x:Key="Emulator1Parameters">Paramètres de l'émulateur 1</system:String>
     <system:String x:Key="Emulator1Path">Chemin de l'Émulateur 1</system:String>
+    <system:String x:Key="Emulator2">Émulateur 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nom de l'émulateur 2 (peut être obligatoire)</system:String>
     <system:String x:Key="Emulator2Parameters">Paramètres de l'émulateur 2</system:String>
     <system:String x:Key="Emulator2Path">Chemin de l'Émulateur 2</system:String>
+    <system:String x:Key="Emulator3">Émulateur 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nom de l'émulateur 3 (peut être obligatoire)</system:String>
     <system:String x:Key="Emulator3Parameters">Paramètres de l'émulateur 3</system:String>
     <system:String x:Key="Emulator3Path">Chemin de l'Émulateur 3</system:String>
+    <system:String x:Key="Emulator4">Émulateur 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nom de l'émulateur 4 (peut être obligatoire)</system:String>
     <system:String x:Key="Emulator4Parameters">Paramètres de l'émulateur 4</system:String>
     <system:String x:Key="Emulator4Path">Chemin de l'Émulateur 4</system:String>
+    <system:String x:Key="Emulator5">Émulateur 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nom de l'émulateur 5 (peut être obligatoire)</system:String>
     <system:String x:Key="Emulator5Parameters">Paramètres de l'émulateur 5</system:String>
     <system:String x:Key="Emulator5Path">Chemin de l'Émulateur 5</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Extraction du fichier compressé, veuillez patienter...</system:String>
     <system:String x:Key="Extractionfailed">Échec de l'extraction.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Échec de l'extraction. Voir le message d'erreur pour plus de détails.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Dossier d'Extraction Requis</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Échec du chargement des ressources linguistiques.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Impossible de charger l'image dans la fenêtre du visualiseur d'images.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Impossible d'ouvrir le manuel.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Si vous essayez d'exécuter MAME, assurez-vous que votre collection de ROMs est compatible avec la version de MAME utilisée.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Si vous essayez d'exécuter Retroarch, assurez-vous que le BIOS ou les fichiers nécessaires pour le noyau sont installés.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Si vous choisissez de le supprimer, 'Simple Launcher' en créera un nouveau.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Si vous ne choisissez pas de dossier, les images seront extraites dans le dossier par défaut</system:String>
     <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Le dossier d'images du système n'existe pas ou n'est pas spécifié.</system:String>
     <system:String x:Key="Imageloadingerror">Erreur lors du chargement de l'image.</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Info</system:String>
     <system:String x:Key="InfoLinkButton">Bouton de lien d'informations</system:String>
+    <system:String x:Key="Install">Installer</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">Dans cette fenêtre, vous pouvez télécharger et installer des émulateurs qui ne nécessitent pas de BIOS ou d'autres fichiers système.</system:String>
     <system:String x:Key="InvalidDownloadLink">Lien de Téléchargement Invalide</system:String>
     <system:String x:Key="InvalidExtractionFolder">Dossier d'Extraction Invalide</system:String>
     <system:String x:Key="InvalidInputMessageText">Veuillez entrer un nombre valide entre 0,0 et 1,0 pour le seuil.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Veuillez redémarrer 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Veuillez sélectionner un favori à supprimer.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Veuillez sélectionner un jeu à lancer.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Veuillez sélectionner un dossier d'extraction.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Veuillez sélectionner un pack d'images</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Veuillez sélectionner un système avant de rechercher.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Veuillez sélectionner un système avant d'utiliser la fonction Chanceux.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Préparation au téléchargement</system:String>
     <system:String x:Key="PreviewImage">Aperçu de l'image</system:String>
     <system:String x:Key="Processingpleasewait">Traitement en cours, veuillez patienter...</system:String>
+    <system:String x:Key="ProgressBar">Barre de progression</system:String>
     <system:String x:Key="Purple">Violet</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Mettez les images de couverture pour ce système dans</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Mettez des ROMs ou des ISOs pour ce système dans</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Enregistrer le rapport</system:String>
     <system:String x:Key="Search">Rechercher</system:String>
     <system:String x:Key="Searchingpleasewait">Recherche en cours, veuillez patienter...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Sélectionnez un dossier pour extraire le pack d'images.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Veuillez sélectionner un élément de l'historique à supprimer.</system:String>
     <system:String x:Key="SelectaWindow">Sélectionnez une fenêtre</system:String>
     <system:String x:Key="Selectedsystemnotfound">Système sélectionné introuvable dans le document XML !</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Sélectionnez l'émulateur 5.</system:String>
     <system:String x:Key="SelectionRequired">Sélection Requise</system:String>
     <system:String x:Key="SelectSystem">Sélectionner le système</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Sélectionnez le dossier d'extraction</system:String>
     <system:String x:Key="SendSupportRequest">Envoyer une demande de support</system:String>
     <system:String x:Key="SetButtonAspectRatio">Définir les proportions du bouton</system:String>
     <system:String x:Key="SetButtonSize">Définir la taille du bouton</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Attention</system:String>
     <system:String x:Key="wascanceled">a été annulé.</system:String>
     <system:String x:Key="wasremovedfromfavorites">a été supprimé des favoris.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Nous prenons également en charge les systèmes nécessitant ces fichiers ; toutefois, vous devrez passer en « Mode Expert » et les installer manuellement.</system:String>
     <system:String x:Key="WhatIsDEP">DEP est une fonctionnalité de sécurité qui aide à prévenir les dommages causés par les virus et autres menaces de sécurité.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Les violations d'accès à la mémoire sont des mécanismes de sécurité qui empêchent les programmes d'accéder ou de modifier la mémoire en dehors de leur espace attribué, ce qui pourrait potentiellement planter votre système ou créer des vulnérabilités de sécurité.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Lorsque 'Extraire le fichier avant le lancement' est activé, l''Extension à rechercher dans le dossier système' doit inclure 'zip', '7z' ou 'rar'.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Vous pouvez utiliser les opérateurs logiques AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Vous pouvez placer les images de couverture pour ce système dans ce dossier.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Vous devriez modifier les paramètres de l'émulateur pour éviter qu'il ne démarre en plein écran.</system:String>
+
 </ResourceDictionary>

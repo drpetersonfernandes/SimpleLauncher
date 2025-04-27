@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">আপডেট পরীক্ষা করুন</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">এই সিস্টেমটির জন্য 'ROMs' বা 'ISOs' সম্বলিত একটি ফোল্ডার নির্বাচন করুন।</system:String>
     <system:String x:Key="Chooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
+    <system:String x:Key="ChooseASystemToAdd">একটি সিস্টেম যোগ করতে নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseFolder">ফোল্ডার নির্বাচন করুন</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM বা ISO সহ ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
     <system:String x:Key="Close">বন্ধ করুন</system:String>
     <system:String x:Key="Cobalt">কোবাল্ট</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">ইমেল</system:String>
     <system:String x:Key="Emerald">পান্না</system:String>
     <system:String x:Key="Emulator">ইমুলেটর</system:String>
+    <system:String x:Key="Emulator1">এমুলেটর ১</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘ইমুলেটর ১ নাম’ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator1NameRequired">এমুলেটর ১ নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator1Parameters">এমুলেটর ১ প্যারামিটার</system:String>
     <system:String x:Key="Emulator1Path">ইমুলেটর ১ পথ</system:String>
+    <system:String x:Key="Emulator2">এমুলেটর ২</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">এমুলেটর ২ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator2Parameters">এমুলেটর ২ প্যারামিটার</system:String>
     <system:String x:Key="Emulator2Path">ইমুলেটর ২ পথ</system:String>
+    <system:String x:Key="Emulator3">এমুলেটর ৩</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">এমুলেটর ৩ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator3Parameters">এমুলেটর ৩ প্যারামিটার</system:String>
     <system:String x:Key="Emulator3Path">ইমুলেটর ৩ পথ</system:String>
+    <system:String x:Key="Emulator4">এমুলেটর ৪</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">এমুলেটর ৪ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator4Parameters">এমুলেটর ৪ প্যারামিটার</system:String>
     <system:String x:Key="Emulator4Path">ইমুলেটর ৪ পথ</system:String>
+    <system:String x:Key="Emulator5">এমুলেটর ৫</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">এমুলেটর ৫ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator5Parameters">এমুলেটর ৫ প্যারামিটার</system:String>
     <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">এক্সট্রাকশন প্রগ্রেস।</system:String>
     <system:String x:Key="Extractionfailed">উত্তোলন ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">এক্সট্র্যাকশন ব্যর্থ হয়েছে। বিস্তারিত জানতে ত্রুটি বার্তা দেখুন।</system:String>
-    <system:String x:Key="ExtractionFolderRequired">এক্সট্র্যাকশন ফোল্ডার প্রয়োজন</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">ভাষা সংস্থান লোড করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">চিত্র দর্শক উইন্ডোতে চিত্র লোড করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtoopenthemanual">ম্যানুয়াল খুলতে ব্যর্থ হয়েছে।</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">আপনি যদি MAME চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে আপনার ROM সংগ্রহটি আপনি যে MAME সংস্করণটি ব্যবহার করছেন তার সাথে সামঞ্জস্যপূর্ণ।</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">আপনি যদি Retroarch চালানোর চেষ্টা করছেন, নিশ্চিত করুন যে কোরের জন্য BIOS বা প্রয়োজনীয় ফাইলগুলি ইনস্টল করা আছে।</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">আপনি যদি এটি মুছার সিদ্ধান্ত নেন, 'Simple Launcher' আপনার জন্য একটি নতুন তৈরি করবে।</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">যদি আপনি একটি ফোল্ডার না নির্বাচন করেন, তবে ফাইল ডিফল্ট ফোল্ডারে এক্সট্র্যাক্ট হবে</system:String>
     <system:String x:Key="Ifyouleaveitempty">আপনি এটি ফাঁকা রাখলে, অ্যাপ্লিকেশনটি এই সিস্টেমের জন্য 'roms' ফোল্ডারের ভিতরে একটি নতুন ফোল্ডার তৈরি করবে।</system:String>
     <system:String x:Key="ImageFolderNotExist">সিস্টেম ইমেজ ফোল্ডারটি বিদ্যমান নয় বা নির্ধারিত হয়নি</system:String>
     <system:String x:Key="Imageloadingerror">ইমেজ লোড করার সময় ত্রুটি ঘটেছে।</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">নীলের ঘন</system:String>
     <system:String x:Key="Info">তথ্য</system:String>
     <system:String x:Key="InfoLinkButton">তথ্য লিংক বোতাম</system:String>
+    <system:String x:Key="Install">ইনস্টল</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">এই উইন্ডোতে, আপনি এমন এমুলেটর ডাউনলোড ও ইনস্টল করতে পারবেন যারা BIOS বা অন্য কোন সিস্টেম ফাইলের প্রয়োজন হয় না।</system:String>
     <system:String x:Key="InvalidDownloadLink">অবৈধ ডাউনলোড লিঙ্ক</system:String>
     <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
     <system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher' পুনরায় চালু করুন।</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">ফেভারিট সরানোর জন্য একটি নির্বাচন করুন।</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">চালু করার জন্য একটি গেম নির্বাচন করুন।</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">একটি এক্সট্র্যাকশন ফোল্ডার নির্বাচন করুন।</system:String>
     <system:String x:Key="PleaseselectanImagePack">অনুগ্রহ করে একটি ইমেজ প্যাক নির্বাচন করুন</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">অনুসন্ধানের আগে একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">লাকি ফিচার ব্যবহার করার আগে দয়া করে একটি সিস্টেম নির্বাচন করুন।</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">ডাউনলোডের জন্য প্রস্তুতি নিচ্ছে</system:String>
     <system:String x:Key="PreviewImage">ইমেজ পূর্বরূপ</system:String>
     <system:String x:Key="Processingpleasewait">প্রসেসিং, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
+    <system:String x:Key="ProgressBar">প্রগ্রেস বার</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">এই সিস্টেমের জন্য কভার ইমেজ রাখুন</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">এই সিস্টেমের জন্য ROMs বা ISOs রাখুন</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">রিপোর্ট সংরক্ষণ করুন</system:String>
     <system:String x:Key="Search">অনুসন্ধান</system:String>
     <system:String x:Key="Searchingpleasewait">অনুসন্ধান প্রগ্রেস...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">ইমেজ প্যাক বের করার জন্য একটি ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">মুছে ফেলার জন্য একটি ইতিহাস আইটেম নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectaWindow">উইন্ডো বাছাই।</system:String>
     <system:String x:Key="Selectedsystemnotfound">XML ডকুমেন্টের মধ্যে নির্বাচিত সিস্টেমটি পাওয়া যায়নি।</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">ইমুলেটর ৫ নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectionRequired">নির্বাচন প্রয়োজন</system:String>
     <system:String x:Key="SelectSystem">সিস্টেম নির্বাচন করুন</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">এক্সট্রাকশন ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="SendSupportRequest">সমর্থন অনুরোধ পাঠান</system:String>
     <system:String x:Key="SetButtonAspectRatio">বাটন আকৃতির অনুপাত সেট করুন</system:String>
     <system:String x:Key="SetButtonSize">বাটনের আকার সেট করুন</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">সতর্কতা</system:String>
     <system:String x:Key="wascanceled">বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="wasremovedfromfavorites">পছন্দের তালিকা থেকে সরানো হয়েছে।</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">আমরা সেগুলোও সমর্থন করি যারা এসব ফাইলের প্রয়োজন; তবে, আপনাকে "এক্সপার্ট মোড"-এ যেতে হবে এবং নিজে ইনস্টল করতে হবে।</system:String>
     <system:String x:Key="WhatIsDEP">DEP হল একটি সিকিউরিটি ফিচার যা ভাইরাস এবং অন্যান্য সিকিউরিটি হুমকির থেকে ক্ষতি প্রতিরোধে সাহায্য করে।</system:String>
     <system:String x:Key="WhatIsMemoryAccess">মেমরি অ্যাক্সেস লঙ্ঘন হল নিরাপত্তা মেকানিজম যা প্রোগ্রামগুলিকে তাদের বরাদ্দকৃত স্থান ছাড়া মেমরিতে অ্যাক্সেস বা পরিবর্তন করতে বাধা দেয়, যা আপনার সিস্টেম ক্র্যাশ করতে বা নিরাপত্তা দুর্বলতা সৃষ্টি করতে পারে।</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
+
 </ResourceDictionary>

@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Kies een map met 'ROMs' of 'ISO's voor dit systeem.</system:String>
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Selecteer een systeem om toe te voegen</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">Selecteer een map met ROM’s of ISO’s</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">E-mail</system:String>
     <system:String x:Key="Emerald">Smaragd</system:String>
     <system:String x:Key="Emulator">Emulator</system:String>
+    <system:String x:Key="Emulator1">Emulator 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘Emulator 1 naam’ is vereist.</system:String>
     <system:String x:Key="Emulator1NameRequired">Naam van emulator 1 (verplicht)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameters van emulator 1</system:String>
     <system:String x:Key="Emulator1Path">Emulator 1 Pad</system:String>
+    <system:String x:Key="Emulator2">Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Naam van emulator 2 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameters van emulator 2</system:String>
     <system:String x:Key="Emulator2Path">Emulator 2 Pad</system:String>
+    <system:String x:Key="Emulator3">Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Naam van emulator 3 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameters van emulator 3</system:String>
     <system:String x:Key="Emulator3Path">Emulator 3 Pad</system:String>
+    <system:String x:Key="Emulator4">Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Naam van emulator 4 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameters van emulator 4</system:String>
     <system:String x:Key="Emulator4Path">Emulator 4 Pad</system:String>
+    <system:String x:Key="Emulator5">Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Naam van emulator 5 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Emulator 5 Pad</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Bezig met uitpakken van gecomprimeerd bestand, een moment geduld...</system:String>
     <system:String x:Key="Extractionfailed">Uitpakken mislukt.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Uitpakken mislukt. Zie foutmelding voor details.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Uitpakmap Vereist</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Het laden van taalbronnen is mislukt.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">De afbeelding kon niet worden geladen in het afbeeldingsvenster.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kon de handleiding niet openen.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">Als u MAME probeert uit te voeren, zorg ervoor dat uw ROM-collectie compatibel is met de gebruikte MAME-versie.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Als u Retroarch probeert uit te voeren, zorg ervoor dat de benodigde BIOS- of core-bestanden zijn geïnstalleerd.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Als u ervoor kiest het te verwijderen, zal 'Simple Launcher' voor u een nieuw bestand aanmaken.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Als u geen map kiest, worden de afbeeldingen in de standaardmap geëxtraheerd</system:String>
     <system:String x:Key="Ifyouleaveitempty">Als je dit leeg laat, maakt de applicatie een map aan voor dit systeem in de map 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">De systeemafbeeldingenmap bestaat niet of is niet opgegeven.</system:String>
     <system:String x:Key="Imageloadingerror">Fout bij het laden van de afbeelding</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Indigo</system:String>
     <system:String x:Key="Info">Informatie</system:String>
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
+    <system:String x:Key="Install">Installeren</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">In dit venster kun je emulators downloaden en installeren die geen BIOS of andere systeembestanden nodig hebben.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">Start 'Simple Launcher' opnieuw op.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Selecteer een favoriet om te verwijderen.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Selecteer een spel om te starten.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Selecteer een map om naar uit te pakken.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Selecteer een afbeeldingspakket</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Selecteer alstublieft een systeem voordat u zoekt.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Selecteer een systeem voordat u de Gelukkig Gevoel-functie gebruikt.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
+    <system:String x:Key="ProgressBar">Voortgangsbalk</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Plaats ROMs of ISOs voor dit systeem in</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Rapport opslaan</system:String>
     <system:String x:Key="Search">Zoeken</system:String>
     <system:String x:Key="Searchingpleasewait">Bezig met zoeken, een moment geduld...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Selecteer een map om het afbeeldingspakket uit te pakken.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Selecteer een geschiedenisitem om te verwijderen.</system:String>
     <system:String x:Key="SelectaWindow">Selecteer een venster</system:String>
     <system:String x:Key="Selectedsystemnotfound">Het geselecteerde systeem is niet gevonden in het XML-document!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectionRequired">Selectie Vereist</system:String>
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Selecteer de extractiemap</system:String>
     <system:String x:Key="SendSupportRequest">Ondersteuningsverzoek Verzenden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
     <system:String x:Key="SetButtonSize">Knopgrootte instellen</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Waarschuwing</system:String>
     <system:String x:Key="wascanceled">is geannuleerd.</system:String>
     <system:String x:Key="wasremovedfromfavorites">is verwijderd uit favorieten.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">We ondersteunen ook systemen die deze bestanden vereisen; hiervoor moet je echter overschakelen naar “Expertmodus” en ze handmatig installeren.</system:String>
     <system:String x:Key="WhatIsDEP">DEP is een beveiligingsfunctie die helpt schade door virussen en andere beveiligingsbedreigingen te voorkomen.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Geheugen toegangsbreuken zijn beveiligingsmechanismen die voorkomen dat programma's toegang hebben tot of geheugen buiten hun toegewezen ruimte te wijzigen, wat mogelijk uw systeem kan laten crashen of beveiligingslekken kan creëren.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Als 'Bestand extraheren vóór starten' is ingeschakeld, moet de 'Extensie om te zoeken in de systeemmap' 'zip', '7z' of 'rar' bevatten.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
+
 </ResourceDictionary>

@@ -381,7 +381,7 @@ public partial class EasyModeWindow : IDisposable
                                  $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user with the appropriate error message
+            // Notify user
             switch (downloadType)
             {
                 case DownloadType.Emulator:
@@ -466,14 +466,14 @@ public partial class EasyModeWindow : IDisposable
             systemImageFolderAbsolute = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderRaw));
         }
 
+        var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+        DownloadStatus = addingsystemtoconfiguration2;
+
         // Path to the system.xml file
         var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
         try
         {
-            var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
-            DownloadStatus = addingsystemtoconfiguration2;
-
             // Load existing system configurations
             var xmlDoc = XDocument.Load(systemXmlPath);
             var systemConfigs = xmlDoc.Descendants("SystemConfig").ToList();
@@ -482,47 +482,11 @@ public partial class EasyModeWindow : IDisposable
             var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
             if (existingSystem != null)
             {
-                // Ask user if they want to overwrite the existing system
-                // if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
-
-                // Overwrite existing system
-                existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-                existingSystem.SetElementValue("SystemFolder", systemFolder);
-                existingSystem.SetElementValue("SystemImageFolder", systemImageFolderAbsolute);
-                existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
-                existingSystem.Element("FileFormatsToSearch")?.Remove();
-                existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))));
-                existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
-                existingSystem.Element("FileFormatsToLaunch")?.Remove();
-                existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))));
-                existingSystem.Element("Emulators")?.Remove();
-                existingSystem.Add(new XElement("Emulators",
-                    new XElement("Emulator",
-                        new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                        new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                        new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                    )
-                ));
+                OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolderAbsolute);
             }
             else
             {
-                // Create a new XElement for the selected system
-                var newSystemElement = new XElement("SystemConfig",
-                    new XElement("SystemName", selectedSystem.SystemName),
-                    new XElement("SystemFolder", systemFolder),
-                    new XElement("SystemImageFolder", systemImageFolderAbsolute),
-                    new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
-                    new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
-                    new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
-                    new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
-                    new XElement("Emulators",
-                        new XElement("Emulator",
-                            new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                            new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                            new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                        )
-                    )
-                );
+                var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolderAbsolute);
 
                 // Add the new system to the XML document
                 xmlDoc.Root?.Add(newSystemElement);
@@ -550,6 +514,7 @@ public partial class EasyModeWindow : IDisposable
             // Disable Add System Button
             AddSystemButton.IsEnabled = false;
 
+            // Close window
             Close();
         }
         catch (Exception ex)
@@ -564,6 +529,55 @@ public partial class EasyModeWindow : IDisposable
             // Notify user
             MessageBoxLibrary.AddSystemFailedMessageBox();
         }
+    }
+
+    private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string systemFolder,
+        string systemImageFolderAbsolute)
+    {
+        // Create a new XElement for the selected system
+        var newSystemElement = new XElement("SystemConfig",
+            new XElement("SystemName", selectedSystem.SystemName),
+            new XElement("SystemFolder", systemFolder),
+            new XElement("SystemImageFolder", systemImageFolderAbsolute),
+            new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
+            new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
+            new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
+            new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
+            new XElement("Emulators",
+                new XElement("Emulator",
+                    new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
+                    new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
+                    new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+                )
+            )
+        );
+        return newSystemElement;
+    }
+
+    private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem,
+        string systemFolder, string systemImageFolderAbsolute)
+    {
+        // Ask user if they want to overwrite the existing system
+        // if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
+
+        // Overwrite existing system
+        existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
+        existingSystem.SetElementValue("SystemFolder", systemFolder);
+        existingSystem.SetElementValue("SystemImageFolder", systemImageFolderAbsolute);
+        existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
+        existingSystem.Element("FileFormatsToSearch")?.Remove();
+        existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))));
+        existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
+        existingSystem.Element("FileFormatsToLaunch")?.Remove();
+        existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))));
+        existingSystem.Element("Emulators")?.Remove();
+        existingSystem.Add(new XElement("Emulators",
+            new XElement("Emulator",
+                new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
+                new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
+                new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+            )
+        ));
     }
 
     private void UpdateAddSystemButtonState()

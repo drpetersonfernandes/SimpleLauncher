@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">アップデートを確認</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">このシステム用の 'ROMs' または 'ISOs' を含むフォルダーを選択してください。</system:String>
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
+    <system:String x:Key="ChooseASystemToAdd">追加するシステムを選択</system:String>
     <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">ROMまたはISOを含むフォルダーを選択</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">上の文字ボタンをクリックしてゲームを表示します</system:String>
     <system:String x:Key="Close">閉じる</system:String>
     <system:String x:Key="Cobalt">コバルト</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">メールアドレス</system:String>
     <system:String x:Key="Emerald">エメラルド</system:String>
     <system:String x:Key="Emulator">エミュレーター</system:String>
+    <system:String x:Key="Emulator1">エミュレータ 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">「エミュレーター1の名前」が必要です。</system:String>
     <system:String x:Key="Emulator1NameRequired">エミュレーター1の名前（必須）</system:String>
     <system:String x:Key="Emulator1Parameters">エミュレーター1のパラメーター</system:String>
     <system:String x:Key="Emulator1Path">エミュレーター1のパス</system:String>
+    <system:String x:Key="Emulator2">エミュレータ 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">エミュレーター2の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator2Parameters">エミュレーター2のパラメーター</system:String>
     <system:String x:Key="Emulator2Path">エミュレーター2のパス</system:String>
+    <system:String x:Key="Emulator3">エミュレータ 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">エミュレーター3の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator3Parameters">エミュレーター3のパラメーター</system:String>
     <system:String x:Key="Emulator3Path">エミュレーター3のパス</system:String>
+    <system:String x:Key="Emulator4">エミュレータ 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">エミュレーター4の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator4Parameters">エミュレーター4のパラメーター</system:String>
     <system:String x:Key="Emulator4Path">エミュレーター4のパス</system:String>
+    <system:String x:Key="Emulator5">エミュレータ 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
     <system:String x:Key="Emulator5Path">エミュレーター5のパス</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">圧縮ファイルを抽出中です。お待ちください...</system:String>
     <system:String x:Key="Extractionfailed">展開に失敗しました。</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">展開に失敗しました。詳細はエラーメッセージをご確認ください。</system:String>
-    <system:String x:Key="ExtractionFolderRequired">展開フォルダが必要です</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">言語リソースの読み込みに失敗しました。</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">画像ビューアウィンドウ内の画像を読み込めませんでした。</system:String>
     <system:String x:Key="Failedtoopenthemanual">マニュアルを開けませんでした。</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME を実行しようとしている場合、ROM コレクションが使用する MAME バージョンと互換性があることを確認してください。</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Retroarch を実行しようとしている場合、必要な BIOS またはコア用のファイルがインストールされていることを確認してください。</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">削除を選択した場合、'Simple Launcher' が新しいファイルを作成します。</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">フォルダーを選択しない場合、画像はデフォルトのフォルダーに抽出されます</system:String>
     <system:String x:Key="Ifyouleaveitempty">空のままにすると、アプリケーションがこのシステム用のフォルダーを「roms」フォルダー内に作成します。</system:String>
     <system:String x:Key="ImageFolderNotExist">システム画像フォルダが存在しないか、指定されていません。</system:String>
     <system:String x:Key="Imageloadingerror">画像読み込みエラー</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">インディゴ</system:String>
     <system:String x:Key="Info">情報</system:String>
     <system:String x:Key="InfoLinkButton">情報リンクボタン</system:String>
+    <system:String x:Key="Install">インストール</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">このウィンドウでは、BIOSや他のシステムファイルを必要としないエミュレーターをダウンロードおよびインストールできます。</system:String>
     <system:String x:Key="InvalidDownloadLink">無効なダウンロードリンク</system:String>
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="InvalidInputMessageText">閾値には0.0から1.0の間の有効な数値を入力してください。</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher' を再起動してください。</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">削除するお気に入りを選択してください。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">起動するゲームを選択してください。</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">展開フォルダを選択してください。</system:String>
     <system:String x:Key="PleaseselectanImagePack">画像パックを選択してください</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">検索する前にシステムを選択してください。</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">フェイリングラッキー機能を使用する前に、システムを選択してください。</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
+    <system:String x:Key="ProgressBar">進行バー</system:String>
     <system:String x:Key="Purple">紫</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">このシステムのカバー画像を次の場所に配置してください:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">このシステムのROMまたはISOファイルを次の場所に配置してください:</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">レポートを保存する</system:String>
     <system:String x:Key="Search">検索</system:String>
     <system:String x:Key="Searchingpleasewait">検索中です。お待ちください...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">イメージパックを抽出するフォルダーを選択してください。</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">削除する履歴項目を選択してください。</system:String>
     <system:String x:Key="SelectaWindow">ウィンドウを選択してください</system:String>
     <system:String x:Key="Selectedsystemnotfound">選択したシステムが XML ドキュメント内に見つかりません！</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">エミュレーター 5 を選択してください。</system:String>
     <system:String x:Key="SelectionRequired">選択が必要です</system:String>
     <system:String x:Key="SelectSystem">システムを選択</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">抽出フォルダーを選択してください</system:String>
     <system:String x:Key="SendSupportRequest">サポートリクエストを送信</system:String>
     <system:String x:Key="SetButtonAspectRatio">ボタンの縦横比を設定</system:String>
     <system:String x:Key="SetButtonSize">ボタンのサイズを設定</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">警告</system:String>
     <system:String x:Key="wascanceled">がキャンセルされました。</system:String>
     <system:String x:Key="wasremovedfromfavorites">お気に入りから削除されました。</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">これらのファイルが必要なシステムもサポートしていますが、「エキスパートモード」に切り替えて手動でインストールする必要があります。</system:String>
     <system:String x:Key="WhatIsDEP">DEPは、ウイルスやその他のセキュリティ脅威からの損害を防ぐのに役立つセキュリティ機能です。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">メモリアクセス違反は、プログラムが割り当てられた領域外のメモリにアクセスまたは変更するのを防ぐセキュリティメカニズムであり、システムのクラッシュやセキュリティ脆弱性を引き起こす可能性があります。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">「起動前にファイルを抽出」がオンの場合、「システムフォルダー内で検索する拡張子」には「zip」、「7z」、または「rar」を含める必要があります。</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
+
 </ResourceDictionary>

@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">檢查更新</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">為此系統選擇一個包含 'ROM' 或 'ISO' 檔案的資料夾。</system:String>
     <system:String x:Key="Chooseasystem">選擇一個系統</system:String>
+    <system:String x:Key="ChooseASystemToAdd">選擇要新增的系統</system:String>
     <system:String x:Key="ChooseFolder">選擇資料夾</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">選擇包含 ROM 或 ISO 的資料夾</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">點擊上方的字母按鈕查看遊戲</system:String>
     <system:String x:Key="Close">關閉</system:String>
     <system:String x:Key="Cobalt">鈷藍色</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">電子郵件</system:String>
     <system:String x:Key="Emerald">祖母綠</system:String>
     <system:String x:Key="Emulator">模擬器</system:String>
+    <system:String x:Key="Emulator1">模擬器 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">「模擬器 1 的名稱」是必需的。</system:String>
     <system:String x:Key="Emulator1NameRequired">模擬器1名稱（必填）</system:String>
     <system:String x:Key="Emulator1Parameters">模擬器1參數</system:String>
     <system:String x:Key="Emulator1Path">模擬器1路徑</system:String>
+    <system:String x:Key="Emulator2">模擬器 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">模擬器2名稱（可能需要）</system:String>
     <system:String x:Key="Emulator2Parameters">模擬器2參數</system:String>
     <system:String x:Key="Emulator2Path">模擬器2路徑</system:String>
+    <system:String x:Key="Emulator3">模擬器 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">模擬器3名稱（可能需要）</system:String>
     <system:String x:Key="Emulator3Parameters">模擬器3參數</system:String>
     <system:String x:Key="Emulator3Path">模擬器3路徑</system:String>
+    <system:String x:Key="Emulator4">模擬器 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">模擬器4名稱（可能需要）</system:String>
     <system:String x:Key="Emulator4Parameters">模擬器4參數</system:String>
     <system:String x:Key="Emulator4Path">模擬器4路徑</system:String>
+    <system:String x:Key="Emulator5">模擬器 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">模擬器5名稱（可能需要）</system:String>
     <system:String x:Key="Emulator5Parameters">模擬器5參數</system:String>
     <system:String x:Key="Emulator5Path">模擬器5路徑</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">正在解壓縮文件，請稍候...</system:String>
     <system:String x:Key="Extractionfailed">解壓縮失敗。</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">解壓失敗。請查看錯誤訊息了解詳情。</system:String>
-    <system:String x:Key="ExtractionFolderRequired">需要解壓資料夾</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">無法加載語言資源。</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">無法在圖像檢視器視窗中載入圖像。</system:String>
     <system:String x:Key="Failedtoopenthemanual">無法打開手冊。</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">若您嘗試運行MAME，請確保您的ROM集和所使用的MAME版本相容。</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">若您嘗試運行Retroarch，請確保必需的BIOS或核心檔案已正確安裝。</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">如果選擇刪除，「Simple Launcher」將生成新檔案。</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">如果您未選擇資料夾，圖像將解壓縮至預設資料夾</system:String>
     <system:String x:Key="Ifyouleaveitempty">如果您留空，應用程式將在「roms」資料夾中為此系統創建一個資料夾。</system:String>
     <system:String x:Key="ImageFolderNotExist">系統圖片資料夾不存在或未指定。</system:String>
     <system:String x:Key="Imageloadingerror">圖像加載錯誤。</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">靛藍色</system:String>
     <system:String x:Key="Info">資訊</system:String>
     <system:String x:Key="InfoLinkButton">信息連結按鈕</system:String>
+    <system:String x:Key="Install">安裝</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">在此視窗中，您可以下載並安裝不需 BIOS 或其他系統檔案的模擬器。</system:String>
     <system:String x:Key="InvalidDownloadLink">無效的下載連結</system:String>
     <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
     <system:String x:Key="InvalidInputMessageText">請輸入介於0.0與1.0之間的有效數字作為閾值。</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">請重新啟動 'Simple Launcher'。</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">請選擇一個收藏來移除。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">請選擇一個遊戲來啟動。</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">請選擇解壓資料夾。</system:String>
     <system:String x:Key="PleaseselectanImagePack">請選擇一個圖像包</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">請在搜尋之前選擇一個系統。</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">使用“感覺幸運”功能前，請先選擇一個系統。</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">準備下載</system:String>
     <system:String x:Key="PreviewImage">預覽圖片</system:String>
     <system:String x:Key="Processingpleasewait">正在處理，請稍候...</system:String>
+    <system:String x:Key="ProgressBar">進度條</system:String>
     <system:String x:Key="Purple">紫色</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">將此系統的封面圖片放入</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">將此系統的ROM或ISO檔案放入</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">儲存報告</system:String>
     <system:String x:Key="Search">搜尋</system:String>
     <system:String x:Key="Searchingpleasewait">正在搜尋，請稍候...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">請選擇一個資料夾來解壓圖像包。</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">請選擇要移除的歷史項目。</system:String>
     <system:String x:Key="SelectaWindow">選擇一個窗口</system:String>
     <system:String x:Key="Selectedsystemnotfound">在 XML 文件中找不到所選系統！</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">選擇模擬器 5。</system:String>
     <system:String x:Key="SelectionRequired">需要選擇</system:String>
     <system:String x:Key="SelectSystem">選擇系統</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">選擇解壓縮資料夾</system:String>
     <system:String x:Key="SendSupportRequest">發送支援請求</system:String>
     <system:String x:Key="SetButtonAspectRatio">設定按鈕長寬比</system:String>
     <system:String x:Key="SetButtonSize">設定按鈕大小</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">警告</system:String>
     <system:String x:Key="wascanceled">已取消。</system:String>
     <system:String x:Key="wasremovedfromfavorites">已從收藏夾中移除。</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">我們也支援需要這些檔案的系統；但您需要切換到「專家模式」並手動安裝。</system:String>
     <system:String x:Key="WhatIsDEP">DEP是一項安全功能，有助於防止病毒和其他安全威脅造成的損害。</system:String>
     <system:String x:Key="WhatIsMemoryAccess">內存訪問違規是安全機制，防止程序訪問或修改其分配空間之外的內存，這可能導致系統崩潰或創建安全漏洞。</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">當「啟動前解壓縮文件」已啟用時，「在系統文件夾中搜索的擴展名」必須包含「zip」、「7z」或「rar」。</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您應該更改模擬器的參數，使其不會以全螢幕模式啟動。</system:String>
+
 </ResourceDictionary>

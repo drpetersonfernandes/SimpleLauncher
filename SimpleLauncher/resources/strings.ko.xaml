@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">업데이트 확인</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">이 시스템에 대해 'ROMs' 또는 'ISOs'가 포함된 폴더를 선택하세요.</system:String>
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
+    <system:String x:Key="ChooseASystemToAdd">추가할 시스템 선택</system:String>
     <system:String x:Key="ChooseFolder">폴더 선택</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM 또는 ISO가 포함된 폴더 선택</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
     <system:String x:Key="Close">닫기</system:String>
     <system:String x:Key="Cobalt">코발트</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">이메일</system:String>
     <system:String x:Key="Emerald">에메랄드</system:String>
     <system:String x:Key="Emulator">에뮬레이터</system:String>
+    <system:String x:Key="Emulator1">에뮬레이터 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘에뮬레이터 1 이름’이 필요합니다.</system:String>
     <system:String x:Key="Emulator1NameRequired">에뮬레이터 1 이름 (필수)</system:String>
     <system:String x:Key="Emulator1Parameters">에뮬레이터 1 매개변수</system:String>
     <system:String x:Key="Emulator1Path">에뮬레이터 1 경로</system:String>
+    <system:String x:Key="Emulator2">에뮬레이터 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">에뮬레이터 2 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator2Parameters">에뮬레이터 2 매개변수</system:String>
     <system:String x:Key="Emulator2Path">에뮬레이터 2 경로</system:String>
+    <system:String x:Key="Emulator3">에뮬레이터 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">에뮬레이터 3 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator3Parameters">에뮬레이터 3 매개변수</system:String>
     <system:String x:Key="Emulator3Path">에뮬레이터 3 경로</system:String>
+    <system:String x:Key="Emulator4">에뮬레이터 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">에뮬레이터 4 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator4Parameters">에뮬레이터 4 매개변수</system:String>
     <system:String x:Key="Emulator4Path">에뮬레이터 4 경로</system:String>
+    <system:String x:Key="Emulator5">에뮬레이터 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">에뮬레이터 5 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
     <system:String x:Key="Emulator5Path">에뮬레이터 5 경로</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">압축 파일을 추출 중입니다. 잠시만 기다려주세요...</system:String>
     <system:String x:Key="Extractionfailed">압축 해제에 실패했습니다.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">압축 해제 실패. 자세한 내용은 오류 메시지를 확인하세요.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">압축 해제 폴더 필요</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">언어 리소스를 불러오는 데 실패했습니다.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">이미지 뷰어 창에서 이미지를 로드할 수 없습니다.</system:String>
     <system:String x:Key="Failedtoopenthemanual">매뉴얼을 열지 못했습니다.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME를 실행하려면, ROM 컬렉션이 사용 중인 MAME 버전과 호환되는지 확인하세요.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Retroarch를 실행하려면, BIOS 또는 코어에 필요한 파일이 설치되어 있는지 확인하세요.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">삭제를 선택하시면, 'Simple Launcher'가 새 파일을 생성합니다.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">폴더를 선택하지 않으면 이미지는 기본 폴더에 추출됩니다</system:String>
     <system:String x:Key="Ifyouleaveitempty">비워 두면 애플리케이션이 'roms' 폴더 내에 이 시스템용 폴더를 생성합니다.</system:String>
     <system:String x:Key="ImageFolderNotExist">시스템 이미지 폴더가 존재하지 않거나 지정되지 않았습니다.</system:String>
     <system:String x:Key="Imageloadingerror">이미지 로드 오류</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">남색</system:String>
     <system:String x:Key="Info">정보</system:String>
     <system:String x:Key="InfoLinkButton">정보 링크 버튼</system:String>
+    <system:String x:Key="Install">설치</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">이 창에서는 BIOS나 기타 시스템 파일이 필요 없는 에뮬레이터를 다운로드 및 설치할 수 있습니다.</system:String>
     <system:String x:Key="InvalidDownloadLink">잘못된 다운로드 링크</system:String>
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher'를 다시 시작하세요.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">제거할 즐겨찾기를 선택하세요.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">실행할 게임을 선택하세요.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">압축 해제 폴더를 선택하세요.</system:String>
     <system:String x:Key="PleaseselectanImagePack">이미지 팩을 선택해 주세요</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">검색하기 전에 시스템을 선택하세요.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">행운 기능을 사용하기 전에 시스템을 선택하십시오.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
+    <system:String x:Key="ProgressBar">진행률 바</system:String>
     <system:String x:Key="Purple">보라</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">이 시스템의 커버 이미지를 다음 위치에 넣으세요:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">이 시스템의 ROM 또는 ISO를 다음 위치에 넣으세요:</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">보고서 저장</system:String>
     <system:String x:Key="Search">검색</system:String>
     <system:String x:Key="Searchingpleasewait">검색 중입니다. 잠시만 기다려주세요...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">이미지 팩을 추출할 폴더를 선택하십시오.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">제거할 기록 항목을 선택하십시오.</system:String>
     <system:String x:Key="SelectaWindow">창을 선택하세요</system:String>
     <system:String x:Key="Selectedsystemnotfound">선택한 시스템이 XML 문서에서 찾을 수 없습니다!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectionRequired">선택 필요</system:String>
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">추출 폴더를 선택하세요</system:String>
     <system:String x:Key="SendSupportRequest">지원 요청 보내기</system:String>
     <system:String x:Key="SetButtonAspectRatio">단추 가로 세로 비율 설정</system:String>
     <system:String x:Key="SetButtonSize">단추 크기 설정</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">경고</system:String>
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 "전문가 모드"로 전환하여 수동으로 설치해야 합니다.</system:String>
     <system:String x:Key="WhatIsDEP">DEP는 바이러스 및 기타 보안 위협으로 인한 피해를 방지하는 데 도움이 되는 보안 기능입니다.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">메모리 접근 위반은 프로그램이 할당된 공간 외부의 메모리에 접근하거나 수정하는 것을 방지하는 보안 메커니즘으로, 시스템이 충돌하거나 보안 취약점을 생성할 수 있습니다.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
+
 </ResourceDictionary>

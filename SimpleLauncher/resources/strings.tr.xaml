@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">Bu sistem için 'ROM' veya 'ISO' içeren bir klasör seçin.</system:String>
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
+    <system:String x:Key="ChooseASystemToAdd">Eklemek için bir sistem seçin</system:String>
     <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM veya ISO içeren bir klasör seçin</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Oyunları görmek için yukarıdaki harf düğmelerine tıklayın</system:String>
     <system:String x:Key="Close">Kapat</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">E-posta</system:String>
     <system:String x:Key="Emerald">Zümrüt</system:String>
     <system:String x:Key="Emulator">Emülatör</system:String>
+    <system:String x:Key="Emulator1">Emülatör 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">‘Emülatör 1 Adı’ gereklidir.</system:String>
     <system:String x:Key="Emulator1NameRequired">Emülatör 1 adı (zorunlu)</system:String>
     <system:String x:Key="Emulator1Parameters">Emülatör 1 parametreleri</system:String>
     <system:String x:Key="Emulator1Path">Emülatör 1 Yolu</system:String>
+    <system:String x:Key="Emulator2">Emülatör 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Emülatör 2 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator2Parameters">Emülatör 2 parametreleri</system:String>
     <system:String x:Key="Emulator2Path">Emülatör 2 Yolu</system:String>
+    <system:String x:Key="Emulator3">Emülatör 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Emülatör 3 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator3Parameters">Emülatör 3 parametreleri</system:String>
     <system:String x:Key="Emulator3Path">Emülatör 3 Yolu</system:String>
+    <system:String x:Key="Emulator4">Emülatör 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Emülatör 4 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator4Parameters">Emülatör 4 parametreleri</system:String>
     <system:String x:Key="Emulator4Path">Emülatör 4 Yolu</system:String>
+    <system:String x:Key="Emulator5">Emülatör 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emülatör 5 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
     <system:String x:Key="Emulator5Path">Emülatör 5 Yolu</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">Sıkıştırılmış dosya çıkarılıyor, lütfen bekleyin...</system:String>
     <system:String x:Key="Extractionfailed">Arşivden çıkarma başarısız oldu.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Çıkartma başarısız. Detaylar için hata mesajına bakın.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">Çıkartma Klasörü Gerekli</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Dil kaynakları yüklenemedi.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Resim görüntüleyici penceresinde resim yüklenemedi.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Kılavuz açılamadı.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">MAME çalıştırmaya çalışıyorsanız, ROM koleksiyonunuzun kullanılan MAME sürümüyle uyumlu olduğundan emin olun.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">Retroarch çalıştırmaya çalışıyorsanız, gerekli BIOS'ların ya da çekirdek dosyalarının yüklü olduğundan emin olun.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">Silme işlemini seçerseniz, 'Simple Launcher' yeni bir dosya oluşturacaktır.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">Bir klasör seçmezseniz, görüntüler varsayılan klasöre çıkarılacaktır</system:String>
     <system:String x:Key="Ifyouleaveitempty">Boş bırakırsanız, uygulama bu sistem için 'roms' klasörünün içine bir klasör oluşturacaktır.</system:String>
     <system:String x:Key="ImageFolderNotExist">Sistem görselleri klasörü mevcut değil veya belirtilmemiş.</system:String>
     <system:String x:Key="Imageloadingerror">Görüntü yükleme hatası.</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">Çivit Mavisi</system:String>
     <system:String x:Key="Info">Bilgi</system:String>
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
+    <system:String x:Key="Install">Yükle</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">Bu pencerede, BIOS veya diğer sistem dosyalarını gerektirmeyen emülatörleri indirebilir ve kurabilirsiniz.</system:String>
     <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher'ı yeniden başlatın.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Lütfen kaldırılacak bir favori seçin.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Lütfen başlatılacak bir oyun seçin.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">Lütfen bir çıkartma klasörü seçin.</system:String>
     <system:String x:Key="PleaseselectanImagePack">Lütfen bir görüntü paketi seçin</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Lütfen arama yapmadan önce bir sistem seçin.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Şansımı Deneme özelliğini kullanmadan önce lütfen bir sistem seçin.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
+    <system:String x:Key="ProgressBar">İlerleme Çubuğu</system:String>
     <system:String x:Key="Purple">Mor</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Bu sistem için kapak görsellerini şu klasöre yerleştirin:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Bu sistem için ROM'ları veya ISO dosyalarını şu klasöre yerleştirin:</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">Raporu Kaydet</system:String>
     <system:String x:Key="Search">Ara</system:String>
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">Görsel paketini ayıklamak için bir klasör seçin.</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Lütfen kaldırmak için bir geçmiş öğesi seçin.</system:String>
     <system:String x:Key="SelectaWindow">Bir pencere seçin</system:String>
     <system:String x:Key="Selectedsystemnotfound">Seçili sistem XML belgesinde bulunamadı!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectionRequired">Seçim Gerekli</system:String>
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">Çıkarılacak klasörü seçin</system:String>
     <system:String x:Key="SendSupportRequest">Destek Talebi Gönder</system:String>
     <system:String x:Key="SetButtonAspectRatio">Düğme En Boy Oranını Ayarla</system:String>
     <system:String x:Key="SetButtonSize">Düğme Boyutunu Ayarla</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">Uyarı</system:String>
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">Bu dosyaları gerektiren sistemleri de destekliyoruz; ancak, "Uzman Modu"na geçip bunları manuel olarak kurmanız gerekir.</system:String>
     <system:String x:Key="WhatIsDEP">DEP, virüsler ve diğer güvenlik tehditlerinden kaynaklanan zararları önlemeye yardımcı olan bir güvenlik özelliğidir.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">Bellek Erişim İhlalleri, programların tahsis edilen alanlarının dışındaki belleğe erişmesini veya bu belleği değiştirmesini engelleyen güvenlik mekanizmalarıdır ve bu durum sisteminizi çökertmeye veya güvenlik açıkları yaratmaya neden olabilir.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘Başlatmadan Önce Dosyayı Çıkar’ etkinse, ‘Sistem Klasöründe Aranacak Uzantı’ ‘zip’, ‘7z’ veya ‘rar’ içermelidir.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
+
 </ResourceDictionary>

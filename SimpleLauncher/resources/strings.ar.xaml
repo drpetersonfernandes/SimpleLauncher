@@ -76,7 +76,9 @@
     <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
     <system:String x:Key="ChooseaFolderwithROMsorISOs">اختر مجلدًا يحتوي على "ROMs" أو "ISOs" لهذا النظام.</system:String>
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
+    <system:String x:Key="ChooseASystemToAdd">اختر نظامًا لإضافته</system:String>
     <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
+    <system:String x:Key="ChooseFolderWithROMsOrIsos">اختر مجلدًا يحتوي على ROMs أو ISOs</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
@@ -144,19 +146,24 @@
     <system:String x:Key="Email">البريد الإلكتروني</system:String>
     <system:String x:Key="Emerald">زمردي</system:String>
     <system:String x:Key="Emulator">المحاكي</system:String>
+    <system:String x:Key="Emulator1">المحاكي 1</system:String>
     <system:String x:Key="Emulator1Nameisrequired">'اسم المحاكي 1' مطلوب.</system:String>
     <system:String x:Key="Emulator1NameRequired">اسم المحاكي 1 (مطلوب)</system:String>
     <system:String x:Key="Emulator1Parameters">معلمات المحاكي 1</system:String>
     <system:String x:Key="Emulator1Path">مسار المحاكي 1</system:String>
+    <system:String x:Key="Emulator2">المحاكي 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">اسم المحاكي 2 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator2Parameters">معلمات المحاكي 2</system:String>
     <system:String x:Key="Emulator2Path">مسار المحاكي 2</system:String>
+    <system:String x:Key="Emulator3">المحاكي 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">اسم المحاكي 3 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator3Parameters">معلمات المحاكي 3</system:String>
     <system:String x:Key="Emulator3Path">مسار المحاكي 3</system:String>
+    <system:String x:Key="Emulator4">المحاكي 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">اسم المحاكي 4 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator4Parameters">معلمات المحاكي 4</system:String>
     <system:String x:Key="Emulator4Path">مسار المحاكي 4</system:String>
+    <system:String x:Key="Emulator5">المحاكي 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
     <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
@@ -191,7 +198,6 @@
     <system:String x:Key="Extractingcompressed">جارٍ استخراج الملف المضغوط، يرجى الانتظار...</system:String>
     <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">فشل الاستخراج. راجع رسالة الخطأ للتفاصيل.</system:String>
-    <system:String x:Key="ExtractionFolderRequired">مجلد الاستخراج مطلوب</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">فشل في تحميل موارد اللغة.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">فشل في تحميل الصورة في نافذة عارض الصور.</system:String>
     <system:String x:Key="Failedtoopenthemanual">فشل في فتح الدليل.</system:String>
@@ -234,7 +240,6 @@
     <system:String x:Key="IfyouaretryingtorunMAMEensurethatyourROM">إذا كنت تحاول تشغيل MAME، تأكد من أن مجموعة ROM الخاصة بك متوافقة مع إصدار MAME الذي تستخدمه.</system:String>
     <system:String x:Key="IfyouaretryingtorunRetroarchensurethattheBIOS">إذا كنت تحاول تشغيل Retroarch، تأكد من تثبيت BIOS أو الملفات المطلوبة للنواة.</system:String>
     <system:String x:Key="Ifyouchoosetodeleteit">إذا اخترت حذفها، سيقوم 'Simple Launcher' بإنشاء واحدة جديدة لك.</system:String>
-    <system:String x:Key="Ifyoudonotchooseafolder">إذا لم تختر مجلدًا، فسيتم استخراج الصور إلى المجلد الافتراضي</system:String>
     <system:String x:Key="Ifyouleaveitempty">إذا تركته فارغًا، سيقوم التطبيق بإنشاء مجلد لهذا النظام داخل مجلد 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">مجلد الصور للنظام غير موجود أو لم يتم تحديده.</system:String>
     <system:String x:Key="Imageloadingerror">خطأ في تحميل الصورة.</system:String>
@@ -244,6 +249,8 @@
     <system:String x:Key="Indigo">نيلي</system:String>
     <system:String x:Key="Info">معلومات</system:String>
     <system:String x:Key="InfoLinkButton">زر رابط المعلومات</system:String>
+    <system:String x:Key="Install">تثبيت</system:String>
+    <system:String x:Key="InThisWindowYouCanDownload">في هذه النافذة، يمكنك تنزيل وتثبيت المحاكيات التي لا تتطلب BIOS أو ملفات نظام أخرى.</system:String>
     <system:String x:Key="InvalidDownloadLink">رابط التنزيل غير صالح</system:String>
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
@@ -332,7 +339,6 @@
     <system:String x:Key="PleaserestartSimpleLauncher">يرجى إعادة تشغيل 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">يرجى اختيار مفضلة للإزالة.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">يرجى اختيار لعبة للتشغيل.</system:String>
-    <system:String x:Key="Pleaseselectanextractionfolder">يرجى تحديد مجلد الاستخراج.</system:String>
     <system:String x:Key="PleaseselectanImagePack">يرجى اختيار حزمة الصور</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">يرجى اختيار نظام قبل البحث.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">يرجى اختيار نظام قبل استخدام خاصية المحظوظ.</system:String>
@@ -344,6 +350,7 @@
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
+    <system:String x:Key="ProgressBar">شريط التقدم</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">ضع ملفات ROMs أو ISOs لهذا النظام داخل</system:String>
@@ -366,7 +373,6 @@
     <system:String x:Key="SaveReport">حفظ التقرير</system:String>
     <system:String x:Key="Search">بحث</system:String>
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
-    <system:String x:Key="SelectafoldertoextracttheImagePack">اختر مجلدًا لاستخراج حزمة الصور</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
     <system:String x:Key="SelectaWindow">اختر نافذة</system:String>
     <system:String x:Key="Selectedsystemnotfound">لم يتم العثور على النظام المحدد في مستند XML!</system:String>
@@ -378,7 +384,6 @@
     <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
     <system:String x:Key="SelectionRequired">التحديد مطلوب</system:String>
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
-    <system:String x:Key="SelecttheExtractionFolder">اختر مجلد الاستخراج</system:String>
     <system:String x:Key="SendSupportRequest">إرسال طلب الدعم</system:String>
     <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
     <system:String x:Key="SetButtonSize">تعيين حجم الزر</system:String>
@@ -555,6 +560,7 @@
     <system:String x:Key="Warning">تحذير</system:String>
     <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
     <system:String x:Key="wasremovedfromfavorites">تمت إزالته من المفضلة.</system:String>
+    <system:String x:Key="WeAlsoSupportSystems">ندعم أيضاً الأنظمة التي تتطلب تلك الملفات؛ ومع ذلك، ستحتاج إلى التبديل إلى "الوضع المتقدم" وتثبيتها يدوياً.</system:String>
     <system:String x:Key="WhatIsDEP">DEP هي ميزة أمان تساعد في منع الضرر الناتج من الفيروسات والتهديدات الأمنية الأخرى.</system:String>
     <system:String x:Key="WhatIsMemoryAccess">انتهاكات وصول الذاكرة هي آليات أمان تمنع البرامج من الوصول إلى أو تعديل الذاكرة خارج مساحتها المخصصة، مما قد يؤدي إلى تعطل نظامك أو خلق ثغرات أمنية.</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
@@ -573,4 +579,5 @@
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
+
 </ResourceDictionary>
