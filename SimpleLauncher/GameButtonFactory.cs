@@ -222,7 +222,6 @@ internal class GameButtonFactory(
         // Assign it to the button's Tag property
         button.Tag = tag;
 
-        // --- MODIFIED CLICK HANDLER ---
         button.Click += async (sender, _) =>
         {
             if (sender is not Button clickedButton) return;
@@ -243,8 +242,6 @@ internal class GameButtonFactory(
                 clickedButton.IsEnabled = true;
             }
         };
-        // --- END MODIFIED CLICK HANDLER ---
-
 
         return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemManager, fileNameWithExtension, originalFileNameWithoutExtension, button); // Pass original filename
     }
