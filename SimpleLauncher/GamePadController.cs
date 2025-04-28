@@ -450,7 +450,6 @@ public class GamePadController : IDisposable
         }
     }
 
-
     private void HandleXInputRightButton(State state)
     {
         var isBDown = state.Gamepad.Buttons.HasFlag(GamepadButtonFlags.B);

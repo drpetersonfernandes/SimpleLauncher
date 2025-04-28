@@ -3,7 +3,6 @@ using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Net.Http.Headers;
-using System.Security.Authentication;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
@@ -45,7 +44,6 @@ public static class Stats
     private static void InitializeHttpClient()
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = SslProtocols.None;
         _httpClient = new HttpClient(handler);
 
         if (!string.IsNullOrEmpty(_apiKey))

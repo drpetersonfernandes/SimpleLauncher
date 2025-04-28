@@ -17,6 +17,7 @@ public static class ReinstallSimpleLauncher
 
             // Shutdown SimpleLauncher instance
             Application.Current.Shutdown();
+            Process.GetCurrentProcess().Kill();
             Environment.Exit(0);
         }
         else

@@ -638,6 +638,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private void AddNoSystemMessage()
     {
         var noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
+
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {

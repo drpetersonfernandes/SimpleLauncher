@@ -2,7 +2,6 @@
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
-using System.Security.Authentication;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -31,7 +30,6 @@ public partial class SupportWindow
     private static void InitializeHttpClient()
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = SslProtocols.None;
         _httpClient = new HttpClient(handler);
     }
 

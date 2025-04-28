@@ -4,7 +4,6 @@ using System.IO;
 using System.IO.Compression;
 using System.Net.Http;
 using System.Reflection;
-using System.Security.Authentication;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -27,7 +26,6 @@ public static partial class UpdateChecker
     private static void InitializeHttpClient()
     {
         var handler = new HttpClientHandler();
-        handler.SslProtocols = SslProtocols.None;
         _httpClient = new HttpClient(handler);
     }
 

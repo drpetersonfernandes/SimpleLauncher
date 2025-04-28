@@ -38,13 +38,11 @@ public static class QuitApplication
 
         // Shutdown the current instance
         Application.Current.Shutdown();
-        // Environment.Exit(0); // Shutdown() is usually sufficient for WPF applications
     }
 
     public static void SimpleQuitApplication()
     {
         Application.Current.Shutdown();
-        // Environment.Exit(0); // Shutdown() is usually sufficient for WPF applications
     }
 
     public static void ForcefullyQuitApplication()

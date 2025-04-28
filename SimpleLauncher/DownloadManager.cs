@@ -71,9 +71,6 @@ public class DownloadManager : IDisposable
         // Initialize the HTTP client with custom handler for TLS configuration
         var handler = new HttpClientHandler();
 
-        // Configure TLS 1.2 and 1.3 if available
-        handler.SslProtocols = SslProtocols.None;
-
         // Initialize HTTP client
         _httpClient = new HttpClient(handler)
         {
