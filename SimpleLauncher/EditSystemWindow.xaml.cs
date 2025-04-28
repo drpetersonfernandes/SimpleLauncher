@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
+using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Win32;
@@ -53,7 +54,14 @@ public partial class EditSystemWindow
         }
         else
         {
-            _xmlDoc = XDocument.Load(XmlFilePath);
+            var settings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
+
+            using var reader = XmlReader.Create(XmlFilePath, settings);
+            _xmlDoc = XDocument.Load(reader);
         }
     }
 

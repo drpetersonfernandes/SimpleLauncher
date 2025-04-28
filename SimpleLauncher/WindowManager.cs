@@ -16,9 +16,17 @@ public static partial class WindowManager
     public static List<(IntPtr Handle, string Title)> GetOpenWindows()
     {
         var windows = new List<(IntPtr, string)>();
+        var handle = GCHandle.Alloc(windows);
+        try
+        {
+            EnumWindows(WindowEnumCallback, (IntPtr)handle);
+        }
+        finally
+        {
+            if (handle.IsAllocated)
+                handle.Free();
+        }
 
-        // The callback processes each window handle.
-        EnumWindows(WindowEnumCallback, (IntPtr)GCHandle.Alloc(windows));
         return windows;
     }
 

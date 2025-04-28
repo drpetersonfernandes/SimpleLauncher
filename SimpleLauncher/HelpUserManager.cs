@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
 
@@ -31,10 +32,16 @@ public class HelpUserManager
             }
 
             XDocument doc;
-
             try
             {
-                doc = XDocument.Load(FilePath);
+                XmlReaderSettings settings = new()
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using var reader = XmlReader.Create(FilePath, settings);
+                doc = XDocument.Load(reader);
             }
             catch (Exception ex)
             {

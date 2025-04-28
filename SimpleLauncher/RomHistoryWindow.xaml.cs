@@ -6,6 +6,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Documents;
+using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
 
@@ -61,10 +62,17 @@ public partial class RomHistoryWindow
                 return;
             }
 
-            // Load and parse XML in a background thread
+            // Load and parse XML in a background thread with secure settings
             var entry = await Task.Run(() =>
             {
-                var doc = XDocument.Load(historyFilePath);
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using var reader = XmlReader.Create(historyFilePath, settings);
+                var doc = XDocument.Load(reader);
 
                 return doc.Descendants("entry")
                            .FirstOrDefault(e => e.Element("systems")?.Elements("system")
