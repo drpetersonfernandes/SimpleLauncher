@@ -46,19 +46,8 @@ internal class GameButtonFactory(
         // Pass the original filename without extension for image lookup
         var imagePath = FindCoverImage.FindCoverImagePath(originalFileNameWithoutExtension, systemManager.SystemName, systemManager);
 
-        // Determine if it's a default image (isDefaultImage is a bool)
-        // We now need to check if it's the *actual* default.png file path,
-        // not just if the path ends with default.png, because a fuzzy match
-        // might coincidentally end with default.png if the rom name is similar.
-        // A better check is needed if we want to distinguish fuzzy matches from default.
-        // For now, let's assume ending with default.png means it's the default fallback.
-        // If FindCoverImage returns the global default, it will end with default.png.
-        // If FindCoverImage returns the system default, it will end with default.png.
-        // If FindCoverImage returns a fuzzy match, it won't end with default.png unless
-        // the fuzzy match *was* the default.png file itself (which is unlikely to be the best match).
-        // So, the existing check is probably sufficient for the *intent* (is this the generic fallback image).
-        var isDefaultImage = imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
-
+        // Use the new ImageLoader to load the image and get the isDefault flag
+        var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
 
         // Create the view model and determine the initial favorite state:
         var viewModel = new GameButtonViewModel
@@ -162,7 +151,8 @@ internal class GameButtonFactory(
         {
             Stretch = Stretch.Uniform,
             HorizontalAlignment = HorizontalAlignment.Center,
-            VerticalAlignment = VerticalAlignment.Center
+            VerticalAlignment = VerticalAlignment.Center,
+            Source = loadedImage // Assign the loaded image here
         };
 
         // Wrap the image in a Border that fixes the image area size.
@@ -174,8 +164,6 @@ internal class GameButtonFactory(
         };
         Grid.SetRow(imageContainer, 0);
         grid.Children.Add(imageContainer);
-
-        await LoadImageAsync(image, null, imagePath);
 
         // If the game is a favorite, add a star overlay.
         // Create the star overlay image.
@@ -227,7 +215,7 @@ internal class GameButtonFactory(
         // Create the composite tag object
         var tag = new GameButtonTag
         {
-            IsDefaultImage = isDefaultImage,
+            IsDefaultImage = isDefaultImage, // Use the flag returned by ImageLoader
             Key = key
         };
 
@@ -659,106 +647,4 @@ internal class GameButtonFactory(
             RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         }
     }
-
-    public static async Task LoadImageAsync(Image imageControl, Button button, string imagePath)
-    {
-        // var imageFileName = Path.GetFileName(imagePath);
-
-        ArgumentNullException.ThrowIfNull(imageControl);
-
-        if (string.IsNullOrWhiteSpace(imagePath))
-            throw new ArgumentException(@"Invalid image path.", nameof(imagePath));
-
-        try
-        {
-            BitmapImage bitmapImage = null;
-
-            await Task.Run(() =>
-            {
-                // Read the image into a memory stream to prevent file locks
-                var imageData = File.ReadAllBytes(imagePath);
-
-                using var ms = new MemoryStream(imageData);
-                var bi = new BitmapImage();
-                bi.BeginInit();
-                bi.CacheOption = BitmapCacheOption.OnLoad; // Ensures the image is loaded into memory
-                bi.StreamSource = ms;
-                bi.EndInit();
-                bi.Freeze(); // Makes the image thread-safe
-                bitmapImage = bi;
-            });
-
-            // Assign the loaded image to the image control on the UI thread
-            imageControl.Dispatcher.Invoke(() => imageControl.Source = bitmapImage);
-        }
-        catch (Exception)
-        {
-            // If an exception occurs (e.g., the image is corrupt), will load the default image
-            // This uses the dispatcher to ensure UI elements are accessed on the UI thread
-            // Note: LoadFallbackImage is static, doesn't need instance members.
-            imageControl.Dispatcher.Invoke(() => LoadFallbackImage(imageControl, button)); // Pass only necessary args
-
-            // Notify user (optional, might be noisy for many missing images)
-            // MessageBoxLibrary.UnableToLoadImageMessageBox(imageFileName);
-        }
-    }
-
-    // Modified LoadFallbackImage to use FindCoverImage's global default logic
-    private static void LoadFallbackImage(Image imageControl, Button button)
-    {
-        // FindCoverImage.FindCoverImagePath already handles the system default and global default fallback.
-        // However, this LoadFallbackImage method is called *only* when LoadImageAsync fails.
-        // It seems the original intent was to load a *specific* default image path passed in.
-        // Let's revert this to just load the global default if the primary load failed.
-        // If the goal was to retry the *finding* logic, that should happen before calling LoadImageAsync.
-        // Given the context (called on LoadImageAsync failure), this method should just load a known fallback.
-        // The simplest known fallback is the global default.
-
-        var fallbackImagePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", "default.png");
-
-        if (File.Exists(fallbackImagePath))
-        {
-            try
-            {
-                var imageData = File.ReadAllBytes(fallbackImagePath);
-                using var ms = new MemoryStream(imageData);
-                var bitmapImage = new BitmapImage();
-                bitmapImage.BeginInit();
-                bitmapImage.StreamSource = ms;
-                bitmapImage.CacheOption = BitmapCacheOption.OnLoad;
-                bitmapImage.EndInit();
-                bitmapImage.Freeze();
-                imageControl.Source = bitmapImage; // Assign the fallback image
-                // Tagging the button to indicate a default image is used
-                // We need to be careful here. The button.Tag is already set to GameButtonTag.
-                // We should update the IsDefaultImage property of the existing tag.
-                if (button?.Tag is GameButtonTag gameButtonTag)
-                {
-                    gameButtonTag.IsDefaultImage = true;
-                }
-                else if (button != null)
-                {
-                     // If tag is not GameButtonTag (unexpected), set a simple tag
-                     button.Tag = "DefaultImage";
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Fail to load the fallback image in the method LoadFallbackImage.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // If even the global default image fails to load, there's a serious issue.
-                // Notify user
-                MessageBoxLibrary.DefaultImageNotFoundMessageBox();
-            }
-        }
-        else
-        {
-            // Notify user
-            // If even the global default image is not found, ask the user to reinstall 'Simple Launcher'
-            MessageBoxLibrary.DefaultImageNotFoundMessageBox();
-        }
-    }
 }
-

@@ -782,19 +782,27 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private void ActionsWhenUserSelectAResultItem(object sender, SelectionChangedEventArgs e)
+    private async void ActionsWhenUserSelectAResultItem(object sender, SelectionChangedEventArgs e)
     {
-        if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+        try
         {
-            var bitmap = new BitmapImage();
-            bitmap.BeginInit();
-            bitmap.UriSource = new Uri(selectedResult.CoverImage, UriKind.Absolute);
-            bitmap.EndInit();
-            PreviewImage.Source = bitmap;
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+            {
+                // Use the new ImageLoader to load the image
+                var (loadedImage, _) = await ImageLoader.LoadImageAsync(selectedResult.CoverImage);
+
+                // Assign the loaded image to the PreviewImage control
+                PreviewImage.Source = loadedImage;
+            }
+            else
+            {
+                // Clear the image if no item is selected or loading failed
+                PreviewImage.Source = null;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            PreviewImage.Source = null;
+            _ = LogErrors.LogErrorAsync(ex, "Error loading image.");
         }
     }
 

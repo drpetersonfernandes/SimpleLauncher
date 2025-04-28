@@ -630,24 +630,29 @@ public static class RightClickContextMenu
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
 
-            // Update the button's image
+            // Update the button's image using the new ImageLoader
             try
             {
                 if (button?.Content is Grid grid)
                 {
-                    var stackPanel = grid.Children.OfType<StackPanel>().FirstOrDefault();
-                    var imageControl = stackPanel?.Children.OfType<Image>().FirstOrDefault();
-                    if (imageControl != null)
+                    // Find the Image control within the button's template
+
+                    if (grid.Children.OfType<Border>()
+                            .FirstOrDefault()?.Child is Image imageControl)
                     {
-                        // Reload the image without a file lock
-                        await GameButtonFactory.LoadImageAsync(imageControl, button, screenshotPath);
+                        // Load the new screenshot image
+                        var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
+                        imageControl.Source = loadedImage; // Assign the loaded image
                     }
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore
+                // Notify developer if updating the button image fails
+                const string contextMessage = "Failed to update button image after screenshot.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
+
 
             // Reload the current Game List
             try

@@ -261,7 +261,7 @@ public partial class FavoritesWindow
         // "Cover" MenuItem
         var coverIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
             Width = 16,
             Height = 16
         };
@@ -283,7 +283,7 @@ public partial class FavoritesWindow
         // "Title Snapshot" MenuItem
         var titleSnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -302,7 +302,7 @@ public partial class FavoritesWindow
         // "Gameplay Snapshot" MenuItem
         var gameplaySnapshotIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
             Width = 16,
             Height = 16
         };
@@ -321,7 +321,7 @@ public partial class FavoritesWindow
         // "Cart" MenuItem
         var cartIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
             Width = 16,
             Height = 16
         };
@@ -340,7 +340,7 @@ public partial class FavoritesWindow
         // "Video" MenuItem
         var videoIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
             Width = 16,
             Height = 16
         };
@@ -359,7 +359,7 @@ public partial class FavoritesWindow
         // "Manual" MenuItem
         var manualIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
             Width = 16,
             Height = 16
         };
@@ -378,7 +378,7 @@ public partial class FavoritesWindow
         // "Walkthrough" MenuItem
         var walkthroughIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
             Width = 16,
             Height = 16
         };
@@ -397,7 +397,7 @@ public partial class FavoritesWindow
         // "Cabinet" MenuItem
         var cabinetIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
             Width = 16,
             Height = 16
         };
@@ -416,7 +416,7 @@ public partial class FavoritesWindow
         // "Flyer" MenuItem
         var flyerIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
             Width = 16,
             Height = 16
         };
@@ -435,7 +435,7 @@ public partial class FavoritesWindow
         // "PCB" MenuItem
         var pcbIcon = new Image
         {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png", UriKind.RelativeOrAbsolute)),
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
             Width = 16,
             Height = 16
         };
@@ -691,16 +691,28 @@ public partial class FavoritesWindow
         }
     }
 
-    private void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
+        try
+        {
+            if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite)
+            {
+                PreviewImage.Source = null; // Clear preview if nothing is selected
+                return;
+            }
 
-        var imagePath = selectedFavorite.CoverImage;
-        PreviewImage.Source = File.Exists(imagePath)
-            ? new BitmapImage(new Uri(imagePath, UriKind.Absolute))
-            :
-            // Set a default image if the selected image doesn't exist
-            new BitmapImage(new Uri("pack://application:,,,/images/default.png"));
+            var imagePath = selectedFavorite.CoverImage;
+
+            // Use the new ImageLoader to load the image
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+
+            // Assign the loaded image to the PreviewImage control
+            PreviewImage.Source = loadedImage;
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+        }
     }
 
     private void DeleteFavoriteWithDelButton(object sender, KeyEventArgs e)
