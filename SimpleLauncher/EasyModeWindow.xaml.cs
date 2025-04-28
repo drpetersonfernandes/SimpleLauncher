@@ -214,8 +214,7 @@ public partial class EasyModeWindow : IDisposable
 
                 // Determine the extraction folder
                 var imagePath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-                var appDir = AppDomain.CurrentDomain.BaseDirectory;
-                destinationPath = Path.GetFullPath(Path.Combine(appDir, imagePath));
+                destinationPath = PathHelper.GetFullPathCombineWithAppDir(imagePath);
                 componentName = "Image Pack";
 
                 break;
@@ -458,12 +457,12 @@ public partial class EasyModeWindow : IDisposable
 
         if (Path.IsPathRooted(systemImageFolderRaw))
         {
-            systemImageFolderAbsolute = Path.GetFullPath(systemImageFolderRaw);
+            systemImageFolderAbsolute = PathHelper.GetFullPath(systemImageFolderRaw);
         }
         else
         {
             // Combine the relative path with the base directory to get the absolute path
-            systemImageFolderAbsolute = Path.GetFullPath(Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderRaw));
+            systemImageFolderAbsolute = PathHelper.GetFullPathCombineWithAppDir(systemImageFolderRaw);
         }
 
         var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
@@ -590,9 +589,8 @@ public partial class EasyModeWindow : IDisposable
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         // Paths for the primary system folder and image folder
-        var systemFolderPath = Path.GetFullPath(systemFolder);
-        // var imagesFolderPath = Path.Combine(baseDirectory, systemImageFolder);
-        var imagesFolderPath = Path.GetFullPath(systemImageFolder);
+        var systemFolderPath = PathHelper.GetFullPath(systemFolder);
+        var imagesFolderPath = PathHelper.GetFullPath(systemImageFolder);
 
         // List of additional folders to create
         string[] additionalFolders = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"];
