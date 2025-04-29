@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
@@ -25,8 +26,11 @@ public class HelpUserManager
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    // Notify user
+                    MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
+                });
 
                 return;
             }
@@ -49,8 +53,11 @@ public class HelpUserManager
                 const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    // Notify user
+                    MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
+                });
 
                 return;
             }
@@ -73,7 +80,15 @@ public class HelpUserManager
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user
-                        if (MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox()) return null;
+                        var result = false;
+                        Application.Current.Dispatcher.Invoke(() =>
+                        {
+                            result = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
+                        });
+                        if (result)
+                        {
+                            return null;
+                        }
 
                         return null; // Ignore invalid system entries
                     }
@@ -89,8 +104,11 @@ public class HelpUserManager
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
+                Application.Current.Dispatcher.Invoke(static () =>
+                {
+                    // Notify user
+                    MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
+                });
             }
         }
         catch (Exception ex)
@@ -99,8 +117,11 @@ public class HelpUserManager
             const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
+            Application.Current.Dispatcher.Invoke(static () =>
+            {
+                // Notify user
+                MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();
+            });
         }
     }
 

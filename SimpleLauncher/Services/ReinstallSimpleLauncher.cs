@@ -22,8 +22,11 @@ public static class ReinstallSimpleLauncher
         }
         else
         {
-            // Notify user
-            MessageBoxLibrary.UpdaterNotFoundMessageBox();
+            Application.Current.Dispatcher.Invoke(static () =>
+            {
+                // Notify user
+                MessageBoxLibrary.UpdaterNotFoundMessageBox();
+            });
         }
     }
 }

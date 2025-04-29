@@ -63,21 +63,6 @@ public static partial class ParameterValidator
     }
 
     /// <summary>
-    /// Strictly checks if a directory exists
-    /// </summary>
-    public static bool ValidateExactPath(string path)
-    {
-        try
-        {
-            return Directory.Exists(path);
-        }
-        catch (Exception)
-        {
-            return false;
-        }
-    }
-
-    /// <summary>
     /// Checks if a string looks like a file path
     /// </summary>
     private static bool LooksLikePath(string text)
@@ -342,24 +327,6 @@ public static partial class ParameterValidator
         }
 
         return allPathsValid;
-    }
-
-    /// <summary>
-    /// Validates program location and returns error details
-    /// </summary>
-    public static (bool success, string errorMessage) ValidateProgramLocation(string programLocation)
-    {
-        if (string.IsNullOrWhiteSpace(programLocation))
-        {
-            return (false, programLocation);
-        }
-
-        if (!IsValidPath(programLocation))
-        {
-            return (false, programLocation);
-        }
-
-        return (true, null); // No error
     }
 
     /// <summary>
