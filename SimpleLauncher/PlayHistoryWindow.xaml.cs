@@ -232,7 +232,7 @@ public partial class PlayHistoryWindow
 
             var fileNameWithExtension = selectedItem.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-            var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedItem.FileName));
+            var filePath = PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemConfig.SystemFolder, selectedItem.FileName);
 
             var contextMenu = new ContextMenu();
 
@@ -621,21 +621,6 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private static string GetFullPath(string path)
-    {
-        if (path.StartsWith(@".\", StringComparison.Ordinal))
-        {
-            path = path.Substring(2);
-        }
-
-        if (Path.IsPathRooted(path))
-        {
-            return path;
-        }
-
-        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-    }
-
     private async void LaunchGame_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -696,7 +681,7 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+            var fullPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemConfig.SystemFolder, fileName));
             // Check if the file exists
             if (!File.Exists(fullPath))
             {

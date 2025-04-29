@@ -84,10 +84,11 @@ public class ExtractCompressedFile
         try
         {
             // Ensure _tempFolder is safe and doesn't contain path traversal attempts
-            var safeTempFolder = Path.GetFullPath(_tempFolder);
+            var safeTempFolder = PathHelper.ReturnAbsolutePath(_tempFolder);
 
             // Validate that _tempFolder is still within the system's temp path
-            var systemTempPath = Path.GetFullPath(Path.GetTempPath());
+            var systemTempPath = PathHelper.ReturnAbsolutePath(Path.GetTempPath());
+
             if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
             {
                 // The _tempFolder has been manipulated - use default temp path instead
@@ -274,10 +275,11 @@ public class ExtractCompressedFile
         try
         {
             // Ensure _tempFolder is safe and doesn't contain path traversal attempts
-            var safeTempFolder = Path.GetFullPath(_tempFolder);
+            var safeTempFolder = PathHelper.ReturnAbsolutePath(_tempFolder);
 
             // Validate that _tempFolder is still within the system's temp path
-            var systemTempPath = Path.GetFullPath(Path.GetTempPath());
+            var systemTempPath = PathHelper.ReturnAbsolutePath(Path.GetTempPath());
+
             if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
             {
                 // The _tempFolder has been manipulated - use default temp path instead
@@ -342,8 +344,8 @@ public class ExtractCompressedFile
                     foreach (var entry in archive.Entries)
                     {
                         var entryDestinationPath = Path.Combine(tempDirectory, entry.FullName);
-                        var fullDestPath = Path.GetFullPath(entryDestinationPath);
-                        var fullTempDir = Path.GetFullPath(tempDirectory);
+                        var fullDestPath = PathHelper.ReturnAbsolutePath(entryDestinationPath);
+                        var fullTempDir = PathHelper.ReturnAbsolutePath(tempDirectory);
 
                         // Prevent zip slip by validating the extraction path
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
@@ -671,8 +673,8 @@ public class ExtractCompressedFile
     private static bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
     {
         // Get the full path of both directories
-        var fullBasePath = Path.GetFullPath(basePath);
-        var fullCurrentPath = Path.GetFullPath(currentPath);
+        var fullBasePath = PathHelper.ReturnAbsolutePath(basePath);
+        var fullCurrentPath = PathHelper.ReturnAbsolutePath(currentPath);
 
         // First check if the current directory is within the base path
         if (!fullCurrentPath.StartsWith(fullBasePath, StringComparison.OrdinalIgnoreCase))
@@ -683,7 +685,7 @@ public class ExtractCompressedFile
         // Check each file in the current directory
         foreach (var file in Directory.GetFiles(currentPath))
         {
-            var fullFilePath = Path.GetFullPath(file);
+            var fullFilePath = PathHelper.ReturnAbsolutePath(file);
             if (!fullFilePath.StartsWith(fullBasePath, StringComparison.OrdinalIgnoreCase))
             {
                 return false;

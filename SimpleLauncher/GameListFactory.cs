@@ -576,7 +576,7 @@ public class GameListFactory(
                 }
 
                 // Ensure the path is normalized to avoid caching issues
-                previewImagePath = Path.GetFullPath(previewImagePath);
+                previewImagePath = PathHelper.ReturnAbsolutePath(previewImagePath);
 
                 // Load the image data into a byte array first
                 byte[] imageData;

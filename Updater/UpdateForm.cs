@@ -27,7 +27,7 @@ public partial class UpdateForm : Form
         // Retrieve the version from the executing assembly
         var version = Assembly.GetExecutingAssembly().GetName().Version;
 
-        // Check if the version is null, and format it as needed
+        // Check if the version is null and format it as needed
         return version != null ? version.ToString() : "Version not available";
     }
 
@@ -121,24 +121,28 @@ public partial class UpdateForm : Form
 
             // Notify the user of a successful update
             Log("Update installed successfully.");
-            Log("The application will now restart.");
-            MessageBox.Show("Update installed successfully.\n\n" +
-                            "The application will now restart.",
+            MessageBox.Show("Update installed successfully.",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);
 
-            // Restart the main application with the "whatsnew" parameter
-            var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
-            var startInfo = new ProcessStartInfo
+            try
             {
-                FileName = simpleLauncherExePath,
-                Arguments = "whatsnew",
-                UseShellExecute = false,
-                WorkingDirectory = AppDirectory
-            };
+                // Try to restart the application with the "whatsnew" parameter
+                var simpleLauncherExePath = Path.Combine(AppDirectory, "SimpleLauncher.exe");
+                var startInfo = new ProcessStartInfo
+                {
+                    FileName = simpleLauncherExePath,
+                    Arguments = "whatsnew",
+                    UseShellExecute = false,
+                    WorkingDirectory = AppDirectory
+                };
 
-            Process.Start(startInfo);
+                Process.Start(startInfo);
+            }
+            catch
+            {
+                Close();
+            }
 
-            // Automatically close the update Window
             Close();
         }
         catch (Exception ex)

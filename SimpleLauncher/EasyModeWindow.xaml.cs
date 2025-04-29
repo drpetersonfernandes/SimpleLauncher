@@ -214,7 +214,7 @@ public partial class EasyModeWindow : IDisposable
 
                 // Determine the extraction folder
                 var imagePath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-                destinationPath = PathHelper.GetFullPathCombineWithAppDir(imagePath);
+                destinationPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(imagePath);
                 componentName = "Image Pack";
 
                 break;
@@ -457,12 +457,12 @@ public partial class EasyModeWindow : IDisposable
 
         if (Path.IsPathRooted(systemImageFolderRaw))
         {
-            systemImageFolderAbsolute = PathHelper.GetFullPath(systemImageFolderRaw);
+            systemImageFolderAbsolute = PathHelper.ReturnAbsolutePath(systemImageFolderRaw);
         }
         else
         {
             // Combine the relative path with the base directory to get the absolute path
-            systemImageFolderAbsolute = PathHelper.GetFullPathCombineWithAppDir(systemImageFolderRaw);
+            systemImageFolderAbsolute = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(systemImageFolderRaw);
         }
 
         var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
@@ -589,8 +589,8 @@ public partial class EasyModeWindow : IDisposable
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         // Paths for the primary system folder and image folder
-        var systemFolderPath = PathHelper.GetFullPath(systemFolder);
-        var imagesFolderPath = PathHelper.GetFullPath(systemImageFolder);
+        var systemFolderPath = PathHelper.ReturnAbsolutePath(systemFolder);
+        var imagesFolderPath = PathHelper.ReturnAbsolutePath(systemImageFolder);
 
         // List of additional folders to create
         string[] additionalFolders = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"];

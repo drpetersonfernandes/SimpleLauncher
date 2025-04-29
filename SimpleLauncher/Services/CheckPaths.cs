@@ -5,21 +5,25 @@ namespace SimpleLauncher.Services;
 
 public static class CheckPaths
 {
-    // Check paths in SystemFolder, SystemImageFolder and EmulatorLocation. Allow relative paths.
     public static bool IsValidPath(string path)
     {
-        // Check if the path is not null or whitespace
         if (string.IsNullOrWhiteSpace(path)) return false;
 
-        // Check if the path is an absolute path and exists
+        // Directly check if the path exists (for absolute paths)
         if (Directory.Exists(path) || File.Exists(path)) return true;
 
-        // Assume the path might be relative and combine it with the base directory
         // Allow relative paths
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var fullPath = Path.Combine(basePath, path);
-
-        // Check if the combined path exists
-        return Directory.Exists(fullPath) || File.Exists(fullPath);
+        // Combine with the base directory to check for relative paths
+        try
+        {
+            // Ensure we correctly handle relative paths that go up from the base directory
+            var fullPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(path);
+            return Directory.Exists(fullPath) || File.Exists(fullPath);
+        }
+        catch (Exception)
+        {
+            // If there's any exception parsing the path, consider it invalid
+            return false;
+        }
     }
 }

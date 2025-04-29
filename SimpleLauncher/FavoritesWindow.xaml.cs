@@ -143,7 +143,8 @@ public partial class FavoritesWindow
 
             var fileNameWithExtension = selectedFavorite.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-            var filePath = GetFullPath(Path.Combine(systemConfig.SystemFolder, selectedFavorite.FileName));
+            var systemFolderPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(systemConfig.SystemFolder);
+            var filePath = PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemFolderPath, selectedFavorite.FileName);
 
             AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
         }
@@ -543,21 +544,6 @@ public partial class FavoritesWindow
         contextMenu.IsOpen = true;
     }
 
-    private static string GetFullPath(string path)
-    {
-        if (path.StartsWith(@".\", StringComparison.Ordinal))
-        {
-            path = path.Substring(2);
-        }
-
-        if (Path.IsPathRooted(path))
-        {
-            return path;
-        }
-
-        return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
-    }
-
     private async void LaunchGame_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -616,7 +602,9 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var fullPath = GetFullPath(Path.Combine(systemConfig.SystemFolder, fileName));
+            var partialPath = PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemConfig.SystemFolder, fileName);
+            var fullPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(partialPath);
+
             if (!File.Exists(fullPath))
             {
                 // Auto remove the favorite from the list since the file no longer exists

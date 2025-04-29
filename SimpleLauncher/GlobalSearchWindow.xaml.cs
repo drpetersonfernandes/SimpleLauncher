@@ -119,7 +119,8 @@ public partial class GlobalSearchWindow
 
         foreach (var systemConfig in _systemConfigs)
         {
-            var systemFolderPath = GetFullPath(systemConfig.SystemFolder);
+            var systemFolderPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(systemConfig.SystemFolder);
+
             if (!Directory.Exists(systemFolderPath))
                 continue;
 
@@ -179,16 +180,6 @@ public partial class GlobalSearchWindow
         {
             var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             return machine?.Description ?? string.Empty;
-        }
-
-        static string GetFullPath(string path)
-        {
-            if (path.StartsWith(@".\", StringComparison.Ordinal))
-            {
-                path = path.Substring(2);
-            }
-
-            return Path.IsPathRooted(path) ? path : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
         }
     }
 
