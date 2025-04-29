@@ -127,17 +127,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Set initial state of Fuzzy Matching menu item
         ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
 
-
         // Load _machines and _mameLookup
         _machines = MameManager.LoadFromDat();
         _mameLookup = _machines
             .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
-        // Load and Sort _systemConfigs
-        _systemConfigs = SystemManager.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
-        SystemComboBox.ItemsSource = sortedSystemNames;
+        LoadOrReloadSystemConfig();
 
         // Initialize the GamePadController
         GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
@@ -1047,39 +1043,43 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            // Ensure pagination is reset at the beginning
-            ResetPaginationButtons();
-
-            // Clear SearchTextBox
-            SearchTextBox.Text = "";
-
-            // Update current filter
-            _currentFilter = null;
-
-            // Empty SystemComboBox
-            _selectedSystem = null;
-            SystemComboBox.SelectedItem = null;
-            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-            SelectedSystem = nosystemselected;
-            PlayTime = "00:00:00";
-
-            AddNoSystemMessage();
+            ResetUi();
 
             DownloadImagePackWindow downloadImagePack = new();
             downloadImagePack.ShowDialog();
-
-            // ReLoad and Sort _systemConfigs
-            _systemConfigs = SystemManager.LoadSystemConfigs();
-            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
-            SystemComboBox.ItemsSource = sortedSystemNames;
-
-            // Refresh GameList
-            // await LoadGameFilesAsync();
         }
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
         }
+    }
+
+    public void LoadOrReloadSystemConfig()
+    {
+        _systemConfigs = SystemManager.LoadSystemConfigs();
+        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
+        SystemComboBox.ItemsSource = sortedSystemNames;
+    }
+
+    public void ResetUi()
+    {
+        // Ensure pagination is reset at the beginning
+        ResetPaginationButtons();
+
+        // Clear SearchTextBox
+        SearchTextBox.Text = "";
+
+        // Update current filter
+        _currentFilter = null;
+
+        // Empty SystemComboBox
+        _selectedSystem = null;
+        SystemComboBox.SelectedItem = null;
+        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+        SelectedSystem = nosystemselected;
+        PlayTime = "00:00:00";
+
+        AddNoSystemMessage();
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -1390,23 +1390,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void GlobalSearch_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
-
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
-
-        // Update current filter
-        _currentFilter = null;
-
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
-
-        AddNoSystemMessage();
+        ResetUi();
 
         var globalSearchWindow = new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
@@ -1423,23 +1407,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void Favorites_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
-
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
-
-        // Update current filter
-        _currentFilter = null;
-
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
-
-        AddNoSystemMessage();
+        ResetUi();
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
         favoritesWindow.Show();
@@ -1450,23 +1418,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void PlayHistory_Click(object sender, RoutedEventArgs e)
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
-
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
-
-        // Update current filter
-        _currentFilter = null;
-
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
-
-        AddNoSystemMessage();
+        ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         playHistoryWindow.Show();
@@ -2018,6 +1970,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void FindRomCover_Click(object sender, RoutedEventArgs e)
     {
+        ResetUi();
         LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder, _logPath);
     }
 
