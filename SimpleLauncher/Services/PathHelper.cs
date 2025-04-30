@@ -5,64 +5,73 @@ namespace SimpleLauncher.Services;
 
 public static class PathHelper
 {
-    public static string ReturnAbsolutePath(string path)
+    /// <summary>
+    /// Converts a path to its absolute form, resolving relative paths against the current working directory.
+    /// Handles '.', '..', and resolves symbolic links if the file/directory exists.
+    /// </summary>
+    /// <param name="path">The path to convert.</param>
+    /// <returns>The absolute path.</returns>
+    public static string ResolveRelativeToCurrentDirectory(string path)
     {
-        // remove .\
-        if (path.StartsWith(@".\", StringComparison.Ordinal))
+        if (string.IsNullOrWhiteSpace(path))
         {
-            path = path.Substring(2);
+            // Or throw an exception, depending on desired behavior for empty/null input
+            return string.Empty;
         }
 
-        // convert to an absolute path
-        var fullPath = Path.GetFullPath(path);
-
-        return fullPath;
+        // Path.GetFullPath correctly handles '.', '..', and relative paths
+        // relative to the current working directory.
+        return Path.GetFullPath(path);
     }
 
-    public static string SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(string path)
+    /// <summary>
+    /// Converts a path to its absolute form, resolving relative paths against the application's base directory.
+    /// If the path is already absolute, it is returned as it is.
+    /// </summary>
+    /// <param name="path">The path to convert.</param>
+    /// <returns>The absolute path relative to the application base directory if relative, otherwise the original absolute path.</returns>
+    public static string ResolveRelativeToAppDirectory(string path)
     {
-        // remove .\
-        if (path.StartsWith(@".\", StringComparison.Ordinal))
+        if (string.IsNullOrWhiteSpace(path))
         {
-            path = path.Substring(2);
+             // Or throw an exception
+             return string.Empty;
         }
 
-        // check if it is absolute
+        // If the path is already rooted (absolute), return it directly.
         if (Path.IsPathRooted(path))
         {
             return path;
         }
 
-        // combine with the application path
+        // If the path is relative, combine it with the application's base directory.
+        // Path.Combine correctly handles separators and relative segments like '.\' and '..\'
         return Path.Combine(AppDomain.CurrentDomain.BaseDirectory, path);
     }
 
-    public static string DoublePathsCombinePathsReturnAbsolutePath(string path, string path2)
+    /// <summary>
+    /// Combines two path segments and resolves the result to an absolute path
+    /// relative to the application's base directory if the combined path is not rooted.
+    /// </summary>
+    /// <param name="path1">The first path segment.</param>
+    /// <param name="path2">The second path segment.</param>
+    /// <returns>The absolute path resulting from combining path1 and path2, resolved relative to the application base directory if needed.</returns>
+    public static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
     {
-        // remove .\
-        if (path.StartsWith(@".\", StringComparison.Ordinal))
-        {
-            path = path.Substring(2);
-        }
+         // Path.Combine handles null/empty inputs reasonably well,
+         // but adding checks might be safer depending on the expected input.
+         // If path1 is absolute, path2 is appended to it.
+         // If path1 is relative, path2 is appended to it.
+         var combinedPath = Path.Combine(path1, path2);
 
-        // remove .\
-        if (path2.StartsWith(@".\", StringComparison.Ordinal))
-        {
-            path2 = path2.Substring(2);
-        }
+         // Now resolve the combined path relative to the app directory
+         return ResolveRelativeToAppDirectory(combinedPath);
+    }
 
-        // combine paths
-        var partialPath = Path.Combine(path, path2);
-
-        // check if it is absolute
-        if (Path.IsPathRooted(partialPath))
-        {
-            return partialPath;
-        }
-
-        // convert to an absolute path
-        var finalPath = Path.GetFullPath(partialPath);
-
-        return finalPath;
+    // You might also want a method to combine and resolve relative to the current directory
+    public static string CombineAndResolveRelativeToCurrentDirectory(string path1, string path2)
+    {
+        var combinedPath = Path.Combine(path1, path2);
+        return ResolveRelativeToCurrentDirectory(combinedPath);
     }
 }

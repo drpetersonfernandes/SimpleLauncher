@@ -119,7 +119,7 @@ public partial class GlobalSearchWindow
 
         foreach (var systemConfig in _systemConfigs)
         {
-            var systemFolderPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(systemConfig.SystemFolder);
+            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
 
             if (!Directory.Exists(systemFolderPath))
                 continue;

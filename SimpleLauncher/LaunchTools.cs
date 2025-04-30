@@ -94,12 +94,12 @@ public static class LaunchTools
                 // Check if _selectedImageFolder and _selectedRomFolder are set
                 if (!string.IsNullOrEmpty(selectedImageFolder))
                 {
-                    absoluteImageFolder = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(selectedImageFolder);
+                    absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
                 }
 
                 if (!string.IsNullOrEmpty(selectedRomFolder))
                 {
-                    absoluteRomFolder = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(selectedRomFolder);
+                    absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
                 }
 
                 // Determine arguments based on available folders

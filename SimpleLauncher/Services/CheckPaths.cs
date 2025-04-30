@@ -17,7 +17,7 @@ public static class CheckPaths
         try
         {
             // Ensure we correctly handle relative paths that go up from the base directory
-            var fullPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(path);
+            var fullPath = PathHelper.ResolveRelativeToAppDirectory(path);
             return Directory.Exists(fullPath) || File.Exists(fullPath);
         }
         catch (Exception)

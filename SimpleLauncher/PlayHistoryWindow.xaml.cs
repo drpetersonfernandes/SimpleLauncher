@@ -232,7 +232,7 @@ public partial class PlayHistoryWindow
 
             var fileNameWithExtension = selectedItem.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-            var filePath = PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemConfig.SystemFolder, selectedItem.FileName);
+            var filePath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemConfig.SystemFolder, selectedItem.FileName);
 
             var contextMenu = new ContextMenu();
 
@@ -681,7 +681,7 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var fullPath = PathHelper.SinglePathReturnAbsolutePathInsideApplicationFolderIfNeeded(PathHelper.DoublePathsCombinePathsReturnAbsolutePath(systemConfig.SystemFolder, fileName));
+            var fullPath = PathHelper.ResolveRelativeToAppDirectory(PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemConfig.SystemFolder, fileName));
             // Check if the file exists
             if (!File.Exists(fullPath))
             {
