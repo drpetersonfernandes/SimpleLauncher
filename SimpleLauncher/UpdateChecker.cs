@@ -168,15 +168,12 @@ public static partial class UpdateChecker
                 const string contextMessage = "There was an error updating the application.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                Application.Current.Dispatcher.Invoke(() =>
-                {
                     // Notify user
                     MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
 
                     logWindow.Log("There was an error updating the application.");
                     logWindow.Log("Please update it manually.");
                     logWindow.Close();
-                });
             }
         }
         catch (Exception ex)
@@ -230,14 +227,12 @@ public static partial class UpdateChecker
             logWindow.Log("Updater.exe not found in the application directory.");
             logWindow.Log("Please reinstall 'Simple Launcher' manually to fix the issue.");
 
-            Application.Current.Dispatcher.Invoke(() =>
-            {
                 // Notify user
                 MessageBoxLibrary.DownloadManuallyMessageBox(RepoOwner, RepoName);
 
                 logWindow.Close();
-            });
-            return;
+
+                return;
         }
 
         logWindow.Log("Starting updater process...");

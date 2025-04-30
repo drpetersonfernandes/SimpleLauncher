@@ -65,7 +65,7 @@ public class CountFiles
         finally
         {
             // Close the window on the UI thread
-            await Application.Current.Dispatcher.InvokeAsync(() => pleaseWaitWindow.Close());
+            Application.Current.Dispatcher.Invoke(() => pleaseWaitWindow.Close());
         }
     }
 }

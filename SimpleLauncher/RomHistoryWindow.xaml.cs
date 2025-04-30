@@ -55,9 +55,9 @@ public partial class RomHistoryWindow
                 {
                     var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
                     HistoryTextBlock.Text = nohistoryxmlfilefound2;
-
-                    MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
                 });
+
+                MessageBoxLibrary.NoHistoryXmlFoundMessageBox();
 
                 return;
             }
@@ -117,8 +117,8 @@ public partial class RomHistoryWindow
             const string contextMessage = "An error occurred while loading ROM history.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user on the UI thread
-            await Dispatcher.InvokeAsync(MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox);
+            // Notify user
+            MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
         }
     }
 
@@ -142,6 +142,7 @@ public partial class RomHistoryWindow
 
         // Notify user
         DidNotFindRomHistoryMessageBox();
+
         return;
 
         void DidNotFindRomHistoryMessageBox()

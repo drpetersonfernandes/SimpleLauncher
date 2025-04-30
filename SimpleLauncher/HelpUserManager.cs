@@ -80,11 +80,7 @@ public class HelpUserManager
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                         // Notify user
-                        var result = false;
-                        Application.Current.Dispatcher.Invoke(() =>
-                        {
-                            result = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
-                        });
+                        var result = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
                         if (result)
                         {
                             return null;
