@@ -1136,7 +1136,15 @@ public partial class EditSystemWindow
 
         if (!File.Exists(sourceFilePath)) return;
 
-        IoOperations.FileCopy(sourceFilePath, backupFilePath, true);
+        try
+        {
+            IoOperations.FileCopy(sourceFilePath, backupFilePath, true);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error in method EditSystem_Closing");
+        }
     }
 
     private void HelpLink_Click(object sender, RoutedEventArgs e)

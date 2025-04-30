@@ -263,9 +263,11 @@ public partial class EasyModeWindow : IDisposable
                             downloadedFile = newFilePath;
                         }
                     }
-                    catch
+                    catch (Exception ex)
                     {
                         // If rename fails, use the original file
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ex, $"Error renaming {downloadedFile} to {newFilePath}.");
                     }
 
                     // Extract
