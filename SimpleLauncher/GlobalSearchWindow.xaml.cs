@@ -361,7 +361,7 @@ public partial class GlobalSearchWindow
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorRightClickContextMenuMessageBox();
+            MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
 

@@ -170,7 +170,7 @@ public partial class PlayHistoryWindow
         else
         {
             // Notify the user to select a history item first
-            MessageBoxLibrary.SelectAHistoryItemMessageBox();
+            MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
         }
     }
 
@@ -633,7 +633,7 @@ public partial class PlayHistoryWindow
             else
             {
                 // Notify user
-                MessageBoxLibrary.SelectGameToLaunchMessageBox();
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)

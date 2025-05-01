@@ -743,7 +743,7 @@ public partial class EditSystemWindow
             if (!emulatorNames.Add(emulatorName))
             {
                 // Notify user
-                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox2(emulatorName);
+                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulatorName);
 
                 return;
             }
@@ -1222,7 +1222,8 @@ public partial class EditSystemWindow
         }
 
         // Show detailed warning if invalid parameters found, but still continue with save
-        if (hasInvalidParameters)
+        if (!hasInvalidParameters) return;
+
         {
             MessageBoxLibrary.ParameterPathsInvalidWarningMessageBox(allInvalidPaths);
         }

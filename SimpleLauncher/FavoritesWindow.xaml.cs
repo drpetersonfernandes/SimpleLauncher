@@ -556,7 +556,7 @@ public partial class FavoritesWindow
             else
             {
                 // Notify user
-                MessageBoxLibrary.SelectGameToLaunchMessageBox();
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)

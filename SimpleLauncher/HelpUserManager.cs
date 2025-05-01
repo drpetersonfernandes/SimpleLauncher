@@ -53,11 +53,8 @@ public class HelpUserManager
                 const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                Application.Current.Dispatcher.Invoke(static () =>
-                {
-                    // Notify user
-                    MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
-                });
+                // Notify user
+                MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
 
                 return;
             }
