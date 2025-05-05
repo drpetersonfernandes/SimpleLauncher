@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -13,316 +14,316 @@ public static class MessageBoxLibrary
 {
     internal static void TakeScreenShotMessageBox()
     {
-        var thegamewilllaunchnow2 = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
-        var setthegamewindowto2 = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
-        var youshouldchangetheemulatorparameters2 = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-        var aselectionwindowwillopeninSimpleLauncherallowingyou2 = (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ?? "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
-        var assoonasyouselectawindow2 = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
-        var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
+        var thegamewilllaunchnow = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
+        var setthegamewindowto = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
+        var youshouldchangetheemulatorparameters = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
+        var aselectionwindowwillopeninSimpleLauncherallowingyou = (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ?? "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
+        var assoonasyouselectawindow = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
+        var takeScreenshot = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thegamewilllaunchnow2}\n\n" +
-                            $"{setthegamewindowto2}\n\n" +
-                            $"{youshouldchangetheemulatorparameters2}\n\n" +
-                            $"{aselectionwindowwillopeninSimpleLauncherallowingyou2}\n\n" +
-                            $"{assoonasyouselectawindow2}",
-                takeScreenshot2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thegamewilllaunchnow}\n\n" +
+                            $"{setthegamewindowto}\n\n" +
+                            $"{youshouldchangetheemulatorparameters}\n\n" +
+                            $"{aselectionwindowwillopeninSimpleLauncherallowingyou}\n\n" +
+                            $"{assoonasyouselectawindow}",
+                takeScreenshot, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void CouldNotSaveScreenshotMessageBox()
     {
-        var failedtosavescreenshot2 = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtosavescreenshot = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtosavescreenshot2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtosavescreenshot}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
-        var isalreadyinfavorites2 = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var isalreadyinfavorites = (string)Application.Current.TryFindResource("isalreadyinfavorites") ?? "is already in favorites.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{fileNameWithExtension} {isalreadyinfavorites2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{fileNameWithExtension} {isalreadyinfavorites}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ErrorWhileAddingFavoritesMessageBox()
     {
-        var anerroroccurredwhileaddingthisgame2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileaddingthisgame") ?? "An error occurred while adding this game to the favorites.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhileaddingthisgame = (string)Application.Current.TryFindResource("Anerroroccurredwhileaddingthisgame") ?? "An error occurred while adding this game to the favorites.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhileaddingthisgame2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhileaddingthisgame}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorWhileRemovingGameFromFavoriteMessageBox()
     {
-        var anerroroccurredwhileremoving2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileremoving") ?? "An error occurred while removing this game from favorites.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhileremoving = (string)Application.Current.TryFindResource("Anerroroccurredwhileremoving") ?? "An error occurred while removing this game from favorites.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhileremoving2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhileremoving}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorOpeningTheUpdateHistoryWindowMessageBox()
     {
-        var erroropeningtheUpdateHistorywindow2 = (string)Application.Current.TryFindResource("ErroropeningtheUpdateHistorywindow") ?? "Error opening the Update History window.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var erroropeningtheUpdateHistorywindow = (string)Application.Current.TryFindResource("ErroropeningtheUpdateHistorywindow") ?? "Error opening the Update History window.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{erroropeningtheUpdateHistorywindow2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{erroropeningtheUpdateHistorywindow}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorOpeningVideoLinkMessageBox()
     {
-        var therewasaproblemopeningtheVideo2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideo") ?? "There was a problem opening the Video Link.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasaproblemopeningtheVideo = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideo") ?? "There was a problem opening the Video Link.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasaproblemopeningtheVideo2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasaproblemopeningtheVideo}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ProblemOpeningInfoLinkMessageBox()
     {
-        var therewasaproblemopeningthe2 = (string)Application.Current.TryFindResource("Therewasaproblemopeningthe") ?? "There was a problem opening the Info Link.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasaproblemopeningthe = (string)Application.Current.TryFindResource("Therewasaproblemopeningthe") ?? "There was a problem opening the Info Link.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasaproblemopeningthe2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasaproblemopeningthe}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ThereIsNoCoverMessageBox()
     {
-        var thereisnocoverfileassociated2 = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
-        var covernotfound2 = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
+        var thereisnocoverfileassociated = (string)Application.Current.TryFindResource("Thereisnocoverfileassociated") ?? "There is no cover file associated with this game.";
+        var covernotfound = (string)Application.Current.TryFindResource("Covernotfound") ?? "Cover not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnocoverfileassociated2,
-                covernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnocoverfileassociated,
+                covernotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoTitleSnapshotMessageBox()
     {
-        var thereisnotitlesnapshot2 = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot") ?? "There is no title snapshot file associated with this game.";
-        var titleSnapshotnotfound2 = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
+        var thereisnotitlesnapshot = (string)Application.Current.TryFindResource("Thereisnotitlesnapshot") ?? "There is no title snapshot file associated with this game.";
+        var titleSnapshotnotfound = (string)Application.Current.TryFindResource("TitleSnapshotnotfound") ?? "Title Snapshot not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnotitlesnapshot2,
-                titleSnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnotitlesnapshot,
+                titleSnapshotnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoGameplaySnapshotMessageBox()
     {
-        var thereisnogameplaysnapshot2 = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshot") ?? "There is no gameplay snapshot file associated with this game.";
-        var gameplaySnapshotnotfound2 = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
+        var thereisnogameplaysnapshot = (string)Application.Current.TryFindResource("Thereisnogameplaysnapshot") ?? "There is no gameplay snapshot file associated with this game.";
+        var gameplaySnapshotnotfound = (string)Application.Current.TryFindResource("GameplaySnapshotnotfound") ?? "Gameplay Snapshot not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnogameplaysnapshot2,
-                gameplaySnapshotnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnogameplaysnapshot,
+                gameplaySnapshotnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoCartMessageBox()
     {
-        var thereisnocartfile2 = (string)Application.Current.TryFindResource("Thereisnocartfile") ?? "There is no cart file associated with this game.";
-        var cartnotfound2 = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
+        var thereisnocartfile = (string)Application.Current.TryFindResource("Thereisnocartfile") ?? "There is no cart file associated with this game.";
+        var cartnotfound = (string)Application.Current.TryFindResource("Cartnotfound") ?? "Cart not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnocartfile2,
-                cartnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnocartfile,
+                cartnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoVideoFileMessageBox()
     {
-        var thereisnovideofile2 = (string)Application.Current.TryFindResource("Thereisnovideofile") ?? "There is no video file associated with this game.";
-        var videonotfound2 = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
+        var thereisnovideofile = (string)Application.Current.TryFindResource("Thereisnovideofile") ?? "There is no video file associated with this game.";
+        var videonotfound = (string)Application.Current.TryFindResource("Videonotfound") ?? "Video not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnovideofile2,
-                videonotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnovideofile,
+                videonotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void CouldNotOpenManualMessageBox()
     {
-        var failedtoopenthemanual2 = (string)Application.Current.TryFindResource("Failedtoopenthemanual") ?? "Failed to open the manual.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtoopenthemanual = (string)Application.Current.TryFindResource("Failedtoopenthemanual") ?? "Failed to open the manual.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtoopenthemanual2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtoopenthemanual}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ThereIsNoManualMessageBox()
     {
-        var thereisnomanual2 = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
-        var manualNotFound2 = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
+        var thereisnomanual = (string)Application.Current.TryFindResource("Thereisnomanual") ?? "There is no manual associated with this file.";
+        var manualNotFound = (string)Application.Current.TryFindResource("Manualnotfound") ?? "Manual not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnomanual2,
-                manualNotFound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnomanual,
+                manualNotFound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoWalkthroughMessageBox()
     {
-        var thereisnowalkthrough2 = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
-        var walkthroughnotfound2 = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
+        var thereisnowalkthrough = (string)Application.Current.TryFindResource("Thereisnowalkthrough") ?? "There is no walkthrough file associated with this game.";
+        var walkthroughnotfound = (string)Application.Current.TryFindResource("Walkthroughnotfound") ?? "Walkthrough not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnowalkthrough2,
-                walkthroughnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnowalkthrough,
+                walkthroughnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoCabinetMessageBox()
     {
-        var thereisnocabinetfile2 = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
-        var cabinetnotfound2 = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
+        var thereisnocabinetfile = (string)Application.Current.TryFindResource("Thereisnocabinetfile") ?? "There is no cabinet file associated with this game.";
+        var cabinetnotfound = (string)Application.Current.TryFindResource("Cabinetnotfound") ?? "Cabinet not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnocabinetfile2,
-                cabinetnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnocabinetfile,
+                cabinetnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoFlyerMessageBox()
     {
-        var thereisnoflyer2 = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
-        var flyernotfound2 = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
+        var thereisnoflyer = (string)Application.Current.TryFindResource("Thereisnoflyer") ?? "There is no flyer file associated with this game.";
+        var flyernotfound = (string)Application.Current.TryFindResource("Flyernotfound") ?? "Flyer not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnoflyer2,
-                flyernotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnoflyer,
+                flyernotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ThereIsNoPcbMessageBox()
     {
-        var thereisnoPcBfile2 = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
-        var pCBnotfound2 = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
+        var thereisnoPcBfile = (string)Application.Current.TryFindResource("ThereisnoPCBfile") ?? "There is no PCB file associated with this game.";
+        var pCBnotfound = (string)Application.Current.TryFindResource("PCBnotfound") ?? "PCB not found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thereisnoPcBfile2,
-                pCBnotfound2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thereisnoPcBfile,
+                pCBnotfound, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void FileSuccessfullyDeletedMessageBox(string fileNameWithExtension)
     {
-        var thefile2 = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
-        var hasbeensuccessfullydeleted2 = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
-        var fileDeleted2 = (string)Application.Current.TryFindResource("Filedeleted2") ?? "File deleted";
+        var thefile = (string)Application.Current.TryFindResource("Thefile") ?? "The file";
+        var hasbeensuccessfullydeleted = (string)Application.Current.TryFindResource("hasbeensuccessfullydeleted") ?? "has been successfully deleted.";
+        var fileDeleted = (string)Application.Current.TryFindResource("Filedeleted") ?? "File deleted";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thefile2} '{fileNameWithExtension}' {hasbeensuccessfullydeleted2}",
-                fileDeleted2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thefile} '{fileNameWithExtension}' {hasbeensuccessfullydeleted}",
+                fileDeleted, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void FileCouldNotBeDeletedMessageBox(string fileNameWithExtension)
     {
-        var anerroroccurredwhiletryingtodelete2 = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ?? "An error occurred while trying to delete the file";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhiletryingtodelete = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ?? "An error occurred while trying to delete the file";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhiletryingtodelete2} '{fileNameWithExtension}'.\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhiletryingtodelete} '{fileNameWithExtension}'.\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void UnableToLoadImageMessageBox(string imageFileName)
     {
-        var unabletoloadimage2 = (string)Application.Current.TryFindResource("Unabletoloadimage") ?? "Unable to load image";
-        var thisimagemaybecorrupted2 = (string)Application.Current.TryFindResource("Thisimagemaybecorrupted") ?? "This image may be corrupted.";
-        var thedefaultimagewillbedisplayed2 = (string)Application.Current.TryFindResource("Thedefaultimagewillbedisplayed") ?? "The default image will be displayed instead.";
-        var imageloadingerror2 = (string)Application.Current.TryFindResource("Imageloadingerror") ?? "Image loading error";
+        var unabletoloadimage = (string)Application.Current.TryFindResource("Unabletoloadimage") ?? "Unable to load image";
+        var thisimagemaybecorrupted = (string)Application.Current.TryFindResource("Thisimagemaybecorrupted") ?? "This image may be corrupted.";
+        var thedefaultimagewillbedisplayed = (string)Application.Current.TryFindResource("Thedefaultimagewillbedisplayed") ?? "The default image will be displayed instead.";
+        var imageloadingerror = (string)Application.Current.TryFindResource("Imageloadingerror") ?? "Image loading error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{unabletoloadimage2} '{imageFileName}'.\n\n" +
-                            $"{thisimagemaybecorrupted2}\n\n" +
-                            $"{thedefaultimagewillbedisplayed2}",
-                imageloadingerror2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"{unabletoloadimage} '{imageFileName}'.\n\n" +
+                            $"{thisimagemaybecorrupted}\n\n" +
+                            $"{thedefaultimagewillbedisplayed}",
+                imageloadingerror, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
@@ -331,12 +332,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var defaultpngfileismissing2 = (string)Application.Current.TryFindResource("defaultpngfileismissing") ?? "'default.png' file is missing.";
-            var doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var reinstall = MessageBox.Show($"{defaultpngfileismissing2}\n\n" +
-                                            $"{doyouwanttoreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            var defaultpngfileismissing = (string)Application.Current.TryFindResource("defaultpngfileismissing") ?? "'default.png' file is missing.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var reinstall = MessageBox.Show($"{defaultpngfileismissing}\n\n" +
+                                            $"{doyouwanttoreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
 
             if (reinstall == MessageBoxResult.Yes)
             {
@@ -344,13 +345,13 @@ public static class MessageBoxLibrary
             }
             else
             {
-                var pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
 
 
-                MessageBox.Show($"{pleasereinstallSimpleLauncher2}\n\n" +
-                                $"{theapplicationwillshutdown2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{pleasereinstallSimpleLauncher}\n\n" +
+                                $"{theapplicationwillshutdown}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 QuitApplication.SimpleQuitApplication();
             }
@@ -359,29 +360,29 @@ public static class MessageBoxLibrary
 
     internal static void GlobalSearchErrorMessageBox()
     {
-        var therewasanerrorusingtheGlobal2 = (string)Application.Current.TryFindResource("TherewasanerrorusingtheGlobal") ?? "There was an error using the Global Search.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorusingtheGlobal = (string)Application.Current.TryFindResource("TherewasanerrorusingtheGlobal") ?? "There was an error using the Global Search.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorusingtheGlobal2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorusingtheGlobal}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void PleaseEnterSearchTermMessageBox()
     {
-        var pleaseenterasearchterm2 = (string)Application.Current.TryFindResource("Pleaseenterasearchterm") ?? "Please enter a search term.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var pleaseenterasearchterm = (string)Application.Current.TryFindResource("Pleaseenterasearchterm") ?? "Please enter a search term.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseenterasearchterm2,
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseenterasearchterm,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
@@ -390,12 +391,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var therewasanerrorlaunchingtheselected2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheselected") ?? "There was an error launching the selected game.";
-            var dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorlaunchingtheselected2}\n\n" +
-                                         $"{dowanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
+            var therewasanerrorlaunchingtheselected = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingtheselected") ?? "There was an error launching the selected game.";
+            var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{therewasanerrorlaunchingtheselected}\n\n" +
+                                         $"{dowanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Exclamation);
 
             if (result != MessageBoxResult.Yes) return;
 
@@ -410,66 +411,66 @@ public static class MessageBoxLibrary
             catch (Exception)
             {
                 // Notify user
-                var thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
 
-                MessageBox.Show(thefileerroruserlogwasnotfound2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwasnotfound,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void SelectAGameToLaunchMessageBox()
     {
-        var pleaseselectagametolaunch2 = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var pleaseselectagametolaunch = (string)Application.Current.TryFindResource("Pleaseselectagametolaunch") ?? "Please select a game to launch.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseselectagametolaunch2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseselectagametolaunch,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ErrorLoadingSystemConfigMessageBox()
     {
-        var therewasanerrorloadingthesystemConfig2 = (string)Application.Current.TryFindResource("TherewasanerrorloadingthesystemConfig") ?? "There was an error loading the systemConfig.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorloadingthesystemConfig = (string)Application.Current.TryFindResource("TherewasanerrorloadingthesystemConfig") ?? "There was an error loading the systemConfig.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorloadingthesystemConfig2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorloadingthesystemConfig}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
     {
-        var hasbeenaddedtofavorites2 = (string)Application.Current.TryFindResource("hasbeenaddedtofavorites") ?? "has been added to favorites.";
-        var success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        var hasbeenaddedtofavorites = (string)Application.Current.TryFindResource("hasbeenaddedtofavorites") ?? "has been added to favorites.";
+        var success = (string)Application.Current.TryFindResource("Success") ?? "Success";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites2}",
-                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{fileNameWithoutExtension} {hasbeenaddedtofavorites}",
+                success, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void FileRemovedFromFavoritesMessageBox(string fileNameWithoutExtension)
     {
-        var wasremovedfromfavorites2 = (string)Application.Current.TryFindResource("wasremovedfromfavorites") ?? "was removed from favorites.";
-        var success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        var wasremovedfromfavorites = (string)Application.Current.TryFindResource("wasremovedfromfavorites") ?? "was removed from favorites.";
+        var success = (string)Application.Current.TryFindResource("Success") ?? "Success";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{fileNameWithoutExtension} {wasremovedfromfavorites2}",
-                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{fileNameWithoutExtension} {wasremovedfromfavorites}",
+                success, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
@@ -478,12 +479,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var simpleLaunchercouldnotlaunchthisgame2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
-            var dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame2}\n\n" +
-                                         $"{dowanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var simpleLaunchercouldnotlaunchthisgame = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
+            var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame}\n\n" +
+                                         $"{dowanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -497,68 +498,68 @@ public static class MessageBoxLibrary
             catch (Exception)
             {
                 // Notify user
-                var thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
 
-                MessageBox.Show(thefileerroruserlogwasnotfound2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwasnotfound,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void ErrorCalculatingStatsMessageBox()
     {
-        var anerroroccurredwhilecalculatingtheGlobal2 = (string)Application.Current.TryFindResource("AnerroroccurredwhilecalculatingtheGlobal") ?? "An error occurred while calculating the Global Statistics.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhilecalculatingtheGlobal = (string)Application.Current.TryFindResource("AnerroroccurredwhilecalculatingtheGlobal") ?? "An error occurred while calculating the Global Statistics.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhilecalculatingtheGlobal2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhilecalculatingtheGlobal}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FailedSaveReportMessageBox()
     {
-        var failedtosavethereport2 = (string)Application.Current.TryFindResource("Failedtosavethereport") ?? "Failed to save the report.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtosavethereport = (string)Application.Current.TryFindResource("Failedtosavethereport") ?? "Failed to save the report.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtosavethereport2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtosavethereport}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ReportSavedMessageBox()
     {
-        var reportsavedsuccessfully2 = (string)Application.Current.TryFindResource("Reportsavedsuccessfully") ?? "Report saved successfully.";
-        var success2 = (string)Application.Current.TryFindResource("Success") ?? "Success";
+        var reportsavedsuccessfully = (string)Application.Current.TryFindResource("Reportsavedsuccessfully") ?? "Report saved successfully.";
+        var success = (string)Application.Current.TryFindResource("Success") ?? "Success";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(reportsavedsuccessfully2,
-                success2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(reportsavedsuccessfully,
+                success, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void NoStatsToSaveMessageBox()
     {
-        var nostatisticsavailabletosave2 = (string)Application.Current.TryFindResource("Nostatisticsavailabletosave") ?? "No statistics available to save.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var nostatisticsavailabletosave = (string)Application.Current.TryFindResource("Nostatisticsavailabletosave") ?? "No statistics available to save.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(nostatisticsavailabletosave2,
-                error2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(nostatisticsavailabletosave,
+                error, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
@@ -567,16 +568,16 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var anerroroccurredwhilelaunchingtheselectedtool2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
-            var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-            var dowanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool2}\n\n" +
-                                         $"{grantSimpleLauncheradministrative2}\n\n" +
-                                         $"{temporarilydisableyourantivirussoftware2}\n\n" +
-                                         $"{dowanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+            var anerroroccurredwhilelaunchingtheselectedtool = (string)Application.Current.TryFindResource("Anerroroccurredwhilelaunchingtheselectedtool") ?? "An error occurred while launching the selected tool.";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{anerroroccurredwhilelaunchingtheselectedtool}\n\n" +
+                                         $"{grantSimpleLauncheradministrative}\n\n" +
+                                         $"{temporarilydisableyourantivirussoftware}\n\n" +
+                                         $"{dowanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -590,11 +591,11 @@ public static class MessageBoxLibrary
             catch (Exception)
             {
                 // Notify user
-                var thefileerroruserlogwasnotfound2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
 
 
-                MessageBox.Show(thefileerroruserlogwasnotfound2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwasnotfound,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -604,133 +605,133 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var theselectedtoolwasnotfound2 = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
-            var doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var theselectedtoolwasnotfound = (string)Application.Current.TryFindResource("Theselectedtoolwasnotfound") ?? "The selected tool was not found in the expected path.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var reinstall = MessageBox.Show(
-                $"{theselectedtoolwasnotfound2}\n\n" +
-                $"{doyouwanttoreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+                $"{theselectedtoolwasnotfound}\n\n" +
+                $"{doyouwanttoreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (reinstall == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
 
 
-                MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(pleasereinstallSimpleLaunchermanually,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void ErrorMessageBox()
     {
-        var therewasanerror2 = (string)Application.Current.TryFindResource("Therewasanerror") ?? "There was an error.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerror = (string)Application.Current.TryFindResource("Therewasanerror") ?? "There was an error.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerror2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerror}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void NoFavoriteFoundMessageBox()
     {
         var nofavoritegamesfoundfortheselectedsystem = (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ?? "No favorite games found for the selected system.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             MessageBox.Show(nofavoritegamesfoundfortheselectedsystem,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void MoveToWritableFolderMessageBox()
     {
-        var itlookslikeSimpleLauncherisinstalled2 = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncheris2") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
-        var itneedswriteaccesstoitsfolder2 = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder2") ?? "It needs write access to its folder.";
-        var pleasemovetheapplicationfolder2 = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder2") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
-        var ifpossiblerunitwithadministrative2 = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var itlookslikeSimpleLauncherisinstalled = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncherisinstalled") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
+        var itneedswriteaccesstoitsfolder = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder") ?? "It needs write access to its folder.";
+        var pleasemovetheapplicationfolder = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
+        var ifpossiblerunitwithadministrative = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             MessageBox.Show(
-                $"{itlookslikeSimpleLauncherisinstalled2}\n\n" +
-                $"{itneedswriteaccesstoitsfolder2}\n\n" +
-                $"{pleasemovetheapplicationfolder2}\n\n" +
-                $"{ifpossiblerunitwithadministrative2}",
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+                $"{itlookslikeSimpleLauncherisinstalled}\n\n" +
+                $"{itneedswriteaccesstoitsfolder}\n\n" +
+                $"{pleasemovetheapplicationfolder}\n\n" +
+                $"{ifpossiblerunitwithadministrative}",
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void InvalidSystemConfigMessageBox()
     {
-        var therewasanerrorwhileloading2 = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorwhileloading = (string)Application.Current.TryFindResource("Therewasanerrorwhileloading") ?? "There was an error while loading the system configuration for this system.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorwhileloading2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorwhileloading}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorMethodLoadGameFilesAsyncMessageBox()
     {
-        var therewasanerrorloadingthegame2 = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorloadingthegame = (string)Application.Current.TryFindResource("Therewasanerrorloadingthegame") ?? "There was an error loading the game list.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorloadingthegame2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorloadingthegame}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorOpeningDonationLinkMessageBox()
     {
-        var therewasanerroropeningthedonation2 = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerroropeningthedonation = (string)Application.Current.TryFindResource("Therewasanerroropeningthedonation") ?? "There was an error opening the Donation Link.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerroropeningthedonation2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerroropeningthedonation}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ToggleGamepadFailureMessageBox()
     {
-        var failedtotogglegamepad2 = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtotogglegamepad = (string)Application.Current.TryFindResource("Failedtotogglegamepad") ?? "Failed to toggle gamepad.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtotogglegamepad2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtotogglegamepad}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -741,11 +742,11 @@ public static class MessageBoxLibrary
         {
             var findRomCoverexewasnotfound = (string)Application.Current.TryFindResource("FindRomCoverexewasnotfound") ?? "'FindRomCover.exe' was not found in the expected path.";
             var doyouwanttoreinstall = (string)Application.Current.TryFindResource("Doyouwanttoreinstall") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var reinstall = MessageBox.Show(
                 $"{findRomCoverexewasnotfound}\n\n" +
                 $"{doyouwanttoreinstall}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Error);
+                error, MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (reinstall == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
@@ -755,7 +756,7 @@ public static class MessageBoxLibrary
                 var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
 
                 MessageBox.Show(pleasereinstallSimpleLaunchermanually,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -763,13 +764,13 @@ public static class MessageBoxLibrary
     internal static void FindRomCoverLaunchWasCanceledByUserMessageBox()
     {
         var thelaunchofFindRomCoverexewascanceled = (string)Application.Current.TryFindResource("ThelaunchofFindRomCoverexewascanceled") ?? "The launch of 'FindRomCover.exe' was canceled by the user.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             MessageBox.Show(thelaunchofFindRomCoverexewascanceled,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
@@ -779,14 +780,14 @@ public static class MessageBoxLibrary
         Application.Current.Dispatcher.Invoke(() =>
         {
             var anerroroccurredwhiletryingtolaunch = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtolaunch") ?? "An error occurred while trying to launch 'FindRomCover.exe'.";
-            var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
                 $"{anerroroccurredwhiletryingtolaunch}\n\n" +
-                $"{grantSimpleLauncheradministrative2}\n\n" +
-                $"{temporarilydisableyourantivirus2}\n\n" +
+                $"{grantSimpleLauncheradministrative}\n\n" +
+                $"{temporarilydisableyourantivirus}\n\n" +
                 $"{wouldyouliketoopentheerroruserlog}",
                 error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
@@ -811,31 +812,31 @@ public static class MessageBoxLibrary
 
     internal static void ErrorChangingViewModeMessageBox()
     {
-        var therewasanerrorwhilechangingtheviewmode2 = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorwhilechangingtheviewmode = (string)Application.Current.TryFindResource("Therewasanerrorwhilechangingtheviewmode") ?? "There was an error while changing the view mode.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorwhilechangingtheviewmode}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void NavigationButtonErrorMessageBox()
     {
-        var therewasanerrorinthenavigationbutton2 = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorinthenavigationbutton = (string)Application.Current.TryFindResource("Therewasanerrorinthenavigationbutton") ?? "There was an error in the navigation button.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorinthenavigationbutton2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorinthenavigationbutton}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -870,12 +871,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var unexpectederrorwhileloadinghelpuserxml2 = (string)Application.Current.TryFindResource("Unexpectederrorwhileloadinghelpuserxml") ?? "Unexpected error while loading 'helpuser.xml'.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{unexpectederrorwhileloadinghelpuserxml2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var unexpectederrorwhileloadinghelpuserxml = (string)Application.Current.TryFindResource("Unexpectederrorwhileloadinghelpuserxml") ?? "Unexpected error while loading 'helpuser.xml'.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{unexpectederrorwhileloadinghelpuserxml}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
@@ -888,12 +889,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var novalidsystemsfoundinthefilehelpuserxml2 = (string)Application.Current.TryFindResource("Novalidsystemsfoundinthefilehelpuserxml") ?? "No valid systems found in the file 'helpuser.xml'.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{novalidsystemsfoundinthefilehelpuserxml2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var novalidsystemsfoundinthefilehelpuserxml = (string)Application.Current.TryFindResource("Novalidsystemsfoundinthefilehelpuserxml") ?? "No valid systems found in the file 'helpuser.xml'.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{novalidsystemsfoundinthefilehelpuserxml}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
@@ -905,13 +906,13 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var simpleLaunchercouldnotloadhelpuserxml2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ?? "'Simple Launcher' could not load 'helpuser.xml'.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var simpleLaunchercouldnotloadhelpuserxml = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ?? "'Simple Launcher' could not load 'helpuser.xml'.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -929,13 +930,13 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var unabletoloadhelpuserxml2 = (string)Application.Current.TryFindResource("Unabletoloadhelpuserxml") ?? "Unable to load 'helpuser.xml'. The file may be corrupted.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var unabletoloadhelpuserxml = (string)Application.Current.TryFindResource("Unabletoloadhelpuserxml") ?? "Unable to load 'helpuser.xml'. The file may be corrupted.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = MessageBox.Show($"{unabletoloadhelpuserxml2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"{unabletoloadhelpuserxml}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -953,13 +954,13 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var thefilehelpuserxmlismissing2 = (string)Application.Current.TryFindResource("Thefilehelpuserxmlismissing") ?? "The file 'helpuser.xml' is missing.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var thefilehelpuserxmlismissing = (string)Application.Current.TryFindResource("Thefilehelpuserxmlismissing") ?? "The file 'helpuser.xml' is missing.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = MessageBox.Show($"{thefilehelpuserxmlismissing2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"{thefilehelpuserxmlismissing}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -975,18 +976,18 @@ public static class MessageBoxLibrary
 
     internal static void ImageViewerErrorMessageBox()
     {
-        var failedtoloadtheimageintheImage2 = (string)Application.Current.TryFindResource("FailedtoloadtheimageintheImage") ?? "Failed to load the image in the Image Viewer window.";
-        var theimagemaybecorruptedorinaccessible2 = (string)Application.Current.TryFindResource("Theimagemaybecorruptedorinaccessible") ?? "The image may be corrupted or inaccessible.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtoloadtheimageintheImage = (string)Application.Current.TryFindResource("FailedtoloadtheimageintheImage") ?? "Failed to load the image in the Image Viewer window.";
+        var theimagemaybecorruptedorinaccessible = (string)Application.Current.TryFindResource("Theimagemaybecorruptedorinaccessible") ?? "The image may be corrupted or inaccessible.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtoloadtheimageintheImage2}\n\n" +
-                            $"{theimagemaybecorruptedorinaccessible2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtoloadtheimageintheImage}\n\n" +
+                            $"{theimagemaybecorruptedorinaccessible}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -995,24 +996,24 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var simpleLaunchercouldnotloadthefilemamedat2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamedat") ?? "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.";
-            var doyouwanttoautomaticreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamedat2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var simpleLaunchercouldnotloadthefilemamedat = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadthefilemamedat") ?? "'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.";
+            var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{simpleLaunchercouldnotloadthefilemamedat}\n\n" +
+                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
 
-                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
-                                $"{theapplicationwillshutdown2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
+                                $"{theapplicationwillshutdown}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
 
                 QuitApplication.SimpleQuitApplication();
             }
@@ -1024,24 +1025,24 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var thefilemamedatcouldnotbefound2 = (string)Application.Current.TryFindResource("Thefilemamedatcouldnotbefound") ?? "The file 'mame.dat' could not be found in the application folder.";
-            var doyouwanttoautomaticreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{thefilemamedatcouldnotbefound2}\n\n" +
-                                         $"{doyouwanttoautomaticreinstall2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var thefilemamedatcouldnotbefound = (string)Application.Current.TryFindResource("Thefilemamedatcouldnotbefound") ?? "The file 'mame.dat' could not be found in the application folder.";
+            var doyouwanttoautomaticreinstall = (string)Application.Current.TryFindResource("Doyouwanttoautomaticreinstall") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{thefilemamedatcouldnotbefound}\n\n" +
+                                         $"{doyouwanttoautomaticreinstall}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
 
-                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
-                                $"{theapplicationwillshutdown2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
+                                $"{theapplicationwillshutdown}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
 
 
                 QuitApplication.SimpleQuitApplication();
@@ -1051,33 +1052,33 @@ public static class MessageBoxLibrary
 
     internal static void ErrorCheckingForUpdatesMessageBox()
     {
-        var anerroroccurredwhilecheckingforupdates2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecheckingforupdates") ?? "An error occurred while checking for updates.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhilecheckingforupdates = (string)Application.Current.TryFindResource("Anerroroccurredwhilecheckingforupdates") ?? "An error occurred while checking for updates.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhilecheckingforupdates2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhilecheckingforupdates}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void UpdaterNotFoundMessageBox()
     {
-        var updaterexenotfound2 = (string)Application.Current.TryFindResource("Updaterexenotfound") ?? "'Updater.exe' not found.";
-        var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-        var theapplicationwillnowshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ?? "The application will now shutdown.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var updaterexenotfound = (string)Application.Current.TryFindResource("Updaterexenotfound") ?? "'Updater.exe' not found.";
+        var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+        var theapplicationwillnowshutdown = (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ?? "The application will now shutdown.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{updaterexenotfound2}\n\n" +
-                            $"{pleasereinstallSimpleLaunchermanually2}\n\n" +
-                            $"{theapplicationwillnowshutdown2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Question);
+            MessageBox.Show($"{updaterexenotfound}\n\n" +
+                            $"{pleasereinstallSimpleLaunchermanually}\n\n" +
+                            $"{theapplicationwillnowshutdown}",
+                error, MessageBoxButton.OK, MessageBoxImage.Question);
 
             QuitApplication.SimpleQuitApplication();
         });
@@ -1085,16 +1086,16 @@ public static class MessageBoxLibrary
 
     internal static void ErrorLoadingRomHistoryMessageBox()
     {
-        var anerroroccurredwhileloadingRoMhistory2 = (string)Application.Current.TryFindResource("AnerroroccurredwhileloadingROMhistory") ?? "An error occurred while loading ROM history.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhileloadingRoMhistory = (string)Application.Current.TryFindResource("AnerroroccurredwhileloadingROMhistory") ?? "An error occurred while loading ROM history.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhileloadingRoMhistory2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhileloadingRoMhistory}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -1103,12 +1104,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var nohistoryxmlfilefound2 = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
-            var doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{nohistoryxmlfilefound2}\n\n" +
-                                         $"{doyouwanttoreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var nohistoryxmlfilefound = (string)Application.Current.TryFindResource("Nohistoryxmlfilefound") ?? "No 'history.xml' file found in the application folder.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{nohistoryxmlfilefound}\n\n" +
+                                         $"{doyouwanttoreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
@@ -1118,37 +1119,37 @@ public static class MessageBoxLibrary
 
     internal static void ErrorOpeningBrowserMessageBox()
     {
-        var anerroroccurredwhileopeningthebrowser2 = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhileopeningthebrowser2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
-        var simpleLauncherlackssufficientprivilegestowrite2 = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
-        var areyourunningasecondinstance2 = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative2") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var simpleLauncherlackssufficientprivilegestowrite = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
+        var areyourunningasecondinstance = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var ensurethattheSimpleLauncherfolderislocatedinawritable = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite2}\n\n" +
-                            $"{areyourunningasecondinstance2}\n\n" +
-                            $"{grantSimpleLauncheradministrative2}\n\n" +
-                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}\n\n" +
-                            $"{temporarilydisableyourantivirus2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{simpleLauncherlackssufficientprivilegestowrite}\n\n" +
+                            $"{areyourunningasecondinstance}\n\n" +
+                            $"{grantSimpleLauncheradministrative}\n\n" +
+                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable}\n\n" +
+                            $"{temporarilydisableyourantivirus}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -1162,8 +1163,8 @@ public static class MessageBoxLibrary
                           "You can try the following solutions:";
         var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ??
                         "1. Run 'Simple Launcher' with administrator privileges.";
-        var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ??
-                        "2. Add the emulator to DEP exceptions in Windows Security settings.";
+        var solution = (string)Application.Current.TryFindResource("DEPSolution") ??
+                       ". Add the emulator to DEP exceptions in Windows Security settings.";
         var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ??
                         "3. Try using a different emulator compatible with your system.";
         var solution4 = (string)Application.Current.TryFindResource("DEPSolution4") ??
@@ -1178,7 +1179,7 @@ public static class MessageBoxLibrary
                             $"{whatIsDep}\n\n" +
                             $"{howToFixDep}\n" +
                             $"{solution1}\n" +
-                            $"{solution2}\n" +
+                            $"{solution}\n" +
                             $"{solution3}\n" +
                             $"{solution4}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1195,8 +1196,8 @@ public static class MessageBoxLibrary
                                    "You can try the following solutions:";
         var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ??
                         "1. Run the application with administrator privileges.";
-        var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ??
-                        "2. Check if your antivirus is blocking the emulator's memory operations.";
+        var solution = (string)Application.Current.TryFindResource("MemorySolution") ??
+                       ". Check if your antivirus is blocking the emulator's memory operations.";
         var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ??
                         "3. Update your emulator to the latest version which may have fixed memory handling issues.";
         var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ??
@@ -1210,7 +1211,7 @@ public static class MessageBoxLibrary
                             $"{whatIsMemoryAccess}\n\n" +
                             $"{howToFixMemoryAccess}\n" +
                             $"{solution1}\n" +
-                            $"{solution2}\n" +
+                            $"{solution}\n" +
                             $"{solution3}\n" +
                             $"{solution4}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1222,17 +1223,17 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var systemxmliscorrupted2 = (string)Application.Current.TryFindResource("systemxmliscorrupted") ?? "'system.xml' is corrupted or could not be opened.";
-            var pleasefixitmanuallyordeleteit2 = (string)Application.Current.TryFindResource("Pleasefixitmanuallyordeleteit") ?? "Please fix it manually or delete it.";
-            var ifyouchoosetodeleteit2 = (string)Application.Current.TryFindResource("Ifyouchoosetodeleteit") ?? "If you choose to delete it, 'Simple Launcher' will create a new one for you.";
-            var theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+            var systemxmliscorrupted = (string)Application.Current.TryFindResource("systemxmliscorrupted") ?? "'system.xml' is corrupted or could not be opened.";
+            var pleasefixitmanuallyordeleteit = (string)Application.Current.TryFindResource("Pleasefixitmanuallyordeleteit") ?? "Please fix it manually or delete it.";
+            var ifyouchoosetodeleteit = (string)Application.Current.TryFindResource("Ifyouchoosetodeleteit") ?? "If you choose to delete it, 'Simple Launcher' will create a new one for you.";
+            var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
             var wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{systemxmliscorrupted2} {pleasefixitmanuallyordeleteit2}\n\n" +
-                                         $"{ifyouchoosetodeleteit2}\n\n" +
-                                         $"{theapplicationwillshutdown2}" +
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{systemxmliscorrupted} {pleasefixitmanuallyordeleteit}\n\n" +
+                                         $"{ifyouchoosetodeleteit}\n\n" +
+                                         $"{theapplicationwillshutdown}" +
                                          $"{wouldyouliketoopentheerroruserlog}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
                 try
@@ -1248,7 +1249,7 @@ public static class MessageBoxLibrary
                     var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
 
                     MessageBox.Show(thefileerroruserlog,
-                        error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                        error, MessageBoxButton.OK, MessageBoxImage.Error);
                 }
             }
 
@@ -1261,26 +1262,26 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var systemmodelxmlismissing2 = (string)Application.Current.TryFindResource("systemmodelxmlismissing") ?? "'system_model.xml' is missing.";
-            var simpleLaunchercannotworkproperly2 = (string)Application.Current.TryFindResource("SimpleLaunchercannotworkproperly") ?? "'Simple Launcher' cannot work properly without this file.";
-            var doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
-            var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            var messageBoxResult = MessageBox.Show($"{systemmodelxmlismissing2}\n\n" +
-                                                   $"{simpleLaunchercannotworkproperly2}\n\n" +
-                                                   $"{doyouwanttoautomaticallyreinstall2}",
-                warning2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var systemmodelxmlismissing = (string)Application.Current.TryFindResource("systemmodelxmlismissing") ?? "'system_model.xml' is missing.";
+            var simpleLaunchercannotworkproperly = (string)Application.Current.TryFindResource("SimpleLaunchercannotworkproperly") ?? "'Simple Launcher' cannot work properly without this file.";
+            var doyouwanttoautomaticallyreinstall = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            var messageBoxResult = MessageBox.Show($"{systemmodelxmlismissing}\n\n" +
+                                                   $"{simpleLaunchercannotworkproperly}\n\n" +
+                                                   $"{doyouwanttoautomaticallyreinstall}",
+                warning, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown2 = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
 
-                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually2}\n\n" +
-                                $"{theapplicationwillshutdown2}",
-                    warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
+                                $"{theapplicationwillshutdown}",
+                    warning, MessageBoxButton.OK, MessageBoxImage.Warning);
 
 
                 QuitApplication.SimpleQuitApplication();
@@ -1293,12 +1294,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var thefilesystemxmlisbadlycorrupted2 = (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ?? "The file 'system.xml' is badly corrupted.";
+            var thefilesystemxmlisbadlycorrupted = (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ?? "The file 'system.xml' is badly corrupted.";
             var wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted2}\n\n" +
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted}\n\n" +
                                          $"{wouldyouliketoopentheerroruserlog}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -1315,7 +1316,7 @@ public static class MessageBoxLibrary
 
 
                 MessageBox.Show(thefileerroruserlog,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -1325,13 +1326,13 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var therewasanerrorinstallingorupdating2 = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
-            var wouldyouliketoberedirectedtothedownloadpage2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var therewasanerrorinstallingorupdating = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
+            var wouldyouliketoberedirectedtothedownloadpage = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var messageBoxResult = MessageBox.Show(
-                $"{therewasanerrorinstallingorupdating2}\n\n" +
-                $"{wouldyouliketoberedirectedtothedownloadpage2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"{therewasanerrorinstallingorupdating}\n\n" +
+                $"{wouldyouliketoberedirectedtothedownloadpage}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult != MessageBoxResult.Yes) return;
 
             var downloadPageUrl = $"https://github.com/{repoOwner}/{repoName}/releases/latest";
@@ -1343,9 +1344,17 @@ public static class MessageBoxLibrary
                     UseShellExecute = true
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ErrorOpeningBrowserMessageBox();
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
+
+                // Notify user
+                var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -1355,12 +1364,13 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var updaterexenotfoundintheapplication2 = (string)Application.Current.TryFindResource("Updaterexenotfoundintheapplication") ?? "'Updater.exe' not found in the application directory.";
-            var wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2 = (string)Application.Current.TryFindResource("WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage") ?? "Would you like to be redirected to the 'Simple Launcher' download page to download it manually?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var messageBoxResult = MessageBox.Show($"{updaterexenotfoundintheapplication2}\n\n" +
-                                                   $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var updaterexenotfoundintheapplication = (string)Application.Current.TryFindResource("Updaterexenotfoundintheapplication") ?? "'Updater.exe' not found in the application directory.";
+            var wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage = (string)Application.Current.TryFindResource("WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage") ?? "Would you like to be redirected to the 'Simple Launcher' download page to download it manually?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var messageBoxResult = MessageBox.Show($"{updaterexenotfoundintheapplication}\n\n" +
+                                                   $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             if (messageBoxResult != MessageBoxResult.Yes) return;
 
             var downloadPageUrl = $"https://github.com/{repoOwner}/{repoName}/releases/latest";
@@ -1372,9 +1382,17 @@ public static class MessageBoxLibrary
                     UseShellExecute = true
                 });
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                ErrorOpeningBrowserMessageBox();
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in method DownloadManuallyMessageBox");
+
+                // Notify user
+                var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -1384,214 +1402,214 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var fileappsettingsjsonismissing2 = (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
-            var theapplicationwillnotbeabletosendthesupportrequest2 = (string)Application.Current.TryFindResource("Theapplicationwillnotbeabletosendthesupportrequest") ?? "The application will not be able to send the support request.";
-            var doyouwanttoautomaticallyreinstall2 = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
-            var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            var fileappsettingsjsonismissing = (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
+            var theapplicationwillnotbeabletosendthesupportrequest = (string)Application.Current.TryFindResource("Theapplicationwillnotbeabletosendthesupportrequest") ?? "The application will not be able to send the support request.";
+            var doyouwanttoautomaticallyreinstall = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             var messageBoxResult = MessageBox.Show(
-                $"{fileappsettingsjsonismissing2}\n\n" +
-                $"{theapplicationwillnotbeabletosendthesupportrequest2}\n\n" +
-                $"{doyouwanttoautomaticallyreinstall2}",
-                warning2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"{fileappsettingsjsonismissing}\n\n" +
+                $"{theapplicationwillnotbeabletosendthesupportrequest}\n\n" +
+                $"{doyouwanttoautomaticallyreinstall}",
+                warning, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
             else
             {
-                var pleasereinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
 
-                MessageBox.Show(pleasereinstallSimpleLauncher2,
-                    warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show(pleasereinstallSimpleLauncher,
+                    warning, MessageBoxButton.OK, MessageBoxImage.Warning);
             }
         });
     }
 
     internal static void EnterSupportRequestMessageBox()
     {
-        var pleaseenterthedetailsofthesupportrequest2 = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthesupportrequest") ?? "Please enter the details of the support request.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var pleaseenterthedetailsofthesupportrequest = (string)Application.Current.TryFindResource("Pleaseenterthedetailsofthesupportrequest") ?? "Please enter the details of the support request.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseenterthedetailsofthesupportrequest2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseenterthedetailsofthesupportrequest,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void EnterNameMessageBox()
     {
-        var pleaseenterthename2 = (string)Application.Current.TryFindResource("Pleaseenterthename") ?? "Please enter the name.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var pleaseenterthename = (string)Application.Current.TryFindResource("Pleaseenterthename") ?? "Please enter the name.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseenterthename2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseenterthename,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void EnterEmailMessageBox()
     {
-        var pleaseentertheemail2 = (string)Application.Current.TryFindResource("Pleaseentertheemail") ?? "Please enter the email.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var pleaseentertheemail = (string)Application.Current.TryFindResource("Pleaseentertheemail") ?? "Please enter the email.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseentertheemail2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseentertheemail,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ApiKeyErrorMessageBox()
     {
-        var therewasanerrorintheApiKey2 = (string)Application.Current.TryFindResource("TherewasanerrorintheAPIKey") ?? "There was an error in the API Key of this form.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorintheApiKey = (string)Application.Current.TryFindResource("TherewasanerrorintheAPIKey") ?? "There was an error in the API Key of this form.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorintheApiKey2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorintheApiKey}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SupportRequestSuccessMessageBox()
     {
-        var supportrequestsentsuccessfully2 = (string)Application.Current.TryFindResource("Supportrequestsentsuccessfully") ?? "Support request sent successfully.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var supportrequestsentsuccessfully = (string)Application.Current.TryFindResource("Supportrequestsentsuccessfully") ?? "Support request sent successfully.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(supportrequestsentsuccessfully2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(supportrequestsentsuccessfully,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void SupportRequestSendErrorMessageBox()
     {
-        var anerroroccurredwhilesendingthesupportrequest2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilesendingthesupportrequest") ?? "An error occurred while sending the support request.";
-        var thebugwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var anerroroccurredwhilesendingthesupportrequest = (string)Application.Current.TryFindResource("Anerroroccurredwhilesendingthesupportrequest") ?? "An error occurred while sending the support request.";
+        var thebugwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Thebugwasreportedtothedeveloper") ?? "The bug was reported to the developer that will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{anerroroccurredwhilesendingthesupportrequest2}\n\n" +
-                            $"{thebugwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{anerroroccurredwhilesendingthesupportrequest}\n\n" +
+                            $"{thebugwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ExtractionFailedMessageBox()
     {
-        var extractionfailed2 = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
-        var ensurethefileisnotcorrupted2 = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
-        var ensureyouhaveenoughspaceintheHdd2 = (string)Application.Current.TryFindResource("EnsureyouhaveenoughspaceintheHDD") ?? "Ensure you have enough space in the HDD to extract the file.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var extractionfailed = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
+        var ensurethefileisnotcorrupted = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
+        var ensureyouhaveenoughspaceintheHdd = (string)Application.Current.TryFindResource("EnsureyouhaveenoughspaceintheHDD") ?? "Ensure you have enough space in the HDD to extract the file.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var ensuretheSimpleLauncherfolder = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{extractionfailed2}\n\n" +
-                            $"{ensurethefileisnotcorrupted2}\n" +
-                            $"{ensureyouhaveenoughspaceintheHdd2}\n" +
-                            $"{grantSimpleLauncheradministrative2}\n" +
-                            $"{ensuretheSimpleLauncherfolder2}\n" +
-                            $"{temporarilydisableyourantivirus2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{extractionfailed}\n\n" +
+                            $"{ensurethefileisnotcorrupted}\n" +
+                            $"{ensureyouhaveenoughspaceintheHdd}\n" +
+                            $"{grantSimpleLauncheradministrative}\n" +
+                            $"{ensuretheSimpleLauncherfolder}\n" +
+                            $"{temporarilydisableyourantivirus}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FileNeedToBeCompressedMessageBox()
     {
-        var theselectedfilecannotbe2 = (string)Application.Current.TryFindResource("Theselectedfilecannotbe") ?? "The selected file cannot be extracted.";
-        var toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-        var pleasefixthatintheEditwindow2 = (string)Application.Current.TryFindResource("PleasefixthatintheEditwindow") ?? "Please fix that in the Edit window.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var theselectedfilecannotbe = (string)Application.Current.TryFindResource("Theselectedfilecannotbe") ?? "The selected file cannot be extracted.";
+        var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        var pleasefixthatintheEditwindow = (string)Application.Current.TryFindResource("PleasefixthatintheEditwindow") ?? "Please fix that in the Edit window.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{theselectedfilecannotbe2}\n\n" +
-                            $"{toextractafileitneedstobe2}\n\n" +
-                            $"{pleasefixthatintheEditwindow2}",
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"{theselectedfilecannotbe}\n\n" +
+                            $"{toextractafileitneedstobe}\n\n" +
+                            $"{pleasefixthatintheEditwindow}",
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void DownloadedFileIsMissingMessageBox()
     {
-        var downloadedfileismissing2 = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var downloadedfileismissing = (string)Application.Current.TryFindResource("Downloadedfileismissing") ?? "Downloaded file is missing.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{downloadedfileismissing2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{downloadedfileismissing}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FileIsLockedMessageBox()
     {
-        var downloadedfileislocked2 = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var downloadedfileislocked = (string)Application.Current.TryFindResource("Downloadedfileislocked") ?? "Downloaded file is locked.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{downloadedfileislocked2}\n\n" +
-                            $"{grantSimpleLauncheradministrative2}\n\n" +
-                            $"{temporarilydisableyourantivirussoftware2}\n\n" +
-                            $"{ensuretheSimpleLauncher2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{downloadedfileislocked}\n\n" +
+                            $"{grantSimpleLauncheradministrative}\n\n" +
+                            $"{temporarilydisableyourantivirussoftware}\n\n" +
+                            $"{ensuretheSimpleLauncher}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ImagePackDownloadExtractionFailedMessageBox()
     {
-        var imagePackdownloadorextraction2 = (string)Application.Current.TryFindResource("ImagePackdownloadorextraction") ?? "Image Pack download or extraction failed!";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var ensuretheSimpleLauncher2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirussoftware2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var imagePackdownloadorextraction = (string)Application.Current.TryFindResource("ImagePackdownloadorextraction") ?? "Image Pack download or extraction failed!";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var ensuretheSimpleLauncher = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncher") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        var temporarilydisableyourantivirussoftware = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{imagePackdownloadorextraction2}\n\n" +
-                            $"{grantSimpleLauncheradministrative2}\n\n" +
-                            $"{ensuretheSimpleLauncher2}\n\n" +
-                            $"{temporarilydisableyourantivirussoftware2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{imagePackdownloadorextraction}\n\n" +
+                            $"{grantSimpleLauncheradministrative}\n\n" +
+                            $"{ensuretheSimpleLauncher}\n\n" +
+                            $"{temporarilydisableyourantivirussoftware}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void DownloadExtractionSuccessfullyMessageBox()
     {
-        var thedownloadandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Thedownloadandextractionweresuccessful") ?? "The download and extraction were successful.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var thedownloadandextractionweresuccessful = (string)Application.Current.TryFindResource("Thedownloadandextractionweresuccessful") ?? "The download and extraction were successful.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(thedownloadandextractionweresuccessful2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thedownloadandextractionweresuccessful,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
@@ -1600,12 +1618,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                         $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var downloaderror = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            var wouldyouliketoberedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{downloaderror}\n\n" +
+                                         $"{wouldyouliketoberedirected}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -1623,10 +1641,10 @@ public static class MessageBoxLibrary
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                var simpleLaunchercouldnotopentheImage2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
+                var simpleLaunchercouldnotopentheImage = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
 
-                MessageBox.Show(simpleLaunchercouldnotopentheImage2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(simpleLaunchercouldnotopentheImage,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -1636,14 +1654,14 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var errorloadingthefileeasymodexml2 = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
-            var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            var doyouwanttoreinstallSimpleLauncher2 = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{errorloadingthefileeasymodexml2}\n\n" +
-                                         $"{theerrorwasreportedtothedeveloper2}\n" +
-                                         $"{doyouwanttoreinstallSimpleLauncher2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var errorloadingthefileeasymodexml = (string)Application.Current.TryFindResource("Errorloadingthefileeasymodexml") ?? "Error loading the file 'easymode.xml'.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{errorloadingthefileeasymodexml}\n\n" +
+                                         $"{theerrorwasreportedtothedeveloper}\n" +
+                                         $"{doyouwanttoreinstallSimpleLauncher}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -1651,112 +1669,117 @@ public static class MessageBoxLibrary
             }
             else
             {
-                var pleasereinstallSimpleLaunchermanually2 = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
 
-                MessageBox.Show(pleasereinstallSimpleLaunchermanually2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(pleasereinstallSimpleLaunchermanually,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void LinksSavedMessageBox()
     {
-        var linkssavedsuccessfully2 = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var linkssavedsuccessfully = (string)Application.Current.TryFindResource("Linkssavedsuccessfully") ?? "Links saved successfully.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(linkssavedsuccessfully2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(linkssavedsuccessfully,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void DeadZonesSavedMessageBox()
     {
-        var deadZonevaluessavedsuccessfully2 = (string)Application.Current.TryFindResource("DeadZonevaluessavedsuccessfully") ?? "DeadZone values saved successfully.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var deadZonevaluessavedsuccessfully = (string)Application.Current.TryFindResource("DeadZonevaluessavedsuccessfully") ?? "DeadZone values saved successfully.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(deadZonevaluessavedsuccessfully2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(deadZonevaluessavedsuccessfully,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void LinksRevertedMessageBox()
     {
-        var linksreverted2 = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var linksreverted = (string)Application.Current.TryFindResource("Linksrevertedtodefaultvalues") ?? "Links reverted to default values.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(linksreverted2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(linksreverted,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void MainWindowSearchEngineErrorMessageBox()
     {
-        var therewasanerrorwiththesearchengine2 = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorwiththesearchengine = (string)Application.Current.TryFindResource("Therewasanerrorwiththesearchengine") ?? "There was an error with the search engine.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorwiththesearchengine2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorwiththesearchengine}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void DownloadExtractionFailedMessageBox()
     {
-        var downloadorextractionfailed2 = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
-        var grantSimpleLauncheradministrativeaccess2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var ensuretheSimpleLauncherfolder2 = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var downloadorextractionfailed = (string)Application.Current.TryFindResource("DownloadorExtractionFailed") ?? "Download or extraction failed.";
+        var grantSimpleLauncheradministrativeaccess = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrativeaccess") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var ensuretheSimpleLauncherfolder = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{downloadorextractionfailed2}\n\n" +
-                            $"{grantSimpleLauncheradministrativeaccess2}\n\n" +
-                            $"{ensuretheSimpleLauncherfolder2}\n\n" +
-                            $"{temporarilydisableyourantivirus2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{downloadorextractionfailed}\n\n" +
+                            $"{grantSimpleLauncheradministrativeaccess}\n\n" +
+                            $"{ensuretheSimpleLauncherfolder}\n\n" +
+                            $"{temporarilydisableyourantivirus}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void DownloadAndExtrationWereSuccessfulMessageBox()
     {
-        var downloadingandextractionweresuccessful2 = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var downloadingandextractionweresuccessful = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{downloadingandextractionweresuccessful2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{downloadingandextractionweresuccessful}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
-    internal static Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
+    internal static async Task EmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
-        // Use Dispatcher.Invoke to show the MessageBox on the UI thread
-        Application.Current.Dispatcher.Invoke(() =>
+        // Use Dispatcher.InvokeAsync to show the MessageBox on the UI thread and await its completion
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                         $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return Task.CompletedTask;
+            var downloaderror = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            var wouldyouliketoberedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{downloaderror}\n\n" +
+                                         $"{wouldyouliketoberedirected}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                // If the user clicks No, just exit the lambda.
+                return;
+            }
 
             try
             {
@@ -1766,39 +1789,40 @@ public static class MessageBoxLibrary
                     UseShellExecute = true
                 });
             }
-            catch (Exception ex2)
+            catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage2 = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+                const string contextMessage = "Error opening the download link.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
 
-                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{erroropeningthedownloadlink}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            return Task.CompletedTask;
         });
-
-        return Task.CompletedTask;
     }
 
-    internal static Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
+    internal static async Task CoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
-        // Use Dispatcher.Invoke to show the MessageBox on the UI thread
-        Application.Current.Dispatcher.Invoke(() =>
+        // Use Dispatcher.InvokeAsync to show the MessageBox on the UI thread and await its completion
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            var downloaderror2 = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-            var wouldyouliketoberedirected2 = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{downloaderror2}\n\n" +
-                                         $"{wouldyouliketoberedirected2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return Task.CompletedTask;
+            var downloaderror = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            var wouldyouliketoberedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{downloaderror}\n\n" +
+                                         $"{wouldyouliketoberedirected}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                // If the user clicks No, just exit the lambda.
+                return;
+            }
 
             try
             {
@@ -1808,35 +1832,32 @@ public static class MessageBoxLibrary
                     UseShellExecute = true
                 });
             }
-            catch (Exception ex2)
+            catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage2 = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex2, contextMessage2);
+                const string contextMessage = "Error opening the download link.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                var erroropeningthedownloadlink2 = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
 
-                MessageBox.Show($"{erroropeningthedownloadlink2}\n\n" +
-                                $"{theerrorwasreportedtothedeveloper2}",
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show($"{erroropeningthedownloadlink}\n\n" +
+                                $"{theerrorwasreportedtothedeveloper}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
-
-            return Task.CompletedTask;
         });
-
-        return Task.CompletedTask;
     }
 
     internal static void SelectAHistoryItemToRemoveMessageBox()
     {
         var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
+        var pleaseselectaitem = (string)Application.Current.TryFindResource("Pleaseselectaitem") ?? "Please select a item";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(message, "Information", MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(message, pleaseselectaitem, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
@@ -1845,7 +1866,10 @@ public static class MessageBoxLibrary
         return Application.Current.Dispatcher.Invoke(() =>
         {
             var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
-            var result = MessageBox.Show(message, "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
+
+            var result = MessageBox.Show(message, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             return result;
         });
     }
@@ -1895,374 +1919,374 @@ public static class MessageBoxLibrary
 
     internal static void SystemAddedMessageBox(string systemFolder, string fullImageFolderPathForMessage, EasyModeSystemConfig selectedSystem)
     {
-        var thesystem2 = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-        var hasbeenaddedsuccessfully2 = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
-        var putRoMsorIsOsforthissysteminside2 = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
-        var putcoverimagesforthissysteminside2 = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var thesystem = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+        var hasbeenaddedsuccessfully = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
+        var putRoMsorIsOsforthissysteminside = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
+        var putcoverimagesforthissysteminside = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thesystem2} '{selectedSystem.SystemName}' {hasbeenaddedsuccessfully2}\n\n" +
-                            $"{putRoMsorIsOsforthissysteminside2} '{systemFolder}'\n\n" +
-                            $"{putcoverimagesforthissysteminside2} '{fullImageFolderPathForMessage}'.",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thesystem} '{selectedSystem.SystemName}' {hasbeenaddedsuccessfully}\n\n" +
+                            $"{putRoMsorIsOsforthissysteminside} '{systemFolder}'\n\n" +
+                            $"{putcoverimagesforthissysteminside} '{fullImageFolderPathForMessage}'.",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void AddSystemFailedMessageBox()
     {
-        var therewasanerroradding2 = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerroradding = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerroradding2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerroradding}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void RightClickContextMenuErrorMessageBox()
     {
-        var therewasanerrorintherightclick2 = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorintherightclick = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrorintherightclick2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrorintherightclick}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void GameFileDoesNotExistMessageBox()
     {
-        var thegamefiledoesnotexist2 = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
-        var thefavoritehasbeenremovedfromthelist2 = (string)Application.Current.TryFindResource("Thefavoritehasbeenremovedfromthelist") ?? "The favorite has been removed from the list.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+        var thefavoritehasbeenremovedfromthelist = (string)Application.Current.TryFindResource("Thefavoritehasbeenremovedfromthelist") ?? "The favorite has been removed from the list.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thegamefiledoesnotexist2}\n\n" +
-                            $"{thefavoritehasbeenremovedfromthelist2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thegamefiledoesnotexist}\n\n" +
+                            $"{thefavoritehasbeenremovedfromthelist}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void CouldNotOpenHistoryWindowMessageBox()
     {
-        var therewasaproblemopeningtheHistorywindow2 = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasaproblemopeningtheHistorywindow = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasaproblemopeningtheHistorywindow2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasaproblemopeningtheHistorywindow}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ErrorOpeningCoverImageMessageBox()
     {
-        var therewasanerrortryingtoopenthe2 = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrortryingtoopenthe = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrortryingtoopenthe2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrortryingtoopenthe}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void CouldNotOpenWalkthroughMessageBox()
     {
-        var failedtoopenthewalkthroughfile2 = (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ?? "Failed to open the walkthrough file.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtoopenthewalkthroughfile = (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ?? "Failed to open the walkthrough file.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtoopenthewalkthroughfile2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtoopenthewalkthroughfile}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SelectAFavoriteToRemoveMessageBox()
     {
-        var pleaseselectafavoritetoremove2 = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var pleaseselectafavoritetoremove = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseselectafavoritetoremove2,
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseselectafavoritetoremove,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void SystemXmlNotFoundMessageBox()
     {
-        var systemxmlnotfound2 = (string)Application.Current.TryFindResource("systemxmlnotfound") ?? "'system.xml' not found inside the application folder.";
-        var pleaserestartSimpleLauncher2 = (string)Application.Current.TryFindResource("PleaserestartSimpleLauncher") ?? "Please restart 'Simple Launcher'.";
-        var ifthatdoesnotwork2 = (string)Application.Current.TryFindResource("Ifthatdoesnotwork") ?? "If that does not work, please reinstall 'Simple Launcher'.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var systemxmlnotfound = (string)Application.Current.TryFindResource("systemxmlnotfound") ?? "'system.xml' not found inside the application folder.";
+        var pleaserestartSimpleLauncher = (string)Application.Current.TryFindResource("PleaserestartSimpleLauncher") ?? "Please restart 'Simple Launcher'.";
+        var ifthatdoesnotwork = (string)Application.Current.TryFindResource("Ifthatdoesnotwork") ?? "If that does not work, please reinstall 'Simple Launcher'.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{systemxmlnotfound2}\n\n" +
-                            $"{pleaserestartSimpleLauncher2}\n\n" +
-                            $"{ifthatdoesnotwork2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{systemxmlnotfound}\n\n" +
+                            $"{pleaserestartSimpleLauncher}\n\n" +
+                            $"{ifthatdoesnotwork}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void YouCanAddANewSystemMessageBox()
     {
-        var youcanaddanewsystem2 = (string)Application.Current.TryFindResource("Youcanaddanewsystem") ?? "You can add a new system now.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var youcanaddanewsystem = (string)Application.Current.TryFindResource("Youcanaddanewsystem") ?? "You can add a new system now.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(youcanaddanewsystem2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(youcanaddanewsystem,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void EmulatorNameRequiredMessageBox(int i)
     {
-        var emulator2 = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
-        var nameisrequiredbecauserelateddata2 = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var emulator = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
+        var nameisrequiredbecauserelateddata = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{emulator2} {i + 2} {nameisrequiredbecauserelateddata2}\n\n" +
-                            $"{pleasefixthisfield2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{emulator} {i + 2} {nameisrequiredbecauserelateddata}\n\n" +
+                            $"{pleasefixthisfield}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void EmulatorNameMustBeUniqueMessageBox(string emulatorName)
     {
-        var thename2 = (string)Application.Current.TryFindResource("Thename") ?? "The name";
-        var isusedmultipletimes2 = (string)Application.Current.TryFindResource("isusedmultipletimes") ?? "is used multiple times. Each emulator name must be unique.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var thename = (string)Application.Current.TryFindResource("Thename") ?? "The name";
+        var isusedmultipletimes = (string)Application.Current.TryFindResource("isusedmultipletimes") ?? "is used multiple times. Each emulator name must be unique.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thename2} '{emulatorName}' {isusedmultipletimes2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thename} '{emulatorName}' {isusedmultipletimes}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void SystemSavedSuccessfullyMessageBox()
     {
-        var systemsavedsuccessfully2 = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ?? "System saved successfully.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var systemsavedsuccessfully = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ?? "System saved successfully.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(systemsavedsuccessfully2,
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(systemsavedsuccessfully,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void PathOrParameterInvalidMessageBox()
     {
-        var oneormorepathsorparameters2 = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ?? "One or more paths or parameters are invalid.";
-        var pleasefixthemtoproceed2 = (string)Application.Current.TryFindResource("Pleasefixthemtoproceed") ?? "Please fix them to proceed.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var oneormorepathsorparameters = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ?? "One or more paths or parameters are invalid.";
+        var pleasefixthemtoproceed = (string)Application.Current.TryFindResource("Pleasefixthemtoproceed") ?? "Please fix them to proceed.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{oneormorepathsorparameters2}\n\n" +
-                            $"{pleasefixthemtoproceed2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{oneormorepathsorparameters}\n\n" +
+                            $"{pleasefixthemtoproceed}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void Emulator1RequiredMessageBox()
     {
-        var emulator1Nameisrequired2 = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ?? "'Emulator 1 Name' is required.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var emulator1Nameisrequired = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ?? "'Emulator 1 Name' is required.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{emulator1Nameisrequired2}\n\n" +
-                            $"{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{emulator1Nameisrequired}\n\n" +
+                            $"{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ExtensionToLaunchIsRequiredMessageBox()
     {
-        var extensiontoLaunchAfterExtraction2 = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ?? "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var extensiontoLaunchAfterExtraction = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ?? "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{extensiontoLaunchAfterExtraction2}\n\n" +
-                            $"{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{extensiontoLaunchAfterExtraction}\n\n" +
+                            $"{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ExtensionToSearchIsRequiredMessageBox()
     {
-        var extensiontoSearchintheSystemFolder2 = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ?? "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var extensiontoSearchintheSystemFolder = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ?? "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{extensiontoSearchintheSystemFolder2}\n\n" +
-                            $"{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{extensiontoSearchintheSystemFolder}\n\n" +
+                            $"{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FileMustBeCompressedMessageBox()
     {
-        var whenExtractFileBeforeLaunch2 = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ?? "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
-        var itwillnotacceptotherextensions2 = (string)Application.Current.TryFindResource("Itwillnotacceptotherextensions") ?? "It will not accept other extensions.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var whenExtractFileBeforeLaunch = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ?? "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
+        var itwillnotacceptotherextensions = (string)Application.Current.TryFindResource("Itwillnotacceptotherextensions") ?? "It will not accept other extensions.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{whenExtractFileBeforeLaunch2}\n\n{itwillnotacceptotherextensions2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{whenExtractFileBeforeLaunch}\n\n{itwillnotacceptotherextensions}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SystemImageFolderCanNotBeEmptyMessageBox()
     {
-        var systemImageFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ?? "'System Image Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var systemImageFoldercannotbeempty = (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ?? "'System Image Folder' cannot be empty or contain only spaces.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{systemImageFoldercannotbeempty2}\n\n{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{systemImageFoldercannotbeempty}\n\n{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SystemFolderCanNotBeEmptyMessageBox()
     {
-        var systemFoldercannotbeempty2 = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ?? "'System Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var systemFoldercannotbeempty = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ?? "'System Folder' cannot be empty or contain only spaces.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{systemFoldercannotbeempty2}\n\n{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{systemFoldercannotbeempty}\n\n{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SystemNameCanNotBeEmptyMessageBox()
     {
-        var systemNamecannotbeemptyor2 = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ?? "'System Name' cannot be empty or contain only spaces.";
-        var pleasefixthisfield2 = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var systemNamecannotbeemptyor = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ?? "'System Name' cannot be empty or contain only spaces.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{systemNamecannotbeemptyor2}\n\n" +
-                            $"{pleasefixthisfield2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{systemNamecannotbeemptyor}\n\n" +
+                            $"{pleasefixthisfield}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void FolderCreatedMessageBox(string systemNameText)
     {
-        var simpleLaunchercreatedaimagefolder2 = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
-        var youmayplacethecoverimagesforthissystem2 = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
-        var italsocreatedfoldersfor2 = (string)Application.Current.TryFindResource("Italsocreatedfoldersfor") ?? "It also created folders for";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
+        var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
+        var italsocreatedfoldersfor = (string)Application.Current.TryFindResource("Italsocreatedfoldersfor") ?? "It also created folders for";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{simpleLaunchercreatedaimagefolder2} '.\\images\\{systemNameText}'.\n\n" +
-                            $"{youmayplacethecoverimagesforthissystem2}\n\n" +
-                            $"{italsocreatedfoldersfor2} 'title_snapshots', 'gameplay_snapshots', 'videos', 'manuals', 'walkthrough', 'cabinets', 'flyers', 'pcbs', 'carts'.",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
+                            $"{youmayplacethecoverimagesforthissystem}\n\n" +
+                            $"{italsocreatedfoldersfor} 'title_snapshots', 'gameplay_snapshots', 'videos', 'manuals', 'walkthrough', 'cabinets', 'flyers', 'pcbs', 'carts'.",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void FolderCreationFailedMessageBox()
     {
-        var simpleLauncherfailedtocreatethe2 = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var ensurethattheSimpleLauncherfolderislocatedinawritable2 = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var simpleLauncherfailedtocreatethe = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var ensurethattheSimpleLauncherfolderislocatedinawritable = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{simpleLauncherfailedtocreatethe2}\n\n" +
-                            $"{grantSimpleLauncheradministrative2}\n\n" +
-                            $"{temporarilydisableyourantivirus2}\n\n" +
-                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{simpleLauncherfailedtocreatethe}\n\n" +
+                            $"{grantSimpleLauncheradministrative}\n\n" +
+                            $"{temporarilydisableyourantivirus}\n\n" +
+                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void SelectASystemToDeleteMessageBox()
     {
-        var pleaseselectasystemtodelete2 = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ?? "Please select a system to delete.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var pleaseselectasystemtodelete = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ?? "Please select a system to delete.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseselectasystemtodelete2,
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseselectasystemtodelete,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void SystemNotFoundInTheXmlMessageBox()
     {
-        var selectedsystemnotfound2 = (string)Application.Current.TryFindResource("Selectedsystemnotfound") ?? "Selected system not found in the XML document!";
-        var alert2 = (string)Application.Current.TryFindResource("Alert") ?? "Alert";
+        var selectedsystemnotfound = (string)Application.Current.TryFindResource("Selectedsystemnotfound") ?? "Selected system not found in the XML document!";
+        var alert = (string)Application.Current.TryFindResource("Alert") ?? "Alert";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(selectedsystemnotfound2,
-                alert2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show(selectedsystemnotfound,
+                alert, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         });
     }
 
@@ -2271,12 +2295,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var therewasanerrorfinding2 = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
-            var doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorfinding2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var therewasanerrorfinding = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{therewasanerrorfinding}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2290,10 +2314,10 @@ public static class MessageBoxLibrary
             catch (Exception)
             {
                 // Notify user
-                var thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruserlogwas2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwas,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -2303,12 +2327,12 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var anerroroccurredwhilecounting2 = (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ?? "An error occurred while counting files.";
-            var doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{anerroroccurredwhilecounting2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var anerroroccurredwhilecounting = (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ?? "An error occurred while counting files.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{anerroroccurredwhilecounting}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2321,10 +2345,10 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlog2 = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruserlog2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlog,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -2334,16 +2358,16 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var therewasanerrorwiththeGamePadController2 = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
-            var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-            var doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController2}\n\n" +
-                                         $"{grantSimpleLauncheradministrative2}\n\n" +
-                                         $"{temporarilydisableyourantivirus2}\n\n" +
-                                         $"{doyouwanttoopenthefile2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var therewasanerrorwiththeGamePadController = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController}\n\n" +
+                                         $"{grantSimpleLauncheradministrative}\n\n" +
+                                         $"{temporarilydisableyourantivirus}\n\n" +
+                                         $"{doyouwanttoopenthefile}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2356,10 +2380,10 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruserlogwas2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwas,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
@@ -2369,19 +2393,19 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var simpleLaunchercouldnotlaunch2 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
-            var ifyouaretryingtorunMamEensurethatyourRom2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
-            var ifyouaretryingtorunRetroarchensurethattheBios2 = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
-            var alsomakesureyouarecallingtheemulator2 = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
-            var doyouwanttoopenthefile2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+            var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
+            var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
+            var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
-                $"{simpleLaunchercouldnotlaunch2}\n\n" +
-                $"{ifyouaretryingtorunMamEensurethatyourRom2}\n\n" +
-                $"{ifyouaretryingtorunRetroarchensurethattheBios2}\n\n" +
-                $"{alsomakesureyouarecallingtheemulator2}\n\n" +
-                $"{doyouwanttoopenthefile2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"{simpleLaunchercouldnotlaunch}\n\n" +
+                $"{ifyouaretryingtorunMamEensurethatyourRom}\n\n" +
+                $"{ifyouaretryingtorunRetroarchensurethattheBios}\n\n" +
+                $"{alsomakesureyouarecallingtheemulator}\n\n" +
+                $"{doyouwanttoopenthefile}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2394,30 +2418,30 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlogwas2 = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruserlogwas2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwas,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void InvalidOperationExceptionMessageBox()
     {
-        var failedtostarttheemulator2 = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
-        var grantSimpleLauncheradministrative2 = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus2 = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var alsochecktheintegrityoftheemulator2 = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var alsochecktheintegrityoftheemulator = (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ?? "Also, check the integrity of the emulator and its dependencies.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtostarttheemulator2}\n\n" +
-                            $"{grantSimpleLauncheradministrative2}\n\n" +
-                            $"{temporarilydisableyourantivirus2}\n\n" +
-                            $"{alsochecktheintegrityoftheemulator2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtostarttheemulator}\n\n" +
+                            $"{grantSimpleLauncheradministrative}\n\n" +
+                            $"{temporarilydisableyourantivirus}\n\n" +
+                            $"{alsochecktheintegrityoftheemulator}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -2426,14 +2450,14 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var therewasanerrorlaunchingthisgame2 = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
-            var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-            var doyouwanttoopenthefileerroruserlog2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame2}\n\n" +
-                                         $"{theerrorwasreportedtothedeveloper2}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var therewasanerrorlaunchingthisgame = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" +
+                                         $"{theerrorwasreportedtothedeveloper}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2446,29 +2470,29 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlog2 = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruserlog2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlog,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void CannotExtractThisFileMessageBox(string filePath)
     {
-        var theselectedfile2 = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
-        var cannotbeextracted2 = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
-        var toextractafileitneedstobe2 = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-        var pleasegotoEditSystem2 = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
-        var warning2 = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var theselectedfile = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
+        var cannotbeextracted = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
+        var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{theselectedfile2} '{filePath}' {cannotbeextracted2}\n\n" +
-                            $"{toextractafileitneedstobe2}\n\n" +
-                            $"{pleasegotoEditSystem2}",
-                warning2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show($"{theselectedfile} '{filePath}' {cannotbeextracted}\n\n" +
+                            $"{toextractafileitneedstobe}\n\n" +
+                            $"{pleasegotoEditSystem}",
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
@@ -2477,13 +2501,13 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            var theemulatorcouldnotopenthegame2 = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
-            var doyouwanttoopenthefileerror2 = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
-            var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var theemulatorcouldnotopenthegame = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
+            var doyouwanttoopenthefileerror = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
-                $"{theemulatorcouldnotopenthegame2}\n\n" +
-                $"{doyouwanttoopenthefileerror2}",
-                error2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"{theemulatorcouldnotopenthegame}\n\n" +
+                $"{doyouwanttoopenthefileerror}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -2496,41 +2520,41 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruser2 = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
+                var thefileerroruser = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
 
-                MessageBox.Show(thefileerroruser2,
-                    error2, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruser,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         });
     }
 
     internal static void NullFileExtensionMessageBox()
     {
-        var thereisnoExtension2 = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
-        var pleaseeditthissystemto2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var thereisnoExtension = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
+        var pleaseeditthissystemto = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{thereisnoExtension2}\n\n" +
-                            $"{pleaseeditthissystemto2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{thereisnoExtension}\n\n" +
+                            $"{pleaseeditthissystemto}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void CouldNotFindAFileMessageBox()
     {
-        var couldnotfindafilewiththeextensiondefined2 = (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-        var pleaseeditthissystemtofix2 = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var couldnotfindafilewiththeextensiondefined = (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+        var pleaseeditthissystemtofix = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{couldnotfindafilewiththeextensiondefined2}\n\n" +
-                            $"{pleaseeditthissystemtofix2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{couldnotfindafilewiththeextensiondefined}\n\n" +
+                            $"{pleaseeditthissystemtofix}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -2538,14 +2562,14 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var thereisnoRoMhistoryinthelocaldatabase2 = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
-            var doyouwanttosearchonline2 = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
-            var rOmHistoryNotFound2 = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
+            var thereisnoRoMhistoryinthelocaldatabase = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
+            var doyouwanttosearchonline = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
+            var rOmHistoryNotFound = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
 
             var result = MessageBox.Show(
-                $"{thereisnoRoMhistoryinthelocaldatabase2}\n\n" +
-                $"{doyouwanttosearchonline2}",
-                rOmHistoryNotFound2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                $"{thereisnoRoMhistoryinthelocaldatabase}\n\n" +
+                $"{doyouwanttosearchonline}",
+                rOmHistoryNotFound, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result;
         });
@@ -2553,15 +2577,15 @@ public static class MessageBoxLibrary
 
     internal static void SystemHasBeenDeletedMessageBox(string selectedSystemName)
     {
-        var system2 = (string)Application.Current.TryFindResource("System2") ?? "System";
-        var hasbeendeleted2 = (string)Application.Current.TryFindResource("hasbeendeleted") ?? "has been deleted.";
-        var info2 = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        var system = (string)Application.Current.TryFindResource("System") ?? "System";
+        var hasbeendeleted = (string)Application.Current.TryFindResource("hasbeendeleted") ?? "has been deleted.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{system2} '{selectedSystemName}' {hasbeendeleted2}",
-                info2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{system} '{selectedSystemName}' {hasbeendeleted}",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
@@ -2569,11 +2593,11 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var areyousureyouwanttodeletethis2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
-            var confirmation2 = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
+            var areyousureyouwanttodeletethis = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
+            var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
 
-            var result = MessageBox.Show(areyousureyouwanttodeletethis2,
-                confirmation2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(areyousureyouwanttodeletethis,
+                confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
 
             return result;
@@ -2582,16 +2606,16 @@ public static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorDeletingTheFileMessageBox()
     {
-        var therewasanerrordeletingthefile2 = (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ?? "There was an error deleting the file.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrordeletingthefile = (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ?? "There was an error deleting the file.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{therewasanerrordeletingthefile2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrordeletingthefile}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -2599,13 +2623,13 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var areyousureyouwanttodeletethefile2 = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
-            var thisactionwilldelete2 = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-            var confirmDeletion2 = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+            var areyousureyouwanttodeletethefile = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+            var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+            var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
 
-            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile2} '{fileNameWithExtension}'?\n\n" +
-                                         $"{thisactionwilldelete2}",
-                confirmDeletion2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
+                                         $"{thisactionwilldelete}",
+                confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result;
         });
@@ -2615,11 +2639,11 @@ public static class MessageBoxLibrary
     {
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var wouldyouliketosaveareport2 = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
-            var saveReport2 = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
+            var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
+            var saveReport = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
 
-            var result = MessageBox.Show(wouldyouliketosaveareport2,
-                saveReport2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show(wouldyouliketosaveareport,
+                saveReport, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result;
         });
@@ -2627,14 +2651,14 @@ public static class MessageBoxLibrary
 
     internal static void SimpleLauncherWasUnableToRestoreBackupMessageBox()
     {
-        var simpleLauncherwasunabletorestore2 = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ?? "'Simple Launcher' was unable to restore the last backup.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var simpleLauncherwasunabletorestore = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ?? "'Simple Launcher' was unable to restore the last backup.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(simpleLauncherwasunabletorestore2,
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(simpleLauncherwasunabletorestore,
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
@@ -2643,190 +2667,194 @@ public static class MessageBoxLibrary
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var icouldnotfindthefilesystemxml2 = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
-            var butIfoundabackupfile2 = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
-            var wouldyouliketorestore2 = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
-            var restoreBackup2 = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
-            return MessageBox.Show($"{icouldnotfindthefilesystemxml2}\n\n" +
-                                   $"{butIfoundabackupfile2}\n\n" +
-                                   $"{wouldyouliketorestore2}",
-                restoreBackup2, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var icouldnotfindthefilesystemxml = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
+            var butIfoundabackupfile = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
+            var wouldyouliketorestore = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
+            var restoreBackup = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
+            return MessageBox.Show($"{icouldnotfindthefilesystemxml}\n\n" +
+                                   $"{butIfoundabackupfile}\n\n" +
+                                   $"{wouldyouliketorestore}",
+                restoreBackup, MessageBoxButton.YesNo, MessageBoxImage.Question);
         });
     }
 
     internal static void FailedToLoadLanguageResourceMessageBox()
     {
-        var failedtoloadlanguageresources2 = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var languageLoadingError2 = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
+        var failedtoloadlanguageresources = (string)Application.Current.TryFindResource("Failedtoloadlanguageresources") ?? "Failed to load language resources.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var languageLoadingError = (string)Application.Current.TryFindResource("LanguageLoadingError") ?? "Language Loading Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{failedtoloadlanguageresources2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                languageLoadingError2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{failedtoloadlanguageresources}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                languageLoadingError, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void InvalidSystemConfigurationMessageBox(string error)
     {
-        var invalidSystemConfiguration2 = (string)Application.Current.TryFindResource("InvalidSystemConfiguration") ?? "Invalid System Configuration";
+        var invalidSystemConfiguration = (string)Application.Current.TryFindResource("InvalidSystemConfiguration") ?? "Invalid System Configuration";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             MessageBox.Show(error,
-                invalidSystemConfiguration2, MessageBoxButton.OK, MessageBoxImage.Warning);
+                invalidSystemConfiguration, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void ExtractionFolderCannotBeCreatedMessageBox(Exception ex)
     {
-        var cannotcreateoraccesstheextractionfolder2 = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
-        var invalidExtractionFolder2 = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
+        var cannotcreateoraccesstheextractionfolder = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
+        var invalidExtractionFolder = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{cannotcreateoraccesstheextractionfolder2}: {ex.Message}",
-                invalidExtractionFolder2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{cannotcreateoraccesstheextractionfolder}: {ex.Message}",
+                invalidExtractionFolder, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void DownloadUrlIsNullMessageBox()
     {
-        var theselectedsystemdoesnothaveavaliddownloadlink2 = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
-        var invalidDownloadLink2 = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
+        var theselectedsystemdoesnothaveavaliddownloadlink = (string)Application.Current.TryFindResource("Theselectedsystemdoesnothaveavaliddownloadlink") ?? "The selected system does not have a valid download link.";
+        var invalidDownloadLink = (string)Application.Current.TryFindResource("InvalidDownloadLink") ?? "Invalid Download Link";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink2,
-                invalidDownloadLink2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(theselectedsystemdoesnothaveavaliddownloadlink,
+                invalidDownloadLink, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void UnableToOpenLinkMessageBox()
     {
-        var unabletoopenthelink2 = (string)Application.Current.TryFindResource("Unabletoopenthelink") ?? "Unable to open the link.";
-        var theerrorwasreportedtothedeveloper2 = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var unabletoopenthelink = (string)Application.Current.TryFindResource("Unabletoopenthelink") ?? "Unable to open the link.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show($"{unabletoopenthelink2}\n\n" +
-                            $"{theerrorwasreportedtothedeveloper2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{unabletoopenthelink}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SelectedSystemIsNullMessageBox()
     {
-        var couldnotfindtheselectedsystemintheconfiguration2 = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
-        var systemNotFound2 = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
+        var couldnotfindtheselectedsystemintheconfiguration = (string)Application.Current.TryFindResource("Couldnotfindtheselectedsystemintheconfiguration") ?? "Could not find the selected system in the configuration.";
+        var systemNotFound = (string)Application.Current.TryFindResource("SystemNotFound") ?? "System Not Found";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration2,
-                systemNotFound2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(couldnotfindtheselectedsystemintheconfiguration,
+                systemNotFound, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void SystemNameIsNullMessageBox()
     {
-        var pleaseselectasystemfromthedropdown2 = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
-        var selectionRequired2 = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
+        var pleaseselectasystemfromthedropdown = (string)Application.Current.TryFindResource("Pleaseselectasystemfromthedropdown") ?? "Please select a system from the dropdown.";
+        var selectionRequired = (string)Application.Current.TryFindResource("SelectionRequired") ?? "Selection Required";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseselectasystemfromthedropdown2,
-                selectionRequired2, MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(pleaseselectasystemfromthedropdown,
+                selectionRequired, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static void NoGameFoundInTheRandomSelectionMessageBox()
     {
-        var nogamesfoundtorandomlyselectfrom2 = (string)Application.Current.TryFindResource("Nogamesfoundtorandomlyselectfrom") ?? "No games found to randomly select from. Please check your system selection.";
-        var feelingLucky2 = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
+        var nogamesfoundtorandomlyselectfrom = (string)Application.Current.TryFindResource("Nogamesfoundtorandomlyselectfrom") ?? "No games found to randomly select from. Please check your system selection.";
+        var feelingLucky = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(nogamesfoundtorandomlyselectfrom2,
-                feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(nogamesfoundtorandomlyselectfrom,
+                feelingLucky, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void PleaseSelectASystemBeforeMessageBox()
     {
-        var pleaseselectasystembeforeusingtheFeeling2 = (string)Application.Current.TryFindResource("PleaseselectasystembeforeusingtheFeeling") ?? "Please select a system before using the Feeling Lucky feature.";
-        var feelingLucky2 = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
+        var pleaseselectasystembeforeusingtheFeeling = (string)Application.Current.TryFindResource("PleaseselectasystembeforeusingtheFeeling") ?? "Please select a system before using the Feeling Lucky feature.";
+        var feelingLucky = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(pleaseselectasystembeforeusingtheFeeling2,
-                feelingLucky2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseselectasystembeforeusingtheFeeling,
+                feelingLucky, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
     {
-        var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ??
-                             "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
+        var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ?? "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+        var invalidPathsTitle = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsTitle") ?? "Potentially invalid paths:";
+        var morePaths = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsMore") ?? "...and {0} more";
+        var warningFooter = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter") ?? "You can still save, but these paths may cause issues when launching games.";
 
-        // Add details about which paths are invalid
         if (invalidPaths.Count > 0)
         {
-            warningMessage += "\n\nPotentially invalid paths:";
-            foreach (var path in invalidPaths.Take(5)) // Show at most 5 invalid paths
+            warningMessage += "\n\n" + invalidPathsTitle;
+            foreach (var path in invalidPaths.Take(5))
             {
                 warningMessage += $"\n• {path}";
             }
 
             if (invalidPaths.Count > 5)
             {
-                warningMessage += $"\n• ...and {invalidPaths.Count - 5} more";
+                warningMessage += "\n• " + string.Format(CultureInfo.InvariantCulture, morePaths, invalidPaths.Count - 5);
             }
         }
 
-        warningMessage += "\n\nYou can still save, but these paths may cause issues when launching games.";
+        warningMessage += "\n\n" + warningFooter;
 
-        // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(warningMessage, "Parameter Warning", MessageBoxButton.OK, MessageBoxImage.Warning);
+            MessageBox.Show(warningMessage, warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         });
     }
 
     internal static bool AskUserToProceedWithInvalidPath(List<string> invalidPaths = null)
     {
+        var issuesWithEmulator = (string)Application.Current.TryFindResource("IssuesWithEmulator") ?? "There are issues with the emulator configuration:";
+        var invalidPathsLabel = (string)Application.Current.TryFindResource("InvalidPathsLabel") ?? "• The following paths in parameters may be invalid:";
+        var proceedQuestion = (string)Application.Current.TryFindResource("ProceedWithLaunchQuestion") ?? "Do you want to proceed with launching anyway?";
+        var configEditHint = (string)Application.Current.TryFindResource("ConfigEditHint") ?? "You can edit this system configuration later to fix these issues.";
+        var warningCaption = (string)Application.Current.TryFindResource("PathValidationWarningCaption") ?? "Path Validation Warning";
+
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread and return the result
         return Application.Current.Dispatcher.Invoke(() =>
         {
-            var message = "There are issues with the emulator configuration:";
+            var message = issuesWithEmulator;
 
             if (invalidPaths is { Count: > 0 })
             {
-                message += "\n\n• The following paths in parameters may be invalid:";
+                message += "\n\n" + invalidPathsLabel;
                 foreach (var path in invalidPaths)
                 {
                     message += $"\n  - \"{path}\"";
                 }
             }
 
-            message += "\n\nDo you want to proceed with launching anyway?\n";
-            message += "\nYou can edit this system configuration later to fix these issues.";
+            message += "\n\n" + proceedQuestion + "\n";
+            message += "\n" + configEditHint;
 
-            var result = MessageBox.Show(
-                message,
-                "Path Validation Warning",
-                MessageBoxButton.YesNo,
-                MessageBoxImage.Warning);
+            var result = MessageBox.Show(message,
+                warningCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
 
             return result == MessageBoxResult.Yes;
         });
@@ -2857,9 +2885,9 @@ public static class MessageBoxLibrary
         });
     }
 
-    internal static void FuzzyMatchingErrorMessageBox()
+    internal static void FuzzyMatchingErrorValueOutsideValidRangeMessageBox()
     {
-        var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "The selected threshold is outside the valid range (70% to 100%).";
+        var invalidInputMessageText = (string)Application.Current.TryFindResource("InvalidInputMessageText") ?? "The selected threshold is outside the valid range (70% to 95%).";
         var invalidInputMessageTitle = (string)Application.Current.TryFindResource("InvalidInputMessageTitle") ?? "Invalid Input";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
@@ -2869,7 +2897,7 @@ public static class MessageBoxLibrary
         });
     }
 
-    internal static void FuzzyMatchingErrorMessageBox2()
+    internal static void FuzzyMatchingErrorFailToSetThresholdMessageBox()
     {
         var errorMessage = (string)Application.Current.TryFindResource("SetFuzzyMatchingThresholdFailureMessageBoxText") ?? "Failed to set fuzzy matching threshold.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
@@ -2883,44 +2911,44 @@ public static class MessageBoxLibrary
 
     internal static void ListOfErrorsMessageBox(StringBuilder errorMessages)
     {
-        var editSystemtofixit2 = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
-        var validationerrors2 = (string)Application.Current.TryFindResource("Validationerrors") ?? "Validation errors";
+        var editSystemtofixit = (string)Application.Current.TryFindResource("EditSystemtofixit") ?? "Edit System to fix it.";
+        var validationerrors = (string)Application.Current.TryFindResource("Validationerrors") ?? "Validation errors";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(errorMessages + editSystemtofixit2,
-                validationerrors2, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show(errorMessages + editSystemtofixit,
+                validationerrors, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }
 
     internal static void ThereIsNoUpdateAvailableMessageBox(Window mainWindow, string currentVersion)
     {
-        var thereisnoupdateavailable2 = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
-        var thecurrentversionis2 = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
-        var noupdateavailable2 = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+        var thereisnoupdateavailable = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+        var thecurrentversionis = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+        var noupdateavailable = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(mainWindow, $"{thereisnoupdateavailable2}\n\n" +
-                                        $"{thecurrentversionis2} {currentVersion}",
-                noupdateavailable2, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(mainWindow, $"{thereisnoupdateavailable}\n\n" +
+                                        $"{thecurrentversionis} {currentVersion}",
+                noupdateavailable, MessageBoxButton.OK, MessageBoxImage.Information);
         });
     }
 
     internal static void ErrorCheckingForUpdatesMessageBox(Window mainWindow)
     {
-        var therewasanerrorcheckingforupdates2 = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
-        var maybethereisaproblemwithyourinternet2 = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
-        var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var therewasanerrorcheckingforupdates = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
+        var maybethereisaproblemwithyourinternet = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
-            MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates2}\n\n" +
-                                        $"{maybethereisaproblemwithyourinternet2}",
-                error2, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            MessageBox.Show(mainWindow, $"{therewasanerrorcheckingforupdates}\n\n" +
+                                        $"{maybethereisaproblemwithyourinternet}",
+                error, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         });
     }
 
@@ -2952,14 +2980,14 @@ public static class MessageBoxLibrary
     internal static void UnsupportedArchitectureMessageBox()
     {
         var unsupportedarchitecturefor7Zextraction = (string)Application.Current.TryFindResource("Unsupportedarchitecturefor7zextraction") ?? "Unsupported architecture for 7z extraction.";
-        var simpleLauncherrequires64Bitor32BitWindowstorun = (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor32bitWindowstorun") ?? "'Simple Launcher' requires 64-bit or 32-bit Windows to run.";
+        var simpleLauncherrequires64Bitor3BitWindowstorun = (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor3bitWindowstorun") ?? "'Simple Launcher' requires 64-bit or 3-bit Windows to run.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
         Application.Current.Dispatcher.Invoke(() =>
         {
             MessageBox.Show($"{unsupportedarchitecturefor7Zextraction}\n\n" +
-                            $"{simpleLauncherrequires64Bitor32BitWindowstorun}",
+                            $"{simpleLauncherrequires64Bitor3BitWindowstorun}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
         });
     }

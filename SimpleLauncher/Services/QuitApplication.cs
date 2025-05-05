@@ -47,32 +47,14 @@ public static class QuitApplication
 
     public static void ForcefullyQuitApplication()
     {
-        // Note: Forcefully killing the process might prevent proper cleanup (like mutex release)
-        // Consider if this is truly necessary or if SimpleQuitApplication is sufficient.
-        // If you use this, the mutex might remain orphaned until the system cleans it up.
-        // For a clean restart, the RestartApplication method is preferred.
-
         foreach (Window window in Application.Current.Windows)
         {
             window.Close(); // Close each window
         }
 
-        // Give some time for windows to close and resources to be released
-        // Dispatcher.Invoke(() => { }, DispatcherPriority.ApplicationIdle); // Requires System.Windows.Threading
-
         GC.Collect(); // Force garbage collection
         GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
 
         Application.Current.Shutdown(); // Shutdown the application
-
-        // Only kill if absolutely necessary and Shutdown didn't work
-        try
-        {
-            Process.GetCurrentProcess().Kill(); // Forcefully kill the process
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to forcefully kill process.");
-        }
     }
 }

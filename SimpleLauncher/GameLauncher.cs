@@ -629,7 +629,7 @@ public static class GameLauncher
             // Search for any file with specified extensions recursively
             foreach (var formatToLaunch in sysConfig.FileFormatsToLaunch)
             {
-                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.TopDirectoryOnly);
+                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
                 if (files.Length > 0)
                 {
                     return Task.FromResult(files[0]); // Return the first found file

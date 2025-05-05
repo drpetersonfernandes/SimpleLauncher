@@ -55,7 +55,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
             {
                 // This case should ideally not be hit with the slider configuration.
                 // If it is, something is wrong with the slider setup or binding.
-                MessageBoxLibrary.FuzzyMatchingErrorMessageBox();
+                MessageBoxLibrary.FuzzyMatchingErrorValueOutsideValidRangeMessageBox();
                 // Do not close the window
             }
         }
@@ -66,7 +66,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify the user
-            MessageBoxLibrary.FuzzyMatchingErrorMessageBox2();
+            MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();
             // Do not close the window on error
         }
     }

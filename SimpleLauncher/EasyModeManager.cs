@@ -139,13 +139,6 @@ public class EmulatorConfig
     public string EmulatorDownloadPage { get; set; }
     public string EmulatorLatestVersion { get; set; }
     public string EmulatorDownloadLink { get; set; }
-
-    [XmlElement("EmulatorDownloadRename")]
-    public bool? EmulatorDownloadRenameNullable { get; set; }
-
-    [XmlIgnore]
-    public bool EmulatorDownloadRename => EmulatorDownloadRenameNullable ?? false;
-
     public string EmulatorDownloadExtractPath { get; set; }
     public string CoreLocation { get; set; }
     public string CoreLatestVersion { get; set; }

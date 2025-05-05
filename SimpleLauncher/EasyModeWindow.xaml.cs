@@ -242,86 +242,26 @@ public partial class EasyModeWindow : IDisposable
             StopDownloadButton.IsEnabled = true;
 
             // Download and extract
-            bool success;
+            var success = false; // Initialize variable
 
-            // Special handling for emulator download that might need extension change
-            if (downloadType == DownloadType.Emulator && selectedSystem.Emulators.Emulator.EmulatorDownloadRename)
+            var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+
+            // Use the DownloadAndExtractAsync method in DownloadManager
+            var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            DownloadStatus = $"{downloading2} {componentName}...";
+
+            // First download
+            var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+            if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
-                // For emulators that need extension renaming, download first
-                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+                // Then extract
+                var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                DownloadStatus = $"{extracting2} {componentName}...";
 
-                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
-                {
-                    // Rename the extension if needed
-                    var newFilePath = Path.ChangeExtension(downloadedFile, ".7z");
-                    try
-                    {
-                        if (File.Exists(downloadedFile) && !File.Exists(newFilePath))
-                        {
-                            IoOperations.FileMove(downloadedFile, newFilePath, true);
-
-                            downloadedFile = newFilePath;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // If rename fails, use the original file
-                        // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, $"Error renaming {downloadedFile} to {newFilePath}.");
-                    }
-
-                    // Extract
-                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-                    pleaseWaitWindow.Show();
-
-                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-
-                    pleaseWaitWindow.Close();
-
-                    // Clean up
-                    if (File.Exists(downloadedFile))
-                    {
-                        try
-                        {
-                            DeleteFiles.TryDeleteFile(downloadedFile);
-                        }
-                        catch
-                        {
-                            /* ignore */
-                        }
-                    }
-                }
-                else
-                {
-                    success = false;
-                }
-            }
-            else
-            {
-                // Standard download and extract
-                var pleaseWaitWindow = new PleaseWaitExtractionWindow();
-
-                // Use the DownloadAndExtractAsync method in DownloadManager
-                var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-                DownloadStatus = $"{downloading2} {componentName}...";
-
-                // First download
-                var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-
-                if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
-                {
-                    // Then extract
-                    var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                    DownloadStatus = $"{extracting2} {componentName}...";
-
-                    pleaseWaitWindow.Show();
-                    success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-                    pleaseWaitWindow.Close();
-                }
-                else
-                {
-                    success = false;
-                }
+                pleaseWaitWindow.Show();
+                success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                pleaseWaitWindow.Close();
             }
 
             // Update UI based on the result
