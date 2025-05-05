@@ -38,13 +38,11 @@ internal class GameButtonFactory(
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var originalFileNameWithoutExtension = fileNameWithoutExtension; // Keep original for lookup
         var fileNameWithExtension = Path.GetFileName(filePath);
-        fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(fileNameWithoutExtension); // Use TitleCase for display
+        var fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Path.GetFileNameWithoutExtension(filePath));
 
         // Pass the original filename without extension for image lookup
-        var imagePath = FindCoverImage.FindCoverImagePath(originalFileNameWithoutExtension, systemManager.SystemName, systemManager);
+        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemManager.SystemName, systemManager);
 
         // Use the new ImageLoader to load the image and get the isDefault flag
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
@@ -83,7 +81,7 @@ internal class GameButtonFactory(
         if (systemManager.SystemIsMame)
         {
             // Use original filename without extension for MAME lookup
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(originalFileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var descriptionTextBlock = new TextBlock
@@ -210,7 +208,7 @@ internal class GameButtonFactory(
         };
 
         // Create a unique key for the favorite status
-        var key = $"{systemName}|{originalFileNameWithoutExtension}"; // Use original filename for key
+        var key = $"{systemName}|{fileNameWithExtension}";
 
         // Create the composite tag object
         var tag = new GameButtonTag
@@ -243,11 +241,10 @@ internal class GameButtonFactory(
             }
         };
 
-        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemManager, fileNameWithExtension, originalFileNameWithoutExtension, button); // Pass original filename
+        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemManager, fileNameWithExtension, fileNameWithoutExtension, button);
     }
 
-    private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemManager systemManager,
-        string fileNameWithExtension, string fileNameWithoutExtension, Button button) // Use original filename here
+    private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemManager systemManager, string fileNameWithExtension, string fileNameWithoutExtension, Button button)
     {
         var contextMenu = new ContextMenu();
 
