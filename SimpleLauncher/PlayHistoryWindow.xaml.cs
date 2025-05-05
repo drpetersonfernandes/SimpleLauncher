@@ -152,6 +152,7 @@ public partial class PlayHistoryWindow
         }
         else
         {
+            // Use FindCoverImage which already handles system-specific paths and fuzzy matching
             return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);
         }
     }
@@ -831,16 +832,32 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
+        try
+        {
+            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
+            {
+                PreviewImage.Source = null; // Clear preview if nothing is selected
+                return;
+            }
 
-        var imagePath = selectedItem.CoverImage;
-        PreviewImage.Source = File.Exists(imagePath)
-            ? new BitmapImage(new Uri(imagePath, UriKind.Absolute))
-            :
-            // Set a default image if the selected image doesn't exist
-            new BitmapImage(new Uri("pack://application:,,,/images/default.png"));
+            var imagePath = selectedItem.CoverImage;
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+
+            // Assign the loaded image to the PreviewImage control.
+            // loadedImage will be null if even the default image failed to load.
+            PreviewImage.Source = loadedImage;
+        }
+        catch (Exception ex)
+        {
+            // This catch block handles exceptions *not* caught by ImageLoader.LoadImageAsync
+            // (which should be rare, as ImageLoader catches most file/loading issues).
+            PreviewImage.Source = null; // Ensure image is cleared on error
+
+            // Log the error
+            _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+        }
     }
 
     private void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
