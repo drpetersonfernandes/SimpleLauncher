@@ -614,6 +614,7 @@ public partial class EasyModeWindow : IDisposable
 
         _disposed = true;
 
+        // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
 }

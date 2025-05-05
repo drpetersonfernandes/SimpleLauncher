@@ -2028,7 +2028,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _currentSearchResults?.Clear();
         _systemConfigs?.Clear();
 
-        // Notify garbage collector
+        // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
 }

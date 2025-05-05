@@ -189,6 +189,7 @@ public class GamePadController : IDisposable
 
             _isDisposed = true;
 
+            // Tell GC not to call the finalizer since we've already cleaned up
             GC.SuppressFinalize(this);
         }
         catch (Exception ex)

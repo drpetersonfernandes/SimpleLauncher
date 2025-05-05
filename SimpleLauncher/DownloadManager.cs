@@ -700,6 +700,8 @@ public class DownloadManager : IDisposable
     public void Dispose()
     {
         Dispose(true);
+
+        // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
 
