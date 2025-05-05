@@ -14,43 +14,90 @@ namespace SimpleLauncher;
 public static class Stats
 {
     private static string _apiKey;
-    private const string ApiUrl = "https://www.purelogiccode.com/simplelauncher/stats/stats";
+    private static string _statsApiUrl;
     private static HttpClient _httpClient;
+    private static bool _isApiEnabled; // Flag to control API calls
 
     static Stats()
     {
         LoadConfiguration();
-        InitializeHttpClient();
+
+        // Initialize HttpClient only if API is enabled
+        if (_isApiEnabled)
+        {
+            InitializeHttpClient();
+        }
     }
 
     private static void LoadConfiguration()
     {
         var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-        if (File.Exists(configFile))
+
+        try
         {
+            if (!File.Exists(configFile))
+            {
+                // File is missing, disable API and log error locally
+                _isApiEnabled = false;
+
+                // Use LogErrors directly for local logging if config loading fails
+                LogErrors.LogErrorAsync(new FileNotFoundException($"Configuration file not found: '{configFile}'"), "Stats API configuration file missing.").GetAwaiter().GetResult(); // Use GetResult to make static constructor sync
+
+                return; // Stop loading configuration
+            }
+
             var config = JObject.Parse(File.ReadAllText(configFile));
+
+            // Read ApiKey
             _apiKey = config["ApiKey"]?.ToString();
             if (string.IsNullOrEmpty(_apiKey))
             {
-                throw new InvalidOperationException("API Key is missing or empty in the configuration file.");
+                // ApiKey is missing or empty, disable API and log error locally
+                _isApiEnabled = false;
+
+                LogErrors.LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.").GetAwaiter().GetResult(); // Use GetResult
+
+                return; // Stop loading configuration
             }
+
+            // Read StatsApiUrl
+            _statsApiUrl = config["StatsApiUrl"]?.ToString();
+            if (string.IsNullOrEmpty(_statsApiUrl))
+            {
+                // StatsApiUrl is missing or empty, disable API and log error locally
+                _isApiEnabled = false;
+
+                LogErrors.LogErrorAsync(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.").GetAwaiter().GetResult(); // Use GetResult
+
+                return; // Stop loading configuration
+            }
+
+            // If we reached here, configuration is valid
+            _isApiEnabled = true;
         }
-        else
+        catch (Exception ex)
         {
-            throw new FileNotFoundException($"Configuration file not found: '{configFile}'");
+            // Catch any other errors during loading (e.g., invalid JSON format)
+            _isApiEnabled = false;
+
+            LogErrors.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.").GetAwaiter().GetResult(); // Use GetResult
         }
     }
 
     private static void InitializeHttpClient()
     {
+        // Only initialize if API is enabled
+        if (!_isApiEnabled) return;
+
         var handler = new HttpClientHandler();
         _httpClient = new HttpClient(handler);
 
-        if (!string.IsNullOrEmpty(_apiKey))
-        {
-            _httpClient.DefaultRequestHeaders.Authorization =
-                new AuthenticationHeaderValue("Bearer", _apiKey);
-        }
+        // ApiKey is guaranteed to be not null/empty if _isApiEnabled is true
+        _httpClient.DefaultRequestHeaders.Authorization =
+            new AuthenticationHeaderValue("Bearer", _apiKey);
+
+        // Add a User-Agent header as required by some APIs (like GitHub, though this API might not need it, it's good practice)
+        _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("SimpleLauncher", "1.0")); // Replace 1.0 with actual version if available
     }
 
     /// <summary>
@@ -61,6 +108,14 @@ public static class Stats
     /// <param name="emulatorName">The name of the emulator (if applicable); otherwise, null.</param>
     public static async Task CallApiAsync(string emulatorName = null)
     {
+        // Check if API is enabled before proceeding
+        if (!_isApiEnabled)
+        {
+            _ = LogErrors.LogErrorAsync(null, "Stats API call skipped: API not enabled.");
+
+            return;
+        }
+
         // Determine which payload to send based on whether emulator info is provided.
         string callType;
         string payloadEmulatorName = null;
@@ -76,15 +131,16 @@ public static class Stats
             callType = "emulator";
         }
 
-        if (await TryApiAsync(ApiUrl, callType, payloadEmulatorName))
+        // Use the loaded API URL
+        if (await TryApiAsync(_statsApiUrl, callType, payloadEmulatorName))
         {
+            // ReSharper disable once RedundantJumpStatement
             return; // Success.
         }
 
-        // Notify the developer
-        const string contextMessage = "API request failed.";
-        var ex = new HttpRequestException(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        // If TryApiAsync returns false, it means the request failed after handling exceptions internally.
+        // An error has already been logged by TryApiAsync via LogErrors.LogErrorAsync.
+        // No need for further logging here.
     }
 
     /// <summary>
@@ -96,6 +152,15 @@ public static class Stats
     /// <returns>True if the request succeeds; otherwise, false.</returns>
     private static async Task<bool> TryApiAsync(string apiUrl, string callType, string emulatorName)
     {
+        // Check if HttpClient is initialized (should be if _isApiEnabled is true)
+        if (_httpClient == null)
+        {
+            // This indicates a logic error if _isApiEnabled is true but _httpClient is null
+            _ = LogErrors.LogErrorAsync(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
+
+            return false;
+        }
+
         try
         {
             // Build the payload depending on the call type.
@@ -111,28 +176,29 @@ public static class Stats
 
             if (response.IsSuccessStatusCode) return true; // Success.
 
-            // Notify the developer
-            var contextMessage = $"API responded with an error.\n" +
+            // Log API response error
+            var errorContent = await response.Content.ReadAsStringAsync();
+            var contextMessage = $"Stats API responded with an error.\n" +
                                  $"Status Code: '{response.StatusCode}'.\n" +
+                                 $"Response Body: '{errorContent}'\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            var ex = new HttpRequestException(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
 
             return false;
         }
         catch (HttpRequestException ex)
         {
-            // Notify developer.
-            var contextMessage = $"Error communicating with the API at '{apiUrl}'.\n" +
+            // Log network/HTTP request errors
+            var contextMessage = $"Error communicating with the Stats API at '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
         catch (Exception ex)
         {
-            // Notify developer.
-            var contextMessage = $"Unexpected error while using '{apiUrl}'.\n" +
+            // Log any other unexpected errors
+            var contextMessage = $"Unexpected error while using Stats API at '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -148,7 +214,9 @@ public static class Stats
     /// <returns>The normalized string.</returns>
     private static string NormalizeEmulatorName(string input)
     {
-        return CultureInfo.CurrentCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
+        if (string.IsNullOrWhiteSpace(input)) return string.Empty;
+        // Use CultureInfo.InvariantCulture to ensure consistent title casing regardless of user's locale
+        return CultureInfo.InvariantCulture.TextInfo.ToTitleCase(input.ToLowerInvariant());
     }
 
     public static void DisposeHttpClient()

@@ -255,7 +255,6 @@ public class SettingsManager
             const string contextMessage = "The systemName is null or empty.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
             return;
         }
 
@@ -265,7 +264,6 @@ public class SettingsManager
             const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
             return;
         }
 
@@ -274,7 +272,6 @@ public class SettingsManager
 
         if (systemPlayTime == null)
         {
-            // Add new system playtime if the system doesn't exist
             systemPlayTime = new SystemPlayTime
             {
                 SystemName = systemName,
@@ -283,10 +280,25 @@ public class SettingsManager
             SystemPlayTimes.Add(systemPlayTime);
         }
 
-        // Parse the existing playtime and add the new time
-        var existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
-        var updatedPlayTime = existingPlayTime + playTime;
+        // Safely parse the existing playtime
+        var existingPlayTime = TimeSpan.Zero;
+        try
+        {
+            if (!string.IsNullOrWhiteSpace(systemPlayTime.PlayTime))
+            {
+                existingPlayTime = TimeSpan.Parse(systemPlayTime.PlayTime, CultureInfo.InvariantCulture);
+            }
+        }
+        catch (FormatException ex)
+        {
+            // Notify developer
+            var error = $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.";
+            _ = LogErrors.LogErrorAsync(ex, error);
 
+            existingPlayTime = TimeSpan.Zero;
+        }
+
+        var updatedPlayTime = existingPlayTime + playTime;
 
         // Update the playtime in the correct format
         systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);

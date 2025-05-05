@@ -629,7 +629,7 @@ internal class GameButtonFactory(
 
             try
             {
-                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, button, _gameFileGrid, _mainWindow);
+                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {

@@ -66,7 +66,7 @@ public static class ImageLoader
             // Note: Calling MessageBox directly from a static helper is generally discouraged,
             // but given the existing pattern and the critical nature (default image missing),
             // we'll keep it for now, but ideally, this notification should be handled by the UI layer.
-            System.Windows.Application.Current.Dispatcher.Invoke(MessageBoxLibrary.DefaultImageNotFoundMessageBox);
+            // System.Windows.Application.Current.Dispatcher.Invoke(MessageBoxLibrary.DefaultImageNotFoundMessageBox);
 
             // Return null and true (indicating the default attempt failed)
             return (null, true);

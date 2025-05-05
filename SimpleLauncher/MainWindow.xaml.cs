@@ -240,6 +240,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // Initialize PlayHistory
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+        // Check for required files
+        CheckForRequiredFiles.CheckFiles();
     }
 
     private Task Letter_Click(string selectedLetter)

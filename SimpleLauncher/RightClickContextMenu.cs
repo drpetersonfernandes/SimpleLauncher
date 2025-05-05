@@ -648,7 +648,7 @@ public static class RightClickContextMenu
             }
             catch (Exception ex)
             {
-                // Notify developer if updating the button image fails
+                // Notify the developer if updating the button image fails
                 const string contextMessage = "Failed to update button image after screenshot.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }
@@ -678,7 +678,7 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithExtension
-    public static async void DeleteFile(string filePath, string fileNameWithExtension, Button button, WrapPanel gameFileGrid, MainWindow mainWindow)
+    public static async void DeleteFile(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
         try
         {
@@ -692,16 +692,6 @@ public static class RightClickContextMenu
 
                     // Notify user
                     MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
-
-                    // Remove the button from the UI
-                    try
-                    {
-                        gameFileGrid.Children.Remove(button);
-                    }
-                    catch (Exception)
-                    {
-                        // ignore
-                    }
 
                     // Reload the current Game List
                     try

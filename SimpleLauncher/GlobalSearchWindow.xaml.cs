@@ -709,7 +709,7 @@ public partial class GlobalSearchWindow
 
                 try
                 {
-                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeGameFileGrid, _mainWindow);
+                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {

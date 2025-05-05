@@ -330,7 +330,7 @@ public static class MessageBoxLibrary
     internal static void DefaultImageNotFoundMessageBox()
     {
         // Use Dispatcher.Invoke to show the MessageBox on the UI thread
-        Application.Current.Dispatcher.Invoke(() =>
+        Application.Current.Dispatcher.Invoke(static () =>
         {
             var defaultpngfileismissing = (string)Application.Current.TryFindResource("defaultpngfileismissing") ?? "'default.png' file is missing.";
             var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
@@ -3022,6 +3022,71 @@ public static class MessageBoxLibrary
                           $"{doYouWantToDownloadAndInstall}";
             return MessageBox.Show(owner, message, updateAvailable, MessageBoxButton.YesNo,
                 MessageBoxImage.Information);
+        });
+    }
+
+    internal static void HandleMissingRequiredFilesMessageBox(string fileList)
+    {
+        // Use Dispatcher.Invoke to show the MessageBox on the UI thread
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            var thefollowingrequiredfilesaremissing = (string)Application.Current.TryFindResource("Thefollowingrequiredfilesaremissing") ?? "The following required file(s) are missing:";
+            var missingRequiredFiles = (string)Application.Current.TryFindResource("MissingRequiredFiles") ?? "Missing Required Files";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+
+            var reinstall = MessageBox.Show($"{thefollowingrequiredfilesaremissing}\n" +
+                                            $"{fileList}\n\n" +
+                                            doyouwanttoreinstallSimpleLauncher,
+                missingRequiredFiles, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+
+            if (reinstall == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+
+                MessageBox.Show($"{pleasereinstallSimpleLauncher}\n\n" +
+                                $"{theapplicationwillshutdown}",
+                    missingRequiredFiles, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                QuitApplication.SimpleQuitApplication();
+            }
+        });
+    }
+
+    internal static void HandleApiConfigErrorMessageBox(string reason)
+    {
+        // Use Dispatcher.Invoke to show the MessageBox on the UI thread
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            var apiConfigErrorTitle = (string)Application.Current.TryFindResource("ApiConfigErrorTitle") ?? "API Configuration Error";
+            var apiConfigErrorMessage = (string)Application.Current.TryFindResource("ApiConfigErrorMessage") ?? "Simple Launcher encountered an error loading its API configuration.";
+            var reasonLabel = (string)Application.Current.TryFindResource("ReasonLabel") ?? "Reason:";
+            var reinstallSuggestion = (string)Application.Current.TryFindResource("ReinstallSuggestion") ?? "This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?";
+            var manualReinstallSuggestion = (string)Application.Current.TryFindResource("ManualReinstallSuggestion") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            var applicationWillShutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
+
+            var message = $"{apiConfigErrorMessage}\n\n" +
+                          $"{reasonLabel} {reason}\n\n" +
+                          $"{reinstallSuggestion}";
+
+            var result = MessageBox.Show(message,
+                apiConfigErrorTitle, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                MessageBox.Show($"{manualReinstallSuggestion}\n\n" +
+                                $"{applicationWillShutdown}",
+                    apiConfigErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+                QuitApplication.SimpleQuitApplication();
+            }
         });
     }
 }

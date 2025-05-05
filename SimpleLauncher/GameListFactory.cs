@@ -531,7 +531,7 @@ public class GameListFactory(
 
             try
             {
-                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakeButton, _fakeFileGrid, _mainWindow);
+                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {

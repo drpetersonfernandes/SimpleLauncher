@@ -574,7 +574,7 @@ public partial class PlayHistoryWindow
 
                     try
                     {
-                        RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _fakebutton, _fakeGameFileGrid, _mainWindow);
+                        RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
                     }
                     catch (Exception ex)
                     {
