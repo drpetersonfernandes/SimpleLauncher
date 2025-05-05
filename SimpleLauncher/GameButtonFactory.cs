@@ -208,6 +208,7 @@ internal class GameButtonFactory(
         };
 
         // Create a unique key for the favorite status
+        // FIX: Use fileNameWithExtension for the key to match the lookup logic
         var key = $"{systemName}|{fileNameWithExtension}";
 
         // Create the composite tag object
@@ -283,6 +284,7 @@ internal class GameButtonFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
+            // FIX: Pass the correct WrapPanel reference
             RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
@@ -302,6 +304,7 @@ internal class GameButtonFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
+            // FIX: Pass the correct WrapPanel reference
             RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
@@ -642,3 +645,4 @@ internal class GameButtonFactory(
         }
     }
 }
+

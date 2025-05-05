@@ -41,8 +41,8 @@ public static class RightClickContextMenu
                 // Update the button's view model by locating the button using the composite tag.
                 try
                 {
-                    // Build the key using systemName and file name without extension.
-                    var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
+                    // Build the key using systemName and file name WITH extension.
+                    var key = $"{systemName}|{fileNameWithExtension}";
 
                     // Find the button by checking if its Tag is a GameButtonTag and comparing its Key.
                     var button = gameFileGrid.Children.OfType<Button>()
@@ -118,7 +118,8 @@ public static class RightClickContextMenu
             // Update the button's view model by locating the button using the composite tag.
             try
             {
-                var key = $"{systemName}|{Path.GetFileNameWithoutExtension(fileNameWithExtension)}";
+                // Build the key using systemName and file name WITH extension.
+                var key = $"{systemName}|{fileNameWithExtension}";
                 var button = gameFileGrid.Children.OfType<Button>()
                     .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
                                          string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
