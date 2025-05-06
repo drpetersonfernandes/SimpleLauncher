@@ -13,6 +13,7 @@ namespace SimpleLauncher;
 public static class GameLauncher
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static string _selectedEmulatorName;
 
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
@@ -55,7 +56,7 @@ public static class GameLauncher
             return;
         }
 
-        var selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         var selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
         var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
 
@@ -72,7 +73,7 @@ public static class GameLauncher
             return;
         }
 
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == _selectedEmulatorName);
         if (emulatorConfig == null)
         {
             // Notify developer
@@ -137,7 +138,7 @@ public static class GameLauncher
                     await LaunchExecutable(filePath);
                     break;
                 default:
-                    await LaunchRegularEmulator(filePath, emulatorComboBox, systemComboBox, systemConfigs);
+                    await LaunchRegularEmulator(filePath, _selectedEmulatorName, systemComboBox, systemConfigs);
                     break;
             }
         }
@@ -147,7 +148,7 @@ public static class GameLauncher
             var contextMessage = $"Generic error in the GameLauncher class.\n" +
                                  $"FilePath: {filePath}\n" +
                                  $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
-                                 $"SelectedEmulator: {emulatorComboBox.SelectedItem}";
+                                 $"SelectedEmulator: {_selectedEmulatorName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -195,9 +196,9 @@ public static class GameLauncher
             }
 
             // Send Emulator Usage Stats
-            if (emulatorComboBox.SelectedItem is not null)
+            if (_selectedEmulatorName is not null)
             {
-                _ = Stats.CallApiAsync(emulatorComboBox.SelectedItem.ToString());
+                _ = Stats.CallApiAsync(_selectedEmulatorName);
             }
         }
     }
@@ -352,13 +353,12 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchRegularEmulator(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs)
+    private static async Task LaunchRegularEmulator(string filePath, string selectedEmulatorName, ComboBox systemComboBox, List<SystemManager> systemConfigs)
     {
         var filePathToLaunch = filePath;
-        var selectedEmulator = emulatorComboBox?.SelectedItem.ToString();
         var selectedSystem = systemComboBox?.SelectedItem.ToString();
 
-        if (string.IsNullOrEmpty(selectedEmulator) || string.IsNullOrEmpty(selectedSystem))
+        if (string.IsNullOrEmpty(selectedEmulatorName) || string.IsNullOrEmpty(selectedSystem))
         {
             // Notify developer
             const string contextMessage = "selectedEmulator or selectedSystem is null";
@@ -404,7 +404,7 @@ public static class GameLauncher
             return;
         }
 
-        var emulatorConfig = selectedSystemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulator);
+        var emulatorConfig = selectedSystemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == _selectedEmulatorName);
 
         if (emulatorConfig == null)
         {
