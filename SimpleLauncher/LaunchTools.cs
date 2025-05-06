@@ -8,432 +8,191 @@ namespace SimpleLauncher;
 
 public static class LaunchTools
 {
-    internal static void CreateBatchFilesForXbox360XBLAGames_Click(string logPath)
+    // Define the LogPath
+    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+
+    /// <summary>
+    /// Launches an external executable with optional arguments and working directory.
+    /// Handles basic file existence checks and generic launch exceptions.
+    /// </summary>
+    /// <param name="toolPath">The full path to the executable file.</param>
+    /// <param name="arguments">Optional command-line arguments for the executable.</param>
+    /// <param name="workingDirectory">Optional working directory for the process. If null or empty, the executable's directory is used.</param>
+    private static void LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
     {
+        if (string.IsNullOrEmpty(toolPath))
+        {
+            // Notify developer
+            const string contextMessage = "Tool path cannot be null or empty.";
+            var ex = new ArgumentNullException(nameof(toolPath), contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user (using a generic message for tool not found)
+            MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            return;
+        }
+
+        // Check if the tool executable exists
+        if (!File.Exists(toolPath))
+        {
+            // Notify developer
+            var contextMessage = $"External tool not found: {toolPath}";
+            var ex = new FileNotFoundException(contextMessage, toolPath);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+            return;
+        }
+
         try
         {
-            var createBatchFilesForXbox360XblaGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
-
-            if (File.Exists(createBatchFilesForXbox360XblaGamesPath))
+            var psi = new ProcessStartInfo
             {
-                Process.Start(new ProcessStartInfo
+                FileName = toolPath,
+                Arguments = arguments ?? string.Empty, // Use empty string if no arguments
+                UseShellExecute = true // Use shell execute for launching external tools
+            };
+
+            // Set working directory if provided, otherwise it defaults to the executable's directory
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                // Resolve the working directory relative to the app directory for robustness
+                var resolvedWorkingDirectory = PathHelper.ResolveRelativeToAppDirectory(workingDirectory);
+
+                if (Directory.Exists(resolvedWorkingDirectory))
                 {
-                    FileName = createBatchFilesForXbox360XblaGamesPath,
-                    UseShellExecute = true
-                });
+                    psi.WorkingDirectory = resolvedWorkingDirectory;
+                }
+                else
+                {
+                    // Log a warning if the specified working directory doesn't exist,
+                    // but still attempt to launch using the default working directory.
+                    var warningMessage = $"Specified working directory not found: {workingDirectory}. Launching with default working directory.";
+                    _ = LogErrors.LogErrorAsync(new DirectoryNotFoundException(warningMessage), warningMessage);
+                    // Do not set psi.WorkingDirectory, let it default.
+                }
             }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'CreateBatchFilesForXbox360XBLAGames.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
+            Process.Start(psi);
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForXbox360XBLAGames.exe'.";
+            var contextMessage = $"An error occurred while launching external tool: {toolPath}.\n" +
+                                 $"Arguments: {arguments ?? "None"}\n" +
+                                 $"Working Directory: {workingDirectory ?? "Default"}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(LogPath);
         }
     }
 
-    internal static void CreateBatchFilesForWindowsGames_Click(string logPath)
+    internal static void CreateBatchFilesForXbox360XBLAGames_Click()
     {
-        try
-        {
-            var createBatchFilesForWindowsGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe");
-
-            if (File.Exists(createBatchFilesForWindowsGamesPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchFilesForWindowsGamesPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'CreateBatchFilesForWindowsGames.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForWindowsGames.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder, string logPath)
+    internal static void CreateBatchFilesForWindowsGames_Click()
     {
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe");
+        LaunchExternalTool(toolPath);
+    }
+
+    internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder)
+    {
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
+
+        var arguments = string.Empty;
+        string workingDirectory = null; // Let it default to tool's directory initially
+
+        // Determine arguments based on available folders, resolving them to absolute paths
+        string absoluteImageFolder = null;
+        if (!string.IsNullOrEmpty(selectedImageFolder))
+        {
+            absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
+        }
+
+        string absoluteRomFolder = null;
+        if (!string.IsNullOrEmpty(selectedRomFolder))
+        {
+            absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
+        }
+
+        if (absoluteImageFolder != null && absoluteRomFolder != null)
+        {
+            // Quote paths to handle spaces
+            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+            // Set the working directory to the tool's directory explicitly if arguments are passed
+            workingDirectory = Path.GetDirectoryName(toolPath);
+        }
+
         try
         {
-            var findRomCoverPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
-
-            if (File.Exists(findRomCoverPath))
-            {
-                string absoluteImageFolder = null;
-                string absoluteRomFolder = null;
-
-                // Check if _selectedImageFolder and _selectedRomFolder are set
-                if (!string.IsNullOrEmpty(selectedImageFolder))
-                {
-                    absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
-                }
-
-                if (!string.IsNullOrEmpty(selectedRomFolder))
-                {
-                    absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
-                }
-
-                // Determine arguments based on available folders
-                var arguments = string.Empty;
-                if (absoluteImageFolder != null && absoluteRomFolder != null)
-                {
-                    arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
-                }
-
-                // Start the process with or without arguments
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = findRomCoverPath,
-                    Arguments = arguments,
-                    UseShellExecute = true,
-                    WorkingDirectory = findRomCoverPath
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "The file 'FindRomCover.exe' is missing.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.FindRomCoverMissingMessageBox();
-            }
+            // Use the generic launcher
+            LaunchExternalTool(toolPath, arguments, workingDirectory);
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
-            // Notify developer
+            // This specific exception handling for user cancellation remains here
+            // because it's a specific behavior of the FindRomCover tool launch.
+            // Notify the developer
             const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
         }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'FindRomCover.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.FindRomCoverLaunchWasBlockedMessageBox(logPath);
-        }
+        // Generic Exception handling is now inside LaunchExternalTool
     }
 
-    internal static void CreateBatchFilesForPS3Games_Click(string logPath)
+    internal static void CreateBatchFilesForPS3Games_Click()
     {
-        try
-        {
-            var createBatchFilesForPs3GamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
-
-            if (File.Exists(createBatchFilesForPs3GamesPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchFilesForPs3GamesPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'CreateBatchFilesForPS3Games.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForPS3Games.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchConvertIsoToXiso_Click(string logPath)
+    internal static void BatchConvertIsoToXiso_Click()
     {
-        try
-        {
-            var createBatchConvertIsoToXisoPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
-
-            if (File.Exists(createBatchConvertIsoToXisoPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchConvertIsoToXisoPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchConvertIsoToXiso.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchConvertIsoToXiso.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchConvertToCHD_Click(string logPath)
+    internal static void BatchConvertToCHD_Click()
     {
-        try
-        {
-            var createBatchConvertToChdPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
-
-            if (File.Exists(createBatchConvertToChdPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchConvertToChdPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchConvertToCHD.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchConvertToCHD.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchConvertToCompressedFile_Click(string logPath)
+    internal static void BatchConvertToCompressedFile_Click()
     {
-        try
-        {
-            var batchConvertToCompressedFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
-
-            if (File.Exists(batchConvertToCompressedFilePath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = batchConvertToCompressedFilePath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchConvertToCompressedFile.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchConvertToCompressedFile.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchVerifyCHDFiles_Click(string logPath)
+    internal static void BatchVerifyCHDFiles_Click()
     {
-        try
-        {
-            var batchVerifyChdFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");
-
-            if (File.Exists(batchVerifyChdFilesPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = batchVerifyChdFilesPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchVerifyCHDFiles.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchVerifyCHDFiles.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchVerifyCompressedFiles_Click(string logPath)
+    internal static void BatchVerifyCompressedFiles_Click()
     {
-        try
-        {
-            var batchVerifyCompressedFilesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles.exe");
-
-            if (File.Exists(batchVerifyCompressedFilesPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = batchVerifyCompressedFilesPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'BatchVerifyCompressedFiles.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'BatchVerifyCompressedFiles.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void CreateBatchFilesForScummVMGames_Click(string logPath)
+    internal static void CreateBatchFilesForScummVMGames_Click()
     {
-        try
-        {
-            var createBatchFilesForScummVmGamesPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe");
-
-            if (File.Exists(createBatchFilesForScummVmGamesPath))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchFilesForScummVmGamesPath,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'CreateBatchFilesForScummVMGames.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForScummVMGames.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe");
+        LaunchExternalTool(toolPath);
     }
 
-    internal static void CreateBatchFilesForSegaModel3Games_Click(string logPath)
+    internal static void CreateBatchFilesForSegaModel3Games_Click()
     {
-        try
-        {
-            var createBatchFilesForSegaModel3Path = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
-
-            if (File.Exists(createBatchFilesForSegaModel3Path))
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = createBatchFilesForSegaModel3Path,
-                    UseShellExecute = true
-                });
-            }
-            else
-            {
-                // Notify developer
-                const string contextMessage = "'CreateBatchFilesForSegaModel3Games.exe' was not found.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.SelectedToolNotFoundMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "An error occurred while launching 'CreateBatchFilesForSegaModel3Games.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(logPath);
-        }
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
+        LaunchExternalTool(toolPath);
     }
 }

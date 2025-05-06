@@ -20,7 +20,7 @@ public partial class GlobalSearchWindow
     private readonly List<SystemManager> _systemConfigs;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
-    private PleaseWaitSearchWindow _pleaseWaitWindow;
+    private PleaseWaitWindow _pleaseWaitWindow;
     private readonly MainWindow _mainWindow;
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
@@ -58,7 +58,8 @@ public partial class GlobalSearchWindow
             _searchResults.Clear();
 
             // Show a "Please Wait" window.
-            _pleaseWaitWindow = new PleaseWaitSearchWindow
+            var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching, please wait...";
+            _pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait)
             {
                 Owner = this
             };

@@ -14,7 +14,8 @@ public class CountFiles
     public static async Task<int> CountFilesAsync(string folderPath, List<string> fileExtensions)
     {
         // Create and show the PleaseWaitWindow
-        var pleaseWaitWindow = new PleaseWaitWindow();
+        var processingpleasewait = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing, please wait...";
+        var pleaseWaitWindow = new PleaseWaitWindow(processingpleasewait);
 
         try
         {

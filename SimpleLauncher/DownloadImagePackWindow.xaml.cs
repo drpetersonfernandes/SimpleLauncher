@@ -102,7 +102,8 @@ public partial class DownloadImagePackWindow : IDisposable
                     UpdateStatus($"{downloadcompleteStartingextractionto2} {extractionFolder}...");
 
                     // Show the PleaseWaitExtraction window
-                    var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+                    var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                    var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2}...");
                     pleaseWaitWindow.Show();
 
                     var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, extractionFolder);

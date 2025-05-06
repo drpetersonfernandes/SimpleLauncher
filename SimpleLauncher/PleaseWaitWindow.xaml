@@ -13,7 +13,8 @@
 
     <Border BorderBrush="Gray" BorderThickness="1">
         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-            <TextBlock Text="{DynamicResource Processingpleasewait}" HorizontalAlignment="Center" Margin="20" />
+            <!-- Added Name and removed hardcoded Text -->
+            <TextBlock Name="MessageTextBlock" HorizontalAlignment="Center" Margin="20" />
             <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
         </StackPanel>
     </Border>

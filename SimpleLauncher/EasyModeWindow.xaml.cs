@@ -246,7 +246,8 @@ public partial class EasyModeWindow : IDisposable
             // Download and extract
             var success = false; // Initialize variable
 
-            var pleaseWaitWindow = new PleaseWaitExtractionWindow();
+            var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2} {componentName}...");
 
             // Use the DownloadAndExtractAsync method in DownloadManager
             var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
@@ -258,7 +259,6 @@ public partial class EasyModeWindow : IDisposable
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
                 // Then extract
-                var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
                 DownloadStatus = $"{extracting2} {componentName}...";
 
                 pleaseWaitWindow.Show();

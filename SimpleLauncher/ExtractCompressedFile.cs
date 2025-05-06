@@ -79,7 +79,7 @@ public class ExtractCompressedFile
 
         // Create temp folder with random name
         string tempDirectory = null;
-        PleaseWaitExtractionWindow pleaseWaitExtraction = null;
+        PleaseWaitWindow pleaseWaitExtraction = null;
 
         try
         {
@@ -130,7 +130,8 @@ public class ExtractCompressedFile
             // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                pleaseWaitExtraction = new PleaseWaitExtractionWindow();
+                var extractionMessage = Application.Current.TryFindResource("Extractingcompressed").ToString() ?? "Extracting compressed file...";
+                pleaseWaitExtraction = new PleaseWaitWindow(extractionMessage);
                 pleaseWaitExtraction.Show();
             });
 
@@ -270,7 +271,7 @@ public class ExtractCompressedFile
 
         // Create temp folder with random name - IMPROVED IMPLEMENTATION
         string tempDirectory = null;
-        PleaseWaitExtractionWindow pleaseWaitExtraction = null;
+        PleaseWaitWindow pleaseWaitExtraction = null;
 
         try
         {
@@ -321,7 +322,8 @@ public class ExtractCompressedFile
             // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                pleaseWaitExtraction = new PleaseWaitExtractionWindow();
+                var extractionMessage = Application.Current.TryFindResource("Extractingcompressed").ToString() ?? "Extracting compressed file...";
+                pleaseWaitExtraction = new PleaseWaitWindow(extractionMessage);
                 pleaseWaitExtraction.Show();
             });
 

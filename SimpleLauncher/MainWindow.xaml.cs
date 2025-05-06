@@ -1907,7 +1907,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             return;
         }
 
-        var pleaseWaitWindow = new PleaseWaitSearchWindow();
+        var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching, please wait...";
+        var pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait);
         await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
         try
@@ -1926,58 +1927,58 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void CreateBatchFilesForXbox360XBLAGames_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.CreateBatchFilesForXbox360XBLAGames_Click(_logPath);
+        LaunchTools.CreateBatchFilesForXbox360XBLAGames_Click();
     }
 
     private void BatchConvertIsoToXiso_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.BatchConvertIsoToXiso_Click(_logPath);
+        LaunchTools.BatchConvertIsoToXiso_Click();
     }
 
     private void BatchConvertToCHD_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.BatchConvertToCHD_Click(_logPath);
+        LaunchTools.BatchConvertToCHD_Click();
     }
 
     private void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.BatchConvertToCompressedFile_Click(_logPath);
+        LaunchTools.BatchConvertToCompressedFile_Click();
     }
 
     private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.BatchVerifyCHDFiles_Click(_logPath);
+        LaunchTools.BatchVerifyCHDFiles_Click();
     }
 
     private void BatchVerifyCompressedFiles_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.BatchVerifyCompressedFiles_Click(_logPath);
+        LaunchTools.BatchVerifyCompressedFiles_Click();
     }
 
     private void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.CreateBatchFilesForPS3Games_Click(_logPath);
+        LaunchTools.CreateBatchFilesForPS3Games_Click();
     }
 
     private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.CreateBatchFilesForScummVMGames_Click(_logPath);
+        LaunchTools.CreateBatchFilesForScummVMGames_Click();
     }
 
     private void CreateBatchFilesForSegaModel3Games_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.CreateBatchFilesForSegaModel3Games_Click(_logPath);
+        LaunchTools.CreateBatchFilesForSegaModel3Games_Click();
     }
 
     private void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
     {
-        LaunchTools.CreateBatchFilesForWindowsGames_Click(_logPath);
+        LaunchTools.CreateBatchFilesForWindowsGames_Click();
     }
 
     private void FindRomCover_Click(object sender, RoutedEventArgs e)
     {
         ResetUi();
-        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder, _logPath);
+        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder);
     }
 
     #endregion
