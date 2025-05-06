@@ -159,8 +159,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private void AddRightClickContextMenuFavoritesWindow(string fileNameWithExtension, Favorite selectedFavorite,
-        string fileNameWithoutExtension, SystemManager systemManager, string filePath)
+    private void AddRightClickContextMenuFavoritesWindow(string fileNameWithExtension, Favorite selectedFavorite, string fileNameWithoutExtension, SystemManager systemManager, string filePath)
     {
         var contextMenu = new ContextMenu();
 
