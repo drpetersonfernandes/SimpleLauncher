@@ -275,7 +275,10 @@ public partial class FavoritesWindow
         {
             PlayClick.PlayClickSound();
 
-            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1))
+            {
+                return;
+            }
 
             RightClickContextMenu.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig1);
         };
@@ -472,10 +475,12 @@ public partial class FavoritesWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1)) return;
+            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1))
+            {
+                return;
+            }
 
             _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig1, _fakebutton, _mainWindow);
-
             _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
         };
 

@@ -196,6 +196,8 @@ public static partial class UpdateChecker
     private static void ExtractFilesToDestination(Stream zipStream, string destinationPath, string[] filesToExtract, UpdateLogWindow logWindow)
     {
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+        // Normalize the destination root once for comparison
+        var destinationRootFullPath = Path.GetFullPath(destinationPath);
 
         foreach (var fileName in filesToExtract)
         {
@@ -203,10 +205,28 @@ public static partial class UpdateChecker
             if (entry != null)
             {
                 var destinationFile = Path.Combine(destinationPath, fileName);
-                logWindow.Log($"Extracting {fileName} to {destinationFile}");
+                // Normalize the destination file path
+                var destinationFileFullPath = Path.GetFullPath(destinationFile);
 
+                // Ensure the normalized destination file path starts with the normalized root
+                if (!destinationFileFullPath.StartsWith(destinationRootFullPath + Path.DirectorySeparatorChar,
+                        StringComparison.OrdinalIgnoreCase)
+                    && !string.Equals(destinationFileFullPath, destinationRootFullPath,
+                        StringComparison.OrdinalIgnoreCase))
+                {
+                    logWindow.Log($"Skipping extraction of {fileName} due to security violation (Zip Slip detected).");
+                    continue; // Skip extraction
+                }
+
+                // Create directory if needed
+                var directory = Path.GetDirectoryName(destinationFileFullPath);
+                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
+                    Directory.CreateDirectory(directory);
+
+                logWindow.Log($"Extracting {fileName} to {destinationFileFullPath}");
                 using var entryStream = entry.Open();
-                using var fileStream = new FileStream(destinationFile, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
+                using var fileStream = new FileStream(destinationFileFullPath, FileMode.Create, FileAccess.ReadWrite,
+                    FileShare.ReadWrite);
                 entryStream.CopyTo(fileStream);
             }
             else

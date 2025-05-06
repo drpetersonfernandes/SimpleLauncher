@@ -10,6 +10,8 @@ using System.Xml.Linq;
 using Microsoft.Win32;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
+using System.Xml;
+using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
 
@@ -387,12 +389,6 @@ public partial class EasyModeWindow : IDisposable
             SystemFolderTextBox.Text = systemFolder;
         }
 
-        // // Remove the leading dot from the SystemImageFolder for the message
-        // var systemImageFolderForMessage = selectedSystem.SystemImageFolder.TrimStart('.').TrimStart('\\', '/');
-        //
-        // // Combine with the base directory for the message
-        // var fullImageFolderPathForMessage = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImageFolderForMessage);
-
         var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? string.Empty;
 
         string systemImageFolderAbsolute;
@@ -410,35 +406,39 @@ public partial class EasyModeWindow : IDisposable
         var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
         DownloadStatus = addingsystemtoconfiguration2;
 
-        // Path to the system.xml file
         var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
         try
         {
             // Load existing system configurations
-            var xmlDoc = XDocument.Load(systemXmlPath);
-            var systemConfigs = xmlDoc.Descendants("SystemConfig").ToList();
-
-            // Check if the system already exists
-            var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
-            if (existingSystem != null)
+            var xmlReaderSettings = new XmlReaderSettings
             {
-                OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolderAbsolute);
-            }
-            else
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null // Explicitly disable resolving any external resources
+            };
+            using (var reader = XmlReader.Create(systemXmlPath, xmlReaderSettings))
             {
-                var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolderAbsolute);
+                var xmlDoc = XDocument.Load(reader);
 
-                // Add the new system to the XML document
-                xmlDoc.Root?.Add(newSystemElement);
+                var systemConfigs = xmlDoc.Descendants("SystemConfig").ToList();
+                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
+                if (existingSystem != null)
+                {
+                    OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolderAbsolute);
+                }
+                else
+                {
+                    var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolderAbsolute);
+                    xmlDoc.Root?.Add(newSystemElement);
+                }
+
+                // Sort and save
+                xmlDoc.Root?.ReplaceNodes(xmlDoc.Root.Elements("SystemConfig")
+                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value));
+
+                // Save the updated XML document
+                xmlDoc.Save(systemXmlPath);
             }
-
-            // Sort the systems alphabetically by SystemName
-            xmlDoc.Root?.ReplaceNodes(xmlDoc.Root.Elements("SystemConfig")
-                .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value));
-
-            // Save the updated XML document
-            xmlDoc.Save(systemXmlPath);
 
             var creatingsystemfolders2 = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
             DownloadStatus = creatingsystemfolders2;
@@ -455,12 +455,11 @@ public partial class EasyModeWindow : IDisposable
             // Disable Add System Button
             AddSystemButton.IsEnabled = false;
 
-            // Close window
             Close();
         }
         catch (Exception ex)
         {
-            var errorFailedtoaddsystem2 = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+            var errorFailedtoaddsystem2 = (string)Application.Current.TryFindResource("Error: Failed to add system.") ?? "Error: Failed to add system.";
             DownloadStatus = errorFailedtoaddsystem2;
 
             // Notify developer
@@ -498,9 +497,6 @@ public partial class EasyModeWindow : IDisposable
     private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem,
         string systemFolder, string systemImageFolderAbsolute)
     {
-        // Ask user if they want to overwrite the existing system
-        // if (MessageBoxLibrary.OverwriteSystemMessageBox(selectedSystem)) return;
-
         // Overwrite existing system
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
         existingSystem.SetElementValue("SystemFolder", systemFolder);
@@ -526,6 +522,15 @@ public partial class EasyModeWindow : IDisposable
         AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
     }
 
+    public static string[] GetAdditionalFolders()
+    {
+        // Adjust the path if needed
+        var jsonText = File.ReadAllText("appsettings.json");
+        var jObject = JObject.Parse(jsonText);
+        var foldersArray = jObject["AdditionalFolders"] as JArray;
+        return foldersArray?.Select(static f => f.ToString()).ToArray() ?? Array.Empty<string>();
+    }
+
     private static void CreateSystemFolders(string systemName, string systemFolder, string systemImageFolder)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -535,7 +540,7 @@ public partial class EasyModeWindow : IDisposable
         var imagesFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolder);
 
         // List of additional folders to create
-        string[] additionalFolders = ["roms", "images", "title_snapshots", "gameplay_snapshots", "videos", "manuals", "walkthrough", "cabinets", "carts", "flyers", "pcbs"];
+        var additionalFolders = GetAdditionalFolders();
 
         try
         {
@@ -582,7 +587,7 @@ public partial class EasyModeWindow : IDisposable
 
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseaFolderwithROMsorISOs") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
+        var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("Choose a folder with 'ROMs' or 'ISOs' for this system") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
 
         // Create a new OpenFolderDialog
         var openFolderDialog = new OpenFolderDialog
@@ -608,9 +613,6 @@ public partial class EasyModeWindow : IDisposable
         if (_disposed) return;
 
         _downloadManager?.Dispose();
-
-        // NOTE: _manager (EasyModeManager) doesn't implement IDisposable
-        // If EasyModeManager implements IDisposable in the future, it should be disposed here
 
         _disposed = true;
 

@@ -41,7 +41,8 @@ public static class Stats
                 _isApiEnabled = false;
 
                 // Use LogErrors directly for local logging if config loading fails
-                LogErrors.LogErrorAsync(new FileNotFoundException($"Configuration file not found: '{configFile}'"), "Stats API configuration file missing.").GetAwaiter().GetResult(); // Use GetResult to make static constructor sync
+                _ = LogErrors.LogErrorAsync(new FileNotFoundException($"Configuration file not found: '{configFile}'"),
+                    "Stats API configuration file missing.");
 
                 return; // Stop loading configuration
             }
@@ -55,7 +56,7 @@ public static class Stats
                 // ApiKey is missing or empty, disable API and log error locally
                 _isApiEnabled = false;
 
-                LogErrors.LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.").GetAwaiter().GetResult(); // Use GetResult
+                _ = LogErrors.LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
 
                 return; // Stop loading configuration
             }
@@ -80,7 +81,7 @@ public static class Stats
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiEnabled = false;
 
-            LogErrors.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.").GetAwaiter().GetResult(); // Use GetResult
+            _ = LogErrors.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.");
         }
     }
 

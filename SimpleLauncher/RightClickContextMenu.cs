@@ -275,7 +275,7 @@ public static class RightClickContextMenu
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
         // Image extensions to look for
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+        var imageExtensions = GetImageExtensions.GetExtensions();
 
         // Try to find the image in the systemImageFolder directory first
         // Then search inside the globalImageDirectory
@@ -337,7 +337,7 @@ public static class RightClickContextMenu
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
-        string[] gameplaySnapshotExtensions = [".png", ".jpg", ".jpeg"];
+        var gameplaySnapshotExtensions = GetImageExtensions.GetExtensions();
 
         foreach (var extension in gameplaySnapshotExtensions)
         {
@@ -484,7 +484,7 @@ public static class RightClickContextMenu
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
-        string[] cabinetExtensions = [".png", ".jpg", ".jpeg"];
+        var cabinetExtensions = GetImageExtensions.GetExtensions();
 
         foreach (var extension in cabinetExtensions)
         {
@@ -528,7 +528,7 @@ public static class RightClickContextMenu
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
-        string[] pcbExtensions = [".png", ".jpg", ".jpeg"];
+        var pcbExtensions = GetImageExtensions.GetExtensions();
 
         foreach (var extension in pcbExtensions)
         {
@@ -649,11 +649,12 @@ public static class RightClickContextMenu
             }
             catch (Exception ex)
             {
-                // Notify the developer if updating the button image fails
+                // Notify the developer
                 const string contextMessage = "Failed to update button image after screenshot.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
 
+                // Do not notify the user
+            }
 
             // Reload the current Game List
             try

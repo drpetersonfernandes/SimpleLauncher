@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -73,7 +72,7 @@ public static class DisplaySystemInformation
         // Add the number of images in the system's image folder
         if (Directory.Exists(imageFolderPath))
         {
-            var imageExtensions = new List<string> { "*.png", "*.jpg", "*.jpeg", "*.bmp", "*.gif" };
+            var imageExtensions = GetImageExtensions.GetExtensions();
             var imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
 
             var imageCountTextBlock = new TextBlock();

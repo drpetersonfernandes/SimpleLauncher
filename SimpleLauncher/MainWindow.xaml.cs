@@ -180,7 +180,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
 
         // Call Stats API
-        Loaded += static async (_, _) => await Stats.CallApiAsync();
+        Loaded += static (_, _) =>
+        {
+            _ = Stats.CallApiAsync();
+        };
 
         // Attach the Load and Close events
         Loaded += MainWindow_Loaded;

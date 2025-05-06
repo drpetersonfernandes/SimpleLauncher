@@ -17,7 +17,7 @@ public static class FindCoverImage
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
-        string[] imageExtensions = [".png", ".jpg", ".jpeg"];
+        var imageExtensions = GetImageExtensions.GetExtensions();
 
         string systemImagePath;
         if (string.IsNullOrEmpty(systemManager?.SystemImageFolder))
@@ -77,7 +77,6 @@ public static class FindCoverImage
                 return bestMatchPath;
             }
         }
-
 
         // 3. If no exact or similar match, fall back to default images
         var defaultSystemImagePath = Path.Combine(systemImagePath, "default.png");

@@ -568,7 +568,7 @@ public class GameListFactory(
         {
             try
             {
-                // Check if file exists and has content
+                // Check if the file exists and has content
                 if (!File.Exists(previewImagePath) || new FileInfo(previewImagePath).Length == 0)
                 {
                     // Silently fail and use default handling below
@@ -604,11 +604,9 @@ public class GameListFactory(
                         _mainWindow.PreviewImage.Source = bitmapFrame;
                         // MemoryStream is disposed automatically by the using block
                     }
-                    catch (Exception ex)
+                    catch (Exception)
                     {
-                        // Notify the developer
-                        var contextMessage = $"Error loading image '{previewImagePath}'.";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        throw;
                     }
                 });
             }
