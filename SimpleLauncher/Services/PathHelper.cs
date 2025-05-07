@@ -35,7 +35,7 @@ public static class PathHelper
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-             return string.Empty;
+            return string.Empty;
         }
 
         // If the path is already rooted (absolute), canonicalize it.

@@ -100,6 +100,7 @@ public partial class GlobalStatsWindow
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
     {
         _systemStats = []; // Create a list for DataGrid binding
+        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions(); // Get extensions from service
 
         foreach (var config in _systemConfigs)
         {
@@ -117,18 +118,17 @@ public partial class GlobalStatsWindow
             var systemImagePath = config.SystemImageFolder;
             systemImagePath = string.IsNullOrEmpty(systemImagePath)
                 ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName)
-                : Path.Combine(AppDomain.CurrentDomain.BaseDirectory, systemImagePath.TrimStart('.', '\\'));
+                : PathHelper.ResolveRelativeToAppDirectory(systemImagePath); // Use PathHelper for robust resolution
+
 
             var numberOfImages = 0;
             if (Directory.Exists(systemImagePath))
             {
                 await RenameImagesToMatchRomCaseAsync(systemImagePath, romFileBaseNames);
 
-                // Get image files with .png, .jpg, .jpeg extensions
+                // Get image files using extensions from appsettings.json
                 var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(static file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                                          file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                          file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+                    .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                     .Select(Path.GetFileNameWithoutExtension)
                     .ToList();
 
@@ -136,13 +136,13 @@ public partial class GlobalStatsWindow
                 numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
             }
 
-            // Add to systemStats list with total disk size
+            // Add to the systemStats list with total disk size
             _systemStats.Add(new SystemStatsData
             {
                 SystemName = config.SystemName,
                 NumberOfFiles = romFiles.Count,
                 NumberOfImages = numberOfImages,
-                TotalDiskSize = totalDiskSize // Set disk size here
+                TotalDiskSize = totalDiskSize // Set the disk size here
             });
         }
 
@@ -205,7 +205,7 @@ public partial class GlobalStatsWindow
             Filter = "Text documents (.txt)|*.txt" // Filter files by extension
         };
 
-        // Show save file dialog box
+        // Show the save file dialog box
         var result = saveFileDialog.ShowDialog();
 
         // Process save file dialog box results
@@ -268,10 +268,9 @@ public partial class GlobalStatsWindow
         if (!Directory.Exists(systemImagePath))
             return Task.CompletedTask;
 
+        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions(); // Get extensions from service
         var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-            .Where(static file => file.EndsWith(".png", StringComparison.OrdinalIgnoreCase) ||
-                                  file.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ||
-                                  file.EndsWith(".jpeg", StringComparison.OrdinalIgnoreCase))
+            .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))) // Use the dynamic list
             .ToList();
 
         foreach (var imageFile in imageFiles)

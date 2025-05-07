@@ -65,6 +65,12 @@ public static class DisplaySystemInformation
         {
             imageFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName);
         }
+        else
+        {
+            // Ensure relative paths are resolved against the app directory
+            imageFolderPath = PathHelper.ResolveRelativeToAppDirectory(imageFolderPath);
+        }
+
 
         var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
         var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
@@ -73,7 +79,8 @@ public static class DisplaySystemInformation
         if (Directory.Exists(imageFolderPath))
         {
             var imageExtensions = GetImageExtensions.GetExtensions();
-            var imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, ext).Length);
+            // Correctly use image extensions with Directory.GetFiles
+            var imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, $"*{ext}").Length);
 
             var imageCountTextBlock = new TextBlock();
             imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));

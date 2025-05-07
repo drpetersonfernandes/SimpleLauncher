@@ -11,7 +11,6 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Win32;
-using Newtonsoft.Json.Linq;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
@@ -1027,19 +1026,10 @@ public partial class EditSystemWindow
         MarkInvalid(Emulator5PathTextBox, isEmulator5LocationValid);
     }
 
-    public static string[] GetAdditionalFolders()
-    {
-        // Adjust the path if needed
-        var jsonText = File.ReadAllText("appsettings.json");
-        var jObject = JObject.Parse(jsonText);
-        var foldersArray = jObject["AdditionalFolders"] as JArray;
-        return foldersArray?.Select(static f => f.ToString()).ToArray() ?? Array.Empty<string>();
-    }
-
     private static void CreateFolders(string systemNameText)
     {
         var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var folderNames = GetAdditionalFolders();
+        var folderNames = GetAdditionalFolders.GetFolders();
 
         foreach (var folderName in folderNames)
         {

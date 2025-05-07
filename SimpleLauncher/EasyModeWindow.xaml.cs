@@ -11,7 +11,6 @@ using Microsoft.Win32;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using System.Xml;
-using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher;
 
@@ -522,15 +521,6 @@ public partial class EasyModeWindow : IDisposable
         AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
     }
 
-    public static string[] GetAdditionalFolders()
-    {
-        // Adjust the path if needed
-        var jsonText = File.ReadAllText("appsettings.json");
-        var jObject = JObject.Parse(jsonText);
-        var foldersArray = jObject["AdditionalFolders"] as JArray;
-        return foldersArray?.Select(static f => f.ToString()).ToArray() ?? Array.Empty<string>();
-    }
-
     private static void CreateSystemFolders(string systemName, string systemFolder, string systemImageFolder)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -539,8 +529,8 @@ public partial class EasyModeWindow : IDisposable
         var systemFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemFolder);
         var imagesFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolder);
 
-        // List of additional folders to create
-        var additionalFolders = GetAdditionalFolders();
+        // List of additional folders to create from appsettings.json
+        var additionalFolders = GetAdditionalFolders.GetFolders(); // Use the service
 
         try
         {
