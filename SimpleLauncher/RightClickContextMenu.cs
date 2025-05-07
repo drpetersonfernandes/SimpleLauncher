@@ -680,59 +680,50 @@ public static class RightClickContextMenu
     }
 
     // Use fileNameWithExtension
-    public static async void DeleteFile(string filePath, string fileNameWithExtension, MainWindow mainWindow)
+    public static async Task DeleteFile(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
-        try
+        if (File.Exists(filePath))
         {
-            if (File.Exists(filePath))
+            try
             {
+                DeleteFiles.TryDeleteFile(filePath);
+
+                PlayClick.PlayTrashSound();
+
+                // Notify user
+                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
+
+                // Reload the current Game List
                 try
                 {
-                    DeleteFiles.TryDeleteFile(filePath);
-
-                    PlayClick.PlayTrashSound();
-
-                    // Notify user
-                    MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
-
-                    // Reload the current Game List
-                    try
-                    {
-                        await mainWindow.LoadGameFilesAsync();
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        const string contextMessage = "There was a problem loading the Game Files.";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                    }
+                    await mainWindow.LoadGameFilesAsync();
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'.";
-                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
+                    const string contextMessage = "There was a problem loading the Game Files.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
             }
-            else
+            catch (Exception ex)
             {
                 // Notify developer
-                var contextMessage = $"The file '{fileNameWithExtension}' could not be found.";
-                var ex = new FileNotFoundException(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                var errorMessage = $"An error occurred while trying to delete the file '{fileNameWithExtension}'.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
             }
         }
-        catch (Exception ex)
+        else
         {
             // Notify developer
-            var errorMessage = $"Generic error while trying to delete the file '{fileNameWithExtension}'.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            var contextMessage = $"The file '{fileNameWithExtension}' could not be found.";
+            var ex = new FileNotFoundException(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
         }
     }
 }

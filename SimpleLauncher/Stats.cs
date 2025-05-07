@@ -68,7 +68,9 @@ public static class Stats
                 // StatsApiUrl is missing or empty, disable API and log error locally
                 _isApiEnabled = false;
 
-                LogErrors.LogErrorAsync(new InvalidOperationException("Stats API URL is missing or empty in the configuration file."), "Stats API URL missing.").GetAwaiter().GetResult(); // Use GetResult
+                // Notify developer
+                Exception ex = new InvalidOperationException("Stats API URL is missing or empty in the configuration file.");
+                _ = LogErrors.LogErrorAsync(ex, "Stats API URL missing.");
 
                 return; // Stop loading configuration
             }

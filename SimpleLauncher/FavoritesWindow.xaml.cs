@@ -497,14 +497,14 @@ public partial class FavoritesWindow
             Header = deleteGame2,
             Icon = deleteGameIcon
         };
-        deleteGame.Click += (_, _) =>
+        deleteGame.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
 
-            DoYouWanToDeleteMessageBox();
+            await DoYouWanToDeleteMessageBox();
             return;
 
-            void DoYouWanToDeleteMessageBox()
+            async Task DoYouWanToDeleteMessageBox()
             {
                 var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
@@ -512,7 +512,7 @@ public partial class FavoritesWindow
 
                 try
                 {
-                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                    await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {

@@ -69,7 +69,7 @@ public static partial class UpdateChecker
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    await ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
                 }
             }
         }
@@ -97,7 +97,7 @@ public static partial class UpdateChecker
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    await ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
                 }
                 else
                 {
@@ -117,7 +117,7 @@ public static partial class UpdateChecker
         }
     }
 
-    private static async void ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
+    private static async Task ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
     {
         try
         {

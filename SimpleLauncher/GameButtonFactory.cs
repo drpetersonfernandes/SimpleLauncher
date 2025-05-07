@@ -593,11 +593,11 @@ internal class GameButtonFactory(
             Header = deleteGame2,
             Icon = deleteGameIcon
         };
-        deleteGame.Click += (_, _) =>
+        deleteGame.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
 
-            DoYouWantToDeleteMessageBox();
+            await DoYouWantToDeleteMessageBox();
         };
 
         contextMenu.Items.Add(launchMenuItem);
@@ -621,7 +621,7 @@ internal class GameButtonFactory(
         button.ContextMenu = contextMenu;
         return button;
 
-        void DoYouWantToDeleteMessageBox()
+        async Task DoYouWantToDeleteMessageBox()
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
@@ -629,7 +629,7 @@ internal class GameButtonFactory(
 
             try
             {
-                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {

@@ -159,9 +159,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             await Favorites_Click();
         };
-        _filterMenu.OnFeelingLuckySelected += () =>
+        _filterMenu.OnFeelingLuckySelected += async () =>
         {
-            FeelingLucky_Click(null, null);
+            await FeelingLucky_Click(null, null);
         };
 
         // Initialize _favoritesManager
@@ -283,7 +283,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return Task.CompletedTask;
     }
 
-    private async void FeelingLucky_Click(object sender, RoutedEventArgs e)
+    private async Task FeelingLucky_Click(object sender, RoutedEventArgs e)
     {
         try
         {

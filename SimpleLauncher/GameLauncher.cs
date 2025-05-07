@@ -14,6 +14,9 @@ public static class GameLauncher
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
     private static string _selectedEmulatorName;
+    private static string _selectedSystemName;
+    private static SystemManager _selectedSystemConfig;
+    private static SystemManager.Emulator _selectedEmulatorConfig;
 
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
@@ -57,10 +60,10 @@ public static class GameLauncher
         }
 
         _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        var selectedSystem = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
-        var systemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
+        _selectedSystemName = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
+        _selectedSystemConfig = systemConfigs.FirstOrDefault(static config => config.SystemName == _selectedSystemName);
 
-        if (systemConfig == null)
+        if (_selectedSystemConfig == null)
         {
             // Notify developer
             const string contextMessage = "systemConfig is null.";
@@ -73,8 +76,8 @@ public static class GameLauncher
             return;
         }
 
-        var emulatorConfig = systemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == _selectedEmulatorName);
-        if (emulatorConfig == null)
+        _selectedEmulatorConfig = _selectedSystemConfig.Emulators.FirstOrDefault(static e => e.EmulatorName == _selectedEmulatorName);
+        if (_selectedEmulatorConfig == null)
         {
             // Notify developer
             const string contextMessage = "emulatorConfig is null.";
@@ -87,18 +90,16 @@ public static class GameLauncher
             return;
         }
 
-        // var programLocation = emulatorConfig.EmulatorLocation;
-        var parameters = emulatorConfig.EmulatorParameters;
+        var parameters = _selectedEmulatorConfig.EmulatorParameters;
 
         // Check if this is a MAME system
-        var isMameSystem = systemConfig.SystemIsMame;
-        var systemFolder = systemConfig.SystemFolder;
+        var isMameSystem = _selectedSystemConfig.SystemIsMame;
+        var systemFolder = _selectedSystemConfig.SystemFolder;
 
-        // Validate program location and parameters but collect results rather than returning immediately
-        // var (programLocationValid, invalidProgramLocation) = ParameterValidator.ValidateProgramLocation(programLocation);
+        // Validate parameters but collect results rather than returning immediately
         var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(parameters, systemFolder, isMameSystem);
 
-        // If either validation failed, ask the user if they want to proceed
+        // If validation failed, ask the user if they want to proceed
         if (!parametersValid)
         {
             var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
@@ -168,7 +169,7 @@ public static class GameLauncher
             var fileName = Path.GetFileName(filePath);
 
             // Update system playtime
-            settings.UpdateSystemPlayTime(selectedSystem, playTime); // Update the system playtime in settings
+            settings.UpdateSystemPlayTime(_selectedSystemName, playTime); // Update the system playtime in settings
             settings.Save(); // Save the updated settings
 
             // Update play history
@@ -176,10 +177,10 @@ public static class GameLauncher
             {
                 // Load and update play history
                 var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, selectedSystem, playTime);
+                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, _selectedSystemName, playTime);
 
                 // Refresh the game list to update playtime in ListView mode
-                mainWindow.RefreshGameListAfterPlay(fileName, selectedSystem);
+                mainWindow.RefreshGameListAfterPlay(fileName, _selectedSystemName);
             }
             catch (Exception ex)
             {
@@ -189,7 +190,7 @@ public static class GameLauncher
             }
 
             // Update the PlayTime property in the MainWindow to refresh the UI
-            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(static s => s.SystemName == _selectedSystemName);
             if (systemPlayTime != null)
             {
                 mainWindow.PlayTime = systemPlayTime.PlayTime; // Update PlayTime in MainWindow

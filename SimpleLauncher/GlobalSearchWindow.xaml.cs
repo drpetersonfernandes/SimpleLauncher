@@ -694,15 +694,15 @@ public partial class GlobalSearchWindow
             Header = deleteGame2,
             Icon = deleteGameIcon
         };
-        deleteGame.Click += (_, _) =>
+        deleteGame.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
 
             // Notify user
-            DoYouWanToDeleteMessageBox();
+            await DoYouWanToDeleteMessageBox();
             return;
 
-            void DoYouWanToDeleteMessageBox()
+            async Task DoYouWanToDeleteMessageBox()
             {
                 var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
@@ -710,7 +710,7 @@ public partial class GlobalSearchWindow
 
                 try
                 {
-                    RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                    await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {

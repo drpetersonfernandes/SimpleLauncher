@@ -494,11 +494,11 @@ public class GameListFactory(
             Icon = deleteGameIcon
         };
 
-        deleteGame.Click += (_, _) =>
+        deleteGame.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
 
-            DoYouWanToDeleteMessageBox();
+            await DoYouWanToDeleteMessageBox();
         };
 
         contextMenu.Items.Add(launchMenuItem);
@@ -523,7 +523,7 @@ public class GameListFactory(
         // Return
         return contextMenu;
 
-        void DoYouWanToDeleteMessageBox()
+        async Task DoYouWanToDeleteMessageBox()
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
 
@@ -531,7 +531,7 @@ public class GameListFactory(
 
             try
             {
-                RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {
