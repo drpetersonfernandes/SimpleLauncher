@@ -17,9 +17,16 @@ public static class GameLauncher
     private static string _selectedSystemName;
     private static SystemManager _selectedSystemConfig;
     private static SystemManager.Emulator _selectedEmulatorConfig;
+    private static string _selectedEmulatorParameters;
 
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
+        //
+        //
+        // Check input parameters
+        //
+        //
+
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
         {
             // Notify developer
@@ -59,6 +66,25 @@ public static class GameLauncher
             return;
         }
 
+        if (systemConfigs == null)
+        {
+            // Notify developer
+            const string contextMessage = "systemConfigs is null";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+            return;
+        }
+
+        //
+        //
+        // Construct parameters
+        //
+        //
+
         _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
         _selectedSystemName = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
         _selectedSystemConfig = systemConfigs.FirstOrDefault(static config => config.SystemName == _selectedSystemName);
@@ -90,14 +116,14 @@ public static class GameLauncher
             return;
         }
 
-        var parameters = _selectedEmulatorConfig.EmulatorParameters;
+        _selectedEmulatorParameters = _selectedEmulatorConfig.EmulatorParameters;
 
         // Check if this is a MAME system
         var isMameSystem = _selectedSystemConfig.SystemIsMame;
         var systemFolder = _selectedSystemConfig.SystemFolder;
 
         // Validate parameters but collect results rather than returning immediately
-        var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(parameters, systemFolder, isMameSystem);
+        var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(_selectedEmulatorParameters, systemFolder, isMameSystem);
 
         // If validation failed, ask the user if they want to proceed
         if (!parametersValid)
@@ -139,7 +165,7 @@ public static class GameLauncher
                     await LaunchExecutable(filePath);
                     break;
                 default:
-                    await LaunchRegularEmulator(filePath, _selectedEmulatorName, systemComboBox, systemConfigs);
+                    await LaunchRegularEmulator(filePath, _selectedSystemName, _selectedEmulatorName, _selectedSystemConfig, _selectedEmulatorConfig, _selectedEmulatorParameters);
                     break;
             }
         }
@@ -148,7 +174,7 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Generic error in the GameLauncher class.\n" +
                                  $"FilePath: {filePath}\n" +
-                                 $"SelectedSystem: {systemComboBox.SelectedItem}\n" +
+                                 $"SelectedSystem: {_selectedSystemName}\n" +
                                  $"SelectedEmulator: {_selectedEmulatorName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -354,79 +380,25 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchRegularEmulator(string filePath, string selectedEmulatorName, ComboBox systemComboBox, List<SystemManager> systemConfigs)
+    private static async Task LaunchRegularEmulator(
+        string filePath,
+        string selectedSystemName,
+        string selectedEmulatorName,
+        SystemManager selectedSystemConfig,
+        SystemManager.Emulator selectedEmulatorConfig,
+        string selectedEmulatorParameters)
     {
-        var filePathToLaunch = filePath;
-        var selectedSystem = systemComboBox?.SelectedItem.ToString();
-
-        if (string.IsNullOrEmpty(selectedEmulatorName) || string.IsNullOrEmpty(selectedSystem))
+        if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
         {
-            // Notify developer
-            const string contextMessage = "selectedEmulator or selectedSystem is null";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        var selectedSystemConfig = systemConfigs.FirstOrDefault(config => config.SystemName == selectedSystem);
-
-        if (selectedSystemConfig == null)
-        {
-            // Notify developer
-            const string contextMessage = "selectedSystemConfig is null";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        if (selectedSystemConfig.ExtractFileBeforeLaunch)
-        {
-            filePathToLaunch = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig);
-        }
-
-        if (string.IsNullOrEmpty(filePathToLaunch) || !File.Exists(filePathToLaunch))
-        {
-            // Notify developer
-            var contextMessage = $"Invalid filePathToLaunch: {filePathToLaunch}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        var emulatorConfig = selectedSystemConfig.Emulators.FirstOrDefault(e => e.EmulatorName == _selectedEmulatorName);
-
-        if (emulatorConfig == null)
-        {
-            // Notify developer
-            const string contextMessage = "selectedEmulatorConfig is null";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
+            filePath = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig);
         }
 
         // Construct the PSI
-        var programLocation = emulatorConfig.EmulatorLocation;
-        var parameters = emulatorConfig.EmulatorParameters;
+        var programLocation = selectedEmulatorConfig.EmulatorLocation;
+        var parameters = selectedEmulatorConfig.EmulatorParameters;
         var workingDirectory = Path.GetDirectoryName(programLocation);
-        var arguments = $"{parameters} \"{filePathToLaunch}\"";
+        var arguments = $"{parameters} \"{filePath}\"";
 
-        // Check programLocation
         if (string.IsNullOrEmpty(programLocation))
         {
             // Notify developer
@@ -440,7 +412,6 @@ public static class GameLauncher
             return;
         }
 
-        // Check workingDirectory
         if (string.IsNullOrEmpty(workingDirectory))
         {
             // Notify developer
@@ -508,10 +479,10 @@ public static class GameLauncher
             // Check process state before accessing properties
             if (process.HasExited)
             {
-                if (await CheckForMemoryAccessViolation(process, psi, output, error, emulatorConfig)) return;
-                if (await CheckForDepViolation(process, psi, output, error, emulatorConfig)) return;
+                if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorConfig)) return;
+                if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorConfig)) return;
 
-                await CheckForExitCodeWithErrorAny(process, psi, output, error, emulatorConfig);
+                await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorConfig);
             }
         }
 
@@ -522,7 +493,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify the user only if he wants
-            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox();
             }
@@ -530,7 +501,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                      $"User was notified.\n\n" +
@@ -554,7 +525,7 @@ public static class GameLauncher
             }
 
             // Notify the user only if he wants
-            if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
             }
