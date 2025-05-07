@@ -535,16 +535,29 @@ public class ExtractCompressedFile
 
                                 if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                                 {
-                                    throw new IOException($"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB");
+                                    var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                    Exception ex = new IOException(contextMessage);
+
+                                    // Notify developer
+                                    _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
+
+                                    // Notify user
+                                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                                    return;
                                 }
                             }
                         }
                         catch (ArgumentException ex)
                         {
-                            // Log the issue but continue with extraction
-                            // We won't block extraction
-                            // just because we can't verify disk space
-                            Debug.WriteLine($"Unable to check disk space for path {destinationFolder}: {ex.Message}");
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {destinationFolder}: {ex.Message}");
+
+                            // Notify user
+                            MessageBox.Show("'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.",
+                                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+
+                            return;
                         }
                     }
 

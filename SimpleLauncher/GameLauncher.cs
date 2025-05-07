@@ -396,7 +396,6 @@ public static class GameLauncher
         // Construct the PSI
         var programLocation = selectedEmulatorConfig.EmulatorLocation;
         var parameters = selectedEmulatorConfig.EmulatorParameters;
-        var workingDirectory = Path.GetDirectoryName(programLocation);
         var arguments = $"{parameters} \"{filePath}\"";
 
         if (string.IsNullOrEmpty(programLocation))
@@ -412,28 +411,42 @@ public static class GameLauncher
             return;
         }
 
-        if (string.IsNullOrEmpty(workingDirectory))
+        string workingDirectory = null;
+        try
+        {
+            workingDirectory = Path.GetDirectoryName(programLocation);
+        }
+        catch (Exception ex)
         {
             // Notify developer
             var contextMessage = $"workingDirectory is null or empty: {workingDirectory}";
-            var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
         }
 
-        var psi = new ProcessStartInfo
+        ProcessStartInfo psi;
+        if (string.IsNullOrEmpty(workingDirectory))
         {
-            FileName = programLocation,
-            Arguments = arguments,
-            WorkingDirectory = workingDirectory,
-            UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true
-        };
+            psi = new ProcessStartInfo
+            {
+                FileName = programLocation,
+                Arguments = arguments,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+        }
+        else
+        {
+            psi = new ProcessStartInfo
+            {
+                FileName = programLocation,
+                Arguments = arguments,
+                WorkingDirectory = workingDirectory,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true
+            };
+        }
 
         using var process = new Process();
         process.StartInfo = psi;
