@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">卡帶</system:String>
     <system:String x:Key="Cartnotfound">找不到卡帶</system:String>
     <system:String x:Key="CheckForUpdate">檢查更新</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">為此系統選擇一個包含 'ROM' 或 'ISO' 檔案的資料夾。</system:String>
     <system:String x:Key="Chooseasystem">選擇一個系統</system:String>
     <system:String x:Key="ChooseASystemToAdd">選擇要新增的系統</system:String>
     <system:String x:Key="ChooseFolder">選擇資料夾</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">刪除遊戲</system:String>
     <system:String x:Key="DeleteSelectedSystem">刪除所選系統</system:String>
     <system:String x:Key="DEPSolution1">1. 以管理員權限運行“Simple Launcher”。</system:String>
-    <system:String x:Key="DEPSolution2">2. 在Windows安全設置中將模擬器添加到DEP例外列表。</system:String>
     <system:String x:Key="DEPSolution3">3. 嘗試使用與您的系統兼容的不同模擬器。</system:String>
     <system:String x:Key="DEPSolution4">4. 將您的模擬器更新到最新版本。</system:String>
     <system:String x:Key="DEPViolationError">在運行模擬器時發生了資料執行防護（DEP）違規，這是Windows的一個安全功能，防止應用程式從不可執行的記憶體區域執行代碼。這通常發生在較舊的模擬器或使用特定記憶體存取技術的模擬器中，現代安全系統將其標記為潛在危險。</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">請確保硬碟有足夠的空間來解壓檔案。</system:String>
     <system:String x:Key="Error">錯誤</system:String>
     <system:String x:Key="Errorduring">期間發生錯誤</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">錯誤：添加系統失敗。</system:String>
     <system:String x:Key="ErrorFailedtoextract">錯誤：提取失敗</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">載入 'easymode.xml' 檔案時發生錯誤。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">錯誤：沒有下載URL為</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">收藏夾</system:String>
     <system:String x:Key="FeelingLucky">感覺幸運</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少檔案 'appsettings.json'。</system:String>
-    <system:String x:Key="Filedeleted2">檔案已刪除</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在預期路徑中未找到。</system:String>
     <system:String x:Key="Flyer">傳單</system:String>
     <system:String x:Key="Flyernotfound">找不到傳單</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">全域搜尋</system:String>
     <system:String x:Key="GlobalStats">全域統計</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">請授予 'Simple Launcher' 管理員權限後重試。</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">授予 'Simple Launcher' 管理權限並重試。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">請賦予 'Simple Launcher' 管理員權限後重試。</system:String>
     <system:String x:Key="Green">綠色</system:String>
     <system:String x:Key="GridView">網格檢視</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">系統是基於MAME的嗎？</system:String>
     <system:String x:Key="isusedmultipletimes">已多次使用。每個模擬器名稱必須是唯一的。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">同時也建立了以下資料夾：</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">看起來“Simple Launcher”已安裝在受保護的資料夾（例如：Program Files）中，且沒有寫入權限。</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">程式需要此資料夾的寫入權限。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">不接受其他擴展名。</system:String>
     <system:String x:Key="Language">語言</system:String>
     <system:String x:Key="LanguageLoadingError">語言加載錯誤</system:String>

@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">کارٹ</system:String>
     <system:String x:Key="Cartnotfound">کارٹ نہیں ملا</system:String>
     <system:String x:Key="CheckForUpdate">تازہ کاری چیک کریں</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">اس نظام کے لیے 'ROM' یا 'ISO' کی حامل فولڈر منتخب کریں۔</system:String>
     <system:String x:Key="Chooseasystem">ایک نظام منتخب کریں</system:String>
     <system:String x:Key="ChooseASystemToAdd">شامل کرنے کے لیے سسٹم منتخب کریں</system:String>
     <system:String x:Key="ChooseFolder">فولڈر منتخب کریں</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">گیم حذف کریں</system:String>
     <system:String x:Key="DeleteSelectedSystem">منتخب شدہ سسٹم حذف کریں</system:String>
     <system:String x:Key="DEPSolution1">1. 'سمپل لانچر' کو ایڈمنسٹریٹر پرائویلیجز کے ساتھ چلائیں۔</system:String>
-    <system:String x:Key="DEPSolution2">2. ونڈوز سیکیورٹی سیٹنگز میں DEP استثنیات میں ایمولیٹر کو شامل کریں۔</system:String>
     <system:String x:Key="DEPSolution3">3. اپنے سسٹم کے ساتھ مطابقت رکھنے والا کوئی دوسرا ایمولیٹر استعمال کرنے کی کوشش کریں۔</system:String>
     <system:String x:Key="DEPSolution4">4. اپنے ایمولیٹر کو تازہ ترین ورژن میں اپڈیٹ کریں۔</system:String>
     <system:String x:Key="DEPViolationError">ایمولیٹر چلانے کے دوران ڈیٹا ایکزیکیوشن پریوینشن (DEP) کی خلاف ورزی ہوئی، جو ونڈوز کی ایک سیکیورٹی فیچر ہے جو ایپلیکیشنز کو غیر قابلِ عمل میموری کے علاقوں سے کوڈ چلانے سے روکتی ہے۔ یہ عموماً پرانے ایمولیٹرز میں یا ان میں ہوتا ہے جو مخصوص میموری ایکسیس تکنیکیں استعمال کرتے ہیں جنہیں جدید سیکیورٹی سسٹمز ممکنہ طور پر خطرناک سمجھتے ہیں۔</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">فائل کو نکالنے کے لیے ہارڈ ڈسک میں کافی جگہ ہونے کو یقینی بنائیں۔</system:String>
     <system:String x:Key="Error">خرابی</system:String>
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکامی۔</system:String>
     <system:String x:Key="ErrorFailedtoextract">خرابی: استخراج میں ناکامی</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' فائل لوڈ کرنے میں خرابی۔</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خرابی: کے لیے کوئی ڈاؤن لوڈ یو آر ایل نہیں</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">پسندیدہ</system:String>
     <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
-    <system:String x:Key="Filedeleted2">فائل حذف کر دی گئی</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">عالمی تلاش</system:String>
     <system:String x:Key="GlobalStats">عالمی اعدادوشمار</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' کو انتظامی اجازت دیں اور دوبارہ کوشش کریں۔</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">'Simple Launcher' کو انتظامی رسائی دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' کو منتظم کی رسائی دیں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="Green">سبز</system:String>
     <system:String x:Key="GridView">گرڈ ویو</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">یہ فولڈر بھی بنائے گئے ہیں:۔</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">لگتا ہے کہ 'Simple Launcher' کسی محفوظ فولڈر (جیسے Program Files) میں انسٹال ہے جس میں لکھنے کی اجازت نہیں ہے۔</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">اس فولڈر کے لیے لکھنے کی اجازت درکار ہے۔</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">دیگر ایکسٹینشن قبول نہیں ہوں گے۔</system:String>
     <system:String x:Key="Language">زبان</system:String>
     <system:String x:Key="LanguageLoadingError">زبان لوڈنگ کی خرابی</system:String>

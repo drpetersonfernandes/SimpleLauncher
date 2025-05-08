@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Kartrid</system:String>
     <system:String x:Key="Cartnotfound">Kartrid tidak ditemukan</system:String>
     <system:String x:Key="CheckForUpdate">Periksa Pembaruan</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini.</system:String>
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Pilih sistem yang akan ditambahkan</system:String>
     <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Hapus Game</system:String>
     <system:String x:Key="DeleteSelectedSystem">Hapus Sistem yang Dipilih</system:String>
     <system:String x:Key="DEPSolution1">1. Jalankan 'Simple Launcher' dengan hak istimewa administrator.</system:String>
-    <system:String x:Key="DEPSolution2">2. Tambahkan emulator ke pengecualian DEP di pengaturan Keamanan Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. Cobalah menggunakan emulator lain yang kompatibel dengan sistem Anda.</system:String>
     <system:String x:Key="DEPSolution4">4. Perbarui emulator Anda ke versi terbaru.</system:String>
     <system:String x:Key="DEPViolationError">Terjadi pelanggaran Pencegahan Eksekusi Data (DEP) saat menjalankan emulator, yang merupakan fitur keamanan Windows yang mencegah aplikasi menjalankan kode dari wilayah memori yang tidak dapat dieksekusi. Ini sering terjadi dengan emulator yang lebih lama atau yang menggunakan teknik akses memori tertentu yang ditandai oleh sistem keamanan modern sebagai berpotensi berbahaya.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Pastikan Anda memiliki cukup ruang di HDD untuk mengekstrak file.</system:String>
     <system:String x:Key="Error">Kesalahan</system:String>
     <system:String x:Key="Errorduring">Error selama</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Error: Gagal menambahkan sistem.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Gagal mengekstrak</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Kesalahan saat memuat file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: Tidak ada URL unduhan untuk</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Favorit</system:String>
     <system:String x:Key="FeelingLucky">Merasa Beruntung</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Fail 'appsettings.json' tidak ditemui.</system:String>
-    <system:String x:Key="Filedeleted2">File dihapus</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Pencarian Global</system:String>
     <system:String x:Key="GlobalStats">Statistik Global</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Berikan keizinan pentadbir kepada 'Simple Launcher' dan cuba lagi.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Berikan akses administratif kepada 'Simple Launcher' dan coba lagi.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Berikan akses administratif ke 'Simple Launcher' dan coba lagi.</system:String>
     <system:String x:Key="Green">Hijau</system:String>
     <system:String x:Key="GridView">Tampilan Kotak</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">digunakan beberapa kali. Setiap nama emulator harus unik.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Folder juga telah dibuat untuk</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">Sepertinya 'Simple Launcher' terinstal di folder yang dibatasi (misalnya, Program Files) tanpa izin menulis.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Aplikasi ini memerlukan izin menulis di foldernya.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Tidak akan menerima ekstensi lain.</system:String>
     <system:String x:Key="Language">Bahasa</system:String>
     <system:String x:Key="LanguageLoadingError">Ralat pemuatan bahasa</system:String>

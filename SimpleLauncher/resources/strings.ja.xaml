@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">カートリッジ</system:String>
     <system:String x:Key="Cartnotfound">カートリッジが見つかりません</system:String>
     <system:String x:Key="CheckForUpdate">アップデートを確認</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">このシステム用の 'ROMs' または 'ISOs' を含むフォルダーを選択してください。</system:String>
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
     <system:String x:Key="ChooseASystemToAdd">追加するシステムを選択</system:String>
     <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">ゲームを削除</system:String>
     <system:String x:Key="DeleteSelectedSystem">選択したシステムを削除</system:String>
     <system:String x:Key="DEPSolution1">1. 管理者権限で「Simple Launcher」を実行します。</system:String>
-    <system:String x:Key="DEPSolution2">2. Windowsセキュリティ設定でエミュレータをDEPの例外に追加します。</system:String>
     <system:String x:Key="DEPSolution3">3. システムと互換性のある別のエミュレータを使用してみてください。</system:String>
     <system:String x:Key="DEPSolution4">4. エミュレータを最新バージョンに更新します。</system:String>
     <system:String x:Key="DEPViolationError">エミュレータを実行中にデータ実行防止（DEP）の違反が発生しました。DEPは、アプリケーションが実行不可能なメモリ領域からコードを実行するのを防ぐWindowsのセキュリティ機能です。これは、古いエミュレータや特定のメモリアクセス技術を使用するエミュレータでよく発生し、最新のセキュリティシステムでは潜在的に危険と見なされます。</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">ファイルを展開するためのハードディスクの空き容量が十分にあることを確認してください。</system:String>
     <system:String x:Key="Error">エラー</system:String>
     <system:String x:Key="Errorduring">エラー中</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">エラー: システムの追加に失敗しました。</system:String>
     <system:String x:Key="ErrorFailedtoextract">エラー: 抽出に失敗しました</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' ファイルの読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">エラー: のダウンロードURLがありません</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">お気に入り</system:String>
     <system:String x:Key="FeelingLucky">フェイリングラッキー</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ファイルが見つかりません。</system:String>
-    <system:String x:Key="Filedeleted2">ファイルが削除されました</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">グローバル検索</system:String>
     <system:String x:Key="GlobalStats">グローバル統計</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">『Simple Launcher』に管理者権限を付与し、再試行してください。</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">'Simple Launcher'に管理者権限を付与し、再試行してください。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' に管理者権限を付与して、再試行してください。</system:String>
     <system:String x:Key="Green">緑</system:String>
     <system:String x:Key="GridView">グリッドビュー</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">システムはMAMEベースですか？</system:String>
     <system:String x:Key="isusedmultipletimes">は複数回使用されています。エミュレーター名は一意である必要があります。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">さらに次のフォルダーも作成されました:</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher' が書き込み権限のない制限されたフォルダー (例: Program Files) にインストールされているようです。</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">フォルダーへの書き込み権限が必要です。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">他の拡張子は受け付けません。</system:String>
     <system:String x:Key="Language">言語</system:String>
     <system:String x:Key="LanguageLoadingError">言語読み込みエラー</system:String>

@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Cart</system:String>
     <system:String x:Key="Cartnotfound">Cart not found</system:String>
     <system:String x:Key="CheckForUpdate">Check For Update</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Choose a folder with 'ROMs' or 'ISOs' for this system</system:String>
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
     <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Delete Game</system:String>
     <system:String x:Key="DeleteSelectedSystem">Delete Selected System</system:String>
     <system:String x:Key="DEPSolution1">1. Run 'Simple Launcher' with administrator privileges.</system:String>
-    <system:String x:Key="DEPSolution2">2. Add the emulator to DEP exceptions in Windows Security settings.</system:String>
     <system:String x:Key="DEPSolution3">3. Try using a different emulator compatible with your system.</system:String>
     <system:String x:Key="DEPSolution4">4. Update your emulator to the latest version.</system:String>
     <system:String x:Key="DEPViolationError">A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Ensure you have enough space in the HDD to extract the file.</system:String>
     <system:String x:Key="Error">Error</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Error: Failed to add system.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Failed to extract</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Error loading the file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: No download URL for</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Favorites</system:String>
     <system:String x:Key="FeelingLucky">Feeling Lucky</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">File 'appsettings.json' is missing.</system:String>
-    <system:String x:Key="Filedeleted2">File deleted</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' was not found in the expected path.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer not found</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Global Search</system:String>
     <system:String x:Key="GlobalStats">Global Stats</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Grant 'Simple Launcher' administrative access and try again.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Grant 'Simple Launcher' administrative access and try again.</system:String>
     <system:String x:Key="Green">Green</system:String>
     <system:String x:Key="GridView">Grid View</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">It also created folders for</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">It needs write access to its folder.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">It will not accept other extensions.</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="LanguageLoadingError">Language Loading Error</system:String>

@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Картридж</system:String>
     <system:String x:Key="Cartnotfound">Картридж не найден</system:String>
     <system:String x:Key="CheckForUpdate">Проверить обновления</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Выберите папку с файлами 'ROMs' или 'ISOs' для этой системы.</system:String>
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="ChooseASystemToAdd">Выберите систему для добавления</system:String>
     <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Удалить игру</system:String>
     <system:String x:Key="DeleteSelectedSystem">Удалить выбранную систему</system:String>
     <system:String x:Key="DEPSolution1">1. Запустите 'Simple Launcher' с правами администратора.</system:String>
-    <system:String x:Key="DEPSolution2">2. Добавьте эмулятор в исключения DEP в настройках безопасности Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. Попробуйте использовать другой эмулятор, совместимый с вашей системой.</system:String>
     <system:String x:Key="DEPSolution4">4. Обновите ваш эмулятор до последней версии.</system:String>
     <system:String x:Key="DEPViolationError">Во время запуска эмулятора произошло нарушение Защиты от выполнения данных (DEP), являющейся функцией безопасности Windows, предотвращающей выполнение приложениями кода из неисполняемых областей памяти. Это часто происходит с более старыми эмуляторами или с теми, которые используют специфические методы доступа к памяти, которые современные системы безопасности помечают как потенциально опасные.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Убедитесь, что на жестком диске достаточно места для извлечения файла.</system:String>
     <system:String x:Key="Error">Ошибка</system:String>
     <system:String x:Key="Errorduring">Ошибка во время</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Ошибка: Не удалось добавить систему.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Ошибка: Не удалось извлечь</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Ошибка при загрузке файла 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Ошибка: Нет URL для загрузки для</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Избранное</system:String>
     <system:String x:Key="FeelingLucky">Чувствую Удачу</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Файл 'appsettings.json' отсутствует.</system:String>
-    <system:String x:Key="Filedeleted2">Файл удален</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Глобальный поиск</system:String>
     <system:String x:Key="GlobalStats">Глобальная статистика</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Предоставьте 'Simple Launcher' права администратора и попробуйте снова.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Предоставьте 'Simple Launcher' административные права и попробуйте снова.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Предоставьте программе 'Simple Launcher' права администратора и попробуйте снова.</system:String>
     <system:String x:Key="Green">Зеленый</system:String>
     <system:String x:Key="GridView">Сеткой</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">используется несколько раз. Имя каждого эмулятора должно быть уникальным.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Также были созданы папки для:</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">Похоже, что 'Simple Launcher' установлен в защищенную папку (например, Program Files) без прав на запись.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Необходимы права на запись в папку приложения.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Другие расширения не принимаются.</system:String>
     <system:String x:Key="Language">Язык</system:String>
     <system:String x:Key="LanguageLoadingError">Ошибка загрузки языка</system:String>

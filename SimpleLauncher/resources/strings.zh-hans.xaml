@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">卡带</system:String>
     <system:String x:Key="Cartnotfound">未找到卡带</system:String>
     <system:String x:Key="CheckForUpdate">检查更新</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">为此系统选择一个包含 'ROM' 或 'ISO' 文件的文件夹。</system:String>
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="ChooseASystemToAdd">选择要添加的系统</system:String>
     <system:String x:Key="ChooseFolder">选择文件夹</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">删除游戏</system:String>
     <system:String x:Key="DeleteSelectedSystem">删除所选系统</system:String>
     <system:String x:Key="DEPSolution1">1. 以管理员权限运行“Simple Launcher”。</system:String>
-    <system:String x:Key="DEPSolution2">2. 在Windows安全设置中将模拟器添加到DEP例外列表。</system:String>
     <system:String x:Key="DEPSolution3">3. 尝试使用与您的系统兼容的不同模拟器。</system:String>
     <system:String x:Key="DEPSolution4">4. 将您的模拟器更新到最新版本。</system:String>
     <system:String x:Key="DEPViolationError">运行模拟器时发生了数据执行防护（DEP）违规，这是Windows的一个安全功能，防止应用程序从不可执行的内存区域执行代码。这通常发生在较旧的模拟器或使用特定内存访问技术的模拟器中，现代安全系统将其标记为潜在危险。</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">请确保硬盘有足够的空间来解压文件。</system:String>
     <system:String x:Key="Error">错误</system:String>
     <system:String x:Key="Errorduring">期间发生错误</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">错误：添加系统失败。</system:String>
     <system:String x:Key="ErrorFailedtoextract">错误：提取失败</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">加载 'easymode.xml' 文件时出错。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">错误：没有下载URL为</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">收藏夹</system:String>
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
-    <system:String x:Key="Filedeleted2">文件已删除</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">全局搜索</system:String>
     <system:String x:Key="GlobalStats">全局统计</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">请授予 'Simple Launcher' 管理员权限并重试。</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">授予 'Simple Launcher' 管理权限并重试。</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">请给予 'Simple Launcher' 管理员权限后重试。</system:String>
     <system:String x:Key="Green">绿色</system:String>
     <system:String x:Key="GridView">网格视图</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
     <system:String x:Key="isusedmultipletimes">已被多次使用。每个模拟器名称必须是唯一的。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">它还创建了以下文件夹：</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">看起来“Simple Launcher”已安装在受保护的文件夹（例如：Program Files）中，且无写入权限。</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">程序需要对此文件夹的写入权限。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">不接受其他扩展名。</system:String>
     <system:String x:Key="Language">语言</system:String>
     <system:String x:Key="LanguageLoadingError">语言加载错误</system:String>

@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Không tìm thấy cartridge</system:String>
     <system:String x:Key="CheckForUpdate">Kiểm tra cập nhật</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Chọn một thư mục chứa các tệp 'ROM' hoặc 'ISO' cho hệ thống này.</system:String>
     <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
     <system:String x:Key="ChooseASystemToAdd">Chọn hệ thống để thêm</system:String>
     <system:String x:Key="ChooseFolder">Chọn thư mục</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Xóa trò chơi</system:String>
     <system:String x:Key="DeleteSelectedSystem">Xóa hệ thống đã chọn</system:String>
     <system:String x:Key="DEPSolution1">1. Chạy 'Simple Launcher' với quyền quản trị viên.</system:String>
-    <system:String x:Key="DEPSolution2">2. Thêm trình giả lập vào các ngoại lệ DEP trong cài đặt Bảo mật Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. Thử sử dụng một trình giả lập khác tương thích với hệ thống của bạn.</system:String>
     <system:String x:Key="DEPSolution4">4. Cập nhật trình giả lập của bạn lên phiên bản mới nhất.</system:String>
     <system:String x:Key="DEPViolationError">Đã xảy ra vi phạm Ngăn Chặn Thực Thi Dữ Liệu (DEP) trong khi chạy trình giả lập, đây là một tính năng bảo mật của Windows ngăn các ứng dụng thực thi mã từ các vùng bộ nhớ không có thể thực thi. Điều này thường xảy ra với các trình giả lập cũ hơn hoặc các trình giả lập sử dụng các kỹ thuật truy cập bộ nhớ cụ thể mà các hệ thống bảo mật hiện đại đánh dấu là tiềm ẩn nguy hiểm.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Đảm bảo bạn có đủ dung lượng ổ cứng để giải nén tập tin.</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
     <system:String x:Key="Errorduring">Lỗi trong khi</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Lỗi: Thêm hệ thống thất bại.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Lỗi: Giải nén thất bại</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Lỗi khi tải tệp 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Lỗi: Không có URL tải xuống cho</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Yêu thích</system:String>
     <system:String x:Key="FeelingLucky">Cảm thấy May Mắn</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Thiếu tệp 'appsettings.json'.</system:String>
-    <system:String x:Key="Filedeleted2">Tệp đã bị xóa</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
     <system:String x:Key="Flyernotfound">Không tìm thấy tờ rơi</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Tìm kiếm toàn cầu</system:String>
     <system:String x:Key="GlobalStats">Thống kê toàn cầu</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Hãy cấp quyền quản trị cho 'Simple Launcher' và thử lại.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Cấp quyền quản trị cho 'Simple Launcher' và thử lại.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Cấp quyền quản trị viên cho 'Simple Launcher' và thử lại.</system:String>
     <system:String x:Key="Green">Xanh lá</system:String>
     <system:String x:Key="GridView">Dạng lưới</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Hệ thống có dựa trên MAME không?</system:String>
     <system:String x:Key="isusedmultipletimes">được sử dụng nhiều lần. Mỗi tên trình giả lập phải là duy nhất.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Nó cũng đã tạo các thư mục cho:</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">Có vẻ như 'Simple Launcher' được cài đặt trong một thư mục được bảo vệ (ví dụ: Program Files) mà không có quyền ghi.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Ứng dụng cần quyền ghi vào thư mục của nó.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Không chấp nhận các phần mở rộng khác.</system:String>
     <system:String x:Key="Language">Ngôn ngữ</system:String>
     <system:String x:Key="LanguageLoadingError">Lỗi tải ngôn ngữ</system:String>

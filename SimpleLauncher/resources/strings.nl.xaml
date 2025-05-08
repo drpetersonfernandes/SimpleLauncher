@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Cartridge niet gevonden</system:String>
     <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Kies een map met 'ROMs' of 'ISO's voor dit systeem.</system:String>
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecteer een systeem om toe te voegen</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Verwijder spel</system:String>
     <system:String x:Key="DeleteSelectedSystem">Geselecteerd systeem verwijderen</system:String>
     <system:String x:Key="DEPSolution1">1. Voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
-    <system:String x:Key="DEPSolution2">2. Voeg de emulator toe aan DEP-uitzonderingen in de Windows-beveiligingsinstellingen.</system:String>
     <system:String x:Key="DEPSolution3">3. Probeer een andere emulator te gebruiken die compatibel is met je systeem.</system:String>
     <system:String x:Key="DEPSolution4">4. Werk je emulator bij naar de nieuwste versie.</system:String>
     <system:String x:Key="DEPViolationError">Er is een overtreding van Data Execution Prevention (DEP) opgetreden tijdens het uitvoeren van de emulator, een beveiligingsfunctie van Windows die voorkomt dat applicaties code uitvoeren vanuit niet-uitvoerbare geheugengebieden. Dit gebeurt vaak bij oudere emulators of emulators die specifieke geheugentoegangstechnieken gebruiken die moderne beveiligingssystemen als potentieel gevaarlijk beschouwen.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Zorg ervoor dat u voldoende ruimte op de harde schijf heeft om het bestand uit te pakken.</system:String>
     <system:String x:Key="Error">Fout</system:String>
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Fout: Extractie mislukt</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Fout bij het laden van het bestand 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Favorieten</system:String>
     <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Het bestand 'appsettings.json' ontbreekt.</system:String>
-    <system:String x:Key="Filedeleted2">Bestand verwijderd</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Globaal zoeken</system:String>
     <system:String x:Key="GlobalStats">Globale statistieken</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Geef 'Simple Launcher' administratieve toegang en probeer het opnieuw.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Geef 'Simple Launcher' beheerdersrechten en probeer het opnieuw.</system:String>
     <system:String x:Key="Green">Groen</system:String>
     <system:String x:Key="GridView">Rasterweergave</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beveiligde map (bijvoorbeeld Program Files) zonder schrijfrechten.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Het heeft schrijfrechten nodig voor zijn map.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Andere extensies worden niet geaccepteerd.</system:String>
     <system:String x:Key="Language">Taal</system:String>
     <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>

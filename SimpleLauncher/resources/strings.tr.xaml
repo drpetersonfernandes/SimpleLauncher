@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Kartuş</system:String>
     <system:String x:Key="Cartnotfound">Kartuş bulunamadı</system:String>
     <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Bu sistem için 'ROM' veya 'ISO' içeren bir klasör seçin.</system:String>
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="ChooseASystemToAdd">Eklemek için bir sistem seçin</system:String>
     <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Oyunu Sil</system:String>
     <system:String x:Key="DeleteSelectedSystem">Seçilen sistemi sil</system:String>
     <system:String x:Key="DEPSolution1">1. 'Simple Launcher'ı yönetici ayrıcalıklarıyla çalıştırın.</system:String>
-    <system:String x:Key="DEPSolution2">2. Emülatörü Windows Güvenlik ayarlarında DEP istisnalarına ekleyin.</system:String>
     <system:String x:Key="DEPSolution3">3. Sisteminizle uyumlu farklı bir emülatör kullanmayı deneyin.</system:String>
     <system:String x:Key="DEPSolution4">4. Emülatörünüzü en son sürüme güncelleyin.</system:String>
     <system:String x:Key="DEPViolationError">Emülatörü çalıştırırken Veri Yürütme Önleme (DEP) ihlali meydana geldi. DEP, uygulamaların yürütülemez bellek bölgelerinden kod çalıştırmasını engelleyen bir Windows güvenlik özelliğidir. Bu genellikle eski emülatörlerde veya modern güvenlik sistemlerinin potansiyel olarak tehlikeli olarak işaretlediği belirli bellek erişim tekniklerini kullanan emülatörlerde meydana gelir.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Dosyayı çıkarmak için sabit diskte yeterli alan olduğundan emin olun.</system:String>
     <system:String x:Key="Error">Hata</system:String>
     <system:String x:Key="Errorduring">sırasında hata</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistemin eklenememesi.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Hata: Çıkartma başarısız</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' dosyasını yüklerken hata oluştu.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Hata: için indirme URL'si yok</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Favoriler</system:String>
     <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
-    <system:String x:Key="Filedeleted2">Dosya silindi</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Genel Arama</system:String>
     <system:String x:Key="GlobalStats">Genel İstatistikler</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher'a yönetici izinleri verin ve tekrar deneyin.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher'a yönetici erişimi verin ve tekrar deneyin.</system:String>
     <system:String x:Key="Green">Yeşil</system:String>
     <system:String x:Key="GridView">Izgara Görünümü</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
     <system:String x:Key="isusedmultipletimes">birden fazla kez kullanılıyor. Her emülatör adı benzersiz olmalıdır.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Ayrıca şu klasörler de oluşturuldu:</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">'Simple Launcher' programının Program Files gibi korumalı bir klasöre kurulu olduğu ve yazma izni olmadığı görünüyor.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Bu programın klasörü için yazma iznine ihtiyacı var.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Diğer uzantılar kabul edilmez.</system:String>
     <system:String x:Key="Language">Dil</system:String>
     <system:String x:Key="LanguageLoadingError">Dil Yükleme Hatası</system:String>

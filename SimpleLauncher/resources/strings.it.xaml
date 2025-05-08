@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">Cartuccia</system:String>
     <system:String x:Key="Cartnotfound">Cartuccia non trovata</system:String>
     <system:String x:Key="CheckForUpdate">Controlla aggiornamenti</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">Seleziona una cartella con 'ROMs' o 'ISOs' per questo sistema.</system:String>
     <system:String x:Key="Chooseasystem">Scegli un sistema</system:String>
     <system:String x:Key="ChooseASystemToAdd">Seleziona un sistema da aggiungere</system:String>
     <system:String x:Key="ChooseFolder">Scegli cartella</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">Elimina gioco</system:String>
     <system:String x:Key="DeleteSelectedSystem">Elimina il sistema selezionato</system:String>
     <system:String x:Key="DEPSolution1">1. Esegui 'Simple Launcher' con privilegi di amministratore.</system:String>
-    <system:String x:Key="DEPSolution2">2. Aggiungi l'emulatore alle eccezioni DEP nelle impostazioni di sicurezza di Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. Prova a utilizzare un emulatore diverso compatibile con il tuo sistema.</system:String>
     <system:String x:Key="DEPSolution4">4. Aggiorna il tuo emulatore all'ultima versione.</system:String>
     <system:String x:Key="DEPViolationError">Si è verificata una violazione della Prevenzione dell'Esecuzione dei Dati (DEP) durante l'esecuzione dell'emulatore, una funzionalità di sicurezza di Windows che impedisce alle applicazioni di eseguire codice da regioni di memoria non eseguibili. Questo accade comunemente con emulatori più vecchi o con quelli che utilizzano tecniche di accesso alla memoria specifiche che i moderni sistemi di sicurezza segnalano come potenzialmente pericolose.</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Assicurati di avere spazio sufficiente nell'HDD per estrarre il file.</system:String>
     <system:String x:Key="Error">Errore</system:String>
     <system:String x:Key="Errorduring">Errore durante</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">Errore: Impossibile aggiungere il sistema.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Errore: Estrazione fallita</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Errore durante il caricamento del file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Errore: Nessun URL di download per</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">Preferiti</system:String>
     <system:String x:Key="FeelingLucky">Sentirsi Fortunato</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Il file 'appsettings.json' è mancante.</system:String>
-    <system:String x:Key="Filedeleted2">File eliminato</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' non è stato trovato nel percorso previsto.</system:String>
     <system:String x:Key="Flyer">Volantino</system:String>
     <system:String x:Key="Flyernotfound">Volantino non trovato</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">Ricerca globale</system:String>
     <system:String x:Key="GlobalStats">Statistiche globali</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">Concedi i permessi di amministratore a 'Simple Launcher' e riprova.</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">Concedi accesso amministrativo a 'Simple Launcher' e riprova.</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">Concedi l'accesso amministrativo a 'Simple Launcher' e riprova.</system:String>
     <system:String x:Key="Green">Verde</system:String>
     <system:String x:Key="GridView">Vista a griglia</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">Il sistema è basato su MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">è utilizzato più volte. Ogni nome dell'emulatore deve essere univoco.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Ha anche creato cartelle per</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">Sembra che 'Simple Launcher' sia installato in una cartella protetta (come Program Files) senza i permessi di scrittura.</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">Ha bisogno di permessi di scrittura per la propria cartella.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Non accetterà altre estensioni.</system:String>
     <system:String x:Key="Language">Lingua</system:String>
     <system:String x:Key="LanguageLoadingError">Errore nel caricamento della lingua</system:String>

@@ -74,7 +74,6 @@
     <system:String x:Key="Cart">कार्ट</system:String>
     <system:String x:Key="Cartnotfound">कार्ट नहीं मिला</system:String>
     <system:String x:Key="CheckForUpdate">अपडेट की जांच करें</system:String>
-    <system:String x:Key="ChooseaFolderwithROMsorISOs">इस सिस्टम के लिए 'ROMs' या 'ISOs' के साथ एक फ़ोल्डर चुनें।</system:String>
     <system:String x:Key="Chooseasystem">एक सिस्टम चुनें</system:String>
     <system:String x:Key="ChooseASystemToAdd">जोड़ने के लिए एक सिस्टम चुनें</system:String>
     <system:String x:Key="ChooseFolder">फ़ोल्डर चुनें</system:String>
@@ -106,7 +105,6 @@
     <system:String x:Key="DeleteGame">खेल हटाएं</system:String>
     <system:String x:Key="DeleteSelectedSystem">चयनित सिस्टम हटाएं</system:String>
     <system:String x:Key="DEPSolution1">1. 'Simple Launcher' को व्यवस्थापक विशेषाधिकारों के साथ चलाएं।</system:String>
-    <system:String x:Key="DEPSolution2">2. विंडोज सुरक्षा सेटिंग्स में DEP अपवादों में एमुलेटर जोड़ें।</system:String>
     <system:String x:Key="DEPSolution3">3. अपने सिस्टम के साथ संगत किसी अन्य एमुलेटर का उपयोग करने का प्रयास करें।</system:String>
     <system:String x:Key="DEPSolution4">4. अपने एमुलेटर को नवीनतम संस्करण में अपडेट करें।</system:String>
     <system:String x:Key="DEPViolationError">एमुलेटर चलाते समय डेटा निष्पादन रोकथाम (DEP) का उल्लंघन हुआ, जो विंडोज की एक सुरक्षा सुविधा है जो अनुप्रयोगों को गैर-निष्पादन योग्य मेमोरी क्षेत्रों से कोड निष्पादित करने से रोकती है। यह आमतौर पर पुराने एमुलेटर या उन एमुलेटरों के साथ होता है जो विशिष्ट मेमोरी एक्सेस तकनीकों का उपयोग करते हैं जिन्हें आधुनिक सुरक्षा प्रणाली संभावित खतरनाक के रूप में चिह्नित करती हैं।</system:String>
@@ -179,7 +177,6 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">फ़ाइल को निकालने के लिए हार्ड डिस्क में पर्याप्त जगह सुनिश्चित करें।</system:String>
     <system:String x:Key="Error">त्रुटि</system:String>
     <system:String x:Key="Errorduring">के दौरान त्रुटि</system:String>
-    <system:String x:Key="ErrorFailedtoaddsystem">त्रुटि: सिस्टम जोड़ने में विफल रहा।</system:String>
     <system:String x:Key="ErrorFailedtoextract">त्रुटि: निकालने में विफल</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' फ़ाइल लोड करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">त्रुटि: के लिए कोई डाउनलोड URL नहीं है</system:String>
@@ -211,7 +208,6 @@
     <system:String x:Key="Favorites">पसंदीदा</system:String>
     <system:String x:Key="FeelingLucky">भाग्यशाली महसूस हो रहा है</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' फ़ाइल अनुपलब्ध है।</system:String>
-    <system:String x:Key="Filedeleted2">फाइल हटा दी गई</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' अपेक्षित पथ में नहीं मिला।</system:String>
     <system:String x:Key="Flyer">फ्लायर</system:String>
     <system:String x:Key="Flyernotfound">फ्लायर नहीं मिला</system:String>
@@ -223,7 +219,6 @@
     <system:String x:Key="GlobalSearch">वैश्विक खोज</system:String>
     <system:String x:Key="GlobalStats">वैश्विक सांख्यिकी</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrative">'Simple Launcher' को प्रशासनिक अनुमतियाँ दें और पुनः प्रयास करें।</system:String>
-    <system:String x:Key="GrantSimpleLauncheradministrative2">'Simple Launcher' को प्रशासनिक पहुँच प्रदान करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="GrantSimpleLauncheradministrativeaccess">'Simple Launcher' को प्रशासनिक पहुंच प्रदान करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="Green">हरा</system:String>
     <system:String x:Key="GridView">ग्रिड दृश्य</system:String>
@@ -261,8 +256,6 @@
     <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
     <system:String x:Key="isusedmultipletimes">कई बार उपयोग किया गया है। प्रत्येक एमुलेटर का नाम अद्वितीय होना चाहिए।</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">इसने अतिरिक्त फ़ोल्डर भी बनाए</system:String>
-    <system:String x:Key="ItlookslikeSimpleLauncheris2">ऐसा लगता है कि 'Simple Launcher' एक प्रतिबंधित फ़ोल्डर (जैसे Program Files) में इंस्टॉल है, जहां लिखने की अनुमति नहीं है।</system:String>
-    <system:String x:Key="Itneedswriteaccesstoitsfolder2">इसे अपने फ़ोल्डर पर लिखने की अनुमति चाहिए।</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">यह अन्य एक्सटेंशन स्वीकार नहीं करेगा।</system:String>
     <system:String x:Key="Language">भाषा</system:String>
     <system:String x:Key="LanguageLoadingError">भाषा लोड करने में त्रुटि</system:String>
