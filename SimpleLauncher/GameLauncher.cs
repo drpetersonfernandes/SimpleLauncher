@@ -635,7 +635,7 @@ public static class GameLauncher
         if (process.ExitCode == 0) return Task.CompletedTask;
 
         // Notify developer
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError)
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"User was notified.\n\n" +
@@ -661,7 +661,7 @@ public static class GameLauncher
         }
 
         // Notify the user only if he wants
-        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
         }
@@ -674,17 +674,33 @@ public static class GameLauncher
         if (process.ExitCode != -1073741819) return Task.FromResult(false);
 
         // Notify developer
-        var contextMessage = $"There was an memory access violation error running the emulator. User was not notified.\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        {
+            var contextMessage = $"There was an memory access violation error running the emulator.\n" +
+                                 $"User was notified.\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
+        else
+        {
+            var contextMessage = $"There was an memory access violation error running the emulator.\n" +
+                                 $"User was not notified.\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
 
         // Notify the user only if he wants
-        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.CheckForMemoryAccessViolation();
         }
@@ -697,17 +713,33 @@ public static class GameLauncher
         if (process.ExitCode != -1073740791) return Task.FromResult(false);
 
         // Notify developer
-        var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
-                             $"Exit code: {process.ExitCode}\n" +
-                             $"Emulator: {psi.FileName}\n" +
-                             $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        {
+            var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
+                                 $"User was notified.\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
+        else
+        {
+            var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
+                                 $"User was not notified.\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n" +
+                                 $"Calling parameters: {psi.Arguments}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        }
 
         // Notify the user only if he wants
-        if (emulatorConfig?.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
             MessageBoxLibrary.DepViolationMessageBox();
         }

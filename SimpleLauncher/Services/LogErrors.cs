@@ -156,10 +156,15 @@ public static class LogErrors
             // Send the request
             // HttpClient headers are set in LoadConfiguration when _isApiLoggingEnabled is true
             using var response = await HttpClient.PostAsync(BugReportApiUrl, stringContent);
+
+            Console.WriteLine(@"The LogError was successfully sent. API response: " + response.StatusCode);
+
             return response.IsSuccessStatusCode;
         }
-        catch (Exception)
+        catch (Exception ex)
         {
+            Console.WriteLine(@"There was an error sending the LogError: " + ex.Message);
+
             // If sending fails, don't disable logging, just return false
             return false;
         }
