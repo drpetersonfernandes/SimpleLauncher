@@ -197,7 +197,7 @@ public static partial class UpdateChecker
     {
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
         // Normalize the destination root once for comparison
-        var destinationRootFullPath = Path.GetFullPath(destinationPath);
+        var destinationRootFullPath = PathHelper.ResolveRelativeToCurrentDirectory(destinationPath);
 
         foreach (var fileName in filesToExtract)
         {
@@ -206,7 +206,7 @@ public static partial class UpdateChecker
             {
                 var destinationFile = Path.Combine(destinationPath, fileName);
                 // Normalize the destination file path
-                var destinationFileFullPath = Path.GetFullPath(destinationFile);
+                var destinationFileFullPath = PathHelper.ResolveRelativeToCurrentDirectory(destinationFile);
 
                 // Ensure the normalized destination file path starts with the normalized root
                 if (!destinationFileFullPath.StartsWith(destinationRootFullPath + Path.DirectorySeparatorChar,
@@ -221,7 +221,9 @@ public static partial class UpdateChecker
                 // Create directory if needed
                 var directory = Path.GetDirectoryName(destinationFileFullPath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                    Directory.CreateDirectory(directory);
+                {
+                    IoOperations.CreateDirectory(directory);
+                }
 
                 logWindow.Log($"Extracting {fileName} to {destinationFileFullPath}");
                 using var entryStream = entry.Open();

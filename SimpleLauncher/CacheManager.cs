@@ -22,17 +22,13 @@ public class CacheManager
     private static void EnsureCacheDirectoryExists()
     {
         var cacheDir = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, CacheDirectory);
-        if (Directory.Exists(cacheDir)) return;
-
-        try
+        if (Directory.Exists(cacheDir))
+        {
+            return;
+        }
+        else
         {
             IoOperations.CreateDirectory(cacheDir);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error creating cache directory. User was not notified.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -49,7 +45,9 @@ public class CacheManager
         var cacheFilePath = GetCacheFilePath(systemName);
 
         if (!File.Exists(cacheFilePath))
+        {
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
+        }
 
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
 

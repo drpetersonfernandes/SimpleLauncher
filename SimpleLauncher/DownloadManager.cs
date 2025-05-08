@@ -264,6 +264,7 @@ public class DownloadManager : IDisposable
 
                 // Clean up failed download
                 DeleteFiles.TryDeleteFile(downloadFilePath);
+
                 return null;
             }
         }
@@ -559,6 +560,7 @@ public class DownloadManager : IDisposable
                 ProgressPercentage = 0,
                 StatusMessage = GetResourceString("ErrorFilenotfoundontheserver", "Error: File not found on the server.")
             });
+
             throw;
         }
         catch (HttpRequestException ex)
@@ -572,6 +574,7 @@ public class DownloadManager : IDisposable
                 ProgressPercentage = 0,
                 StatusMessage = $"{GetResourceString("Networkerror", "Network error")}: {ex.Message}"
             });
+
             throw;
         }
         catch (IOException ex)
@@ -585,6 +588,7 @@ public class DownloadManager : IDisposable
                 ProgressPercentage = 0,
                 StatusMessage = $"{GetResourceString("Fileerror", "File error")}: {ex.Message}"
             });
+
             throw;
         }
         catch (TaskCanceledException ex)
@@ -626,6 +630,7 @@ public class DownloadManager : IDisposable
                 ProgressPercentage = 0,
                 StatusMessage = $"{GetResourceString("Error", "Error")}: {ex.Message}"
             });
+
             throw;
         }
     }

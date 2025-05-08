@@ -279,13 +279,6 @@ public partial class DownloadImagePackWindow : IDisposable
         DownloadExtrasButton.IsEnabled = true;
     }
 
-    private void CloseWindowRoutine(object sender, EventArgs e)
-    {
-        // Empty EasyMode Config
-        _manager = null;
-        Dispose();
-    }
-
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
         Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
@@ -299,6 +292,13 @@ public partial class DownloadImagePackWindow : IDisposable
 
         // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
+    }
+
+    private void CloseWindowRoutine(object sender, EventArgs e)
+    {
+        // Empty EasyMode Config
+        _manager = null;
+        Dispose();
     }
 
     protected virtual void Dispose(bool disposing)

@@ -119,16 +119,16 @@ public static class LogErrors
                     {
                         DeleteFiles.TryDeleteFile(errorLogPath);
                     }
-                    catch (Exception)
+                    catch (Exception ex2)
                     {
-                        // ignore
+                        Console.WriteLine(@"There was an error deleting the ErrorLog: " + ex2.Message);
                     }
                 }
             }
         }
-        catch (Exception)
+        catch (Exception ex3)
         {
-            // Ignore any exceptions raised during logging to avoid interrupting the main flow
+            Console.WriteLine(@"There was an error sending the ErrorLog: " + ex3.Message);
         }
     }
 
@@ -157,13 +157,13 @@ public static class LogErrors
             // HttpClient headers are set in LoadConfiguration when _isApiLoggingEnabled is true
             using var response = await HttpClient.PostAsync(BugReportApiUrl, stringContent);
 
-            Console.WriteLine(@"The LogError was successfully sent. API response: " + response.StatusCode);
+            Console.WriteLine(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(@"There was an error sending the LogError: " + ex.Message);
+            Console.WriteLine(@"There was an error sending the ErrorLog: " + ex.Message);
 
             // If sending fails, don't disable logging, just return false
             return false;
@@ -199,17 +199,14 @@ public static class LogErrors
         {
             File.AppendAllText(criticalLogPath, errorMessage);
         }
-        catch (Exception)
+        catch (Exception ex2)
         {
-            // If even local logging fails, there's not much else we can do here.
+            Console.WriteLine(@"There was an error writing the local ErrorLog: " + ex2.Message);
         }
     }
 
     public static void DisposeHttpClient()
     {
         HttpClient?.Dispose();
-        // Do NOT set HttpClient to null if you might need it again later.
-        // However, given it's static and tied to app lifetime, disposing on exit is fine.
-        // If it needs to be re-initialized, the LoadConfiguration/InitializeHttpClient logic would handle it.
     }
 }
