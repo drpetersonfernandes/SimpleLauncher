@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">尝试启动 'FindRomCover.exe' 时发生错误。</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">一个开源的仿真器前端</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher的另一个实例已在运行。</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">“Simple Launcher”加载其 API 配置时遇到错误。</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">API 配置错误</system:String>
     <system:String x:Key="ApplicationFolder">应用程序文件夹：</system:String>
     <system:String x:Key="areyourunningasecondinstance">您是否正在运行第二个 'Simple Launcher' 实例？如果是，请一次只打开一个实例，否则可能会遇到问题。</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">确定要删除此文件吗？</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">卡带</system:String>
     <system:String x:Key="Cartnotfound">未找到卡带</system:String>
     <system:String x:Key="CheckForUpdate">检查更新</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">为该系统选择一个包含“ROMs”或“ISOs”的文件夹</system:String>
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="ChooseASystemToAdd">选择要添加的系统</system:String>
     <system:String x:Key="ChooseFolder">选择文件夹</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">点击上方的字母按钮查看游戏</system:String>
     <system:String x:Key="Close">关闭</system:String>
     <system:String x:Key="Cobalt">钴蓝色</system:String>
+    <system:String x:Key="ConfigEditHint">您可以稍后编辑此系统配置以修复这些问题。</system:String>
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="ConfirmDeletion">确认删除</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">无法在提取文件夹中找到具有 '提取后执行的扩展名' 的文件。</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">删除游戏</system:String>
     <system:String x:Key="DeleteSelectedSystem">删除所选系统</system:String>
     <system:String x:Key="DEPSolution1">1. 以管理员权限运行“Simple Launcher”。</system:String>
+    <system:String x:Key="DEPSolution2">2. 在 Windows 安全设置中将模拟器添加到 DEP 例外。</system:String>
     <system:String x:Key="DEPSolution3">3. 尝试使用与您的系统兼容的不同模拟器。</system:String>
     <system:String x:Key="DEPSolution4">4. 将您的模拟器更新到最新版本。</system:String>
     <system:String x:Key="DEPViolationError">运行模拟器时发生了数据执行防护（DEP）违规，这是Windows的一个安全功能，防止应用程序从不可执行的内存区域执行代码。这通常发生在较旧的模拟器或使用特定内存访问技术的模拟器中，现代安全系统将其标记为潜在危险。</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">请确保硬盘有足够的空间来解压文件。</system:String>
     <system:String x:Key="Error">错误</system:String>
     <system:String x:Key="Errorduring">期间发生错误</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">错误：添加系统失败。</system:String>
     <system:String x:Key="ErrorFailedtoextract">错误：提取失败</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">加载 'easymode.xml' 文件时出错。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">错误：没有下载URL为</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">收藏夹</system:String>
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
+    <system:String x:Key="Filedeleted">文件已删除</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">无效的解压文件夹</system:String>
     <system:String x:Key="InvalidInputMessageText">请输入0.0到1.0之间的有效数字作为阈值。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">无效输入</system:String>
+    <system:String x:Key="InvalidPathsLabel">• 参数中的以下路径可能无效：</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系统配置无效</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
     <system:String x:Key="isminimizedtothetray">已最小化到托盘。</system:String>
+    <system:String x:Key="IssuesWithEmulator">模拟器配置存在问题：</system:String>
     <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
     <system:String x:Key="isusedmultipletimes">已被多次使用。每个模拟器名称必须是唯一的。</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">它还创建了以下文件夹：</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">看起来“Simple Launcher”安装在受限文件夹（例如 Program Files）中，没有写入权限。</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">它需要对其文件夹的写入权限。</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">不接受其他扩展名。</system:String>
     <system:String x:Key="Language">语言</system:String>
     <system:String x:Key="LanguageLoadingError">语言加载错误</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">洋红色</system:String>
     <system:String x:Key="Manual">手册</system:String>
     <system:String x:Key="Manualnotfound">找不到手册</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">请手动重新安装“Simple Launcher”以解决此问题。</system:String>
     <system:String x:Key="Mauve">淡紫色</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">可能是您的互联网连接有问题，或者 GitHub 服务器当前不可用。</system:String>
     <system:String x:Key="MemoryAccessViolationError">运行模拟器时发生了内存访问违规。这种情况会在程序尝试访问它没有权限访问的内存或已经释放/不存在的内存时发生。这在直接操作内存以实现其他系统准确模拟的模拟器中很常见。</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. 检查您的杀毒软件是否阻止了模拟器的内存操作。</system:String>
     <system:String x:Key="MemorySolution3">3. 将您的模拟器更新到最新版本，最新版本可能已修复内存处理问题。</system:String>
     <system:String x:Key="MemorySolution4">4. 如果可用，尝试调整模拟器配置中的内存分配设置。</system:String>
+    <system:String x:Key="MissingRequiredFiles">缺少必需文件</system:String>
     <system:String x:Key="Name">姓名</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因为提供了相关数据。</system:String>
     <system:String x:Key="NewThresholdLabel">新阈值：</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">请选择一个系统</system:String>
     <system:String x:Key="Nosystemnameprovided">未提供系统名称。</system:String>
     <system:String x:Key="Nosystemselected">未选择任何系统</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">没有足够的磁盘空间进行提取。</system:String>
     <system:String x:Key="Notextavailable">无可用文本。</system:String>
     <system:String x:Key="Noupdateavailable">没有可用的更新</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">文件“helpuser.xml”中未找到有效的系统。</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">打开视频链接</system:String>
     <system:String x:Key="Options">选项</system:String>
     <system:String x:Key="Orange">橙色</system:String>
-    <system:String x:Key="OrganizeSystemImages">整理系统图像</system:String>
     <system:String x:Key="outof">共计</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...还有 {0} 个</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">潜在的无效路径：</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">模拟器参数中的某些路径似乎无效或缺失。请重新检查这些字段。</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">您仍然可以保存，但这些路径在启动游戏时可能会导致问题。</system:String>
+    <system:String x:Key="PathValidationWarningCaption">路径验证警告</system:String>
     <system:String x:Key="PCB">电路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">未找到电路板（PCB）</system:String>
     <system:String x:Key="Pink">粉色</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">请修正它们以继续。</system:String>
     <system:String x:Key="Pleasefixthisfield">请修正此字段。</system:String>
     <system:String x:Key="PleasegotoEditSystem">请前往 '编辑系统 - 高级模式' 来编辑此系统。</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">请将应用程序文件夹移动到允许写入的路径，例如“文档”文件夹。</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">请将应用程序文件夹移动到可写入位置，例如“文档”文件夹。</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">请手动重新安装‘Simple Launcher’以解决问题。</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">请手动重新安装'Simple Launcher'以解决问题。</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">请重新启动 'Simple Launcher'。</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">请选择一个收藏进行删除。</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">请选择一个游戏进行启动。</system:String>
+    <system:String x:Key="Pleaseselectaitem">请选择一个项目</system:String>
     <system:String x:Key="PleaseselectanImagePack">请选择一个图像包</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">请在搜索之前选择一个系统。</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">使用“感觉幸运”功能前，请先选择一个系统。</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">请稍候</system:String>
     <system:String x:Key="Preparingtodownload">准备下载</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">您是否仍要继续启动？</system:String>
     <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
     <system:String x:Key="ProgressBar">进度条</system:String>
     <system:String x:Key="Purple">紫色</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">将此系统的封面图片放入</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">将此系统的ROM或ISO文件放入</system:String>
+    <system:String x:Key="ReasonLabel">原因：</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">在模拟器错误时接收通知？</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">在模拟器错误时接收通知？</system:String>
     <system:String x:Key="Red">红色</system:String>
+    <system:String x:Key="ReinstallSuggestion">这可能会阻止某些功能（例如自动错误报告）正常工作。您想重新安装 Simple Launcher 来解决此问题吗？</system:String>
     <system:String x:Key="RemoveAllfromHistory">从历史中全部移除</system:String>
     <system:String x:Key="RemovefromFavorites">从收藏中移除</system:String>
     <system:String x:Key="RemoveFromFavorites">从收藏夹中移除</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">仅显示无封面的游戏</system:String>
     <system:String x:Key="Sienna">赭石色</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">缺少此文件，“Simple Launcher”将无法正常运行。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">“Simple Launcher”无法检查指定路径的磁盘空间。请检查路径并重试。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">“Simple Launcher”无法启动所选游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'无法启动这款游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">“Simple Launcher”无法加载文件“helpuser.xml”。</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">支持</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">支持请求已成功发送。</system:String>
     <system:String x:Key="System">系统：</system:String>
-    <system:String x:Key="System2">系统</system:String>
     <system:String x:Key="SystemFolder">系统文件夹</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">“系统文件夹”不能为空或只包含空格。</system:String>
     <system:String x:Key="SystemFolderOptional">系统文件夹（可选）</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">文件“helpuser.xml”缺失。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在应用程序文件夹中找不到 'mame.dat' 文件。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">文件“system.xml”损坏严重。</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">缺少以下必需文件：</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">游戏文件不存在！</system:String>
     <system:String x:Key="Thegamewilllaunchnow">游戏即将启动。</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">图片可能已损坏或无法访问。</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">更宽</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">是否需要跳转到下载页面？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳转到下载页面以手动安装或更新？</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您是否希望跳转到 'Simple Launcher' 下载页面以手动下载？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想打开 'error_user.log' 文件来调查此问题？</system:String>
     <system:String x:Key="Wouldyouliketorestore">您希望恢复最新的备份吗？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您是否希望保存包含结果的报告？</system:String>
@@ -571,6 +592,7 @@
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
+    <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
 
 </ResourceDictionary>

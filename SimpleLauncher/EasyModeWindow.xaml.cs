@@ -458,8 +458,8 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
-            var errorFailedtoaddsystem2 = (string)Application.Current.TryFindResource("Error: Failed to add system.") ?? "Error: Failed to add system.";
-            DownloadStatus = errorFailedtoaddsystem2;
+            var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+            DownloadStatus = errorFailedtoaddsystem;
 
             // Notify developer
             const string contextMessage = "Error adding system.";
@@ -577,7 +577,7 @@ public partial class EasyModeWindow : IDisposable
 
     private void ChooseFolderButton_Click(object sender, RoutedEventArgs e)
     {
-        var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("Choose a folder with 'ROMs' or 'ISOs' for this system") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
+        var chooseaFolderwithRoMsorIsOs2 = (string)Application.Current.TryFindResource("ChooseafolderwithROMsorISOsforthissystem") ?? "Choose a folder with 'ROMs' or 'ISOs' for this system";
 
         // Create a new OpenFolderDialog
         var openFolderDialog = new OpenFolderDialog

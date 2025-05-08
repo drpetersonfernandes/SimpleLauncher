@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Er deed zich een fout voor bij het proberen te starten van 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Een open-source frontend voor emulators</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Een andere instantie van Simple Launcher draait al.</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' is een fout tegengekomen bij het laden van de API-configuratie.</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">API-configuratiefout</system:String>
     <system:String x:Key="ApplicationFolder">Applicatiemap:</system:String>
     <system:String x:Key="areyourunningasecondinstance">U draait een tweede instantie van 'Simple Launcher'? Zo ja, open dan slechts één instantie tegelijk, anders kunt u problemen ondervinden.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Weet je zeker dat je dit bestand wilt verwijderen?</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Cartridge niet gevonden</system:String>
     <system:String x:Key="CheckForUpdate">Controleren op updates</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Kies een map met 'ROMs' of 'ISOs' voor dit systeem</system:String>
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecteer een systeem om toe te voegen</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
+    <system:String x:Key="ConfigEditHint">U kunt deze systeemconfiguratie later bewerken om deze problemen op te lossen.</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">Verwijder spel</system:String>
     <system:String x:Key="DeleteSelectedSystem">Geselecteerd systeem verwijderen</system:String>
     <system:String x:Key="DEPSolution1">1. Voer 'Simple Launcher' uit met beheerdersrechten.</system:String>
+    <system:String x:Key="DEPSolution2">2. Voeg de emulator toe aan de DEP-uitzonderingen in de Windows-beveiligingsinstellingen.</system:String>
     <system:String x:Key="DEPSolution3">3. Probeer een andere emulator te gebruiken die compatibel is met je systeem.</system:String>
     <system:String x:Key="DEPSolution4">4. Werk je emulator bij naar de nieuwste versie.</system:String>
     <system:String x:Key="DEPViolationError">Er is een overtreding van Data Execution Prevention (DEP) opgetreden tijdens het uitvoeren van de emulator, een beveiligingsfunctie van Windows die voorkomt dat applicaties code uitvoeren vanuit niet-uitvoerbare geheugengebieden. Dit gebeurt vaak bij oudere emulators of emulators die specifieke geheugentoegangstechnieken gebruiken die moderne beveiligingssystemen als potentieel gevaarlijk beschouwen.</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Zorg ervoor dat u voldoende ruimte op de harde schijf heeft om het bestand uit te pakken.</system:String>
     <system:String x:Key="Error">Fout</system:String>
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Fout: Extractie mislukt</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Fout bij het laden van het bestand 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">Favorieten</system:String>
     <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Het bestand 'appsettings.json' ontbreekt.</system:String>
+    <system:String x:Key="Filedeleted">Bestand verwijderd</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Ongeldige invoer</system:String>
+    <system:String x:Key="InvalidPathsLabel">• De volgende paden in parameters zijn mogelijk ongeldig:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
+    <system:String x:Key="IssuesWithEmulator">Er zijn problemen met de emulatorconfiguratie:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beperkte map (bijv. Program Files), waar het geen schrijftoegang heeft.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">Het heeft schrijftoegang tot zijn map nodig.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Andere extensies worden niet geaccepteerd.</system:String>
     <system:String x:Key="Language">Taal</system:String>
     <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="Manual">Handleiding</system:String>
     <system:String x:Key="Manualnotfound">Handleiding niet gevonden</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Er is mogelijk een probleem met uw internetverbinding of de GitHub-server is offline.</system:String>
     <system:String x:Key="MemoryAccessViolationError">Er heeft zich een geheugen toegangsbreuk voorgedaan tijdens het draaien van de emulator. Dit gebeurt wanneer een programma probeert toegang te krijgen tot geheugen waarvoor het geen toestemming heeft of naar geheugen dat is vrijgegeven/niet bestaat. Dit is gebruikelijk in emulatoren die direct geheugen manipuleren om een nauwkeurige emulatie van andere systemen te bereiken.</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. Controleer of uw antivirus de geheugenbewerkingen van de emulator blokkeert.</system:String>
     <system:String x:Key="MemorySolution3">3. Werk uw emulator bij naar de nieuwste versie die mogelijk geheugenbeheerproblemen heeft opgelost.</system:String>
     <system:String x:Key="MemorySolution4">4. Probeer de geheugenallocatie-instellingen aan te passen in de emulatorconfiguratie indien beschikbaar.</system:String>
+    <system:String x:Key="MissingRequiredFiles">Ontbrekende vereiste bestanden</system:String>
     <system:String x:Key="Name">Naam</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
     <system:String x:Key="NewThresholdLabel">Nieuwe drempel:</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">Selecteer een systeem</system:String>
     <system:String x:Key="Nosystemnameprovided">Geen systeemnaam opgegeven.</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">Onvoldoende schijfruimte voor extractie.</system:String>
     <system:String x:Key="Notextavailable">Geen tekst beschikbaar.</system:String>
     <system:String x:Key="Noupdateavailable">Geen update beschikbaar</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Geen geldige systemen gevonden in het bestand 'helpuser.xml'.</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">Videolink openen</system:String>
     <system:String x:Key="Options">Opties</system:String>
     <system:String x:Key="Orange">Oranje</system:String>
-    <system:String x:Key="OrganizeSystemImages">Systeemafbeeldingen organiseren</system:String>
     <system:String x:Key="outof">van</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...en nog {0} meer</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">Mogelijk ongeldige paden:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">U kunt nog steeds opslaan, maar deze paden kunnen problemen veroorzaken bij het starten van games.</system:String>
+    <system:String x:Key="PathValidationWarningCaption">Waarschuwing padvalidatie</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
     <system:String x:Key="Pink">Roze</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">Los dit op om verder te gaan.</system:String>
     <system:String x:Key="Pleasefixthisfield">Corrigeer dit veld alstublieft.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Ga naar 'Systeem Bewerken - Expertmodus' om dit systeem te bewerken.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">Verplaats de applicatiemap naar een locatie met schrijfrechten, zoals de map 'Documenten'.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">Verplaats de applicatiemap naar een beschrijfbare locatie zoals de map 'Documenten'.</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Installeer 'Simple Launcher' handmatig opnieuw om het probleem op te lossen.</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">Start 'Simple Launcher' opnieuw op.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Selecteer een favoriet om te verwijderen.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Selecteer een spel om te starten.</system:String>
+    <system:String x:Key="Pleaseselectaitem">Selecteer een item</system:String>
     <system:String x:Key="PleaseselectanImagePack">Selecteer een afbeeldingspakket</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Selecteer alstublieft een systeem voordat u zoekt.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Selecteer een systeem voordat u de Gelukkig Gevoel-functie gebruikt.</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">Even geduld</system:String>
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">Wilt u toch doorgaan met starten?</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="ProgressBar">Voortgangsbalk</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Plaats ROMs of ISOs voor dit systeem in</system:String>
+    <system:String x:Key="ReasonLabel">Reden:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">Een notificatie ontvangen bij emulatorfout?</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">Een notificatie ontvangen bij emulatorfout?</system:String>
     <system:String x:Key="Red">Rood</system:String>
+    <system:String x:Key="ReinstallSuggestion">Dit kan voorkomen dat sommige functies (zoals automatische bugrapportage) correct werken. Wilt u Simple Launcher opnieuw installeren om dit op te lossen?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles uit geschiedenis verwijderen</system:String>
     <system:String x:Key="RemovefromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' kan niet goed functioneren zonder dit bestand.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' kon 'helpuser.xml' niet laden.</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">Ondersteuning</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Ondersteuningsverzoek succesvol verzonden.</system:String>
     <system:String x:Key="System">Systeem:</system:String>
-    <system:String x:Key="System2">Systeem</system:String>
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
     <system:String x:Key="SystemFolderOptional">Systeemmap (optioneel)</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">Het bestand 'helpuser.xml' ontbreekt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">De volgende vereiste bestand(en) ontbreken:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Het spelbestand bestaat niet!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Het spel wordt nu gestart.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">De afbeelding kan beschadigd zijn of niet toegankelijk zijn.</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">Breder</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u doorverwezen worden naar de downloadpagina van 'Simple Launcher' om deze handmatig te downloaden?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Wil je de laatste back-up herstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
@@ -571,6 +592,7 @@
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
+    <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
 
 </ResourceDictionary>

@@ -971,18 +971,10 @@ public static class MessageBoxLibrary
 
     internal static void MoveToWritableFolderMessageBox()
     {
-        var itlookslikeSimpleLauncherisinstalled =
-            (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncherisinstalled") ??
-            "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
-        var itneedswriteaccesstoitsfolder =
-            (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder") ??
-            "It needs write access to its folder.";
-        var pleasemovetheapplicationfolder =
-            (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder") ??
-            "Please move the application folder to a writable location like the 'Documents' folder.";
-        var ifpossiblerunitwithadministrative =
-            (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ??
-            "If possible, run it with administrative privileges.";
+        var itlookslikeSimpleLauncherisinstalled = (string)Application.Current.TryFindResource("ItlookslikeSimpleLauncherisinstalled") ?? "It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.";
+        var itneedswriteaccesstoitsfolder = (string)Application.Current.TryFindResource("Itneedswriteaccesstoitsfolder") ?? "It needs write access to its folder.";
+        var pleasemovetheapplicationfolder = (string)Application.Current.TryFindResource("Pleasemovetheapplicationfolder") ?? "Please move the application folder to a writable location like the 'Documents' folder.";
+        var ifpossiblerunitwithadministrative = (string)Application.Current.TryFindResource("Ifpossiblerunitwithadministrative") ?? "If possible, run it with administrative privileges.";
         var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -1620,21 +1612,11 @@ public static class MessageBoxLibrary
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
-        var simpleLauncherlackssufficientprivilegestowrite =
-            (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ??
-            "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
-        var areyourunningasecondinstance =
-            (string)Application.Current.TryFindResource("areyourunningasecondinstance") ??
-            "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
-        var grantSimpleLauncheradministrative =
-            (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ??
-            "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus =
-            (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-            "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var ensurethattheSimpleLauncherfolderislocatedinawritable =
-            (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ??
-            "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
+        var simpleLauncherlackssufficientprivilegestowrite = (string)Application.Current.TryFindResource("SimpleLauncherlackssufficientprivilegestowrite") ?? "'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.";
+        var areyourunningasecondinstance = (string)Application.Current.TryFindResource("areyourunningasecondinstance") ?? "Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+        var ensurethattheSimpleLauncherfolderislocatedinawritable = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (dispatcher.CheckAccess()) ShowMsgBox();
@@ -1680,14 +1662,10 @@ public static class MessageBoxLibrary
                                  "Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.";
         var howToFixMemoryAccess = (string)Application.Current.TryFindResource("HowToFixMemoryAccess") ??
                                    "You can try the following solutions:";
-        var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ??
-                        "1. Run the application with administrator privileges.";
-        var solution = (string)Application.Current.TryFindResource("MemorySolution") ??
-                       ". Check if your antivirus is blocking the emulator's memory operations.";
-        var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ??
-                        "3. Update your emulator to the latest version which may have fixed memory handling issues.";
-        var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ??
-                        "4. Try adjusting memory allocation settings in the emulator configuration if available.";
+        var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ?? "1. Run the application with administrator privileges.";
+        var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ?? "2. Check if your antivirus is blocking the emulator's memory operations.";
+        var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ?? "3. Update your emulator to the latest version which may have fixed memory handling issues.";
+        var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ?? "4. Try adjusting memory allocation settings in the emulator configuration if available.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (dispatcher.CheckAccess()) ShowMsgBox();
@@ -1696,7 +1674,7 @@ public static class MessageBoxLibrary
 
         void ShowMsgBox()
         {
-            MessageBox.Show($"{memoryViolationError}\n\n" + $"{whatIsMemoryAccess}\n\n" + $"{howToFixMemoryAccess}\n" + $"{solution1}\n" + $"{solution}\n" + $"{solution3}\n" + $"{solution4}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{memoryViolationError}\n\n" + $"{whatIsMemoryAccess}\n\n" + $"{howToFixMemoryAccess}\n" + $"{solution1}\n" + $"{solution2}\n" + $"{solution3}\n" + $"{solution4}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -1995,8 +1973,7 @@ public static class MessageBoxLibrary
 
         static void Show()
         {
-            var pleaseenterthename = (string)Application.Current.TryFindResource("Pleaseenterthename") ??
-                                     "Please enter the name.";
+            var pleaseenterthename = (string)Application.Current.TryFindResource("Pleaseenterthename") ?? "Please enter the name.";
             var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show(pleaseenterthename,
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -2014,8 +1991,7 @@ public static class MessageBoxLibrary
 
         static void Show()
         {
-            var pleaseentertheemail = (string)Application.Current.TryFindResource("Pleaseentertheemail") ??
-                                      "Please enter the email.";
+            var pleaseentertheemail = (string)Application.Current.TryFindResource("Pleaseentertheemail") ?? "Please enter the email.";
             var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show(pleaseentertheemail,
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -2057,9 +2033,7 @@ public static class MessageBoxLibrary
 
         static void Show()
         {
-            var supportrequestsentsuccessfully =
-                (string)Application.Current.TryFindResource("Supportrequestsentsuccessfully") ??
-                "Support request sent successfully.";
+            var supportrequestsentsuccessfully = (string)Application.Current.TryFindResource("Supportrequestsentsuccessfully") ?? "Support request sent successfully.";
             var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show(supportrequestsentsuccessfully,
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
@@ -2568,10 +2542,8 @@ public static class MessageBoxLibrary
 
     internal static void SelectAHistoryItemToRemoveMessageBox()
     {
-        var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ??
-                      "Please select a history item to remove.";
-        var pleaseselectaitem =
-            (string)Application.Current.TryFindResource("Pleaseselectaitem") ?? "Please select a item";
+        var message = (string)Application.Current.TryFindResource("SelectAHistoryItemToRemove") ?? "Please select a history item to remove.";
+        var pleaseselectaitem = (string)Application.Current.TryFindResource("Pleaseselectaitem") ?? "Please select a item";
         var dispatcher = Application.Current.Dispatcher;
         if (dispatcher.CheckAccess())
         {
@@ -4123,15 +4095,11 @@ public static class MessageBoxLibrary
 
     internal static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
     {
-        var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ??
-                             "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
+        var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ?? "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
         var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-        var invalidPathsTitle = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsTitle") ??
-                                "Potentially invalid paths:";
-        var morePaths = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsMore") ??
-                        "...and {0} more";
-        var warningFooter = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter") ??
-                            "You can still save, but these paths may cause issues when launching games.";
+        var invalidPathsTitle = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsTitle") ?? "Potentially invalid paths:";
+        var morePaths = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsMore") ?? "...and {0} more";
+        var warningFooter = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter") ?? "You can still save, but these paths may cause issues when launching games.";
 
         var finalWarningMessage = new StringBuilder(warningMessage);
         if (invalidPaths.Count > 0)
@@ -4170,16 +4138,11 @@ public static class MessageBoxLibrary
 
     internal static bool AskUserToProceedWithInvalidPath(List<string> invalidPaths = null)
     {
-        var issuesWithEmulator = (string)Application.Current.TryFindResource("IssuesWithEmulator") ??
-                                 "There are issues with the emulator configuration:";
-        var invalidPathsLabel = (string)Application.Current.TryFindResource("InvalidPathsLabel") ??
-                                "• The following paths in parameters may be invalid:";
-        var proceedQuestion = (string)Application.Current.TryFindResource("ProceedWithLaunchQuestion") ??
-                              "Do you want to proceed with launching anyway?";
-        var configEditHint = (string)Application.Current.TryFindResource("ConfigEditHint") ??
-                             "You can edit this system configuration later to fix these issues.";
-        var warningCaption = (string)Application.Current.TryFindResource("PathValidationWarningCaption") ??
-                             "Path Validation Warning";
+        var issuesWithEmulator = (string)Application.Current.TryFindResource("IssuesWithEmulator") ?? "There are issues with the emulator configuration:";
+        var invalidPathsLabel = (string)Application.Current.TryFindResource("InvalidPathsLabel") ?? "• The following paths in parameters may be invalid:";
+        var proceedQuestion = (string)Application.Current.TryFindResource("ProceedWithLaunchQuestion") ?? "Do you want to proceed with launching anyway?";
+        var configEditHint = (string)Application.Current.TryFindResource("ConfigEditHint") ?? "You can edit this system configuration later to fix these issues.";
+        var warningCaption = (string)Application.Current.TryFindResource("PathValidationWarningCaption") ?? "Path Validation Warning";
 
         var messageBuilder = new StringBuilder(issuesWithEmulator);
         if (invalidPaths is { Count: > 0 })
@@ -4386,9 +4349,7 @@ public static class MessageBoxLibrary
 
     internal static void AnotherInstanceIsRunningMessageBox()
     {
-        var anotherinstanceofSimpleLauncherisalreadyrunning =
-            (string)Application.Current.TryFindResource("AnotherinstanceofSimpleLauncherisalreadyrunning") ??
-            "Another instance of Simple Launcher is already running.";
+        var anotherinstanceofSimpleLauncherisalreadyrunning = (string)Application.Current.TryFindResource("AnotherinstanceofSimpleLauncherisalreadyrunning") ?? "Another instance of Simple Launcher is already running.";
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
@@ -4409,11 +4370,8 @@ public static class MessageBoxLibrary
 
     internal static void FailedToStartSimpleLauncherMessageBox()
     {
-        var failedtostartSimpleLauncherAnerroroccurred =
-            (string)Application.Current.TryFindResource("FailedtostartSimpleLauncherAnerroroccurred") ??
-            "Failed to start Simple Launcher. An error occurred while checking for existing instances.";
-        var simpleLauncherError = (string)Application.Current.TryFindResource("SimpleLauncherError") ??
-                                  "Simple Launcher Error";
+        var failedtostartSimpleLauncherAnerroroccurred = (string)Application.Current.TryFindResource("FailedtostartSimpleLauncherAnerroroccurred") ?? "Failed to start Simple Launcher. An error occurred while checking for existing instances.";
+        var simpleLauncherError = (string)Application.Current.TryFindResource("SimpleLauncherError") ?? "Simple Launcher Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
@@ -4434,12 +4392,8 @@ public static class MessageBoxLibrary
 
     internal static void UnsupportedArchitectureMessageBox()
     {
-        var unsupportedarchitecturefor7Zextraction =
-            (string)Application.Current.TryFindResource("Unsupportedarchitecturefor7zextraction") ??
-            "Unsupported architecture for 7z extraction.";
-        var simpleLauncherrequires64Bitor32BitWindowstorun =
-            (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor32bitWindowstorun") ??
-            "'Simple Launcher' requires 64-bit or 32-bit Windows to run.";
+        var unsupportedarchitecturefor7Zextraction = (string)Application.Current.TryFindResource("Unsupportedarchitecturefor7zextraction") ?? "Unsupported architecture for 7z extraction.";
+        var simpleLauncherrequires64Bitor32BitWindowstorun = (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor32bitWindowstorun") ?? "'Simple Launcher' requires 64-bit or 32-bit Windows to run.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -4461,9 +4415,7 @@ public static class MessageBoxLibrary
 
     internal static void FailedToRestartMessageBox()
     {
-        var failedtorestarttheapplication =
-            (string)Application.Current.TryFindResource("Failedtorestarttheapplication") ??
-            "Failed to restart the application.";
+        var failedtorestarttheapplication = (string)Application.Current.TryFindResource("Failedtorestarttheapplication") ?? "Failed to restart the application.";
         var restartError = (string)Application.Current.TryFindResource("RestartError") ?? "Restart Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -4493,16 +4445,10 @@ public static class MessageBoxLibrary
         // Helper function to generate message box content and show dialog
         MessageBoxResult ShowMessageBox()
         {
-            var thereIsAsoftwareUpdateAvailable =
-                (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ??
-                "There is a software update available.";
-            var theCurrentVersionIs = (string)Application.Current.TryFindResource("Thecurrentversionis") ??
-                                      "The current version is";
-            var theUpdateVersionIs = (string)Application.Current.TryFindResource("Theupdateversionis") ??
-                                     "The update version is";
-            var doYouWantToDownloadAndInstall =
-                (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ??
-                "Do you want to download and install the latest version automatically?";
+            var thereIsAsoftwareUpdateAvailable = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
+            var theCurrentVersionIs = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+            var theUpdateVersionIs = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
+            var doYouWantToDownloadAndInstall = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
             var updateAvailable = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
             var message = $"{thereIsAsoftwareUpdateAvailable}\n" +
                           $"{theCurrentVersionIs} {currentVersion}\n" +
@@ -4525,16 +4471,10 @@ public static class MessageBoxLibrary
 
         void ShowMissingFiles()
         {
-            var thefollowingrequiredfilesaremissing =
-                (string)Application.Current.TryFindResource("Thefollowingrequiredfilesaremissing") ??
-                "The following required file(s) are missing:";
-            var missingRequiredFiles = (string)Application.Current.TryFindResource("MissingRequiredFiles") ??
-                                       "Missing Required Files";
-            var doyouwanttoreinstallSimpleLauncher =
-                (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ??
-                "Do you want to reinstall 'Simple Launcher' to fix it?";
-            var reinstall = MessageBox.Show(
-                $"{thefollowingrequiredfilesaremissing}\n{fileList}\n\n{doyouwanttoreinstallSimpleLauncher}",
+            var thefollowingrequiredfilesaremissing = (string)Application.Current.TryFindResource("Thefollowingrequiredfilesaremissing") ?? "The following required file(s) are missing:";
+            var missingRequiredFiles = (string)Application.Current.TryFindResource("MissingRequiredFiles") ?? "Missing Required Files";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix it?";
+            var reinstall = MessageBox.Show($"{thefollowingrequiredfilesaremissing}\n{fileList}\n\n{doyouwanttoreinstallSimpleLauncher}",
                 missingRequiredFiles, MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (reinstall == MessageBoxResult.Yes)
             {
@@ -4567,17 +4507,12 @@ public static class MessageBoxLibrary
 
         void ShowApiConfigError()
         {
-            var apiConfigErrorTitle = (string)Application.Current.TryFindResource("ApiConfigErrorTitle") ??
-                                      "API Configuration Error";
-            var apiConfigErrorMessage = (string)Application.Current.TryFindResource("ApiConfigErrorMessage") ??
-                                        "Simple Launcher encountered an error loading its API configuration.";
+            var apiConfigErrorTitle = (string)Application.Current.TryFindResource("ApiConfigErrorTitle") ?? "API Configuration Error";
+            var apiConfigErrorMessage = (string)Application.Current.TryFindResource("ApiConfigErrorMessage") ?? "'Simple Launcher' encountered an error loading its API configuration.";
             var reasonLabel = (string)Application.Current.TryFindResource("ReasonLabel") ?? "Reason:";
-            var reinstallSuggestion = (string)Application.Current.TryFindResource("ReinstallSuggestion") ??
-                                      "This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?";
-            var manualReinstallSuggestion = (string)Application.Current.TryFindResource("ManualReinstallSuggestion") ??
-                                            "Please reinstall 'Simple Launcher' manually to fix the issue.";
-            var applicationWillShutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ??
-                                          "The application will shutdown.";
+            var reinstallSuggestion = (string)Application.Current.TryFindResource("ReinstallSuggestion") ?? "This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?";
+            var manualReinstallSuggestion = (string)Application.Current.TryFindResource("ManualReinstallSuggestion") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+            var applicationWillShutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
             var message = $"{apiConfigErrorMessage}\n\n{reasonLabel} {reason}\n\n{reinstallSuggestion}";
             var result = MessageBox.Show(message, apiConfigErrorTitle, MessageBoxButton.YesNo, MessageBoxImage.Error);
             if (result == MessageBoxResult.Yes)
@@ -4605,10 +4540,8 @@ public static class MessageBoxLibrary
 
         static void ShowDiskSpaceError()
         {
-            var notenoughdiskspaceforextraction =
-                (string)Application.Current.TryFindResource("Notenoughdiskspaceforextraction") ??
-                "Not enough disk space for extraction.";
-            var error = (string)Application.Current.TryFindResource("error") ?? "Error";
+            var notenoughdiskspaceforextraction = (string)Application.Current.TryFindResource("Notenoughdiskspaceforextraction") ?? "Not enough disk space for extraction.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(notenoughdiskspaceforextraction, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -4629,9 +4562,8 @@ public static class MessageBoxLibrary
 
         static void ShowMessageBox()
         {
-            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcheckdiskspace")
-                          ?? "'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.";
-            var caption = (string)Application.Current.TryFindResource("error") ?? "Error";
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcheckdiskspace") ?? "'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.";
+            var caption = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

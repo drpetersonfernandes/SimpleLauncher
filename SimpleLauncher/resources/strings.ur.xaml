@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe' کو چلانے کی کوشش کے دوران ایک خامی پیش آئی۔</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">ایک اوپن سورس ایمولیٹر فرنٹ اینڈ</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Simple Launcher کی ایک اور مثال پہلے ہی چل رہی ہے۔</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' کو اپنی API کنفیگریشن لوڈ کرتے وقت ایک خرابی کا سامنا کرنا پڑا۔</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">API کنفیگریشن خرابی</system:String>
     <system:String x:Key="ApplicationFolder">ایپلیکیشن فولڈر:</system:String>
     <system:String x:Key="areyourunningasecondinstance">کیا آپ 'Simple Launcher' کی دوسری مثال چلا رہے ہیں؟ اگر ہاں، تو براہ کرم ایک وقت میں صرف ایک مثال کھولیں ورنہ آپ کو مسائل کا سامنا کرنا پڑ سکتا ہے۔</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">کیا آپ واقعی فائل حذف کرنا چاہتے ہیں؟</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">کارٹ</system:String>
     <system:String x:Key="Cartnotfound">کارٹ نہیں ملا</system:String>
     <system:String x:Key="CheckForUpdate">تازہ کاری چیک کریں</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اس سسٹم کے لیے 'ROMs' یا 'ISOs' والا فولڈر منتخب کریں</system:String>
     <system:String x:Key="Chooseasystem">ایک نظام منتخب کریں</system:String>
     <system:String x:Key="ChooseASystemToAdd">شامل کرنے کے لیے سسٹم منتخب کریں</system:String>
     <system:String x:Key="ChooseFolder">فولڈر منتخب کریں</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">گیمز دیکھنے کے لیے اوپر کے حرف والے بٹنوں پر کلک کریں</system:String>
     <system:String x:Key="Close">بند کریں</system:String>
     <system:String x:Key="Cobalt">کوبالٹ</system:String>
+    <system:String x:Key="ConfigEditHint">آپ ان مسائل کو ٹھیک کرنے کے لیے بعد میں اس سسٹم کنفیگریشن میں ترمیم کر سکتے ہیں۔</system:String>
     <system:String x:Key="Confirmation">تصدیق</system:String>
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'ایکسٹریکشن کے بعد چلائی جانے والی ایکسٹینشنز' کے تحت دی گئی ایکسٹینشن کے ساتھ فائل ایکسٹریکٹ کردہ فولڈر میں نہیں ملی۔</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">گیم حذف کریں</system:String>
     <system:String x:Key="DeleteSelectedSystem">منتخب شدہ سسٹم حذف کریں</system:String>
     <system:String x:Key="DEPSolution1">1. 'سمپل لانچر' کو ایڈمنسٹریٹر پرائویلیجز کے ساتھ چلائیں۔</system:String>
+    <system:String x:Key="DEPSolution2">2. ونڈوز سیکیورٹی سیٹنگز میں DEP استثنیات میں ایمولیٹر شامل کریں۔</system:String>
     <system:String x:Key="DEPSolution3">3. اپنے سسٹم کے ساتھ مطابقت رکھنے والا کوئی دوسرا ایمولیٹر استعمال کرنے کی کوشش کریں۔</system:String>
     <system:String x:Key="DEPSolution4">4. اپنے ایمولیٹر کو تازہ ترین ورژن میں اپڈیٹ کریں۔</system:String>
     <system:String x:Key="DEPViolationError">ایمولیٹر چلانے کے دوران ڈیٹا ایکزیکیوشن پریوینشن (DEP) کی خلاف ورزی ہوئی، جو ونڈوز کی ایک سیکیورٹی فیچر ہے جو ایپلیکیشنز کو غیر قابلِ عمل میموری کے علاقوں سے کوڈ چلانے سے روکتی ہے۔ یہ عموماً پرانے ایمولیٹرز میں یا ان میں ہوتا ہے جو مخصوص میموری ایکسیس تکنیکیں استعمال کرتے ہیں جنہیں جدید سیکیورٹی سسٹمز ممکنہ طور پر خطرناک سمجھتے ہیں۔</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">فائل کو نکالنے کے لیے ہارڈ ڈسک میں کافی جگہ ہونے کو یقینی بنائیں۔</system:String>
     <system:String x:Key="Error">خرابی</system:String>
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکام۔</system:String>
     <system:String x:Key="ErrorFailedtoextract">خرابی: استخراج میں ناکامی</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' فائل لوڈ کرنے میں خرابی۔</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خرابی: کے لیے کوئی ڈاؤن لوڈ یو آر ایل نہیں</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">پسندیدہ</system:String>
     <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
+    <system:String x:Key="Filedeleted">فائل حذف کر دی گئی۔</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
     <system:String x:Key="InvalidInputMessageText">براہ کرم حد کے لیے 0.0 سے 1.0 کے درمیان ایک درست نمبر درج کریں۔</system:String>
     <system:String x:Key="InvalidInputMessageTitle">غلط ان پُٹ</system:String>
+    <system:String x:Key="InvalidPathsLabel">• پیرامیٹرز میں درج ذیل راستے غلط ہو سکتے ہیں:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
+    <system:String x:Key="IssuesWithEmulator">ایمولیٹر کنفیگریشن میں مسائل ہیں:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">یہ فولڈر بھی بنائے گئے ہیں:۔</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ایسا لگتا ہے کہ 'Simple Launcher' ایک محدود فولڈر (مثلاً Program Files) میں انسٹال ہے، جہاں اسے لکھنے کی رسائی نہیں ہے۔</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">اسے اپنے فولڈر میں لکھنے کی رسائی درکار ہے۔</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">دیگر ایکسٹینشن قبول نہیں ہوں گے۔</system:String>
     <system:String x:Key="Language">زبان</system:String>
     <system:String x:Key="LanguageLoadingError">زبان لوڈنگ کی خرابی</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">مجنٹا</system:String>
     <system:String x:Key="Manual">دستی</system:String>
     <system:String x:Key="Manualnotfound">ہینڈولنگ نہیں ملی</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">مسئلہ کو ٹھیک کرنے کے لیے براہ کرم 'Simple Launcher' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="Mauve">مالوے</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ممکن ہے آپ کے انٹرنیٹ کنیکشن میں مسئلہ ہو یا GitHub سرور آف لائن ہو۔</system:String>
     <system:String x:Key="MemoryAccessViolationError">ایمولیٹر چلانے کے دوران میموری ایکسیس کی خلاف ورزی واقع ہوئی۔ یہ اس وقت ہوتا ہے جب کوئی پروگرام ایسی میموری تک رسائی حاصل کرنے کی کوشش کرتا ہے جس تک اسے رسائی کی اجازت نہیں ہے یا ایسی میموری جو آزاد کر دی گئی ہے/موجود نہیں ہے۔ یہ عام طور پر ان ایمولیٹرز میں ہوتا ہے جو دیگر نظاموں کی درست ایمولیشن کے لیے براہ راست میموری میں تبدیلی کرتے ہیں۔</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. چیک کریں کہ آیا آپ کا اینٹی وائرس ایمولیٹر کی میموری آپریشنز کو بلاک کر رہا ہے۔</system:String>
     <system:String x:Key="MemorySolution3">3. اپنے ایمولیٹر کو تازہ ترین ورژن میں اپ ڈیٹ کریں جس میں میموری ہینڈلنگ کے مسائل کو ٹھیک کیا گیا ہو سکتا ہے۔</system:String>
     <system:String x:Key="MemorySolution4">4. اگر دستیاب ہو تو ایمولیٹر کنفیگریشن میں میموری الاٹیشن سیٹنگز کو ایڈجسٹ کرنے کی کوشش کریں۔</system:String>
+    <system:String x:Key="MissingRequiredFiles">مطلوبہ فائلیں غائب ہیں</system:String>
     <system:String x:Key="Name">نام</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">نام ضروری ہے کیونکہ متعلقہ ڈیٹا فراہم کیا گیا ہے۔</system:String>
     <system:String x:Key="NewThresholdLabel">نئی حد:</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">براہ کرم ایک نظام منتخب کریں</system:String>
     <system:String x:Key="Nosystemnameprovided">کوئی سسٹم کا نام فراہم نہیں کیا گیا۔</system:String>
     <system:String x:Key="Nosystemselected">کوئی سسٹم منتخب نہیں ہوا</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">نکالنے کے لیے کافی ڈسک کی جگہ نہیں۔</system:String>
     <system:String x:Key="Notextavailable">کوئی متن دستیاب نہیں ہے۔</system:String>
     <system:String x:Key="Noupdateavailable">کوئی اپ ڈیٹ دستیاب نہیں</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' فائل میں کوئی درست سسٹم موجود نہیں۔</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">ویڈیو لنک کھولیں</system:String>
     <system:String x:Key="Options">اختیارات</system:String>
     <system:String x:Key="Orange">نارنجی</system:String>
-    <system:String x:Key="OrganizeSystemImages">سسٹم تصاویر ترتیب دیں</system:String>
     <system:String x:Key="outof">میں سے</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...اور {0} مزید</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">ممکنہ طور پر غلط راستے:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">ایمولیٹر پیرامیٹرز میں کچھ راستے غیر درست یا غائب ظاہر ہوتے ہیں۔ براہ کرم ان فیلڈز کو دوبارہ چیک کریں۔</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">آپ اب بھی محفوظ کر سکتے ہیں، لیکن یہ راستے گیمز شروع کرتے وقت مسائل پیدا کر سکتے ہیں۔</system:String>
+    <system:String x:Key="PathValidationWarningCaption">راستے کی توثیق کی وارننگ</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
     <system:String x:Key="Pink">گلابی</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">براہ کرم انہیں درست کریں۔</system:String>
     <system:String x:Key="Pleasefixthisfield">براہ کرم اس فیلڈ کو درست کریں۔</system:String>
     <system:String x:Key="PleasegotoEditSystem">اس سسٹم کو ایڈٹ کرنے کیلئے براہ کرم 'سسٹم ایڈٹ کریں - ایڈوانسڈ موڈ' پر جائیں۔</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">براہ کرم ایپلیکیشن کے فولڈر کو کسی ایسے مقام پر منتقل کریں جہاں لکھنے کی اجازت ہو، جیسے 'Documents' فولڈر۔</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">براہ کرم ایپلیکیشن فولڈر کو 'Documents' فولڈر جیسی قابل تحریر جگہ پر منتقل کریں۔</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">براہ کرم مسئلہ کو حل کرنے کے لیے 'سمپل لانچر' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">براہ کرم مسئلہ کو حل کرنے کے لیے 'سمپل لانچر' کو دستی طور پر دوبارہ انسٹال کریں۔</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">براہ کرم 'Simple Launcher' کو دوبارہ شروع کریں۔</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">براہ کرم ہٹانے کے لیے ایک پسندیدہ انتخاب کریں۔</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">براہ کرم چلانے کے لیے ایک گیم منتخب کریں۔</system:String>
+    <system:String x:Key="Pleaseselectaitem">براہ کرم ایک آئٹم منتخب کریں</system:String>
     <system:String x:Key="PleaseselectanImagePack">براہ کرم ایک امیج پیک منتخب کریں</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">تلاش کرنے سے پہلے ایک سسٹم منتخب کریں۔</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">خوش قسمت خصوصیت استعمال کرنے سے پہلے براہ کرم ایک نظام منتخب کریں۔</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">براہ کرم انتظار کریں</system:String>
     <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
     <system:String x:Key="PreviewImage">پیش منظر امیج</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">کیا آپ بہرحال لانچ کرنے کے ساتھ آگے بڑھنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProgressBar">پروگریس بار</system:String>
     <system:String x:Key="Purple">جامنی</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">اس سسٹم کے لیے کور تصاویر یہاں رکھیں</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">اس سسٹم کے لیے ROMs یا ISOs یہاں رکھیں</system:String>
+    <system:String x:Key="ReasonLabel">وجہ:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">ایمولیٹر کی خرابی پر نوٹیفکیشن حاصل کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">ایمولیٹر کی خرابی پر نوٹیفکیشن حاصل کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Red">لال</system:String>
+    <system:String x:Key="ReinstallSuggestion">یہ کچھ خصوصیات (جیسے خودکار بگ رپورٹنگ) کو صحیح طریقے سے کام کرنے سے روک سکتا ہے۔ کیا آپ اسے ٹھیک کرنے کے لیے Simple Launcher کو دوبارہ انسٹال کرنا چاہیں گے؟</system:String>
     <system:String x:Key="RemoveAllfromHistory">تمام کو تاریخ سے ہٹائیں</system:String>
     <system:String x:Key="RemovefromFavorites">پسندیدہ سے ہٹائیں</system:String>
     <system:String x:Key="RemoveFromFavorites">پسندیدہ سے نکالیں</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">صرف بغیر کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="Sienna">سیانا</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' اس فائل کے بغیر درست طور پر کام نہیں کر سکتا۔</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' مخصوص راستے کے لیے ڈسک کی جگہ کی جانچ نہیں کر سکا۔ براہ کرم راستے کی جانچ کریں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' منتخب کردہ گیم لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'سمپل لانچر' اس گیم کو لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' فائل کو لوڈ نہیں کر سکا۔</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">سپورٹ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">سپورٹ کی درخواست کامیابی سے بھیجی گئی۔</system:String>
     <system:String x:Key="System">سسٹم:</system:String>
-    <system:String x:Key="System2">سسٹم</system:String>
     <system:String x:Key="SystemFolder">سسٹم فولڈر</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">سسٹم فولڈر خالی نہیں ہو سکتا۔</system:String>
     <system:String x:Key="SystemFolderOptional">سسٹم فولڈر (اختیاری)</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' فائل بری طرح خراب ہو چکی ہے۔</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">درج ذیل مطلوبہ فائلیں غائب ہیں:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">گیم فائل موجود نہیں ہے!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">گیم اب شروع ہوگی۔</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">تصویر خراب یا قابل رسائی نہیں ہو سکتی۔</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">وسیع تر</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">کیا آپ ڈاؤن لوڈ صفحے پر ری ڈائریکٹ ہونا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">کیا آپ ایپلیکیشن کو دستی طور پر انسٹال یا اپ ڈیٹ کرنے کے لیے ڈاؤن لوڈ صفحہ پر جانا چاہتے ہیں؟</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">کیا آپ 'Simple Launcher' کو دستی طور پر ڈاؤن لوڈ کرنے کے لیے ڈاؤن لوڈ صفحہ پر جانا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">کیا آپ اس مسئلے کو دیکھنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">کیا آپ آخری بیک اپ بحال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">کیا آپ نتائج کے ساتھ ایک رپورٹ محفوظ کرنا چاہیں گے؟</system:String>
@@ -571,6 +592,7 @@
     <system:String x:Key="YoucandefinecustomURL">آپ ویڈیو لنک بٹن اور معلومات لنک بٹن میں استعمال کے لیے اپنی مرضی کا یو آر ایل شامل کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
+    <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
 
 </ResourceDictionary>

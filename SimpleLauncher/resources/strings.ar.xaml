@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">حدث خطأ أثناء محاولة تشغيل 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">واجهة أمامية مفتوحة المصدر للمحاكيات</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">يتم تشغيل نسخة أخرى من Simple Launcher بالفعل.</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">واجه 'Simple Launcher' خطأ أثناء تحميل تهيئة واجهة برمجة التطبيقات (API) الخاصة به.</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">خطأ في تهيئة واجهة برمجة التطبيقات (API)</system:String>
     <system:String x:Key="ApplicationFolder">مجلد التطبيق:</system:String>
     <system:String x:Key="areyourunningasecondinstance">هل تقوم بتشغيل نسخة ثانية من 'Simple Launcher'؟ إذا كان الجواب نعم، يرجى فتح نسخة واحدة فقط في كل مرة وإلا قد تواجه مشكلات.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">هل أنت متأكد من أنك تريد حذف الملف</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">الشريط</system:String>
     <system:String x:Key="Cartnotfound">الشريط غير موجود</system:String>
     <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اختر مجلدًا يحتوي على 'ROMs' أو 'ISOs' لهذا النظام</system:String>
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="ChooseASystemToAdd">اختر نظامًا لإضافته</system:String>
     <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
+    <system:String x:Key="ConfigEditHint">يمكنك تعديل تهيئة هذا النظام لاحقًا لإصلاح هذه المشاكل.</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">لم يتم العثور على ملف بالامتداد المحدد في 'الامتداد المطلوب تشغيله بعد الاستخراج' داخل المجلد المُستخرج.</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">حذف اللعبة</system:String>
     <system:String x:Key="DeleteSelectedSystem">حذف النظام المحدد</system:String>
     <system:String x:Key="DEPSolution1">1. تشغيل 'Simple Launcher' بصلاحيات المسؤول.</system:String>
+    <system:String x:Key="DEPSolution2">2. أضف المحاكي إلى استثناءات DEP في إعدادات أمان Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. حاول استخدام محاكي مختلف متوافق مع نظامك.</system:String>
     <system:String x:Key="DEPSolution4">4. قم بتحديث المحاكي إلى أحدث إصدار.</system:String>
     <system:String x:Key="DEPViolationError">حدث انتهاك لمنع تنفيذ البيانات (DEP) أثناء تشغيل المحاكي، وهي ميزة أمان في ويندوز تمنع التطبيقات من تنفيذ الكود من مناطق الذاكرة غير القابلة للتنفيذ. يحدث هذا عادة مع المحاكيات الأقدم أو تلك التي تستخدم تقنيات وصول إلى الذاكرة محددة والتي تقوم أنظمة الأمان الحديثة بالإشارة إليها على أنها خطيرة محتملة.</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">تأكد من وجود مساحة كافية في القرص الثابت لاستخراج الملف.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
     <system:String x:Key="ErrorFailedtoextract">خطأ: فشل الاستخراج</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">حدث خطأ أثناء تحميل ملف "easymode.xml".</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خطأ: لا يوجد عنوان تحميل لـ</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">المفضلة</system:String>
     <system:String x:Key="FeelingLucky">محظوظ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
+    <system:String x:Key="Filedeleted">تم حذف الملف</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">إدخال غير صالح</system:String>
+    <system:String x:Key="InvalidPathsLabel">• المسارات التالية في المعلمات قد تكون غير صالحة:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
+    <system:String x:Key="IssuesWithEmulator">هناك مشاكل في تهيئة المحاكي:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">كما قام بإنشاء مجلدات لـ</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحية الكتابة.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">يحتاج إلى صلاحية الكتابة في مجلده.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">لن يقبل الامتدادات الأخرى.</system:String>
     <system:String x:Key="Language">اللغة</system:String>
     <system:String x:Key="LanguageLoadingError">خطأ في تحميل اللغة</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">قرمزي</system:String>
     <system:String x:Key="Manual">الدليل</system:String>
     <system:String x:Key="Manualnotfound">لم يتم العثور على الدليل.</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="Mauve">أرجواني فاتح</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">ربما توجد مشكلة في الاتصال بالإنترنت أو أن خادم GitHub غير متصل.</system:String>
     <system:String x:Key="MemoryAccessViolationError">حدث انتهاك وصول للذاكرة أثناء تشغيل المحاكي. يحدث هذا عندما يحاول برنامج الوصول إلى ذاكرة ليس لديه إذن للوصول إليها أو ذاكرة تم تحريرها/لا توجد. هذا شائع في المحاكيات التي تتلاعب بالذاكرة مباشرة لتحقيق محاكاة دقيقة للأنظمة الأخرى.</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. التحقق مما إذا كان برنامج مضاد الفيروسات يمنع عمليات الذاكرة الخاصة بالمحاكي.</system:String>
     <system:String x:Key="MemorySolution3">3. تحديث المحاكي إلى أحدث إصدار قد يكون قد أصلح مشاكل معالجة الذاكرة.</system:String>
     <system:String x:Key="MemorySolution4">4. حاول تعديل إعدادات تخصيص الذاكرة في تكوين المحاكي إذا كانت متوفرة.</system:String>
+    <system:String x:Key="MissingRequiredFiles">الملفات المطلوبة مفقودة</system:String>
     <system:String x:Key="Name">الاسم</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
     <system:String x:Key="NewThresholdLabel">العتبة الجديدة:</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">يرجى اختيار نظام</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
     <system:String x:Key="Notextavailable">لا يوجد نص متاح.</system:String>
     <system:String x:Key="Noupdateavailable">لا يوجد تحديث</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">لم يتم العثور على أنظمة صالحة في ملف 'helpuser.xml'.</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">فتح رابط الفيديو</system:String>
     <system:String x:Key="Options">الخيارات</system:String>
     <system:String x:Key="Orange">برتقالي</system:String>
-    <system:String x:Key="OrganizeSystemImages">تنظيم صور النظام</system:String>
     <system:String x:Key="outof">من أصل</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...و {0} أخرى</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">مسارات قد تكون غير صالحة:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">لا يزال بإمكانك الحفظ، ولكن هذه المسارات قد تسبب مشاكل عند تشغيل الألعاب.</system:String>
+    <system:String x:Key="PathValidationWarningCaption">تحذير التحقق من المسار</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
     <system:String x:Key="Pink">وردي</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">يرجى تصحيحها للمتابعة.</system:String>
     <system:String x:Key="Pleasefixthisfield">يرجى تصحيح هذا الحقل.</system:String>
     <system:String x:Key="PleasegotoEditSystem">يرجى الذهاب إلى تحرير النظام - وضع الخبراء وتحرير هذا النظام.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">يرجى نقل مجلد التطبيق إلى موقع يمكن الكتابة فيه مثل مجلد 'Documents'.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">يرجى نقل مجلد التطبيق إلى موقع قابل للكتابة مثل مجلد 'المستندات'.</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">يرجى إعادة تثبيت 'Simple Launcher' يدويًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">يرجى إعادة تشغيل 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">يرجى اختيار مفضلة للإزالة.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">يرجى اختيار لعبة للتشغيل.</system:String>
+    <system:String x:Key="Pleaseselectaitem">الرجاء تحديد عنصر</system:String>
     <system:String x:Key="PleaseselectanImagePack">يرجى اختيار حزمة الصور</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">يرجى اختيار نظام قبل البحث.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">يرجى اختيار نظام قبل استخدام خاصية المحظوظ.</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">يرجى الانتظار</system:String>
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">هل تريد المتابعة بالتشغيل على أي حال؟</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="ProgressBar">شريط التقدم</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">ضع ملفات ROMs أو ISOs لهذا النظام داخل</system:String>
+    <system:String x:Key="ReasonLabel">السبب:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">تلقي إشعار عند حدوث خطأ في المحاكي؟</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">تلقي إشعار عند حدوث خطأ في المحاكي؟</system:String>
     <system:String x:Key="Red">أحمر</system:String>
+    <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت Simple Launcher لإصلاح هذا؟</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
     <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' لا يمكن أن يعمل بشكل صحيح بدون هذا الملف.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">الدعم</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">تم إرسال طلب الدعم بنجاح.</system:String>
     <system:String x:Key="System">النظام:</system:String>
-    <system:String x:Key="System2">النظام</system:String>
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
     <system:String x:Key="SystemFolderOptional">مجلد النظام (اختياري)</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">الملفات المطلوبة التالية مفقودة:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">سيتم تشغيل اللعبة الآن.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">قد تكون الصورة تالفة أو غير قابلة للوصول.</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">أوسع</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل تود الانتقال إلى صفحة تنزيل 'Simple Launcher' لتحميله يدويًا؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">هل ترغب في استعادة النسخة الاحتياطية الأخيرة؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>

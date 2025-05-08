@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">Si è verificato un errore durante il tentativo di avviare 'FindRomCover.exe'.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">Un'interfaccia frontend open source per emulatori</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">Un'altra istanza di Simple Launcher è già in esecuzione.</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ha riscontrato un errore durante il caricamento della sua configurazione API.</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">Errore di configurazione API</system:String>
     <system:String x:Key="ApplicationFolder">Cartella dell'applicazione:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Stai eseguendo una seconda istanza di 'Simple Launcher'? In tal caso, apri solo un'istanza alla volta o potresti riscontrare problemi.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Sei sicuro di voler eliminare il file?</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">Cartuccia</system:String>
     <system:String x:Key="Cartnotfound">Cartuccia non trovata</system:String>
     <system:String x:Key="CheckForUpdate">Controlla aggiornamenti</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Scegli una cartella con 'ROMs' o 'ISOs' per questo sistema</system:String>
     <system:String x:Key="Chooseasystem">Scegli un sistema</system:String>
     <system:String x:Key="ChooseASystemToAdd">Seleziona un sistema da aggiungere</system:String>
     <system:String x:Key="ChooseFolder">Scegli cartella</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Fai clic sui pulsanti delle lettere sopra per vedere i giochi</system:String>
     <system:String x:Key="Close">Chiudi</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
+    <system:String x:Key="ConfigEditHint">Puoi modificare la configurazione di questo sistema in seguito per risolvere questi problemi.</system:String>
     <system:String x:Key="Confirmation">Conferma</system:String>
     <system:String x:Key="ConfirmDeletion">Conferma eliminazione</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossibile trovare un file con l'estensione definita in 'Estensione da Avviare Dopo l'Estrazione' nella cartella estratta.</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">Elimina gioco</system:String>
     <system:String x:Key="DeleteSelectedSystem">Elimina il sistema selezionato</system:String>
     <system:String x:Key="DEPSolution1">1. Esegui 'Simple Launcher' con privilegi di amministratore.</system:String>
+    <system:String x:Key="DEPSolution2">2. Aggiungere l'emulatore alle eccezioni DEP nelle impostazioni di sicurezza di Windows.</system:String>
     <system:String x:Key="DEPSolution3">3. Prova a utilizzare un emulatore diverso compatibile con il tuo sistema.</system:String>
     <system:String x:Key="DEPSolution4">4. Aggiorna il tuo emulatore all'ultima versione.</system:String>
     <system:String x:Key="DEPViolationError">Si è verificata una violazione della Prevenzione dell'Esecuzione dei Dati (DEP) durante l'esecuzione dell'emulatore, una funzionalità di sicurezza di Windows che impedisce alle applicazioni di eseguire codice da regioni di memoria non eseguibili. Questo accade comunemente con emulatori più vecchi o con quelli che utilizzano tecniche di accesso alla memoria specifiche che i moderni sistemi di sicurezza segnalano come potenzialmente pericolose.</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Assicurati di avere spazio sufficiente nell'HDD per estrarre il file.</system:String>
     <system:String x:Key="Error">Errore</system:String>
     <system:String x:Key="Errorduring">Errore durante</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">Errore: Impossibile aggiungere il sistema.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Errore: Estrazione fallita</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Errore durante il caricamento del file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Errore: Nessun URL di download per</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">Preferiti</system:String>
     <system:String x:Key="FeelingLucky">Sentirsi Fortunato</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Il file 'appsettings.json' è mancante.</system:String>
+    <system:String x:Key="Filedeleted">File eliminato</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' non è stato trovato nel percorso previsto.</system:String>
     <system:String x:Key="Flyer">Volantino</system:String>
     <system:String x:Key="Flyernotfound">Volantino non trovato</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">Cartella di Estrazione Non Valida</system:String>
     <system:String x:Key="InvalidInputMessageText">Inserisci un numero valido compreso tra 0,0 e 1,0 per la soglia.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Input non valido</system:String>
+    <system:String x:Key="InvalidPathsLabel">• I seguenti percorsi nei parametri potrebbero non essere validi:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configurazione del sistema non valida</system:String>
     <system:String x:Key="isalreadyinfavorites">è già nei preferiti.</system:String>
     <system:String x:Key="isminimizedtothetray">è stato ridotto a icona nella barra delle applicazioni.</system:String>
+    <system:String x:Key="IssuesWithEmulator">Ci sono problemi con la configurazione dell'emulatore:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Il sistema è basato su MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">è utilizzato più volte. Ogni nome dell'emulatore deve essere univoco.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">Ha anche creato cartelle per</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Sembra che 'Simple Launcher' sia installato in una cartella con restrizioni (ad esempio, Program Files), dove non ha accesso in scrittura.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">Ha bisogno di accesso in scrittura alla sua cartella.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Non accetterà altre estensioni.</system:String>
     <system:String x:Key="Language">Lingua</system:String>
     <system:String x:Key="LanguageLoadingError">Errore nel caricamento della lingua</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="Manual">Manuale</system:String>
     <system:String x:Key="Manualnotfound">Manuale non trovato.</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">Reinstallare 'Simple Launcher' manualmente per risolvere il problema.</system:String>
     <system:String x:Key="Mauve">Malva</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Forse c'è un problema con la tua connessione internet o il server di GitHub è offline.</system:String>
     <system:String x:Key="MemoryAccessViolationError">Si è verificata una violazione dell'accesso alla memoria durante l'esecuzione dell'emulatore. Ciò accade quando un programma tenta di accedere a una memoria per cui non ha autorizzazione o a una memoria che è stata liberata/non esiste. Questo è comune negli emulatori che manipolano direttamente la memoria per ottenere un'emulazione accurata di altri sistemi.</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. Controlla se il tuo antivirus sta bloccando le operazioni di memoria dell'emulatore.</system:String>
     <system:String x:Key="MemorySolution3">3. Aggiorna il tuo emulatore all'ultima versione che potrebbe aver risolto i problemi di gestione della memoria.</system:String>
     <system:String x:Key="MemorySolution4">4. Prova a regolare le impostazioni di allocazione della memoria nella configurazione dell'emulatore, se disponibili.</system:String>
+    <system:String x:Key="MissingRequiredFiles">File richiesti mancanti</system:String>
     <system:String x:Key="Name">Nome</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">è richiesto perché sono stati forniti dati correlati.</system:String>
     <system:String x:Key="NewThresholdLabel">Nuova soglia:</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">Seleziona un sistema</system:String>
     <system:String x:Key="Nosystemnameprovided">Nessun nome del sistema fornito.</system:String>
     <system:String x:Key="Nosystemselected">Nessun sistema selezionato</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">Spazio su disco insufficiente per l'estrazione.</system:String>
     <system:String x:Key="Notextavailable">Nessun testo disponibile.</system:String>
     <system:String x:Key="Noupdateavailable">Nessun aggiornamento disponibile</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Nessun sistema valido trovato nel file 'helpuser.xml'.</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">Apri il link del video</system:String>
     <system:String x:Key="Options">Opzioni</system:String>
     <system:String x:Key="Orange">Arancione</system:String>
-    <system:String x:Key="OrganizeSystemImages">Organizza immagini sistema</system:String>
     <system:String x:Key="outof">di</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...e altri {0}</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">Percorsi potenzialmente non validi:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Alcuni percorsi nei parametri dell'emulatore sembrano non validi o mancanti. Per favore, ricontrolla questi campi.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">Puoi comunque salvare, ma questi percorsi potrebbero causare problemi all'avvio dei giochi.</system:String>
+    <system:String x:Key="PathValidationWarningCaption">Avviso di convalida percorso</system:String>
     <system:String x:Key="PCB">Circuito stampato (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB non trovato</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">Per favore, correggili per continuare.</system:String>
     <system:String x:Key="Pleasefixthisfield">Per favore, correggi questo campo.</system:String>
     <system:String x:Key="PleasegotoEditSystem">Vai su Modifica Sistema - Modalità Esperto e modifica questo sistema.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">Si prega di spostare la cartella dell'applicazione in una posizione con permessi di scrittura, come la cartella 'Documenti'.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">Spostare la cartella dell'applicazione in una posizione scrivibile come la cartella 'Documenti'.</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">Per favore, reinstalla manualmente 'Simple Launcher' per risolvere il problema.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">Per favore, reinstalla manualmente 'Simple Launcher' per risolvere il problema.</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">Per favore, riavvia 'Simple Launcher'.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">Seleziona un preferito da rimuovere.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">Seleziona un gioco da avviare.</system:String>
+    <system:String x:Key="Pleaseselectaitem">Selezionare un elemento</system:String>
     <system:String x:Key="PleaseselectanImagePack">Seleziona un pacchetto di immagini</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">Si prega di selezionare un sistema prima di cercare.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">Si prega di selezionare un sistema prima di utilizzare la funzione Sentirsi Fortunato.</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">Attendere prego</system:String>
     <system:String x:Key="Preparingtodownload">Preparazione al download</system:String>
     <system:String x:Key="PreviewImage">Anteprima immagine</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">Vuoi procedere comunque con l'avvio?</system:String>
     <system:String x:Key="Processingpleasewait">Elaborazione in corso, attendere...</system:String>
     <system:String x:Key="ProgressBar">Barra di avanzamento</system:String>
     <system:String x:Key="Purple">Viola</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Inserisci le immagini di copertina per questo sistema in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Inserisci ROM o ISO per questo sistema in</system:String>
+    <system:String x:Key="ReasonLabel">Motivo:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">Ricevere una notifica in caso di errore dell'emulatore?</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">Ricevere una notifica in caso di errore dell'emulatore?</system:String>
     <system:String x:Key="Red">Rosso</system:String>
+    <system:String x:Key="ReinstallSuggestion">Ciò potrebbe impedire ad alcune funzionalità (come la segnalazione automatica dei bug) di funzionare correttamente. Vuoi reinstallare Simple Launcher per risolvere questo problema?</system:String>
     <system:String x:Key="RemoveAllfromHistory">Rimuovi tutto dalla cronologia</system:String>
     <system:String x:Key="RemovefromFavorites">Rimuovi dai preferiti</system:String>
     <system:String x:Key="RemoveFromFavorites">Rimuovi dai preferiti</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Mostra solo giochi senza copertina</system:String>
     <system:String x:Key="Sienna">Terra di Siena</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' non può funzionare correttamente senza questo file.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' non è riuscito a controllare lo spazio su disco per il percorso specificato. Controllare il percorso e riprovare.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' non è riuscito ad avviare il gioco selezionato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' non è riuscito a lanciare questo gioco.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' non è riuscito a caricare 'helpuser.xml'.</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">Supporto</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Richiesta di supporto inviata con successo.</system:String>
     <system:String x:Key="System">Sistema:</system:String>
-    <system:String x:Key="System2">Sistema</system:String>
     <system:String x:Key="SystemFolder">Cartella del Sistema</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">La 'Cartella di sistema' non può essere vuota o contenere solo spazi.</system:String>
     <system:String x:Key="SystemFolderOptional">Cartella del sistema (opzionale)</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">Il file 'helpuser.xml' è mancante.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Il file 'mame.dat' non è stato trovato nella cartella dell'applicazione.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Il file 'system.xml' è gravemente corrotto.</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">I seguenti file richiesti sono mancanti:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Il file del gioco non esiste!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Il gioco si avvierà ora.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">L'immagine potrebbe essere corrotta o inaccessibile.</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">Più largo</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Vuoi essere reindirizzato alla pagina di download?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Vuoi essere reindirizzato alla pagina di download per installare o aggiornare manualmente?</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Vuoi essere reindirizzato alla pagina di download di 'Simple Launcher' per scaricarlo manualmente?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Vuoi aprire il file 'error_user.log' per indagare sul problema?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Vuoi ripristinare l'ultimo backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Vuoi salvare un rapporto con i risultati?</system:String>
@@ -571,6 +592,7 @@
     <system:String x:Key="YoucandefinecustomURL">Puoi definire un URL personalizzato da utilizzare nel pulsante del collegamento video e nel pulsante del collegamento informazioni.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
+    <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
 
 </ResourceDictionary>

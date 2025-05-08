@@ -49,6 +49,8 @@
     <system:String x:Key="Anerroroccurredwhiletryingtolaunch">'FindRomCover.exe'를 실행하려는 도중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Anopensourceemulatorfrontend">오픈소스 에뮬레이터 프론트엔드</system:String>
     <system:String x:Key="AnotherinstanceofSimpleLauncherisalreadyrunning">다른 Simple Launcher 인스턴스가 이미 실행 중입니다.</system:String>
+    <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher'가 API 구성을 로드하는 동안 오류가 발생했습니다.</system:String>
+    <system:String x:Key="ApiConfigErrorTitle">API 구성 오류</system:String>
     <system:String x:Key="ApplicationFolder">애플리케이션 폴더:</system:String>
     <system:String x:Key="areyourunningasecondinstance">'Simple Launcher'의 두 번째 인스턴스를 실행 중이신가요? 그렇다면 한 번에 하나의 인스턴스만 열어주세요, 그렇지 않으면 문제가 발생할 수 있습니다.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">이 파일을 삭제하시겠습니까?</system:String>
@@ -74,6 +76,7 @@
     <system:String x:Key="Cart">카트리지</system:String>
     <system:String x:Key="Cartnotfound">카트리지를 찾을 수 없습니다</system:String>
     <system:String x:Key="CheckForUpdate">업데이트 확인</system:String>
+    <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">이 시스템에 대한 'ROMs' 또는 'ISOs'가 있는 폴더를 선택하십시오</system:String>
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseASystemToAdd">추가할 시스템 선택</system:String>
     <system:String x:Key="ChooseFolder">폴더 선택</system:String>
@@ -81,6 +84,7 @@
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
     <system:String x:Key="Close">닫기</system:String>
     <system:String x:Key="Cobalt">코발트</system:String>
+    <system:String x:Key="ConfigEditHint">나중에 이 시스템 구성을 편집하여 이러한 문제를 해결할 수 있습니다.</system:String>
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="ConfirmDeletion">삭제 확인</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
@@ -105,6 +109,7 @@
     <system:String x:Key="DeleteGame">게임 삭제</system:String>
     <system:String x:Key="DeleteSelectedSystem">선택한 시스템 삭제</system:String>
     <system:String x:Key="DEPSolution1">1. 관리자 권한으로 'Simple Launcher'를 실행합니다.</system:String>
+    <system:String x:Key="DEPSolution2">2. Windows 보안 설정의 DEP 예외에 에뮬레이터를 추가합니다.</system:String>
     <system:String x:Key="DEPSolution3">3. 시스템과 호환되는 다른 에뮬레이터를 사용해 보십시오.</system:String>
     <system:String x:Key="DEPSolution4">4. 에뮬레이터를 최신 버전으로 업데이트하십시오.</system:String>
     <system:String x:Key="DEPViolationError">에뮬레이터를 실행하는 동안 데이터 실행 방지(DEP) 위반이 발생했습니다. DEP는 실행 불가능한 메모리 영역에서 애플리케이션이 코드를 실행하는 것을 방지하는 Windows 보안 기능입니다. 이는 오래된 에뮬레이터나 특정 메모리 접근 기술을 사용하는 에뮬레이터에서 흔히 발생하며, 최신 보안 시스템에서는 잠재적으로 위험한 것으로 표시됩니다.</system:String>
@@ -177,6 +182,7 @@
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">파일을 추출하기 위한 하드 디스크의 여유 공간이 충분한지 확인하세요.</system:String>
     <system:String x:Key="Error">오류</system:String>
     <system:String x:Key="Errorduring">동안 오류</system:String>
+    <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템을 추가하지 못했습니다.</system:String>
     <system:String x:Key="ErrorFailedtoextract">오류: 추출 실패</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' 파일을 로드하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">오류: 의 다운로드 URL이 없습니다</system:String>
@@ -208,6 +214,7 @@
     <system:String x:Key="Favorites">즐겨찾기</system:String>
     <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' 파일이 누락되었습니다.</system:String>
+    <system:String x:Key="Filedeleted">파일이 삭제되었습니다</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>
@@ -250,12 +257,16 @@
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
+    <system:String x:Key="InvalidPathsLabel">• 매개변수의 다음 경로가 유효하지 않을 수 있습니다:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
+    <system:String x:Key="IssuesWithEmulator">에뮬레이터 구성에 문제가 있습니다:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
     <system:String x:Key="isusedmultipletimes">이 여러 번 사용되고 있습니다. 각 에뮬레이터 이름은 고유해야 합니다.</system:String>
     <system:String x:Key="Italsocreatedfoldersfor">또한 다음을 위한 폴더도 생성되었습니다:</system:String>
+    <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">'Simple Launcher'가 쓰기 권한이 없는 제한된 폴더(예: Program Files)에 설치된 것 같습니다.</system:String>
+    <system:String x:Key="Itneedswriteaccesstoitsfolder">폴더에 대한 쓰기 권한이 필요합니다.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">다른 확장자는 허용되지 않습니다.</system:String>
     <system:String x:Key="Language">언어</system:String>
     <system:String x:Key="LanguageLoadingError">언어 로딩 오류</system:String>
@@ -270,6 +281,7 @@
     <system:String x:Key="Magenta">마젠타</system:String>
     <system:String x:Key="Manual">매뉴얼</system:String>
     <system:String x:Key="Manualnotfound">매뉴얼을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="ManualReinstallSuggestion">문제를 해결하려면 'Simple Launcher'를 수동으로 다시 설치하십시오.</system:String>
     <system:String x:Key="Mauve">모브</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">인터넷 연결에 문제가 있거나 GitHub 서버가 오프라인일 수 있습니다.</system:String>
     <system:String x:Key="MemoryAccessViolationError">에뮬레이터 실행 중 메모리 접근 위반이 발생했습니다. 이는 프로그램이 접근 권한이 없는 메모리나 해제되었거나 존재하지 않는 메모리에 접근하려고 시도할 때 발생합니다. 이는 다른 시스템의 정확한 에뮬레이션을 달성하기 위해 메모리를 직접 조작하는 에뮬레이터에서 일반적입니다.</system:String>
@@ -277,6 +289,7 @@
     <system:String x:Key="MemorySolution2">2. 바이러스 백신이 에뮬레이터의 메모리 작업을 차단하고 있는지 확인하세요.</system:String>
     <system:String x:Key="MemorySolution3">3. 메모리 처리 문제가 수정된 최신 버전으로 에뮬레이터를 업데이트하세요.</system:String>
     <system:String x:Key="MemorySolution4">4. 가능한 경우 에뮬레이터 설정에서 메모리 할당 설정을 조정해 보세요.</system:String>
+    <system:String x:Key="MissingRequiredFiles">누락된 필수 파일</system:String>
     <system:String x:Key="Name">이름</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
     <system:String x:Key="NewThresholdLabel">새 임계값:</system:String>
@@ -293,6 +306,7 @@
     <system:String x:Key="NoSystemMessage">시스템을 선택해 주세요</system:String>
     <system:String x:Key="Nosystemnameprovided">시스템 이름이 제공되지 않았습니다.</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
+    <system:String x:Key="Notenoughdiskspaceforextraction">압축 해제를 위한 디스크 공간이 부족합니다.</system:String>
     <system:String x:Key="Notextavailable">사용 가능한 텍스트가 없습니다.</system:String>
     <system:String x:Key="Noupdateavailable">사용 가능한 업데이트가 없습니다</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' 파일에서 유효한 시스템을 찾을 수 없습니다.</system:String>
@@ -306,9 +320,12 @@
     <system:String x:Key="OpenVideoLink">비디오 링크 열기</system:String>
     <system:String x:Key="Options">옵션</system:String>
     <system:String x:Key="Orange">주황</system:String>
-    <system:String x:Key="OrganizeSystemImages">시스템 이미지 정리</system:String>
     <system:String x:Key="outof">중</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsMore">...외 {0}개 더</system:String>
+    <system:String x:Key="ParameterPathsInvalidPathsTitle">잠재적으로 유효하지 않은 경로:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">에뮬레이터 매개변수의 일부 경로가 잘못되었거나 누락된 것 같습니다. 이 필드를 다시 확인하십시오.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter">계속 저장할 수 있지만, 이 경로들은 게임 실행 시 문제를 일으킬 수 있습니다.</system:String>
+    <system:String x:Key="PathValidationWarningCaption">경로 유효성 검사 경고</system:String>
     <system:String x:Key="PCB">PCB(회로기판)</system:String>
     <system:String x:Key="PCBnotfound">PCB(회로기판)를 찾을 수 없습니다</system:String>
     <system:String x:Key="Pink">핑크</system:String>
@@ -326,12 +343,13 @@
     <system:String x:Key="Pleasefixthemtoproceed">진행하려면 이것들을 수정하세요.</system:String>
     <system:String x:Key="Pleasefixthisfield">이 필드를 수정해 주세요.</system:String>
     <system:String x:Key="PleasegotoEditSystem">'시스템 편집 - 전문 모드'로 이동하여 이 시스템을 편집하세요.</system:String>
-    <system:String x:Key="Pleasemovetheapplicationfolder2">애플리케이션 폴더를 '문서' 폴더처럼 쓰기 권한이 있는 위치로 이동하세요.</system:String>
+    <system:String x:Key="Pleasemovetheapplicationfolder">애플리케이션 폴더를 '문서' 폴더와 같이 쓰기 가능한 위치로 이동하십시오.</system:String>
     <system:String x:Key="PleasereinstallSimpleLauncher">문제를 해결하려면 'Simple Launcher'를 수동으로 다시 설치하세요.</system:String>
     <system:String x:Key="PleasereinstallSimpleLaunchermanually">문제를 해결하려면 'Simple Launcher'를 수동으로 다시 설치하세요.</system:String>
     <system:String x:Key="PleaserestartSimpleLauncher">'Simple Launcher'를 다시 시작하세요.</system:String>
     <system:String x:Key="Pleaseselectafavoritetoremove">제거할 즐겨찾기를 선택하세요.</system:String>
     <system:String x:Key="Pleaseselectagametolaunch">실행할 게임을 선택하세요.</system:String>
+    <system:String x:Key="Pleaseselectaitem">항목을 선택하십시오</system:String>
     <system:String x:Key="PleaseselectanImagePack">이미지 팩을 선택해 주세요</system:String>
     <system:String x:Key="Pleaseselectasystembeforesearching">검색하기 전에 시스템을 선택하세요.</system:String>
     <system:String x:Key="PleaseselectasystembeforeusingtheFeeling">행운 기능을 사용하기 전에 시스템을 선택하십시오.</system:String>
@@ -342,14 +360,17 @@
     <system:String x:Key="PleaseWait">잠시만 기다려주세요</system:String>
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
+    <system:String x:Key="ProceedWithLaunchQuestion">그래도 실행을 진행하시겠습니까?</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
     <system:String x:Key="ProgressBar">진행률 바</system:String>
     <system:String x:Key="Purple">보라</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">이 시스템의 커버 이미지를 다음 위치에 넣으세요:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">이 시스템의 ROM 또는 ISO를 다음 위치에 넣으세요:</system:String>
+    <system:String x:Key="ReasonLabel">이유:</system:String>
     <system:String x:Key="ReceiveANotificationOnEmulatorError">에뮬레이터 오류 시 알림을 받으시겠습니까?</system:String>
     <system:String x:Key="receiveNotificationEmulatorError">에뮬레이터 오류 시 알림을 받으시겠습니까?</system:String>
     <system:String x:Key="Red">빨강</system:String>
+    <system:String x:Key="ReinstallSuggestion">이로 인해 일부 기능(예: 자동 버그 보고)이 제대로 작동하지 않을 수 있습니다. 이 문제를 해결하기 위해 Simple Launcher를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="RemoveAllfromHistory">모두 기록에서 제거</system:String>
     <system:String x:Key="RemovefromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
@@ -399,6 +420,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">커버 없는 게임만 보기</system:String>
     <system:String x:Key="Sienna">시에나</system:String>
     <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher'는 이 파일이 없으면 제대로 작동하지 않습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher'가 지정된 경로의 디스크 공간을 확인할 수 없었습니다. 경로를 확인하고 다시 시도하십시오.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher'는 선택한 게임을 실행할 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher'에서 'helpuser.xml'을 로드할 수 없습니다.</system:String>
@@ -422,7 +444,6 @@
     <system:String x:Key="Support">지원</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">지원 요청이 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="System">시스템:</system:String>
-    <system:String x:Key="System2">시스템</system:String>
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘시스템 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
     <system:String x:Key="SystemFolderOptional">시스템 폴더 (선택)</system:String>
@@ -462,6 +483,7 @@
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' 파일이 없습니다.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">애플리케이션 폴더에서 'mame.dat' 파일을 찾을 수 없습니다.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' 파일이 심각하게 손상되었습니다.</system:String>
+    <system:String x:Key="Thefollowingrequiredfilesaremissing">다음 필수 파일이 누락되었습니다:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">게임이 지금 시작됩니다.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">이미지가 손상되었거나 액세스할 수 없습니다.</system:String>
@@ -560,7 +582,6 @@
     <system:String x:Key="Wider">넓게</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher'를 수동으로 다운로드하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketorestore">마지막 백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
@@ -570,6 +591,8 @@
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">사용자 지정 게임패드 데드존을 정의할 수 있습니다.</system:String>
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
+    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
+    <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
 
