@@ -75,7 +75,7 @@ public partial class EasyModeWindow : IDisposable
     /// with its UI components
     private void PopulateSystemDropdown()
     {
-        if (_manager?.Systems == null) return;
+        // if (_manager?.Systems == null) return;
 
         var sortedSystemNames = _manager.Systems
             .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))

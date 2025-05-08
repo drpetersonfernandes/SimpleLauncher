@@ -542,7 +542,7 @@ public class ExtractCompressedFile
                                     _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
 
                                     // Notify user
-                                    MessageBox.Show(contextMessage, "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                                    MessageBoxLibrary.DiskSpaceErrorMessageBox();
 
                                     return;
                                 }
@@ -554,8 +554,7 @@ public class ExtractCompressedFile
                             _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {destinationFolder}: {ex.Message}");
 
                             // Notify user
-                            MessageBox.Show("'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.",
-                                "Error", MessageBoxButton.OK, MessageBoxImage.Error);
+                            MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
 
                             return;
                         }

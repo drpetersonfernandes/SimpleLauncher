@@ -3089,4 +3089,20 @@ public static class MessageBoxLibrary
             }
         });
     }
+
+    internal static void DiskSpaceErrorMessageBox()
+    {
+        var notenoughdiskspaceforextraction = (string)Application.Current.TryFindResource("Notenoughdiskspaceforextraction") ?? "Not enough disk space for extraction.";
+        var error = (string)Application.Current.TryFindResource("error") ?? "Error";
+        MessageBox.Show(notenoughdiskspaceforextraction,
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
+
+    internal static void CouldNotCheckForDiskSpaceMessageBox()
+    {
+        var simpleLaunchercouldnotcheckdiskspace = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcheckdiskspace") ?? "'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.";
+        var error = (string)Application.Current.TryFindResource("error") ?? "Error";
+        MessageBox.Show(simpleLaunchercouldnotcheckdiskspace,
+            error, MessageBoxButton.OK, MessageBoxImage.Error);
+    }
 }

@@ -714,29 +714,17 @@ public partial class PlayHistoryWindow
                 mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
                 mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
 
-                // Store currently selected item to restore selection after refresh
-                var selectedItem = PlayHistoryDataGrid.SelectedItem as PlayHistoryItem;
+                // Store currently selected item's identifier to restore selection after refresh
+                // Use a non-nullable tuple with nullable elements
+                var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+                    ? (selectedItem.FileName, selectedItem.SystemName)
+                    : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
                 // Launch Game
                 await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
 
                 // Refresh play history data in UI after game ends
-                RefreshPlayHistoryData();
-
-                // Try to restore the selection if the item still exists
-                if (selectedItem != null)
-                {
-                    // Find the same item in the refreshed list
-                    var updatedItem = _playHistoryList.FirstOrDefault(item =>
-                        item.FileName == selectedItem.FileName &&
-                        item.SystemName == selectedItem.SystemName);
-
-                    if (updatedItem != null)
-                    {
-                        PlayHistoryDataGrid.SelectedItem = updatedItem;
-                        PlayHistoryDataGrid.ScrollIntoView(updatedItem);
-                    }
-                }
+                RefreshPlayHistoryData(selectedItemIdentifier); // Pass the identifier
             }
         }
         catch (Exception ex)
@@ -752,13 +740,15 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private void RefreshPlayHistoryData()
+    /// <summary>
+    /// Refreshes the play history data and attempts to restore the selection
+    /// based on the unique identifier of the previously selected item.
+    /// </summary>
+    /// <param name="previousSelectedItemIdentifier">The (FileName, SystemName) tuple of the item that was selected before the refresh. Elements can be null if no item was selected.</param>
+    private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default) // Use default for the tuple
     {
         try
         {
-            // Store current selected index if any
-            var selectedIndex = PlayHistoryDataGrid.SelectedIndex;
-
             // Get updated play history data
             var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
             _playHistoryList = new ObservableCollection<PlayHistoryItem>();
@@ -798,11 +788,27 @@ public partial class PlayHistoryWindow
             // Update the DataGrid
             PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
-            // Try to restore selection if possible
-            if (selectedIndex < 0 || selectedIndex >= _playHistoryList.Count) return;
+            // Try to restore selection based on identifier
+            // Check if the identifier tuple has non-null elements
+            if (previousSelectedItemIdentifier.FileName == null ||
+                previousSelectedItemIdentifier.SystemName == null) return;
 
-            PlayHistoryDataGrid.SelectedIndex = selectedIndex;
-            PlayHistoryDataGrid.ScrollIntoView(PlayHistoryDataGrid.SelectedItem);
+            var (prevFileName, prevSystemName) = previousSelectedItemIdentifier; // Deconstruct the non-nullable tuple
+
+            // Find the item in the refreshed list using the identifier
+            var updatedItem = _playHistoryList.FirstOrDefault(item =>
+                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
+                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (updatedItem == null) return;
+
+            PlayHistoryDataGrid.SelectedItem = updatedItem;
+            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+            // If updatedItem is null, the previously selected item was likely removed
+            // (e.g., if the file no longer exists and was auto-removed).
+            // In this case, no item will be selected, which is the desired behavior.
+            // If previousSelectedItemIdentifier had null elements (nothing was selected before),
+            // the selection remains null, which is also correct.
         }
         catch (Exception ex)
         {
@@ -880,25 +886,89 @@ public partial class PlayHistoryWindow
 
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
+        // Capture current selection identifier before sorting
+        // Use a non-nullable tuple with nullable elements
+        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+            ? (selectedItem.FileName, selectedItem.SystemName)
+            : (FileName: null, SystemName: null);
+
         SortByDateSafely();
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+        // Restore selection based on identifier
+        // Check if the identifier tuple has non-null elements
+        if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
+
+        var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+        var updatedItem = _playHistoryList.FirstOrDefault(item =>
+            item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
+            item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+
+        if (updatedItem == null) return;
+
+        PlayHistoryDataGrid.SelectedItem = updatedItem;
+        PlayHistoryDataGrid.ScrollIntoView(updatedItem);
     }
 
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
+        // Capture current selection identifier before sorting
+        // Use a non-nullable tuple with nullable elements
+        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+            ? (selectedItem.FileName, selectedItem.SystemName)
+            : (FileName: null, SystemName: null);
+
         var sorted = new ObservableCollection<PlayHistoryItem>(
             _playHistoryList.OrderByDescending(static item => item.TotalPlayTime)
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+        // Restore selection based on identifier
+        // Check if the identifier tuple has non-null elements
+        if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
+
+        {
+            var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+            var updatedItem = _playHistoryList.FirstOrDefault(item =>
+                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
+                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (updatedItem == null) return;
+
+            PlayHistoryDataGrid.SelectedItem = updatedItem;
+            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+        }
     }
 
     private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
     {
+        // Capture current selection identifier before sorting
+        // Use a non-nullable tuple with nullable elements
+        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+            ? (selectedItem.FileName, selectedItem.SystemName)
+            : (FileName: null, SystemName: null);
+
         var sorted = new ObservableCollection<PlayHistoryItem>(
             _playHistoryList.OrderByDescending(static item => item.TimesPlayed)
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+        // Restore selection based on identifier
+        // Check if the identifier tuple has non-null elements
+        if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
+
+        {
+            var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+            var updatedItem = _playHistoryList.FirstOrDefault(item =>
+                item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
+                item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (updatedItem == null) return;
+
+            PlayHistoryDataGrid.SelectedItem = updatedItem;
+            PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+        }
     }
 }

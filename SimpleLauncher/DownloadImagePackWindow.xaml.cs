@@ -46,7 +46,7 @@ public partial class DownloadImagePackWindow : IDisposable
     /// ensure the systems are correctly loaded before it is called.
     private void PopulateSystemDropdown()
     {
-        if (_manager?.Systems == null) return;
+        // if (_manager?.Systems == null) return;
 
         // Filter systems that have a valid ExtrasDownloadLink
         var systemsWithImagePacks = _manager.Systems

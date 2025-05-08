@@ -24,11 +24,18 @@ public static class CheckForRequiredFiles
             AppSettings
         };
 
-        var missingFiles = requiredFiles.Where(static f => !File.Exists(f)).ToList();
-        if (missingFiles.Count == 0) return;
+        try
+        {
+            var missingFiles = requiredFiles.Where(static f => !File.Exists(f)).ToList();
+            if (missingFiles.Count == 0) return;
 
-        var fileList = string.Join(Environment.NewLine, missingFiles);
-
-        MessageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
+            var fileList = string.Join(Environment.NewLine, missingFiles);
+            MessageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Failed to check for required files.");
+        }
     }
 }

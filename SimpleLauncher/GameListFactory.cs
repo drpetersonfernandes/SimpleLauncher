@@ -547,86 +547,53 @@ public class GameListFactory(
         }
     }
 
-    public void HandleSelectionChanged(GameListViewItem selectedItem)
+    // Changed to async void because it's likely an event handler (SelectionChanged)
+    public async void HandleSelectionChanged(GameListViewItem selectedItem)
     {
-        if (selectedItem == null) return;
-
-        var filePath = selectedItem.FilePath;
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var selectedSystem = _systemComboBox.SelectedItem as string;
-        var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-        if (systemConfig == null) return;
-
-        // Get the preview image path
-        var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
-
-        // Clear previous image first to avoid memory leaks
-        _mainWindow.PreviewImage.Source = null;
-
-        // Set the preview image if a valid path is returned
-        if (!string.IsNullOrEmpty(previewImagePath))
+        try
         {
-            try
-            {
-                // Check if the file exists and has content
-                if (!File.Exists(previewImagePath) || new FileInfo(previewImagePath).Length == 0)
-                {
-                    // Silently fail and use default handling below
-                    return;
-                }
+            if (selectedItem == null) return;
 
-                // Ensure the path is normalized to avoid caching issues
-                previewImagePath = PathHelper.ResolveRelativeToCurrentDirectory(previewImagePath);
+            var filePath = selectedItem.FilePath;
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            var selectedSystem = _systemComboBox.SelectedItem as string;
+            var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            if (systemConfig == null) return;
 
-                // Load the image data into a byte array first
-                byte[] imageData;
-                using (var fileStream = new FileStream(previewImagePath, FileMode.Open, FileAccess.Read))
-                {
-                    imageData = new byte[fileStream.Length];
-                    fileStream.ReadExactly(imageData, 0, (int)fileStream.Length);
-                }
+            // Get the preview image path
+            var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
 
-                _mainWindow.Dispatcher.Invoke(() =>
-                {
-                    try
-                    {
-                        using var memoryStream = new MemoryStream(imageData);
-                        var bitmapFrame = BitmapFrame.Create(
-                            memoryStream,
-                            BitmapCreateOptions.None,
-                            BitmapCacheOption.OnLoad
-                        );
-
-                        // Freeze the bitmap to make it thread-safe
-                        bitmapFrame.Freeze();
-
-                        // Set as the image source
-                        _mainWindow.PreviewImage.Source = bitmapFrame;
-                        // MemoryStream is disposed automatically by the using block
-                    }
-                    catch (Exception)
-                    {
-                        throw;
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                _mainWindow.PreviewImage.Source = null;
-
-                // Notify developer
-                var contextMessage = $"An error occurred while loading the preview image.\n" +
-                                     $"Image path: {previewImagePath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
-        }
-        else
-        {
-            // Clear the image if no preview is available
+            // Clear previous image first to avoid memory leaks and show loading state
             _mainWindow.PreviewImage.Source = null;
 
-            // Notify user
-            MessageBoxLibrary.DefaultImageNotFoundMessageBox();
+            // Normalize the path if found, before passing to ImageLoader
+            if (!string.IsNullOrEmpty(previewImagePath))
+            {
+                previewImagePath = PathHelper.ResolveRelativeToCurrentDirectory(previewImagePath);
+            }
+            // Note: If previewImagePath is null/empty, ImageLoader.LoadImageAsync will handle it by trying the default.
+
+            // Use ImageLoader to load the image asynchronously.
+            // ImageLoader handles file existence, reading, memory stream, freezing,
+            // background thread loading, error logging, and default image fallback.
+            // Use discard (_) for the 'isDefault' variable as it's not used here.
+            var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath);
+
+            // Update the UI on the UI thread
+            _mainWindow.Dispatcher.Invoke(() =>
+            {
+                _mainWindow.PreviewImage.Source = imageSource;
+
+                // The ImageLoader handles logging errors and falling back to the default.
+                // No need for additional try-catch or "DefaultImageNotFoundMessageBox" here,
+                // as ImageLoader's internal logging and fallback are sufficient.
+                // If imageSource is null here, it means even the default image failed to load,
+                // which ImageLoader logs as a critical error.
+            });
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
         }
     }
 
