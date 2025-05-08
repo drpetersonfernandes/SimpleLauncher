@@ -86,4 +86,14 @@ public static class PathHelper
         // ResolveRelativeToCurrentDirectory uses Path.GetFullPath, which will canonicalize.
         return ResolveRelativeToCurrentDirectory(combinedPath);
     }
+
+    public static string GetFileNameWithoutExtension(string path)
+    {
+        return Path.GetFileNameWithoutExtension(path);
+    }
+
+    public static string GetFileName(string path)
+    {
+        return Path.GetFileName(path);
+    }
 }

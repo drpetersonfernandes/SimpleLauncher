@@ -34,6 +34,9 @@ public class GameListFactory(
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
 
+    private string _fileNameWithExtension;
+    private string _fileNameWithoutExtension;
+
     public class GameListViewItem : INotifyPropertyChanged
     {
         private readonly string _fileName;
@@ -104,8 +107,10 @@ public class GameListFactory(
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
+        _fileNameWithExtension = PathHelper.GetFileName(filePath);
+        _fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+
+        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(_fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
         var isFavorite = _favoritesManager.FavoriteList
@@ -134,7 +139,7 @@ public class GameListFactory(
         // Create the GameListViewItem with file details
         var gameListViewItem = new GameListViewItem
         {
-            FileName = fileNameWithoutExtension,
+            FileName = _fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = filePath,
             ContextMenu = AddRightClickContextMenuGameListFactory(filePath, systemName, systemManager),
@@ -148,9 +153,6 @@ public class GameListFactory(
 
     private ContextMenu AddRightClickContextMenuGameListFactory(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithExtension = Path.GetFileName(filePath);
-        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-
         var contextMenu = new ContextMenu();
 
         // Launch Game Context Menu
@@ -188,7 +190,7 @@ public class GameListFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            RightClickContextMenu.AddToFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -207,7 +209,7 @@ public class GameListFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -226,7 +228,7 @@ public class GameListFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
+            RightClickContextMenu.OpenVideoLink(systemName, _fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open Info Link Context Menu
@@ -245,7 +247,7 @@ public class GameListFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
+            RightClickContextMenu.OpenInfoLink(systemName, _fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open History Context Menu
@@ -264,7 +266,7 @@ public class GameListFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
+            RightClickContextMenu.OpenRomHistoryWindow(systemName, _fileNameWithoutExtension, systemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -283,7 +285,7 @@ public class GameListFactory(
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemManager);
+            RightClickContextMenu.OpenCover(systemName, _fileNameWithoutExtension, systemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -302,7 +304,7 @@ public class GameListFactory(
         openTitleSnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenTitleSnapshot(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenTitleSnapshot(systemName, _fileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -321,7 +323,7 @@ public class GameListFactory(
         openGameplaySnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenGameplaySnapshot(systemName, _fileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -340,7 +342,7 @@ public class GameListFactory(
         openCart.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCart(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenCart(systemName, _fileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -359,7 +361,7 @@ public class GameListFactory(
         openVideo.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.PlayVideo(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.PlayVideo(systemName, _fileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -378,7 +380,7 @@ public class GameListFactory(
         openManual.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenManual(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenManual(systemName, _fileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -397,7 +399,7 @@ public class GameListFactory(
         openWalkthrough.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenWalkthrough(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenWalkthrough(systemName, _fileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -416,7 +418,7 @@ public class GameListFactory(
         openCabinet.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCabinet(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenCabinet(systemName, _fileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -435,7 +437,7 @@ public class GameListFactory(
         openFlyer.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenFlyer(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenFlyer(systemName, _fileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -454,7 +456,7 @@ public class GameListFactory(
         openPcb.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenPcb(systemName, fileNameWithoutExtension);
+            RightClickContextMenu.OpenPcb(systemName, _fileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -476,7 +478,7 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
+            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(_fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
@@ -525,13 +527,13 @@ public class GameListFactory(
 
         async Task DoYouWanToDeleteMessageBox()
         {
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
+            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(_fileNameWithExtension);
 
             if (result != MessageBoxResult.Yes) return;
 
             try
             {
-                await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                await RightClickContextMenu.DeleteFile(filePath, _fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {
@@ -543,7 +545,7 @@ public class GameListFactory(
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            RightClickContextMenu.RemoveFromFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         }
     }
 
