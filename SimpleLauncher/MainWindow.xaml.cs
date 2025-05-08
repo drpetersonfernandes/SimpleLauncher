@@ -600,7 +600,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
 
                     // Display SystemInfo for that system
-                    DisplaySystemInformation.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
+                    await DisplaySystemInformation.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
 
                     // Update Image Folder and Rom Folder Variables
                     _selectedRomFolder = selectedConfig.SystemFolder;

@@ -642,189 +642,248 @@ public partial class EditSystemWindow
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
 
-    private void SaveSystemButton_Click(object sender, RoutedEventArgs e)
+    // Helper method to save the data into the XML
+    private async Task SaveSystemConfigurationAsync(
+        string systemNameText, string systemFolderText, string systemImageFolderText,
+        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch,
+        List<string> formatsToLaunch, XElement emulatorsElement, bool isUpdate,
+        string originalSystemName)
     {
-        // Trim input values
-        TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText, out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText, out var emulator2NameText, out var emulator3NameText, out var emulator4NameText, out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText, out var emulator3LocationText, out var emulator4LocationText, out var emulator5LocationText, out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText, out var emulator4ParametersText, out var emulator5ParametersText);
-
-        // Validate paths
-        ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText, out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid, out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid, out var isEmulator5LocationValid);
-
-        // Handle validation alerts
-        HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
-
-        // Validate SystemName
-        if (ValidateSystemName(systemNameText)) return;
-
-        // Validate SystemFolder
-        if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
-
-        // Validate SystemImageFolder
-        if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
-
-        // Validate systemIsMame
-        // Set to false if user does not choose
-        var systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-
-        // Validate extractFileBeforeLaunch
-        // Set to false if user does not choose
-        var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
-
-        // Validate FormatToSearch
-        if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch)) return;
-
-        // Validate FormatToLaunch
-        if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch)) return;
-
-        // Validate Emulator1Name
-        if (ValidateEmulator1Name(emulator1NameText)) return;
-
-        // Check paths
-        if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
-                isEmulator5LocationValid)) return;
-
-        // Check parameter paths
-        string[] parameterTexts =
-        [
-            emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText
-        ];
-        ValidateAndWarnAboutParameters(parameterTexts);
-
-        // Get the notification settings, defaulting to false if not selected or null
-        var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem { Content: not null } item1 &&
-                                   item1.Content.ToString() == "true"; // Default to false
-
-        var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem { Content: not null } item2 &&
-                                   item2.Content.ToString() == "true"; // Default to false
-
-        var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem { Content: not null } item3 &&
-                                   item3.Content.ToString() == "true"; // Default to false
-
-        var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem { Content: not null } item4 &&
-                                   item4.Content.ToString() == "true"; // Default to false
-
-        var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem { Content: not null } item5 &&
-                                   item5.Content.ToString() == "true"; // Default to false
-
-        ////////////////
-        // XML factory//
-        ////////////////
-        // Initialize 'emulatorsElement' as an XElement
-        var emulatorsElement = new XElement("Emulators");
-
-        // HashSet to store emulator names and ensure uniqueness
-        var emulatorNames = new HashSet<string>();
-
-        // Add Emulator1 details to XML and check uniqueness
-        if (!emulatorNames.Add(emulator1NameText))
+        try
         {
-            // Notify user
-            MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+            // Ensure the main XML document exists in memory
+            _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
 
-            return;
-        }
+            // Determine the system identifier for finding/adding the element
+            var systemIdentifier = isUpdate ? originalSystemName : systemNameText;
 
-        AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText, receiveNotification1);
+            // Find the existing system element or prepare to add a new one
+            var existingSystem = _xmlDoc.Root?.XPathSelectElement($"//SystemConfig[SystemName='{systemIdentifier}']");
 
-        // Validate Emulators 2-5
-        // Arrays for emulator names, locations, and parameters TextBoxes
-        string[] nameText = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
-        string[] locationText = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
-        string[] parametersText = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
-        bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
-
-        // Loop over the emulators 2 through 5 to validate and add their details
-        for (var i = 0; i < nameText.Length; i++)
-        {
-            var emulatorName = nameText[i];
-            var emulatorLocation = locationText[i];
-            var emulatorParameters = parametersText[i];
-            var receiveNotification = receiveNotifications[i];
-
-            // Check if any data related to the emulator is provided
-            if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
+            if (existingSystem != null)
             {
-                // Validate EmulatorName for Emulators 2-5
-                // Make the emulator name required if related data is provided
-                if (string.IsNullOrEmpty(emulatorName))
+                // Update the existing system
+                // If the name is changing, update it first
+                if (isUpdate && systemIdentifier != systemNameText)
                 {
-                    // Notify user
-                    MessageBoxLibrary.EmulatorNameRequiredMessageBox(i);
-
-                    return;
+                    existingSystem.SetElementValue("SystemName", systemNameText);
                 }
+
+                // Update all other fields
+                UpdateXml(existingSystem, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
             }
-
-            // If the emulator name is provided, check for uniqueness and add the emulator details to XML
-            if (string.IsNullOrEmpty(emulatorName)) continue;
-
-            // Check for uniqueness
-            if (!emulatorNames.Add(emulatorName))
+            else
             {
-                // Notify user
-                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulatorName);
-
-                return;
+                // Create and add a new system element
+                var newSystem = AddToXml(systemNameText, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+                _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
+
+            // Create a new document for sorting to avoid modifying _xmlDoc directly during sort
+            var sortedDoc = new XDocument(new XElement("SystemConfigs",
+                _xmlDoc.Root?.Elements("SystemConfig")
+                    .OrderBy(static system => system.Element("SystemName")?.Value)
+                    .Select(static el => new XElement(el)) // Create copies to avoid modifying original _xmlDoc elements during sort
+                ?? Enumerable.Empty<XElement>() // Handle case where Root is null
+            ));
+
+            // Save the sorted document asynchronously
+            // Convert the XDocument to string and write asynchronously
+            var xmlContent = sortedDoc.ToString();
+            await File.WriteAllTextAsync(XmlFilePath, xmlContent); // Asynchronous save
+        }
+        catch (Exception ex)
+        {
+            // Log the error
+            const string contextMessage = "Error saving system configuration to XML.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Rethrow the exception so the calling method can handle UI feedback
+            throw new InvalidOperationException("Failed to save system configuration.", ex);
+        }
+    }
+
+    private async void SaveSystemButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Trim input values
+            TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText, out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText, out var emulator2NameText, out var emulator3NameText, out var emulator4NameText, out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText, out var emulator3LocationText, out var emulator4LocationText, out var emulator5LocationText, out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText, out var emulator4ParametersText, out var emulator5ParametersText);
+
+            // Validate paths
+            ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText, out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid, out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid, out var isEmulator5LocationValid);
+
+            // Handle validation alerts
+            HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
+
+            // Validate SystemName
+            if (ValidateSystemName(systemNameText)) return;
+
+            // Validate SystemFolder
+            if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
+
+            // Validate SystemImageFolder
+            if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
+
+            // Validate systemIsMame
+            // Set to false if user does not choose
+            var systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+
+            // Validate extractFileBeforeLaunch
+            // Set to false if user does not choose
+            var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null && bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+
+            // Validate FormatToSearch
+            if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch)) return;
+
+            // Validate FormatToLaunch
+            if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch)) return;
+
+            // Validate Emulator1Name
+            if (ValidateEmulator1Name(emulator1NameText)) return;
+
+            // Check paths
+            if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
+                    isEmulator5LocationValid)) return;
+
+            // Check parameter paths
+            string[] parameterTexts =
+            [
+                emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText
+            ];
+            ValidateAndWarnAboutParameters(parameterTexts);
+
+            // Get the notification settings, defaulting to false if not selected or null
+            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem { Content: not null } item1 && item1.Content.ToString() == "true"; // Default to false
+            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem { Content: not null } item2 && item2.Content.ToString() == "true"; // Default to false
+            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem { Content: not null } item3 && item3.Content.ToString() == "true"; // Default to false
+            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem { Content: not null } item4 && item4.Content.ToString() == "true"; // Default to false
+            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem { Content: not null } item5 && item5.Content.ToString() == "true"; // Default to false
 
             ////////////////
             // XML factory//
             ////////////////
-            AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters, receiveNotification);
-        }
+            // Initialize 'emulatorsElement' as an XElement
+            var emulatorsElement = new XElement("Emulators");
 
-        // Check if we're updating an existing system
-        var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null;
+            // HashSet to store emulator names and ensure uniqueness
+            var emulatorNames = new HashSet<string>();
 
-        ////////////////
-        // XML factory//
-        ////////////////
-        _xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
-        // Use the original name to find the system if we're updating, otherwise use the current name
-        var systemIdentifier = isUpdate ? _originalSystemName : systemNameText;
-        var existingSystem = _xmlDoc.XPathSelectElement($"//SystemConfigs/SystemConfig[SystemName='{systemIdentifier}']");
-
-        if (existingSystem != null)
-        {
-            // If we're changing the name, update that first
-            if (systemIdentifier != systemNameText)
+            // Add Emulator1 details to XML and check uniqueness
+            if (!emulatorNames.Add(emulator1NameText))
             {
-                existingSystem.Element("SystemName").Value = systemNameText;
+                // Notify user
+                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+
+                return;
             }
 
-            // Then update all other fields
-            UpdateXml(existingSystem, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+            AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText, receiveNotification1);
+
+            // Validate Emulators 2-5
+            // Arrays for emulator names, locations, and parameters TextBoxes
+            string[] nameText = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
+            string[] locationText = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
+            string[] parametersText = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
+            bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
+
+            // Loop over the emulators 2 through 5 to validate and add their details
+            for (var i = 0; i < nameText.Length; i++)
+            {
+                var emulatorName = nameText[i];
+                var emulatorLocation = locationText[i];
+                var emulatorParameters = parametersText[i];
+                var receiveNotification = receiveNotifications[i];
+
+                // Check if any data related to the emulator is provided
+                if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
+                {
+                    // Validate EmulatorName for Emulators 2-5
+                    // Make the emulator name required if related data is provided
+                    if (string.IsNullOrEmpty(emulatorName))
+                    {
+                        // Notify user
+                        MessageBoxLibrary.EmulatorNameRequiredMessageBox(i);
+
+                        return;
+                    }
+                }
+
+                // If the emulator name is provided, check for uniqueness and add the emulator details to XML
+                if (string.IsNullOrEmpty(emulatorName)) continue;
+
+                // Check for uniqueness
+                if (!emulatorNames.Add(emulatorName))
+                {
+                    // Notify user
+                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulatorName);
+
+                    return;
+                }
+
+                ////////////////
+                // XML factory//
+                ////////////////
+                AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters, receiveNotification);
+            }
+
+            // Check if we're updating an existing system
+            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null;
+
+            ////////////////
+            // XML factory//
+            ////////////////
+            try
+            {
+                // Disable save button during save
+                SaveSystemButton.IsEnabled = false;
+
+                await SaveSystemConfigurationAsync(
+                    systemNameText, systemFolderText, systemImageFolderText,
+                    systemIsMame, formatsToSearch, extractFileBeforeLaunch,
+                    formatsToLaunch, emulatorsElement, isUpdate,
+                    _originalSystemName); // Pass _originalSystemName
+
+                // --- UI Updates and Post-Save Actions (only if save succeeds) ---
+                // Repopulate the SystemNamesDropbox
+                PopulateSystemNamesDropdown();
+
+                // Select the saved/updated system in the Dropbox
+                SystemNameDropdown.SelectedItem = systemNameText;
+
+                // Notify user of success
+                MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
+
+                // Create folders if necessary (this might also benefit from being async if slow)
+                CreateFolders(systemNameText);
+
+                // Update the original system name to match the current name after save
+                _originalSystemName = systemNameText;
+            }
+            catch (InvalidOperationException ex) // Catch the specific exception thrown by the helper
+            {
+                // Notify user about the save failure
+                // The error is already logged by the helper method
+                MessageBoxLibrary.SaveSystemFailedMessageBox(ex.InnerException?.Message); // Show inner exception message if available
+            }
+            catch (Exception ex) // Catch any other unexpected errors
+            {
+                // Log unexpected error
+                const string contextMessage = "Unexpected error during system save process.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                // Notify user
+                MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
+            }
+            finally
+            {
+                // Re-enable save button regardless of success or failure
+                SaveSystemButton.IsEnabled = true;
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Create a new system
-            var newSystem = AddToXml(systemNameText, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
-            _xmlDoc.Element("SystemConfigs")?.Add(newSystem);
+            _ = LogErrors.LogErrorAsync(ex, "Error saving system configuration.");
         }
-
-        // Sort the XML elements by "SystemName" before saving
-        var sortedDoc = new XDocument(new XElement("SystemConfigs",
-            from system in _xmlDoc.Descendants("SystemConfig")
-            orderby system.Element("SystemName")?.Value
-            select system));
-
-        // Save
-        sortedDoc.Save(XmlFilePath);
-
-        // Repopulate the SystemNamesDropbox
-        PopulateSystemNamesDropdown();
-
-        // Select a value from Dropbox
-        SystemNameDropdown.SelectedItem = systemNameText;
-
-        // Notify user
-        MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
-
-        CreateFolders(systemNameText);
-
-        // Update the original system name to match the current name after save
-        _originalSystemName = systemNameText;
     }
 
     private static void ValidatePaths(string systemNameText, string systemFolderText, string systemImageFolderText, string emulator1LocationText,

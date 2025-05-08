@@ -375,98 +375,202 @@ public partial class EasyModeWindow : IDisposable
         DownloadProgressBar.Value = 0;
     }
 
-    private void AddSystemButton_Click(object sender, RoutedEventArgs e)
+    // Helper method to save data into the XML
+    private static async Task UpdateSystemXmlAsync(string xmlPath, EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolderAbsolute)
     {
-        var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null) return;
-
-        // Determine the system folder to use
-        var systemFolder = SystemFolderTextBox.Text;
-        if (string.IsNullOrEmpty(systemFolder))
-        {
-            systemFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName);
-            SystemFolderTextBox.Text = systemFolder;
-        }
-
-        var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? string.Empty;
-
-        string systemImageFolderAbsolute;
-
-        if (Path.IsPathRooted(systemImageFolderRaw))
-        {
-            systemImageFolderAbsolute = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolderRaw);
-        }
-        else
-        {
-            // Combine the relative path with the base directory to get the absolute path
-            systemImageFolderAbsolute = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
-        }
-
-        var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
-        DownloadStatus = addingsystemtoconfiguration2;
-
-        var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+        XDocument xmlDoc = null; // Initialize to null
 
         try
         {
-            // Load existing system configurations
-            var xmlReaderSettings = new XmlReaderSettings
+            // Attempt to load existing XML content asynchronously
+            if (File.Exists(xmlPath))
             {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null // Explicitly disable resolving any external resources
-            };
-            using (var reader = XmlReader.Create(systemXmlPath, xmlReaderSettings))
-            {
-                var xmlDoc = XDocument.Load(reader);
+                try
+                {
+                    var xmlContent = await File.ReadAllTextAsync(xmlPath);
+                    // Only parse if content is not empty to avoid errors with empty files
+                    if (!string.IsNullOrWhiteSpace(xmlContent))
+                    {
+                        xmlDoc = XDocument.Parse(xmlContent);
+                        // Check if the root element is valid
+                        if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                        {
+                            // If root is null or incorrect, treat as invalid and create new
+                            xmlDoc = null; // Reset xmlDoc to trigger creation below
+                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
+                        }
+                    }
+                }
+                catch (XmlException ex) // Catch specific XML parsing errors
+                {
+                    // Log the parsing error but proceed to create a new document
+                    _ = LogErrors.LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
+                    xmlDoc = null; // Ensure we create a new one
+                }
+                catch (Exception ex) // Catch other file reading errors
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
+                    throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
+                }
+            }
 
-                var systemConfigs = xmlDoc.Descendants("SystemConfig").ToList();
-                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
+            // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
+            xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
+
+            // --- Proceed with modification logic ---
+            if (xmlDoc.Root != null)
+            {
+                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
+                var existingSystem = systemConfigs.FirstOrDefault(config =>
+                    config.Element("SystemName")?.Value == selectedSystem.SystemName);
+
                 if (existingSystem != null)
                 {
+                    // Overwrite existing system (in memory)
                     OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolderAbsolute);
                 }
                 else
                 {
+                    // Create new system element (in memory)
                     var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolderAbsolute);
-                    xmlDoc.Root?.Add(newSystemElement);
+                    xmlDoc.Root.Add(newSystemElement);
                 }
-
-                // Sort and save
-                xmlDoc.Root?.ReplaceNodes(xmlDoc.Root.Elements("SystemConfig")
-                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value));
-
-                // Save the updated XML document
-                xmlDoc.Save(systemXmlPath);
             }
 
-            var creatingsystemfolders2 = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
-            DownloadStatus = creatingsystemfolders2;
+            // Sort the elements (in memory)
+            if (xmlDoc.Root != null)
+            {
+                var sortedElements = xmlDoc.Root.Elements("SystemConfig")
+                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value)
+                    .ToList(); // Create a list of sorted elements
 
-            // Create the necessary folders for the system
-            CreateSystemFolders(selectedSystem.SystemName, systemFolder, systemImageFolderAbsolute);
+                // Replace the nodes in the original document's root
+                xmlDoc.Root.ReplaceNodes(sortedElements);
+            }
 
-            var systemhasbeensuccessfullyadded2 = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
-            DownloadStatus = systemhasbeensuccessfullyadded2;
 
-            // Notify user
-            MessageBoxLibrary.SystemAddedMessageBox(systemFolder, systemImageFolderAbsolute, selectedSystem);
+            // Save the updated and sorted XML document asynchronously
+            // Use SaveAsync for potentially better performance with XDocument
+            await Task.Run(() =>
+            {
+                if (xmlPath != null) xmlDoc.Save(xmlPath);
+            }); // Use Task.Run for Save which is sync
 
-            // Disable Add System Button
-            AddSystemButton.IsEnabled = false;
+            // Alternative using WriteAllTextAsync (as before):
+            // var xmlContentToSave = xmlDoc.ToString();
+            // await File.WriteAllTextAsync(xmlPath, xmlContentToSave);
+        }
+        // Keep the existing catch blocks for specific error types during save or other operations
+        catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
+        {
+            const string contextMessage = "Error saving system.xml.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            throw new InvalidOperationException("Could not save system configuration.", ex);
+        }
+        catch (Exception ex) // Catch other potential errors
+        {
+            const string contextMessage = "Unexpected error updating system.xml.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
+        }
+    }
 
-            Close();
+    private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            var selectedSystem = GetSelectedSystem();
+            if (selectedSystem == null) return;
+
+            // Determine the system folder to use
+            var systemFolder = SystemFolderTextBox.Text;
+            if (string.IsNullOrEmpty(systemFolder))
+            {
+                systemFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", selectedSystem.SystemName);
+                SystemFolderTextBox.Text = systemFolder;
+            }
+
+            // Resolve System Image Folder Path
+            var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? string.Empty;
+            string systemImageFolderAbsolute;
+
+            if (Path.IsPathRooted(systemImageFolderRaw))
+            {
+                // Use ResolveRelativeToCurrentDirectory for consistency if it's already absolute
+                systemImageFolderAbsolute = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolderRaw);
+            }
+            else
+            {
+                // Resolve relative path against the app directory
+                systemImageFolderAbsolute = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
+            }
+
+            var addingsystemtoconfiguration2 = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+            DownloadStatus = addingsystemtoconfiguration2;
+
+            var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
+
+            // --- Start Async Operation ---
+            try
+            {
+                // Disable button during operation
+                AddSystemButton.IsEnabled = false;
+
+                // Call the asynchronous helper method to update the XML
+                await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolder, systemImageFolderAbsolute);
+
+                // --- If XML update succeeds, continue with folder creation and UI updates ---
+                var creatingsystemfolders2 = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
+                DownloadStatus = creatingsystemfolders2;
+
+                // Create the necessary folders for the system (Keep synchronous for now, or make async if needed)
+                // Consider making CreateSystemFolders async if it involves significant I/O
+                CreateSystemFolders(selectedSystem.SystemName, systemFolder, systemImageFolderAbsolute);
+
+                var systemhasbeensuccessfullyadded2 = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
+                DownloadStatus = systemhasbeensuccessfullyadded2;
+
+                // Notify user
+                MessageBoxLibrary.SystemAddedMessageBox(systemFolder, systemImageFolderAbsolute, selectedSystem);
+
+                // Close the window after successful addition
+                Close();
+            }
+            catch (InvalidOperationException ex) // Catch specific exceptions from the helper
+            {
+                var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                DownloadStatus = $"{errorFailedtoaddsystem} {ex.Message}"; // Include details from exception
+
+                // Error is already logged by the helper method.
+                // Notify user about the specific failure reason.
+                MessageBoxLibrary.AddSystemFailedMessageBox(ex.Message); // Pass details to user
+            }
+            catch (Exception ex) // Catch any other unexpected errors
+            {
+                var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
+                DownloadStatus = errorFailedtoaddsystem;
+
+                // Log unexpected error
+                const string contextMessage = "Unexpected error adding system.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.AddSystemFailedMessageBox(); // Generic message for unexpected errors
+            }
+            finally
+            {
+                // Re-enable the button only if the operation failed and the window didn't close
+                // If Close() was called on success, this won't execute for that button instance.
+                // If an error occurred, re-enable the button.
+                if (IsLoaded) // Check if the window is still loaded
+                {
+                    AddSystemButton.IsEnabled = true;
+                }
+            }
         }
         catch (Exception ex)
         {
-            var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
-            DownloadStatus = errorFailedtoaddsystem;
-
-            // Notify developer
-            const string contextMessage = "Error adding system.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.AddSystemFailedMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error adding system.");
         }
     }
 

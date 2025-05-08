@@ -2668,29 +2668,29 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void AddSystemFailedMessageBox()
+    internal static void AddSystemFailedMessageBox(string details = null)
     {
-        var therewasanerroradding = (string)Application.Current.TryFindResource("Therewasanerroradding") ??
-                                    "There was an error adding this system.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
+        var therewasanerroradding = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        var errorDetails = (string)Application.Current.TryFindResource("ErrorDetails") ?? "Details:";
+
+        var message = $"{therewasanerroradding}\n\n{theerrorwasreportedtothedeveloper}";
+        if (!string.IsNullOrEmpty(details))
+        {
+            message += $"\n\n{errorDetails} {details}";
+        }
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            Action();
+            MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
         else
         {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
-        return;
-
-        void Action()
-        {
-            MessageBox.Show($"{therewasanerroradding}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
+            });
         }
     }
 
@@ -4565,6 +4565,32 @@ public static class MessageBoxLibrary
             var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotcheckdiskspace") ?? "'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.";
             var caption = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(message, caption, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void SaveSystemFailedMessageBox(string details = null)
+    {
+        var failedToSaveSystem = (string)Application.Current.TryFindResource("FailedToSaveSystem") ?? "Failed to save system configuration.";
+        var checkPermissions = (string)Application.Current.TryFindResource("CheckFilePermissions") ?? "Please check file permissions and ensure the file is not locked.";
+        var errorDetails = (string)Application.Current.TryFindResource("ErrorDetails") ?? "Details:";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        var message = $"{failedToSaveSystem}\n\n{checkPermissions}";
+        if (!string.IsNullOrEmpty(details))
+        {
+            message += $"\n\n{errorDetails} {details}";
+        }
+
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
+            });
         }
     }
 }

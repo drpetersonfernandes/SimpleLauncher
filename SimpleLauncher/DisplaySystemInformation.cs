@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -12,7 +13,7 @@ namespace SimpleLauncher;
 
 public static class DisplaySystemInformation
 {
-    public static void DisplaySystemInfo(string systemFolder, int gameCount, SystemManager selectedManager, WrapPanel gameFileGrid)
+    public static async Task DisplaySystemInfo(string systemFolder, int gameCount, SystemManager selectedManager, WrapPanel gameFileGrid)
     {
         gameFileGrid.Children.Clear();
 
@@ -24,7 +25,6 @@ public static class DisplaySystemInformation
         };
 
         var clickontheletterbuttonsabove2 = (string)Application.Current.TryFindResource("Clickontheletterbuttonsabove") ?? "Click on the letter buttons above to see the games";
-
         var systemFolder2 = (string)Application.Current.TryFindResource("SystemFolder") ?? "System Folder";
         var systemImageFolder2 = (string)Application.Current.TryFindResource("SystemImageFolder") ?? "System Image Folder";
         var defaultImageFolder2 = (string)Application.Current.TryFindResource("DefaultImageFolder") ?? "Using default image folder";
@@ -79,8 +79,7 @@ public static class DisplaySystemInformation
         if (Directory.Exists(imageFolderPath))
         {
             var imageExtensions = GetImageExtensions.GetExtensions();
-            // Correctly use image extensions with Directory.GetFiles
-            var imageCount = imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, $"*{ext}").Length);
+            var imageCount = await Task.Run(() => imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, $"*{ext}").Length));
 
             var imageCountTextBlock = new TextBlock();
             imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));
