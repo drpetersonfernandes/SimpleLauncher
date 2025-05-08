@@ -1784,7 +1784,7 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void FiLeSystemXmlIsCorruptedMessageBox(string logPath)
+    internal static void FileSystemXmlIsCorruptedMessageBox(string logPath)
     {
         var dispatcher = Application.Current.Dispatcher;
         if (dispatcher.CheckAccess())
@@ -2258,6 +2258,8 @@ public static class MessageBoxLibrary
 
             try
             {
+                if (selectedSystem?.Emulators?.Emulator?.ExtrasDownloadLink == null) return;
+
                 Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink, UseShellExecute = true });
             }
             catch (Exception ex)
@@ -4440,9 +4442,9 @@ public static class MessageBoxLibrary
         var unsupportedarchitecturefor7Zextraction =
             (string)Application.Current.TryFindResource("Unsupportedarchitecturefor7zextraction") ??
             "Unsupported architecture for 7z extraction.";
-        var simpleLauncherrequires64Bitor3BitWindowstorun =
-            (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor3bitWindowstorun") ??
-            "'Simple Launcher' requires 64-bit or 3-bit Windows to run.";
+        var simpleLauncherrequires64Bitor32BitWindowstorun =
+            (string)Application.Current.TryFindResource("SimpleLauncherrequires64bitor32bitWindowstorun") ??
+            "'Simple Launcher' requires 64-bit or 32-bit Windows to run.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -4458,7 +4460,7 @@ public static class MessageBoxLibrary
 
         void ShowMessageBoxAction()
         {
-            MessageBox.Show($"{unsupportedarchitecturefor7Zextraction}\n\n" + $"{simpleLauncherrequires64Bitor3BitWindowstorun}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{unsupportedarchitecturefor7Zextraction}\n\n" + $"{simpleLauncherrequires64Bitor32BitWindowstorun}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

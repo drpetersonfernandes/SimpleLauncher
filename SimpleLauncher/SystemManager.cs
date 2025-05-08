@@ -135,7 +135,7 @@ public class SystemManager
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FiLeSystemXmlIsCorruptedMessageBox(LogPath);
+                MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(LogPath);
 
                 return null;
             }
