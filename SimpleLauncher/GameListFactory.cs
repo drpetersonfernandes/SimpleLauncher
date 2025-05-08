@@ -603,18 +603,16 @@ public class GameListFactory(
         return machine?.Description ?? string.Empty;
     }
 
-    public Task HandleDoubleClick(GameListViewItem selectedItem)
+    public async Task HandleDoubleClick(GameListViewItem selectedItem)
     {
-        if (selectedItem == null) return Task.CompletedTask;
+        if (selectedItem == null) return;
 
         var selectedSystem = _systemComboBox.SelectedItem as string;
         var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
         if (systemConfig != null)
         {
-            return GameLauncher.HandleButtonClick(selectedItem.FilePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClick(selectedItem.FilePath, _emulatorComboBox, _systemComboBox,
+                _systemConfigs, _settings, _mainWindow);
         }
-
-        return Task.CompletedTask;
     }
 }

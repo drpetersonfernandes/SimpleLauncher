@@ -176,10 +176,10 @@ public partial class FavoritesWindow
             Header = launchSelectedGame2,
             Icon = launchIcon
         };
-        launchMenuItem.Click += (_, _) =>
+        launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
+            await LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
         };
 
         // "Remove from Favorites" MenuItem

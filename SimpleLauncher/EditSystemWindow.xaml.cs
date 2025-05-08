@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
@@ -42,26 +43,44 @@ public partial class EditSystemWindow
         DeleteSystemButton.IsEnabled = false;
     }
 
-    private void LoadXml()
+    private async void LoadXml()
     {
-        if (!File.Exists(XmlFilePath))
+        try
         {
-            // Notify user
-            MessageBoxLibrary.SystemXmlNotFoundMessageBox();
-
-            // Shutdown SimpleLauncher
-            QuitApplication.SimpleQuitApplication();
-        }
-        else
-        {
-            var settings = new XmlReaderSettings
+            var xmlDoc = await Task.Run(static () =>
             {
-                DtdProcessing = DtdProcessing.Prohibit,
-                XmlResolver = null
-            };
+                if (!File.Exists(XmlFilePath))
+                {
+                    return null;
+                }
 
-            using var reader = XmlReader.Create(XmlFilePath, settings);
-            _xmlDoc = XDocument.Load(reader);
+                var settings = new XmlReaderSettings
+                {
+                    DtdProcessing = DtdProcessing.Prohibit,
+                    XmlResolver = null
+                };
+
+                using var reader = XmlReader.Create(XmlFilePath, settings);
+                return XDocument.Load(reader);
+            });
+
+            if (xmlDoc == null)
+            {
+                // Notify user on UI thread
+                Dispatcher.Invoke(static () =>
+                {
+                    MessageBoxLibrary.SystemXmlNotFoundMessageBox();
+                    QuitApplication.SimpleQuitApplication();
+                });
+            }
+            else
+            {
+                _xmlDoc = xmlDoc;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error loading XML file");
         }
     }
 
