@@ -1990,17 +1990,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Delete temp folders and files before close
         CleanSimpleLauncherFolder.CleanupTrash();
 
-        // Dispose gamepad resources
-        GamePadController.Instance2.Stop();
-        GamePadController.Instance2.Dispose();
-
-        // Dispose tray icon resources
-        _trayIconManager?.Dispose();
-
-        // Dispose instances of HttpClient
-        Stats.DisposeHttpClient();
-        UpdateChecker.DisposeHttpClient();
-        SupportWindow.DisposeHttpClient();
+        Dispose();
 
         // Stop Controller Timer
         StopControllerTimer();
@@ -2016,6 +2006,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public void Dispose()
     {
+        // Dispose gamepad resources
+        GamePadController.Instance2.Stop();
+        GamePadController.Instance2.Dispose();
+
+        // Dispose tray icon resources
+        _trayIconManager?.Dispose();
+
+        // Dispose instances of HttpClient
+        Stats.DisposeHttpClient();
+        UpdateChecker.DisposeHttpClient();
+        SupportWindow.DisposeHttpClient();
+        LogErrors.DisposeHttpClient();
+
         // Stop and dispose timers
         if (_controllerCheckTimer != null)
         {

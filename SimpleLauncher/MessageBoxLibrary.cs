@@ -3085,6 +3085,7 @@ public static class MessageBoxLibrary
                 MessageBox.Show($"{manualReinstallSuggestion}\n\n" +
                                 $"{applicationWillShutdown}",
                     apiConfigErrorTitle, MessageBoxButton.OK, MessageBoxImage.Error);
+
                 QuitApplication.SimpleQuitApplication();
             }
         });

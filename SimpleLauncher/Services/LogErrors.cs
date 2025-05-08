@@ -14,8 +14,8 @@ public static class LogErrors
 {
     private static readonly HttpClient HttpClient = new();
     private static string ApiKey { get; set; }
-    private static string BugReportApiUrl { get; set; } // Now a property
-    private static bool _isApiLoggingEnabled; // Flag to control API logging
+    private static string BugReportApiUrl { get; set; }
+    private static bool _isApiLoggingEnabled;
 
     static LogErrors()
     {
@@ -198,5 +198,13 @@ public static class LogErrors
         {
             // If even local logging fails, there's not much else we can do here.
         }
+    }
+
+    public static void DisposeHttpClient()
+    {
+        HttpClient?.Dispose();
+        // Do NOT set HttpClient to null if you might need it again later.
+        // However, given it's static and tied to app lifetime, disposing on exit is fine.
+        // If it needs to be re-initialized, the LoadConfiguration/InitializeHttpClient logic would handle it.
     }
 }
