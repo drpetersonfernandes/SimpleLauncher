@@ -96,8 +96,7 @@ public static class Stats
         _httpClient = new HttpClient(handler);
 
         // ApiKey is guaranteed to be not null/empty if _isApiEnabled is true
-        _httpClient.DefaultRequestHeaders.Authorization =
-            new AuthenticationHeaderValue("Bearer", _apiKey);
+        _httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
         // Add a User-Agent header as required by some APIs (like GitHub, though this API might not need it, it's good practice)
         _httpClient.DefaultRequestHeaders.UserAgent.Add(new ProductInfoHeaderValue("SimpleLauncher", "1.0")); // Replace 1.0 with actual version if available

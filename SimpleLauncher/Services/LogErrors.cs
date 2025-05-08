@@ -62,7 +62,7 @@ public static class LogErrors
             _isApiLoggingEnabled = true;
 
             // Set default request headers for the HttpClient
-            HttpClient.DefaultRequestHeaders.Authorization = new System.Net.Http.Headers.AuthenticationHeaderValue("Bearer", ApiKey);
+            HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
         }
         catch (Exception ex)
         {
