@@ -58,6 +58,9 @@ public class SettingsManager
 
     private void Load()
     {
+        // Clear existing play times to prevent duplication
+        SystemPlayTimes.Clear();
+
         if (!File.Exists(_filePath))
         {
             SetDefaultsAndSave();
