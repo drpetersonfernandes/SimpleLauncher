@@ -20,16 +20,17 @@ public class GameListFactory(
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow)
 {
-    private readonly WrapPanel _fakeFileGrid = new();
-    private readonly Button _fakeButton = new();
-    private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
+    private readonly ComboBox _systemComboBox = systemComboBox;
     private readonly List<SystemManager> _systemConfigs = systemConfigs;
     private readonly List<MameManager> _machines = machines;
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
+
+    private readonly WrapPanel _fakeFileGrid = new();
+    private readonly Button _fakeButton = new();
 
     private string _filePath;
     private string _fileNameWithExtension;
@@ -77,7 +78,7 @@ public class GameListFactory(
             FileName = _fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = _filePath,
-            ContextMenu = ContextMenu.AddRightClick(_filePath, _emulatorComboBox, _systemComboBox,
+            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(_filePath, _emulatorComboBox, _systemComboBox,
                 _systemConfigs, _settings, _mainWindow, _selectedSystemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid,
                 _fileNameWithoutExtension, _selectedSystemManager, _fakeButton, _machines),
             IsFavorite = isFavorite,

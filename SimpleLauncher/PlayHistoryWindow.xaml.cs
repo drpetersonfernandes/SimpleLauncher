@@ -624,7 +624,6 @@ public partial class PlayHistoryWindow
         contextMenu.Items.Add(pcbMenuItem);
         contextMenu.Items.Add(takeScreenshot);
         contextMenu.Items.Add(deleteGame);
-
         contextMenu.IsOpen = true;
     }
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
-using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
@@ -34,15 +32,26 @@ internal class GameButtonFactory(
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly WrapPanel _gameFileGrid = gameFileGrid;
     private readonly MainWindow _mainWindow = mainWindow;
+
+    private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
+
+    private string _filePath;
+    private string _fileNameWithExtension;
+    private string _fileNameWithoutExtension;
+    private string _selectedSystemName;
+    private SystemManager _selectedSystemManager;
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithExtension = Path.GetFileName(filePath);
-        var fileNameWithoutExtension = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(Path.GetFileNameWithoutExtension(filePath));
+        _filePath = filePath;
+        _fileNameWithExtension = PathHelper.GetFileName(filePath);
+        _fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        _selectedSystemName = systemName;
+        _selectedSystemManager = systemManager;
 
         // Pass the original filename without extension for image lookup
-        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemManager.SystemName, systemManager);
+        var imagePath = FindCoverImage.FindCoverImagePath(_fileNameWithoutExtension, _selectedSystemName, _selectedSystemManager);
 
         // Use the new ImageLoader to load the image and get the isDefault flag
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
@@ -51,8 +60,8 @@ internal class GameButtonFactory(
         var viewModel = new GameButtonViewModel
         {
             IsFavorite = _favoritesManager.FavoriteList.Any(f =>
-                f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
-                f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase))
+                f.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                f.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase))
         };
 
         // Create a container for text that will hold two rows
@@ -66,22 +75,22 @@ internal class GameButtonFactory(
         // Always show the filename on the first row.
         var filenameTextBlock = new TextBlock
         {
-            Text = fileNameWithoutExtension, // Use TitleCase for display
+            Text = _fileNameWithoutExtension,
             HorizontalAlignment = HorizontalAlignment.Center,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeights.Bold,
             TextTrimming = TextTrimming.CharacterEllipsis,
             FontSize = 13,
-            ToolTip = fileNameWithoutExtension, // Use TitleCase for tooltip
+            ToolTip = _fileNameWithoutExtension,
             TextWrapping = TextWrapping.Wrap
         };
         textPanel.Children.Add(filenameTextBlock);
 
         // For MAME systems, add a second row for the description if available.
-        if (systemManager.SystemIsMame)
+        if (_selectedSystemManager.SystemIsMame)
         {
             // Use original filename without extension for MAME lookup
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(_fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var descriptionTextBlock = new TextBlock
@@ -197,7 +206,7 @@ internal class GameButtonFactory(
         Grid.SetRow(textContainer, 1);
         grid.Children.Add(textContainer);
 
-        var button = new Button
+        _button = new Button
         {
             Content = grid,
             Width = baseSize,
@@ -208,8 +217,7 @@ internal class GameButtonFactory(
         };
 
         // Create a unique key for the favorite status
-        // FIX: Use fileNameWithExtension for the key to match the lookup logic
-        var key = $"{systemName}|{fileNameWithExtension}";
+        var key = $"{_selectedSystemName}|{_fileNameWithExtension}";
 
         // Create the composite tag object
         var tag = new GameButtonTag
@@ -219,9 +227,9 @@ internal class GameButtonFactory(
         };
 
         // Assign it to the button's Tag property
-        button.Tag = tag;
+        _button.Tag = tag;
 
-        button.Click += async (sender, _) =>
+        _button.Click += async (sender, _) =>
         {
             if (sender is not Button clickedButton) return;
 
@@ -233,7 +241,7 @@ internal class GameButtonFactory(
             try
             {
                 PlayClick.PlayClickSound(); // Play sound *before* launching
-                await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+                await GameLauncher.HandleButtonClick(_filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
             }
             finally
             {
@@ -242,407 +250,9 @@ internal class GameButtonFactory(
             }
         };
 
-        return AddRightClickContextMenuGameButtonFactory(filePath, systemName, systemManager, fileNameWithExtension, fileNameWithoutExtension, button);
-    }
-
-    private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemManager systemManager, string fileNameWithExtension, string fileNameWithoutExtension, Button button)
-    {
-        var contextMenu = new System.Windows.Controls.ContextMenu();
-
-        // Launch Game Context Menu
-        var launchMenuItemIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/launch.png")),
-            Width = 16,
-            Height = 16
-        };
-        var launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
-        var launchMenuItem = new MenuItem
-        {
-            Header = launchGame2,
-            Icon = launchMenuItemIcon
-        };
-        launchMenuItem.Click += async (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
-        };
-
-        // Add To Favorites Context Menu
-        var addToFavoritesIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/heart.png")),
-            Width = 16,
-            Height = 16
-        };
-        var addToFavorites2 = (string)Application.Current.TryFindResource("AddToFavorites") ?? "Add To Favorites";
-        var addToFavorites = new MenuItem
-        {
-            Header = addToFavorites2,
-            Icon = addToFavoritesIcon
-        };
-        addToFavorites.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            // FIX: Pass the correct WrapPanel reference
-            ContextMenuFunctions.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
-        };
-
-        // Remove From Favorites Context Menu
-        var removeFromFavoritesIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/brokenheart.png")),
-            Width = 16,
-            Height = 16
-        };
-        var removeFromFavorites2 = (string)Application.Current.TryFindResource("RemoveFromFavorites") ?? "Remove From Favorites";
-        var removeFromFavorites = new MenuItem
-        {
-            Header = removeFromFavorites2,
-            Icon = removeFromFavoritesIcon
-        };
-        removeFromFavorites.Click += (_, _) =>
-        {
-            PlayClick.PlayTrashSound();
-            // FIX: Pass the correct WrapPanel reference
-            ContextMenuFunctions.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
-        };
-
-        // Open Video Link Context Menu
-        var openVideoLinkIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
-            Width = 16,
-            Height = 16
-        };
-        var openVideoLink2 = (string)Application.Current.TryFindResource("OpenVideoLink") ?? "Open Video Link";
-        var openVideoLink = new MenuItem
-        {
-            Header = openVideoLink2,
-            Icon = openVideoLinkIcon
-        };
-        openVideoLink.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
-        };
-
-        // Open Info Link Context Menu
-        var openInfoLinkIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
-            Width = 16,
-            Height = 16
-        };
-        var openInfoLink2 = (string)Application.Current.TryFindResource("OpenInfoLink") ?? "Open Info Link";
-        var openInfoLink = new MenuItem
-        {
-            Header = openInfoLink2,
-            Icon = openInfoLinkIcon
-        };
-        openInfoLink.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
-        };
-
-        // Open History Context Menu
-        var openHistoryIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/romhistory.png")),
-            Width = 16,
-            Height = 16
-        };
-        var openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
-        var openHistoryWindow = new MenuItem
-        {
-            Header = openRomHistory2,
-            Icon = openHistoryIcon
-        };
-        openHistoryWindow.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
-        };
-
-        // Open Cover Context Menu
-        var openCoverIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cover.png")),
-            Width = 16,
-            Height = 16
-        };
-        var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
-        var openCover = new MenuItem
-        {
-            Header = cover2,
-            Icon = openCoverIcon
-        };
-        openCover.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenCover(systemName, fileNameWithoutExtension, systemManager);
-        };
-
-        // Open Title Snapshot Context Menu
-        var openTitleSnapshotIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-            Width = 16,
-            Height = 16
-        };
-        var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
-        var openTitleSnapshot = new MenuItem
-        {
-            Header = titleSnapshot2,
-            Icon = openTitleSnapshotIcon
-        };
-        openTitleSnapshot.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenTitleSnapshot(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Gameplay Snapshot Context Menu
-        var openGameplaySnapshotIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-            Width = 16,
-            Height = 16
-        };
-        var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
-        var openGameplaySnapshot = new MenuItem
-        {
-            Header = gameplaySnapshot2,
-            Icon = openGameplaySnapshotIcon
-        };
-        openGameplaySnapshot.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Cart Context Menu
-        var openCartIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cart.png")),
-            Width = 16,
-            Height = 16
-        };
-        var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
-        var openCart = new MenuItem
-        {
-            Header = cart2,
-            Icon = openCartIcon
-        };
-        openCart.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenCart(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Video Context Menu
-        var openVideoIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
-            Width = 16,
-            Height = 16
-        };
-        var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
-        var openVideo = new MenuItem
-        {
-            Header = video2,
-            Icon = openVideoIcon
-        };
-        openVideo.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.PlayVideo(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Manual Context Menu
-        var openManualIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/manual.png")),
-            Width = 16,
-            Height = 16
-        };
-        var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
-        var openManual = new MenuItem
-        {
-            Header = manual2,
-            Icon = openManualIcon
-        };
-        openManual.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenManual(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Walkthrough Context Menu
-        var openWalkthroughIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/walkthrough.png")),
-            Width = 16,
-            Height = 16
-        };
-        var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
-        var openWalkthrough = new MenuItem
-        {
-            Header = walkthrough2,
-            Icon = openWalkthroughIcon
-        };
-        openWalkthrough.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenWalkthrough(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Cabinet Context Menu
-        var openCabinetIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/cabinet.png")),
-            Width = 16,
-            Height = 16
-        };
-        var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
-        var openCabinet = new MenuItem
-        {
-            Header = cabinet2,
-            Icon = openCabinetIcon
-        };
-        openCabinet.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenCabinet(systemName, fileNameWithoutExtension);
-        };
-
-        // Open Flyer Context Menu
-        var openFlyerIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/flyer.png")),
-            Width = 16,
-            Height = 16
-        };
-        var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
-        var openFlyer = new MenuItem
-        {
-            Header = flyer2,
-            Icon = openFlyerIcon
-        };
-        openFlyer.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenFlyer(systemName, fileNameWithoutExtension);
-        };
-
-        // Open PCB Context Menu
-        var openPcbIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/pcb.png")),
-            Width = 16,
-            Height = 16
-        };
-        var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
-        var openPcb = new MenuItem
-        {
-            Header = pCb2,
-            Icon = openPcbIcon
-        };
-        openPcb.Click += (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenPcb(systemName, fileNameWithoutExtension);
-        };
-
-        // Take Screenshot Context Menu
-        var takeScreenshotIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/snapshot.png")),
-            Width = 16,
-            Height = 16
-        };
-        var takeScreenshot2 = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
-        var takeScreenshot = new MenuItem
-        {
-            Header = takeScreenshot2,
-            Icon = takeScreenshotIcon
-        };
-
-        takeScreenshot.Click += async (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-
-            // Notify user
-            MessageBoxLibrary.TakeScreenShotMessageBox();
-
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, button, _mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
-        };
-
-        // Delete Game Context Menu
-        var deleteGameIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
-            Width = 16,
-            Height = 16
-        };
-        var deleteGame2 = (string)Application.Current.TryFindResource("DeleteGame") ?? "Delete Game";
-        var deleteGame = new MenuItem
-        {
-            Header = deleteGame2,
-            Icon = deleteGameIcon
-        };
-        deleteGame.Click += async (_, _) =>
-        {
-            PlayClick.PlayClickSound();
-
-            await DoYouWantToDeleteMessageBox();
-        };
-
-        contextMenu.Items.Add(launchMenuItem);
-        contextMenu.Items.Add(addToFavorites);
-        contextMenu.Items.Add(removeFromFavorites);
-        contextMenu.Items.Add(openVideoLink);
-        contextMenu.Items.Add(openInfoLink);
-        contextMenu.Items.Add(openHistoryWindow);
-        contextMenu.Items.Add(openCover);
-        contextMenu.Items.Add(openTitleSnapshot);
-        contextMenu.Items.Add(openGameplaySnapshot);
-        contextMenu.Items.Add(openCart);
-        contextMenu.Items.Add(openVideo);
-        contextMenu.Items.Add(openManual);
-        contextMenu.Items.Add(openWalkthrough);
-        contextMenu.Items.Add(openCabinet);
-        contextMenu.Items.Add(openFlyer);
-        contextMenu.Items.Add(openPcb);
-        contextMenu.Items.Add(takeScreenshot);
-        contextMenu.Items.Add(deleteGame);
-        button.ContextMenu = contextMenu;
-        return button;
-
-        async Task DoYouWantToDeleteMessageBox()
-        {
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
-
-            if (result != MessageBoxResult.Yes) return;
-
-            try
-            {
-                await ContextMenuFunctions.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error deleting the file.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
-            }
-
-            ContextMenuFunctions.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
-        }
+        return ContextMenu.AddRightClickReturnButton(_filePath, _emulatorComboBox, _systemComboBox,
+            _systemConfigs, _settings, _mainWindow, _selectedSystemName, _fileNameWithExtension, _favoritesManager, _gameFileGrid,
+            _fileNameWithoutExtension, _selectedSystemManager, _button, _machines);
     }
 }
 
