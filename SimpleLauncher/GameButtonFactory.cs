@@ -247,7 +247,7 @@ internal class GameButtonFactory(
 
     private Button AddRightClickContextMenuGameButtonFactory(string filePath, string systemName, SystemManager systemManager, string fileNameWithExtension, string fileNameWithoutExtension, Button button)
     {
-        var contextMenu = new ContextMenu();
+        var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // Launch Game Context Menu
         var launchMenuItemIcon = new Image

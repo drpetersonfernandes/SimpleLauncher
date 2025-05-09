@@ -10,7 +10,7 @@ namespace SimpleLauncher;
 public class TrayIconManager : IDisposable
 {
     private readonly TaskbarIcon _taskbarIcon;
-    private readonly ContextMenu _trayMenu;
+    private readonly System.Windows.Controls.ContextMenu _trayMenu;
     private readonly Window _mainWindow;
 
     public TrayIconManager(Window mainWindow)
@@ -18,7 +18,7 @@ public class TrayIconManager : IDisposable
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
 
         // Create a context menu for the tray icon
-        _trayMenu = new ContextMenu();
+        _trayMenu = new System.Windows.Controls.ContextMenu();
 
         var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";

@@ -251,7 +251,7 @@ public partial class PlayHistoryWindow
     private void AddRightClickContextMenuPlayHistoryWindow(string fileNameWithExtension, PlayHistoryItem selectedItem,
         string fileNameWithoutExtension, SystemManager systemConfig, string filePath)
     {
-        var contextMenu = new ContextMenu();
+        var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // "Launch Selected Game" MenuItem
         var launchIcon = new Image

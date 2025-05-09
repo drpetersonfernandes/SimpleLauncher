@@ -161,7 +161,7 @@ public partial class FavoritesWindow
 
     private void AddRightClickContextMenuFavoritesWindow(string fileNameWithExtension, Favorite selectedFavorite, string fileNameWithoutExtension, SystemManager systemManager, string filePath)
     {
-        var contextMenu = new ContextMenu();
+        var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // "Launch Selected Game" MenuItem
         var launchIcon = new Image

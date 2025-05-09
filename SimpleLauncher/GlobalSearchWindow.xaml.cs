@@ -369,7 +369,7 @@ public partial class GlobalSearchWindow
     private void AddRightClickContextMenuGlobalSearchWindow(SearchResult selectedResult, string fileNameWithoutExtension,
         SystemManager systemManager, string fileNameWithExtension, string filePath)
     {
-        var contextMenu = new ContextMenu();
+        var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // "Launch Selected Game" MenuItem
         var launchIcon = new Image
