@@ -9,12 +9,12 @@ using System.Threading.Tasks;
 using System.Windows.Controls;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
-using SimpleLauncher.ViewModel;
+using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
 
-public static class RightClickContextMenu
+public static class ContextMenuFunctions
 {
     // Use fileNameWithExtension
     public static void AddToFavorites(string systemName, string fileNameWithExtension, FavoritesManager favoritesManager, WrapPanel gameFileGrid, MainWindow mainWindow)

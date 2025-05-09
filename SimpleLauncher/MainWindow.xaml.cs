@@ -31,7 +31,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     // Declare GameListItems
     // Used in ListView Mode
-    public ObservableCollection<GameListFactory.GameListViewItem> GameListItems { get; set; } = [];
+    public ObservableCollection<GameListViewItem> GameListItems { get; set; } = [];
 
     // Declare System Name and PlayTime in the Statusbar
     // _selectedSystem is the selected system from ComboBox
@@ -514,7 +514,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GameDataGrid.SelectedItem is not GameListFactory.GameListViewItem selectedItem) return;
+        if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
 
         var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
@@ -525,7 +525,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            if (GameDataGrid.SelectedItem is GameListFactory.GameListViewItem selectedItem)
+            if (GameDataGrid.SelectedItem is GameListViewItem selectedItem)
             {
                 // Delegate the double-click handling to GameListFactory
                 await _gameListFactory.HandleDoubleClick(selectedItem);
@@ -655,7 +655,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // For List view, clear GameListItems
             GameListItems.Clear();
-            GameListItems.Add(new GameListFactory.GameListViewItem
+            GameListItems.Add(new GameListViewItem
             {
                 FileName = noSystemMessage,
                 MachineDescription = string.Empty
@@ -684,7 +684,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // For List view, clear GameListItems
             GameListItems.Clear();
-            GameListItems.Add(new GameListFactory.GameListViewItem
+            GameListItems.Add(new GameListViewItem
             {
                 FileName = noGamesMatched,
                 MachineDescription = string.Empty

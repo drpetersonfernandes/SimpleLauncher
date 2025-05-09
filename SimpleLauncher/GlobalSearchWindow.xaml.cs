@@ -406,7 +406,7 @@ public partial class GlobalSearchWindow
         addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
         };
 
         // "Open Video Link" MenuItem
@@ -425,7 +425,7 @@ public partial class GlobalSearchWindow
         videoLinkMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // "Open Info Link" MenuItem
@@ -444,7 +444,7 @@ public partial class GlobalSearchWindow
         infoLinkMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // "Open ROM History" MenuItem
@@ -464,7 +464,7 @@ public partial class GlobalSearchWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemManager, _machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // "Cover" MenuItem
@@ -483,7 +483,7 @@ public partial class GlobalSearchWindow
         coverMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemManager);
+            ContextMenuFunctions.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemManager);
         };
 
         // "Title Snapshot" MenuItem
@@ -502,7 +502,7 @@ public partial class GlobalSearchWindow
         titleSnapshotMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Gameplay Snapshot" MenuItem
@@ -521,7 +521,7 @@ public partial class GlobalSearchWindow
         gameplaySnapshotMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Cart" MenuItem
@@ -540,7 +540,7 @@ public partial class GlobalSearchWindow
         cartMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Video" MenuItem
@@ -559,7 +559,7 @@ public partial class GlobalSearchWindow
         videoMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Manual" MenuItem
@@ -578,7 +578,7 @@ public partial class GlobalSearchWindow
         manualMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Walkthrough" MenuItem
@@ -597,7 +597,7 @@ public partial class GlobalSearchWindow
         walkthroughMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Cabinet" MenuItem
@@ -616,7 +616,7 @@ public partial class GlobalSearchWindow
         cabinetMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "Flyer" MenuItem
@@ -635,7 +635,7 @@ public partial class GlobalSearchWindow
         flyerMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // "PCB" MenuItem
@@ -654,7 +654,7 @@ public partial class GlobalSearchWindow
         pcbMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -677,7 +677,7 @@ public partial class GlobalSearchWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         };
 
@@ -710,7 +710,7 @@ public partial class GlobalSearchWindow
 
                 try
                 {
-                    await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                    await ContextMenuFunctions.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {
@@ -722,7 +722,7 @@ public partial class GlobalSearchWindow
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
 
-                RightClickContextMenu.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
+                ContextMenuFunctions.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, _favoritesManager, _fakeGameFileGrid, _mainWindow);
             }
         };
 

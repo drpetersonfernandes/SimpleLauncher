@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -8,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Image = System.Windows.Controls.Image;
 
@@ -34,93 +34,31 @@ public class GameListFactory(
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
 
+    private string _filePath;
     private string _fileNameWithExtension;
     private string _fileNameWithoutExtension;
-
-    public class GameListViewItem : INotifyPropertyChanged
-    {
-        private readonly string _fileName;
-        private string _machineDescription;
-        private string _timesPlayed = "0";
-        private string _playTime = "0m 0s";
-        public string FilePath { get; init; }
-        public ContextMenu ContextMenu { get; set; }
-        private bool _isFavorite;
-
-        public bool IsFavorite
-        {
-            get => _isFavorite;
-            set
-            {
-                _isFavorite = value;
-                OnPropertyChanged(nameof(IsFavorite));
-            }
-        }
-
-        public string FileName
-        {
-            get => _fileName;
-            init
-            {
-                _fileName = value;
-                OnPropertyChanged(nameof(FileName));
-            }
-        }
-
-        public string MachineDescription
-        {
-            get => _machineDescription;
-            set
-            {
-                _machineDescription = value;
-                OnPropertyChanged(nameof(MachineDescription));
-            }
-        }
-
-        public string TimesPlayed
-        {
-            get => _timesPlayed;
-            set
-            {
-                _timesPlayed = value;
-                OnPropertyChanged(nameof(TimesPlayed));
-            }
-        }
-
-        public string PlayTime
-        {
-            get => _playTime;
-            set
-            {
-                _playTime = value;
-                OnPropertyChanged(nameof(PlayTime));
-            }
-        }
-
-        public event PropertyChangedEventHandler PropertyChanged;
-
-        private void OnPropertyChanged(string name)
-        {
-            PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
-        }
-    }
+    private string _selectedSystemName;
+    private SystemManager _selectedSystemManager;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
+        _filePath = filePath;
         _fileNameWithExtension = PathHelper.GetFileName(filePath);
         _fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        _selectedSystemName = systemName;
+        _selectedSystemManager = systemManager;
 
-        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(_fileNameWithoutExtension) : string.Empty;
+        var machineDescription = _selectedSystemManager.SystemIsMame ? GetMachineDescription(_fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
         var isFavorite = _favoritesManager.FavoriteList
-            .Any(f => f.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
-                      f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            .Any(f => f.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                      f.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         // Get playtime from playHistoryManager
         var playHistoryItem = _playHistoryManager.PlayHistoryList
-            .FirstOrDefault(h => h.FileName.Equals(Path.GetFileName(filePath), StringComparison.OrdinalIgnoreCase) &&
-                                 h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(h => h.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                                 h.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         var timesPlayed = "0"; // Default
         var playTime = "0m 0s"; // Default
@@ -141,8 +79,8 @@ public class GameListFactory(
         {
             FileName = _fileNameWithoutExtension,
             MachineDescription = machineDescription,
-            FilePath = filePath,
-            ContextMenu = AddRightClickContextMenuGameListFactory(filePath, systemName, systemManager),
+            FilePath = _filePath,
+            ContextMenu = AddRightClickContextMenuGameListFactory(),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime
@@ -151,7 +89,7 @@ public class GameListFactory(
         return Task.FromResult(gameListViewItem);
     }
 
-    private ContextMenu AddRightClickContextMenuGameListFactory(string filePath, string systemName, SystemManager systemManager)
+    private ContextMenu AddRightClickContextMenuGameListFactory()
     {
         var contextMenu = new ContextMenu();
 
@@ -162,16 +100,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var launchGame2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
+        var launchMenuItem2 = (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game";
         var launchMenuItem = new MenuItem
         {
-            Header = launchGame2,
+            Header = launchMenuItem2,
             Icon = launchMenuItemIcon
         };
         launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClick(_filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -190,7 +128,7 @@ public class GameListFactory(
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.AddToFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(_selectedSystemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -209,7 +147,7 @@ public class GameListFactory(
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            RightClickContextMenu.RemoveFromFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(_selectedSystemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -228,7 +166,7 @@ public class GameListFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(systemName, _fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenVideoLink(_selectedSystemName, _fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open Info Link Context Menu
@@ -247,7 +185,7 @@ public class GameListFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(systemName, _fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenInfoLink(_selectedSystemName, _fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open History Context Menu
@@ -257,16 +195,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var openRomHistory2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
+        var openHistoryWindow2 = (string)Application.Current.TryFindResource("OpenROMHistory") ?? "Open ROM History";
         var openHistoryWindow = new MenuItem
         {
-            Header = openRomHistory2,
+            Header = openHistoryWindow2,
             Icon = openHistoryIcon
         };
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, _fileNameWithoutExtension, systemManager, _machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(_selectedSystemName, _fileNameWithoutExtension, _selectedSystemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -276,16 +214,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var cover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
+        var openCover2 = (string)Application.Current.TryFindResource("Cover") ?? "Cover";
         var openCover = new MenuItem
         {
-            Header = cover2,
+            Header = openCover2,
             Icon = openCoverIcon
         };
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(systemName, _fileNameWithoutExtension, systemManager);
+            ContextMenuFunctions.OpenCover(_selectedSystemName, _fileNameWithoutExtension, _selectedSystemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -295,16 +233,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var titleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
+        var openTitleSnapshot2 = (string)Application.Current.TryFindResource("TitleSnapshot") ?? "Title Snapshot";
         var openTitleSnapshot = new MenuItem
         {
-            Header = titleSnapshot2,
+            Header = openTitleSnapshot2,
             Icon = openTitleSnapshotIcon
         };
         openTitleSnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenTitleSnapshot(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -314,16 +252,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var gameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
+        var openGameplaySnapshot2 = (string)Application.Current.TryFindResource("GameplaySnapshot") ?? "Gameplay Snapshot";
         var openGameplaySnapshot = new MenuItem
         {
-            Header = gameplaySnapshot2,
+            Header = openGameplaySnapshot2,
             Icon = openGameplaySnapshotIcon
         };
         openGameplaySnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenGameplaySnapshot(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -333,16 +271,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var cart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
+        var openCart2 = (string)Application.Current.TryFindResource("Cart") ?? "Cart";
         var openCart = new MenuItem
         {
-            Header = cart2,
+            Header = openCart2,
             Icon = openCartIcon
         };
         openCart.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCart(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -352,16 +290,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var video2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
+        var openVideo2 = (string)Application.Current.TryFindResource("Video") ?? "Video";
         var openVideo = new MenuItem
         {
-            Header = video2,
+            Header = openVideo2,
             Icon = openVideoIcon
         };
         openVideo.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.PlayVideo(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -371,16 +309,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var manual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
+        var openManual2 = (string)Application.Current.TryFindResource("Manual") ?? "Manual";
         var openManual = new MenuItem
         {
-            Header = manual2,
+            Header = openManual2,
             Icon = openManualIcon
         };
         openManual.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenManual(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -390,16 +328,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var walkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
+        var openWalkthrough2 = (string)Application.Current.TryFindResource("Walkthrough") ?? "Walkthrough";
         var openWalkthrough = new MenuItem
         {
-            Header = walkthrough2,
+            Header = openWalkthrough2,
             Icon = openWalkthroughIcon
         };
         openWalkthrough.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenWalkthrough(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -409,16 +347,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var cabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
+        var openCabinet2 = (string)Application.Current.TryFindResource("Cabinet") ?? "Cabinet";
         var openCabinet = new MenuItem
         {
-            Header = cabinet2,
+            Header = openCabinet2,
             Icon = openCabinetIcon
         };
         openCabinet.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCabinet(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -428,16 +366,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var flyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
+        var openFlyer2 = (string)Application.Current.TryFindResource("Flyer") ?? "Flyer";
         var openFlyer = new MenuItem
         {
-            Header = flyer2,
+            Header = openFlyer2,
             Icon = openFlyerIcon
         };
         openFlyer.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenFlyer(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -447,16 +385,16 @@ public class GameListFactory(
             Width = 16,
             Height = 16
         };
-        var pCb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
+        var openPcb2 = (string)Application.Current.TryFindResource("PCB") ?? "PCB";
         var openPcb = new MenuItem
         {
-            Header = pCb2,
+            Header = openPcb2,
             Icon = openPcbIcon
         };
         openPcb.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenPcb(systemName, _fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(_selectedSystemName, _fileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -478,8 +416,8 @@ public class GameListFactory(
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(_fileNameWithoutExtension, systemManager, _fakeButton, _mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(_fileNameWithoutExtension, _selectedSystemManager, _fakeButton, _mainWindow);
+            await GameLauncher.HandleButtonClick(_filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
         // Delete Game Context Menu
@@ -499,7 +437,6 @@ public class GameListFactory(
         deleteGame.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-
             await DoYouWanToDeleteMessageBox();
         };
 
@@ -529,11 +466,14 @@ public class GameListFactory(
         {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(_fileNameWithExtension);
 
-            if (result != MessageBoxResult.Yes) return;
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
 
             try
             {
-                await RightClickContextMenu.DeleteFile(filePath, _fileNameWithExtension, _mainWindow);
+                await ContextMenuFunctions.DeleteFile(_filePath, _fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {
@@ -545,11 +485,10 @@ public class GameListFactory(
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            RightClickContextMenu.RemoveFromFavorites(systemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(_selectedSystemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid, _mainWindow);
         }
     }
 
-    // Changed to async void because it's likely an event handler (SelectionChanged)
     public async void HandleSelectionChanged(GameListViewItem selectedItem)
     {
         try
@@ -562,13 +501,11 @@ public class GameListFactory(
             var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
             if (systemConfig == null) return;
 
-            // Get the preview image path
             var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
 
-            // Clear previous image first to avoid memory leaks and show loading state
             _mainWindow.PreviewImage.Source = null;
 
-            // Normalize the path if found, before passing to ImageLoader
+            // Normalize the path
             if (!string.IsNullOrEmpty(previewImagePath))
             {
                 previewImagePath = PathHelper.ResolveRelativeToCurrentDirectory(previewImagePath);
@@ -576,21 +513,13 @@ public class GameListFactory(
             // Note: If previewImagePath is null/empty, ImageLoader.LoadImageAsync will handle it by trying the default.
 
             // Use ImageLoader to load the image asynchronously.
-            // ImageLoader handles file existence, reading, memory stream, freezing,
-            // background thread loading, error logging, and default image fallback.
+            // ImageLoader handles file existence, reading, memory stream, freezing, background thread loading, error logging, and default image fallback.
             // Use discard (_) for the 'isDefault' variable as it's not used here.
             var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath);
 
-            // Update the UI on the UI thread
             _mainWindow.Dispatcher.Invoke(() =>
             {
                 _mainWindow.PreviewImage.Source = imageSource;
-
-                // The ImageLoader handles logging errors and falling back to the default.
-                // No need for additional try-catch or "DefaultImageNotFoundMessageBox" here,
-                // as ImageLoader's internal logging and fallback are sufficient.
-                // If imageSource is null here, it means even the default image failed to load,
-                // which ImageLoader logs as a critical error.
             });
         }
         catch (Exception ex)

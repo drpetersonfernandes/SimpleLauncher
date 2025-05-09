@@ -11,7 +11,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
-using SimpleLauncher.ViewModel;
+using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
@@ -285,7 +285,7 @@ internal class GameButtonFactory(
         {
             PlayClick.PlayClickSound();
             // FIX: Pass the correct WrapPanel reference
-            RightClickContextMenu.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -305,7 +305,7 @@ internal class GameButtonFactory(
         {
             PlayClick.PlayTrashSound();
             // FIX: Pass the correct WrapPanel reference
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -324,7 +324,7 @@ internal class GameButtonFactory(
         openVideoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenVideoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open Info Link Context Menu
@@ -343,7 +343,7 @@ internal class GameButtonFactory(
         openInfoLink.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenInfoLink(systemName, fileNameWithoutExtension, _machines, _settings);
         };
 
         // Open History Context Menu
@@ -362,7 +362,7 @@ internal class GameButtonFactory(
         openHistoryWindow.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(systemName, fileNameWithoutExtension, systemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -381,7 +381,7 @@ internal class GameButtonFactory(
         openCover.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCover(systemName, fileNameWithoutExtension, systemManager);
+            ContextMenuFunctions.OpenCover(systemName, fileNameWithoutExtension, systemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -400,7 +400,7 @@ internal class GameButtonFactory(
         openTitleSnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenTitleSnapshot(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(systemName, fileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -419,7 +419,7 @@ internal class GameButtonFactory(
         openGameplaySnapshot.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(systemName, fileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -438,7 +438,7 @@ internal class GameButtonFactory(
         openCart.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCart(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(systemName, fileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -457,7 +457,7 @@ internal class GameButtonFactory(
         openVideo.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.PlayVideo(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(systemName, fileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -476,7 +476,7 @@ internal class GameButtonFactory(
         openManual.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenManual(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(systemName, fileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -495,7 +495,7 @@ internal class GameButtonFactory(
         openWalkthrough.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenWalkthrough(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(systemName, fileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -514,7 +514,7 @@ internal class GameButtonFactory(
         openCabinet.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenCabinet(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(systemName, fileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -533,7 +533,7 @@ internal class GameButtonFactory(
         openFlyer.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenFlyer(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(systemName, fileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -552,7 +552,7 @@ internal class GameButtonFactory(
         openPcb.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            RightClickContextMenu.OpenPcb(systemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(systemName, fileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -576,7 +576,7 @@ internal class GameButtonFactory(
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = RightClickContextMenu.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, button, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, button, _mainWindow);
             await GameLauncher.HandleButtonClick(filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
         };
 
@@ -629,7 +629,7 @@ internal class GameButtonFactory(
 
             try
             {
-                await RightClickContextMenu.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                await ContextMenuFunctions.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
             }
             catch (Exception ex)
             {
@@ -641,7 +641,7 @@ internal class GameButtonFactory(
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            RightClickContextMenu.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(systemName, fileNameWithExtension, _favoritesManager, _gameFileGrid, _mainWindow);
         }
     }
 }
