@@ -4,6 +4,7 @@ using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 using MessagePack;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -172,14 +173,4 @@ public class CacheManager
             return _cachedGameFiles.TryGetValue(systemName, out var files) ? files : new List<string>();
         }
     }
-}
-
-[MessagePackObject]
-public class GameCache
-{
-    [Key(0)]
-    public int FileCount { get; set; }
-
-    [Key(1)]
-    public List<string> FileNames { get; set; }
 }

@@ -5,6 +5,7 @@ using System.Linq;
 using System.Xml;
 using System.Xml.Serialization;
 using MessagePack;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -196,42 +197,4 @@ public class FavoritesManager
             throw; // Re-throw to notify caller
         }
     }
-}
-
-// Legacy XML format for backward compatibility
-[XmlRoot("Favorites")]
-public class XmlFavoritesManager
-{
-    [XmlElement("Favorite")]
-    public ObservableCollection<XmlFavorite> FavoriteList { get; set; } = [];
-}
-
-[XmlType("Favorite")]
-public class XmlFavorite
-{
-    [XmlElement]
-    public string FileName { get; set; }
-
-    [XmlElement]
-    public string SystemName { get; set; }
-}
-
-// New MessagePack format
-[MessagePackObject]
-public class Favorite
-{
-    [Key(0)]
-    public string FileName { get; init; }
-
-    [Key(1)]
-    public string SystemName { get; init; }
-
-    [IgnoreMember]
-    public string MachineDescription { get; init; }
-
-    [IgnoreMember]
-    public string CoverImage { get; init; }
-
-    [IgnoreMember]
-    public string DefaultEmulator { get; set; }
 }

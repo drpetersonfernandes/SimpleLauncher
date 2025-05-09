@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 
@@ -245,7 +246,7 @@ public partial class DownloadImagePackWindow : IDisposable
         return true;
     }
 
-    private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
+    private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
     {
         Dispatcher.InvokeAsync(() =>
             {

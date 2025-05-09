@@ -6,6 +6,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -21,33 +22,6 @@ public class DownloadManager : IDisposable
     /// Event raised when download progress changes.
     /// </summary>
     public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
-
-    /// <inheritdoc />
-    /// <summary>
-    /// Event args for download progress updates.
-    /// </summary>
-    public class DownloadProgressEventArgs : EventArgs
-    {
-        /// <summary>
-        /// Gets or sets the number of bytes received.
-        /// </summary>
-        public long BytesReceived { get; set; }
-
-        /// <summary>
-        /// Gets or sets the total number of bytes to receive.
-        /// </summary>
-        public long? TotalBytesToReceive { get; set; }
-
-        /// <summary>
-        /// Gets or sets the progress percentage (0-100).
-        /// </summary>
-        public double ProgressPercentage { get; set; }
-
-        /// <summary>
-        /// Gets or sets the status message.
-        /// </summary>
-        public string StatusMessage { get; set; }
-    }
 
     // Constants
     private const int HttpTimeoutSeconds = 60;

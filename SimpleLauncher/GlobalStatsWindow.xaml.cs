@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Win32;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -155,19 +156,6 @@ public partial class GlobalStatsWindow
         return _systemStats; // Return the system stats to be included in the report
     }
 
-
-    // Class for binding data to DataGrid
-    public class SystemStatsData
-    {
-        public string SystemName { get; init; }
-        public int NumberOfFiles { get; init; }
-        public int NumberOfImages { get; init; }
-        public long TotalDiskSize { get; init; }
-
-        public bool AreFilesAndImagesEqual => NumberOfFiles == NumberOfImages; // This property checks
-                                                                                      // if the number of files and images are equal
-    }
-
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {
         var totalSystems = systemStats.Count;
@@ -184,15 +172,6 @@ public partial class GlobalStatsWindow
             TotalImages = totalImages,
             TotalDiskSize = totalDiskSize
         };
-    }
-
-    private sealed class GlobalStatsData
-    {
-        public int TotalSystems { get; init; }
-        public int TotalEmulators { get; init; }
-        public int TotalGames { get; init; }
-        public int TotalImages { get; init; }
-        public long TotalDiskSize { get; init; }
     }
 
     private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)

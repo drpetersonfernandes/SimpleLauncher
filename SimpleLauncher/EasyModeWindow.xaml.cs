@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using System.Xml;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher;
 
@@ -345,7 +346,7 @@ public partial class EasyModeWindow : IDisposable
         }
     }
 
-    private void DownloadManager_ProgressChanged(object sender, DownloadManager.DownloadProgressEventArgs e)
+    private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
     {
         Dispatcher.InvokeAsync(() =>
         {
