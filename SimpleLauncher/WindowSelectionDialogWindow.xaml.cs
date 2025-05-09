@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows.Controls;
+using SimpleLauncher.Models;
 
 namespace SimpleLauncher;
 
@@ -30,11 +31,5 @@ public partial class WindowSelectionDialogWindow
         SelectedWindowHandle = selectedItem.Handle;
         DialogResult = true; // Only works after ShowDialog() is called
         Close();
-    }
-
-    public class WindowItem
-    {
-        public string Title { get; set; }
-        public IntPtr Handle { get; init; }
     }
 }

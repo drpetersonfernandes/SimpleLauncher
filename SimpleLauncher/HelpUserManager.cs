@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -125,11 +126,5 @@ public class HelpUserManager
         // Process each line to remove leading spaces while keeping line breaks
         var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
         return string.Join(Environment.NewLine, lines.Select(static line => line.TrimStart()));
-    }
-
-    public class SystemHelper
-    {
-        public string SystemName { get; init; }
-        public string SystemHelperText { get; init; }
     }
 }
