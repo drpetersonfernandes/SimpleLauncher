@@ -15,7 +15,7 @@ public static partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
-    private static HttpClient _httpClient;
+    private static HttpClient? _httpClient;
 
     static UpdateChecker()
     {
@@ -57,9 +57,9 @@ public static partial class UpdateChecker
     {
         try
         {
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+            _httpClient?.DefaultRequestHeaders.Add("User-Agent", "request");
 
-            var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+            var response = await _httpClient?.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -292,7 +292,7 @@ public static partial class UpdateChecker
             root.TryGetProperty("assets", out var assetsElement))
         {
             var versionTag = tagNameElement.GetString();
-            string assetUrl = null;
+            string? assetUrl = null;
             foreach (var asset in assetsElement.EnumerateArray())
             {
                 if (!asset.TryGetProperty("browser_download_url", out var downloadUrlElement)) continue;

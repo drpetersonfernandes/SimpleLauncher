@@ -7,13 +7,13 @@ namespace SimpleLauncher.Models;
 public class Favorite
 {
     [Key(0)]
-    public string FileName { get; init; }
+    public required string FileName { get; init; }
 
     [Key(1)]
-    public string SystemName { get; init; }
+    public required string SystemName { get; init; }
 
     [IgnoreMember]
-    public string MachineDescription { get; init; }
+    public string? MachineDescription { get; init; }
 
     [IgnoreMember]
     public string CoverImage { get; init; }

@@ -10,5 +10,5 @@ public class GameCache
     public int FileCount { get; set; }
 
     [Key(1)]
-    public List<string> FileNames { get; set; }
+    public required List<string> FileNames { get; set; }
 }
