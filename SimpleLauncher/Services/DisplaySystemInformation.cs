@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
-using SimpleLauncher.Services;
+using SimpleLauncher.Managers;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class DisplaySystemInformation
 {

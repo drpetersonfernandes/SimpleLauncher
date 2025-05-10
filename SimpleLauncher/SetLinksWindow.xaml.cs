@@ -1,4 +1,6 @@
 using System.Windows;
+using SimpleLauncher.Managers;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 

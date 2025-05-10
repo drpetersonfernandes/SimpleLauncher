@@ -8,7 +8,7 @@ using MessagePack;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 [MessagePackObject]
 public class FavoritesManager

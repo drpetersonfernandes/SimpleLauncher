@@ -44,7 +44,7 @@
     <None Remove="~syncthing~EditSystem.xaml.cs.tmp" />
     <None Remove="database\**" />
     <None Update="system_model.xml">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Remove="system.xml" />
     <None Update="appsettings.json">

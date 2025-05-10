@@ -7,12 +7,13 @@ using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 internal class GameButtonFactory(
     ComboBox emulatorComboBox,

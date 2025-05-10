@@ -4,6 +4,7 @@ using System.Threading;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
+using SimpleLauncher.Services;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 

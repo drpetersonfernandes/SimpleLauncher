@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 using System.Xml.Linq;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;

@@ -5,10 +5,11 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 public class GameListFactory(
     ComboBox emulatorComboBox,

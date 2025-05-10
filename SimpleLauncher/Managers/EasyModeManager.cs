@@ -7,7 +7,7 @@ using System.Xml.Serialization;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 [XmlRoot("EasyMode")]
 public class EasyModeManager

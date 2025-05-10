@@ -8,9 +8,8 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static partial class UpdateChecker
 {

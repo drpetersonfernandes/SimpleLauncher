@@ -12,6 +12,7 @@ using System.Xml;
 using System.Xml.Linq;
 using System.Xml.XPath;
 using Microsoft.Win32;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using OpenFileDialog = Microsoft.Win32.OpenFileDialog;

@@ -7,6 +7,7 @@ using System.Windows.Markup;
 using ControlzEx.Theming;
 using SimpleLauncher.Services;
 using System.Reflection;
+using SimpleLauncher.Managers;
 
 namespace SimpleLauncher;
 

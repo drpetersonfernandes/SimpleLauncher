@@ -7,12 +7,13 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenuFunctions
 {
@@ -585,13 +586,13 @@ public static class ContextMenuFunctions
 
             var hWnd = dialog.SelectedWindowHandle;
 
-            WindowScreenshot.Rect rect;
+            WindowScreenshot.Rectangle rectangle;
 
             // Try to get the client area dimensions
             if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))
             {
                 // If the client area fails, fall back to the full window dimensions
-                if (!WindowScreenshot.GetWindowRect(hWnd, out rect))
+                if (!WindowScreenshot.GetWindowRect(hWnd, out rectangle))
                 {
                     throw new Exception("Failed to retrieve window dimensions.");
                 }
@@ -599,11 +600,11 @@ public static class ContextMenuFunctions
             else
             {
                 // Successfully retrieved client area
-                rect = clientRect;
+                rectangle = clientRect;
             }
 
-            var width = rect.Right - rect.Left;
-            var height = rect.Bottom - rect.Top;
+            var width = rectangle.Right - rectangle.Left;
+            var height = rectangle.Bottom - rectangle.Top;
 
             var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
@@ -613,7 +614,7 @@ public static class ContextMenuFunctions
                 using (var graphics = Graphics.FromImage(bitmap))
                 {
                     graphics.CopyFromScreen(
-                        new Point(rect.Left, rect.Top),
+                        new Point(rectangle.Left, rectangle.Top),
                         Point.Empty,
                         new Size(width, height));
                 }

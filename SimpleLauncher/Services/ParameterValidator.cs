@@ -4,7 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 /// <summary>
 /// Provides methods for validating file paths and parameters used in emulator configurations.

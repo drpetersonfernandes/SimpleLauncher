@@ -7,41 +7,25 @@ public static partial class WindowScreenshot
 {
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    public static partial bool GetWindowRect(IntPtr hWnd, out Rect lpRect);
+    public static partial bool GetWindowRect(IntPtr hWnd, out Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
-    private static partial bool GetClientRect(IntPtr hWnd, out Rect lpRect);
+    private static partial bool GetClientRect(IntPtr hWnd, out Rectangle lpRectangle);
 
     [LibraryImport("user32.dll", SetLastError = true)]
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
-    [StructLayout(LayoutKind.Sequential)]
-    public struct Rect
-    {
-        public int Left;
-        public int Top;
-        public int Right;
-        public int Bottom;
-    }
-
-    [StructLayout(LayoutKind.Sequential)]
-    private struct Point
-    {
-        public int X;
-        public int Y;
-    }
-
     /// <summary>
     /// Gets the rectangle of the client area (excluding borders and menu).
     /// </summary>
     /// <param name="hWnd">Handle to the window.</param>
-    /// <param name="clientRect">The rectangle of the client area in screen coordinates.</param>
+    /// <param name="clientRectangle">The rectangle of the client area in screen coordinates.</param>
     /// <returns>True if the client area was successfully retrieved, false otherwise.</returns>
-    public static bool GetClientAreaRect(IntPtr hWnd, out Rect clientRect)
+    public static bool GetClientAreaRect(IntPtr hWnd, out Rectangle clientRectangle)
     {
-        clientRect = new Rect();
+        clientRectangle = new Rectangle();
 
         // Get the client area dimensions
         if (!GetClientRect(hWnd, out var localClientRect))
@@ -57,10 +41,10 @@ public static partial class WindowScreenshot
         }
 
         // Calculate the client area rectangle in screen coordinates
-        clientRect.Left = clientTopLeft.X;
-        clientRect.Top = clientTopLeft.Y;
-        clientRect.Right = clientTopLeft.X + (localClientRect.Right - localClientRect.Left);
-        clientRect.Bottom = clientTopLeft.Y + (localClientRect.Bottom - localClientRect.Top);
+        clientRectangle.Left = clientTopLeft.X;
+        clientRectangle.Top = clientTopLeft.Y;
+        clientRectangle.Right = clientTopLeft.X + (localClientRect.Right - localClientRect.Left);
+        clientRectangle.Bottom = clientTopLeft.Y + (localClientRect.Bottom - localClientRect.Top);
 
         return true;
     }

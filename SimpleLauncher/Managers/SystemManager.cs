@@ -7,9 +7,9 @@ using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
-public class SystemManager
+public partial class SystemManager
 {
     private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
@@ -21,14 +21,6 @@ public class SystemManager
     public bool ExtractFileBeforeLaunch { get; set; }
     public List<string> FileFormatsToLaunch { get; private init; }
     public List<Emulator> Emulators { get; private init; }
-
-    public class Emulator
-    {
-        public string EmulatorName { get; init; }
-        public string EmulatorLocation { get; init; }
-        public string EmulatorParameters { get; init; }
-        public bool ReceiveANotificationOnEmulatorError { get; init; }
-    }
 
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 

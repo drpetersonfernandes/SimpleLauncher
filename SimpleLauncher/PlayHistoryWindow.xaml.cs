@@ -9,8 +9,11 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using SimpleLauncher.UiHelpers;
+using ContextMenu = System.Windows.Controls.ContextMenu;
 using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher;
@@ -251,7 +254,7 @@ public partial class PlayHistoryWindow
     private void AddRightClickContextMenuPlayHistoryWindow(string fileNameWithExtension, PlayHistoryItem selectedItem,
         string fileNameWithoutExtension, SystemManager systemConfig, string filePath)
     {
-        var contextMenu = new System.Windows.Controls.ContextMenu();
+        var contextMenu = new ContextMenu();
 
         // "Launch Selected Game" MenuItem
         var launchIcon = new Image

@@ -2,9 +2,8 @@
 using System;
 using System.IO;
 using System.Windows.Media;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class PlayClick
 {

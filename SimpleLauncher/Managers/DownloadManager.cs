@@ -9,7 +9,7 @@ using System.Windows;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 /// <inheritdoc />
 /// <summary>

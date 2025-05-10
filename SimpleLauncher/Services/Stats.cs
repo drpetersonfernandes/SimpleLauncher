@@ -7,9 +7,8 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class Stats
 {

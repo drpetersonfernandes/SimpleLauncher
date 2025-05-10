@@ -11,6 +11,7 @@ using Microsoft.Win32;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using System.Xml;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher;

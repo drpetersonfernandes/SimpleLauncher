@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using ControlzEx.Theming;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;

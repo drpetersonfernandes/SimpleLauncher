@@ -5,7 +5,7 @@ using System.Windows.Controls;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 public class FilterMenu
 {

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Runtime.InteropServices;
 using System.Text;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 public static class WindowManager
 {

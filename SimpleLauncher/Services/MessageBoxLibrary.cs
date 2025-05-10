@@ -7,9 +7,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Models;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class MessageBoxLibrary
 {
@@ -1364,13 +1363,23 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static bool FailedToLoadHelpUserXmlMessageBox()
+    internal static void FailedToLoadHelpUserXmlMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
+        var showAction = Show; // Define an Action delegate for the local Show method
 
-        return dispatcher.CheckAccess() ? Show() : dispatcher.Invoke(Show);
+        if (dispatcher.CheckAccess())
+        {
+            showAction();
+        }
+        else
+        {
+            dispatcher.Invoke(showAction);
+        }
 
-        static bool Show()
+        return;
+
+        static void Show() // Changed return type from bool to void
         {
             var msg1 = (string)Application.Current.TryFindResource("Unabletoloadhelpuserxml") ??
                        "Unable to load 'helpuser.xml'. The file may be corrupted.";
@@ -1381,22 +1390,29 @@ public static class MessageBoxLibrary
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                return false;
+                // No return false needed
             }
-            else
-            {
-                return true;
-            }
+            // No return true needed
         }
     }
 
-    internal static bool FileHelpUserXmlIsMissingMessageBox()
+    internal static void FileHelpUserXmlIsMissingMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
+        var showAction = Show; // Define an Action delegate for the local Show method
 
-        return dispatcher.CheckAccess() ? Show() : dispatcher.Invoke(Show);
+        if (dispatcher.CheckAccess())
+        {
+            showAction();
+        }
+        else
+        {
+            dispatcher.Invoke(showAction);
+        }
 
-        static bool Show()
+        return;
+
+        static void Show() // Changed return type from bool to void
         {
             var msg1 = (string)Application.Current.TryFindResource("Thefilehelpuserxmlismissing") ??
                        "The file 'helpuser.xml' is missing.";
@@ -1407,12 +1423,9 @@ public static class MessageBoxLibrary
             if (result == MessageBoxResult.Yes)
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                return false;
+                // No return false needed
             }
-            else
-            {
-                return true;
-            }
+            // No return true needed
         }
     }
 
@@ -1710,51 +1723,6 @@ public static class MessageBoxLibrary
             }
 
             QuitApplication.SimpleQuitApplication();
-        }
-    }
-
-    internal static void SystemModelXmlIsMissingMessageBox()
-    {
-        var dispatcher = Application.Current.Dispatcher;
-        if (dispatcher.CheckAccess())
-            Show();
-        else
-            dispatcher.Invoke(Show);
-        return;
-
-        static void Show()
-        {
-            var systemmodelxmlismissing = (string)Application.Current.TryFindResource("systemmodelxmlismissing") ??
-                                          "'system_model.xml' is missing.";
-            var simpleLaunchercannotworkproperly =
-                (string)Application.Current.TryFindResource("SimpleLaunchercannotworkproperly") ??
-                "'Simple Launcher' cannot work properly without this file.";
-            var doyouwanttoautomaticallyreinstall =
-                (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ??
-                "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
-            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            var messageBoxResult = MessageBox.Show($"{systemmodelxmlismissing}\n\n" +
-                                                   $"{simpleLaunchercannotworkproperly}\n\n" +
-                                                   $"{doyouwanttoautomaticallyreinstall}",
-                warning, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (messageBoxResult == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-            }
-            else
-            {
-                var pleasereinstallSimpleLaunchermanually =
-                    (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ??
-                    "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown =
-                    (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ??
-                    "The application will shutdown.";
-                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
-                                $"{theapplicationwillshutdown}",
-                    warning, MessageBoxButton.OK, MessageBoxImage.Warning);
-
-                QuitApplication.SimpleQuitApplication();
-            }
         }
     }
 

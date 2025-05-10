@@ -4,7 +4,7 @@ using System.IO;
 using MessagePack;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 [MessagePackObject]
 public class MameManager

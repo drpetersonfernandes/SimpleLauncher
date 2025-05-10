@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;

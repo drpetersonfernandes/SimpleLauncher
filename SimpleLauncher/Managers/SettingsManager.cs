@@ -7,7 +7,7 @@ using System.Xml.Linq;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Managers;
 
 public class SettingsManager
 {

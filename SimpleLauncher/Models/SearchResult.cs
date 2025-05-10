@@ -1,3 +1,5 @@
+using SimpleLauncher.Managers;
+
 namespace SimpleLauncher.Models;
 
 public class SearchResult

@@ -4,9 +4,10 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenu
 {
