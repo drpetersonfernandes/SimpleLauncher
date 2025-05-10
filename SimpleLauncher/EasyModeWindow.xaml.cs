@@ -636,7 +636,7 @@ public partial class EasyModeWindow : IDisposable
         var imagesFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolder);
 
         // List of additional folders to create from appsettings.json
-        var additionalFolders = GetAdditionalFolders.GetFolders(); // Use the service
+        var additionalFolders = GetAdditionalFolders.GetFolders();
 
         try
         {

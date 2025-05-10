@@ -310,28 +310,28 @@
             </MenuItem>
 
             <MenuItem Header="{DynamicResource GlobalSearch}">
-                <MenuItem Click="GlobalSearch_Click" Header="{DynamicResource GlobalSearch}">
+                <MenuItem Click="ShowGlobalSearchWindow_Click" Header="{DynamicResource GlobalSearch}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/search.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource Favorites}">
-                <MenuItem Click="Favorites_Click" Header="{DynamicResource Favorites}">
+                <MenuItem Click="ShowFavoritesWindow_Click" Header="{DynamicResource Favorites}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource PlayHistory}">
-                <MenuItem Click="PlayHistory_Click" Header="{DynamicResource PlayHistory}">
+                <MenuItem Click="ShowPlayHistoryWindow_Click" Header="{DynamicResource PlayHistory}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
             <MenuItem Header="{DynamicResource GlobalStats}">
-                <MenuItem Click="GlobalStats_Click" Header="{DynamicResource GlobalStats}">
+                <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>

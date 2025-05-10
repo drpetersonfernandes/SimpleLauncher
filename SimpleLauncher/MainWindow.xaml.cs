@@ -86,7 +86,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     // Define and Instantiate variables
     private List<SystemManager> _systemConfigs;
-    private readonly FilterMenu _filterMenu = new();
+    private readonly FilterMenu _topLetterNumberMenu = new();
     private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
@@ -126,8 +126,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         UpdateShowGamesCheckMarks(_settings.ShowGames);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
-        // Set initial state of Fuzzy Matching menu item
-        ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
+        ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching; // Set initial state of Fuzzy Matching menu item
 
         // Load _machines and _mameLookup
         _machines = MameManager.LoadFromDat();
@@ -148,20 +147,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             GamePadController.Instance2.Stop();
         }
 
-        // Add _filterMenu to the UI
+        // Add _topLetterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
-        LetterNumberMenu.Children.Add(_filterMenu.LetterPanel);
+        LetterNumberMenu.Children.Add(_topLetterNumberMenu.LetterPanel);
 
         // Create and integrate FilterMenu
-        _filterMenu.OnLetterSelected += async selectedLetter =>
+        _topLetterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
             await Letter_Click(selectedLetter);
         };
-        _filterMenu.OnFavoritesSelected += async () =>
+        _topLetterNumberMenu.OnFavoritesSelected += async () =>
         {
-            await Favorites_Click();
+            await ShowFavoriteGames_Click();
         };
-        _filterMenu.OnFeelingLuckySelected += async () =>
+        _topLetterNumberMenu.OnFeelingLuckySelected += async () =>
         {
             await FeelingLucky_Click(null, null);
         };
@@ -258,7 +257,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return LoadGameFilesAsync(selectedLetter); // Load games
     }
 
-    private Task Favorites_Click()
+    private Task ShowFavoriteGames_Click()
     {
         // Change filter to ShowAll
         _settings.ShowGames = "ShowAll";
@@ -341,7 +340,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var selectedGame = gameFiles[randomIndex];
 
                 // Reset letter selection in the UI and current search
-                _filterMenu.DeselectLetter();
+                _topLetterNumberMenu.DeselectLetter();
                 SearchTextBox.Text = "";
                 _currentSearchResults = [selectedGame];
 
@@ -515,6 +514,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         });
     }
 
+    // Used on the Game List Mode
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
@@ -561,75 +561,90 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             GameFileGrid.Visibility = Visibility.Visible;
             ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-            if (SystemComboBox.SelectedItem != null)
+            if (SystemComboBox.SelectedItem == null)
             {
-                var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-                var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+                // Notify developer
+                const string errorMessage = "SystemComboBox.SelectedItem is null.";
+                var ex = new Exception(errorMessage);
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
-                if (selectedSystem == null)
-                {
-                    // Notify developer
-                    const string errorMessage = "Selected system is null.";
-                    var ex = new Exception(errorMessage);
-                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                    return;
-                }
-
-                if (selectedConfig != null)
-                {
-                    // Populate EmulatorComboBox with the emulators for the selected system
-                    EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-
-                    // Select the first emulator
-                    if (EmulatorComboBox.Items.Count > 0)
-                    {
-                        EmulatorComboBox.SelectedIndex = 0;
-                    }
-
-                    // Update the selected system property
-                    SelectedSystem = selectedSystem;
-
-                    // Retrieve the playtime for the selected system
-                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
-
-                    // Display the system info
-                    var systemFolderPath = selectedConfig.SystemFolder;
-                    // Pass just the extensions to CountFiles
-                    var fileExtensions = selectedConfig.FileFormatsToSearch;
-                    var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
-
-                    // Display SystemInfo for that system
-                    await DisplaySystemInformation.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
-
-                    // Update Image Folder and Rom Folder Variables
-                    _selectedRomFolder = selectedConfig.SystemFolder;
-                    _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder)
-                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName)
-                        : selectedConfig.SystemImageFolder;
-
-                    // Call DeselectLetter to clear any selected letter
-                    _filterMenu.DeselectLetter();
-
-                    ResetPaginationButtons();
-
-                    // Load files from cache or rescan if needed
-                    // Pass just the extensions to LoadSystemFilesAsync
-                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
-                }
-                else
-                {
-                    AddNoSystemMessage();
-                }
-            }
-            else
-            {
                 AddNoSystemMessage();
+
+                return;
             }
+
+            var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+            if (selectedSystem == null)
+            {
+                // Notify developer
+                const string errorMessage = "selectedSystem is null.";
+                var ex = new Exception(errorMessage);
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
+                AddNoSystemMessage();
+
+                return;
+            }
+
+            if (selectedConfig == null)
+            {
+                // Notify developer
+                const string errorMessage = "selectedConfig is null.";
+                var ex = new Exception(errorMessage);
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
+                AddNoSystemMessage();
+
+                return;
+            }
+
+            // Populate EmulatorComboBox
+            EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+
+            // Select the first emulator
+            if (EmulatorComboBox.Items.Count > 0)
+            {
+                EmulatorComboBox.SelectedIndex = 0;
+            }
+
+            // Update the selected system property
+            SelectedSystem = selectedSystem;
+
+            // Retrieve the playtime for the selected system
+            var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+            PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+            // Count files for that system
+            var systemFolderPath = selectedConfig.SystemFolder;
+            var fileExtensions = selectedConfig.FileFormatsToSearch; // Pass just the extensions to CountFiles
+            var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
+
+            // Display SystemInfo for that system
+            await DisplaySystemInformation.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
+
+            // Update Image Folder and Rom Folder Variables
+            _selectedRomFolder = selectedConfig.SystemFolder;
+            _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName)
+                : selectedConfig.SystemImageFolder;
+
+            // Call DeselectLetter to clear any selected letter
+            _topLetterNumberMenu.DeselectLetter();
+
+            // Reset pagination
+            ResetPaginationButtons();
+
+            // Load files from cache or rescan if needed
+            // Pass just the extensions to LoadSystemFilesAsync
+            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
         }
         catch (Exception ex)
         {
@@ -668,12 +683,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _filterMenu.DeselectLetter();
+        _topLetterNumberMenu.DeselectLetter();
     }
 
     private void AddNoFilesMessage()
     {
         var noGamesMatched = (string)Application.Current.TryFindResource("nogamesmatched") ?? "Unfortunately, no games matched your search query or the selected button.";
+
         // Check the current view mode
         if (_settings.ViewMode == "GridView")
         {
@@ -697,7 +713,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Deselect any selected letter when no system is selected
-        _filterMenu.DeselectLetter();
+        _topLetterNumberMenu.DeselectLetter();
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
@@ -730,7 +746,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            if (CheckIfSystemComboBoxIsNotNull()) return;
+            if (SystemComboBox.SelectedItem == null)
+            {
+                AddNoSystemMessage();
+                return;
+            }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
@@ -738,17 +758,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             if (selectedConfig == null)
             {
                 // Notify developer
-                const string contextMessage = "Invalid system configuration.";
+                const string contextMessage = "selectedConfig is null.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
+                AddNoSystemMessage();
                 return;
             }
 
-            // Create allFiles list
+            // Create allFiles
             List<string> allFiles;
 
             // If we are in "FAVORITES" mode, use '_currentSearchResults'
@@ -765,10 +786,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                 // Recount the number of files in the system folder
                 var systemFolderPath = selectedConfig.SystemFolder;
-                // Pass just the extensions to CountFiles
-                var fileExtensions = selectedConfig.FileFormatsToSearch;
+                var fileExtensions = selectedConfig.FileFormatsToSearch; // Pass just the extensions to CountFiles
                 var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
+
+                // Check the total number of games
                 if (cachedFilesCount != await gameCount)
                 {
                     // If the cached file list is not up to date, rescan the system folder
@@ -783,8 +805,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 else
                 {
                     // Fall back to scanning the folder if no cache is available
-                    // Pass just the extensions to GetFilesAsync
-                    allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
+                    allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions); // Pass just the extensions to GetFilesAsync
                 }
 
                 // Filter by TopMenu Letter if specified
@@ -815,8 +836,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                 allFiles.FindAll(file =>
                                 {
                                     var fileName = Path.GetFileNameWithoutExtension(file);
-                                    // Check if the filename contains the search query.
-                                    var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                                    var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
                                     if (filenameMatch)
                                         return true;
 
@@ -924,15 +944,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-
-    private bool CheckIfSystemComboBoxIsNotNull()
-    {
-        if (SystemComboBox.SelectedItem != null) return false;
-
-        AddNoSystemMessage();
-        return true;
-    }
-
     private async Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
     {
         // If there are no files or showing all, no filtering needed
@@ -970,11 +981,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     isDefaultImage = isDefault;
                 }
 
-                // Filter based on the showGames setting
-                if (_settings.ShowGames == "ShowWithCover" && !isDefaultImage)
-                    filteredFiles.Add(filePath);
-                else if (_settings.ShowGames == "ShowWithoutCover" && isDefaultImage)
-                    filteredFiles.Add(filePath);
+                switch (_settings.ShowGames)
+                {
+                    // Filter based on the showGames setting
+                    case "ShowWithCover" when !isDefaultImage:
+                    case "ShowWithoutCover" when isDefaultImage:
+                        filteredFiles.Add(filePath);
+                        break;
+                }
             }
 
             return filteredFiles;
@@ -1117,14 +1131,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    public void LoadOrReloadSystemConfig()
+    private void LoadOrReloadSystemConfig()
     {
         _systemConfigs = SystemManager.LoadSystemConfigs();
         var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name).ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
     }
 
-    public void ResetUi()
+    private void ResetUi()
     {
         // Ensure pagination is reset at the beginning
         ResetPaginationButtons();
@@ -1256,7 +1270,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Re-load game files to apply the new threshold if fuzzy matching is enabled
             if (_settings.EnableFuzzyMatching)
             {
-                // Use _ = to suppress the warning about not awaiting the Task
                 _ = LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
             }
         }
@@ -1446,7 +1459,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void GlobalSearch_Click(object sender, RoutedEventArgs e)
+    private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
     {
         ResetUi();
 
@@ -1457,13 +1470,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
-    private void GlobalStats_Click(object sender, RoutedEventArgs e)
+    private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
         var globalStatsWindow = new GlobalStatsWindow(_systemConfigs);
         globalStatsWindow.Show();
     }
 
-    private void Favorites_Click(object sender, RoutedEventArgs e)
+    private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
     {
         ResetUi();
 
@@ -1474,7 +1487,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
-    private void PlayHistory_Click(object sender, RoutedEventArgs e)
+    private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
     {
         ResetUi();
 
@@ -1484,7 +1497,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _favoritesManager = FavoritesManager.LoadFavorites();
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
-
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
@@ -1928,7 +1940,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _currentSearchResults.Clear();
 
         // Call DeselectLetter to clear any selected letter
-        _filterMenu.DeselectLetter();
+        _topLetterNumberMenu.DeselectLetter();
 
         var searchQuery = SearchTextBox.Text.Trim();
 
@@ -2024,6 +2036,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     #endregion
 
+    #region Close Window Events
+
     private void MainWindow_Closing(object sender, CancelEventArgs e)
     {
         SaveApplicationSettings();
@@ -2079,4 +2093,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
+
+    #endregion
 }
