@@ -323,7 +323,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 else
                 {
                     var systemFolderPath = selectedConfig.SystemFolder;
-                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
+                    // Pass just the extensions
+                    var fileExtensions = selectedConfig.FileFormatsToSearch;
                     gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
 
@@ -598,7 +599,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                     // Display the system info
                     var systemFolderPath = selectedConfig.SystemFolder;
-                    var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"{ext}").ToList();
+                    // Pass just the extensions to CountFiles
+                    var fileExtensions = selectedConfig.FileFormatsToSearch;
                     var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
 
                     // Display SystemInfo for that system
@@ -616,6 +618,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     ResetPaginationButtons();
 
                     // Load files from cache or rescan if needed
+                    // Pass just the extensions to LoadSystemFilesAsync
                     _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
                 }
                 else
@@ -762,12 +765,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                 // Recount the number of files in the system folder
                 var systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch.Select(static ext => $"*.{ext}").ToList();
+                // Pass just the extensions to CountFiles
+                var fileExtensions = selectedConfig.FileFormatsToSearch;
                 var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
                 if (cachedFilesCount != await gameCount)
                 {
                     // If the cached file list is not up to date, rescan the system folder
+                    // Pass just the extensions to LoadSystemFilesAsync
                     _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
                 }
 
@@ -778,6 +783,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 else
                 {
                     // Fall back to scanning the folder if no cache is available
+                    // Pass just the extensions to GetFilesAsync
                     allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
                 }
 

@@ -36,6 +36,11 @@ public class CacheManager
     /// <summary>
     /// Loads system files, either from cache or by rescanning.
     /// </summary>
+    /// <param name="systemName">The name of the system.</param>
+    /// <param name="systemFolderPath">The path to the system's game folder.</param>
+    /// <param name="fileExtensions">A list of file extensions (e.g., "txt", "jpg").</param>
+    /// <param name="gameCount">The expected number of games (used for cache validation).</param>
+    /// <returns>A list of file paths.</returns>
     public async Task<List<string>> LoadSystemFilesAsync(string systemName, string systemFolderPath, List<string> fileExtensions, int gameCount)
     {
         if (systemFolderPath == null || fileExtensions == null || gameCount == 0)
@@ -47,14 +52,17 @@ public class CacheManager
 
         if (!File.Exists(cacheFilePath))
         {
+            // Cache doesn't exist, rebuild it
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
         }
 
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
 
+        // If cached file count doesn't match the current game count, rebuild the cache
         if (cachedData.FileCount != gameCount)
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
 
+        // Cache is valid, use it
         lock (_cacheLock)
         {
             _cachedGameFiles[systemName] = cachedData.FileNames;
@@ -66,6 +74,10 @@ public class CacheManager
     /// <summary>
     /// Rebuilds the cache by scanning the system folder.
     /// </summary>
+    /// <param name="systemName">The name of the system.</param>
+    /// <param name="systemFolderPath">The path to the system's game folder.</param>
+    /// <param name="fileExtensions">A list of file extensions (e.g., "txt", "jpg").</param>
+    /// <returns>A list of file paths found.</returns>
     private async Task<List<string>> RebuildCache(string systemName, string systemFolderPath, List<string> fileExtensions)
     {
         if (systemFolderPath == null || fileExtensions == null)
@@ -73,26 +85,8 @@ public class CacheManager
             return new List<string>();
         }
 
-        var files = await Task.Run(() =>
-        {
-            var fileList = new List<string>();
-            try
-            {
-                foreach (var extension in fileExtensions)
-                {
-                    var searchPattern = extension.StartsWith('*') ? extension : "*." + extension;
-                    var foundFiles = Directory.EnumerateFiles(systemFolderPath, searchPattern, SearchOption.TopDirectoryOnly);
-                    fileList.AddRange(foundFiles);
-                }
-            }
-            catch (Exception ex)
-            {
-                var contextMessage = $"Error caching files for {systemName}.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
-
-            return fileList;
-        });
+        // Use the standardized GetFilePaths.GetFilesAsync method
+        var files = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
 
         if (files == null)
         {
