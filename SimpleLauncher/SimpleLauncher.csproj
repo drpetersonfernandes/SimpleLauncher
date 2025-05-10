@@ -27,7 +27,7 @@
     <RepositoryType>git</RepositoryType>
     <AssemblyVersion>3.13</AssemblyVersion>
     <FileVersion>3.13</FileVersion>
-    <PlatformTarget>x64</PlatformTarget>
+    <PlatformTarget>AnyCPU</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
     <NoWin32Manifest>true</NoWin32Manifest>

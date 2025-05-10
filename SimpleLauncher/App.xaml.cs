@@ -6,7 +6,6 @@ using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
 using SimpleLauncher.Services;
-using System.Reflection;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher;
@@ -20,10 +19,10 @@ public partial class App
 
     private bool _isFirstInstance;
 
-    // Use a unique name for the mutex, e.g., based on the assembly GUID
-    private const string MutexNamePrefix = "SimpleLauncher_SingleInstanceMutex_";
-    // --- End fields for single instance logic ---
+    private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
 
+    private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
+    // --- End fields for single instance logic ---
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -35,21 +34,14 @@ public partial class App
         {
             try
             {
-                // Generate a unique name based on the assembly GUID
-                var assemblyGuid = Assembly.GetExecutingAssembly().GetType().GUID.ToString();
-                var uniqueMutexName = $"{MutexNamePrefix}{assemblyGuid}";
-
                 // Try to create or open the mutex
                 // The 'out _isFirstInstance' parameter will be true if the mutex was created (first instance)
                 // and false if it already existed (another instance is running).
-                _singleInstanceMutex = new Mutex(true, uniqueMutexName, out _isFirstInstance);
+                _singleInstanceMutex = new Mutex(true, MutexName, out _isFirstInstance);
 
                 if (!_isFirstInstance)
                 {
                     // Another instance is running. Inform the user (optional) and exit this instance.
-                    // You might want to bring the existing instance to the foreground here instead of just showing a message.
-                    // This requires finding the existing window handle, which is more complex.
-                    // For now, we'll just show a message and exit.
                     MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
 
                     Shutdown(); // Exit the application
@@ -60,8 +52,7 @@ public partial class App
             catch (Exception ex)
             {
                 // Handle potential errors during mutex creation (e.g., permissions issues)
-                // Log the error and decide whether to proceed or exit.
-                // Exiting is safer if we can't guarantee single instance.
+                // Log the error
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
