@@ -843,16 +843,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Sort the collection of files
             allFiles.Sort();
 
+            // Apply ShowGames filter before pagination
+            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedConfig);
+
             // Count the collection of files
             _totalFiles = allFiles.Count;
 
             // Calculate the indices of files displayed on the current page
             var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
-            var endIndex = startIndex + _filesPerPage; // Actual number of files loaded on this page
-            if (endIndex > _totalFiles)
-            {
-                endIndex = _totalFiles;
-            }
+            var endIndex = Math.Min(startIndex + _filesPerPage - 1, _totalFiles); // Actual number of files loaded on this page
 
             // Pagination related
             if (_totalFiles > _paginationThreshold)
@@ -905,9 +904,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
             }
 
-            // Apply visibility settings to each button based on _settings.ShowGames
-            ApplyShowGamesSetting();
-
             // Update the UI to reflect the current pagination status
             UpdatePaginationButtons();
         }
@@ -922,12 +918,65 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+
     private bool CheckIfSystemComboBoxIsNotNull()
     {
         if (SystemComboBox.SelectedItem != null) return false;
 
         AddNoSystemMessage();
         return true;
+    }
+
+    private async Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
+    {
+        // If there are no files or showing all, no filtering needed
+        if (files.Count == 0 || _settings.ShowGames == "ShowAll")
+            return files;
+
+        var filteredFiles = new List<string>();
+
+        // Create a pleaseWaitWindow for longer operations
+        var filteringPleasewait = (string)Application.Current.TryFindResource("Filteringpleasewait") ?? "Filtering, please wait...";
+        var pleaseWaitWindow = new PleaseWaitWindow(filteringPleasewait);
+
+        try
+        {
+            await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
+
+            foreach (var filePath in files)
+            {
+                var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+
+                // Find the image path for this file
+                var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig);
+
+                // Check if the image is named "default.png"
+                bool isDefaultImage;
+
+                if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
+                {
+                    isDefaultImage = true;
+                }
+                else
+                {
+                    // For other images, let ImageLoader check if it's a default image
+                    var (_, isDefault) = await ImageLoader.LoadImageAsync(imagePath);
+                    isDefaultImage = isDefault;
+                }
+
+                // Filter based on the showGames setting
+                if (_settings.ShowGames == "ShowWithCover" && !isDefaultImage)
+                    filteredFiles.Add(filePath);
+                else if (_settings.ShowGames == "ShowWithoutCover" && isDefaultImage)
+                    filteredFiles.Add(filePath);
+            }
+
+            return filteredFiles;
+        }
+        finally
+        {
+            await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
+        }
     }
 
     #region Menu Items
@@ -1255,50 +1304,45 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         Close();
     }
 
-    private void ShowAllGames_Click(object sender, RoutedEventArgs e)
+    private async void ShowAllGames_Click(object sender, RoutedEventArgs e)
     {
-        // Show all games regardless of cover
-        UpdateGameVisibility(static _ => true);
-        UpdateShowGamesSetting("ShowAll");
-        UpdateMenuCheckMarks("ShowAll");
+        try
+        {
+            UpdateShowGamesSetting("ShowAll");
+            UpdateMenuCheckMarks("ShowAll");
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+        }
     }
 
-    private void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
+    private async void ShowGamesWithCover_Click(object sender, RoutedEventArgs e)
     {
-        // Show games that have covers (not using the default image)
-        UpdateGameVisibility(static btn =>
+        try
         {
-            if (btn.Tag is GameButtonTag tag)
-                return !tag.IsDefaultImage;
-
-            return false;
-        });
-        UpdateShowGamesSetting("ShowWithCover");
-        UpdateMenuCheckMarks("ShowWithCover");
+            UpdateShowGamesSetting("ShowWithCover");
+            UpdateMenuCheckMarks("ShowWithCover");
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+        }
     }
 
-    private void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
+    private async void ShowGamesWithoutCover_Click(object sender, RoutedEventArgs e)
     {
-        // Show games that are using the default image (no cover available)
-        UpdateGameVisibility(static btn =>
+        try
         {
-            if (btn.Tag is GameButtonTag tag)
-                return tag.IsDefaultImage;
-
-            return false;
-        });
-        UpdateShowGamesSetting("ShowWithoutCover");
-        UpdateMenuCheckMarks("ShowWithoutCover");
-    }
-
-    private void UpdateGameVisibility(Func<Button, bool> visibilityCondition)
-    {
-        foreach (var child in _gameFileGrid.Children)
+            UpdateShowGamesSetting("ShowWithoutCover");
+            UpdateMenuCheckMarks("ShowWithoutCover");
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
         {
-            if (child is Button btn)
-            {
-                btn.Visibility = visibilityCondition(btn) ? Visibility.Visible : Visibility.Collapsed;
-            }
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
         }
     }
 
@@ -1559,18 +1603,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void ApplyShowGamesSetting()
     {
-        switch (_settings.ShowGames)
-        {
-            case "ShowAll":
-                ShowAllGames_Click(ShowAll, null);
-                break;
-            case "ShowWithCover":
-                ShowGamesWithCover_Click(ShowWithCover, null);
-                break;
-            case "ShowWithoutCover":
-                ShowGamesWithoutCover_Click(ShowWithoutCover, null);
-                break;
-        }
+        UpdateMenuCheckMarks(_settings.ShowGames);
     }
 
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
@@ -2041,4 +2074,3 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         GC.SuppressFinalize(this);
     }
 }
-
