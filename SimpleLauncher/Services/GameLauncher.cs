@@ -7,18 +7,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static class GameLauncher
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
     private static string _selectedEmulatorName;
     private static string _selectedSystemName;
     private static SystemManager _selectedSystemConfig;
     private static SystemManager.Emulator _selectedEmulatorConfig;
     private static string _selectedEmulatorParameters;
+
+    private const int MemoryAccessViolation = -1073741819;
+    private const int DepViolation = -1073740791;
 
     public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
     {
@@ -394,6 +396,19 @@ public static class GameLauncher
             filePath = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig);
         }
 
+        if (string.IsNullOrEmpty(filePath))
+        {
+            // Notify developer
+            const string contextMessage = "filePath is null or empty";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return;
+        }
+
         // Construct the PSI
         var programLocation = selectedEmulatorConfig.EmulatorLocation;
         var parameters = selectedEmulatorConfig.EmulatorParameters;
@@ -672,7 +687,7 @@ public static class GameLauncher
 
     private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != -1073741819) return Task.FromResult(false);
+        if (process.ExitCode != MemoryAccessViolation) return Task.FromResult(false);
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
@@ -711,7 +726,7 @@ public static class GameLauncher
 
     private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != -1073740791) return Task.FromResult(false);
+        if (process.ExitCode != DepViolation) return Task.FromResult(false);
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)

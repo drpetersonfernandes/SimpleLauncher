@@ -11,7 +11,7 @@ namespace SimpleLauncher.Managers;
 
 public partial class SystemManager
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
 
     public string SystemName { get; private init; }
     public string SystemFolder { get; private init; }

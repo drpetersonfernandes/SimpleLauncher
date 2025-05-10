@@ -1,3 +1,4 @@
+#nullable enable
 using MessagePack;
 
 namespace SimpleLauncher.Models;
@@ -16,8 +17,8 @@ public class Favorite
     public string? MachineDescription { get; init; }
 
     [IgnoreMember]
-    public string CoverImage { get; init; }
+    public string? CoverImage { get; init; }
 
     [IgnoreMember]
-    public string DefaultEmulator { get; set; }
+    public string? DefaultEmulator { get; set; }
 }

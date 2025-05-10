@@ -23,7 +23,7 @@ public partial class PlayHistoryWindow
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
 
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
     private readonly SettingsManager _settings;

@@ -4,15 +4,14 @@ using System.Threading;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
-using SimpleLauncher.Services;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public class GamePadController : IDisposable
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
 
     private static readonly Lazy<GamePadController> Instance = new(static () => new GamePadController());
     public static GamePadController Instance2 => Instance.Value;

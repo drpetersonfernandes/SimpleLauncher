@@ -7,7 +7,7 @@
     <Company>Pure Logic Code</Company>
     <Product>Simple Launcher</Product>
     <LangVersion>13</LangVersion>
-    <Nullable>enable</Nullable>
+    <Nullable>disable</Nullable>
     <NeutralLanguage>en-US</NeutralLanguage>
     <RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
     <ApplicationManifest>app.manifest</ApplicationManifest>

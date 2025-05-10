@@ -8,7 +8,7 @@ namespace SimpleLauncher.Services;
 public static class LaunchTools
 {
     // Define the LogPath
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
 
     /// <summary>
     /// Launches an external executable with optional arguments and working directory.

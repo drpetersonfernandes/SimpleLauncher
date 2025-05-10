@@ -8,13 +8,13 @@ namespace SimpleLauncher.Services;
 
 public abstract class GetFilePaths
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
 
     /// <summary>
     /// Asynchronously retrieves a list of file paths from the specified directory that match the given file extensions.
     /// </summary>
     /// <param name="directoryPath">The path of the directory to search for files.</param>
-    /// <param name="fileExtensions">A list of file extensions to filter the search (e.g., "*.txt", "*.jpg").</param>
+    /// <param name="fileExtensions">A list of file extensions to filter the search (e.g., "txt", "jpg").</param>
     /// <returns>A task representing the asynchronous operation. The task result contains a list of file paths that match the specified criteria.</returns>
     public static Task<List<string>> GetFilesAsync(string directoryPath, List<string> fileExtensions)
     {
@@ -24,7 +24,7 @@ public abstract class GetFilePaths
             {
                 if (!Directory.Exists(directoryPath))
                 {
-                    return Task.FromResult(new List<string>()); // Return an empty list
+                    return new List<string>(); // Return an empty list
                 }
 
                 var foundFiles = new List<string>();
@@ -33,11 +33,14 @@ public abstract class GetFilePaths
                 {
                     try
                     {
-                        foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, ext));
+                        // Construct the search pattern by prepending "*.
+                        var searchPattern = $"*.{ext}";
+                        foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly)); // Added SearchOption.TopDirectoryOnly for consistency
                     }
                     catch (Exception innerEx)
                     {
                         // Log the specific extension that caused the problem
+                        // Note: 'ext' is now just the extension, not the pattern
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
 
@@ -45,7 +48,7 @@ public abstract class GetFilePaths
                     }
                 }
 
-                return Task.FromResult(foundFiles);
+                return foundFiles; // Return the list directly from Task.Run
             }
             catch (Exception ex)
             {
@@ -57,7 +60,7 @@ public abstract class GetFilePaths
                 // Notify user
                 MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);
 
-                return Task.FromResult(new List<string>()); // Return an empty list
+                return new List<string>(); // Return an empty list
             }
         });
     }

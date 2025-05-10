@@ -586,7 +586,7 @@ public static class ContextMenuFunctions
 
             var hWnd = dialog.SelectedWindowHandle;
 
-            WindowScreenshot.Rectangle rectangle;
+            Services.WindowScreenshot.Rectangle rectangle;
 
             // Try to get the client area dimensions
             if (!WindowScreenshot.GetClientAreaRect(hWnd, out var clientRect))

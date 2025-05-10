@@ -98,7 +98,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private string _selectedRomFolder;
 
     // Define the LogPath
-    private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private readonly string _logPath = GetLogPath.Path();
 
     public MainWindow()
     {
@@ -1655,7 +1655,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         var baseTheme = menuItem.Name;
         var currentAccent = ThemeManager.Current.DetectTheme(this)?.ColorScheme;
-        App.ChangeTheme(baseTheme, currentAccent);
+        if (currentAccent != null) App.ChangeTheme(baseTheme, currentAccent);
 
         UncheckBaseThemes();
         menuItem.IsChecked = true;
@@ -1667,7 +1667,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         var accentColor = menuItem.Name;
         var currentBaseTheme = ThemeManager.Current.DetectTheme(this)?.BaseColorScheme;
-        App.ChangeTheme(currentBaseTheme, accentColor);
+        if (currentBaseTheme != null) App.ChangeTheme(currentBaseTheme, accentColor);
 
         UncheckAccentColors();
         menuItem.IsChecked = true;

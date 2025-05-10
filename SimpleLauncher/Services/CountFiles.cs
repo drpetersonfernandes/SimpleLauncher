@@ -7,9 +7,9 @@ using System.Windows;
 
 namespace SimpleLauncher.Services;
 
-public class CountFiles
+public static class CountFiles
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
 
     public static async Task<int> CountFilesAsync(string folderPath, List<string> fileExtensions)
     {

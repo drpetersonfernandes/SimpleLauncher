@@ -62,12 +62,6 @@ public partial class SetLinksWindow
         if (string.IsNullOrEmpty(input))
             return string.Empty;
 
-        var decoded = input.Replace("&amp;", "&");
-
-        return decoded.Replace("&", "&amp;")
-            .Replace("<", "&lt;")
-            .Replace(">", "&gt;")
-            .Replace("\"", "&quot;")
-            .Replace("'", "&apos;");
+        return System.Security.SecurityElement.Escape(input);
     }
 }

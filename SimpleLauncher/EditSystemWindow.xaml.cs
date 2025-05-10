@@ -172,7 +172,7 @@ public partial class EditSystemWindow
                     Emulator1NameTextBox.Clear();
                     Emulator1PathTextBox.Clear();
                     Emulator1ParametersTextBox.Clear();
-                    ReceiveANotificationOnEmulatorError1.SelectedItem = -1;
+                    ReceiveANotificationOnEmulatorError1.SelectedIndex = -1;
                 }
 
                 var emulator2 = emulators.ElementAtOrDefault(1);
@@ -194,7 +194,7 @@ public partial class EditSystemWindow
                     Emulator2NameTextBox.Clear();
                     Emulator2PathTextBox.Clear();
                     Emulator2ParametersTextBox.Clear();
-                    ReceiveANotificationOnEmulatorError2.SelectedItem = -1;
+                    ReceiveANotificationOnEmulatorError2.SelectedIndex = -1;
                 }
 
                 var emulator3 = emulators.ElementAtOrDefault(2);
@@ -216,7 +216,7 @@ public partial class EditSystemWindow
                     Emulator3NameTextBox.Clear();
                     Emulator3PathTextBox.Clear();
                     Emulator3ParametersTextBox.Clear();
-                    ReceiveANotificationOnEmulatorError3.SelectedItem = -1;
+                    ReceiveANotificationOnEmulatorError3.SelectedIndex = -1;
                 }
 
                 var emulator4 = emulators.ElementAtOrDefault(3);
@@ -238,7 +238,7 @@ public partial class EditSystemWindow
                     Emulator4NameTextBox.Clear();
                     Emulator4PathTextBox.Clear();
                     Emulator4ParametersTextBox.Clear();
-                    ReceiveANotificationOnEmulatorError4.SelectedItem = -1;
+                    ReceiveANotificationOnEmulatorError4.SelectedIndex = -1;
                 }
 
                 var emulator5 = emulators.ElementAtOrDefault(4);
@@ -260,7 +260,7 @@ public partial class EditSystemWindow
                     Emulator5NameTextBox.Clear();
                     Emulator5PathTextBox.Clear();
                     Emulator5ParametersTextBox.Clear();
-                    ReceiveANotificationOnEmulatorError5.SelectedItem = -1;
+                    ReceiveANotificationOnEmulatorError5.SelectedIndex = -1;
                 }
             }
         }
@@ -293,7 +293,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
 
         // Update ReceiveANotificationOnEmulatorError
         if (string.IsNullOrEmpty(Emulator1NameTextBox.Text))
@@ -410,7 +410,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator2Path(object sender, RoutedEventArgs e)
@@ -433,7 +433,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator3Path(object sender, RoutedEventArgs e)
@@ -456,7 +456,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator4Path(object sender, RoutedEventArgs e)
@@ -479,7 +479,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void ChooseEmulator5Path(object sender, RoutedEventArgs e)
@@ -501,7 +501,7 @@ public partial class EditSystemWindow
 
         // Update the HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
-        HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+        UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
     private void AddSystemButton_Click(object sender, RoutedEventArgs e)

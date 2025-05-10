@@ -19,7 +19,7 @@ namespace SimpleLauncher;
 
 public partial class FavoritesWindow
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
     private readonly FavoritesManager _favoritesManager;
     private ObservableCollection<Favorite> _favoriteList;
     private readonly SettingsManager _settings;
@@ -117,19 +117,6 @@ public partial class FavoritesWindow
         try
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
-
-            if (selectedFavorite.FileName == null)
-            {
-                // Notify developer
-                const string contextMessage = "Favorite filename is null";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
-                return;
-            }
 
             var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)

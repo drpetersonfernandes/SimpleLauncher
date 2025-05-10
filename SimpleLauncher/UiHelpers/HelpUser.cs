@@ -9,7 +9,7 @@ using System.Windows.Documents;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.UiHelpers;
 
 public static partial class HelpUser
 {

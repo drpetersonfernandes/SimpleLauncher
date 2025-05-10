@@ -78,7 +78,7 @@ public static class LogErrors
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
-        var userLogPath = Path.Combine(baseDirectory, "error_user.log");
+        var userLogPath = GetLogPath.Path();
         var version = Assembly.GetExecutingAssembly().GetName().Version?.ToString();
         version ??= "Unknown";
 

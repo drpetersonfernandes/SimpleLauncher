@@ -3144,14 +3144,8 @@ public static class MessageBoxLibrary
 
     internal static void FolderCreatedMessageBox(string systemNameText)
     {
-        var simpleLaunchercreatedaimagefolder =
-            (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ??
-            "'Simple Launcher' created a image folder for this system at";
-        var youmayplacethecoverimagesforthissystem =
-            (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ??
-            "You may place the cover images for this system inside this folder.";
-        var italsocreatedfoldersfor = (string)Application.Current.TryFindResource("Italsocreatedfoldersfor") ??
-                                      "It also created folders for";
+        var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
+        var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -3168,8 +3162,7 @@ public static class MessageBoxLibrary
         void ShowMessage()
         {
             MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
-                            $"{youmayplacethecoverimagesforthissystem}\n\n" +
-                            $"{italsocreatedfoldersfor} 'title_snapshots', 'gameplay_snapshots', 'videos', 'manuals', 'walkthrough', 'cabinets', 'flyers', 'pcbs', 'carts'.",
+                            $"{youmayplacethecoverimagesforthissystem}\n\n",
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }

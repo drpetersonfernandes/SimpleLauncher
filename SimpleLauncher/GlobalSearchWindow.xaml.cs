@@ -20,7 +20,7 @@ namespace SimpleLauncher;
 
 public partial class GlobalSearchWindow
 {
-    private static readonly string LogPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
+    private static readonly string LogPath = GetLogPath.Path();
     private readonly List<SystemManager> _systemConfigs;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;

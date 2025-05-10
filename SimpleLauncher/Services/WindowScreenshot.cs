@@ -1,7 +1,7 @@
 using System;
 using System.Runtime.InteropServices;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public static partial class WindowScreenshot
 {
