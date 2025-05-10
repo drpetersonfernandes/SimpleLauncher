@@ -15,7 +15,7 @@ using Image = System.Windows.Controls.Image;
 
 namespace SimpleLauncher.UiHelpers;
 
-internal class GameButtonFactory(
+public class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
     List<SystemManager> systemConfigs,
