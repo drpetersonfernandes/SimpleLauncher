@@ -506,7 +506,7 @@ public partial class MainWindow
     {
         ResetUi();
 
-        var playHistoryWindow = new PlayHistoryWindow(_systemConfigs, _machines, _settings, _favoritesManager,
+        var playHistoryWindow = new PlayTimeWindow(_systemConfigs, _machines, _settings, _favoritesManager,
             _playHistoryManager, this);
         playHistoryWindow.Show();
 
