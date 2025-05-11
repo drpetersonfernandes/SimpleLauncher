@@ -4,7 +4,7 @@ using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher.Services;
 
-public class GetLogPath
+public static class GetLogPath
 {
     public static string Path()
     {
