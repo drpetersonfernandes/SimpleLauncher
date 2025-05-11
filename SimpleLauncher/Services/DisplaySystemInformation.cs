@@ -79,7 +79,8 @@ public static class DisplaySystemInformation
         if (Directory.Exists(imageFolderPath))
         {
             var imageExtensions = GetImageExtensions.GetExtensions();
-            var imageCount = await Task.Run(() => imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, $"*{ext}").Length));
+            // var imageCount = await Task.Run(() => imageExtensions.Sum(ext => Directory.GetFiles(imageFolderPath, $"*{ext}").Length));
+            var imageCount = await Task.Run(() => Directory.EnumerateFiles(imageFolderPath, "*.*").Count(file => imageExtensions.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase))));
 
             var imageCountTextBlock = new TextBlock();
             imageCountTextBlock.Inlines.Add(new Run(string.Format(CultureInfo.InvariantCulture, numberOfImages2, imageCount)));

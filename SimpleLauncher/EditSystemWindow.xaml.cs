@@ -32,11 +32,10 @@ public partial class EditSystemWindow
     {
         InitializeComponent();
 
-        // Load Settings
         _settings = settings;
-        LoadXml();
 
-        PopulateSystemNamesDropdown();
+        _ = LoadXml();
+
         App.ApplyThemeToWindow(this);
         Closing += EditSystem_Closing;
 
@@ -44,7 +43,7 @@ public partial class EditSystemWindow
         DeleteSystemButton.IsEnabled = false;
     }
 
-    private async void LoadXml()
+    private async Task LoadXml()
     {
         try
         {
@@ -77,6 +76,8 @@ public partial class EditSystemWindow
             else
             {
                 _xmlDoc = xmlDoc;
+
+                PopulateSystemNamesDropdown();
             }
         }
         catch (Exception ex)

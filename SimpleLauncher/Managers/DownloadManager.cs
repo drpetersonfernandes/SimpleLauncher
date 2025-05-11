@@ -619,6 +619,7 @@ public class DownloadManager : IDisposable
     {
         try
         {
+            folderPath = Path.GetFullPath(folderPath);
             var driveInfo = new DriveInfo(Path.GetPathRoot(folderPath) ?? throw new InvalidOperationException("Could not get the drive info"));
             return driveInfo.AvailableFreeSpace > requiredSpace;
         }

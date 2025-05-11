@@ -86,11 +86,14 @@ public partial class App
             try
             {
                 _singleInstanceMutex.ReleaseMutex();
-                _singleInstanceMutex.Dispose();
             }
             catch (Exception ex)
             {
                 _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+            }
+            finally
+            {
+                _singleInstanceMutex.Dispose();
             }
         }
 
@@ -139,7 +142,7 @@ public partial class App
             }
             catch (Exception innerEx)
             {
-                // Handle failure to load the requested language resource file
+                // Notify developer
                 var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
                 _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
 
@@ -154,7 +157,7 @@ public partial class App
                 // Ensure the fallback is added even if the requested one failed
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
-                // Log the fallback usage (optional but helpful for debugging)
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources."), "Using fallback language.");
             }
         }

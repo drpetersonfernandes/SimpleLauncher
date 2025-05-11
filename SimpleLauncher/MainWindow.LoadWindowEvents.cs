@@ -21,7 +21,13 @@ public partial class MainWindow
         Height = _settings.MainWindowHeight;
         Top = _settings.MainWindowTop;
         Left = _settings.MainWindowLeft;
-        WindowState = Enum.Parse<WindowState>(_settings.MainWindowState);
+
+        if (!Enum.TryParse<WindowState>(_settings.MainWindowState, out var windowState))
+        {
+            windowState = WindowState.Normal;
+        }
+
+        WindowState = windowState;
 
         // Set the initial SelectedSystem and PlayTime
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";

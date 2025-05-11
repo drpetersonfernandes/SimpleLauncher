@@ -916,9 +916,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
                 else
                 {
-                    // For other images, let ImageLoader check if it's a default image
-                    var (_, isDefault) = await ImageLoader.LoadImageAsync(imagePath);
-                    isDefaultImage = isDefault;
+                    isDefaultImage = false;
                 }
 
                 switch (_settings.ShowGames)

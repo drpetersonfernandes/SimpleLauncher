@@ -248,7 +248,10 @@ public partial class EasyModeWindow : IDisposable
             var success = false; // Initialize variable
 
             var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2} {componentName}...");
+            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2} {componentName}...")
+            {
+                Owner = this
+            };
 
             // Use the DownloadAndExtractAsync method in DownloadManager
             var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
@@ -378,7 +381,11 @@ public partial class EasyModeWindow : IDisposable
     }
 
     // Helper method to save data into the XML
-    private static async Task UpdateSystemXmlAsync(string xmlPath, EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolderAbsolute)
+    private static async Task UpdateSystemXmlAsync(
+        string xmlPath,
+        EasyModeSystemConfig selectedSystem,
+        string systemFolder,
+        string systemImageFolderAbsolute)
     {
         XDocument xmlDoc = null; // Initialize to null
 
@@ -450,19 +457,13 @@ public partial class EasyModeWindow : IDisposable
                 xmlDoc.Root.ReplaceNodes(sortedElements);
             }
 
-
             // Save the updated and sorted XML document asynchronously
             // Use SaveAsync for potentially better performance with XDocument
             await Task.Run(() =>
             {
                 if (xmlPath != null) xmlDoc.Save(xmlPath);
             }); // Use Task.Run for Save which is sync
-
-            // Alternative using WriteAllTextAsync (as before):
-            // var xmlContentToSave = xmlDoc.ToString();
-            // await File.WriteAllTextAsync(xmlPath, xmlContentToSave);
         }
-        // Keep the existing catch blocks for specific error types during save or other operations
         catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
         {
             const string contextMessage = "Error saving system.xml.";

@@ -49,9 +49,6 @@ public partial class MainWindow
             _controllerCheckTimer = null;
         }
 
-        // Dispose TrayIconManager
-        _trayIconManager?.Dispose();
-
         // Clean up collections
         GameListItems?.Clear();
         _cachedFiles?.Clear();
