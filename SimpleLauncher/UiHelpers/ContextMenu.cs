@@ -23,9 +23,7 @@ public static class ContextMenu
         SystemManager selectedSystemManager,
         List<MameManager> machines,
         SettingsManager settings,
-        MainWindow mainWindow,
-        WrapPanel fakeFileGrid,
-        Button fakeButton)
+        MainWindow mainWindow)
     {
         _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
 
@@ -66,7 +64,7 @@ public static class ContextMenu
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, fakeFileGrid, mainWindow);
+            ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -85,7 +83,7 @@ public static class ContextMenu
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, fakeFileGrid, mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -354,7 +352,7 @@ public static class ContextMenu
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, selectedSystemManager, fakeButton, mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, selectedSystemManager, null, mainWindow);
             await GameLauncher.HandleButtonClick(filePath, _selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
         };
 
@@ -423,7 +421,7 @@ public static class ContextMenu
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, fakeFileGrid, mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
         }
     }
 
@@ -478,7 +476,7 @@ public static class ContextMenu
         {
             PlayClick.PlayClickSound();
             // FIX: Pass the correct WrapPanel reference
-            ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, gameFileGrid, favoritesManager, mainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -498,7 +496,7 @@ public static class ContextMenu
         {
             PlayClick.PlayTrashSound();
             // FIX: Pass the correct WrapPanel reference
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, gameFileGrid, favoritesManager, mainWindow);
         };
 
         // Open Video Link Context Menu
@@ -834,7 +832,7 @@ public static class ContextMenu
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
             }
 
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, favoritesManager, gameFileGrid, mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, gameFileGrid, favoritesManager, mainWindow);
         }
     }
 }

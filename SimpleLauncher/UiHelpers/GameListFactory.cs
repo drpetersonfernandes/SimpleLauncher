@@ -30,9 +30,6 @@ public class GameListFactory(
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
 
-    private readonly WrapPanel _fakeFileGrid = new();
-    private readonly Button _fakeButton = new();
-
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
         var fileNameWithExtension = PathHelper.GetFileName(filePath);
@@ -72,7 +69,7 @@ public class GameListFactory(
             MachineDescription = machineDescription,
             FilePath = filePath,
             ContextMenu = ContextMenu.AddRightClickReturnContextMenu(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
-                _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow, _fakeFileGrid, _fakeButton),
+                _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime

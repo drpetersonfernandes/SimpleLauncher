@@ -18,7 +18,7 @@ namespace SimpleLauncher.UiHelpers;
 public static class ContextMenuFunctions
 {
     // Use fileNameWithExtension
-    public static void AddToFavorites(string systemName, string fileNameWithExtension, FavoritesManager favoritesManager, WrapPanel gameFileGrid, MainWindow mainWindow)
+    public static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         try
         {
@@ -39,25 +39,28 @@ public static class ContextMenuFunctions
                 favoritesManager.FavoriteList = favorites.FavoriteList;
                 favoritesManager.SaveFavorites();
 
-                // Update the button's view model by locating the button using the composite tag.
-                try
+                if (gameFileGrid != null)
                 {
-                    // Build the key using systemName and file name WITH extension.
-                    var key = $"{systemName}|{fileNameWithExtension}";
-
-                    // Find the button by checking if its Tag is a GameButtonTag and comparing its Key.
-                    var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
-
-                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
+                    // Update the button's view model by locating the button using the composite tag.
+                    try
                     {
-                        viewModel.IsFavorite = true; // This automatically makes the star overlay visible.
+                        // Build the key using systemName and file name WITH extension.
+                        var key = $"{systemName}|{fileNameWithExtension}";
+
+                        // Find the button by checking if its Tag is a GameButtonTag and comparing its Key.
+                        var button = gameFileGrid.Children.OfType<Button>()
+                            .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                                 string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+
+                        if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
+                        {
+                            viewModel.IsFavorite = true; // This automatically makes the star overlay visible.
+                        }
                     }
-                }
-                catch (Exception)
-                {
-                    // ignore
+                    catch (Exception)
+                    {
+                        // ignore
+                    }
                 }
 
                 // Find the GameListViewItem and update its IsFavorite property
@@ -97,7 +100,7 @@ public static class ContextMenuFunctions
     }
 
     // Use fileNameWithExtension
-    public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, FavoritesManager favoritesManager, WrapPanel gameFileGrid, MainWindow mainWindow)
+    public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         try
         {
@@ -116,23 +119,26 @@ public static class ContextMenuFunctions
             favoritesManager.FavoriteList = favorites.FavoriteList;
             favoritesManager.SaveFavorites();
 
-            // Update the button's view model by locating the button using the composite tag.
-            try
+            if (gameFileGrid != null)
             {
-                // Build the key using systemName and file name WITH extension.
-                var key = $"{systemName}|{fileNameWithExtension}";
-                var button = gameFileGrid.Children.OfType<Button>()
-                    .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                         string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
-
-                if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
+                // Update the button's view model by locating the button using the composite tag.
+                try
                 {
-                    viewModel.IsFavorite = false; // This will collapse the star overlay.
+                    // Build the key using systemName and file name WITH extension.
+                    var key = $"{systemName}|{fileNameWithExtension}";
+                    var button = gameFileGrid.Children.OfType<Button>()
+                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+
+                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
+                    {
+                        viewModel.IsFavorite = false; // This will collapse the star overlay.
+                    }
                 }
-            }
-            catch (Exception)
-            {
-                // ignore
+                catch (Exception)
+                {
+                    // ignore
+                }
             }
 
             // Find the GameListViewItem and update its IsFavorite property
@@ -632,29 +638,32 @@ public static class ContextMenuFunctions
             var flashWindow = new FlashOverlayWindow();
             await flashWindow.ShowFlashAsync();
 
-            // Update the button's image using the new ImageLoader
-            try
+            if (button != null)
             {
-                if (button?.Content is Grid grid)
+                // Update the button's image using the new ImageLoader
+                try
                 {
-                    // Find the Image control within the button's template
-
-                    if (grid.Children.OfType<Border>()
-                            .FirstOrDefault()?.Child is Image imageControl)
+                    if (button?.Content is Grid grid)
                     {
-                        // Load the new screenshot image
-                        var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
-                        imageControl.Source = loadedImage; // Assign the loaded image
+                        // Find the Image control within the button's template
+
+                        if (grid.Children.OfType<Border>()
+                                .FirstOrDefault()?.Child is Image imageControl)
+                        {
+                            // Load the new screenshot image
+                            var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);
+                            imageControl.Source = loadedImage; // Assign the loaded image
+                        }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Notify the developer
-                const string contextMessage = "Failed to update button image after screenshot.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                catch (Exception ex)
+                {
+                    // Notify the developer
+                    const string contextMessage = "Failed to update button image after screenshot.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Do not notify the user
+                    // Do not notify the user
+                }
             }
 
             // Reload the current Game List

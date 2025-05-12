@@ -337,13 +337,12 @@ public partial class FavoritesWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1))
+            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemManager1))
             {
                 return;
             }
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig1,
-                _fakebutton, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager1, null, _mainWindow);
             _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
         };
 

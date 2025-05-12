@@ -14,7 +14,7 @@ namespace SimpleLauncher;
 public partial class PlayTimeWindow
 {
     private void AddRightClickContextMenuPlayHistoryWindow(string fileNameWithExtension, PlayHistoryItem selectedItem,
-        string fileNameWithoutExtension, SystemManager systemConfig, string filePath)
+        string fileNameWithoutExtension, SystemManager systemManager, string filePath)
     {
         var contextMenu = new ContextMenu();
 
@@ -54,8 +54,7 @@ public partial class PlayTimeWindow
         addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            ContextMenuFunctions.AddToFavorites(selectedItem.SystemName, fileNameWithExtension, _favoritesManager,
-                _fakeGameFileGrid, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(selectedItem.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
         };
 
         // "Open Video Link" MenuItem
@@ -113,7 +112,7 @@ public partial class PlayTimeWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(selectedItem.SystemName, fileNameWithoutExtension, systemConfig,
+            ContextMenuFunctions.OpenRomHistoryWindow(selectedItem.SystemName, fileNameWithoutExtension, systemManager,
                 _machines);
         };
 
@@ -133,7 +132,7 @@ public partial class PlayTimeWindow
         coverMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            ContextMenuFunctions.OpenCover(selectedItem.SystemName, fileNameWithoutExtension, systemConfig);
+            ContextMenuFunctions.OpenCover(selectedItem.SystemName, fileNameWithoutExtension, systemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -327,8 +326,7 @@ public partial class PlayTimeWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemConfig, _fakebutton,
-                _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
             _ = LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
         };
 
@@ -373,8 +371,7 @@ public partial class PlayTimeWindow
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
 
-                ContextMenuFunctions.RemoveFromFavorites(selectedItem.SystemName, fileNameWithExtension,
-                    _favoritesManager, _fakeGameFileGrid, _mainWindow);
+                ContextMenuFunctions.RemoveFromFavorites(selectedItem.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
             }
         };
 

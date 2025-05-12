@@ -23,9 +23,6 @@ public partial class FavoritesWindow
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
 
-    private readonly Button _fakebutton = new();
-    private readonly WrapPanel _fakeGameFileGrid = new();
-
     public FavoritesWindow(SettingsManager settings, List<SystemManager> systemManagers, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();

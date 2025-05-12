@@ -26,9 +26,6 @@ public partial class GlobalSearchWindow
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
 
-    private readonly WrapPanel _fakeGameFileGrid = new();
-    private readonly Button _fakeButton = new();
-
     public GlobalSearchWindow(List<SystemManager> systemManagers, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();

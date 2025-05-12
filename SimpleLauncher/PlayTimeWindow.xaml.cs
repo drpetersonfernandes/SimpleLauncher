@@ -28,9 +28,6 @@ public partial class PlayTimeWindow
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
 
-    private readonly Button _fakebutton = new();
-    private readonly WrapPanel _fakeGameFileGrid = new();
-
     public PlayTimeWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
     {
         InitializeComponent();

@@ -56,8 +56,7 @@ public partial class GlobalSearchWindow
         addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            ContextMenuFunctions.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension,
-                _favoritesManager, _fakeGameFileGrid, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, null, _favoritesManager, _mainWindow);
         };
 
         // "Open Video Link" MenuItem
@@ -331,8 +330,7 @@ public partial class GlobalSearchWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager,
-                _fakeButton, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
                 selectedResult.EmulatorConfig);
         };
@@ -378,8 +376,7 @@ public partial class GlobalSearchWindow
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
                 }
 
-                ContextMenuFunctions.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension,
-                    _favoritesManager, _fakeGameFileGrid, _mainWindow);
+                ContextMenuFunctions.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
             }
         };
 
