@@ -693,9 +693,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
 
-            if (selectedConfig == null)
+            if (selectedManager == null)
             {
                 // Notify developer
                 const string contextMessage = "selectedConfig is null.";
@@ -725,8 +725,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
 
                 // Recount the number of files in the system folder
-                var systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch; // Pass just the extensions to CountFiles
+                var systemFolderPath = selectedManager.SystemFolder;
+                var fileExtensions = selectedManager.FileFormatsToSearch; // Pass just the extensions to CountFiles
                 var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
                 var cachedFilesCount = _cachedFiles?.Count ?? 0;
 
@@ -765,7 +765,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     else
                     {
                         // Check if the system is MAME-based
-                        var systemIsMame = selectedConfig.SystemIsMame;
+                        var systemIsMame = selectedManager.SystemIsMame;
 
                         // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
                         if (systemIsMame && _mameLookup != null)
@@ -810,7 +810,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             allFiles.Sort();
 
             // Apply ShowGames filter before pagination
-            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedConfig);
+            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 
             // Count the collection of files
             _totalFiles = allFiles.Count;
@@ -860,12 +860,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 if (_settings.ViewMode == "GridView")
                 {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedConfig);
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
                 else // ListView
                 {
-                    var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedConfig);
+                    var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
             }

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows.Controls;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -13,16 +11,13 @@ namespace SimpleLauncher.Services;
 public static class GameLauncher
 {
     private static readonly string LogPath = GetLogPath.Path();
-    private static string _selectedEmulatorName;
-    private static string _selectedSystemName;
-    private static SystemManager _selectedSystemConfig;
-    private static SystemManager.Emulator _selectedEmulatorConfig;
+    private static SystemManager.Emulator _selectedEmulatorManager;
     private static string _selectedEmulatorParameters;
 
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
-    public static async Task HandleButtonClick(string filePath, ComboBox emulatorComboBox, ComboBox systemComboBox, List<SystemManager> systemConfigs, SettingsManager settings, MainWindow mainWindow)
+    public static async Task HandleButtonClick(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
     {
         //
         //
@@ -43,7 +38,7 @@ public static class GameLauncher
             return;
         }
 
-        if (emulatorComboBox.SelectedItem == null)
+        if (selectedEmulatorName == null)
         {
             // Notify developer
             const string contextMessage = "Invalid emulator.";
@@ -56,7 +51,7 @@ public static class GameLauncher
             return;
         }
 
-        if (systemComboBox.SelectedItem == null)
+        if (selectedSystemName == null)
         {
             // Notify developer
             const string contextMessage = "Invalid system.";
@@ -69,10 +64,10 @@ public static class GameLauncher
             return;
         }
 
-        if (systemConfigs == null)
+        if (selectedSystemManager == null)
         {
             // Notify developer
-            const string contextMessage = "systemConfigs is null";
+            const string contextMessage = "selectedSystemManager is null";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -88,25 +83,8 @@ public static class GameLauncher
         //
         //
 
-        _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        _selectedSystemName = systemComboBox.SelectedItem?.ToString() ?? string.Empty;
-        _selectedSystemConfig = systemConfigs.FirstOrDefault(static config => config.SystemName == _selectedSystemName);
-
-        if (_selectedSystemConfig == null)
-        {
-            // Notify developer
-            const string contextMessage = "systemConfig is null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
-
-        _selectedEmulatorConfig = _selectedSystemConfig.Emulators.FirstOrDefault(static e => e.EmulatorName == _selectedEmulatorName);
-        if (_selectedEmulatorConfig == null)
+        _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+        if (_selectedEmulatorManager == null)
         {
             // Notify developer
             const string contextMessage = "emulatorConfig is null.";
@@ -119,11 +97,11 @@ public static class GameLauncher
             return;
         }
 
-        _selectedEmulatorParameters = _selectedEmulatorConfig.EmulatorParameters;
+        _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
         // Check if this is a MAME system
-        var isMameSystem = _selectedSystemConfig.SystemIsMame;
-        var systemFolder = _selectedSystemConfig.SystemFolder;
+        var isMameSystem = selectedSystemManager.SystemIsMame;
+        var systemFolder = selectedSystemManager.SystemFolder;
 
         // Validate parameters but collect results rather than returning immediately
         var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(_selectedEmulatorParameters, systemFolder, isMameSystem);
@@ -168,7 +146,7 @@ public static class GameLauncher
                     await LaunchExecutable(filePath);
                     break;
                 default:
-                    await LaunchRegularEmulator(filePath, _selectedSystemName, _selectedEmulatorName, _selectedSystemConfig, _selectedEmulatorConfig, _selectedEmulatorParameters);
+                    await LaunchRegularEmulator(filePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters);
                     break;
             }
         }
@@ -177,8 +155,8 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Generic error in the GameLauncher class.\n" +
                                  $"FilePath: {filePath}\n" +
-                                 $"SelectedSystem: {_selectedSystemName}\n" +
-                                 $"SelectedEmulator: {_selectedEmulatorName}";
+                                 $"SelectedSystem: {selectedSystemName}\n" +
+                                 $"SelectedEmulator: {selectedEmulatorName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -198,7 +176,7 @@ public static class GameLauncher
             var fileName = Path.GetFileName(filePath);
 
             // Update system playtime
-            settings.UpdateSystemPlayTime(_selectedSystemName, playTime); // Update the system playtime in settings
+            settings.UpdateSystemPlayTime(selectedSystemName, playTime); // Update the system playtime in settings
             settings.Save(); // Save the updated settings
 
             // Update play history
@@ -206,10 +184,10 @@ public static class GameLauncher
             {
                 // Load and update play history
                 var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, _selectedSystemName, playTime);
+                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, selectedSystemName, playTime);
 
                 // Refresh the game list to update playtime in ListView mode
-                mainWindow.RefreshGameListAfterPlay(fileName, _selectedSystemName);
+                mainWindow.RefreshGameListAfterPlay(fileName, selectedSystemName);
             }
             catch (Exception ex)
             {
@@ -219,16 +197,16 @@ public static class GameLauncher
             }
 
             // Update the PlayTime property in the MainWindow to refresh the UI
-            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(static s => s.SystemName == _selectedSystemName);
+            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
             if (systemPlayTime != null)
             {
                 mainWindow.PlayTime = systemPlayTime.PlayTime; // Update PlayTime in MainWindow
             }
 
             // Send Emulator Usage Stats
-            if (_selectedEmulatorName is not null)
+            if (selectedEmulatorName is not null)
             {
-                _ = Stats.CallApiAsync(_selectedEmulatorName);
+                _ = Stats.CallApiAsync(selectedEmulatorName);
             }
         }
     }

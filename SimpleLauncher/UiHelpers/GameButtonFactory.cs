@@ -18,7 +18,7 @@ namespace SimpleLauncher.UiHelpers;
 public class GameButtonFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemManager> systemConfigs,
+    List<SystemManager> systemManagers,
     List<MameManager> machines,
     SettingsManager settings,
     FavoritesManager favoritesManager,
@@ -27,7 +27,7 @@ public class GameButtonFactory(
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly List<SystemManager> _systemConfigs = systemConfigs;
+    private readonly List<SystemManager> _systemManagers = systemManagers;
     private readonly List<MameManager> _machines = machines;
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
@@ -37,22 +37,16 @@ public class GameButtonFactory(
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    private string _filePath;
-    private string _fileNameWithExtension;
-    private string _fileNameWithoutExtension;
-    private string _selectedSystemName;
-    private SystemManager _selectedSystemManager;
-
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        _filePath = filePath;
-        _fileNameWithExtension = PathHelper.GetFileName(filePath);
-        _fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-        _selectedSystemName = systemName;
-        _selectedSystemManager = systemManager;
+        var fileNameWithExtension = PathHelper.GetFileName(filePath);
+        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        var selectedSystemName = systemName;
+        var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
+        var selectedSystemManager = systemManager;
 
         // Pass the original filename without extension for image lookup
-        var imagePath = FindCoverImage.FindCoverImagePath(_fileNameWithoutExtension, _selectedSystemName, _selectedSystemManager);
+        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager);
 
         // Use the new ImageLoader to load the image and get the isDefault flag
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
@@ -61,8 +55,8 @@ public class GameButtonFactory(
         var viewModel = new GameButtonViewModel
         {
             IsFavorite = _favoritesManager.FavoriteList.Any(f =>
-                f.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                f.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase))
+                f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase))
         };
 
         // Create a container for text that will hold two rows
@@ -76,22 +70,22 @@ public class GameButtonFactory(
         // Always show the filename on the first row.
         var filenameTextBlock = new TextBlock
         {
-            Text = _fileNameWithoutExtension,
+            Text = fileNameWithoutExtension,
             HorizontalAlignment = HorizontalAlignment.Center,
             TextAlignment = TextAlignment.Center,
             FontWeight = FontWeights.Bold,
             TextTrimming = TextTrimming.CharacterEllipsis,
             FontSize = 13,
-            ToolTip = _fileNameWithoutExtension,
+            ToolTip = fileNameWithoutExtension,
             TextWrapping = TextWrapping.Wrap
         };
         textPanel.Children.Add(filenameTextBlock);
 
         // For MAME systems, add a second row for the description if available.
-        if (_selectedSystemManager.SystemIsMame)
+        if (selectedSystemManager.SystemIsMame)
         {
             // Use original filename without extension for MAME lookup
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(_fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
             if (machine != null && !string.IsNullOrWhiteSpace(machine.Description))
             {
                 var descriptionTextBlock = new TextBlock
@@ -218,7 +212,7 @@ public class GameButtonFactory(
         };
 
         // Create a unique key for the favorite status
-        var key = $"{_selectedSystemName}|{_fileNameWithExtension}";
+        var key = $"{selectedSystemName}|{fileNameWithExtension}";
 
         // Create the composite tag object
         var tag = new GameButtonTag
@@ -242,7 +236,7 @@ public class GameButtonFactory(
             try
             {
                 PlayClick.PlayClickSound(); // Play sound *before* launching
-                await GameLauncher.HandleButtonClick(_filePath, _emulatorComboBox, _systemComboBox, _systemConfigs, _settings, _mainWindow);
+                await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
             }
             finally
             {
@@ -251,9 +245,8 @@ public class GameButtonFactory(
             }
         };
 
-        return ContextMenu.AddRightClickReturnButton(_filePath, _emulatorComboBox, _systemComboBox,
-            _systemConfigs, _settings, _mainWindow, _selectedSystemName, _fileNameWithExtension, _favoritesManager, _gameFileGrid,
-            _fileNameWithoutExtension, _selectedSystemManager, _button, _machines);
+        return ContextMenu.AddRightClickReturnButton(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
+            _favoritesManager, _gameFileGrid, selectedSystemManager, _button, _machines, _settings, _mainWindow);
     }
 }
 

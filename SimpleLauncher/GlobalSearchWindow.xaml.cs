@@ -17,7 +17,7 @@ namespace SimpleLauncher;
 public partial class GlobalSearchWindow
 {
     private static readonly string LogPath = GetLogPath.Path();
-    private readonly List<SystemManager> _systemConfigs;
+    private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
     private PleaseWaitWindow _pleaseWaitWindow;
@@ -28,16 +28,14 @@ public partial class GlobalSearchWindow
 
     private readonly WrapPanel _fakeGameFileGrid = new();
     private readonly Button _fakeButton = new();
-    private readonly ComboBox _mockSystemComboBox = new();
-    private readonly ComboBox _mockEmulatorComboBox = new();
 
-    public GlobalSearchWindow(List<SystemManager> systemConfigs, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearchWindow(List<SystemManager> systemManagers, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Closed += GlobalSearch_Closed;
 
-        _systemConfigs = systemConfigs;
+        _systemManagers = systemManagers;
         _machines = machines;
         _mameLookup = mameLookup;
         _settings = settings;
@@ -118,7 +116,7 @@ public partial class GlobalSearchWindow
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
 
-        foreach (var systemConfig in _systemConfigs)
+        foreach (var systemConfig in _systemManagers)
         {
             var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
 
@@ -233,7 +231,7 @@ public partial class GlobalSearchWindow
         return terms;
     }
 
-    private async void LaunchGameFromSearchResult(string filePath, string systemName, SystemManager.Emulator emulatorConfig)
+    private async void LaunchGameFromSearchResult(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager)
     {
         try
         {
@@ -250,10 +248,10 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            if (string.IsNullOrEmpty(systemName))
+            if (string.IsNullOrEmpty(selectedSystemName))
             {
                 // Notify developer
-                const string contextMessage = "systemName is null or empty.";
+                const string contextMessage = "selectedSystemName is null or empty.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -263,10 +261,10 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            if (emulatorConfig == null)
+            if (selectedEmulatorManager == null)
             {
                 // Notify developer
-                const string contextMessage = "emulatorConfig is null.";
+                const string contextMessage = "selectedEmulatorManager is null.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -276,13 +274,11 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            var systemConfig = _systemConfigs.FirstOrDefault(config =>
-                config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-
-            if (systemConfig == null)
+            var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            if (selectedSystemManager == null)
             {
                 // Notify developer
-                const string contextMessage = "systemConfig is null.";
+                const string contextMessage = "selectedSystemManager is null.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -292,20 +288,16 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            _mockSystemComboBox.ItemsSource = _systemConfigs.Select(static config => config.SystemName).ToList();
-            _mockSystemComboBox.SelectedItem = systemConfig.SystemName;
+            var selectedEmulatorName = selectedEmulatorManager.EmulatorName;
 
-            _mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-            _mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
-
-            await GameLauncher.HandleButtonClick(filePath, _mockEmulatorComboBox, _mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
         {
             // Notify developer
             var contextMessage = $"There was an error launching the game.\n" +
                                  $"File Path: {filePath}\n" +
-                                 $"System Name: {systemName}";
+                                 $"System Name: {selectedSystemName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -348,7 +340,7 @@ public partial class GlobalSearchWindow
             var fileNameWithoutExtension = selectedResult.FileName;
             var fileNameWithExtension = selectedResult.FileNameWithExtension;
             var filePath = selectedResult.FilePath;
-            var systemConfig = _systemConfigs.FirstOrDefault(config =>
+            var systemConfig = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
 
             if (CheckSystemConfig(systemConfig)) return;

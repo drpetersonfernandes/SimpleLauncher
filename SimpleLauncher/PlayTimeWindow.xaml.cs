@@ -23,7 +23,7 @@ public partial class PlayTimeWindow
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
     private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemConfigs;
+    private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
@@ -31,11 +31,11 @@ public partial class PlayTimeWindow
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public PlayTimeWindow(List<SystemManager> systemConfigs, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayTimeWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
     {
         InitializeComponent();
 
-        _systemConfigs = systemConfigs;
+        _systemManagers = systemManagers;
         _machines = machines;
         _settings = settings;
         _favoritesManager = favoritesManager;
@@ -58,7 +58,7 @@ public partial class PlayTimeWindow
             var machineDescription = machine?.Description ?? string.Empty;
 
             // Retrieve the system configuration for the history item
-            var systemConfig = _systemConfigs.FirstOrDefault(config =>
+            var systemConfig = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
             // Get the default emulator. The first one in the list
@@ -141,7 +141,7 @@ public partial class PlayTimeWindow
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
@@ -216,7 +216,7 @@ public partial class PlayTimeWindow
             }
 
             // Check systemConfig
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
                 // Notify developer
@@ -273,96 +273,69 @@ public partial class PlayTimeWindow
         }
     }
 
-    private async Task LaunchGameFromHistory(string fileName, string systemName)
+    private async Task LaunchGameFromHistory(string fileName, string selectedSystemName)
     {
-        try
-        {
-            // Check systemConfig
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
-            {
-                // Notify developer
-                const string contextMessage = "systemConfig is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-                return;
-            }
-
-            // Check emulatorConfig
-            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
-            if (emulatorConfig == null)
-            {
-                // Notify developer
-                const string contextMessage = "emulatorConfig is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-                return;
-            }
-
-            var fullPath = PathHelper.ResolveRelativeToAppDirectory(PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemConfig.SystemFolder, fileName));
-            // Check if the file exists
-            if (!File.Exists(fullPath))
-            {
-                // Auto remove the history item from the list since the file no longer exists
-                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == systemName);
-                if (itemToRemove != null)
-                {
-                    _playHistoryList.Remove(itemToRemove);
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
-                }
-
-                // Notify developer
-                var contextMessage = $"History item file does not exist: {fullPath}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
-            }
-            else // File exists
-            {
-                var mockSystemComboBox = new ComboBox();
-                var mockEmulatorComboBox = new ComboBox();
-
-                mockSystemComboBox.ItemsSource = _systemConfigs.Select(static config => config.SystemName).ToList();
-                mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-
-                mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-                mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
-
-                // Store currently selected item's identifier to restore selection after refresh
-                // Use a non-nullable tuple with nullable elements
-                var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
-                    ? (selectedItem.FileName, selectedItem.SystemName)
-                    : (FileName: null, SystemName: null); // Use null elements if nothing is selected
-
-                // Launch Game
-                await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
-
-                // Refresh play history data in UI after game ends
-                RefreshPlayHistoryData(selectedItemIdentifier); // Pass the identifier
-            }
-        }
-        catch (Exception ex)
+        var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+        if (selectedSystemManager == null)
         {
             // Notify developer
-            var contextMessage = $"There was an error launching the game from Play History.\n" +
-                                 $"File Path: {fileName}\n" +
-                                 $"System Name: {systemName}";
+            const string contextMessage = "systemManager is null.";
+            var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+            return;
         }
+
+        var unresolvedPath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(selectedSystemManager.SystemFolder, fileName);
+        var filePath = PathHelper.ResolveRelativeToAppDirectory(unresolvedPath);
+        if (!File.Exists(filePath))
+        {
+            // Auto remove the history item from the list since the file no longer exists
+            var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == selectedSystemName);
+            if (itemToRemove != null)
+            {
+                _playHistoryList.Remove(itemToRemove);
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _playHistoryManager.SavePlayHistory();
+            }
+
+            // Notify developer
+            var contextMessage = $"History item file does not exist: {filePath}";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+        }
+
+        var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
+        if (emulatorManager == null)
+        {
+            // Notify developer
+            const string contextMessage = "emulatorConfig is null.";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+            return;
+        }
+
+        var selectedEmulatorName = emulatorManager.EmulatorName;
+
+        // Store currently selected item's identifier to restore selection after refresh
+        // Use a non-nullable tuple with nullable elements
+        var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
+            ? (selectedItem.FileName, selectedItem.SystemName)
+            : (FileName: null, SystemName: null); // Use null elements if nothing is selected
+
+        await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+
+        RefreshPlayHistoryData(selectedItemIdentifier);
     }
 
     /// <summary>
@@ -386,7 +359,7 @@ public partial class PlayTimeWindow
                 var machineDescription = machine?.Description ?? string.Empty;
 
                 // Retrieve the system configuration for the history item
-                var systemConfig = _systemConfigs.FirstOrDefault(config =>
+                var systemConfig = _systemManagers.FirstOrDefault(config =>
                     config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
                 // Get the default emulator. The first one in the list

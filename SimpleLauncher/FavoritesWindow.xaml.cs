@@ -19,19 +19,19 @@ public partial class FavoritesWindow
     private readonly FavoritesManager _favoritesManager;
     private ObservableCollection<Favorite> _favoriteList;
     private readonly SettingsManager _settings;
-    private readonly List<SystemManager> _systemConfigs;
+    private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
 
     private readonly Button _fakebutton = new();
     private readonly WrapPanel _fakeGameFileGrid = new();
 
-    public FavoritesWindow(SettingsManager settings, List<SystemManager> systemConfigs, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public FavoritesWindow(SettingsManager settings, List<SystemManager> systemManagers, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         InitializeComponent();
 
         _settings = settings;
-        _systemConfigs = systemConfigs;
+        _systemManagers = systemManagers;
         _machines = machines;
         _mainWindow = mainWindow;
         _favoritesManager = favoritesManager;
@@ -53,7 +53,7 @@ public partial class FavoritesWindow
             var machineDescription = machine?.Description ?? string.Empty;
 
             // Retrieve the system configuration for the favorite
-            var systemConfig = _systemConfigs.FirstOrDefault(config =>
+            var systemConfig = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
             // Get the default emulator, e.g., the first one in the list
@@ -77,7 +77,7 @@ public partial class FavoritesWindow
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
         if (systemConfig == null)
@@ -114,7 +114,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
                 // Notify developer
@@ -172,15 +172,15 @@ public partial class FavoritesWindow
         }
     }
 
-    private async Task LaunchGameFromFavorite(string fileName, string systemName)
+    private async Task LaunchGameFromFavorite(string fileName, string selectedSystemName)
     {
         try
         {
-            var systemConfig = _systemConfigs.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
+            var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            if (selectedSystemManager == null)
             {
                 // Notify developer
-                const string contextMessage = "systemConfig is null.";
+                const string contextMessage = "selectedSystemManager is null.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -190,27 +190,13 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var emulatorConfig = systemConfig.Emulators.FirstOrDefault();
-            if (emulatorConfig == null)
-            {
-                // Notify developer
-                const string contextMessage = "emulatorConfig is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            var partialPath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(selectedSystemManager.SystemFolder, fileName);
+            var filePath = PathHelper.ResolveRelativeToAppDirectory(partialPath);
 
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
-                return;
-            }
-
-            var partialPath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemConfig.SystemFolder, fileName);
-            var fullPath = PathHelper.ResolveRelativeToAppDirectory(partialPath);
-
-            if (!File.Exists(fullPath))
+            if (!File.Exists(filePath))
             {
                 // Auto remove the favorite from the list since the file no longer exists
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == systemName);
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
                 if (favoriteToRemove != null)
                 {
                     _favoriteList.Remove(favoriteToRemove);
@@ -219,7 +205,7 @@ public partial class FavoritesWindow
                 }
 
                 // Notify developer
-                var contextMessage = $"Favorite file does not exist: {fullPath}";
+                var contextMessage = $"Favorite file does not exist: {filePath}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -229,22 +215,31 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var mockSystemComboBox = new ComboBox();
-            var mockEmulatorComboBox = new ComboBox();
-            mockSystemComboBox.ItemsSource = _systemConfigs.Select(static config => config.SystemName).ToList();
-            mockSystemComboBox.SelectedItem = systemConfig.SystemName;
-            mockEmulatorComboBox.ItemsSource = systemConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-            mockEmulatorComboBox.SelectedItem = emulatorConfig.EmulatorName;
+            var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
+            if (emulatorManager == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorManager is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+                return;
+            }
+
+            var selectedEmulatorName = emulatorManager.EmulatorName;
 
             // Launch Game
-            await GameLauncher.HandleButtonClick(fullPath, mockEmulatorComboBox, mockSystemComboBox, _systemConfigs, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
         {
             // Notify developer
             var contextMessage = $"There was an error launching the game from Favorites.\n" +
                                  $"File Path: {fileName}\n" +
-                                 $"System Name: {systemName}";
+                                 $"System Name: {selectedSystemName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -325,7 +320,7 @@ public partial class FavoritesWindow
 
     private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemManager systemManager)
     {
-        systemManager = _systemConfigs?.FirstOrDefault(config =>
+        systemManager = _systemManagers?.FirstOrDefault(config =>
             config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
         if (systemManager != null) return false;

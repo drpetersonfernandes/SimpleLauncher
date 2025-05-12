@@ -33,31 +33,23 @@ public class GameListFactory(
     private readonly WrapPanel _fakeFileGrid = new();
     private readonly Button _fakeButton = new();
 
-    private string _filePath;
-    private string _fileNameWithExtension;
-    private string _fileNameWithoutExtension;
-    private string _selectedSystemName;
-    private SystemManager _selectedSystemManager;
-
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        _filePath = filePath;
-        _fileNameWithExtension = PathHelper.GetFileName(filePath);
-        _fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-        _selectedSystemName = systemName;
-        _selectedSystemManager = systemManager;
+        var fileNameWithExtension = PathHelper.GetFileName(filePath);
+        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        var selectedSystemName = systemName;
 
-        var machineDescription = _selectedSystemManager.SystemIsMame ? GetMachineDescription(_fileNameWithoutExtension) : string.Empty;
+        var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         // Check if this file is a favorite
         var isFavorite = _favoritesManager.FavoriteList
-            .Any(f => f.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                      f.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            .Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                      f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         // Get playtime from playHistoryManager
         var playHistoryItem = _playHistoryManager.PlayHistoryList
-            .FirstOrDefault(h => h.FileName.Equals(_fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                                 h.SystemName.Equals(_selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            .FirstOrDefault(h => h.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
+                                 h.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
 
         var timesPlayed = "0"; // Default
         var playTime = "0m 0s"; // Default
@@ -76,12 +68,11 @@ public class GameListFactory(
         // Create the GameListViewItem with file details
         var gameListViewItem = new GameListViewItem
         {
-            FileName = _fileNameWithoutExtension,
+            FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
-            FilePath = _filePath,
-            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(_filePath, _emulatorComboBox, _systemComboBox,
-                _systemConfigs, _settings, _mainWindow, _selectedSystemName, _fileNameWithExtension, _favoritesManager, _fakeFileGrid,
-                _fileNameWithoutExtension, _selectedSystemManager, _fakeButton, _machines),
+            FilePath = filePath,
+            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
+                _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow, _fakeFileGrid, _fakeButton),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime
@@ -137,14 +128,29 @@ public class GameListFactory(
 
     public async Task HandleDoubleClick(GameListViewItem selectedItem)
     {
-        if (selectedItem == null) return;
-
-        var selectedSystem = _systemComboBox.SelectedItem as string;
-        var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-        if (systemConfig != null)
+        if (selectedItem == null)
         {
-            await GameLauncher.HandleButtonClick(selectedItem.FilePath, _emulatorComboBox, _systemComboBox,
-                _systemConfigs, _settings, _mainWindow);
+            // Notify developer
+            var ex = new Exception("selectedItem is null.");
+            _ = LogErrors.LogErrorAsync(ex, "selectedItem is null.");
+
+            return;
         }
+
+        var filePath = selectedItem.FilePath;
+        var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
+        var selectedSystemName = _systemComboBox.SelectedItem as string;
+        var selectedSystemManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystemName);
+
+        if (selectedSystemManager == null)
+        {
+            // Notify developer
+            var ex = new Exception("selectedSystemManager is null.");
+            _ = LogErrors.LogErrorAsync(ex, "selectedSystemManager is null.");
+
+            return;
+        }
+
+        await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
     }
 }
