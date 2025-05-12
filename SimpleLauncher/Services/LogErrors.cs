@@ -6,7 +6,6 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher.Services;
 
@@ -25,7 +24,6 @@ public static class LogErrors
     private static void LoadConfiguration()
     {
         var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-
         try
         {
             if (!File.Exists(configFile))
@@ -36,10 +34,17 @@ public static class LogErrors
                 return; // Stop loading configuration
             }
 
-            var config = JObject.Parse(File.ReadAllText(configFile));
+            var jsonString = File.ReadAllText(configFile);
+            using var document = JsonDocument.Parse(jsonString);
+            var root = document.RootElement;
 
             // Read ApiKey
-            ApiKey = config[nameof(ApiKey)]?.ToString();
+            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement) &&
+                apiKeyElement.ValueKind == JsonValueKind.String)
+            {
+                ApiKey = apiKeyElement.GetString();
+            }
+
             if (string.IsNullOrEmpty(ApiKey))
             {
                 // ApiKey is missing or empty, disable API logging and notify the user
@@ -49,12 +54,18 @@ public static class LogErrors
             }
 
             // Read BugReportApiUrl
-            BugReportApiUrl = config[nameof(BugReportApiUrl)]?.ToString();
+            if (root.TryGetProperty(nameof(BugReportApiUrl), out var urlElement) &&
+                urlElement.ValueKind == JsonValueKind.String)
+            {
+                BugReportApiUrl = urlElement.GetString();
+            }
+
             if (string.IsNullOrEmpty(BugReportApiUrl))
             {
                 // BugReportApiUrl is missing or empty, disable API logging and notify the user
                 _isApiLoggingEnabled = false;
-                MessageBoxLibrary.HandleApiConfigErrorMessageBox("Bug Report API URL is missing or empty in 'appsettings.json'.");
+                MessageBoxLibrary.HandleApiConfigErrorMessageBox(
+                    "Bug Report API URL is missing or empty in 'appsettings.json'.");
                 return; // Stop loading configuration
             }
 

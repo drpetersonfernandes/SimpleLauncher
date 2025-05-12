@@ -1,7 +1,7 @@
 using System;
 using System.IO;
+using System.Text.Json;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher.Services;
 
@@ -13,15 +13,23 @@ public static class GetImageExtensions
         {
             // Adjust the path if needed
             var jsonText = File.ReadAllText("appsettings.json");
-            var jObject = JObject.Parse(jsonText);
-            var foldersArray = jObject["ImageExtensions"] as JArray;
-            return foldersArray?.Select(static f => f.ToString()).ToArray() ?? Array.Empty<string>();
+            var jsonDocument = JsonDocument.Parse(jsonText);
+
+            if (jsonDocument.RootElement.TryGetProperty("ImageExtensions", out var imageExtensionsElement) &&
+                imageExtensionsElement.ValueKind == JsonValueKind.Array)
+            {
+                return imageExtensionsElement.EnumerateArray()
+                    .Select(static e => e.GetString())
+                    .Where(static s => s != null)
+                    .ToArray();
+            }
+
+            return Array.Empty<string>();
         }
         catch (Exception ex)
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to get image extensions.");
-
             return Array.Empty<string>();
         }
     }

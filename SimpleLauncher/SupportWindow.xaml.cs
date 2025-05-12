@@ -3,10 +3,9 @@ using System.IO;
 using System.Net.Http;
 using System.Reflection;
 using System.Text;
+using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -38,9 +37,13 @@ public partial class SupportWindow
         const string configFile = "appsettings.json";
         if (File.Exists(configFile))
         {
-            var config = JObject.Parse(File.ReadAllText(configFile));
-            ApiKey = config[nameof(ApiKey)]?.ToString();
-            ApiBaseUrl = config["EmailApiBaseUrl"]?.ToString() ?? "https://www.purelogiccode.com/customeremailservice";
+            var configText = File.ReadAllText(configFile);
+            using var jsonDoc = JsonDocument.Parse(configText);
+            var root = jsonDoc.RootElement;
+            ApiKey = root.GetProperty(nameof(ApiKey)).GetString();
+            ApiBaseUrl = root.TryGetProperty("EmailApiBaseUrl", out var urlProp)
+                ? urlProp.GetString()
+                : "https://www.purelogiccode.com/customeremailservice";
         }
         else
         {
@@ -122,11 +125,9 @@ public partial class SupportWindow
             isHtml = false
         };
 
-        // Convert to JSON
-        var jsonContent = new StringContent(
-            JsonConvert.SerializeObject(requestPayload),
-            Encoding.UTF8,
-            "application/json");
+        // Convert to JSON using System.Text.Json
+        var jsonString = JsonSerializer.Serialize(requestPayload);
+        var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
         // Set the API Key from the loaded configuration
         _httpClient.DefaultRequestHeaders.Remove("X-API-KEY");
@@ -170,7 +171,8 @@ public partial class SupportWindow
                 var errorContent = await response.Content.ReadAsStringAsync();
 
                 // Notify developer
-                var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
+                var contextMessage =
+                    $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

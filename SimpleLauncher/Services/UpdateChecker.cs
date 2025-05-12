@@ -278,7 +278,7 @@ public static partial class UpdateChecker
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
         var current = new Version(MyRegex1().Replace(currentVersion, ""));
-        var latest = new Version(MyRegex2().Replace(latestVersion, ""));
+        var latest = new Version(MyRegex1().Replace(latestVersion, ""));
         var versionComparison = latest.CompareTo(current);
         return versionComparison > 0;
     }
@@ -301,7 +301,7 @@ public static partial class UpdateChecker
                 break;
             }
 
-            var versionMatch = MyRegex3().Match(versionTag ?? string.Empty);
+            var versionMatch = MyRegex2().Match(versionTag ?? string.Empty);
             if (versionMatch.Success)
             {
                 return (NormalizeVersion(versionMatch.Value), assetUrl);
@@ -349,9 +349,6 @@ public static partial class UpdateChecker
     [GeneratedRegex(@"[^\d\.]")]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"[^\d\.]")]
-    private static partial Regex MyRegex2();
-
     [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
-    private static partial Regex MyRegex3();
+    private static partial Regex MyRegex2();
 }

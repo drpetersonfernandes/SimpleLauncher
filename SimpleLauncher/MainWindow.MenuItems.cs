@@ -63,8 +63,8 @@ public partial class MainWindow
             // Empty SystemComboBox
             _selectedSystem = null;
             SystemComboBox.SelectedItem = null;
-            var nosystemselected =
-                (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
             SelectedSystem = nosystemselected;
             PlayTime = "00:00:00";
 
@@ -104,8 +104,8 @@ public partial class MainWindow
             // Empty SystemComboBox
             _selectedSystem = null;
             SystemComboBox.SelectedItem = null;
-            var nosystemselected =
-                (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
             SelectedSystem = nosystemselected;
             PlayTime = "00:00:00";
 
@@ -166,6 +166,7 @@ public partial class MainWindow
         // Empty SystemComboBox
         _selectedSystem = null;
         SystemComboBox.SelectedItem = null;
+
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
@@ -583,8 +584,8 @@ public partial class MainWindow
                 // Empty SystemComboBox
                 _selectedSystem = null;
                 SystemComboBox.SelectedItem = null;
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ??
-                                       "No system selected";
+
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 
@@ -614,8 +615,7 @@ public partial class MainWindow
                 SystemComboBox.SelectedItem = null;
 
                 // Set selected system
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ??
-                                       "No system selected";
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 

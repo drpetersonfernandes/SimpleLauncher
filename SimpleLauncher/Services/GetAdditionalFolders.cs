@@ -1,7 +1,7 @@
 using System;
 using System.IO;
+using System.Text.Json;
 using System.Linq;
-using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher.Services;
 
@@ -13,15 +13,23 @@ public static class GetAdditionalFolders
         {
             // Adjust the path if needed
             var jsonText = File.ReadAllText("appsettings.json");
-            var jObject = JObject.Parse(jsonText);
-            var foldersArray = jObject["AdditionalFolders"] as JArray;
-            return foldersArray?.Select(static f => f.ToString()).ToArray() ?? Array.Empty<string>();
+            var jsonDocument = JsonDocument.Parse(jsonText);
+
+            if (jsonDocument.RootElement.TryGetProperty("AdditionalFolders", out var foldersElement) &&
+                foldersElement.ValueKind == JsonValueKind.Array)
+            {
+                return foldersElement.EnumerateArray()
+                    .Select(element => element.GetString())
+                    .Where(folder => folder != null)
+                    .ToArray();
+            }
+
+            return Array.Empty<string>();
         }
         catch (Exception ex)
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to get additional folders.");
-
             return Array.Empty<string>();
         }
     }

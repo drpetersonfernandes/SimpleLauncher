@@ -6,7 +6,6 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Newtonsoft.Json.Linq;
 
 namespace SimpleLauncher.Services;
 
@@ -31,46 +30,54 @@ public static class Stats
     private static void LoadConfiguration()
     {
         var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
-
         try
         {
             if (!File.Exists(configFile))
             {
                 // File is missing, disable API and log error locally
                 _isApiEnabled = false;
-
                 // Use LogErrors directly for local logging if config loading fails
                 _ = LogErrors.LogErrorAsync(new FileNotFoundException($"Configuration file not found: '{configFile}'"),
                     "Stats API configuration file missing.");
-
                 return; // Stop loading configuration
             }
 
-            var config = JObject.Parse(File.ReadAllText(configFile));
+            var jsonString = File.ReadAllText(configFile);
+            using var document = JsonDocument.Parse(jsonString);
+            var root = document.RootElement;
 
             // Read ApiKey
-            _apiKey = config["ApiKey"]?.ToString();
+            if (root.TryGetProperty("ApiKey", out var apiKeyElement) &&
+                apiKeyElement.ValueKind == JsonValueKind.String)
+            {
+                _apiKey = apiKeyElement.GetString();
+            }
+
             if (string.IsNullOrEmpty(_apiKey))
             {
                 // ApiKey is missing or empty, disable API and log error locally
                 _isApiEnabled = false;
-
-                _ = LogErrors.LogErrorAsync(new InvalidOperationException("API Key is missing or empty in the configuration file."), "Stats API Key missing.");
-
+                _ = LogErrors.LogErrorAsync(
+                    new InvalidOperationException("API Key is missing or empty in the configuration file."),
+                    "Stats API Key missing.");
                 return; // Stop loading configuration
             }
 
             // Read StatsApiUrl
-            _statsApiUrl = config["StatsApiUrl"]?.ToString();
+            if (root.TryGetProperty("StatsApiUrl", out var statsApiUrlElement) &&
+                statsApiUrlElement.ValueKind == JsonValueKind.String)
+            {
+                _statsApiUrl = statsApiUrlElement.GetString();
+            }
+
             if (string.IsNullOrEmpty(_statsApiUrl))
             {
                 // StatsApiUrl is missing or empty, disable API and log error locally
                 _isApiEnabled = false;
-
                 // Notify developer
-                Exception ex = new InvalidOperationException("Stats API URL is missing or empty in the configuration file.");
+                Exception ex =
+                    new InvalidOperationException("Stats API URL is missing or empty in the configuration file.");
                 _ = LogErrors.LogErrorAsync(ex, "Stats API URL missing.");
-
                 return; // Stop loading configuration
             }
 
@@ -81,7 +88,6 @@ public static class Stats
         {
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiEnabled = false;
-
             _ = LogErrors.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.");
         }
     }

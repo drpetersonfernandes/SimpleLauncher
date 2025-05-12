@@ -1,6 +1,6 @@
 using System;
 using System.IO;
-using Newtonsoft.Json.Linq;
+using System.Text.Json;
 
 namespace SimpleLauncher.Services;
 
@@ -11,8 +11,14 @@ public static class GetLogPath
         try
         {
             var jsonText = File.ReadAllText("appsettings.json");
-            var jObject = JObject.Parse(jsonText);
-            var logPath = jObject["LogPath"]?.ToString() ?? string.Empty;
+            var jsonDocument = JsonDocument.Parse(jsonText);
+            var logPath = string.Empty;
+
+            if (jsonDocument.RootElement.TryGetProperty("LogPath", out var logPathElement) &&
+                logPathElement.ValueKind == JsonValueKind.String)
+            {
+                logPath = logPathElement.GetString() ?? string.Empty;
+            }
 
             if (string.IsNullOrEmpty(logPath))
                 return string.Empty;
