@@ -632,8 +632,8 @@ public partial class EasyModeWindow : IDisposable
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
         // Paths for the primary system folder and image folder
-        var systemFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemFolder);
-        var imagesFolderPath = PathHelper.ResolveRelativeToCurrentDirectory(systemImageFolder);
+        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
+        var imagesFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
 
         // List of additional folders to create from appsettings.json
         var additionalFolders = GetAdditionalFolders.GetFolders();

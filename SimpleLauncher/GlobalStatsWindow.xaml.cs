@@ -121,7 +121,7 @@ public partial class GlobalStatsWindow
             var systemImagePath = config.SystemImageFolder;
             systemImagePath = string.IsNullOrEmpty(systemImagePath)
                 ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName)
-                : PathHelper.ResolveRelativeToAppDirectory(systemImagePath); // Use PathHelper for robust resolution
+                : PathHelper.ResolveRelativeToAppDirectory(systemImagePath);
 
 
             var numberOfImages = 0;

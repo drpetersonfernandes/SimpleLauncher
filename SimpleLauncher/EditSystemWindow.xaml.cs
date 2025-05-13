@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Text; // For StringBuilder in SanitizeFolderName
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -712,14 +713,19 @@ public partial class EditSystemWindow
             // Trim input values
             TrimInputValues(out var systemNameText, out var systemFolderText, out var systemImageFolderText, out var formatToSearchText, out var formatToLaunchText, out var emulator1NameText, out var emulator2NameText, out var emulator3NameText, out var emulator4NameText, out var emulator5NameText, out var emulator1LocationText, out var emulator2LocationText, out var emulator3LocationText, out var emulator4LocationText, out var emulator5LocationText, out var emulator1ParametersText, out var emulator2ParametersText, out var emulator3ParametersText, out var emulator4ParametersText, out var emulator5ParametersText);
 
+            // Sanitize SystemNameTextBox.Text immediately
+            systemNameText = SanitizeFolderName(systemNameText); // Replace with sanitized value
+
             // Validate paths
             ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText, out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid, out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid, out var isEmulator5LocationValid);
 
             // Handle validation alerts
             HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid, isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
-            // Validate SystemName
-            if (ValidateSystemName(systemNameText)) return;
+            // Validate SystemName (now with sanitized value)
+            if (ValidateSystemName(systemNameText)) return; // This will use the sanitized value
+
+            SystemNameTextBox.Text = systemNameText; // Update UI
 
             // Validate SystemFolder
             if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
@@ -729,7 +735,7 @@ public partial class EditSystemWindow
 
             // Validate systemIsMame
             // Set to false if user does not choose
-            var systemIsMame = SystemIsMameComboBox.SelectedItem != null && bool.Parse((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content.ToString() ?? "false");
+            var systemIsMame = ((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString())?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
 
             // Validate extractFileBeforeLaunch
             // Set to false if user does not choose
@@ -894,7 +900,7 @@ public partial class EditSystemWindow
         out bool isEmulator1LocationValid, out bool isEmulator2LocationValid, out bool isEmulator3LocationValid,
         out bool isEmulator4LocationValid, out bool isEmulator5LocationValid)
     {
-        // Define the valid patterns
+        // Define the valid patterns (using the sanitized systemNameText)
         var validSystemFolderPattern = $".\\roms\\{systemNameText}";
         var validSystemImageFolderPattern = $".\\images\\{systemNameText}";
 
@@ -1085,6 +1091,9 @@ public partial class EditSystemWindow
 
     private static bool ValidateSystemName(string systemNameText)
     {
+        // First, sanitize the input (though this is primarily handled in SaveSystemButton_Click)
+        systemNameText = SanitizeFolderName(systemNameText);
+
         if (!string.IsNullOrEmpty(systemNameText)) return false;
 
         // Notify user
@@ -1104,6 +1113,48 @@ public partial class EditSystemWindow
         MarkInvalid(Emulator3PathTextBox, isEmulator3LocationValid);
         MarkInvalid(Emulator4PathTextBox, isEmulator4LocationValid);
         MarkInvalid(Emulator5PathTextBox, isEmulator5LocationValid);
+    }
+
+    /// <summary>
+    /// Sanitizes a string to be safe for use as a folder name.
+    /// Removes invalid path characters and directory traversal sequences.
+    /// </summary>
+    /// <param name="name">The potential folder name.</param>
+    /// <returns>A sanitized folder name.</returns>
+    private static string SanitizeFolderName(string name)
+    {
+        if (string.IsNullOrWhiteSpace(name))
+        {
+            return "_invalid_empty_name_"; // Return a placeholder if input is empty/whitespace
+        }
+
+        // Replace directory traversal sequences first
+        var sanitizedName = name.Replace("..", "_"); // Replace ".." with underscore
+
+        // Get invalid characters for file names (which also apply to directory names)
+        var invalidChars = Path.GetInvalidFileNameChars();
+
+        // Use StringBuilder for efficient replacements
+        var sb = new StringBuilder(sanitizedName);
+        foreach (var invalidChar in invalidChars)
+        {
+            sb.Replace(invalidChar, '_'); // Replace invalid chars with underscore
+        }
+
+        sanitizedName = sb.ToString();
+
+        // Trim leading/trailing dots and spaces which can cause issues in some filesystems
+        sanitizedName = sanitizedName.Trim('.', ' ');
+
+        // Ensure the name isn't empty *after* sanitization
+        if (string.IsNullOrWhiteSpace(sanitizedName))
+        {
+            // If sanitization resulted in an empty string (e.g., input was just "."),
+            // return a placeholder.
+            return "_invalid_sanitized_name_";
+        }
+
+        return sanitizedName;
     }
 
     private static void CreateFolders(string systemNameText)
@@ -1229,13 +1280,14 @@ public partial class EditSystemWindow
 
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayClickSound();
         const string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
         Process.Start(new ProcessStartInfo
         {
             FileName = searchUrl,
             UseShellExecute = true
         });
+
+        PlayClick.PlayClickSound();
     }
 
     // Validate parameter fields in the UI

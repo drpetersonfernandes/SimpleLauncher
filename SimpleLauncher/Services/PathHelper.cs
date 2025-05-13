@@ -19,8 +19,6 @@ public static class PathHelper
             return string.Empty;
         }
 
-        // Path.GetFullPath correctly handles '.', '..', and relative paths
-        // relative to the current working directory, and canonicalizes the path.
         return Path.GetFullPath(path);
     }
 
@@ -84,7 +82,7 @@ public static class PathHelper
     {
         var combinedPath = Path.Combine(path1, path2);
         // ResolveRelativeToCurrentDirectory uses Path.GetFullPath, which will canonicalize.
-        return ResolveRelativeToCurrentDirectory(combinedPath);
+        return ResolveRelativeToAppDirectory(combinedPath);
     }
 
     public static string GetFileNameWithoutExtension(string path)

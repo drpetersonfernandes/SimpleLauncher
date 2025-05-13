@@ -1345,10 +1345,8 @@ public static class MessageBoxLibrary
 
         static bool Show()
         {
-            var msg1 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ??
-                       "'Simple Launcher' could not load 'helpuser.xml'.";
-            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ??
-                       "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var msg1 = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ?? "'Simple Launcher' could not load 'helpuser.xml'.";
+            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{msg1}\n\n{msg2}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -1381,10 +1379,8 @@ public static class MessageBoxLibrary
 
         static void Show() // Changed return type from bool to void
         {
-            var msg1 = (string)Application.Current.TryFindResource("Unabletoloadhelpuserxml") ??
-                       "Unable to load 'helpuser.xml'. The file may be corrupted.";
-            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ??
-                       "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var msg1 = (string)Application.Current.TryFindResource("Unabletoloadhelpuserxml") ?? "Unable to load 'helpuser.xml'. The file may be corrupted.";
+            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{msg1}\n\n{msg2}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
@@ -1414,10 +1410,8 @@ public static class MessageBoxLibrary
 
         static void Show() // Changed return type from bool to void
         {
-            var msg1 = (string)Application.Current.TryFindResource("Thefilehelpuserxmlismissing") ??
-                       "The file 'helpuser.xml' is missing.";
-            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ??
-                       "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
+            var msg1 = (string)Application.Current.TryFindResource("Thefilehelpuserxmlismissing") ?? "The file 'helpuser.xml' is missing.";
+            var msg2 = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{msg1}\n\n{msg2}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)

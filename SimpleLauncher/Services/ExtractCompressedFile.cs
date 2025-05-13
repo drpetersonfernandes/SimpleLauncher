@@ -507,7 +507,7 @@ public class ExtractCompressedFile
 
                     // Verify there's enough disk space for extraction
                     var estimatedSize = EstimateExtractedSize(archive);
-                    var driveName = Path.GetPathRoot(destinationFolder);
+                    var driveName = PathHelper.ResolveRelativeToCurrentDirectory(destinationFolder);
 
                     // Validate drive name before creating DriveInfo object
                     if (!string.IsNullOrEmpty(driveName))

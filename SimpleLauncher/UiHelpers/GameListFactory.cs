@@ -97,7 +97,7 @@ public class GameListFactory(
             // Normalize the path
             if (!string.IsNullOrEmpty(previewImagePath))
             {
-                previewImagePath = PathHelper.ResolveRelativeToCurrentDirectory(previewImagePath);
+                previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
             }
             // Note: If previewImagePath is null/empty, ImageLoader.LoadImageAsync will handle it by trying the default.
 
