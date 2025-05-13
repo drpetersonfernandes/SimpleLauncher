@@ -2034,20 +2034,11 @@ public static class MessageBoxLibrary
     internal static void ExtractionFailedMessageBox()
     {
         var extractionfailed = (string)Application.Current.TryFindResource("Extractionfailed") ?? "Extraction failed.";
-        var ensurethefileisnotcorrupted = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ??
-                                          "Ensure the file is not corrupted.";
-        var ensureyouhaveenoughspaceintheHdd =
-            (string)Application.Current.TryFindResource("EnsureyouhaveenoughspaceintheHDD") ??
-            "Ensure you have enough space in the HDD to extract the file.";
-        var grantSimpleLauncheradministrative =
-            (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ??
-            "Grant 'Simple Launcher' administrative access and try again.";
-        var ensuretheSimpleLauncherfolder =
-            (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ??
-            "Ensure the 'Simple Launcher' folder is a writable directory.";
-        var temporarilydisableyourantivirus =
-            (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ??
-            "Temporarily disable your antivirus software and try again.";
+        var ensurethefileisnotcorrupted = (string)Application.Current.TryFindResource("Ensurethefileisnotcorrupted") ?? "Ensure the file is not corrupted.";
+        var ensureyouhaveenoughspaceintheHdd = (string)Application.Current.TryFindResource("EnsureyouhaveenoughspaceintheHDD") ?? "Ensure you have enough space in the HDD to extract the file.";
+        var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+        var ensuretheSimpleLauncherfolder = (string)Application.Current.TryFindResource("EnsuretheSimpleLauncherfolder") ?? "Ensure the 'Simple Launcher' folder is a writable directory.";
+        var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Temporarilydisableyourantivirus") ?? "Temporarily disable your antivirus software and try again.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -2159,11 +2150,9 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void DownloadExtractionSuccessfullyMessageBox()
+    internal static void DownloadExtractionSuccessfullyMessageBox(string extractionFolder)
     {
-        var thedownloadandextractionweresuccessful =
-            (string)Application.Current.TryFindResource("Thedownloadandextractionweresuccessful") ??
-            "The download and extraction were successful.";
+        var theimagepackwassuccessfullyextractedintothefolder = (string)Application.Current.TryFindResource("Theimagepackwassuccessfullyextractedintothefolder") ?? "The image pack was successfully extracted into the folder";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -2174,7 +2163,7 @@ public static class MessageBoxLibrary
 
         void Show()
         {
-            MessageBox.Show(thedownloadandextractionweresuccessful, info, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{theimagepackwassuccessfullyextractedintothefolder} {extractionFolder}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

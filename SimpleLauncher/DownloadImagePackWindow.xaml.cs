@@ -119,7 +119,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     if (extractionSuccess)
                     {
                         // Notify user
-                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox();
+                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox(extractionFolder);
 
                         var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
                         UpdateStatus(imagepackdownloadedandextractedsuccessfully2);

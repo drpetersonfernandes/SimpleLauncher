@@ -526,8 +526,7 @@ public partial class EasyModeWindow : IDisposable
                 var creatingsystemfolders2 = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                 DownloadStatus = creatingsystemfolders2;
 
-                // Create the necessary folders for the system (Keep synchronous for now, or make async if needed)
-                // Consider making CreateSystemFolders async if it involves significant I/O
+                // Create the necessary folders for the system
                 CreateSystemFolders(selectedSystem.SystemName, systemFolder, systemImageFolderAbsolute);
 
                 var systemhasbeensuccessfullyadded2 = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
