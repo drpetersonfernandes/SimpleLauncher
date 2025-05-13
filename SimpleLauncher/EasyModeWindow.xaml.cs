@@ -204,20 +204,19 @@ public partial class EasyModeWindow : IDisposable
         {
             case DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-                destinationPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath);
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
                 downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-                destinationPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.CoreDownloadExtractPath);
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
                 downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
 
                 // Determine the extraction folder
-                var imagePath = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(imagePath);
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath);
                 componentName = "Image Pack";
 
                 break;

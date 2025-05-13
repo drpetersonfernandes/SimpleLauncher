@@ -2181,7 +2181,11 @@ public static class MessageBoxLibrary
             {
                 if (selectedSystem?.Emulators?.Emulator?.ExtrasDownloadLink == null) return;
 
-                Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
+                    UseShellExecute = true
+                });
             }
             catch (Exception ex)
             {

@@ -86,7 +86,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
 
                 // Determine the extraction folder
-                var extractionFolder = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath);
 
                 // Update UI elements
                 DownloadProgressBar.Visibility = Visibility.Visible;
