@@ -85,7 +85,6 @@ public class CacheManager
             return new List<string>();
         }
 
-        // Use the standardized GetFilePaths.GetFilesAsync method
         var files = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
 
         if (files == null)

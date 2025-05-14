@@ -32,10 +32,10 @@ public partial class PlayTimeWindow
             Header = launchSelectedGame2,
             Icon = launchIcon
         };
-        launchMenuItem.Click += (_, _) =>
+        launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            _ = LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
+            await LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
         };
 
         // "Add To Favorites" MenuItem
@@ -319,7 +319,7 @@ public partial class PlayTimeWindow
             Header = takeScreenshot2,
             Icon = takeScreenshotIcon
         };
-        takeScreenshot.Click += (_, _) =>
+        takeScreenshot.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
 
@@ -327,7 +327,7 @@ public partial class PlayTimeWindow
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
             _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
-            _ = LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
+            await LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
         };
 
         // Delete Game Context Menu
