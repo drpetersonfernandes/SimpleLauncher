@@ -86,7 +86,7 @@ public class GamePadController : IDisposable
 
 
         _mouseSimulator = new InputSimulator().Mouse;
-        _timer = new Timer(_ => Update());
+        _timer = new Timer(_ => Update(), null, Timeout.Infinite, Timeout.Infinite);
     }
 
     public void Start()
@@ -316,7 +316,7 @@ public class GamePadController : IDisposable
         // It should not create a new DirectInput instance if one already exists and is valid.
         try
         {
-            if (!Instance2.IsRunning || _isDisposed) return;
+            if (!IsRunning || _isDisposed) return;
 
             // If XInput is already connected, no need to reconnect DirectInput
             if (_xinputController.IsConnected)
@@ -337,7 +337,6 @@ public class GamePadController : IDisposable
             {
                 try
                 {
-                    _directInput?.Dispose(); // Ensure old one is disposed
                     _directInput = new DirectInput();
                     ErrorLogger?.Invoke(null, "Recreated DirectInput object during reconnection."); // Log successful recreation
                 }
@@ -386,7 +385,7 @@ public class GamePadController : IDisposable
                     // Dispose the old controller if it exists and is different or invalid
                     // Access InstanceGuid via the Information property of the Joystick
                     if (_directInputController != null &&
-                        (_directInputController.Information.InstanceGuid != foundDevice.InstanceGuid || _directInputController.IsDisposed)) // <-- Corrected line
+                        (_directInputController.Information.InstanceGuid != foundDevice.InstanceGuid || _directInputController.IsDisposed))
                     {
                         _directInputController.Unacquire();
                         _directInputController.Dispose();
@@ -590,7 +589,7 @@ public class GamePadController : IDisposable
         var thumbX = (short)(state.RotationZ - 32767); // Horizontal axis
         var thumbY = (short)-(state.RotationZ - 32767); // Inverted Y
 
-        var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY); // Use same processing
+        var (x, y) = ProcessRightThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
         _mouseSimulator.HorizontalScroll((int)x); // Assuming this is correct for your controller
         _mouseSimulator.VerticalScroll((int)y);

@@ -11,8 +11,6 @@ namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenu
 {
-    private static string _selectedEmulatorName;
-
     public static System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(
         string filePath,
         string fileNameWithExtension,
@@ -25,15 +23,6 @@ public static class ContextMenu
         SettingsManager settings,
         MainWindow mainWindow)
     {
-        if (emulatorComboBox.SelectedItem == null)
-        {
-            _selectedEmulatorName = null;
-        }
-        else
-        {
-            _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        }
-
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // Launch Game Context Menu
@@ -52,7 +41,19 @@ public static class ContextMenu
         launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+
+            string selectedEmulatorName;
+
+            if (emulatorComboBox.SelectedItem == null)
+            {
+                selectedEmulatorName = null;
+            }
+            else
+            {
+                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+            }
+
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -359,8 +360,19 @@ public static class ContextMenu
             PlayClick.PlayClickSound();
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
+            string selectedEmulatorName;
+
+            if (emulatorComboBox.SelectedItem == null)
+            {
+                selectedEmulatorName = null;
+            }
+            else
+            {
+                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+            }
+
             _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, selectedSystemManager, null, mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, _selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
         };
 
         // Delete Game Context Menu
@@ -446,15 +458,6 @@ public static class ContextMenu
         WrapPanel gameFileGrid,
         Button button)
     {
-        if (emulatorComboBox.SelectedItem == null)
-        {
-            _selectedEmulatorName = null;
-        }
-        else
-        {
-            _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
-        }
-
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // Launch Game Context Menu
@@ -473,7 +476,19 @@ public static class ContextMenu
         launchMenuItem.Click += async (_, _) =>
         {
             PlayClick.PlayClickSound();
-            await GameLauncher.HandleButtonClick(filePath, _selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+
+            string selectedEmulatorName;
+
+            if (emulatorComboBox.SelectedItem == null)
+            {
+                selectedEmulatorName = null;
+            }
+            else
+            {
+                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+            }
+
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -492,7 +507,6 @@ public static class ContextMenu
         addToFavorites.Click += (_, _) =>
         {
             PlayClick.PlayClickSound();
-            // FIX: Pass the correct WrapPanel reference
             ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, gameFileGrid, favoritesManager, mainWindow);
         };
 
@@ -512,7 +526,6 @@ public static class ContextMenu
         removeFromFavorites.Click += (_, _) =>
         {
             PlayClick.PlayTrashSound();
-            // FIX: Pass the correct WrapPanel reference
             ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, gameFileGrid, favoritesManager, mainWindow);
         };
 
@@ -784,8 +797,19 @@ public static class ContextMenu
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
+            string selectedEmulatorName;
+
+            if (emulatorComboBox.SelectedItem == null)
+            {
+                selectedEmulatorName = null;
+            }
+            else
+            {
+                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+            }
+
             _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, selectedSystemManager, button, mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, _selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
         };
 
         // Delete Game Context Menu
