@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using System.Windows.Threading;
 using ControlzEx.Theming;
 using SimpleLauncher.Managers;
@@ -106,7 +107,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings = App.Settings;
 
         // Check for Command-line Args
-        // Show UpdateHistory after the MainWindow is fully loaded
         var args = Environment.GetCommandLineArgs();
         if (args.Contains("whatsnew"))
         {
@@ -124,7 +124,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         UpdateShowGamesCheckMarks(_settings.ShowGames);
         _filesPerPage = _settings.GamesPerPage;
         _paginationThreshold = _settings.GamesPerPage;
-        ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching; // Set initial state of Fuzzy Matching menu item
+        ToggleFuzzyMatching.IsChecked = _settings.EnableFuzzyMatching;
 
         // Load _machines and _mameLookup
         _machines = MameManager.LoadFromDat();
@@ -187,6 +187,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Attach the Load and Close events
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
+
+        Loaded += async (_, _) =>
+        {
+            await DisplaySystemSelectionScreenAsync();
+        };
     }
 
     private Task TopLetterNumberMenu_Click(string selectedLetter)
@@ -508,7 +513,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var ex = new Exception(errorMessage);
                 _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
 
                 return;
             }
@@ -526,7 +531,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
 
                 return;
             }
@@ -541,7 +546,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
 
                 return;
             }
@@ -597,33 +602,111 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    private void AddNoSystemMessage()
+    private async Task DisplaySystemSelectionScreenAsync()
     {
-        var noSystemMessage = (string)Application.Current.TryFindResource("NoSystemMessage") ?? "Please select a System";
+        GameFileGrid.Children.Clear();
+        GameListItems.Clear();
+        PreviewImage.Source = null;
+        TotalFilesLabel.Content = null;
+        _prevPageButton.IsEnabled = false;
+        _nextPageButton.IsEnabled = false;
+        _currentFilter = null;
+        SearchTextBox.Text = "";
 
-        // Check the current view mode
-        if (_settings.ViewMode == "GridView")
+        GameFileGrid.Visibility = Visibility.Visible;
+        ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+        if (_systemConfigs == null || _systemConfigs.Count == 0)
         {
-            GameFileGrid.Children.Clear();
+            var noSystemsConfiguredMsg = (string)Application.Current.TryFindResource("NoSystemsConfiguredMessage") ?? "No systems configured. Please use the 'Edit System' menu to add systems.";
             GameFileGrid.Children.Add(new TextBlock
             {
-                Text = $"\n{noSystemMessage}",
-                Padding = new Thickness(10)
+                Text = $"\n{noSystemsConfiguredMsg}",
+                Padding = new Thickness(10),
+                TextWrapping = TextWrapping.Wrap,
+                HorizontalAlignment = HorizontalAlignment.Center
             });
         }
         else
         {
-            // For List view, clear GameListItems
-            GameListItems.Clear();
-            GameListItems.Add(new GameListViewItem
-            {
-                FileName = noSystemMessage,
-                MachineDescription = string.Empty
-            });
+            await PopulateSystemSelectionGridAsync();
         }
 
-        // Deselect any selected letter when no system is selected
         _topLetterNumberMenu.DeselectLetter();
+    }
+
+    private async Task PopulateSystemSelectionGridAsync()
+    {
+        GameFileGrid.Children.Clear();
+
+        foreach (var config in _systemConfigs.OrderBy(static s => s.SystemName))
+        {
+            var imagePath = await GetSystemDisplayImagePathAsync(config);
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+
+            var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
+
+            var image = new Image
+            {
+                Source = loadedImage,
+                Height = _settings.ThumbnailSize * 1.3, // Slightly larger for system buttons
+                Width = _settings.ThumbnailSize * 1.3 * 1.6, // Wider aspect for system buttons
+                Stretch = Stretch.Uniform,
+                Margin = new Thickness(5)
+            };
+            buttonContentPanel.Children.Add(image);
+
+            var textBlock = new TextBlock
+            {
+                Text = config.SystemName,
+                HorizontalAlignment = HorizontalAlignment.Center,
+                TextAlignment = TextAlignment.Center,
+                FontWeight = FontWeights.Bold,
+                Margin = new Thickness(0, 5, 0, 0)
+            };
+            buttonContentPanel.Children.Add(textBlock);
+
+            var systemButton = new Button
+            {
+                Content = buttonContentPanel,
+                Tag = config.SystemName,
+                Width = _settings.ThumbnailSize * 1.3 * 1.6 + 20,
+                Height = _settings.ThumbnailSize * 1.3 + 40 + 20, // +40 for text, +20 for padding
+                Margin = new Thickness(10),
+                Padding = new Thickness(5)
+            };
+            systemButton.Click += SystemButton_Click;
+            GameFileGrid.Children.Add(systemButton);
+        }
+    }
+
+    private void SystemButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is Button button && button.Tag is string systemName)
+        {
+            SystemComboBox.SelectedItem = systemName;
+        }
+    }
+
+    private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config)
+    {
+        var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
+        var imageFolder = Path.Combine(appBaseDir, "images");
+        var systemName = config.SystemName;
+
+        // Check for system-specific image files (png, jpg, jpeg)
+        var possibleExtensions = new[] { ".png", ".jpg", ".jpeg" };
+        foreach (var ext in possibleExtensions)
+        {
+            var systemImagePath = Path.Combine(imageFolder, systemName + ext);
+            if (File.Exists(systemImagePath))
+            {
+                return Task.FromResult(systemImagePath);
+            }
+        }
+
+        // Fallback to global default image if no system-specific image is found
+        return Task.FromResult(Path.Combine(imageFolder, "default.png"));
     }
 
     private void AddNoFilesMessage()
@@ -688,7 +771,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             if (SystemComboBox.SelectedItem == null)
             {
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
                 return;
             }
 
@@ -705,7 +788,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
                 return;
             }
 

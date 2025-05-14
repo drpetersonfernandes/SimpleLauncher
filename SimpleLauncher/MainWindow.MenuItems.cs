@@ -47,7 +47,7 @@ public partial class MainWindow
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    private void EasyMode_Click(object sender, RoutedEventArgs e)
+    private async void EasyMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -68,7 +68,7 @@ public partial class MainWindow
             SelectedSystem = nosystemselected;
             PlayTime = "00:00:00";
 
-            AddNoSystemMessage();
+            await DisplaySystemSelectionScreenAsync();
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
@@ -85,7 +85,7 @@ public partial class MainWindow
         }
     }
 
-    private void ExpertMode_Click(object sender, RoutedEventArgs e)
+    private async void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -106,7 +106,7 @@ public partial class MainWindow
             SelectedSystem = nosystemselected;
             PlayTime = "00:00:00";
 
-            AddNoSystemMessage();
+            await DisplaySystemSelectionScreenAsync();
 
             EditSystemWindow editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
@@ -146,26 +146,33 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
     }
 
-    private void ResetUi()
+    private async void ResetUi()
     {
-        // Ensure pagination is reset at the beginning
-        ResetPaginationButtons();
+        try
+        {
+            // Ensure pagination is reset at the beginning
+            ResetPaginationButtons();
 
-        // Clear SearchTextBox
-        SearchTextBox.Text = "";
+            // Clear SearchTextBox
+            SearchTextBox.Text = "";
 
-        // Update current filter
-        _currentFilter = null;
+            // Update current filter
+            _currentFilter = null;
 
-        // Empty SystemComboBox
-        _selectedSystem = null;
-        SystemComboBox.SelectedItem = null;
+            // Empty SystemComboBox
+            _selectedSystem = null;
+            SystemComboBox.SelectedItem = null;
 
-        var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-        SelectedSystem = nosystemselected;
-        PlayTime = "00:00:00";
+            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+            SelectedSystem = nosystemselected;
+            PlayTime = "00:00:00";
 
-        AddNoSystemMessage();
+            await DisplaySystemSelectionScreenAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
+        }
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -583,7 +590,7 @@ public partial class MainWindow
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
             }
             else if (Equals(sender, ListView))
             {
@@ -613,7 +620,7 @@ public partial class MainWindow
                 SelectedSystem = nosystemselected;
                 PlayTime = "00:00:00";
 
-                AddNoSystemMessage();
+                await DisplaySystemSelectionScreenAsync();
 
                 await LoadGameFilesAsync();
             }

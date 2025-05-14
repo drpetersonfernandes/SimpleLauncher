@@ -37,12 +37,6 @@ public partial class MainWindow
         // Set the initial ViewMode based on the _settings
         SetViewMode(_settings.ViewMode);
 
-        // Check if a system is already selected, otherwise show the message
-        if (SystemComboBox.SelectedItem == null)
-        {
-            AddNoSystemMessage();
-        }
-
         // Check if the application has write access
         if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
