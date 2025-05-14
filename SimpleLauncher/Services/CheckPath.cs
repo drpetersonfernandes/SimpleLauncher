@@ -3,7 +3,7 @@ using System.IO;
 
 namespace SimpleLauncher.Services;
 
-public static class CheckPaths
+public static class CheckPath
 {
     public static bool IsValidPath(string path)
     {

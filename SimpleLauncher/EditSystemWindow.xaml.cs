@@ -4,7 +4,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Text; // For StringBuilder in SanitizeFolderName
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -280,15 +280,15 @@ public partial class EditSystemWindow
         }
 
         // Validate System Folder and System Image Folder
-        MarkInvalid(SystemFolderTextBox, ParameterValidator.IsValidPath(SystemFolderTextBox.Text));
-        MarkInvalid(SystemImageFolderTextBox, ParameterValidator.IsValidPath(SystemImageFolderTextBox.Text));
+        MarkInvalid(SystemFolderTextBox, CheckPath.IsValidPath(SystemFolderTextBox.Text));
+        MarkInvalid(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text));
 
         // Validate Emulator Location Text Boxes (considered valid if empty)
-        MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator1PathTextBox.Text));
-        MarkInvalid(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator2PathTextBox.Text));
-        MarkInvalid(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator3PathTextBox.Text));
-        MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator4PathTextBox.Text));
-        MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || ParameterValidator.IsValidPath(Emulator5PathTextBox.Text));
+        MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
+        MarkInvalid(Emulator2PathTextBox, string.IsNullOrWhiteSpace(Emulator2PathTextBox.Text) || CheckPath.IsValidPath(Emulator2PathTextBox.Text));
+        MarkInvalid(Emulator3PathTextBox, string.IsNullOrWhiteSpace(Emulator3PathTextBox.Text) || CheckPath.IsValidPath(Emulator3PathTextBox.Text));
+        MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
+        MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
         // Validate Parameter fields
         ValidateParameterFields();
@@ -905,13 +905,13 @@ public partial class EditSystemWindow
         var validSystemImageFolderPattern = $".\\images\\{systemNameText}";
 
         // Perform validation
-        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || ParameterValidator.IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
-        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || ParameterValidator.IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
-        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || ParameterValidator.IsValidPath(emulator1LocationText);
-        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || ParameterValidator.IsValidPath(emulator2LocationText);
-        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || ParameterValidator.IsValidPath(emulator3LocationText);
-        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || ParameterValidator.IsValidPath(emulator4LocationText);
-        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || ParameterValidator.IsValidPath(emulator5LocationText);
+        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || CheckPath.IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
+        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || CheckPath.IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
+        isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || CheckPath.IsValidPath(emulator1LocationText);
+        isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || CheckPath.IsValidPath(emulator2LocationText);
+        isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || CheckPath.IsValidPath(emulator3LocationText);
+        isEmulator4LocationValid = string.IsNullOrWhiteSpace(emulator4LocationText) || CheckPath.IsValidPath(emulator4LocationText);
+        isEmulator5LocationValid = string.IsNullOrWhiteSpace(emulator5LocationText) || CheckPath.IsValidPath(emulator5LocationText);
     }
 
     private void TrimInputValues(out string systemNameText, out string systemFolderText, out string systemImageFolderText,

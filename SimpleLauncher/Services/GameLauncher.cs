@@ -38,10 +38,10 @@ public static class GameLauncher
             return;
         }
 
-        if (selectedEmulatorName == null)
+        if (string.IsNullOrWhiteSpace(selectedEmulatorName) || string.IsNullOrEmpty(selectedEmulatorName))
         {
             // Notify developer
-            const string contextMessage = "Invalid emulator.";
+            const string contextMessage = "selectedEmulatorName is null or empty.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -93,6 +93,19 @@ public static class GameLauncher
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return;
+        }
+
+        if (string.IsNullOrWhiteSpace(_selectedEmulatorManager.EmulatorName))
+        {
+            // Notify developer
+            const string contextMessage = "_selectedEmulatorManager.EmulatorName is null or white space";
+            var ex = new Exception(contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
 
             return;
         }

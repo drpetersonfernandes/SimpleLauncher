@@ -105,10 +105,8 @@ public partial class DownloadImagePackWindow : IDisposable
 
                     // Show the PleaseWaitExtraction window
                     var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                    var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2}...")
-                    {
-                        Owner = this
-                    };
+                    var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2}...");
+                    pleaseWaitWindow.Owner = this;
                     pleaseWaitWindow.Show();
 
                     var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, extractionFolder);
@@ -286,8 +284,19 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
-        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-        e.Handled = true;
+        try
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error opening the download link.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotOpenTheDownloadLink();
+        }
     }
 
     // IDisposable implementation

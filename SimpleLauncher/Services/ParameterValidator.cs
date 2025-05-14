@@ -37,36 +37,6 @@ public static partial class ParameterValidator
     private static readonly char[] Separator5 = [';'];
 
     /// <summary>
-    /// Checks if a path exists (either as an absolute path or relative to the application directory)
-    /// </summary>
-    public static bool IsValidPath(string path)
-    {
-        if (string.IsNullOrWhiteSpace(path))
-        {
-            return false;
-        }
-
-        // Directly check if the path exists (for absolute paths)
-        if (Directory.Exists(path) || File.Exists(path))
-        {
-            return true;
-        }
-
-        // Allow relative paths
-        try
-        {
-            // Ensure we correctly handle relative paths that go up from the base directory
-            var fullPath = PathHelper.ResolveRelativeToAppDirectory(path);
-            return Directory.Exists(fullPath) || File.Exists(fullPath);
-        }
-        catch (Exception)
-        {
-            // If there's any exception parsing the path, consider it invalid
-            return false;
-        }
-    }
-
-    /// <summary>
     /// Checks if a string looks like a file path
     /// </summary>
     private static bool LooksLikePath(string text)

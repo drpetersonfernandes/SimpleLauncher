@@ -126,7 +126,7 @@ public static class DisplaySystemInformation
         var hasErrors = false;
 
         // Validate the system folder path
-        if (!CheckPaths.IsValidPath(systemFolder))
+        if (!CheckPath.IsValidPath(systemFolder))
         {
             var systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
             hasErrors = true;
@@ -134,7 +134,7 @@ public static class DisplaySystemInformation
         }
 
         // Validate the system image folder path if it's provided. Allow null or empty.
-        if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder) && !CheckPaths.IsValidPath(selectedManager.SystemImageFolder))
+        if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder) && !CheckPath.IsValidPath(selectedManager.SystemImageFolder))
         {
             var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
@@ -145,7 +145,7 @@ public static class DisplaySystemInformation
         foreach (var emulator in selectedManager.Emulators)
         {
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
-                CheckPaths.IsValidPath(emulator.EmulatorLocation)) continue;
+                CheckPath.IsValidPath(emulator.EmulatorLocation)) continue;
 
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;

@@ -128,7 +128,7 @@ public partial class FavoritesWindow
             var fileNameWithExtension = selectedFavorite.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
             var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
-            var filePath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemFolderPath, selectedFavorite.FileName);
+            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolderPath, selectedFavorite.FileName);
 
             AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
         }
@@ -187,7 +187,7 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var partialPath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(selectedSystemManager.SystemFolder, fileName);
+            var partialPath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
             var filePath = PathHelper.ResolveRelativeToAppDirectory(partialPath);
 
             if (!File.Exists(filePath))

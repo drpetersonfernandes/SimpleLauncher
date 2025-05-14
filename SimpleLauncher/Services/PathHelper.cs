@@ -71,20 +71,6 @@ public static class PathHelper
          return ResolveRelativeToAppDirectory(combinedPath);
     }
 
-    /// <summary>
-    /// Combines two path segments and resolves the result to a canonical absolute path
-    /// relative to the current working directory if the combined path is not rooted.
-    /// </summary>
-    /// <param name="path1">The first path segment.</param>
-    /// <param name="path2">The second path segment.</param>
-    /// <returns>The canonical absolute path resulting from combining path1 and path2, resolved relative to the current working directory if needed.</returns>
-    public static string CombineAndResolveRelativeToCurrentDirectory(string path1, string path2)
-    {
-        var combinedPath = Path.Combine(path1, path2);
-        // ResolveRelativeToCurrentDirectory uses Path.GetFullPath, which will canonicalize.
-        return ResolveRelativeToAppDirectory(combinedPath);
-    }
-
     public static string GetFileNameWithoutExtension(string path)
     {
         return Path.GetFileNameWithoutExtension(path);

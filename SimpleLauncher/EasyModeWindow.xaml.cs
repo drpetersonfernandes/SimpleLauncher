@@ -101,7 +101,8 @@ public partial class EasyModeWindow : IDisposable
 
         // Reset download status
         _isEmulatorDownloaded = false;
-        _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
+        // _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
+        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
 
         UpdateAddSystemButtonState();
 
@@ -247,10 +248,8 @@ public partial class EasyModeWindow : IDisposable
             var success = false; // Initialize variable
 
             var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2} {componentName}...")
-            {
-                Owner = this
-            };
+            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2} {componentName}...");
+            pleaseWaitWindow.Owner = this;
 
             // Use the DownloadAndExtractAsync method in DownloadManager
             var downloading2 = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
@@ -387,7 +386,6 @@ public partial class EasyModeWindow : IDisposable
         string systemImageFolderAbsolute)
     {
         XDocument xmlDoc = null; // Initialize to null
-
         try
         {
             // Attempt to load existing XML content asynchronously
@@ -405,7 +403,9 @@ public partial class EasyModeWindow : IDisposable
                         {
                             // If root is null or incorrect, treat as invalid and create new
                             xmlDoc = null; // Reset xmlDoc to trigger creation below
-                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
+                            _ = LogErrors.LogErrorAsync(
+                                new XmlException("Loaded system.xml has missing or invalid root element."),
+                                "Invalid root in system.xml, creating new.");
                         }
                     }
                 }
@@ -418,20 +418,20 @@ public partial class EasyModeWindow : IDisposable
                 catch (Exception ex) // Catch other file reading errors
                 {
                     _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
-                    throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
+                    throw new IOException("Could not read the existing system configuration file.",
+                        ex); // Rethrow as IO
                 }
             }
 
             // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
             xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
             // --- Proceed with modification logic ---
             if (xmlDoc.Root != null)
             {
-                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
+                var systemConfigs =
+                    xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
                 var existingSystem = systemConfigs.FirstOrDefault(config =>
                     config.Element("SystemName")?.Value == selectedSystem.SystemName);
-
                 if (existingSystem != null)
                 {
                     // Overwrite existing system (in memory)
@@ -451,17 +451,15 @@ public partial class EasyModeWindow : IDisposable
                 var sortedElements = xmlDoc.Root.Elements("SystemConfig")
                     .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value)
                     .ToList(); // Create a list of sorted elements
-
                 // Replace the nodes in the original document's root
                 xmlDoc.Root.ReplaceNodes(sortedElements);
             }
 
             // Save the updated and sorted XML document asynchronously
-            // Use SaveAsync for potentially better performance with XDocument
-            await Task.Run(() =>
+            if (xmlPath != null)
             {
-                if (xmlPath != null) xmlDoc.Save(xmlPath);
-            }); // Use Task.Run for Save which is sync
+                await File.WriteAllTextAsync(xmlPath, xmlDoc.ToString());
+            }
         }
         catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
         {
@@ -473,7 +471,8 @@ public partial class EasyModeWindow : IDisposable
         {
             const string contextMessage = "Unexpected error updating system.xml.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
+            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.",
+                ex);
         }
     }
 
@@ -699,8 +698,22 @@ public partial class EasyModeWindow : IDisposable
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
     {
-        Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri) { UseShellExecute = true });
-        e.Handled = true;
+        try
+        {
+            Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
+            {
+                UseShellExecute = true
+            });
+            e.Handled = true;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error opening the download link.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotOpenTheDownloadLink();
+        }
     }
 
     public void Dispose()

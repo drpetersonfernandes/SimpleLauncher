@@ -1773,12 +1773,8 @@ public static class MessageBoxLibrary
 
         void Show()
         {
-            var therewasanerrorinstallingorupdating =
-                (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ??
-                "There was an error installing or updating the application.";
-            var wouldyouliketoberedirectedtothedownloadpage =
-                (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ??
-                "Would you like to be redirected to the download page to install or update it manually?";
+            var therewasanerrorinstallingorupdating = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
+            var wouldyouliketoberedirectedtothedownloadpage = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var messageBoxResult = MessageBox.Show(
                 $"{therewasanerrorinstallingorupdating}\n\n" +
@@ -1800,12 +1796,8 @@ public static class MessageBoxLibrary
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
                 // Notify user
-                var anerroroccurredwhileopeningthebrowser =
-                    (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ??
-                    "An error occurred while opening the browser.";
-                var theerrorwasreportedtothedeveloper =
-                    (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-                    "The error was reported to the developer who will try to fix the issue.";
+                var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper}",
                     error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -4540,6 +4532,29 @@ public static class MessageBoxLibrary
             {
                 MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
             });
+        }
+    }
+
+    internal static void CouldNotOpenTheDownloadLink()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+        if (dispatcher.CheckAccess())
+        {
+            ShowMessageBox();
+        }
+        else
+        {
+            dispatcher.Invoke(ShowMessageBox);
+        }
+
+        return;
+
+        static void ShowMessageBox()
+        {
+            var simpleLaunchercouldnotopenthedownloadlink = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopenthedownloadlink") ?? "'Simple Launcher' could not open the download link.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(simpleLaunchercouldnotopenthedownloadlink,
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

@@ -229,7 +229,7 @@ public partial class PlayTimeWindow
 
             var fileNameWithExtension = selectedItem.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-            var filePath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(systemConfig.SystemFolder, selectedItem.FileName);
+            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemConfig.SystemFolder, selectedItem.FileName);
 
             AddRightClickContextMenuPlayHistoryWindow(fileNameWithExtension, selectedItem, fileNameWithoutExtension, systemConfig, filePath);
         }
@@ -286,8 +286,7 @@ public partial class PlayTimeWindow
             return;
         }
 
-        var unresolvedPath = PathHelper.CombineAndResolveRelativeToCurrentDirectory(selectedSystemManager.SystemFolder, fileName);
-        var filePath = PathHelper.ResolveRelativeToAppDirectory(unresolvedPath);
+        var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
         if (!File.Exists(filePath))
         {
             // Auto remove the history item from the list since the file no longer exists

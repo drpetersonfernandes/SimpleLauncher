@@ -78,9 +78,6 @@ public partial class MainWindow
             var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName)
                 .OrderBy(static name => name).ToList();
             SystemComboBox.ItemsSource = sortedSystemNames;
-
-            // Refresh GameList
-            // await LoadGameFilesAsync();
         }
         catch (Exception ex)
         {
@@ -119,9 +116,6 @@ public partial class MainWindow
             var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName)
                 .OrderBy(static name => name).ToList();
             SystemComboBox.ItemsSource = sortedSystemNames;
-
-            // Refresh GameList
-            // await LoadGameFilesAsync();
         }
         catch (Exception ex)
         {
