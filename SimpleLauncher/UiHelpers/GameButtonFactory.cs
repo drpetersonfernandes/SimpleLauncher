@@ -42,7 +42,6 @@ public class GameButtonFactory(
         var fileNameWithExtension = PathHelper.GetFileName(filePath);
         var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
         var selectedSystemName = systemName;
-        var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
         var selectedSystemManager = systemManager;
 
         // Pass the original filename without extension for image lookup
@@ -224,7 +223,7 @@ public class GameButtonFactory(
         // Assign it to the button's Tag property
         _button.Tag = tag;
 
-        _button.Click += async (sender, _) =>
+        _button.Click += async (sender, e) =>
         {
             if (sender is not Button clickedButton) return;
 
@@ -233,9 +232,20 @@ public class GameButtonFactory(
 
             clickedButton.IsEnabled = false; // Disable the button
 
+            var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
+            if (string.IsNullOrEmpty(selectedEmulatorName))
+            {
+                // Notify developer
+                var ex = new Exception("selectedEmulatorName is null or empty.");
+                _ = LogErrors.LogErrorAsync(ex, "selectedEmulatorName is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+            }
+
             try
             {
-                PlayClick.PlayClickSound(); // Play sound *before* launching
+                PlayClick.PlayClickSound();
                 await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
             }
             finally
@@ -246,7 +256,7 @@ public class GameButtonFactory(
         };
 
         return ContextMenu.AddRightClickReturnButton(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
-            _favoritesManager, _gameFileGrid, selectedSystemManager, _button, _machines, _settings, _mainWindow);
+            _emulatorComboBox, _favoritesManager, selectedSystemManager, _machines, _settings, _mainWindow, _gameFileGrid, _button);
     }
 }
 

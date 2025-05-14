@@ -38,10 +38,10 @@ public partial class DownloadImagePackWindow : IDisposable
     /// Populates the system dropdown menu with a list of system names for which
     /// image packs are available. The system names are sourced from the associated
     /// EasyModeManager instance, filtered to include only systems with a valid
-    /// ExtrasDownloadLink, and sorted alphabetically.
+    /// ImagePackDownloadLink, and sorted alphabetically.
     /// The method retrieves the list of systems from the EasyModeManager instance.
     /// If the list is null or not present, no action is performed. Otherwise, the
-    /// systems are filtered to include only those with a non-empty ExtrasDownloadLink
+    /// systems are filtered to include only those with a non-empty ImagePackDownloadLink
     /// property. The resulting names are then set as the items source for the
     /// SystemNameDropdown control, which allows the user to select a system.
     /// This method indirectly relies on the initialization of EasyModeManager to
@@ -50,9 +50,9 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         // if (_manager?.Systems == null) return;
 
-        // Filter systems that have a valid ExtrasDownloadLink
+        // Filter systems that have a valid ImagePackDownloadLink
         var systemsWithImagePacks = _manager.Systems
-            .Where(static system => !string.IsNullOrEmpty(system.Emulators.Emulator.ExtrasDownloadLink))
+            .Where(static system => !string.IsNullOrEmpty(system.Emulators.Emulator.ImagePackDownloadLink))
             .Select(static system => system.SystemName)
             .OrderBy(static name => name) // Order by system name
             .ToList();
@@ -67,7 +67,7 @@ public partial class DownloadImagePackWindow : IDisposable
         var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem == null) return;
 
-        DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
+        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadLink);
     }
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
@@ -83,20 +83,20 @@ public partial class DownloadImagePackWindow : IDisposable
             try
             {
                 // Get the download URL
-                var extrasDownloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+                var imagePackDownloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
                 // Determine the extraction folder
-                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath);
+                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
 
                 // Update UI elements
                 DownloadProgressBar.Visibility = Visibility.Visible;
                 DownloadProgressBar.Value = 0;
                 StopDownloadButton.IsEnabled = true;
-                DownloadExtrasButton.IsEnabled = false;
+                DownloadImagePackButton.IsEnabled = false;
 
                 // Show the PleaseWaitExtraction window for extraction
                 // We'll use the DownloadManager to handle the download and extraction
-                var downloadSuccess = await _downloadManager.DownloadFileAsync(extrasDownloadUrl);
+                var downloadSuccess = await _downloadManager.DownloadFileAsync(imagePackDownloadUrl);
 
                 if (downloadSuccess != null && _downloadManager.IsDownloadCompleted)
                 {
@@ -123,13 +123,13 @@ public partial class DownloadImagePackWindow : IDisposable
                         UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
 
                         // Mark as downloaded and disable button
-                        DownloadExtrasButton.IsEnabled = false;
+                        DownloadImagePackButton.IsEnabled = false;
                     }
                     else // Extraction fail
                     {
                         // Notify developer
                         var contextMessage = $"Image Pack extraction failed.\n" +
-                                             $"File: {extrasDownloadUrl}";
+                                             $"File: {imagePackDownloadUrl}";
                         var ex = new Exception(contextMessage);
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -140,7 +140,7 @@ public partial class DownloadImagePackWindow : IDisposable
                         UpdateStatus(extractionfailedSeeerrormessagefordetails2);
 
                         // Re-enable download button
-                        DownloadExtrasButton.IsEnabled = true;
+                        DownloadImagePackButton.IsEnabled = true;
                     }
                 }
                 else if (_downloadManager.IsUserCancellation)
@@ -149,7 +149,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     UpdateStatus(downloadcanceled2);
 
                     // Re-enable download button
-                    DownloadExtrasButton.IsEnabled = true;
+                    DownloadImagePackButton.IsEnabled = true;
                 }
                 else
                 {
@@ -160,7 +160,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
 
                     // Re-enable download button
-                    DownloadExtrasButton.IsEnabled = true;
+                    DownloadImagePackButton.IsEnabled = true;
                 }
             }
             catch (Exception ex)
@@ -174,7 +174,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
                 var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
                 UpdateStatus($"{error2}: {ex.Message}");
-                DownloadExtrasButton.IsEnabled = true;
+                DownloadImagePackButton.IsEnabled = true;
             }
             finally
             {
@@ -210,7 +210,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Validate download URL
-        var downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+        var downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
         if (string.IsNullOrEmpty(downloadUrl))
         {
             MessageBoxLibrary.DownloadUrlIsNullMessageBox();
@@ -219,7 +219,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
         string extractionFolder;
 
-        if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath))
+        if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath))
         {
             // Automatically populate the extraction path with a default path
             var appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -228,7 +228,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         else
         {
-            extractionFolder = selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath;
+            extractionFolder = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
         }
 
         // Verify the extraction folder exists or can be created
@@ -279,7 +279,7 @@ public partial class DownloadImagePackWindow : IDisposable
         UpdateStatus(downloadcanceled2);
 
         // Enable download button again
-        DownloadExtrasButton.IsEnabled = true;
+        DownloadImagePackButton.IsEnabled = true;
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)

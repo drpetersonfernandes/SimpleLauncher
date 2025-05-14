@@ -25,7 +25,14 @@ public static class ContextMenu
         SettingsManager settings,
         MainWindow mainWindow)
     {
-        _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            _selectedEmulatorName = null;
+        }
+        else
+        {
+            _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        }
 
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
@@ -430,14 +437,24 @@ public static class ContextMenu
         string fileNameWithExtension,
         string fileNameWithoutExtension,
         string selectedSystemName,
+        ComboBox emulatorComboBox,
         FavoritesManager favoritesManager,
-        WrapPanel gameFileGrid,
         SystemManager selectedSystemManager,
-        Button button,
         List<MameManager> machines,
         SettingsManager settings,
-        MainWindow mainWindow)
+        MainWindow mainWindow,
+        WrapPanel gameFileGrid,
+        Button button)
     {
+        if (emulatorComboBox.SelectedItem == null)
+        {
+            _selectedEmulatorName = null;
+        }
+        else
+        {
+            _selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+        }
+
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
         // Launch Game Context Menu

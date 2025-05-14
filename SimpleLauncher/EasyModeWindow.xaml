@@ -89,7 +89,7 @@
 
                     <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center"
                            Margin="5" />
-                    <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadExtrasButton"
+                    <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadImagePackButton"
                             Content="{DynamicResource DownloadImagePack}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton_Click"

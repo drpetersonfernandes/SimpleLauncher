@@ -34,7 +34,7 @@
             </GroupBox>
 
             <GroupBox Grid.Row="2" Header="{DynamicResource Install}" Margin="10" Padding="0">
-                <Button x:Name="DownloadExtrasButton"
+                <Button x:Name="DownloadImagePackButton"
                         Content="{DynamicResource DownloadImagePack}"
                         HorizontalAlignment="Center"
                         VerticalAlignment="Center"

@@ -13,8 +13,8 @@ public class EmulatorConfig
     public string CoreLatestVersion { get; set; }
     public string CoreDownloadLink { get; set; }
     public string CoreDownloadExtractPath { get; set; }
-    public string ExtrasLocation { get; set; }
-    public string ExtrasLatestVersion { get; set; }
-    public string ExtrasDownloadLink { get; set; }
-    public string ExtrasDownloadExtractPath { get; set; }
+    public string ImagePackLocation { get; set; }
+    public string ImagePackLatestVersion { get; set; }
+    public string ImagePackDownloadLink { get; set; }
+    public string ImagePackDownloadExtractPath { get; set; }
 }

@@ -2171,11 +2171,11 @@ public static class MessageBoxLibrary
 
             try
             {
-                if (selectedSystem?.Emulators?.Emulator?.ExtrasDownloadLink == null) return;
+                if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null) return;
 
                 Process.Start(new ProcessStartInfo
                 {
-                    FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink,
+                    FileName = selectedSystem.Emulators.Emulator.ImagePackDownloadLink,
                     UseShellExecute = true
                 });
             }
@@ -2530,7 +2530,7 @@ public static class MessageBoxLibrary
 
     internal static async Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
-        if (selectedSystem?.Emulators?.Emulator?.ExtrasDownloadLink == null)
+        if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
             return;
 
         var dispatcher = Application.Current.Dispatcher;
@@ -2572,7 +2572,7 @@ public static class MessageBoxLibrary
 
             try
             {
-                Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ExtrasDownloadLink, UseShellExecute = true });
+                Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ImagePackDownloadLink, UseShellExecute = true });
             }
             catch (Exception ex)
             {
@@ -2851,11 +2851,8 @@ public static class MessageBoxLibrary
     internal static void EmulatorNameRequiredMessageBox(int i)
     {
         var emulator = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
-        var nameisrequiredbecauserelateddata =
-            (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ??
-            "name is required because related data has been provided.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
+        var nameisrequiredbecauserelateddata = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
+        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -2871,6 +2868,29 @@ public static class MessageBoxLibrary
                 MessageBox.Show($"{emulator} {i + 2} {nameisrequiredbecauserelateddata}\n\n" +
                                 $"{pleasefixthisfield}",
                     info, MessageBoxButton.OK, MessageBoxImage.Information);
+            });
+        }
+    }
+
+    internal static void EmulatorNameIsRequiredMessageBox()
+    {
+        var emulatornameisrequired = (string)Application.Current.TryFindResource("Emulatornameisrequired") ?? "Emulator name is required.";
+        var pleasefixthat = (string)Application.Current.TryFindResource("Pleasefixthat") ?? "Please fix that.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            MessageBox.Show($"{emulatornameisrequired}\n\n" +
+                            $"{pleasefixthat}",
+                error, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke(() =>
+            {
+                MessageBox.Show($"{emulatornameisrequired}\n\n" +
+                                $"{pleasefixthat}",
+                    error, MessageBoxButton.OK, MessageBoxImage.Information);
             });
         }
     }

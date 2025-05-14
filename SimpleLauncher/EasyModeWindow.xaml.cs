@@ -97,7 +97,7 @@ public partial class EasyModeWindow : IDisposable
 
         DownloadEmulatorButton.IsEnabled = true;
         DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
-        DownloadExtrasButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ExtrasDownloadLink);
+        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadLink);
 
         // Reset download status
         _isEmulatorDownloaded = false;
@@ -175,14 +175,14 @@ public partial class EasyModeWindow : IDisposable
     {
         try
         {
-            DownloadExtrasButton.IsEnabled = false;
+            DownloadImagePackButton.IsEnabled = false;
 
             var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
 
             // Re-enable the button if not successful
             if (!success)
             {
-                DownloadExtrasButton.IsEnabled = true;
+                DownloadImagePackButton.IsEnabled = true;
             }
         }
         catch (Exception ex)
@@ -214,10 +214,10 @@ public partial class EasyModeWindow : IDisposable
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
-                downloadUrl = selectedSystem.Emulators.Emulator.ExtrasDownloadLink;
+                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
                 // Determine the extraction folder
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ExtrasDownloadExtractPath);
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
                 componentName = "Image Pack";
 
                 break;
