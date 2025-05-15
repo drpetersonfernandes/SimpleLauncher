@@ -455,7 +455,7 @@ public partial class PlayTimeWindow
             // (which should be rare, as ImageLoader catches most file/loading issues).
             PreviewImage.Source = null; // Ensure image is cleared on error
 
-            // Log the error
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
         }
     }

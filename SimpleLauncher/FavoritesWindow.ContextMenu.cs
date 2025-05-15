@@ -137,12 +137,15 @@ public partial class FavoritesWindow
         {
             PlayClick.PlayClickSound();
 
-            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemConfig1))
+            if (GetSystemManagerOfSelectedFavorite(selectedFavorite, out var systemManager1) == false)
             {
+                // Notify user
+                MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
+
                 return;
             }
 
-            ContextMenuFunctions.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemConfig1);
+            ContextMenuFunctions.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemManager1);
         };
 
         // "Title Snapshot" MenuItem
@@ -337,8 +340,11 @@ public partial class FavoritesWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            if (GetSystemConfigOfSelectedFavorite(selectedFavorite, out var systemManager1))
+            if (GetSystemManagerOfSelectedFavorite(selectedFavorite, out var systemManager1) == false)
             {
+                // Notify user
+                MessageBoxLibrary.CouldNotTakeScreenshotMessageBox();
+
                 return;
             }
 

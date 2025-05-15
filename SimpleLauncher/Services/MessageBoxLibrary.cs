@@ -15,18 +15,11 @@ public static class MessageBoxLibrary
     internal static void TakeScreenShotMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
-        var thegamewilllaunchnow = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ??
-                                   "The game will launch now.";
-        var setthegamewindowto = (string)Application.Current.TryFindResource("Setthegamewindowto") ??
-                                 "Set the game window to non-fullscreen. This is important.";
-        var youshouldchangetheemulatorparameters =
-            (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ??
-            "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
-        var aselectionwindowwillopeninSimpleLauncherallowingyou =
-            (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ??
-            "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
-        var assoonasyouselectawindow = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ??
-                                       "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
+        var thegamewilllaunchnow = (string)Application.Current.TryFindResource("Thegamewilllaunchnow") ?? "The game will launch now.";
+        var setthegamewindowto = (string)Application.Current.TryFindResource("Setthegamewindowto") ?? "Set the game window to non-fullscreen. This is important.";
+        var youshouldchangetheemulatorparameters = (string)Application.Current.TryFindResource("Youshouldchangetheemulatorparameters") ?? "You should change the emulator parameters to prevent the emulator from starting in fullscreen.";
+        var aselectionwindowwillopeninSimpleLauncherallowingyou = (string)Application.Current.TryFindResource("AselectionwindowwillopeninSimpleLauncherallowingyou") ?? "A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.";
+        var assoonasyouselectawindow = (string)Application.Current.TryFindResource("assoonasyouselectawindow") ?? "As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.";
         var takeScreenshot = (string)Application.Current.TryFindResource("TakeScreenshot") ?? "Take Screenshot";
 
         if (dispatcher.CheckAccess())
@@ -50,11 +43,8 @@ public static class MessageBoxLibrary
     internal static void CouldNotSaveScreenshotMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
-        var failedtosavescreenshot = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ??
-                                     "Failed to save screenshot.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
+        var failedtosavescreenshot = (string)Application.Current.TryFindResource("Failedtosavescreenshot") ?? "Failed to save screenshot.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (dispatcher.CheckAccess())
@@ -66,7 +56,8 @@ public static class MessageBoxLibrary
         void ShowMsg()
         {
             MessageBox.Show(
-                $"{failedtosavescreenshot}\n\n{theerrorwasreportedtothedeveloper}",
+                $"{failedtosavescreenshot}\n\n" +
+                $"{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
@@ -1637,52 +1628,116 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void DepViolationMessageBox()
+    internal static void DepViolationMessageBox(string logPath)
     {
-        var dispatcher = Application.Current.Dispatcher;
-        var depViolationError = (string)Application.Current.TryFindResource("DEPViolationError") ??
-                                "A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.";
-        var whatIsDep = (string)Application.Current.TryFindResource("WhatIsDEP") ??
-                        "DEP is a security feature that helps prevent damage from viruses and other security threats.";
-        var howToFixDep = (string)Application.Current.TryFindResource("HowToFixDEP") ?? "You can try the following solutions:";
-        var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ?? "1. Run 'Simple Launcher' with administrator privileges.";
-        var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ?? "2. Add the emulator to DEP exceptions in Windows Security settings.";
-        var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ?? "3. Try using a different emulator compatible with your system.";
-        var solution4 = (string)Application.Current.TryFindResource("DEPSolution4") ?? "4. Update your emulator to the latest version.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            ShowMessageBox();
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
+        }
 
-        if (dispatcher.CheckAccess()) ShowMsgBox();
-        else dispatcher.Invoke((Action)ShowMsgBox);
         return;
 
-        void ShowMsgBox()
+        void ShowMessageBox()
         {
-            MessageBox.Show($"{depViolationError}\n\n" + $"{whatIsDep}\n\n" + $"{howToFixDep}\n" + $"{solution1}\n" + $"{solution2}\n" + $"{solution3}\n" + $"{solution4}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var depViolationError = (string)Application.Current.TryFindResource("DEPViolationError") ?? "A Data Execution Prevention (DEP) violation occurred while running the emulator, which is a Windows security feature that prevents applications from executing code from non-executable memory regions. This commonly happens with older emulators or ones that use specific memory access techniques that modern security systems flag as potentially dangerous.";
+            var whatIsDep = (string)Application.Current.TryFindResource("WhatIsDEP") ?? "DEP is a security feature that helps prevent damage from viruses and other security threats.";
+            var howToFixDep = (string)Application.Current.TryFindResource("HowToFixDEP") ?? "You can try the following solutions:";
+            var solution1 = (string)Application.Current.TryFindResource("DEPSolution1") ?? "1. Run 'Simple Launcher' with administrator privileges.";
+            var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ?? "2. Add the emulator to DEP exceptions in Windows Security settings.";
+            var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ?? "3. Try using a different emulator compatible with your system.";
+            var solution4 = (string)Application.Current.TryFindResource("DEPSolution4") ?? "4. Update your emulator to the latest version.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = MessageBox.Show($"{depViolationError}\n\n" +
+                                         $"{whatIsDep}\n\n" +
+                                         $"{howToFixDep}\n" +
+                                         $"{solution1}\n" +
+                                         $"{solution2}\n" +
+                                         $"{solution3}\n" +
+                                         $"{solution4}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefile}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 
-    internal static void CheckForMemoryAccessViolation()
+    internal static void CheckForMemoryAccessViolation(string logPath)
     {
-        var dispatcher = Application.Current.Dispatcher;
-        var memoryViolationError = (string)Application.Current.TryFindResource("MemoryAccessViolationError") ??
-                                   "A Memory Access Violation occurred while running the emulator. This happens when a program attempts to access memory that it either doesn't have permission to access or memory that has been freed/doesn't exist. This is common in emulators that manipulate memory directly to achieve accurate emulation of other systems.";
-        var whatIsMemoryAccess = (string)Application.Current.TryFindResource("WhatIsMemoryAccess") ??
-                                 "Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.";
-        var howToFixMemoryAccess = (string)Application.Current.TryFindResource("HowToFixMemoryAccess") ??
-                                   "You can try the following solutions:";
-        var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ?? "1. Run the application with administrator privileges.";
-        var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ?? "2. Check if your antivirus is blocking the emulator's memory operations.";
-        var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ?? "3. Update your emulator to the latest version which may have fixed memory handling issues.";
-        var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ?? "4. Try adjusting memory allocation settings in the emulator configuration if available.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            ShowMessageBox();
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
+        }
 
-        if (dispatcher.CheckAccess()) ShowMsgBox();
-        else dispatcher.Invoke((Action)ShowMsgBox);
         return;
 
-        void ShowMsgBox()
+        void ShowMessageBox()
         {
-            MessageBox.Show($"{memoryViolationError}\n\n" + $"{whatIsMemoryAccess}\n\n" + $"{howToFixMemoryAccess}\n" + $"{solution1}\n" + $"{solution2}\n" + $"{solution3}\n" + $"{solution4}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var memoryViolationError = (string)Application.Current.TryFindResource("MemoryAccessViolationError") ?? "A Memory Access Violation occurred while running the emulator. This happens when a program attempts to access memory that it either doesn't have permission to access or memory that has been freed/doesn't exist. This is common in emulators that manipulate memory directly to achieve accurate emulation of other systems.";
+            var whatIsMemoryAccess = (string)Application.Current.TryFindResource("WhatIsMemoryAccess") ?? "Memory Access Violations are security mechanisms that prevent programs from accessing or modifying memory outside their allocated space, which could potentially crash your system or create security vulnerabilities.";
+            var howToFixMemoryAccess = (string)Application.Current.TryFindResource("HowToFixMemoryAccess") ?? "You can try the following solutions:";
+            var solution1 = (string)Application.Current.TryFindResource("MemorySolution1") ?? "1. Run the application with administrator privileges.";
+            var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ?? "2. Check if your antivirus is blocking the emulator's memory operations.";
+            var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ?? "3. Update your emulator to the latest version which may have fixed memory handling issues.";
+            var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ?? "4. Try adjusting memory allocation settings in the emulator configuration if available.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{memoryViolationError}\n\n" +
+                                         $"{whatIsMemoryAccess}\n\n" +
+                                         $"{howToFixMemoryAccess}\n" +
+                                         $"{solution1}\n" +
+                                         $"{solution2}\n" +
+                                         $"{solution3}\n" +
+                                         $"{solution4}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 
@@ -2725,11 +2780,8 @@ public static class MessageBoxLibrary
     internal static void ErrorOpeningCoverImageMessageBox()
     {
         var therewasanerrortryingtoopenthe =
-            (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ??
-            "There was an error trying to open the cover image.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
+            (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -3409,25 +3461,19 @@ public static class MessageBoxLibrary
         void ShowMessage()
         {
             var simpleLaunchercouldnotlaunch =
-                (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ??
-                "'Simple Launcher' could not launch the selected game.";
-            var ifyouaretryingtorunMamEensurethatyourRom =
-                (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ??
-                "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
-            var ifyouaretryingtorunRetroarchensurethattheBios =
-                (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ??
-                "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
-            var alsomakesureyouarecallingtheemulator =
-                (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ??
-                "Also, make sure you are calling the emulator with the correct parameter.";
-            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ??
-                                         "Do you want to open the file 'error_user.log' to debug the error?";
+                (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+            var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
+            var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
+            var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
                 $"{simpleLaunchercouldnotlaunch}\n\n" +
-                $"{ifyouaretryingtorunMamEensurethatyourRom}\n\n" +
-                $"{ifyouaretryingtorunRetroarchensurethattheBios}\n\n" +
+                $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
+                $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
                 $"{alsomakesureyouarecallingtheemulator}\n\n" +
+                $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
                 $"{doyouwanttoopenthefile}",
                 error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
@@ -3450,21 +3496,8 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void InvalidOperationExceptionMessageBox()
+    internal static void InvalidOperationExceptionMessageBox(string logPath)
     {
-        var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ??
-                                       "Failed to start the emulator or it has not exited as expected.";
-        var grantSimpleLauncheradministrative =
-            (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ??
-            "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus =
-            (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-            "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var alsochecktheintegrityoftheemulator =
-            (string)Application.Current.TryFindResource("Alsochecktheintegrityoftheemulator") ??
-            "Also, check the integrity of the emulator and its dependencies.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
         if (Application.Current.Dispatcher.CheckAccess())
         {
             ShowMessageBox();
@@ -3478,7 +3511,33 @@ public static class MessageBoxLibrary
 
         void ShowMessageBox()
         {
-            MessageBox.Show($"{failedtostarttheemulator}\n\n" + $"{grantSimpleLauncheradministrative}\n\n" + $"{temporarilydisableyourantivirus}\n\n" + $"{alsochecktheintegrityoftheemulator}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
+            var checktheintegrityoftheemulatoranditsdependencies = (string)Application.Current.TryFindResource("Checktheintegrityoftheemulatoranditsdependencies") ?? "Check the integrity of the emulator and its dependencies.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var result = MessageBox.Show($"{failedtostarttheemulator}\n\n" +
+                                         $"{checktheintegrityoftheemulatoranditsdependencies}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefile}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlog,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
         }
     }
 
@@ -3498,10 +3557,13 @@ public static class MessageBoxLibrary
         void ShowMessageBox()
         {
             var therewasanerrorlaunchingthisgame = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
-            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
             var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" + $"{theerrorwasreportedtothedeveloper}\n\n" + $"{doyouwanttoopenthefileerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
             try
@@ -3579,10 +3641,8 @@ public static class MessageBoxLibrary
 
     internal static void NullFileExtensionMessageBox()
     {
-        var thereisnoExtension = (string)Application.Current.TryFindResource("ThereisnoExtension") ??
-                                 "There is no 'Extension to Launch After Extraction' set in the system configuration.";
-        var pleaseeditthissystemto = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ??
-                                     "Please edit this system to fix that.";
+        var thereisnoExtension = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
+        var pleaseeditthissystemto = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -3605,10 +3665,8 @@ public static class MessageBoxLibrary
     internal static void CouldNotFindAFileMessageBox()
     {
         var couldnotfindafilewiththeextensiondefined =
-            (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ??
-            "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-        var pleaseeditthissystemtofix = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ??
-                                        "Please edit this system to fix that.";
+            (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+        var pleaseeditthissystemtofix = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -3889,11 +3947,8 @@ public static class MessageBoxLibrary
 
     internal static void ExtractionFolderCannotBeCreatedMessageBox(Exception ex)
     {
-        var cannotcreateoraccesstheextractionfolder =
-            (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ??
-            "Cannot create or access the extraction folder";
-        var invalidExtractionFolder = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ??
-                                      "Invalid Extraction Folder";
+        var cannotcreateoraccesstheextractionfolder = (string)Application.Current.TryFindResource("Cannotcreateoraccesstheextractionfolder") ?? "Cannot create or access the extraction folder";
+        var invalidExtractionFolder = (string)Application.Current.TryFindResource("InvalidExtractionFolder") ?? "Invalid Extraction Folder";
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
@@ -4574,6 +4629,28 @@ public static class MessageBoxLibrary
             var simpleLaunchercouldnotopenthedownloadlink = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopenthedownloadlink") ?? "'Simple Launcher' could not open the download link.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(simpleLaunchercouldnotopenthedownloadlink,
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void CouldNotTakeScreenshotMessageBox()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+        var couldnottakethescreenshot = (string)Application.Current.TryFindResource("Couldnottakethescreenshot") ?? "Could not take the screenshot.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(
+                $"{couldnottakethescreenshot}\n\n" +
+                $"{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

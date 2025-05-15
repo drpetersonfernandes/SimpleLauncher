@@ -144,6 +144,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
         }
     }
@@ -225,6 +226,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in method ToggleFuzzyMatching_Click");
         }
     }
@@ -303,6 +305,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
         }
     }
@@ -317,6 +320,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
         }
     }
@@ -331,6 +335,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
         }
     }

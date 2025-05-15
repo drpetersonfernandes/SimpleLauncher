@@ -111,7 +111,10 @@ public partial class EasyModeWindow : IDisposable
         var systemName = SystemNameDropdown.SelectedItem.ToString();
         if (systemName == null) return;
 
-        var systemFolderPath = Path.Combine(applicationDirectory, "roms", systemName);
+        // Sanitize SystemName
+        var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
+
+        var systemFolderPath = Path.Combine(applicationDirectory, "roms", sanitizedSystemName);
         SystemFolderTextBox.Text = systemFolderPath;
     }
 

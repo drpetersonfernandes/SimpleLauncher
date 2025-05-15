@@ -171,7 +171,7 @@ public partial class App
             // Notify user (reusing the same message for simplicity)
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
-            // Ensure a language dictionary is present - add English fallback if none exists
+            // Use English fallback if none exists
             if (!Resources.MergedDictionaries.Any(static d => d.Source?.OriginalString.Contains("strings.") ?? false))
             {
                 var fallbackDictionary = new ResourceDictionary
@@ -179,6 +179,8 @@ public partial class App
                     Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
                 };
                 Resources.MergedDictionaries.Add(fallbackDictionary);
+
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources due to initial culture error."), "Using fallback language.");
             }
         }

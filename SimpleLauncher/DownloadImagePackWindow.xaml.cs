@@ -52,7 +52,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
         // Filter systems that have a valid ImagePackDownloadLink
         var systemsWithImagePacks = _manager.Systems
-            .Where(static system => !string.IsNullOrEmpty(system.Emulators.Emulator.ImagePackDownloadLink))
+            .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink))
             .Select(static system => system.SystemName)
             .OrderBy(static name => name) // Order by system name
             .ToList();
@@ -224,7 +224,11 @@ public partial class DownloadImagePackWindow : IDisposable
             // Automatically populate the extraction path with a default path
             var appPath = AppDomain.CurrentDomain.BaseDirectory;
             var systemName = selectedSystem.SystemName;
-            extractionFolder = Path.Combine(appPath, "images", systemName);
+
+            // Sanitize SystemName
+            var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
+
+            extractionFolder = Path.Combine(appPath, "images", sanitizedSystemName);
         }
         else
         {
@@ -241,6 +245,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify user
             MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(ex);
             return false;
         }

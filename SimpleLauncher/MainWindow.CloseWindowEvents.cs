@@ -23,7 +23,7 @@ public partial class MainWindow
     {
         if (_controllerCheckTimer == null) return;
 
-        _controllerCheckTimer.Stop();
+        _controllerCheckTimer?.Stop();
         _controllerCheckTimer = null;
     }
 
@@ -45,7 +45,7 @@ public partial class MainWindow
         // Stop and dispose timers
         if (_controllerCheckTimer != null)
         {
-            _controllerCheckTimer.Stop();
+            _controllerCheckTimer?.Stop();
             _controllerCheckTimer = null;
         }
 

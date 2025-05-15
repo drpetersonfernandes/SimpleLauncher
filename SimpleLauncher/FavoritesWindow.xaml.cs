@@ -315,21 +315,18 @@ public partial class FavoritesWindow
         }
     }
 
-    private bool GetSystemConfigOfSelectedFavorite(Favorite selectedFavorite, out SystemManager systemManager)
+    private bool GetSystemManagerOfSelectedFavorite(Favorite selectedFavorite, out SystemManager systemManager)
     {
         systemManager = _systemManagers?.FirstOrDefault(config =>
             config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
-        if (systemManager != null) return false;
+        if (systemManager != null) return true;
 
         // Notify developer
         const string contextMessage = "systemManager is null.";
         var ex = new Exception(contextMessage);
         _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        // Notify user
-        MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
-
-        return true;
+        return false;
     }
 }

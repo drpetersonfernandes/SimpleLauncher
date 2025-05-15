@@ -19,12 +19,6 @@ public static class GameLauncher
 
     public static async Task HandleButtonClick(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
     {
-        //
-        //
-        // Check input parameters
-        //
-        //
-
         if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
         {
             // Notify developer
@@ -76,12 +70,6 @@ public static class GameLauncher
 
             return;
         }
-
-        //
-        //
-        // Construct parameters
-        //
-        //
 
         _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
         if (_selectedEmulatorManager == null)
@@ -278,6 +266,9 @@ public static class GameLauncher
                                      $"Error: {error}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             }
         }
         catch (Exception ex)
@@ -289,6 +280,9 @@ public static class GameLauncher
                                  $"Output: {output}\n" +
                                  $"Error: {error}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
         }
     }
 
@@ -321,6 +315,9 @@ public static class GameLauncher
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             }
         }
         catch (Exception ex)
@@ -330,6 +327,9 @@ public static class GameLauncher
                                  $"Shortcut file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
         }
     }
 
@@ -362,6 +362,9 @@ public static class GameLauncher
                                      $"Exit code {process.ExitCode}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             }
         }
         catch (Exception ex)
@@ -371,6 +374,9 @@ public static class GameLauncher
                                  $"Executable file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
         }
     }
 
@@ -515,7 +521,7 @@ public static class GameLauncher
             // Notify the user only if he wants
             if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
             {
-                MessageBoxLibrary.InvalidOperationExceptionMessageBox();
+                MessageBoxLibrary.InvalidOperationExceptionMessageBox(LogPath);
             }
         }
         catch (Exception ex)
@@ -582,10 +588,12 @@ public static class GameLauncher
             }
             default:
             {
+                // Notify developer
                 var contextMessage = $"Can not extract file: {filePath}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
+                // Notify user
                 MessageBoxLibrary.CannotExtractThisFileMessageBox(filePath);
 
                 break;
@@ -598,10 +606,12 @@ public static class GameLauncher
         {
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
+                // Notify developer
                 var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
+                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
 
                 return Task.FromResult<string>(null);
@@ -609,10 +619,12 @@ public static class GameLauncher
 
             if (sysConfig.FileFormatsToLaunch == null || sysConfig.FileFormatsToLaunch.Count == 0)
             {
+                // Notify developer
                 const string contextMessage = "FileFormatsToLaunch is null or empty.";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
+                // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
 
                 return Task.FromResult<string>(null);
@@ -628,11 +640,14 @@ public static class GameLauncher
                 }
             }
 
+            // Notify developer
             const string notFoundContext = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
             var exNotFound = new Exception(notFoundContext);
             _ = LogErrors.LogErrorAsync(exNotFound, notFoundContext);
 
+            // Notify user
             MessageBoxLibrary.CouldNotFindAFileMessageBox();
+
             return Task.FromResult<string>(null);
         }
     }
@@ -678,7 +693,10 @@ public static class GameLauncher
 
     private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != MemoryAccessViolation) return Task.FromResult(false);
+        if (process.ExitCode != MemoryAccessViolation)
+        {
+            return Task.FromResult(false);
+        }
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
@@ -709,7 +727,7 @@ public static class GameLauncher
         // Notify the user only if he wants
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
-            MessageBoxLibrary.CheckForMemoryAccessViolation();
+            MessageBoxLibrary.CheckForMemoryAccessViolation(LogPath);
         }
 
         return Task.FromResult(true);
@@ -717,7 +735,10 @@ public static class GameLauncher
 
     private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != DepViolation) return Task.FromResult(false);
+        if (process.ExitCode != DepViolation)
+        {
+            return Task.FromResult(false);
+        }
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
@@ -748,7 +769,7 @@ public static class GameLauncher
         // Notify the user only if he wants
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
-            MessageBoxLibrary.DepViolationMessageBox();
+            MessageBoxLibrary.DepViolationMessageBox(LogPath);
         }
 
         return Task.FromResult(true);
