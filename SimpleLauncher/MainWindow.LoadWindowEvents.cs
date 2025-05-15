@@ -56,7 +56,7 @@ public partial class MainWindow
         InitializeControllerDetection();
 
         // Initialize TrayIconManager
-        _trayIconManager = new TrayIconManager(this);
+        _trayIconManager = new TrayIconManager(this, _settings);
 
         // Initialize PlayHistory
         _playHistoryManager = PlayHistoryManager.LoadPlayHistory();

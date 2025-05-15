@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
-using SimpleLauncher.Services;
+using SimpleLauncher.Services; // Assuming SettingsManager is in SimpleLauncher.Managers
 
 namespace SimpleLauncher.Managers;
 
@@ -12,10 +12,13 @@ public class TrayIconManager : IDisposable
     private readonly TaskbarIcon _taskbarIcon;
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
+    private readonly SettingsManager _settings; // <<< ADDED: To access gamepad settings
 
-    public TrayIconManager(Window mainWindow)
+    // Modify constructor to accept SettingsManager
+    public TrayIconManager(Window mainWindow, SettingsManager settings) // <<< MODIFIED
     {
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings)); // <<< ADDED
 
         // Create a context menu for the tray icon
         _trayMenu = new ContextMenu();
@@ -54,9 +57,15 @@ public class TrayIconManager : IDisposable
         if (_mainWindow.WindowState != WindowState.Minimized) return;
 
         _mainWindow.Hide();
-        // Retrieve the dynamic resource string
         var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
         ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
+
+        // <<< ADDED: Stop GamePadController if it's running
+        if (GamePadController.Instance2.IsRunning)
+        {
+            GamePadController.Instance2.Stop();
+        }
+        // No 'else' needed here for restoring, OnOpen handles explicit restore from tray.
     }
 
     // Handle "Open" context menu item or tray icon double-click
@@ -65,6 +74,12 @@ public class TrayIconManager : IDisposable
         _mainWindow.Show();
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
+
+        // <<< ADDED: Start GamePadController if allowed by settings and not already running
+        if (_settings.EnableGamePadNavigation && !GamePadController.Instance2.IsRunning)
+        {
+            GamePadController.Instance2.Start();
+        }
     }
 
     // Handle "Exit" context menu item
@@ -101,12 +116,20 @@ public class TrayIconManager : IDisposable
             {
                 if (item is not MenuItem menuItem) continue;
 
-                menuItem.Click -= OnOpen;
-                menuItem.Click -= OnExit;
+                // Check specific handlers before removing
+                // This assumes OnOpen and OnExit are the only handlers attached here.
+                // A more robust way would be to store delegates if more complex.
+                if (menuItem.Header.ToString() == ((string)Application.Current.TryFindResource("Open") ?? "Open"))
+                {
+                    menuItem.Click -= OnOpen;
+                }
+                else if (menuItem.Header.ToString() == ((string)Application.Current.TryFindResource("Exit") ?? "Exit"))
+                {
+                    menuItem.Click -= OnExit;
+                }
             }
         }
 
-        // Tell GC not to call the finalizer since we've already cleaned up
-        GC.SuppressFinalize(this);
+        GC.SuppressFinalize(this); // Moved from original code to be standard last line
     }
 }
