@@ -47,37 +47,16 @@ public partial class MainWindow
         LanguageChineseTraditional.IsChecked = languageCode == "zh-hant";
     }
 
-    private async void EasyMode_Click(object sender, RoutedEventArgs e)
+    private void EasyMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Ensure pagination is reset at the beginning
-            ResetPaginationButtons();
-
-            // Clear SearchTextBox
-            SearchTextBox.Text = "";
-
-            // Update current filter
-            _currentFilter = null;
-
-            // Empty SystemComboBox
-            _selectedSystem = null;
-            SystemComboBox.SelectedItem = null;
-
-            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-            SelectedSystem = nosystemselected;
-            PlayTime = "00:00:00";
-
-            await DisplaySystemSelectionScreenAsync();
+            ResetUi();
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
-            // ReLoad and Sort _systemConfigs
-            _systemConfigs = SystemManager.LoadSystemConfigs();
-            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName)
-                .OrderBy(static name => name).ToList();
-            SystemComboBox.ItemsSource = sortedSystemNames;
+            LoadOrReloadSystemConfig();
         }
         catch (Exception ex)
         {
@@ -85,37 +64,16 @@ public partial class MainWindow
         }
     }
 
-    private async void ExpertMode_Click(object sender, RoutedEventArgs e)
+    private void ExpertMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Ensure pagination is reset at the beginning
-            ResetPaginationButtons();
-
-            // Clear SearchTextBox
-            SearchTextBox.Text = "";
-
-            // Update current filter
-            _currentFilter = null;
-
-            // Empty SystemComboBox
-            _selectedSystem = null;
-            SystemComboBox.SelectedItem = null;
-
-            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-            SelectedSystem = nosystemselected;
-            PlayTime = "00:00:00";
-
-            await DisplaySystemSelectionScreenAsync();
+            ResetUi();
 
             EditSystemWindow editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
 
-            // ReLoad and Sort _systemConfigs
-            _systemConfigs = SystemManager.LoadSystemConfigs();
-            var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName)
-                .OrderBy(static name => name).ToList();
-            SystemComboBox.ItemsSource = sortedSystemNames;
+            LoadOrReloadSystemConfig();
         }
         catch (Exception ex)
         {
@@ -138,29 +96,20 @@ public partial class MainWindow
         }
     }
 
-    private void LoadOrReloadSystemConfig()
-    {
-        _systemConfigs = SystemManager.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name)
-            .ToList();
-        SystemComboBox.ItemsSource = sortedSystemNames;
-    }
-
     private async void ResetUi()
     {
         try
         {
-            // Ensure pagination is reset at the beginning
+            GameFileGrid.Children.Clear();
+
             ResetPaginationButtons();
 
-            // Clear SearchTextBox
             SearchTextBox.Text = "";
 
-            // Update current filter
             _currentFilter = null;
 
-            // Empty SystemComboBox
             _selectedSystem = null;
+            PreviewImage.Source = null;
             SystemComboBox.SelectedItem = null;
 
             var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
@@ -173,6 +122,14 @@ public partial class MainWindow
         {
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
         }
+    }
+
+    private void LoadOrReloadSystemConfig()
+    {
+        _systemConfigs = SystemManager.LoadSystemConfigs();
+        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name)
+            .ToList();
+        SystemComboBox.ItemsSource = sortedSystemNames;
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -199,7 +156,6 @@ public partial class MainWindow
         {
             // Update the settings
             _settings.EnableGamePadNavigation = menuItem.IsChecked;
-
             _settings.Save();
 
             // Start or stop the GamePadController
@@ -282,8 +238,6 @@ public partial class MainWindow
             setThresholdWindow.ShowDialog(); // Use ShowDialog() to make it modal
 
             // After the dialog closes, the settings are saved within the dialog.
-            // No need to explicitly save here.
-            // Re-load game files to apply the new threshold if fuzzy matching is enabled
             if (_settings.EnableFuzzyMatching)
             {
                 _ = LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
@@ -471,6 +425,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
         }
     }
@@ -560,7 +515,7 @@ public partial class MainWindow
         SuperTaller.IsChecked = selectedValue == "SuperTaller";
     }
 
-    private async void ChangeViewMode_Click(object sender, RoutedEventArgs e)
+    private void ChangeViewMode_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -573,24 +528,7 @@ public partial class MainWindow
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-                // Ensure pagination is reset at the beginning
-                ResetPaginationButtons();
-
-                // Clear SearchTextBox
-                SearchTextBox.Text = "";
-
-                // Update current filter
-                _currentFilter = null;
-
-                // Empty SystemComboBox
-                _selectedSystem = null;
-                SystemComboBox.SelectedItem = null;
-
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-                SelectedSystem = nosystemselected;
-                PlayTime = "00:00:00";
-
-                await DisplaySystemSelectionScreenAsync();
+                ResetUi();
             }
             else if (Equals(sender, ListView))
             {
@@ -601,28 +539,7 @@ public partial class MainWindow
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
 
-                // Ensure pagination is reset at the beginning
-                ResetPaginationButtons();
-
-                // Clear SearchTextBox
-                SearchTextBox.Text = "";
-
-                // Update current filter
-                _currentFilter = null;
-
-                // Empty SystemComboBox
-                _selectedSystem = null;
-                PreviewImage.Source = null;
-                SystemComboBox.SelectedItem = null;
-
-                // Set selected system
-                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-                SelectedSystem = nosystemselected;
-                PlayTime = "00:00:00";
-
-                await DisplaySystemSelectionScreenAsync();
-
-                await LoadGameFilesAsync();
+                ResetUi();
             }
 
             _settings.Save(); // Save the updated ViewMode
@@ -674,7 +591,6 @@ public partial class MainWindow
         _settings.Language = selectedLanguage;
         _settings.Save();
 
-        // Update checked status
         SetLanguageAndCheckMenu(selectedLanguage);
 
         SaveApplicationSettings();

@@ -649,8 +649,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             var image = new Image
             {
                 Source = loadedImage,
-                Height = _settings.ThumbnailSize * 1.3, // Slightly larger for system buttons
-                Width = _settings.ThumbnailSize * 1.3 * 1.6, // Wider aspect for system buttons
+                Height = _settings.ThumbnailSize * 1.3,
+                Width = _settings.ThumbnailSize * 1.3 * 1.6,
                 Stretch = Stretch.Uniform,
                 Margin = new Thickness(5)
             };
@@ -691,22 +691,22 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config)
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
-        var imageFolder = Path.Combine(appBaseDir, "images");
+        var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
         var systemName = config.SystemName;
 
         // Check for system-specific image files (png, jpg, jpeg)
         var possibleExtensions = new[] { ".png", ".jpg", ".jpeg" };
         foreach (var ext in possibleExtensions)
         {
-            var systemImagePath = Path.Combine(imageFolder, systemName + ext);
+            var systemImagePath = Path.Combine(systemImageFolder, systemName + ext);
             if (File.Exists(systemImagePath))
             {
                 return Task.FromResult(systemImagePath);
             }
         }
 
-        // Fallback to global default image if no system-specific image is found
-        return Task.FromResult(Path.Combine(imageFolder, "default.png"));
+        // Fallback to the global default image if no system-specific image is found
+        return Task.FromResult(Path.Combine(systemImageFolder, "default.png"));
     }
 
     private void AddNoFilesMessage()
