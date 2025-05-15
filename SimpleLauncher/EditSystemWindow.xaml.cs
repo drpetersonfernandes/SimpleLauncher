@@ -162,11 +162,12 @@ public partial class EditSystemWindow
                     Emulator1PathTextBox.Text = emulator1.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator1ParametersTextBox.Text = emulator1.Element("EmulatorParameters")?.Value ?? string.Empty;
 
-                    // Get the notification value, default to "false" if not found
-                    var receiveNotificationValue = emulator1.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
-                        ? "true"
-                        : "false";
-                    ReceiveANotificationOnEmulatorError1.SelectedItem = ReceiveANotificationOnEmulatorError1.Items.Cast<ComboBoxItem>()
+                    // Get the notification value, default to "true" if not found or not "false"
+                    var receiveNotificationValue = emulator1.Element("ReceiveANotificationOnEmulatorError")?.Value == "false"
+                        ? "false"
+                        : "true";
+                    ReceiveANotificationOnEmulatorError1.SelectedItem = ReceiveANotificationOnEmulatorError1.Items
+                        .Cast<ComboBoxItem>()
                         .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
                 }
                 else
@@ -184,10 +185,10 @@ public partial class EditSystemWindow
                     Emulator2PathTextBox.Text = emulator2.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator2ParametersTextBox.Text = emulator2.Element("EmulatorParameters")?.Value ?? string.Empty;
 
-                    // Get the notification value, default to "false" if not found
-                    var receiveNotificationValue = emulator2.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
-                        ? "true"
-                        : "false";
+                    // Get the notification value, default to "true" if not found or not "false"
+                    var receiveNotificationValue = emulator2.Element("ReceiveANotificationOnEmulatorError")?.Value == "false"
+                        ? "false"
+                        : "true";
                     ReceiveANotificationOnEmulatorError2.SelectedItem = ReceiveANotificationOnEmulatorError2.Items.Cast<ComboBoxItem>()
                         .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
                 }
@@ -206,10 +207,10 @@ public partial class EditSystemWindow
                     Emulator3PathTextBox.Text = emulator3.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator3ParametersTextBox.Text = emulator3.Element("EmulatorParameters")?.Value ?? string.Empty;
 
-                    // Get the notification value, default to "false" if not found
-                    var receiveNotificationValue = emulator3.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
-                        ? "true"
-                        : "false";
+                    // Get the notification value, default to "true" if not found or not "false"
+                    var receiveNotificationValue = emulator3.Element("ReceiveANotificationOnEmulatorError")?.Value == "false"
+                        ? "false"
+                        : "true";
                     ReceiveANotificationOnEmulatorError3.SelectedItem = ReceiveANotificationOnEmulatorError3.Items.Cast<ComboBoxItem>()
                         .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
                 }
@@ -228,10 +229,10 @@ public partial class EditSystemWindow
                     Emulator4PathTextBox.Text = emulator4.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator4ParametersTextBox.Text = emulator4.Element("EmulatorParameters")?.Value ?? string.Empty;
 
-                    // Get the notification value, default to "false" if not found
-                    var receiveNotificationValue = emulator4.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
-                        ? "true"
-                        : "false";
+                    // Get the notification value, default to "true" if not found or not "false"
+                    var receiveNotificationValue = emulator4.Element("ReceiveANotificationOnEmulatorError")?.Value == "false"
+                        ? "false"
+                        : "true";
                     ReceiveANotificationOnEmulatorError4.SelectedItem = ReceiveANotificationOnEmulatorError4.Items.Cast<ComboBoxItem>()
                         .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
                 }
@@ -250,10 +251,10 @@ public partial class EditSystemWindow
                     Emulator5PathTextBox.Text = emulator5.Element("EmulatorLocation")?.Value ?? string.Empty;
                     Emulator5ParametersTextBox.Text = emulator5.Element("EmulatorParameters")?.Value ?? string.Empty;
 
-                    // Get the notification value, default to "false" if not found
-                    var receiveNotificationValue = emulator5.Element("ReceiveANotificationOnEmulatorError")?.Value == "true"
-                        ? "true"
-                        : "false";
+                    // Get the notification value, default to "true" if not found or not "false"
+                    var receiveNotificationValue = emulator5.Element("ReceiveANotificationOnEmulatorError")?.Value == "false"
+                        ? "false"
+                        : "true";
                     ReceiveANotificationOnEmulatorError5.SelectedItem = ReceiveANotificationOnEmulatorError5.Items.Cast<ComboBoxItem>()
                         .FirstOrDefault(item => item.Content.ToString() == receiveNotificationValue);
                 }
