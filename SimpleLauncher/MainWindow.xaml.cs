@@ -508,10 +508,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             if (SystemComboBox.SelectedItem == null)
             {
-                // Notify developer
-                const string errorMessage = "SystemComboBox.SelectedItem is null.";
-                var ex = new Exception(errorMessage);
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                // // Notify developer
+                // const string errorMessage = "SystemComboBox.SelectedItem is null.";
+                // var ex = new Exception(errorMessage);
+                // _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
                 await DisplaySystemSelectionScreenAsync();
 
