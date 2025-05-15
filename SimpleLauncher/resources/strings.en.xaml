@@ -18,6 +18,7 @@
     <system:String x:Key="400pixels">400 pixels</system:String>
     <system:String x:Key="450pixels">450 pixels</system:String>
     <system:String x:Key="4thstep">4th step</system:String>
+    <system:String x:Key="50pixels">50 pixels</system:String>
     <system:String x:Key="500games">500 games</system:String>
     <system:String x:Key="500pixels">500 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>

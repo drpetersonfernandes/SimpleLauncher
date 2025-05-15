@@ -473,6 +473,7 @@ public partial class MainWindow
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
     {
+        Size50.IsChecked = selectedSize == 50;
         Size100.IsChecked = selectedSize == 100;
         Size150.IsChecked = selectedSize == 150;
         Size200.IsChecked = selectedSize == 200;

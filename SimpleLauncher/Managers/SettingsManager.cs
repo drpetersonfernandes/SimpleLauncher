@@ -12,7 +12,7 @@ namespace SimpleLauncher.Managers;
 public class SettingsManager
 {
     private readonly string _filePath;
-    private readonly HashSet<int> _validThumbnailSizes = [100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
+    private readonly HashSet<int> _validThumbnailSizes = [50, 100, 150, 200, 250, 300, 350, 400, 450, 500, 550, 600, 650, 700, 750, 800];
     private readonly HashSet<int> _validGamesPerPage = [100, 200, 300, 400, 500];
     private readonly HashSet<string> _validShowGames = ["ShowAll", "ShowWithCover", "ShowWithoutCover"];
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];

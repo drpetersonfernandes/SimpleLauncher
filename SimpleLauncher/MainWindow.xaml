@@ -122,6 +122,10 @@
                         <Image Source="pack://application:,,,/images/buttonsize.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                     <MenuItem
+                        x:Name="Size50"
+                        Click="ButtonSize_Click"
+                        Header="{DynamicResource 50pixels}" />
+                    <MenuItem
                         x:Name="Size100"
                         Click="ButtonSize_Click"
                         Header="{DynamicResource 100pixels}" />
