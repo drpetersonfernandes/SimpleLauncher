@@ -62,6 +62,23 @@ public class GameListFactory(
             timesPlayed = playHistoryItem.TimesPlayed.ToString(CultureInfo.InvariantCulture);
         }
 
+        // Calculate and format file size
+        var fileSize = "N/A";
+        try
+        {
+            if (File.Exists(filePath))
+            {
+                var fileInfo = new FileInfo(filePath);
+                fileSize = FormatFileSize(fileInfo.Length);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Log error but don't fail item creation
+            _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {filePath}");
+            fileSize = "Error"; // Indicate error in UI
+        }
+
         // Create the GameListViewItem with file details
         var gameListViewItem = new GameListViewItem
         {
@@ -72,10 +89,31 @@ public class GameListFactory(
                 _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
-            PlayTime = playTime
+            PlayTime = playTime,
+            FileSize = fileSize
         };
 
         return Task.FromResult(gameListViewItem);
+    }
+
+    /// <summary>
+    /// Formats a byte size into a human-readable format (KB, MB, GB, etc.).
+    /// </summary>
+    /// <param name="bytes">The size in bytes.</param>
+    /// <returns>A formatted string representation of the size.</returns>
+    private static string FormatFileSize(long bytes)
+    {
+        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
+        var counter = 0;
+        double size = bytes;
+
+        while (size >= 1024 && counter < suffixes.Length - 1)
+        {
+            size /= 1024;
+            counter++;
+        }
+
+        return $"{size:F2} {suffixes[counter]}";
     }
 
     public async void HandleSelectionChanged(GameListViewItem selectedItem)

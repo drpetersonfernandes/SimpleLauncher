@@ -8,6 +8,7 @@ public class GameListViewItem : INotifyPropertyChanged
     private string _machineDescription;
     private string _timesPlayed = "0";
     private string _playTime = "0m 0s";
+    private string _fileSize;
     public string FilePath { get; init; }
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
     private bool _isFavorite;
@@ -59,6 +60,16 @@ public class GameListViewItem : INotifyPropertyChanged
         {
             _playTime = value;
             OnPropertyChanged(nameof(PlayTime));
+        }
+    }
+
+    public string FileSize
+    {
+        get => _fileSize;
+        set
+        {
+            _fileSize = value;
+            OnPropertyChanged(nameof(FileSize));
         }
     }
 
