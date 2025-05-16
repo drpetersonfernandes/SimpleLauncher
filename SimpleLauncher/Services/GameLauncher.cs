@@ -75,7 +75,7 @@ public static class GameLauncher
         if (_selectedEmulatorManager == null)
         {
             // Notify developer
-            const string contextMessage = "emulatorConfig is null.";
+            const string contextMessage = "_selectedEmulatorManager is null.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -88,7 +88,7 @@ public static class GameLauncher
         if (string.IsNullOrWhiteSpace(_selectedEmulatorManager.EmulatorName))
         {
             // Notify developer
-            const string contextMessage = "_selectedEmulatorManager.EmulatorName is null or white space";
+            const string contextMessage = "_selectedEmulatorManager.EmulatorName is null.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

@@ -691,9 +691,14 @@ Emulator documentation can be found at [Mednafen Website](https://mednafen.githu
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** 3ds<br>
+**Format To Search In System Folder:** 3ds, cci<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Azahar<br>
+**Emulator Path (Example):** c:\emulators\Azahar\azahar.exe<br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
 
 **Emulator Name:** Retroarch citra<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>

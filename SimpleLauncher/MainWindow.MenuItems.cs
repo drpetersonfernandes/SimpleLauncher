@@ -100,8 +100,6 @@ public partial class MainWindow
     {
         try
         {
-            GameFileGrid.Children.Clear();
-
             ResetPaginationButtons();
 
             SearchTextBox.Text = "";
@@ -120,6 +118,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
         }
     }

@@ -311,7 +311,7 @@ public partial class PlayTimeWindow
         if (emulatorManager == null)
         {
             // Notify developer
-            const string contextMessage = "emulatorConfig is null.";
+            const string contextMessage = "emulatorManager is null.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
