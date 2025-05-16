@@ -896,6 +896,10 @@
     <Resource Include="images\match.png" />
     <None Remove="images\setthreshold.png" />
     <Resource Include="images\setthreshold.png" />
+    <None Remove="images\reset.png" />
+    <Resource Include="images\reset.png" />
+    <None Remove="images\search2.png" />
+    <Resource Include="images\search2.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

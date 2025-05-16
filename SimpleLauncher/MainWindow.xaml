@@ -14,11 +14,11 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto" />
-            <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
+        <!-- Top Menu -->
         <Menu Grid.Row="0" VerticalAlignment="Top">
             <MenuItem Header="{DynamicResource Options}">
                 <MenuItem Header="{DynamicResource Language}">
@@ -282,7 +282,8 @@
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/match.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}" Click="ToggleFuzzyMatching_Click"
+                    <MenuItem x:Name="ToggleFuzzyMatching" Header="{DynamicResource Enable}"
+                              Click="ToggleFuzzyMatching_Click"
                               IsCheckable="True" />
                     <MenuItem Header="{DynamicResource SetThreshold}" Click="SetFuzzyMatchingThreshold_Click">
                         <MenuItem.Icon>
@@ -291,7 +292,6 @@
                     </MenuItem>
                 </MenuItem>
             </MenuItem>
-
             <MenuItem
                 Header="{DynamicResource EditSystem}">
                 <MenuItem Click="EasyMode_Click" Header="{DynamicResource EasyMode}">
@@ -312,7 +312,6 @@
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>
-
             <MenuItem Header="{DynamicResource GlobalSearch}">
                 <MenuItem Click="ShowGlobalSearchWindow_Click" Header="{DynamicResource GlobalSearch}">
                     <MenuItem.Icon>
@@ -438,166 +437,226 @@
             </MenuItem>
         </Menu>
 
+        <!-- Everything below the Top Menu -->
         <Grid Grid.Row="1">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-                <RowDefinition Height="Auto" />
-            </Grid.RowDefinitions>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-                <ColumnDefinition Width="Auto" />
-            </Grid.ColumnDefinitions>
-
-            <StackPanel x:Name="LetterNumberMenu"
-                        Grid.Row="0"
-                        Grid.Column="0"
-                        Grid.ColumnSpan="3"
-                        Margin="0,0,10,0"
-                        Orientation="Horizontal">
-                <!--  Dynamically add letter buttons  -->
-            </StackPanel>
-
-            <Label
-                Grid.Row="1"
-                Grid.Column="0"
-                Margin="10,10,0,5"
-                VerticalAlignment="Center"
-                Content="{DynamicResource SelectSystem}" />
-            <ComboBox
-                Grid.Row="1"
-                Grid.Column="1"
-                Margin="10,10,0,5"
-                Name="SystemComboBox"
-                Width="500"
-                VerticalAlignment="Center"
-                SelectionChanged="SystemComboBox_SelectionChanged" />
-            <TextBox Grid.Row="1"
-                     Grid.Column="2"
-                     x:Name="SearchTextBox"
-                     Margin="10,10,10,5"
-                     Width="220"
-                     HorizontalAlignment="Stretch"
-                     VerticalAlignment="Center"
-                     KeyDown="SearchTextBox_KeyDown" />
-
-            <Label
-                Grid.Row="2"
-                Grid.Column="0"
-                Margin="10,0,0,5"
-                VerticalAlignment="Center"
-                Content="{DynamicResource SelectEmulator}" />
-            <ComboBox
-                Grid.Row="2"
-                Grid.Column="1"
-                Margin="10,0,0,5"
-                Name="EmulatorComboBox"
-                Width="500"
-                VerticalAlignment="Center" />
-            <Button
-                Grid.Row="2"
-                Grid.Column="2"
-                Margin="10,0,10,5"
-                Content="{DynamicResource Search}"
-                Click="SearchButton_Click"
-                HorizontalAlignment="Center" />
-
-        </Grid>
-
-        <ScrollViewer x:Name="Scroller" Grid.Row="2" VerticalScrollBarVisibility="Visible" Margin="0">
-            <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="5,0,5,0">
-                <!--  Items will be added here programmatically  -->
-            </WrapPanel>
-        </ScrollViewer>
-
-        <!-- Embedded Grid for DataGrid and Preview Area -->
-        <Grid x:Name="ListViewPreviewArea" Grid.Row="2" Visibility="Collapsed" Margin="10">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="4.5*" />
                 <ColumnDefinition Width="*" />
             </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto" />
+                <RowDefinition Height="*" />
+            </Grid.RowDefinitions>
 
-            <!-- DataGrid in the left column -->
-            <DataGrid Name="GameDataGrid"
-                      MouseDoubleClick="GameListDoubleClickOnSelectedItem"
-                      ItemsSource="{Binding GameListItems}"
-                      Margin="10"
-                      BorderThickness="1"
-                      BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                      Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
-                      Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                      AutoGenerateColumns="False"
-                      CanUserAddRows="False"
-                      IsReadOnly="True"
-                      GridLinesVisibility="All"
-                      SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }">
-                <DataGrid.RowStyle>
-                    <Style TargetType="DataGridRow">
-                        <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
-                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                        <!-- Text color from theme -->
-                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                        <!-- Row background from theme -->
+            <!-- Left Navigation Panel -->
+            <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
+                    Width="50"
+                    BorderThickness="0,0,1,0" BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                    Background="{DynamicResource MahApps.Brushes.Gray9}">
+                <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Top"
+                            Margin="0,10,0,0">
+                    <Button x:Name="NavRestartButton"
+                            ToolTip="{DynamicResource Restart}"
+                            Click="NavRestartButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/reset.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavGlobalSearchButton"
+                            ToolTip="{DynamicResource GlobalSearch}"
+                            Click="NavGlobalSearchButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/search2.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavFavoritesButton"
+                            ToolTip="{DynamicResource Favorites}"
+                            Click="NavFavoritesButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/star.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavHistoryButton"
+                            ToolTip="{DynamicResource PlayHistory}"
+                            Click="NavHistoryButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/playhistory.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavSupportButton"
+                            ToolTip="{DynamicResource Support}"
+                            Click="NavSupportButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/help-desk.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavExitButton"
+                            ToolTip="{DynamicResource Exit}"
+                            Click="NavExitButton_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/exit.png" Width="24" Height="24" />
+                    </Button>
+                </StackPanel>
+            </Border>
 
-                        <!-- Trigger to control the hover background and foreground color -->
-                        <Style.Triggers>
-                            <Trigger Property="IsMouseOver" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                <!-- Accent color for selected row -->
-                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                <!-- Keep text color from theme on hover -->
-                            </Trigger>
-                            <Trigger Property="IsSelected" Value="True">
-                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                <!-- Accent color for selected row -->
-                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
-                                <!-- Ideal foreground color on selection -->
-                            </Trigger>
-                        </Style.Triggers>
-                    </Style>
-                </DataGrid.RowStyle>
-                <DataGrid.Columns>
-                    <DataGridTemplateColumn Header="Favorite" Width="Auto">
-                        <DataGridTemplateColumn.CellTemplate>
-                            <DataTemplate>
-                                <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
-                                       Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       d:DataContext="{d:DesignInstance }" />
-                            </DataTemplate>
-                        </DataGridTemplateColumn.CellTemplate>
-                    </DataGridTemplateColumn>
-                    <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
-                    <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
-                    <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                    <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
-                    <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
-                </DataGrid.Columns>
-            </DataGrid>
+            <!-- Main Panel -->
+            <Menu Grid.Row="0" Grid.Column="1" VerticalAlignment="Top">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
 
-            <Grid Grid.Column="1" Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="*" />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0"
-                       Content="{DynamicResource PreviewImage}"
-                       FontWeight="Bold"
-                       HorizontalAlignment="Center"
-                       Margin="0,0,0,10" />
-                <Border Grid.Row="1"
-                        BorderBrush="Gray"
-                        BorderThickness="1"
-                        Padding="5">
-                    <Image Name="PreviewImage"
-                           Stretch="Uniform"
+                    <StackPanel x:Name="LetterNumberMenu"
+                                Grid.Row="0"
+                                Grid.Column="0"
+                                Grid.ColumnSpan="3"
+                                Margin="0,0,10,0"
+                                Orientation="Horizontal">
+                    </StackPanel>
+                    <Label
+                        Grid.Row="1"
+                        Grid.Column="0"
+                        Margin="10,10,0,5"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource SelectSystem}" />
+                    <ComboBox
+                        Grid.Row="1"
+                        Grid.Column="1"
+                        Margin="10,10,0,5"
+                        Name="SystemComboBox"
+                        Width="500"
+                        VerticalAlignment="Center"
+                        SelectionChanged="SystemComboBox_SelectionChanged" />
+                    <TextBox Grid.Row="1"
+                             Grid.Column="2"
+                             x:Name="SearchTextBox"
+                             Margin="10,10,10,5"
+                             Width="220"
+                             HorizontalAlignment="Stretch"
+                             VerticalAlignment="Center"
+                             KeyDown="SearchTextBox_KeyDown" />
+                    <Label
+                        Grid.Row="2"
+                        Grid.Column="0"
+                        Margin="10,0,0,5"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource SelectEmulator}" />
+                    <ComboBox
+                        Grid.Row="2"
+                        Grid.Column="1"
+                        Margin="10,0,0,5"
+                        Name="EmulatorComboBox"
+                        Width="500"
+                        VerticalAlignment="Center" />
+                    <Button
+                        Grid.Row="2"
+                        Grid.Column="2"
+                        Margin="10,0,10,5"
+                        Content="{DynamicResource Search}"
+                        Click="SearchButton_Click"
+                        HorizontalAlignment="Center" />
+                </Grid>
+            </Menu>
+
+            <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
+                          Margin="0">
+                <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="5,0,5,0">
+                </WrapPanel>
+            </ScrollViewer>
+
+            <!-- Embedded Grid -->
+            <Grid x:Name="ListViewPreviewArea" Grid.Row="1" Grid.Column="1" Visibility="Collapsed" Margin="10">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="4.5*" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+
+                <!-- DataGrid in the left column -->
+                <DataGrid Name="GameDataGrid"
+                          MouseDoubleClick="GameListDoubleClickOnSelectedItem"
+                          ItemsSource="{Binding GameListItems}"
+                          Margin="10"
+                          BorderThickness="1"
+                          BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                          Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                          Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                          AutoGenerateColumns="False"
+                          CanUserAddRows="False"
+                          IsReadOnly="True"
+                          GridLinesVisibility="All"
+                          SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }">
+                    <DataGrid.RowStyle>
+                        <Style TargetType="DataGridRow">
+                            <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
+                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                            <!-- Text color from theme -->
+                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                            <!-- Row background from theme -->
+
+                            <!-- Trigger to control the hover background and foreground color -->
+                            <Style.Triggers>
+                                <Trigger Property="IsMouseOver" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                    <!-- Accent color for selected row -->
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                                    <!-- Keep text color from theme on hover -->
+                                </Trigger>
+                                <Trigger Property="IsSelected" Value="True">
+                                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                    <!-- Accent color for selected row -->
+                                    <Setter Property="Foreground"
+                                            Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
+                                    <!-- Ideal foreground color on selection -->
+                                </Trigger>
+                            </Style.Triggers>
+                        </Style>
+                    </DataGrid.RowStyle>
+                    <DataGrid.Columns>
+                        <DataGridTemplateColumn Header="Favorite" Width="Auto">
+                            <DataGridTemplateColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
+                                           Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                           d:DataContext="{d:DesignInstance }" />
+                                </DataTemplate>
+                            </DataGridTemplateColumn.CellTemplate>
+                        </DataGridTemplateColumn>
+                        <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
+                        <DataGridTextColumn Header="Machine Description for MAME files"
+                                            Binding="{Binding MachineDescription}" Width="*" />
+                        <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
+                        <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
+                        <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
+                    </DataGrid.Columns>
+                </DataGrid>
+
+                <Grid Grid.Column="1" Margin="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0"
+                           Content="{DynamicResource PreviewImage}"
+                           FontWeight="Bold"
                            HorizontalAlignment="Center"
-                           VerticalAlignment="Center" />
-                </Border>
+                           Margin="0,0,0,10" />
+                    <Border Grid.Row="1"
+                            BorderBrush="Gray"
+                            BorderThickness="1"
+                            Padding="5">
+                        <Image Name="PreviewImage"
+                               Stretch="Uniform"
+                               HorizontalAlignment="Center"
+                               VerticalAlignment="Center" />
+                    </Border>
+                </Grid>
             </Grid>
         </Grid>
 
-        <Grid Grid.Row="3" VerticalAlignment="Center" Margin="10,5,10,5">
+        <Grid Grid.Row="2" VerticalAlignment="Center" Margin="0,5,0,5">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
@@ -627,7 +686,8 @@
                     VerticalAlignment="Center"
                     VerticalContentAlignment="Center" />
             </StackPanel>
-            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center" Margin="10,0,0,0"
+            <StackPanel Grid.Column="1" HorizontalAlignment="Right" VerticalAlignment="Center"
+                        Margin="10,0,0,0"
                         Orientation="Horizontal">
                 <Label Content="{DynamicResource System}" Margin="5,0,5,0" />
                 <Label Content="{Binding SelectedSystem}" Margin="5,0" d:DataContext="{d:DesignInstance }" />
@@ -636,6 +696,7 @@
             </StackPanel>
 
         </Grid>
+
 
     </Grid>
 </controls:MetroWindow>
