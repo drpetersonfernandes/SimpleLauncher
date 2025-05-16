@@ -1,5 +1,6 @@
 #nullable enable
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Models;
 
@@ -21,4 +22,11 @@ public class Favorite
 
     [IgnoreMember]
     public string? DefaultEmulator { get; set; }
+
+    [IgnoreMember]
+    public long FileSizeBytes { get; set; }
+
+    // Add property to format file size using the helper (ignored for serialization)
+    [IgnoreMember]
+    public string FormattedFileSize => FormatFileSize.Format(FileSizeBytes);
 }

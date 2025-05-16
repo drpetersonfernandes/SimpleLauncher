@@ -54,12 +54,49 @@ public partial class PlayTimeWindow
                 m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName), StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
 
-            // Retrieve the system configuration for the history item
-            var systemConfig = _systemManagers.FirstOrDefault(config =>
+            // Retrieve the system manager for the history item
+            var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
             // Get the default emulator. The first one in the list
-            var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+
+            // Construct the file path and get the size
+            long fileSizeBytes = 0; // Default to 0 if file not found or system config missing
+            var coverImagePath = GetCoverImagePath(historyItem.SystemName, historyItem.FileName); // Get cover path here
+
+            if (systemManager != null)
+            {
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
+                var filePath = Path.Combine(systemFolderPath, historyItem.FileName);
+
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        fileSizeBytes = new FileInfo(filePath).Length;
+                    }
+                    else
+                    {
+                        // Log a warning if a history file is missing during load
+                        var contextMessage = $"History item file not found during load: {filePath}";
+                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
+                        // The LaunchGameFromHistory method will handle removal if the user tries to launch it.
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log other potential file access errors
+                    var contextMessage = $"Error getting file size for history item: {filePath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                }
+            }
+            else
+            {
+                // Log a warning if the system config for a history item is missing
+                var contextMessage = $"System config not found for history item: {historyItem.SystemName} - {historyItem.FileName}";
+                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+            }
 
             var playHistoryItem = new PlayHistoryItem
             {
@@ -71,7 +108,8 @@ public partial class PlayTimeWindow
                 LastPlayTime = historyItem.LastPlayTime,
                 MachineDescription = machineDescription,
                 DefaultEmulator = defaultEmulator,
-                CoverImage = GetCoverImagePath(historyItem.SystemName, historyItem.FileName)
+                CoverImage = coverImagePath,
+                FileSizeBytes = fileSizeBytes
             };
             _playHistoryList.Add(playHistoryItem);
         }
@@ -345,7 +383,7 @@ public partial class PlayTimeWindow
         {
             // Get updated play history data
             var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
-            _playHistoryList = new ObservableCollection<PlayHistoryItem>();
+            var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
 
             foreach (var historyItem in playHistoryConfig.PlayHistoryList)
             {
@@ -361,6 +399,50 @@ public partial class PlayTimeWindow
                 // Get the default emulator. The first one in the list
                 var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
 
+                // Construct the file path and get the size
+                long fileSizeBytes = 0; // Default to 0 if file not found or system config missing
+                var coverImagePath = GetCoverImagePath(historyItem.SystemName, historyItem.FileName); // Get cover path here
+
+                if (systemConfig != null)
+                {
+                    var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
+                    var filePath = Path.Combine(systemFolderPath, historyItem.FileName);
+
+                    try
+                    {
+                        if (File.Exists(filePath))
+                        {
+                            fileSizeBytes = new FileInfo(filePath).Length;
+                        }
+                        else
+                        {
+                            // Log a warning if a history file is missing during refresh
+                            var contextMessage = $"History item file not found during refresh: {filePath}";
+                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
+                            // File will not be added to the new list if it doesn't exist, effectively removing it.
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        // Log other potential file access errors
+                        var contextMessage = $"Error getting file size during refresh for history item: {filePath}";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    }
+                }
+                else
+                {
+                    // Log a warning if the system config for a history item is missing during refresh
+                    var contextMessage = $"System config not found during refresh for history item: {historyItem.SystemName} - {historyItem.FileName}";
+                    _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+                }
+
+                // Only add the item if the file exists (or if we couldn't determine the size but want to keep it anyway - current logic removes missing files)
+                // The current logic implicitly removes missing files because fileSizeBytes remains 0 and we don't add it if systemConfig is null or file doesn't exist.
+                // Let's explicitly check if systemConfig was found and the file existed to add it.
+                if (systemConfig == null ||
+                    !File.Exists(Path.Combine(PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder),
+                        historyItem.FileName))) continue;
+
                 var playHistoryItem = new PlayHistoryItem
                 {
                     FileName = historyItem.FileName,
@@ -371,10 +453,14 @@ public partial class PlayTimeWindow
                     LastPlayTime = historyItem.LastPlayTime,
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
-                    CoverImage = GetCoverImagePath(historyItem.SystemName, historyItem.FileName)
+                    CoverImage = coverImagePath, // Assign the retrieved cover path
+                    FileSizeBytes = fileSizeBytes // Assign the calculated size in bytes
                 };
-                _playHistoryList.Add(playHistoryItem);
+                newPlayHistoryList.Add(playHistoryItem);
             }
+
+            // Replace the old collection with the new one
+            _playHistoryList = newPlayHistoryList;
 
             // Sort the list by date and time using the safe parsing method
             SortByDateSafely();

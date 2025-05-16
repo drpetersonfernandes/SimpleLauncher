@@ -26,6 +26,7 @@ public static partial class UpdateChecker
     {
         var handler = new HttpClientHandler();
         _httpClient = new HttpClient(handler);
+        _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
     }
 
     private static string CurrentVersion
@@ -57,14 +58,17 @@ public static partial class UpdateChecker
     {
         try
         {
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
-
             var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
                 var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+
+                if (latestVersion == null)
+                {
+                    return;
+                }
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
@@ -85,14 +89,17 @@ public static partial class UpdateChecker
     {
         try
         {
-            _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
-
             var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
 
                 var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+
+                if (latestVersion == null)
+                {
+                    return;
+                }
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {

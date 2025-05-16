@@ -746,11 +746,8 @@ public static class MessageBoxLibrary
         static void Action()
         {
             var anerroroccurredwhilecalculatingtheGlobal =
-                (string)Application.Current.TryFindResource("AnerroroccurredwhilecalculatingtheGlobal") ??
-                "An error occurred while calculating the Global Statistics.";
-            var theerrorwasreportedtothedeveloper =
-                (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-                "The error was reported to the developer who will try to fix the issue.";
+                (string)Application.Current.TryFindResource("AnerroroccurredwhilecalculatingtheGlobal") ?? "An error occurred while calculating the Global Statistics.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             MessageBox.Show($"{anerroroccurredwhilecalculatingtheGlobal}\n\n{theerrorwasreportedtothedeveloper}",

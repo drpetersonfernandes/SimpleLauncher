@@ -35,13 +35,23 @@ public class PlayHistoryManager
             return defaultManager;
         }
 
-        var bytes = File.ReadAllBytes(FilePath);
-        var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
+        try
+        {
+            var bytes = File.ReadAllBytes(FilePath);
+            var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
-        // Migrate old date formats to new ISO format if needed
-        manager.MigrateOldDateFormats();
+            // Migrate old date formats to new ISO format if needed
+            manager.MigrateOldDateFormats();
 
-        return manager;
+            return manager;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error loading play history");
+
+            return new PlayHistoryManager(); // Return default instance if error occurs
+        }
     }
 
     /// <summary>

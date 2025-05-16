@@ -90,10 +90,16 @@ public partial class EasyModeWindow : IDisposable
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (SystemNameDropdown.SelectedItem == null) return;
+        if (SystemNameDropdown.SelectedItem == null)
+        {
+            return;
+        }
 
         var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
-        if (selectedSystem == null) return;
+        if (selectedSystem == null)
+        {
+            return;
+        }
 
         DownloadEmulatorButton.IsEnabled = true;
         DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
@@ -109,7 +115,6 @@ public partial class EasyModeWindow : IDisposable
         // Automatically populate the SystemFolder by the default path
         var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemName = SystemNameDropdown.SelectedItem.ToString();
-        if (systemName == null) return;
 
         // Sanitize SystemName
         var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
@@ -219,10 +224,23 @@ public partial class EasyModeWindow : IDisposable
             case DownloadType.ImagePack:
                 downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
-                // Determine the extraction folder
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
-                componentName = "Image Pack";
+                if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath))
+                {
+                    // Automatically populate the extraction path with a default path
+                    var appPath = AppDomain.CurrentDomain.BaseDirectory;
+                    var systemName = selectedSystem.SystemName;
 
+                    // Sanitize SystemName
+                    var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
+
+                    destinationPath = Path.Combine(appPath, "images", sanitizedSystemName);
+                }
+                else
+                {
+                    destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
+                }
+
+                componentName = "Image Pack";
                 break;
             default:
                 return false;

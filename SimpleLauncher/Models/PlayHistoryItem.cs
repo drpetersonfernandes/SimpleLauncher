@@ -1,5 +1,6 @@
 using System;
 using MessagePack;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Models;
 
@@ -32,6 +33,14 @@ public class PlayHistoryItem
 
     [IgnoreMember]
     public string DefaultEmulator { get; set; }
+
+    [IgnoreMember]
+    public long FileSizeBytes { get; set; }
+
+    [IgnoreMember]
+    public string FormattedFileSize =>
+        // Use the FormatFileSize helper
+        FormatFileSize.Format(FileSizeBytes);
 
     [IgnoreMember]
     public string FormattedPlayTime

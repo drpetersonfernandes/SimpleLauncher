@@ -160,20 +160,33 @@ public partial class GlobalStatsWindow
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {
-        var totalSystems = systemStats.Count;
-        var totalEmulators = _systemConfigs.Sum(static config => config.Emulators.Count);
-        var totalGames = systemStats.Sum(static stats => stats.NumberOfFiles);
-        var totalImages = systemStats.Sum(static stats => stats.NumberOfImages);
-        var totalDiskSize = systemStats.Sum(static stats => stats.TotalDiskSize); // Summing pre-calculated disk sizes
-
-        return new GlobalStatsData
+        try
         {
-            TotalSystems = totalSystems,
-            TotalEmulators = totalEmulators,
-            TotalGames = totalGames,
-            TotalImages = totalImages,
-            TotalDiskSize = totalDiskSize
-        };
+            var totalSystems = systemStats.Count;
+            var totalEmulators = _systemConfigs.Sum(static config => config.Emulators.Count);
+            var totalGames = systemStats.Sum(static stats => stats.NumberOfFiles);
+            var totalImages = systemStats.Sum(static stats => stats.NumberOfImages);
+            var totalDiskSize = systemStats.Sum(static stats => stats.TotalDiskSize);
+
+            return new GlobalStatsData
+            {
+                TotalSystems = totalSystems,
+                TotalEmulators = totalEmulators,
+                TotalGames = totalGames,
+                TotalImages = totalImages,
+                TotalDiskSize = totalDiskSize
+            };
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error in the CalculateGlobalStats method.");
+
+            // Notify user
+            MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
+
+            return new GlobalStatsData(); // Return an empty object if an error occurs
+        }
     }
 
     private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)

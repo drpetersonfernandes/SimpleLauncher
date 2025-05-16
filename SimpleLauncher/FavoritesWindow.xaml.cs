@@ -50,11 +50,48 @@ public partial class FavoritesWindow
             var machineDescription = machine?.Description ?? string.Empty;
 
             // Retrieve the system configuration for the favorite
-            var systemConfig = _systemManagers.FirstOrDefault(config =>
+            var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
             // Get the default emulator, e.g., the first one in the list
-            var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+
+            long fileSizeBytes = 0;
+
+            var coverImagePath = GetCoverImagePath(favorite.SystemName, favorite.FileName);
+
+            if (systemManager != null)
+            {
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
+                var filePath = Path.Combine(systemFolderPath, favorite.FileName);
+
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        fileSizeBytes = new FileInfo(filePath).Length;
+                    }
+                    else
+                    {
+                        // Log a warning if a favorite file is missing during load
+                        var contextMessage = $"Favorite file not found during load: {filePath}";
+                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
+                        // The LaunchGameFromFavorite method will handle removal if the user tries to launch it.
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log other potential file access errors
+                    var contextMessage = $"Error getting file size for favorite: {filePath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                }
+            }
+            else
+            {
+                // Log a warning if the system manager for a favorite is missing
+                var contextMessage = $"System manager not found for favorite: {favorite.SystemName} - {favorite.FileName}";
+                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+            }
 
             var favoriteItem = new Favorite
             {
@@ -62,7 +99,8 @@ public partial class FavoritesWindow
                 SystemName = favorite.SystemName,
                 MachineDescription = machineDescription,
                 DefaultEmulator = defaultEmulator,
-                CoverImage = GetCoverImagePath(favorite.SystemName, favorite.FileName)
+                CoverImage = coverImagePath,
+                FileSizeBytes = fileSizeBytes
             };
             _favoriteList.Add(favoriteItem);
         }

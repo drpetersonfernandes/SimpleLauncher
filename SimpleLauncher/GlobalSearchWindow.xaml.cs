@@ -81,7 +81,7 @@ public partial class GlobalSearchWindow
                     {
                         FileName = noresultsfound2,
                         FolderName = "",
-                        Size = 0
+                        FileSizeBytes = 0
                     });
                 }
             }
@@ -157,7 +157,7 @@ public partial class GlobalSearchWindow
                 FileNameWithExtension = Path.GetFileName(file),
                 FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
                 FilePath = file,
-                Size = Math.Round(new FileInfo(file).Length / 1024.0, 2),
+                FileSizeBytes = new FileInfo(file).Length,
 
                 MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
                 SystemName = systemConfig.SystemName,
