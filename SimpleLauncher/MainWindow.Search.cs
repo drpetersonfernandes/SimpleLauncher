@@ -12,6 +12,7 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
             await ExecuteSearch();
         }
         catch (Exception ex)

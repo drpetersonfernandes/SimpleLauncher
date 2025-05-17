@@ -31,10 +31,12 @@ public partial class MainWindow
             _currentPage--;
             if (_currentSearchResults.Count != 0)
             {
+                PlayClick.PlayNotificationSound();
                 await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
             }
             else
             {
+                PlayClick.PlayNotificationSound();
                 await LoadGameFilesAsync(_currentFilter);
             }
         }
@@ -60,10 +62,12 @@ public partial class MainWindow
             _currentPage++;
             if (_currentSearchResults.Count != 0)
             {
+                PlayClick.PlayNotificationSound();
                 await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
             }
             else
             {
+                PlayClick.PlayNotificationSound();
                 await LoadGameFilesAsync(_currentFilter);
             }
         }
