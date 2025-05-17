@@ -939,21 +939,18 @@ public static class MessageBoxLibrary
 
     internal static void NoFavoriteFoundMessageBox()
     {
-        var nofavoritegamesfoundfortheselectedsystem =
-            (string)Application.Current.TryFindResource("Nofavoritegamesfoundfortheselectedsystem") ??
-            "No favorite games found for the selected system.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-        // Only invoke if needed
+        var pleaseselectedasystemtoseethefavorites = (string)Application.Current.TryFindResource("Pleaseselectedasystemtoseethefavorites") ?? "Please selected a system to see the favorites.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, info, MessageBoxButton.OK,
-                MessageBoxImage.Information);
+            MessageBox.Show(pleaseselectedasystemtoseethefavorites,
+                warning, MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
         {
             Application.Current.Dispatcher.Invoke(() =>
-                MessageBox.Show(nofavoritegamesfoundfortheselectedsystem, info, MessageBoxButton.OK,
-                    MessageBoxImage.Information));
+                MessageBox.Show(pleaseselectedasystemtoseethefavorites,
+                    warning, MessageBoxButton.OK, MessageBoxImage.Information));
         }
     }
 
@@ -4081,10 +4078,8 @@ public static class MessageBoxLibrary
 
     internal static void PleaseSelectASystemBeforeMessageBox()
     {
-        var pleaseselectasystembeforeusingtheFeeling =
-            (string)Application.Current.TryFindResource("PleaseselectasystembeforeusingtheFeeling") ??
-            "Please select a system before using the Feeling Lucky feature.";
-        var feelingLucky = (string)Application.Current.TryFindResource("FeelingLucky") ?? "Feeling Lucky";
+        var pleaseselectasystembeforeusingtheFeeling = (string)Application.Current.TryFindResource("PleaseselectasystembeforeusingtheFeeling") ?? "Please select a system before using the Feeling Lucky feature.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         if (!Application.Current.Dispatcher.CheckAccess())
         {
@@ -4099,7 +4094,8 @@ public static class MessageBoxLibrary
 
         void ShowMessageBox()
         {
-            MessageBox.Show(pleaseselectasystembeforeusingtheFeeling, feelingLucky, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(pleaseselectasystembeforeusingtheFeeling,
+                warning, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

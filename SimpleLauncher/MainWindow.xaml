@@ -7,7 +7,8 @@
                       Title="Simple Launcher"
                       MinWidth="1050"
                       MinHeight="550"
-                      Closing="MainWindow_Closing">
+                      Closing="MainWindow_Closing"
+                      MouseWheel="MainWindow_MouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
     </Window.Resources>
@@ -607,7 +608,8 @@
             </Menu>
 
             <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
-                          Margin="0">
+                          Margin="0"
+                          MouseWheel="Scroller_MouseWheel">
                 <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0,0,5,0">
                 </WrapPanel>
             </ScrollViewer>
