@@ -479,7 +479,7 @@
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="24" Height="24" />
                     </Button>
                     <Button x:Name="NavExpertModeButton"
-                            ToolTip="{DynamicResource ExpertMode}"
+                            ToolTip="{DynamicResource EditSystem}"
                             Click="NavExpertModeButton_Click"
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/settings.png" Width="24" Height="24" />
@@ -557,6 +557,7 @@
                             Margin="10,0,0,0"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
+                            ToolTip="{DynamicResource Search}"
                             Width="40" Height="40">
                             <Image Source="pack://application:,,,/images/search3.png"
                                    Width="24"
@@ -717,6 +718,7 @@
                         Margin="0,0,0,0"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        ToolTip="{DynamicResource PreviousPage}"
                         Click="PrevPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
                            Height="24"
@@ -728,6 +730,7 @@
                         Margin="0,0,0,0"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
+                        ToolTip="{DynamicResource NextPage}"
                         Click="NextPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowright.png"
                            Height="24"
