@@ -5,8 +5,8 @@
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                       Title="Simple Launcher"
-                      MinWidth="1000"
-                      MinHeight="500"
+                      MinWidth="1050"
+                      MinHeight="550"
                       Closing="MainWindow_Closing">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
@@ -478,17 +478,11 @@
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavEasyModeButton"
-                            ToolTip="{DynamicResource EasyMode}"
-                            Click="NavEasyModeButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/easy.png" Width="24" Height="24" />
-                    </Button>
                     <Button x:Name="NavExpertModeButton"
                             ToolTip="{DynamicResource ExpertMode}"
                             Click="NavExpertModeButton_Click"
                             Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/expert.png" Width="24" Height="24" />
+                        <Image Source="pack://application:,,,/images/settings.png" Width="24" Height="24" />
                     </Button>
                     <Button x:Name="NavZoomInButton"
                             ToolTip="{DynamicResource ZoomIn}"
@@ -718,19 +712,27 @@
                         VerticalAlignment="Center"
                         Margin="0">
                 <Button x:Name="PrevPageButton"
-                        Content="{DynamicResource &lt;_Prev}"
-                        Height="30"
-                        Margin="0,0,10,0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
-                        Click="PrevPageButton_Click" />
-                <Button x:Name="NextPageButton"
-                        Content="{DynamicResource Next_&gt;}"
-                        Height="30"
+                        Height="40"
+                        Width="40"
                         Margin="0,0,0,0"
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
-                        Click="NextPageButton_Click" />
+                        Click="PrevPageButton_Click">
+                    <Image Source="pack://application:,,,/images/arrowleft.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
+                <Button x:Name="NextPageButton"
+                        Height="40"
+                        Width="40"
+                        Margin="0,0,0,0"
+                        VerticalAlignment="Center"
+                        VerticalContentAlignment="Center"
+                        Click="NextPageButton_Click">
+                    <Image Source="pack://application:,,,/images/arrowright.png"
+                           Height="24"
+                           Width="24"/>
+                </Button>
                 <Label
                     x:Name="TotalFilesLabel"
                     Margin="10,0,0,0"

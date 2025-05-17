@@ -51,6 +51,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             ResetUi();
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
@@ -68,6 +70,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             ResetUi();
 
             EditSystemWindow editSystemWindow = new(_settings);
@@ -85,6 +89,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             ResetUi();
 
             DownloadImagePackWindow downloadImagePack = new();
@@ -135,6 +141,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             SetLinksWindow editLinksWindow = new(_settings);
             editLinksWindow.ShowDialog();
 
@@ -154,6 +162,8 @@ public partial class MainWindow
 
         try
         {
+            PlayClick.PlayNotificationSound();
+
             // Update the settings
             _settings.EnableGamePadNavigation = menuItem.IsChecked;
             _settings.Save();
@@ -181,6 +191,8 @@ public partial class MainWindow
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
 
@@ -203,6 +215,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             if (sender is not MenuItem menuItem) return;
 
             try
@@ -234,6 +248,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             // Pass the current settings manager to the dialog
             var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
             setThresholdWindow.ShowDialog(); // Use ShowDialog() to make it modal
@@ -257,6 +273,8 @@ public partial class MainWindow
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         SupportWindow supportRequestWindow = new();
         supportRequestWindow.ShowDialog();
     }
@@ -265,6 +283,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             var psi = new ProcessStartInfo
             {
                 FileName = "https://www.purelogiccode.com/Donate",
@@ -285,6 +305,8 @@ public partial class MainWindow
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         AboutWindow aboutWindow = new();
         aboutWindow.ShowDialog();
     }
@@ -298,6 +320,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             UpdateShowGamesSetting("ShowAll");
             UpdateMenuCheckMarks("ShowAll");
             await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
@@ -313,6 +337,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             UpdateShowGamesSetting("ShowWithCover");
             UpdateMenuCheckMarks("ShowWithCover");
             await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
@@ -328,6 +354,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             UpdateShowGamesSetting("ShowWithoutCover");
             UpdateMenuCheckMarks("ShowWithoutCover");
             await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
@@ -356,6 +384,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             if (sender is not MenuItem clickedItem) return;
 
             var sizeText = clickedItem.Name.Replace("Size", "");
@@ -386,6 +416,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             if (sender is not MenuItem clickedItem) return;
 
             var aspectRatio = clickedItem.Name;
@@ -414,6 +446,8 @@ public partial class MainWindow
         {
             if (sender is not MenuItem clickedItem) return;
 
+            PlayClick.PlayNotificationSound();
+
             var pageText = clickedItem.Name.Replace("Page", "");
             if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
@@ -436,6 +470,8 @@ public partial class MainWindow
 
     private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ResetUi();
 
         var globalSearchWindow =
@@ -448,12 +484,16 @@ public partial class MainWindow
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         var globalStatsWindow = new GlobalStatsWindow(_systemConfigs);
         globalStatsWindow.Show();
     }
 
     private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ResetUi();
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
@@ -465,6 +505,8 @@ public partial class MainWindow
 
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ResetUi();
 
         var playHistoryWindow = new PlayTimeWindow(_systemConfigs, _machines, _settings, _favoritesManager,
@@ -524,6 +566,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             if (Equals(sender, GridView))
             {
                 GridView.IsChecked = true;
@@ -569,6 +613,8 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
+        PlayClick.PlayNotificationSound();
+
         var selectedLanguage = menuItem.Name switch
         {
             "LanguageArabic" => "ar",
@@ -605,36 +651,43 @@ public partial class MainWindow
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ResetUi();
     }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ShowGlobalSearchWindow_Click(sender, e);
     }
 
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ShowFavoritesWindow_Click(sender, e);
     }
 
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
-        ShowPlayHistoryWindow_Click(sender, e);
-    }
+        PlayClick.PlayNotificationSound();
 
-    private void NavEasyModeButton_Click(object sender, RoutedEventArgs e)
-    {
-        EasyMode_Click(sender, e);
+        ShowPlayHistoryWindow_Click(sender, e);
     }
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ExpertMode_Click(sender, e);
     }
 
     private void NavSelectedSystemFavoriteButton_Click(object sender, RoutedEventArgs e)
     {
+        PlayClick.PlayNotificationSound();
+
         ShowFavoriteGames_Click();
     }
 
@@ -642,6 +695,8 @@ public partial class MainWindow
     {
         try
         {
+            PlayClick.PlayNotificationSound();
+
             await FeelingLucky_Click(sender, e);
         }
         catch (Exception ex)
@@ -654,32 +709,52 @@ public partial class MainWindow
     {
         try
         {
-            // Define zoom step and limits
-            const int zoomStep = 50;
-            const int minSize = 50;
-            const int maxSize = 800;
+            if (_isGameListLoading) return; // If already loading, ignore this click
 
-            // Calculate new size, clamping within limits
-            var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+            _isGameListLoading = true;
+            // Disable both zoom buttons to prevent interference
+            NavZoomInButton.IsEnabled = false;
+            NavZoomOutButton.IsEnabled = false;
 
-            // Only update and reload if the size actually changed
-            if (newSize == _settings.ThumbnailSize) return;
+            try
+            {
+                PlayClick.PlayNotificationSound();
 
-            _gameButtonFactory.ImageHeight = newSize; // Update the image height in the factory
-            _settings.ThumbnailSize = newSize; // Update the setting
-            _settings.Save(); // Save the setting
+                const int zoomStep = 50;
+                const int maxSize = 800;
+                var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
 
-            // Reload the game list to apply the new size
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                if (newSize == _settings.ThumbnailSize)
+                {
+                    return; // No change in size, no need to reload
+                }
+
+                _gameButtonFactory.ImageHeight = newSize;
+                _settings.ThumbnailSize = newSize;
+                _settings.Save();
+                UpdateThumbnailSizeCheckMarks(newSize);
+
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                const string errorMessage = "Error in method NavZoomInButton_Click.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            }
+            finally
+            {
+                _isGameListLoading = false;
+                // Re-enable buttons on the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    NavZoomInButton.IsEnabled = true;
+                    NavZoomOutButton.IsEnabled = true;
+                });
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string errorMessage = "Error in method NavZoomInButton_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user (optional, as this is a UI interaction)
-            // MessageBoxLibrary.ErrorMessageBox(); // Use a generic error message if needed
+            _ = LogErrors.LogErrorAsync(ex, "Error in method NavZoomInButton_Click.");
         }
     }
 
@@ -687,32 +762,52 @@ public partial class MainWindow
     {
         try
         {
-            // Define zoom step and limits
-            const int zoomStep = 50;
-            const int minSize = 50;
-            const int maxSize = 800;
+            if (_isGameListLoading) return; // If already loading, ignore this click
 
-            // Calculate new size, clamping within limits
-            var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+            _isGameListLoading = true;
+            // Disable both zoom buttons to prevent interference
+            NavZoomOutButton.IsEnabled = false;
+            NavZoomInButton.IsEnabled = false;
 
-            // Only update and reload if the size actually changed
-            if (newSize == _settings.ThumbnailSize) return;
+            try
+            {
+                PlayClick.PlayNotificationSound();
 
-            _gameButtonFactory.ImageHeight = newSize; // Update the image height in the factory
-            _settings.ThumbnailSize = newSize; // Update the setting
-            _settings.Save(); // Save the setting
+                const int zoomStep = 50;
+                const int minSize = 50;
+                var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
 
-            // Reload the game list to apply the new size
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                if (newSize == _settings.ThumbnailSize)
+                {
+                    return; // No change in size, no need to reload
+                }
+
+                _gameButtonFactory.ImageHeight = newSize;
+                _settings.ThumbnailSize = newSize;
+                _settings.Save();
+                UpdateThumbnailSizeCheckMarks(newSize);
+
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                const string errorMessage = "Error in method NavZoomOutButton_Click.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            }
+            finally
+            {
+                _isGameListLoading = false;
+                // Re-enable buttons on the UI thread
+                Dispatcher.Invoke(() =>
+                {
+                    NavZoomOutButton.IsEnabled = true;
+                    NavZoomInButton.IsEnabled = true;
+                });
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string errorMessage = "Error in method NavZoomOutButton_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user (optional, as this is a UI interaction)
-            // MessageBoxLibrary.ErrorMessageBox(); // Use a generic error message if needed
+            _ = LogErrors.LogErrorAsync(ex, "Error in method NavZoomOutButton_Click.");
         }
     }
 }

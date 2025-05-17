@@ -34,7 +34,7 @@ public partial class FavoritesWindow
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             await LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
         };
 
@@ -74,7 +74,7 @@ public partial class FavoritesWindow
         };
         videoLinkMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenVideoLink(selectedFavorite.SystemName, fileNameWithoutExtension, _machines,
                 _settings);
         };
@@ -94,7 +94,7 @@ public partial class FavoritesWindow
         };
         infoLinkMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenInfoLink(selectedFavorite.SystemName, fileNameWithoutExtension, _machines,
                 _settings);
         };
@@ -115,7 +115,7 @@ public partial class FavoritesWindow
         };
         openHistoryMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenRomHistoryWindow(selectedFavorite.SystemName, fileNameWithoutExtension,
                 systemManager, _machines);
         };
@@ -135,7 +135,7 @@ public partial class FavoritesWindow
         };
         coverMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
 
             if (GetSystemManagerOfSelectedFavorite(selectedFavorite, out var systemManager1) == false)
             {
@@ -163,7 +163,7 @@ public partial class FavoritesWindow
         };
         titleSnapshotMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenTitleSnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -182,7 +182,7 @@ public partial class FavoritesWindow
         };
         gameplaySnapshotMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenGameplaySnapshot(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -201,7 +201,7 @@ public partial class FavoritesWindow
         };
         cartMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenCart(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -220,7 +220,7 @@ public partial class FavoritesWindow
         };
         videoMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.PlayVideo(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -239,7 +239,7 @@ public partial class FavoritesWindow
         };
         manualMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenManual(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -258,7 +258,7 @@ public partial class FavoritesWindow
         };
         walkthroughMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenWalkthrough(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -277,7 +277,7 @@ public partial class FavoritesWindow
         };
         cabinetMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenCabinet(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -296,7 +296,7 @@ public partial class FavoritesWindow
         };
         flyerMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenFlyer(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -315,7 +315,7 @@ public partial class FavoritesWindow
         };
         pcbMenuItem.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             ContextMenuFunctions.OpenPcb(selectedFavorite.SystemName, fileNameWithoutExtension);
         };
 
@@ -335,7 +335,7 @@ public partial class FavoritesWindow
 
         takeScreenshot.Click += (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
 
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
@@ -367,7 +367,7 @@ public partial class FavoritesWindow
         };
         deleteGame.Click += async (_, _) =>
         {
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
 
             await DoYouWanToDeleteMessageBox();
             return;

@@ -245,7 +245,7 @@ public class GameButtonFactory(
 
             try
             {
-                PlayClick.PlayClickSound();
+                PlayClick.PlayNotificationSound();
                 await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
             }
             finally

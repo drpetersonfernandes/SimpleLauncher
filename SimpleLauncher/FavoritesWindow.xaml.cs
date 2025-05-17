@@ -187,7 +187,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                PlayClick.PlayClickSound();
+                PlayClick.PlayNotificationSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -297,7 +297,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
         }
         catch (Exception ex)

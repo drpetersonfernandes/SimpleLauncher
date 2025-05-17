@@ -288,7 +288,7 @@ public partial class PlayTimeWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
-                PlayClick.PlayClickSound();
+                PlayClick.PlayNotificationSound();
                 await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
             }
             else
@@ -504,7 +504,7 @@ public partial class PlayTimeWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
 
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
         }
         catch (Exception ex)

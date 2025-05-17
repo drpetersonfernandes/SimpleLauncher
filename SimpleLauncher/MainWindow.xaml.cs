@@ -98,6 +98,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Define the LogPath
     private readonly string _logPath = GetLogPath.Path();
 
+    private bool _isGameListLoading;
+
     public MainWindow()
     {
         InitializeComponent();

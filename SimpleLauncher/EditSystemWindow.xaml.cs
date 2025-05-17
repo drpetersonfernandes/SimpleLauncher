@@ -1245,7 +1245,7 @@ public partial class EditSystemWindow
             UseShellExecute = true
         });
 
-        PlayClick.PlayClickSound();
+        PlayClick.PlayNotificationSound();
     }
 
     // Validate parameter fields in the UI

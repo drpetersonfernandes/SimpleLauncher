@@ -717,6 +717,9 @@
     <None Update="images\systems\ScummVM.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Update="audio\notification.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -906,6 +909,14 @@
     <Resource Include="images\zoom-in.png" />
     <None Remove="images\zoom-out.png" />
     <Resource Include="images\zoom-out.png" />
+    <None Remove="images\arrowleft.png" />
+    <Resource Include="images\arrowleft.png" />
+    <None Remove="images\arrowright.png" />
+    <None Remove="images\arrowright2.png" />
+    <None Remove="images\arrowright3.png" />
+    <Resource Include="images\arrowright.png" />
+    <None Remove="images\settings.png" />
+    <Resource Include="images\settings.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

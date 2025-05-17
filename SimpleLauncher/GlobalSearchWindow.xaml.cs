@@ -308,7 +308,7 @@ public partial class GlobalSearchWindow
         {
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
             {
-                PlayClick.PlayClickSound();
+                PlayClick.PlayNotificationSound();
                 LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
             }
             else
@@ -361,7 +361,7 @@ public partial class GlobalSearchWindow
         {
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
 
-            PlayClick.PlayClickSound();
+            PlayClick.PlayNotificationSound();
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         }
         catch (Exception ex)
