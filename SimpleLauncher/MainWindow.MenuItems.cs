@@ -602,4 +602,34 @@ public partial class MainWindow
 
         QuitApplication.RestartApplication();
     }
+
+    private void NavRestartButton_Click(object sender, RoutedEventArgs e)
+    {
+        ResetUi();
+    }
+
+    private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowGlobalSearchWindow_Click(sender, e);
+    }
+
+    private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowFavoritesWindow_Click(sender, e);
+    }
+
+    private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowPlayHistoryWindow_Click(sender, e);
+    }
+
+    private void NavEasyModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        EasyMode_Click(sender, e);
+    }
+
+    private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
+    {
+        ExpertMode_Click(sender, e);
+    }
 }

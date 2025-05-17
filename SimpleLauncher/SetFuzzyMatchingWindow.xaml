@@ -6,7 +6,8 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Title="{DynamicResource SetFuzzyMatchingThresholdTitle}"
-                      Height="200" Width="350"
+                      Height="200"
+                      Width="350"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="15">

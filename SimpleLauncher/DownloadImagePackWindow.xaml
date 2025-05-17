@@ -5,8 +5,8 @@
                       Title="{DynamicResource DownloadImagePack}"
                       Width="650"
                       MinWidth="550"
-                      Height="540"
-                      MinHeight="540"
+                      Height="600"
+                      MinHeight="500"
                       WindowStartupLocation="CenterScreen">
 
     <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">

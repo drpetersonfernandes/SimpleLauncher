@@ -906,41 +906,4 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }
-
-    private void NavRestartButton_Click(object sender, RoutedEventArgs e)
-    {
-        // It's good practice to save settings before restarting, similar to ChangeLanguage_Click
-        SaveApplicationSettings();
-        QuitApplication.RestartApplication();
-    }
-
-    private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
-    {
-        // This method already exists and is used by a MenuItem
-        ShowGlobalSearchWindow_Click(sender, e);
-    }
-
-    private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
-    {
-        // This method already exists and is used by a MenuItem
-        ShowFavoritesWindow_Click(sender, e);
-    }
-
-    private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
-    {
-        // This method already exists and is used by a MenuItem
-        ShowPlayHistoryWindow_Click(sender, e);
-    }
-
-    private void NavSupportButton_Click(object sender, RoutedEventArgs e)
-    {
-        // This method already exists and is used by a MenuItem
-        Support_Click(sender, e);
-    }
-
-    private void NavExitButton_Click(object sender, RoutedEventArgs e)
-    {
-        // This method already exists (calls Close()) and is used by a MenuItem
-        Exit_Click(sender, e);
-    }
 }

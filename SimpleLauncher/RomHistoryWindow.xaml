@@ -3,8 +3,8 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource RomHistory}"
-                      Width="900"
-                      Height="550"
+                      Width="1000"
+                      Height="600"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">

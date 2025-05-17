@@ -3,7 +3,7 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="{DynamicResource Support}"
-                      Width="500"
+                      Width="600"
                       Height="450"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
