@@ -632,4 +632,87 @@ public partial class MainWindow
     {
         ExpertMode_Click(sender, e);
     }
+
+    private void NavSelectedSystemFavoriteButton_Click(object sender, RoutedEventArgs e)
+    {
+        ShowFavoriteGames_Click();
+    }
+
+    private async void NavFuzzyImageMatching_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await FeelingLucky_Click(sender, e);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavFuzzyImageMatching_Click.");
+        }
+    }
+
+    private async void NavZoomInButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Define zoom step and limits
+            const int zoomStep = 50;
+            const int minSize = 50;
+            const int maxSize = 800;
+
+            // Calculate new size, clamping within limits
+            var newSize = Math.Min(maxSize, _settings.ThumbnailSize + zoomStep);
+
+            // Only update and reload if the size actually changed
+            if (newSize == _settings.ThumbnailSize) return;
+
+            _gameButtonFactory.ImageHeight = newSize; // Update the image height in the factory
+            _settings.ThumbnailSize = newSize; // Update the setting
+            _settings.Save(); // Save the setting
+
+            // Reload the game list to apply the new size
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string errorMessage = "Error in method NavZoomInButton_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user (optional, as this is a UI interaction)
+            // MessageBoxLibrary.ErrorMessageBox(); // Use a generic error message if needed
+        }
+    }
+
+    private async void NavZoomOutButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Define zoom step and limits
+            const int zoomStep = 50;
+            const int minSize = 50;
+            const int maxSize = 800;
+
+            // Calculate new size, clamping within limits
+            var newSize = Math.Max(minSize, _settings.ThumbnailSize - zoomStep);
+
+            // Only update and reload if the size actually changed
+            if (newSize == _settings.ThumbnailSize) return;
+
+            _gameButtonFactory.ImageHeight = newSize; // Update the image height in the factory
+            _settings.ThumbnailSize = newSize; // Update the setting
+            _settings.Save(); // Save the setting
+
+            // Reload the game list to apply the new size
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string errorMessage = "Error in method NavZoomOutButton_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user (optional, as this is a UI interaction)
+            // MessageBoxLibrary.ErrorMessageBox(); // Use a generic error message if needed
+        }
+    }
 }

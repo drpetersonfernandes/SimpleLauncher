@@ -21,8 +21,8 @@ public class FilterMenu
         InitializeAllButton();
         InitializeNumberButton();
         InitializeLetterButtons();
-        InitializeFavoritesButton();
-        InitializeDiceButton();
+        // InitializeFavoritesButton();
+        // InitializeDiceButton();
     }
 
     private void InitializeNumberButton()

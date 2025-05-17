@@ -82,7 +82,7 @@ public partial class MainWindow
                 Tag = config.SystemName,
                 Width = _settings.ThumbnailSize * 1.3 * 1.6 + 20,
                 Height = _settings.ThumbnailSize * 1.3 + 40 + 20, // +40 for text, +20 for padding
-                Margin = new Thickness(10),
+                Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
             systemButton.Click += SystemButton_Click;

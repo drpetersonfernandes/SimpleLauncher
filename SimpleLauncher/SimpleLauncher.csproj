@@ -900,6 +900,12 @@
     <Resource Include="images\reset.png" />
     <None Remove="images\search2.png" />
     <Resource Include="images\search2.png" />
+    <None Remove="images\search3.png" />
+    <Resource Include="images\search3.png" />
+    <None Remove="images\zoom-in.png" />
+    <Resource Include="images\zoom-in.png" />
+    <None Remove="images\zoom-out.png" />
+    <Resource Include="images\zoom-out.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />
