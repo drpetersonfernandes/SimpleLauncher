@@ -2487,6 +2487,41 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Sony PlayStation 4</SystemName>
+        <SystemFolder>.\roms\Sony PlayStation 4</SystemFolder>
+        <SystemImageFolder>.\images\Sony PlayStation 4</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bin, elf, oelf</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>shadPS4</EmulatorName>
+                <EmulatorLocation/>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/shadps4-emu/shadPS4</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.8.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/shadps4-emu/shadPS4/releases/download/v.0.8.0/shadps4-win64-qt-0.8.0.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>.\emulators\shadPS4\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink/>
+                <ImagePackDownloadExtractPath/>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Sony PSP</SystemName>
         <SystemFolder>.\roms\Sony PSP</SystemFolder>
         <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
