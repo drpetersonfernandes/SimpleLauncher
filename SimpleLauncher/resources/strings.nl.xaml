@@ -1,7 +1,26 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt; Vorige</system:String>
+
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' kon de downloadlink niet openen.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' kon geen screenshot maken.</system:String>
+    <system:String x:Key="CheckFilePermissions">Controleer de bestandsmachtigingen en zorg ervoor dat het bestand niet vergrendeld is.</system:String>
+    <system:String x:Key="FailedToSaveSystem">Systeemconfiguratie kan niet worden opgeslagen.</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Controleer de integriteit van de emulator en de afhankelijkheden.</system:String>
+    <system:String x:Key="Pleasefixthat">Los dit alsjeblieft op.</system:String>
+    <system:String x:Key="Emulatornameisrequired">Emulatornaam is vereist.</system:String>
+    <system:String x:Key="ErrorDetails">Details:</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Het imagepakket is succesvol naar de map geëxtraheerd</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Je kunt dit soort foutmeldingen uitschakelen in de Expertmodus.</system:String>
+    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">Selecteer een systeem om de favorieten te zien.</system:String>
+    <system:String x:Key="Filteringpleasewait">Filteren, even geduld aub...</system:String>
+    <system:String x:Key="NextPage">Volgende pagina</system:String>
+    <system:String x:Key="PreviousPage">Vorige pagina</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">Systeemfavorieten</system:String>
+    <system:String x:Key="ZoomOut">Uitzoomen</system:String>
+    <system:String x:Key="ZoomIn">Inzoomen</system:String>
+    <system:String x:Key="Restart">Opnieuw starten</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">Geen systemen geconfigureerd. Gebruik het menu 'Systeem bewerken' om systemen toe te voegen.</system:String>
     <system:String x:Key="100games">100 spellen</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -33,7 +52,6 @@
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
     <system:String x:Key="Alert">Waarschuwing</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">Controleer ook de integriteit van de emulator en de afhankelijkheden ervan.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Zorg er ook voor dat u de emulator aanroept met de juiste parameters.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Er is een fout opgetreden bij het toevoegen van dit spel aan de favorieten.</system:String>
@@ -264,7 +282,6 @@
     <system:String x:Key="IssuesWithEmulator">Er zijn problemen met de emulatorconfiguratie:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">Er zijn ook mappen gemaakt voor:</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beperkte map (bijv. Program Files), waar het geen schrijftoegang heeft.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Het heeft schrijftoegang tot zijn map nodig.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Andere extensies worden niet geaccepteerd.</system:String>
@@ -293,9 +310,7 @@
     <system:String x:Key="Name">Naam</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
     <system:String x:Key="NewThresholdLabel">Nieuwe drempel:</system:String>
-    <system:String x:Key="Next_&gt;">Volgende &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Geen favoriete spellen gevonden voor het geselecteerde systeem.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Geen games gevonden om willekeurig uit te selecteren. Controleer uw systeemkeuze.</system:String>
     <system:String x:Key="nogamesmatched">Helaas, er zijn geen spellen die overeenkomen met uw zoekopdracht of geselecteerde knop.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Het bestand 'history.xml' is niet gevonden in de applicatiemap.</system:String>
@@ -303,7 +318,6 @@
     <system:String x:Key="Noresultsfound">Geen resultaten gevonden.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Geen ROM-geschiedenis gevonden in de lokale database voor het geselecteerde bestand.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Geen statistieken beschikbaar om op te slaan. Wacht tot de gegevens zijn geladen.</system:String>
-    <system:String x:Key="NoSystemMessage">Selecteer een systeem</system:String>
     <system:String x:Key="Nosystemnameprovided">Geen systeemnaam opgegeven.</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Onvoldoende schijfruimte voor extractie.</system:String>
@@ -419,7 +433,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' kan niet goed functioneren zonder dit bestand.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
@@ -453,7 +466,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">De 'Systeem afbeelding-map' mag niet leeg zijn of alleen spaties bevatten.</system:String>
     <system:String x:Key="SystemImageFolderOptional">Afbeeldingsmap van systeem (optioneel)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">Het afbeeldingsmap-pad van het systeem is ongeldig of bestaat niet:</system:String>
-    <system:String x:Key="systemmodelxmlismissing">Het bestand 'system_model.xml' ontbreekt.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">De 'Systeemnaam' mag niet leeg zijn of alleen spaties bevatten.</system:String>
     <system:String x:Key="SystemNameRequired">Systeemnaam (verplicht)</system:String>
     <system:String x:Key="SystemNotFound">Systeem Niet Gevonden</system:String>
@@ -471,7 +483,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">De bug is gemeld aan de ontwikkelaar en zal worden verholpen.</system:String>
     <system:String x:Key="Thecurrentversionis">De huidige versie is</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">In plaats daarvan wordt de standaardafbeelding weergegeven.</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">De download en extractie zijn succesvol uitgevoerd.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is gerapporteerd aan de ontwikkelaar die zal proberen het probleem op te lossen.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">De favoriet is verwijderd uit de lijst.</system:String>

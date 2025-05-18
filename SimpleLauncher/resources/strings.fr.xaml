@@ -1,7 +1,26 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt; Précédent</system:String>
+
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' n'a pas pu ouvrir le lien de téléchargement.</system:String>
+<system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' n'a pas pu prendre la capture d'écran.</system:String>
+<system:String x:Key="CheckFilePermissions">Veuillez vérifier les permissions du fichier et assurez-vous que le fichier n'est pas verrouillé.</system:String>
+<system:String x:Key="FailedToSaveSystem">Échec de la sauvegarde de la configuration système.</system:String>
+<system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Vérifiez l'intégrité de l'émulateur et de ses dépendances.</system:String>
+<system:String x:Key="Pleasefixthat">Veuillez corriger cela.</system:String>
+<system:String x:Key="Emulatornameisrequired">Le nom de l'émulateur est requis.</system:String>
+<system:String x:Key="ErrorDetails">Détails :</system:String>
+<system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Le pack d'images a été extrait avec succès dans le dossier</system:String>
+<system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Vous pouvez désactiver ce type de message d'erreur en mode Expert.</system:String>
+<system:String x:Key="Pleaseselectedasystemtoseethefavorites">Veuillez sélectionner un système pour voir les favoris.</system:String>
+<system:String x:Key="Filteringpleasewait">Filtrage en cours, veuillez patienter...</system:String>
+<system:String x:Key="NextPage">Page suivante</system:String>
+<system:String x:Key="PreviousPage">Page précédente</system:String>
+<system:String x:Key="SelectedSystemFavoriteButton">Favoris du système</system:String>
+<system:String x:Key="ZoomOut">Dézoomer</system:String>
+<system:String x:Key="ZoomIn">Zoomer</system:String>
+<system:String x:Key="Restart">Redémarrer</system:String>
+<system:String x:Key="NoSystemsConfiguredMessage">Aucun système configuré. Veuillez utiliser le menu « Modifier le système » pour ajouter des systèmes.</system:String>
     <system:String x:Key="100games">100 jeux</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -33,7 +52,6 @@
     <system:String x:Key="AddSystem">Ajouter un système</system:String>
     <system:String x:Key="AddToFavorites">Ajouter aux favoris</system:String>
     <system:String x:Key="Alert">Alerte</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">Vérifiez également l'intégrité de l'émulateur et de ses dépendances.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Assurez-vous également que vous appelez l'émulateur avec le paramètre correct.</system:String>
     <system:String x:Key="Amber">Ambre</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">Une erreur est survenue lors de l'ajout de ce jeu aux favoris.</system:String>
@@ -264,7 +282,6 @@
     <system:String x:Key="IssuesWithEmulator">Il y a des problèmes avec la configuration de l'émulateur :</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Le système est-il basé sur MAME ?</system:String>
     <system:String x:Key="isusedmultipletimes">est utilisé plusieurs fois. Chaque nom d'émulateur doit être unique.</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">Il a également créé des dossiers pour</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Il semble que 'Simple Launcher' soit installé dans un dossier restreint (par exemple, Program Files), où il n'a pas les droits d'écriture.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">Il a besoin d'un accès en écriture à son dossier.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">Il n'acceptera pas d'autres extensions.</system:String>
@@ -293,9 +310,7 @@
     <system:String x:Key="Name">Nom</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">est requis car des données associées ont été fournies.</system:String>
     <system:String x:Key="NewThresholdLabel">Nouveau seuil :</system:String>
-    <system:String x:Key="Next_&gt;">Suivant &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">Aucun détail disponible pour</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">Aucun jeu favori trouvé pour le système sélectionné.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Aucun jeu trouvé pour une sélection aléatoire. Veuillez vérifier votre sélection de système.</system:String>
     <system:String x:Key="nogamesmatched">Malheureusement, aucun jeu ne correspond à votre recherche ou bouton sélectionné.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">Le fichier 'history.xml' est introuvable dans le dossier de l'application.</system:String>
@@ -303,7 +318,6 @@
     <system:String x:Key="Noresultsfound">Aucun résultat trouvé.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Aucun historique de ROM trouvé dans la base de données locale pour le fichier sélectionné.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Aucune statistique à enregistrer. Veuillez attendre que les données soient chargées.</system:String>
-    <system:String x:Key="NoSystemMessage">Veuillez sélectionner un système</system:String>
     <system:String x:Key="Nosystemnameprovided">Aucun nom de système fourni.</system:String>
     <system:String x:Key="Nosystemselected">Aucun système sélectionné</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Espace disque insuffisant pour l'extraction.</system:String>
@@ -419,7 +433,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Afficher uniquement les jeux avec couverture</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Afficher uniquement les jeux sans couverture</system:String>
     <system:String x:Key="Sienna">Terre de Sienne</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' ne peut pas fonctionner correctement sans ce fichier.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' n'a pas pu vérifier l'espace disque pour le chemin spécifié. Veuillez vérifier le chemin et réessayer.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' n'a pas pu lancer le jeu sélectionné.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
@@ -453,7 +466,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">Le 'Dossier d'images système' ne peut pas être vide ou contenir uniquement des espaces.</system:String>
     <system:String x:Key="SystemImageFolderOptional">Dossier d'images du système (facultatif)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">Le chemin du dossier des images système n'est pas valide ou n'existe pas :</system:String>
-    <system:String x:Key="systemmodelxmlismissing">Le fichier 'system_model.xml' est manquant.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">Le 'Nom du système' ne peut pas être vide ou contenir uniquement des espaces.</system:String>
     <system:String x:Key="SystemNameRequired">Nom du système (obligatoire)</system:String>
     <system:String x:Key="SystemNotFound">Système Non Trouvé</system:String>
@@ -471,7 +483,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">Le bogue a été signalé au développeur qui essaiera de le corriger.</system:String>
     <system:String x:Key="Thecurrentversionis">La version actuelle est</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">L'image par défaut sera affichée à la place.</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">Le téléchargement et l'extraction ont réussi.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">L'émulateur n'a pas pu ouvrir le jeu avec les paramètres fournis.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">L'erreur a été signalée au développeur qui tentera de résoudre le problème.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Le favori a été supprimé de la liste.</system:String>

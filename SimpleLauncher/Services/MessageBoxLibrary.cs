@@ -4626,7 +4626,7 @@ public static class MessageBoxLibrary
     internal static void CouldNotTakeScreenshotMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
-        var couldnottakethescreenshot = (string)Application.Current.TryFindResource("Couldnottakethescreenshot") ?? "Could not take the screenshot.";
+        var simpleLaunchercouldnottakethescreenshot = (string)Application.Current.TryFindResource("SimpleLaunchercouldnottakethescreenshot") ?? "'Simple Launcher' could not take the screenshot.";
         var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
@@ -4639,7 +4639,7 @@ public static class MessageBoxLibrary
         void ShowMsg()
         {
             MessageBox.Show(
-                $"{couldnottakethescreenshot}\n\n" +
+                $"{simpleLaunchercouldnottakethescreenshot}\n\n" +
                 $"{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
         }

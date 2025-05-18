@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt; السابق</system:String>
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
@@ -33,7 +32,6 @@
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
     <system:String x:Key="Alert">تنبيه</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">أيضًا، تحقق من سلامة المحاكي واعتمادياته.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">أيضًا، تأكد من أنك تستدعي المحاكي بالمعامل الصحيح.</system:String>
     <system:String x:Key="Amber">كهرماني</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">حدث خطأ أثناء إضافة هذه اللعبة إلى المفضلات.</system:String>
@@ -264,7 +262,6 @@
     <system:String x:Key="IssuesWithEmulator">هناك مشاكل في تهيئة المحاكي:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">كما قام بإنشاء مجلدات لـ</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحية الكتابة.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">يحتاج إلى صلاحية الكتابة في مجلده.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">لن يقبل الامتدادات الأخرى.</system:String>
@@ -293,9 +290,7 @@
     <system:String x:Key="Name">الاسم</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
     <system:String x:Key="NewThresholdLabel">العتبة الجديدة:</system:String>
-    <system:String x:Key="Next_&gt;">التالي &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">لم يتم العثور على ألعاب مفضلة للنظام المحدد.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">لم يتم العثور على ألعاب للاختيار العشوائي منها. يرجى التحقق من اختيار النظام.</system:String>
     <system:String x:Key="nogamesmatched">للأسف، لم تطابق أي ألعاب استعلام البحث الخاص بك أو الزر المحدد.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">لم يتم العثور على ملف 'history.xml' في مجلد التطبيق.</system:String>
@@ -303,7 +298,6 @@
     <system:String x:Key="Noresultsfound">لم يتم العثور على نتائج.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">لم يتم العثور على تاريخ روم في قاعدة البيانات المحلية للملف المحدد.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">لا توجد إحصائيات للحفظ. يرجى الانتظار حتى يتم تحميل البيانات.</system:String>
-    <system:String x:Key="NoSystemMessage">يرجى اختيار نظام</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
@@ -419,7 +413,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' لا يمكن أن يعمل بشكل صحيح بدون هذا الملف.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
@@ -453,7 +446,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">'مجلد صور النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
     <system:String x:Key="SystemImageFolderOptional">مجلد صور النظام (اختياري)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">مسار مجلد صور النظام غير صالح أو غير موجود:</system:String>
-    <system:String x:Key="systemmodelxmlismissing">'system_model.xml' مفقود.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'اسم النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
     <system:String x:Key="SystemNameRequired">اسم النظام (مطلوب)</system:String>
     <system:String x:Key="SystemNotFound">لم يتم العثور على النظام</system:String>
@@ -471,7 +463,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
     <system:String x:Key="Thecurrentversionis">الإصدار الحالي هو</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">سيتم عرض الصورة الافتراضية بدلاً من ذلك.</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">تم التحميل والاستخراج بنجاح.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">تمت إزالة المفضلة من القائمة.</system:String>
@@ -594,4 +585,23 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
 
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' لم يتمكن من التقاط لقطة الشاشة.</system:String>
+    <system:String x:Key="CheckFilePermissions">يرجى التحقق من أذونات الملف والتأكد من أن الملف غير مقفل.</system:String>
+    <system:String x:Key="FailedToSaveSystem">فشل في حفظ إعدادات النظام.</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">تحقق من سلامة المحاكي واعتماديته.</system:String>
+    <system:String x:Key="Pleasefixthat">يرجى إصلاح ذلك.</system:String>
+    <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
+    <system:String x:Key="ErrorDetails">التفاصيل:</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">تم استخراج حزمة الصور بنجاح داخل المجلد</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">يمكنك إيقاف تشغيل هذا النوع من رسائل الخطأ في وضع الخبير.</system:String>
+    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">يرجى اختيار نظام لرؤية المفضلات.</system:String>
+    <system:String x:Key="Filteringpleasewait">جاري التصفية، يرجى الانتظار...</system:String>
+    <system:String x:Key="NextPage">الصفحة التالية</system:String>
+    <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">مفضلات النظام</system:String>
+    <system:String x:Key="ZoomOut">تصغير</system:String>
+    <system:String x:Key="ZoomIn">تكبير</system:String>
+    <system:String x:Key="Restart">إعادة التشغيل</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة "تحرير النظام" لإضافة أنظمة.</system:String>
 </ResourceDictionary>

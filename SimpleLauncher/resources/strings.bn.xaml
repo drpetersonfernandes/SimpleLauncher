@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt;পূর্ববর্তী</system:String>
     <system:String x:Key="100games">১০০ গেম</system:String>
     <system:String x:Key="100pixels">১০০ পিক্সেল</system:String>
     <system:String x:Key="150pixels">১৫০ পিক্সেল</system:String>
@@ -33,7 +32,6 @@
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
     <system:String x:Key="Alert">সতর্কতা</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">এছাড়াও, এমুলেটর এবং এর নির্ভরশীলতাগুলির অখণ্ডতা পরীক্ষা করুন।</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">এছাড়াও, নিশ্চিত করুন যে আপনি সঠিক প্যারামিটার সহ এমুলেটরটি কল করছেন।</system:String>
     <system:String x:Key="Amber">হলুদাভ</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">এই গেমটি ফেভারিটে যোগ করার সময় একটি ত্রুটি ঘটেছে।</system:String>
@@ -264,7 +262,6 @@
     <system:String x:Key="IssuesWithEmulator">এমুলেটর কনফিগারেশনে সমস্যা আছে:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">সিস্টেমটি কি MAME ভিত্তিক?</system:String>
     <system:String x:Key="isusedmultipletimes">ইতিমধ্যে একাধিকবার ব্যবহৃত হয়েছে। প্রতিটি ইমুলেটর নাম আলাদা হতে হবে।</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">এছাড়াও এটি ফোল্ডার তৈরি করেছে</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">মনে হচ্ছে 'Simple Launcher' একটি সীমাবদ্ধ ফোল্ডারে (যেমন Program Files) ইনস্টল করা আছে, যেখানে এটির লেখার অনুমতি নেই।</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">এটির ফোল্ডারে লেখার অনুমতি প্রয়োজন।</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">এটি অন্যান্য এক্সটেনশন গ্রহণ করবে না।</system:String>
@@ -293,9 +290,7 @@
     <system:String x:Key="Name">নাম</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">নাম প্রয়োজন কারণ সম্পর্কিত ডেটা প্রদান করা হয়েছে।</system:String>
     <system:String x:Key="NewThresholdLabel">নতুন থ্রেশহোল্ড:</system:String>
-    <system:String x:Key="Next_&gt;">পরবর্তী&gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">এর জন্য কোনো বিবরণ উপলব্ধ নেই</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">নির্বাচিত সিস্টেমের জন্য কোনো প্রিয় গেম পাওয়া যায়নি</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">কোনো গেম পাওয়া যায়নি যেগুলোর মধ্য থেকে এলোমেলোভাবে নির্বাচন করা যায়। অনুগ্রহ করে আপনার সিস্টেম নির্বাচন পরীক্ষা করুন।</system:String>
     <system:String x:Key="nogamesmatched">দুঃখিত, আপনার অনুসন্ধান বা নির্বাচিত বোতামে কোনো গেম মেলেনি</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">অ্যাপ্লিকেশন ফোল্ডারে 'history.xml' ফাইল পাওয়া যায়নি।</system:String>
@@ -303,7 +298,6 @@
     <system:String x:Key="Noresultsfound">ফলাফল পাওয়া যায়নি।</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">স্থানীয় ডাটাবেস খালি।</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">পরিসংখ্যান সংরক্ষণের জন্য নয়।</system:String>
-    <system:String x:Key="NoSystemMessage">অনুগ্রহ করে একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="Nosystemnameprovided">কোনও সিস্টেম নাম পাওয়া যায়নি।</system:String>
     <system:String x:Key="Nosystemselected">কোনো সিস্টেম নির্বাচিত হয়নি</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">নিষ্কাশনের জন্য পর্যাপ্ত ডিস্ক স্পেস নেই।</system:String>
@@ -419,7 +413,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">শুধুমাত্র প্রচ্ছদ সহ গেম দেখান</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">শুধুমাত্র প্রচ্ছদ ছাড়া গেম দেখান</system:String>
     <system:String x:Key="Sienna">গাঢ় তামাটে</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' এই ফাইলটি ছাড়া সঠিকভাবে কাজ করতে পারে না।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' নির্দিষ্ট পাথের জন্য ডিস্ক স্পেস পরীক্ষা করতে পারেনি। অনুগ্রহ করে পাথটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' এই গেমটি চালু করতে পারেনি।</system:String>
@@ -453,7 +446,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">‘সিস্টেম ইমেজ ফোল্ডার’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>
     <system:String x:Key="SystemImageFolderOptional">সিস্টেম ইমেজ ফোল্ডার (ঐচ্ছিক)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">সিস্টেম চিত্র ফোল্ডার পাথটি বৈধ নয় বা নেই:</system:String>
-    <system:String x:Key="systemmodelxmlismissing">'system_model.xml' অনুপস্থিত।</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">‘সিস্টেম নাম’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>
     <system:String x:Key="SystemNameRequired">সিস্টেমের নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="SystemNotFound">সিস্টেম পাওয়া যায়নি</system:String>
@@ -471,7 +463,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">বাগটি ডেভেলপারকে রিপোর্ট করা হয়েছে যিনি সমস্যাটি ঠিক করার চেষ্টা করবেন।</system:String>
     <system:String x:Key="Thecurrentversionis">বর্তমান সংস্করণ।</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">এর পরিবর্তে ডিফল্ট ইমেজ প্রদর্শিত হবে।</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">ডাউনলোড এবং এক্সট্র্যাকশন সফল হয়েছে।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ঠিক সরবরাহকৃত প্যারামিটারগুলির সাথে এমুলেটর গেমটি খুলতে পারেনি।</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">ডেভেলপারকে সমস্যা রিপোর্ট করা হয়েছে, যিনি সমস্যা সমাধানের চেষ্টা করবেন।</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">ফেভারিট তালিকা থেকে মুছে ফেলা হয়েছে।</system:String>
@@ -595,4 +586,23 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
 
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ডাউনলোড লিঙ্ক খুলতে পারেনি।</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' স্ক্রিনশট নিতে পারেনি।</system:String>
+    <system:String x:Key="CheckFilePermissions">অনুগ্রহ করে ফাইল অনুমতিগুলো পরীক্ষা করুন এবং নিশ্চিত করুন ফাইলটি লকড নয়।</system:String>
+    <system:String x:Key="FailedToSaveSystem">সিস্টেম কনফিগারেশন সংরক্ষণ করতে ব্যর্থ।</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">এমুলেটার এবং এর নির্ভরতাগুলোর অখণ্ডতা পরীক্ষা করুন।</system:String>
+    <system:String x:Key="Pleasefixthat">অনুগ্রহ করে এটি ঠিক করুন।</system:String>
+    <system:String x:Key="Emulatornameisrequired">এমুলেটারের নাম প্রয়োজন।</system:String>
+    <system:String x:Key="ErrorDetails">বিস্তারিত:</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">ইমেজ প্যাক সফলভাবে ফোল্ডারে বের করা হয়েছে</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">আপনি এক্সপার্ট মোডে এই ধরনের এরর মেসেজ বন্ধ করতে পারেন।</system:String>
+    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">পছন্দের দেখতে একটি সিস্টেম নির্বাচন করুন।</system:String>
+    <system:String x:Key="Filteringpleasewait">ফিল্টারিং চলছে, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
+    <system:String x:Key="NextPage">পরবর্তী পাতা</system:String>
+    <system:String x:Key="PreviousPage">পূর্ববর্তী পাতা</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">সিস্টেম পছন্দসমূহ</system:String>
+    <system:String x:Key="ZoomOut">জুম আউট</system:String>
+    <system:String x:Key="ZoomIn">জুম ইন</system:String>
+    <system:String x:Key="Restart">রিস্টার্ট</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">কোন সিস্টেম কনফিগার করা হয়নি। সিস্টেম যোগ করার জন্য 'এডিট সিস্টেম' মেনু ব্যবহার করুন।</system:String>
 </ResourceDictionary>

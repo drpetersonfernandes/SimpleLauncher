@@ -1,7 +1,26 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt; پچھلا</system:String>
+
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ڈاؤن لوڈ لنک نہیں کھول سکا۔</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' اسکرین شاٹ نہیں لے سکا۔</system:String>
+    <system:String x:Key="CheckFilePermissions">براہ کرم فائل اجازت نامے چیک کریں اور یقینی بنائیں کہ فائل لاک نہیں ہے۔</system:String>
+    <system:String x:Key="FailedToSaveSystem">سسٹم کی تشکیل محفوظ کرنے میں ناکامی۔</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">ایمولیٹر اور اس کی انحصار کی سالمیت چیک کریں۔</system:String>
+    <system:String x:Key="Pleasefixthat">براہ کرم اسے درست کریں۔</system:String>
+    <system:String x:Key="Emulatornameisrequired">ایمولیٹر کا نام ضروری ہے۔</system:String>
+    <system:String x:Key="ErrorDetails">تفصیلات:</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">امیج پیک کامیابی کے ساتھ فولڈر میں نکال دیا گیا</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">آپ ماہر موڈ میں اس قسم کے خرابی پیغام کو بند کر سکتے ہیں۔</system:String>
+    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">براہ کرم پسندیدہ دیکھنے کے لئے سسٹم منتخب کریں۔</system:String>
+    <system:String x:Key="Filteringpleasewait">فلٹرنگ ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
+    <system:String x:Key="NextPage">اگلا صفحہ</system:String>
+    <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">سسٹم پسندیدہ</system:String>
+    <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
+    <system:String x:Key="ZoomIn">زوم ان</system:String>
+    <system:String x:Key="Restart">دوبارہ شروع کریں</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">کوئی سسٹمز ترتیب نہیں دیے گئے۔ سسٹمز شامل کرنے کے لیے 'سسٹم ترمیم کریں' مینو استعمال کریں۔</system:String>
     <system:String x:Key="100games">100 کھیل</system:String>
     <system:String x:Key="100pixels">100 پکسلز</system:String>
     <system:String x:Key="150pixels">150 پکسلز</system:String>
@@ -33,7 +52,6 @@
     <system:String x:Key="AddSystem">سسٹم شامل کریں</system:String>
     <system:String x:Key="AddToFavorites">پسندیدہ میں شامل کریں</system:String>
     <system:String x:Key="Alert">خبردار۔</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">یہ بھی چیک کریں کہ ایمولیٹر اور اس کے ڈیپینڈنسیز درست حالت میں ہیں۔</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">یہ بھی یقینی بنائیں کہ آپ ایمولیشن کو درست پیرامیٹرز کے ساتھ بلا رہے ہیں۔</system:String>
     <system:String x:Key="Amber">عنبر</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">اس گیم کو فیوورٹس میں شامل کرنے میں ایرر آیا ہے۔</system:String>
@@ -264,7 +282,6 @@
     <system:String x:Key="IssuesWithEmulator">ایمولیٹر کنفیگریشن میں مسائل ہیں:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">یہ فولڈر بھی بنائے گئے ہیں:۔</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ایسا لگتا ہے کہ 'Simple Launcher' ایک محدود فولڈر (مثلاً Program Files) میں انسٹال ہے، جہاں اسے لکھنے کی رسائی نہیں ہے۔</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">اسے اپنے فولڈر میں لکھنے کی رسائی درکار ہے۔</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">دیگر ایکسٹینشن قبول نہیں ہوں گے۔</system:String>
@@ -293,9 +310,7 @@
     <system:String x:Key="Name">نام</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">نام ضروری ہے کیونکہ متعلقہ ڈیٹا فراہم کیا گیا ہے۔</system:String>
     <system:String x:Key="NewThresholdLabel">نئی حد:</system:String>
-    <system:String x:Key="Next_&gt;">اگلا &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">کے لئے تفصیلات دستیاب نہیں ہیں</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">منتخب شدہ سسٹم کے لیے کوئی پسندیدہ گیم نہیں ملا۔</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">تصادفی انتخاب کے لیے کوئی کھیل نہیں ملا۔ براہ کرم اپنے نظام کے انتخاب کی جانچ کریں۔</system:String>
     <system:String x:Key="nogamesmatched">بدقسمتی سے، آپکی تلاش یا منتخب کردہ بٹن سے کوئی گیمز مطابقت نہیں رکھتی۔</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">'history.xml' فائل ایپلیکیشن فولڈر میں موجود نہیں ہے۔</system:String>
@@ -303,7 +318,6 @@
     <system:String x:Key="Noresultsfound">کوئی نتائج نہیں ملے۔</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">منتخب کردہ فائل کے لیے مقامی ڈیٹا بیس میں ROM کی تاریخ نہیں ملی۔</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">محفوظ کرنے کے لیے کوئی اعداد و شمار دستیاب نہیں۔ براہ کرم ڈیٹا لوڈ ہونے تک انتظار کریں۔</system:String>
-    <system:String x:Key="NoSystemMessage">براہ کرم ایک نظام منتخب کریں</system:String>
     <system:String x:Key="Nosystemnameprovided">کوئی سسٹم کا نام فراہم نہیں کیا گیا۔</system:String>
     <system:String x:Key="Nosystemselected">کوئی سسٹم منتخب نہیں ہوا</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">نکالنے کے لیے کافی ڈسک کی جگہ نہیں۔</system:String>
@@ -419,7 +433,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">صرف کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">صرف بغیر کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="Sienna">سیانا</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' اس فائل کے بغیر درست طور پر کام نہیں کر سکتا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' مخصوص راستے کے لیے ڈسک کی جگہ کی جانچ نہیں کر سکا۔ براہ کرم راستے کی جانچ کریں اور دوبارہ کوشش کریں۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' منتخب کردہ گیم لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'سمپل لانچر' اس گیم کو لانچ نہیں کر سکا۔</system:String>
@@ -453,7 +466,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">سسٹم امیج فولڈر خالی نہیں ہو سکتا۔</system:String>
     <system:String x:Key="SystemImageFolderOptional">سسٹم امیج فولڈر (اختیاری)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">سسٹم امیج فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:</system:String>
-    <system:String x:Key="systemmodelxmlismissing">'system_model.xml' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">سسٹم کا نام خالی نہیں ہو سکتا۔</system:String>
     <system:String x:Key="SystemNameRequired">سسٹم کا نام (ضروری)</system:String>
     <system:String x:Key="SystemNotFound">سسٹم نہیں ملا</system:String>
@@ -471,7 +483,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">خرابی کو ڈویلپر کو رپورٹ کیا گیا ہے اور اسے حل کیا جائے گا۔</system:String>
     <system:String x:Key="Thecurrentversionis">موجودہ ورژن ہے</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">اس کی جگہ ڈفالٹ امیج دکھائی جائے گی۔</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">ڈاؤن لوڈ اور نکالنے کا عمل کامیابی کے ساتھ مکمل ہو گیا۔</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ایمیولیٹر دیئے گئے پیرامیٹرز کے ساتھ گیم کھولنے میں ناکام رہا۔</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">ایرر ڈیویلپر کو رپورٹ کیا گیا ہے جو مسئلہ کو حل کرنے کی کوشش کرے گا۔</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">پسندیدہ فہرست سے ہٹا دیا گیا ہے۔</system:String>

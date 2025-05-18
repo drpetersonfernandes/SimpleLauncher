@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="&lt;_Prev">&lt; Prev</system:String>
     <system:String x:Key="100games">100 games</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -34,7 +33,6 @@
     <system:String x:Key="AddSystem">Add System</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
     <system:String x:Key="Alert">Alert</system:String>
-    <system:String x:Key="Alsochecktheintegrityoftheemulator">Also, check the integrity of the emulator and its dependencies.</system:String>
     <system:String x:Key="Alsomakesureyouarecallingtheemulator">Also, make sure you are calling the emulator with the correct parameter.</system:String>
     <system:String x:Key="Amber">Amber</system:String>
     <system:String x:Key="Anerroroccurredwhileaddingthisgame">An error occurred while adding this game to the favorites.</system:String>
@@ -265,7 +263,6 @@
     <system:String x:Key="IssuesWithEmulator">There are issues with the emulator configuration:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
-    <system:String x:Key="Italsocreatedfoldersfor">It also created folders for</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
     <system:String x:Key="Itneedswriteaccesstoitsfolder">It needs write access to its folder.</system:String>
     <system:String x:Key="Itwillnotacceptotherextensions">It will not accept other extensions.</system:String>
@@ -294,9 +291,7 @@
     <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">name is required because related data has been provided.</system:String>
     <system:String x:Key="NewThresholdLabel">New Threshold:</system:String>
-    <system:String x:Key="Next_&gt;">Next &gt;</system:String>
     <system:String x:Key="Nodetailsavailablefor">No details available for</system:String>
-    <system:String x:Key="Nofavoritegamesfoundfortheselectedsystem">No favorite games found for the selected system.</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">No games found to randomly select from. Please check your system selection.</system:String>
     <system:String x:Key="nogamesmatched">Unfortunately, no games matched your search query or the selected button.</system:String>
     <system:String x:Key="Nohistoryxmlfilefound">No 'history.xml' file found in the application folder.</system:String>
@@ -304,7 +299,6 @@
     <system:String x:Key="Noresultsfound">No results found.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">No ROM history found in the local database for the selected file.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">No statistics available to save. Please wait until the data is loaded.</system:String>
-    <system:String x:Key="NoSystemMessage">Please select a System</system:String>
     <system:String x:Key="Nosystemnameprovided">No system name provided.</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Not enough disk space for extraction.</system:String>
@@ -420,7 +414,6 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
-    <system:String x:Key="SimpleLaunchercannotworkproperly">'Simple Launcher' cannot work properly without this file.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
@@ -454,7 +447,6 @@
     <system:String x:Key="SystemImageFoldercannotbeempty">'System Image Folder' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemImageFolderOptional">System Image Folder (Optional)</system:String>
     <system:String x:Key="SystemImageFolderpathisnotvalid">System Image Folder path is not valid or does not exist:</system:String>
-    <system:String x:Key="systemmodelxmlismissing">'system_model.xml' is missing.</system:String>
     <system:String x:Key="SystemNamecannotbeemptyor">'System Name' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemNameRequired">System Name (Required)</system:String>
     <system:String x:Key="SystemNotFound">System Not Found</system:String>
@@ -472,7 +464,6 @@
     <system:String x:Key="Thebugwasreportedtothedeveloper">The bug was reported to the developer that will try to fix the issue.</system:String>
     <system:String x:Key="Thecurrentversionis">The current version is</system:String>
     <system:String x:Key="Thedefaultimagewillbedisplayed">The default image will be displayed instead.</system:String>
-    <system:String x:Key="Thedownloadandextractionweresuccessful">The download and extraction were successful.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">The emulator could not open the game with the provided parameters.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">The error was reported to the developer who will try to fix the issue.</system:String>
     <system:String x:Key="Thefavoritehasbeenremovedfromthelist">The favorite has been removed from the list.</system:String>
@@ -594,5 +585,25 @@
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
+    
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' could not open the download link.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' could not take the screenshot.</system:String>
+    <system:String x:Key="CheckFilePermissions">Please check file permissions and ensure the file is not locked.</system:String>
+    <system:String x:Key="FailedToSaveSystem">Failed to save system configuration.</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Check the integrity of the emulator and its dependencies.</system:String>
+    <system:String x:Key="Pleasefixthat">Please fix that.</system:String>
+    <system:String x:Key="Emulatornameisrequired">Emulator name is required.</system:String>
+    <system:String x:Key="ErrorDetails">Details:</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">The image pack was successfully extracted into the folder</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">You can turn off this type of error message in Expert mode.</system:String>
+    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">Please selected a system to see the favorites.</system:String>
+    <system:String x:Key="Filteringpleasewait">Filtering, please wait...</system:String>
+    <system:String x:Key="NextPage">Next Page</system:String>
+    <system:String x:Key="PreviousPage">Previous Page</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">System Favorites</system:String>
+    <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    <system:String x:Key="ZoomIn">Zoom In</system:String>
+    <system:String x:Key="Restart">Restart</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">No systems configured. Please use the 'Edit System' menu to add systems.</system:String>
     
 </ResourceDictionary>
