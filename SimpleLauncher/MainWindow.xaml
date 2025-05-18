@@ -485,6 +485,18 @@
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/settings.png" Width="24" Height="24" />
                     </Button>
+                    <Button x:Name="NavToggleViewMode"
+                            ToolTip="{DynamicResource ToggleViewMode}"
+                            Click="NavToggleViewMode_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/show.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavToggleButtonAspectRatio"
+                            ToolTip="{DynamicResource ToggleButtonAspectRatio}"
+                            Click="NavToggleButtonAspectRatio_Click"
+                            Width="40" Height="40" Margin="0,5,0,5">
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="24" Height="24" />
+                    </Button>
                     <Button x:Name="NavZoomInButton"
                             ToolTip="{DynamicResource ZoomIn}"
                             Click="NavZoomInButton_Click"
@@ -494,20 +506,8 @@
                     <Button x:Name="NavZoomOutButton"
                             ToolTip="{DynamicResource ZoomOut}"
                             Click="NavZoomOutButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="24" Height="24" />
-                    </Button>
-                    <Button x:Name="NavToggleButtonAspectRatio"
-                            ToolTip="{DynamicResource ToggleButtonAspectRatio}"
-                            Click="NavToggleButtonAspectRatio_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="24" Height="24" />
-                    </Button>
-                    <Button x:Name="NavToggleViewMode"
-                            ToolTip="{DynamicResource ToggleViewMode}"
-                            Click="NavToggleViewMode_Click"
                             Width="40" Height="40" Margin="0,5,0,10">
-                        <Image Source="pack://application:,,,/images/show.png" Width="24" Height="24" />
+                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="24" Height="24" />
                     </Button>
                 </StackPanel>
             </Border>
