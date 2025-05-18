@@ -810,4 +810,47 @@ public partial class MainWindow
             _ = LogErrors.LogErrorAsync(ex, "Error in method NavZoomOutButton_Click.");
         }
     }
+
+    private async void NavToggleViewMode_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            PlayClick.PlayNotificationSound();
+
+            if (_settings.ViewMode == "GridView")
+            {
+                // Switch to the ListView
+                GridView.IsChecked = false;
+                ListView.IsChecked = true;
+                _settings.ViewMode = "ListView";
+
+                GameFileGrid.Visibility = Visibility.Collapsed;
+                ListViewPreviewArea.Visibility = Visibility.Visible;
+            }
+            else // Assuming it's "ListView"
+            {
+                // Switch to GridView
+                GridView.IsChecked = true;
+                ListView.IsChecked = false;
+                _settings.ViewMode = "GridView";
+
+                GameFileGrid.Visibility = Visibility.Visible;
+                ListViewPreviewArea.Visibility = Visibility.Collapsed;
+            }
+
+            _settings.Save(); // Save the updated ViewMode
+
+            // Reload the UI to apply the new view mode
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string errorMessage = "Error while using the method NavToggleViewMode_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorChangingViewModeMessageBox();
+        }
+    }
 }

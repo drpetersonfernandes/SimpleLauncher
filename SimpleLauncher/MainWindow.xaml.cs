@@ -216,29 +216,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         e.Handled = true;
     }
 
-    private void Scroller_MouseWheel(object sender, MouseWheelEventArgs e)
-    {
-        // Check if the Ctrl key is pressed
-        if (Keyboard.Modifiers != ModifierKeys.Control) return;
-
-        switch (e.Delta)
-        {
-            case > 0:
-                // Scroll up, trigger zoom in
-                NavZoomInButton_Click(null, null); // Pass null for sender and EventArgs
-                break;
-            case < 0:
-                // Scroll down, trigger zoom out
-                NavZoomOutButton_Click(null, null); // Pass null for sender and EventArgs
-                break;
-        }
-
-        // Mark the event as handled to prevent scrolling the ScrollViewer
-        e.Handled = true;
-        // If Ctrl is not pressed, the event is not handled here and will proceed
-        // for default ScrollViewer scrolling behavior.
-    }
-
     private Task TopLetterNumberMenu_Click(string selectedLetter)
     {
         ResetPaginationButtons(); // Ensure pagination is reset at the beginning
@@ -884,6 +861,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
+            }
+
+            // Set focus to the ScrollViewer
+            if (_settings.ViewMode == "GridView")
+            {
+                Scroller.Focus();
+            }
+
+            // Set focus to the GameDataGrid
+            if (_settings.ViewMode == "ListView")
+            {
+                GameDataGrid.Focus();
             }
 
             // Update the UI to reflect the current pagination status

@@ -435,7 +435,7 @@
         </Menu>
 
         <!-- Everything below the Top Menu -->
-        <Grid Grid.Row="1">
+        <Grid x:Name="MainContentGrid" Grid.Row="1">
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="Auto" />
                 <ColumnDefinition Width="*" />
@@ -497,11 +497,17 @@
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/zoom-out.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavSetButtonAspectRation"
-                            ToolTip="{DynamicResource SetButtonAspectRatio}"
+                    <Button x:Name="NavToggleButtonAspectRatio"
+                            ToolTip="{DynamicResource ToggleButtonAspectRatio}"
                             Click="NavToggleButtonAspectRatio_Click"
-                            Width="40" Height="40" Margin="0,5,0,10">
+                            Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/aspectratio.png" Width="24" Height="24" />
+                    </Button>
+                    <Button x:Name="NavToggleViewMode"
+                            ToolTip="{DynamicResource ToggleViewMode}"
+                            Click="NavToggleViewMode_Click"
+                            Width="40" Height="40" Margin="0,5,0,10">
+                        <Image Source="pack://application:,,,/images/show.png" Width="24" Height="24" />
                     </Button>
                 </StackPanel>
             </Border>
@@ -614,8 +620,7 @@
             </Menu>
 
             <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
-                          Margin="0"
-                          MouseWheel="Scroller_MouseWheel">
+                          Margin="0">
                 <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0,0,5,0">
                 </WrapPanel>
             </ScrollViewer>
