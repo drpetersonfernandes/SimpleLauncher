@@ -926,11 +926,8 @@ public static class MessageBoxLibrary
 
         static void Action()
         {
-            var therewasanerror =
-                (string)Application.Current.TryFindResource("Therewasanerror") ?? "There was an error.";
-            var theerrorwasreportedtothedeveloper =
-                (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-                "The error was reported to the developer who will try to fix the issue.";
+            var therewasanerror = (string)Application.Current.TryFindResource("Therewasanerror") ?? "There was an error.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{therewasanerror}\n\n{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -939,17 +936,17 @@ public static class MessageBoxLibrary
 
     internal static void NoFavoriteFoundMessageBox()
     {
-        var pleaseselectedasystemtoseethefavorites = (string)Application.Current.TryFindResource("Pleaseselectedasystemtoseethefavorites") ?? "Please selected a system to see the favorites.";
+        var thereisnoFavoriteforthissystem = (string)Application.Current.TryFindResource("ThereisnoFavoriteforthissystem") ?? "There is no Favorite for this system, or you have not chosen a system.";
         var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            MessageBox.Show(pleaseselectedasystemtoseethefavorites,
+            MessageBox.Show(thereisnoFavoriteforthissystem,
                 warning, MessageBoxButton.OK, MessageBoxImage.Information);
         }
         else
         {
             Application.Current.Dispatcher.Invoke(() =>
-                MessageBox.Show(pleaseselectedasystemtoseethefavorites,
+                MessageBox.Show(thereisnoFavoriteforthissystem,
                     warning, MessageBoxButton.OK, MessageBoxImage.Information));
         }
     }

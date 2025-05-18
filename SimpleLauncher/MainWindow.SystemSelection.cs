@@ -103,19 +103,98 @@ public partial class MainWindow
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
         var systemName = config.SystemName;
+        var imageExtensions = GetImageExtensions.GetExtensions(); // Get supported extensions
 
-        // Check for system-specific image files (png, jpg, jpeg)
-        var possibleExtensions = new[] { ".png", ".jpg", ".jpeg" };
-        foreach (var ext in possibleExtensions)
+        // 1. Check for system-specific image files (exact match)
+        foreach (var ext in imageExtensions)
         {
-            var systemImagePath = Path.Combine(systemImageFolder, systemName + ext);
+            var systemImagePath = Path.Combine(systemImageFolder, $"{systemName}{ext}");
             if (File.Exists(systemImagePath))
             {
                 return Task.FromResult(systemImagePath);
             }
         }
 
-        // Fallback to the global default image if no system-specific image is found
-        return Task.FromResult(Path.Combine(systemImageFolder, "default.png"));
+        // Get settings for fuzzy matching
+        var settings = App.Settings;
+        var enableFuzzyMatching = settings.EnableFuzzyMatching;
+        var similarityThreshold = settings.FuzzyMatchingThreshold;
+
+        // 2. If fuzzy matching is enabled and the directory exists, check for similar filenames
+        if (enableFuzzyMatching && Directory.Exists(systemImageFolder))
+        {
+            var filesInImageFolder = Directory.GetFiles(systemImageFolder)
+                .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                .ToList();
+
+            string bestMatchPath = null;
+            double highestSimilarity = 0;
+            var lowerSystemName = systemName.ToLowerInvariant();
+
+            foreach (var filePath in filesInImageFolder)
+            {
+                var fileWithoutExt = Path.GetFileNameWithoutExtension(filePath);
+                if (string.IsNullOrEmpty(fileWithoutExt)) continue; // Skip files without names
+
+                var lowerFileName = fileWithoutExt.ToLowerInvariant();
+
+                // Calculate similarity using Jaro-Winkler
+                var similarity = FindCoverImage.CalculateJaroWinklerSimilarity(lowerSystemName, lowerFileName);
+
+                if (!(similarity > highestSimilarity)) continue;
+
+                highestSimilarity = similarity;
+                bestMatchPath = filePath;
+            }
+
+            // If the highest similarity meets the threshold, return that path
+            if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
+            {
+                return Task.FromResult(bestMatchPath);
+            }
+        }
+
+        // 3. Fallback to the global default image if no match is found
+        var defaultImagePath = Path.Combine(systemImageFolder, "default.png");
+        return Task.FromResult(File.Exists(defaultImagePath) ? defaultImagePath : Path.Combine(appBaseDir, "images", "default.png"));
+    }
+
+    private async void NavToggleButtonAspectRatio_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            PlayClick.PlayNotificationSound();
+
+            // Define the array of aspect ratios in the desired order
+            string[] aspectRatios = { "Square", "Wider", "SuperWider", "Taller", "SuperTaller" };
+
+            // Get the current index of the aspect ratio
+            var currentIndex = Array.IndexOf(aspectRatios, _settings.ButtonAspectRatio);
+
+            // Calculate the next index, wrapping around to 0 if at the end
+            var nextIndex = (currentIndex + 1) % aspectRatios.Length;
+
+            // Get the new aspect ratio
+            var newAspectRatio = aspectRatios[nextIndex];
+
+            // Update the settings
+            _settings.ButtonAspectRatio = newAspectRatio;
+            _settings.Save();
+
+            // Update the menu check marks
+            UpdateButtonAspectRatioCheckMarks(newAspectRatio);
+
+            // Reload the game files to apply the new aspect ratio
+            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string errorMessage = "Error in the method NavToggleButtonAspectRatio_Click.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMessageBox();
+        }
     }
 }

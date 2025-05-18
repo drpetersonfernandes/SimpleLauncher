@@ -95,7 +95,7 @@ public static class FindCoverImage
     /// Calculates the Jaro-Winkler similarity between two strings.
     /// Returns a value between 0.0 (no similarity) and 1.0 (identical).
     /// </summary>
-    private static double CalculateJaroWinklerSimilarity(string s1, string s2)
+    public static double CalculateJaroWinklerSimilarity(string s1, string s2)
     {
         if (string.IsNullOrEmpty(s1) || string.IsNullOrEmpty(s2))
         {

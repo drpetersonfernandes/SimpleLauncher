@@ -605,5 +605,6 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="Restart">Restart</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">No systems configured. Please use the 'Edit System' menu to add systems.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">There is no Favorite for this system, or you have not chosen a system.</system:String>
     
 </ResourceDictionary>
