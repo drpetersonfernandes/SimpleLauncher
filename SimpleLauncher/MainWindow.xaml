@@ -16,7 +16,6 @@
                 <Setter.Value>
                     <ControlTemplate TargetType="Menu">
                         <Border
-                            Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}"
                             CornerRadius="5"
