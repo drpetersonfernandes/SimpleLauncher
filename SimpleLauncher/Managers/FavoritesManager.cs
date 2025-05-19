@@ -56,7 +56,7 @@ public class FavoritesManager
         // If no files exist, create a new instance
         var defaultManager = new FavoritesManager();
         defaultManager.SaveFavorites(); // Use instance method
-        return defaultManager;
+        return defaultManager; // Return default instance if error occurs
     }
 
     /// <summary>

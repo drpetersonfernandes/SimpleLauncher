@@ -31,7 +31,7 @@ public static class ContextMenuFunctions
             {
                 favorites.FavoriteList.Add(new Favorite
                 {
-                    FileName = fileNameWithExtension, // Use the file name with an extension
+                    FileName = fileNameWithExtension,
                     SystemName = systemName
                 });
 
