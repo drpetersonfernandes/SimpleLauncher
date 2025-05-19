@@ -228,7 +228,7 @@ public class GamePadController : IDisposable
                 // If XInput is connected, ensure DirectInput controller is released
                 if (_directInputController == null) return;
 
-                _directInputController.Unacquire();
+                _directInputController?.Unacquire();
                 _directInputController?.Dispose(); // Dispose the old one
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty;
@@ -324,7 +324,7 @@ public class GamePadController : IDisposable
                 // Ensure DirectInput controller is released if XInput is active
                 if (_directInputController == null) return;
 
-                _directInputController.Unacquire();
+                _directInputController?.Unacquire();
                 _directInputController?.Dispose();
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty;

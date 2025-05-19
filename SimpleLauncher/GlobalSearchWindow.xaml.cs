@@ -113,19 +113,24 @@ public partial class GlobalSearchWindow
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
 
-        foreach (var systemConfig in _systemManagers)
+        foreach (var systemManager in _systemManagers)
         {
-            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
+            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
 
             if (!Directory.Exists(systemFolderPath))
                 continue;
 
+            if (systemManager.FileFormatsToSearch == null)
+            {
+                return new List<SearchResult>(); // return an empty list if the file formats to search are null.
+            }
+
             // Get all files matching the file's extensions for this system
             var files = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
-                .Where(file => systemConfig.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
+                .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
             // If the system is MAME-based and the lookup is available, use it to filter files.
-            if (systemConfig.SystemIsMame && _mameLookup != null)
+            if (systemManager.SystemIsMame && _mameLookup != null)
             {
                 files = files.Where(file =>
                 {
@@ -160,9 +165,9 @@ public partial class GlobalSearchWindow
                 FileSizeBytes = new FileInfo(file).Length,
 
                 MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
-                SystemName = systemConfig.SystemName,
-                EmulatorConfig = systemConfig.Emulators.FirstOrDefault(),
-                CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(file), systemConfig.SystemName, systemConfig)
+                SystemName = systemManager.SystemName,
+                EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
+                CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(file), systemManager.SystemName, systemManager)
             }).ToList();
 
             results.AddRange(fileResults);

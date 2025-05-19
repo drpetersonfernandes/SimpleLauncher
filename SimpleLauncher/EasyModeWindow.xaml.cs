@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
@@ -77,15 +78,25 @@ public partial class EasyModeWindow : IDisposable
     /// with its UI components
     private void PopulateSystemDropdown()
     {
-        // if (_manager?.Systems == null) return;
+        try
+        {
+            var sortedSystemNames = _manager.Systems
+                .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
+                .Select(static system => system.SystemName)
+                .OrderBy(static name => name)
+                .ToList();
 
-        var sortedSystemNames = _manager.Systems
-            .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
-            .Select(static system => system.SystemName)
-            .OrderBy(static name => name)
-            .ToList();
+            SystemNameDropdown.ItemsSource = sortedSystemNames;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error populating system dropdown.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        SystemNameDropdown.ItemsSource = sortedSystemNames;
+            // Assign an empty list if there's any error
+            SystemNameDropdown.ItemsSource = new List<string>();
+        }
     }
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
@@ -513,7 +524,8 @@ public partial class EasyModeWindow : IDisposable
             }
 
             // Resolve System Image Folder Path
-            var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? string.Empty;
+            var defaultSystemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedSystem.SystemName);
+            var systemImageFolderRaw = selectedSystem.SystemImageFolder ?? defaultSystemImageFolder;
             string systemImageFolderAbsolute;
 
             if (Path.IsPathRooted(systemImageFolderRaw))

@@ -169,6 +169,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // Initialize _gameFileGrid
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
+        if (_gameFileGrid == null)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
+        }
 
         // Initialize _gameButtonFactory
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);

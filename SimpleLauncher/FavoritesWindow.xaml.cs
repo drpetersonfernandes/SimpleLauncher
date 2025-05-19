@@ -41,6 +41,15 @@ public partial class FavoritesWindow
     {
         var favoritesConfig = FavoritesManager.LoadFavorites();
         _favoriteList = [];
+
+        if (_machines == null || _systemManagers == null)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(new Exception("Machines or system managers are null."), "Machines or system managers are null.");
+
+            return;
+        }
+
         foreach (var favorite in favoritesConfig.FavoriteList)
         {
             // Find machine description if available
@@ -351,20 +360,5 @@ public partial class FavoritesWindow
         {
             MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
         }
-    }
-
-    private bool GetSystemManagerOfSelectedFavorite(Favorite selectedFavorite, out SystemManager systemManager)
-    {
-        systemManager = _systemManagers?.FirstOrDefault(config =>
-            config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-
-        if (systemManager != null) return true;
-
-        // Notify developer
-        const string contextMessage = "systemManager is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        return false;
     }
 }

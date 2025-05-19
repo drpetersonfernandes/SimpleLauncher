@@ -1,4 +1,5 @@
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -137,15 +138,23 @@ public partial class FavoritesWindow
         {
             PlayClick.PlayNotificationSound();
 
-            if (GetSystemManagerOfSelectedFavorite(selectedFavorite, out var systemManager1) == false)
+            systemManager = _systemManagers?.FirstOrDefault(config =>
+                config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (systemManager == null)
             {
+                // Notify developer
+                const string contextMessage = "systemManager is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                 // Notify user
                 MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
 
                 return;
             }
 
-            ContextMenuFunctions.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemManager1);
+            ContextMenuFunctions.OpenCover(selectedFavorite.SystemName, fileNameWithoutExtension, systemManager);
         };
 
         // "Title Snapshot" MenuItem
@@ -333,23 +342,31 @@ public partial class FavoritesWindow
             Icon = takeScreenshotIcon
         };
 
-        takeScreenshot.Click += (_, _) =>
+        takeScreenshot.Click += async (_, _) =>
         {
             PlayClick.PlayNotificationSound();
 
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            if (GetSystemManagerOfSelectedFavorite(selectedFavorite, out var systemManager1) == false)
+            systemManager = _systemManagers?.FirstOrDefault(config =>
+                config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+
+            if (systemManager == null)
             {
+                // Notify developer
+                const string contextMessage = "systemManager is null.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                 // Notify user
                 MessageBoxLibrary.CouldNotTakeScreenshotMessageBox();
 
                 return;
             }
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager1, null, _mainWindow);
-            _ = LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
+            await LaunchGameFromFavorite(fileNameWithExtension, selectedFavorite.SystemName);
         };
 
         // Delete Game Context Menu

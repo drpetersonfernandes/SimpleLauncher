@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -48,16 +49,26 @@ public partial class DownloadImagePackWindow : IDisposable
     /// ensure the systems are correctly loaded before it is called.
     private void PopulateSystemDropdown()
     {
-        // if (_manager?.Systems == null) return;
+        try
+        {
+            // Filter systems that have a valid ImagePackDownloadLink
+            var systemsWithImagePacks = _manager.Systems
+                .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink))
+                .Select(static system => system.SystemName)
+                .OrderBy(static name => name) // Order by system name
+                .ToList();
 
-        // Filter systems that have a valid ImagePackDownloadLink
-        var systemsWithImagePacks = _manager.Systems
-            .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink))
-            .Select(static system => system.SystemName)
-            .OrderBy(static name => name) // Order by system name
-            .ToList();
+            SystemNameDropdown.ItemsSource = systemsWithImagePacks;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error populating system dropdown.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-        SystemNameDropdown.ItemsSource = systemsWithImagePacks;
+            // Assign an empty list if there's any error
+            SystemNameDropdown.ItemsSource = new List<string>();
+        }
     }
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)

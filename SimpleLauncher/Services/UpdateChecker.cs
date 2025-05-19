@@ -284,10 +284,20 @@ public static partial class UpdateChecker
 
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
-        var current = new Version(MyRegex1().Replace(currentVersion, ""));
-        var latest = new Version(MyRegex1().Replace(latestVersion, ""));
-        var versionComparison = latest.CompareTo(current);
-        return versionComparison > 0;
+        try
+        {
+            var current = new Version(MyRegex1().Replace(currentVersion, ""));
+            var latest = new Version(MyRegex1().Replace(latestVersion, ""));
+            var versionComparison = latest.CompareTo(current);
+            return versionComparison > 0;
+        }
+        catch (ArgumentException)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(new ArgumentException("Invalid version number."), "Invalid version number.");
+
+            return false;
+        }
     }
 
     private static (string, string assetUrl) ParseVersionFromResponse(string jsonResponse)
@@ -334,17 +344,25 @@ public static partial class UpdateChecker
 
     private static string NormalizeVersion(string version)
     {
-        if (string.IsNullOrEmpty(version)) return "0.0.0.0";
+        if (string.IsNullOrEmpty(version))
+            return "0.0.0.0";
 
-        var versionParts = version.Split('.');
-        while (versionParts.Length < 4)
+        // Allow only digits and dots
+        var numericVersion = Regex.Replace(version, @"[^\d.]", "");
+        // Remove consecutive dots and leading/trailing dots
+        numericVersion = Regex.Replace(numericVersion, @"\.{2,}", ".").Trim('.');
+
+        if (string.IsNullOrEmpty(numericVersion))
+            return "0.0.0.0";
+
+        var parts = numericVersion.Split('.');
+        while (parts.Length < 4)
         {
-            version += ".0";
-            versionParts = version.Split('.');
+            numericVersion += ".0";
+            parts = numericVersion.Split('.');
         }
 
-        // Remove any trailing dots (if any)
-        return version.TrimEnd('.');
+        return numericVersion;
     }
 
     public static void DisposeHttpClient()

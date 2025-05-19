@@ -78,7 +78,6 @@ public partial class App
     protected override void OnExit(ExitEventArgs e)
     {
         // Release the mutex if this was the first instance and the mutex was successfully created
-        // The restarting instance *was* the first instance, so it will release the mutex here.
         // The new instance (started with --restarting) didn't acquire the mutex, so _isFirstInstance will be false,
         // and it won't try to release it.
         if (_singleInstanceMutex != null && _isFirstInstance)
