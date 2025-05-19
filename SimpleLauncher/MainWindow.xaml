@@ -11,22 +11,6 @@
                       MouseWheel="MainWindow_MouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-        <Style x:Key="RoundedMenuStyle" TargetType="Menu">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="Menu">
-                        <Border
-                            BorderBrush="{TemplateBinding BorderBrush}"
-                            BorderThickness="{TemplateBinding BorderThickness}"
-                            CornerRadius="5"
-                            Padding="{TemplateBinding Padding}">
-                            <ItemsPresenter/>
-                        </Border>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-        </Style>
-
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -530,11 +514,12 @@
             </Border>
 
             <!-- Main Panel -->
-            <Menu Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"
-                  BorderThickness="1"
-                  Margin="10,0,0,0"
-                  BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
-                  Style="{StaticResource RoundedMenuStyle}">
+            <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    BorderThickness="1"
+                    Margin="10,0,0,0"
+                    Padding="5"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                    CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -634,7 +619,7 @@
                         <Image Source="pack://application:,,,/images/dice.png" Width="24" Height="24" />
                     </Button>
                 </Grid>
-            </Menu>
+            </Border>
 
             <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
                           Margin="5,5,5,0">
