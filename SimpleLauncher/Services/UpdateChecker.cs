@@ -8,6 +8,7 @@ using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -15,18 +16,11 @@ public static partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
-    private static HttpClient _httpClient;
+    private static readonly IHttpClientFactory HttpClientFactory;
 
     static UpdateChecker()
     {
-        InitializeHttpClient();
-    }
-
-    private static void InitializeHttpClient()
-    {
-        var handler = new HttpClientHandler();
-        _httpClient = new HttpClient(handler);
-        _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+        HttpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
     }
 
     private static string CurrentVersion
@@ -58,7 +52,10 @@ public static partial class UpdateChecker
     {
         try
         {
-            var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+            var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -89,7 +86,10 @@ public static partial class UpdateChecker
     {
         try
         {
-            var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+            var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
+            httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+
+            var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
@@ -192,7 +192,8 @@ public static partial class UpdateChecker
 
     private static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
     {
-        using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+        var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
+        using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
         response.EnsureSuccessStatusCode();
 
         await using var stream = await response.Content.ReadAsStreamAsync();
@@ -363,12 +364,6 @@ public static partial class UpdateChecker
         }
 
         return numericVersion;
-    }
-
-    public static void DisposeHttpClient()
-    {
-        _httpClient?.Dispose();
-        _httpClient = null;
     }
 
     [GeneratedRegex(@"[^\d\.]")]

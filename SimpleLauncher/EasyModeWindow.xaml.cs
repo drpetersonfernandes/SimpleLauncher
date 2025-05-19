@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
+using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -14,6 +15,7 @@ using Application = System.Windows.Application;
 using System.Xml;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher;
 
@@ -51,8 +53,11 @@ public partial class EasyModeWindow : IDisposable
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        // Initialize the DownloadManager
-        _downloadManager = new DownloadManager();
+        // Get the factory from the service provider
+        var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+
+        // Initialize the DownloadManager, passing the factory
+        _downloadManager = new DownloadManager(httpClientFactory);
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Load Config

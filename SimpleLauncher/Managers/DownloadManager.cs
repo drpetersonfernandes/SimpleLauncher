@@ -30,26 +30,24 @@ public class DownloadManager : IDisposable
 
     // Private fields
     private readonly HttpClient _httpClient;
+    private readonly IHttpClientFactory _httpClientFactory;
     private CancellationTokenSource _cancellationTokenSource;
     private bool _disposed;
 
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager()
+    public DownloadManager(IHttpClientFactory httpClientFactory)
     {
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory)); // Assign factory
+
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
         IoOperations.CreateDirectory(TempFolder);
 
-        // Initialize the HTTP client with custom handler for TLS configuration
-        var handler = new HttpClientHandler();
-
-        // Initialize HTTP client
-        _httpClient = new HttpClient(handler)
-        {
-            Timeout = TimeSpan.FromSeconds(HttpTimeoutSeconds)
-        };
+        // Get HttpClient from the factory
+        // If no specific configuration is needed beyond default, CreateClient() is fine.
+        _httpClient = _httpClientFactory.CreateClient();
 
         // Initialize cancellation token source
         _cancellationTokenSource = new CancellationTokenSource();

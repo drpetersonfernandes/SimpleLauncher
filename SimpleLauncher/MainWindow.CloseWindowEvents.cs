@@ -36,12 +36,6 @@ public partial class MainWindow
         // Dispose tray icon resources
         _trayIconManager?.Dispose();
 
-        // Dispose instances of HttpClient
-        Stats.DisposeHttpClient();
-        UpdateChecker.DisposeHttpClient();
-        SupportWindow.DisposeHttpClient();
-        LogErrors.DisposeHttpClient();
-
         // Stop and dispose timers
         if (_controllerCheckTimer != null)
         {

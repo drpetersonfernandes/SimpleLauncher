@@ -6,12 +6,13 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
 public static class LogErrors
 {
-    private static readonly HttpClient HttpClient = new();
+    private static readonly IHttpClientFactory HttpClientFactory;
     private static string ApiKey { get; set; }
     private static string BugReportApiUrl { get; set; }
     private static bool _isApiLoggingEnabled;
@@ -19,6 +20,7 @@ public static class LogErrors
     static LogErrors()
     {
         LoadConfiguration();
+        HttpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
     }
 
     private static void LoadConfiguration()
@@ -39,8 +41,7 @@ public static class LogErrors
             var root = document.RootElement;
 
             // Read ApiKey
-            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement) &&
-                apiKeyElement.ValueKind == JsonValueKind.String)
+            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement) && apiKeyElement.ValueKind == JsonValueKind.String)
             {
                 ApiKey = apiKeyElement.GetString();
             }
@@ -54,26 +55,23 @@ public static class LogErrors
             }
 
             // Read BugReportApiUrl
-            if (root.TryGetProperty(nameof(BugReportApiUrl), out var urlElement) &&
-                urlElement.ValueKind == JsonValueKind.String)
+            if (root.TryGetProperty(nameof(BugReportApiUrl), out var urlElement) && urlElement.ValueKind == JsonValueKind.String)
             {
                 BugReportApiUrl = urlElement.GetString();
             }
 
-            if (string.IsNullOrEmpty(BugReportApiUrl))
+            if (string.IsNullOrEmpty(BugReportApiUrl)) // BugReportApiUrl is missing or empty, disable API logging and notify the user
             {
-                // BugReportApiUrl is missing or empty, disable API logging and notify the user
                 _isApiLoggingEnabled = false;
-                MessageBoxLibrary.HandleApiConfigErrorMessageBox(
-                    "Bug Report API URL is missing or empty in 'appsettings.json'.");
-                return; // Stop loading configuration
+
+                // Notify user
+                MessageBoxLibrary.HandleApiConfigErrorMessageBox("Bug Report API URL is missing or empty in 'appsettings.json'.");
+
+                return;
             }
 
             // If we reached here, the configuration is valid
             _isApiLoggingEnabled = true;
-
-            // Set default request headers for the HttpClient
-            HttpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
         }
         catch (Exception ex)
         {
@@ -153,21 +151,19 @@ public static class LogErrors
 
         try
         {
-            // Create the content
+            var httpClient = HttpClientFactory.CreateClient("LogErrorsClient");
+            httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+
             var payload = new
             {
                 message = logContent,
                 applicationName = "SimpleLauncher"
             };
 
-            // Serialize to JSON
-            var jsonContent = JsonSerializer.Serialize(payload);
-            var stringContent = new StringContent(jsonContent, Encoding.UTF8, "application/json");
+            var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+            using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
 
-            // Send the request
-            // HttpClient headers are set in LoadConfiguration when _isApiLoggingEnabled is true
-            using var response = await HttpClient.PostAsync(BugReportApiUrl, stringContent);
-
+            // Notify developer
             Console.WriteLine(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
             return response.IsSuccessStatusCode;
@@ -212,12 +208,8 @@ public static class LogErrors
         }
         catch (Exception ex2)
         {
+            // Notify developer
             Console.WriteLine(@"There was an error writing the local ErrorLog: " + ex2.Message);
         }
-    }
-
-    public static void DisposeHttpClient()
-    {
-        HttpClient?.Dispose();
     }
 }

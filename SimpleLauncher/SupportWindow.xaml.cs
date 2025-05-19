@@ -6,30 +6,27 @@ using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
 public partial class SupportWindow
 {
-    private static HttpClient _httpClient = new();
+    private static IHttpClientFactory _httpClientFactory;
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
 
     public SupportWindow()
     {
         InitializeComponent();
+
+        _httpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
+
         App.ApplyThemeToWindow(this);
         DataContext = this;
 
-        InitializeHttpClient();
         LoadConfiguration();
-    }
-
-    private static void InitializeHttpClient()
-    {
-        var handler = new HttpClientHandler();
-        _httpClient = new HttpClient(handler);
     }
 
     private static void LoadConfiguration()
@@ -129,32 +126,15 @@ public partial class SupportWindow
         var jsonString = JsonSerializer.Serialize(requestPayload);
         var jsonContent = new StringContent(jsonString, Encoding.UTF8, "application/json");
 
-        // Set the API Key from the loaded configuration
-        _httpClient.DefaultRequestHeaders.Remove("X-API-KEY");
-
-        if (!string.IsNullOrEmpty(ApiKey))
-        {
-            _httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
-        }
-        else
-        {
-            // Notify developer
-            const string contextMessage = "API Key is not properly loaded from 'appsettings.json'.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ApiKeyErrorMessageBox();
-
-            return;
-        }
-
         try
         {
+            var httpClient = _httpClientFactory.CreateClient("SupportWindowClient");
+            httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+
             // Construct the full API URL
             var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}";
 
-            using var response = await _httpClient.PostAsync(apiUrl, jsonContent);
+            using var response = await httpClient.PostAsync(apiUrl, jsonContent);
 
             if (response.IsSuccessStatusCode)
             {
@@ -171,8 +151,7 @@ public partial class SupportWindow
                 var errorContent = await response.Content.ReadAsStringAsync();
 
                 // Notify developer
-                var contextMessage =
-                    $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
+                var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -219,11 +198,5 @@ public partial class SupportWindow
         MessageBoxLibrary.EnterSupportRequestMessageBox();
 
         return true;
-    }
-
-    public static void DisposeHttpClient()
-    {
-        _httpClient?.Dispose();
-        _httpClient = null;
     }
 }

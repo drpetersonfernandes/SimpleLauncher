@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 using SimpleLauncher.Managers;
 
@@ -13,6 +14,7 @@ namespace SimpleLauncher;
 public partial class App
 {
     public static SettingsManager Settings { get; private set; }
+    public static IServiceProvider ServiceProvider { get; private set; }
 
     // --- Add fields for single instance logic ---
     private Mutex _singleInstanceMutex;
@@ -73,6 +75,16 @@ public partial class App
         // If we are restarting, the MainWindow will be shown by StartupUri="MainWindow.xaml"
         // If we are the first instance, the MainWindow is also shown by StartupUri.
         // No extra Show() call is needed here.
+
+        var serviceCollection = new ServiceCollection();
+
+        // Register IHttpClientFactory and named clients
+        serviceCollection.AddHttpClient("LogErrorsClient");
+        serviceCollection.AddHttpClient("StatsClient");
+        serviceCollection.AddHttpClient("UpdateCheckerClient");
+        serviceCollection.AddHttpClient("SupportWindowClient");
+
+        ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 
     protected override void OnExit(ExitEventArgs e)

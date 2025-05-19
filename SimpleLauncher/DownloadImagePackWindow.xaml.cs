@@ -6,10 +6,12 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
+using System.Net.Http;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher;
 
@@ -24,8 +26,11 @@ public partial class DownloadImagePackWindow : IDisposable
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
-        // Initialize the DownloadManager
-        _downloadManager = new DownloadManager();
+        // Get the factory from the service provider
+        var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+
+        // Initialize the DownloadManager, passing the factory
+        _downloadManager = new DownloadManager(httpClientFactory);
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Load Config
