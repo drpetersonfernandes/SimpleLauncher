@@ -591,7 +591,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 
 You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
 
-## NEC PC Engine / TurboGrafx-16
+## NEC PC Engine / TurboGrafx 16
 
 **Double-check file and folder paths when entering them in Simple Launcher, especially in the Parameters field. While relative paths might work, I don’t recommend using them.**
 

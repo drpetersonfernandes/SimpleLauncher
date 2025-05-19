@@ -207,7 +207,7 @@ public class GameButtonFactory(
             HorizontalContentAlignment = HorizontalAlignment.Center,
             VerticalContentAlignment = VerticalAlignment.Center,
             Margin = new Thickness(5),
-            Padding = new Thickness(0, 10, 0, 0)
+            Padding = new Thickness(0, 5, 0, 0)
         };
 
         // Create a unique key for the favorite status

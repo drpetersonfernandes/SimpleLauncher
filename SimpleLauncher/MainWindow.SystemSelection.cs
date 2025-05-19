@@ -72,6 +72,10 @@ public partial class MainWindow
                 HorizontalAlignment = HorizontalAlignment.Center,
                 TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
+                TextTrimming = TextTrimming.CharacterEllipsis,
+                FontSize = 13,
+                ToolTip = config.SystemName,
+                TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(0, 5, 0, 0)
             };
             buttonContentPanel.Children.Add(textBlock);
