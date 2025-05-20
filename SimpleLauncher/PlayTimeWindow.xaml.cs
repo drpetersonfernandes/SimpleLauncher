@@ -302,12 +302,12 @@ public partial class PlayTimeWindow
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
             var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemConfig.SystemFolder, selectedItem.FileName);
 
-            AddRightClickContextMenuPlayHistoryWindow(fileNameWithExtension, selectedItem, fileNameWithoutExtension, systemConfig, filePath);
+            AddRightClickContextMenuPlayHistoryWindowContextMenu(fileNameWithExtension, selectedItem, fileNameWithoutExtension, systemConfig, filePath);
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "There was an error in the right-click context menu.";
+            const string contextMessage = "There was an error in the method AddRightClickContextMenuPlayHistoryWindow.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

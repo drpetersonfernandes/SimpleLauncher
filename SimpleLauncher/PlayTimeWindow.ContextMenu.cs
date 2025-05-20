@@ -13,7 +13,7 @@ namespace SimpleLauncher;
 
 public partial class PlayTimeWindow
 {
-    private void AddRightClickContextMenuPlayHistoryWindow(string fileNameWithExtension, PlayHistoryItem selectedItem,
+    private void AddRightClickContextMenuPlayHistoryWindowContextMenu(string fileNameWithExtension, PlayHistoryItem selectedItem,
         string fileNameWithoutExtension, SystemManager systemManager, string filePath)
     {
         var contextMenu = new ContextMenu();

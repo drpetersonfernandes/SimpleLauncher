@@ -28,6 +28,14 @@ public partial class App
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        var serviceCollection = new ServiceCollection();
+        // Register IHttpClientFactory and named clients
+        serviceCollection.AddHttpClient("LogErrorsClient");
+        serviceCollection.AddHttpClient("StatsClient");
+        serviceCollection.AddHttpClient("UpdateCheckerClient");
+        serviceCollection.AddHttpClient("SupportWindowClient");
+        ServiceProvider = serviceCollection.BuildServiceProvider();
+
         // --- Single Instance Check ---
         // Check if the application is being restarted via a specific command-line argument
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
@@ -75,16 +83,6 @@ public partial class App
         // If we are restarting, the MainWindow will be shown by StartupUri="MainWindow.xaml"
         // If we are the first instance, the MainWindow is also shown by StartupUri.
         // No extra Show() call is needed here.
-
-        var serviceCollection = new ServiceCollection();
-
-        // Register IHttpClientFactory and named clients
-        serviceCollection.AddHttpClient("LogErrorsClient");
-        serviceCollection.AddHttpClient("StatsClient");
-        serviceCollection.AddHttpClient("UpdateCheckerClient");
-        serviceCollection.AddHttpClient("SupportWindowClient");
-
-        ServiceProvider = serviceCollection.BuildServiceProvider();
     }
 
     protected override void OnExit(ExitEventArgs e)
