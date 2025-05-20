@@ -108,15 +108,14 @@ public static class GameLauncher
         var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(_selectedEmulatorParameters, systemFolder, isMameSystem);
 
         // If validation failed, ask the user if they want to proceed
-        if (!parametersValid)
+        if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
         {
-            var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
+            var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths); // Pass the full list for the message
 
             if (!proceedAnyway)
             {
                 return; // User chose not to proceed
             }
-
             // If we're here, the user wants to proceed despite validation warnings
         }
 

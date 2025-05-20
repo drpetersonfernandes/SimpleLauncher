@@ -1269,7 +1269,7 @@ public partial class EditSystemWindow
 
             // We only care about the boolean result here, not the specific paths
             var systemFolder = SystemFolderTextBox.Text;
-            var areParametersValid = ParameterValidator.ValidateParameterPaths(textBox.Text, out _, systemFolder, isMameSystem);
+            var (areParametersValid, _) = ParameterValidator.ValidateParameterPaths(textBox.Text, systemFolder, isMameSystem);
             MarkInvalid(textBox, areParametersValid);
         }
     }
@@ -1302,7 +1302,7 @@ public partial class EditSystemWindow
             if (string.IsNullOrEmpty(parameterTexts[i]) || string.IsNullOrEmpty(emulatorNames[i])) continue;
 
             var systemFolder = SystemFolderTextBox.Text;
-            var areParametersValid = ParameterValidator.ValidateParameterPaths(parameterTexts[i], out var invalidPaths, systemFolder, isMameSystem);
+            var (areParametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(parameterTexts[i], systemFolder, isMameSystem);
 
             MarkInvalid(parameterTextBoxes[i], areParametersValid);
             if (areParametersValid) continue;

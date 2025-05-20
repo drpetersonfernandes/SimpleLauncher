@@ -615,6 +615,17 @@ public partial class EasyModeWindow : IDisposable
     private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string systemFolder,
         string systemImageFolderAbsolute)
     {
+        var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
+
+        // Replace placeholders with absolute paths
+        if (!string.IsNullOrEmpty(emulatorParameters))
+        {
+            var absoluteEmulatorLocation = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorLocation);
+            var absoluteEmulatorFolder = Path.GetDirectoryName(absoluteEmulatorLocation);
+            emulatorParameters = emulatorParameters.Replace("%EMULATORFOLDER%", absoluteEmulatorFolder);
+            emulatorParameters = emulatorParameters.Replace("%SYSTEMFOLDER%", systemFolder);
+        }
+
         // Create a new XElement for the selected system
         var newSystemElement = new XElement("SystemConfig",
             new XElement("SystemName", selectedSystem.SystemName),
@@ -628,7 +639,7 @@ public partial class EasyModeWindow : IDisposable
                 new XElement("Emulator",
                     new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                     new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                    new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+                    new XElement("EmulatorParameters", emulatorParameters)
                 )
             )
         );
@@ -638,6 +649,17 @@ public partial class EasyModeWindow : IDisposable
     private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem,
         string systemFolder, string systemImageFolderAbsolute)
     {
+        var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
+
+        // Replace placeholders with absolute paths
+        if (!string.IsNullOrEmpty(emulatorParameters))
+        {
+            var absoluteEmulatorLocation = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorLocation);
+            var absoluteEmulatorFolder = Path.GetDirectoryName(absoluteEmulatorLocation);
+            emulatorParameters = emulatorParameters.Replace("%EMULATORFOLDER%", absoluteEmulatorFolder);
+            emulatorParameters = emulatorParameters.Replace("%SYSTEMFOLDER%", systemFolder);
+        }
+
         // Overwrite existing system
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
         existingSystem.SetElementValue("SystemFolder", systemFolder);
@@ -653,7 +675,7 @@ public partial class EasyModeWindow : IDisposable
             new XElement("Emulator",
                 new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                 new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
-                new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+                new XElement("EmulatorParameters", emulatorParameters)
             )
         ));
     }

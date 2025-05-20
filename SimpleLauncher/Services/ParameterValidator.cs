@@ -159,12 +159,12 @@ public static partial class ParameterValidator
     /// <summary>
     /// Validates paths in parameter strings and returns invalid paths
     /// </summary>
-    public static bool ValidateParameterPaths(string parameters, out List<string> invalidPaths, string systemFolder = null, bool isMameSystem = false)
+    public static (bool overallValid, List<string> allInvalidPaths) ValidateParameterPaths(string parameters, string systemFolder = null, bool isMameSystem = false)
     {
-        invalidPaths = [];
-        if (string.IsNullOrWhiteSpace(parameters)) return true;
+        var invalidPaths = new List<string>(); // Local list to collect all invalid paths
+        if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths); // No parameters, so valid
 
-        var allPathsValid = true;
+        var allPathsValid = true; // Initial assumption
         var baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
         // Get all parameter paths with their flags
@@ -281,12 +281,11 @@ public static partial class ParameterValidator
             allPathsValid = false;
         }
 
-        // For MAME systems, we can be more lenient with some paths
-        // but not for critical paths like -rompath or -L
-        if (!isMameSystem || invalidPaths.Count <= 0) return allPathsValid;
+        // For MAME systems, apply leniency
+        if (!isMameSystem || invalidPaths.Count <= 0)
+            return (allPathsValid, invalidPaths); // Return the final state and the full list
 
         {
-            // Only be lenient for certain parameters
             var criticalPaths = invalidPaths
                 .Where(path => parameterPaths.Any(p =>
                     p.Flag is "-rompath" or "-L" &&
@@ -295,12 +294,13 @@ public static partial class ParameterValidator
 
             if (criticalPaths.Count == 0)
             {
-                // Only non-critical paths are invalid, so we can be lenient
-                return true;
+                // Only non-critical paths are invalid, so overall valid due to leniency
+                return (true, invalidPaths); // Return true but still provide the full list
             }
+            // If critical paths exist, overallValid remains false
         }
 
-        return allPathsValid;
+        return (allPathsValid, invalidPaths); // Return the final state and the full list
     }
 
     /// <summary>
@@ -313,9 +313,14 @@ public static partial class ParameterValidator
             return (true, null); // No parameters are valid
         }
 
-        var pathsValid = ValidateParameterPaths(parameters, out var invalidPaths, systemFolder, isMameSystem);
+        var (overallValid, allInvalidPaths) = ValidateParameterPaths(parameters, systemFolder, isMameSystem);
 
-        if (pathsValid || invalidPaths.Count <= 0) return (true, null); // No error
+        if (overallValid)
+        {
+            return (true, null); // Success, no invalid paths to report
+        }
+
+        var invalidPaths = new List<string>(allInvalidPaths); // Copy the list
 
         // Extract all parameter paths for more detailed analysis
         var paramPaths = ExtractParameterPaths(parameters);
@@ -349,7 +354,7 @@ public static partial class ParameterValidator
             }
         }
 
-        return (false, invalidPaths);
+        return (false, invalidPaths); // Return failure and the updated list
     }
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]

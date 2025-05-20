@@ -54,7 +54,7 @@
             <Emulator>
                 <EmulatorName>MAME gx4000</EmulatorName>
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
@@ -485,7 +485,7 @@
             <Emulator>
                 <EmulatorName>MAME pv1000</EmulatorName>
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Casio PV-1000" pv1000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
@@ -671,7 +671,7 @@
             <Emulator>
                 <EmulatorName>MAME aquarius</EmulatorName>
                 <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" gx4000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
