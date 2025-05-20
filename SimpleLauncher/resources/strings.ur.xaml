@@ -2,25 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ڈاؤن لوڈ لنک نہیں کھول سکا۔</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' اسکرین شاٹ نہیں لے سکا۔</system:String>
-    <system:String x:Key="CheckFilePermissions">براہ کرم فائل اجازت نامے چیک کریں اور یقینی بنائیں کہ فائل لاک نہیں ہے۔</system:String>
-    <system:String x:Key="FailedToSaveSystem">سسٹم کی تشکیل محفوظ کرنے میں ناکامی۔</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">ایمولیٹر اور اس کی انحصار کی سالمیت چیک کریں۔</system:String>
-    <system:String x:Key="Pleasefixthat">براہ کرم اسے درست کریں۔</system:String>
-    <system:String x:Key="Emulatornameisrequired">ایمولیٹر کا نام ضروری ہے۔</system:String>
-    <system:String x:Key="ErrorDetails">تفصیلات:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">امیج پیک کامیابی کے ساتھ فولڈر میں نکال دیا گیا</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">آپ ماہر موڈ میں اس قسم کے خرابی پیغام کو بند کر سکتے ہیں۔</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">براہ کرم پسندیدہ دیکھنے کے لئے سسٹم منتخب کریں۔</system:String>
-    <system:String x:Key="Filteringpleasewait">فلٹرنگ ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
-    <system:String x:Key="NextPage">اگلا صفحہ</system:String>
-    <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">سسٹم پسندیدہ</system:String>
-    <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
-    <system:String x:Key="ZoomIn">زوم ان</system:String>
-    <system:String x:Key="Restart">دوبارہ شروع کریں</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">کوئی سسٹمز ترتیب نہیں دیے گئے۔ سسٹمز شامل کرنے کے لیے 'سسٹم ترمیم کریں' مینو استعمال کریں۔</system:String>
+    <system:String x:Key="50pixels">50 پکسلز</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">اس سسٹم کے لیے کوئی پسندیدہ نہیں ہے، یا آپ نے کوئی سسٹم منتخب نہیں کیا۔</system:String>
+
     <system:String x:Key="100games">100 کھیل</system:String>
     <system:String x:Key="100pixels">100 پکسلز</system:String>
     <system:String x:Key="150pixels">150 پکسلز</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">نکالنے والا فولڈر بنانے یا رسائی حاصل کرنے میں ناکام</system:String>
     <system:String x:Key="Cart">کارٹ</system:String>
     <system:String x:Key="Cartnotfound">کارٹ نہیں ملا</system:String>
+    <system:String x:Key="CheckFilePermissions">براہ کرم فائل اجازت نامے چیک کریں اور یقینی بنائیں کہ فائل لاک نہیں ہے۔</system:String>
     <system:String x:Key="CheckForUpdate">تازہ کاری چیک کریں</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">ایمولیٹر اور اس کی انحصار کی سالمیت چیک کریں۔</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اس سسٹم کے لیے 'ROMs' یا 'ISOs' والا فولڈر منتخب کریں</system:String>
     <system:String x:Key="Chooseasystem">ایک نظام منتخب کریں</system:String>
     <system:String x:Key="ChooseASystemToAdd">شامل کرنے کے لیے سسٹم منتخب کریں</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">ایمولیٹر 5 کا راستہ</system:String>
     <system:String x:Key="EmulatorLocation">ایمولیٹر کا مقام</system:String>
     <system:String x:Key="EmulatorName">ایمولیٹر کا نام</system:String>
+    <system:String x:Key="Emulatornameisrequired">ایمولیٹر کا نام ضروری ہے۔</system:String>
     <system:String x:Key="EmulatorParameters">ایمولیٹر کے پیرامیٹرز</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">ایمولیٹر کا راستہ درست نہیں ہے:</system:String>
     <system:String x:Key="Enable">فعال کریں</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">یقینی بنائیں کہ 'Simple Launcher' فولڈر قابل تحریر ڈائریکٹری میں موجود ہے۔</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">فائل کو نکالنے کے لیے ہارڈ ڈسک میں کافی جگہ ہونے کو یقینی بنائیں۔</system:String>
     <system:String x:Key="Error">خرابی</system:String>
+    <system:String x:Key="ErrorDetails">تفصیلات:</system:String>
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکام۔</system:String>
     <system:String x:Key="ErrorFailedtoextract">خرابی: استخراج میں ناکامی</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">واک تھرو فائل کھولنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtorestarttheapplication">ایپلیکیشن کو دوبارہ شروع کرنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtosavescreenshot">سکرین شاٹ محفوظ کرنے میں ناکامی۔</system:String>
+    <system:String x:Key="FailedToSaveSystem">سسٹم کی تشکیل محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="Failedtosavethereport">رپورٹ کو محفوظ کرنے میں ناکامی۔</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher شروع کرنے میں ناکامی۔ موجودہ مثالوں کو چیک کرنے کے دوران ایک خرابی ہوئی۔</system:String>
     <system:String x:Key="Failedtostarttheemulator">ایمولیٹر شروع کرنے میں ناکام یا متوقع طور پر بند نہیں ہوا۔</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
     <system:String x:Key="Filedeleted">فائل حذف کر دی گئی۔</system:String>
+    <system:String x:Key="Filteringpleasewait">فلٹرنگ ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">نام</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">نام ضروری ہے کیونکہ متعلقہ ڈیٹا فراہم کیا گیا ہے۔</system:String>
     <system:String x:Key="NewThresholdLabel">نئی حد:</system:String>
+    <system:String x:Key="NextPage">اگلا صفحہ</system:String>
     <system:String x:Key="Nodetailsavailablefor">کے لئے تفصیلات دستیاب نہیں ہیں</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">تصادفی انتخاب کے لیے کوئی کھیل نہیں ملا۔ براہ کرم اپنے نظام کے انتخاب کی جانچ کریں۔</system:String>
     <system:String x:Key="nogamesmatched">بدقسمتی سے، آپکی تلاش یا منتخب کردہ بٹن سے کوئی گیمز مطابقت نہیں رکھتی۔</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">منتخب کردہ فائل کے لیے مقامی ڈیٹا بیس میں ROM کی تاریخ نہیں ملی۔</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">محفوظ کرنے کے لیے کوئی اعداد و شمار دستیاب نہیں۔ براہ کرم ڈیٹا لوڈ ہونے تک انتظار کریں۔</system:String>
     <system:String x:Key="Nosystemnameprovided">کوئی سسٹم کا نام فراہم نہیں کیا گیا۔</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">کوئی سسٹمز ترتیب نہیں دیے گئے۔ سسٹمز شامل کرنے کے لیے 'سسٹم ترمیم کریں' مینو استعمال کریں۔</system:String>
     <system:String x:Key="Nosystemselected">کوئی سسٹم منتخب نہیں ہوا</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">نکالنے کے لیے کافی ڈسک کی جگہ نہیں۔</system:String>
     <system:String x:Key="Notextavailable">کوئی متن دستیاب نہیں ہے۔</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">براہ کرم ای میل درج کریں۔</system:String>
     <system:String x:Key="Pleaseenterthename">براہ کرم نام درج کریں۔</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">براہ کرم اسے دستی طور پر ٹھیک کریں یا حذف کریں۔</system:String>
+    <system:String x:Key="Pleasefixthat">براہ کرم اسے درست کریں۔</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">براہ کرم اسے ایڈیٹ ونڈو میں درست کریں۔</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">براہ کرم انہیں درست کریں۔</system:String>
     <system:String x:Key="Pleasefixthisfield">براہ کرم اس فیلڈ کو درست کریں۔</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">براہ کرم انتظار کریں</system:String>
     <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
     <system:String x:Key="PreviewImage">پیش منظر امیج</system:String>
+    <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">کیا آپ بہرحال لانچ کرنے کے ساتھ آگے بڑھنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProgressBar">پروگریس بار</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">پسندیدہ سے نکالیں</system:String>
     <system:String x:Key="RemovefromHistory">تاریخ سے ہٹائیں</system:String>
     <system:String x:Key="Reportsavedsuccessfully">رپورٹ کامیابی سے محفوظ ہو گئی۔</system:String>
+    <system:String x:Key="Restart">دوبارہ شروع کریں</system:String>
     <system:String x:Key="RestartError">دوبارہ آغاز کی خرابی</system:String>
     <system:String x:Key="RestoreBackup">بیک اپ بحال کریں؟</system:String>
     <system:String x:Key="ReverttoDefaultValues">ڈیفالٹ ویلیوز پر واپس جائیں</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">تلاش ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">برائے مہربانی ہٹانے کے لیے ایک تاریخ کا آئٹم منتخب کریں۔</system:String>
     <system:String x:Key="SelectaWindow">ایک ونڈو منتخب کریں</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">سسٹم پسندیدہ</system:String>
     <system:String x:Key="Selectedsystemnotfound">منتخب شدہ نظام XML دستاویز میں نہیں مل سکا!</system:String>
     <system:String x:Key="SelectEmulator">ایمولیٹر منتخب کریں</system:String>
     <system:String x:Key="SelectEmulator1">ایمولیٹر 1 منتخب کریں۔</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'سمپل لانچر' اس گیم کو لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' فائل کو لوڈ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' فائل 'mame.dat' کو لوڈ نہیں کر سکا یا یہ خراب ہے۔</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' ڈاؤن لوڈ لنک نہیں کھول سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' امیج پیکج کے ڈاؤن لوڈ لنک کو کھول نہیں سکا۔</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' اسکرین شاٹ نہیں لے سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' نے اس نظام کے لیے تصاویر کا ایک فولڈر بنایا ہے:۔</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher خرابی</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' اس نظام کے لیے ضروری فولڈر بنانے میں ناکام رہا۔</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">گیم فائل موجود نہیں ہے!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">گیم اب شروع ہوگی۔</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">تصویر خراب یا قابل رسائی نہیں ہو سکتی۔</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">امیج پیک کامیابی کے ساتھ فولڈر میں نکال دیا گیا</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' کا آغاز صارف نے منسوخ کر دیا۔</system:String>
     <system:String x:Key="Theme">تھیم</system:String>
     <system:String x:Key="Thename">نام</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">ٹائٹل اسنیپ شاٹ نہیں ملا</system:String>
     <system:String x:Key="to">سے</system:String>
     <system:String x:Key="Toextractafileitneedstobe">کسی فائل کی ایکسٹریکشن کیلئے اسے 7z, zip یا rar ہونا چاہئے۔</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">بٹن کا تناسب تبدیل کریں</system:String>
+    <system:String x:Key="ToggleViewMode">دیکھنے کا موڈ تبدیل کریں</system:String>
     <system:String x:Key="Tools">ٹولز</system:String>
     <system:String x:Key="total">کل</system:String>
     <system:String x:Key="TotalDiskSize">تمام گیمز کی ڈسک سائز:</system:String>
@@ -601,9 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">آپ عارضی طور پر اپنے اینٹی وائرس سافٹ ویئر کو غیر فعال کر سکتے ہیں یا 'Simple Launcher' فولڈر کو اینٹی وائرس کی استثناء کی فہرست میں شامل کر سکتے ہیں۔</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">آپ گیم پیڈ کے لیے اپنی مرضی کا ڈیڈ زون متعین کر سکتے ہیں</system:String>
     <system:String x:Key="YoucandefinecustomURL">آپ ویڈیو لنک بٹن اور معلومات لنک بٹن میں استعمال کے لیے اپنی مرضی کا یو آر ایل شامل کرسکتے ہیں۔</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">آپ ماہر موڈ میں اس قسم کے خرابی پیغام کو بند کر سکتے ہیں۔</system:String>
     <system:String x:Key="Youcanuselogicaloperators">آپ منطقی آپریٹرز AND / OR استعمال کرسکتے ہیں۔</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
-
+    <system:String x:Key="ZoomIn">زوم ان</system:String>
+    <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
 </ResourceDictionary>

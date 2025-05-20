@@ -2,25 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">“Simple Launcher”无法打开下载链接。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">“Simple Launcher”无法截取屏幕截图。</system:String>
-    <system:String x:Key="CheckFilePermissions">请检查文件权限，并确保文件未被锁定。</system:String>
-    <system:String x:Key="FailedToSaveSystem">保存系统配置失败。</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">检查模拟器及其依赖项的完整性。</system:String>
-    <system:String x:Key="Pleasefixthat">请修复此问题。</system:String>
-    <system:String x:Key="Emulatornameisrequired">需要模拟器名称。</system:String>
-    <system:String x:Key="ErrorDetails">详情：</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">镜像包已成功提取到文件夹中</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">您可以在专家模式中关闭此类错误消息。</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">请选择一个系统以查看收藏夹。</system:String>
-    <system:String x:Key="Filteringpleasewait">正在筛选，请稍候...</system:String>
-    <system:String x:Key="NextPage">下一页</system:String>
-    <system:String x:Key="PreviousPage">上一页</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">系统收藏夹</system:String>
-    <system:String x:Key="ZoomOut">缩小</system:String>
-    <system:String x:Key="ZoomIn">放大</system:String>
-    <system:String x:Key="Restart">重启</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">未配置系统。请使用“编辑系统”菜单添加系统。</system:String>
+    <system:String x:Key="50pixels">50 像素</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">此系统没有收藏，或者您尚未选择系统。</system:String>
+
     <system:String x:Key="100games">100 个游戏</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">无法创建或访问解压文件夹</system:String>
     <system:String x:Key="Cart">卡带</system:String>
     <system:String x:Key="Cartnotfound">未找到卡带</system:String>
+    <system:String x:Key="CheckFilePermissions">请检查文件权限，并确保文件未被锁定。</system:String>
     <system:String x:Key="CheckForUpdate">检查更新</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">检查模拟器及其依赖项的完整性。</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">为该系统选择一个包含“ROMs”或“ISOs”的文件夹</system:String>
     <system:String x:Key="Chooseasystem">选择一个系统</system:String>
     <system:String x:Key="ChooseASystemToAdd">选择要添加的系统</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">模拟器5路径</system:String>
     <system:String x:Key="EmulatorLocation">模拟器位置</system:String>
     <system:String x:Key="EmulatorName">模拟器名称</system:String>
+    <system:String x:Key="Emulatornameisrequired">需要模拟器名称。</system:String>
     <system:String x:Key="EmulatorParameters">模拟器参数</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">模拟器路径无效：</system:String>
     <system:String x:Key="Enable">启用</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">请确保 'Simple Launcher' 文件夹位于一个具有写入权限的目录中。</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">请确保硬盘有足够的空间来解压文件。</system:String>
     <system:String x:Key="Error">错误</system:String>
+    <system:String x:Key="ErrorDetails">详情：</system:String>
     <system:String x:Key="Errorduring">期间发生错误</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">错误：添加系统失败。</system:String>
     <system:String x:Key="ErrorFailedtoextract">错误：提取失败</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">打开路线指南文件失败。</system:String>
     <system:String x:Key="Failedtorestarttheapplication">无法重新启动应用程序。</system:String>
     <system:String x:Key="Failedtosavescreenshot">截图保存失败。</system:String>
+    <system:String x:Key="FailedToSaveSystem">保存系统配置失败。</system:String>
     <system:String x:Key="Failedtosavethereport">报告保存失败。</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">启动Simple Launcher失败。检查现有实例时发生错误。</system:String>
     <system:String x:Key="Failedtostarttheemulator">模拟器启动失败或无法正确结束运行。</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
     <system:String x:Key="Filedeleted">文件已删除</system:String>
+    <system:String x:Key="Filteringpleasewait">正在筛选，请稍候...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">姓名</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因为提供了相关数据。</system:String>
     <system:String x:Key="NewThresholdLabel">新阈值：</system:String>
+    <system:String x:Key="NextPage">下一页</system:String>
     <system:String x:Key="Nodetailsavailablefor">暂无可用详细信息</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">未找到可随机选择的游戏。请检查您的系统选择。</system:String>
     <system:String x:Key="nogamesmatched">很遗憾，没有符合您搜索或选择的按钮的游戏。</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">在本地数据库中未找到所选文件的 ROM 历史记录。</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">没有统计数据可保存。请等待数据加载完成。</system:String>
     <system:String x:Key="Nosystemnameprovided">未提供系统名称。</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">未配置系统。请使用“编辑系统”菜单添加系统。</system:String>
     <system:String x:Key="Nosystemselected">未选择任何系统</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">没有足够的磁盘空间进行提取。</system:String>
     <system:String x:Key="Notextavailable">无可用文本。</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">请输入电子邮件。</system:String>
     <system:String x:Key="Pleaseenterthename">请输入姓名。</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">请手动修复或删除。</system:String>
+    <system:String x:Key="Pleasefixthat">请修复此问题。</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">请在编辑窗口中修复。</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">请修正它们以继续。</system:String>
     <system:String x:Key="Pleasefixthisfield">请修正此字段。</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">请稍候</system:String>
     <system:String x:Key="Preparingtodownload">准备下载</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
+    <system:String x:Key="PreviousPage">上一页</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">您是否仍要继续启动？</system:String>
     <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
     <system:String x:Key="ProgressBar">进度条</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">从收藏夹中移除</system:String>
     <system:String x:Key="RemovefromHistory">从历史中移除</system:String>
     <system:String x:Key="Reportsavedsuccessfully">报告已成功保存。</system:String>
+    <system:String x:Key="Restart">重启</system:String>
     <system:String x:Key="RestartError">重启错误</system:String>
     <system:String x:Key="RestoreBackup">恢复备份？</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢复为默认值</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">正在搜索，请稍候...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">请选择要移除的历史项目。</system:String>
     <system:String x:Key="SelectaWindow">选择一个窗口</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">系统收藏夹</system:String>
     <system:String x:Key="Selectedsystemnotfound">未在 XML 文档中找到所选系统！</system:String>
     <system:String x:Key="SelectEmulator">选择模拟器</system:String>
     <system:String x:Key="SelectEmulator1">选择模拟器 1。</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'无法启动这款游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">“Simple Launcher”无法加载文件“helpuser.xml”。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 无法加载文件 'mame.dat' 或文件已损坏。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">“Simple Launcher”无法打开下载链接。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">“Simple Launcher”无法打开图片包的下载链接。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">“Simple Launcher”无法截取屏幕截图。</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 为此系统创建了一个图片文件夹：</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher错误</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 无法为此系统创建所需文件夹。</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">游戏文件不存在！</system:String>
     <system:String x:Key="Thegamewilllaunchnow">游戏即将启动。</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">图片可能已损坏或无法访问。</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">镜像包已成功提取到文件夹中</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' 的启动已被用户取消。</system:String>
     <system:String x:Key="Theme">主题</system:String>
     <system:String x:Key="Thename">名称</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">未找到标题截图</system:String>
     <system:String x:Key="to">到</system:String>
     <system:String x:Key="Toextractafileitneedstobe">要提取文件，它必须是 7z、zip 或 rar 格式。</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">切换按钮纵横比</system:String>
+    <system:String x:Key="ToggleViewMode">切换视图模式</system:String>
     <system:String x:Key="Tools">工具</system:String>
     <system:String x:Key="total">总计</system:String>
     <system:String x:Key="TotalDiskSize">所有游戏的总磁盘大小：</system:String>
@@ -601,9 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">您也可以临时禁用您的防病毒软件，或将“Simple Launcher”文件夹添加到防病毒软件的排除列表中。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自定义游戏手柄死区</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">您可以在专家模式中关闭此类错误消息。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
-
+    <system:String x:Key="ZoomIn">放大</system:String>
+    <system:String x:Key="ZoomOut">缩小</system:String>
 </ResourceDictionary>

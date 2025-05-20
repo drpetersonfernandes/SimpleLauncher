@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+<system:String x:Key="50pixels">٥٠ بكسل</system:String>
+<system:String x:Key="ThereisnoFavoriteforthissystem">لا يوجد مفضل لهذا النظام، أو لم تقم باختيار نظام.</system:String>
+
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
@@ -73,7 +76,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">لا يمكن إنشاء أو الوصول إلى مجلد الاستخراج</system:String>
     <system:String x:Key="Cart">الشريط</system:String>
     <system:String x:Key="Cartnotfound">الشريط غير موجود</system:String>
+    <system:String x:Key="CheckFilePermissions">يرجى التحقق من أذونات الملف والتأكد من أن الملف غير مقفل.</system:String>
     <system:String x:Key="CheckForUpdate">التحقق من التحديث</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">تحقق من سلامة المحاكي واعتماديته.</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اختر مجلدًا يحتوي على 'ROMs' أو 'ISOs' لهذا النظام</system:String>
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="ChooseASystemToAdd">اختر نظامًا لإضافته</system:String>
@@ -170,6 +175,7 @@
     <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
     <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
+    <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">مسار المحاكي غير صالح لـ</system:String>
     <system:String x:Key="Enable">تفعيل</system:String>
@@ -179,6 +185,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">تأكد من أن مجلد 'Simple Launcher' مجلد قابل للكتابة.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">تأكد من وجود مساحة كافية في القرص الثابت لاستخراج الملف.</system:String>
     <system:String x:Key="Error">خطأ</system:String>
+    <system:String x:Key="ErrorDetails">التفاصيل:</system:String>
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
     <system:String x:Key="ErrorFailedtoextract">خطأ: فشل الاستخراج</system:String>
@@ -205,6 +212,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">فشل في فتح ملف الإرشادات.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">فشل في إعادة تشغيل التطبيق.</system:String>
     <system:String x:Key="Failedtosavescreenshot">فشل في حفظ لقطة الشاشة.</system:String>
+    <system:String x:Key="FailedToSaveSystem">فشل في حفظ إعدادات النظام.</system:String>
     <system:String x:Key="Failedtosavethereport">فشل في حفظ التقرير.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">فشل في تشغيل Simple Launcher. حدث خطأ أثناء التحقق من النسخ الحالية.</system:String>
     <system:String x:Key="Failedtostarttheemulator">فشل في تشغيل المحاكي أو لم يتم إنهاؤه كما هو متوقع.</system:String>
@@ -213,6 +221,7 @@
     <system:String x:Key="FeelingLucky">محظوظ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
     <system:String x:Key="Filedeleted">تم حذف الملف</system:String>
+    <system:String x:Key="Filteringpleasewait">جاري التصفية، يرجى الانتظار...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>
@@ -290,6 +299,7 @@
     <system:String x:Key="Name">الاسم</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">الاسم مطلوب لأن هناك بيانات ذات صلة تم توفيرها.</system:String>
     <system:String x:Key="NewThresholdLabel">العتبة الجديدة:</system:String>
+    <system:String x:Key="NextPage">الصفحة التالية</system:String>
     <system:String x:Key="Nodetailsavailablefor">لا توجد تفاصيل متاحة لـ</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">لم يتم العثور على ألعاب للاختيار العشوائي منها. يرجى التحقق من اختيار النظام.</system:String>
     <system:String x:Key="nogamesmatched">للأسف، لم تطابق أي ألعاب استعلام البحث الخاص بك أو الزر المحدد.</system:String>
@@ -299,6 +309,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">لم يتم العثور على تاريخ روم في قاعدة البيانات المحلية للملف المحدد.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">لا توجد إحصائيات للحفظ. يرجى الانتظار حتى يتم تحميل البيانات.</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة "تحرير النظام" لإضافة أنظمة.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
     <system:String x:Key="Notextavailable">لا يوجد نص متاح.</system:String>
@@ -333,6 +344,7 @@
     <system:String x:Key="Pleaseentertheemail">يرجى إدخال البريد الإلكتروني.</system:String>
     <system:String x:Key="Pleaseenterthename">يرجى إدخال الاسم.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">يرجى إصلاحه يدويًا أو حذفه.</system:String>
+    <system:String x:Key="Pleasefixthat">يرجى إصلاح ذلك.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">يرجى إصلاح ذلك في نافذة التحرير.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">يرجى تصحيحها للمتابعة.</system:String>
     <system:String x:Key="Pleasefixthisfield">يرجى تصحيح هذا الحقل.</system:String>
@@ -354,6 +366,7 @@
     <system:String x:Key="PleaseWait">يرجى الانتظار</system:String>
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
+    <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">هل تريد المتابعة بالتشغيل على أي حال؟</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="ProgressBar">شريط التقدم</system:String>
@@ -370,6 +383,7 @@
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
+    <system:String x:Key="Restart">إعادة التشغيل</system:String>
     <system:String x:Key="RestartError">خطأ في إعادة التشغيل</system:String>
     <system:String x:Key="RestoreBackup">استعادة النسخة الاحتياطية؟</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
@@ -383,6 +397,7 @@
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
     <system:String x:Key="SelectaWindow">اختر نافذة</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">مفضلات النظام</system:String>
     <system:String x:Key="Selectedsystemnotfound">لم يتم العثور على النظام المحدد في مستند XML!</system:String>
     <system:String x:Key="SelectEmulator">اختر المحاكي</system:String>
     <system:String x:Key="SelectEmulator1">اختر المحاكي 1</system:String>
@@ -418,7 +433,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' لم يتمكن من التقاط لقطة الشاشة.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
@@ -478,6 +495,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">سيتم تشغيل اللعبة الآن.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">قد تكون الصورة تالفة أو غير قابلة للوصول.</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">تم استخراج حزمة الصور بنجاح داخل المجلد</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">تم إلغاء تشغيل 'FindRomCover.exe' بواسطة المستخدم.</system:String>
     <system:String x:Key="Theme">السمة</system:String>
     <system:String x:Key="Thename">الاسم</system:String>
@@ -533,6 +551,8 @@
     <system:String x:Key="TitleSnapshotnotfound">لقطة العنوان غير موجودة</system:String>
     <system:String x:Key="to">إلى</system:String>
     <system:String x:Key="Toextractafileitneedstobe">لاستخراج الملفات، يجب أن تكون بتنسيق 7z أو zip أو rar.</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">تبديل نسبة الأبعاد للزر</system:String>
+    <system:String x:Key="ToggleViewMode">تبديل وضع العرض</system:String>
     <system:String x:Key="Tools">الأدوات</system:String>
     <system:String x:Key="total">إجمالي</system:String>
     <system:String x:Key="TotalDiskSize">حجم القرص لجميع الألعاب:</system:String>
@@ -581,27 +601,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد "Simple Launcher" إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">يمكنك إيقاف تشغيل هذا النوع من رسائل الخطأ في وضع الخبير.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
-
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' لم يتمكن من التقاط لقطة الشاشة.</system:String>
-    <system:String x:Key="CheckFilePermissions">يرجى التحقق من أذونات الملف والتأكد من أن الملف غير مقفل.</system:String>
-    <system:String x:Key="FailedToSaveSystem">فشل في حفظ إعدادات النظام.</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">تحقق من سلامة المحاكي واعتماديته.</system:String>
-    <system:String x:Key="Pleasefixthat">يرجى إصلاح ذلك.</system:String>
-    <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
-    <system:String x:Key="ErrorDetails">التفاصيل:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">تم استخراج حزمة الصور بنجاح داخل المجلد</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">يمكنك إيقاف تشغيل هذا النوع من رسائل الخطأ في وضع الخبير.</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">يرجى اختيار نظام لرؤية المفضلات.</system:String>
-    <system:String x:Key="Filteringpleasewait">جاري التصفية، يرجى الانتظار...</system:String>
-    <system:String x:Key="NextPage">الصفحة التالية</system:String>
-    <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">مفضلات النظام</system:String>
-    <system:String x:Key="ZoomOut">تصغير</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
-    <system:String x:Key="Restart">إعادة التشغيل</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة "تحرير النظام" لإضافة أنظمة.</system:String>
+    <system:String x:Key="ZoomOut">تصغير</system:String>
 </ResourceDictionary>

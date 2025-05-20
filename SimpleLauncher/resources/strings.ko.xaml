@@ -2,25 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher'가 다운로드 링크를 열 수 없습니다.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher'가 스크린샷을 찍을 수 없습니다.</system:String>
-    <system:String x:Key="CheckFilePermissions">파일 권한을 확인하고 파일이 잠겨 있지 않은지 확인하세요.</system:String>
-    <system:String x:Key="FailedToSaveSystem">시스템 구성을 저장하지 못했습니다.</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">에뮬레이터 및 해당 종속성의 무결성을 확인하세요.</system:String>
-    <system:String x:Key="Pleasefixthat">수정해 주세요.</system:String>
-    <system:String x:Key="Emulatornameisrequired">에뮬레이터 이름은 필수입니다.</system:String>
-    <system:String x:Key="ErrorDetails">세부 정보:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">이미지 팩이 폴더에 성공적으로 추출되었습니다</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">전문가 모드에서 이러한 유형의 오류 메시지를 끌 수 있습니다.</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">즐겨찾기를 보려면 시스템을 선택하세요.</system:String>
-    <system:String x:Key="Filteringpleasewait">필터링 중입니다. 기다려 주세요...</system:String>
-    <system:String x:Key="NextPage">다음 페이지</system:String>
-    <system:String x:Key="PreviousPage">이전 페이지</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">시스템 즐겨찾기</system:String>
-    <system:String x:Key="ZoomOut">확대 축소</system:String>
-    <system:String x:Key="ZoomIn">확대</system:String>
-    <system:String x:Key="Restart">재시작</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">설정된 시스템이 없습니다. '시스템 편집' 메뉴를 사용하여 시스템을 추가하세요.</system:String>
+    <system:String x:Key="50pixels">50픽셀</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">이 시스템에 대한 즐겨찾기가 없거나 시스템을 선택하지 않았습니다.</system:String>
+
     <system:String x:Key="100games">100 게임</system:String>
     <system:String x:Key="100pixels">100 픽셀</system:String>
     <system:String x:Key="150pixels">150 픽셀</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">압축 해제 폴더를 생성하거나 접근할 수 없습니다</system:String>
     <system:String x:Key="Cart">카트리지</system:String>
     <system:String x:Key="Cartnotfound">카트리지를 찾을 수 없습니다</system:String>
+    <system:String x:Key="CheckFilePermissions">파일 권한을 확인하고 파일이 잠겨 있지 않은지 확인하세요.</system:String>
     <system:String x:Key="CheckForUpdate">업데이트 확인</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">에뮬레이터 및 해당 종속성의 무결성을 확인하세요.</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">이 시스템에 대한 'ROMs' 또는 'ISOs'가 있는 폴더를 선택하십시오</system:String>
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseASystemToAdd">추가할 시스템 선택</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">에뮬레이터 5 경로</system:String>
     <system:String x:Key="EmulatorLocation">에뮬레이터 위치</system:String>
     <system:String x:Key="EmulatorName">에뮬레이터 이름</system:String>
+    <system:String x:Key="Emulatornameisrequired">에뮬레이터 이름은 필수입니다.</system:String>
     <system:String x:Key="EmulatorParameters">에뮬레이터 매개변수</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">에뮬레이터 경로가 잘못되었습니다:</system:String>
     <system:String x:Key="Enable">활성화</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리에 있는지 확인하세요.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">파일을 추출하기 위한 하드 디스크의 여유 공간이 충분한지 확인하세요.</system:String>
     <system:String x:Key="Error">오류</system:String>
+    <system:String x:Key="ErrorDetails">세부 정보:</system:String>
     <system:String x:Key="Errorduring">동안 오류</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템을 추가하지 못했습니다.</system:String>
     <system:String x:Key="ErrorFailedtoextract">오류: 추출 실패</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">워크스루 파일을 열지 못했습니다.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">앱 재시작 실패.</system:String>
     <system:String x:Key="Failedtosavescreenshot">스크린샷을 저장하지 못했습니다.</system:String>
+    <system:String x:Key="FailedToSaveSystem">시스템 구성을 저장하지 못했습니다.</system:String>
     <system:String x:Key="Failedtosavethereport">보고서를 저장하지 못했습니다.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher 시작 실패. 기존 인스턴스 확인 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Failedtostarttheemulator">에뮬레이터를 시작하지 못했거나 예상대로 종료되지 않았습니다.</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' 파일이 누락되었습니다.</system:String>
     <system:String x:Key="Filedeleted">파일이 삭제되었습니다</system:String>
+    <system:String x:Key="Filteringpleasewait">필터링 중입니다. 기다려 주세요...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">이름</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
     <system:String x:Key="NewThresholdLabel">새 임계값:</system:String>
+    <system:String x:Key="NextPage">다음 페이지</system:String>
     <system:String x:Key="Nodetailsavailablefor">세부 정보가 없습니다:</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">무작위로 선택할 게임을 찾을 수 없습니다. 시스템 선택을 확인하십시오.</system:String>
     <system:String x:Key="nogamesmatched">안타깝게도 검색 또는 선택한 버튼과 일치하는 게임이 없습니다.</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">선택한 파일에 대한 ROM 히스토리가 로컬 데이터베이스에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">저장할 수 있는 통계가 없습니다. 데이터가 로드될 때까지 기다려주세요.</system:String>
     <system:String x:Key="Nosystemnameprovided">시스템 이름이 제공되지 않았습니다.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">설정된 시스템이 없습니다. '시스템 편집' 메뉴를 사용하여 시스템을 추가하세요.</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">압축 해제를 위한 디스크 공간이 부족합니다.</system:String>
     <system:String x:Key="Notextavailable">사용 가능한 텍스트가 없습니다.</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">이메일을 입력하세요.</system:String>
     <system:String x:Key="Pleaseenterthename">이름을 입력하세요.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">수동으로 수정하거나 삭제해주세요.</system:String>
+    <system:String x:Key="Pleasefixthat">수정해 주세요.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">편집 창에서 이 문제를 해결하세요.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">진행하려면 이것들을 수정하세요.</system:String>
     <system:String x:Key="Pleasefixthisfield">이 필드를 수정해 주세요.</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">잠시만 기다려주세요</system:String>
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
+    <system:String x:Key="PreviousPage">이전 페이지</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">그래도 실행을 진행하시겠습니까?</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
     <system:String x:Key="ProgressBar">진행률 바</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemovefromHistory">기록에서 제거</system:String>
     <system:String x:Key="Reportsavedsuccessfully">보고서가 성공적으로 저장되었습니다.</system:String>
+    <system:String x:Key="Restart">재시작</system:String>
     <system:String x:Key="RestartError">재시작 오류</system:String>
     <system:String x:Key="RestoreBackup">백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">검색 중입니다. 잠시만 기다려주세요...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">제거할 기록 항목을 선택하십시오.</system:String>
     <system:String x:Key="SelectaWindow">창을 선택하세요</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">시스템 즐겨찾기</system:String>
     <system:String x:Key="Selectedsystemnotfound">선택한 시스템이 XML 문서에서 찾을 수 없습니다!</system:String>
     <system:String x:Key="SelectEmulator">에뮬레이터 선택</system:String>
     <system:String x:Key="SelectEmulator1">에뮬레이터 1을 선택하세요.</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher'에서 'helpuser.xml'을 로드할 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher'가 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher'에서 이미지 팩 다운로드 링크를 열 수 없습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher'가 스크린샷을 찍을 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher'가 이 시스템을 위한 이미지 폴더를 생성했습니다:</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher 오류</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher'가 이 시스템에 필요한 폴더를 생성하지 못했습니다.</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">게임이 지금 시작됩니다.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">이미지가 손상되었거나 액세스할 수 없습니다.</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">이미지 팩이 폴더에 성공적으로 추출되었습니다</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe'의 실행이 사용자에 의해 취소되었습니다.</system:String>
     <system:String x:Key="Theme">테마</system:String>
     <system:String x:Key="Thename">이름</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">타이틀 스냅샷을 찾을 수 없습니다</system:String>
     <system:String x:Key="to">부터</system:String>
     <system:String x:Key="Toextractafileitneedstobe">파일을 추출하려면 해당 파일이 7z, zip, 또는 rar 형식이어야 합니다.</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">버튼 종횡비 전환</system:String>
+    <system:String x:Key="ToggleViewMode">보기 모드 전환</system:String>
     <system:String x:Key="Tools">도구</system:String>
     <system:String x:Key="total">총</system:String>
     <system:String x:Key="TotalDiskSize">모든 게임의 디스크 크기:</system:String>
@@ -601,10 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">안티바이러스 소프트웨어를 일시적으로 비활성화하거나 'Simple Launcher' 폴더를 안티바이러스 제외 목록에 추가할 수 있습니다.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">사용자 지정 게임패드 데드존을 정의할 수 있습니다.</system:String>
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">전문가 모드에서 이러한 유형의 오류 메시지를 끌 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
-
+    <system:String x:Key="ZoomIn">확대</system:String>
+    <system:String x:Key="ZoomOut">확대 축소</system:String>
 </ResourceDictionary>

@@ -2,25 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' indirme bağlantısını açamadı.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' ekran görüntüsü alamadı.</system:String>
-    <system:String x:Key="CheckFilePermissions">Lütfen dosya izinlerini kontrol edin ve dosyanın kilitli olmadığından emin olun.</system:String>
-    <system:String x:Key="FailedToSaveSystem">Sistem yapılandırması kaydedilemedi.</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Emülatörün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
-    <system:String x:Key="Pleasefixthat">Lütfen bunu düzeltin.</system:String>
-    <system:String x:Key="Emulatornameisrequired">Emülatör adı gereklidir.</system:String>
-    <system:String x:Key="ErrorDetails">Detaylar:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Resim paketi başarıyla klasöre çıkarıldı</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Bu tür hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">Favorileri görmek için lütfen bir sistem seçin.</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtreleniyor, lütfen bekleyin...</system:String>
-    <system:String x:Key="NextPage">Sonraki Sayfa</system:String>
-    <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">Sistem Favorileri</system:String>
-    <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
-    <system:String x:Key="Restart">Yeniden Başlat</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">Hiç sistem yapılandırılmadı. Sistem eklemek için 'Sistemi Düzenle' menüsünü kullanın.</system:String>
+    <system:String x:Key="50pixels">50 piksel</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Bu sistem için favori yok veya bir sistem seçmediniz.</system:String>
+
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Çıkartma klasörü oluşturulamıyor veya erişilemiyor</system:String>
     <system:String x:Key="Cart">Kartuş</system:String>
     <system:String x:Key="Cartnotfound">Kartuş bulunamadı</system:String>
+    <system:String x:Key="CheckFilePermissions">Lütfen dosya izinlerini kontrol edin ve dosyanın kilitli olmadığından emin olun.</system:String>
     <system:String x:Key="CheckForUpdate">Güncellemeleri Kontrol Et</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Emülatörün ve bağımlılıklarının bütünlüğünü kontrol edin.</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Bu sistem için 'ROMs' veya 'ISOs' içeren bir klasör seçin</system:String>
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="ChooseASystemToAdd">Eklemek için bir sistem seçin</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">Emülatör 5 Yolu</system:String>
     <system:String x:Key="EmulatorLocation">Emülatör Konumu</system:String>
     <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
+    <system:String x:Key="Emulatornameisrequired">Emülatör adı gereklidir.</system:String>
     <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator yolu geçersiz:</system:String>
     <system:String x:Key="Enable">Etkinleştir</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Dosyayı çıkarmak için sabit diskte yeterli alan olduğundan emin olun.</system:String>
     <system:String x:Key="Error">Hata</system:String>
+    <system:String x:Key="ErrorDetails">Detaylar:</system:String>
     <system:String x:Key="Errorduring">sırasında hata</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistem eklenemedi.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Hata: Çıkartma başarısız</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">Rehber dosyası açılamadı.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">Uygulama yeniden başlatılamadı.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Ekran görüntüsü kaydedilemedi.</system:String>
+    <system:String x:Key="FailedToSaveSystem">Sistem yapılandırması kaydedilemedi.</system:String>
     <system:String x:Key="Failedtosavethereport">Rapor kaydedilemedi.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Simple Launcher başlatılamadı. Mevcut örnekler kontrol edilirken hata oluştu.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Emülatör başlatılamadı veya beklenildiği gibi sonlandırılamadı.</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
     <system:String x:Key="Filedeleted">Dosya silindi</system:String>
+    <system:String x:Key="Filteringpleasewait">Filtreleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">İsim</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">ilgili veriler sağlandığı için gereklidir.</system:String>
     <system:String x:Key="NewThresholdLabel">Yeni Eşik:</system:String>
+    <system:String x:Key="NextPage">Sonraki Sayfa</system:String>
     <system:String x:Key="Nodetailsavailablefor">İçin detay bulunamadı</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Rastgele seçim yapmak için oyun bulunamadı. Lütfen sistem seçiminizi kontrol edin.</system:String>
     <system:String x:Key="nogamesmatched">Maalesef, aramanız veya seçtiğiniz buton ile eşleşen bir oyun bulunamadı.</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">Seçilen dosya için yerel veri tabanında herhangi bir ROM geçmişi bulunamadı.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Kaydedilecek istatistik yok. Veriler yüklenene kadar bekleyin.</system:String>
     <system:String x:Key="Nosystemnameprovided">Sistem adı belirtilmedi.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">Hiç sistem yapılandırılmadı. Sistem eklemek için 'Sistemi Düzenle' menüsünü kullanın.</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Çıkarma için yeterli disk alanı yok.</system:String>
     <system:String x:Key="Notextavailable">Metin bulunamadı.</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">Lütfen e-postayı girin.</system:String>
     <system:String x:Key="Pleaseenterthename">Lütfen ismi girin.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Lütfen el ile düzeltin ya da dosyayı silin.</system:String>
+    <system:String x:Key="Pleasefixthat">Lütfen bunu düzeltin.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Bunu düzenleme penceresinden düzeltin.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Lütfen devam etmek için bunları düzeltin.</system:String>
     <system:String x:Key="Pleasefixthisfield">Lütfen bu alanı düzeltin.</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">Lütfen bekleyin</system:String>
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
+    <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">Yine de başlatmaya devam etmek istiyor musunuz?</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ProgressBar">İlerleme Çubuğu</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
     <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
+    <system:String x:Key="Restart">Yeniden Başlat</system:String>
     <system:String x:Key="RestartError">Yeniden Başlatma Hatası</system:String>
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Lütfen kaldırmak için bir geçmiş öğesi seçin.</system:String>
     <system:String x:Key="SelectaWindow">Bir pencere seçin</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">Sistem Favorileri</system:String>
     <system:String x:Key="Selectedsystemnotfound">Seçili sistem XML belgesinde bulunamadı!</system:String>
     <system:String x:Key="SelectEmulator">Emülatör Seç</system:String>
     <system:String x:Key="SelectEmulator1">1. Emülatörü Seçin.</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher', 'helpuser.xml' dosyasını yükleyemedi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' ekran görüntüsü alamadı.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Oyun şimdi başlatılacak.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Resim bozulmuş veya erişilemez durumda olabilir.</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Resim paketi başarıyla klasöre çıkarıldı</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' başlatma işlemi kullanıcı tarafından iptal edildi.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">Adı</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">Başlık Görüntüsü Bulunamadı</system:String>
     <system:String x:Key="to">sonuna kadar</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Bir dosyanın çıkarılabilmesi için 7z, zip veya rar formatında olması gerekir.</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">Buton en-boy oranını değiştir</system:String>
+    <system:String x:Key="ToggleViewMode">Görünüm modunu değiştir</system:String>
     <system:String x:Key="Tools">Araçlar</system:String>
     <system:String x:Key="total">adet</system:String>
     <system:String x:Key="TotalDiskSize">Tüm oyunların toplam disk boyutu:</system:String>
@@ -601,9 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Bu tür hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
-
+    <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
+    <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
 </ResourceDictionary>

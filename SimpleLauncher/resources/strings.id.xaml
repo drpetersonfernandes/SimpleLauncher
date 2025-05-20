@@ -1,26 +1,10 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' tidak dapat membuka tautan unduhan.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' tidak dapat mengambil tangkapan layar.</system:String>
-    <system:String x:Key="CheckFilePermissions">Harap periksa izin file dan pastikan file tidak terkunci.</system:String>
-    <system:String x:Key="FailedToSaveSystem">Gagal menyimpan konfigurasi sistem.</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Periksa integritas emulator dan dependensinya.</system:String>
-    <system:String x:Key="Pleasefixthat">Harap perbaiki itu.</system:String>
-    <system:String x:Key="Emulatornameisrequired">Nama emulator diperlukan.</system:String>
-    <system:String x:Key="ErrorDetails">Detail:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Paket gambar berhasil diekstrak ke folder</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Anda dapat mematikan jenis pesan kesalahan ini di mode Expert.</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">Harap pilih sistem untuk melihat favorit.</system:String>
-    <system:String x:Key="Filteringpleasewait">Menyaring, harap tunggu...</system:String>
-    <system:String x:Key="NextPage">Halaman Berikutnya</system:String>
-    <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">Favorit Sistem</system:String>
-    <system:String x:Key="ZoomOut">Perkecil</system:String>
-    <system:String x:Key="ZoomIn">Perbesar</system:String>
-    <system:String x:Key="Restart">Mulai Ulang</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">Tidak ada sistem yang dikonfigurasi. Harap gunakan menu 'Edit Sistem' untuk menambahkan sistem.</system:String>
-    
+
+    <system:String x:Key="50pixels">50 piksel</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Tidak ada Favorit untuk sistem ini, atau Anda belum memilih sistem.</system:String>
+
     <system:String x:Key="100games">100 permainan</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">Tidak dapat membuat atau mengakses folder ekstraksi</system:String>
     <system:String x:Key="Cart">Kartrid</system:String>
     <system:String x:Key="Cartnotfound">Kartrid tidak ditemukan</system:String>
+    <system:String x:Key="CheckFilePermissions">Harap periksa izin file dan pastikan file tidak terkunci.</system:String>
     <system:String x:Key="CheckForUpdate">Periksa Pembaruan</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Periksa integritas emulator dan dependensinya.</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini</system:String>
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Pilih sistem yang akan ditambahkan</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
     <system:String x:Key="EmulatorLocation">Lokasi Emulator</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
+    <system:String x:Key="Emulatornameisrequired">Nama emulator diperlukan.</system:String>
     <system:String x:Key="EmulatorParameters">Parameter Emulator</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Jalur emulator tidak valid untuk:</system:String>
     <system:String x:Key="Enable">Aktifkan</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Pastikan Anda memiliki cukup ruang di HDD untuk mengekstrak file.</system:String>
     <system:String x:Key="Error">Kesalahan</system:String>
+    <system:String x:Key="ErrorDetails">Detail:</system:String>
     <system:String x:Key="Errorduring">Error selama</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Kesalahan: Gagal menambahkan sistem.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Gagal mengekstrak</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">Gagal membuka file panduan.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">Gagal memulai ulang aplikasi.</system:String>
     <system:String x:Key="Failedtosavescreenshot">Gagal menyimpan tangkapan layar.</system:String>
+    <system:String x:Key="FailedToSaveSystem">Gagal menyimpan konfigurasi sistem.</system:String>
     <system:String x:Key="Failedtosavethereport">Gagal menyimpan laporan.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">Gagal memulai Simple Launcher. Terjadi kesalahan saat memeriksa instansi yang ada.</system:String>
     <system:String x:Key="Failedtostarttheemulator">Gagal memulai emulator atau emulator tidak keluar seperti yang diharapkan.</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">Merasa Beruntung</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Fail 'appsettings.json' tidak ditemui.</system:String>
     <system:String x:Key="Filedeleted">File dihapus</system:String>
+    <system:String x:Key="Filteringpleasewait">Menyaring, harap tunggu...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">Nama</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">nama diperlukan karena data terkait telah disediakan.</system:String>
     <system:String x:Key="NewThresholdLabel">Ambang Batas Baru:</system:String>
+    <system:String x:Key="NextPage">Halaman Berikutnya</system:String>
     <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Tidak ada game yang ditemukan untuk dipilih secara acak. Silakan periksa pilihan sistem Anda.</system:String>
     <system:String x:Key="nogamesmatched">Sayangnya, tidak ada game yang cocok dengan kueri pencarian Anda atau tombol yang dipilih.</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">Tidak ada riwayat ROM yang ditemukan di basis data lokal untuk file yang dipilih.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Tidak ada statistik yang tersedia untuk disimpan. Harap tunggu hingga data dimuat.</system:String>
     <system:String x:Key="Nosystemnameprovided">Tidak ada nama sistem yang diberikan.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">Tidak ada sistem yang dikonfigurasi. Harap gunakan menu 'Edit Sistem' untuk menambahkan sistem.</system:String>
     <system:String x:Key="Nosystemselected">Tidak ada sistem yang dipilih</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Ruang disk tidak cukup untuk ekstraksi.</system:String>
     <system:String x:Key="Notextavailable">Tidak ada teks yang tersedia.</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">Silakan masukkan email.</system:String>
     <system:String x:Key="Pleaseenterthename">Silakan masukkan nama.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Harap perbaiki secara manual atau hapus.</system:String>
+    <system:String x:Key="Pleasefixthat">Harap perbaiki itu.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Harap perbaiki ini di jendela edit.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Harap perbaiki untuk melanjutkan.</system:String>
     <system:String x:Key="Pleasefixthisfield">Harap perbaiki bidang ini.</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">Harap Tunggu</system:String>
     <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
     <system:String x:Key="PreviewImage">Pratinjau Gambar</system:String>
+    <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">Apakah Anda ingin melanjutkan peluncuran?</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
     <system:String x:Key="ProgressBar">Bilah Progres</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemovefromHistory">Hapus dari riwayat</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Laporan berhasil disimpan.</system:String>
+    <system:String x:Key="Restart">Mulai Ulang</system:String>
     <system:String x:Key="RestartError">Kesalahan Restart</system:String>
     <system:String x:Key="RestoreBackup">Pulihkan Cadangan?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Silakan pilih item riwayat untuk dihapus.</system:String>
     <system:String x:Key="SelectaWindow">Pilih Jendela</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">Favorit Sistem</system:String>
     <system:String x:Key="Selectedsystemnotfound">Sistem yang dipilih tidak ditemukan dalam dokumen XML!</system:String>
     <system:String x:Key="SelectEmulator">Pilih Emulator</system:String>
     <system:String x:Key="SelectEmulator1">Pilih Emulator 1.</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' tidak dapat memuat 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' tidak dapat membuka tautan unduhan.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' tidak dapat mengambil tangkapan layar.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
     <system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">File game tidak ada!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">Game akan diluncurkan sekarang.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Gambar mungkin rusak atau tidak dapat diakses.</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Paket gambar berhasil diekstrak ke folder</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Peluncuran 'FindRomCover.exe' dibatalkan oleh pengguna.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">Nama</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">Snapshot Judul tidak ditemukan</system:String>
     <system:String x:Key="to">hingga</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Untuk mengekstrak file, file tersebut harus berupa file 7z, zip, atau rar.</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">Ubah Rasio Aspek Tombol</system:String>
+    <system:String x:Key="ToggleViewMode">Ganti Mode Tampilan</system:String>
     <system:String x:Key="Tools">Alat</system:String>
     <system:String x:Key="total">total</system:String>
     <system:String x:Key="TotalDiskSize">Ukuran Disk untuk Semua Game:</system:String>
@@ -601,10 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Anda juga dapat menonaktifkan perangkat lunak antivirus Anda sementara atau menambahkan folder 'Simple Launcher' ke daftar pengecualian antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Anda Dapat Menentukan Zona Mati Gamepad Kustom</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Anda dapat mematikan jenis pesan kesalahan ini di mode Expert.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
-
+    <system:String x:Key="ZoomIn">Perbesar</system:String>
+    <system:String x:Key="ZoomOut">Perkecil</system:String>
 </ResourceDictionary>

@@ -2,25 +2,9 @@
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
 
-    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' no pudo abrir el enlace de descarga.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' no pudo tomar la captura de pantalla.</system:String>
-    <system:String x:Key="CheckFilePermissions">Por favor, verifique los permisos del archivo y asegúrese de que el archivo no esté bloqueado.</system:String>
-    <system:String x:Key="FailedToSaveSystem">No se pudo guardar la configuración del sistema.</system:String>
-    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Verifique la integridad del emulador y sus dependencias.</system:String>
-    <system:String x:Key="Pleasefixthat">Por favor, corrija eso.</system:String>
-    <system:String x:Key="Emulatornameisrequired">Se requiere el nombre del emulador.</system:String>
-    <system:String x:Key="ErrorDetails">Detalles:</system:String>
-    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">El paquete de imágenes se extrajo con éxito en la carpeta</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Puede desactivar este tipo de mensaje de error en el modo Experto.</system:String>
-    <system:String x:Key="Pleaseselectedasystemtoseethefavorites">Por favor seleccione un sistema para ver los favoritos.</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtrando, por favor espere...</system:String>
-    <system:String x:Key="NextPage">Página siguiente</system:String>
-    <system:String x:Key="PreviousPage">Página anterior</system:String>
-    <system:String x:Key="SelectedSystemFavoriteButton">Favoritos del sistema</system:String>
-    <system:String x:Key="ZoomOut">Alejar zoom</system:String>
-    <system:String x:Key="ZoomIn">Acercar zoom</system:String>
-    <system:String x:Key="Restart">Reiniciar</system:String>
-    <system:String x:Key="NoSystemsConfiguredMessage">No hay sistemas configurados. Por favor use el menú 'Editar sistema' para agregar sistemas.</system:String>
+    <system:String x:Key="50pixels">50 píxeles</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">No hay un favorito para este sistema o no ha seleccionado un sistema.</system:String>
+
     <system:String x:Key="100games">100 juegos</system:String>
     <system:String x:Key="100pixels">100 píxeles</system:String>
     <system:String x:Key="150pixels">150 píxeles</system:String>
@@ -93,7 +77,9 @@
     <system:String x:Key="Cannotcreateoraccesstheextractionfolder">No se puede crear o acceder a la carpeta de extracción</system:String>
     <system:String x:Key="Cart">Cartucho</system:String>
     <system:String x:Key="Cartnotfound">Cartucho no encontrado</system:String>
+    <system:String x:Key="CheckFilePermissions">Por favor, verifique los permisos del archivo y asegúrese de que el archivo no esté bloqueado.</system:String>
     <system:String x:Key="CheckForUpdate">Buscar actualizaciones</system:String>
+    <system:String x:Key="Checktheintegrityoftheemulatoranditsdependencies">Verifique la integridad del emulador y sus dependencias.</system:String>
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Elige una carpeta con 'ROMs' o 'ISOs' para este sistema</system:String>
     <system:String x:Key="Chooseasystem">Elige un sistema</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecciona un sistema para agregar</system:String>
@@ -190,6 +176,7 @@
     <system:String x:Key="Emulator5Path">Ruta del Emulador 5</system:String>
     <system:String x:Key="EmulatorLocation">Ubicación del Emulador</system:String>
     <system:String x:Key="EmulatorName">Nombre del Emulador</system:String>
+    <system:String x:Key="Emulatornameisrequired">Se requiere el nombre del emulador.</system:String>
     <system:String x:Key="EmulatorParameters">Parámetros del Emulador</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">La ruta del emulador no es válida para</system:String>
     <system:String x:Key="Enable">Habilitar</system:String>
@@ -199,6 +186,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Asegúrate de que la carpeta 'Simple Launcher' sea un directorio con permisos de escritura.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Asegúrese de tener suficiente espacio en el disco duro para extraer el archivo.</system:String>
     <system:String x:Key="Error">Error</system:String>
+    <system:String x:Key="ErrorDetails">Detalles:</system:String>
     <system:String x:Key="Errorduring">Error durante</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: No se pudo añadir el sistema.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Falló la extracción</system:String>
@@ -225,6 +213,7 @@
     <system:String x:Key="Failedtoopenthewalkthroughfile">No se pudo abrir el archivo del tutorial.</system:String>
     <system:String x:Key="Failedtorestarttheapplication">Error al reiniciar la aplicación.</system:String>
     <system:String x:Key="Failedtosavescreenshot">No se pudo guardar la captura de pantalla.</system:String>
+    <system:String x:Key="FailedToSaveSystem">No se pudo guardar la configuración del sistema.</system:String>
     <system:String x:Key="Failedtosavethereport">Falló al guardar el informe.</system:String>
     <system:String x:Key="FailedtostartSimpleLauncherAnerroroccurred">No se pudo iniciar Simple Launcher. Ocurrió un error al verificar las instancias existentes.</system:String>
     <system:String x:Key="Failedtostarttheemulator">No se pudo iniciar el emulador o no se cerró como se esperaba.</system:String>
@@ -233,6 +222,7 @@
     <system:String x:Key="FeelingLucky">SintiéndomeAfortunado</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Falta el archivo 'appsettings.json'.</system:String>
     <system:String x:Key="Filedeleted">Archivo eliminado</system:String>
+    <system:String x:Key="Filteringpleasewait">Filtrando, por favor espere...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' no se encontró en la ruta esperada.</system:String>
     <system:String x:Key="Flyer">Folleto</system:String>
     <system:String x:Key="Flyernotfound">Folleto no encontrado</system:String>
@@ -310,6 +300,7 @@
     <system:String x:Key="Name">Nombre</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">es necesario porque se han proporcionado datos relacionados.</system:String>
     <system:String x:Key="NewThresholdLabel">Nuevo umbral:</system:String>
+    <system:String x:Key="NextPage">Página siguiente</system:String>
     <system:String x:Key="Nodetailsavailablefor">No hay detalles disponibles para</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">No se encontraron juegos para seleccionar al azar. Por favor, verifica la selección del sistema.</system:String>
     <system:String x:Key="nogamesmatched">Desafortunadamente, ningún juego coincide con su búsqueda o selección.</system:String>
@@ -319,6 +310,7 @@
     <system:String x:Key="NoROMhistoryfoundinthelocal">No se encontró un historial de ROM en la base de datos local para el archivo seleccionado.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">No hay estadísticas disponibles para guardar. Por favor, espere a que se carguen los datos.</system:String>
     <system:String x:Key="Nosystemnameprovided">No se proporcionó un nombre de sistema.</system:String>
+    <system:String x:Key="NoSystemsConfiguredMessage">No hay sistemas configurados. Por favor use el menú 'Editar sistema' para agregar sistemas.</system:String>
     <system:String x:Key="Nosystemselected">No se ha seleccionado ningún sistema</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">No hay suficiente espacio en disco para la extracción.</system:String>
     <system:String x:Key="Notextavailable">No hay texto disponible.</system:String>
@@ -353,6 +345,7 @@
     <system:String x:Key="Pleaseentertheemail">Por favor, ingrese el correo electrónico.</system:String>
     <system:String x:Key="Pleaseenterthename">Por favor, ingrese el nombre.</system:String>
     <system:String x:Key="Pleasefixitmanuallyordeleteit">Por favor, arréglelo manualmente o elimínelo.</system:String>
+    <system:String x:Key="Pleasefixthat">Por favor, corrija eso.</system:String>
     <system:String x:Key="PleasefixthatintheEditwindow">Por favor, solucione eso en la ventana de edición.</system:String>
     <system:String x:Key="Pleasefixthemtoproceed">Por favor, corrígelos para continuar.</system:String>
     <system:String x:Key="Pleasefixthisfield">Por favor, corrige este campo.</system:String>
@@ -374,6 +367,7 @@
     <system:String x:Key="PleaseWait">Por favor, espere</system:String>
     <system:String x:Key="Preparingtodownload">Preparando para descargar</system:String>
     <system:String x:Key="PreviewImage">Vista previa de la imagen</system:String>
+    <system:String x:Key="PreviousPage">Página anterior</system:String>
     <system:String x:Key="ProceedWithLaunchQuestion">¿Desea proceder con el lanzamiento de todos modos?</system:String>
     <system:String x:Key="Processingpleasewait">Procesando, por favor espera...</system:String>
     <system:String x:Key="ProgressBar">Barra de progreso</system:String>
@@ -390,6 +384,7 @@
     <system:String x:Key="RemoveFromFavorites">Eliminar de favoritos</system:String>
     <system:String x:Key="RemovefromHistory">Eliminar del historial</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Informe guardado con éxito.</system:String>
+    <system:String x:Key="Restart">Reiniciar</system:String>
     <system:String x:Key="RestartError">Error de reinicio</system:String>
     <system:String x:Key="RestoreBackup">¿Restaurar copia de seguridad?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restablecer a valores predeterminados</system:String>
@@ -403,6 +398,7 @@
     <system:String x:Key="Searchingpleasewait">Buscando, por favor espere...</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Por favor, selecciona un elemento del historial para eliminarlo.</system:String>
     <system:String x:Key="SelectaWindow">Seleccione una ventana</system:String>
+    <system:String x:Key="SelectedSystemFavoriteButton">Favoritos del sistema</system:String>
     <system:String x:Key="Selectedsystemnotfound">¡No se encontró el sistema seleccionado en el documento XML!</system:String>
     <system:String x:Key="SelectEmulator">Seleccionar emulador</system:String>
     <system:String x:Key="SelectEmulator1">Selecciona el emulador 1.</system:String>
@@ -438,7 +434,9 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' no pudo iniciar este juego.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' no pudo cargar 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' no pudo cargar el archivo 'mame.dat' o está dañado.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' no pudo abrir el enlace de descarga.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' no pudo abrir el enlace de descarga del paquete de imágenes.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' no pudo tomar la captura de pantalla.</system:String>
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' creó una carpeta de imágenes para este sistema en</system:String>
     <system:String x:Key="SimpleLauncherError">Error de Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' no pudo crear las carpetas necesarias para este sistema.</system:String>
@@ -498,6 +496,7 @@
     <system:String x:Key="Thegamefiledoesnotexist">¡El archivo del juego no existe!</system:String>
     <system:String x:Key="Thegamewilllaunchnow">El juego se iniciará ahora.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">La imagen podría estar dañada o no ser accesible.</system:String>
+    <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">El paquete de imágenes se extrajo con éxito en la carpeta</system:String>
     <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">El lanzamiento de 'FindRomCover.exe' fue cancelado por el usuario.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">El nombre</system:String>
@@ -553,6 +552,8 @@
     <system:String x:Key="TitleSnapshotnotfound">Captura de título no encontrada</system:String>
     <system:String x:Key="to">a</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Para extraer un archivo, debe ser un archivo 7z, zip o rar.</system:String>
+    <system:String x:Key="ToggleButtonAspectRatio">Alternar relación de aspecto del botón</system:String>
+    <system:String x:Key="ToggleViewMode">Cambiar modo de vista</system:String>
     <system:String x:Key="Tools">Herramientas</system:String>
     <system:String x:Key="total">total</system:String>
     <system:String x:Key="TotalDiskSize">Tamaño del disco de todos los juegos:</system:String>
@@ -601,10 +602,10 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">También puede desactivar temporalmente su software antivirus o agregar la carpeta 'Simple Launcher' a la lista de exclusión del antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Puedes definir una zona muerta personalizada del mando</system:String>
     <system:String x:Key="YoucandefinecustomURL">Puede definir una URL personalizada para usar en el botón de enlace de video y el botón de enlace de información.</system:String>
+    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Puede desactivar este tipo de mensaje de error en el modo Experto.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puedes usar los operadores lógicos AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puedes colocar las imágenes de portada para este sistema dentro de esta carpeta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Deberías cambiar los parámetros del emulador para evitar que este se inicie en pantalla completa.</system:String>
-    <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puedes colocar las imágenes de portada para este sistema dentro de esta carpeta.</system:String>
-    <system:String x:Key="Youshouldchangetheemulatorparameters">Deberías cambiar los parámetros del emulador para evitar que este se inicie en pantalla completa.</system:String>
-
+    <system:String x:Key="ZoomIn">Acercar zoom</system:String>
+    <system:String x:Key="ZoomOut">Alejar zoom</system:String>
 </ResourceDictionary>
