@@ -96,12 +96,14 @@ public partial class SystemManager
                     }
                     catch (Exception createEx)
                     {
-                        // Notify developer and user if creating the empty file fails
+                        // Notify developer
                         const string contextMessage = "Error creating empty 'system.xml'.";
                         _ = LogErrors.LogErrorAsync(createEx, contextMessage);
-                        // Use existing message box for critical file error
+
+                        // Notify user
                         MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
-                        return null; // Cannot proceed without the file
+
+                        return new List<SystemManager>(); // Return an empty list
                     }
                 }
             }
@@ -129,14 +131,17 @@ public partial class SystemManager
                 // Notify user
                 MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(LogPath);
 
-                return null;
+                return new List<SystemManager>(); // Return an empty list
             }
 
             var systemConfigs = new List<SystemManager>();
             var invalidConfigs = new Dictionary<XElement, string>();
 
             // If the root is null (e.g., empty file or invalid XML structure before root), return empty list
-            if (doc.Root == null) return systemConfigs;
+            if (doc.Root == null)
+            {
+                return systemConfigs;
+            }
 
             // Iterate through SystemConfig elements. This loop will be skipped if the file is empty (<SystemConfigs/>).
             foreach (var sysConfigElement in doc.Root.Elements("SystemConfig"))
@@ -279,10 +284,7 @@ public partial class SystemManager
             // Notify user
             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
 
-            return null; // Return null on critical failure
+            return new List<SystemManager>(); // Return an empty list
         }
-
-        // The FileSystemXmlNotFindMessageBox helper method is no longer needed
-        // as its logic is now integrated directly into the main method flow.
     }
 }

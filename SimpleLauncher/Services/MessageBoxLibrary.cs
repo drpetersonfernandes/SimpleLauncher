@@ -1775,11 +1775,8 @@ public static class MessageBoxLibrary
         void Show()
         {
             var thefilesystemxmlisbadlycorrupted =
-                (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ??
-                "The file 'system.xml' is badly corrupted.";
-            var wouldyouliketoopentheerroruserlog =
-                (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ??
-                "Would you like to open the 'error_user.log' file to investigate the issue?";
+                (string)Application.Current.TryFindResource("Thefilesystemxmlisbadlycorrupted") ?? "The file 'system.xml' is badly corrupted.";
+            var wouldyouliketoopentheerroruserlog = (string)Application.Current.TryFindResource("Wouldyouliketoopentheerroruserlog") ?? "Would you like to open the 'error_user.log' file to investigate the issue?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted}\n\n" +
                                          $"{wouldyouliketoopentheerroruserlog}",
@@ -1796,8 +1793,7 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ??
-                                          "The file 'error_user.log' was not found!";
+                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
 
                 MessageBox.Show(thefileerroruserlog,
                     error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -1911,14 +1907,9 @@ public static class MessageBoxLibrary
         static void Show()
         {
             var fileappsettingsjsonismissing =
-                (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ??
-                "File 'appsettings.json' is missing.";
-            var theapplicationwillnotbeabletosendthesupportrequest =
-                (string)Application.Current.TryFindResource("Theapplicationwillnotbeabletosendthesupportrequest") ??
-                "The application will not be able to send the support request.";
-            var doyouwanttoautomaticallyreinstall =
-                (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ??
-                "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
+                (string)Application.Current.TryFindResource("Fileappsettingsjsonismissing") ?? "File 'appsettings.json' is missing.";
+            var theapplicationwillnotbeabletosendthesupportrequest = (string)Application.Current.TryFindResource("Theapplicationwillnotbeabletosendthesupportrequest") ?? "The application will not be able to send the support request.";
+            var doyouwanttoautomaticallyreinstall = (string)Application.Current.TryFindResource("Doyouwanttoautomaticallyreinstall") ?? "Do you want to automatically reinstall 'Simple Launcher' to fix the problem?";
             var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             var messageBoxResult = MessageBox.Show(
                 $"{fileappsettingsjsonismissing}\n\n" +
@@ -4637,6 +4628,28 @@ public static class MessageBoxLibrary
         {
             MessageBox.Show(
                 $"{simpleLaunchercouldnottakethescreenshot}\n\n" +
+                $"{theerrorwasreportedtothedeveloper}",
+                error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void ErrorLoadingAppSettingsMessageBox()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+        var therewasanerrorloadingconfiguration = (string)Application.Current.TryFindResource("Therewasanerrorloadingconfiguration") ?? "There was an error loading 'appsettings.json'.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(
+                $"{therewasanerrorloadingconfiguration}\n\n" +
                 $"{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
         }

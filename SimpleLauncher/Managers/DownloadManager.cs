@@ -24,7 +24,6 @@ public class DownloadManager : IDisposable
     public event EventHandler<DownloadProgressEventArgs> DownloadProgressChanged;
 
     // Constants
-    private const int HttpTimeoutSeconds = 60;
     private const int RetryMaxAttempts = 3;
     private const int RetryBaseDelayMs = 1000;
 

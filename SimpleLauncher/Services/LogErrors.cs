@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -32,7 +33,10 @@ public static class LogErrors
             {
                 // File is missing, disable API logging and notify the user
                 _isApiLoggingEnabled = false;
+
+                // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("File 'appsettings.json' is missing.");
+
                 return; // Stop loading configuration
             }
 
@@ -50,7 +54,10 @@ public static class LogErrors
             {
                 // ApiKey is missing or empty, disable API logging and notify the user
                 _isApiLoggingEnabled = false;
+
+                // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("API Key is missing or empty in 'appsettings.json'.");
+
                 return; // Stop loading configuration
             }
 
@@ -77,8 +84,11 @@ public static class LogErrors
         {
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiLoggingEnabled = false;
+
             // Log this critical error locally, as API logging is disabled
             WriteLocalErrorLog(ex, "Error loading API configuration from appsettings.json.");
+
+            // Notify user
             MessageBoxLibrary.HandleApiConfigErrorMessageBox($"Error loading API configuration: {ex.Message}");
         }
     }
@@ -130,14 +140,16 @@ public static class LogErrors
                     }
                     catch (Exception ex2)
                     {
-                        Console.WriteLine(@"There was an error deleting the ErrorLog: " + ex2.Message);
+                        WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
+                        Debug.WriteLine(@"There was an error deleting the ErrorLog: " + ex2.Message);
                     }
                 }
             }
         }
         catch (Exception ex3)
         {
-            Console.WriteLine(@"There was an error sending the ErrorLog: " + ex3.Message);
+            WriteLocalErrorLog(ex3, "Error writing the ErrorLog.");
+            Debug.WriteLine(@"There was an error sending the ErrorLog: " + ex3.Message);
         }
     }
 
@@ -163,14 +175,17 @@ public static class LogErrors
             var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
 
-            // Notify developer
-            Console.WriteLine(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
+            // for debug
+            Debug.WriteLine(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
         {
-            Console.WriteLine(@"There was an error sending the ErrorLog: " + ex.Message);
+            // for debug
+            Debug.WriteLine(@"There was an error sending the ErrorLog: " + ex.Message);
+
+            WriteLocalErrorLog(ex, "Error sending the ErrorLog to the API.");
 
             // If sending fails, don't disable logging, just return false
             return false;
@@ -180,7 +195,7 @@ public static class LogErrors
     /// <summary>
     /// Writes a critical error to a local log file when API logging is not available.
     /// </summary>
-    private static void WriteLocalErrorLog(Exception ex, string contextMessage)
+    public static void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var criticalLogPath = Path.Combine(baseDirectory, "critical_error.log");
@@ -208,8 +223,8 @@ public static class LogErrors
         }
         catch (Exception ex2)
         {
-            // Notify developer
-            Console.WriteLine(@"There was an error writing the local ErrorLog: " + ex2.Message);
+            // for debug
+            Debug.WriteLine(@"There was an error writing the local ErrorLog: " + ex2.Message);
         }
     }
 }

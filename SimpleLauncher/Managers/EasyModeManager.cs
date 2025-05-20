@@ -67,8 +67,7 @@ public class EasyModeManager
             const string contextMessage = "The file 'easymode.xml' is corrupted or invalid.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Return an empty config to avoid further null reference issues
-            return new EasyModeManager { Systems = [] };
+            return new EasyModeManager { Systems = [] }; // Return an empty config
         }
         catch (Exception ex)
         {
@@ -76,12 +75,10 @@ public class EasyModeManager
             const string contextMessage = "An unexpected error occurred while loading the file 'easymode.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Return an empty config to avoid further null reference issues
-            return new EasyModeManager { Systems = [] };
+            return new EasyModeManager { Systems = [] }; // Return an empty config
         }
 
-        // Return an empty config to avoid further null reference issues
-        return new EasyModeManager { Systems = [] };
+        return new EasyModeManager { Systems = [] }; // Return an empty config
     }
 
     public void Validate()

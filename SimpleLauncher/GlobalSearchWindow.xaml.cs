@@ -122,7 +122,7 @@ public partial class GlobalSearchWindow
 
             if (systemManager.FileFormatsToSearch == null)
             {
-                return new List<SearchResult>(); // return an empty list if the file formats to search are null.
+                continue; // skip the current `systemManager` and proceed with searching other systems
             }
 
             // Get all files matching the file's extensions for this system

@@ -32,25 +32,47 @@ public partial class SupportWindow
     private static void LoadConfiguration()
     {
         const string configFile = "appsettings.json";
-        if (File.Exists(configFile))
+        try
         {
+            if (!File.Exists(configFile))
+            {
+                // Notify developer
+                const string contextMessage = "File 'appsettings.json' is missing.";
+                var ex = new Exception(contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.RequiredFileMissingMessageBox();
+
+                return;
+            }
+
             var configText = File.ReadAllText(configFile);
             using var jsonDoc = JsonDocument.Parse(configText);
             var root = jsonDoc.RootElement;
-            ApiKey = root.GetProperty(nameof(ApiKey)).GetString();
+
+            // Extract API Key with null check
+            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement))
+            {
+                ApiKey = apiKeyElement.GetString();
+            }
+            else
+            {
+                throw new InvalidOperationException("ApiKey is missing in configuration");
+            }
+
+            // Extract API Base URL with default value
             ApiBaseUrl = root.TryGetProperty("EmailApiBaseUrl", out var urlProp)
                 ? urlProp.GetString()
                 : "https://www.purelogiccode.com/customeremailservice";
         }
-        else
+        catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "File 'appsettings.json' is missing.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
 
             // Notify user
-            MessageBoxLibrary.RequiredFileMissingMessageBox();
+            MessageBoxLibrary.ErrorLoadingAppSettingsMessageBox();
         }
     }
 

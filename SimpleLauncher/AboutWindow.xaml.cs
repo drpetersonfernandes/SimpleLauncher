@@ -27,9 +27,8 @@ public partial class AboutWindow
     {
         try
         {
-            using var process = Process.Start(new ProcessStartInfo
+            using var process = Process.Start(new ProcessStartInfo(e.Uri.AbsoluteUri)
             {
-                FileName = e.Uri.AbsoluteUri,
                 UseShellExecute = true
             });
         }

@@ -273,7 +273,7 @@ public class GamePadController : IDisposable
                             ErrorLogger?.Invoke(ex, "DirectInput device not acquired (DIERR_NOTACQUIRED). Attempting re-acquisition/reconnection.");
                             try
                             {
-                                _directInputController.Acquire(); // Try acquiring again
+                                _directInputController?.Acquire(); // Try acquiring again
                             }
                             catch (Exception acquireEx)
                             {
@@ -352,7 +352,10 @@ public class GamePadController : IDisposable
             if (_xinputController.IsConnected)
             {
                 // Ensure DirectInput controller is released if XInput is active
-                if (_directInputController == null) return;
+                if (_directInputController == null)
+                {
+                    return;
+                }
 
                 _directInputController?.Unacquire();
                 _directInputController?.Dispose();
@@ -451,7 +454,10 @@ public class GamePadController : IDisposable
             else
             {
                 // No gamepad device found
-                if (_directInputController == null) return;
+                if (_directInputController == null)
+                {
+                    return;
+                }
 
                 _directInputController?.Unacquire();
                 _directInputController?.Dispose();

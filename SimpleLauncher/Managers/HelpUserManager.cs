@@ -141,8 +141,12 @@ public class HelpUserManager
     {
         if (string.IsNullOrEmpty(text)) return string.Empty;
 
-        // Process each line to remove leading spaces while keeping line breaks
-        var lines = text.Split(['\r', '\n'], StringSplitOptions.None); // Preserve empty lines
-        return string.Join(Environment.NewLine, lines.Select(static line => line.TrimStart()));
+        // First, normalize all line endings to \n
+        text = text.Replace("\r\n", "\n").Replace("\r", "\n");
+
+        // Split by normalized line endings and process
+        return string.Join(Environment.NewLine,
+            text.Split('\n')
+                .Select(static line => line.TrimStart()));
     }
 }

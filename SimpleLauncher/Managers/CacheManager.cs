@@ -87,11 +87,6 @@ public class CacheManager
 
         var files = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
 
-        if (files == null)
-        {
-            return new List<string>();
-        }
-
         lock (_cacheLock)
         {
             _cachedGameFiles[systemName] = files;

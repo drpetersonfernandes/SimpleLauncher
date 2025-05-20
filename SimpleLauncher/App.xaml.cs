@@ -172,12 +172,13 @@ public partial class App
         }
         catch (Exception ex)
         {
+            // Notify developer
             // This outer catch handles errors *before* attempting to load the new dictionary
             // (e.g., invalid cultureCode format).
             var contextMessage = $"Failed to determine or set culture for {cultureCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user (reusing the same message for simplicity)
+            // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
 
             // Use English fallback if none exists

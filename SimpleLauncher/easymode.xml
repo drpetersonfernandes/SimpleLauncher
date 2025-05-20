@@ -57,7 +57,7 @@
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -488,7 +488,7 @@
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -674,7 +674,7 @@
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.275</EmulatorLatestVersion>
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0275b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
