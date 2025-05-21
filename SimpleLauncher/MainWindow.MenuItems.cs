@@ -711,11 +711,6 @@ public partial class MainWindow
         {
             if (_isGameListLoading) return; // If already loading, ignore this click
 
-            _isGameListLoading = true;
-            // Disable both zoom buttons to prevent interference
-            NavZoomInButton.IsEnabled = false;
-            NavZoomOutButton.IsEnabled = false;
-
             try
             {
                 PlayClick.PlayNotificationSound();
@@ -728,6 +723,11 @@ public partial class MainWindow
                 {
                     return; // No change in size, no need to reload
                 }
+
+                _isGameListLoading = true;
+                // Disable both zoom buttons to prevent interference
+                NavZoomInButton.IsEnabled = false;
+                NavZoomOutButton.IsEnabled = false;
 
                 _gameButtonFactory.ImageHeight = newSize;
                 _settings.ThumbnailSize = newSize;
@@ -764,11 +764,6 @@ public partial class MainWindow
         {
             if (_isGameListLoading) return; // If already loading, ignore this click
 
-            _isGameListLoading = true;
-            // Disable both zoom buttons to prevent interference
-            NavZoomOutButton.IsEnabled = false;
-            NavZoomInButton.IsEnabled = false;
-
             try
             {
                 PlayClick.PlayNotificationSound();
@@ -781,6 +776,11 @@ public partial class MainWindow
                 {
                     return; // No change in size, no need to reload
                 }
+
+                _isGameListLoading = true;
+                // Disable both zoom buttons to prevent interference
+                NavZoomOutButton.IsEnabled = false;
+                NavZoomInButton.IsEnabled = false;
 
                 _gameButtonFactory.ImageHeight = newSize;
                 _settings.ThumbnailSize = newSize;

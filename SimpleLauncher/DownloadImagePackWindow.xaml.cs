@@ -256,7 +256,14 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             if (!Directory.Exists(extractionFolder))
             {
-                IoOperations.CreateDirectory(extractionFolder);
+                try
+                {
+                    Directory.CreateDirectory(extractionFolder);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating the extraction folder.");
+                }
             }
         }
         catch (Exception ex)

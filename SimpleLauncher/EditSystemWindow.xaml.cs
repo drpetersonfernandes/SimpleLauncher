@@ -270,13 +270,27 @@ public partial class EditSystemWindow
         // Create SystemFolder default
         if (SystemFolderTextBox.Text == $".\\roms\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemFolderTextBox.Text))
         {
-            IoOperations.CreateDirectory(SystemFolderTextBox.Text);
+            try
+            {
+                Directory.CreateDirectory(SystemFolderTextBox.Text);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Unable to create SystemFolder default");
+            }
         }
 
         // Create SystemImageFolder default
         if (SystemImageFolderTextBox.Text == $".\\images\\{SystemNameTextBox.Text}" && !Directory.Exists(SystemImageFolderTextBox.Text))
         {
-            IoOperations.CreateDirectory(SystemImageFolderTextBox.Text);
+            try
+            {
+                Directory.CreateDirectory(SystemImageFolderTextBox.Text);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Unable to create SystemImageFolder default");
+            }
         }
 
         // Validate System Folder and System Image Folder
@@ -1054,7 +1068,14 @@ public partial class EditSystemWindow
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemImageFolderText))
             {
-                IoOperations.CreateDirectory(systemImageFolderText);
+                try
+                {
+                    Directory.CreateDirectory(systemImageFolderText);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating system image folder.");
+                }
             }
         }
 
@@ -1077,7 +1098,14 @@ public partial class EditSystemWindow
             // Create the directory if it doesn't exist
             if (!Directory.Exists(systemFolderText))
             {
-                IoOperations.CreateDirectory(systemFolderText);
+                try
+                {
+                    Directory.CreateDirectory(systemFolderText);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating system folder.");
+                }
             }
         }
 
@@ -1127,7 +1155,14 @@ public partial class EditSystemWindow
             // Ensure the parent directory exists
             if (!Directory.Exists(parentDirectory))
             {
-                IoOperations.CreateDirectory(parentDirectory);
+                try
+                {
+                    Directory.CreateDirectory(parentDirectory);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
+                }
             }
 
             // Use SystemName as the name for the new folder inside the parent directory
@@ -1138,7 +1173,14 @@ public partial class EditSystemWindow
                 // Check if the folder exists and create it if it doesn't
                 if (!Directory.Exists(newFolderPath))
                 {
-                    IoOperations.CreateDirectory(newFolderPath);
+                    try
+                    {
+                        Directory.CreateDirectory(newFolderPath);
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
+                    }
 
                     if (folderName == "images")
                     {
@@ -1227,7 +1269,7 @@ public partial class EditSystemWindow
 
         try
         {
-            IoOperations.FileCopy(sourceFilePath, backupFilePath, true);
+            File.Copy(sourceFilePath, backupFilePath, true);
         }
         catch (Exception ex)
         {

@@ -229,12 +229,12 @@ public partial class EasyModeWindow : IDisposable
         {
             case DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath);
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath);
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
                 downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.CoreDownloadExtractPath);
+                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath);
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
@@ -701,22 +701,42 @@ public partial class EasyModeWindow : IDisposable
             // Create the primary system folder if it doesn't exist
             if (!Directory.Exists(systemFolderPath))
             {
-                IoOperations.CreateDirectory(systemFolderPath);
+                try
+                {
+                    if (systemFolderPath != null) Directory.CreateDirectory(systemFolderPath);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary system folder.");
+                }
             }
 
             // Create the primary image folder if it doesn't exist
             if (!Directory.Exists(imagesFolderPath))
             {
-                IoOperations.CreateDirectory(imagesFolderPath);
+                try
+                {
+                    if (imagesFolderPath != null) Directory.CreateDirectory(imagesFolderPath);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary image folder.");
+                }
             }
 
             // Create each additional folder
             foreach (var folder in additionalFolders)
             {
                 var folderPath = Path.Combine(baseDirectory, folder, systemName);
-                if (!Directory.Exists(folderPath))
+                if (Directory.Exists(folderPath)) continue;
+
+                try
                 {
-                    IoOperations.CreateDirectory(folderPath);
+                    Directory.CreateDirectory(folderPath);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, $"Error creating the {folder} folder.");
                 }
             }
         }

@@ -112,7 +112,7 @@ public class ExtractCompressedFile
             tempDirectory = Path.Combine(safeTempFolder, randomName);
             try
             {
-                IoOperations.CreateDirectory(tempDirectory);
+                Directory.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
@@ -304,7 +304,7 @@ public class ExtractCompressedFile
             tempDirectory = Path.Combine(safeTempFolder, randomName);
             try
             {
-                IoOperations.CreateDirectory(tempDirectory);
+                Directory.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
@@ -358,7 +358,14 @@ public class ExtractCompressedFile
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
-                            IoOperations.CreateDirectory(entryDirectoryPath);
+                            try
+                            {
+                                Directory.CreateDirectory(entryDirectoryPath);
+                            }
+                            catch (Exception ex)
+                            {
+                                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
+                            }
                         }
 
                         // Skip directories (folders are already created above)
@@ -485,7 +492,14 @@ public class ExtractCompressedFile
         try
         {
             // Create the destination directory if it doesn't exist
-            IoOperations.CreateDirectory(destinationFolder);
+            try
+            {
+                Directory.CreateDirectory(destinationFolder);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {destinationFolder}");
+            }
 
             // Create a tracking directory to detect partial extraction
             var extractionTrackingFile = Path.Combine(destinationFolder, ".extraction_in_progress");
@@ -507,50 +521,39 @@ public class ExtractCompressedFile
 
                     // Verify there's enough disk space for extraction
                     var estimatedSize = EstimateExtractedSize(archive);
-                    var driveName = PathHelper.ResolveRelativeToCurrentDirectory(destinationFolder);
 
-                    // Validate drive name before creating DriveInfo object
-                    if (!string.IsNullOrEmpty(driveName))
+                    // Get the root path (drive) of the destination folder using Path APIs
+                    // This is more robust than manual string manipulation
+                    var rootPath = Path.GetPathRoot(Path.GetFullPath(destinationFolder));
+
+                    // Check if we successfully got a root path
+                    if (!string.IsNullOrEmpty(rootPath))
                     {
                         try
                         {
-                            switch (driveName.Length)
+                            // Create DriveInfo directly from the root path
+                            var drive = new DriveInfo(rootPath);
+
+                            if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                             {
-                                // Format the drive name properly if needed
-                                case 1:
-                                    driveName = $"{driveName}:\\"; // Convert "C" to "C:\"
-                                    break;
-                                case 2 when driveName[1] == ':':
-                                    driveName = $"{driveName}\\"; // Convert "C:" to "C:\"
-                                    break;
-                            }
+                                var contextMessage =
+                                    $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                Exception ex = new IOException(contextMessage);
 
-                            // Network paths and other formats won't work with DriveInfo
-                            // so only proceed
-                            // if it looks like a valid Windows drive path
-                            if (driveName.Length >= 3 && driveName[1] == ':' && driveName[2] == '\\')
-                            {
-                                var drive = new DriveInfo(driveName);
+                                // Notify developer
+                                _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
 
-                                if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
-                                {
-                                    var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                    Exception ex = new IOException(contextMessage);
+                                // Notify user
+                                MessageBoxLibrary.DiskSpaceErrorMessageBox();
 
-                                    // Notify developer
-                                    _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
-
-                                    // Notify user
-                                    MessageBoxLibrary.DiskSpaceErrorMessageBox();
-
-                                    return;
-                                }
+                                return;
                             }
                         }
                         catch (ArgumentException ex)
                         {
                             // Notify developer
-                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {destinationFolder}: {ex.Message}");
+                            _ = LogErrors.LogErrorAsync(ex,
+                                $"Unable to check disk space for path {destinationFolder}: {ex.Message}");
 
                             // Notify user
                             MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
@@ -568,7 +571,14 @@ public class ExtractCompressedFile
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
-                            IoOperations.CreateDirectory(entryDirectoryPath);
+                            try
+                            {
+                                Directory.CreateDirectory(entryDirectoryPath);
+                            }
+                            catch (Exception ex)
+                            {
+                                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
+                            }
                         }
 
                         // Skip directories (folders are already created above)

@@ -258,6 +258,7 @@ public class SettingsManager
             const string contextMessage = "The systemName is null or empty.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             return;
         }
 
@@ -267,6 +268,7 @@ public class SettingsManager
             const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             return;
         }
 

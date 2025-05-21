@@ -42,7 +42,15 @@ public class DownloadManager : IDisposable
 
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-        IoOperations.CreateDirectory(TempFolder);
+
+        try
+        {
+            Directory.CreateDirectory(TempFolder);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
+        }
 
         // Get HttpClient from the factory
         // If no specific configuration is needed beyond default, CreateClient() is fine.

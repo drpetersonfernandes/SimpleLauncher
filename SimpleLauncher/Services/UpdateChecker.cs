@@ -229,7 +229,14 @@ public static partial class UpdateChecker
                 var directory = Path.GetDirectoryName(destinationFileFullPath);
                 if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
                 {
-                    IoOperations.CreateDirectory(directory);
+                    try
+                    {
+                        Directory.CreateDirectory(directory);
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = LogErrors.LogErrorAsync(ex, $"Error creating directory '{directory}'.");
+                    }
                 }
 
                 logWindow.Log($"Extracting {fileName} to {destinationFileFullPath}");

@@ -58,7 +58,7 @@ public partial class SystemManager
                                 try
                                 {
                                     // Copy the most recent backup file to system.xml, overwriting if a dummy file exists
-                                    IoOperations.FileCopy(mostRecentBackupFile, XmlPath, true);
+                                    File.Copy(mostRecentBackupFile, XmlPath, true);
 
                                     backupRestored = true;
                                 }

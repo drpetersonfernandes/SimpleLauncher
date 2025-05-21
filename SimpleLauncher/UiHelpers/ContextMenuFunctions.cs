@@ -574,7 +574,14 @@ public static class ContextMenuFunctions
             if (string.IsNullOrEmpty(systemImageFolder))
             {
                 systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
-                IoOperations.CreateDirectory(systemImageFolder);
+                try
+                {
+                    Directory.CreateDirectory(systemImageFolder);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Could not create the system image folder.");
+                }
             }
 
             // Wait for the Game or Emulator to launch

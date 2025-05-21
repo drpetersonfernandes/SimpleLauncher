@@ -371,7 +371,9 @@ public class GamePadController : IDisposable
                 try
                 {
                     _directInput = new DirectInput();
-                    ErrorLogger?.Invoke(null, "Recreated DirectInput object during reconnection."); // Log successful recreation
+
+                    var ex = new Exception("InformationException");
+                    ErrorLogger?.Invoke(ex, "Recreated DirectInput object during reconnection."); // Log successful recreation
                 }
                 catch (Exception diEx)
                 {
@@ -430,13 +432,17 @@ public class GamePadController : IDisposable
                         _directInputController = new Joystick(_directInput, foundDevice.InstanceGuid);
                         _directInputController.Acquire();
                         _playStationControllerGuid = foundDevice.InstanceGuid; // Update the GUID
-                        ErrorLogger?.Invoke(null, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
+
+                        var ex = new Exception("InformationException");
+                        ErrorLogger?.Invoke(ex, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
                     }
                     else
                     {
                         // If it wasn't null and was the same GUID, try re-acquiring just in case
                         _directInputController.Acquire();
-                        ErrorLogger?.Invoke(null, $"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}"); // Log success
+
+                        var ex = new Exception("InformationException");
+                        ErrorLogger?.Invoke(ex, $"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}"); // Log success
                     }
                 }
                 catch (Exception acquireEx)
@@ -463,7 +469,9 @@ public class GamePadController : IDisposable
                 _directInputController?.Dispose();
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty;
-                ErrorLogger?.Invoke(null, "DirectInput controller disconnected."); // Log disconnection
+
+                var ex = new Exception("InformationException");
+                ErrorLogger?.Invoke(ex, "DirectInput controller disconnected."); // Log disconnection
             }
         }
         catch (Exception ex)
@@ -592,7 +600,8 @@ public class GamePadController : IDisposable
         {
             // Notify developer
             // Log a warning or handle controllers with fewer buttons if necessary
-            ErrorLogger?.Invoke(null, $"DirectInput controller has fewer than {Math.Max(crossButtonIndex, circleButtonIndex) + 1} buttons.");
+            var ex = new Exception("InformationException");
+            ErrorLogger?.Invoke(ex, $"DirectInput controller has fewer than {Math.Max(crossButtonIndex, circleButtonIndex) + 1} buttons.");
         }
     }
 

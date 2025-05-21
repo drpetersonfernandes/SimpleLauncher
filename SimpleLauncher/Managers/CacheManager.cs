@@ -29,7 +29,14 @@ public class CacheManager
         }
         else
         {
-            IoOperations.CreateDirectory(cacheDir);
+            try
+            {
+                Directory.CreateDirectory(cacheDir);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error creating cache directory.");
+            }
         }
     }
 

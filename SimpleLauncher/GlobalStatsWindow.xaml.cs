@@ -279,7 +279,7 @@ public partial class GlobalStatsWindow
                 matchedRomName + Path.GetExtension(imageFile));
             try
             {
-                IoOperations.FileMove(imageFile, newImagePath, true);
+                File.Move(imageFile, newImagePath, true);
             }
             catch (Exception ex)
             {
