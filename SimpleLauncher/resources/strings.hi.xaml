@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 पिक्सल</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">इस सिस्टम के लिए कोई पसंदीदा नहीं है, या आपने कोई सिस्टम नहीं चुना है।</system:String>
-
     <system:String x:Key="100games">100 खेल</system:String>
     <system:String x:Key="100pixels">100 पिक्सल</system:String>
     <system:String x:Key="150pixels">150 पिक्सल</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">चौथा चरण</system:String>
     <system:String x:Key="500games">500 खेल</system:String>
     <system:String x:Key="500pixels">500 पिक्सल</system:String>
+    <system:String x:Key="50pixels">50 पिक्सल</system:String>
     <system:String x:Key="550pixels">550 पिक्सल</system:String>
     <system:String x:Key="600pixels">600 पिक्सल</system:String>
     <system:String x:Key="650pixels">650 पिक्सेल</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">इस खेल के साथ कोई कार्ट फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">इस खेल के साथ कोई कवर फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="ThereisnoExtension">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' सिस्टम कॉन्फ़िगरेशन में सेट नहीं है।</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">इस सिस्टम के लिए कोई पसंदीदा नहीं है, या आपने कोई सिस्टम नहीं चुना है।</system:String>
     <system:String x:Key="Thereisnoflyer">इस खेल के साथ कोई फ्लायर फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">इस खेल के साथ कोई गेमप्ले स्नैपशॉट फ़ाइल जुड़ी नहीं है।</system:String>
     <system:String x:Key="Thereisnomanual">इस फ़ाइल के लिए कोई मैनुअल नहीं है।</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">राइट-क्लिक मेनू में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">चयनित गेम लॉन्च करने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">इस गेम को लॉन्च करने में त्रुटि हुई।</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">'appsettings.json' लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">गेम सूची लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">सिस्टम कॉन्फ़िगरेशन लोड करते समय एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">डोनेशन लिंक खोलने में एक त्रुटि हुई।</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
+    <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
 </ResourceDictionary>

@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 piksel</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">Tidak ada Favorit untuk sistem ini, atau Anda belum memilih sistem.</system:String>
-
     <system:String x:Key="100games">100 permainan</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">Langkah ke-4</system:String>
     <system:String x:Key="500games">500 permainan</system:String>
     <system:String x:Key="500pixels">500 piksel</system:String>
+    <system:String x:Key="50pixels">50 piksel</system:String>
     <system:String x:Key="550pixels">550 piksel</system:String>
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="650pixels">650 piksel</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">Tidak ada file kartrid yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">Tidak ada file sampul yang terkait dengan game ini.</system:String>
     <system:String x:Key="ThereisnoExtension">Tidak ada 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' yang diatur dalam konfigurasi sistem.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Tidak ada Favorit untuk sistem ini, atau Anda belum memilih sistem.</system:String>
     <system:String x:Key="Thereisnoflyer">Tidak ada file selebaran yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Tidak ada file snapshot gameplay yang terkait dengan game ini.</system:String>
     <system:String x:Key="Thereisnomanual">Tidak ada manual yang terkait dengan file ini.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">Terjadi kesalahan pada menu klik kanan.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Terjadi kesalahan saat meluncurkan game yang dipilih.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Terjadi kesalahan saat meluncurkan permainan ini.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">Terjadi kesalahan saat memuat 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Terjadi kesalahan saat memuat daftar game.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Terjadi kesalahan saat memuat konfigurasi sistem.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Terjadi kesalahan saat membuka tautan donasi.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
+    <system:String x:Key="ZoomOut">Perkecil</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
 </ResourceDictionary>

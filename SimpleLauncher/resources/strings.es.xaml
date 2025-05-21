@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 píxeles</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">No hay un favorito para este sistema o no ha seleccionado un sistema.</system:String>
-
     <system:String x:Key="100games">100 juegos</system:String>
     <system:String x:Key="100pixels">100 píxeles</system:String>
     <system:String x:Key="150pixels">150 píxeles</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">Cuarto paso</system:String>
     <system:String x:Key="500games">500 juegos</system:String>
     <system:String x:Key="500pixels">500 píxeles</system:String>
+    <system:String x:Key="50pixels">50 píxeles</system:String>
     <system:String x:Key="550pixels">550 píxeles</system:String>
     <system:String x:Key="600pixels">600 píxeles</system:String>
     <system:String x:Key="650pixels">650 píxeles</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">No hay un archivo de cartucho asociado con este juego.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">No hay un archivo de portada asociado con este juego.</system:String>
     <system:String x:Key="ThereisnoExtension">No hay ninguna 'Extensión para iniciar después de la extracción' configurada en la configuración del sistema.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">No hay un favorito para este sistema o no ha seleccionado un sistema.</system:String>
     <system:String x:Key="Thereisnoflyer">No hay un folleto asociado con este juego.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">No hay un archivo de captura de juego asociado con este juego.</system:String>
     <system:String x:Key="Thereisnomanual">No hay un manual asociado con este archivo.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">Se produjo un error en el menú contextual (clic derecho).</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Ocurrió un error al iniciar el juego seleccionado.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Hubo un error al iniciar este juego.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">Se produjo un error al cargar 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Se ha producido un error al cargar la lista de juegos.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Ocurrió un error al cargar la configuración del sistema.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Se produjo un error al abrir el enlace de donación.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puedes colocar las imágenes de portada para este sistema dentro de esta carpeta.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Deberías cambiar los parámetros del emulador para evitar que este se inicie en pantalla completa.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
+    <system:String x:Key="ZoomOut">Alejar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
 </ResourceDictionary>

@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 像素</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">此系统没有收藏，或者您尚未选择系统。</system:String>
-
     <system:String x:Key="100games">100 个游戏</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">第 4 步</system:String>
     <system:String x:Key="500games">500 个游戏</system:String>
     <system:String x:Key="500pixels">500 像素</system:String>
+    <system:String x:Key="50pixels">50 像素</system:String>
     <system:String x:Key="550pixels">550 像素</system:String>
     <system:String x:Key="600pixels">600 像素</system:String>
     <system:String x:Key="650pixels">650 像素</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">此游戏没有关联的卡带文件。</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">此游戏没有关联的封面文件。</system:String>
     <system:String x:Key="ThereisnoExtension">系统设置中未定义 '提取后执行的扩展名'。</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">此系统没有收藏，或者您尚未选择系统。</system:String>
     <system:String x:Key="Thereisnoflyer">此游戏没有关联的宣传单文件。</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">此游戏没有关联的游戏截图。</system:String>
     <system:String x:Key="Thereisnomanual">此文件没有关联的手册。</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">右键菜单中出现错误。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">启动所选游戏时发生错误。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">启动此游戏时发生错误。</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">加载 'appsettings.json' 时出错。</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">加载游戏列表时出现错误。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">加载系统配置时发生错误。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">打开捐赠链接时出现错误。</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
+    <system:String x:Key="ZoomOut">缩小</system:String>
     <system:String x:Key="ZoomOut">缩小</system:String>
 </ResourceDictionary>

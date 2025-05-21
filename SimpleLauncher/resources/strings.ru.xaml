@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 пикселей</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">Для этой системы нет избранного или вы не выбрали систему.</system:String>
-
     <system:String x:Key="100games">100 игр</system:String>
     <system:String x:Key="100pixels">100 пикселей</system:String>
     <system:String x:Key="150pixels">150 пикселей</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">Шаг 4</system:String>
     <system:String x:Key="500games">500 игр</system:String>
     <system:String x:Key="500pixels">500 пикселей</system:String>
+    <system:String x:Key="50pixels">50 пикселей</system:String>
     <system:String x:Key="550pixels">550 пикселей</system:String>
     <system:String x:Key="600pixels">600 пикселей</system:String>
     <system:String x:Key="650pixels">650 пикселей</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">С этой игрой не связан файл картриджа.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">С этим игровым файлом не связано ни одной обложки.</system:String>
     <system:String x:Key="ThereisnoExtension">В настройках системы не задано расширение в 'Расширение для запуска после извлечения'.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Для этой системы нет избранного или вы не выбрали систему.</system:String>
     <system:String x:Key="Thereisnoflyer">С этой игрой не связан файл флаера.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Нет скриншота игрового процесса, связанного с этой игрой.</system:String>
     <system:String x:Key="Thereisnomanual">С этим файлом не связано ни одного руководства.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">Произошла ошибка в контекстном меню (щелчок правой кнопкой).</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Произошла ошибка при запуске выбранной игры.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Произошла ошибка при запуске этой игры.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">Произошла ошибка при загрузke 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Произошла ошибка при загрузке списка игр.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Произошла ошибка при загрузке конфигурации системы.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Произошла ошибка при открытии ссылки на пожертвование.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
+    <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
 </ResourceDictionary>

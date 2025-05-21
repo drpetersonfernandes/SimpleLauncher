@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50ピクセル</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">このシステムにはお気に入りがありません、またはシステムを選択していません。</system:String>
-
     <system:String x:Key="100games">100 ゲーム</system:String>
     <system:String x:Key="100pixels">100 ピクセル</system:String>
     <system:String x:Key="150pixels">150 ピクセル</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">ステップ 4</system:String>
     <system:String x:Key="500games">500 ゲーム</system:String>
     <system:String x:Key="500pixels">500 ピクセル</system:String>
+    <system:String x:Key="50pixels">50ピクセル</system:String>
     <system:String x:Key="550pixels">550 ピクセル</system:String>
     <system:String x:Key="600pixels">600 ピクセル</system:String>
     <system:String x:Key="650pixels">650ピクセル</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">このゲームにはカートリッジファイルが関連付けられていません。</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">このゲームにはカバーファイルが関連付けられていません。</system:String>
     <system:String x:Key="ThereisnoExtension">システム設定で『抽出後に起動する拡張子』が設定されていません。</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">このシステムにはお気に入りがありません、またはシステムを選択していません。</system:String>
     <system:String x:Key="Thereisnoflyer">このゲームにはフライヤーファイルが関連付けられていません。</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">このゲームにはゲームプレイのスクリーンショットファイルが関連付けられていません。</system:String>
     <system:String x:Key="Thereisnomanual">このファイルにはマニュアルが関連付けられていません。</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">右クリックコンテキストメニューでエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">選択したゲームの起動中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">このゲームの起動中にエラーが発生しました。</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">'appsettings.json' の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">ゲームリストを読み込む際にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">システム構成の読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">寄付リンクを開く際にエラーが発生しました。</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
+    <system:String x:Key="ZoomOut">ズームアウト</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
 </ResourceDictionary>

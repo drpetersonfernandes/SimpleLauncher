@@ -1,9 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 像素</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">此系統沒有收藏，或您尚未選擇系統。</system:String>
     <system:String x:Key="100games">100 個遊戲</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -22,6 +19,7 @@
     <system:String x:Key="4thstep">第 4 步</system:String>
     <system:String x:Key="500games">500 個遊戲</system:String>
     <system:String x:Key="500pixels">500 像素</system:String>
+    <system:String x:Key="50pixels">50 像素</system:String>
     <system:String x:Key="550pixels">550 像素</system:String>
     <system:String x:Key="600pixels">600 像素</system:String>
     <system:String x:Key="650pixels">650 像素</system:String>
@@ -504,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">此遊戲沒有關聯的卡帶檔案。</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">此遊戲沒有關聯的封面檔案。</system:String>
     <system:String x:Key="ThereisnoExtension">系統設置中未定義 '解壓之後執行的擴展名'。</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">此系統沒有收藏，或您尚未選擇系統。</system:String>
     <system:String x:Key="Thereisnoflyer">此遊戲沒有關聯的傳單檔案。</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">此遊戲沒有關聯的遊戲截圖。</system:String>
     <system:String x:Key="Thereisnomanual">此檔案沒有關聯的手冊。</system:String>
@@ -524,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">右鍵菜單中有錯誤。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">啟動所選遊戲時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">啟動此遊戲時發生錯誤。</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">載入 'appsettings.json' 時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">加載遊戲清單時出現錯誤。</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">載入系統配置時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">打開捐贈連結時出現錯誤。</system:String>

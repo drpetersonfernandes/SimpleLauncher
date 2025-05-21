@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50픽셀</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">이 시스템에 대한 즐겨찾기가 없거나 시스템을 선택하지 않았습니다.</system:String>
-
     <system:String x:Key="100games">100 게임</system:String>
     <system:String x:Key="100pixels">100 픽셀</system:String>
     <system:String x:Key="150pixels">150 픽셀</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">4단계</system:String>
     <system:String x:Key="500games">500 게임</system:String>
     <system:String x:Key="500pixels">500 픽셀</system:String>
+    <system:String x:Key="50pixels">50픽셀</system:String>
     <system:String x:Key="550pixels">550 픽셀</system:String>
     <system:String x:Key="600pixels">600 픽셀</system:String>
     <system:String x:Key="650pixels">650픽셀</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">이 게임과 연결된 카트리지 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">이 게임과 연결된 표지 파일이 없습니다.</system:String>
     <system:String x:Key="ThereisnoExtension">시스템 설정에 '추출 후 실행할 확장자'가 설정되어 있지 않습니다.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">이 시스템에 대한 즐겨찾기가 없거나 시스템을 선택하지 않았습니다.</system:String>
     <system:String x:Key="Thereisnoflyer">이 게임과 연결된 전단지 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">이 게임과 연결된 게임플레이 스냅샷 파일이 없습니다.</system:String>
     <system:String x:Key="Thereisnomanual">이 파일과 연결된 매뉴얼이 없습니다.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">오른쪽 클릭 컨텍스트 메뉴에서 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">선택한 게임을 실행하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">이 게임을 실행하는 중 오류가 발생했습니다.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">'appsettings.json' 로드 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">게임 목록을 로드하는 동안 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">시스템 구성을 로드하는 중에 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">기부 링크를 여는 동안 오류가 발생했습니다.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
+    <system:String x:Key="ZoomOut">확대 축소</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
 </ResourceDictionary>

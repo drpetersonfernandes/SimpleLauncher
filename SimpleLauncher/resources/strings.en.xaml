@@ -19,6 +19,7 @@
     <system:String x:Key="4thstep">4th step</system:String>
     <system:String x:Key="500games">500 games</system:String>
     <system:String x:Key="500pixels">500 pixels</system:String>
+    <system:String x:Key="50pixels">50 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>
     <system:String x:Key="600pixels">600 pixels</system:String>
     <system:String x:Key="650pixels">650 pixels</system:String>
@@ -501,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">There is no cart file associated with this game.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">There is no cover file associated with this game.</system:String>
     <system:String x:Key="ThereisnoExtension">There is no 'Extension to Launch After Extraction' set in the system configuration.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">There is no Favorite for this system, or you have not chosen a system.</system:String>
     <system:String x:Key="Thereisnoflyer">There is no flyer file associated with this game.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">There is no gameplay snapshot file associated with this game.</system:String>
     <system:String x:Key="Thereisnomanual">There is no manual associated with this file.</system:String>
@@ -521,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">There was an error in the right-click context menu.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">There was an error launching the selected game.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">There was an error launching this game.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">There was an error loading 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">There was an error loading the game list.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">There was an error loading the systemConfig.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">There was an error opening the Donation Link.</system:String>
@@ -605,7 +608,7 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     
-    <system:String x:Key="50pixels">50 pixels</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">There is no Favorite for this system, or you have not chosen a system.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">There was an error loading 'appsettings.json'.</system:String>
+
     
 </ResourceDictionary>

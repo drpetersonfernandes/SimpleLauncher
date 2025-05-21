@@ -1,9 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-<system:String x:Key="50pixels">٥٠ بكسل</system:String>
-<system:String x:Key="ThereisnoFavoriteforthissystem">لا يوجد مفضل لهذا النظام، أو لم تقم باختيار نظام.</system:String>
-
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
@@ -22,6 +19,7 @@
     <system:String x:Key="4thstep">الخطوة الرابعة</system:String>
     <system:String x:Key="500games">٥٠٠ لعبة</system:String>
     <system:String x:Key="500pixels">٥٠٠ بكسل</system:String>
+<system:String x:Key="50pixels">٥٠ بكسل</system:String>
     <system:String x:Key="550pixels">٥٥٠ بكسل</system:String>
     <system:String x:Key="600pixels">٦٠٠ بكسل</system:String>
     <system:String x:Key="650pixels">650 بكسل</system:String>
@@ -504,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">لا يوجد ملف شريط مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">لا يوجد ملف غلاف مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="ThereisnoExtension">لم يتم تعيين 'الامتداد المطلوب تشغيله بعد الاستخراج' في تكوين النظام.</system:String>
+<system:String x:Key="ThereisnoFavoriteforthissystem">لا يوجد مفضل لهذا النظام، أو لم تقم باختيار نظام.</system:String>
     <system:String x:Key="Thereisnoflyer">لا توجد نشرة مرتبطة بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">لا يوجد ملف لقطة لعب مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnomanual">لا يوجد دليل مرتبط بهذا الملف.</system:String>
@@ -524,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">حدث خطأ في قائمة النقر بزر الماوس الأيمن.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">حدث خطأ أثناء تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">حدث خطأ أثناء تشغيل هذه اللعبة.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">حدث خطأ أثناء تحميل 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">حدث خطأ أثناء تحميل قائمة الألعاب.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">حدث خطأ أثناء تحميل systemConfig.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">حدث خطأ أثناء فتح رابط التبرع.</system:String>
@@ -606,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
+    <system:String x:Key="ZoomOut">تصغير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
 </ResourceDictionary>

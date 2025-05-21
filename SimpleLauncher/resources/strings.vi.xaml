@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 pixel</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">Không có yêu thích nào cho hệ thống này hoặc bạn chưa chọn hệ thống.</system:String>
-
     <system:String x:Key="100games">100 trò chơi</system:String>
     <system:String x:Key="100pixels">100 pixel</system:String>
     <system:String x:Key="150pixels">150 pixel</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">Bước 4</system:String>
     <system:String x:Key="500games">500 trò chơi</system:String>
     <system:String x:Key="500pixels">500 pixel</system:String>
+    <system:String x:Key="50pixels">50 pixel</system:String>
     <system:String x:Key="550pixels">550 pixel</system:String>
     <system:String x:Key="600pixels">600 pixel</system:String>
     <system:String x:Key="650pixels">650 pixel</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">Không có tệp cartridge nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">Không có tệp bìa nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="ThereisnoExtension">Không có phần mở rộng được đặt trong 'Phần mở rộng để thực thi sau khi trích xuất' trong cấu hình hệ thống.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Không có yêu thích nào cho hệ thống này hoặc bạn chưa chọn hệ thống.</system:String>
     <system:String x:Key="Thereisnoflyer">Không có tệp tờ rơi nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Không có ảnh chụp chơi game nào được liên kết với trò chơi này.</system:String>
     <system:String x:Key="Thereisnomanual">Không có hướng dẫn nào được liên kết với tệp này.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">Đã xảy ra lỗi trong menu ngữ cảnh chuột phải.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Đã xảy ra lỗi khi khởi chạy trò chơi được chọn.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Đã xảy ra lỗi khi khởi chạy trò chơi này.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">Đã xảy ra lỗi khi tải 'appsettings.json'.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Đã xảy ra lỗi khi tải danh sách trò chơi.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Đã xảy ra lỗi khi tải cấu hình hệ thống.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Đã xảy ra lỗi khi mở liên kết quyên góp.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
+    <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
 </ResourceDictionary>

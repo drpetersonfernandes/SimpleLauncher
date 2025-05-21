@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 پکسلز</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">اس سسٹم کے لیے کوئی پسندیدہ نہیں ہے، یا آپ نے کوئی سسٹم منتخب نہیں کیا۔</system:String>
-
     <system:String x:Key="100games">100 کھیل</system:String>
     <system:String x:Key="100pixels">100 پکسلز</system:String>
     <system:String x:Key="150pixels">150 پکسلز</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">چوتھا قدم۔</system:String>
     <system:String x:Key="500games">500 کھیل</system:String>
     <system:String x:Key="500pixels">500 پکسلز</system:String>
+    <system:String x:Key="50pixels">50 پکسلز</system:String>
     <system:String x:Key="550pixels">550 پکسلز</system:String>
     <system:String x:Key="600pixels">600 پکسلز</system:String>
     <system:String x:Key="650pixels">650 پکسلز</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">اس گیم کے ساتھ کوئی کارٹ فائل منسلک نہیں ہے۔</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">اس گیم کے ساتھ کوئی کور فائل منسلک نہیں ہے۔</system:String>
     <system:String x:Key="ThereisnoExtension">سسٹم کی ترتیب میں 'ایکسٹریکشن کے بعد چلائی جانے والی ایکسٹینشنز' سیٹ نہیں ہے۔</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">اس سسٹم کے لیے کوئی پسندیدہ نہیں ہے، یا آپ نے کوئی سسٹم منتخب نہیں کیا۔</system:String>
     <system:String x:Key="Thereisnoflyer">اس گیم کے ساتھ کوئی فلائر فائل منسلک نہیں ہے۔</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">اس گیم کے ساتھ کوئی گیم پلے اسنیپ شاٹ منسلک نہیں ہے۔</system:String>
     <system:String x:Key="Thereisnomanual">اس گیم کے ساتھ کوئی دستی منسلک نہیں ہے۔</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">رائٹ کلک کانٹیکسٹ مینو میں ایرر آیا ہے۔</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">منتخب کردہ گیم لانچ کرنے میں ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">اس گیم کو چلانے میں ایک غلطی ہوئی۔</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">'appsettings.json' لوڈ کرتے وقت ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">گیم کی فہرست کو لوڈ کرتے وقت ایک خرابی پیش آئی۔</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">سسٹم کنفیگریشن لوڈ کرنے میں ایک مسئلہ پیش آیا۔</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">ڈونیشن لنک کو کھولتے وقت ایک خرابی پیش آئی۔</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">آپ اس نظام کی کور تصاویر اس فولڈر میں رکھ سکتے ہیں۔</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
+    <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
 </ResourceDictionary>

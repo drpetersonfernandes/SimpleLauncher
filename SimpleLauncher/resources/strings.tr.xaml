@@ -1,10 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-
-    <system:String x:Key="50pixels">50 piksel</system:String>
-    <system:String x:Key="ThereisnoFavoriteforthissystem">Bu sistem için favori yok veya bir sistem seçmediniz.</system:String>
-
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -23,6 +19,7 @@
     <system:String x:Key="4thstep">4. Adım</system:String>
     <system:String x:Key="500games">500 oyun</system:String>
     <system:String x:Key="500pixels">500 piksel</system:String>
+    <system:String x:Key="50pixels">50 piksel</system:String>
     <system:String x:Key="550pixels">550 piksel</system:String>
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="650pixels">650 piksel</system:String>
@@ -505,6 +502,7 @@
     <system:String x:Key="Thereisnocartfile">Bu oyunla ilişkilendirilmiş bir kartuş dosyası yok.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">Bu oyunla ilişkilendirilmiş bir kapak dosyası yok.</system:String>
     <system:String x:Key="ThereisnoExtension">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' sistem ayarlarında tanımlanmamış.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">Bu sistem için favori yok veya bir sistem seçmediniz.</system:String>
     <system:String x:Key="Thereisnoflyer">Bu oyunla ilişkilendirilmiş bir broşür yok.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">Bu oyunla ilişkilendirilmiş bir oynanış görüntüsü yok.</system:String>
     <system:String x:Key="Thereisnomanual">Bu dosyayla ilişkilendirilmiş bir kılavuz yok.</system:String>
@@ -525,6 +523,7 @@
     <system:String x:Key="Therewasanerrorintherightclick">Sağ tıklama bağlam menüsünde bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingtheselected">Seçilen oyunu başlatırken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorlaunchingthisgame">Bu oyun başlatılırken bir hata oluştu.</system:String>
+    <system:String x:Key="Therewasanerrorloadingconfiguration">'appsettings.json' yüklenirken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorloadingthegame">Oyun listesini yüklerken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasanerrorloadingthesystemConfig">Sistem yapılandırmasını yüklerken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerroropeningthedonation">Bağış bağlantısını açarken bir hata meydana geldi.</system:String>
@@ -607,5 +606,6 @@
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
+    <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
 </ResourceDictionary>
