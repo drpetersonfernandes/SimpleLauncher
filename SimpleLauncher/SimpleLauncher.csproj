@@ -935,6 +935,8 @@
     <Resource Include="images\arrowright.png" />
     <None Remove="images\settings.png" />
     <Resource Include="images\settings.png" />
+    <None Remove="images\refresh.png" />
+    <Resource Include="images\refresh.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />
