@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
-    <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
 </ResourceDictionary>

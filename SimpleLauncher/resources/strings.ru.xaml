@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
-    <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
 </ResourceDictionary>

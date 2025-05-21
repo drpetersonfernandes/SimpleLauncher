@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
-    <system:String x:Key="ZoomOut">Perkecil</system:String>
 </ResourceDictionary>

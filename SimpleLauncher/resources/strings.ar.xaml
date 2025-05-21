@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
-    <system:String x:Key="ZoomOut">تصغير</system:String>
 </ResourceDictionary>

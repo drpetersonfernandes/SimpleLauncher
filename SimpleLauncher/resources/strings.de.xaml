@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Sie sollten die Emulatorparameter ändern, um zu verhindern, dass der Emulator im Vollbild startet.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
-    <system:String x:Key="ZoomOut">Verkleinern</system:String>
 </ResourceDictionary>

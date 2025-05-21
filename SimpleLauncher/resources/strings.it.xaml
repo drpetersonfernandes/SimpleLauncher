@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    <system:String x:Key="ZoomOut">Zoom Out</system:String>
 </ResourceDictionary>

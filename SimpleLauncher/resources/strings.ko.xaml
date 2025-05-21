@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">에뮬레이터가 전체 화면 모드로 시작되지 않도록 매개변수를 수정해야 합니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
-    <system:String x:Key="ZoomOut">확대 축소</system:String>
 </ResourceDictionary>

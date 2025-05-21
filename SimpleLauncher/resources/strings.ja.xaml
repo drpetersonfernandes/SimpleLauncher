@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">エミュレーターのパラメーターを変更して、フルスクリーンモードで起動しないようにしてください。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
-    <system:String x:Key="ZoomOut">ズームアウト</system:String>
 </ResourceDictionary>

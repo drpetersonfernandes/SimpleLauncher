@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
 </ResourceDictionary>

@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
-    <system:String x:Key="ZoomOut">জুম আউট</system:String>
 </ResourceDictionary>

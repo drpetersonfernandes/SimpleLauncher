@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Vous devriez modifier les paramètres de l'émulateur pour éviter qu'il ne démarre en plein écran.</system:String>
     <system:String x:Key="ZoomIn">Zoomer</system:String>
     <system:String x:Key="ZoomOut">Dézoomer</system:String>
-    <system:String x:Key="ZoomOut">Dézoomer</system:String>
 </ResourceDictionary>

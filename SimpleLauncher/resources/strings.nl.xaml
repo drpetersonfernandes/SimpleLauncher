@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
-    <system:String x:Key="ZoomOut">Uitzoomen</system:String>
 </ResourceDictionary>

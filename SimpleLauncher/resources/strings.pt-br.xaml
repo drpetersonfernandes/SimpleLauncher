@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Você deve alterar os parâmetros do emulador para que ele não inicie no modo de tela cheia.</system:String>
     <system:String x:Key="ZoomIn">Aumentar zoom</system:String>
     <system:String x:Key="ZoomOut">Diminuir zoom</system:String>
-    <system:String x:Key="ZoomOut">Diminuir zoom</system:String>
 </ResourceDictionary>

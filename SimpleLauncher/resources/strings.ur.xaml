@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">آپ کو ایمولیٹر پیرامیٹرز کو تبدیل کرنا چاہیے تاکہ ایمولیٹر مکمل اسکرین میں شروع نہ ہو۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
-    <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
 </ResourceDictionary>

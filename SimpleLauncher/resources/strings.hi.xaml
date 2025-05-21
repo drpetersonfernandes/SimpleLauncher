@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
-    <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
 </ResourceDictionary>

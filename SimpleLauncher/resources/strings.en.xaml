@@ -608,7 +608,4 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     
-    <system:String x:Key="Therewasanerrorloadingconfiguration">There was an error loading 'appsettings.json'.</system:String>
-
-    
 </ResourceDictionary>

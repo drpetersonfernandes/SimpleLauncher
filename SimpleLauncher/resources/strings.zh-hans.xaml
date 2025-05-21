@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">缩小</system:String>
-    <system:String x:Key="ZoomOut">缩小</system:String>
 </ResourceDictionary>

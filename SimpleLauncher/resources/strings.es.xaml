@@ -607,5 +607,4 @@
     <system:String x:Key="Youshouldchangetheemulatorparameters">Deberías cambiar los parámetros del emulador para evitar que este se inicie en pantalla completa.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
-    <system:String x:Key="ZoomOut">Alejar zoom</system:String>
 </ResourceDictionary>
