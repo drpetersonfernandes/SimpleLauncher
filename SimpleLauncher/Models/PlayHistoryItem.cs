@@ -1,12 +1,16 @@
 using System;
 using MessagePack;
 using SimpleLauncher.Services;
+using System.ComponentModel; // Required for INotifyPropertyChanged
+using System.Runtime.CompilerServices; // Required for CallerMemberName
 
 namespace SimpleLauncher.Models;
 
 [MessagePackObject]
-public class PlayHistoryItem
+public class PlayHistoryItem : INotifyPropertyChanged // Implement INotifyPropertyChanged
 {
+    private long _internalFileSizeBytes = -1; // Backing field, initialized to -1 ("Calculating...")
+
     [Key(0)]
     public string FileName { get; set; }
 
@@ -34,13 +38,28 @@ public class PlayHistoryItem
     [IgnoreMember]
     public string DefaultEmulator { get; set; }
 
+    // This property will be set by the background task
+    // It updates the backing field and notifies that FormattedFileSize has changed
     [IgnoreMember]
-    public long FileSizeBytes { get; set; }
+    public long FileSizeBytes
+    {
+        get => _internalFileSizeBytes;
+        set
+        {
+            if (_internalFileSizeBytes == value) return;
 
+            _internalFileSizeBytes = value;
+            OnPropertyChanged(); // If FileSizeBytes itself were bound
+            OnPropertyChanged(nameof(FormattedFileSize)); // Notify that the formatted FileSize string has changed
+        }
+    }
+
+    // This is the property bound in the DataGrid
     [IgnoreMember]
     public string FormattedFileSize =>
-        // Use the FormatFileSize helper
-        FormatFileSize.Format(FileSizeBytes);
+        _internalFileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
+        _internalFileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
+        FormatFileSize.Format(_internalFileSizeBytes); // Otherwise, format the size
 
     [IgnoreMember]
     public string FormattedPlayTime
@@ -52,5 +71,12 @@ public class PlayHistoryItem
                 ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
                 : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
         }
+    }
+
+    public event PropertyChangedEventHandler PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

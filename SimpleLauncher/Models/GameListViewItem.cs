@@ -1,36 +1,41 @@
 using System.ComponentModel;
+using System.Runtime.CompilerServices;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Models;
 
 public class GameListViewItem : INotifyPropertyChanged
 {
-    private readonly string _fileName;
     private string _machineDescription;
     private string _timesPlayed = "0";
+
     private string _playTime = "0m 0s";
-    private string _fileSize;
+    // FileSize string property will now be a getter based on _internalFileSizeBytes
+
     public string FilePath { get; init; }
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
     private bool _isFavorite;
+
+    // Backing field for the actual size in bytes, initialized to -1 ("Calculating...")
+    private long _internalFileSizeBytes = -1;
 
     public bool IsFavorite
     {
         get => _isFavorite;
         set
         {
+            if (_isFavorite == value) return;
+
             _isFavorite = value;
-            OnPropertyChanged(nameof(IsFavorite));
+            OnPropertyChanged();
         }
     }
 
     public string FileName
     {
-        get => _fileName;
-        init
-        {
-            _fileName = value;
-            OnPropertyChanged(nameof(FileName));
-        }
+        get;
+        init // Assuming FileName is set once at creation and doesn't change
+        ;
     }
 
     public string MachineDescription
@@ -38,8 +43,10 @@ public class GameListViewItem : INotifyPropertyChanged
         get => _machineDescription;
         set
         {
+            if (_machineDescription == value) return;
+
             _machineDescription = value;
-            OnPropertyChanged(nameof(MachineDescription));
+            OnPropertyChanged();
         }
     }
 
@@ -48,8 +55,10 @@ public class GameListViewItem : INotifyPropertyChanged
         get => _timesPlayed;
         set
         {
+            if (_timesPlayed == value) return;
+
             _timesPlayed = value;
-            OnPropertyChanged(nameof(TimesPlayed));
+            OnPropertyChanged();
         }
     }
 
@@ -58,25 +67,38 @@ public class GameListViewItem : INotifyPropertyChanged
         get => _playTime;
         set
         {
+            if (_playTime == value) return;
+
             _playTime = value;
-            OnPropertyChanged(nameof(PlayTime));
+            OnPropertyChanged();
         }
     }
 
-    public string FileSize
+    // This property will be set by the background task
+    // Not directly bound in XAML, but triggers update for the formatted FileSize
+    public long FileSizeBytes
     {
-        get => _fileSize;
+        get => _internalFileSizeBytes;
         set
         {
-            _fileSize = value;
-            OnPropertyChanged(nameof(FileSize));
+            if (_internalFileSizeBytes == value) return;
+
+            _internalFileSizeBytes = value;
+            // OnPropertyChanged(); // If FileSizeBytes itself were bound
+            OnPropertyChanged(nameof(FileSize)); // Notify that the formatted FileSize string has changed
         }
     }
+
+    // This is the property bound in the DataGrid (XAML uses "FileSize")
+    public string FileSize =>
+        _internalFileSizeBytes == -1 ? "Calculating..." :
+        _internalFileSizeBytes < -1 ? "N/A" : // For errors or file not found
+        FormatFileSize.Format(_internalFileSizeBytes);
 
     public event PropertyChangedEventHandler PropertyChanged;
 
-    private void OnPropertyChanged(string name)
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
     {
-        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(name));
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
     }
 }

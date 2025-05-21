@@ -48,48 +48,36 @@ public partial class PlayTimeWindow
         var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
         _playHistoryList = new ObservableCollection<PlayHistoryItem>();
 
-        // Synchronously load basic data and initialize FileSizeBytes to 0
-        // FileSize property will initially show "0.00 MB"
-        foreach (var historyItem in playHistoryConfig.PlayHistoryList)
+        foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList) // Renamed to avoid confusion
         {
-            // Find machine description if available (usually fast lookup)
             var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName), StringComparison.OrdinalIgnoreCase));
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
 
-            // Retrieve the system manager (usually fast lookup)
             var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
 
-            // Get the default emulator (usually fast lookup)
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+            var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
-            // Get cover path (involves file system checks, but done asynchronously later)
-            var coverImagePath = GetCoverImagePath(historyItem.SystemName, historyItem.FileName);
-
-            _playHistoryList.Add(new PlayHistoryItem
+            var playHistoryItem = new PlayHistoryItem // Create new instance
             {
-                FileName = historyItem.FileName,
-                SystemName = historyItem.SystemName,
-                TotalPlayTime = historyItem.TotalPlayTime,
-                TimesPlayed = historyItem.TimesPlayed,
-                LastPlayDate = historyItem.LastPlayDate,
-                LastPlayTime = historyItem.LastPlayTime,
+                FileName = historyItemConfig.FileName,
+                SystemName = historyItemConfig.SystemName,
+                TotalPlayTime = historyItemConfig.TotalPlayTime,
+                TimesPlayed = historyItemConfig.TimesPlayed,
+                LastPlayDate = historyItemConfig.LastPlayDate,
+                LastPlayTime = historyItemConfig.LastPlayTime,
                 MachineDescription = machineDescription,
                 DefaultEmulator = defaultEmulator,
                 CoverImage = coverImagePath,
-                FileSizeBytes = 0 // Initialize to 0, will be updated asynchronously
-            });
+                FileSizeBytes = -1 // Initialize to "Calculating..." state
+            };
+            _playHistoryList.Add(playHistoryItem);
         }
 
-        // Sort the list by date and time
         SortByDateSafely();
-
-        // Bind the list to the DataGrid immediately
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-
-        // Start asynchronous loading of file sizes in the background
-        // Pass a copy of the list to avoid issues if the original collection changes
         _ = LoadFileSizesAsync(_playHistoryList.ToList());
     }
 
@@ -100,60 +88,51 @@ public partial class PlayTimeWindow
     /// <param name="itemsToProcess">A list of PlayHistoryItem objects to process.</param>
     private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
     {
-        // Use Parallel.ForEachAsync for concurrent processing of file sizes
-        // This can significantly speed up loading if there are many items
         await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
         {
-            long fileSizeBytes = 0;
+            long sizeToSet; // Declare without initializing here
             var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
 
             if (systemManager != null)
             {
-                // Resolve the file path relative to the app directory
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
                 var filePath = Path.Combine(systemFolderPath, item.FileName);
 
                 try
                 {
-                    // Check if the file exists and get its size
                     if (File.Exists(filePath))
                     {
-                        fileSizeBytes = new FileInfo(filePath).Length;
+                        sizeToSet = new FileInfo(filePath).Length;
                     }
                     else
                     {
-                        // Log a warning if a history file is missing during size calculation
                         var contextMessage = $"History item file not found during size calculation: {filePath}";
                         _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
-                        // FileSizeBytes remains 0 if file not found
+                        sizeToSet = -2; // File not found, set to "N/A" state
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Log other potential file access errors during size calculation
-                    var contextMessage = $"Error getting file size during size calculation for history item: {filePath}";
+                    var contextMessage = $"Error getting file size for history item: {filePath}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                    // FileSizeBytes remains 0 on error
+                    sizeToSet = -2; // Error, set to "N/A" state
                 }
             }
             else
             {
-                // Log a warning if the system config for a history item is missing during size calculation
-                var contextMessage = $"System config not found during size calculation for history item: {item.SystemName} - {item.FileName}";
+                var contextMessage = $"System config not found for history item: {item.SystemName} - {item.FileName}";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
-                // FileSizeBytes remains 0 if system config not found
+                sizeToSet = -2; // System config not found, set to "N/A" state
             }
 
-            // Update the item's FileSizeBytes property on the UI thread
-            // This will trigger the DataGrid to update the "File Size" column
+            // Update on UI thread
             await Dispatcher.InvokeAsync(() =>
             {
-                item.FileSizeBytes = fileSizeBytes;
+                item.FileSizeBytes = sizeToSet; // This will trigger INotifyPropertyChanged
             });
         });
     }
-
 
     private static DateTime TryParseDateTime(string dateStr, string timeStr)
     {
@@ -410,81 +389,55 @@ public partial class PlayTimeWindow
     /// based on the unique identifier of the previously selected item.
     /// </summary>
     /// <param name="previousSelectedItemIdentifier">The (FileName, SystemName) tuple of the item that was selected before the refresh. Elements can be null if no item was selected.</param>
-    private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default) // Use default for the tuple
+    private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default)
     {
         try
         {
-            // Get updated play history data
             var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
             var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
 
-            foreach (var historyItem in playHistoryConfig.PlayHistoryList)
+            foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList)
             {
-                // Find machine description if available
                 var machine = _machines.FirstOrDefault(m =>
-                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItem.FileName), StringComparison.OrdinalIgnoreCase));
+                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
 
-                // Retrieve the system configuration for the history item
-                var systemConfig = _systemManagers.FirstOrDefault(config =>
-                    config.SystemName.Equals(historyItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemConfig = _systemManagers.FirstOrDefault(config => // Keep this to get DefaultEmulator and CoverImage
+                    config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
 
-                // Get the default emulator. The first one in the list
                 var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+                // GetCoverImagePath needs systemConfig, so it's fine to keep systemConfig lookup
+                var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
-                // Get cover path here (this is relatively fast)
-                var coverImagePath = GetCoverImagePath(historyItem.SystemName, historyItem.FileName);
-
-                // Construct the file path for size calculation (will be done asynchronously)
-                var filePath = (systemConfig != null)
-                    ? Path.Combine(PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder), historyItem.FileName)
-                    : null;
-
-                // Only add the item if systemConfig was found and the file exists (or we couldn't determine the size but want to keep it anyway)
-                // The current logic implicitly removes missing files because fileSizeBytes remains 0 and we don't add it if systemConfig is null or file doesn't exist.
-                // Let's explicitly check if systemConfig was found and the file existed to add it.
-                if (systemConfig == null || (filePath != null && !File.Exists(filePath)))
-                {
-                    // Log a warning if a history file is missing during refresh
-                    var contextMessage = $"History item file not found during refresh: {filePath ?? "System config missing"}";
-                    _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath ?? "N/A"), contextMessage);
-                    continue; // Skip adding this item if file is missing or system config is null
-                }
-
+                // The filePath variable and its associated check are removed from here.
+                // All items from historyItemConfig will be added.
+                // LoadFileSizesAsync will determine if the file exists and set size to N/A if not.
 
                 var playHistoryItem = new PlayHistoryItem
                 {
-                    FileName = historyItem.FileName,
-                    SystemName = historyItem.SystemName,
-                    TotalPlayTime = historyItem.TotalPlayTime,
-                    TimesPlayed = historyItem.TimesPlayed,
-                    LastPlayDate = historyItem.LastPlayDate,
-                    LastPlayTime = historyItem.LastPlayTime,
+                    FileName = historyItemConfig.FileName,
+                    SystemName = historyItemConfig.SystemName,
+                    TotalPlayTime = historyItemConfig.TotalPlayTime,
+                    TimesPlayed = historyItemConfig.TimesPlayed,
+                    LastPlayDate = historyItemConfig.LastPlayDate,
+                    LastPlayTime = historyItemConfig.LastPlayTime,
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
-                    CoverImage = coverImagePath, // Assign the retrieved cover path
-                    FileSizeBytes = 0 // Initialize to 0, will be updated asynchronously
+                    CoverImage = coverImagePath,
+                    FileSizeBytes = -1 // Initialize to "Calculating..." state
                 };
                 newPlayHistoryList.Add(playHistoryItem);
             }
 
-            // Replace the old collection with the new one
             _playHistoryList = newPlayHistoryList;
-
-            // Sort the list by date and time using the safe parsing method
             SortByDateSafely();
-
-            // Update the DataGrid
             PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+            _ = LoadFileSizesAsync(_playHistoryList.ToList()); // LoadFileSizesAsync will handle N/A for missing files
 
-            // Start asynchronous loading of file sizes for the new list
-            _ = LoadFileSizesAsync(_playHistoryList.ToList()); // Pass a copy
+            if (previousSelectedItemIdentifier.FileName == null ||
+                previousSelectedItemIdentifier.SystemName == null) return;
 
-            // Try to restore selection based on identifier
-            // Check if the identifier tuple has non-null elements
-            if (previousSelectedItemIdentifier.FileName == null || previousSelectedItemIdentifier.SystemName == null) return;
-
-            var (prevFileName, prevSystemName) = previousSelectedItemIdentifier; // Deconstruct the non-nullable tuple
+            var (prevFileName, prevSystemName) = previousSelectedItemIdentifier;
             var updatedItem = _playHistoryList.FirstOrDefault(item =>
                 item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
                 item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
@@ -493,15 +446,9 @@ public partial class PlayTimeWindow
 
             PlayHistoryDataGrid.SelectedItem = updatedItem;
             PlayHistoryDataGrid.ScrollIntoView(updatedItem);
-            // If updatedItem is null, the previously selected item was likely removed
-            // (e.g., if the file no longer exists and was auto-removed).
-            // In this case, no item will be selected, which is the desired behavior.
-            // If previousSelectedItemIdentifier had null elements (nothing was selected before),
-            // the selection remains null, which is also correct.
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "Error refreshing play history data.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }

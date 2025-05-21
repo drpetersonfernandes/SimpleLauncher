@@ -50,65 +50,67 @@ public partial class GlobalSearchWindow
             if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
             LaunchButton.IsEnabled = false;
+            PreviewImage.Source = null; // Clear preview on new search
             _searchResults.Clear();
 
-            // Show a "Please Wait" window.
             var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching, please wait...";
-            _pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait)
-            {
-                Owner = this
-            };
+            _pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait) { Owner = this };
             _pleaseWaitWindow.Show();
 
             try
             {
+                // PerformSearch itself runs on a background thread.
+                // It will now also spawn subtasks for file sizes.
                 var results = await Task.Run(() => PerformSearch(searchTerm));
 
                 if (results != null && results.Count != 0)
                 {
                     foreach (var result in results)
                     {
+                        // Adding to ObservableCollection will make items appear in the UI.
+                        // FileSizeBytes will initially show "Calculating..."
                         _searchResults.Add(result);
                     }
-
-                    LaunchButton.IsEnabled = true;
+                    // LaunchButton.IsEnabled = true; // Enable only if items are selected or always if results exist
                 }
                 else
                 {
-                    var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ??
-                                          "No results found.";
+                    var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ?? "No results found.";
+                    // Create a dummy result for "No results found"
+                    // No need for async size calculation here.
                     _searchResults.Add(new SearchResult
                     {
                         FileName = noresultsfound2,
+                        FileNameWithExtension = noresultsfound2,
                         FolderName = "",
-                        FileSizeBytes = 0
+                        FileSizeBytes = 0, // Or -2 to show N/A if preferred for a "no result" item
+                        MachineName = "",
+                        FilePath = "",
+                        SystemName = "",
+                        CoverImage = ""
                     });
+                    LaunchButton.IsEnabled = false; // No results, so disable the launch button
                 }
             }
             catch (Exception ex)
             {
-                // Notify developer
-                const string contextMessage = "That was an error using the SearchButton_Click.";
+                const string contextMessage = "Error during search operation.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
             }
             finally
             {
-                // Close the "Please Wait" window
                 _pleaseWaitWindow.Close();
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "That was an error using the SearchButton_Click.";
+            const string contextMessage = "Error in SearchButton_Click.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
-    private List<SearchResult> PerformSearch(string searchTerm)
+    private List<SearchResult> PerformSearch(string searchTerm) // This method runs on a background thread
     {
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
@@ -117,63 +119,75 @@ public partial class GlobalSearchWindow
         {
             var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
 
-            if (!Directory.Exists(systemFolderPath))
+            if (!Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
                 continue;
 
-            if (systemManager.FileFormatsToSearch == null)
-            {
-                continue; // skip the current `systemManager` and proceed with searching other systems
-            }
-
-            // Get all files matching the file's extensions for this system
-            var files = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+            var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
                 .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
-            // If the system is MAME-based and the lookup is available, use it to filter files.
             if (systemManager.SystemIsMame && _mameLookup != null)
             {
-                files = files.Where(file =>
+                filesInSystemFolder = filesInSystemFolder.Where(file =>
                 {
                     var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-
-                    // First check: Does the filename itself match the search terms?
                     if (MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms))
                         return true;
-
-                    // Second check: Look up the machine description using the dictionary.
                     if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
-                    {
                         return MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
-                    }
 
                     return false;
                 });
             }
             else
             {
-                // For non-MAME systems, filter by filename.
-                files = files.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
+                filesInSystemFolder = filesInSystemFolder.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
             }
 
-            // Map each file into a SearchResult object.
-            var fileResults = files.Select(file => new SearchResult
+            var matchedFilePaths = filesInSystemFolder.ToList();
+
+            foreach (var filePath in matchedFilePaths)
             {
-                FileName = Path.GetFileNameWithoutExtension(file),
-                FileNameWithExtension = Path.GetFileName(file),
-                FolderName = Path.GetDirectoryName(file)?.Split(Path.DirectorySeparatorChar).Last(),
-                FilePath = file,
-                FileSizeBytes = new FileInfo(file).Length,
+                var searchResultItem = new SearchResult
+                {
+                    FileName = Path.GetFileNameWithoutExtension(filePath),
+                    FileNameWithExtension = Path.GetFileName(filePath),
+                    FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
+                    FilePath = filePath,
+                    FileSizeBytes = -1, // Initialize with placeholder for "Calculating..."
+                    MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
+                    SystemName = systemManager.SystemName,
+                    EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
+                    CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager)
+                };
+                results.Add(searchResultItem);
 
-                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(file)),
-                SystemName = systemManager.SystemName,
-                EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
-                CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(file), systemManager.SystemName, systemManager)
-            }).ToList();
-
-            results.AddRange(fileResults);
+                // Start a background task to get the file size for this specific searchResultItem.
+                // Capture the item for the closure.
+                _ = Task.Run(() => // Fire and forget, UI updates via INotifyPropertyChanged
+                {
+                    try
+                    {
+                        if (File.Exists(searchResultItem.FilePath))
+                        {
+                            searchResultItem.FileSizeBytes = new FileInfo(searchResultItem.FilePath).Length;
+                        }
+                        else
+                        {
+                            var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
+                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
+                            searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error (will show "N/A")
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error
+                    }
+                });
+            }
         }
 
-        // Score and order the results before returning.
         var scoredResults = ScoreResults(results, searchTerms);
         return scoredResults;
 
@@ -191,17 +205,19 @@ public partial class GlobalSearchWindow
             result.Score = CalculateScore(result.FileName.ToLowerInvariant(), searchTerms);
         }
 
-        return results.OrderByDescending(static r => r.Score).ThenBy(static r => r.FileName).ToList();
+        return results.OrderByDescending(r => r.Score).ThenBy(r => r.FileName).ToList();
     }
 
     private static int CalculateScore(string text, List<string> searchTerms)
     {
         var score = 0;
-
-        foreach (var index in searchTerms.Select(term => text.IndexOf(term, StringComparison.OrdinalIgnoreCase)).Where(static index => index >= 0))
+        foreach (var term in searchTerms)
         {
-            score += 10;
-            score += text.Length - index;
+            var index = text.IndexOf(term, StringComparison.OrdinalIgnoreCase);
+            if (index < 0) continue;
+
+            score += 10; // Base score for match
+            score += text.Length - index; // Higher score for earlier match
         }
 
         return score;
@@ -209,66 +225,72 @@ public partial class GlobalSearchWindow
 
     private static bool MatchesSearchQuery(string text, List<string> searchTerms)
     {
-        var hasAnd = searchTerms.Contains("and");
-        var hasOr = searchTerms.Contains("or");
+        // Filter out "and" and "or" to get the actual search keywords
+        var keywords = searchTerms
+            .Where(t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                        !t.Equals("or", StringComparison.OrdinalIgnoreCase))
+            .ToList();
 
-        if (hasAnd)
+        // If there are no actual keywords after filtering, and the original search had terms,
+        // it might mean the search was just "and" or "or", which is not a valid search on its own.
+        // However, if searchTerms was empty to begin with, it's like an empty filter (match all).
+        // For simplicity here, if no keywords, we assume it means no specific filtering by keywords.
+        // The original logic `if (!relevantTerms.Any()) return true;` handled this.
+        if (keywords.Count == 0)
         {
-            return searchTerms.Where(static term => term != "and").All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+            // If the original searchTerms was also empty, it's a match (no filter).
+            // If original searchTerms had only "and"/"or", it's effectively no keywords to match.
+            return true;
         }
 
-        return hasOr ? searchTerms.Where(static term => term != "or").Any(term => text.Contains(term, StringComparison.OrdinalIgnoreCase)) : searchTerms.All(term => text.Contains(term, StringComparison.OrdinalIgnoreCase));
+        // Check for the presence of "and" or "or" operators in the original search terms
+        var hasAndOperator = searchTerms.Any(term => term.Equals("and", StringComparison.OrdinalIgnoreCase));
+        var hasOrOperator = searchTerms.Any(term => term.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+        // If both "and" and "or" are present, "and" typically takes precedence, or it's an invalid query.
+        // For this implementation, let's assume if "and" is present, it's an AND operation.
+        // If only "or" is present, it's an OR operation.
+        // If neither, it defaults to an AND operation for the keywords.
+
+        if (hasAndOperator)
+        {
+            // All keywords must be present in the text
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+        else if (hasOrOperator)
+        {
+            // Any of the keywords must be present in the text
+            return keywords.Any(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
+        else
+        {
+            // Default behavior (no "and" / "or" operators, or only keywords): all keywords must be present
+            return keywords.All(keyword => text.Contains(keyword, StringComparison.OrdinalIgnoreCase));
+        }
     }
 
     private static List<string> ParseSearchTerms(string searchTerm)
     {
         var terms = new List<string>();
+        // Regex to find quoted strings or non-space sequences
         var matches = MyRegex().Matches(searchTerm);
-
         foreach (Match match in matches)
         {
             terms.Add(match.Value.Trim('"').ToLowerInvariant());
         }
 
-        return terms;
+        return terms.Where(static t => !string.IsNullOrWhiteSpace(t)).ToList();
     }
 
     private async void LaunchGameFromSearchResult(string filePath, string selectedSystemName, SystemManager.Emulator selectedEmulatorManager)
     {
         try
         {
-            if (string.IsNullOrEmpty(filePath))
+            if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
             {
                 // Notify developer
-                const string contextMessage = "filePath is null or empty.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(selectedSystemName))
-            {
-                // Notify developer
-                const string contextMessage = "selectedSystemName is null or empty.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
-                return;
-            }
-
-            if (selectedEmulatorManager == null)
-            {
-                // Notify developer
-                const string contextMessage = "selectedEmulatorManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                var ex = new Exception("filePath or selectedSystemName or selectedEmulatorManager is null.");
+                _ = LogErrors.LogErrorAsync(ex, "Invalid parameters for launching game from search.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -279,30 +301,17 @@ public partial class GlobalSearchWindow
             var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
-                // Notify developer
-                const string contextMessage = "selectedSystemManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
+                _ = LogErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
-
                 return;
             }
 
-            var selectedEmulatorName = selectedEmulatorManager.EmulatorName;
-
-            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            var contextMessage = $"There was an error launching the game.\n" +
-                                 $"File Path: {filePath}\n" +
-                                 $"System Name: {selectedSystemName}";
+            var contextMessage = $"Error launching game from search: {filePath}, System: {selectedSystemName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
@@ -311,24 +320,20 @@ public partial class GlobalSearchWindow
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 PlayClick.PlayNotificationSound();
                 LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
             }
             else
             {
-                // Notify user
                 MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "That was an error launching a game.";
+            const string contextMessage = "Error in LaunchButton_Click (GlobalSearch).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
@@ -337,25 +342,19 @@ public partial class GlobalSearchWindow
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
-            var fileNameWithoutExtension = selectedResult.FileName;
-            var fileNameWithExtension = selectedResult.FileNameWithExtension;
-            var filePath = selectedResult.FilePath;
             var systemConfig = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
 
             if (CheckSystemConfig(systemConfig)) return;
 
-            AddRightClickContextMenuGlobalSearchWindow(selectedResult, fileNameWithoutExtension, systemConfig, fileNameWithExtension, filePath);
+            AddRightClickContextMenuGlobalSearchWindow(selectedResult, selectedResult.FileName, systemConfig, selectedResult.FileNameWithExtension, selectedResult.FilePath);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "There was an error in the right-click context menu.";
+            const string contextMessage = "Error in GlobalSearch right-click context menu.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
@@ -364,18 +363,16 @@ public partial class GlobalSearchWindow
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult) return;
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
+                string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             PlayClick.PlayNotificationSound();
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "There was an error while using the method MouseDoubleClick.";
+            const string contextMessage = "Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
@@ -392,40 +389,41 @@ public partial class GlobalSearchWindow
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult)
+            if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
-                // Use the new ImageLoader to load the image
+                LaunchButton.IsEnabled = true; // Enable launch button when a valid item is selected
                 var (loadedImage, _) = await ImageLoader.LoadImageAsync(selectedResult.CoverImage);
-
-                // Assign the loaded image to the PreviewImage control
                 PreviewImage.Source = loadedImage;
             }
             else
             {
-                // Clear the image if no item is selected or loading failed
+                LaunchButton.IsEnabled = false; // Disable if no item or dummy item is selected
                 PreviewImage.Source = null;
             }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error loading image.");
+            _ = LogErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItem (GlobalSearch).");
+            PreviewImage.Source = null; // Ensure preview is cleared on error
         }
     }
 
     private void GlobalSearch_Closed(object sender, EventArgs e)
     {
-        // Empty results
-        _searchResults = null;
+        _searchResults?.Clear(); // Clear the collection
+        _searchResults = null; // Allow GC
     }
 
     private static bool CheckSystemConfig(SystemManager systemManager)
     {
-        if (systemManager != null) return false;
+        if (systemManager != null)
+        {
+            return false;
+        }
 
         // Notify developer
-        const string contextMessage = "systemManager is null.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        const string contextMessage = "systemManager is null in GlobalSearch.";
+        _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(systemManager), contextMessage), contextMessage);
 
         // Notify user
         MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
@@ -435,7 +433,10 @@ public partial class GlobalSearchWindow
 
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)
     {
-        if (!string.IsNullOrWhiteSpace(searchTerm)) return false;
+        if (!string.IsNullOrWhiteSpace(searchTerm))
+        {
+            return false;
+        }
 
         // Notify user
         MessageBoxLibrary.PleaseEnterSearchTermMessageBox();
@@ -443,6 +444,6 @@ public partial class GlobalSearchWindow
         return true;
     }
 
-    [GeneratedRegex("""[\"].+?[\"]|[^ ]+""")]
+    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
     private static partial Regex MyRegex();
 }

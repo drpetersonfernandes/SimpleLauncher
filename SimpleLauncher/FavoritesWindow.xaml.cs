@@ -17,7 +17,7 @@ public partial class FavoritesWindow
 {
     private static readonly string LogPath = GetLogPath.Path();
     private readonly FavoritesManager _favoritesManager;
-    private ObservableCollection<Favorite> _favoriteList;
+    private readonly ObservableCollection<Favorite> _favoriteList = new();
     private readonly SettingsManager _settings;
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
@@ -34,87 +34,102 @@ public partial class FavoritesWindow
         _favoritesManager = favoritesManager;
 
         App.ApplyThemeToWindow(this);
-        LoadFavorites();
+        _ = LoadFavoritesAsync();
     }
 
-    private void LoadFavorites()
+    private Task LoadFavoritesAsync()
     {
         var favoritesConfig = FavoritesManager.LoadFavorites();
-        _favoriteList = [];
+        FavoritesDataGrid.ItemsSource = _favoriteList; // Set ItemsSource early
 
         if (_machines == null || _systemManagers == null)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(new Exception("Machines or system managers are null."), "Machines or system managers are null.");
+            _ = LogErrors.LogErrorAsync(new Exception("_machines or _systemManagers are null."), "_machines or _systemManagers are null.");
 
-            return;
+            return Task.CompletedTask;
         }
 
-        foreach (var favorite in favoritesConfig.FavoriteList)
+        foreach (var favoriteConfigItem in favoritesConfig.FavoriteList)
         {
             // Find machine description if available
             var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favorite.FileName),
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
                     StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
 
             // Retrieve the system configuration for the favorite
             var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(favorite.SystemName, StringComparison.OrdinalIgnoreCase));
+                config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
             // Get the default emulator, e.g., the first one in the list
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
 
-            long fileSizeBytes = 0;
+            var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
 
-            var coverImagePath = GetCoverImagePath(favorite.SystemName, favorite.FileName);
+            var favoriteItem = new Favorite
+            {
+                FileName = favoriteConfigItem.FileName,
+                SystemName = favoriteConfigItem.SystemName,
+                MachineDescription = machineDescription,
+                DefaultEmulator = defaultEmulator,
+                CoverImage = coverImagePath,
+                FileSizeBytes = -1 // Initial value: "Calculating..."
+            };
+
+            _favoriteList.Add(favoriteItem);
 
             if (systemManager != null)
             {
-                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
-                var filePath = Path.Combine(systemFolderPath, favorite.FileName);
+                var currentFavoriteItem = favoriteItem;
+                var currentSystemManager = systemManager;
 
-                try
+                _ = Task.Run(() => // Fire and forget the task for UI responsiveness
                 {
-                    if (File.Exists(filePath))
+                    long sizeToSet;
+                    var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(currentSystemManager.SystemFolder);
+                    var filePath = Path.Combine(systemFolderPath, currentFavoriteItem.FileName);
+
+                    try
                     {
-                        fileSizeBytes = new FileInfo(filePath).Length;
+                        if (File.Exists(filePath))
+                        {
+                            sizeToSet = new FileInfo(filePath).Length;
+                        }
+                        else
+                        {
+                            // Notify developer
+                            var contextMessage = $"Favorite file not found during async size calculation: {filePath}";
+                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
+
+                            sizeToSet = -2; // Indicate Not Found/Error (will show "N/A")
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
-                        // Log a warning if a favorite file is missing during load
-                        var contextMessage = $"Favorite file not found during load: {filePath}";
-                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
-                        // The LaunchGameFromFavorite method will handle removal if the user tries to launch it.
+                        // Notify developer
+                        var contextMessage = $"Error getting file size async for favorite: {filePath}";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                        sizeToSet = -2; // Indicate Not Found/Error (will show "N/A")
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Log other potential file access errors
-                    var contextMessage = $"Error getting file size for favorite: {filePath}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
+
+                    currentFavoriteItem.FileSizeBytes = sizeToSet;
+                    return Task.CompletedTask;
+                });
             }
             else
             {
                 // Log a warning if the system manager for a favorite is missing
-                var contextMessage = $"System manager not found for favorite: {favorite.SystemName} - {favorite.FileName}";
+                // Notify developer
+                var contextMessage = $"System manager not found for favorite: {favoriteConfigItem.SystemName} - {favoriteConfigItem.FileName}. File size not calculated.";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
-            }
 
-            var favoriteItem = new Favorite
-            {
-                FileName = favorite.FileName,
-                SystemName = favorite.SystemName,
-                MachineDescription = machineDescription,
-                DefaultEmulator = defaultEmulator,
-                CoverImage = coverImagePath,
-                FileSizeBytes = fileSizeBytes
-            };
-            _favoriteList.Add(favoriteItem);
+                favoriteItem.FileSizeBytes = -2; // Set to N/A
+            }
         }
 
-        FavoritesDataGrid.ItemsSource = _favoriteList;
+        return Task.CompletedTask;
     }
 
     private string GetCoverImagePath(string systemName, string fileName)
@@ -139,8 +154,8 @@ public partial class FavoritesWindow
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
             _favoriteList.Remove(selectedFavorite);
-            _favoritesManager.FavoriteList = _favoriteList; // Keep the instance in sync
-            _favoritesManager.SaveFavorites(); // Save using the existing instance
+            _favoritesManager.FavoriteList = _favoriteList;
+            _favoritesManager.SaveFavorites();
 
             PlayClick.PlayTrashSound();
             PreviewImage.Source = null;
@@ -239,7 +254,6 @@ public partial class FavoritesWindow
 
             if (!File.Exists(filePath))
             {
-                // Auto remove the favorite from the list since the file no longer exists
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
                 if (favoriteToRemove != null)
                 {
@@ -274,8 +288,6 @@ public partial class FavoritesWindow
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-
-            // Launch Game
             await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
@@ -331,15 +343,13 @@ public partial class FavoritesWindow
             }
 
             var imagePath = selectedFavorite.CoverImage;
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath); // Use the new ImageLoader to load the image
 
-            // Use the new ImageLoader to load the image
-            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
-
-            // Assign the loaded image to the PreviewImage control
-            PreviewImage.Source = loadedImage;
+            PreviewImage.Source = loadedImage; // Assign the loaded image to the PreviewImage control
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
         }
     }
@@ -355,9 +365,11 @@ public partial class FavoritesWindow
             _favoriteList.Remove(selectedFavorite);
             _favoritesManager.FavoriteList = _favoriteList;
             _favoritesManager.SaveFavorites();
+            PreviewImage.Source = null;
         }
         else
         {
+            // Notify user
             MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
         }
     }

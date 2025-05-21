@@ -34,22 +34,20 @@ public class GameListFactory(
     {
         var fileNameWithExtension = PathHelper.GetFileName(filePath);
         var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-        var selectedSystemName = systemName;
+        // var selectedSystemName = systemName; // Parameter 'systemName' is already this
 
         var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
-        // Check if this file is a favorite
         var isFavorite = _favoritesManager.FavoriteList
             .Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                      f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                      f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-        // Get playtime from playHistoryManager
         var playHistoryItem = _playHistoryManager.PlayHistoryList
             .FirstOrDefault(h => h.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase) &&
-                                 h.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+                                 h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-        var timesPlayed = "0"; // Default
-        var playTime = "0m 0s"; // Default
+        var timesPlayed = "0";
+        var playTime = "0m 0s";
 
         if (playHistoryItem != null)
         {
@@ -57,42 +55,54 @@ public class GameListFactory(
             playTime = timeSpan.TotalHours >= 1
                 ? $"{(int)timeSpan.TotalHours}h {timeSpan.Minutes}m {timeSpan.Seconds}s"
                 : $"{timeSpan.Minutes}m {timeSpan.Seconds}s";
-
-            // Get times played
             timesPlayed = playHistoryItem.TimesPlayed.ToString(CultureInfo.InvariantCulture);
         }
 
-        // Calculate and format file size
-        var fileSize = "N/A";
-        try
-        {
-            if (File.Exists(filePath))
-            {
-                var fileInfo = new FileInfo(filePath);
-                fileSize = FormatFileSize.Format(fileInfo.Length);
-            }
-        }
-        catch (Exception ex)
-        {
-            // Log error but don't fail item creation
-            _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {filePath}");
-            fileSize = "Error"; // Indicate error in UI
-        }
-
-        // Create the GameListViewItem with file details
+        // Create the GameListViewItem with initial data. FileSize will show "Calculating..."
         var gameListViewItem = new GameListViewItem
         {
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = filePath,
-            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
+            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(filePath, fileNameWithExtension, fileNameWithoutExtension, systemName,
                 _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime,
-            FileSize = fileSize
+            FileSizeBytes = -1 // Initialize to "Calculating..." state via the backing field
         };
 
+        // Asynchronously calculate and set the file size.
+        // Capture the necessary variables for the closure.
+        var currentItemFilePath = filePath;
+
+        _ = Task.Run(() => // Fire and forget; UI updates via INotifyPropertyChanged
+        {
+            long sizeToSet;
+            try
+            {
+                if (File.Exists(currentItemFilePath))
+                {
+                    sizeToSet = new FileInfo(currentItemFilePath).Length;
+                }
+                else
+                {
+                    _ = LogErrors.LogErrorAsync(new FileNotFoundException($"File not found for size calc: {currentItemFilePath}", currentItemFilePath),
+                        $"File not found for size calc: {currentItemFilePath}");
+                    sizeToSet = -2; // Indicate N/A or Error
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {currentItemFilePath}");
+                sizeToSet = -2; // Indicate Error
+            }
+
+            // This assignment will trigger OnPropertyChanged in GameListViewItem, updating the UI.
+            gameListViewItem.FileSizeBytes = sizeToSet;
+        });
+
+        // Return the item immediately. The file size will update in the UI when the task completes.
         return Task.FromResult(gameListViewItem);
     }
 
@@ -112,16 +122,11 @@ public class GameListFactory(
 
             _mainWindow.PreviewImage.Source = null;
 
-            // Normalize the path
             if (!string.IsNullOrEmpty(previewImagePath))
             {
                 previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
             }
-            // Note: If previewImagePath is null/empty, ImageLoader.LoadImageAsync will handle it by trying the default.
 
-            // Use ImageLoader to load the image asynchronously.
-            // ImageLoader handles file existence, reading, memory stream, freezing, background thread loading, error logging, and default image fallback.
-            // Use discard (_) for the 'isDefault' variable as it's not used here.
             var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath);
 
             _mainWindow.Dispatcher.Invoke(() =>
@@ -145,10 +150,8 @@ public class GameListFactory(
     {
         if (selectedItem == null)
         {
-            // Notify developer
             var ex = new Exception("selectedItem is null.");
             _ = LogErrors.LogErrorAsync(ex, "selectedItem is null.");
-
             return;
         }
 
@@ -159,10 +162,8 @@ public class GameListFactory(
 
         if (selectedSystemManager == null)
         {
-            // Notify developer
             var ex = new Exception("selectedSystemManager is null.");
             _ = LogErrors.LogErrorAsync(ex, "selectedSystemManager is null.");
-
             return;
         }
 

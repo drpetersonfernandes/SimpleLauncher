@@ -1,13 +1,18 @@
 #nullable enable
 using MessagePack;
 using SimpleLauncher.Services;
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SimpleLauncher.Models;
 
-// New MessagePack format
+// MessagePack format
 [MessagePackObject]
-public class Favorite
+public class Favorite : INotifyPropertyChanged // Implement INotifyPropertyChanged
 {
+    private long _fileSizeBytes = -1; // Backing field, initialized to -1 (e.g., "Calculating...")
+    private string? _defaultEmulator; // Backing field for DefaultEmulator
+
     [Key(0)]
     public required string FileName { get; init; }
 
@@ -21,12 +26,43 @@ public class Favorite
     public string? CoverImage { get; init; }
 
     [IgnoreMember]
-    public string? DefaultEmulator { get; set; }
+    public string? DefaultEmulator
+    {
+        get => _defaultEmulator;
+        set
+        {
+            if (_defaultEmulator == value) return;
+
+            _defaultEmulator = value;
+            OnPropertyChanged();
+        }
+    }
 
     [IgnoreMember]
-    public long FileSizeBytes { get; set; }
+    public long FileSizeBytes
+    {
+        get => _fileSizeBytes;
+        set
+        {
+            if (_fileSizeBytes == value) return;
+
+            _fileSizeBytes = value;
+            OnPropertyChanged(); // Notify for FileSizeBytes itself (if bound directly)
+            OnPropertyChanged(nameof(FormattedFileSize)); // Notify for the derived FormattedFileSize
+        }
+    }
 
     // Add property to format file size using the helper (ignored for serialization)
     [IgnoreMember]
-    public string FormattedFileSize => FormatFileSize.Format(FileSizeBytes);
+    public string FormattedFileSize =>
+        _fileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
+        _fileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
+        FormatFileSize.Format(_fileSizeBytes); // Otherwise, format the size
+
+    public event PropertyChangedEventHandler? PropertyChanged;
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string? propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
 }
