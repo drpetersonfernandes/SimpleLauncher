@@ -1,3 +1,46 @@
+release3.14
+-----------
+
+05/21/2025
+
+This release brings significant improvements to the user interface, adds new features for game browsing and management, enhances stability, and includes various under-the-hood technical refinements.
+
+**Highlights:**
+
+*   **New System Selection Screen:** A more visual system selection screen is now displayed when no system is chosen, making it easier to pick your gaming platform.
+*   **Revamped Navigation Panel:** A new panel on the left side of the main window provides quick access buttons for core actions like Restart, Global Search, Favorites, Play History, Edit System (Expert Mode), Toggle View Mode, Toggle Aspect Ratio, Zoom In, and Zoom Out.
+*   **Switchable View Modes:** Easily toggle between the traditional Grid View (with game cover images) and the List View (displaying game details in a table).
+*   **Enhanced Zooming:** Zoom in and out of game thumbnails in Grid View using dedicated navigation buttons or the convenient Ctrl + Mouse Wheel shortcut.
+*   **File Size Display:** Game file sizes are now displayed in the List View.
+
+**Improvements:**
+
+*   Overhauled the UI layout and design in the main window and several dialogs (Easy Mode, Download Image Pack, Global Search, Favorites, Play History, Edit System).
+*   Refined error handling and user messaging throughout the application.
+*   Updated and improved documentation links in the Help User section and parameters guide.
+*   Enhanced Gamepad Controller logic for more reliable navigation.
+*   Updated sound effects to use a consistent notification sound.
+
+**Bug Fixes:**
+
+*   Fixed various issues related to Gamepad Controller functionality.
+*   Corrected typos and added null checks in the code.
+*   Addressed issues with the default logic for emulator error notification settings.
+*   Prevented potential XML vulnerabilities during file loading and saving.
+*   Fixed issues with parameter handling in context menus.
+
+**Internal Changes (for developers/advanced users):**
+
+*   Significant code refactoring and reorganization for improved maintainability and performance.
+*   Replaced Newtonsoft.Json library with System.Text.Json for JSON handling.
+*   Improved handling of file paths, including resolving relative paths more robustly and sanitizing folder names.
+*   Enhanced asynchronous operations for smoother UI responsiveness during file loading and other tasks.
+*   Implemented stricter code quality checks by enabling nullable reference types.
+*   Consolidated logic for "Please Wait" windows.
+*   Removed redundant or unused code elements.
+*   Improved the structure and reusability of context menu creation logic.
+*   Integrated `IHttpClientFactory` for managing HTTP client instances.
+
 release3.13
 -----------
 
