@@ -4655,8 +4655,7 @@ public static class MessageBoxLibrary
         // Localized strings with fallbacks
         var title = (string)Application.Current.TryFindResource("SecurityWarning") ?? "Security Warning";
         var pathManipulationDetected = (string)Application.Current.TryFindResource("PathManipulationDetected") ?? "Potential Path Manipulation Detected";
-        var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ?? "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability " +
-            "that could allow an attacker to write files outside of the intended extraction directory.";
+        var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ?? "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.";
         var archivePathMessage = (string)Application.Current.TryFindResource("ArchivePathMessage") ?? "Archive file:";
         var actionTaken = (string)Application.Current.TryFindResource("ActionTaken") ?? "For your security, the extraction process has been properly handle and the issue has been logged.";
         var reportedToDeveloper = (string)Application.Current.TryFindResource("ReportedToDeveloper") ?? "This security issue has been reported to the developer team.";
