@@ -3387,17 +3387,10 @@ public static class MessageBoxLibrary
 
         void ShowMessage()
         {
-            var therewasanerrorwiththeGamePadController =
-                (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ??
-                "There was an error with the GamePad Controller.";
-            var grantSimpleLauncheradministrative =
-                (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ??
-                "Grant 'Simple Launcher' administrative access and try again.";
-            var temporarilydisableyourantivirus =
-                (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-                "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ??
-                                         "Do you want to open the file 'error_user.log' to debug the error?";
+            var therewasanerrorwiththeGamePadController = (string)Application.Current.TryFindResource("TherewasanerrorwiththeGamePadController") ?? "There was an error with the GamePad Controller.";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController}\n\n" +
                                          $"{grantSimpleLauncheradministrative}\n\n" +
@@ -4652,6 +4645,37 @@ public static class MessageBoxLibrary
                 $"{therewasanerrorloadingconfiguration}\n\n" +
                 $"{theerrorwasreportedtothedeveloper}",
                 error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void PotentialPathManipulationDetectedMessageBox(string archivePath)
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        // Localized strings with fallbacks
+        var title = (string)Application.Current.TryFindResource("SecurityWarning") ?? "Security Warning";
+        var pathManipulationDetected = (string)Application.Current.TryFindResource("PathManipulationDetected") ?? "Potential Path Manipulation Detected";
+        var zipSlipExplanation = (string)Application.Current.TryFindResource("ZipSlipExplanation") ?? "A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability " +
+            "that could allow an attacker to write files outside of the intended extraction directory.";
+        var archivePathMessage = (string)Application.Current.TryFindResource("ArchivePathMessage") ?? "Archive file:";
+        var actionTaken = (string)Application.Current.TryFindResource("ActionTaken") ?? "For your security, the extraction process has been properly handle and the issue has been logged.";
+        var reportedToDeveloper = (string)Application.Current.TryFindResource("ReportedToDeveloper") ?? "This security issue has been reported to the developer team.";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(
+                $"{pathManipulationDetected}\n\n" +
+                $"{zipSlipExplanation}\n\n" +
+                $"{archivePathMessage} {archivePath}\n\n" +
+                $"{actionTaken}\n\n" +
+                $"{reportedToDeveloper}",
+                title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 }

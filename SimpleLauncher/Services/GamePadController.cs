@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Threading;
+using System.Windows;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
@@ -16,6 +17,9 @@ public class GamePadController : IDisposable
     public static GamePadController Instance2 => Instance.Value;
 
     private readonly SemaphoreSlim _updateLock = new(1, 1);
+
+    // Add a lock object for synchronizing Start/Stop/Dispose operations
+    private readonly Lock _stateLock = new();
 
     // Add an Action for error logging
     public Action<Exception, string> ErrorLogger { get; set; }
@@ -82,6 +86,7 @@ public class GamePadController : IDisposable
         {
             // Log initialization errors but allow the application to continue
             // as XInput might still work or the controller might be connected later.
+            // Notify developer
             ErrorLogger?.Invoke(ex, $"Error during initial DirectInput controller setup.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
@@ -99,51 +104,56 @@ public class GamePadController : IDisposable
     {
         try
         {
-            if (_isDisposed)
+            lock (_stateLock)
             {
-                // Reinitialize Xbox controller
-                _xinputController = new Controller(UserIndex.One);
-
-                // Reinitialize DirectInput object
-                _directInput?.Dispose(); // Dispose the old one if it exists
-                _directInput = new DirectInput();
-
-                // Reinitialize PlayStation controller (find the first gamepad)
-                try
+                if (_isDisposed)
                 {
-                    var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-                    if (devices.Count > 0)
+                    // Reinitialize Xbox controller
+                    _xinputController = new Controller(UserIndex.One);
+
+                    // Reinitialize DirectInput object
+                    _directInput?.Dispose(); // Dispose the old one if it exists
+                    _directInput = new DirectInput();
+
+                    // Reinitialize PlayStation controller (find the first gamepad)
+                    try
                     {
-                        _directInputController?.Unacquire();
-                        _directInputController?.Dispose();
-                        _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
-                        _directInputController.Acquire();
-                        _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+                        var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
+                        if (devices.Count > 0)
+                        {
+                            _directInputController?.Unacquire();
+                            _directInputController?.Dispose();
+                            _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
+                            _directInputController.Acquire();
+                            _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
+                        }
+                        else
+                        {
+                            _directInputController?.Unacquire();
+                            _directInputController?.Dispose();
+                            _directInputController = null;
+                            _playStationControllerGuid = Guid.Empty;
+                        }
                     }
-                    else
+                    catch (Exception ex)
                     {
+                        // Notify developer
+                        ErrorLogger?.Invoke(ex, $"Error during DirectInput controller reinitialization in Start.\n\n" +
+                                                $"Exception type: {ex.GetType().Name}\n" +
+                                                $"Exception details: {ex.Message}");
+
                         _directInputController?.Unacquire();
                         _directInputController?.Dispose();
-                        _directInputController = null;
+                        _directInputController = null; // Ensure it's null if setup failed
                         _playStationControllerGuid = Guid.Empty;
                     }
-                }
-                catch (Exception ex)
-                {
-                    ErrorLogger?.Invoke(ex, $"Error during DirectInput controller reinitialization in Start.\n\n" +
-                                            $"Exception type: {ex.GetType().Name}\n" +
-                                            $"Exception details: {ex.Message}");
-                    _directInputController?.Unacquire();
-                    _directInputController?.Dispose();
-                    _directInputController = null; // Ensure it's null if setup failed
-                    _playStationControllerGuid = Guid.Empty;
+
+                    _isDisposed = false;
                 }
 
-                _isDisposed = false;
+                _timer.Change(0, 1000 / RefreshRate);
+                IsRunning = true;
             }
-
-            _timer.Change(0, 1000 / RefreshRate);
-            IsRunning = true;
         }
         catch (Exception ex)
         {
@@ -153,7 +163,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
         }
     }
 
@@ -161,9 +171,12 @@ public class GamePadController : IDisposable
     {
         try
         {
-            IsRunning = false;
-            // Change timer to stop, but don't dispose it here
-            _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+            lock (_stateLock)
+            {
+                IsRunning = false;
+                // Change timer to stop, but don't dispose it here
+                _timer?.Change(Timeout.Infinite, Timeout.Infinite);
+            }
         }
         catch (Exception ex)
         {
@@ -173,7 +186,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
         }
     }
 
@@ -181,18 +194,21 @@ public class GamePadController : IDisposable
     {
         try
         {
-            if (_isDisposed) return;
+            lock (_stateLock)
+            {
+                if (_isDisposed) return;
 
-            Stop(); // Stop the timer first
-            _timer?.Dispose(); // Dispose the timer
-            _directInputController?.Unacquire();
-            _directInputController?.Dispose(); // Dispose the joystick
-            _directInputController = null;
+                Stop(); // Stop the timer first
+                _timer?.Dispose(); // Dispose the timer
+                _directInputController?.Unacquire();
+                _directInputController?.Dispose(); // Dispose the joystick
+                _directInputController = null;
 
-            _directInput?.Dispose(); // Dispose the DirectInput object
-            _directInput = null;
+                _directInput?.Dispose(); // Dispose the DirectInput object
+                _directInput = null;
 
-            _isDisposed = true;
+                _isDisposed = true;
+            }
 
             // Tell GC not to call the finalizer since we've already cleaned up
             GC.SuppressFinalize(this);
@@ -205,7 +221,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
         }
     }
 
@@ -260,6 +276,7 @@ public class GamePadController : IDisposable
                         catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007001E)) // DIERR_INPUTLOST
                         {
                             // DirectInput device lost, attempt reconnection
+                            // Notify developer
                             // ErrorLogger?.Invoke(ex, "DirectInput device lost (DIERR_INPUTLOST). Attempting reconnection.");
                             _directInputController?.Unacquire();
                             _directInputController?.Dispose();
@@ -270,6 +287,7 @@ public class GamePadController : IDisposable
                         catch (SharpDXException ex) when (ex.HResult == unchecked((int)0x8007000C)) // DIERR_NOTACQUIRED
                         {
                             // DirectInput device not acquired, attempt re-acquisition or reconnection
+                            // Notify developer
                             ErrorLogger?.Invoke(ex, "DirectInput device not acquired (DIERR_NOTACQUIRED). Attempting re-acquisition/reconnection.");
                             try
                             {
@@ -277,7 +295,9 @@ public class GamePadController : IDisposable
                             }
                             catch (Exception acquireEx)
                             {
+                                // Notify developer
                                 ErrorLogger?.Invoke(acquireEx, "Failed to re-acquire DirectInput device. Attempting full reconnection.");
+
                                 _directInputController?.Unacquire();
                                 _directInputController?.Dispose();
                                 _directInputController = null;
@@ -288,9 +308,11 @@ public class GamePadController : IDisposable
                         catch (Exception ex)
                         {
                             // Catch any other exceptions during DirectInput processing
+                            // Notify developer
                             ErrorLogger?.Invoke(ex, $"Unexpected error during DirectInput processing. Attempting reconnection.\n\n" +
                                                     $"Exception type: {ex.GetType().Name}\n" +
                                                     $"Exception details: {ex.Message}");
+
                             _directInputController?.Unacquire();
                             _directInputController?.Dispose();
                             _directInputController = null;
@@ -314,12 +336,13 @@ public class GamePadController : IDisposable
                     // Or exceptions from the reconnection logic itself if it's called directly here.
                     // The specific NRE caught and ignored previously is now handled more granularly
                     // or should be prevented by better DirectInput management.
+                    // Notify developer
                     ErrorLogger?.Invoke(ex, $"Unexpected error in GamePadController Update loop.\n\n" +
                                             $"Exception type: {ex.GetType().Name}\n" +
                                             $"Exception details: {ex.Message}");
 
                     // Notify user
-                    MessageBoxLibrary.GamePadErrorMessageBox(LogPath);
+                    Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
 
                     // Attempt reconnection as a recovery step
                     CheckAndReconnectControllers();
@@ -372,14 +395,17 @@ public class GamePadController : IDisposable
                 {
                     _directInput = new DirectInput();
 
+                    // Notify developer
                     var ex = new Exception("InformationException");
                     ErrorLogger?.Invoke(ex, "Recreated DirectInput object during reconnection."); // Log successful recreation
                 }
                 catch (Exception diEx)
                 {
+                    // Notify developer
                     ErrorLogger?.Invoke(diEx, $"Failed to recreate DirectInput object during reconnection attempt.\n\n" +
                                               $"Exception type: {diEx.GetType().Name}\n" +
                                               $"Exception details: {diEx.Message}");
+
                     _directInput = null; // Ensure it's null if creation failed
                     return; // Cannot proceed without a valid DirectInput object
                 }
@@ -433,6 +459,7 @@ public class GamePadController : IDisposable
                         _directInputController.Acquire();
                         _playStationControllerGuid = foundDevice.InstanceGuid; // Update the GUID
 
+                        // Notify developer
                         var ex = new Exception("InformationException");
                         ErrorLogger?.Invoke(ex, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
                     }
@@ -441,6 +468,7 @@ public class GamePadController : IDisposable
                         // If it wasn't null and was the same GUID, try re-acquiring just in case
                         _directInputController.Acquire();
 
+                        // Notify developer
                         var ex = new Exception("InformationException");
                         ErrorLogger?.Invoke(ex, $"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}"); // Log success
                     }
@@ -448,9 +476,11 @@ public class GamePadController : IDisposable
                 catch (Exception acquireEx)
                 {
                     // Failed to acquire the found device
+                    // Notify developer
                     ErrorLogger?.Invoke(acquireEx, $"Failed to acquire DirectInput device during reconnection attempt: {foundDevice.InstanceName}.\n\n" +
                                                    $"Exception type: {acquireEx.GetType().Name}\n" +
                                                    $"Exception details: {acquireEx.Message}");
+
                     _directInputController?.Unacquire();
                     _directInputController?.Dispose();
                     _directInputController = null; // Ensure it's null on failure
@@ -470,6 +500,7 @@ public class GamePadController : IDisposable
                 _directInputController = null;
                 _playStationControllerGuid = Guid.Empty;
 
+                // Notify developer
                 var ex = new Exception("InformationException");
                 ErrorLogger?.Invoke(ex, "DirectInput controller disconnected."); // Log disconnection
             }
@@ -479,6 +510,7 @@ public class GamePadController : IDisposable
             // This catch block handles exceptions from the DirectInput object itself (e.g., GetDevices)
             // or other unexpected errors within the reconnection logic.
             // This is the catch block that generated the log message in the bug report.
+            // Notify developer
             ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");

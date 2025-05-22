@@ -56,6 +56,12 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         try
         {
+            if (_manager?.Systems == null)
+            {
+                SystemNameDropdown.ItemsSource = new List<string>(); // return an empty list
+                return;
+            }
+
             // Filter systems that have a valid ImagePackDownloadLink
             var systemsWithImagePacks = _manager.Systems
                 .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink))
@@ -83,7 +89,7 @@ public partial class DownloadImagePackWindow : IDisposable
         var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem == null) return;
 
-        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadLink);
+        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
     }
 
     private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
@@ -99,10 +105,10 @@ public partial class DownloadImagePackWindow : IDisposable
             try
             {
                 // Get the download URL
-                var imagePackDownloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+                var imagePackDownloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
 
                 // Determine the extraction folder
-                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
+                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath);
 
                 // Update UI elements
                 DownloadProgressBar.Visibility = Visibility.Visible;
@@ -212,6 +218,7 @@ public partial class DownloadImagePackWindow : IDisposable
         // Check if a system is selected
         if (SystemNameDropdown.SelectedItem == null)
         {
+            // Notify user
             MessageBoxLibrary.SystemNameIsNullMessageBox();
             return false;
         }
@@ -221,21 +228,23 @@ public partial class DownloadImagePackWindow : IDisposable
 
         if (selectedSystem == null)
         {
+            // Notify user
             MessageBoxLibrary.SelectedSystemIsNullMessageBox();
             return false;
         }
 
         // Validate download URL
-        var downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+        var downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
         if (string.IsNullOrEmpty(downloadUrl))
         {
+            // Notify user
             MessageBoxLibrary.DownloadUrlIsNullMessageBox();
             return false;
         }
 
         string extractionFolder;
 
-        if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath))
+        if (string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath))
         {
             // Automatically populate the extraction path with a default path
             var appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -248,7 +257,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         else
         {
-            extractionFolder = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+            extractionFolder = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
         }
 
         // Verify the extraction folder exists or can be created
@@ -258,7 +267,7 @@ public partial class DownloadImagePackWindow : IDisposable
             {
                 try
                 {
-                    Directory.CreateDirectory(extractionFolder);
+                    if (extractionFolder != null) Directory.CreateDirectory(extractionFolder);
                 }
                 catch (Exception ex)
                 {

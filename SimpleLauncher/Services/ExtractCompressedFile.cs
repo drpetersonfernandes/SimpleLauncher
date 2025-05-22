@@ -97,6 +97,9 @@ public class ExtractCompressedFile
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
             // Create a random directory name
@@ -176,12 +179,17 @@ public class ExtractCompressedFile
             if (process.ExitCode == 0)
             {
                 // Add additional security check - scan the extracted files for zip slip attempts
-                if (!VerifyNoPathTraversalInExtractedFiles(tempDirectory, tempDirectory))
+                if (VerifyNoPathTraversalInExtractedFiles(tempDirectory, tempDirectory))
                 {
+                    return tempDirectory;
+                }
+                else
+                {
+                    // Notify user
+                    MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+
                     throw new SecurityException("Potential path traversal detected in archive contents");
                 }
-
-                return tempDirectory;
             }
 
             // If we get here, extraction failed
@@ -289,6 +297,9 @@ public class ExtractCompressedFile
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
             // Create a random directory name
@@ -351,6 +362,9 @@ public class ExtractCompressedFile
                         // Prevent zip slip by validating the extraction path
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
                         {
+                            // Notify user
+                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
                         }
 

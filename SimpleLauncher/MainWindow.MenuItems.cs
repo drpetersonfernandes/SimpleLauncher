@@ -392,7 +392,7 @@ public partial class MainWindow
 
             if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
 
-            _gameButtonFactory.ImageHeight = newSize; // Update the image height
+            // _gameButtonFactory.ImageHeight = newSize; // Update the image height
             _settings.ThumbnailSize = newSize;
             _settings.Save();
 

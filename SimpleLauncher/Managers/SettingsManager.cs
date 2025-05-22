@@ -52,7 +52,7 @@ public class SettingsManager
     private SettingsManager(string filePath)
     {
         _filePath = filePath;
-        SystemPlayTimes = [];
+        // SystemPlayTimes = [];
         Load();
     }
 

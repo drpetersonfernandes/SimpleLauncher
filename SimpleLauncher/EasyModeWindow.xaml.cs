@@ -85,6 +85,12 @@ public partial class EasyModeWindow : IDisposable
     {
         try
         {
+            if (_manager?.Systems == null)
+            {
+                SystemNameDropdown.ItemsSource = new List<string>(); // return an empty list
+                return;
+            }
+
             var sortedSystemNames = _manager.Systems
                 .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.EmulatorDownloadLink))
                 .Select(static system => system.SystemName)
@@ -118,13 +124,13 @@ public partial class EasyModeWindow : IDisposable
         }
 
         DownloadEmulatorButton.IsEnabled = true;
-        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
-        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadLink);
+        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
+        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
 
         // Reset download status
         _isEmulatorDownloaded = false;
         // _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
-        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.CoreDownloadLink);
+        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
 
         UpdateAddSystemButtonState();
 
@@ -233,14 +239,14 @@ public partial class EasyModeWindow : IDisposable
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
-                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
+                downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
                 destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath);
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
-                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
 
-                if (string.IsNullOrEmpty(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath))
+                if (string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath))
                 {
                     // Automatically populate the extraction path with a default path
                     var appPath = AppDomain.CurrentDomain.BaseDirectory;
@@ -462,6 +468,7 @@ public partial class EasyModeWindow : IDisposable
 
             // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
             xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
+
             // --- Proceed with modification logic ---
             if (xmlDoc.Root != null)
             {
