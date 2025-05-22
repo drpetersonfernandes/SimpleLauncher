@@ -424,6 +424,7 @@ public static class GameLauncher
         }
 
         string workingDirectory = null;
+        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         try
         {
             workingDirectory = Path.GetDirectoryName(programLocation);
@@ -431,7 +432,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"workingDirectory is null or empty: {workingDirectory}";
+            var contextMessage = $"Could not get workingDirectory: {workingDirectory}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
 
@@ -442,6 +443,7 @@ public static class GameLauncher
             {
                 FileName = programLocation,
                 Arguments = arguments,
+                WorkingDirectory = baseDirectory,
                 UseShellExecute = false,
                 RedirectStandardOutput = true,
                 RedirectStandardError = true
