@@ -437,7 +437,6 @@ public class GamePadController : IDisposable
                 found = true;
             }
 
-
             if (found && foundDevice != null)
             {
                 // Found a device, try to connect
@@ -445,7 +444,9 @@ public class GamePadController : IDisposable
                 {
                     // Dispose the old controller if it exists and is different or invalid
                     // Access InstanceGuid via the Information property of the Joystick
-                    if (_directInputController != null && (_directInputController.Information.InstanceGuid != foundDevice.InstanceGuid || _directInputController.IsDisposed))
+                    if (_directInputController != null
+                        && (_directInputController.Information.InstanceGuid != foundDevice.InstanceGuid ||
+                            _directInputController.IsDisposed))
                     {
                         _directInputController?.Unacquire();
                         _directInputController?.Dispose();
