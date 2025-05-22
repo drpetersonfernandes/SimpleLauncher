@@ -688,7 +688,7 @@ public partial class MainWindow
     {
         PlayClick.PlayNotificationSound();
 
-        ShowFavoriteGames_Click();
+        ShowSystemFavoriteGames_Click();
     }
 
     private async void NavFuzzyImageMatching_Click(object sender, RoutedEventArgs e)
@@ -697,7 +697,7 @@ public partial class MainWindow
         {
             PlayClick.PlayNotificationSound();
 
-            await FeelingLucky_Click(sender, e);
+            await ShowSystemFeelingLucky_Click(sender, e);
         }
         catch (Exception ex)
         {

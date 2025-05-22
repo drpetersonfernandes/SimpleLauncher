@@ -85,7 +85,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Define and Instantiate variables
     private List<SystemManager> _systemConfigs;
     private readonly FilterMenu _topLetterNumberMenu = new();
-    private readonly GameListFactory _gameListFactory;
+    private GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
@@ -157,11 +157,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         };
         _topLetterNumberMenu.OnFavoritesSelected += async () =>
         {
-            await ShowFavoriteGames_Click();
+            await ShowSystemFavoriteGames_Click();
         };
         _topLetterNumberMenu.OnFeelingLuckySelected += async () =>
         {
-            await FeelingLucky_Click(null, null);
+            await ShowSystemFeelingLucky_Click(null, null);
         };
 
         // Initialize _favoritesManager
@@ -229,7 +229,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return LoadGameFilesAsync(selectedLetter); // Load games
     }
 
-    private Task ShowFavoriteGames_Click()
+    private Task ShowSystemFavoriteGames_Click()
     {
         // Change filter to ShowAll
         _settings.ShowGames = "ShowAll";
@@ -256,7 +256,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return Task.CompletedTask;
     }
 
-    private async Task FeelingLucky_Click(object sender, RoutedEventArgs e)
+    private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -488,7 +488,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         });
     }
 
-    // Used in Game List Mode
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
@@ -497,7 +496,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
-    // Used in Game List Mode
     private async void GameListDoubleClickOnSelectedItem(object sender, MouseButtonEventArgs e)
     {
         try
@@ -851,7 +849,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
 
             // Initialize GameListFactory with updated FavoritesConfig
-            var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+            // var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
             // Display files based on ViewMode
             foreach (var filePath in allFiles)
@@ -863,21 +862,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
                 else // ListView
                 {
-                    var gameListViewItem = await gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
             }
 
-            // Set focus to the ScrollViewer
-            if (_settings.ViewMode == "GridView")
+            switch (_settings.ViewMode)
             {
-                Scroller.Focus();
-            }
-
-            // Set focus to the GameDataGrid
-            if (_settings.ViewMode == "ListView")
-            {
-                GameDataGrid.Focus();
+                // Set focus to the ScrollViewer
+                case "GridView":
+                    Scroller.Focus();
+                    break;
+                // Set focus to the GameDataGrid
+                case "ListView":
+                    GameDataGrid.Focus();
+                    break;
             }
 
             // Update the UI to reflect the current pagination status
