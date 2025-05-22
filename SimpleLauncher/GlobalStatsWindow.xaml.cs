@@ -189,7 +189,7 @@ public partial class GlobalStatsWindow
         }
     }
 
-    private void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+    private static void SaveReport(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
     {
         // Create a SaveFileDialog to allow the user to select the location
         var saveFileDialog = new SaveFileDialog
@@ -225,7 +225,7 @@ public partial class GlobalStatsWindow
         }
     }
 
-    private string GenerateReportText(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
+    private static string GenerateReportText(GlobalStatsData globalStats, List<SystemStatsData> systemStats)
     {
         // Global statistics
         var report = $"Global Stats Report\n" +

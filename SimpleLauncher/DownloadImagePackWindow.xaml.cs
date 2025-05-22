@@ -100,7 +100,7 @@ public partial class DownloadImagePackWindow : IDisposable
             StopDownloadButton.IsEnabled = true;
 
             // Input validation
-            if (!ValidateInputs(out var selectedSystem)) return;
+            if (!ValidateInputsAndCreateExtractionFolder(out var selectedSystem)) return;
 
             try
             {
@@ -211,7 +211,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
     }
 
-    private bool ValidateInputs(out EasyModeSystemConfig selectedSystem)
+    private bool ValidateInputsAndCreateExtractionFolder(out EasyModeSystemConfig selectedSystem)
     {
         selectedSystem = null;
 
@@ -261,6 +261,13 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Verify the extraction folder exists or can be created
+        if (!CreateExtractionFolder(extractionFolder)) return false;
+
+        return true;
+    }
+
+    private static bool CreateExtractionFolder(string extractionFolder)
+    {
         try
         {
             if (!Directory.Exists(extractionFolder))

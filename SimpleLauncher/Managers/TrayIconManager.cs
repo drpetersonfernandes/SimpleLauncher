@@ -3,7 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
-using SimpleLauncher.Services; // Assuming SettingsManager is in SimpleLauncher.Managers
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
 
@@ -12,44 +12,63 @@ public class TrayIconManager : IDisposable
     private readonly TaskbarIcon _taskbarIcon;
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
-    private readonly SettingsManager _settings; // <<< ADDED: To access gamepad settings
+    private readonly SettingsManager _settings;
 
-    // Modify constructor to accept SettingsManager
-    public TrayIconManager(Window mainWindow, SettingsManager settings) // <<< MODIFIED
+    // Updated delegate types
+    private readonly RoutedEventHandler _onOpenHandler;
+    private readonly RoutedEventHandler _onExitHandler;
+    private readonly EventHandler _mainWindowStateChangedHandler;
+    private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
+
+    public TrayIconManager(Window mainWindow, SettingsManager settings)
     {
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings)); // <<< ADDED
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        // Create a context menu for the tray icon
-        _trayMenu = new ContextMenu();
+        // Initialize delegates with correct types
+        _onOpenHandler = OnOpen;
+        _onExitHandler = OnExit;
+        _mainWindowStateChangedHandler = MainWindow_StateChanged;
+        _trayMouseDoubleClickHandler = OnOpen;
 
+        // Create context menu
+        _trayMenu = CreateContextMenu();
+
+        // Create and setup TaskbarIcon
+        _taskbarIcon = CreateTaskbarIcon();
+
+        // Subscribe to events using stored delegates
+        _taskbarIcon.TrayMouseDoubleClick += _trayMouseDoubleClickHandler;
+        _mainWindow.StateChanged += _mainWindowStateChangedHandler;
+    }
+
+    private ContextMenu CreateContextMenu()
+    {
+        var menu = new ContextMenu();
         var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
 
-        // Create menu items
         var openMenuItem = new MenuItem { Header = open };
-        openMenuItem.Click += OnOpen;
+        openMenuItem.Click += _onOpenHandler;
+
         var exitMenuItem = new MenuItem { Header = exit };
-        exitMenuItem.Click += OnExit;
+        exitMenuItem.Click += _onExitHandler;
 
-        // Add items to the menu
-        _trayMenu.Items.Add(openMenuItem);
-        _trayMenu.Items.Add(exitMenuItem);
+        menu.Items.Add(openMenuItem);
+        menu.Items.Add(exitMenuItem);
 
-        // Create the TaskbarIcon
-        _taskbarIcon = new TaskbarIcon
+        return menu;
+    }
+
+    private TaskbarIcon CreateTaskbarIcon()
+    {
+        return new TaskbarIcon
         {
             IconSource = new BitmapImage(new Uri("pack://application:,,,/SimpleLauncher;component/icon/icon.ico")),
             ToolTipText = "Simple Launcher",
             ContextMenu = _trayMenu,
             Visibility = Visibility.Visible
         };
-
-        // Handle tray icon events
-        _taskbarIcon.TrayMouseDoubleClick += OnOpen;
-
-        // Subscribe to the main window's state changed event
-        _mainWindow.StateChanged += MainWindow_StateChanged;
     }
 
     private void MainWindow_StateChanged(object sender, EventArgs e)
@@ -97,39 +116,28 @@ public class TrayIconManager : IDisposable
 
     public void Dispose()
     {
-        // Unsubscribe from events
         if (_taskbarIcon != null)
         {
-            _taskbarIcon.TrayMouseDoubleClick -= OnOpen;
+            _taskbarIcon.TrayMouseDoubleClick -= _trayMouseDoubleClickHandler;
             _taskbarIcon.Dispose();
         }
 
         if (_mainWindow != null)
         {
-            _mainWindow.StateChanged -= MainWindow_StateChanged;
+            _mainWindow.StateChanged -= _mainWindowStateChangedHandler;
         }
 
-        // Remove menu item event handlers
         if (_trayMenu != null)
         {
             foreach (var item in _trayMenu.Items)
             {
                 if (item is not MenuItem menuItem) continue;
 
-                // Check specific handlers before removing
-                // This assumes OnOpen and OnExit are the only handlers attached here.
-                // A more robust way would be to store delegates if more complex.
-                if (menuItem.Header.ToString() == ((string)Application.Current.TryFindResource("Open") ?? "Open"))
-                {
-                    menuItem.Click -= OnOpen;
-                }
-                else if (menuItem.Header.ToString() == ((string)Application.Current.TryFindResource("Exit") ?? "Exit"))
-                {
-                    menuItem.Click -= OnExit;
-                }
+                menuItem.Click -= _onOpenHandler;
+                menuItem.Click -= _onExitHandler;
             }
         }
 
-        GC.SuppressFinalize(this); // Moved from original code to be standard last line
+        GC.SuppressFinalize(this);
     }
 }

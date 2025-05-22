@@ -30,7 +30,6 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
-    <NoWin32Manifest>true</NoWin32Manifest>
     <PackageProjectUrl>https://github.com/drpetersonfernandes/SimpleLauncher</PackageProjectUrl>
     <UseWindowsForms>False</UseWindowsForms>
   </PropertyGroup>

@@ -684,19 +684,22 @@ public partial class MainWindow
         ExpertMode_Click(sender, e);
     }
 
-    private void NavSelectedSystemFavoriteButton_Click(object sender, RoutedEventArgs e)
+    private async void NavSelectedSystemFavoriteButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
-
-        ShowSystemFavoriteGames_Click();
+        try
+        {
+            await ShowSystemFavoriteGames_Click();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButton_Click.");
+        }
     }
 
     private async void NavFuzzyImageMatching_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            PlayClick.PlayNotificationSound();
-
             await ShowSystemFeelingLucky_Click(sender, e);
         }
         catch (Exception ex)

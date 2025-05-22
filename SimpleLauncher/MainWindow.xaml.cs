@@ -221,45 +221,87 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         e.Handled = true;
     }
 
-    private Task TopLetterNumberMenu_Click(string selectedLetter)
+    private async Task TopLetterNumberMenu_Click(string selectedLetter)
     {
-        ResetPaginationButtons(); // Ensure pagination is reset at the beginning
-        SearchTextBox.Text = ""; // Clear SearchTextBox
-        _currentFilter = selectedLetter; // Update current filter
-        return LoadGameFilesAsync(selectedLetter); // Load games
+        if (_isGameListLoading) return; // If already loading, ignore this click
+
+        try
+        {
+            _isGameListLoading = true;
+            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            PlayClick.PlayNotificationSound();
+
+            ResetPaginationButtons(); // Ensure pagination is reset at the beginning
+            SearchTextBox.Text = ""; // Clear SearchTextBox
+            _currentFilter = selectedLetter; // Update current filter
+            await LoadGameFilesAsync(selectedLetter); // Load games
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenu_Click.");
+        }
+        finally
+        {
+            _isGameListLoading = false;
+            // Re-enable buttons on the UI thread
+            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
+        }
     }
 
-    private Task ShowSystemFavoriteGames_Click()
+    private async Task ShowSystemFavoriteGames_Click()
     {
-        // Change filter to ShowAll
-        _settings.ShowGames = "ShowAll";
-        _settings.Save();
-        ApplyShowGamesSetting();
+        if (_isGameListLoading) return; // If already loading, ignore this click
 
-        ResetPaginationButtons();
-        SearchTextBox.Text = ""; // Clear search field
-        _currentFilter = null; // Clear any active filter
-
-        // Filter favorites for the selected system and store them in _currentSearchResults
-        var favoriteGames = GetFavoriteGamesForSelectedSystem();
-        if (favoriteGames.Count != 0)
+        try
         {
-            _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
-            return LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
-        }
-        else
-        {
-            AddNoFilesMessage();
-            MessageBoxLibrary.NoFavoriteFoundMessageBox();
-        }
+            _isGameListLoading = true;
+            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            PlayClick.PlayNotificationSound();
 
-        return Task.CompletedTask;
+            // Change filter to ShowAll
+            _settings.ShowGames = "ShowAll";
+            _settings.Save();
+            ApplyShowGamesSetting();
+
+            ResetPaginationButtons();
+            SearchTextBox.Text = ""; // Clear search field
+            _currentFilter = null; // Clear any active filter
+
+            // Filter favorites for the selected system and store them in _currentSearchResults
+            var favoriteGames = GetFavoriteGamesForSelectedSystem();
+            if (favoriteGames.Count != 0)
+            {
+                _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+                await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
+            }
+            else
+            {
+                AddNoFilesMessage();
+                MessageBoxLibrary.NoFavoriteFoundMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGames_Click.");
+        }
+        finally
+        {
+            _isGameListLoading = false;
+            // Re-enable buttons on the UI thread
+            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
+        }
     }
 
     private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
     {
+        if (_isGameListLoading) return; // If already loading, ignore this click
+
         try
         {
+            _isGameListLoading = true;
+            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            PlayClick.PlayNotificationSound();
+
             // Change filter to ShowAll
             _settings.ShowGames = "ShowAll";
             _settings.Save();
@@ -280,56 +322,49 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 return;
             }
 
-            try
+            // Determine which game list to use
+            List<string> gameFiles;
+
+            // Otherwise, use the cached files for the selected system
+            if (_cachedFiles is { Count: > 0 })
             {
-                // Determine which game list to use
-                List<string> gameFiles;
-
-                // Otherwise, use the cached files for the selected system
-                if (_cachedFiles is { Count: > 0 })
-                {
-                    gameFiles = _cachedFiles;
-                }
-                // If needed, rescan the system folder
-                else
-                {
-                    var systemFolderPath = selectedConfig.SystemFolder;
-                    // Pass just the extensions
-                    var fileExtensions = selectedConfig.FileFormatsToSearch;
-                    gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
-                }
-
-                // Check if we have any games after filtering
-                if (gameFiles.Count == 0)
-                {
-                    MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
-                    return;
-                }
-
-                // Randomly select a game
-                var random = new Random();
-                var randomIndex = random.Next(0, gameFiles.Count);
-                var selectedGame = gameFiles[randomIndex];
-
-                // Reset letter selection in the UI and current search
-                _topLetterNumberMenu.DeselectLetter();
-                SearchTextBox.Text = "";
-                _currentSearchResults = [selectedGame];
-
-                // Load just this game to display it
-                await LoadGameFilesAsync(null, "RANDOM_SELECTION");
-
-                // If in list view, select the game in the DataGrid
-                if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
-
-                GameDataGrid.SelectedIndex = 0;
-                GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
-                GameDataGrid.Focus();
+                gameFiles = _cachedFiles;
             }
-            catch (Exception)
+            // If needed, rescan the system folder
+            else
             {
-                throw;
+                var systemFolderPath = selectedConfig.SystemFolder;
+                // Pass just the extensions
+                var fileExtensions = selectedConfig.FileFormatsToSearch;
+                gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
             }
+
+            // Check if we have any games after filtering
+            if (gameFiles.Count == 0)
+            {
+                MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
+                return;
+            }
+
+            // Randomly select a game
+            var random = new Random();
+            var randomIndex = random.Next(0, gameFiles.Count);
+            var selectedGame = gameFiles[randomIndex];
+
+            // Reset letter selection in the UI and current search
+            _topLetterNumberMenu.DeselectLetter();
+            SearchTextBox.Text = "";
+            _currentSearchResults = [selectedGame];
+
+            // Load just this game to display it
+            await LoadGameFilesAsync(null, "RANDOM_SELECTION");
+
+            // If in list view, select the game in the DataGrid
+            if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
+
+            GameDataGrid.SelectedIndex = 0;
+            GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
+            GameDataGrid.Focus();
         }
         catch (Exception ex)
         {
@@ -339,6 +374,12 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
+        }
+        finally
+        {
+            _isGameListLoading = false;
+            // Re-enable buttons on the UI thread
+            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
         }
     }
 
@@ -654,31 +695,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
-        // Move scroller to top
-        Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
-
-        // Clear PreviewImage
-        PreviewImage.Source = null;
-
-        // Clear Game Grid
-        GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
-
-        // Clear the Game List
-        await Dispatcher.InvokeAsync(() => GameListItems.Clear());
-
-        // Set ViewMode based on user preference
-        if (_settings.ViewMode == "GridView")
-        {
-            // Allow GridView
-            GameFileGrid.Visibility = Visibility.Visible;
-            ListViewPreviewArea.Visibility = Visibility.Collapsed;
-        }
-        else
-        {
-            // Allow ListView
-            GameFileGrid.Visibility = Visibility.Collapsed;
-            ListViewPreviewArea.Visibility = Visibility.Visible;
-        }
+        await SetUiBeforeLoadGameFilesAsync();
 
         try
         {
@@ -708,97 +725,77 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Create allFiles
             List<string> allFiles;
 
-            // If we are in "FAVORITES" mode, use '_currentSearchResults'
-            if (searchQuery == "FAVORITES" && _currentSearchResults != null && _currentSearchResults.Count != 0)
+            switch (searchQuery)
             {
-                allFiles = _currentSearchResults;
-            }
-
-            // Regular behavior: load files based on startLetter or searchQuery
-            else
-            {
-                // Attempt to use the cached file list first
-                _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
-
-                // Recount the number of files in the system folder
-                var systemFolderPath = selectedManager.SystemFolder;
-                var fileExtensions = selectedManager.FileFormatsToSearch; // Pass just the extensions to CountFiles
-                var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
-                var cachedFilesCount = _cachedFiles?.Count ?? 0;
-
-                // Check the total number of games
-                if (cachedFilesCount != await gameCount)
+                // If we are in "FAVORITES" mode, use '_currentSearchResults'
+                case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+                // If we are in "RANDOM_SELECTION" mode, use '_currentSearchResults'
+                case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+                    allFiles = _currentSearchResults;
+                    break;
+                // Regular behavior: load files based on startLetter or searchQuery
+                default:
                 {
-                    // If the cached file list is not up to date, rescan the system folder
-                    // Pass just the extensions to LoadSystemFilesAsync
-                    _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
-                }
+                    allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
 
-                if (_cachedFiles is { Count: > 0 })
-                {
-                    allFiles = _cachedFiles;
-                }
-                else
-                {
-                    // Fall back to scanning the folder if no cache is available
-                    allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions); // Pass just the extensions to GetFilesAsync
-                }
-
-                // Filter by TopMenu Letter if specified
-                if (!string.IsNullOrWhiteSpace(startLetter))
-                {
-                    allFiles = await GetFilePaths.FilterFilesAsync(allFiles, startLetter);
-                }
-
-                // Process search query (from SearchBox)
-                if (!string.IsNullOrWhiteSpace(searchQuery))
-                {
-                    // If _currentSearchResults already exists, use it
-                    if (_currentSearchResults != null && _currentSearchResults.Count != 0)
+                    // Filter by TopMenu Letter if specified
+                    if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        allFiles = _currentSearchResults;
+                        allFiles = await GetFilePaths.FilterFilesAsync(allFiles, startLetter);
                     }
-                    else
+
+                    // Process search query (from SearchBox)
+                    if (!string.IsNullOrWhiteSpace(searchQuery))
                     {
-                        // Check if the system is MAME-based
-                        var systemIsMame = selectedManager.SystemIsMame;
-
-                        // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
-                        if (systemIsMame && _mameLookup != null)
+                        // If _currentSearchResults already exists, use it
+                        if (_currentSearchResults != null && _currentSearchResults.Count != 0 && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES") // Avoid re-filtering if already search results
                         {
-                            // Use a case-insensitive comparison.
-                            var lowerQuery = searchQuery.ToLowerInvariant();
-                            allFiles = await Task.Run(() =>
-                                allFiles.FindAll(file =>
-                                {
-                                    var fileName = Path.GetFileNameWithoutExtension(file);
-                                    var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
-                                    if (filenameMatch)
-                                        return true;
+                            allFiles = _currentSearchResults;
+                        }
+                        else if (searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES") // Only perform search if not special keyword
+                        {
+                            // Check if the system is MAME-based
+                            var systemIsMame = selectedManager.SystemIsMame;
 
-                                    // Lookup in the dictionary.
-                                    if (_mameLookup.TryGetValue(fileName, out var description))
+                            // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
+                            if (systemIsMame && _mameLookup != null)
+                            {
+                                // Use a case-insensitive comparison.
+                                var lowerQuery = searchQuery.ToLowerInvariant();
+                                allFiles = await Task.Run(() =>
+                                    allFiles.FindAll(file =>
                                     {
-                                        return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                                    }
+                                        var fileName = Path.GetFileNameWithoutExtension(file);
+                                        var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
+                                        if (filenameMatch)
+                                            return true;
 
-                                    return false;
-                                }));
-                        }
-                        else
-                        {
-                            // For non-MAME systems, use the original filtering by filename.
-                            allFiles = await Task.Run(() =>
-                                allFiles.FindAll(file =>
-                                {
-                                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                    return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
-                                }));
-                        }
+                                        // Lookup in the dictionary.
+                                        if (_mameLookup.TryGetValue(fileName, out var description))
+                                        {
+                                            return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                                        }
 
-                        // Create the search results
-                        _currentSearchResults = allFiles;
+                                        return false;
+                                    }));
+                            }
+                            else
+                            {
+                                // For non-MAME systems, use the original filtering by filename.
+                                allFiles = await Task.Run(() =>
+                                    allFiles.FindAll(file =>
+                                    {
+                                        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                                        return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
+                                    }));
+                            }
+
+                            // Create the search results
+                            _currentSearchResults = allFiles;
+                        }
                     }
+
+                    break;
                 }
             }
 
@@ -808,39 +805,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Apply ShowGames filter before pagination
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 
-            // Count the collection of files
-            _totalFiles = allFiles.Count;
-
-            // Calculate the indices of files displayed on the current page
-            var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
-            var endIndex = Math.Min(startIndex + _filesPerPage - 1, _totalFiles); // Actual number of files loaded on this page
-
-            // Pagination related
-            if (_totalFiles > _paginationThreshold)
-            {
-                // Enable pagination and adjust file list based on the current page
-                allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
-
-                // Update or create pagination controls
-                InitializePaginationButtons();
-            }
-
-            // Display message if the number of files == 0
-            if (allFiles.Count == 0)
-            {
-                AddNoFilesMessage();
-            }
-
-            // Update the UI to reflect the current pagination status and the indices of files being displayed
-            var displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
-            var outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
-            var total = (string)Application.Current.TryFindResource("total") ?? "total";
-            var displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
-            var to = (string)Application.Current.TryFindResource("to") ?? "to";
-
-            TotalFilesLabel.Dispatcher.Invoke(() =>
-                TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
-            );
+            allFiles = SetPaginationOfListOfFiles(allFiles);
 
             // Reload the FavoritesConfig
             _favoritesManager = FavoritesManager.LoadFavorites();
@@ -867,6 +832,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
             }
 
+            // Set focus
             switch (_settings.ViewMode)
             {
                 // Set focus to the ScrollViewer
@@ -890,6 +856,106 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+        }
+    }
+
+    private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
+    {
+        // Count the collection of files
+        _totalFiles = allFiles.Count;
+
+        // Calculate the indices of files displayed on the current page
+        var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
+        var endIndex = Math.Min(startIndex + _filesPerPage - 1, _totalFiles); // Actual number of files loaded on this page
+
+        // Pagination related
+        if (_totalFiles > _paginationThreshold)
+        {
+            // Enable pagination and adjust file list based on the current page
+            allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
+
+            // Update or create pagination controls
+            InitializePaginationButtons();
+        }
+
+        // Display message if the number of files == 0
+        if (allFiles.Count == 0)
+        {
+            AddNoFilesMessage();
+        }
+
+        // Update the UI to reflect the current pagination status and the indices of files being displayed
+        var displayingfiles0To = (string)Application.Current.TryFindResource("Displayingfiles0to") ?? "Displaying files 0 to";
+        var outOf = (string)Application.Current.TryFindResource("outof") ?? "out of";
+        var total = (string)Application.Current.TryFindResource("total") ?? "total";
+        var displayingfiles = (string)Application.Current.TryFindResource("Displayingfiles") ?? "Displaying files";
+        var to = (string)Application.Current.TryFindResource("to") ?? "to";
+
+        TotalFilesLabel.Dispatcher.Invoke(() =>
+            TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
+        );
+        return allFiles;
+    }
+
+    private async Task<List<string>> TryToUseCachedListOfFiles(string selectedSystem, SystemManager selectedManager)
+    {
+        List<string> allFiles;
+        // Attempt to use the cached file list first
+        _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
+
+        // Recount the number of files in the system folder
+        var systemFolderPath = selectedManager.SystemFolder;
+        var fileExtensions = selectedManager.FileFormatsToSearch; // Pass just the extensions to CountFiles
+        var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
+        var cachedFilesCount = _cachedFiles?.Count ?? 0;
+
+        // Check the total number of games
+        if (cachedFilesCount != await gameCount)
+        {
+            // If the cached file list is not up to date, rescan the system folder
+            // Pass just the extensions to LoadSystemFilesAsync
+            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
+        }
+
+        if (_cachedFiles is { Count: > 0 })
+        {
+            allFiles = _cachedFiles;
+        }
+        else
+        {
+            // Fall back to scanning the folder if no cache is available
+            allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions); // Pass just the extensions to GetFilesAsync
+        }
+
+        return allFiles;
+    }
+
+    private async Task SetUiBeforeLoadGameFilesAsync()
+    {
+        // Move scroller to top
+        Scroller.Dispatcher.Invoke(() => Scroller.ScrollToTop());
+
+        // Clear PreviewImage
+        PreviewImage.Source = null;
+
+        // Clear Game Grid
+        GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Clear());
+
+        // Clear the Game List
+        await Dispatcher.InvokeAsync(() => GameListItems.Clear());
+
+        // Set ViewMode based on user preference
+        if (_settings.ViewMode == "GridView")
+        {
+            // Allow GridView
+            GameFileGrid.Visibility = Visibility.Visible;
+            ListViewPreviewArea.Visibility = Visibility.Collapsed;
+        }
+        else
+        {
+            // Allow ListView
+            GameFileGrid.Visibility = Visibility.Collapsed;
+            ListViewPreviewArea.Visibility = Visibility.Visible;
         }
     }
 
@@ -946,3 +1012,4 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 }
+
