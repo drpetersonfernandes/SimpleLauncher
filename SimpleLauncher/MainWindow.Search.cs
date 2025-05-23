@@ -79,8 +79,6 @@ public partial class MainWindow
 
         try
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(true));
-
             await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
             await LoadGameFilesAsync(null, searchQuery);
         }
@@ -96,7 +94,6 @@ public partial class MainWindow
         finally
         {
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 }

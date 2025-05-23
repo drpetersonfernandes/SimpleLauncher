@@ -227,8 +227,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(true));
-
             PlayClick.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
@@ -242,10 +240,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenu_Click.");
         }
-        finally
-        {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
-        }
     }
 
     private async Task ShowSystemFavoriteGames_Click()
@@ -254,8 +248,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(true));
-
             PlayClick.PlayNotificationSound();
 
             // Change the filter to ShowAll (as favorites might not have covers)
@@ -287,10 +279,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGames_Click.");
         }
-        finally
-        {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
-        }
     }
 
     private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
@@ -299,8 +287,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(true));
-
             PlayClick.PlayNotificationSound();
 
             // Change the filter to ShowAll (as random might not have covers)
@@ -377,10 +363,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
-        }
-        finally
-        {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 

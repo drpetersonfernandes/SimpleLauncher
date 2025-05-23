@@ -145,8 +145,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 SetLinksWindow editLinksWindow = new(_settings);
@@ -158,10 +156,6 @@ public partial class MainWindow
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
-            }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
@@ -235,8 +229,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
@@ -253,13 +245,10 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatching_Click.");
         }
     }
@@ -338,8 +327,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowAll");
@@ -351,13 +338,10 @@ public partial class MainWindow
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
         }
     }
@@ -370,8 +354,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithCover");
@@ -384,13 +366,10 @@ public partial class MainWindow
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
         }
     }
@@ -399,12 +378,10 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return; // Prevent concurrent execution
+            if (_isGameListLoading) return;
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithoutCover");
@@ -417,13 +394,10 @@ public partial class MainWindow
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
         }
     }
@@ -451,8 +425,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 var sizeText = clickedItem.Name.Replace("Size", "");
@@ -476,13 +448,10 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ButtonSize_Click.");
         }
     }
@@ -497,8 +466,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 var aspectRatio = clickedItem.Name;
@@ -518,13 +485,10 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatio_Click.");
         }
     }
@@ -539,8 +503,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 var pageText = clickedItem.Name.Replace("Page", "");
@@ -560,13 +522,10 @@ public partial class MainWindow
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
         }
     }
@@ -830,11 +789,6 @@ public partial class MainWindow
                     return; // No change in size, no need to reload
                 }
 
-                ZoomInButton.IsEnabled = false;
-                ZoomOutButton.IsEnabled = false;
-
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 _gameButtonFactory.ImageHeight = newSize; // Update the image height
                 _settings.ThumbnailSize = newSize;
                 _settings.Save();
@@ -848,13 +802,10 @@ public partial class MainWindow
                 const string errorMessage = "Error in method NavZoomInButton_Click.";
                 _ = LogErrors.LogErrorAsync(ex, errorMessage);
             }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
-            }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method NavZoomInButton_Click.");
         }
     }
@@ -878,11 +829,6 @@ public partial class MainWindow
                     return; // No change in size, no need to reload
                 }
 
-                ZoomOutButton.IsEnabled = false;
-                ZoomInButton.IsEnabled = false;
-
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 _gameButtonFactory.ImageHeight = newSize; // Update the image height
                 _settings.ThumbnailSize = newSize;
                 _settings.Save();
@@ -895,10 +841,6 @@ public partial class MainWindow
                 // Notify developer
                 const string errorMessage = "Error in method NavZoomOutButton_Click.";
                 _ = LogErrors.LogErrorAsync(ex, errorMessage);
-            }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
@@ -916,8 +858,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 PlayClick.PlayNotificationSound();
 
                 if (_settings.ViewMode == "GridView")
@@ -941,7 +881,7 @@ public partial class MainWindow
                     ListViewPreviewArea.Visibility = Visibility.Collapsed;
                 }
 
-                _settings.Save(); // Save the updated ViewMode
+                _settings.Save();
 
                 await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
             }
@@ -953,10 +893,6 @@ public partial class MainWindow
 
                 // Notify user
                 MessageBoxLibrary.ErrorChangingViewModeMessageBox();
-            }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)

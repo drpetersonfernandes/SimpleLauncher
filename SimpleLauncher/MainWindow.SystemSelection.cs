@@ -169,8 +169,6 @@ public partial class MainWindow
         {
             if (_isGameListLoading) return;
 
-            Dispatcher.Invoke(() => SetUiLoadingState(true));
-
             PlayClick.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
@@ -201,10 +199,6 @@ public partial class MainWindow
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
-        }
-        finally
-        {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 }

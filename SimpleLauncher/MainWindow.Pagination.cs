@@ -29,8 +29,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 _currentPage--;
 
                 PlayClick.PlayNotificationSound();
@@ -52,10 +50,6 @@ public partial class MainWindow
 
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
-            }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
@@ -81,8 +75,6 @@ public partial class MainWindow
 
             try
             {
-                Dispatcher.Invoke(() => SetUiLoadingState(true));
-
                 _currentPage++;
 
                 PlayClick.PlayNotificationSound();
@@ -104,10 +96,6 @@ public partial class MainWindow
 
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
-            }
-            finally
-            {
-                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
