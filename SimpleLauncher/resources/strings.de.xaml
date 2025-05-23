@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 Pixel</system:String>
     <system:String x:Key="About">Über</system:String>
     <system:String x:Key="AccentColors">Akzentfarben</system:String>
+    <system:String x:Key="ActionTaken">Zu Ihrer Sicherheit wurde der Extraktionsprozess ordnungsgemäß durchgeführt und das Problem protokolliert.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">System wird zur Konfiguration hinzugefügt...</system:String>
     <system:String x:Key="AddNewSystem">Neues System hinzufügen</system:String>
     <system:String x:Key="AddSystem">System hinzufügen</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ist beim Laden seiner API-Konfiguration auf einen Fehler gestoßen.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API-Konfigurationsfehler</system:String>
     <system:String x:Key="ApplicationFolder">Anwendungsordner:</system:String>
+    <system:String x:Key="ArchivePathMessage">Archivdatei:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Führen Sie eine zweite Instanz von 'Simple Launcher' aus? Wenn ja, öffnen Sie bitte jeweils nur eine Instanz, da sonst Probleme auftreten können.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Möchten Sie die Datei wirklich löschen?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Sind Sie sicher, dass Sie dieses System löschen möchten?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Potenziell ungültige Pfade:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Einige Pfade in den Emulatorparametern scheinen ungültig oder fehlen. Bitte überprüfen Sie diese Felder erneut.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Sie können trotzdem speichern, aber diese Pfade können beim Starten von Spielen Probleme verursachen.</system:String>
+    <system:String x:Key="PathManipulationDetected">Mögliche Pfadmanipulation erkannt</system:String>
     <system:String x:Key="PathValidationWarningCaption">Pfadvalidierungswarnung</system:String>
     <system:String x:Key="PCB">Leiterplatte</system:String>
     <system:String x:Key="PCBnotfound">Leiterplatte nicht gefunden</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Aus Favoriten entfernen</system:String>
     <system:String x:Key="RemoveFromFavorites">Aus den Favoriten entfernen</system:String>
     <system:String x:Key="RemovefromHistory">Aus Verlauf entfernen</system:String>
+    <system:String x:Key="ReportedToDeveloper">Dieses Sicherheitsproblem wurde dem Entwicklerteam gemeldet.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Bericht erfolgreich gespeichert.</system:String>
     <system:String x:Key="Restart">Neustarten</system:String>
     <system:String x:Key="RestartError">Neustart Fehler</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Bericht speichern</system:String>
     <system:String x:Key="Search">Suchen</system:String>
     <system:String x:Key="Searchingpleasewait">Suche läuft, bitte warten...</system:String>
+    <system:String x:Key="SecurityWarning">Sicherheitswarnung</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Bitte wählen Sie einen Verlaufseintrag zum Entfernen aus.</system:String>
     <system:String x:Key="SelectaWindow">Fenster auswählen</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Systemfavoriten</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Sie können auch Ihre Antivirus-Software vorübergehend deaktivieren oder den Ordner 'Simple Launcher' zur Ausschlussliste Ihrer Antivirus-Software hinzufügen.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Sie können eine benutzerdefinierte Gamepad-Totzone definieren</system:String>
     <system:String x:Key="YoucandefinecustomURL">Sie können eine benutzerdefinierte URL für die Video-Link-Schaltfläche und die Info-Link-Schaltfläche definieren.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Sie können diese Art von Fehlermeldungen im Expertenmodus ausschalten.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Sie können diese Fehlermeldung im Expertenmodus ausschalten.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Sie können logische Operatoren UND / ODER verwenden.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Sie können die Cover-Bilder für dieses System in diesem Ordner ablegen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Sie sollten die Emulatorparameter ändern, um zu verhindern, dass der Emulator im Vollbild startet.</system:String>
+    <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
 </ResourceDictionary>

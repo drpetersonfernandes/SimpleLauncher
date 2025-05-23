@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">৮০০ পিক্সেল</system:String>
     <system:String x:Key="About">সম্পর্কিত</system:String>
     <system:String x:Key="AccentColors">অ্যাকসেন্ট রঙ</system:String>
+    <system:String x:Key="ActionTaken">আপনার নিরাপত্তার জন্য, এক্সট্রাকশন প্রক্রিয়াটি সঠিকভাবে পরিচালনা করা হয়েছে এবং সমস্যাটি লগ করা হয়েছে।</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">সিস্টেমটি কনফিগারেশনে যোগ করা হচ্ছে...</system:String>
     <system:String x:Key="AddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' তার API কনফিগারেশন লোড করার সময় একটি ত্রুটির সম্মুখীন হয়েছে।</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API কনফিগারেশন ত্রুটি</system:String>
     <system:String x:Key="ApplicationFolder">অ্যাপ্লিকেশন ফোল্ডার:</system:String>
+    <system:String x:Key="ArchivePathMessage">আর্কাইভ ফাইল:</system:String>
     <system:String x:Key="areyourunningasecondinstance">আপনি কি 'Simple Launcher' এর একটি দ্বিতীয় ইনস্ট্যান্স চালাচ্ছেন? যদি হ্যাঁ, অনুগ্রহ করে এক সময়ে শুধুমাত্র একটি ইনস্ট্যান্স খুলুন অথবা আপনি সমস্যার সম্মুখীন হতে পারেন।</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">আপনি কি নিশ্চিত যে আপনি ফাইল মুছতে চান?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">আপনি কি নিশ্চিতভাবে এই সিস্টেম মুছে ফেলতে চান?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">সম্ভাব্য অবৈধ পাথ:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">এমুলেটরের প্যারামিটারে কিছু পথে অবৈধ বা অনুপস্থিত বলে মনে হচ্ছে। অনুগ্রহ করে এই ক্ষেত্রগুলিকে ডবল চেক করুন।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">আপনি এখনও সেভ করতে পারেন, তবে এই পাথগুলি গেম চালু করার সময় সমস্যা সৃষ্টি করতে পারে।</system:String>
+    <system:String x:Key="PathManipulationDetected">সম্ভাব্য পাথ ম্যানিপুলেশন সনাক্ত করা হয়েছে</system:String>
     <system:String x:Key="PathValidationWarningCaption">পাথ বৈধতা সতর্কতা</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemoveFromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
+    <system:String x:Key="ReportedToDeveloper">এই নিরাপত্তা সমস্যাটি ডেভেলপার টিমের কাছে রিপোর্ট করা হয়েছে।</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
     <system:String x:Key="Restart">রিস্টার্ট</system:String>
     <system:String x:Key="RestartError">পুনরায় চালু ত্রুটি</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">রিপোর্ট সংরক্ষণ করুন</system:String>
     <system:String x:Key="Search">অনুসন্ধান</system:String>
     <system:String x:Key="Searchingpleasewait">অনুসন্ধান প্রগ্রেস...</system:String>
+    <system:String x:Key="SecurityWarning">নিরাপত্তা সতর্কতা</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">মুছে ফেলার জন্য একটি ইতিহাস আইটেম নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectaWindow">উইন্ডো বাছাই।</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">সিস্টেম পছন্দসমূহ</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">আপনি সাময়িকভাবে আপনার অ্যান্টিভাইরাস সফটওয়্যার নিষ্ক্রিয় করতে পারেন বা 'Simple Launcher' ফোল্ডারটি অ্যান্টিভাইরাসের এক্সক্লুশন তালিকায় যুক্ত করতে পারেন।</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">আপনি কাস্টম গেমপ্যাড ডেডজোন সংজ্ঞায়িত করতে পারেন</system:String>
     <system:String x:Key="YoucandefinecustomURL">আপনি ভিডিও লিংক বোতাম এবং তথ্য লিংক বোতামের জন্য একটি কাস্টম URL নির্ধারণ করতে পারেন</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">আপনি এক্সপার্ট মোডে এই ধরনের এরর মেসেজ বন্ধ করতে পারেন।</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">আপনি এক্সপার্ট মোডে এই ত্রুটি বার্তাটি বন্ধ করতে পারেন।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">আপনি লজিক্যাল অপারেটর AND / OR ব্যবহার করতে পারেন</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">আপনি এই ফোল্ডারের ভিতরে এই সিস্টেমটির কভার ছবিগুলি রাখতে পারেন।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">আপনার এমুলেটর প্যারামিটার পরিবর্তন করা উচিত যাতে এটি ফুলস্ক্রিনে শুরু না হয়</system:String>
+    <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
 </ResourceDictionary>

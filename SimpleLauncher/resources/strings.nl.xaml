@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 pixels</system:String>
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
+    <system:String x:Key="ActionTaken">Voor uw veiligheid is het extractieproces correct afgehandeld en is het probleem geregistreerd.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' is een fout tegengekomen bij het laden van de API-configuratie.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API-configuratiefout</system:String>
     <system:String x:Key="ApplicationFolder">Applicatiemap:</system:String>
+    <system:String x:Key="ArchivePathMessage">Archiefbestand:</system:String>
     <system:String x:Key="areyourunningasecondinstance">U draait een tweede instantie van 'Simple Launcher'? Zo ja, open dan slechts één instantie tegelijk, anders kunt u problemen ondervinden.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Weet je zeker dat je dit bestand wilt verwijderen?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Weet u zeker dat u dit systeem wilt verwijderen?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Mogelijk ongeldige paden:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">U kunt nog steeds opslaan, maar deze paden kunnen problemen veroorzaken bij het starten van games.</system:String>
+    <system:String x:Key="PathManipulationDetected">Mogelijke padmanipulatie gedetecteerd</system:String>
     <system:String x:Key="PathValidationWarningCaption">Waarschuwing padvalidatie</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemovefromHistory">Verwijderen uit geschiedenis</system:String>
+    <system:String x:Key="ReportedToDeveloper">Dit beveiligingsprobleem is gemeld aan het ontwikkelaarsteam.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport succesvol opgeslagen.</system:String>
     <system:String x:Key="Restart">Opnieuw starten</system:String>
     <system:String x:Key="RestartError">Herstartfout</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Rapport opslaan</system:String>
     <system:String x:Key="Search">Zoeken</system:String>
     <system:String x:Key="Searchingpleasewait">Bezig met zoeken, een moment geduld...</system:String>
+    <system:String x:Key="SecurityWarning">Beveiligingswaarschuwing</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Selecteer een geschiedenisitem om te verwijderen.</system:String>
     <system:String x:Key="SelectaWindow">Selecteer een venster</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Systeemfavorieten</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">U kunt ook tijdelijk uw antivirussoftware uitschakelen of de map 'Simple Launcher' toevoegen aan de uitsluitingslijst van uw antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">U kunt een aangepaste gamepad-dode zone definiëren</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Je kunt dit soort foutmeldingen uitschakelen in de Expertmodus.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">U kunt dit foutbericht uitschakelen in de expertmodus.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Je moet de parameters van de emulator aanpassen zodat het niet in volledig scherm opent.</system:String>
+    <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
 </ResourceDictionary>

@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 pixels</system:String>
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
+    <system:String x:Key="ActionTaken">For your security, the extraction process has been properly handle and the issue has been logged.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' encountered an error loading its API configuration.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API Configuration Error</system:String>
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
+    <system:String x:Key="ArchivePathMessage">Archive file:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Are you sure you want to delete this system?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Potentially invalid paths:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">You can still save, but these paths may cause issues when launching games.</system:String>
+    <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
     <system:String x:Key="PathValidationWarningCaption">Path Validation Warning</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Remove from Favorites</system:String>
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemovefromHistory">Remove from history</system:String>
+    <system:String x:Key="ReportedToDeveloper">This security issue has been reported to the developer team.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Report saved successfully.</system:String>
     <system:String x:Key="Restart">Restart</system:String>
     <system:String x:Key="RestartError">Restart Error</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Save Report</system:String>
     <system:String x:Key="Search">Search</system:String>
     <system:String x:Key="Searchingpleasewait">Searching, please wait...</system:String>
+    <system:String x:Key="SecurityWarning">Security Warning</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Please select a history item to remove.</system:String>
     <system:String x:Key="SelectaWindow">Select a Window</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">System Favorites</system:String>
@@ -601,18 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">You can turn off this type of error message in Expert mode.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">You should change the emulator parameters to prevent the emulator from starting in fullscreen.</system:String>
+    <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-
-    <system:String x:Key="SecurityWarning">Security Warning</system:String>
-    <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
-    <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
-    <system:String x:Key="ArchivePathMessage">Archive file:</system:String>
-    <system:String x:Key="ActionTaken">For your security, the extraction process has been properly handle and the issue has been logged.</system:String>
-    <system:String x:Key="ReportedToDeveloper">This security issue has been reported to the developer team.</system:String>
-    
 </ResourceDictionary>

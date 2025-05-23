@@ -19,7 +19,7 @@
     <system:String x:Key="4thstep">الخطوة الرابعة</system:String>
     <system:String x:Key="500games">٥٠٠ لعبة</system:String>
     <system:String x:Key="500pixels">٥٠٠ بكسل</system:String>
-<system:String x:Key="50pixels">٥٠ بكسل</system:String>
+    <system:String x:Key="50pixels">٥٠ بكسل</system:String>
     <system:String x:Key="550pixels">٥٥٠ بكسل</system:String>
     <system:String x:Key="600pixels">٦٠٠ بكسل</system:String>
     <system:String x:Key="650pixels">650 بكسل</system:String>
@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 بكسل</system:String>
     <system:String x:Key="About">حول</system:String>
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
+    <system:String x:Key="ActionTaken">من أجل أمانك، تمت معالجة عملية الاستخراج بشكل صحيح وتم تسجيل المشكلة.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">واجه 'Simple Launcher' خطأ أثناء تحميل تهيئة واجهة برمجة التطبيقات (API) الخاصة به.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">خطأ في تهيئة واجهة برمجة التطبيقات (API)</system:String>
     <system:String x:Key="ApplicationFolder">مجلد التطبيق:</system:String>
+    <system:String x:Key="ArchivePathMessage">ملف الأرشيف:</system:String>
     <system:String x:Key="areyourunningasecondinstance">هل تقوم بتشغيل نسخة ثانية من 'Simple Launcher'؟ إذا كان الجواب نعم، يرجى فتح نسخة واحدة فقط في كل مرة وإلا قد تواجه مشكلات.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">هل أنت متأكد من أنك تريد حذف الملف</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">هل أنت متأكد أنك تريد حذف هذا النظام؟</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">مسارات قد تكون غير صالحة:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">لا يزال بإمكانك الحفظ، ولكن هذه المسارات قد تسبب مشاكل عند تشغيل الألعاب.</system:String>
+    <system:String x:Key="PathManipulationDetected">تم اكتشاف تلاعب محتمل في المسار</system:String>
     <system:String x:Key="PathValidationWarningCaption">تحذير التحقق من المسار</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
+    <system:String x:Key="ReportedToDeveloper">تم الإبلاغ عن هذه المشكلة الأمنية إلى فريق المطورين.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
     <system:String x:Key="Restart">إعادة التشغيل</system:String>
     <system:String x:Key="RestartError">خطأ في إعادة التشغيل</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">حفظ التقرير</system:String>
     <system:String x:Key="Search">بحث</system:String>
     <system:String x:Key="Searchingpleasewait">جارٍ البحث، يرجى الانتظار...</system:String>
+    <system:String x:Key="SecurityWarning">تحذير أمني</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">يرجى تحديد عنصر من السجل لإزالته.</system:String>
     <system:String x:Key="SelectaWindow">اختر نافذة</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">مفضلات النظام</system:String>
@@ -502,7 +507,7 @@
     <system:String x:Key="Thereisnocartfile">لا يوجد ملف شريط مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnocoverfileassociated">لا يوجد ملف غلاف مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="ThereisnoExtension">لم يتم تعيين 'الامتداد المطلوب تشغيله بعد الاستخراج' في تكوين النظام.</system:String>
-<system:String x:Key="ThereisnoFavoriteforthissystem">لا يوجد مفضل لهذا النظام، أو لم تقم باختيار نظام.</system:String>
+    <system:String x:Key="ThereisnoFavoriteforthissystem">لا يوجد مفضل لهذا النظام، أو لم تقم باختيار نظام.</system:String>
     <system:String x:Key="Thereisnoflyer">لا توجد نشرة مرتبطة بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnogameplaysnapshot">لا يوجد ملف لقطة لعب مرتبط بهذه اللعبة.</system:String>
     <system:String x:Key="Thereisnomanual">لا يوجد دليل مرتبط بهذا الملف.</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد "Simple Launcher" إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">يمكنك إيقاف تشغيل هذا النوع من رسائل الخطأ في وضع الخبير.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">يمكنك إيقاف رسالة الخطأ هذه في وضع الخبير.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">يجب عليك تغيير إعدادات المحاكي لمنعه من بدء التشغيل في وضع الشاشة الكاملة.</system:String>
+    <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
 </ResourceDictionary>

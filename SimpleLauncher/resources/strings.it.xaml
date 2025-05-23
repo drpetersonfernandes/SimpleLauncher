@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 pixel</system:String>
     <system:String x:Key="About">Informazioni</system:String>
     <system:String x:Key="AccentColors">Colori accento</system:String>
+    <system:String x:Key="ActionTaken">Per la tua sicurezza, il processo di estrazione è stato gestito correttamente e il problema è stato registrato.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Aggiunta del sistema alla configurazione...</system:String>
     <system:String x:Key="AddNewSystem">Aggiungi un nuovo sistema</system:String>
     <system:String x:Key="AddSystem">Aggiungi sistema</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' ha riscontrato un errore durante il caricamento della sua configurazione API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Errore di configurazione API</system:String>
     <system:String x:Key="ApplicationFolder">Cartella dell'applicazione:</system:String>
+    <system:String x:Key="ArchivePathMessage">File di archivio:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Stai eseguendo una seconda istanza di 'Simple Launcher'? In tal caso, apri solo un'istanza alla volta o potresti riscontrare problemi.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Sei sicuro di voler eliminare il file?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Sei sicuro di voler eliminare questo sistema?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Percorsi potenzialmente non validi:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Alcuni percorsi nei parametri dell'emulatore sembrano non validi o mancanti. Per favore, ricontrolla questi campi.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Puoi comunque salvare, ma questi percorsi potrebbero causare problemi all'avvio dei giochi.</system:String>
+    <system:String x:Key="PathManipulationDetected">Rilevata potenziale manipolazione del percorso</system:String>
     <system:String x:Key="PathValidationWarningCaption">Avviso di convalida percorso</system:String>
     <system:String x:Key="PCB">Circuito stampato (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB non trovato</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Rimuovi dai preferiti</system:String>
     <system:String x:Key="RemoveFromFavorites">Rimuovi dai preferiti</system:String>
     <system:String x:Key="RemovefromHistory">Rimuovi dalla cronologia</system:String>
+    <system:String x:Key="ReportedToDeveloper">Questo problema di sicurezza è stato segnalato al team di sviluppatori.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapporto salvato con successo.</system:String>
     <system:String x:Key="Restart">Riavvia</system:String>
     <system:String x:Key="RestartError">Errore di riavvio</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Salva rapporto</system:String>
     <system:String x:Key="Search">Cerca</system:String>
     <system:String x:Key="Searchingpleasewait">Ricerca in corso, attendere...</system:String>
+    <system:String x:Key="SecurityWarning">Avviso di sicurezza</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Seleziona un elemento della cronologia da rimuovere.</system:String>
     <system:String x:Key="SelectaWindow">Seleziona una finestra</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Preferiti del sistema</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Puoi anche disattivare temporaneamente il tuo software antivirus o aggiungere la cartella 'Simple Launcher' all'elenco delle esclusioni dell'antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">È possibile definire una zona morta gamepad personalizzata</system:String>
     <system:String x:Key="YoucandefinecustomURL">Puoi definire un URL personalizzato da utilizzare nel pulsante del collegamento video e nel pulsante del collegamento informazioni.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Puoi disattivare questo tipo di messaggio di errore in modalità Esperto.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Puoi disattivare questo messaggio di errore in modalità Esperto.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Dovresti modificare i parametri dell'emulatore per evitare che si avvii in modalità a schermo intero.</system:String>
+    <system:String x:Key="ZipSlipExplanation">Nel file di archivio è stata rilevata una vulnerabilità di sicurezza chiamata 'Zip Slip'. Si tratta di una vulnerabilità di attraversamento del percorso che potrebbe consentire a un attaccante di scrivere file al di fuori della directory di estrazione prevista.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
 </ResourceDictionary>

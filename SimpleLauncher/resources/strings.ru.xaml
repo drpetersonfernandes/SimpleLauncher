@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 пикселей</system:String>
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
+    <system:String x:Key="ActionTaken">Для вашей безопасности процесс извлечения был корректно обработан, и проблема была зарегистрирована.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' столкнулся с ошибкой при загрузке своей конфигурации API.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Ошибка конфигурации API</system:String>
     <system:String x:Key="ApplicationFolder">Папка приложения:</system:String>
+    <system:String x:Key="ArchivePathMessage">Архивный файл:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Вы запускаете вторую копию 'Simple Launcher'? Если да, пожалуйста, открывайте только одну копию за раз, иначе могут возникнуть проблемы.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Вы уверены, что хотите удалить файл?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Вы уверены, что хотите удалить эту систему?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Потенциально неверные пути:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Некоторые пути в параметрах эмулятора кажутся неверными или отсутствуют. Пожалуйста, проверьте эти поля ещё раз.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Вы все равно можете сохранить, но эти пути могут вызвать проблемы при запуске игр.</system:String>
+    <system:String x:Key="PathManipulationDetected">Обнаружена потенциальная манипуляция с путями</system:String>
     <system:String x:Key="PathValidationWarningCaption">Предупреждение проверки пути</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
+    <system:String x:Key="ReportedToDeveloper">Эта проблема безопасности была сообщена команде разработчиков.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Отчёт успешно сохранён.</system:String>
     <system:String x:Key="Restart">Перезапустить</system:String>
     <system:String x:Key="RestartError">Ошибка перезапуска</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Сохранить отчет</system:String>
     <system:String x:Key="Search">Поиск</system:String>
     <system:String x:Key="Searchingpleasewait">Поиск в процессе, пожалуйста, подождите...</system:String>
+    <system:String x:Key="SecurityWarning">Предупреждение безопасности</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Пожалуйста, выберите элемент истории для удаления.</system:String>
     <system:String x:Key="SelectaWindow">Выберите окно</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Избранное системы</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Вы также можете временно отключить антивирусное ПО или добавить папку 'Simple Launcher' в список исключений антивируса.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Вы можете задать пользовательскую мертвую зону геймпада</system:String>
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Вы можете отключить этот тип сообщений об ошибках в режиме эксперта.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Вы можете отключить это сообщение об ошибке в режиме Эксперта.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Вы должны изменить параметры эмулятора, чтобы он не запускался в полноэкранном режиме.</system:String>
+    <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
 </ResourceDictionary>

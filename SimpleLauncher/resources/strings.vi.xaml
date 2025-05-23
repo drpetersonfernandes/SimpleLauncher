@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 pixel</system:String>
     <system:String x:Key="About">Giới thiệu</system:String>
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
+    <system:String x:Key="ActionTaken">Vì sự an toàn của bạn, quá trình giải nén đã được xử lý đúng cách và vấn đề đã được ghi lại.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Đang thêm hệ thống vào cấu hình...</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' đã gặp lỗi khi tải cấu hình API của nó.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Lỗi cấu hình API</system:String>
     <system:String x:Key="ApplicationFolder">Thư mục ứng dụng:</system:String>
+    <system:String x:Key="ArchivePathMessage">Tệp lưu trữ:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Bạn có đang chạy một phiên bản thứ hai của 'Simple Launcher' không? Nếu có, vui lòng chỉ mở một phiên bản tại một thời điểm hoặc bạn có thể gặp sự cố.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Bạn có chắc chắn muốn xóa tệp này không?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Bạn có chắc chắn muốn xóa hệ thống này không?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Các đường dẫn có thể không hợp lệ:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Một số đường dẫn trong các tham số của trình giả lập dường như không hợp lệ hoặc thiếu. Vui lòng kiểm tra lại các trường này.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Bạn vẫn có thể lưu, nhưng các đường dẫn này có thể gây ra sự cố khi khởi chạy trò chơi.</system:String>
+    <system:String x:Key="PathManipulationDetected">Phát hiện thao túng đường dẫn tiềm năng</system:String>
     <system:String x:Key="PathValidationWarningCaption">Cảnh báo xác thực đường dẫn</system:String>
     <system:String x:Key="PCB">Mạch in (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Xóa khỏi mục yêu thích</system:String>
     <system:String x:Key="RemoveFromFavorites">Xóa khỏi mục yêu thích</system:String>
     <system:String x:Key="RemovefromHistory">Xóa khỏi lịch sử</system:String>
+    <system:String x:Key="ReportedToDeveloper">Vấn đề bảo mật này đã được báo cáo cho đội ngũ phát triển.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Báo cáo đã được lưu thành công.</system:String>
     <system:String x:Key="Restart">Khởi động lại</system:String>
     <system:String x:Key="RestartError">Lỗi khởi động lại</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Lưu báo cáo</system:String>
     <system:String x:Key="Search">Tìm Kiếm</system:String>
     <system:String x:Key="Searchingpleasewait">Đang tìm kiếm, vui lòng đợi...</system:String>
+    <system:String x:Key="SecurityWarning">Cảnh báo bảo mật</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Vui lòng chọn một mục lịch sử để xóa.</system:String>
     <system:String x:Key="SelectaWindow">Chọn một cửa sổ</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Mục yêu thích hệ thống</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Bạn cũng có thể tạm thời tắt phần mềm diệt virus hoặc thêm thư mục 'Simple Launcher' vào danh sách loại trừ của phần mềm diệt virus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Bạn có thể xác định vùng chết gamepad tùy chỉnh</system:String>
     <system:String x:Key="YoucandefinecustomURL">Bạn có thể định nghĩa một URL tùy chỉnh để sử dụng trên nút liên kết video và nút liên kết thông tin.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Bạn có thể tắt loại thông báo lỗi này ở chế độ Chuyên gia.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bạn có thể tắt thông báo lỗi này trong chế độ Chuyên gia.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Bạn có thể sử dụng các toán tử logic AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bạn có thể đặt các ảnh bìa của hệ thống này vào thư mục này.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Bạn nên thay đổi các tham số của trình giả lập để nó không khởi động ở chế độ toàn màn hình.</system:String>
+    <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
 </ResourceDictionary>

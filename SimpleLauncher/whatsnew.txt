@@ -1,7 +1,7 @@
 release3.14
 -----------
 
-05/21/2025
+05/23/2025
 
 This release brings significant improvements to the user interface, adds new features for game browsing and management, enhances stability, and includes various under-the-hood technical refinements.
 
@@ -20,6 +20,9 @@ This release brings significant improvements to the user interface, adds new fea
 *   Updated and improved documentation links in the Help User section and parameters guide.
 *   Enhanced Gamepad Controller logic for more reliable navigation.
 *   Updated sound effects to use a consistent notification sound.
+*   Updated Batch Convert To CHD. This new version adds support for 7z and rar files. Also, enable parallel processing and enhanced multithread processing.
+*   Update emulators to the latest version.
+*   Update file mame.dat to version 0.277.
 
 **Bug Fixes:**
 

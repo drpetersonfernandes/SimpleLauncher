@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 पिक्सेल</system:String>
     <system:String x:Key="About">के बारे में</system:String>
     <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
+    <system:String x:Key="ActionTaken">आपकी सुरक्षा के लिए, निष्कर्षण प्रक्रिया को उचित रूप से संभाला गया है और समस्या को लॉग किया गया है।</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' को अपनी API कॉन्फ़िगरेशन लोड करते समय एक त्रुटि का सामना करना पड़ा।</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API कॉन्फ़िगरेशन त्रुटि</system:String>
     <system:String x:Key="ApplicationFolder">एप्लिकेशन फ़ोल्डर:</system:String>
+    <system:String x:Key="ArchivePathMessage">संग्रह फ़ाइल:</system:String>
     <system:String x:Key="areyourunningasecondinstance">क्या आप 'Simple Launcher' की दूसरी इंस्टेंस चला रहे हैं? यदि हाँ, तो कृपया एक समय में केवल एक ही इंस्टेंस खोलें नहीं तो आपको समस्याओं का सामना करना पड़ सकता है।</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">क्या आप वाकई इस फ़ाइल को हटाना चाहते हैं?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">क्या आप इस सिस्टम को हटाने के लिए सुनिश्चित हैं?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">संभावित रूप से अमान्य पथ:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">एमुलेटर पैरामीटर में कुछ पथ अमान्य या गायब प्रतीत होते हैं। कृपया इन फ़ील्ड्स की दोबारा जांच करें।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">आप अभी भी सहेज सकते हैं, लेकिन ये पथ गेम लॉन्च करते समय समस्याएँ पैदा कर सकते हैं।</system:String>
+    <system:String x:Key="PathManipulationDetected">संभावित पथ हेरफेर का पता चला</system:String>
     <system:String x:Key="PathValidationWarningCaption">पथ सत्यापन चेतावनी</system:String>
     <system:String x:Key="PCB">सर्किट बोर्ड (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB नहीं मिला</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">पसंदीदा से हटाएं</system:String>
     <system:String x:Key="RemoveFromFavorites">पसंदीदा से हटाएं</system:String>
     <system:String x:Key="RemovefromHistory">इतिहास से हटाएं</system:String>
+    <system:String x:Key="ReportedToDeveloper">इस सुरक्षा समस्या की डेवलपर टीम को सूचना दी गई है।</system:String>
     <system:String x:Key="Reportsavedsuccessfully">रिपोर्ट सफलतापूर्वक सहेजी गई।</system:String>
     <system:String x:Key="Restart">पुनः प्रारंभ करें</system:String>
     <system:String x:Key="RestartError">पुनः प्रारंभ त्रुटि</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">रिपोर्ट सहेजें</system:String>
     <system:String x:Key="Search">खोजें</system:String>
     <system:String x:Key="Searchingpleasewait">खोज रहे हैं, कृपया प्रतीक्षा करें...</system:String>
+    <system:String x:Key="SecurityWarning">सुरक्षा चेतावनी</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">कृपया हटाने के लिए एक इतिहास आइटम का चयन करें।</system:String>
     <system:String x:Key="SelectaWindow">एक विंडो चुनें</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">सिस्टम पसंदीदा</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">आप अस्थायी रूप से अपना एंटीवायरस सॉफ़्टवेयर निष्क्रिय कर सकते हैं या 'Simple Launcher' फ़ोल्डर को एंटीवायरस बहिष्कार सूची में जोड़ सकते हैं।</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">आप कस्टम गेमपैड डेड ज़ोन परिभाषित कर सकते हैं</system:String>
     <system:String x:Key="YoucandefinecustomURL">आप वीडियो लिंक बटन और जानकारी लिंक बटन में उपयोग करने के लिए एक कस्टम URL परिभाषित कर सकते हैं।</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">आप एक्सपर्ट मोड में इस प्रकार का त्रुटि संदेश बंद कर सकते हैं।</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">आप एक्सपर्ट मोड में इस त्रुटि संदेश को बंद कर सकते हैं।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">आपको एमुलेटर के पैरामीटर को बदलना चाहिए ताकि यह पूर्ण स्क्रीन में न खुले।</system:String>
+    <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
 </ResourceDictionary>

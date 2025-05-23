@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 piksel</system:String>
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
+    <system:String x:Key="ActionTaken">Untuk keamanan Anda, proses ekstraksi telah ditangani dengan benar dan masalah telah dicatat.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher' mengalami kesalahan saat memuat konfigurasi API-nya.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">Kesalahan Konfigurasi API</system:String>
     <system:String x:Key="ApplicationFolder">Folder Aplikasi:</system:String>
+    <system:String x:Key="ArchivePathMessage">File arsip:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Apakah Anda menjalankan instance kedua dari 'Simple Launcher'? Jika ya, harap hanya buka satu instance pada satu waktu atau Anda mungkin mengalami masalah.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Apakah Anda yakin ingin menghapus file</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Apakah Anda yakin ingin menghapus sistem ini?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Jalur yang berpotensi tidak valid:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Beberapa jalur dalam parameter emulator tampaknya tidak valid atau hilang. Silakan periksa kembali bidang-bidang ini.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Anda masih bisa menyimpan, tetapi jalur ini dapat menyebabkan masalah saat meluncurkan game.</system:String>
+    <system:String x:Key="PathManipulationDetected">Potensi Manipulasi Jalur Terdeteksi</system:String>
     <system:String x:Key="PathValidationWarningCaption">Peringatan Validasi Jalur</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemoveFromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemovefromHistory">Hapus dari riwayat</system:String>
+    <system:String x:Key="ReportedToDeveloper">Masalah keamanan ini telah dilaporkan ke tim pengembang.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Laporan berhasil disimpan.</system:String>
     <system:String x:Key="Restart">Mulai Ulang</system:String>
     <system:String x:Key="RestartError">Kesalahan Restart</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Simpan Laporan</system:String>
     <system:String x:Key="Search">Cari</system:String>
     <system:String x:Key="Searchingpleasewait">Sedang mencari, harap tunggu...</system:String>
+    <system:String x:Key="SecurityWarning">Peringatan Keamanan</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Silakan pilih item riwayat untuk dihapus.</system:String>
     <system:String x:Key="SelectaWindow">Pilih Jendela</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Favorit Sistem</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Anda juga dapat menonaktifkan perangkat lunak antivirus Anda sementara atau menambahkan folder 'Simple Launcher' ke daftar pengecualian antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Anda Dapat Menentukan Zona Mati Gamepad Kustom</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Anda dapat mematikan jenis pesan kesalahan ini di mode Expert.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Anda dapat mematikan pesan kesalahan ini dalam mode Ahli.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Anda harus mengubah parameter emulator untuk mencegah emulator mulai dalam layar penuh.</system:String>
+    <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
 </ResourceDictionary>

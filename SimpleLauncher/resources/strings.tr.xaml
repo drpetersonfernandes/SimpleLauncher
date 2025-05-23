@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 piksel</system:String>
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
+    <system:String x:Key="ActionTaken">Güvenliğiniz için, çıkarma işlemi düzgün bir şekilde ele alındı ve sorun kaydedildi.</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">'Simple Launcher', API yapılandırmasını yüklerken bir hatayla karşılaştı.</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API Yapılandırma Hatası</system:String>
     <system:String x:Key="ApplicationFolder">Uygulama klasörü:</system:String>
+    <system:String x:Key="ArchivePathMessage">Arşiv dosyası:</system:String>
     <system:String x:Key="areyourunningasecondinstance">'Simple Launcher'ın ikinci bir örneğini mi çalıştırıyorsunuz? Evetse, lütfen aynı anda yalnızca bir örnek açın, aksi takdirde sorun yaşayabilirsiniz.</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Dosyayı silmek istediğinizden emin misiniz?</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Bu sistemi silmek istediğinizden emin misiniz?</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Potansiyel olarak geçersiz yollar:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Emülatör parametrelerindeki bazı yollar geçersiz görünüyor veya eksik. Bu alanları lütfen tekrar kontrol edin.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Yine de kaydedebilirsiniz, ancak bu yollar oyunları başlatırken sorunlara neden olabilir.</system:String>
+    <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
     <system:String x:Key="PathValidationWarningCaption">Yol Doğrulama Uyarısı</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">Favorilerden Çıkar</system:String>
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
     <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
+    <system:String x:Key="ReportedToDeveloper">Bu güvenlik sorunu geliştirici ekibine bildirildi.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
     <system:String x:Key="Restart">Yeniden Başlat</system:String>
     <system:String x:Key="RestartError">Yeniden Başlatma Hatası</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">Raporu Kaydet</system:String>
     <system:String x:Key="Search">Ara</system:String>
     <system:String x:Key="Searchingpleasewait">Aranıyor, lütfen bekleyin...</system:String>
+    <system:String x:Key="SecurityWarning">Güvenlik Uyarısı</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">Lütfen kaldırmak için bir geçmiş öğesi seçin.</system:String>
     <system:String x:Key="SelectaWindow">Bir pencere seçin</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">Sistem Favorileri</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">Bu tür hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bu hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">Emülatörün tam ekran modunda başlamaması için parametreleri değiştirmelisiniz.</system:String>
+    <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
 </ResourceDictionary>

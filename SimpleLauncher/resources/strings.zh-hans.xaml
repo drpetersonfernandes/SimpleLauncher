@@ -28,6 +28,7 @@
     <system:String x:Key="800pixels">800 像素</system:String>
     <system:String x:Key="About">关于</system:String>
     <system:String x:Key="AccentColors">强调色</system:String>
+    <system:String x:Key="ActionTaken">为了您的安全，解压过程已被正确处理，问题已被记录。</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">正在将系统添加到配置中...</system:String>
     <system:String x:Key="AddNewSystem">添加新系统</system:String>
     <system:String x:Key="AddSystem">添加系统</system:String>
@@ -51,6 +52,7 @@
     <system:String x:Key="ApiConfigErrorMessage">“Simple Launcher”加载其 API 配置时遇到错误。</system:String>
     <system:String x:Key="ApiConfigErrorTitle">API 配置错误</system:String>
     <system:String x:Key="ApplicationFolder">应用程序文件夹：</system:String>
+    <system:String x:Key="ArchivePathMessage">存档文件：</system:String>
     <system:String x:Key="areyourunningasecondinstance">您是否正在运行第二个 'Simple Launcher' 实例？如果是，请一次只打开一个实例，否则可能会遇到问题。</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">确定要删除此文件吗？</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">您确定要删除此系统吗？</system:String>
@@ -328,6 +330,7 @@
     <system:String x:Key="ParameterPathsInvalidPathsTitle">潜在的无效路径：</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">模拟器参数中的某些路径似乎无效或缺失。请重新检查这些字段。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">您仍然可以保存，但这些路径在启动游戏时可能会导致问题。</system:String>
+    <system:String x:Key="PathManipulationDetected">检测到潜在的路径操纵</system:String>
     <system:String x:Key="PathValidationWarningCaption">路径验证警告</system:String>
     <system:String x:Key="PCB">电路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">未找到电路板（PCB）</system:String>
@@ -380,6 +383,7 @@
     <system:String x:Key="RemovefromFavorites">从收藏中移除</system:String>
     <system:String x:Key="RemoveFromFavorites">从收藏夹中移除</system:String>
     <system:String x:Key="RemovefromHistory">从历史中移除</system:String>
+    <system:String x:Key="ReportedToDeveloper">此安全问题已报告给开发团队。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">报告已成功保存。</system:String>
     <system:String x:Key="Restart">重启</system:String>
     <system:String x:Key="RestartError">重启错误</system:String>
@@ -393,6 +397,7 @@
     <system:String x:Key="SaveReport">保存报告</system:String>
     <system:String x:Key="Search">搜索</system:String>
     <system:String x:Key="Searchingpleasewait">正在搜索，请稍候...</system:String>
+    <system:String x:Key="SecurityWarning">安全警告</system:String>
     <system:String x:Key="SelectAHistoryItemToRemove">请选择要移除的历史项目。</system:String>
     <system:String x:Key="SelectaWindow">选择一个窗口</system:String>
     <system:String x:Key="SelectedSystemFavoriteButton">系统收藏夹</system:String>
@@ -601,10 +606,11 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">您也可以临时禁用您的防病毒软件，或将“Simple Launcher”文件夹添加到防病毒软件的排除列表中。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自定义游戏手柄死区</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自定义一个 URL，用于视频链接按钮和信息链接按钮。</system:String>
-    <system:String x:Key="YoucanturnoffthistypeoferrormessageinExpertmode">您可以在专家模式中关闭此类错误消息。</system:String>
+    <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">您可以在专家模式下关闭此错误消息。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用逻辑运算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以将此系统的封面图片放入该文件夹。</system:String>
     <system:String x:Key="Youshouldchangetheemulatorparameters">您应该更改仿真器的参数，使其不会以全屏模式启动。</system:String>
+    <system:String x:Key="ZipSlipExplanation">在存档文件中检测到名为"Zip Slip"的安全漏洞。这是一种路径遍历漏洞，可能允许攻击者在预期解压目录之外写入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">缩小</system:String>
 </ResourceDictionary>
