@@ -894,8 +894,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 **Emulator Name:** Azahar<br>
 **Emulator Path (Example):** c:\emulators\Azahar\azahar.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** -f<br>
+**Fullscreen Parameter:** -f<br>
 
 **Emulator Name:** Borked3DS<br>
 **Emulator Path (Example):** c:\emulators\Borked3DS\borked3ds.exe<br>
