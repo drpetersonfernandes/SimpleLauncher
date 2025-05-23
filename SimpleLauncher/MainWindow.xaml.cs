@@ -223,45 +223,45 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task TopLetterNumberMenu_Click(string selectedLetter)
     {
-        if (_isGameListLoading) return; // If already loading, ignore this click
+        if (_isGameListLoading) return;
 
         try
         {
-            _isGameListLoading = true;
-            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            Dispatcher.Invoke(() => SetUiLoadingState(true));
+
             PlayClick.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
             _currentFilter = selectedLetter; // Update current filter
-            await LoadGameFilesAsync(selectedLetter); // Load games
+
+            await LoadGameFilesAsync(selectedLetter);
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenu_Click.");
         }
         finally
         {
-            _isGameListLoading = false;
-            // Re-enable buttons on the UI thread
-            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 
     private async Task ShowSystemFavoriteGames_Click()
     {
-        if (_isGameListLoading) return; // If already loading, ignore this click
+        if (_isGameListLoading) return;
 
         try
         {
-            _isGameListLoading = true;
-            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            Dispatcher.Invoke(() => SetUiLoadingState(true));
+
             PlayClick.PlayNotificationSound();
 
-            // Change filter to ShowAll
+            // Change the filter to ShowAll (as favorites might not have covers)
             _settings.ShowGames = "ShowAll";
             _settings.Save();
-            ApplyShowGamesSetting();
+            ApplyShowGamesSetting(); // Update menu check marks
 
             ResetPaginationButtons();
             SearchTextBox.Text = ""; // Clear search field
@@ -272,45 +272,48 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             if (favoriteGames.Count != 0)
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
+
                 await LoadGameFilesAsync(null, "FAVORITES"); // Call LoadGameFilesAsync
             }
             else
             {
+                // Notify user
                 AddNoFilesMessage();
                 MessageBoxLibrary.NoFavoriteFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGames_Click.");
         }
         finally
         {
-            _isGameListLoading = false;
-            // Re-enable buttons on the UI thread
-            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 
     private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
     {
-        if (_isGameListLoading) return; // If already loading, ignore this click
+        if (_isGameListLoading) return;
 
         try
         {
-            _isGameListLoading = true;
-            _topLetterNumberMenu.SetButtonsEnabled(false); // Disable filter menu buttons
+            Dispatcher.Invoke(() => SetUiLoadingState(true));
+
             PlayClick.PlayNotificationSound();
 
-            // Change filter to ShowAll
+            // Change the filter to ShowAll (as random might not have covers)
             _settings.ShowGames = "ShowAll";
             _settings.Save();
-            ApplyShowGamesSetting();
+            ApplyShowGamesSetting(); // Update menu check marks
 
             // Check if a system is selected
             if (SystemComboBox.SelectedItem == null)
             {
+                // Notify user
                 MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
+
                 return;
             }
 
@@ -334,7 +337,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             else
             {
                 var systemFolderPath = selectedConfig.SystemFolder;
-                // Pass just the extensions
                 var fileExtensions = selectedConfig.FileFormatsToSearch;
                 gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
             }
@@ -342,7 +344,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Check if we have any games after filtering
             if (gameFiles.Count == 0)
             {
+                // Notify user
                 MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
+
                 return;
             }
 
@@ -354,9 +358,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Reset letter selection in the UI and current search
             _topLetterNumberMenu.DeselectLetter();
             SearchTextBox.Text = "";
-            _currentSearchResults = [selectedGame];
+            _currentSearchResults = [selectedGame]; // Store only the selected game
 
-            // Load just this game to display it
             await LoadGameFilesAsync(null, "RANDOM_SELECTION");
 
             // If in list view, select the game in the DataGrid
@@ -377,9 +380,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         finally
         {
-            _isGameListLoading = false;
-            // Re-enable buttons on the UI thread
-            Dispatcher.Invoke(() => _topLetterNumberMenu.SetButtonsEnabled(true));
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 
@@ -695,6 +696,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
+        Dispatcher.Invoke(() => SetUiLoadingState(true));
+
         await SetUiBeforeLoadGameFilesAsync();
 
         try
@@ -748,11 +751,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     if (!string.IsNullOrWhiteSpace(searchQuery))
                     {
                         // If _currentSearchResults already exists, use it
-                        if (_currentSearchResults != null && _currentSearchResults.Count != 0 && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES") // Avoid re-filtering if already search results
+                        if (_currentSearchResults != null && _currentSearchResults.Count != 0 &&
+                            searchQuery != "RANDOM_SELECTION" &&
+                            searchQuery != "FAVORITES") // Avoid re-filtering if already search results
                         {
                             allFiles = _currentSearchResults;
                         }
-                        else if (searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES") // Only perform search if not special keyword
+                        else if (searchQuery != "RANDOM_SELECTION" &&
+                                 searchQuery != "FAVORITES") // Only perform search if not a special keyword
                         {
                             // Check if the system is MAME-based
                             var systemIsMame = selectedManager.SystemIsMame;
@@ -766,7 +772,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                     allFiles.FindAll(file =>
                                     {
                                         var fileName = Path.GetFileNameWithoutExtension(file);
-                                        var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
+                                        var filenameMatch = fileName.Contains(lowerQuery,
+                                            StringComparison
+                                                .OrdinalIgnoreCase); // Check if the filename contains the search query.
                                         if (filenameMatch)
                                             return true;
 
@@ -786,7 +794,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                     allFiles.FindAll(file =>
                                     {
                                         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                        return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
+                                        return fileNameWithoutExtension.Contains(searchQuery,
+                                            StringComparison.OrdinalIgnoreCase);
                                     }));
                             }
 
@@ -811,23 +820,27 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _favoritesManager = FavoritesManager.LoadFavorites();
 
             // Initialize GameButtonFactory with updated FavoritesConfig
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+                _settings, _favoritesManager, _gameFileGrid, this);
 
             // Initialize GameListFactory with updated FavoritesConfig
             // var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+                _settings, _favoritesManager, _playHistoryManager, this);
 
             // Display files based on ViewMode
             foreach (var filePath in allFiles)
             {
                 if (_settings.ViewMode == "GridView")
                 {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                    var gameButton =
+                        await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
                 else // ListView
                 {
-                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                    var gameListViewItem =
+                        await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
             }
@@ -844,9 +857,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     GameDataGrid.Focus();
                     break;
             }
-
-            // Update the UI to reflect the current pagination status
-            UpdatePaginationButtons();
         }
         catch (Exception ex)
         {
@@ -856,6 +866,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+        }
+        finally
+        {
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 
@@ -875,7 +889,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             allFiles = allFiles.Skip((_currentPage - 1) * _filesPerPage).Take(_filesPerPage).ToList();
 
             // Update or create pagination controls
-            InitializePaginationButtons();
+            UpdatePaginationButtons();
         }
 
         // Display message if the number of files == 0
@@ -1011,5 +1025,27 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }
-}
 
+    private void SetUiLoadingState(bool isLoading)
+    {
+        _isGameListLoading = isLoading;
+
+        // Disable/Enable main interaction controls
+        SystemComboBox.IsEnabled = !isLoading;
+        EmulatorComboBox.IsEnabled = !isLoading;
+        SearchTextBox.IsEnabled = !isLoading;
+        SearchButton.IsEnabled = !isLoading;
+        SelectedSystemFavoriteButton.IsEnabled = !isLoading;
+        FuzzyImageMatchingButton.IsEnabled = !isLoading;
+        ToggleViewMode.IsEnabled = !isLoading;
+        ToggleButtonAspectRatio.IsEnabled = !isLoading;
+        ZoomInButton.IsEnabled = !isLoading;
+        ZoomOutButton.IsEnabled = !isLoading;
+
+        // Disable/Enable Letter/Number/Favorites/Lucky buttons via FilterMenu helper
+        _topLetterNumberMenu.SetButtonsEnabled(!isLoading);
+
+        // Disable/Enable pagination buttons (UpdatePaginationButtons already checks _isGameListLoading)
+        UpdatePaginationButtons();
+    }
+}

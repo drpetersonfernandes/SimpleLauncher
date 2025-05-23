@@ -1638,7 +1638,7 @@ public static class MessageBoxLibrary
             var solution2 = (string)Application.Current.TryFindResource("DEPSolution2") ?? "2. Add the emulator to DEP exceptions in Windows Security settings.";
             var solution3 = (string)Application.Current.TryFindResource("DEPSolution3") ?? "3. Try using a different emulator compatible with your system.";
             var solution4 = (string)Application.Current.TryFindResource("DEPSolution4") ?? "4. Update your emulator to the latest version.";
-            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
@@ -1695,7 +1695,7 @@ public static class MessageBoxLibrary
             var solution2 = (string)Application.Current.TryFindResource("MemorySolution2") ?? "2. Check if your antivirus is blocking the emulator's memory operations.";
             var solution3 = (string)Application.Current.TryFindResource("MemorySolution3") ?? "3. Update your emulator to the latest version which may have fixed memory handling issues.";
             var solution4 = (string)Application.Current.TryFindResource("MemorySolution4") ?? "4. Try adjusting memory allocation settings in the emulator configuration if available.";
-            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{memoryViolationError}\n\n" +
@@ -3437,7 +3437,7 @@ public static class MessageBoxLibrary
             var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
             var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
             var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
-            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show(
@@ -3485,7 +3485,7 @@ public static class MessageBoxLibrary
         {
             var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
             var checktheintegrityoftheemulatoranditsdependencies = (string)Application.Current.TryFindResource("Checktheintegrityoftheemulatoranditsdependencies") ?? "Check the integrity of the emulator and its dependencies.";
-            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
@@ -3529,7 +3529,7 @@ public static class MessageBoxLibrary
         void ShowMessageBox()
         {
             var therewasanerrorlaunchingthisgame = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
-            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthistypeoferrormessageinExpertmode") ?? "You can turn off this type of error message in Expert mode.";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" +

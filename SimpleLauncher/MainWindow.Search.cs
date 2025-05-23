@@ -30,10 +30,10 @@ public partial class MainWindow
     {
         try
         {
-            if (e.Key == Key.Enter)
-            {
-                await ExecuteSearch();
-            }
+            if (e.Key != Key.Enter) return;
+
+            PlayClick.PlayNotificationSound(); // Play sound immediately
+            await ExecuteSearch();
         }
         catch (Exception ex)
         {
@@ -48,6 +48,8 @@ public partial class MainWindow
 
     private async Task ExecuteSearch()
     {
+        if (_isGameListLoading) return;
+
         ResetPaginationButtons();
 
         _currentSearchResults.Clear();
@@ -61,7 +63,6 @@ public partial class MainWindow
         {
             // Notify user
             MessageBoxLibrary.SelectSystemBeforeSearchMessageBox();
-
             return;
         }
 
@@ -69,22 +70,33 @@ public partial class MainWindow
         {
             // Notify user
             MessageBoxLibrary.EnterSearchQueryMessageBox();
-
             return;
         }
 
         var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ??
                                   "Searching, please wait...";
         var pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait);
-        await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
         try
         {
+            Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+            await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
             await LoadGameFilesAsync(null, searchQuery);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error during search execution.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
         }
         finally
         {
             await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 }

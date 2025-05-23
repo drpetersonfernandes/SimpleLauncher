@@ -167,6 +167,10 @@ public partial class MainWindow
     {
         try
         {
+            if (_isGameListLoading) return;
+
+            Dispatcher.Invoke(() => SetUiLoadingState(true));
+
             PlayClick.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
@@ -185,10 +189,8 @@ public partial class MainWindow
             _settings.ButtonAspectRatio = newAspectRatio;
             _settings.Save();
 
-            // Update the menu check marks
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
 
-            // Reload the game files to apply the new aspect ratio
             await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
         }
         catch (Exception ex)
@@ -199,6 +201,10 @@ public partial class MainWindow
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();
+        }
+        finally
+        {
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
 }

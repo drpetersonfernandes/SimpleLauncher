@@ -141,17 +141,31 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
-            SetLinksWindow editLinksWindow = new(_settings);
-            editLinksWindow.ShowDialog();
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
 
-            // Refresh GameList
-            await LoadGameFilesAsync();
+                PlayClick.PlayNotificationSound();
+
+                SetLinksWindow editLinksWindow = new(_settings);
+                editLinksWindow.ShowDialog();
+
+                await LoadGameFilesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
         }
     }
@@ -215,16 +229,19 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
             if (sender is not MenuItem menuItem) return;
 
             try
             {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                PlayClick.PlayNotificationSound();
+
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
                 _settings.Save();
 
-                // Re-load game files to apply the new setting
                 await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
             }
             catch (Exception ex)
@@ -236,38 +253,35 @@ public partial class MainWindow
                 // Notify user
                 MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
             }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in method ToggleFuzzyMatching_Click");
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatching_Click.");
         }
     }
 
-    private void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
+    private async void SetFuzzyMatchingThreshold_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             PlayClick.PlayNotificationSound();
 
-            // Pass the current settings manager to the dialog
             var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
-            setThresholdWindow.ShowDialog(); // Use ShowDialog() to make it modal
+            setThresholdWindow.ShowDialog();
 
             // After the dialog closes, the settings are saved within the dialog.
             if (_settings.EnableFuzzyMatching)
             {
-                _ = LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Failed to open Set Fuzzy Matching Threshold window.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.SetFuzzyMatchingThresholdFailureMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThreshold_Click");
         }
     }
 
@@ -320,15 +334,30 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
-            UpdateShowGamesSetting("ShowAll");
-            UpdateMenuCheckMarks("ShowAll");
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                PlayClick.PlayNotificationSound();
+
+                UpdateShowGamesSetting("ShowAll");
+                UpdateMenuCheckMarks("ShowAll");
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
         }
     }
@@ -337,15 +366,31 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
-            UpdateShowGamesSetting("ShowWithCover");
-            UpdateMenuCheckMarks("ShowWithCover");
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                PlayClick.PlayNotificationSound();
+
+                UpdateShowGamesSetting("ShowWithCover");
+                UpdateMenuCheckMarks("ShowWithCover");
+
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
         }
     }
@@ -354,15 +399,31 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return; // Prevent concurrent execution
 
-            UpdateShowGamesSetting("ShowWithoutCover");
-            UpdateMenuCheckMarks("ShowWithoutCover");
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                PlayClick.PlayNotificationSound();
+
+                UpdateShowGamesSetting("ShowWithoutCover");
+                UpdateMenuCheckMarks("ShowWithoutCover");
+
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
         }
     }
@@ -384,31 +445,45 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
             if (sender is not MenuItem clickedItem) return;
 
-            var sizeText = clickedItem.Name.Replace("Size", "");
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
 
-            if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
+                PlayClick.PlayNotificationSound();
 
-            // _gameButtonFactory.ImageHeight = newSize; // Update the image height
-            _settings.ThumbnailSize = newSize;
-            _settings.Save();
+                var sizeText = clickedItem.Name.Replace("Size", "");
 
-            UpdateThumbnailSizeCheckMarks(newSize);
+                if (!int.TryParse(new string(sizeText.Where(char.IsDigit).ToArray()), out var newSize)) return;
 
-            // Reload List of Games
-            await LoadGameFilesAsync();
+                _gameButtonFactory.ImageHeight = newSize; // Update the image height
+                _settings.ThumbnailSize = newSize;
+                _settings.Save();
+
+                UpdateThumbnailSizeCheckMarks(newSize);
+
+                await LoadGameFilesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string errorMessage = "Error in method ButtonSize_Click.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string errorMessage = "Error in method ButtonSize_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ButtonSize_Click.");
         }
     }
 
@@ -416,27 +491,41 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
             if (sender is not MenuItem clickedItem) return;
 
-            var aspectRatio = clickedItem.Name;
-            _settings.ButtonAspectRatio = aspectRatio;
-            _settings.Save();
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
 
-            UpdateButtonAspectRatioCheckMarks(aspectRatio);
+                PlayClick.PlayNotificationSound();
 
-            // Reload List of Games
-            await LoadGameFilesAsync();
+                var aspectRatio = clickedItem.Name;
+                _settings.ButtonAspectRatio = aspectRatio;
+                _settings.Save();
+
+                UpdateButtonAspectRatioCheckMarks(aspectRatio);
+
+                await LoadGameFilesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error in method ButtonAspectRatio_Click";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ErrorMessageBox();
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in method ButtonAspectRatio_Click";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatio_Click.");
         }
     }
 
@@ -444,26 +533,40 @@ public partial class MainWindow
     {
         try
         {
+            if (_isGameListLoading) return;
+
             if (sender is not MenuItem clickedItem) return;
 
-            PlayClick.PlayNotificationSound();
+            try
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
 
-            var pageText = clickedItem.Name.Replace("Page", "");
-            if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
+                PlayClick.PlayNotificationSound();
 
-            _filesPerPage = newPage;
-            _paginationThreshold = newPage;
-            _settings.GamesPerPage = newPage;
+                var pageText = clickedItem.Name.Replace("Page", "");
+                if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
 
-            _settings.Save();
-            UpdateNumberOfGamesPerPageCheckMarks(newPage);
+                _filesPerPage = newPage;
+                _paginationThreshold = newPage;
+                _settings.GamesPerPage = newPage;
 
-            // Refresh GameList
-            await LoadGameFilesAsync();
+                _settings.Save();
+                UpdateNumberOfGamesPerPageCheckMarks(newPage);
+
+                await LoadGameFilesAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
         }
     }
@@ -712,7 +815,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return; // If already loading, ignore this click
+            if (_isGameListLoading) return;
 
             try
             {
@@ -727,12 +830,12 @@ public partial class MainWindow
                     return; // No change in size, no need to reload
                 }
 
-                _isGameListLoading = true;
-                // Disable both zoom buttons to prevent interference
-                NavZoomInButton.IsEnabled = false;
-                NavZoomOutButton.IsEnabled = false;
+                ZoomInButton.IsEnabled = false;
+                ZoomOutButton.IsEnabled = false;
 
-                _gameButtonFactory.ImageHeight = newSize;
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                _gameButtonFactory.ImageHeight = newSize; // Update the image height
                 _settings.ThumbnailSize = newSize;
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
@@ -741,23 +844,18 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string errorMessage = "Error in method NavZoomInButton_Click.";
                 _ = LogErrors.LogErrorAsync(ex, errorMessage);
             }
             finally
             {
-                _isGameListLoading = false;
-                // Re-enable buttons on the UI thread
-                Dispatcher.Invoke(() =>
-                {
-                    NavZoomInButton.IsEnabled = true;
-                    NavZoomOutButton.IsEnabled = true;
-                });
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in method NavZoomInButton_Click.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavZoomInButton_Click.");
         }
     }
 
@@ -765,7 +863,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return; // If already loading, ignore this click
+            if (_isGameListLoading) return;
 
             try
             {
@@ -780,12 +878,12 @@ public partial class MainWindow
                     return; // No change in size, no need to reload
                 }
 
-                _isGameListLoading = true;
-                // Disable both zoom buttons to prevent interference
-                NavZoomOutButton.IsEnabled = false;
-                NavZoomInButton.IsEnabled = false;
+                ZoomOutButton.IsEnabled = false;
+                ZoomInButton.IsEnabled = false;
 
-                _gameButtonFactory.ImageHeight = newSize;
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                _gameButtonFactory.ImageHeight = newSize; // Update the image height
                 _settings.ThumbnailSize = newSize;
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
@@ -794,23 +892,19 @@ public partial class MainWindow
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string errorMessage = "Error in method NavZoomOutButton_Click.";
                 _ = LogErrors.LogErrorAsync(ex, errorMessage);
             }
             finally
             {
-                _isGameListLoading = false;
-                // Re-enable buttons on the UI thread
-                Dispatcher.Invoke(() =>
-                {
-                    NavZoomOutButton.IsEnabled = true;
-                    NavZoomInButton.IsEnabled = true;
-                });
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in method NavZoomOutButton_Click.");
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButton_Click.");
         }
     }
 
@@ -818,42 +912,57 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            if (_isGameListLoading) return;
 
-            if (_settings.ViewMode == "GridView")
+            try
             {
-                // Switch to the ListView
-                GridView.IsChecked = false;
-                ListView.IsChecked = true;
-                _settings.ViewMode = "ListView";
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
 
-                GameFileGrid.Visibility = Visibility.Collapsed;
-                ListViewPreviewArea.Visibility = Visibility.Visible;
+                PlayClick.PlayNotificationSound();
+
+                if (_settings.ViewMode == "GridView")
+                {
+                    // Switch to the ListView
+                    GridView.IsChecked = false;
+                    ListView.IsChecked = true;
+                    _settings.ViewMode = "ListView";
+
+                    GameFileGrid.Visibility = Visibility.Collapsed;
+                    ListViewPreviewArea.Visibility = Visibility.Visible;
+                }
+                else // Assuming it's "ListView"
+                {
+                    // Switch to GridView
+                    GridView.IsChecked = true;
+                    ListView.IsChecked = false;
+                    _settings.ViewMode = "GridView";
+
+                    GameFileGrid.Visibility = Visibility.Visible;
+                    ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                }
+
+                _settings.Save(); // Save the updated ViewMode
+
+                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
             }
-            else // Assuming it's "ListView"
+            catch (Exception ex)
             {
-                // Switch to GridView
-                GridView.IsChecked = true;
-                ListView.IsChecked = false;
-                _settings.ViewMode = "GridView";
+                // Notify developer
+                const string errorMessage = "Error while using the method NavToggleViewMode_Click.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
-                GameFileGrid.Visibility = Visibility.Visible;
-                ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                // Notify user
+                MessageBoxLibrary.ErrorChangingViewModeMessageBox();
             }
-
-            _settings.Save(); // Save the updated ViewMode
-
-            // Reload the UI to apply the new view mode
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
+            }
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = "Error while using the method NavToggleViewMode_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorChangingViewModeMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavToggleViewMode_Click.");
         }
     }
 }

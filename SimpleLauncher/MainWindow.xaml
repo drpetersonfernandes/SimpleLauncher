@@ -486,25 +486,25 @@
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/settings.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavToggleViewMode"
+                    <Button x:Name="ToggleViewMode"
                             ToolTip="{DynamicResource ToggleViewMode}"
                             Click="NavToggleViewMode_Click"
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/show.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavToggleButtonAspectRatio"
+                    <Button x:Name="ToggleButtonAspectRatio"
                             ToolTip="{DynamicResource ToggleButtonAspectRatio}"
                             Click="NavToggleButtonAspectRatio_Click"
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/aspectratio.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavZoomInButton"
+                    <Button x:Name="ZoomInButton"
                             ToolTip="{DynamicResource ZoomIn}"
                             Click="NavZoomInButton_Click"
                             Width="40" Height="40" Margin="0,5,0,5">
                         <Image Source="pack://application:,,,/images/zoom-in.png" Width="24" Height="24" />
                     </Button>
-                    <Button x:Name="NavZoomOutButton"
+                    <Button x:Name="ZoomOutButton"
                             ToolTip="{DynamicResource ZoomOut}"
                             Click="NavZoomOutButton_Click"
                             Width="40" Height="40" Margin="0,5,0,10">
@@ -567,7 +567,7 @@
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
                                  KeyDown="SearchTextBox_KeyDown" />
-                        <Button
+                        <Button x:Name="SearchButton"
                             Click="SearchButton_Click"
                             Margin="10,0,0,0"
                             HorizontalAlignment="Center"
@@ -595,10 +595,10 @@
                         VerticalAlignment="Center" />
 
                     <Button
+                        x:Name="SelectedSystemFavoriteButton"
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Grid.Column="3"
-                        x:Name="SelectedSystemFavoriteButton"
                             ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
                             Click="NavSelectedSystemFavoriteButton_Click"
                             Width="40" Height="40"

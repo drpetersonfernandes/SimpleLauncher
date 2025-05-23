@@ -15,39 +15,53 @@ public partial class MainWindow
         TotalFilesLabel.Content = null;
     }
 
-    private void InitializePaginationButtons()
-    {
-        _prevPageButton.IsEnabled = _currentPage > 1;
-        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
-        Scroller.ScrollToTop();
-    }
-
     private async void PrevPageButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            if (_currentPage <= 1) return;
+            if (_isGameListLoading) return;
 
-            _currentPage--;
-            if (_currentSearchResults.Count != 0)
+            if (_currentPage <= 1)
             {
-                PlayClick.PlayNotificationSound();
-                await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                // If already on the first page, no action needed
+                return;
             }
-            else
+
+            try
             {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                _currentPage--;
+
                 PlayClick.PlayNotificationSound();
-                await LoadGameFilesAsync(_currentFilter);
+
+                if (_currentSearchResults.Count != 0)
+                {
+                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                }
+                else
+                {
+                    await LoadGameFilesAsync(_currentFilter);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string errorMessage = "Previous page button error.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = "Previous page button error.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in the PrevPageButton_Click method.");
         }
     }
 
@@ -55,36 +69,68 @@ public partial class MainWindow
     {
         try
         {
+            if (_isGameListLoading) return;
+
             var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
 
-            if (_currentPage >= totalPages) return;
-
-            _currentPage++;
-            if (_currentSearchResults.Count != 0)
+            if (_currentPage >= totalPages)
             {
-                PlayClick.PlayNotificationSound();
-                await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                // If already on the last page, no action needed
+                return;
             }
-            else
+
+            try
             {
+                Dispatcher.Invoke(() => SetUiLoadingState(true));
+
+                _currentPage++;
+
                 PlayClick.PlayNotificationSound();
-                await LoadGameFilesAsync(_currentFilter);
+
+                if (_currentSearchResults.Count != 0)
+                {
+                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
+                }
+                else
+                {
+                    await LoadGameFilesAsync(_currentFilter);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string errorMessage = "Next page button error.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            }
+            finally
+            {
+                Dispatcher.Invoke(() => SetUiLoadingState(false));
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string errorMessage = "Next page button error.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.NavigationButtonErrorMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in the NextPageButton_Click method.");
         }
     }
 
     private void UpdatePaginationButtons()
     {
-        _prevPageButton.IsEnabled = _currentPage > 1;
-        _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+        // Only enable if not currently loading
+        if (!_isGameListLoading)
+        {
+            _prevPageButton.IsEnabled = _currentPage > 1;
+            _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;
+        }
+        else
+        {
+            _prevPageButton.IsEnabled = false;
+            _nextPageButton.IsEnabled = false;
+        }
+
+        Scroller.ScrollToTop();
     }
 }
