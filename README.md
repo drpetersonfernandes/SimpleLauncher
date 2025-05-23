@@ -32,9 +32,43 @@ If necessary, you may need to grant "Simple Launcher" administrative access. The
 - Add ROM files for that system in the designated folder.
 - Add cover images for that system in the designated folder.
 - Return to the Main Window.
-- Select the added system from the dropdown menu.
-- Click the **All** button to display all games for that system.
+- If no system is selected, a visual **System Selection Screen** will help you choose your gaming platform. Otherwise, select the added system from the dropdown menu.
+- Click the **All** button (or a letter/number filter) to display games for that system.
 - Click the game you wish to launch.
+
+## Key Features
+
+-   **Intuitive User Interface:** Modern WPF interface with light and dark themes, and customizable accent colors.
+-   **System Selection Screen:** A visual way to choose your gaming platform.
+-   **Navigation Panel:** Quick access to common actions like Global Search, Favorites, Play History, and UI adjustments.
+-   **Dual View Modes:**
+    -   **Grid View:** Displays game covers as interactive buttons.
+    -   **List View:** Shows game details in a sortable table, including file size, play count, and playtime.
+-   **Easy Mode:** Simplifies adding new systems by automatically downloading and configuring common emulators and cores.
+-   **Expert Mode:** Allows manual and detailed configuration of systems, emulators, paths, and launch parameters.
+-   **Global Search:** Quickly find games across all your configured systems.
+-   **Favorites Management:** Mark games as favorites for easy access.
+-   **Play History Tracking:** See which games you've played, how many times, and for how long.
+-   **Global Stats:** Get an overview of your game library, including total systems, games, and image counts.
+-   **Fuzzy Image Matching:** Helps find cover images even if filenames don't perfectly match.
+-   **Image Pack Downloader:** Download pre-made image packs for various systems.
+-   **Context Menus:** Rich right-click menus for games to launch, manage favorites, open external links (video/info), view local media (covers, snapshots, manuals), take screenshots, and delete game files.
+-   **Gamepad Support:** Navigate the UI using Xbox and PlayStation controllers (configurable deadzone).
+-   **Customizable UI:** Adjust thumbnail sizes, button aspect ratios, and games per page.
+-   **Automatic Updates:** Keeps Simple Launcher up-to-date with the latest features and fixes.
+-   **Multilingual:** Translated into 17 languages.
+-   **Single Instance Enforcement:** Prevents multiple copies of the application from running simultaneously.
+
+## Bundled Tools
+
+Simple Launcher comes with a suite of command-line utilities accessible via the "Tools" menu to help manage your game library:
+-   Batch Convert ISO to XISO
+-   Batch Convert to CHD (supports CUE/BIN, ISO, IMG, ZIP, 7z, RAR)
+-   Batch Convert to Compressed File (ZIP or 7Z)
+-   Batch Verify CHD Files
+-   Batch Verify Compressed Files
+-   Create Batch Files for PS3, ScummVM, Sega Model 3, Windows Games, and Xbox 360 XBLA.
+-   FindRomCover (Organize System Images)
 
 ## Where to Find ROMs or ISOs
 
@@ -42,25 +76,14 @@ We do **NOT** provide ROMs or ISOs.
 
 ## Where to Find Game Cover Images
 
-We provide an image pack for some systems.  
-If the image pack is not available, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+Image packs for some systems can be downloaded via **Edit System -> Download Image Pack**.
+If an image pack is not available, or for more comprehensive collections, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+Simple Launcher's **Fuzzy Image Matching** feature can also assist in finding relevant covers.
 
-## Advanced Usage
+## Advanced Usage & Documentation
 
-Simple Launcher also offers Expert Mode for advanced users.  
-In this mode, you can manually add, edit, or delete systems in the frontend.  
-Users can customize folders, add multiple emulators for the same system, and specify custom parameters.  
-For more details, refer to our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
-
-## Additional Features
-
-- **Edit Systems:** Edit, add, or delete a system.
-- **Automatic Installation of Most Emulators:** The application can automatically install emulators that do not require BIOS or other copyrighted files.
-- **Search Engine:** Search for games directly within the frontend.
-- **Right-Click Context Menu:** Load cover images, title snapshots, gameplay snapshots, manuals, walkthroughs, cabinet images, flyers, or PCBs for the selected game.
-- **Edit Links:** Customize the video and info search engines used within the UI.
-- **Control Thumbnail Size:** Easily adjust the size of the cover images in the UI.
-- **Automatic Update:** The application features an automatic update mechanism.
+For more detailed information on Expert Mode, emulator parameters, and advanced configurations, please refer to our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki).
+A list of common emulator parameters can be found [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters).
 
 ## Related Utilities
 
@@ -69,7 +92,7 @@ For more details, refer to our [Wiki](https://github.com/drpetersonfernandes/Sim
 
 ## Technical Details
 
-Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET Core 9 Framework.  
+Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 9 Framework.  
 This program is Windows-only and has been tested on Windows 11.
 
 ## Support the Project
