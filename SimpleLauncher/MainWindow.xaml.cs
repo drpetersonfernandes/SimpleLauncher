@@ -99,6 +99,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly string _logPath = GetLogPath.Path();
 
     private bool _isGameListLoading;
+    private string _activeSearchQueryOrMode;
 
     public MainWindow()
     {
@@ -200,6 +201,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         };
     }
 
+    private (string startLetter, string searchQuery) GetLoadGameFilesParams()
+    {
+        var searchQueryToUse = _activeSearchQueryOrMode;
+        var startLetterToUse = string.IsNullOrEmpty(searchQueryToUse) ? _currentFilter : null;
+        return (startLetterToUse, searchQueryToUse);
+    }
+
     private void MainWindow_MouseWheel(object sender, MouseWheelEventArgs e)
     {
         // Check if the Ctrl key is pressed
@@ -232,8 +240,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
             _currentFilter = selectedLetter; // Update current filter
+            _activeSearchQueryOrMode = null; // Reset special search mode
 
-            await LoadGameFilesAsync(selectedLetter);
+            await LoadGameFilesAsync(selectedLetter); // searchQuery is implicitly null
         }
         catch (Exception ex)
         {
@@ -257,7 +266,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             ResetPaginationButtons();
             SearchTextBox.Text = ""; // Clear search field
-            _currentFilter = null; // Clear any active filter
+            _currentFilter = null; // Clear any active letter filter
+            _activeSearchQueryOrMode = "FAVORITES"; // Set special search mode
 
             // Filter favorites for the selected system and store them in _currentSearchResults
             var favoriteGames = GetFavoriteGamesForSelectedSystem();
@@ -344,6 +354,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Reset letter selection in the UI and current search
             _topLetterNumberMenu.DeselectLetter();
             SearchTextBox.Text = "";
+            _currentFilter = null; // Clear any active letter filter
+            _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
             _currentSearchResults = [selectedGame]; // Store only the selected game
 
             await LoadGameFilesAsync(null, "RANDOM_SELECTION");
@@ -550,8 +562,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             EmulatorComboBox.SelectedIndex = -1; // No emulator selected
             PreviewImage.Source = null; // Empty PreviewImage
 
-            // Clear search results
+            // Clear search results and active filters
             _currentSearchResults.Clear();
+            _currentFilter = null;
+            _activeSearchQueryOrMode = null;
 
             // Hide ListView
             GameFileGrid.Visibility = Visibility.Visible;
@@ -716,7 +730,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
                 // If we are in "RANDOM_SELECTION" mode, use '_currentSearchResults'
                 case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                    allFiles = _currentSearchResults;
+                    allFiles = new List<string>(_currentSearchResults); // Use a copy for manipulation
                     break;
                 // Regular behavior: load files based on startLetter or searchQuery
                 default:
@@ -732,36 +746,35 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     // Process search query (from SearchBox)
                     if (!string.IsNullOrWhiteSpace(searchQuery))
                     {
-                        // If _currentSearchResults already exists, use it
-                        if (_currentSearchResults != null && _currentSearchResults.Count != 0 &&
-                            searchQuery != "RANDOM_SELECTION" &&
-                            searchQuery != "FAVORITES") // Avoid re-filtering if already search results
-                        {
-                            allFiles = _currentSearchResults;
-                        }
-                        else if (searchQuery != "RANDOM_SELECTION" &&
-                                 searchQuery != "FAVORITES") // Only perform search if not a special keyword
-                        {
-                            // Check if the system is MAME-based
-                            var systemIsMame = selectedManager.SystemIsMame;
+                        // If _currentSearchResults already exists from a previous identical text search, use it to avoid re-filtering.
+                        // This check is subtle. If _activeSearchQueryOrMode matches searchQuery, and it's a text search,
+                        // _currentSearchResults should already hold the full unpaginated list.
+                        // However, LoadGameFilesAsync is also responsible for populating _currentSearchResults for new text searches.
+                        // The existing logic:
+                        // if (_currentSearchResults != null && _currentSearchResults.Count != 0 &&
+                        //     searchQuery != "RANDOM_SELECTION" &&
+                        //     searchQuery != "FAVORITES")
+                        // {
+                        //     allFiles = _currentSearchResults; // This assumes _currentSearchResults is for THIS searchQuery
+                        // }
+                        // This part might be redundant if ExecuteSearch clears _currentSearchResults before calling.
+                        // Let's assume _currentSearchResults is either pre-filled for FAV/RANDOM, or needs to be filled for text search.
 
-                            // If a system is MAME-based, use the pre-built _mameLookup dictionary for faster lookups.
+                        // Perform the search if it's a text search (not FAV/RANDOM)
+                        if (searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
+                        {
+                            var systemIsMame = selectedManager.SystemIsMame;
                             if (systemIsMame && _mameLookup != null)
                             {
-                                // Use a case-insensitive comparison.
                                 var lowerQuery = searchQuery.ToLowerInvariant();
                                 allFiles = await Task.Run(() =>
                                     allFiles.FindAll(file =>
                                     {
                                         var fileName = Path.GetFileNameWithoutExtension(file);
-                                        var filenameMatch = fileName.Contains(lowerQuery,
-                                            StringComparison
-                                                .OrdinalIgnoreCase); // Check if the filename contains the search query.
-                                        if (filenameMatch)
-                                            return true;
+                                        var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
+                                        if (filenameMatch) return true;
 
-                                        // Lookup in the dictionary.
-                                        if (_mameLookup.TryGetValue(fileName, out var description))
+                                        if (_mameLookup.TryGetValue(fileName, out var description)) // Lookup in the dictionary.
                                         {
                                             return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
                                         }
@@ -776,14 +789,25 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                     allFiles.FindAll(file =>
                                     {
                                         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                        return fileNameWithoutExtension.Contains(searchQuery,
-                                            StringComparison.OrdinalIgnoreCase);
+                                        return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
                                     }));
                             }
 
-                            // Create the search results
-                            _currentSearchResults = allFiles;
+                            // Store the full results of this text search in _currentSearchResults
+                            _currentSearchResults = new List<string>(allFiles);
                         }
+                    }
+                    else if (string.IsNullOrWhiteSpace(startLetter)) // Neither search nor letter filter
+                    {
+                        // If no search query and no start letter, _currentSearchResults should be empty
+                        // unless explicitly set by favorites/random (handled by switch cases above).
+                        // For "All" games (no filter, no search), _currentSearchResults should be cleared
+                        // if it held previous search results.
+                        // This is typically handled by the calling context (e.g., TopLetterNumberMenu_Click("All") clears SearchTextBox and _activeSearchQueryOrMode).
+                        // If LoadGameFilesAsync(null,null) is called, it means "All" for the system.
+                        // _currentSearchResults should not interfere here.
+                        // The _currentSearchResults is cleared in ExecuteSearch, ResetUI, SystemComboBox_SelectionChanged.
+                        // For letter filters, _currentSearchResults is not touched by LoadGameFilesAsync.
                     }
 
                     break;
@@ -796,7 +820,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Apply ShowGames filter before pagination
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 
-            allFiles = SetPaginationOfListOfFiles(allFiles);
+            allFiles = SetPaginationOfListOfFiles(allFiles); // This paginates the 'allFiles' list
 
             // Reload the FavoritesConfig
             _favoritesManager = FavoritesManager.LoadFavorites();
@@ -806,12 +830,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _settings, _favoritesManager, _gameFileGrid, this);
 
             // Initialize GameListFactory with updated FavoritesConfig
-            // var gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
             _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
                 _settings, _favoritesManager, _playHistoryManager, this);
 
             // Display files based on ViewMode
-            foreach (var filePath in allFiles)
+            foreach (var filePath in allFiles) // 'allFiles' is now the paginated list
             {
                 if (_settings.ViewMode == "GridView")
                 {
@@ -857,8 +880,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
     {
-        // Count the collection of files
+        // Count the collection of files (this should be the total before pagination)
+        // If allFiles is already paginated, _totalFiles needs to be set from the unpaginated list.
+        // _totalFiles should be set based on the count of files *before* pagination.
+        // For FAV/RANDOM/Search, _currentSearchResults holds the full list.
+        // For letter/all, the 'allFiles' passed here (before this method's Skip/Take) is the full list for that filter.
         _totalFiles = allFiles.Count;
+
 
         // Calculate the indices of files displayed on the current page
         var startIndex = (_currentPage - 1) * _filesPerPage + 1; // +1 because we are dealing with a 1-based index for displaying
@@ -873,9 +901,16 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             // Update or create pagination controls
             UpdatePaginationButtons();
         }
+        else
+        {
+            // If total files are not enough for pagination, ensure buttons are disabled.
+            _prevPageButton.IsEnabled = false;
+            _nextPageButton.IsEnabled = false;
+        }
 
-        // Display message if the number of files == 0
-        if (allFiles.Count == 0)
+
+        // Display message if the number of files == 0 (after potential pagination, so check the paginated list)
+        if (allFiles.Count == 0 && _totalFiles == 0) // Check if the original list was also empty
         {
             AddNoFilesMessage();
         }
@@ -888,7 +923,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         var to = (string)Application.Current.TryFindResource("to") ?? "to";
 
         TotalFilesLabel.Dispatcher.Invoke(() =>
-            TotalFilesLabel.Content = allFiles.Count == 0 ? $"{displayingfiles0To} {endIndex} {outOf} {_totalFiles} {total}" : $"{displayingfiles} {startIndex} {to} {endIndex} {outOf} {_totalFiles} {total}"
+            TotalFilesLabel.Content = _totalFiles == 0 ? $"{displayingfiles0To} 0 {outOf} 0 {total}" : $"{displayingfiles} {(_totalFiles > 0 ? startIndex : 0)} {to} {endIndex} {outOf} {_totalFiles} {total}"
         );
         return allFiles;
     }
@@ -915,7 +950,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         if (_cachedFiles is { Count: > 0 })
         {
-            allFiles = _cachedFiles;
+            allFiles = new List<string>(_cachedFiles); // Return a copy
         }
         else
         {

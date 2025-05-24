@@ -33,14 +33,8 @@ public partial class MainWindow
 
                 PlayClick.PlayNotificationSound();
 
-                if (_currentSearchResults.Count != 0)
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -79,14 +73,8 @@ public partial class MainWindow
 
                 PlayClick.PlayNotificationSound();
 
-                if (_currentSearchResults.Count != 0)
-                {
-                    await LoadGameFilesAsync(searchQuery: SearchTextBox.Text);
-                }
-                else
-                {
-                    await LoadGameFilesAsync(_currentFilter);
-                }
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -118,7 +106,5 @@ public partial class MainWindow
             _prevPageButton.IsEnabled = false;
             _nextPageButton.IsEnabled = false;
         }
-
-        Scroller.ScrollToTop();
     }
 }

@@ -52,12 +52,14 @@ public partial class MainWindow
 
         ResetPaginationButtons();
 
-        _currentSearchResults.Clear();
+        _currentSearchResults.Clear(); // Clear previous search results
 
-        // Call DeselectLetter to clear any selected letter
+        // Call DeselectLetter to clear any selected letter filter UI
         _topLetterNumberMenu.DeselectLetter();
+        _currentFilter = null; // Clear active letter filter
 
         var searchQuery = SearchTextBox.Text.Trim();
+        _activeSearchQueryOrMode = searchQuery; // Set active search mode to the text query
 
         if (SystemComboBox.SelectedItem == null)
         {
@@ -70,6 +72,10 @@ public partial class MainWindow
         {
             // Notify user
             MessageBoxLibrary.EnterSearchQueryMessageBox();
+            // If search query is empty, we might want to revert to "All" games for the system
+            // or do nothing. Current behavior is to show a message and return.
+            // If we want to show "All", then _activeSearchQueryOrMode should be null.
+            // For now, stick to the message.
             return;
         }
 
@@ -80,6 +86,8 @@ public partial class MainWindow
         try
         {
             await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
+            // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
+            // and _currentFilter (which is null here)
             await LoadGameFilesAsync(null, searchQuery);
         }
         catch (Exception ex)

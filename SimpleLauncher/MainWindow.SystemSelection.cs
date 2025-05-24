@@ -23,6 +23,7 @@ public partial class MainWindow
         _prevPageButton.IsEnabled = false;
         _nextPageButton.IsEnabled = false;
         _currentFilter = null;
+        _activeSearchQueryOrMode = null; // Reset active search mode
         SearchTextBox.Text = "";
 
         GameFileGrid.Visibility = Visibility.Visible;
@@ -189,7 +190,8 @@ public partial class MainWindow
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
 
-            await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq);
         }
         catch (Exception ex)
         {

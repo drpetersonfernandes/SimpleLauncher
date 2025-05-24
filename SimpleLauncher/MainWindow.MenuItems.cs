@@ -111,6 +111,7 @@ public partial class MainWindow
             SearchTextBox.Text = "";
 
             _currentFilter = null;
+            _activeSearchQueryOrMode = null; // Reset active search mode
 
             _selectedSystem = null;
             PreviewImage.Source = null;
@@ -150,7 +151,8 @@ public partial class MainWindow
                 SetLinksWindow editLinksWindow = new(_settings);
                 editLinksWindow.ShowDialog();
 
-                await LoadGameFilesAsync();
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -234,7 +236,8 @@ public partial class MainWindow
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
                 _settings.Save();
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -263,10 +266,10 @@ public partial class MainWindow
             setThresholdWindow.ShowDialog();
 
             // After the dialog closes, the settings are saved within the dialog.
-            if (_settings.EnableFuzzyMatching)
-            {
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
-            }
+            if (!_settings.EnableFuzzyMatching) return;
+
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq);
         }
         catch (Exception ex)
         {
@@ -331,7 +334,8 @@ public partial class MainWindow
 
                 UpdateShowGamesSetting("ShowAll");
                 UpdateMenuCheckMarks("ShowAll");
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -359,7 +363,8 @@ public partial class MainWindow
                 UpdateShowGamesSetting("ShowWithCover");
                 UpdateMenuCheckMarks("ShowWithCover");
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -387,7 +392,8 @@ public partial class MainWindow
                 UpdateShowGamesSetting("ShowWithoutCover");
                 UpdateMenuCheckMarks("ShowWithoutCover");
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -437,7 +443,8 @@ public partial class MainWindow
 
                 UpdateThumbnailSizeCheckMarks(newSize);
 
-                await LoadGameFilesAsync();
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -474,7 +481,8 @@ public partial class MainWindow
 
                 UpdateButtonAspectRatioCheckMarks(aspectRatio);
 
-                await LoadGameFilesAsync();
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -515,7 +523,8 @@ public partial class MainWindow
                 _settings.Save();
                 UpdateNumberOfGamesPerPageCheckMarks(newPage);
 
-                await LoadGameFilesAsync();
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -758,7 +767,7 @@ public partial class MainWindow
         }
     }
 
-    private async void RandomLuckGameButton_Click(object sender, RoutedEventArgs e)
+    private async void NavRandomLuckGameButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -766,7 +775,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in the method RandomLuckGameButton_Click.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButton_Click.");
         }
     }
 
@@ -794,7 +803,8 @@ public partial class MainWindow
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -834,7 +844,8 @@ public partial class MainWindow
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
@@ -883,7 +894,8 @@ public partial class MainWindow
 
                 _settings.Save();
 
-                await LoadGameFilesAsync(_currentFilter, SearchTextBox.Text.Trim());
+                var (sl, sq) = GetLoadGameFilesParams();
+                await LoadGameFilesAsync(sl, sq);
             }
             catch (Exception ex)
             {
