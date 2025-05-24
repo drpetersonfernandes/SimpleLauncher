@@ -242,7 +242,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _currentFilter = selectedLetter; // Update current filter
             _activeSearchQueryOrMode = null; // Reset special search mode
 
-            await LoadGameFilesAsync(selectedLetter); // searchQuery is implicitly null
+            await LoadGameFilesAsync(selectedLetter, null); // searchQuery is null
         }
         catch (Exception ex)
         {
