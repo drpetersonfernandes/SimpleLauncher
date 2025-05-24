@@ -758,7 +758,7 @@ public partial class MainWindow
         }
     }
 
-    private async void NavFuzzyImageMatching_Click(object sender, RoutedEventArgs e)
+    private async void RandomLuckGameButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
@@ -766,7 +766,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in the method NavFuzzyImageMatching_Click.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method RandomLuckGameButton_Click.");
         }
     }
 

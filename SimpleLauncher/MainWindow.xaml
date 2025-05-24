@@ -616,9 +616,9 @@
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Grid.Column="4"
-                        x:Name="FuzzyImageMatchingButton"
-                        ToolTip="{DynamicResource FuzzyImageMatching}"
-                        Click="NavFuzzyImageMatching_Click"
+                        x:Name="RandomLuckGameButton"
+                        ToolTip="{DynamicResource RandomLuckGame}"
+                        Click="RandomLuckGameButton_Click"
                         Width="40" Height="40"
                         VerticalAlignment="Center"
                         Margin="10,10,0,0">

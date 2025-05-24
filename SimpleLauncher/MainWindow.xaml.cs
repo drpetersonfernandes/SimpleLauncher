@@ -1018,7 +1018,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         SearchTextBox.IsEnabled = !isLoading;
         SearchButton.IsEnabled = !isLoading;
         SelectedSystemFavoriteButton.IsEnabled = !isLoading;
-        FuzzyImageMatchingButton.IsEnabled = !isLoading;
+        RandomLuckGameButton.IsEnabled = !isLoading;
         ToggleViewMode.IsEnabled = !isLoading;
         ToggleButtonAspectRatio.IsEnabled = !isLoading;
         ZoomInButton.IsEnabled = !isLoading;

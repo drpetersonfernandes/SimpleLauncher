@@ -3,10 +3,8 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.IO.Compression;
-using System.Linq; // Added for OfType<UpdateLogWindow>()
 using System.Net.Http;
 using System.Reflection;
-using System.Security; // Added for SecurityException
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
@@ -37,8 +35,8 @@ public static partial class UpdateChecker
             catch (Exception ex)
             {
                 _ = LogErrors.LogErrorAsync(ex, "Error getting CurrentVersion.");
-                var unknown2 = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
-                return unknown2;
+                var unknown = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+                return unknown;
             }
         }
     }
@@ -82,6 +80,8 @@ public static partial class UpdateChecker
         {
             const string contextMessage = "Error checking for updates.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            Debug.WriteLine(@"Update check failed");
         }
     }
 
@@ -119,6 +119,9 @@ public static partial class UpdateChecker
         {
             const string contextMessage = "Error checking for updates.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            Debug.WriteLine(@"Update check failed");
+
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
         }
     }
@@ -178,12 +181,16 @@ public static partial class UpdateChecker
             {
                 const string contextMessage = "There was an error updating the application.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                Debug.WriteLine(@"Update failed");
+
                 MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+
                 if (logWindow != null)
                 {
                     logWindow.Log($"Error during update: {ex.Message}");
                     logWindow.Log("Please update it manually.");
-                    // logWindow.Close(); // Consider closing after a delay or when user acknowledges
+                    // logWindow.Close();
                 }
             }
         }
@@ -191,16 +198,13 @@ public static partial class UpdateChecker
         {
             const string contextMessage = "There was an error updating the application.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            Debug.WriteLine(@"Update failed");
+
             if (logWindow != null) // Check if logWindow was initialized
             {
                 logWindow.Log($"Outer catch block error: {ex.Message}");
                 // logWindow.Close();
-            }
-            else // Fallback if logWindow itself failed or wasn't created
-            {
-                // Attempt to find any existing log window, though less likely to be the correct one here.
-                var existingLogWindow = Application.Current?.Windows.OfType<UpdateLogWindow>().FirstOrDefault();
-                existingLogWindow?.Log($"Outer catch block error (logWindow was null): {ex.Message}");
             }
 
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
@@ -226,49 +230,13 @@ public static partial class UpdateChecker
         var successfullyExtractedCount = 0;
         using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
 
-        // Normalize the destination root directory path.
-        // Path.GetFullPath will resolve to an absolute path and normalize it.
-        // For a directory, it's good practice to ensure it ends with a directory separator for StartsWith comparisons.
-        var destinationRootFullPath = Path.GetFullPath(destinationPath);
-        if (!destinationRootFullPath.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal))
-        {
-            destinationRootFullPath += Path.DirectorySeparatorChar;
-        }
-
         foreach (var fileNameInArray in filesToExtract)
         {
-            // It's crucial that fileNameInArray matches the entry name in the zip or is just the base name if entries are at root.
-            // Assuming filesToExtract contains exact entry names as they are in the zip root.
             var entry = archive.GetEntry(fileNameInArray);
             if (entry != null)
             {
                 // Calculate the full path for the destination file.
-                var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.FullName)); // Use entry.FullName for robustness
-
-                // Security Check (Zip Slip)
-                // Ensure the normalized destination file path starts with the normalized root directory path.
-                if (!destinationFileFullPath.StartsWith(destinationRootFullPath, StringComparison.OrdinalIgnoreCase))
-                {
-                    logWindow.Log($"Skipping extraction of '{entry.FullName}' to '{destinationFileFullPath}' due to security violation (Zip Slip detected). Expected base: '{destinationRootFullPath}'");
-                    _ = LogErrors.LogErrorAsync(new SecurityException($"Zip Slip detected for file {entry.FullName} in archive. Attempted path: {destinationFileFullPath}"), "Zip Slip Vulnerability Mitigated");
-                    MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(entry.FullName);
-                    continue; // Skip this file
-                }
-
-                var directory = Path.GetDirectoryName(destinationFileFullPath);
-                if (!string.IsNullOrEmpty(directory) && !Directory.Exists(directory))
-                {
-                    try
-                    {
-                        Directory.CreateDirectory(directory);
-                    }
-                    catch (Exception ex)
-                    {
-                        _ = LogErrors.LogErrorAsync(ex, $"Error creating directory '{directory}'.");
-                        logWindow.Log($"Failed to create directory: {directory}. Error: {ex.Message}. Skipping file '{entry.FullName}'.");
-                        continue; // Skip this file if directory creation fails
-                    }
-                }
+                var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.FullName));
 
                 logWindow.Log($"Extracting {entry.FullName} to {destinationFileFullPath}");
                 try
@@ -282,7 +250,6 @@ public static partial class UpdateChecker
                 {
                     _ = LogErrors.LogErrorAsync(ex, $"Error extracting file '{entry.FullName}' to '{destinationFileFullPath}'.");
                     logWindow.Log($"Failed to extract file: {entry.FullName}. Error: {ex.Message}");
-                    // Decide if we should continue with other files or fail the whole update
                 }
             }
             else
@@ -297,7 +264,6 @@ public static partial class UpdateChecker
     private static async Task ExecuteUpdater(UpdateLogWindow logWindow)
     {
         var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var appExePath = Assembly.GetExecutingAssembly().Location;
         var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
 
         if (!File.Exists(updaterExePath))
@@ -305,35 +271,28 @@ public static partial class UpdateChecker
             logWindow.Log("Updater.exe not found in the application directory.");
             logWindow.Log("Please reinstall 'Simple Launcher' manually to fix the issue.");
             MessageBoxLibrary.DownloadManuallyMessageBox(RepoOwner, RepoName);
-            // logWindow.Close(); // Consider closing after a delay or user acknowledgement
+
+            // logWindow.Close();
+
             return;
         }
 
         logWindow.Log("Starting updater process...");
-        await Task.Delay(1000); // Reduced delay slightly
+        await Task.Delay(1000);
 
         Process.Start(new ProcessStartInfo
         {
             FileName = updaterExePath,
-            Arguments = $"\"{appExePath}\"", // Ensure appExePath is quoted if it contains spaces
             UseShellExecute = false
         });
 
         logWindow.Log("Closing main application for update...");
         await Task.Delay(1000); // Give log a moment to be seen
 
-        if (Application.Current?.Dispatcher != null)
+        Application.Current.Dispatcher.Invoke(static () =>
         {
-            Application.Current.Dispatcher.Invoke(static () =>
-            {
-                QuitApplication.ForcefullyQuitApplication();
-            });
-        }
-        else
-        {
-            _ = LogErrors.LogErrorAsync(new InvalidOperationException("Application.Current or Dispatcher is null in ExecuteUpdater."), "Updater: Failed to dispatch application quit.");
-            logWindow.Log("Error: Could not dispatch application quit. Manual close might be required.");
-        }
+            QuitApplication.ForcefullyQuitApplication();
+        });
     }
 
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
