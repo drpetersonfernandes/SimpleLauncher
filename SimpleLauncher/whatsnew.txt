@@ -1,7 +1,7 @@
 release4.0
 -----------
 
-05/23/2025
+05/24/2025
 
 This release brings significant user-interface improvements, new features for game browsing and management, enhanced stability, and various under-the-hood technical refinements.
 
