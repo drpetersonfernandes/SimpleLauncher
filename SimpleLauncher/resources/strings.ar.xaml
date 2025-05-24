@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">سيتم عرض الصورة الافتراضية بدلاً من ذلك.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">لم يتمكن المحاكي من فتح اللعبة بالمعلمات المتوفرة.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">تم الإبلاغ عن الخطأ للمطور الذي سيحاول إصلاح المشكلة.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">تمت إزالة المفضلة من القائمة.</system:String>
     <system:String x:Key="Thefile">الملف</system:String>
     <system:String x:Key="Thefileerroruser">لم يتم العثور على الملف 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlog">ملف 'error_user.log' غير موجود!</system:String>
@@ -613,7 +612,10 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">تحويل دفعة إلى RVZ</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل ترغب في إعادة توجيهك إلى صفحة تنزيل 'Simple Launcher' لتنزيله يدويًا؟</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
+
 
 </ResourceDictionary>

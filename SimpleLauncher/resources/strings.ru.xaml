@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Вместо него будет отображено стандартное изображение.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Эмулятор не смог открыть игру с указанными параметрами.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Ошибка была сообщена разработчику, который постарается исправить эту проблему.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Избранное было удалено из списка.</system:String>
     <system:String x:Key="Thefile">Файл</system:String>
     <system:String x:Key="Thefileerroruser">Файл 'error_user.log' не найден!</system:String>
     <system:String x:Key="Thefileerroruserlog">Файл 'error_user.log' не найден!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Пакетное преобразование в RVZ</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу загрузки 'Simple Launcher', чтобы загрузить его вручную?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Файл был удален из списка.</system:String>
 
 </ResourceDictionary>

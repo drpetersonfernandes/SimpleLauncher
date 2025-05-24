@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Thay vào đó, hình ảnh mặc định sẽ được hiển thị.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Trình giả lập không thể mở trò chơi với các tham số đã cung cấp.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Lỗi đã được báo cáo cho nhà phát triển, người sẽ cố gắng sửa chữa vấn đề.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Mục yêu thích đã được xóa khỏi danh sách.</system:String>
     <system:String x:Key="Thefile">Tệp</system:String>
     <system:String x:Key="Thefileerroruser">Không tìm thấy tệp 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlog">Tệp 'error_user.log' không được tìm thấy!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Chuyển đổi lô thành RVZ</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển đến trang tải xuống 'Simple Launcher' để tải xuống theo cách thủ công không?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Tệp đã được xóa khỏi danh sách.</system:String>
 
 </ResourceDictionary>

@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">In plaats daarvan wordt de standaardafbeelding weergegeven.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">De emulator kon het spel niet openen met de opgegeven parameters.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">De fout is gerapporteerd aan de ontwikkelaar die zal proberen het probleem op te lossen.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">De favoriet is verwijderd uit de lijst.</system:String>
     <system:String x:Key="Thefile">Het bestand</system:String>
     <system:String x:Key="Thefileerroruser">Het bestand 'error_user.log' is niet gevonden!</system:String>
     <system:String x:Key="Thefileerroruserlog">Het bestand 'error_user.log' werd niet gevonden!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Batch naar RVZ converteren</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u worden doorgestuurd naar de downloadpagina van 'Simple Launcher' om het handmatig te downloaden?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Het bestand is uit de lijst verwijderd.</system:String>
 
 </ResourceDictionary>

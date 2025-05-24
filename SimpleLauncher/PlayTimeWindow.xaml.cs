@@ -48,7 +48,7 @@ public partial class PlayTimeWindow
         var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
         _playHistoryList = new ObservableCollection<PlayHistoryItem>();
 
-        foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList) // Renamed to avoid confusion
+        foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList)
         {
             var machine = _machines.FirstOrDefault(m =>
                 m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
@@ -60,7 +60,7 @@ public partial class PlayTimeWindow
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
             var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
-            var playHistoryItem = new PlayHistoryItem // Create new instance
+            var playHistoryItem = new PlayHistoryItem // Create a new instance
             {
                 FileName = historyItemConfig.FileName,
                 SystemName = historyItemConfig.SystemName,
@@ -71,7 +71,7 @@ public partial class PlayTimeWindow
                 MachineDescription = machineDescription,
                 DefaultEmulator = defaultEmulator,
                 CoverImage = coverImagePath,
-                FileSizeBytes = -1 // Initialize to "Calculating..." state
+                FileSizeBytes = -1 // Initialize to the "Calculating..." state
             };
             _playHistoryList.Add(playHistoryItem);
         }
@@ -107,15 +107,17 @@ public partial class PlayTimeWindow
                     }
                     else
                     {
-                        var contextMessage = $"History item file not found during size calculation: {filePath}";
-                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
                         sizeToSet = -2; // File not found, set to "N/A" state
+
+                        // Delete selected item from the PlayHistoryList
+                        DeleteHistoryItem(item);
                     }
                 }
                 catch (Exception ex)
                 {
                     var contextMessage = $"Error getting file size for history item: {filePath}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                     sizeToSet = -2; // Error, set to "N/A" state
                 }
             }
@@ -123,6 +125,7 @@ public partial class PlayTimeWindow
             {
                 var contextMessage = $"System config not found for history item: {item.SystemName} - {item.FileName}";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+
                 sizeToSet = -2; // System config not found, set to "N/A" state
             }
 
@@ -218,6 +221,20 @@ public partial class PlayTimeWindow
         {
             // Notify the user to select a history item first
             MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
+        }
+    }
+
+    private void DeleteHistoryItem(PlayHistoryItem selectedItem)
+    {
+        try
+        {
+            _playHistoryList.Remove(selectedItem);
+            _playHistoryManager.PlayHistoryList = _playHistoryList;
+            _playHistoryManager.SavePlayHistory();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the DeleteHistoryItem method.");
         }
     }
 
@@ -348,11 +365,6 @@ public partial class PlayTimeWindow
                 _playHistoryManager.SavePlayHistory();
             }
 
-            // Notify developer
-            var contextMessage = $"History item file does not exist: {filePath}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
             // Notify user
             MessageBoxLibrary.GameFileDoesNotExistMessageBox();
         }
@@ -411,7 +423,7 @@ public partial class PlayTimeWindow
 
                 // The filePath variable and its associated check are removed from here.
                 // All items from historyItemConfig will be added.
-                // LoadFileSizesAsync will determine if the file exists and set size to N/A if not.
+                // LoadFileSizesAsync will determine if the file exists and set the size to N/A if not.
 
                 var playHistoryItem = new PlayHistoryItem
                 {
@@ -424,7 +436,7 @@ public partial class PlayTimeWindow
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
                     CoverImage = coverImagePath,
-                    FileSizeBytes = -1 // Initialize to "Calculating..." state
+                    FileSizeBytes = -1 // Initialize to the "Calculating..." state
                 };
                 newPlayHistoryList.Add(playHistoryItem);
             }

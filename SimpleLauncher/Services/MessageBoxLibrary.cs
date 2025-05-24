@@ -704,12 +704,8 @@ public static class MessageBoxLibrary
 
         void Show()
         {
-            var simpleLaunchercouldnotlaunchthisgame =
-                (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ??
-                "'Simple Launcher' could not launch this game.";
-            var dowanttoopenthefileerroruserlog =
-                (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ??
-                "Do want to open the file 'error_user.log' to debug the error?";
+            var simpleLaunchercouldnotlaunchthisgame = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthisgame") ?? "'Simple Launcher' could not launch this game.";
+            var dowanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Dowanttoopenthefileerroruserlog") ?? "Do want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthisgame}\n\n{dowanttoopenthefileerroruserlog}",
                 error, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -1815,9 +1811,8 @@ public static class MessageBoxLibrary
             var therewasanerrorinstallingorupdating = (string)Application.Current.TryFindResource("Therewasanerrorinstallingorupdating") ?? "There was an error installing or updating the application.";
             var wouldyouliketoberedirectedtothedownloadpage = (string)Application.Current.TryFindResource("Wouldyouliketoberedirectedtothedownloadpage") ?? "Would you like to be redirected to the download page to install or update it manually?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var messageBoxResult = MessageBox.Show(
-                $"{therewasanerrorinstallingorupdating}\n\n" +
-                $"{wouldyouliketoberedirectedtothedownloadpage}",
+            var messageBoxResult = MessageBox.Show($"{therewasanerrorinstallingorupdating}\n\n" +
+                                                   $"{wouldyouliketoberedirectedtothedownloadpage}",
                 error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (messageBoxResult != MessageBoxResult.Yes) return;
 
@@ -1834,6 +1829,7 @@ public static class MessageBoxLibrary
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
+
                 // Notify user
                 var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
                 var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
@@ -1855,13 +1851,8 @@ public static class MessageBoxLibrary
 
         void Show()
         {
-            var updaterexenotfoundintheapplication =
-                (string)Application.Current.TryFindResource("Updaterexenotfoundintheapplication") ??
-                "'Updater.exe' not found in the application directory.";
-            var wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage =
-                (string)Application.Current.TryFindResource(
-                    "WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage") ??
-                "Would you like to be redirected to the 'Simple Launcher' download page to download it manually?";
+            var updaterexenotfoundintheapplication = (string)Application.Current.TryFindResource("Updaterexenotfoundintheapplication") ?? "'Updater.exe' not found in the application directory.";
+            var wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage = (string)Application.Current.TryFindResource("WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage") ?? "Would you like to be redirected to the 'Simple Launcher' download page to download it manually?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var messageBoxResult = MessageBox.Show($"{updaterexenotfoundintheapplication}\n\n" +
                                                    $"{wouldyouliketoberedirectedtotheSimpleLauncherdownloadpage}",
@@ -1881,13 +1872,10 @@ public static class MessageBoxLibrary
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in method DownloadManuallyMessageBox");
+
                 // Notify user
-                var anerroroccurredwhileopeningthebrowser =
-                    (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ??
-                    "An error occurred while opening the browser.";
-                var theerrorwasreportedtothedeveloper =
-                    (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-                    "The error was reported to the developer who will try to fix the issue.";
+                var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
+                var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 MessageBox.Show($"{anerroroccurredwhileopeningthebrowser}\n\n" +
                                 $"{theerrorwasreportedtothedeveloper}",
                     error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2705,11 +2693,8 @@ public static class MessageBoxLibrary
 
     internal static void GameFileDoesNotExistMessageBox()
     {
-        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ??
-                                      "The game file does not exist!";
-        var thefavoritehasbeenremovedfromthelist =
-            (string)Application.Current.TryFindResource("Thefavoritehasbeenremovedfromthelist") ??
-            "The favorite has been removed from the list.";
+        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+        var thefilehasbeenremovedfromthelist = (string)Application.Current.TryFindResource("Thefilehasbeenremovedfromthelist") ?? "The file has been removed from the list.";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -2725,7 +2710,7 @@ public static class MessageBoxLibrary
 
         void Action()
         {
-            MessageBox.Show($"{thegamefiledoesnotexist}\n\n" + $"{thefavoritehasbeenremovedfromthelist}", info, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thegamefiledoesnotexist}\n\n" + $"{thefilehasbeenremovedfromthelist}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
@@ -4422,8 +4407,7 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static MessageBoxResult DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion,
-        Window owner)
+    internal static MessageBoxResult DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion, Window owner)
     {
         var dispatcher = Application.Current.Dispatcher;
 

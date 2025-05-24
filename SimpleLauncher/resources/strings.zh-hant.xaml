@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">將顯示默認圖像。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">模擬器無法使用提供的參數打開遊戲。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">錯誤已報告給開發者，他將嘗試解決此問題。</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">收藏已從列表中移除。</system:String>
     <system:String x:Key="Thefile">檔案</system:String>
     <system:String x:Key="Thefileerroruser">找不到檔案 'error_user.log'！</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 檔案未找到！</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">批量轉換為RVZ</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您想要被重定向到'Simple Launcher'下載頁面以手動下載嗎？</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">檔案已從清單中移除。</system:String>
 
 </ResourceDictionary>

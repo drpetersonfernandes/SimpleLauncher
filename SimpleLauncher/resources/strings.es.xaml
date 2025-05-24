@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Se mostrará la imagen predeterminada en su lugar.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">El emulador no pudo abrir el juego con los parámetros proporcionados.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">El error fue reportado al desarrollador, quien intentará solucionar el problema.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">El favorito ha sido eliminado de la lista.</system:String>
     <system:String x:Key="Thefile">El archivo</system:String>
     <system:String x:Key="Thefileerroruser">¡No se encontró el archivo 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlog">¡El archivo 'error_user.log' no se encontró!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">Se detectó una vulnerabilidad de seguridad llamada 'Zip Slip' en el archivo comprimido. Esta es una vulnerabilidad de recorrido de ruta que podría permitir a un atacante escribir archivos fuera del directorio de extracción previsto.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Convertir lote a RVZ</system:String>
 
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">¿Le gustaría ser redirigido a la página de descarga de 'Simple Launcher' para descargarlo manualmente?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">El archivo ha sido eliminado de la lista.</system:String>
+    
 </ResourceDictionary>

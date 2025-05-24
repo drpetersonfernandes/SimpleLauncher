@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Gambar default akan ditampilkan sebagai gantinya.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emulator tidak dapat membuka permainan dengan parameter yang diberikan.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Kesalahan telah dilaporkan kepada pengembang yang akan mencoba memperbaiki masalah ini.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Favorit telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefile">File</system:String>
     <system:String x:Key="Thefileerroruser">File 'error_user.log' tidak ditemukan!</system:String>
     <system:String x:Key="Thefileerroruserlog">File 'error_user.log' tidak ditemukan!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Mengonversi Batch ke RVZ</system:String>
 
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
+    
 </ResourceDictionary>

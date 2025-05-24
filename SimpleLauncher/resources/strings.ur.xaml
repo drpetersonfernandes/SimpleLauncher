@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">اس کی جگہ ڈفالٹ امیج دکھائی جائے گی۔</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ایمیولیٹر دیئے گئے پیرامیٹرز کے ساتھ گیم کھولنے میں ناکام رہا۔</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">ایرر ڈیویلپر کو رپورٹ کیا گیا ہے جو مسئلہ کو حل کرنے کی کوشش کرے گا۔</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">پسندیدہ فہرست سے ہٹا دیا گیا ہے۔</system:String>
     <system:String x:Key="Thefile">فائل</system:String>
     <system:String x:Key="Thefileerroruser">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' فائل نہیں ملی!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">بیچ کو RVZ میں تبدیل کریں</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">کیا آپ 'سمپل لانچر' کو دستی طور پر ڈاؤن لوڈ کرنے کے لیے ڈاؤن لوڈ پیج پر ریڈائریکٹ ہونا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">فائل کو فہرست سے ہٹا دیا گیا ہے۔</system:String>
 
 </ResourceDictionary>

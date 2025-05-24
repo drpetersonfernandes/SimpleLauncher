@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">এর পরিবর্তে ডিফল্ট ইমেজ প্রদর্শিত হবে।</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">ঠিক সরবরাহকৃত প্যারামিটারগুলির সাথে এমুলেটর গেমটি খুলতে পারেনি।</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">ডেভেলপারকে সমস্যা রিপোর্ট করা হয়েছে, যিনি সমস্যা সমাধানের চেষ্টা করবেন।</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">ফেভারিট তালিকা থেকে মুছে ফেলা হয়েছে।</system:String>
     <system:String x:Key="Thefile">ফাইলটি</system:String>
     <system:String x:Key="Thefileerroruser">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ফাইল পাওয়া যায়নি!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">একটি ব্যাচ কনভার্ট টু আরভিজেড</system:String>
 
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">আপনি কি ম্যানুয়ালি ডাউনলোড করার জন্য 'Simple Launcher' ডাউনলোড পেজে রিডাইরেক্ট হতে চান?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">ফাইলটি তালিকা থেকে সরানো হয়েছে।</system:String>
+    
 </ResourceDictionary>

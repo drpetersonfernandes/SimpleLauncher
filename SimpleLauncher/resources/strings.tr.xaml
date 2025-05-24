@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Bunun yerine varsayılan görüntü görüntülenecek.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Emülatör, sağlanan parametrelerle oyunu açamadı.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Hata, sorunu çözmeye çalışacak geliştiriciye bildirildi.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Favori listeden çıkarıldı.</system:String>
     <system:String x:Key="Thefile">Dosya</system:String>
     <system:String x:Key="Thefileerroruser">'error_user.log' dosyası bulunamadı!</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' dosyası bulunamadı!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Parti RVZ'ye Dönüştür</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' indirme sayfasına yönlendirilip manuel olarak indirmek ister misiniz?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
 
 </ResourceDictionary>

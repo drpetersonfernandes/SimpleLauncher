@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">Das Standardbild wird stattdessen angezeigt.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">Der Emulator konnte das Spiel mit den bereitgestellten Parametern nicht öffnen.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">Der Fehler wurde dem Entwickler gemeldet, der versuchen wird, das Problem zu beheben.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">Der Favorit wurde aus der Liste entfernt.</system:String>
     <system:String x:Key="Thefile">Die Datei</system:String>
     <system:String x:Key="Thefileerroruser">Die Datei 'error_user.log' wurde nicht gefunden!</system:String>
     <system:String x:Key="Thefileerroruserlog">Die Datei 'error_user.log' wurde nicht gefunden!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">Batch zu RVZ konvertieren</system:String>
 
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Möchten Sie zur 'Simple Launcher'-Downloadseite weitergeleitet werden, um es manuell herunterzuladen?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Die Datei wurde aus der Liste entfernt.</system:String>
+    
 </ResourceDictionary>

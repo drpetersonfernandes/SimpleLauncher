@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">代わりにデフォルト画像が表示されます。</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">エミュレータは指定されたパラメータでゲームを開くことができませんでした。</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">エラーは開発者に報告され、問題の修正を試みます。</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">お気に入りがリストから削除されました。</system:String>
     <system:String x:Key="Thefile">ファイル</system:String>
     <system:String x:Key="Thefileerroruser">ファイル 'error_user.log' が見つかりませんでした！</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ファイルが見つかりませんでした！</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">バッチをRVZに変換</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">「Simple Launcher」のダウンロードページに移動して手動でダウンロードしますか？</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">ファイルはリストから削除されました。</system:String>
 
 </ResourceDictionary>

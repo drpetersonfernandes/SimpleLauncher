@@ -485,7 +485,6 @@
     <system:String x:Key="Thedefaultimagewillbedisplayed">대신 기본 이미지를 표시합니다.</system:String>
     <system:String x:Key="Theemulatorcouldnotopenthegame">에뮬레이터가 제공된 매개변수를 사용하여 게임을 열 수 없습니다.</system:String>
     <system:String x:Key="Theerrorwasreportedtothedeveloper">오류가 개발자에게 보고되었으며 문제가 해결될 예정입니다.</system:String>
-    <system:String x:Key="Thefavoritehasbeenremovedfromthelist">즐겨찾기가 목록에서 제거되었습니다.</system:String>
     <system:String x:Key="Thefile">파일</system:String>
     <system:String x:Key="Thefileerroruser">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 파일을 찾을 수 없습니다!</system:String>
@@ -613,7 +612,9 @@
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
-    
     <system:String x:Key="BatchConvertToRVZ">일괄로 RVZ로 변환</system:String>
+    
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' 다운로드 페이지로 이동하여 수동으로 다운로드하시겠습니까?</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">파일이 목록에서 제거되었습니다.</system:String>
 
 </ResourceDictionary>
