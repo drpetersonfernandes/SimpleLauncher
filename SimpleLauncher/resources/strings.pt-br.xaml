@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">Uma vulnerabilidade de segurança chamada 'Zip Slip' foi detectada no arquivo compactado. Esta é uma vulnerabilidade de travessia de caminho que poderia permitir a um atacante escrever arquivos fora do diretório de extração pretendido.</system:String>
     <system:String x:Key="ZoomIn">Aumentar zoom</system:String>
     <system:String x:Key="ZoomOut">Diminuir zoom</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Converter lote para RVZ</system:String>
+
 </ResourceDictionary>

@@ -25,6 +25,11 @@ public partial class MainWindow
         LaunchTools.BatchConvertToCompressedFile_Click();
     }
 
+    private void BatchConvertToRVZ_Click(object sender, RoutedEventArgs e)
+    {
+        LaunchTools.BatchConvertToRVZ_Click();
+    }
+
     private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
     {
         LaunchTools.BatchVerifyCHDFiles_Click();

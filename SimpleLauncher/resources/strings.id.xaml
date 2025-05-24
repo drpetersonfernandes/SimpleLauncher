@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Mengonversi Batch ke RVZ</system:String>
+
 </ResourceDictionary>

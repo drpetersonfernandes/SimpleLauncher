@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">একটি ব্যাচ কনভার্ট টু আরভিজেড</system:String>
+
 </ResourceDictionary>

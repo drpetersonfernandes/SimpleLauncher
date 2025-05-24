@@ -171,6 +171,12 @@ public static class LaunchTools
         LaunchExternalTool(toolPath);
     }
 
+    internal static void BatchConvertToRVZ_Click()
+    {
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToRVZ", "BatchConvertToRVZ.exe");
+        LaunchExternalTool(toolPath);
+    }
+
     internal static void BatchVerifyCHDFiles_Click()
     {
         var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");

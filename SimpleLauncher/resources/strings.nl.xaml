@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Batch naar RVZ converteren</system:String>
+
 </ResourceDictionary>

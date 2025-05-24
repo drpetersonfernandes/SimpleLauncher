@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">بیچ کو RVZ میں تبدیل کریں</system:String>
+
 </ResourceDictionary>

@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">在存档文件中检测到名为"Zip Slip"的安全漏洞。这是一种路径遍历漏洞，可能允许攻击者在预期解压目录之外写入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">缩小</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">批量转换为RVZ</system:String>
+
 </ResourceDictionary>

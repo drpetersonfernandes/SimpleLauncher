@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">बैच को RVZ में बदलें</system:String>
+
 </ResourceDictionary>

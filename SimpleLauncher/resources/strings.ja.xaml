@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">バッチをRVZに変換</system:String>
+
 </ResourceDictionary>

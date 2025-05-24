@@ -1168,7 +1168,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>.\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
+                <EmulatorParameters>--system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>144</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>

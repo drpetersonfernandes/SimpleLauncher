@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Chuyển đổi lô thành RVZ</system:String>
+
 </ResourceDictionary>

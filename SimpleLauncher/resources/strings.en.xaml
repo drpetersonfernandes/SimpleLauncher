@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
+    
 </ResourceDictionary>

@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">تحويل دفعة إلى RVZ</system:String>
+
 </ResourceDictionary>

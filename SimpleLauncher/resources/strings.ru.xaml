@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Пакетное преобразование в RVZ</system:String>
+
 </ResourceDictionary>

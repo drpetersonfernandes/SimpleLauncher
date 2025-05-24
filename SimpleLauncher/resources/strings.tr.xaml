@@ -613,4 +613,7 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
+    
+    <system:String x:Key="BatchConvertToRVZ">Parti RVZ'ye Dönüştür</system:String>
+
 </ResourceDictionary>
