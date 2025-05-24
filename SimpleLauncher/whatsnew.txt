@@ -1,48 +1,43 @@
-release3.14
+release4.0
 -----------
 
 05/23/2025
 
-This release brings significant improvements to the user interface, adds new features for game browsing and management, enhances stability, and includes various under-the-hood technical refinements.
+This release brings significant user-interface improvements, new features for game browsing and management, enhanced stability, and various under-the-hood technical refinements.
 
-**Highlights:**
+Improvements
 
-*   **New System Selection Screen:** A more visual system selection screen is now displayed when no system is chosen, making it easier to pick your gaming platform.
-*   **Revamped Navigation Panel:** A new panel on the left side of the main window provides quick access buttons for core actions like Restart, Global Search, Favorites, Play History, Edit System (Expert Mode), Toggle View Mode, Toggle Aspect Ratio, Zoom In, and Zoom Out.
-*   **Switchable View Modes:** Easily toggle between the traditional Grid View (with game cover images) and the List View (displaying game details in a table).
-*   **Enhanced Zooming:** Zoom in and out of game thumbnails in Grid View using dedicated navigation buttons or the convenient Ctrl + Mouse Wheel shortcut.
-*   **File Size Display:** Game file sizes are now displayed in the List View.
+- New System Selection Screen: Displayed a more visual screen when no system is chosen to simplify platform selection.
+- Revamped Navigation Panel: Added a panel on the left side of the main window with quick-access buttons for Restart, Global Search, Favorites, Play History, Edit System (Expert Mode), Toggle View Mode, Toggle Aspect Ratio, Zoom In, and Zoom Out.
+- Switchable View Modes: Enabled toggling between Grid View (with game-cover images) and List View (showing game details in a table).
+- Enhanced Zooming: Allowed zooming in and out of game thumbnails in Grid View via the new buttons or the Ctrl + mouse-wheel shortcut.
+- Displayed Game File Sizes: Showed file sizes in List View.
+- Overhauled UI Layout: Redesigned the main window and multiple dialogs (Easy Mode, Download Image Pack, Global Search, Favorites, Play History, Edit System).
+- Refined Error Handling: Improved error messages and user prompts throughout the application.
+- Updated Documentation Links: Improved Help User section and parameters guide links.
+- Enhanced Gamepad Logic: Made controller navigation more reliable.
+- Standardized Sound Effects: Switched to a consistent notification sound across the app.
+- Updated Batch Convert To CHD: Added support for 7z and RAR files, enabled parallel processing, and improved multithreading.
+- Added Batch Convert To RVZ: Introduced a tool to convert GameCube and Wii ISO files to RVZ format.
+- Updated Emulators: Upgraded to the latest emulator versions.
+- Updated MAME Data File: Bumped to version 0.277. `mame.dat`
 
-**Improvements:**
+Bug Fixes & Internal Changes (for developers/advanced users)
 
-*   Overhauled the UI layout and design in the main window and several dialogs (Easy Mode, Download Image Pack, Global Search, Favorites, Play History, Edit System).
-*   Refined error handling and user messaging throughout the application.
-*   Updated and improved documentation links in the Help User section and parameters guide.
-*   Enhanced Gamepad Controller logic for more reliable navigation.
-*   Updated sound effects to use a consistent notification sound.
-*   Updated Batch Convert To CHD. This new version adds support for 7z and rar files. Also, enable parallel processing and enhanced multithread processing.
-*   Update emulators to the latest version.
-*   Update file mame.dat to version 0.277.
-
-**Bug Fixes:**
-
-*   Fixed various issues related to Gamepad Controller functionality.
-*   Corrected typos and added null checks in the code.
-*   Addressed issues with the default logic for emulator error notification settings.
-*   Prevented potential XML vulnerabilities during file loading and saving.
-*   Fixed issues with parameter handling in context menus.
-
-**Internal Changes (for developers/advanced users):**
-
-*   Significant code refactoring and reorganization for improved maintainability and performance.
-*   Replaced Newtonsoft.Json library with System.Text.Json for JSON handling.
-*   Improved handling of file paths, including resolving relative paths more robustly and sanitizing folder names.
-*   Enhanced asynchronous operations for smoother UI responsiveness during file loading and other tasks.
-*   Implemented stricter code quality checks by enabling nullable reference types.
-*   Consolidated logic for "Please Wait" windows.
-*   Removed redundant or unused code elements.
-*   Improved the structure and reusability of context menu creation logic.
-*   Integrated `IHttpClientFactory` for managing HTTP client instances.
+- Fixed various Gamepad Controller issues
+- Corrected typos and added null checks
+- Addressed default-logic errors in emulator error notifications
+- Prevented potential XML vulnerabilities during file loading/saving
+- Fixed context-menu parameter-handling bugs
+- Refactored and reorganized code for better maintainability and performance
+- Replaced Newtonsoft.Json with System.Text.Json for JSON processing
+- Improved file-path handling: more robust relative-path resolution and folder-name sanitization
+- Enhanced asynchronous operations for smoother UI responsiveness
+- Implemented stricter code-quality checks
+- Consolidated “Please Wait” dialog logic
+- Removed redundant or unused code
+- Improved the structure and reusability of context-menu creation logic
+- Integrated `IHttpClientFactory` for HTTP client management
 
 release3.13
 -----------
