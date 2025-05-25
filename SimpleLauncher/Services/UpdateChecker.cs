@@ -64,6 +64,8 @@ public static partial class UpdateChecker
             var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
+                Debug.WriteLine(@"Check for Updates Success");
+
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content); // releasePackageUrl not strictly needed for silent decision
 
@@ -115,6 +117,8 @@ public static partial class UpdateChecker
             var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
+                Debug.WriteLine(@"Check for Updates Success");
+
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
