@@ -617,7 +617,7 @@
                         Grid.RowSpan="2"
                         Grid.Column="4"
                         x:Name="RandomLuckGameButton"
-                        ToolTip="{DynamicResource RandomLuckGame}"
+                        ToolTip="{DynamicResource FeelingLucky}"
                         Click="NavRandomLuckGameButton_Click"
                         Width="40" Height="40"
                         VerticalAlignment="Center"
