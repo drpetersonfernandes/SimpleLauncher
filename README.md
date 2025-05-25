@@ -1,19 +1,19 @@
 # Simple Launcher
 Simple Launcher is an open-source emulator frontend.
 
-**Main Window in Grid View**  
-![Screenshot](screenshot.jpg)
+**Main Window**
+![Screenshot](screenshot.png)
 
-**Main Window in List View**  
+**Main Window in Grid View**  
 ![Screenshot](screenshot2.png)
 
-**Global Search Window**  
+**Main Window in List View**
 ![Screenshot](screenshot3.png)
 
-**Favorites Window**  
+**Global Search Window**  
 ![Screenshot](screenshot4.png)
 
-**Play History Window**  
+**Favorites Window**  
 ![Screenshot](screenshot5.png)
 
 If you like the software, please give us a star and consider making a donation.

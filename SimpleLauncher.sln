@@ -9,11 +9,11 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 		parameters.md = parameters.md
 		home.md = home.md
-		screenshot.jpg = screenshot.jpg
 		screenshot2.png = screenshot2.png
 		screenshot3.png = screenshot3.png
 		screenshot4.png = screenshot4.png
 		screenshot5.png = screenshot5.png
+		screenshot.png = screenshot.png
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{E58A9CE1-1CE2-430E-AC17-344A0DC5C4A6}"
