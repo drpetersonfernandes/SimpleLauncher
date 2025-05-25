@@ -94,8 +94,11 @@ public partial class GlobalSearchWindow
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string contextMessage = "Error during search operation.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
             }
             finally
@@ -105,6 +108,7 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error in SearchButton_Click.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
@@ -173,15 +177,19 @@ public partial class GlobalSearchWindow
                         }
                         else
                         {
+                            // Notify developer
                             var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
                             _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
+
                             searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error (will show "N/A")
                         }
                     }
                     catch (Exception ex)
                     {
+                        // Notify developer
                         var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                         searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error
                     }
                 });
@@ -301,8 +309,10 @@ public partial class GlobalSearchWindow
             var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
                 return;
             }
 
@@ -310,8 +320,11 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             var contextMessage = $"Error launching game from search: {filePath}, System: {selectedSystemName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
@@ -332,8 +345,11 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error in LaunchButton_Click (GlobalSearch).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
         }
     }
@@ -353,8 +369,11 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error in GlobalSearch right-click context menu.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
@@ -371,8 +390,11 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
@@ -403,7 +425,9 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItem (GlobalSearch).");
+
             PreviewImage.Source = null; // Ensure preview is cleared on error
         }
     }

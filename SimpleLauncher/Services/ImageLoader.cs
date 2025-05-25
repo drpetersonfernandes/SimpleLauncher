@@ -33,6 +33,7 @@ public static class ImageLoader
         }
         catch (Exception ex)
         {
+            // Notify developer
             // If loading the primary image fails, log the error
             var contextMessage = $"Failed to load primary image: {imagePath}. Attempting to load default.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -58,6 +59,7 @@ public static class ImageLoader
         }
         catch (Exception ex)
         {
+            // Notify developer
             // If loading the default image fails, log a critical error
             const string contextMessage = "Failed to load global default image: images\\default.png.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);

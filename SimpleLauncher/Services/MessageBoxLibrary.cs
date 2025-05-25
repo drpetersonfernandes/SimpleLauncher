@@ -2206,6 +2206,7 @@ public static class MessageBoxLibrary
                 // Notify developer
                 const string contextMessage = "Error opening the Browser.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                 // Notify user
                 var simpleLaunchercouldnotopentheImage = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
                 MessageBox.Show(simpleLaunchercouldnotopentheImage, error, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -2424,12 +2425,13 @@ public static class MessageBoxLibrary
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string contextMessage = "Error opening the download link.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage); // Assuming LogErrorAsync handles its own threading
 
+                // Notify user
                 var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
                 var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-
                 MessageBox.Show($"{erroropeningthedownloadlink}\n\n{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
@@ -2485,15 +2487,13 @@ public static class MessageBoxLibrary
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error opening the download link.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage); // Assuming LogErrorAsync can be called from any thread
-            var erroropeningthedownloadlink =
-                (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ??
-                "Error opening the download link.";
-            var theerrorwasreportedtothedeveloper =
-                (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-                "The error was reported to the developer who will try to fix the issue.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
+            // Notify user
+            var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
             if (Application.Current.Dispatcher.CheckAccess())
             {
                 MessageBox.Show($"{erroropeningthedownloadlink}\n\n{theerrorwasreportedtothedeveloper}",
@@ -2598,8 +2598,11 @@ public static class MessageBoxLibrary
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string contextMessage = "Error opening the download link.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
                 var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
                 var errorWasReported = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
                 MessageBox.Show($"{errorOpeningDownloadLink}\n\n{errorWasReported}", errorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
@@ -4268,12 +4271,9 @@ public static class MessageBoxLibrary
 
     internal static void ThereIsNoUpdateAvailableMessageBox(Window mainWindow, string currentVersion)
     {
-        var thereisnoupdateavailable = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ??
-                                       "There is no update available.";
-        var thecurrentversionis = (string)Application.Current.TryFindResource("Thecurrentversionis") ??
-                                  "The current version is";
-        var noupdateavailable =
-            (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
+        var thereisnoupdateavailable = (string)Application.Current.TryFindResource("thereisnoupdateavailable") ?? "There is no update available.";
+        var thecurrentversionis = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
+        var noupdateavailable = (string)Application.Current.TryFindResource("Noupdateavailable") ?? "No update available";
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
@@ -4294,12 +4294,8 @@ public static class MessageBoxLibrary
 
     internal static void ErrorCheckingForUpdatesMessageBox(Window mainWindow)
     {
-        var therewasanerrorcheckingforupdates =
-            (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ??
-            "There was an error checking for updates.";
-        var maybethereisaproblemwithyourinternet =
-            (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ??
-            "Maybe there is a problem with your internet access or the GitHub server is offline.";
+        var therewasanerrorcheckingforupdates = (string)Application.Current.TryFindResource("Therewasanerrorcheckingforupdates") ?? "There was an error checking for updates.";
+        var maybethereisaproblemwithyourinternet = (string)Application.Current.TryFindResource("Maybethereisaproblemwithyourinternet") ?? "Maybe there is a problem with your internet access or the GitHub server is offline.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())

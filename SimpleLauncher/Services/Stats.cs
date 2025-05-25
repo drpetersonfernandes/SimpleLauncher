@@ -84,6 +84,7 @@ public static class Stats
         }
         catch (Exception ex)
         {
+            // Notify developer
             // Catch any other errors during loading (e.g., invalid JSON format)
             _isApiEnabled = false;
             _ = LogErrors.LogErrorAsync(ex, "Error loading Stats API configuration from appsettings.json.");
@@ -101,6 +102,7 @@ public static class Stats
         // Check if API is enabled before proceeding
         if (!_isApiEnabled)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(null, "Stats API call skipped: API not enabled.");
 
             return;
@@ -122,10 +124,12 @@ public static class Stats
         // Check if HttpClient is initialized (should be if _isApiEnabled is true)
         if (HttpClientFactory == null)
         {
+            // Notify developer
             // This indicates a logic error if _isApiEnabled is true but _httpClient is null
             _ = LogErrors.LogErrorAsync(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
 
             Debug.WriteLine(@"Stats API return failure.");
+
             return false;
         }
 
@@ -151,6 +155,7 @@ public static class Stats
                 return true; // Success.
             }
 
+            // Notify developer
             // Log API response error
             var errorContent = await response.Content.ReadAsStringAsync();
             var contextMessage = $"Stats API responded with an error.\n" +
@@ -161,10 +166,12 @@ public static class Stats
             _ = LogErrors.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
 
             Debug.WriteLine(@"Stats API return failure.");
+
             return false;
         }
         catch (HttpRequestException ex)
         {
+            // Notify developer
             // Log network/HTTP request errors
             var contextMessage = $"Error communicating with the Stats API at '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
@@ -172,10 +179,12 @@ public static class Stats
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             Debug.WriteLine(@"Stats API return failure.");
+
             return false;
         }
         catch (Exception ex)
         {
+            // Notify developer
             // Log any other unexpected errors
             var contextMessage = $"Unexpected error while using Stats API at '{apiUrl}'.\n" +
                                  $"CallType: {callType}" +
@@ -183,6 +192,7 @@ public static class Stats
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             Debug.WriteLine(@"Stats API return failure.");
+
             return false;
         }
     }

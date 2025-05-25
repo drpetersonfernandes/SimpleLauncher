@@ -115,6 +115,7 @@ public partial class PlayTimeWindow
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     var contextMessage = $"Error getting file size for history item: {filePath}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -123,6 +124,7 @@ public partial class PlayTimeWindow
             }
             else
             {
+                // Notify developer
                 var contextMessage = $"System config not found for history item: {item.SystemName} - {item.FileName}";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
 
@@ -234,6 +236,7 @@ public partial class PlayTimeWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the DeleteHistoryItem method.");
         }
     }
@@ -461,6 +464,7 @@ public partial class PlayTimeWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error refreshing play history data.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }

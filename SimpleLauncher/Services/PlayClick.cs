@@ -42,8 +42,10 @@ public static class PlayClick
         var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
         if (!File.Exists(soundPath))
         {
+            // Notify developer
             var contextMessageMissing = $"Sound file not found: {soundPath}";
             _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessageMissing, soundPath), contextMessageMissing);
+
             return;
         }
 

@@ -39,6 +39,7 @@ public abstract class GetFilePaths
                     }
                     catch (Exception innerEx)
                     {
+                        // Notify developer
                         // Log the specific extension that caused the problem
                         // Note: 'ext' is now just the extension, not the pattern
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";

@@ -87,6 +87,7 @@ public class GameListFactory(
                 }
                 else
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new FileNotFoundException($"File not found for size calc: {currentItemFilePath}", currentItemFilePath),
                         $"File not found for size calc: {currentItemFilePath}");
                     sizeToSet = -2; // Indicate N/A or Error
@@ -94,6 +95,7 @@ public class GameListFactory(
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {currentItemFilePath}");
                 sizeToSet = -2; // Indicate Error
             }
@@ -136,6 +138,7 @@ public class GameListFactory(
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
         }
     }
@@ -150,8 +153,10 @@ public class GameListFactory(
     {
         if (selectedItem == null)
         {
+            // Notify developer
             var ex = new Exception("selectedItem is null.");
             _ = LogErrors.LogErrorAsync(ex, "selectedItem is null.");
+
             return;
         }
 

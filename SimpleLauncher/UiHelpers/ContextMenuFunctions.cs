@@ -580,6 +580,7 @@ public static class ContextMenuFunctions
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Could not create the system image folder.");
                 }
             }
@@ -665,7 +666,7 @@ public static class ContextMenuFunctions
                 }
                 catch (Exception ex)
                 {
-                    // Notify the developer
+                    // Notify developer
                     const string contextMessage = "Failed to update button image after screenshot.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

@@ -23,6 +23,7 @@ public static class DeleteFiles
             }
             catch (IOException ex) // Catch specific IOException for file locking
             {
+                // Notify developer
                 // Log the attempt and the reason (file locked)
                 // _ = LogErrors.LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Failed to delete file '{filePath}' due to lock.");
 
@@ -41,6 +42,7 @@ public static class DeleteFiles
             }
             catch (UnauthorizedAccessException ex) // Catch UnauthorizedAccessException
             {
+                // Notify developer
                  // Log the attempt and the reason (permissions)
                  // _ = LogErrors.LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Failed to delete file '{filePath}' due to permissions.");
 

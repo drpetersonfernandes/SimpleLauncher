@@ -278,6 +278,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating the extraction folder.");
                 }
             }

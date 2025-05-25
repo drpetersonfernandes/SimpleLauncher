@@ -93,6 +93,7 @@ public class ExtractCompressedFile
                 // The _tempFolder has been manipulated - use default temp path instead
                 safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
+                // Notify developer
                 // Log this as a potential security issue
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
@@ -293,6 +294,7 @@ public class ExtractCompressedFile
                 // The _tempFolder has been manipulated - use default temp path instead
                 safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
+                // Notify developer
                 // Log this as a potential security issue
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
                 var ex = new SecurityException(contextMessage);
@@ -378,6 +380,7 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
+                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }
@@ -512,6 +515,7 @@ public class ExtractCompressedFile
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {destinationFolder}");
             }
 
@@ -591,6 +595,7 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
+                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }

@@ -35,6 +35,7 @@ public class CacheManager
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error creating cache directory.");
             }
         }

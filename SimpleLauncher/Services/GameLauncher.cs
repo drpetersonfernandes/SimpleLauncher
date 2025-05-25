@@ -541,6 +541,7 @@ public static class GameLauncher
             }
             else
             {
+                // Notify developer
                 var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                      $"User was not notified.\n\n" +
                                      $"Exit code: {process.ExitCode}\n" +
@@ -660,6 +661,7 @@ public static class GameLauncher
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
+            // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"User was notified.\n\n" +
                                  $"Exit code: {process.ExitCode}\n" +
@@ -672,6 +674,7 @@ public static class GameLauncher
         }
         else
         {
+            // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
                                  $"User was not notified.\n\n" +
                                  $"Exit code: {process.ExitCode}\n" +
@@ -702,6 +705,7 @@ public static class GameLauncher
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
+            // Notify developer
             var contextMessage = $"There was an memory access violation error running the emulator.\n" +
                                  $"User was notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
@@ -714,6 +718,7 @@ public static class GameLauncher
         }
         else
         {
+            // Notify developer
             var contextMessage = $"There was an memory access violation error running the emulator.\n" +
                                  $"User was not notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
@@ -744,6 +749,7 @@ public static class GameLauncher
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
+            // Notify developer
             var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
                                  $"User was notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +
@@ -756,6 +762,7 @@ public static class GameLauncher
         }
         else
         {
+            // Notify developer
             var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
                                  $"User was not notified.\n" +
                                  $"Exit code: {process.ExitCode}\n" +

@@ -174,7 +174,7 @@ public class PlayHistoryManager
             newDateStr = dateTime.ToString(IsoDateFormat, CultureInfo.InvariantCulture);
             newTimeStr = dateTime.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
-            // Log this fallback
+            // Notify developer
             const string contextMessage = "Failed to parse date/time, using current time as fallback";
             _ = LogErrors.LogErrorAsync(new Exception($"{contextMessage}: {dateStr} {timeStr}"), contextMessage);
 
@@ -182,9 +182,11 @@ public class PlayHistoryManager
         }
         catch (Exception ex)
         {
+            // Notify developer
             // Log the error but don't crash
             const string contextMessage = "Error in date format migration";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             return false;
         }
     }

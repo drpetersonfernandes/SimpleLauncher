@@ -30,6 +30,7 @@ public static class GetAdditionalFolders
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to get additional folders.");
+
             return Array.Empty<string>();
         }
     }

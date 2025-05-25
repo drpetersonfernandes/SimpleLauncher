@@ -49,6 +49,7 @@ public class DownloadManager : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
         }
 
@@ -192,7 +193,7 @@ public class DownloadManager : IDisposable
                 }
                 catch (HttpRequestException ex)
                 {
-                    // Log error
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
 
                     currentRetry++;
@@ -309,7 +310,7 @@ public class DownloadManager : IDisposable
                     break;
             }
 
-            // Log error
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error downloading file: {downloadUrl}");
 
             throw;
@@ -365,7 +366,7 @@ public class DownloadManager : IDisposable
                     $"Extraction error: {ex.Message}")
             });
 
-            // Log error
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
 
             return false;
@@ -407,7 +408,7 @@ public class DownloadManager : IDisposable
             }
             catch (Exception ex)
             {
-                // Log error
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
 
                 // Clean up downloaded file
@@ -418,7 +419,7 @@ public class DownloadManager : IDisposable
         }
         catch (Exception ex)
         {
-            // Log error
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error during download and extract: {downloadUrl} to {extractionPath}");
 
             return false;

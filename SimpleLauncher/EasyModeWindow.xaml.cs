@@ -169,6 +169,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error downloading emulator.");
         }
     }
@@ -197,6 +198,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error downloading core.");
         }
     }
@@ -217,6 +219,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error downloading image pack.");
         }
     }
@@ -446,20 +449,22 @@ public partial class EasyModeWindow : IDisposable
                         {
                             // If root is null or incorrect, treat as invalid and create new
                             xmlDoc = null; // Reset xmlDoc to trigger creation below
-                            _ = LogErrors.LogErrorAsync(
-                                new XmlException("Loaded system.xml has missing or invalid root element."),
-                                "Invalid root in system.xml, creating new.");
+
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
                         }
                     }
                 }
                 catch (XmlException ex) // Catch specific XML parsing errors
                 {
+                    // Notify developer
                     // Log the parsing error but proceed to create a new document
                     _ = LogErrors.LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
                     xmlDoc = null; // Ensure we create a new one
                 }
                 catch (Exception ex) // Catch other file reading errors
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
                     throw new IOException("Could not read the existing system configuration file.",
                         ex); // Rethrow as IO
@@ -507,14 +512,18 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
         {
+            // Notify developer
             const string contextMessage = "Error saving system.xml.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             throw new InvalidOperationException("Could not save system configuration.", ex);
         }
         catch (Exception ex) // Catch other potential errors
         {
+            // Notify developer
             const string contextMessage = "Unexpected error updating system.xml.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             throw new InvalidOperationException("An unexpected error occurred while updating system configuration.",
                 ex);
         }
@@ -595,6 +604,7 @@ public partial class EasyModeWindow : IDisposable
                 var errorFailedtoaddsystem = (string)Application.Current.TryFindResource("ErrorFailedtoaddsystem") ?? "Error: Failed to add system.";
                 DownloadStatus = errorFailedtoaddsystem;
 
+                // Notify developer
                 // Log unexpected error
                 const string contextMessage = "Unexpected error adding system.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -615,6 +625,7 @@ public partial class EasyModeWindow : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error adding system.");
         }
     }
@@ -714,6 +725,7 @@ public partial class EasyModeWindow : IDisposable
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating the primary system folder.");
                 }
             }
@@ -727,6 +739,7 @@ public partial class EasyModeWindow : IDisposable
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating the primary image folder.");
                 }
             }
@@ -743,6 +756,7 @@ public partial class EasyModeWindow : IDisposable
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error creating the {folder} folder.");
                 }
             }

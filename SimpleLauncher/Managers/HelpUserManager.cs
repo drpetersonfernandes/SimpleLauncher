@@ -79,7 +79,7 @@ public class HelpUserManager
                     }
                     catch (Exception ex)
                     {
-                        // Log detailed error for the developer
+                        // Notify developer
                         var problematicEntry = system.ToString(SaveOptions.DisableFormatting);
                         problematicEntry = problematicEntry.Substring(0, Math.Min(200, problematicEntry.Length)); // Truncate for log
                         const string contextMessage = "Failed to parse an entry in 'helpuser.xml'.";
@@ -116,6 +116,7 @@ public class HelpUserManager
             if (Systems.Count != 0) return;
 
             {
+                // Notify developer
                 // Log that no valid systems were found, regardless of the reason (empty file or all failed parse and no reinstall)
                 const string contextMessage = "No valid systems found in 'helpuser.xml' after processing.";
                 var ex = new Exception(contextMessage); // Use a more specific log message

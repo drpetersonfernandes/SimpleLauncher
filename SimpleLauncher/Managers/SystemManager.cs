@@ -77,6 +77,7 @@ public partial class SystemManager
                     }
                     catch (Exception ex)
                     {
+                        // Notify developer
                         // Error during backup search/restore attempt (e.g., directory access issues)
                         const string contextMessage = "Error during backup file handling.";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -277,6 +278,7 @@ public partial class SystemManager
         }
         catch (Exception ex)
         {
+            // Notify developer
             // Catch any other unexpected errors during the loading process
             const string contextMessage = "Error loading system configurations from 'system.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);

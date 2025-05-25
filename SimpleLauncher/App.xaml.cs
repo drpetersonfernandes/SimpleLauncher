@@ -61,10 +61,11 @@ public partial class App
             }
             catch (Exception ex)
             {
+                // Notify developer
                 // Handle potential errors during mutex creation (e.g., permissions issues)
-                // Log the error
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
+                // Notify user
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
 
                 Shutdown();
@@ -98,6 +99,7 @@ public partial class App
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
             }
             finally

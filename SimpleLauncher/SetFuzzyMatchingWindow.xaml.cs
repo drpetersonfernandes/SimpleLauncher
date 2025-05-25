@@ -62,7 +62,7 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
         }
         catch (Exception ex)
         {
-            // Log the error
+            // Notify developer
             const string contextMessage = "Error setting fuzzy matching threshold from slider.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

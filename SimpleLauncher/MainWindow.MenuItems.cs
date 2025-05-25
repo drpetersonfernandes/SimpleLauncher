@@ -62,6 +62,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method EasyMode_Click.");
         }
     }
@@ -81,6 +82,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ExpertMode_Click.");
         }
     }
@@ -98,6 +100,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
         }
     }
@@ -162,6 +165,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
         }
     }
@@ -273,6 +277,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThreshold_Click");
         }
     }
@@ -763,6 +768,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButton_Click.");
         }
     }
@@ -775,6 +781,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButton_Click.");
         }
     }

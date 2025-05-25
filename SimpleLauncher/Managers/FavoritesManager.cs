@@ -114,7 +114,7 @@ public class FavoritesManager
         }
         catch (Exception ex)
         {
-            // Log error during XML read
+            // Notify developer
             const string contextMessage = "Error reading favorites.xml for conversion";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
         }
@@ -158,7 +158,7 @@ public class FavoritesManager
             }
             catch (Exception ex)
             {
-                // Log error during the conversion process
+                // Notify developer
                 const string contextMessage = "Error during favorites XML to DAT conversion";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
             }

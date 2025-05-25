@@ -350,6 +350,7 @@ public class GamePadController : IDisposable
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error in method Update in class GamePadController");
             }
             finally
@@ -359,6 +360,7 @@ public class GamePadController : IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in method Update in class GamePadController");
         }
     }

@@ -82,6 +82,7 @@ public partial class EditSystemWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error loading XML file");
         }
     }
@@ -276,6 +277,7 @@ public partial class EditSystemWindow
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Unable to create SystemFolder default");
             }
         }
@@ -289,6 +291,7 @@ public partial class EditSystemWindow
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Unable to create SystemImageFolder default");
             }
         }
@@ -711,7 +714,7 @@ public partial class EditSystemWindow
         }
         catch (Exception ex)
         {
-            // Log the error
+            // Notify developer
             const string contextMessage = "Error saving system configuration to XML.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -890,9 +893,10 @@ public partial class EditSystemWindow
             }
             catch (Exception ex) // Catch any other unexpected errors
             {
-                // Log unexpected error
+                // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                 // Notify user
                 MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
             }
@@ -904,6 +908,7 @@ public partial class EditSystemWindow
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error saving system configuration.");
         }
     }
@@ -1074,6 +1079,7 @@ public partial class EditSystemWindow
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating system image folder.");
                 }
             }
@@ -1104,6 +1110,7 @@ public partial class EditSystemWindow
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating system folder.");
                 }
             }
@@ -1161,6 +1168,7 @@ public partial class EditSystemWindow
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
                 }
             }
@@ -1179,6 +1187,7 @@ public partial class EditSystemWindow
                     }
                     catch (Exception ex)
                     {
+                        // Notify developer
                         _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
                     }
 

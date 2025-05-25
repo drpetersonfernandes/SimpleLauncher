@@ -65,6 +65,7 @@ public static class LaunchTools
                 }
                 else
                 {
+                    // Notify developer
                     // Log a warning if the specified working directory doesn't exist,
                     // but still attempt to launch using the default working directory.
                     var warningMessage = $"Specified working directory not found: {workingDirectory}. Launching with default working directory.";
@@ -135,9 +136,9 @@ public static class LaunchTools
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
+            // Notify developer
             // This specific exception handling for user cancellation remains here
             // because it's a specific behavior of the FindRomCover tool launch.
-            // Notify the developer
             const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

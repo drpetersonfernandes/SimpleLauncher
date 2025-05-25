@@ -17,6 +17,10 @@ public static partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
+    private const string UpdaterZipFileName = "updater.zip";
+    private const string ReleasePackageNamePrefix = "release"; // "release" in "release1.2.3.4.zip"
+    private const string ReleasePackageNameSuffix = ".zip";
+
     private static readonly IHttpClientFactory HttpClientFactory;
 
     static UpdateChecker()
@@ -34,23 +38,18 @@ public static partial class UpdateChecker
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error getting CurrentVersion.");
                 var unknown = (string)Application.Current.TryFindResource("Unknown") ?? "Unknown";
+
                 return unknown;
             }
         }
     }
 
-    private static readonly string[] Function =
-    [
-        "Updater.deps.json",
-        "Updater.dll",
-        "Updater.exe",
-        "Updater.pdb",
-        "Updater.runtimeconfig.json"
-    ];
+    private static readonly char[] Separator = new[] { '.' };
 
-    public static async Task CheckForUpdatesAsync(Window mainWindow)
+    public static async Task CheckForUpdatesAsync(Window mainWindow) // Silent check
     {
         try
         {
@@ -66,26 +65,42 @@ public static partial class UpdateChecker
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+                var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content); // releasePackageUrl not strictly needed for silent decision
 
                 if (latestVersion == null) return;
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    if (assetUrl != null) await ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    if (updaterZipAssetUrl != null) // Only proceed if updater.zip is available for automatic update
+                    {
+                        // For silent check, we might decide to show update window directly or queue it
+                        // For now, let's assume it behaves like variant if updater.zip is found
+                        // The releasePackageUrl isn't strictly necessary here for the ShowUpdateWindow call if updater.zip is primary
+                        // but ShowUpdateWindow expects it for its own fallback.
+                        var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content); // Re-parse or pass from above
+                        await ShowUpdateWindow(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
+                    }
+                    else
+                    {
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{UpdaterZipFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", UpdaterZipFileName), "Update Check Info");
+
+                        Debug.WriteLine(@"Silent update check failed. No updater.zip found.");
+                    }
                 }
             }
         }
         catch (Exception ex)
         {
-            const string contextMessage = "Error checking for updates.";
+            // Notify developer
+            const string contextMessage = "Error checking for updates (silent).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            Debug.WriteLine(@"Update check failed");
+            Debug.WriteLine(@"Silent update check failed.");
         }
     }
 
-    public static async Task CheckForUpdatesVariantAsync(Window mainWindow)
+    public static async Task CheckForUpdatesVariantAsync(Window mainWindow) // User-initiated check
     {
         try
         {
@@ -101,34 +116,70 @@ public static partial class UpdateChecker
             if (response.IsSuccessStatusCode)
             {
                 var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, assetUrl) = ParseVersionFromResponse(content);
+                var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
 
-                if (latestVersion == null) return;
+                if (latestVersion == null)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
+
+                    // Notify user
+                    MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
+
+                    return;
+                }
 
                 if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                 {
-                    if (assetUrl != null) await ShowUpdateWindow(assetUrl, CurrentVersion, latestVersion, mainWindow);
+                    if (updaterZipAssetUrl != null)
+                    {
+                        await ShowUpdateWindow(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
+                    }
+                    else
+                    {
+                        var message = $"A new version ({latestVersion}) is available, but the required '{UpdaterZipFileName}' for automatic updater update was not found. ";
+                        message += releasePackageAssetUrl != null
+                            ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
+                            : "The main release package was also not found. Please check the GitHub releases page.";
+
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(message, UpdaterZipFileName), "Update Process Info");
+
+                        // Notify user
+                        MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+                    }
                 }
                 else
                 {
+                    // Notify user
                     MessageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(mainWindow, CurrentVersion);
                 }
+            }
+            else
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+
+                // Notify user
+                MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
             }
         }
         catch (Exception ex)
         {
-            const string contextMessage = "Error checking for updates.";
+            // Notify developer
+            const string contextMessage = "Error checking for updates (variant).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            Debug.WriteLine(@"Update check failed");
+            Debug.WriteLine(@"Variant update check failed.");
 
+            // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
         }
     }
 
-    private static async Task ShowUpdateWindow(string assetUrl, string currentVersion, string latestVersion, Window owner)
+    private static async Task ShowUpdateWindow(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
-        UpdateLogWindow logWindow = null; // Initialize to null
+        UpdateLogWindow logWindow = null;
         try
         {
             var result = MessageBoxLibrary.DoYouWantToUpdateMessageBox(currentVersion, latestVersion, owner);
@@ -140,7 +191,10 @@ public static partial class UpdateChecker
 
             if (owner == null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(owner), @"Owner window was null when trying to close it during update."), "Update Process Warning");
+
+                // Notify user
                 logWindow.Log("Main window reference is null; cannot close it explicitly. Attempting global shutdown later.");
             }
             else
@@ -148,66 +202,129 @@ public static partial class UpdateChecker
                 owner.Close();
             }
 
+            var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var updaterLaunchedSuccessfully = false;
+
+            // Attempt 1: Download, extract, and run new Updater.exe
+            logWindow.Log($"Attempting to download and update Updater.exe using '{UpdaterZipFileName}' from URL: {updaterZipUrl}");
             try
             {
-                var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-                logWindow.Log("Downloading update file...");
-
-                await Task.Run(async () =>
+                await Task.Run(async () => // Offload download and extraction to a background thread
                 {
                     using var memoryStream = new MemoryStream();
-                    await DownloadUpdateFileToMemory(assetUrl, memoryStream);
+                    await DownloadUpdateFileToMemory(updaterZipUrl, memoryStream);
 
-                    logWindow.Log("Extracting update file...");
-                    var updaterFiles = Function;
-
-                    var allFilesExtracted = ExtractFilesToDestination(memoryStream, appDirectory, updaterFiles, logWindow);
+                    logWindow.Log($"Extracting contents of '{UpdaterZipFileName}' to '{appDirectory}'...");
+                    var allFilesExtracted = ExtractAllFromZip(memoryStream, appDirectory, logWindow);
 
                     if (allFilesExtracted)
                     {
-                        logWindow.Log("Update files extracted successfully.");
-                        await Task.Delay(2000);
-                        await ExecuteUpdater(logWindow);
+                        logWindow.Log("Updater files from ZIP extracted successfully.");
+                        await Task.Delay(1000); // Brief pause
+                        updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, true);
                     }
                     else
                     {
-                        logWindow.Log("Update failed: Not all required files could be extracted due to security checks or other errors.");
-                        // This exception will be caught by the outer catch block, leading to manual update instructions.
-                        throw new IOException("Failed to extract one or more update files. Please check the update log for details.");
+                        logWindow.Log($"Update of Updater.exe failed: Not all files from '{UpdaterZipFileName}' could be extracted.");
+                        // updaterLaunchedSuccessfully remains false, will fall through to next attempt
                     }
                 });
             }
-            catch (Exception ex)
+            catch (Exception ex) // Catches exceptions from downloading/extracting updater.zip
             {
-                const string contextMessage = "There was an error updating the application.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, $"Error processing '{UpdaterZipFileName}'.");
 
-                Debug.WriteLine(@"Update failed");
-
-                MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
-
-                if (logWindow != null)
-                {
-                    logWindow.Log($"Error during update: {ex.Message}");
-                    logWindow.Log("Please update it manually.");
-                    // logWindow.Close();
-                }
+                // Notify user
+                logWindow.Log($"Error downloading or extracting '{UpdaterZipFileName}': {ex.Message}");
+                // updaterLaunchedSuccessfully remains false
             }
+
+            // Attempt 2: Run existing Updater.exe if the first attempt failed
+            if (!updaterLaunchedSuccessfully)
+            {
+                // Notify user
+                logWindow.Log("Failed to update and launch Updater.exe from remote zip. Attempting to launch existing local Updater.exe...");
+                updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, false);
+            }
+
+            // Fallback: Manual download if all attempts to launch Updater.exe failed
+            if (!updaterLaunchedSuccessfully)
+            {
+                // Notify user
+                logWindow.Log("All attempts to launch Updater.exe (new or existing) have failed.");
+                if (!string.IsNullOrEmpty(releasePackageUrl))
+                {
+                    // Notify user
+                    logWindow.Log($"Please download the main update package manually from: {releasePackageUrl}");
+                }
+                else
+                {
+                    // Notify user
+                    logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
+                }
+
+                // Notify user
+                MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName); // Consider if this needs the releasePackageUrl
+            }
+            // If updaterLaunchedSuccessfully is true, the application would have been quit by TryExecuteUpdater.
         }
         catch (Exception ex)
         {
-            const string contextMessage = "There was an error updating the application.";
+            // Notify developer
+            const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            Debug.WriteLine(@"Update failed");
+            Debug.WriteLine(@"Update preparation failed.");
 
-            if (logWindow != null) // Check if logWindow was initialized
+            if (logWindow != null)
             {
-                logWindow.Log($"Outer catch block error: {ex.Message}");
-                // logWindow.Close();
+                logWindow.Log($"Outer catch block error during update preparation: {ex.Message}");
             }
 
+            // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+        }
+    }
+
+    private static async Task<bool> TryExecuteUpdater(UpdateLogWindow logWindow, string appDirectory, bool isNewlyUpdated)
+    {
+        var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+        var context = isNewlyUpdated ? "newly extracted" : "existing local";
+
+        if (!File.Exists(updaterExePath))
+        {
+            logWindow.Log($"Updater application ('Updater.exe') ({context}) not found in '{appDirectory}'.");
+            return false;
+        }
+
+        logWindow.Log($"Attempting to start {context} Updater.exe from: {updaterExePath}");
+        await Task.Delay(500); // Short delay for log visibility
+
+        try
+        {
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = updaterExePath,
+                UseShellExecute = false // Set to true if shell features/elevation are needed by Updater.exe
+            });
+
+            logWindow.Log($"Updater.exe ({context}) launched successfully. Closing Simple Launcher...");
+            await Task.Delay(1000); // Give log a moment to be seen and updater to initialize
+
+            Application.Current.Dispatcher.Invoke(static () =>
+            {
+                QuitApplication.ForcefullyQuitApplication();
+            });
+            return true; // Successfully launched and initiated application quit
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to start {context} Updater.exe from '{updaterExePath}'.");
+            logWindow.Log($"Failed to start {context} Updater.exe. Error: {ex.Message}");
+
+            return false;
         }
     }
 
@@ -223,76 +340,102 @@ public static partial class UpdateChecker
         response.EnsureSuccessStatusCode();
         await using var stream = await response.Content.ReadAsStreamAsync();
         await stream.CopyToAsync(memoryStream);
+        memoryStream.Position = 0;
     }
 
-    private static bool ExtractFilesToDestination(Stream zipStream, string destinationPath, string[] filesToExtract, UpdateLogWindow logWindow)
+    private static bool ExtractAllFromZip(Stream zipStream, string destinationPath, UpdateLogWindow logWindow)
     {
-        var successfullyExtractedCount = 0;
-        using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
-
-        foreach (var fileNameInArray in filesToExtract)
+        var allEntriesExtractedSuccessfully = true;
+        try
         {
-            var entry = archive.GetEntry(fileNameInArray);
-            if (entry != null)
+            using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
+            if (archive.Entries.Count == 0)
             {
-                // Calculate the full path for the destination file.
-                var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.FullName));
+                logWindow.Log("Warning: The downloaded ZIP archive is empty or corrupted.");
+                return false;
+            }
 
-                logWindow.Log($"Extracting {entry.FullName} to {destinationFileFullPath}");
+            foreach (var entry in archive.Entries)
+            {
+                if (string.IsNullOrEmpty(entry.Name)) // Skip directory entries represented by empty names
+                {
+                    // Ensure directory structure is created if entry.FullName represents a directory path
+                    var fullPath = Path.Combine(destinationPath, entry.FullName);
+                    if (entry.FullName.EndsWith('/') || entry.FullName.EndsWith('\\')) // Heuristic for directory
+                    {
+                        Directory.CreateDirectory(fullPath);
+                        logWindow.Log($"Ensured directory exists: {fullPath}");
+                    }
+
+                    continue;
+                }
+
+                var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.FullName));
+                var directoryOfFile = Path.GetDirectoryName(destinationFileFullPath);
+
+                if (!string.IsNullOrEmpty(directoryOfFile))
+                {
+                    Directory.CreateDirectory(directoryOfFile);
+                }
+
+                logWindow.Log($"Extracting: {entry.FullName} to {destinationFileFullPath}");
                 try
                 {
-                    using var entryStream = entry.Open();
-                    using var fileStream = new FileStream(destinationFileFullPath, FileMode.Create, FileAccess.ReadWrite, FileShare.ReadWrite);
-                    entryStream.CopyTo(fileStream);
-                    successfullyExtractedCount++;
+                    entry.ExtractToFile(destinationFileFullPath, true); // true: overwrite existing files
+                }
+                catch (IOException ioEx)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ioEx, $"IO Error extracting '{entry.FullName}'. File might be in use or path too long: {destinationFileFullPath}");
+
+                    logWindow.Log($"Failed to extract (IO Error): {entry.FullName}. Error: {ioEx.Message}");
+                    allEntriesExtractedSuccessfully = false;
+                }
+                catch (UnauthorizedAccessException uaEx)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(uaEx, $"Access Denied extracting '{entry.FullName}' to '{destinationFileFullPath}'. Check permissions.");
+
+                    logWindow.Log($"Failed to extract (Access Denied): {entry.FullName}. Error: {uaEx.Message}");
+                    allEntriesExtractedSuccessfully = false;
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error extracting file '{entry.FullName}' to '{destinationFileFullPath}'.");
+
                     logWindow.Log($"Failed to extract file: {entry.FullName}. Error: {ex.Message}");
+                    allEntriesExtractedSuccessfully = false;
                 }
             }
-            else
-            {
-                logWindow.Log($"File '{fileNameInArray}' not found in the archive.");
-            }
+        }
+        catch (InvalidDataException zipEx) // Catches errors like "End of Central Directory record could not be found."
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(zipEx, "Error reading the update ZIP archive. It might be corrupted or not a valid ZIP file.");
+
+            logWindow.Log($"Failed to read the update ZIP archive (InvalidDataException): {zipEx.Message}");
+            return false;
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "General error processing the update ZIP archive.");
+
+            logWindow.Log($"Failed to process the update ZIP archive. Error: {ex.Message}");
+            return false;
         }
 
-        return successfullyExtractedCount == filesToExtract.Length;
-    }
-
-    private static async Task ExecuteUpdater(UpdateLogWindow logWindow)
-    {
-        var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
-
-        if (!File.Exists(updaterExePath))
+        if (allEntriesExtractedSuccessfully)
         {
-            logWindow.Log("Updater.exe not found in the application directory.");
-            logWindow.Log("Please reinstall 'Simple Launcher' manually to fix the issue.");
-            MessageBoxLibrary.DownloadManuallyMessageBox(RepoOwner, RepoName);
-
-            // logWindow.Close();
-
-            return;
+            logWindow.Log($"All files from '{UpdaterZipFileName}' appear to have been processed for extraction.");
+        }
+        else
+        {
+            logWindow.Log($"Some files from '{UpdaterZipFileName}' could not be extracted. See previous log messages.");
         }
 
-        logWindow.Log("Starting updater process...");
-        await Task.Delay(1000);
-
-        Process.Start(new ProcessStartInfo
-        {
-            FileName = updaterExePath,
-            UseShellExecute = false
-        });
-
-        logWindow.Log("Closing main application for update...");
-        await Task.Delay(1000); // Give log a moment to be seen
-
-        Application.Current.Dispatcher.Invoke(static () =>
-        {
-            QuitApplication.ForcefullyQuitApplication();
-        });
+        return allEntriesExtractedSuccessfully;
     }
 
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
@@ -301,7 +444,9 @@ public static partial class UpdateChecker
         {
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentException("Current or latest version string is null or empty."), "Invalid version string for comparison.");
+
                 return false;
             }
 
@@ -310,7 +455,9 @@ public static partial class UpdateChecker
 
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentException("Normalized version string is null or empty after regex replace."), "Invalid version string after normalization.");
+
                 return false;
             }
 
@@ -320,87 +467,160 @@ public static partial class UpdateChecker
         }
         catch (ArgumentException ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Invalid version number format. Current: '{currentVersion}', Latest: '{latestVersion}'.");
+            if (currentVersion == null) return false;
+
+            if (latestVersion != null)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
+            }
+
             return false;
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Unexpected error in IsNewVersionAvailable.");
+
             return false;
         }
     }
 
-    private static (string version, string assetUrl) ParseVersionFromResponse(string jsonResponse)
+    private static (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
     {
         try
         {
             using var doc = JsonDocument.Parse(jsonResponse);
             var root = doc.RootElement;
 
-            if (root.TryGetProperty("tag_name", out var tagNameElement) &&
-                root.TryGetProperty("assets", out var assetsElement))
+            string versionTag;
+            if (root.TryGetProperty("tag_name", out var tagNameElement))
             {
-                var versionTag = tagNameElement.GetString();
-                string assetUrl = null;
-                if (assetsElement.ValueKind == JsonValueKind.Array)
-                {
-                    foreach (var asset in assetsElement.EnumerateArray())
-                    {
-                        if (!asset.TryGetProperty("browser_download_url", out var downloadUrlElement)) continue;
-
-                        assetUrl = downloadUrlElement.GetString();
-                        if (!string.IsNullOrEmpty(assetUrl)) break;
-                    }
-                }
-
-                var versionMatch = MyRegex2().Match(versionTag ?? string.Empty);
-                if (versionMatch.Success)
-                {
-                    return (NormalizeVersion(versionMatch.Value), assetUrl);
-                }
-
-                const string noVersionInTagMessage = "Version number was not found in the tag using regex.";
-                _ = LogErrors.LogErrorAsync(new FormatException(noVersionInTagMessage + $" Tag: '{versionTag}'"), "Error parsing application version from GitHub API response.");
+                versionTag = tagNameElement.GetString();
             }
             else
             {
-                const string missingPropertiesMessage = "Version information ('tag_name' or 'assets') not found in the GitHub API response.";
-                _ = LogErrors.LogErrorAsync(new KeyNotFoundException(missingPropertiesMessage), "Error parsing application version from GitHub API response.");
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
+
+                return (null, null, null);
+            }
+
+            string extractedNormalizedVersion = null;
+            if (!string.IsNullOrEmpty(versionTag))
+            {
+                var versionMatch = MyRegex2().Match(versionTag); // MyRegex2 extracts version like "X.Y.Z.W"
+                if (versionMatch.Success)
+                {
+                    extractedNormalizedVersion = NormalizeVersion(versionMatch.Value); // Ensure it's 4 parts
+                }
+            }
+
+            if (extractedNormalizedVersion == null)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new FormatException($"Could not extract a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
+
+                return (null, null, null);
+            }
+
+            string foundReleasePackageUrl = null;
+            string foundUpdaterZipUrl = null;
+            // Construct the expected release file name based on the extracted and normalized version
+            var expectedReleaseFileName = $"{ReleasePackageNamePrefix}{extractedNormalizedVersion}{ReleasePackageNameSuffix}";
+
+            if (root.TryGetProperty("assets", out var assetsElement) && assetsElement.ValueKind == JsonValueKind.Array)
+            {
+                foreach (var asset in assetsElement.EnumerateArray())
+                {
+                    if (asset.TryGetProperty("name", out var nameElement))
+                    {
+                        var assetName = nameElement.GetString();
+                        if (assetName?.Equals(UpdaterZipFileName, StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
+                            {
+                                foundUpdaterZipUrl = downloadUrlElement.GetString();
+                            }
+                        }
+                        else if (assetName?.Equals(expectedReleaseFileName, StringComparison.OrdinalIgnoreCase) == true)
+                        {
+                            if (asset.TryGetProperty("browser_download_url", out var downloadUrlElement))
+                            {
+                                foundReleasePackageUrl = downloadUrlElement.GetString();
+                            }
+                        }
+                    }
+
+                    // Optimization: if both found, no need to iterate further
+                    if (foundUpdaterZipUrl != null && foundReleasePackageUrl != null) break;
+                }
+
+                if (foundUpdaterZipUrl == null)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{UpdaterZipFileName}' asset not found in release '{versionTag}'.", UpdaterZipFileName), "GitHub API Asset Info");
+                }
+
+                if (foundReleasePackageUrl == null)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
+                }
+
+                return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
+            }
+            else
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
             }
         }
         catch (JsonException jsonEx)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(jsonEx, "Failed to parse JSON response from GitHub API.");
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Unexpected error in ParseVersionFromResponse.");
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Unexpected error in ParseVersionAndAssetUrlsFromResponse.");
         }
 
-        return (null, null);
+        return (null, null, null);
     }
 
     private static string NormalizeVersion(string version)
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 
-        var numericVersion = Regex.Replace(version, @"[^\d.]", "");
+        var numericVersion = MyRegex1().Replace(version, ""); // MyRegex1 should be [^\d\.]
         numericVersion = Regex.Replace(numericVersion, @"\.{2,}", ".").Trim('.');
         if (string.IsNullOrEmpty(numericVersion)) return "0.0.0.0";
 
-        var parts = numericVersion.Split('.');
-        while (parts.Length < 4)
+        var parts = new List<string>(numericVersion.Split(Separator, StringSplitOptions.RemoveEmptyEntries));
+
+        while (parts.Count < 4)
         {
-            numericVersion += ".0";
-            parts = numericVersion.Split('.');
+            parts.Add("0");
         }
 
-        return numericVersion;
+        // Ensure exactly 4 parts, truncating if more
+        if (parts.Count > 4)
+        {
+            parts = parts.GetRange(0, 4);
+        }
+
+        return string.Join(".", parts);
     }
 
-    [GeneratedRegex(@"[^\d\.]")]
+    [GeneratedRegex(@"[^\d\.]")] // Removes anything not a digit or a dot
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
-    private static partial Regex MyRegex2();
+    // Regex to extract version like "1.2.3" or "1.2.3.4" from a string like "release-1.2.3.4" or "v1.2.3"
+    // This regex assumes the version number is what we want to normalize.
+    // (?<=release(?:-[a-zA-Z0-9]+)?-?) : Positive lookbehind for "release", optional alphanumeric part, optional hyphen
+    // \d+(\.\d+)* : Matches one or more digits, followed by zero or more groups of (a dot and one or more digits)
+    [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+){0,3}", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
+    private static partial Regex MyRegex2(); // Adjusted to better capture typical release tag versions up to 4 parts
 }
