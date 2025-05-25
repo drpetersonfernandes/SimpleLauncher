@@ -11,6 +11,41 @@
                       MouseWheel="MainWindow_MouseWheel">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
+            <Setter Property="Width" Value="8" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GridSplitter">
+                        <Border Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="2">
+                            <Grid>
+                                <!-- Visual indicators - dots in the center -->
+                                <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
+                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
+                                    <Ellipse Width="3" Height="3" Fill="#ffffff" Margin="0,2,0,2" />
+                                </StackPanel>
+                            </Grid>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Background">
+                                    <Setter.Value>
+                                        <LinearGradientBrush StartPoint="0,0" EndPoint="1,0">
+                                            <GradientStop Color="#DDDDDD" Offset="0.0" />
+                                            <GradientStop Color="#AAAAAA" Offset="0.5" />
+                                            <GradientStop Color="#DDDDDD" Offset="1.0" />
+                                        </LinearGradientBrush>
+                                    </Setter.Value>
+                                </Setter>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -637,6 +672,7 @@
             <Grid x:Name="ListViewPreviewArea" Grid.Row="1" Grid.Column="1" Visibility="Collapsed" Margin="0">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="4.5*" />
+                    <ColumnDefinition Width="5" />
                     <ColumnDefinition Width="*" />
                 </Grid.ColumnDefinitions>
 
@@ -645,7 +681,7 @@
                           Name="GameDataGrid"
                           MouseDoubleClick="GameListDoubleClickOnSelectedItem"
                           ItemsSource="{Binding GameListItems}"
-                          Margin="0"
+                          Margin="10,10,5,0"
                           BorderThickness="1"
                           BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                           Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
@@ -700,8 +736,19 @@
                         <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                     </DataGrid.Columns>
                 </DataGrid>
+                
+                <!-- GridSplitter between columns 0 and 2 -->
+                <GridSplitter Grid.Row="0" Grid.Column="1"
+                              Background="Gray"
+                              ResizeDirection="Columns"
+                              Style="{StaticResource EnhancedGridSplitterStyle}"
+                              HorizontalAlignment="Center"
+                              VerticalAlignment="Stretch"
+                              ShowsPreview="True"
+                              ResizeBehavior="PreviousAndNext"
+                              Cursor="SizeWE"/>
 
-                <Grid Grid.Column="1" Margin="0">
+                <Grid Grid.Column="2" Margin="5,0,10,0">
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="*" />
