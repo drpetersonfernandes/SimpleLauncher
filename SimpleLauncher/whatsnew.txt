@@ -1,3 +1,21 @@
+release4.0.1
+------------
+
+26/05/25
+
+Bug fix version
+
+1.  **Parameter Handling Overhaul (`ParameterValidator.cs`, `GameLauncher.cs`):**
+    *   Paths within parameters are converted to absolute paths.
+2.  **File Path Standardization (`GameLauncher.cs`, `GameButtonFactory.cs`, `GameListFactory.cs`):**
+    *   File paths used for launching games and creating UI elements are consistently resolved to absolute paths relative to the application directory, improving reliability.
+3.  **UI Enhancements (`MainWindow.xaml`):**
+    *   A new custom-styled `GridSplitter` has been added to the list view in the main window, allowing for better resizing of the game list and preview areas.
+4.  **Improved Window Closing (`DownloadImagePackWindow.xaml.cs`, `EasyModeWindow.xaml.cs`):**
+    *   The `CloseWindowRoutine` in `DownloadImagePackWindow` and `EasyModeWindow` is now asynchronous. This ensures that any ongoing operations (like downloads) are properly stopped before the window closes, preventing potential errors.
+5.  **Configuration Change (`SystemManager.cs`):**
+    *   The default value for `ReceiveANotificationOnEmulatorError` in system configurations has been changed from `false` to `true`, meaning users will now receive error notifications by default.
+
 release4.0
 -----------
 
