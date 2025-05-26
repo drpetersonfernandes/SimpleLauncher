@@ -7,6 +7,7 @@ using System.Windows.Controls;
 using System.Windows.Navigation;
 using System.Diagnostics;
 using System.Net.Http;
+using System.Threading.Tasks;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -353,11 +354,23 @@ public partial class DownloadImagePackWindow : IDisposable
         GC.SuppressFinalize(this);
     }
 
-    private void CloseWindowRoutine(object sender, EventArgs e)
+    private async void CloseWindowRoutine(object sender, EventArgs e)
     {
-        // Empty EasyMode Config
-        _manager = null;
-        Dispose();
+        try
+        {
+            if (StopDownloadButton.IsEnabled)
+            {
+                StopDownloadButton_Click(null, null);
+                await Task.Delay(200);
+            }
+
+            _manager = null;
+            Dispose();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error closing the Add System window.");
+        }
     }
 
     protected virtual void Dispose(bool disposing)
