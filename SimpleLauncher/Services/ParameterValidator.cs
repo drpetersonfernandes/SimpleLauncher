@@ -340,6 +340,7 @@ public static partial class ParameterValidator
     {
         if (string.IsNullOrEmpty(path)) return path;
 
+        // If the path contains spaces and is not already quoted
         if (path.Contains(' ') && !(path.StartsWith('"') && path.EndsWith('"')))
         {
             return $"\"{path}\"";
@@ -347,6 +348,7 @@ public static partial class ParameterValidator
 
         return path;
     }
+
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
