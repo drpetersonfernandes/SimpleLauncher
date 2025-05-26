@@ -310,7 +310,7 @@ public static partial class UpdateChecker
             Process.Start(new ProcessStartInfo
             {
                 FileName = updaterExePath,
-                UseShellExecute = false // Set to true if shell features/elevation are needed by Updater.exe
+                UseShellExecute = false
             });
 
             logWindow.Log($"Updater.exe ({context}) launched successfully. Closing Simple Launcher...");
@@ -506,32 +506,35 @@ public static partial class UpdateChecker
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
-
                 return (null, null, null);
             }
 
-            string extractedNormalizedVersion = null;
+            string rawVersionStringFromTag = null; // Will store version like "4.0.1" from tag "release4.0.1"
+            string extractedNormalizedVersion = null; // Will store normalized version like "4.0.1.0"
+
             if (!string.IsNullOrEmpty(versionTag))
             {
                 var versionMatch = MyRegex2().Match(versionTag); // MyRegex2 extracts version like "X.Y.Z.W"
                 if (versionMatch.Success)
                 {
-                    extractedNormalizedVersion = NormalizeVersion(versionMatch.Value); // Ensure it's 4 parts
+                    rawVersionStringFromTag = versionMatch.Value; // Capture the version as it is in the tag (e.g., "4.0.1")
+                    extractedNormalizedVersion = NormalizeVersion(rawVersionStringFromTag); // Normalize for comparison and return (e.g., "4.0.1.0")
                 }
             }
 
-            if (extractedNormalizedVersion == null)
+            if (extractedNormalizedVersion == null) // Check if a version was successfully extracted and normalized
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(new FormatException($"Could not extract a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
+                _ = LogErrors.LogErrorAsync(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
 
                 return (null, null, null);
             }
 
             string foundReleasePackageUrl = null;
             string foundUpdaterZipUrl = null;
-            // Construct the expected release file name based on the extracted and normalized version
-            var expectedReleaseFileName = $"{ReleasePackageNamePrefix}{extractedNormalizedVersion}{ReleasePackageNameSuffix}";
+
+            // Construct the expected release file name using the RAW version string from the tag, not the normalized one.
+            var expectedReleaseFileName = $"{ReleasePackageNamePrefix}{rawVersionStringFromTag}{ReleasePackageNameSuffix}";
 
             if (root.TryGetProperty("assets", out var assetsElement) && assetsElement.ValueKind == JsonValueKind.Array)
             {
@@ -556,7 +559,7 @@ public static partial class UpdateChecker
                         }
                     }
 
-                    // Optimization: if both found, no need to iterate further
+                    // if both found, no need to iterate further
                     if (foundUpdaterZipUrl != null && foundReleasePackageUrl != null) break;
                 }
 
@@ -572,6 +575,7 @@ public static partial class UpdateChecker
                     _ = LogErrors.LogErrorAsync(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
                 }
 
+                // Return the 4-part normalized version for consistency in comparisons and display
                 return (extractedNormalizedVersion, foundReleasePackageUrl, foundUpdaterZipUrl);
             }
             else
@@ -598,7 +602,7 @@ public static partial class UpdateChecker
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 
-        var numericVersion = MyRegex1().Replace(version, ""); // MyRegex1 should be [^\d\.]
+        var numericVersion = MyRegex1().Replace(version, "");
         numericVersion = Regex.Replace(numericVersion, @"\.{2,}", ".").Trim('.');
         if (string.IsNullOrEmpty(numericVersion)) return "0.0.0.0";
 
@@ -626,5 +630,5 @@ public static partial class UpdateChecker
     // (?<=release(?:-[a-zA-Z0-9]+)?-?) : Positive lookbehind for "release", optional alphanumeric part, optional hyphen
     // \d+(\.\d+)* : Matches one or more digits, followed by zero or more groups of (a dot and one or more digits)
     [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+){0,3}", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
-    private static partial Regex MyRegex2(); // Adjusted to better capture typical release tag versions up to 4 parts
+    private static partial Regex MyRegex2(); // Capture typical release tag versions up to 4 parts
 }
