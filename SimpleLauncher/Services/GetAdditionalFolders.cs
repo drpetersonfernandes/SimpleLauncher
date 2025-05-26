@@ -19,8 +19,8 @@ public static class GetAdditionalFolders
                 foldersElement.ValueKind == JsonValueKind.Array)
             {
                 return foldersElement.EnumerateArray()
-                    .Select(element => element.GetString())
-                    .Where(folder => folder != null)
+                    .Select(static element => element.GetString())
+                    .Where(static folder => folder != null)
                     .ToArray();
             }
 

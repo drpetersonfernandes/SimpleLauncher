@@ -4,8 +4,8 @@
 
     <EasyModeSystemConfig>
         <SystemName>Amstrad CPC</SystemName>
-        <SystemFolder>.\roms\Amstrad CPC</SystemFolder>
-        <SystemImageFolder>.\images\Amstrad CPC</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Amstrad CPC</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Amstrad CPC</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -18,30 +18,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch caprice32</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Amstrad CPC</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Amstrad CPC GX4000</SystemName>
-        <SystemFolder>.\roms\Amstrad CPC GX4000</SystemFolder>
-        <SystemImageFolder>.\images\Amstrad CPC GX4000</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Amstrad CPC GX4000</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Amstrad CPC GX4000</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -53,12 +53,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>MAME gx4000</EmulatorName>
-                <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -68,15 +68,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpcgx4000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Amstrad CPC GX4000</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Amstrad CPC GX4000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Arcade</SystemName>
-        <SystemFolder>.\roms\Arcade</SystemFolder>
-        <SystemImageFolder>.\images\Arcade</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Arcade</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Arcade</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -88,30 +88,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mame</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mame_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/arcade.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Arcade</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Arcade</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari 2600</SystemName>
-        <SystemFolder>.\roms\Atari 2600</SystemFolder>
-        <SystemImageFolder>.\images\Atari 2600</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari 2600</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari 2600</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -124,30 +124,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch stella</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\stella_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari2600.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari 2600</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari 2600</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari 5200</SystemName>
-        <SystemFolder>.\roms\Atari 5200</SystemFolder>
-        <SystemImageFolder>.\images\Atari 5200</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari 5200</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari 5200</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -160,12 +160,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
-                <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.31.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Altirra\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Altirra\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -175,15 +175,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari5200.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari 5200</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari 5200</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari 7800</SystemName>
-        <SystemFolder>.\roms\Atari 7800</SystemFolder>
-        <SystemImageFolder>.\images\Atari 7800</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari 7800</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari 7800</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -196,30 +196,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch prosystem</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari7800.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari 7800</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari 7800</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari 8-Bit</SystemName>
-        <SystemFolder>.\roms\Atari 8-Bit</SystemFolder>
-        <SystemImageFolder>.\images\Atari 8-Bit</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari 8-Bit</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari 8-Bit</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -232,12 +232,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
-                <EmulatorLocation>.\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.30</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://virtualdub.org/downloads/Altirra-4.30.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Altirra\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Altirra\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -247,15 +247,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari 8-Bit</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari 8-Bit</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari Jaguar</SystemName>
-        <SystemFolder>.\roms\Atari Jaguar</SystemFolder>
-        <SystemImageFolder>.\images\Atari Jaguar</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari Jaguar</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari Jaguar</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -268,12 +268,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>BigPEmu</EmulatorName>
-                <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -283,15 +283,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguar.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari Jaguar</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari Jaguar</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari Jaguar CD</SystemName>
-        <SystemFolder>.\roms\Atari Jaguar CD</SystemFolder>
-        <SystemImageFolder>.\images\Atari Jaguar CD</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari Jaguar CD</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari Jaguar CD</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -305,12 +305,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>BigPEmu</EmulatorName>
-                <EmulatorLocation>.\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\BigPEmu\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -320,15 +320,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguarcd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari Jaguar CD</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari Jaguar CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari Lynx</SystemName>
-        <SystemFolder>.\roms\Atari Lynx</SystemFolder>
-        <SystemImageFolder>.\images\Atari Lynx</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari Lynx</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari Lynx</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -341,30 +341,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_lynx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
                 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarilynx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari Lynx</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari Lynx</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Atari ST</SystemName>
-        <SystemFolder>.\roms\Atari ST</SystemFolder>
-        <SystemImageFolder>.\images\Atari ST</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Atari ST</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Atari ST</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -376,30 +376,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch hatari</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarist.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Atari ST</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Atari ST</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Bandai WonderSwan</SystemName>
-        <SystemFolder>.\roms\Bandai WonderSwan</SystemFolder>
-        <SystemImageFolder>.\images\Bandai WonderSwan</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Bandai WonderSwan</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Bandai WonderSwan</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -412,30 +412,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswan.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Bandai WonderSwan</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Bandai WonderSwan</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Bandai WonderSwan Color</SystemName>
-        <SystemFolder>.\roms\Bandai WonderSwan Color</SystemFolder>
-        <SystemImageFolder>.\images\Bandai WonderSwan Color</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Bandai WonderSwan Color</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Bandai WonderSwan Color</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -448,30 +448,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_wswan</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_wswan_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswancolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Bandai WonderSwan Color</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Bandai WonderSwan Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Casio PV-1000</SystemName>
-        <SystemFolder>.\roms\Casio PV-1000</SystemFolder>
-        <SystemImageFolder>.\images\Casio PV-1000</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Casio PV-1000</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Casio PV-1000</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -484,12 +484,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>MAME pv1000</EmulatorName>
-                <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -499,15 +499,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/casiopv1000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Casio PV-1000</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Casio PV-1000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Colecovision</SystemName>
-        <SystemFolder>.\roms\Colecovision</SystemFolder>
-        <SystemImageFolder>.\images\Colecovision</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Colecovision</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Colecovision</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -523,30 +523,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch gearcoleco</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\gearcoleco_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/colecovision.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Colecovision</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Colecovision</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Commodore 64</SystemName>
-        <SystemFolder>.\roms\Commodore 64</SystemFolder>
-        <SystemImageFolder>.\images\Commodore 64</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Commodore 64</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Commodore 64</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -559,30 +559,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch vice_x64</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Commodore 64</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Commodore 64</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Commodore Amiga CD32</SystemName>
-        <SystemFolder>.\roms\Commodore Amiga CD32</SystemFolder>
-        <SystemImageFolder>.\images\Commodore Amiga CD32</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Commodore Amiga CD32</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Commodore Amiga CD32</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -599,30 +599,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch puae</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamigacd32.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Commodore Amiga CD32</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Commodore Amiga CD32</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Magnavox Odyssey 2</SystemName>
-        <SystemFolder>.\roms\Magnavox Odyssey 2</SystemFolder>
-        <SystemImageFolder>.\images\Magnavox Odyssey 2</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Magnavox Odyssey 2</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Magnavox Odyssey 2</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -635,30 +635,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch o2em</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/magnavoxodyssey2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Magnavox Odyssey 2</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Magnavox Odyssey 2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Mattel Aquarius</SystemName>
-        <SystemFolder>.\roms\Mattel Aquarius</SystemFolder>
-        <SystemImageFolder>.\images\Mattel Aquarius</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Mattel Aquarius</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Mattel Aquarius</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -670,12 +670,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>MAME aquarius</EmulatorName>
-                <EmulatorLocation>.\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\mame\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -685,15 +685,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mattelaquarius.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Mattel Aquarius</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Mattel Aquarius</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Mattel Intellivision</SystemName>
-        <SystemFolder>.\roms\Mattel Intellivision</SystemFolder>
-        <SystemImageFolder>.\images\Mattel Intellivision</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Mattel Intellivision</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Mattel Intellivision</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -708,30 +708,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch freeintv</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mattelintellivision.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Mattel Intellivision</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Mattel Intellivision</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft DOS</SystemName>
-        <SystemFolder>.\roms\Microsoft DOS</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft DOS</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft DOS</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft DOS</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -744,12 +744,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>DOSBox Staging</EmulatorName>
-                <EmulatorLocation>.\emulators\DOSBox Staging\dosbox-staging-v0.82.1\dosbox.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\DOSBox Staging\dosbox-staging-v0.82.1\dosbox.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.dosbox-staging.org/releases/windows/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.82.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.1/dosbox-staging-windows-x64-v0.82.1.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\DOSBox Staging\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\DOSBox Staging\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -759,15 +759,15 @@
                 <!--                <ImagePackLocation/>
                                 <ImagePackLatestVersion/>
                                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ImagePackDownloadLink>
-                                <ImagePackDownloadExtractPath>.\images\Microsoft DOS</ImagePackDownloadExtractPath>-->
+                                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft MSX</SystemName>
-        <SystemFolder>.\roms\Microsoft MSX</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft MSX</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft MSX</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft MSX</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -789,12 +789,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>OpenMSX</EmulatorName>
-                <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>20.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_20_0/openmsx-20.0-windows-vc-x64-bin.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\OpenMSX\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\OpenMSX\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -804,15 +804,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Microsoft MSX</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft MSX</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft MSX2</SystemName>
-        <SystemFolder>.\roms\Microsoft MSX2</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft MSX2</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft MSX2</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft MSX2</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -834,12 +834,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>OpenMSX</EmulatorName>
-                <EmulatorLocation>.\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\OpenMSX\openmsx.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://openmsx.org/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>20.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/openMSX/openMSX/releases/download/RELEASE_20_0/openmsx-20.0-windows-vc-x64-bin.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\OpenMSX\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\OpenMSX\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -849,15 +849,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Microsoft MSX2</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft MSX2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft Xbox</SystemName>
-        <SystemFolder>.\roms\Microsoft Xbox</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft Xbox</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft Xbox</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>iso</FormatToSearch>
@@ -869,12 +869,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Xemu</EmulatorName>
-                <EmulatorLocation>.\emulators\Xemu\xemu.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Xemu\xemu.exe</EmulatorLocation>
                 <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>
                 <EmulatorDownloadPage/>
                 <EmulatorLatestVersion/>
                 <!--                <EmulatorDownloadLink/>-->
-                <EmulatorDownloadExtractPath>.\emulators\Xemu\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Xemu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -884,15 +884,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Microsoft Xbox</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft Xbox 360</SystemName>
-        <SystemFolder>.\roms\Microsoft Xbox360</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft Xbox360</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft Xbox360</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox360</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>iso</FormatToSearch>
@@ -904,12 +904,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Xenia</EmulatorName>
-                <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Xenia\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -919,15 +919,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Microsoft Xbox 360</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox 360</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Microsoft Xbox 360 XBLA</SystemName>
-        <SystemFolder>.\roms\Microsoft Xbox360 XBLA</SystemFolder>
-        <SystemImageFolder>.\images\Microsoft Xbox360 XBLA</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Microsoft Xbox360 XBLA</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox360 XBLA</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bat</FormatToSearch>
@@ -939,12 +939,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Xenia</EmulatorName>
-                <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Xenia\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -954,15 +954,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360xbla.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Microsoft Xbox360 XBLA</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Microsoft Xbox360 XBLA</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>NEC PC Engine</SystemName>
-        <SystemFolder>.\roms\NEC PC Engine</SystemFolder>
-        <SystemImageFolder>.\images\NEC PC Engine</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\NEC PC Engine</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\NEC PC Engine</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -975,30 +975,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_pce</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcengine.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\NEC PC Engine</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\NEC PC Engine</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>NEC PC Engine CD</SystemName>
-        <SystemFolder>.\roms\NEC PC Engine CD</SystemFolder>
-        <SystemImageFolder>.\images\NEC PC Engine CD</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\NEC PC Engine CD</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\NEC PC Engine CD</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1016,30 +1016,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_pce</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pce_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcenginecd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\NEC PC Engine CD</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\NEC PC Engine CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>NEC PC-FX</SystemName>
-        <SystemFolder>.\roms\NEC PC-FX</SystemFolder>
-        <SystemImageFolder>.\images\NEC PC-FX</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\NEC PC-FX</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\NEC PC-FX</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1054,30 +1054,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_pcfx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcfx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\NEC PC-FX</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\NEC PC-FX</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>NEC SuperGrafx</SystemName>
-        <SystemFolder>.\roms\NEC SuperGrafx</SystemFolder>
-        <SystemImageFolder>.\images\NEC SuperGrafx</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\NEC SuperGrafx</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\NEC SuperGrafx</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1090,30 +1090,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_supergrafx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_supergrafx_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necsupergrafx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\NEC SuperGrafx</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\NEC SuperGrafx</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo 3DS</SystemName>
-        <SystemFolder>.\roms\Nintendo 3DS</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo 3DS</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo 3DS</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo 3DS</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>3ds, cci, 3dsx, elf, axf, cxi, app</FormatToSearch>
@@ -1125,12 +1125,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Azahar</EmulatorName>
-                <EmulatorLocation>.\emulators\Azahar\azahar-2121.1-windows-msys2\azahar.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Azahar\azahar-2121.1-windows-msys2\azahar.exe</EmulatorLocation>
                 <EmulatorParameters>-f</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/azahar-emu/azahar</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2121.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/azahar-emu/azahar/releases/download/2121.1/azahar-2121.1-windows-msys2.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Azahar\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Azahar\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1140,15 +1140,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo3ds.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo 3DS</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo 3DS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo 64</SystemName>
-        <SystemFolder>.\roms\Nintendo 64</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo 64</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo 64</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo 64</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1167,12 +1167,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>144</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>>
                 <CoreLatestVersion/>
@@ -1182,15 +1182,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo 64</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo 64</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo 64DD</SystemName>
-        <SystemFolder>.\roms\Nintendo 64DD</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo 64DD</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo 64DD</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo 64DD</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1209,30 +1209,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mupen64plus_next</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mupen64plus_next_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo 64DD</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo 64DD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo DS</SystemName>
-        <SystemFolder>.\roms\Nintendo DS</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo DS</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo DS</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo DS</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1246,30 +1246,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch melonds</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\melonds_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo DS</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo DS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Family Computer Disk System</SystemName>
-        <SystemFolder>.\roms\Nintendo Family Computer Disk System</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Family Computer Disk System</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Family Computer Disk System</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Family Computer Disk System</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1285,30 +1285,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mesen</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendofamilycomputerdisksystem.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Family Computer Disk System</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Family Computer Disk System</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Game Boy</SystemName>
-        <SystemFolder>.\roms\Nintendo Game Boy</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Game Boy</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Game Boy</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1321,30 +1321,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch sameboy</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Game Boy</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Game Boy Advance</SystemName>
-        <SystemFolder>.\roms\Nintendo Game Boy Advance</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Game Boy Advance</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Game Boy Advance</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy Advance</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1356,30 +1356,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mgba</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mgba_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Game Boy Advance</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy Advance</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Game Boy Color</SystemName>
-        <SystemFolder>.\roms\Nintendo Game Boy Color</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Game Boy Color</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Game Boy Color</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy Color</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1392,30 +1392,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch sameboy</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\sameboy_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Game Boy Color</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Game Boy Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo GameCube</SystemName>
-        <SystemFolder>.\roms\Nintendo GameCube</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo GameCube</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo GameCube</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo GameCube</SystemImageFolder>
         <FileFormatsToSearch>
             <FormatToSearch>rvz</FormatToSearch>
         </FileFormatsToSearch>
@@ -1426,12 +1426,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Dolphin</EmulatorName>
-                <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2503</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1441,15 +1441,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo GameCube</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo GameCube</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo NES</SystemName>
-        <SystemFolder>.\roms\Nintendo NES</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo NES</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo NES</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo NES</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1462,30 +1462,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mesen</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mesen_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo NES</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo NES</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Satellaview</SystemName>
-        <SystemFolder>.\roms\Nintendo Satellaview</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Satellaview</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Satellaview</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Satellaview</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1498,12 +1498,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>144</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1513,15 +1513,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Satellaview</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Satellaview</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo SNES</SystemName>
-        <SystemFolder>.\roms\Nintendo SNES</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo SNES</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo SNES</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo SNES</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1539,30 +1539,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch snes9x</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo SNES</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo SNES</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo SNES MSU1</SystemName>
-        <SystemFolder>.\roms\Nintendo SNES MSU1</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo SNES MSU1</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo SNES MSU1</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo SNES MSU1</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1580,30 +1580,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch snes9x</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo Wii</SystemName>
-        <SystemFolder>.\roms\Nintendo Wii</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo Wii</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo Wii</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo Wii</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>rvz</FormatToSearch>
@@ -1615,12 +1615,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Dolphin</EmulatorName>
-                <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2503</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1630,15 +1630,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo Wii</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo WiiU</SystemName>
-        <SystemFolder>.\roms\Nintendo WiiU</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo WiiU</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo WiiU</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo WiiU</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>wua</FormatToSearch>
@@ -1650,12 +1650,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Cemu</EmulatorName>
-                <EmulatorLocation>.\emulators\Cemu\Cemu_2.6\Cemu.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Cemu\Cemu_2.6\Cemu.exe</EmulatorLocation>
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.6</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.6/cemu-2.6-windows-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Cemu\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Cemu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1665,15 +1665,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo WiiU</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo WiiU</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Nintendo WiiWare</SystemName>
-        <SystemFolder>.\roms\Nintendo WiiWare</SystemFolder>
-        <SystemImageFolder>.\images\Nintendo WiiWare</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Nintendo WiiWare</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Nintendo WiiWare</SystemImageFolder>
         <FileFormatsToSearch>
             <FormatToSearch>wad</FormatToSearch>
         </FileFormatsToSearch>
@@ -1684,12 +1684,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Dolphin</EmulatorName>
-                <EmulatorLocation>.\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2503</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Dolphin\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1699,15 +1699,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Panasonic 3DO</SystemName>
-        <SystemFolder>.\roms\Panasonic 3DO</SystemFolder>
-        <SystemImageFolder>.\images\Panasonic 3DO</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Panasonic 3DO</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Panasonic 3DO</SystemImageFolder>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
             <FormatToSearch>iso</FormatToSearch>
@@ -1721,30 +1721,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch opera</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/panasonic3do.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Panasonic 3DO</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Panasonic 3DO</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Philips CD-i</SystemName>
-        <SystemFolder>.\roms\Philips CD-i</SystemFolder>
-        <SystemImageFolder>.\images\Philips CD-i</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Philips CD-i</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Philips CD-i</SystemImageFolder>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
             <FormatToSearch>iso</FormatToSearch>
@@ -1756,30 +1756,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch same_cdi</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/philipscdi.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Philips CD-i</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Philips CD-i</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>ScummVM</SystemName>
-        <SystemFolder>.\roms\ScummVM</SystemFolder>
-        <SystemImageFolder>.\images\ScummVM</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\ScummVM</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\ScummVM</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bat</FormatToSearch>
@@ -1796,7 +1796,7 @@
                 <EmulatorDownloadPage>https://www.scummvm.org/downloads/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.9.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://downloads.scummvm.org/frs/scummvm/2.9.0/scummvm-2.9.0-win32-x86_64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\ScummVM\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\ScummVM\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1806,15 +1806,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/scummvm.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\ScummVM</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\ScummVM</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Dreamcast</SystemName>
-        <SystemFolder>.\roms\Sega Dreamcast</SystemFolder>
-        <SystemImageFolder>.\images\Sega Dreamcast</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Dreamcast</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Dreamcast</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1830,12 +1830,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Redream</EmulatorName>
-                <EmulatorLocation>.\emulators\Redream\redream.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Redream\redream.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://redream.io/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.5.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://redream.io/download/redream.x86_64-windows-v1.5.0.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Redream\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Redream\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1845,15 +1845,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segadreamcast.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Dreamcast</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Dreamcast</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Game Gear</SystemName>
-        <SystemFolder>.\roms\Sega Game Gear</SystemFolder>
-        <SystemImageFolder>.\images\Sega Game Gear</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Game Gear</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Game Gear</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1866,30 +1866,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagamegear.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Game Gear</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Game Gear</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Genesis</SystemName>
-        <SystemFolder>.\roms\Sega Genesis</SystemFolder>
-        <SystemImageFolder>.\images\Sega Genesis</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Genesis</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1902,30 +1902,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch picodrive</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Genesis</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Genesis 32X</SystemName>
-        <SystemFolder>.\roms\Sega Genesis 32X</SystemFolder>
-        <SystemImageFolder>.\images\Sega Genesis 32X</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Genesis 32X</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis 32X</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -1938,30 +1938,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch picodrive</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\picodrive_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis32x.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Genesis 32X</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis 32X</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Genesis CD</SystemName>
-        <SystemFolder>.\roms\Sega Genesis CD</SystemFolder>
-        <SystemImageFolder>.\images\Sega Genesis CD</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Genesis CD</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis CD</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -1976,12 +1976,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>.\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>144</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\ares\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1991,15 +1991,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesiscd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Genesis CD</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Genesis CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Master System</SystemName>
-        <SystemFolder>.\roms\Sega Master System</SystemFolder>
-        <SystemImageFolder>.\images\Sega Master System</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Master System</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Master System</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2012,30 +2012,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch genesis_plus_gx</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\genesis_plus_gx_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamastersystem.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Master System</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Master System</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Model 3</SystemName>
-        <SystemFolder>.\roms\Sega Model 3</SystemFolder>
-        <SystemImageFolder>.\images\Sega Model 3</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Model 3</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Model 3</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bat</FormatToSearch>
@@ -2047,12 +2047,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Supermodel</EmulatorName>
-                <EmulatorLocation>.\emulators\Supermodel\Supermodel.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\Supermodel\Supermodel.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.supermodel3.com/Download.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.3.20102024</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.supermodel3.com/Files/Git_Snapshots/Supermodel_0.3a-git-f9cb795_Win64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\Supermodel\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\Supermodel\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2062,15 +2062,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamodel3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Model 3</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Model 3</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega Saturn</SystemName>
-        <SystemFolder>.\roms\Sega Saturn</SystemFolder>
-        <SystemImageFolder>.\images\Sega Saturn</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega Saturn</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega Saturn</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -2086,30 +2086,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_saturn</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega Saturn</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega SC-3000</SystemName>
-        <SystemFolder>.\roms\Sega SC-3000</SystemFolder>
-        <SystemImageFolder>.\images\Sega SC-3000</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega SC-3000</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega SC-3000</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2128,12 +2128,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>BizHawk</EmulatorName>
-                <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.10</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10/BizHawk-2.10-win-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2143,15 +2143,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasc3000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega SC-3000</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega SC-3000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sega SG-1000</SystemName>
-        <SystemFolder>.\roms\Sega SG-1000</SystemFolder>
-        <SystemImageFolder>.\images\Sega SG-1000</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sega SG-1000</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sega SG-1000</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2170,12 +2170,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>BizHawk</EmulatorName>
-                <EmulatorLocation>.\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\BizHawk\EmuHawk.exe</EmulatorLocation>
                 <EmulatorParameters>--fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/TASEmulators/BizHawk/releases</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.10</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/TASEmulators/BizHawk/releases/download/2.10/BizHawk-2.10-win-x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\BizHawk\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\BizHawk\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2185,15 +2185,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasg1000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sega SG-1000</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sega SG-1000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sharp x68000</SystemName>
-        <SystemFolder>.\roms\Sharp x68000</SystemFolder>
-        <SystemImageFolder>.\images\Sharp x68000</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sharp x68000</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sharp x68000</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2205,30 +2205,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch px68k</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\px68k_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <!--                <ImagePackLocation/>-->
                 <!--                <ImagePackLatestVersion/>-->
                 <!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ImagePackDownloadLink>-->
-                <!--                <ImagePackDownloadExtractPath>.\images\Sharp x68000</ImagePackDownloadExtractPath>-->
+                <!--                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sharp x68000</ImagePackDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sinclair ZX Spectrum</SystemName>
-        <SystemFolder>.\roms\Sinclair ZX Spectrum</SystemFolder>
-        <SystemImageFolder>.\images\Sinclair ZX Spectrum</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sinclair ZX Spectrum</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sinclair ZX Spectrum</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2241,30 +2241,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch fuse</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\fuse_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sinclairzxspectrum.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sinclair ZX Spectrum</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sinclair ZX Spectrum</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>SNK Neo Geo CD</SystemName>
-        <SystemFolder>.\roms\SNK Neo Geo CD</SystemFolder>
-        <SystemImageFolder>.\images\SNK Neo Geo CD</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\SNK Neo Geo CD</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo CD</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -2277,30 +2277,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch neocd</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeocd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\SNK Neo Geo CD</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>SNK Neo Geo Pocket</SystemName>
-        <SystemFolder>.\roms\SNK Neo Geo Pocket</SystemFolder>
-        <SystemImageFolder>.\images\SNK Neo Geo Pocket</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\SNK Neo Geo Pocket</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo Pocket</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2313,30 +2313,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocket.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\SNK Neo Geo Pocket</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo Pocket</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>SNK Neo Geo Pocket Color</SystemName>
-        <SystemFolder>.\roms\SNK Neo Geo Pocket Color</SystemFolder>
-        <SystemImageFolder>.\images\SNK Neo Geo Pocket Color</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\SNK Neo Geo Pocket Color</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo Pocket Color</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -2349,30 +2349,30 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Retroarch mednafen_ngp</EmulatorName>
-                <EmulatorLocation>.\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L ".\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll" -f</EmulatorParameters>
                 <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>.\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
+                <CoreLocation>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_ngp_libretro.dll</CoreLocation>
                 <CoreLatestVersion>1.21.0</CoreLatestVersion>
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>.\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocketcolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\SNK Neo Geo Pocket Color</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\SNK Neo Geo Pocket Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sony PlayStation 1</SystemName>
-        <SystemFolder>.\roms\Sony PlayStation 1</SystemFolder>
-        <SystemImageFolder>.\images\Sony PlayStation 1</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sony PlayStation 1</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 1</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -2390,12 +2390,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>DuckStation</EmulatorName>
-                <EmulatorLocation>.\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.20250517</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\DuckStation\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2405,15 +2405,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sony PlayStation 2</SystemName>
-        <SystemFolder>.\roms\Sony PlayStation 2</SystemFolder>
-        <SystemImageFolder>.\images\Sony PlayStation 2</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sony PlayStation 2</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 2</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
@@ -2431,12 +2431,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>PCSX2</EmulatorName>
-                <EmulatorLocation>.\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.2.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/pcsx2-v2.2.0-windows-x64-Qt.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\PCSX2\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\PCSX2\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2446,15 +2446,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sony PlayStation 2</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sony PlayStation 3</SystemName>
-        <SystemFolder>.\roms\Sony PlayStation 3</SystemFolder>
-        <SystemImageFolder>.\images\Sony PlayStation 3</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sony PlayStation 3</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 3</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bat</FormatToSearch>
@@ -2471,7 +2471,7 @@
                 <EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.0.35</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.35-17639-ec5b2bc8_win64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\RPCS3\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\RPCS3\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2481,15 +2481,15 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sony PlayStation 3</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 3</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
         <SystemName>Sony PlayStation 4</SystemName>
-        <SystemFolder>.\roms\Sony PlayStation 4</SystemFolder>
-        <SystemImageFolder>.\images\Sony PlayStation 4</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sony PlayStation 4</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sony PlayStation 4</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>bin, elf, oelf</FormatToSearch>
@@ -2501,12 +2501,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>shadPS4</EmulatorName>
-                <EmulatorLocation>.\emulators\shadPS4\shadPS4.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\shadPS4\shadPS4.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://github.com/shadps4-emu/shadPS4</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.8.0</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/shadps4-emu/shadPS4/releases/download/v.0.8.0/shadps4-win64-qt-0.8.0.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\shadPS4\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\shadPS4\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2523,8 +2523,8 @@
 
     <EasyModeSystemConfig>
         <SystemName>Sony PSP</SystemName>
-        <SystemFolder>.\roms\Sony PSP</SystemFolder>
-        <SystemImageFolder>.\images\Sony PSP</SystemImageFolder>
+        <SystemFolder>%SIMPLELAUNCHERFOLDER%\roms\Sony PSP</SystemFolder>
+        <SystemImageFolder>%SIMPLELAUNCHERFOLDER%\images\Sony PSP</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>iso</FormatToSearch>
@@ -2541,12 +2541,12 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>PPSSPP</EmulatorName>
-                <EmulatorLocation>.\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
+                <EmulatorLocation>%SIMPLELAUNCHERFOLDER%\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>1.18.1</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.ppsspp.org/files/1_18_1/ppsspp_win.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>.\emulators\PPSSPP\</EmulatorDownloadExtractPath>
+                <EmulatorDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2556,7 +2556,7 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonypsp.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>.\images\Sony PSP</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%SIMPLELAUNCHERFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>

@@ -39,12 +39,14 @@ public static class CountFiles
                             var searchPattern = $"*.{extension}";
                             totalCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
                         }
-                        catch (Exception innerEx)
+                        catch (Exception)
                         {
                             // Notify developer
                             // Log the specific extension that caused the problem but continue counting
-                            var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
-                            _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                            // var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
+                            // _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+
+                            // Ignore
                         }
                     }
 
