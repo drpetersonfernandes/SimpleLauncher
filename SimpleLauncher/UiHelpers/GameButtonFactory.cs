@@ -39,8 +39,10 @@ public class GameButtonFactory(
 
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithExtension = PathHelper.GetFileName(filePath);
-        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
+
+        var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
+        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager;
 
@@ -246,7 +248,7 @@ public class GameButtonFactory(
             try
             {
                 PlayClick.PlayNotificationSound();
-                await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                await GameLauncher.HandleButtonClick(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
             }
             finally
             {
@@ -255,7 +257,7 @@ public class GameButtonFactory(
             }
         };
 
-        return ContextMenu.AddRightClickReturnButton(filePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
+        return ContextMenu.AddRightClickReturnButton(absoluteFilePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
             _emulatorComboBox, _favoritesManager, selectedSystemManager, _machines, _settings, _mainWindow, _gameFileGrid, _button);
     }
 }

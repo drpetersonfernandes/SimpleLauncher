@@ -19,10 +19,12 @@ public static class GameLauncher
 
     public static async Task HandleButtonClick(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
     {
-        if (string.IsNullOrWhiteSpace(filePath) || !File.Exists(filePath))
+        var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
+
+        if (string.IsNullOrWhiteSpace(absoluteFilePath) || !File.Exists(absoluteFilePath))
         {
             // Notify developer
-            const string contextMessage = "Invalid filePath.";
+            const string contextMessage = "Invalid absoluteFilePath.";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -133,20 +135,20 @@ public static class GameLauncher
 
         try
         {
-            var fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+            var fileExtension = Path.GetExtension(absoluteFilePath).ToUpperInvariant();
             switch (fileExtension)
             {
                 case ".BAT":
-                    await LaunchBatchFile(filePath);
+                    await LaunchBatchFile(absoluteFilePath);
                     break;
                 case ".LNK":
-                    await LaunchShortcutFile(filePath);
+                    await LaunchShortcutFile(absoluteFilePath);
                     break;
                 case ".EXE":
-                    await LaunchExecutable(filePath);
+                    await LaunchExecutable(absoluteFilePath);
                     break;
                 default:
-                    await LaunchRegularEmulator(filePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters);
+                    await LaunchRegularEmulator(absoluteFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters);
                     break;
             }
         }
@@ -154,7 +156,7 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Generic error in the GameLauncher class.\n" +
-                                 $"FilePath: {filePath}\n" +
+                                 $"FilePath: {absoluteFilePath}\n" +
                                  $"SelectedSystem: {selectedSystemName}\n" +
                                  $"SelectedEmulator: {selectedEmulatorName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -173,7 +175,7 @@ public static class GameLauncher
             var playTime = endTime - startTime; // Calculate the playtime
 
             // Get file name
-            var fileName = Path.GetFileName(filePath);
+            var fileName = Path.GetFileName(absoluteFilePath);
 
             // Update system playtime
             settings.UpdateSystemPlayTime(selectedSystemName, playTime); // Update the system playtime in settings
@@ -211,11 +213,11 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchBatchFile(string filePath)
+    private static async Task LaunchBatchFile(string absoluteFilePath)
     {
         var psi = new ProcessStartInfo
         {
-            FileName = filePath,
+            FileName = absoluteFilePath,
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true
@@ -285,11 +287,11 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchShortcutFile(string filePath)
+    private static async Task LaunchShortcutFile(string absoluteFilePath)
     {
         var psi = new ProcessStartInfo
         {
-            FileName = filePath,
+            FileName = absoluteFilePath,
             UseShellExecute = true
         };
 
@@ -332,11 +334,11 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchExecutable(string filePath)
+    private static async Task LaunchExecutable(string absoluteFilePath)
     {
         var psi = new ProcessStartInfo
         {
-            FileName = filePath,
+            FileName = absoluteFilePath,
             UseShellExecute = true
         };
 
@@ -380,7 +382,7 @@ public static class GameLauncher
     }
 
     private static async Task LaunchRegularEmulator(
-        string filePath,
+        string absoluteFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager selectedSystemConfig,
@@ -389,13 +391,13 @@ public static class GameLauncher
     {
         if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
         {
-            filePath = await ExtractFilesBeforeLaunch(filePath, selectedSystemConfig);
+            absoluteFilePath = await ExtractFilesBeforeLaunch(absoluteFilePath, selectedSystemConfig);
         }
 
-        if (string.IsNullOrEmpty(filePath))
+        if (string.IsNullOrEmpty(absoluteFilePath))
         {
             // Notify developer
-            const string contextMessage = "filePath is null or empty";
+            const string contextMessage = "absoluteFilePath is null or empty";
             var ex = new Exception(contextMessage);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -406,9 +408,9 @@ public static class GameLauncher
         }
 
         // Construct the PSI
-        var programLocation = selectedEmulatorConfig.EmulatorLocation;
+        var programLocation = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
         var parameters = selectedEmulatorConfig.EmulatorParameters;
-        var arguments = $"{parameters} \"{filePath}\"";
+        var arguments = $"{parameters} \"{absoluteFilePath}\"";
 
         if (string.IsNullOrEmpty(programLocation))
         {
@@ -560,16 +562,16 @@ public static class GameLauncher
         }
     }
 
-    private static async Task<string> ExtractFilesBeforeLaunch(string filePath, SystemManager systemManager)
+    private static async Task<string> ExtractFilesBeforeLaunch(string absoluteFilePath, SystemManager systemManager)
     {
-        var fileExtension = Path.GetExtension(filePath).ToUpperInvariant();
+        var fileExtension = Path.GetExtension(absoluteFilePath).ToUpperInvariant();
 
         switch (fileExtension)
         {
             case ".ZIP":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync2(filePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync2(absoluteFilePath);
 
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))
@@ -580,7 +582,7 @@ public static class GameLauncher
             case ".7Z" or ".RAR":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync(filePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync(absoluteFilePath);
 
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))
@@ -591,12 +593,12 @@ public static class GameLauncher
             default:
             {
                 // Notify developer
-                var contextMessage = $"Can not extract file: {filePath}";
+                var contextMessage = $"Can not extract file: {absoluteFilePath}";
                 var ex = new Exception(contextMessage);
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CannotExtractThisFileMessageBox(filePath);
+                MessageBoxLibrary.CannotExtractThisFileMessageBox(absoluteFilePath);
 
                 break;
             }

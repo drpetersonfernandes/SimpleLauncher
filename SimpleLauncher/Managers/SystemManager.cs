@@ -201,7 +201,7 @@ public partial class SystemManager
 
                         // Parse the ReceiveANotificationOnEmulatorError value with default = false
                         // If the element is missing or parsing fails, it defaults to false.
-                        var receiveNotification = false; // Default value
+                        var receiveNotification = true; // Default value
                         if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") == null)
                             return new Emulator
                             {
@@ -215,7 +215,7 @@ public partial class SystemManager
 
                         if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
                         {
-                            receiveNotification = false; // Reset to default if parsing fails
+                            receiveNotification = true; // Reset to default if parsing fails
                         }
 
                         return new Emulator

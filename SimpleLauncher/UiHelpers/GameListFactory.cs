@@ -32,8 +32,10 @@ public class GameListFactory(
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
-        var fileNameWithExtension = PathHelper.GetFileName(filePath);
-        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
+        var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
+
+        var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
+        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
         // var selectedSystemName = systemName; // Parameter 'systemName' is already this
 
         var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
@@ -63,8 +65,8 @@ public class GameListFactory(
         {
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
-            FilePath = filePath,
-            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(filePath, fileNameWithExtension, fileNameWithoutExtension, systemName,
+            FilePath = absoluteFilePath,
+            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(absoluteFilePath, fileNameWithExtension, fileNameWithoutExtension, systemName,
                 _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
@@ -74,29 +76,28 @@ public class GameListFactory(
 
         // Asynchronously calculate and set the file size.
         // Capture the necessary variables for the closure.
-        var currentItemFilePath = filePath;
 
         _ = Task.Run(() => // Fire and forget; UI updates via INotifyPropertyChanged
         {
             long sizeToSet;
             try
             {
-                if (File.Exists(currentItemFilePath))
+                if (File.Exists(absoluteFilePath))
                 {
-                    sizeToSet = new FileInfo(currentItemFilePath).Length;
+                    sizeToSet = new FileInfo(absoluteFilePath).Length;
                 }
                 else
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(new FileNotFoundException($"File not found for size calc: {currentItemFilePath}", currentItemFilePath),
-                        $"File not found for size calc: {currentItemFilePath}");
+                    // _ = LogErrors.LogErrorAsync(new FileNotFoundException($"File not found for size calc: {absoluteFilePath}", absoluteFilePath),
+                    //     $"File not found for size calc: {absoluteFilePath}");
                     sizeToSet = -2; // Indicate N/A or Error
                 }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {currentItemFilePath}");
+                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {absoluteFilePath}");
                 sizeToSet = -2; // Indicate Error
             }
 
