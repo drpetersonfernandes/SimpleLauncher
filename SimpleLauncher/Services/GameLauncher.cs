@@ -218,6 +218,9 @@ public static class GameLauncher
             RedirectStandardError = true
         };
 
+        Debug.WriteLine(absoluteFilePath);
+        Debug.WriteLine(psi.WorkingDirectory);
+
         using var process = new Process();
         process.StartInfo = psi;
 
@@ -290,6 +293,9 @@ public static class GameLauncher
             UseShellExecute = true
         };
 
+        Debug.WriteLine(absoluteFilePath);
+        Debug.WriteLine(psi.WorkingDirectory);
+
         using var process = new Process();
         process.StartInfo = psi;
 
@@ -336,6 +342,9 @@ public static class GameLauncher
             FileName = absoluteFilePath,
             UseShellExecute = true
         };
+
+        Debug.WriteLine(absoluteFilePath);
+        Debug.WriteLine(psi.WorkingDirectory);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -442,6 +451,16 @@ public static class GameLauncher
             RedirectStandardOutput = true,
             RedirectStandardError = true
         };
+
+        Debug.WriteLine(programLocation);
+        Debug.WriteLine(arguments);
+        Debug.WriteLine(workingDirectory);
+        Debug.WriteLine(psi.WorkingDirectory);
+
+        DebugLogger.Log($"Program Location: {programLocation}");
+        DebugLogger.Log($"Arguments: {arguments}");
+        DebugLogger.Log($"Working Directory: {workingDirectory}");
+        DebugLogger.Log($"PSI Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;

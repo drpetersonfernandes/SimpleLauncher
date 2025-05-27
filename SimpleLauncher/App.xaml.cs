@@ -39,6 +39,10 @@ public partial class App
         // --- Single Instance Check ---
         // Check if the application is being restarted via a specific command-line argument
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
+        var isDebugMode = e.Args.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase)); // Check for debug arg
+
+        // Initialize DebugLogger early
+        DebugLogger.Initialize(isDebugMode);
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
@@ -61,8 +65,8 @@ public partial class App
             }
             catch (Exception ex)
             {
-                // Notify developer
-                // Handle potential errors during mutex creation (e.g., permissions issues)
+                // Log the error using the new DebugLogger (if initialized) and old LogErrors (always)
+                DebugLogger.LogException(ex, "Failed to create or acquire single instance mutex.");
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
                 // Notify user
@@ -99,7 +103,8 @@ public partial class App
             }
             catch (Exception ex)
             {
-                // Notify developer
+                // Log the error using the new DebugLogger (if initialized) and old LogErrors (always)
+                DebugLogger.LogException(ex, "Failed to release single instance mutex on exit.");
                 _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
             }
             finally
@@ -150,12 +155,15 @@ public partial class App
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
+
+                DebugLogger.Log($"Applied language: {culture.Name}"); // Log successful language change
             }
             catch (Exception innerEx)
             {
                 // Notify developer
                 var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
-                _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                DebugLogger.LogException(innerEx, contextMessage); // Log using debug logger
+                _ = LogErrors.LogErrorAsync(innerEx, contextMessage); // Log using error logger
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -169,6 +177,7 @@ public partial class App
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
                 // Notify developer
+                DebugLogger.Log("Fallback to English language resources."); // Log fallback
                 _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources."), "Using fallback language.");
             }
         }
@@ -178,7 +187,8 @@ public partial class App
             // This outer catch handles errors *before* attempting to load the new dictionary
             // (e.g., invalid cultureCode format).
             var contextMessage = $"Failed to determine or set culture for {cultureCode}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.LogException(ex, contextMessage); // Log using debug logger
+            _ = LogErrors.LogErrorAsync(ex, contextMessage); // Log using error logger
 
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -193,6 +203,7 @@ public partial class App
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
                 // Notify developer
+                DebugLogger.Log("Fallback to English language resources due to initial culture error."); // Log fallback
                 _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources due to initial culture error."), "Using fallback language.");
             }
         }
@@ -203,12 +214,14 @@ public partial class App
         try
         {
             ThemeManager.Current.ChangeTheme(Current, $"{baseTheme}.{accentColor}");
+            DebugLogger.Log($"Applied theme: {baseTheme}.{accentColor}"); // Log theme change
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.LogException(ex, contextMessage); // Log using debug logger
+            _ = LogErrors.LogErrorAsync(ex, contextMessage); // Log using error logger
         }
     }
 
@@ -216,7 +229,16 @@ public partial class App
     {
         var baseTheme = Settings.BaseTheme;
         var accentColor = Settings.AccentColor;
-        ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
+        try
+        {
+            ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
+            DebugLogger.Log($"Applied theme to window {window.GetType().Name}: {baseTheme}.{accentColor}"); // Log theme change for window
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.LogException(ex, $"Failed to apply theme to window {window.GetType().Name}."); // Log using debug logger
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}."); // Log using error logger
+        }
     }
 
     public static void ChangeTheme(string baseTheme, string accentColor)
@@ -225,5 +247,6 @@ public partial class App
         Settings.BaseTheme = baseTheme;
         Settings.AccentColor = accentColor;
         Settings.Save();
+        DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}"); // Log saving settings
     }
 }
