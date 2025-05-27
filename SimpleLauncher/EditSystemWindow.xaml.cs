@@ -778,12 +778,22 @@ public partial class EditSystemWindow
             ];
             ValidateAndWarnAboutParameters(parameterTexts);
 
-            // Get the notification settings, defaulting to false if not selected or null
-            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is ComboBoxItem { Content: not null } item1 && item1.Content.ToString() == "true"; // Default to false
-            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is ComboBoxItem { Content: not null } item2 && item2.Content.ToString() == "true"; // Default to false
-            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is ComboBoxItem { Content: not null } item3 && item3.Content.ToString() == "true"; // Default to false
-            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is ComboBoxItem { Content: not null } item4 && item4.Content.ToString() == "true"; // Default to false
-            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is ComboBoxItem { Content: not null } item5 && item5.Content.ToString() == "true"; // Default to false
+            // Get the notification settings, defaulting to true if not selected or null
+            var receiveNotification1 =
+                ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
+                item1.Content.ToString() != "false";
+            var receiveNotification2 =
+                ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 ||
+                item2.Content.ToString() != "false";
+            var receiveNotification3 =
+                ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 ||
+                item3.Content.ToString() != "false";
+            var receiveNotification4 =
+                ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 ||
+                item4.Content.ToString() != "false";
+            var receiveNotification5 =
+                ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 ||
+                item5.Content.ToString() != "false";
 
             ////////////////
             // XML factory//
