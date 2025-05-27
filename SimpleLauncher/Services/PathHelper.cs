@@ -80,4 +80,22 @@ public static class PathHelper
     {
         return Path.GetFileName(path);
     }
+
+    /// <summary>
+    /// Sanitizes a path string intended for use as a token in string replacements.
+    /// It removes any trailing directory separator characters.
+    /// E.g., "C:\MyFolder\" becomes "C:\MyFolder".
+    /// This helps prevent double separators when concatenating with a path segment like "\subfolder".
+    /// </summary>
+    /// <param name="pathTokenValue">The path string to sanitize.</param>
+    /// <returns>The sanitized path string without a trailing separator.</returns>
+    public static string SanitizePathToken(string pathTokenValue)
+    {
+        if (string.IsNullOrEmpty(pathTokenValue))
+        {
+            return string.Empty;
+        }
+
+        return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+    }
 }

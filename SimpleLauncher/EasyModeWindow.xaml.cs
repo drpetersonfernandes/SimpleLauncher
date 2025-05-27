@@ -609,16 +609,17 @@ public partial class EasyModeWindow : IDisposable
     private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string finalSystemFolder, string finalSystemImageFolder)
     {
         var basePath = AppDomain.CurrentDomain.BaseDirectory;
+        var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
 
         var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", basePath);
+        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
         var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
+        var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
 
         var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", basePath);
-        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocation);
-        var fixedEmulatorParameters3 = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
-        var finalEmulatorParameters = Path.GetFullPath(fixedEmulatorParameters3);
+        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
+        var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
 
         // Create a new XElement for the selected system
         var newSystemElement = new XElement("SystemConfig",
@@ -643,16 +644,17 @@ public partial class EasyModeWindow : IDisposable
     private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string finalSystemFolder, string finalSystemImageFolder)
     {
         var basePath = AppDomain.CurrentDomain.BaseDirectory;
+        var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
 
         var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", basePath);
+        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
         var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
+        var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
 
         var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", basePath);
-        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocation);
-        var fixedEmulatorParameters3 = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
-        var finalEmulatorParameters = Path.GetFullPath(fixedEmulatorParameters3);
+        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
+        var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
 
         // Overwrite existing system
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
