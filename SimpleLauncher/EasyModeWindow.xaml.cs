@@ -228,7 +228,7 @@ public partial class EasyModeWindow : IDisposable
         if (selectedSystem == null) return false;
 
         string downloadUrl;
-        string destinationPath = null;
+        string destinationPath;
         string componentName;
 
         // Configure based on the download type
@@ -236,39 +236,32 @@ public partial class EasyModeWindow : IDisposable
         {
             case DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath);
+
+                var emulatorDownloadExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+                var fixedEmulatorDownloadExtractPath = emulatorDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var finalEmulatorDownloadExtractPath = Path.GetFullPath(fixedEmulatorDownloadExtractPath);
+
+                destinationPath = finalEmulatorDownloadExtractPath;
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
-                downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
-                destinationPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath);
+                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
+
+                var coreDownloadExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+                var fixedCoreDownloadExtractPath = coreDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var finalCoreDownloadExtractPath = Path.GetFullPath(fixedCoreDownloadExtractPath);
+
+                destinationPath = finalCoreDownloadExtractPath;
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
-                var imagePackDownloadExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                if (imagePackDownloadExtractPath != null)
-                {
-                    var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
-                    var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
+                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
-                    if (string.IsNullOrEmpty(finalImagePackDownloadExtractPath))
-                    {
-                        // Automatically populate the extraction path with a default path
-                        var appPath = AppDomain.CurrentDomain.BaseDirectory;
-                        var systemName = selectedSystem.SystemName;
+                var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
-                        // Sanitize SystemName
-                        var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
-
-                        destinationPath = Path.Combine(appPath, "images", sanitizedSystemName);
-                    }
-                    else
-                    {
-                        destinationPath = PathHelper.ResolveRelativeToAppDirectory(finalImagePackDownloadExtractPath);
-                    }
-                }
-
+                destinationPath = finalImagePackDownloadExtractPath;
                 componentName = "Image Pack";
                 break;
             default:

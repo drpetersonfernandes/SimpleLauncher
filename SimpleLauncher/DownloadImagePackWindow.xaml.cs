@@ -22,6 +22,8 @@ public partial class DownloadImagePackWindow : IDisposable
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
 
+    private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
+
     public DownloadImagePackWindow()
     {
         InitializeComponent();
@@ -106,10 +108,12 @@ public partial class DownloadImagePackWindow : IDisposable
             try
             {
                 // Get the download URL
-                var imagePackDownloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
+                var imagePackDownloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
                 // Determine the extraction folder
-                var extractionFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath);
+                var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
                 // Update UI elements
                 DownloadProgressBar.Visibility = Visibility.Visible;
@@ -124,7 +128,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 if (downloadSuccess != null && _downloadManager.IsDownloadCompleted)
                 {
                     var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
-                    UpdateStatus($"{downloadcompleteStartingextractionto2} {extractionFolder}...");
+                    UpdateStatus($"{downloadcompleteStartingextractionto2} {finalImagePackDownloadExtractPath}...");
 
                     // Show the PleaseWaitExtraction window
                     var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
@@ -132,7 +136,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     pleaseWaitWindow.Owner = this;
                     pleaseWaitWindow.Show();
 
-                    var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, extractionFolder);
+                    var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, finalImagePackDownloadExtractPath);
 
                     // Close the PleaseWaitExtraction window
                     pleaseWaitWindow.Close();
@@ -140,7 +144,7 @@ public partial class DownloadImagePackWindow : IDisposable
                     if (extractionSuccess)
                     {
                         // Notify user
-                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox(extractionFolder);
+                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox(finalImagePackDownloadExtractPath);
 
                         var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
                         UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
@@ -243,26 +247,12 @@ public partial class DownloadImagePackWindow : IDisposable
             return false;
         }
 
-        string extractionFolder;
-
-        if (string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath))
-        {
-            // Automatically populate the extraction path with a default path
-            var appPath = AppDomain.CurrentDomain.BaseDirectory;
-            var systemName = selectedSystem.SystemName;
-
-            // Sanitize SystemName
-            var sanitizedSystemName = SanitizePaths.SanitizeFolderName(systemName);
-
-            extractionFolder = Path.Combine(appPath, "images", sanitizedSystemName);
-        }
-        else
-        {
-            extractionFolder = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-        }
+        var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+        var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+        var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
         // Verify the extraction folder exists or can be created
-        if (!CreateExtractionFolder(extractionFolder)) return false;
+        if (!CreateExtractionFolder(finalImagePackDownloadExtractPath)) return false;
 
         return true;
     }
