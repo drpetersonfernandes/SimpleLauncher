@@ -503,11 +503,8 @@ public static class MessageBoxLibrary
 
         static void ShowMsg()
         {
-            var defaultpngfileismissing = (string)Application.Current.TryFindResource("defaultpngfileismissing") ??
-                                          "'default.png' file is missing.";
-            var doyouwanttoreinstallSimpleLauncher =
-                (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ??
-                "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var defaultpngfileismissing = (string)Application.Current.TryFindResource("defaultpngfileismissing") ?? "'default.png' file is missing.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             var reinstall = MessageBox.Show($"{defaultpngfileismissing}\n\n" +
                                             $"{doyouwanttoreinstallSimpleLauncher}",
@@ -518,12 +515,8 @@ public static class MessageBoxLibrary
             }
             else
             {
-                var pleasereinstallSimpleLauncher =
-                    (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ??
-                    "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown =
-                    (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ??
-                    "The application will shutdown.";
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
 
                 MessageBox.Show($"{pleasereinstallSimpleLauncher}\n\n" +
                                 $"{theapplicationwillshutdown}",
@@ -4441,7 +4434,8 @@ public static class MessageBoxLibrary
             var thefollowingrequiredfilesaremissing = (string)Application.Current.TryFindResource("Thefollowingrequiredfilesaremissing") ?? "The following required file(s) are missing:";
             var missingRequiredFiles = (string)Application.Current.TryFindResource("MissingRequiredFiles") ?? "Missing Required Files";
             var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
-            var reinstall = MessageBox.Show($"{thefollowingrequiredfilesaremissing}\n{fileList}\n\n{doyouwanttoreinstallSimpleLauncher}",
+            var reinstall = MessageBox.Show($"{thefollowingrequiredfilesaremissing}\n{fileList}\n\n" +
+                                            $"{doyouwanttoreinstallSimpleLauncher}",
                 missingRequiredFiles, MessageBoxButton.YesNo, MessageBoxImage.Warning);
             if (reinstall == MessageBoxResult.Yes)
             {
@@ -4450,11 +4444,8 @@ public static class MessageBoxLibrary
             else
             {
                 var pleasereinstallSimpleLauncher =
-                    (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ??
-                    "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown =
-                    (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ??
-                    "The application will shutdown.";
+                    (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
                 MessageBox.Show($"{pleasereinstallSimpleLauncher}\n\n{theapplicationwillshutdown}",
                     missingRequiredFiles, MessageBoxButton.OK, MessageBoxImage.Error);
                 QuitApplication.SimpleQuitApplication();

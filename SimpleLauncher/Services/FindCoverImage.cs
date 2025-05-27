@@ -42,7 +42,7 @@ public static class FindCoverImage
         }
 
         // Get settings for fuzzy matching
-        var settings = App.Settings; 
+        var settings = App.Settings;
         var enableFuzzyMatching = false; // Default to false if settings are null or property is false
         var similarityThreshold = 0.8; // Default threshold (e.g., 80%)
 
