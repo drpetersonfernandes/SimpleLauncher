@@ -107,6 +107,11 @@ public static class LogErrors
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
         var windowsVersion = GetWindowsVersion.GetVersion();
 
+        if (ex == null)
+        {
+            ex = new Exception("Exception is null.");
+        }
+
         // Write error Message
         var errorMessage =
             $"Date: {DateTime.Now}\n" +

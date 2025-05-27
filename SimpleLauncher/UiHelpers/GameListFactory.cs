@@ -113,34 +113,100 @@ public class GameListFactory(
     {
         try
         {
-            if (selectedItem == null) return;
-
-            var filePath = selectedItem.FilePath;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
-            var selectedSystem = _systemComboBox.SelectedItem as string;
-            var systemConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-            if (systemConfig == null) return;
-
-            var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
-
-            _mainWindow.PreviewImage.Source = null;
-
-            if (!string.IsNullOrEmpty(previewImagePath))
+            // Ensure MainWindow and its PreviewImage control are available.
+            if (_mainWindow == null)
             {
-                previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
+                _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
+                return;
             }
 
-            var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath);
-
-            _mainWindow.Dispatcher.Invoke(() =>
+            if (_mainWindow.PreviewImage == null)
             {
-                _mainWindow.PreviewImage.Source = imageSource;
-            });
+                _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChanged."), "PreviewImage control in MainWindow is null. Cannot update preview.");
+                return;
+            }
+
+            try
+            {
+                if (selectedItem == null)
+                {
+                    // No item selected, clear the preview image.
+                    _mainWindow.PreviewImage.Source = null;
+                    return;
+                }
+
+                var filePath = selectedItem.FilePath;
+                if (string.IsNullOrEmpty(filePath))
+                {
+                    _ = LogErrors.LogErrorAsync(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
+                    _mainWindow.PreviewImage.Source = null; // Clear preview
+                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    return;
+                }
+
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+
+                var selectedSystem = _systemComboBox.SelectedItem as string;
+                if (string.IsNullOrEmpty(selectedSystem))
+                {
+                    _ = LogErrors.LogErrorAsync(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
+                    _mainWindow.PreviewImage.Source = null; // Clear preview
+                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    return;
+                }
+
+                var systemConfig = _systemConfigs?.FirstOrDefault(c => c.SystemName == selectedSystem); // Added ?. for robustness
+                if (systemConfig == null)
+                {
+                    _ = LogErrors.LogErrorAsync(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
+                    _mainWindow.PreviewImage.Source = null; // Clear preview
+                    var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+                    return;
+                }
+
+                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
+
+                _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
+
+                if (!string.IsNullOrEmpty(previewImagePath))
+                {
+                    previewImagePath = PathHelper.ResolveRelativeToAppDirectory(previewImagePath);
+                }
+
+                var (imageSource, _) = await ImageLoader.LoadImageAsync(previewImagePath); // LoadImageAsync handles null/empty path by returning default
+
+                _mainWindow.Dispatcher.Invoke(() =>
+                {
+                    _mainWindow.PreviewImage.Source = imageSource;
+                });
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
+                // Attempt to set a default image in case of any error during the process
+                try
+                {
+                    var (defaultImageSource, _) = await ImageLoader.LoadImageAsync(null); // Load global default
+                    _mainWindow.Dispatcher.Invoke(() =>
+                    {
+                        if (_mainWindow?.PreviewImage != null) // Check again to be safe
+                        {
+                            _mainWindow.PreviewImage.Source = defaultImageSource;
+                        }
+                    });
+                }
+                catch (Exception fallbackEx)
+                {
+                    _ = LogErrors.LogErrorAsync(fallbackEx, "Error loading fallback preview image after an initial error.");
+                }
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChanged.");
         }
     }
 

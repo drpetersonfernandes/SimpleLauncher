@@ -21,9 +21,10 @@ public static class FindCoverImage
         var imageExtensions = GetImageExtensions.GetExtensions();
 
         string systemImagePath;
-        if (string.IsNullOrEmpty(systemManager?.SystemImageFolder))
+        // systemManager is checked for null by the caller (GameListFactory)
+        if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
         {
-            systemImagePath = Path.Combine(applicationPath, "images", systemName);
+            systemImagePath = Path.Combine(applicationPath, "images", systemName ?? string.Empty); // Handle null systemName
         }
         else
         {
@@ -41,9 +42,19 @@ public static class FindCoverImage
         }
 
         // Get settings for fuzzy matching
-        var settings = App.Settings; // Access settings via the static App property
-        var enableFuzzyMatching = settings.EnableFuzzyMatching;
-        var similarityThreshold = settings.FuzzyMatchingThreshold;
+        var settings = App.Settings; 
+        var enableFuzzyMatching = false; // Default to false if settings are null or property is false
+        var similarityThreshold = 0.8; // Default threshold (e.g., 80%)
+
+        if (settings != null)
+        {
+            enableFuzzyMatching = settings.EnableFuzzyMatching;
+            similarityThreshold = settings.FuzzyMatchingThreshold;
+        }
+        else
+        {
+            _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
+        }
 
         // 2. If no exact match and fuzzy matching is enabled, check for similar filenames if the directory exists
         if (enableFuzzyMatching && Directory.Exists(systemImagePath))
@@ -54,12 +65,13 @@ public static class FindCoverImage
 
             string bestMatchPath = null;
             double highestSimilarity = 0;
+            // fileNameWithoutExtension should not be null here based on GameListFactory logic
             var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
 
-            foreach (var filePath in filesInImageFolder)
+            foreach (var filePathInFolder in filesInImageFolder) // Renamed filePath to avoid conflict with parameter
             {
-                var fileWithoutExt = Path.GetFileNameWithoutExtension(filePath);
-                if (string.IsNullOrEmpty(fileWithoutExt)) continue; // Skip files without names
+                var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
+                if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                 var lowerFileName = fileWithoutExt.ToLowerInvariant();
 
@@ -69,7 +81,7 @@ public static class FindCoverImage
                 if (!(similarity > highestSimilarity)) continue;
 
                 highestSimilarity = similarity;
-                bestMatchPath = filePath;
+                bestMatchPath = filePathInFolder;
             }
 
             // If the highest similarity meets the threshold, return that path
