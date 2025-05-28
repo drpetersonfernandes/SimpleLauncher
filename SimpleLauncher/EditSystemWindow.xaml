@@ -193,7 +193,8 @@
                         Grid.Column="1"
                         HorizontalAlignment="Stretch"
                         IsReadOnly="True"
-                        IsEnabled="False" />
+                        IsEnabled="False"
+                        LostFocus="SystemNameTextBox_LostFocus"/>
 
                     <!-- System Folder -->
                     <Label

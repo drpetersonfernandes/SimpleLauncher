@@ -108,13 +108,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Initialize settings from App
         _settings = App.Settings;
 
-        // Check for Command-line Args
-        var args = Environment.GetCommandLineArgs();
-        if (args.Contains("whatsnew"))
-        {
-            Loaded += static (_, _) => OpenUpdateHistory();
-        }
-
         // DataContext set to the MainWindow instance
         DataContext = this;
 

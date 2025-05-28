@@ -53,12 +53,12 @@ public partial class MainWindow
         {
             PlayClick.PlayNotificationSound();
 
-            ResetUi();
-
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
             LoadOrReloadSystemConfig();
+
+            ResetUi(); // To load new or edited systems into UI
         }
         catch (Exception ex)
         {
@@ -73,12 +73,12 @@ public partial class MainWindow
         {
             PlayClick.PlayNotificationSound();
 
-            ResetUi();
-
             EditSystemWindow editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
 
             LoadOrReloadSystemConfig();
+
+            ResetUi(); // To load new or edited systems into UI
         }
         catch (Exception ex)
         {
@@ -114,7 +114,7 @@ public partial class MainWindow
             SearchTextBox.Text = "";
 
             _currentFilter = null;
-            _activeSearchQueryOrMode = null; // Reset active search mode
+            _activeSearchQueryOrMode = null;
 
             _selectedSystem = null;
             PreviewImage.Source = null;

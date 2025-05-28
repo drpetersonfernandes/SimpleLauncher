@@ -37,12 +37,29 @@ public partial class App
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
         // --- Single Instance Check ---
-        // Check if the application is being restarted via a specific command-line argument
+        // Catch args
         var isRestarting = e.Args.Any(static arg => arg.Equals("--restarting", StringComparison.OrdinalIgnoreCase));
-        var isDebugMode = e.Args.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase)); // Check for debug arg
+        var isDebugMode = e.Args.Any(static arg => arg.Equals("-debug", StringComparison.OrdinalIgnoreCase));
+        var displayHistoryWindow = e.Args.Any(static arg => arg.Equals("-whatsnew", StringComparison.OrdinalIgnoreCase));
 
         // Initialize DebugLogger early
         DebugLogger.Initialize(isDebugMode);
+
+        if (displayHistoryWindow)
+        {
+            try
+            {
+                var updateHistoryWindow = new UpdateHistoryWindow();
+                updateHistoryWindow.ShowDialog();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error in the OnStartup method.";
+                DebugLogger.LogException(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
+        }
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {

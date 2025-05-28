@@ -131,7 +131,7 @@ public partial class UpdateForm : Form
                 var startInfo = new ProcessStartInfo
                 {
                     FileName = simpleLauncherExePath,
-                    Arguments = "whatsnew",
+                    Arguments = "-whatsnew",
                     UseShellExecute = false,
                     WorkingDirectory = AppDirectory
                 };
