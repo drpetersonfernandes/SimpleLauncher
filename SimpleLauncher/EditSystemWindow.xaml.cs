@@ -707,10 +707,9 @@ public partial class EditSystemWindow
                 ?? Enumerable.Empty<XElement>() // Handle case where Root is null
             ));
 
-            // Save the sorted document asynchronously
-            // Convert the XDocument to string and write asynchronously
-            var xmlContent = sortedDoc.ToString();
-            await File.WriteAllTextAsync(XmlFilePath, xmlContent); // Asynchronous save
+            // Save the sorted document asynchronously with formatting
+            // Use SaveOptions.None for default indentation
+            await Task.Run(() => sortedDoc.Save(XmlFilePath, SaveOptions.None));
         }
         catch (Exception ex)
         {

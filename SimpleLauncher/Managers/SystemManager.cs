@@ -260,10 +260,18 @@ public partial class SystemManager
                 invalidConfig.Remove();
             }
 
-            // Save the corrected XML back to disk if any invalid configurations were removed
-            if (invalidConfigs.Count != 0)
+            // Save the document back to disk with formatting.
+            // This ensures the file is always formatted correctly after loading,
+            // whether invalid configs were removed or not.
+            try
             {
-                doc.Save(XmlPath);
+                doc.Save(XmlPath, SaveOptions.None); // Save with formatting
+            }
+            catch (Exception saveEx)
+            {
+                // Notify developer
+                const string contextMessage = "Error saving 'system.xml' after loading and processing.";
+                _ = LogErrors.LogErrorAsync(saveEx, contextMessage);
             }
 
             // Notify user about each invalid configuration in a single message per system

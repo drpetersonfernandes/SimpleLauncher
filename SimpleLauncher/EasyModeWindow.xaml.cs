@@ -500,11 +500,12 @@ public partial class EasyModeWindow : IDisposable
                 xmlDoc.Root.ReplaceNodes(sortedElements);
             }
 
-            // Save the updated and sorted XML document asynchronously
-            if (xmlPath != null)
+            // Save the updated and sorted XML document asynchronously with formatting
+            // Use SaveOptions.None for default indentation
+            await Task.Run(() =>
             {
-                await File.WriteAllTextAsync(xmlPath, xmlDoc.ToString());
-            }
+                if (xmlPath != null) xmlDoc.Save(xmlPath, SaveOptions.None);
+            });
         }
         catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
         {
