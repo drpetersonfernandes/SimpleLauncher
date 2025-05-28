@@ -107,9 +107,9 @@ public partial class EditSystemWindow
                 isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
             // Validate SystemName (now with sanitized value)
-            if (ValidateSystemName(systemNameText)) return; // This will use the sanitized value
+            if (ValidateSystemName(systemNameText)) return;
 
-            SystemNameTextBox.Text = systemNameText; // Update UI
+            SystemNameTextBox.Text = systemNameText; // Update UI with sanitized name
 
             // Validate SystemFolder
             if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
@@ -117,33 +117,22 @@ public partial class EditSystemWindow
             // Validate SystemImageFolder
             if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
 
-            // Validate systemIsMame
-            // Set to false if user does not choose
             var systemIsMame =
                 ((SystemIsMameComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString())?.Equals("true",
                     StringComparison.OrdinalIgnoreCase) ?? false;
 
-            // Validate extractFileBeforeLaunch
-            // Set to false if user does not choose
             var extractFileBeforeLaunch = ExtractFileBeforeLaunchComboBox.SelectedItem != null &&
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
                                               ?.Content.ToString() ?? "false");
 
-            // Validate FormatToSearch
             if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch)) return;
-
-            // Validate FormatToLaunch
             if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch)) return;
-
-            // Validate Emulator1Name
             if (ValidateEmulator1Name(emulator1NameText)) return;
 
-            // Check paths
             if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
 
-            // Check parameter paths
             string[] parameterTexts =
             [
                 emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText,
@@ -151,7 +140,6 @@ public partial class EditSystemWindow
             ];
             ValidateAndWarnAboutParameters(parameterTexts);
 
-            // Get the notification settings, defaulting to true if not selected or null
             var receiveNotification1 =
                 ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
                 item1.Content.ToString() == "true";
@@ -168,116 +156,82 @@ public partial class EditSystemWindow
                 ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 ||
                 item5.Content.ToString() == "true";
 
-            ////////////////
-            // XML factory//
-            ////////////////
-            // Initialize 'emulatorsElement' as an XElement
             var emulatorsElement = new XElement("Emulators");
-
-            // HashSet to store emulator names and ensure uniqueness
             var emulatorNames = new HashSet<string>();
 
-            // Add Emulator1 details to XML and check uniqueness
-            if (!emulatorNames.Add(emulator1NameText))
+            if (!string.IsNullOrEmpty(emulator1NameText)) // Only add if name is provided
             {
-                // Notify user
-                MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+                if (!emulatorNames.Add(emulator1NameText))
+                {
+                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulator1NameText);
+                    return;
+                }
 
-                return;
+                AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText, receiveNotification1);
             }
 
-            AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText,
-                receiveNotification1);
-
-            // Validate Emulators 2-5
-            // Arrays for emulator names, locations, and parameters TextBoxes
-            string[] nameText = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
-            string[] locationText = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
-            string[] parametersText = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
+            string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
+            string[] locationTexts = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
+            string[] paramTextsForLoop = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
             bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
-            // Loop over the emulators 2 through 5 to validate and add their details
-            for (var i = 0; i < nameText.Length; i++)
+            for (var i = 0; i < nameTexts.Length; i++)
             {
-                var emulatorName = nameText[i];
-                var emulatorLocation = locationText[i];
-                var emulatorParameters = parametersText[i];
-                var receiveNotification = receiveNotifications[i];
+                var currentEmulatorName = nameTexts[i];
+                var currentEmulatorLocation = locationTexts[i];
+                var currentEmulatorParameters = paramTextsForLoop[i];
+                var currentReceiveNotification = receiveNotifications[i];
 
-                // Check if any data related to the emulator is provided
-                if (!string.IsNullOrEmpty(emulatorLocation) || !string.IsNullOrEmpty(emulatorParameters))
+                if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))
                 {
-                    // Validate EmulatorName for Emulators 2-5
-                    // Make the emulator name required if related data is provided
-                    if (string.IsNullOrEmpty(emulatorName))
+                    if (string.IsNullOrEmpty(currentEmulatorName))
                     {
-                        // Notify user
-                        MessageBoxLibrary.EmulatorNameRequiredMessageBox(i);
-
+                        MessageBoxLibrary.EmulatorNameRequiredMessageBox(i + 2); // Pass emulator number (2-5)
                         return;
                     }
                 }
 
-                // If the emulator name is provided, check for uniqueness and add the emulator details to XML
-                if (string.IsNullOrEmpty(emulatorName)) continue;
+                if (string.IsNullOrEmpty(currentEmulatorName)) continue;
 
-                // Check for uniqueness
-                if (!emulatorNames.Add(emulatorName))
+                if (!emulatorNames.Add(currentEmulatorName))
                 {
-                    // Notify user
-                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(emulatorName);
-
+                    MessageBoxLibrary.EmulatorNameMustBeUniqueMessageBox(currentEmulatorName);
                     return;
                 }
 
-                ////////////////
-                // XML factory//
-                ////////////////
-                AddEmulatorToXml(emulatorsElement, emulatorName, emulatorLocation, emulatorParameters,
-                    receiveNotification);
+                AddEmulatorToXml(emulatorsElement, currentEmulatorName, currentEmulatorLocation, currentEmulatorParameters, currentReceiveNotification);
             }
 
-            // Check if we're updating an existing system
-            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null;
+            var isUpdate = !string.IsNullOrEmpty(_originalSystemName) && SystemNameDropdown.SelectedItem != null && _originalSystemName == SystemNameDropdown.SelectedItem.ToString();
 
-            ////////////////
-            // XML factory//
-            ////////////////
             try
             {
-                // Disable save button during save
                 SaveSystemButton.IsEnabled = false;
 
                 await SaveSystemConfigurationAsync(
                     systemNameText, systemFolderText, systemImageFolderText,
                     systemIsMame, formatsToSearch, extractFileBeforeLaunch,
                     formatsToLaunch, emulatorsElement, isUpdate,
-                    _originalSystemName);
+                    _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
 
-                // --- UI Updates and Post-Save Actions (only if save succeeds) ---
-                // Repopulate the SystemNamesDropbox
+
                 PopulateSystemNamesDropdown();
-
-                // Select the saved/updated system in the Dropbox
                 SystemNameDropdown.SelectedItem = systemNameText;
+                LoadSystemDetails(systemNameText);
 
-                // Notify user of success
+                // Notify user
                 MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
 
-                // Create folders if necessary (this might also benefit from being async if slow)
                 CreateFolders(systemNameText);
 
-                // Update the original system name to match the current name after save
-                _originalSystemName = systemNameText;
+                _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
             }
-            catch (InvalidOperationException ex) // Catch the specific exception thrown by the helper
+            catch (InvalidOperationException ex)
             {
-                // Notify user about the save failure
-                // The error is already logged by the helper method
-                MessageBoxLibrary.SaveSystemFailedMessageBox(ex.InnerException
-                    ?.Message); // Show inner exception message if available
+                // Notify user
+                MessageBoxLibrary.SaveSystemFailedMessageBox(ex.InnerException?.Message);
             }
-            catch (Exception ex) // Catch any other unexpected errors
+            catch (Exception ex)
             {
                 // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
@@ -288,7 +242,6 @@ public partial class EditSystemWindow
             }
             finally
             {
-                // Re-enable save button regardless of success or failure
                 SaveSystemButton.IsEnabled = true;
             }
         }
@@ -301,7 +254,7 @@ public partial class EditSystemWindow
 
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
     {
-        if (string.IsNullOrEmpty(name)) return; // Check if the emulator name is not empty
+        if (string.IsNullOrEmpty(name)) return;
 
         var emulatorElement = new XElement("Emulator",
             new XElement("EmulatorName", name),
@@ -315,7 +268,6 @@ public partial class EditSystemWindow
         bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
-        // Add a new system
         var newSystem = new XElement("SystemConfig",
             new XElement("SystemName", systemNameText),
             new XElement("SystemFolder", systemFolderText),
@@ -334,7 +286,6 @@ public partial class EditSystemWindow
         bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
-        // Update existing system
         existingSystem.SetElementValue("SystemFolder", systemFolderText);
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
         existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
@@ -343,13 +294,14 @@ public partial class EditSystemWindow
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
         existingSystem.Element("FileFormatsToLaunch")
             ?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
-        existingSystem.Element("Emulators")
-            ?.Remove(); // Remove the existing emulators section before adding updated one
+        existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(emulatorsElement);
     }
 
     private static void CreateFolders(string systemNameText)
     {
+        if (string.IsNullOrEmpty(systemNameText)) return;
+
         var applicationDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var folderNames = GetAdditionalFolders.GetFolders();
 
@@ -357,7 +309,6 @@ public partial class EditSystemWindow
         {
             var parentDirectory = Path.Combine(applicationDirectory, folderName);
 
-            // Ensure the parent directory exists
             if (!Directory.Exists(parentDirectory))
             {
                 try
@@ -366,44 +317,30 @@ public partial class EditSystemWindow
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
+                    _ = LogErrors.LogErrorAsync(ex, $"Error creating parent directory: {parentDirectory}");
                 }
             }
 
-            // Use SystemName as the name for the new folder inside the parent directory
             var newFolderPath = Path.Combine(parentDirectory, systemNameText);
 
             try
             {
-                // Check if the folder exists and create it if it doesn't
                 if (!Directory.Exists(newFolderPath))
                 {
-                    try
-                    {
-                        Directory.CreateDirectory(newFolderPath);
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, "Error creating additional folder.");
-                    }
-
+                    Directory.CreateDirectory(newFolderPath);
                     if (folderName == "images")
                     {
-                        // Notify user
                         MessageBoxLibrary.FolderCreatedMessageBox(systemNameText);
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Notify developer
-                const string contextMessage = "'Simple Launcher' failed to create the necessary folders for this system.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.FolderCreationFailedMessageBox();
+                _ = LogErrors.LogErrorAsync(ex, $"Error creating system specific folder: {newFolderPath}");
+                if (folderName == "images") // Only show failure for images as per original logic
+                {
+                    MessageBoxLibrary.FolderCreationFailedMessageBox();
+                }
             }
         }
     }

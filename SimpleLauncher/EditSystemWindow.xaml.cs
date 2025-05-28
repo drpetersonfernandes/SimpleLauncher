@@ -240,6 +240,10 @@ public partial class EditSystemWindow
 
         EnableFields();
         ClearFields();
+        SystemNameDropdown.SelectedItem = null;
+        ClearFieldsForNoSelection();
+        EnableFields();
+
         HelpUserTextBlock.Text = string.Empty;
 
         SaveSystemButton.IsEnabled = true;
@@ -260,13 +264,11 @@ public partial class EditSystemWindow
         SystemImageFolderTextBox.IsReadOnly = false;
         SystemImageFolderTextBox.IsEnabled = true;
 
-        SystemIsMameComboBox.IsReadOnly = false;
         SystemIsMameComboBox.IsEnabled = true;
 
         FormatToSearchTextBox.IsReadOnly = false;
         FormatToSearchTextBox.IsEnabled = true;
 
-        ExtractFileBeforeLaunchComboBox.IsReadOnly = false;
         ExtractFileBeforeLaunchComboBox.IsEnabled = true;
 
         FormatToLaunchTextBox.IsReadOnly = false;
@@ -274,62 +276,42 @@ public partial class EditSystemWindow
 
         Emulator1NameTextBox.IsReadOnly = false;
         Emulator1NameTextBox.IsEnabled = true;
-
         Emulator1PathTextBox.IsReadOnly = false;
         Emulator1PathTextBox.IsEnabled = true;
-
         Emulator1ParametersTextBox.IsReadOnly = false;
         Emulator1ParametersTextBox.IsEnabled = true;
-
-        ReceiveANotificationOnEmulatorError1.IsReadOnly = false;
         ReceiveANotificationOnEmulatorError1.IsEnabled = true;
 
         Emulator2NameTextBox.IsReadOnly = false;
         Emulator2NameTextBox.IsEnabled = true;
-
         Emulator2PathTextBox.IsReadOnly = false;
         Emulator2PathTextBox.IsEnabled = true;
-
         Emulator2ParametersTextBox.IsReadOnly = false;
         Emulator2ParametersTextBox.IsEnabled = true;
-
-        ReceiveANotificationOnEmulatorError2.IsReadOnly = false;
         ReceiveANotificationOnEmulatorError2.IsEnabled = true;
 
         Emulator3NameTextBox.IsReadOnly = false;
         Emulator3NameTextBox.IsEnabled = true;
-
         Emulator3PathTextBox.IsReadOnly = false;
         Emulator3PathTextBox.IsEnabled = true;
-
         Emulator3ParametersTextBox.IsReadOnly = false;
         Emulator3ParametersTextBox.IsEnabled = true;
-
-        ReceiveANotificationOnEmulatorError3.IsReadOnly = false;
         ReceiveANotificationOnEmulatorError3.IsEnabled = true;
 
         Emulator4NameTextBox.IsReadOnly = false;
         Emulator4NameTextBox.IsEnabled = true;
-
         Emulator4PathTextBox.IsReadOnly = false;
         Emulator4PathTextBox.IsEnabled = true;
-
         Emulator4ParametersTextBox.IsReadOnly = false;
         Emulator4ParametersTextBox.IsEnabled = true;
-
-        ReceiveANotificationOnEmulatorError4.IsReadOnly = false;
         ReceiveANotificationOnEmulatorError4.IsEnabled = true;
 
         Emulator5NameTextBox.IsReadOnly = false;
         Emulator5NameTextBox.IsEnabled = true;
-
         Emulator5PathTextBox.IsReadOnly = false;
         Emulator5PathTextBox.IsEnabled = true;
-
         Emulator5ParametersTextBox.IsReadOnly = false;
         Emulator5ParametersTextBox.IsEnabled = true;
-
-        ReceiveANotificationOnEmulatorError5.IsReadOnly = false;
         ReceiveANotificationOnEmulatorError5.IsEnabled = true;
 
         ChooseSystemFolderButton.IsEnabled = true;
@@ -341,35 +323,147 @@ public partial class EditSystemWindow
         ChooseEmulator5PathButton.IsEnabled = true;
     }
 
+    private void DisableAllEditableFields()
+    {
+        SystemNameTextBox.IsReadOnly = true;
+        SystemNameTextBox.IsEnabled = false;
+
+        SystemFolderTextBox.IsReadOnly = true;
+        SystemFolderTextBox.IsEnabled = false;
+
+        SystemImageFolderTextBox.IsReadOnly = true;
+        SystemImageFolderTextBox.IsEnabled = false;
+
+        SystemIsMameComboBox.IsEnabled = false;
+
+        FormatToSearchTextBox.IsReadOnly = true;
+        FormatToSearchTextBox.IsEnabled = false;
+
+        ExtractFileBeforeLaunchComboBox.IsEnabled = false;
+
+        FormatToLaunchTextBox.IsReadOnly = true;
+        FormatToLaunchTextBox.IsEnabled = false;
+
+        Emulator1NameTextBox.IsReadOnly = true;
+        Emulator1NameTextBox.IsEnabled = false;
+        Emulator1PathTextBox.IsReadOnly = true;
+        Emulator1PathTextBox.IsEnabled = false;
+        Emulator1ParametersTextBox.IsReadOnly = true;
+        Emulator1ParametersTextBox.IsEnabled = false;
+        ReceiveANotificationOnEmulatorError1.IsEnabled = false;
+
+        Emulator2NameTextBox.IsReadOnly = true;
+        Emulator2NameTextBox.IsEnabled = false;
+        Emulator2PathTextBox.IsReadOnly = true;
+        Emulator2PathTextBox.IsEnabled = false;
+        Emulator2ParametersTextBox.IsReadOnly = true;
+        Emulator2ParametersTextBox.IsEnabled = false;
+        ReceiveANotificationOnEmulatorError2.IsEnabled = false;
+
+        Emulator3NameTextBox.IsReadOnly = true;
+        Emulator3NameTextBox.IsEnabled = false;
+        Emulator3PathTextBox.IsReadOnly = true;
+        Emulator3PathTextBox.IsEnabled = false;
+        Emulator3ParametersTextBox.IsReadOnly = true;
+        Emulator3ParametersTextBox.IsEnabled = false;
+        ReceiveANotificationOnEmulatorError3.IsEnabled = false;
+
+        Emulator4NameTextBox.IsReadOnly = true;
+        Emulator4NameTextBox.IsEnabled = false;
+        Emulator4PathTextBox.IsReadOnly = true;
+        Emulator4PathTextBox.IsEnabled = false;
+        Emulator4ParametersTextBox.IsReadOnly = true;
+        Emulator4ParametersTextBox.IsEnabled = false;
+        ReceiveANotificationOnEmulatorError4.IsEnabled = false;
+
+        Emulator5NameTextBox.IsReadOnly = true;
+        Emulator5NameTextBox.IsEnabled = false;
+        Emulator5PathTextBox.IsReadOnly = true;
+        Emulator5PathTextBox.IsEnabled = false;
+        Emulator5ParametersTextBox.IsReadOnly = true;
+        Emulator5ParametersTextBox.IsEnabled = false;
+        ReceiveANotificationOnEmulatorError5.IsEnabled = false;
+
+        ChooseSystemFolderButton.IsEnabled = false;
+        ChooseSystemImageFolderButton.IsEnabled = false;
+        ChooseEmulator1PathButton.IsEnabled = false;
+        ChooseEmulator2PathButton.IsEnabled = false;
+        ChooseEmulator3PathButton.IsEnabled = false;
+        ChooseEmulator4PathButton.IsEnabled = false;
+        ChooseEmulator5PathButton.IsEnabled = false;
+    }
+
     private void ClearFields()
     {
         SystemNameDropdown.SelectedItem = null;
+        ClearFieldsForNoSelection();
+    }
+
+    // Clears fields when no system is selected, without affecting SystemNameDropdown itself.
+    private void ClearFieldsForNoSelection()
+    {
         SystemNameTextBox.Text = string.Empty;
+        MarkValid(SystemNameTextBox);
+
         SystemFolderTextBox.Text = string.Empty;
+        MarkValid(SystemFolderTextBox);
+
         SystemImageFolderTextBox.Text = string.Empty;
+        MarkValid(SystemImageFolderTextBox);
+
         SystemIsMameComboBox.SelectedItem = null;
+
         FormatToSearchTextBox.Text = string.Empty;
+        MarkValid(FormatToSearchTextBox);
+
         ExtractFileBeforeLaunchComboBox.SelectedItem = null;
+
         FormatToLaunchTextBox.Text = string.Empty;
+        MarkValid(FormatToLaunchTextBox);
+
+        ClearAllEmulatorFieldsInternal();
+    }
+
+    private void ClearAllEmulatorFieldsInternal()
+    {
         Emulator1NameTextBox.Text = string.Empty;
+        MarkValid(Emulator1NameTextBox);
         Emulator1PathTextBox.Text = string.Empty;
+        MarkValid(Emulator1PathTextBox);
         Emulator1ParametersTextBox.Text = string.Empty;
+        MarkValid(Emulator1ParametersTextBox);
         ReceiveANotificationOnEmulatorError1.SelectedItem = null;
+
         Emulator2NameTextBox.Text = string.Empty;
+        MarkValid(Emulator2NameTextBox);
         Emulator2PathTextBox.Text = string.Empty;
+        MarkValid(Emulator2PathTextBox);
         Emulator2ParametersTextBox.Text = string.Empty;
+        MarkValid(Emulator2ParametersTextBox);
         ReceiveANotificationOnEmulatorError2.SelectedItem = null;
+
         Emulator3NameTextBox.Text = string.Empty;
+        MarkValid(Emulator3NameTextBox);
         Emulator3PathTextBox.Text = string.Empty;
+        MarkValid(Emulator3PathTextBox);
         Emulator3ParametersTextBox.Text = string.Empty;
+        MarkValid(Emulator3ParametersTextBox);
         ReceiveANotificationOnEmulatorError3.SelectedItem = null;
+
         Emulator4NameTextBox.Text = string.Empty;
+        MarkValid(Emulator4NameTextBox);
         Emulator4PathTextBox.Text = string.Empty;
+        MarkValid(Emulator4PathTextBox);
         Emulator4ParametersTextBox.Text = string.Empty;
+        MarkValid(Emulator4ParametersTextBox);
         ReceiveANotificationOnEmulatorError4.SelectedItem = null;
+
         Emulator5NameTextBox.Text = string.Empty;
+        MarkValid(Emulator5NameTextBox);
         Emulator5PathTextBox.Text = string.Empty;
+        MarkValid(Emulator5PathTextBox);
         Emulator5ParametersTextBox.Text = string.Empty;
+        MarkValid(Emulator5ParametersTextBox);
         ReceiveANotificationOnEmulatorError5.SelectedItem = null;
     }
 
@@ -404,9 +498,18 @@ public partial class EditSystemWindow
 
                 systemNode.Remove();
                 _xmlDoc.Save(XmlFilePath);
-                PopulateSystemNamesDropdown();
-                ClearFields();
 
+                PopulateSystemNamesDropdown();
+
+                if (SystemNameDropdown.Items.Count == 0 || SystemNameDropdown.SelectedItem == null)
+                {
+                    ClearFieldsForNoSelection();
+                    DisableAllEditableFields();
+                    SaveSystemButton.IsEnabled = false;
+                    DeleteSystemButton.IsEnabled = false;
+                }
+
+                // Notify user
                 MessageBoxLibrary.SystemHasBeenDeletedMessageBox(selectedSystemName);
             }
         }
