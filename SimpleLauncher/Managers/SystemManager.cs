@@ -151,16 +151,18 @@ public partial class SystemManager
                 {
                     // Attempt to parse each system configuration.
                     // These validations will only run if SystemConfig elements exist.
-                    if (sysConfigElement.Element("SystemName") == null ||
-                        string.IsNullOrEmpty(sysConfigElement.Element("SystemName")?.Value))
+                    var systemName = sysConfigElement.Element("SystemName")?.Value;
+                    if (string.IsNullOrEmpty(systemName))
                         throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
 
-                    if (sysConfigElement.Element("SystemFolder") == null ||
-                        string.IsNullOrEmpty(sysConfigElement.Element("SystemFolder")?.Value))
-                        throw new InvalidOperationException("Missing or empty 'System Folder' in XML.");
+                    var systemFolder = sysConfigElement.Element("SystemFolder")?.Value;
+                    if (string.IsNullOrEmpty(systemFolder))
+                        throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Folder' in XML.");
+
+                    var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value; // Image folder is optional, allow null/empty
 
                     if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
-                        throw new InvalidOperationException("Invalid or missing value for 'System Is MAME'.");
+                        throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'System Is MAME'.");
 
                     // Validate FileFormatsToSearch
                     var formatsToSearch = sysConfigElement.Element("FileFormatsToSearch")
@@ -170,14 +172,14 @@ public partial class SystemManager
                             !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                         .ToList();
                     if (formatsToSearch == null || formatsToSearch.Count == 0)
-                        throw new InvalidOperationException("'File Extension To Search' should have at least one value.");
+                        throw new InvalidOperationException($"System '{systemName}': 'File Extension To Search' should have at least one value.");
 
                     // Validate ExtractFileBeforeLaunch
                     if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
                             out var extractFileBeforeLaunch))
-                        throw new InvalidOperationException("Invalid or missing value for 'Extract File Before Launch'.");
-                    if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
-                        throw new InvalidOperationException("When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
+                        throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Extract File Before Launch'.");
+                    if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(f => f is "zip" or "7z" or "rar"))) // Check if any compressed format is included
+                        throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
 
                     // Validate FileFormatsToLaunch
                     var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
@@ -186,55 +188,53 @@ public partial class SystemManager
                         .Where(static value =>
                             !string.IsNullOrWhiteSpace(value)) // Ensure no empty or whitespace-only entries
                         .ToList();
-                    // This check was slightly modified: formatsToLaunch can be null/empty if ExtractFileBeforeLaunch is false.
-                    // The original code had a check that failed if ExtractFileBeforeLaunch was true AND formatsToLaunch was null/empty.
-                    // Let's keep the original logic's intent: if ExtractFileBeforeLaunch is true, FileFormatsToLaunch must have values.
+                    // If ExtractFileBeforeLaunch is true, FileFormatsToLaunch must have values.
                     if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
-                        throw new InvalidOperationException("'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
+                        throw new InvalidOperationException($"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
 
                     // Validate emulator configurations
-                    var emulators = sysConfigElement.Element("Emulators")?.Elements("Emulator").Select(static emulatorElement =>
+                    var emulators = new List<Emulator>();
+                    var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
+
+                    if (emulators == null || emulatorElements.Count == 0)
+                        throw new InvalidOperationException($"System '{systemName}': Emulators list should not be empty or null.");
+
+                    foreach (var emulatorElement in emulatorElements)
                     {
-                        if (string.IsNullOrEmpty(emulatorElement.Element("EmulatorName")?.Value))
-                            throw new InvalidOperationException("'Emulator Name' should not be empty or null.");
+                        var emulatorName = emulatorElement.Element("EmulatorName")?.Value;
+                        if (string.IsNullOrEmpty(emulatorName))
+                            throw new InvalidOperationException($"System '{systemName}': An 'Emulator Name' should not be empty or null.");
 
-                        // Parse the ReceiveANotificationOnEmulatorError value with default = false
-                        // If the element is missing or parsing fails, it defaults to false.
+                        var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty;
+                        var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty;
+
+                        // Parse the ReceiveANotificationOnEmulatorError value with default = true
+                        // If the element is missing or parsing fails, it defaults to true.
                         var receiveNotification = true; // Default value
-                        if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") == null)
-                            return new Emulator
-                            {
-                                EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
-                                EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                                EmulatorParameters =
-                                    emulatorElement.Element("EmulatorParameters")
-                                        ?.Value, // It's okay if this is null or empty
-                                ReceiveANotificationOnEmulatorError = receiveNotification
-                            };
-
-                        if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
+                        if (emulatorElement.Element("ReceiveANotificationOnEmulatorError") != null)
                         {
-                            receiveNotification = true; // Reset to default if parsing fails
+                            if (!bool.TryParse(emulatorElement.Element("ReceiveANotificationOnEmulatorError")?.Value, out receiveNotification))
+                            {
+                                receiveNotification = true; // Reset to default if parsing fails
+                            }
                         }
 
-                        return new Emulator
+                        emulators.Add(new Emulator
                         {
-                            EmulatorName = emulatorElement.Element("EmulatorName")?.Value,
-                            EmulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value,
-                            EmulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value, // It's okay if this is null or empty
+                            EmulatorName = emulatorName,
+                            EmulatorLocation = emulatorLocation, // Store the raw string (potentially with %BASEFOLDER%)
+                            EmulatorParameters = emulatorParameters, // Store the raw string
                             ReceiveANotificationOnEmulatorError = receiveNotification
-                        };
-                    }).ToList();
+                        });
+                    }
 
-                    if (emulators == null || emulators.Count == 0)
-                        throw new InvalidOperationException("Emulators list should not be empty or null.");
 
                     systemConfigs.Add(new SystemManager
                     {
-                        SystemName = sysConfigElement.Element("SystemName")?.Value,
-                        SystemFolder = sysConfigElement.Element("SystemFolder")?.Value,
-                        SystemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value,
+                        SystemName = systemName,
+                        SystemFolder = systemFolder, // Store the raw string (potentially with %BASEFOLDER%)
+                        SystemImageFolder = systemImageFolder, // Store the raw string (potentially with %BASEFOLDER%)
                         SystemIsMame = systemIsMame,
                         ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                         FileFormatsToSearch = formatsToSearch,
@@ -298,3 +298,4 @@ public partial class SystemManager
         }
     }
 }
+

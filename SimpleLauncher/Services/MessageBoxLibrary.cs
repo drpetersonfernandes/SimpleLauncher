@@ -4104,44 +4104,6 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static bool AskUserToProceedWithInvalidPath(List<string> invalidPaths = null)
-    {
-        var issuesWithEmulator = (string)Application.Current.TryFindResource("IssuesWithEmulator") ?? "There are issues with the emulator configuration:";
-        var invalidPathsLabel = (string)Application.Current.TryFindResource("InvalidPathsLabel") ?? "• The following paths in parameters may be invalid:";
-        var proceedQuestion = (string)Application.Current.TryFindResource("ProceedWithLaunchQuestion") ?? "Do you want to proceed with launching anyway?";
-        var configEditHint = (string)Application.Current.TryFindResource("ConfigEditHint") ?? "You can edit this system configuration later to fix these issues.";
-        var warningCaption = (string)Application.Current.TryFindResource("PathValidationWarningCaption") ?? "Path Validation Warning";
-
-        var messageBuilder = new StringBuilder(issuesWithEmulator);
-        if (invalidPaths is { Count: > 0 })
-        {
-            messageBuilder.Append("\n\n").Append(invalidPathsLabel);
-            foreach (var path in invalidPaths)
-            {
-                messageBuilder.Append(CultureInfo.InvariantCulture, $"\n  - \"{path}\"");
-            }
-        }
-
-        messageBuilder.Append("\n\n").Append(proceedQuestion).Append('\n');
-        messageBuilder.Append('\n').Append(configEditHint);
-        var message = messageBuilder.ToString();
-
-        bool ShowMessageBoxAndReturnResult()
-        {
-            var result = MessageBox.Show(message, warningCaption, MessageBoxButton.YesNo, MessageBoxImage.Warning);
-            return result == MessageBoxResult.Yes;
-        }
-
-        if (!Application.Current.Dispatcher.CheckAccess())
-        {
-            return Application.Current.Dispatcher.Invoke((Func<bool>)ShowMessageBoxAndReturnResult);
-        }
-        else
-        {
-            return ShowMessageBoxAndReturnResult();
-        }
-    }
-
     internal static void SetFuzzyMatchingThresholdFailureMessageBox()
     {
         var therewasanerrorsettingupthefuzzymatchingthreshold =
@@ -4504,31 +4466,6 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
-    {
-        var dispatcher = Application.Current.Dispatcher;
-        if (dispatcher.CheckAccess())
-            return ShowWarnings();
-        else
-            return dispatcher.Invoke(ShowWarnings);
-
-        MessageBoxResult ShowWarnings()
-        {
-            var pathsList = string.Join("\n- ", relativePaths);
-            var relativepathsweredetectedintheemulatorparameters = (string)Application.Current.TryFindResource("Relativepathsweredetectedintheemulatorparameters") ?? "Relative paths were detected in the emulator parameters:";
-            var usingrelativepathsinparametersisstronglydiscouraged = (string)Application.Current.TryFindResource("Usingrelativepathsinparametersisstronglydiscouraged") ?? "Using relative paths in parameters is strongly discouraged as their behavior can be unpredictable depending on the current working directory when the emulator is launched.";
-            var itisstronglyrecommendedtouseabsolutepathsinstead = (string)Application.Current.TryFindResource("Itisstronglyrecommendedtouseabsolutepathsinstead.") ?? "It is strongly recommended to use absolute paths instead.";
-            var doyouwanttoproceedwithsavinganyway = (string)Application.Current.TryFindResource("Doyouwanttoproceedwithsavinganyway") ?? "Do you want to proceed with saving anyway?";
-            var warningRelativePathsDetected = (string)Application.Current.TryFindResource("WarningRelativePathsDetected") ?? "Warning: Relative Paths Detected";
-            var message = $"{relativepathsweredetectedintheemulatorparameters}\n\n- {pathsList}\n\n" +
-                          $"{usingrelativepathsinparametersisstronglydiscouraged}\n\n" +
-                          $"{itisstronglyrecommendedtouseabsolutepathsinstead}\n\n" +
-                          $"{doyouwanttoproceedwithsavinganyway}";
-            return MessageBox.Show(message, 
-                warningRelativePathsDetected, MessageBoxButton.YesNo, MessageBoxImage.Warning);
-        }
-    }
-
     internal static void CouldNotCheckForDiskSpaceMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
@@ -4672,5 +4609,34 @@ public static class MessageBoxLibrary
                 $"{reportedToDeveloper}",
                 title, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+    }
+
+    internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
+    {
+        var pathsList = string.Join("\n", relativePaths.Select(p => $"- {p}"));
+        var message = $"The following relative paths were detected in your configuration:\n\n{pathsList}\n\n" +
+                      $"For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").\n\n" +
+                      $"For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., \"-config %BASEFOLDER%\\configs\\emu.cfg\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.\n\n" +
+                      $"Do you want to save this configuration?";
+
+        return MessageBox.Show(message, "Relative Paths Detected", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+    }
+
+    // Add or modify this method if it exists, or create it if needed
+    internal static MessageBoxResult AskUserToProceedWithInvalidPath(List<string> invalidPaths)
+    {
+        var pathsList = string.Join("\n", invalidPaths.Select(p => $"- {p}"));
+
+        var message = // Or "Do you want to launch the game anyway?" depending on context
+            // Assuming this is called from GameLauncher, the message should be about launching
+            // If called from EditSystemWindow save, the message should be about saving.
+            // Let's assume this method is generic and the caller provides context or we duplicate it.
+            // Given the original code calls it from GameLauncher, let's keep that context.
+            $"The following paths in the emulator parameters appear to be invalid (file or directory not found):\n\n{pathsList}\n\n" +
+            $"Note: Paths using %BASEFOLDER% or relative paths are checked against the application's directory and the system folder.\n\n" +
+            $"Do you want to launch the game anyway?";
+
+
+        return MessageBox.Show(message, "Invalid Paths Detected", MessageBoxButton.YesNo, MessageBoxImage.Warning);
     }
 }

@@ -31,10 +31,10 @@ public static partial class ParameterValidator
     ];
 
     private static readonly char[] Separator = ['\\', '/'];
-    private static readonly char[] Separator2 = [';'];
-    private static readonly char[] Separator3 = [';'];
-    private static readonly char[] Separator4 = [' ', '\t'];
-    private static readonly char[] Separator5 = [';'];
+    private static readonly char[] Separator2 = [';']; // Used for -rompath splitting
+    private static readonly char[] Separator3 = [';']; // Used for quoted path splitting
+    private static readonly char[] Separator4 = [' ', '\t']; // Used for splitting remaining words
+    private static readonly char[] Separator5 = [';']; // Used for ValidateEmulatorParameters splitting
 
     /// <summary>
     /// Checks if a string looks like a file path
@@ -45,11 +45,13 @@ public static partial class ParameterValidator
         if (string.IsNullOrWhiteSpace(text)) return false;
 
         // Check if it contains any of these characters that suggest it's a path
+        // Also check for %BASEFOLDER% prefix
         return text.Contains('\\') || text.Contains('/') ||
                (text.Length >= 2 && text[1] == ':') || // drive letter
                text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
                text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
                text.Contains(".dll") || // Catch DLL files even if they have additional text after
+               text.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) || // Check for the placeholder
                IsDirectoryPath(text);
     }
 
@@ -77,51 +79,69 @@ public static partial class ParameterValidator
     }
 
     /// <summary>
-    /// Checks if a path contains a known placeholder
+    /// Checks if a path contains a known placeholder (like %ROM%)
     /// </summary>
     private static bool ContainsPlaceholder(string path)
     {
+        // Exclude %BASEFOLDER% from this check, as it's a valid prefix we handle
         return KnownPlaceholders.Any(placeholder =>
-            path.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
+                   path.Contains(placeholder, StringComparison.OrdinalIgnoreCase)) &&
+               !path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase);
     }
 
     /// <summary>
-    /// Validates a single path with multiple resolution strategies
+    /// Validates a single path string by resolving it relative to the app directory
+    /// (handling %BASEFOLDER%) and checking if the resulting file or directory exists.
     /// </summary>
-    private static bool ValidateSinglePath(string path, string baseDir, string systemFolder = null)
+    private static bool ValidateSinglePath(string path, string systemFolder = null)
     {
         // Skip ROM placeholders
         if (ContainsPlaceholder(path)) return true;
 
-        // Expand environment variables
-        if (path.Contains('%'))
+        // Expand environment variables *before* resolving relative paths
+        if (path.Contains('%')) // Simple check for potential env vars
         {
             path = Environment.ExpandEnvironmentVariables(path);
         }
 
         try
         {
-            // Try as an absolute path
-            if (File.Exists(path) || Directory.Exists(path))
+            // Resolve the path relative to the app directory, which now handles %BASEFOLDER%
+            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(path);
+
+            // If resolution failed (e.g., invalid path format), it's invalid
+            if (string.IsNullOrEmpty(resolvedPath))
+            {
+                return false;
+            }
+
+            // Check if the resolved path exists as a file or directory
+            if (File.Exists(resolvedPath) || Directory.Exists(resolvedPath))
+            {
                 return true;
+            }
 
-            // Try as relative to the app directory
-            var appRelativePath = Path.GetFullPath(Path.Combine(baseDir, path));
-            if (File.Exists(appRelativePath) || Directory.Exists(appRelativePath))
+            // NEW: Also try resolving relative to the system folder *if* the path
+            // didn't start with %BASEFOLDER% and wasn't absolute.
+            // This covers cases where a parameter path might be relative to the ROM folder.
+            // The original ValidateSinglePath had this logic, let's re-add it here
+            // *after* trying the %BASEFOLDER% / app directory resolution.
+            if (Path.IsPathRooted(path) || path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+                string.IsNullOrEmpty(systemFolder))
+                return false; // Path does not exist after trying all resolution methods
+
+            var resolvedSystemRelativePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, path);
+            if (File.Exists(resolvedSystemRelativePath) || Directory.Exists(resolvedSystemRelativePath))
+            {
                 return true;
+            }
 
-            // Try as relative to the system folder if provided
-            if (string.IsNullOrEmpty(systemFolder)) return false;
 
-            var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));
-            if (File.Exists(systemRelativePath) || Directory.Exists(systemRelativePath))
-                return true;
-
-            return false;
+            return false; // Path does not exist after trying all resolution methods
         }
         catch (Exception)
         {
-            // If there's any exception parsing the path, consider it invalid
+            // If there's any exception parsing/resolving the path, consider it invalid
             return false;
         }
     }
@@ -135,7 +155,7 @@ public static partial class ParameterValidator
         if (string.IsNullOrWhiteSpace(parameters)) return result;
 
         // Match parameter flags followed by paths
-        var flaggedPathRegex = MyRegex();
+        var flaggedPathRegex = MyRegex(); // Regex: (-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))
         var matches = flaggedPathRegex.Matches(parameters);
 
         foreach (Match match in matches)
@@ -165,7 +185,6 @@ public static partial class ParameterValidator
         if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths); // No parameters, so valid
 
         var allPathsValid = true; // Initial assumption
-        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
 
         // Get all parameter paths with their flags
         var parameterPaths = ExtractParameterPaths(parameters);
@@ -185,7 +204,8 @@ public static partial class ParameterValidator
                         var trimmedPath = romPath.Trim();
                         if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
 
-                        if (Directory.Exists(trimmedPath)) continue;
+                        // Validate using the updated ValidateSinglePath
+                        if (ValidateSinglePath(trimmedPath, systemFolder)) continue;
 
                         invalidPaths.Add(trimmedPath);
                         allPathsValid = false;
@@ -195,8 +215,8 @@ public static partial class ParameterValidator
                 }
                 case "-L":
                 {
-                    // For library paths (-L), check for file existence
-                    if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !File.Exists(path))
+                    // For library paths (-L), check for file existence using updated ValidateSinglePath
+                    if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !ValidateSinglePath(path, systemFolder))
                     {
                         invalidPaths.Add(path);
                         allPathsValid = false;
@@ -206,11 +226,11 @@ public static partial class ParameterValidator
                 }
                 default:
                 {
-                    // For other parameters, check using standard path validation
+                    // For other parameters, check using standard path validation with updated ValidateSinglePath
                     if (!string.IsNullOrWhiteSpace(path) &&
                         !ContainsPlaceholder(path) &&
-                        LooksLikePath(path) &&
-                        !ValidateSinglePath(path, baseDir, systemFolder))
+                        LooksLikePath(path) && // Ensure it looks like a path before validating existence
+                        !ValidateSinglePath(path, systemFolder))
                     {
                         invalidPaths.Add(path);
                         allPathsValid = false;
@@ -222,7 +242,7 @@ public static partial class ParameterValidator
         }
 
         // Process all quoted paths that might not be associated with flags
-        var quotedPathsRegex = MyRegex1();
+        var quotedPathsRegex = MyRegex1(); // Regex: (?:"([^"]+)"|'([^']+)')
         var quotedMatches = quotedPathsRegex.Matches(parameters);
         foreach (Match match in quotedMatches)
         {
@@ -230,7 +250,7 @@ public static partial class ParameterValidator
             var quotedPath = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
             // Skip if it's not a path-like string, contains a placeholder,
-            // or was already validated as a parameter path
+            // or was already validated as a parameter path (to avoid duplicates)
             if (!LooksLikePath(quotedPath) ||
                 ContainsPlaceholder(quotedPath) ||
                 parameterPaths.Any(p => p.Path == quotedPath)) continue;
@@ -238,16 +258,14 @@ public static partial class ParameterValidator
             // Handle multi-paths separated by semicolons (like in -rompath)
             if (quotedPath.Contains(';'))
             {
-                // Split by semicolons and validate each part
+                // Split by semicolons and validate each part using updated ValidateSinglePath
                 var subPaths = quotedPath.Split(Separator3, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var subPath in subPaths)
                 {
                     var trimmedSubPath = subPath.Trim();
                     if (string.IsNullOrWhiteSpace(trimmedSubPath) || ContainsPlaceholder(trimmedSubPath)) continue;
 
-                    // Check if the path exists
-                    var pathValid = Directory.Exists(trimmedSubPath) || File.Exists(trimmedSubPath);
-                    if (pathValid) continue;
+                    if (ValidateSinglePath(trimmedSubPath, systemFolder)) continue;
 
                     invalidPaths.Add(trimmedSubPath);
                     allPathsValid = false;
@@ -255,8 +273,8 @@ public static partial class ParameterValidator
             }
             else
             {
-                // Single path, validate normally
-                if (ValidateSinglePath(quotedPath, baseDir, systemFolder)) continue;
+                // Single path, validate normally using updated ValidateSinglePath
+                if (ValidateSinglePath(quotedPath, systemFolder)) continue;
 
                 invalidPaths.Add(quotedPath);
                 allPathsValid = false;
@@ -264,8 +282,10 @@ public static partial class ParameterValidator
         }
 
         // Process remaining unquoted potential paths (less common)
-        var remainingParams = MyRegex2().Replace(parameters, " ");
-        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
+        // Remove quoted strings first
+        var remainingParams = MyRegex2().Replace(parameters, " "); // Regex: (?:"[^"]*"|'[^']*')
+        // Remove flagged parameters (flag + value)
+        var flagsRemoved = MyRegex3().Replace(remainingParams, " "); // Regex: -\w+\s+
 
         // Split by whitespace and check each token
         var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
@@ -274,98 +294,46 @@ public static partial class ParameterValidator
             // Skip known parameter flags or placeholders
             if (IsKnownFlag(word) || ContainsPlaceholder(word)) continue;
 
-            // If it looks like a path, validate it
-            if (!LooksLikePath(word) || ValidateSinglePath(word, baseDir, systemFolder)) continue;
+            // If it looks like a path, validate it using updated ValidateSinglePath
+            if (!LooksLikePath(word) || ValidateSinglePath(word, systemFolder)) continue;
 
+            // Add the invalid path
             invalidPaths.Add(word);
             allPathsValid = false;
         }
 
         // For MAME systems, apply leniency
         if (!isMameSystem || invalidPaths.Count <= 0)
-            return (allPathsValid, invalidPaths); // Return the final state and the full list
+            return (allPathsValid, invalidPaths.Distinct().ToList()); // Return the final state and the distinct list
 
         {
+            // Identify critical paths for MAME leniency: -rompath or -L
             var criticalPaths = invalidPaths
                 .Where(path => parameterPaths.Any(p =>
                     p.Flag is "-rompath" or "-L" &&
-                    (p.Path == path || p.Path.Contains(path))))
+                    (p.Path == path || (p.Path != null && p.Path.Contains(path))))) // Check if the invalid path is part of a flagged path
                 .ToList();
 
             if (criticalPaths.Count == 0)
             {
                 // Only non-critical paths are invalid, so overall valid due to leniency
-                return (true, invalidPaths); // Return true but still provide the full list
+                return (true, invalidPaths.Distinct().ToList()); // Return true but still provide the full list
             }
             // If critical paths exist, overallValid remains false
         }
 
-        return (allPathsValid, invalidPaths); // Return the final state and the full list
+        return (allPathsValid, invalidPaths.Distinct().ToList()); // Return the final state and the distinct list
     }
 
     /// <summary>
-    /// Validates emulator parameters and returns invalid paths
-    /// </summary>
-    public static (bool success, List<string> invalidPaths) ValidateEmulatorParameters(string parameters, string systemFolder = null, bool isMameSystem = false)
-    {
-        if (string.IsNullOrWhiteSpace(parameters))
-        {
-            return (true, null); // No parameters are valid
-        }
-
-        var (overallValid, allInvalidPaths) = ValidateParameterPaths(parameters, systemFolder, isMameSystem);
-
-        if (overallValid)
-        {
-            return (true, null); // Success, no invalid paths to report
-        }
-
-        var invalidPaths = new List<string>(allInvalidPaths); // Copy the list
-
-        // Extract all parameter paths for more detailed analysis
-        var paramPaths = ExtractParameterPaths(parameters);
-
-        // Add any additional invalid paths that may have been missed
-        foreach (var (flag, path) in paramPaths)
-        {
-            switch (flag)
-            {
-                case "-L" when !File.Exists(path) && !invalidPaths.Contains(path):
-                    invalidPaths.Add(path);
-                    break;
-                case "-rompath":
-                {
-                    // For rompath, check all semicolon-separated paths
-                    if (path != null)
-                    {
-                        var romPaths = path.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
-                        foreach (var romPath in romPaths)
-                        {
-                            var trimmedPath = romPath.Trim();
-                            if (!Directory.Exists(trimmedPath) && !invalidPaths.Contains(trimmedPath))
-                            {
-                                invalidPaths.Add(trimmedPath);
-                            }
-                        }
-                    }
-
-                    break;
-                }
-            }
-        }
-
-        return (false, invalidPaths); // Return failure and the updated list
-    }
-
-    /// <summary>
-    /// Identifies potential relative paths within a parameter string.
+    /// Identifies potential relative paths within a parameter string that do NOT start with %BASEFOLDER%.
     /// </summary>
     /// <param name="parameters">The parameter string to analyze.</param>
-    /// <returns>A list of identified relative paths.</returns>
+    /// <returns>A list of identified relative paths without the %BASEFOLDER% prefix.</returns>
     public static List<string> GetRelativePathsInParameters(string parameters)
     {
-        var relativePaths = new HashSet<string>();
-        if (string.IsNullOrWhiteSpace(parameters)) return relativePaths.ToList();
+        var relativePathsWithoutPrefix = new HashSet<string>();
+        if (string.IsNullOrWhiteSpace(parameters)) return relativePathsWithoutPrefix.ToList();
 
         // Combine all potential path extraction logic
         var potentialPaths = new List<string>();
@@ -385,7 +353,7 @@ public static partial class ParameterValidator
         var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
         potentialPaths.AddRange(words);
 
-        // Filter and identify relative paths
+        // Filter and identify relative paths *without* the %BASEFOLDER% prefix
         foreach (var potentialPath in potentialPaths)
         {
             var trimmedPath = potentialPath.Trim();
@@ -396,16 +364,10 @@ public static partial class ParameterValidator
                 continue;
             }
 
-            // Check if it looks like a path and is not rooted (i.e., relative)
-            // Also exclude simple filenames without separators unless they look like executables/dlls
-            // A simple filename like "game.exe" might be relative, but often it's expected to be in the system PATH or emulator directory.
-            // Let's focus on paths that explicitly use '.' or '..' or contain directory separators but aren't rooted.
-            // A simple heuristic: if it contains '\' or '/', or starts with '.' or '..', and is not rooted, consider it relative.
-            // Or, if it looks like a path (using LooksLikePath) and is not rooted. Let's use LooksLikePath as it's already defined.
-
-            if (LooksLikePath(trimmedPath) && !Path.IsPathRooted(trimmedPath))
+            // Check if it looks like a path and is relative *without* the %BASEFOLDER% prefix
+            if (LooksLikePath(trimmedPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedPath))
             {
-                relativePaths.Add(trimmedPath);
+                relativePathsWithoutPrefix.Add(trimmedPath);
             }
             // Special case: Handle paths within -rompath or -L that are semicolon separated
             else if (trimmedPath.Contains(';'))
@@ -414,16 +376,95 @@ public static partial class ParameterValidator
                 foreach (var subPath in subPaths)
                 {
                     var trimmedSubPath = subPath.Trim();
-                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && !Path.IsPathRooted(trimmedSubPath))
+                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedSubPath))
                     {
-                        relativePaths.Add(trimmedSubPath);
+                        relativePathsWithoutPrefix.Add(trimmedSubPath);
                     }
                 }
             }
         }
 
-        return relativePaths.ToList();
+        return relativePathsWithoutPrefix.Distinct().ToList();
     }
+
+    /// <summary>
+    /// Resolves all path-like tokens within a parameter string to their absolute paths,
+    /// handling %BASEFOLDER% and relative paths.
+    /// </summary>
+    /// <param name="parameters">The parameter string.</param>
+    /// <param name="systemFolder">The system's folder path for relative resolution.</param>
+    /// <returns>The parameter string with path tokens resolved to absolute paths.</returns>
+    public static string ResolveParameterString(string parameters, string systemFolder = null)
+    {
+        if (string.IsNullOrWhiteSpace(parameters))
+        {
+            return string.Empty;
+        }
+
+        // Use a regex that captures potential path tokens (quoted or unquoted)
+        // This regex tries to be broad to find anything that *might* be a path token.
+        // It captures quoted strings or sequences of non-whitespace characters.
+        // We use a MatchEvaluator to process each potential token.
+        var pathTokenRegex = new Regex("""
+                                       "[^"]*"|'[^']*'|\S+
+                                       """);
+
+        var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
+        {
+            var token = match.Value;
+            var trimmedToken = token.Trim('"', '\''); // Remove quotes for processing
+
+            // Skip known placeholders (like %ROM%)
+            if (ContainsPlaceholder(trimmedToken))
+            {
+                return token; // Return original token with quotes if present
+            }
+
+            // Skip known flags
+            if (IsKnownFlag(trimmedToken))
+            {
+                return token; // Return original token
+            }
+
+            // Check if the token looks like a path
+            if (!LooksLikePath(trimmedToken)) return token;
+
+            try
+            {
+                // Attempt to resolve the path relative to the app directory (handles %BASEFOLDER%)
+                var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(trimmedToken);
+
+                // If resolution failed, try resolving relative to the system folder
+                if (string.IsNullOrEmpty(resolvedPath) && !string.IsNullOrEmpty(systemFolder) && !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+                {
+                    resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, trimmedToken);
+                }
+
+                // If resolution was successful and the path exists, return the resolved path.
+                // Otherwise, return the original token. We only replace if we successfully resolved
+                // to an existing file/directory. This avoids breaking parameters that look
+                // *like* paths but aren't intended as such or are invalid.
+                if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
+                {
+                    // Return the resolved path, re-adding quotes if the original was quoted
+                    return token.StartsWith('"') ? $"\"{resolvedPath}\"" :
+                        token.StartsWith('\'') ? $"'{resolvedPath}'" :
+                        resolvedPath;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Log any errors during resolution but don't fail the whole process.
+                _ = LogErrors.LogErrorAsync(ex, $"Error resolving parameter path token '{token}'.");
+            }
+
+            // If it doesn't look like a path, or resolution failed, or path doesn't exist, return the original token
+            return token;
+        });
+
+        return resolvedParameters;
+    }
+
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
