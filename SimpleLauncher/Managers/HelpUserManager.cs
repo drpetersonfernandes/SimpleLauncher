@@ -23,8 +23,7 @@ public class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'helpuser.xml' is missing.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
@@ -119,8 +118,7 @@ public class HelpUserManager
                 // Notify developer
                 // Log that no valid systems were found, regardless of the reason (empty file or all failed parse and no reinstall)
                 const string contextMessage = "No valid systems found in 'helpuser.xml' after processing.";
-                var ex = new Exception(contextMessage); // Use a more specific log message
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();

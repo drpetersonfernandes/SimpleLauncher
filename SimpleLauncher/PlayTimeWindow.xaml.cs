@@ -273,8 +273,7 @@ public partial class PlayTimeWindow
             {
                 // Notify developer
                 const string contextMessage = "History item filename is null";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -288,8 +287,7 @@ public partial class PlayTimeWindow
             {
                 // Notify developer
                 const string contextMessage = "systemConfig is null";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -347,8 +345,7 @@ public partial class PlayTimeWindow
         {
             // Notify developer
             const string contextMessage = "systemManager is null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -377,8 +374,7 @@ public partial class PlayTimeWindow
         {
             // Notify developer
             const string contextMessage = "emulatorManager is null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);

@@ -18,8 +18,7 @@ public static class Get7ZipPath
                 return Path.Combine(baseDirectory, "7z_x86.exe");
             default:
                 // Notify developer
-                var ex = new PlatformNotSupportedException("Unsupported architecture for 7z extraction.");
-                _ = LogErrors.LogErrorAsync(ex, "Unsupported architecture for 7z extraction.");
+                _ = LogErrors.LogErrorAsync(null, "Unsupported architecture for 7z extraction.");
 
                 // Notify user
                 MessageBoxLibrary.UnsupportedArchitectureMessageBox();

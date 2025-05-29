@@ -138,7 +138,31 @@ public partial class EditSystemWindow
                 emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText,
                 emulator5ParametersText
             ];
+
+            // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
             ValidateAndWarnAboutParameters(parameterTexts);
+            // Note: ValidateAndWarnAboutParameters shows a warning but *does not* return, allowing the user to proceed.
+
+            // --- NEW: Check for *relative* paths and ask the user if they want to proceed ---
+            var allRelativePaths = new List<string>();
+            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator1ParametersText));
+            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator2ParametersText));
+            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator3ParametersText));
+            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator4ParametersText));
+            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator5ParametersText));
+
+            if (allRelativePaths.Count != 0)
+            {
+                var result = MessageBoxLibrary.RelativePathsWarningMessageBox(allRelativePaths.Distinct().ToList());
+                if (result == MessageBoxResult.No)
+                {
+                    // User chose not to save because of relative paths
+                    return;
+                }
+                // If result is Yes, continue with the save process
+            }
+            // --- END NEW ---
+
 
             var receiveNotification1 =
                 ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
@@ -172,14 +196,13 @@ public partial class EditSystemWindow
 
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
             string[] locationTexts = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
-            string[] paramTextsForLoop = [emulator2ParametersText, emulator3ParametersText, emulator4ParametersText, emulator5ParametersText];
             bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
             for (var i = 0; i < nameTexts.Length; i++)
             {
                 var currentEmulatorName = nameTexts[i];
                 var currentEmulatorLocation = locationTexts[i];
-                var currentEmulatorParameters = paramTextsForLoop[i];
+                var currentEmulatorParameters = parameterTexts[i + 1]; // Use parameterTexts array
                 var currentReceiveNotification = receiveNotifications[i];
 
                 if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))

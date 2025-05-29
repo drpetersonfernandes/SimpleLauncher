@@ -25,8 +25,7 @@ public class EasyModeManager
         {
             // Notify developer
             const string contextMessage = "The file 'easymode.xml' was not found in the application folder.";
-            var ex = new FileNotFoundException($"File not found: {xmlFilePath}");
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify the user.
             MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();

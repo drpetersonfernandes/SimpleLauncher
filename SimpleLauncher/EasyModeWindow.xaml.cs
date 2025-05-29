@@ -138,7 +138,7 @@ public partial class EasyModeWindow : IDisposable
 
         // Populate SystemFolder with value from easymode.xml
         var originalSystemFolder = selectedSystem.SystemFolder;
-        var fixedSystemFolder = originalSystemFolder.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+        var fixedSystemFolder = originalSystemFolder.Replace("%BASEFOLDER%", _basePath);
         var finalSystemFolder = Path.GetFullPath(fixedSystemFolder);
         SystemFolderTextBox.Text = finalSystemFolder;
     }
@@ -238,7 +238,7 @@ public partial class EasyModeWindow : IDisposable
                 downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
 
                 var emulatorDownloadExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                var fixedEmulatorDownloadExtractPath = emulatorDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var fixedEmulatorDownloadExtractPath = emulatorDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
                 var finalEmulatorDownloadExtractPath = Path.GetFullPath(fixedEmulatorDownloadExtractPath);
 
                 destinationPath = finalEmulatorDownloadExtractPath;
@@ -248,7 +248,7 @@ public partial class EasyModeWindow : IDisposable
                 downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
 
                 var coreDownloadExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-                var fixedCoreDownloadExtractPath = coreDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var fixedCoreDownloadExtractPath = coreDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
                 var finalCoreDownloadExtractPath = Path.GetFullPath(fixedCoreDownloadExtractPath);
 
                 destinationPath = finalCoreDownloadExtractPath;
@@ -258,7 +258,7 @@ public partial class EasyModeWindow : IDisposable
                 downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
 
                 var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
                 var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
                 destinationPath = finalImagePackDownloadExtractPath;
@@ -538,7 +538,7 @@ public partial class EasyModeWindow : IDisposable
 
             // Resolve System Image Folder Path
             var originalSystemImageFolder = selectedSystem.SystemImageFolder;
-            var fixedSystemImageFolder = originalSystemImageFolder.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+            var fixedSystemImageFolder = originalSystemImageFolder.Replace("%BASEFOLDER%", _basePath);
             var finalSystemImageFolder = Path.GetFullPath(fixedSystemImageFolder);
 
             var addingsystemtoconfiguration = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
@@ -613,12 +613,12 @@ public partial class EasyModeWindow : IDisposable
         var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
 
         var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorLocation = emulatorLocation.Replace("%BASEFOLDER%", sanitizedBasePath);
         var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
         var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
 
         var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorParameters = emulatorParameters.Replace("%BASEFOLDER%", sanitizedBasePath);
         var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
         var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
 
@@ -648,12 +648,12 @@ public partial class EasyModeWindow : IDisposable
         var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
 
         var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorLocation = emulatorLocation.Replace("%BASEFOLDER%", sanitizedBasePath);
         var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
         var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
 
         var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%SIMPLELAUNCHERFOLDER%", sanitizedBasePath);
+        var fixedEmulatorParameters = emulatorParameters.Replace("%BASEFOLDER%", sanitizedBasePath);
         var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
         var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
 

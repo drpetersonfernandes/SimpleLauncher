@@ -48,8 +48,7 @@ public partial class RomHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Update UI on the UI thread
                 await Dispatcher.InvokeAsync(() =>

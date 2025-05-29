@@ -23,8 +23,7 @@ public static class LaunchTools
         {
             // Notify developer
             const string contextMessage = "Tool path cannot be null or empty.";
-            var ex = new ArgumentNullException(nameof(toolPath), contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user (using a generic message for tool not found)
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -36,8 +35,7 @@ public static class LaunchTools
         {
             // Notify developer
             var contextMessage = $"External tool not found: {toolPath}";
-            var ex = new FileNotFoundException(contextMessage, toolPath);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();

@@ -297,8 +297,7 @@ public partial class GlobalSearchWindow
             if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
             {
                 // Notify developer
-                var ex = new Exception("filePath or selectedSystemName or selectedEmulatorManager is null.");
-                _ = LogErrors.LogErrorAsync(ex, "Invalid parameters for launching game from search.");
+                _ = LogErrors.LogErrorAsync(null, "filePath or selectedSystemName or selectedEmulatorManager is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);

@@ -576,8 +576,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string errorMessage = "selectedSystem is null.";
-                var ex = new Exception(errorMessage);
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                _ = LogErrors.LogErrorAsync(null, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -591,8 +590,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string errorMessage = "selectedConfig is null.";
-                var ex = new Exception(errorMessage);
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                _ = LogErrors.LogErrorAsync(null, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -704,8 +702,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string contextMessage = "selectedConfig is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();

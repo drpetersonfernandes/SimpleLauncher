@@ -26,8 +26,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file 'mame.dat' could not be found in the application folder.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();

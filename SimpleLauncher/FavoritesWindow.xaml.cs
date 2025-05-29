@@ -178,8 +178,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "systemConfig is null for the selected favorite";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -240,8 +239,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "selectedSystemManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -264,8 +262,7 @@ public partial class FavoritesWindow
 
                 // Notify developer
                 var contextMessage = $"Favorite file does not exist: {filePath}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.GameFileDoesNotExistMessageBox();
@@ -278,8 +275,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);

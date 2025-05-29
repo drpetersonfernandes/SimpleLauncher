@@ -145,8 +145,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorOpeningCoverImageMessageBox();
@@ -356,8 +355,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotTakeScreenshotMessageBox();

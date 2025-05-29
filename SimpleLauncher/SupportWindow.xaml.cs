@@ -38,8 +38,7 @@ public partial class SupportWindow
             {
                 // Notify developer
                 const string contextMessage = "File 'appsettings.json' is missing.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RequiredFileMissingMessageBox();
@@ -126,8 +125,7 @@ public partial class SupportWindow
         {
             // Notify developer
             const string contextMessage = "Email API base URL is not properly configured in 'appsettings.json'.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
@@ -174,8 +172,7 @@ public partial class SupportWindow
 
                 // Notify developer
                 var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SupportRequestSendErrorMessageBox();

@@ -25,8 +25,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "Invalid absoluteFilePath.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -38,8 +37,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "selectedEmulatorName is null or empty.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -51,8 +49,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "Invalid system.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -64,8 +61,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "selectedSystemManager is null";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -78,8 +74,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "_selectedEmulatorManager is null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -91,8 +86,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "_selectedEmulatorManager.EmulatorName is null.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -268,8 +262,7 @@ public static class GameLauncher
                                      $"Exit code {process.ExitCode}\n" +
                                      $"Output: {output}\n" +
                                      $"Error: {error}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -320,8 +313,7 @@ public static class GameLauncher
                 var contextMessage = $"Error launching the shortcut file. User was not notified.\n" +
                                      $"Shortcut file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -370,8 +362,7 @@ public static class GameLauncher
                 var contextMessage = $"Error launching the executable file. User was not notified.\n" +
                                      $"Executable file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -407,8 +398,7 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "absoluteFilePath is null or empty after extraction attempt.";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -422,8 +412,7 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Emulator programLocation is null, empty, or does not exist: '{programLocation}'";
-            var ex = new FileNotFoundException(contextMessage, programLocation);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
@@ -581,8 +570,7 @@ public static class GameLauncher
             {
                 // Notify developer
                 var contextMessage = $"Can not extract file: {absoluteFilePath}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CannotExtractThisFileMessageBox(absoluteFilePath);
@@ -599,8 +587,7 @@ public static class GameLauncher
             {
                 // Notify developer
                 var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -612,8 +599,7 @@ public static class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "FileFormatsToLaunch is null or empty.";
-                var ex = new Exception(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
@@ -658,8 +644,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
         else
         {
@@ -671,8 +656,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
         // Notify the user only if he wants
@@ -702,8 +686,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
         else
         {
@@ -715,8 +698,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
         // Notify the user only if he wants
@@ -746,8 +728,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
         else
         {
@@ -759,8 +740,7 @@ public static class GameLauncher
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n" +
                                  $"Calling parameters: {psi.Arguments}";
-            var ex = new Exception(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
         // Notify the user only if he wants
@@ -778,8 +758,7 @@ public static class GameLauncher
 
         // Notify developer
         const string contextMessage = "Extraction failed.";
-        var ex = new Exception(contextMessage);
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        _ = LogErrors.LogErrorAsync(null, contextMessage);
 
         // Notify user
         MessageBoxLibrary.ExtractionFailedMessageBox();

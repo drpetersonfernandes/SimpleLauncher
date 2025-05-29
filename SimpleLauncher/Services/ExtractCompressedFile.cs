@@ -28,8 +28,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null or empty";
-            var ex = new ArgumentNullException(nameof(archivePath));
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -42,8 +41,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             var contextMessage = $"Archive file not found: {archivePath}";
-            var ex = new FileNotFoundException("Archive file not found", archivePath);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -67,8 +65,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "7-Zip executable not found or is inaccessible.";
-            var ex = new FileNotFoundException(contextMessage, sevenZipPath);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -96,8 +93,7 @@ public class ExtractCompressedFile
                 // Notify developer
                 // Log this as a potential security issue
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
-                var ex = new SecurityException(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
@@ -244,8 +240,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null or empty";
-            var ex = new ArgumentNullException(nameof(archivePath));
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -258,8 +253,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             var contextMessage = $"The specified archive file does not exist: {archivePath}";
-            var ex = new FileNotFoundException("Archive file not found", archivePath);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -297,8 +291,7 @@ public class ExtractCompressedFile
                 // Notify developer
                 // Log this as a potential security issue
                 const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
-                var ex = new SecurityException(contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
@@ -449,8 +442,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "File path is invalid.";
-            var ex = new ArgumentNullException(nameof(filePath));
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
@@ -463,8 +455,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             const string contextMessage = "Destination folder cannot be null or empty";
-            var ex = new ArgumentNullException(nameof(destinationFolder));
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -477,8 +468,7 @@ public class ExtractCompressedFile
         {
             // Notify developer
             var contextMessage = $"The downloaded file appears to be locked: {filePath}";
-            var ex = new IOException(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileIsLockedMessageBox();
@@ -495,8 +485,7 @@ public class ExtractCompressedFile
             // Notify developer
             var contextMessage = $"Only ZIP files are supported by this extraction method.\n" +
                                  $"File type: {extension}";
-            var ex = new NotSupportedException(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();

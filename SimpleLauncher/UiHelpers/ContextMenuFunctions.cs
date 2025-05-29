@@ -737,8 +737,7 @@ public static class ContextMenuFunctions
         {
             // Notify developer
             var contextMessage = $"The file '{fileNameWithExtension}' could not be found.";
-            var ex = new FileNotFoundException(contextMessage);
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);

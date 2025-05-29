@@ -112,7 +112,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
                 // Determine the extraction folder
                 var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
                 var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
                 // Update UI elements
@@ -157,8 +157,7 @@ public partial class DownloadImagePackWindow : IDisposable
                         // Notify developer
                         var contextMessage = $"Image Pack extraction failed.\n" +
                                              $"File: {imagePackDownloadUrl}";
-                        var ex = new Exception(contextMessage);
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -248,7 +247,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-        var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%SIMPLELAUNCHERFOLDER%", _basePath);
+        var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
         var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
         // Verify the extraction folder exists or can be created

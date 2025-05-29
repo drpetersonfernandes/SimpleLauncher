@@ -221,8 +221,7 @@ public class GameListFactory(
         if (selectedItem == null)
         {
             // Notify developer
-            var ex = new Exception("selectedItem is null.");
-            _ = LogErrors.LogErrorAsync(ex, "selectedItem is null.");
+            _ = LogErrors.LogErrorAsync(null, "selectedItem is null.");
 
             return;
         }
@@ -234,8 +233,9 @@ public class GameListFactory(
 
         if (selectedSystemManager == null)
         {
-            var ex = new Exception("selectedSystemManager is null.");
-            _ = LogErrors.LogErrorAsync(ex, "selectedSystemManager is null.");
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(null, "selectedSystemManager is null.");
+
             return;
         }
 
