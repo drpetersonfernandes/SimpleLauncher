@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
 using System.Text.RegularExpressions;
 
 namespace SimpleLauncher.Services;
@@ -12,9 +11,10 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public static partial class ParameterValidator
 {
-    // Regex to split the command line into tokens, respecting quotes.
-    [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
-    private static partial Regex CommandLineTokenizerRegex();
+    // Regular expression to detect potential paths in parameter strings
+    // private static readonly Regex PathRegex = new(
+    //     @"(?:""|')([^""']+)(?:""|')|(?:(?:^|\s)(?:-\w+\s+)?(?:[A-Za-z]:)?[\\\/](?:[^""\s\\\/;]+[\\\/])+[^""\s\\\/;]*)",
+    //     RegexOptions.Compiled);
 
     // Known parameter placeholders that shouldn't be validated as actual paths
     private static readonly string[] KnownPlaceholders =
@@ -24,332 +24,348 @@ public static partial class ParameterValidator
     ];
 
     // Known parameter flags that shouldn't be validated as actual paths
-    // This list is extensive to avoid misinterpreting flags as paths.
     private static readonly string[] KnownParameterFlags =
     [
         "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
-        "-L", "-g", "-rompath", "-cdrom", "-harddisk", "-flop1", "-flop2", "-cass", "-skip_bios",
-        "-bios", "-cart1", "-cart2", "-exp", "-megacd", "-32x", "-addon", "-force_system",
-        "-system", "-loadstate", "-savestate", "-record", "-playback", "-cheats", "-debug",
-        "-nogui", "-batch", "-exit", "-config", "-input", "-output", "-sound", "-video",
-        "-joy", "-keyboard", "-mouse", "-lightgun", "-joystick", "-paddle", "-dial", "-trackball",
-        "-pedal", "-adstick", "-port", "-device", "-listxml", "-listfull", "-listsnap",
-        "-listsoftware", "-verifyroms", "-verifysamples", "-verifysoftlist", "-createconfig",
-        "-showconfig", "-showusage", "-validate", "-autoframeskip", "-frameskip", "-throttle",
-        "-nothrottle", "-sleep", "-nosleep", "-speed", "-refresh", "-resolution", "-aspect",
-        "-view", "-screen", "-artwork_crop", "-use_artwork_crop", "-allow_artwork_crop",
-        "-keepaspect", "-unevenstretch", "-unevenstretch_x", "-unevenstretch_y", "-effect",
-        "-waitvsync", "-nowaitvsync", "-syncrefresh", "-nosyncrefresh", "-triplebuffer",
-        "-notriplebuffer", "-switchres", "-noswitchres", "-maximize", "-nomaximize",
-        "-snapsize", "-snapview", "-snapbilinear", "-snapdither",
-        "-snapdither_pattern", "-snapdither_threshold", "-snapalias", "-burnin", "-noburnin",
-        "-autoboot_command", "-autoboot_delay", "-autoboot_script", "-exit_time", "-into_menu",
-        "-menu_theme", "-menu_font_size", "-menu_font_game_size", "-menu_wrap_text",
-        "-listmedia", "-listdevices", "-listmidi", "-listnetwork", "-listinputs", "-listcontrollers",
-        "-listlights", "-listspeakers", "-listmonitors", "-listvideo", "-listpalette",
-        "-listcolors", "-listkeys", "-listcommands"
+        "-L", "-g", "-rompath"
     ];
 
-    private static readonly char[] PathSeparators = ['\\', '/'];
-    private static readonly char[] ArgumentSeparators = [';'];
+    private static readonly char[] Separator = ['\\', '/'];
+    private static readonly char[] Separator2 = [';'];
+    private static readonly char[] Separator3 = [';'];
+    private static readonly char[] Separator4 = [' ', '\t'];
+    private static readonly char[] Separator5 = [';'];
 
+    /// <summary>
+    /// Checks if a string looks like a file path
+    /// </summary>
     private static bool LooksLikePath(string text)
     {
+        // Skip empty strings
         if (string.IsNullOrWhiteSpace(text)) return false;
-        if (text.Length < 3 && text.All(char.IsDigit)) return false;
 
-        return text.IndexOfAny(PathSeparators) >= 0 ||
-               (text.Length >= 2 && text[1] == ':' && char.IsLetter(text[0])) ||
+        // Check if it contains any of these characters that suggest it's a path
+        return text.Contains('\\') || text.Contains('/') ||
+               (text.Length >= 2 && text[1] == ':') || // drive letter
                text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
                text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".bin", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".rom", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".cue", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".iso", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".chd", StringComparison.OrdinalIgnoreCase);
+               text.Contains(".dll") || // Catch DLL files even if they have additional text after
+               IsDirectoryPath(text);
     }
 
+    /// <summary>
+    /// Checks if the text appears to be a directory path (more thorough than just checking for slashes)
+    /// </summary>
     private static bool IsDirectoryPath(string text)
     {
-        if (string.IsNullOrWhiteSpace(text)) return false;
+        // Check for directory-like structures with multiple segments
+        var hasDrivePrefix = text.Length >= 2 && text[1] == ':';
+        var hasMultipleSegments = text.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Length > 1;
 
-        return text.EndsWith(Path.DirectorySeparatorChar.ToString(), StringComparison.Ordinal) ||
-               text.EndsWith(Path.AltDirectorySeparatorChar.ToString(), StringComparison.Ordinal) ||
-               (!string.IsNullOrEmpty(text) && string.IsNullOrEmpty(Path.GetFileName(text)) && Directory.Exists(PathHelper.ResolveRelativeToAppDirectory(text)));
+        return (hasDrivePrefix && hasMultipleSegments) ||
+               (text.Contains('\\') && hasMultipleSegments) ||
+               (text.Contains('/') && hasMultipleSegments);
     }
 
+    /// <summary>
+    /// Checks if a string is a known parameter flag
+    /// </summary>
     private static bool IsKnownFlag(string text)
     {
         return KnownParameterFlags.Any(flag =>
             string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
     }
 
+    /// <summary>
+    /// Checks if a path contains a known placeholder
+    /// </summary>
     private static bool ContainsPlaceholder(string path)
     {
         return KnownPlaceholders.Any(placeholder =>
             path.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
     }
 
-    private static bool TryResolveAndValidateSinglePath(string path, string systemFolder, out string resolvedPath)
+    /// <summary>
+    /// Validates a single path with multiple resolution strategies
+    /// </summary>
+    private static bool ValidateSinglePath(string path, string baseDir, string systemFolder = null)
     {
-        resolvedPath = path;
-        if (string.IsNullOrWhiteSpace(path) || ContainsPlaceholder(path)) return true;
+        // Skip ROM placeholders
+        if (ContainsPlaceholder(path)) return true;
 
-        var pathForChecking = path.Contains('%') ? Environment.ExpandEnvironmentVariables(path) : path;
+        // Expand environment variables
+        if (path.Contains('%'))
+        {
+            path = Environment.ExpandEnvironmentVariables(path);
+        }
 
         try
         {
-            if (Path.IsPathRooted(pathForChecking))
-            {
-                resolvedPath = Path.GetFullPath(pathForChecking);
-                return File.Exists(resolvedPath) || Directory.Exists(resolvedPath);
-            }
-
-            if (!string.IsNullOrEmpty(systemFolder))
-            {
-                var systemRelative = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, pathForChecking);
-                if (File.Exists(systemRelative) || Directory.Exists(systemRelative))
-                {
-                    resolvedPath = systemRelative;
-                    return true;
-                }
-            }
-
-            var appRelative = PathHelper.ResolveRelativeToAppDirectory(pathForChecking);
-            if (File.Exists(appRelative) || Directory.Exists(appRelative))
-            {
-                resolvedPath = appRelative;
+            // Try as an absolute path
+            if (File.Exists(path) || Directory.Exists(path))
                 return true;
-            }
 
-            resolvedPath = appRelative;
+            // Try as relative to the app directory
+            var appRelativePath = Path.GetFullPath(Path.Combine(baseDir, path));
+            if (File.Exists(appRelativePath) || Directory.Exists(appRelativePath))
+                return true;
+
+            // Try as relative to the system folder if provided
+            if (string.IsNullOrEmpty(systemFolder)) return false;
+
+            var systemRelativePath = Path.GetFullPath(Path.Combine(systemFolder, path));
+            if (File.Exists(systemRelativePath) || Directory.Exists(systemRelativePath))
+                return true;
+
             return false;
         }
         catch (Exception)
         {
-            try
-            {
-                resolvedPath = PathHelper.ResolveRelativeToAppDirectory(pathForChecking);
-            }
-            catch
-            {
-                /* ignore */
-            }
-
+            // If there's any exception parsing the path, consider it invalid
             return false;
         }
     }
 
-    public static (bool overallValid, List<string> allInvalidPaths) ValidateParameterPaths(string parameters, string systemFolder = null, bool isMameSystem = false)
+    /// <summary>
+    /// Extracts parameter paths from a command line with thorough validation
+    /// </summary>
+    private static List<(string Flag, string Path)> ExtractParameterPaths(string parameters)
     {
-        var invalidPaths = new List<string>();
-        if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths);
+        var result = new List<(string Flag, string Path)>();
+        if (string.IsNullOrWhiteSpace(parameters)) return result;
 
-        var allPathsCurrentlyValid = true;
-        var tokens = CommandLineTokenizerRegex().Matches(parameters).Select(m => m.Value).ToList();
+        // Match parameter flags followed by paths
+        var flaggedPathRegex = MyRegex();
+        var matches = flaggedPathRegex.Matches(parameters);
 
-        for (var i = 0; i < tokens.Count; i++)
+        foreach (Match match in matches)
         {
-            var tokenValue = tokens[i].Trim('"', '\'');
-            if (ContainsPlaceholder(tokenValue) || IsKnownFlag(tokenValue)) continue;
+            var flag = match.Groups[1].Value;
 
-            var isPathArgumentForFlag = i > 0 && IsKnownFlag(tokens[i - 1]) &&
-                                        tokens[i - 1].ToLowerInvariant() is "-l" or "-rompath" or "-cart" or "-flop1" or "-bios" or "-config";
+            // Get the path value from whichever group matched
+            var path = match.Groups[2].Success ? match.Groups[2].Value :
+                match.Groups[3].Success ? match.Groups[3].Value :
+                match.Groups[4].Value;
 
-            if (!isPathArgumentForFlag && !LooksLikePath(tokenValue)) continue;
-
-            if (tokenValue.Contains(';'))
+            if (!string.IsNullOrWhiteSpace(path))
             {
-                foreach (var subPath in tokenValue.Split(ArgumentSeparators, StringSplitOptions.RemoveEmptyEntries))
-                {
-                    var trimmedSubPath = subPath.Trim();
-                    if (string.IsNullOrWhiteSpace(trimmedSubPath) || ContainsPlaceholder(trimmedSubPath) ||
-                        TryResolveAndValidateSinglePath(trimmedSubPath, systemFolder, out _)) continue;
-
-                    invalidPaths.Add(trimmedSubPath);
-                    allPathsCurrentlyValid = false;
-                }
-            }
-            else if (!TryResolveAndValidateSinglePath(tokenValue, systemFolder, out _))
-            {
-                invalidPaths.Add(tokenValue);
-                allPathsCurrentlyValid = false;
+                result.Add((flag, path));
             }
         }
 
-        if (!isMameSystem || allPathsCurrentlyValid || invalidPaths.Count == 0)
-            return (allPathsCurrentlyValid, invalidPaths);
-
-        var hasCriticalInvalidPath = invalidPaths.Any(invalidPath =>
-            Enumerable.Range(0, tokens.Count - 1)
-                .Any(idx => tokens[idx + 1].Trim('"', '\'').Contains(invalidPath) &&
-                            (tokens[idx].Equals("-L", StringComparison.OrdinalIgnoreCase) || tokens[idx].Equals("-rompath", StringComparison.OrdinalIgnoreCase))));
-        if (!hasCriticalInvalidPath) return (true, invalidPaths);
-
-        return (allPathsCurrentlyValid, invalidPaths);
+        return result;
     }
 
-    public static (bool success, List<string> invalidPaths) ValidateEmulatorParameters(string parameters, string systemFolder = null, bool isMameSystem = false)
+    /// <summary>
+    /// Validates paths in parameter strings and returns invalid paths
+    /// </summary>
+    public static (bool overallValid, List<string> allInvalidPaths) ValidateParameterPaths(string parameters, string systemFolder = null, bool isMameSystem = false)
     {
-        return ValidateParameterPaths(parameters, systemFolder, isMameSystem);
+        var invalidPaths = new List<string>(); // Local list to collect all invalid paths
+        if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths); // No parameters, so valid
+
+        var allPathsValid = true; // Initial assumption
+        var baseDir = AppDomain.CurrentDomain.BaseDirectory;
+
+        // Get all parameter paths with their flags
+        var parameterPaths = ExtractParameterPaths(parameters);
+
+        // Validate each parameter path based on its flag
+        foreach (var (flag, path) in parameterPaths)
+        {
+            switch (flag)
+            {
+                // Handle specific flag types differently
+                case "-rompath":
+                {
+                    // For rompath, split by semicolons and validate each directory
+                    var romPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
+                    foreach (var romPath in romPaths)
+                    {
+                        var trimmedPath = romPath.Trim();
+                        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
+
+                        if (Directory.Exists(trimmedPath)) continue;
+
+                        invalidPaths.Add(trimmedPath);
+                        allPathsValid = false;
+                    }
+
+                    break;
+                }
+                case "-L":
+                {
+                    // For library paths (-L), check for file existence
+                    if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !File.Exists(path))
+                    {
+                        invalidPaths.Add(path);
+                        allPathsValid = false;
+                    }
+
+                    break;
+                }
+                default:
+                {
+                    // For other parameters, check using standard path validation
+                    if (!string.IsNullOrWhiteSpace(path) &&
+                        !ContainsPlaceholder(path) &&
+                        LooksLikePath(path) &&
+                        !ValidateSinglePath(path, baseDir, systemFolder))
+                    {
+                        invalidPaths.Add(path);
+                        allPathsValid = false;
+                    }
+
+                    break;
+                }
+            }
+        }
+
+        // Process all quoted paths that might not be associated with flags
+        var quotedPathsRegex = MyRegex1();
+        var quotedMatches = quotedPathsRegex.Matches(parameters);
+        foreach (Match match in quotedMatches)
+        {
+            // Get the value from whichever group matched
+            var quotedPath = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
+
+            // Skip if it's not a path-like string, contains a placeholder,
+            // or was already validated as a parameter path
+            if (!LooksLikePath(quotedPath) ||
+                ContainsPlaceholder(quotedPath) ||
+                parameterPaths.Any(p => p.Path == quotedPath)) continue;
+
+            // Handle multi-paths separated by semicolons (like in -rompath)
+            if (quotedPath.Contains(';'))
+            {
+                // Split by semicolons and validate each part
+                var subPaths = quotedPath.Split(Separator3, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var subPath in subPaths)
+                {
+                    var trimmedSubPath = subPath.Trim();
+                    if (string.IsNullOrWhiteSpace(trimmedSubPath) || ContainsPlaceholder(trimmedSubPath)) continue;
+
+                    // Check if the path exists
+                    var pathValid = Directory.Exists(trimmedSubPath) || File.Exists(trimmedSubPath);
+                    if (pathValid) continue;
+
+                    invalidPaths.Add(trimmedSubPath);
+                    allPathsValid = false;
+                }
+            }
+            else
+            {
+                // Single path, validate normally
+                if (ValidateSinglePath(quotedPath, baseDir, systemFolder)) continue;
+
+                invalidPaths.Add(quotedPath);
+                allPathsValid = false;
+            }
+        }
+
+        // Process remaining unquoted potential paths (less common)
+        var remainingParams = MyRegex2().Replace(parameters, " ");
+        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
+
+        // Split by whitespace and check each token
+        var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
+        foreach (var word in words)
+        {
+            // Skip known parameter flags or placeholders
+            if (IsKnownFlag(word) || ContainsPlaceholder(word)) continue;
+
+            // If it looks like a path, validate it
+            if (!LooksLikePath(word) || ValidateSinglePath(word, baseDir, systemFolder)) continue;
+
+            invalidPaths.Add(word);
+            allPathsValid = false;
+        }
+
+        // For MAME systems, apply leniency
+        if (!isMameSystem || invalidPaths.Count <= 0)
+            return (allPathsValid, invalidPaths); // Return the final state and the full list
+
+        {
+            var criticalPaths = invalidPaths
+                .Where(path => parameterPaths.Any(p =>
+                    p.Flag is "-rompath" or "-L" &&
+                    (p.Path == path || p.Path.Contains(path))))
+                .ToList();
+
+            if (criticalPaths.Count == 0)
+            {
+                // Only non-critical paths are invalid, so overall valid due to leniency
+                return (true, invalidPaths); // Return true but still provide the full list
+            }
+            // If critical paths exist, overallValid remains false
+        }
+
+        return (allPathsValid, invalidPaths); // Return the final state and the full list
     }
 
-    public static (string resolvedParameters, List<string> unresolvedOrInvalidPaths) ResolveAndConvertParameterPaths(string parameters, string systemFolder = null)
+    /// <summary>
+    /// Validates emulator parameters and returns invalid paths
+    /// </summary>
+    public static (bool success, List<string> invalidPaths) ValidateEmulatorParameters(string parameters, string systemFolder = null, bool isMameSystem = false)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
-            return (parameters, new List<string>());
+            return (true, null); // No parameters are valid
         }
 
-        var unresolvedPathsList = new List<string>();
-        var finalTokens = new List<string>();
-        var originalTokens = CommandLineTokenizerRegex().Matches(parameters)
-            .Select(static m => m.Value)
-            .ToList();
+        var (overallValid, allInvalidPaths) = ValidateParameterPaths(parameters, systemFolder, isMameSystem);
 
-        var currentIndex = 0;
-        while (currentIndex < originalTokens.Count)
+        if (overallValid)
         {
-            var currentToken = originalTokens[currentIndex];
-            var unquotedCurrentToken = currentToken.Trim('"', '\'');
-
-            if (ContainsPlaceholder(unquotedCurrentToken))
-            {
-                finalTokens.Add(currentToken);
-                currentIndex++;
-                continue;
-            }
-
-            if (IsKnownFlag(currentToken))
-            {
-                finalTokens.Add(currentToken);
-                var lowerFlag = currentToken.ToLowerInvariant();
-                currentIndex++; // Move past the flag
-
-                if (lowerFlag is "-l" or "-rompath" or "-cart" or "-flop1" or "-bios" or "-config"
-                    && currentIndex < originalTokens.Count)
-                {
-                    var pathCandidateBuilder = new StringBuilder();
-                    var firstPartOfPath = originalTokens[currentIndex].Trim('"', '\'');
-                    pathCandidateBuilder.Append(firstPartOfPath);
-                    var pathTokensConsumed = 1;
-
-                    // Greedily consume subsequent tokens if they form a valid path together
-                    var lookAheadIndex = currentIndex + 1;
-                    while (lookAheadIndex < originalTokens.Count &&
-                           !IsKnownFlag(originalTokens[lookAheadIndex]) &&
-                           !ContainsPlaceholder(originalTokens[lookAheadIndex].Trim('"', '\'')))
-                    {
-                        var potentialNextPart = originalTokens[lookAheadIndex].Trim('"', '\'');
-                        var combinedPathTest = pathCandidateBuilder + " " + potentialNextPart;
-
-                        // If the combined string looks like a path and either it resolves,
-                        // or the current builder doesn't resolve and the next part isn't a path itself.
-                        if (LooksLikePath(combinedPathTest))
-                        {
-                            var currentPathResolved = TryResolveAndValidateSinglePath(pathCandidateBuilder.ToString(), systemFolder, out _);
-                            var combinedPathResolved = TryResolveAndValidateSinglePath(combinedPathTest, systemFolder, out _);
-                            var nextPartLooksLikePath = LooksLikePath(potentialNextPart);
-
-                            if (combinedPathResolved || (!currentPathResolved && !nextPartLooksLikePath))
-                            {
-                                pathCandidateBuilder.Append(' ').Append(potentialNextPart);
-                                pathTokensConsumed++;
-                                lookAheadIndex++;
-                            }
-                            else
-                            {
-                                break; // Stop consuming
-                            }
-                        }
-                        else
-                        {
-                            break; // Stop consuming
-                        }
-                    }
-
-                    var assembledPathArgument = pathCandidateBuilder.ToString();
-                    currentIndex += (pathTokensConsumed - 1); // Adjust currentIndex to the last token consumed for path
-
-                    if (ContainsPlaceholder(assembledPathArgument))
-                    {
-                        finalTokens.Add(QuoteIfNecessary(assembledPathArgument));
-                    }
-                    else if (lowerFlag == "-rompath" && assembledPathArgument.Contains(';'))
-                    {
-                        var subPaths = assembledPathArgument.Split(ArgumentSeparators, StringSplitOptions.RemoveEmptyEntries);
-                        var resolvedSubPaths = new List<string>();
-                        foreach (var subPath in subPaths)
-                        {
-                            var trimmedSubPath = subPath.Trim();
-                            if (TryResolveAndValidateSinglePath(trimmedSubPath, systemFolder, out var resolvedSingleSubPath))
-                            {
-                                resolvedSubPaths.Add(resolvedSingleSubPath);
-                            }
-                            else
-                            {
-                                resolvedSubPaths.Add(PathHelper.ResolveRelativeToAppDirectory(trimmedSubPath));
-                                unresolvedPathsList.Add(trimmedSubPath);
-                            }
-                        }
-
-                        finalTokens.Add(QuoteIfNecessary(string.Join(";", resolvedSubPaths)));
-                    }
-                    else
-                    {
-                        if (TryResolveAndValidateSinglePath(assembledPathArgument, systemFolder, out var resolvedPath))
-                        {
-                            finalTokens.Add(QuoteIfNecessary(resolvedPath));
-                        }
-                        else
-                        {
-                            finalTokens.Add(QuoteIfNecessary(PathHelper.ResolveRelativeToAppDirectory(assembledPathArgument)));
-                            unresolvedPathsList.Add(assembledPathArgument);
-                        }
-                    }
-                }
-                // No else needed here, currentIndex is already advanced past the flag
-            }
-            else // Not a flag, not a placeholder. Could be a standalone path or other argument.
-            {
-                if (LooksLikePath(unquotedCurrentToken))
-                {
-                    if (TryResolveAndValidateSinglePath(unquotedCurrentToken, systemFolder, out var resolvedPath))
-                    {
-                        finalTokens.Add(QuoteIfNecessary(resolvedPath));
-                    }
-                    else
-                    {
-                        finalTokens.Add(QuoteIfNecessary(PathHelper.ResolveRelativeToAppDirectory(unquotedCurrentToken)));
-                        unresolvedPathsList.Add(unquotedCurrentToken);
-                    }
-                }
-                else
-                {
-                    finalTokens.Add(currentToken);
-                }
-            }
-
-            currentIndex++; // Advance to the next token for the outer loop
+            return (true, null); // Success, no invalid paths to report
         }
 
-        return (string.Join(" ", finalTokens), unresolvedPathsList.Distinct().ToList());
-    }
+        var invalidPaths = new List<string>(allInvalidPaths); // Copy the list
 
-    private static string QuoteIfNecessary(string path)
-    {
-        if (string.IsNullOrEmpty(path)) return path;
+        // Extract all parameter paths for more detailed analysis
+        var paramPaths = ExtractParameterPaths(parameters);
 
-        // If the path contains spaces and is not already quoted
-        if (path.Contains(' ') && !(path.StartsWith('"') && path.EndsWith('"')))
+        // Add any additional invalid paths that may have been missed
+        foreach (var (flag, path) in paramPaths)
         {
-            return $"\"{path}\"";
+            switch (flag)
+            {
+                case "-L" when !File.Exists(path) && !invalidPaths.Contains(path):
+                    invalidPaths.Add(path);
+                    break;
+                case "-rompath":
+                {
+                    // For rompath, check all semicolon-separated paths
+                    if (path != null)
+                    {
+                        var romPaths = path.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
+                        foreach (var romPath in romPaths)
+                        {
+                            var trimmedPath = romPath.Trim();
+                            if (!Directory.Exists(trimmedPath) && !invalidPaths.Contains(trimmedPath))
+                            {
+                                invalidPaths.Add(trimmedPath);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+            }
         }
 
-        return path;
+        return (false, invalidPaths); // Return failure and the updated list
     }
-
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
+
+    [GeneratedRegex("""(?:"([^"]+)"|'([^']+)')""")]
+    private static partial Regex MyRegex1();
+
+    [GeneratedRegex("""(?:"[^"]*"|'[^']*')""")]
+    private static partial Regex MyRegex2();
+
+    [GeneratedRegex(@"-\w+\s+")]
+    private static partial Regex MyRegex3();
 }

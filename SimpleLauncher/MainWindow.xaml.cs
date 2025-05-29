@@ -733,7 +733,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     // Filter by TopMenu Letter if specified
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        allFiles = await GetFilePaths.FilterFilesAsync(allFiles, startLetter);
+                        allFiles = await FilterFilesAsync(allFiles, startLetter);
                     }
 
                     // Process search query (from SearchBox)
@@ -1057,5 +1057,24 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         // Disable/Enable pagination buttons (UpdatePaginationButtons already checks _isGameListLoading)
         UpdatePaginationButtons();
+    }
+
+    private static Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
+    {
+        return Task.Run(() =>
+        {
+            if (string.IsNullOrEmpty(startLetter))
+                return files; // If no startLetter is provided, no filtering is required
+
+            if (startLetter == "#")
+            {
+                return files.Where(static file => !string.IsNullOrEmpty(file) &&
+                                                  file.Length > 0 &&
+                                                  char.IsDigit(Path.GetFileName(file)[0])).ToList();
+            }
+
+            return files.Where(file => !string.IsNullOrEmpty(file) &&
+                                       Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
+        });
     }
 }

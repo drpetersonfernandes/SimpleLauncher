@@ -48,6 +48,11 @@ public static class DebugLogger
     /// <param name="contextMessage">An optional context message.</param>
     public static void LogException(Exception ex, string contextMessage = null)
     {
+        if (ex == null)
+        {
+            ex = new Exception("Exception is null.");
+        }
+
         var message = new System.Text.StringBuilder();
         if (!string.IsNullOrEmpty(contextMessage))
         {

@@ -39,14 +39,27 @@ public static class CountFiles
                             var searchPattern = $"*.{extension}";
                             totalCount += Directory.EnumerateFiles(folderPath, searchPattern).Count();
                         }
-                        catch (Exception)
+                        catch (DirectoryNotFoundException)
                         {
-                            // Notify developer
+                            // Directory was deleted or inaccessible during enumeration
                             // Log the specific extension that caused the problem but continue counting
-                            // var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
-                            // _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
-
-                            // Ignore
+                            var contextMessage = $"Directory not found while counting files with extension '{extension}' in '{folderPath}'.";
+                            _ = LogErrors.LogErrorAsync(null, contextMessage);
+                            // Continue with the next extension
+                        }
+                        catch (UnauthorizedAccessException)
+                        {
+                            // No permission to access the directory
+                            var contextMessage = $"Access denied while counting files with extension '{extension}' in '{folderPath}'.";
+                            _ = LogErrors.LogErrorAsync(null, contextMessage);
+                            // Continue with the next extension
+                        }
+                        catch (Exception ex)
+                        {
+                            // Other exceptions during file enumeration
+                            var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
+                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                            // Continue with the next extension
                         }
                     }
 

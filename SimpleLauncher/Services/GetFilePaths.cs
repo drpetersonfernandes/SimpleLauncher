@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace SimpleLauncher.Services;
@@ -24,6 +23,20 @@ public abstract class GetFilePaths
             {
                 if (!Directory.Exists(directoryPath))
                 {
+                    // Notify developer
+                    const string contextMessage = "Directory path is null or empty.";
+                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                    return new List<string>(); // Return an empty list
+                }
+
+                // Initial directory existence check
+                if (!Directory.Exists(directoryPath))
+                {
+                    // Notify developer
+                    var contextMessage = $"Directory does not exist: '{directoryPath}'.";
+                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+
                     return new List<string>(); // Return an empty list
                 }
 
@@ -37,14 +50,33 @@ public abstract class GetFilePaths
                         var searchPattern = $"*.{ext}";
                         foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly)); // Added SearchOption.TopDirectoryOnly for consistency
                     }
+                    catch (DirectoryNotFoundException dirEx)
+                    {
+                        // Notify developer
+                        // Directory was deleted or became inaccessible during enumeration
+                        var contextMessage = $"Directory not found while processing extension '{ext}' in directory '{directoryPath}'.";
+                        _ = LogErrors.LogErrorAsync(dirEx, contextMessage);
+                        break; // Exit the loop since the directory is gone
+                    }
+                    catch (UnauthorizedAccessException authEx)
+                    {
+                        // Notify developer
+                        var contextMessage = $"Access denied while processing extension '{ext}' in directory '{directoryPath}'.";
+                        _ = LogErrors.LogErrorAsync(authEx, contextMessage);
+                        // Continue with the next extension
+                    }
+                    catch (PathTooLongException pathEx)
+                    {
+                        // Notify developer
+                        var contextMessage = $"Path too long while processing extension '{ext}' in directory '{directoryPath}'.";
+                        _ = LogErrors.LogErrorAsync(pathEx, contextMessage);
+                        // Continue with the next extension
+                    }
                     catch (Exception innerEx)
                     {
                         // Notify developer
-                        // Log the specific extension that caused the problem
-                        // Note: 'ext' is now just the extension, not the pattern
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
-
                         // Continue with the next extension rather than failing the entire operation
                     }
                 }
@@ -63,25 +95,6 @@ public abstract class GetFilePaths
 
                 return new List<string>(); // Return an empty list
             }
-        });
-    }
-
-    public static Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)
-    {
-        return Task.Run(() =>
-        {
-            if (string.IsNullOrEmpty(startLetter))
-                return files; // If no startLetter is provided, no filtering is required
-
-            if (startLetter == "#")
-            {
-                return files.Where(static file => !string.IsNullOrEmpty(file) &&
-                                                  file.Length > 0 &&
-                                                  char.IsDigit(Path.GetFileName(file)[0])).ToList();
-            }
-
-            return files.Where(file => !string.IsNullOrEmpty(file) &&
-                                       Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
     }
 }

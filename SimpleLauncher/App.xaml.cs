@@ -16,15 +16,10 @@ public partial class App
     public static SettingsManager Settings { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
 
-    // --- Add fields for single instance logic ---
     private Mutex _singleInstanceMutex;
-
     private bool _isFirstInstance;
-
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
-
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
-    // --- End fields for single instance logic ---
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -45,22 +40,6 @@ public partial class App
         // Initialize DebugLogger early
         DebugLogger.Initialize(isDebugMode);
 
-        if (displayHistoryWindow)
-        {
-            try
-            {
-                var updateHistoryWindow = new UpdateHistoryWindow();
-                updateHistoryWindow.ShowDialog();
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error in the OnStartup method.";
-                DebugLogger.LogException(ex, contextMessage);
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
-        }
-
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
             try
@@ -73,18 +52,19 @@ public partial class App
                 if (!_isFirstInstance)
                 {
                     // Another instance is running. Inform the user (optional) and exit this instance.
+                    // Notify user
                     MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
 
-                    Shutdown(); // Exit the application
+                    Shutdown();
 
                     return; // Stop further startup logic
                 }
             }
             catch (Exception ex)
             {
-                // Log the error using the new DebugLogger (if initialized) and old LogErrors (always)
-                DebugLogger.LogException(ex, "Failed to create or acquire single instance mutex.");
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
+                DebugLogger.LogException(ex, "Failed to create or acquire single instance mutex.");
 
                 // Notify user
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
@@ -101,6 +81,28 @@ public partial class App
         Settings = new SettingsManager();
         ApplyTheme(Settings.BaseTheme, Settings.AccentColor);
         ApplyLanguage(Settings.Language);
+
+        // Show UpdateHistoryWindow if -whatsnew argument is present
+        // This is done after ensuring we're the single instance and after initialization
+        if (displayHistoryWindow)
+        {
+            // Use Dispatcher.BeginInvoke to show the window after the main window is loaded
+            Dispatcher.BeginInvoke(new Action(() =>
+            {
+                try
+                {
+                    var updateHistoryWindow = new UpdateHistoryWindow();
+                    updateHistoryWindow.ShowDialog();
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    DebugLogger.LogException(ex, contextMessage);
+                }
+            }));
+        }
 
         // If we are restarting, the MainWindow will be shown by StartupUri="MainWindow.xaml"
         // If we are the first instance, the MainWindow is also shown by StartupUri.
@@ -120,9 +122,9 @@ public partial class App
             }
             catch (Exception ex)
             {
-                // Log the error using the new DebugLogger (if initialized) and old LogErrors (always)
-                DebugLogger.LogException(ex, "Failed to release single instance mutex on exit.");
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+                DebugLogger.LogException(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -132,7 +134,6 @@ public partial class App
 
         base.OnExit(e);
     }
-
 
     private void ApplyLanguage(string cultureCode = null)
     {
@@ -173,14 +174,14 @@ public partial class App
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
 
-                DebugLogger.Log($"Applied language: {culture.Name}"); // Log successful language change
+                DebugLogger.Log($"Applied language: {culture.Name}");
             }
             catch (Exception innerEx)
             {
                 // Notify developer
                 var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
-                DebugLogger.LogException(innerEx, contextMessage); // Log using debug logger
-                _ = LogErrors.LogErrorAsync(innerEx, contextMessage); // Log using error logger
+                _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                DebugLogger.LogException(innerEx, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -194,8 +195,8 @@ public partial class App
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
                 // Notify developer
-                DebugLogger.Log("Fallback to English language resources."); // Log fallback
-                _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources."), "Using fallback language.");
+                _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources.");
+                DebugLogger.Log("Fallback to English language resources.");
             }
         }
         catch (Exception ex)
@@ -204,8 +205,8 @@ public partial class App
             // This outer catch handles errors *before* attempting to load the new dictionary
             // (e.g., invalid cultureCode format).
             var contextMessage = $"Failed to determine or set culture for {cultureCode}";
-            DebugLogger.LogException(ex, contextMessage); // Log using debug logger
-            _ = LogErrors.LogErrorAsync(ex, contextMessage); // Log using error logger
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.LogException(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -220,8 +221,8 @@ public partial class App
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
                 // Notify developer
-                DebugLogger.Log("Fallback to English language resources due to initial culture error."); // Log fallback
-                _ = LogErrors.LogErrorAsync(new Exception("Fallback to English language resources due to initial culture error."), "Using fallback language.");
+                _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");
+                DebugLogger.Log("Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -231,14 +232,14 @@ public partial class App
         try
         {
             ThemeManager.Current.ChangeTheme(Current, $"{baseTheme}.{accentColor}");
-            DebugLogger.Log($"Applied theme: {baseTheme}.{accentColor}"); // Log theme change
+            DebugLogger.Log($"Applied theme: {baseTheme}.{accentColor}");
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
-            DebugLogger.LogException(ex, contextMessage); // Log using debug logger
-            _ = LogErrors.LogErrorAsync(ex, contextMessage); // Log using error logger
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.LogException(ex, contextMessage);
         }
     }
 
@@ -249,12 +250,13 @@ public partial class App
         try
         {
             ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
-            DebugLogger.Log($"Applied theme to window {window.GetType().Name}: {baseTheme}.{accentColor}"); // Log theme change for window
+            DebugLogger.Log($"Applied theme to window {window.GetType().Name}: {baseTheme}.{accentColor}");
         }
         catch (Exception ex)
         {
-            DebugLogger.LogException(ex, $"Failed to apply theme to window {window.GetType().Name}."); // Log using debug logger
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}."); // Log using error logger
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}.");
+            DebugLogger.LogException(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 
@@ -264,6 +266,7 @@ public partial class App
         Settings.BaseTheme = baseTheme;
         Settings.AccentColor = accentColor;
         Settings.Save();
-        DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}"); // Log saving settings
+
+        DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}");
     }
 }
