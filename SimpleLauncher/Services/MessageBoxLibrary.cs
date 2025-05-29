@@ -4504,6 +4504,31 @@ public static class MessageBoxLibrary
         }
     }
 
+    internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
+    {
+        var dispatcher = Application.Current.Dispatcher;
+        if (dispatcher.CheckAccess())
+            return ShowWarnings();
+        else
+            return dispatcher.Invoke(ShowWarnings);
+
+        MessageBoxResult ShowWarnings()
+        {
+            var pathsList = string.Join("\n- ", relativePaths);
+            var relativepathsweredetectedintheemulatorparameters = (string)Application.Current.TryFindResource("Relativepathsweredetectedintheemulatorparameters") ?? "Relative paths were detected in the emulator parameters:";
+            var usingrelativepathsinparametersisstronglydiscouraged = (string)Application.Current.TryFindResource("Usingrelativepathsinparametersisstronglydiscouraged") ?? "Using relative paths in parameters is strongly discouraged as their behavior can be unpredictable depending on the current working directory when the emulator is launched.";
+            var itisstronglyrecommendedtouseabsolutepathsinstead = (string)Application.Current.TryFindResource("Itisstronglyrecommendedtouseabsolutepathsinstead.") ?? "It is strongly recommended to use absolute paths instead.";
+            var doyouwanttoproceedwithsavinganyway = (string)Application.Current.TryFindResource("Doyouwanttoproceedwithsavinganyway") ?? "Do you want to proceed with saving anyway?";
+            var warningRelativePathsDetected = (string)Application.Current.TryFindResource("WarningRelativePathsDetected") ?? "Warning: Relative Paths Detected";
+            var message = $"{relativepathsweredetectedintheemulatorparameters}\n\n- {pathsList}\n\n" +
+                          $"{usingrelativepathsinparametersisstronglydiscouraged}\n\n" +
+                          $"{itisstronglyrecommendedtouseabsolutepathsinstead}\n\n" +
+                          $"{doyouwanttoproceedwithsavinganyway}";
+            return MessageBox.Show(message, 
+                warningRelativePathsDetected, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        }
+    }
+
     internal static void CouldNotCheckForDiskSpaceMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;

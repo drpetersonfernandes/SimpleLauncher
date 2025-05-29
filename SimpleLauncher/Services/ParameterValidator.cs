@@ -357,6 +357,74 @@ public static partial class ParameterValidator
         return (false, invalidPaths); // Return failure and the updated list
     }
 
+    /// <summary>
+    /// Identifies potential relative paths within a parameter string.
+    /// </summary>
+    /// <param name="parameters">The parameter string to analyze.</param>
+    /// <returns>A list of identified relative paths.</returns>
+    public static List<string> GetRelativePathsInParameters(string parameters)
+    {
+        var relativePaths = new HashSet<string>();
+        if (string.IsNullOrWhiteSpace(parameters)) return relativePaths.ToList();
+
+        // Combine all potential path extraction logic
+        var potentialPaths = new List<string>();
+
+        // 1. Extract flagged paths
+        var flaggedPaths = ExtractParameterPaths(parameters);
+        potentialPaths.AddRange(flaggedPaths.Select(p => p.Path));
+
+        // 2. Extract quoted paths
+        var quotedPathsRegex = MyRegex1();
+        var quotedMatches = quotedPathsRegex.Matches(parameters);
+        potentialPaths.AddRange(quotedMatches.Select(match => match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value));
+
+        // 3. Extract remaining unquoted tokens
+        var remainingParams = MyRegex2().Replace(parameters, " ");
+        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
+        var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
+        potentialPaths.AddRange(words);
+
+        // Filter and identify relative paths
+        foreach (var potentialPath in potentialPaths)
+        {
+            var trimmedPath = potentialPath.Trim();
+
+            // Skip empty, placeholders, or known flags
+            if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath) || IsKnownFlag(trimmedPath))
+            {
+                continue;
+            }
+
+            // Check if it looks like a path and is not rooted (i.e., relative)
+            // Also exclude simple filenames without separators unless they look like executables/dlls
+            // A simple filename like "game.exe" might be relative, but often it's expected to be in the system PATH or emulator directory.
+            // Let's focus on paths that explicitly use '.' or '..' or contain directory separators but aren't rooted.
+            // A simple heuristic: if it contains '\' or '/', or starts with '.' or '..', and is not rooted, consider it relative.
+            // Or, if it looks like a path (using LooksLikePath) and is not rooted. Let's use LooksLikePath as it's already defined.
+
+            if (LooksLikePath(trimmedPath) && !Path.IsPathRooted(trimmedPath))
+            {
+                relativePaths.Add(trimmedPath);
+            }
+            // Special case: Handle paths within -rompath or -L that are semicolon separated
+            else if (trimmedPath.Contains(';'))
+            {
+                var subPaths = trimmedPath.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var subPath in subPaths)
+                {
+                    var trimmedSubPath = subPath.Trim();
+                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && !Path.IsPathRooted(trimmedSubPath))
+                    {
+                        relativePaths.Add(trimmedSubPath);
+                    }
+                }
+            }
+        }
+
+        return relativePaths.ToList();
+    }
+
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
 
