@@ -46,11 +46,13 @@ public partial class EditSystemWindow
                 }
 
                 // Update all other fields
+                // Pass the potentially modified strings from SaveSystemButton_Click
                 UpdateXml(existingSystem, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
             }
             else
             {
                 // Create and add a new system element
+                // Pass the potentially modified strings from SaveSystemButton_Click
                 var newSystem = AddToXml(systemNameText, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
                 _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
@@ -95,26 +97,45 @@ public partial class EditSystemWindow
             // Sanitize SystemNameTextBox.Text immediately
             systemNameText = SanitizePaths.SanitizeFolderName(systemNameText);
 
-            // Validate paths
+            // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
+            systemFolderText = MaybeAddBaseFolderPrefix(systemFolderText);
+            SystemFolderTextBox.Text = systemFolderText; // Update UI
+            systemImageFolderText = MaybeAddBaseFolderPrefix(systemImageFolderText);
+            SystemImageFolderTextBox.Text = systemImageFolderText; // Update UI
+            emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
+            Emulator1PathTextBox.Text = emulator1LocationText; // Update UI
+            emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
+            Emulator2PathTextBox.Text = emulator2LocationText; // Update UI
+            emulator3LocationText = MaybeAddBaseFolderPrefix(emulator3LocationText);
+            Emulator3PathTextBox.Text = emulator3LocationText; // Update UI
+            emulator4LocationText = MaybeAddBaseFolderPrefix(emulator4LocationText);
+            Emulator4PathTextBox.Text = emulator4LocationText; // Update UI
+            emulator5LocationText = MaybeAddBaseFolderPrefix(emulator5LocationText);
+            Emulator5PathTextBox.Text = emulator5LocationText; // Update UI
+
+            // Note: Parameters are NOT automatically prefixed. User must type %BASEFOLDER% manually.
+            // We will validate and warn about relative paths in parameters that *don't* have the prefix.
+
+            // Validate paths (now using potentially prefixed paths)
+            // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
+            // because CheckPath.IsValidPath will be updated to handle it.
             ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
                 out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid,
                 out var isEmulator5LocationValid);
 
-            // Handle validation alerts
+            // Handle validation alerts (coloring)
             HandleValidationAlerts(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                 isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid, isEmulator5LocationValid);
 
             // Validate SystemName (now with sanitized value)
             if (ValidateSystemName(systemNameText)) return;
 
-            SystemNameTextBox.Text = systemNameText; // Update UI with sanitized name
-
-            // Validate SystemFolder
+            // Validate SystemFolder (uses the potentially prefixed value)
             if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
 
-            // Validate SystemImageFolder
+            // Validate SystemImageFolder (uses the potentially prefixed value)
             if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
 
             var systemIsMame =
@@ -129,6 +150,7 @@ public partial class EditSystemWindow
             if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch)) return;
             if (ValidateEmulator1Name(emulator1NameText)) return;
 
+            // Check if any of the *location* paths are invalid after prefixing/validation
             if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
@@ -140,29 +162,30 @@ public partial class EditSystemWindow
             ];
 
             // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
+            // This will now use the updated ParameterValidator which understands %BASEFOLDER%
             ValidateAndWarnAboutParameters(parameterTexts);
             // Note: ValidateAndWarnAboutParameters shows a warning but *does not* return, allowing the user to proceed.
 
-            // --- NEW: Check for *relative* paths and ask the user if they want to proceed ---
-            var allRelativePaths = new List<string>();
-            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator1ParametersText));
-            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator2ParametersText));
-            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator3ParametersText));
-            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator4ParametersText));
-            allRelativePaths.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator5ParametersText));
+            // --- Check for *relative* paths *in parameters* that *don't* have %BASEFOLDER% ---
+            var relativePathsWithoutPrefixInParameters = new List<string>();
+            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator1ParametersText));
+            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator2ParametersText));
+            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator3ParametersText));
+            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator4ParametersText));
+            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator5ParametersText));
 
-            if (allRelativePaths.Count != 0)
+            if (relativePathsWithoutPrefixInParameters.Count != 0)
             {
-                var result = MessageBoxLibrary.RelativePathsWarningMessageBox(allRelativePaths.Distinct().ToList());
+                // Update the message box to inform the user about manual %BASEFOLDER% for parameters
+                var result = MessageBoxLibrary.RelativePathsWarningMessageBox(relativePathsWithoutPrefixInParameters.Distinct().ToList());
                 if (result == MessageBoxResult.No)
                 {
-                    // User chose not to save because of relative paths
+                    // User chose not to save because of relative paths without prefix in parameters
                     return;
                 }
-                // If result is Yes, continue with the save process
+                // If result is Yes, continue with the save process (paths will be saved as entered,
+                // and the user was warned they might not resolve correctly at launch without %BASEFOLDER%)
             }
-            // --- END NEW ---
-
 
             var receiveNotification1 =
                 ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
@@ -183,6 +206,7 @@ public partial class EditSystemWindow
             var emulatorsElement = new XElement("Emulators");
             var emulatorNames = new HashSet<string>();
 
+            // Add Emulator 1
             if (!string.IsNullOrEmpty(emulator1NameText)) // Only add if name is provided
             {
                 if (!emulatorNames.Add(emulator1NameText))
@@ -191,18 +215,19 @@ public partial class EditSystemWindow
                     return;
                 }
 
+                // Use the potentially prefixed location and original parameter text
                 AddEmulatorToXml(emulatorsElement, emulator1NameText, emulator1LocationText, emulator1ParametersText, receiveNotification1);
             }
 
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
-            string[] locationTexts = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText];
+            string[] locationTexts = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText]; // Use potentially prefixed locations
             bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
             for (var i = 0; i < nameTexts.Length; i++)
             {
                 var currentEmulatorName = nameTexts[i];
-                var currentEmulatorLocation = locationTexts[i];
-                var currentEmulatorParameters = parameterTexts[i + 1]; // Use parameterTexts array
+                var currentEmulatorLocation = locationTexts[i]; // Use potentially prefixed location
+                var currentEmulatorParameters = parameterTexts[i + 1]; // Use original parameter text
                 var currentReceiveNotification = receiveNotifications[i];
 
                 if (!string.IsNullOrEmpty(currentEmulatorLocation) || !string.IsNullOrEmpty(currentEmulatorParameters))
@@ -222,6 +247,7 @@ public partial class EditSystemWindow
                     return;
                 }
 
+                // Use the potentially prefixed location and original parameter text
                 AddEmulatorToXml(emulatorsElement, currentEmulatorName, currentEmulatorLocation, currentEmulatorParameters, currentReceiveNotification);
             }
 
@@ -232,7 +258,7 @@ public partial class EditSystemWindow
                 SaveSystemButton.IsEnabled = false;
 
                 await SaveSystemConfigurationAsync(
-                    systemNameText, systemFolderText, systemImageFolderText,
+                    systemNameText, systemFolderText, systemImageFolderText, // Pass potentially prefixed paths
                     systemIsMame, formatsToSearch, extractFileBeforeLaunch,
                     formatsToLaunch, emulatorsElement, isUpdate,
                     _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
@@ -240,11 +266,13 @@ public partial class EditSystemWindow
 
                 PopulateSystemNamesDropdown();
                 SystemNameDropdown.SelectedItem = systemNameText;
-                LoadSystemDetails(systemNameText);
+                LoadSystemDetails(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
 
                 // Notify user
                 MessageBoxLibrary.SystemSavedSuccessfullyMessageBox();
 
+                // Create folders based on the *resolved* paths, not the saved strings
+                // This is already handled by TryCreateDefaultFolder in LoadSystemDetails
                 CreateFolders(systemNameText);
 
                 _originalSystemName = systemNameText; // Update original name after successful save & UI refresh
@@ -274,6 +302,33 @@ public partial class EditSystemWindow
             _ = LogErrors.LogErrorAsync(ex, "Error saving system configuration.");
         }
     }
+
+    // Helper method to add %BASEFOLDER% prefix if the path is relative and doesn't have it
+    private static string MaybeAddBaseFolderPrefix(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path))
+        {
+            return path;
+        }
+
+        // Check if it's already rooted (absolute)
+        if (Path.IsPathRooted(path))
+        {
+            return path;
+        }
+
+        // Check if it already starts with the placeholder
+        if (path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+        {
+            return path;
+        }
+
+        // It's a relative path without the placeholder, add it
+        // Handle cases like ".\roms" or "../images"
+        var trimmedPath = path.TrimStart('.', '\\', '/');
+        return $"%BASEFOLDER%\\{trimmedPath}";
+    }
+
 
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
     {

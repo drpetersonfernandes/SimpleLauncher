@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -98,17 +99,20 @@ public static class GameLauncher
 
         // Check if this is a MAME system
         var isMameSystem = selectedSystemManager.SystemIsMame;
+        // Get system folder (potentially contains %BASEFOLDER%)
         var systemFolder = selectedSystemManager.SystemFolder;
 
         // Validate parameters but collect results rather than returning immediately
-        var (parametersValid, invalidPaths) = ParameterValidator.ValidateEmulatorParameters(_selectedEmulatorParameters, systemFolder, isMameSystem);
+        // This validation uses the ParameterValidator which understands %BASEFOLDER%
+        var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, systemFolder, isMameSystem);
 
         // If validation failed, ask the user if they want to proceed
         if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
         {
+            // The message box is updated to inform the user about manual %BASEFOLDER% for parameters
             var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths); // Pass the full list for the message
 
-            if (!proceedAnyway)
+            if (proceedAnyway == MessageBoxResult.No)
             {
                 return; // User chose not to proceed
             }
@@ -133,15 +137,19 @@ public static class GameLauncher
             switch (fileExtension)
             {
                 case ".BAT":
+                    // LaunchBatchFile expects an absolute path
                     await LaunchBatchFile(absoluteFilePath);
                     break;
                 case ".LNK":
+                    // LaunchShortcutFile expects an absolute path
                     await LaunchShortcutFile(absoluteFilePath);
                     break;
                 case ".EXE":
+                    // LaunchExecutable expects an absolute path
                     await LaunchExecutable(absoluteFilePath);
                     break;
                 default:
+                    // LaunchRegularEmulator needs to resolve paths within parameters
                     await LaunchRegularEmulator(absoluteFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters);
                     break;
             }
@@ -212,13 +220,29 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = absoluteFilePath,
-            UseShellExecute = false,
+            UseShellExecute = false, // UseShellExecute=false is required for redirecting output/error
             RedirectStandardOutput = true,
-            RedirectStandardError = true
+            RedirectStandardError = true,
+            CreateNoWindow = true // Hide the console window
         };
 
-        Debug.WriteLine(absoluteFilePath);
-        Debug.WriteLine(psi.WorkingDirectory);
+        // Set working directory to the directory of the batch file
+        try
+        {
+            var workingDirectory = Path.GetDirectoryName(absoluteFilePath);
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                psi.WorkingDirectory = workingDirectory;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Could not get workingDirectory for batch file: '{absoluteFilePath}'. Using default.");
+            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
+        }
+
+        Debug.WriteLine($"Launching Batch: {psi.FileName}");
+        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -247,7 +271,7 @@ public static class GameLauncher
             var processStarted = process.Start();
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.");
+                throw new InvalidOperationException("Failed to start the batch process.");
             }
 
             process.BeginOutputReadLine();
@@ -271,9 +295,10 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"There was an issue running the batch process. User was not notified.\n" +
+            var contextMessage = $"Exception running the batch process. User was not notified.\n" +
                                  $"Batch file: {psi.FileName}\n" +
                                  $"Exit code {process.ExitCode}\n" +
+                                 $"Exception: {ex.Message}\n" +
                                  $"Output: {output}\n" +
                                  $"Error: {error}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -288,11 +313,27 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = absoluteFilePath,
-            UseShellExecute = true
+            UseShellExecute = true // UseShellExecute=true is typical for launching .lnk
         };
 
-        Debug.WriteLine(absoluteFilePath);
-        Debug.WriteLine(psi.WorkingDirectory);
+        // Working directory is often ignored for .lnk files when UseShellExecute is true,
+        // but setting it doesn't hurt.
+        try
+        {
+            var workingDirectory = Path.GetDirectoryName(absoluteFilePath);
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                psi.WorkingDirectory = workingDirectory;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{absoluteFilePath}'. Using default.");
+            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
+        }
+
+        Debug.WriteLine($"Launching Shortcut: {psi.FileName}");
+        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -302,29 +343,31 @@ public static class GameLauncher
             var processStarted = process.Start();
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.");
+                throw new InvalidOperationException("Failed to start the shortcut process.");
             }
 
+            // Note: With UseShellExecute = true, process.WaitForExit() might not wait for the launched application,
+            // but rather for the shell process that opened it (like explorer.exe). This is a limitation.
+            // I will keep the wait for consistency. It might return immediately.
             await process.WaitForExitAsync();
 
+            // ExitCode might not be reliable with UseShellExecute = true
             if (process.ExitCode != 0)
             {
-                // Notify developer
-                var contextMessage = $"Error launching the shortcut file. User was not notified.\n" +
-                                     $"Shortcut file: {psi.FileName}\n" +
-                                     $"Exit code {process.ExitCode}";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                 // Log the exit code, but don't necessarily treat it as a critical error
+                 // since it might just be the shell's exit code.
+                 var contextMessage = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
+                                      $"Shortcut file: {psi.FileName}\n" +
+                                      $"Exit code {process.ExitCode}";
+                 _ = LogErrors.LogErrorAsync(null, contextMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error launching the shortcut file. User was not notified.\n" +
+            var contextMessage = $"Exception launching the shortcut file.\n" +
                                  $"Shortcut file: {psi.FileName}\n" +
-                                 $"Exit code {process.ExitCode}";
+                                 $"Exception: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -337,11 +380,26 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = absoluteFilePath,
-            UseShellExecute = true
+            UseShellExecute = true // UseShellExecute=true is typical for launching .exe directly
         };
 
-        Debug.WriteLine(absoluteFilePath);
-        Debug.WriteLine(psi.WorkingDirectory);
+        // Set working directory to the directory of the executable
+        try
+        {
+            var workingDirectory = Path.GetDirectoryName(absoluteFilePath);
+            if (!string.IsNullOrEmpty(workingDirectory))
+            {
+                psi.WorkingDirectory = workingDirectory;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Could not get workingDirectory for executable file: '{absoluteFilePath}'. Using default.");
+            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
+        }
+
+        Debug.WriteLine($"Launching Executable: {psi.FileName}");
+        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -351,7 +409,7 @@ public static class GameLauncher
             var processStarted = process.Start();
             if (!processStarted)
             {
-                throw new InvalidOperationException("Failed to start the process.");
+                throw new InvalidOperationException("Failed to start the executable process.");
             }
 
             await process.WaitForExitAsync();
@@ -359,7 +417,7 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"Error launching the executable file. User was not notified.\n" +
+                var contextMessage = $"Executable process exited with non-zero code.\n" +
                                      $"Executable file: {psi.FileName}\n" +
                                      $"Exit code {process.ExitCode}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
@@ -371,9 +429,10 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Error launching the executable file. User was not notified.\n" +
+            var contextMessage = $"Exception launching the executable file.\n" +
                                  $"Executable file: {psi.FileName}\n" +
-                                 $"Exit code {process.ExitCode}";
+                                 $"Exit code {process.ExitCode}" +
+                                 $"Exception: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -387,7 +446,7 @@ public static class GameLauncher
         string selectedEmulatorName,
         SystemManager selectedSystemConfig,
         SystemManager.Emulator selectedEmulatorConfig,
-        string selectedEmulatorParameters)
+        string selectedEmulatorParameters) // This is the raw parameter string from XML/UI
     {
         if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
         {
@@ -407,11 +466,12 @@ public static class GameLauncher
         }
 
         // Ensure programLocation is absolute and exists
+        // Use the updated ResolveRelativeToAppDirectory which handles %BASEFOLDER%
         var programLocation = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
         if (string.IsNullOrEmpty(programLocation) || !File.Exists(programLocation))
         {
             // Notify developer
-            var contextMessage = $"Emulator programLocation is null, empty, or does not exist: '{programLocation}'";
+            var contextMessage = $"Emulator programLocation is null, empty, or does not exist after resolving: '{selectedEmulatorConfig.EmulatorLocation}' -> '{programLocation}'";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -420,12 +480,19 @@ public static class GameLauncher
             return;
         }
 
-        // Use the selectedEmulatorParameters directly
-        var arguments = $"{selectedEmulatorParameters} \"{absoluteFilePath}\"";
+        // Resolve paths within the parameter string *before* launching
+        // Pass the system folder (potentially prefixed) for system-relative path resolution within parameters
+        var resolvedArguments = ParameterValidator.ResolveParameterString(selectedEmulatorParameters, selectedSystemConfig.SystemFolder);
+
+        // Append the game file path to the resolved arguments
+        // Ensure the game file path is quoted if it contains spaces
+        var arguments = $"{resolvedArguments} \"{absoluteFilePath}\"";
+
 
         string workingDirectory = null;
         try
         {
+            // Set working directory to the directory of the emulator executable
             workingDirectory = Path.GetDirectoryName(programLocation);
         }
         catch (Exception ex)
@@ -441,15 +508,15 @@ public static class GameLauncher
             FileName = programLocation,
             Arguments = arguments,
             WorkingDirectory = workingDirectory ?? AppDomain.CurrentDomain.BaseDirectory, // Fallback
-            UseShellExecute = false,
+            UseShellExecute = false, // Required for redirecting output/error
             RedirectStandardOutput = true,
-            RedirectStandardError = true
+            RedirectStandardError = true,
+            CreateNoWindow = true // Hide the console window
         };
 
-        Debug.WriteLine(programLocation);
-        Debug.WriteLine(arguments);
-        Debug.WriteLine(workingDirectory);
-        Debug.WriteLine(psi.WorkingDirectory);
+        Debug.WriteLine($"Launching Emulator: {psi.FileName}");
+        Debug.WriteLine($"Arguments: {psi.Arguments}");
+        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
 
         DebugLogger.Log($"Program Location: {programLocation}");
         DebugLogger.Log($"Arguments: {arguments}");
@@ -521,7 +588,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var errorDetail = $"Exit code: {process.ExitCode}\n" +
+            var errorDetail = $"Exit code: {(process.HasExited ? process.ExitCode : -1)}\n" + // Check HasExited before accessing ExitCode
                               $"Emulator: {psi.FileName}\n" +
                               $"Emulator output: {output}\n" +
                               $"Emulator error: {error}\n" +
@@ -610,10 +677,18 @@ public static class GameLauncher
             // Search for any file with specified extensions recursively
             foreach (var formatToLaunch in sysConfig.FileFormatsToLaunch)
             {
-                var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
-                if (files.Length > 0)
+                try
                 {
-                    return Task.FromResult(files[0]); // Return the first found file
+                    var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
+                    if (files.Length > 0)
+                    {
+                        return Task.FromResult(files[0]); // Return the first found file
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Log errors during directory search
+                    _ = LogErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
                 }
             }
 
@@ -631,7 +706,7 @@ public static class GameLauncher
 
     private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode == 0) return Task.CompletedTask;
+        if (!process.HasExited || process.ExitCode == 0) return Task.CompletedTask; // Ensure process has exited
 
         // Notify developer
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
@@ -670,7 +745,7 @@ public static class GameLauncher
 
     private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != MemoryAccessViolation)
+        if (!process.HasExited || process.ExitCode != MemoryAccessViolation) // Ensure process has exited
         {
             return Task.FromResult(false);
         }
@@ -712,7 +787,7 @@ public static class GameLauncher
 
     private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (process.ExitCode != DepViolation)
+        if (!process.HasExited || process.ExitCode != DepViolation) // Ensure process has exited
         {
             return Task.FromResult(false);
         }
@@ -748,20 +823,6 @@ public static class GameLauncher
         {
             MessageBoxLibrary.DepViolationMessageBox(LogPath);
         }
-
-        return Task.FromResult(true);
-    }
-
-    private static Task<bool> CheckForTempExtractLocation(string tempExtractLocation)
-    {
-        if (!string.IsNullOrEmpty(tempExtractLocation) && Directory.Exists(tempExtractLocation)) return Task.FromResult(false);
-
-        // Notify developer
-        const string contextMessage = "Extraction failed.";
-        _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ExtractionFailedMessageBox();
 
         return Task.FromResult(true);
     }

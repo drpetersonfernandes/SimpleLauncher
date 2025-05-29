@@ -77,12 +77,16 @@ public partial class EditSystemWindow
         out bool isEmulator4LocationValid, out bool isEmulator5LocationValid)
     {
         // Define the valid patterns (using the sanitized systemNameText)
+        // These patterns are relative to the app directory, so they should be compared
+        // against the input *after* it's potentially prefixed with %BASEFOLDER%
+        // or against the resolved path. Let's compare against the input string directly
+        // as CheckPath.IsValidPath will handle the %BASEFOLDER% resolution.
         var validSystemFolderPattern = $".\\roms\\{systemNameText}";
         var validSystemImageFolderPattern = $".\\images\\{systemNameText}";
 
-        // Perform validation
-        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || CheckPath.IsValidPath(systemFolderText) || systemFolderText == validSystemFolderPattern;
-        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || CheckPath.IsValidPath(systemImageFolderText) || systemImageFolderText == validSystemImageFolderPattern;
+        // Perform validation using CheckPath.IsValidPath which is updated to handle %BASEFOLDER%
+        isSystemFolderValid = string.IsNullOrWhiteSpace(systemFolderText) || CheckPath.IsValidPath(systemFolderText) || systemFolderText.Equals(validSystemFolderPattern, StringComparison.OrdinalIgnoreCase) || systemFolderText.Equals($"%BASEFOLDER%\\roms\\{systemNameText}", StringComparison.OrdinalIgnoreCase);
+        isSystemImageFolderValid = string.IsNullOrWhiteSpace(systemImageFolderText) || CheckPath.IsValidPath(systemImageFolderText) || systemImageFolderText.Equals(validSystemImageFolderPattern, StringComparison.OrdinalIgnoreCase) || systemImageFolderText.Equals($"%BASEFOLDER%\\images\\{systemNameText}", StringComparison.OrdinalIgnoreCase);
         isEmulator1LocationValid = string.IsNullOrWhiteSpace(emulator1LocationText) || CheckPath.IsValidPath(emulator1LocationText);
         isEmulator2LocationValid = string.IsNullOrWhiteSpace(emulator2LocationText) || CheckPath.IsValidPath(emulator2LocationText);
         isEmulator3LocationValid = string.IsNullOrWhiteSpace(emulator3LocationText) || CheckPath.IsValidPath(emulator3LocationText);
@@ -155,26 +159,35 @@ public partial class EditSystemWindow
     private bool ValidateSystemImageFolder(string systemNameText, ref string systemImageFolderText)
     {
         // Add the default System Image Folder if not provided by user
-        if (systemImageFolderText.Length == 0 || string.IsNullOrEmpty(systemImageFolderText))
-        {
-            systemImageFolderText = $".\\images\\{systemNameText}";
-            SystemImageFolderTextBox.Text = systemImageFolderText;
+        // This logic should happen *before* MaybeAddBaseFolderPrefix in SaveSystemButton_Click
+        // or handle the prefixed path correctly.
+        var defaultPattern = $".\\images\\{systemNameText}";
+        var prefixedDefaultPattern = $"%BASEFOLDER%\\images\\{systemNameText}";
 
-            // Create the directory if it doesn't exist
-            if (!Directory.Exists(systemImageFolderText))
+        // If the current text is empty or matches the default pattern (either form)
+        if (string.IsNullOrEmpty(systemImageFolderText) || systemImageFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemImageFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
+        {
+            // Set the text to the prefixed default pattern for consistency
+            systemImageFolderText = prefixedDefaultPattern;
+            SystemImageFolderTextBox.Text = systemImageFolderText; // Update UI
+
+            // Create the directory if it doesn't exist (using the resolved path)
+            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderText);
+            if (!Directory.Exists(resolvedPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(systemImageFolderText);
+                    if (resolvedPath != null) Directory.CreateDirectory(resolvedPath);
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating system image folder.");
+                    _ = LogErrors.LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
                 }
             }
         }
 
+        // Validation check: Is the field still empty after trying to set default?
         if (!string.IsNullOrEmpty(systemImageFolderText)) return false;
 
         // Notify user
@@ -186,26 +199,34 @@ public partial class EditSystemWindow
     private bool ValidateSystemFolder(string systemNameText, ref string systemFolderText)
     {
         // Add the default System Folder if not provided by user
-        if (systemFolderText.Length == 0 || string.IsNullOrEmpty(systemFolderText))
-        {
-            systemFolderText = $".\\roms\\{systemNameText}";
-            SystemFolderTextBox.Text = systemFolderText;
+        // Similar adjustment as ValidateSystemImageFolder
+        var defaultPattern = $".\\roms\\{systemNameText}";
+        var prefixedDefaultPattern = $"%BASEFOLDER%\\roms\\{systemNameText}";
 
-            // Create the directory if it doesn't exist
-            if (!Directory.Exists(systemFolderText))
+        // If the current text is empty or matches the default pattern (either form)
+        if (string.IsNullOrEmpty(systemFolderText) || systemFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
+        {
+            // Set the text to the prefixed default pattern for consistency
+            systemFolderText = prefixedDefaultPattern;
+            SystemFolderTextBox.Text = systemFolderText; // Update UI
+
+            // Create the directory if it doesn't exist (using the resolved path)
+            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderText);
+            if (!Directory.Exists(resolvedPath))
             {
                 try
                 {
-                    Directory.CreateDirectory(systemFolderText);
+                    if (resolvedPath != null) Directory.CreateDirectory(resolvedPath);
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating system folder.");
+                    _ = LogErrors.LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
                 }
             }
         }
 
+        // Validation check: Is the field still empty after trying to set default?
         if (!string.IsNullOrEmpty(systemFolderText)) return false;
 
         // Notify user
@@ -231,6 +252,7 @@ public partial class EditSystemWindow
         bool isEmulator1LocationValid, bool isEmulator2LocationValid, bool isEmulator3LocationValid,
         bool isEmulator4LocationValid, bool isEmulator5LocationValid)
     {
+        // These now operate on the potentially prefixed paths in the UI text boxes
         MarkInvalid(SystemFolderTextBox, isSystemFolderValid);
         MarkInvalid(SystemImageFolderTextBox, isSystemImageFolderValid);
         MarkInvalid(Emulator1PathTextBox, isEmulator1LocationValid);
@@ -238,6 +260,8 @@ public partial class EditSystemWindow
         MarkInvalid(Emulator3PathTextBox, isEmulator3LocationValid);
         MarkInvalid(Emulator4PathTextBox, isEmulator4LocationValid);
         MarkInvalid(Emulator5PathTextBox, isEmulator5LocationValid);
+
+        // Parameter fields validation is handled separately in ValidateParameterFields
     }
 
     private void ValidateParameterFields()
@@ -250,16 +274,22 @@ public partial class EditSystemWindow
             Emulator5ParametersTextBox
         ];
 
+        // Check if this is a MAME emulator (read from UI)
+        var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
+                           ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
+        // Get system folder (read from UI, potentially prefixed)
+        var systemFolder = SystemFolderTextBox.Text;
+
         foreach (var textBox in parameterTextBoxes)
         {
-            if (string.IsNullOrWhiteSpace(textBox.Text)) continue;
+            if (string.IsNullOrWhiteSpace(textBox.Text))
+            {
+                MarkValid(textBox); // Empty parameters are valid
+                continue;
+            }
 
-            // Check if this is a MAME emulator
-            var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
-                               ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-
-            // We only care about the boolean result here, not the specific paths
-            var systemFolder = SystemFolderTextBox.Text;
+            // Validate parameter paths using the updated ParameterValidator
+            // This will now handle %BASEFOLDER% within the parameter string
             var (areParametersValid, _) = ParameterValidator.ValidateParameterPaths(textBox.Text, systemFolder, isMameSystem);
             MarkInvalid(textBox, areParametersValid);
         }
@@ -284,21 +314,26 @@ public partial class EditSystemWindow
             Emulator5ParametersTextBox
         ];
 
-        // Check if this is a MAME emulator
+        // Check if this is a MAME emulator (read from UI)
         var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
                            ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
+        // Get system folder (read from UI, potentially prefixed)
+        var systemFolder = SystemFolderTextBox.Text;
+
 
         for (var i = 0; i < parameterTextBoxes.Length; i++)
         {
-            if (string.IsNullOrEmpty(parameterTexts[i]) || string.IsNullOrEmpty(emulatorNames[i])) continue;
+            // Only validate if the emulator name is provided (to avoid validating empty parameter fields for unused emulators)
+            if (string.IsNullOrEmpty(emulatorNames[i]) || string.IsNullOrWhiteSpace(parameterTexts[i])) continue;
 
-            var systemFolder = SystemFolderTextBox.Text;
+            // Validate parameter paths using the updated ParameterValidator
             var (areParametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(parameterTexts[i], systemFolder, isMameSystem);
 
             MarkInvalid(parameterTextBoxes[i], areParametersValid);
             if (areParametersValid) continue;
 
             hasInvalidParameters = true;
+            // Add invalid paths found by the validator, prefixed with the emulator name for clarity
             allInvalidPaths.AddRange(invalidPaths.Select(path => $"{emulatorNames[i]}: {path}"));
         }
 
@@ -306,6 +341,7 @@ public partial class EditSystemWindow
         if (!hasInvalidParameters) return;
 
         {
+            // This message box now warns about paths that do not exist *after* resolution
             MessageBoxLibrary.ParameterPathsInvalidWarningMessageBox(allInvalidPaths);
         }
     }

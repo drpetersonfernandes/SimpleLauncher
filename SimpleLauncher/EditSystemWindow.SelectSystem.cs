@@ -85,6 +85,7 @@ public partial class EditSystemWindow
         if (selectedSystem != null)
         {
             SystemNameTextBox.Text = selectedSystem.Element("SystemName")?.Value ?? string.Empty;
+            // Load the saved string directly into the UI, including %BASEFOLDER% if present
             SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
             SystemImageFolderTextBox.Text = selectedSystem.Element("SystemImageFolder")?.Value ?? string.Empty;
 
@@ -107,6 +108,7 @@ public partial class EditSystemWindow
             var emulators = selectedSystem.Element("Emulators")?.Elements("Emulator").ToList();
             if (emulators != null)
             {
+                // Populate fields with saved strings (including %BASEFOLDER% for location)
                 PopulateEmulatorFields(emulators.ElementAtOrDefault(0), Emulator1NameTextBox, Emulator1PathTextBox, Emulator1ParametersTextBox, ReceiveANotificationOnEmulatorError1);
                 PopulateEmulatorFields(emulators.ElementAtOrDefault(1), Emulator2NameTextBox, Emulator2PathTextBox, Emulator2ParametersTextBox, ReceiveANotificationOnEmulatorError2);
                 PopulateEmulatorFields(emulators.ElementAtOrDefault(2), Emulator3NameTextBox, Emulator3PathTextBox, Emulator3ParametersTextBox, ReceiveANotificationOnEmulatorError3);
@@ -115,9 +117,15 @@ public partial class EditSystemWindow
             }
             // else: ClearAllEmulatorFieldsInternal() already handled this at the beginning.
 
-            TryCreateDefaultFolder(SystemFolderTextBox.Text, $".\\roms\\{SystemNameTextBox.Text}", "SystemFolder");
-            TryCreateDefaultFolder(SystemImageFolderTextBox.Text, $".\\images\\{SystemNameTextBox.Text}", "SystemImageFolder");
+            // Try creating default folders based on the *current UI text*, which might contain %BASEFOLDER%
+            var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(SystemFolderTextBox.Text);
+            TryCreateDefaultFolder(resolvedSystemFolder, $".\\roms\\{SystemNameTextBox.Text}", "SystemFolder"); // Pass resolved path
 
+            var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(SystemImageFolderTextBox.Text);
+            TryCreateDefaultFolder(resolvedSystemImageFolder, $".\\images\\{SystemNameTextBox.Text}", "SystemImageFolder"); // Pass resolved path
+
+
+            // Mark validity. CheckPath.IsValidPath will now handle %BASEFOLDER% internally.
             MarkInvalid(SystemFolderTextBox, CheckPath.IsValidPath(SystemFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemFolderTextBox.Text));
             MarkInvalid(SystemImageFolderTextBox, CheckPath.IsValidPath(SystemImageFolderTextBox.Text) || string.IsNullOrWhiteSpace(SystemImageFolderTextBox.Text));
             MarkInvalid(Emulator1PathTextBox, string.IsNullOrWhiteSpace(Emulator1PathTextBox.Text) || CheckPath.IsValidPath(Emulator1PathTextBox.Text));
@@ -126,6 +134,7 @@ public partial class EditSystemWindow
             MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
             MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
+            // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER%.
             ValidateParameterFields();
 
             HelpUserTextBlock.Text = string.Empty;
@@ -146,6 +155,7 @@ public partial class EditSystemWindow
         if (emulatorElement != null)
         {
             nameTextBox.Text = emulatorElement.Element("EmulatorName")?.Value ?? string.Empty;
+            // Load the saved string directly into the UI, including %BASEFOLDER% if present
             pathTextBox.Text = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty;
             paramsTextBox.Text = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty;
 
@@ -173,22 +183,27 @@ public partial class EditSystemWindow
         }
     }
 
-    private void TryCreateDefaultFolder(string currentPath, string defaultPatternPathWithSystemName, string folderTypeForLog)
+    // Accept a resolved path and compare against a default pattern
+    private void TryCreateDefaultFolder(string resolvedCurrentPath, string defaultPatternPathWithSystemName, string folderTypeForLog)
     {
-        // Ensure systemName is not empty before forming the path
+        // Ensure systemName is not empty before forming the pattern path
         var systemName = SystemNameTextBox.Text; // Get the current system name from UI
         if (string.IsNullOrEmpty(systemName)) return;
 
-        if (currentPath != defaultPatternPathWithSystemName || Directory.Exists(currentPath)) return;
+        // Resolve the default pattern path for comparison
+        var resolvedDefaultPatternPath = PathHelper.ResolveRelativeToAppDirectory(defaultPatternPathWithSystemName);
+
+        // Only create if the current path matches the default pattern AND the directory doesn't exist
+        if (resolvedCurrentPath != resolvedDefaultPatternPath || Directory.Exists(resolvedCurrentPath)) return;
 
         try
         {
-            Directory.CreateDirectory(currentPath);
+            Directory.CreateDirectory(resolvedCurrentPath); // Create the resolved path
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {currentPath}");
+            _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }
