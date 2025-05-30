@@ -14,14 +14,14 @@ public static class PathHelper
     /// </summary>
     /// <param name="path">The path to convert.</param>
     /// <returns>The canonical absolute path relative to the current working directory.</returns>
-    public static string ResolveRelativeToCurrentDirectory(string path)
+    public static string ResolveRelativeToCurrentWorkingDirectory(string path)
     {
         if (string.IsNullOrWhiteSpace(path))
         {
             return string.Empty;
         }
 
-        // This method is specifically for current directory, so no %BASEFOLDER% handling here.
+        // This method is specifically for the current working directory, so no %BASEFOLDER% handling here.
         return Path.GetFullPath(path);
     }
 
@@ -156,4 +156,3 @@ public static class PathHelper
         return pathTokenValue.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
     }
 }
-

@@ -178,7 +178,7 @@ public partial class SystemManager
                     if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
                             out var extractFileBeforeLaunch))
                         throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Extract File Before Launch'.");
-                    if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(f => f is "zip" or "7z" or "rar"))) // Check if any compressed format is included
+                    if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(static f => f is "zip" or "7z" or "rar"))) // Check if any compressed format is included
                         throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
 
                     // Validate FileFormatsToLaunch
@@ -228,7 +228,6 @@ public partial class SystemManager
                             ReceiveANotificationOnEmulatorError = receiveNotification
                         });
                     }
-
 
                     systemConfigs.Add(new SystemManager
                     {
@@ -298,4 +297,3 @@ public partial class SystemManager
         }
     }
 }
-

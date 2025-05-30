@@ -11,11 +11,6 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public static partial class ParameterValidator
 {
-    // Regular expression to detect potential paths in parameter strings
-    // private static readonly Regex PathRegex = new(
-    //     @"(?:""|')([^""']+)(?:""|')|(?:(?:^|\s)(?:-\w+\s+)?(?:[A-Za-z]:)?[\\\/](?:[^""\s\\\/;]+[\\\/])+[^""\s\\\/;]*)",
-    //     RegexOptions.Compiled);
-
     // Known parameter placeholders that shouldn't be validated as actual paths
     private static readonly string[] KnownPlaceholders =
     [
@@ -121,11 +116,9 @@ public static partial class ParameterValidator
                 return true;
             }
 
-            // NEW: Also try resolving relative to the system folder *if* the path
+            // Try resolving relative to the system folder *if* the path
             // didn't start with %BASEFOLDER% and wasn't absolute.
             // This covers cases where a parameter path might be relative to the ROM folder.
-            // The original ValidateSinglePath had this logic, let's re-add it here
-            // *after* trying the %BASEFOLDER% / app directory resolution.
             if (Path.IsPathRooted(path) || path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
                 string.IsNullOrEmpty(systemFolder))
                 return false; // Path does not exist after trying all resolution methods
@@ -135,7 +128,6 @@ public static partial class ParameterValidator
             {
                 return true;
             }
-
 
             return false; // Path does not exist after trying all resolution methods
         }
@@ -417,7 +409,7 @@ public static partial class ParameterValidator
             // Skip known placeholders (like %ROM%)
             if (ContainsPlaceholder(trimmedToken))
             {
-                return token; // Return original token with quotes if present
+                return token; // Return the original token with quotes if present
             }
 
             // Skip known flags
@@ -464,7 +456,6 @@ public static partial class ParameterValidator
 
         return resolvedParameters;
     }
-
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();

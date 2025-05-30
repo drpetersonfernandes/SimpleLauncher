@@ -4613,30 +4613,55 @@ public static class MessageBoxLibrary
 
     internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
     {
-        var pathsList = string.Join("\n", relativePaths.Select(p => $"- {p}"));
-        var message = $"The following relative paths were detected in your configuration:\n\n{pathsList}\n\n" +
-                      $"For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").\n\n" +
-                      $"For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., \"-config %BASEFOLDER%\\configs\\emu.cfg\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.\n\n" +
-                      $"Do you want to save this configuration?";
+        var dispatcher = Application.Current.Dispatcher;
 
-        return MessageBox.Show(message, "Relative Paths Detected", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        // Localized strings with fallbacks
+        var title = (string)Application.Current.TryFindResource("RelativePathsDetected") ?? "Relative Paths Detected";
+        var relativePathsMessage = (string)Application.Current.TryFindResource("RelativePathsMessage") ?? "The following relative paths were detected in your configuration:";
+        var systemFolderExplanation = (string)Application.Current.TryFindResource("SystemFolderExplanation") ?? "For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").";
+        var parameterExplanation = (string)Application.Current.TryFindResource("ParameterExplanation") ?? "For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.";
+        var saveConfigurationQuestion = (string)Application.Current.TryFindResource("SaveConfigurationQuestion") ?? "Do you want to save this configuration?";
+
+        var pathsList = string.Join("\n", relativePaths.Select(static p => $"- {p}"));
+
+        if (dispatcher.CheckAccess())
+            return ShowMsg();
+        else
+            return dispatcher.Invoke(ShowMsg);
+
+        MessageBoxResult ShowMsg()
+        {
+            var message = $"{relativePathsMessage}\n\n{pathsList}\n\n" +
+                          $"{systemFolderExplanation}\n\n" +
+                          $"{parameterExplanation}\n\n" +
+                          $"{saveConfigurationQuestion}";
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        }
     }
 
-    // Add or modify this method if it exists, or create it if needed
     internal static MessageBoxResult AskUserToProceedWithInvalidPath(List<string> invalidPaths)
     {
-        var pathsList = string.Join("\n", invalidPaths.Select(p => $"- {p}"));
+        var dispatcher = Application.Current.Dispatcher;
 
-        var message = // Or "Do you want to launch the game anyway?" depending on context
-            // Assuming this is called from GameLauncher, the message should be about launching
-            // If called from EditSystemWindow save, the message should be about saving.
-            // Let's assume this method is generic and the caller provides context or we duplicate it.
-            // Given the original code calls it from GameLauncher, let's keep that context.
-            $"The following paths in the emulator parameters appear to be invalid (file or directory not found):\n\n{pathsList}\n\n" +
-            $"Note: Paths using %BASEFOLDER% or relative paths are checked against the application's directory and the system folder.\n\n" +
-            $"Do you want to launch the game anyway?";
+        // Localized strings with fallbacks
+        var title = (string)Application.Current.TryFindResource("InvalidPathsDetected") ?? "Invalid Paths Detected";
+        var invalidPathsMessage = (string)Application.Current.TryFindResource("InvalidPathsMessage") ?? "The following paths in the emulator parameters appear to be invalid (file or directory not found):";
+        var pathCheckNote = (string)Application.Current.TryFindResource("PathCheckNote") ?? "Note: Paths using %BASEFOLDER% or relative paths are checked against the application's directory and the system folder.";
+        var launchAnywayQuestion = (string)Application.Current.TryFindResource("LaunchAnywayQuestion") ?? "Do you want to launch the game anyway?";
 
+        var pathsList = string.Join("\n", invalidPaths.Select(static p => $"- {p}"));
 
-        return MessageBox.Show(message, "Invalid Paths Detected", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        if (dispatcher.CheckAccess())
+            return ShowMsg();
+        else
+            return dispatcher.Invoke(ShowMsg);
+
+        MessageBoxResult ShowMsg()
+        {
+            var message = $"{invalidPathsMessage}\n\n{pathsList}\n\n" +
+                          $"{pathCheckNote}\n\n" +
+                          $"{launchAnywayQuestion}";
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        }
     }
 }
