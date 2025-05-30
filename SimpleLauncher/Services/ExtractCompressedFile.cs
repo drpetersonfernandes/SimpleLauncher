@@ -23,110 +23,71 @@ public class ExtractCompressedFile
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
     public async Task<string> ExtractGameToTempAsync(string archivePath)
     {
-        // Existing validation code remains the same
-        if (string.IsNullOrEmpty(archivePath))
+        if (string.IsNullOrEmpty(archivePath) || !File.Exists(archivePath))
         {
-            // Notify developer
-            const string contextMessage = "Archive path cannot be null or empty";
+            const string contextMessage = "Archive path cannot be null, empty, or file not found.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return null;
         }
 
-        // Check if the file exists
-        if (!File.Exists(archivePath))
-        {
-            // Notify developer
-            var contextMessage = $"Archive file not found: {archivePath}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
-
-            return null;
-        }
-
-        // Check file extension
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
-            // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
-
             return null;
         }
 
-        // Choose the correct 7z executable
         var sevenZipPath = Get7ZipPath.Get7ZipExecutablePath();
         if (string.IsNullOrEmpty(sevenZipPath) || !File.Exists(sevenZipPath))
         {
-            // Notify developer
             const string contextMessage = "7-Zip executable not found or is inaccessible.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return null;
         }
 
-        // Create temp folder with random name
         string tempDirectory = null;
         PleaseWaitWindow pleaseWaitExtraction = null;
 
         try
         {
-            // Ensure _tempFolder is safe and doesn't contain path traversal attempts
-            var safeTempFolder = PathHelper.ResolveRelativeToCurrentWorkingDirectory(_tempFolder);
+            // Resolve the base temp folder path using PathHelper
+            var resolvedTempFolder = PathHelper.ResolveRelativeToAppDirectory(_tempFolder);
 
-            // Validate that _tempFolder is still within the system's temp path
-            var systemTempPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(Path.GetTempPath());
+            // Validate that the resolved temp folder is within the system's temp path
+            var systemTempPath = Path.GetTempPath(); // Use standard GetTempPath for comparison
 
-            if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase)) // Resolve system temp path too
             {
-                // The _tempFolder has been manipulated - use default temp path instead
-                safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+                // The _tempFolder has been manipulated or resolution failed - use default temp path instead
+                resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
-                // Notify developer
-                // Log this as a potential security issue
-                const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
+                const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
-            // Create a random directory name
             var randomName = Path.GetRandomFileName();
-
-            // Ensure the random name doesn't contain path traversal characters
             if (randomName.Contains("..") || randomName.Contains('/') || randomName.Contains('\\'))
             {
-                // Create a safer random name
                 randomName = Guid.NewGuid().ToString("N");
             }
 
-            tempDirectory = Path.Combine(safeTempFolder, randomName);
+            // Combine the resolved temp folder with the random name
+            tempDirectory = Path.Combine(resolvedTempFolder, randomName);
             try
             {
                 Directory.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
-                // Notify developer
                 const string contextMessage = "Could not create the temp directory.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
-
                 return null;
             }
 
-            // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 var extractionMessage = Application.Current.TryFindResource("Extractingcompressed").ToString() ?? "Extracting compressed file...";
@@ -134,12 +95,10 @@ public class ExtractCompressedFile
                 pleaseWaitExtraction.Show();
             });
 
-            // Construct the process with improved argument sanitization
             using var process = new Process();
             process.StartInfo = new ProcessStartInfo
             {
                 FileName = sevenZipPath,
-                // Proper quoting of paths to avoid command injection
                 Arguments = $"x \"{EscapeCommandLineArgument(archivePath)}\" -o\"{EscapeCommandLineArgument(tempDirectory)}\" -y",
                 RedirectStandardOutput = true,
                 RedirectStandardError = true,
@@ -148,73 +107,55 @@ public class ExtractCompressedFile
             };
             process.EnableRaisingEvents = true;
 
-            // Rest of the method remains the same
             var outputBuilder = new StringBuilder();
             var errorBuilder = new StringBuilder();
 
             process.OutputDataReceived += (sender, args) =>
             {
-                if (args.Data != null)
-                    outputBuilder.AppendLine(args.Data);
+                if (args.Data != null) outputBuilder.AppendLine(args.Data);
             };
 
             process.ErrorDataReceived += (sender, args) =>
             {
-                if (args.Data != null)
-                    errorBuilder.AppendLine(args.Data);
+                if (args.Data != null) errorBuilder.AppendLine(args.Data);
             };
 
-            // Run the extraction process
             process.Start();
             process.BeginOutputReadLine();
             process.BeginErrorReadLine();
-
-            // Wait for the process to exit
             await process.WaitForExitAsync();
 
-            // Check if extraction was successful
             if (process.ExitCode == 0)
             {
-                // Add additional security check - scan the extracted files for zip slip attempts
+                // VerifyNoPathTraversalInExtractedFiles uses PathHelper internally
                 if (VerifyNoPathTraversalInExtractedFiles(tempDirectory, tempDirectory))
                 {
                     return tempDirectory;
                 }
                 else
                 {
-                    // Notify user
                     MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
-
                     throw new SecurityException("Potential path traversal detected in archive contents");
                 }
             }
 
-            // If we get here, extraction failed
             var errorMessage = $"Extraction of the compressed file failed.\n\n" +
                                $"Exit code: {process.ExitCode}\n" +
                                $"Output: {outputBuilder}\n" +
                                $"Error: {errorBuilder}";
-
             throw new Exception(errorMessage);
         }
         catch (Exception ex)
         {
-            // Clean up temp directory on failure
             CleanFolder.CleanupTempDirectory(tempDirectory);
-
-            // Notify developer
-            const string contextMessage = $"Extraction of the compressed file failed.\n" +
+            const string catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
                                           $"The file may be corrupted.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
+            _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return null;
         }
         finally
         {
-            // Close the wait window on UI thread
             if (pleaseWaitExtraction != null)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -235,96 +176,63 @@ public class ExtractCompressedFile
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
     public async Task<string> ExtractGameToTempAsync2(string archivePath)
     {
-        // Existing validation code remains the same
-        if (string.IsNullOrEmpty(archivePath))
+        if (string.IsNullOrEmpty(archivePath) || !File.Exists(archivePath))
         {
-            // Notify developer
-            const string contextMessage = "Archive path cannot be null or empty";
+            const string contextMessage = "Archive path cannot be null, empty, or file not found.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return null;
         }
 
-        // Check if the file exists
-        if (!File.Exists(archivePath))
-        {
-            // Notify developer
-            var contextMessage = $"The specified archive file does not exist: {archivePath}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
-
-            return null;
-        }
-
-        // Check file extension
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
         if (extension != ".zip")
         {
-            // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
-
             return null;
         }
 
-        // Create temp folder with random name - IMPROVED IMPLEMENTATION
         string tempDirectory = null;
         PleaseWaitWindow pleaseWaitExtraction = null;
+        var extractionSuccessful = false; // Declared outside try
 
         try
         {
-            // Ensure _tempFolder is safe and doesn't contain path traversal attempts
-            var safeTempFolder = PathHelper.ResolveRelativeToCurrentWorkingDirectory(_tempFolder);
+            // Resolve the base temp folder path using PathHelper
+            var resolvedTempFolder = PathHelper.ResolveRelativeToAppDirectory(_tempFolder);
 
-            // Validate that _tempFolder is still within the system's temp path
-            var systemTempPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(Path.GetTempPath());
+            // Validate that the resolved temp folder is within the system's temp path
+            var systemTempPath = Path.GetTempPath(); // Use standard GetTempPath for comparison
 
-            if (!safeTempFolder.StartsWith(systemTempPath, StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase)) // Resolve system temp path too
             {
-                // The _tempFolder has been manipulated - use default temp path instead
-                safeTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
+                // The _tempFolder has been manipulated or resolution failed - use default temp path instead
+                resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
-                // Notify developer
-                // Log this as a potential security issue
-                const string contextMessage = "Potential path manipulation detected. Reverting to default temp path.";
+                const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
-            // Create a random directory name
             var randomName = Path.GetRandomFileName();
-
-            // Ensure the random name doesn't contain path traversal characters
             if (randomName.Contains("..") || randomName.Contains('/') || randomName.Contains('\\'))
             {
-                // Create a safer random name
                 randomName = Guid.NewGuid().ToString("N");
             }
 
-            tempDirectory = Path.Combine(safeTempFolder, randomName);
+            // Combine the resolved temp folder with the random name
+            tempDirectory = Path.Combine(resolvedTempFolder, randomName);
             try
             {
                 Directory.CreateDirectory(tempDirectory);
             }
             catch (Exception ex)
             {
-                // Notify developer
                 const string contextMessage = "Could not create the temp directory.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
-
                 return null;
             }
 
-            // Show the wait window (on UI thread)
             await Application.Current.Dispatcher.InvokeAsync(() =>
             {
                 var extractionMessage = Application.Current.TryFindResource("Extractingcompressed").ToString() ?? "Extracting compressed file...";
@@ -332,38 +240,59 @@ public class ExtractCompressedFile
                 pleaseWaitExtraction.Show();
             });
 
-            // Extract the zip file using built-in .NET method with improved security
             await Task.Run(() =>
             {
                 try
                 {
-                    // Instead of using ZipFile.ExtractToDirectory directly, which doesn't
-                    // protect against zip slip, extract files individually with validation
-                    using var archive = ZipFile.OpenRead(archivePath);
+                    using var fileStream = new FileStream(archivePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
+                    using var archive = new ZipArchive(fileStream, ZipArchiveMode.Read);
 
-                    // Check for empty archive
                     if (archive.Entries.Count == 0)
                     {
                         throw new InvalidDataException("The ZIP file contains no entries.");
                     }
 
-                    // Extract files with path traversal protection
+                    var estimatedSize = EstimateExtractedSize(archive);
+                    var rootPath = Path.GetPathRoot(Path.GetFullPath(tempDirectory)); // Use tempDirectory for drive check
+
+                    if (!string.IsNullOrEmpty(rootPath))
+                    {
+                        try
+                        {
+                            var drive = new DriveInfo(rootPath);
+                            if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
+                            {
+                                var contextMessage =
+                                    $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                Exception ex = new IOException(contextMessage);
+                                _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
+                                MessageBoxLibrary.DiskSpaceErrorMessageBox();
+                                return; // Exit the Task.Run lambda
+                            }
+                        }
+                        catch (ArgumentException ex)
+                        {
+                            _ = LogErrors.LogErrorAsync(ex,
+                                $"Unable to check disk space for path {tempDirectory}: {ex.Message}");
+                            MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
+                            return; // Exit the Task.Run lambda
+                        }
+                    }
+
                     foreach (var entry in archive.Entries)
                     {
                         var entryDestinationPath = Path.Combine(tempDirectory, entry.FullName);
+
+                        // Verify the destination path is within the intended temp directory
                         var fullDestPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(entryDestinationPath);
                         var fullTempDir = PathHelper.ResolveRelativeToCurrentWorkingDirectory(tempDirectory);
 
-                        // Prevent zip slip by validating the extraction path
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
                         {
-                            // Notify user
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
-
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
                         }
 
-                        // Create directory for the entry if needed
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
@@ -373,49 +302,60 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
-                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }
 
-                        // Skip directories (folders are already created above)
-                        if (string.IsNullOrEmpty(entry.Name))
-                        {
-                            continue;
-                        }
+                        if (string.IsNullOrEmpty(entry.Name)) continue;
 
-                        // Extract the file
                         entry.ExtractToFile(entryDestinationPath, true);
                     }
                 }
-                catch (Exception ex)
+                catch (Exception)
                 {
-                    // Wrap and rethrow to preserve stack trace
-                    throw new InvalidDataException($"Failed to extract zip contents: {ex.Message}", ex);
+                    throw;
                 }
             });
 
+            var extractionTrackingFile = Path.Combine(tempDirectory, ".extraction_in_progress");
+            if (File.Exists(extractionTrackingFile))
+            {
+                DeleteFiles.TryDeleteFile(extractionTrackingFile);
+            }
+
+            extractionSuccessful = true; // Set to true on successful extraction
             return tempDirectory;
         }
         catch (Exception ex)
         {
-            // Clean up temp directory on failure
             CleanFolder.CleanupTempDirectory(tempDirectory);
-
-            // Notify developer
-            var contextMessage = $"Extraction of the compressed file failed.\n" +
-                                 $"The file may be corrupted.\n" +
-                                 $"File: {archivePath}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
+            var catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
+                                     $"The file may be corrupted.\n" +
+                                     $"File: {archivePath}";
+            _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return null;
         }
         finally
         {
-            // Close the wait window on UI thread
+            // Use tempDirectory for cleanup
+            if (!extractionSuccessful && tempDirectory != null) // Check extractionSuccessful and tempDirectory
+            {
+                try
+                {
+                    var extractionTrackingFile = Path.Combine(tempDirectory, ".extraction_in_progress");
+                    if (File.Exists(extractionTrackingFile))
+                    {
+                        CleanFolder.CleanupPartialExtraction(tempDirectory);
+                    }
+                }
+                catch (Exception cleanupEx)
+                {
+                    var contextMessage = $"Failed to clean up partial extraction in: {tempDirectory}"; // Use tempDirectory
+                    _ = LogErrors.LogErrorAsync(cleanupEx, contextMessage);
+                }
+            }
+
             if (pleaseWaitExtraction != null)
             {
                 await Application.Current.Dispatcher.InvokeAsync(() =>
@@ -427,6 +367,7 @@ public class ExtractCompressedFile
         }
     }
 
+
     /// <summary>
     /// Extracts downloaded compressed files to a specified destination folder.
     /// This method extracts files inside the 'Simple Launcher' folder
@@ -437,82 +378,61 @@ public class ExtractCompressedFile
     /// <returns>True if extraction was successful, false otherwise</returns>
     public static async Task<bool> ExtractDownloadFilesAsync(string filePath, string destinationFolder)
     {
-        // Check filePath
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
-            // Notify developer
             const string contextMessage = "File path is invalid.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
-
             return false;
         }
 
-        // Check destinationFolder
-        if (string.IsNullOrEmpty(destinationFolder))
+        // Resolve the destination folder using PathHelper
+        var resolvedDestinationFolder = PathHelper.ResolveRelativeToAppDirectory(destinationFolder);
+
+        if (string.IsNullOrEmpty(resolvedDestinationFolder)) // Check if resolution failed
         {
-            // Notify developer
-            const string contextMessage = "Destination folder cannot be null or empty";
+            const string contextMessage = "Destination folder path resolution failed.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
-
             return false;
         }
 
-        // Check if the file is locked
         if (CheckForFileLock.IsFileLocked(filePath))
         {
-            // Notify developer
             var contextMessage = $"The downloaded file appears to be locked: {filePath}";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.FileIsLockedMessageBox();
-
             return false;
         }
 
-        // Check file extension
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
-
-        // Verify this is a supported format
         if (extension != ".zip")
         {
-            // Notify developer
             var contextMessage = $"Only ZIP files are supported by this extraction method.\n" +
                                  $"File type: {extension}";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
-
             return false;
         }
 
-        var extractionSuccessful = false;
+        var extractionSuccessful = false; // Declared outside try
 
         try
         {
-            // Create the destination directory if it doesn't exist
             try
             {
-                Directory.CreateDirectory(destinationFolder);
+                // Use the resolved destination folder for creation
+                Directory.CreateDirectory(resolvedDestinationFolder);
             }
             catch (Exception ex)
             {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {destinationFolder}");
+                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {resolvedDestinationFolder}");
             }
 
-            // Create a tracking directory to detect partial extraction
-            var extractionTrackingFile = Path.Combine(destinationFolder, ".extraction_in_progress");
+            // Create a tracking file in the resolved destination folder
+            var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
             await File.WriteAllTextAsync(extractionTrackingFile, DateTime.Now.ToString(CultureInfo.InvariantCulture));
 
-            // Extract the file using native .NET libraries
             await Task.Run(() =>
             {
                 try
@@ -520,61 +440,54 @@ public class ExtractCompressedFile
                     using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
                     using var archive = new ZipArchive(fileStream, ZipArchiveMode.Read);
 
-                    // Perform basic validation of zip file contents
                     if (archive.Entries.Count == 0)
                     {
                         throw new InvalidDataException("The ZIP file contains no entries.");
                     }
 
-                    // Verify there's enough disk space for extraction
                     var estimatedSize = EstimateExtractedSize(archive);
 
-                    // Get the root path (drive) of the destination folder using Path APIs
-                    // This is more robust than manual string manipulation
-                    var rootPath = Path.GetPathRoot(Path.GetFullPath(destinationFolder));
-
-                    // Check if we successfully got a root path
+                    // Check disk space using the resolved destination folder
+                    var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
                     if (!string.IsNullOrEmpty(rootPath))
                     {
                         try
                         {
-                            // Create DriveInfo directly from the root path
                             var drive = new DriveInfo(rootPath);
-
                             if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                             {
                                 var contextMessage =
                                     $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
                                 Exception ex = new IOException(contextMessage);
-
-                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
-
-                                // Notify user
                                 MessageBoxLibrary.DiskSpaceErrorMessageBox();
-
-                                return;
+                                return; // Exit the Task.Run lambda
                             }
                         }
                         catch (ArgumentException ex)
                         {
-                            // Notify developer
                             _ = LogErrors.LogErrorAsync(ex,
-                                $"Unable to check disk space for path {destinationFolder}: {ex.Message}");
-
-                            // Notify user
+                                $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
                             MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
-
-                            return;
+                            return; // Exit the Task.Run lambda
                         }
                     }
 
-                    // Extract files one by one
                     foreach (var entry in archive.Entries)
                     {
-                        var entryDestinationPath = Path.Combine(destinationFolder, entry.FullName);
+                        // Combine with the resolved destination folder
+                        var entryDestinationPath = Path.Combine(resolvedDestinationFolder, entry.FullName);
 
-                        // Create directory for the entry if needed
+                        // Verify the destination path is within the resolved destination folder
+                        var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
+                        var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
+
+                        if (!fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                        {
+                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(filePath); // Use original filePath for message
+                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
+                        }
+
                         var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
                         if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
                         {
@@ -584,76 +497,62 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
-                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }
 
-                        // Skip directories (folders are already created above)
-                        if (string.IsNullOrEmpty(entry.Name))
-                        {
-                            continue;
-                        }
+                        if (string.IsNullOrEmpty(entry.Name)) continue;
 
-                        // Extract the file (always overwrite existing files)
                         entry.ExtractToFile(entryDestinationPath, true);
                     }
                 }
                 catch (Exception)
                 {
-                    // Re-throw to be caught by the outer try/catch
                     throw;
                 }
             });
 
-            // Remove the tracking file on successful extraction
             if (File.Exists(extractionTrackingFile))
             {
                 DeleteFiles.TryDeleteFile(extractionTrackingFile);
             }
 
-            extractionSuccessful = true;
+            extractionSuccessful = true; // Set to true on successful extraction
             return true;
         }
         catch (Exception ex)
         {
-            // Get more specific exception details
-            var exceptionDetails = GetDetailedExceptionInfo(ex);
-
-            // Notify developer
-            var contextMessage = $"Error extracting the file: {filePath}\n" +
-                                 $"{exceptionDetails}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
-
-            return false;
-        }
-        finally
-        {
-            // If extraction failed, clean up partial files
-            if (!extractionSuccessful)
+            if (!string.IsNullOrEmpty(resolvedDestinationFolder)) // Only attempt cleanup if resolution was successful
             {
                 try
                 {
-                    // Check if the tracking file exists
-                    var extractionTrackingFile = Path.Combine(destinationFolder, ".extraction_in_progress");
+                    var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
                     {
-                        // Remove all content from this folder as it's a partial extraction
-                        CleanFolder.CleanupPartialExtraction(destinationFolder);
+                        CleanFolder.CleanupPartialExtraction(resolvedDestinationFolder); // Use resolvedDestinationFolder
                     }
                 }
                 catch (Exception cleanupEx)
                 {
-                    // Notify developer
-                    var contextMessage = $"Failed to clean up partial extraction in: {destinationFolder}";
+                    var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}"; // Use resolvedDestinationFolder
                     _ = LogErrors.LogErrorAsync(cleanupEx, contextMessage);
                 }
             }
+
+            var exceptionDetails = GetDetailedExceptionInfo(ex);
+            var catchContextMessage = $"Error extracting the file: {filePath}\n" + // Renamed
+                                     $"{exceptionDetails}";
+            _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
+            MessageBoxLibrary.ExtractionFailedMessageBox();
+            return false;
+        }
+        finally
+        {
+            // No pleaseWaitExtraction window in this method, so no cleanup needed here.
+            // The cleanup logic for partial extraction is handled in the catch block above.
         }
     }
+
 
     /// <summary>
     /// Estimates the extracted size of a ZIP archive

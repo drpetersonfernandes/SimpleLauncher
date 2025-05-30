@@ -129,18 +129,16 @@ public partial class EasyModeWindow : IDisposable
         DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
         DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
 
-        // Reset download status
         _isEmulatorDownloaded = false;
-        // _isCoreDownloaded = !DownloadCoreButton.IsEnabled;
         _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
 
         UpdateAddSystemButtonState();
 
-        // Populate SystemFolder with value from easymode.xml
+        // Populate SystemFolder with resolved path from easymode.xml
         var originalSystemFolder = selectedSystem.SystemFolder;
-        var fixedSystemFolder = originalSystemFolder.Replace("%BASEFOLDER%", _basePath);
-        var finalSystemFolder = Path.GetFullPath(fixedSystemFolder);
-        SystemFolderTextBox.Text = finalSystemFolder;
+        // Use PathHelper to resolve the path from EasyMode config
+        var finalSystemFolder = PathHelper.ResolveRelativeToAppDirectory(originalSystemFolder);
+        SystemFolderTextBox.Text = finalSystemFolder; // Display the resolved path in the UI
     }
 
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
@@ -223,174 +221,155 @@ public partial class EasyModeWindow : IDisposable
     }
 
     private async Task<bool> DownloadAndExtractAsync(DownloadType downloadType)
+{
+    var selectedSystem = GetSelectedSystem();
+    if (selectedSystem == null) return false;
+
+    string downloadUrl;
+    string destinationPath;
+    string componentName;
+    string easyModeExtractPath; // Use a variable for the path from EasyMode config
+
+    switch (downloadType)
     {
-        var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null) return false;
-
-        string downloadUrl;
-        string destinationPath;
-        string componentName;
-
-        // Configure based on the download type
-        switch (downloadType)
-        {
-            case DownloadType.Emulator:
-                downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-
-                var emulatorDownloadExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-                var fixedEmulatorDownloadExtractPath = emulatorDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-                var finalEmulatorDownloadExtractPath = Path.GetFullPath(fixedEmulatorDownloadExtractPath);
-
-                destinationPath = finalEmulatorDownloadExtractPath;
-                componentName = "Emulator";
-                break;
-            case DownloadType.Core:
-                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-
-                var coreDownloadExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-                var fixedCoreDownloadExtractPath = coreDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-                var finalCoreDownloadExtractPath = Path.GetFullPath(fixedCoreDownloadExtractPath);
-
-                destinationPath = finalCoreDownloadExtractPath;
-                componentName = "Core";
-                break;
-            case DownloadType.ImagePack:
-                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
-
-                var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-                var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-                var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
-
-                destinationPath = finalImagePackDownloadExtractPath;
-                componentName = "Image Pack";
-                break;
-            default:
-                return false;
-        }
-
-        // Ensure valid URL
-        if (string.IsNullOrEmpty(downloadUrl))
-        {
-            var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
-            DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
+        case DownloadType.Emulator:
+            downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
+            easyModeExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+            componentName = "Emulator";
+            break;
+        case DownloadType.Core:
+            downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
+            easyModeExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+            componentName = "Core";
+            break;
+        case DownloadType.ImagePack:
+            downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+            easyModeExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+            componentName = "Image Pack";
+            break;
+        default:
             return false;
+    }
+
+    // Resolve the destination path using PathHelper
+    destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
+
+    // Ensure valid URL and destination path
+    if (string.IsNullOrEmpty(downloadUrl))
+    {
+        var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+        DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
+        return false;
+    }
+    if (string.IsNullOrEmpty(destinationPath)) // Check if resolution failed
+    {
+         var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+         DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
+         _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+         return false;
+    }
+
+
+    try
+    {
+        var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+        DownloadStatus = $"{preparingtodownload} {componentName}...";
+
+        DownloadProgressBar.Visibility = Visibility.Visible;
+        DownloadProgressBar.Value = 0;
+        StopDownloadButton.IsEnabled = true;
+
+        var success = false;
+
+        var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+        var pleaseWaitWindow = new PleaseWaitWindow($"{extracting} {componentName}...");
+        pleaseWaitWindow.Owner = this;
+
+        var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+        DownloadStatus = $"{downloading} {componentName}...";
+
+        var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+        if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+        {
+            DownloadStatus = $"{extracting} {componentName}...";
+            pleaseWaitWindow.Show();
+            success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+            pleaseWaitWindow.Close();
         }
 
-        try
+        if (success)
         {
-            // Reset status
-            var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
-            DownloadStatus = $"{preparingtodownload} {componentName}...";
-
-            // Display progress bar
-            DownloadProgressBar.Visibility = Visibility.Visible;
-            DownloadProgressBar.Value = 0;
-            StopDownloadButton.IsEnabled = true;
-
-            // Download and extract
-            var success = false; // Initialize variable
-
-            var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting} {componentName}...");
-            pleaseWaitWindow.Owner = this;
-
-            // Use the DownloadAndExtractAsync method in DownloadManager
-            var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-            DownloadStatus = $"{downloading} {componentName}...";
-
-            // First download
-            var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-
-            if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+            var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+            DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
+            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+            StopDownloadButton.IsEnabled = false;
+            return true;
+        }
+        else
+        {
+            if (_downloadManager.IsUserCancellation)
             {
-                // Then extract
-                DownloadStatus = $"{extracting} {componentName}...";
-
-                pleaseWaitWindow.Show();
-                success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-                pleaseWaitWindow.Close();
-            }
-
-            // Update UI based on the result
-            if (success)
-            {
-                // Notify user
-                var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
-                DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
-                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-
-                StopDownloadButton.IsEnabled = false;
-                return true;
+                var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
             }
             else
             {
-                if (_downloadManager.IsUserCancellation)
+                var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                DownloadStatus = $"{errorFailedtoextract} {componentName}.";
+
+                switch (downloadType)
                 {
-                    var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
-                    var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
-                    DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
+                    case DownloadType.Emulator:
+                        await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                        break;
+                    case DownloadType.Core:
+                        await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                        break;
+                    case DownloadType.ImagePack:
+                        await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                        break;
+                    default:
+                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                        break;
                 }
-                else
-                {
-                    // Log extraction failure
-                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
-                    DownloadStatus = $"{errorFailedtoextract} {componentName}.";
-
-                    // Show an error message based on component type
-                    switch (downloadType)
-                    {
-                        case DownloadType.Emulator:
-                            await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
-                            break;
-                        case DownloadType.Core:
-                            await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
-                            break;
-                        case DownloadType.ImagePack:
-                            await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
-                            break;
-                        default:
-                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                            break;
-                    }
-                }
-
-                StopDownloadButton.IsEnabled = false;
-                return false;
-            }
-        }
-        catch (Exception ex)
-        {
-            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
-            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
-            DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
-
-            // Notify developer
-            var contextMessage = $"Error downloading {componentName}.\n" +
-                                 $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            switch (downloadType)
-            {
-                case DownloadType.Emulator:
-                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
-                    break;
-                case DownloadType.Core:
-                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
-                    break;
-                case DownloadType.ImagePack:
-                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
-                    break;
-                default:
-                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                    break;
             }
 
             StopDownloadButton.IsEnabled = false;
             return false;
         }
     }
+    catch (Exception ex)
+    {
+        var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
+        var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+        DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
 
+        var contextMessage = $"Error downloading {componentName}.\n" +
+                             $"URL: {downloadUrl}";
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+        switch (downloadType)
+        {
+            case DownloadType.Emulator:
+                await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                break;
+            case DownloadType.Core:
+                await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                break;
+            case DownloadType.ImagePack:
+                await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                break;
+            default:
+                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                break;
+        }
+
+        StopDownloadButton.IsEnabled = false;
+        return false;
+    }
+}
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
     {
         Dispatcher.InvokeAsync(() =>
@@ -609,24 +588,15 @@ public partial class EasyModeWindow : IDisposable
 
     private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string finalSystemFolder, string finalSystemImageFolder)
     {
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
+        // EasyMode saves resolved paths to system.xml
+        var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorLocation);
+        // Parameter resolution should happen *before* saving to system.xml in EasyMode's logic
+        var emulatorParameters = ParameterValidator.ResolveParameterString(selectedSystem.Emulators.Emulator.EmulatorParameters, selectedSystem.SystemFolder);
 
-        var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%BASEFOLDER%", sanitizedBasePath);
-        var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
-        var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
-
-        var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%BASEFOLDER%", sanitizedBasePath);
-        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
-        var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
-
-        // Create a new XElement for the selected system
         var newSystemElement = new XElement("SystemConfig",
             new XElement("SystemName", selectedSystem.SystemName),
-            new XElement("SystemFolder", finalSystemFolder),
-            new XElement("SystemImageFolder", finalSystemImageFolder),
+            new XElement("SystemFolder", finalSystemFolder), // Already resolved
+            new XElement("SystemImageFolder", finalSystemImageFolder), // Already resolved
             new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
             new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
@@ -634,8 +604,8 @@ public partial class EasyModeWindow : IDisposable
             new XElement("Emulators",
                 new XElement("Emulator",
                     new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                    new XElement("EmulatorLocation", finalEmulatorLocation),
-                    new XElement("EmulatorParameters", finalEmulatorParameters)
+                    new XElement("EmulatorLocation", emulatorLocation), // Save resolved location
+                    new XElement("EmulatorParameters", emulatorParameters) // Save resolved parameters
                 )
             )
         );
@@ -644,35 +614,24 @@ public partial class EasyModeWindow : IDisposable
 
     private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string finalSystemFolder, string finalSystemImageFolder)
     {
-        var basePath = AppDomain.CurrentDomain.BaseDirectory;
-        var sanitizedBasePath = PathHelper.SanitizePathToken(basePath);
+        // EasyMode saves resolved paths to system.xml
+        var emulatorLocation = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorLocation);
+        // Parameter resolution should happen *before* saving to system.xml in EasyMode's logic
+        var emulatorParameters = ParameterValidator.ResolveParameterString(selectedSystem.Emulators.Emulator.EmulatorParameters, selectedSystem.SystemFolder);
 
-        var emulatorLocation = selectedSystem.Emulators.Emulator.EmulatorLocation;
-        var fixedEmulatorLocation = emulatorLocation.Replace("%BASEFOLDER%", sanitizedBasePath);
-        var finalEmulatorLocation = Path.GetFullPath(fixedEmulatorLocation);
-        var finalEmulatorLocationFolderName = Path.GetDirectoryName(finalEmulatorLocation);
-
-        var emulatorParameters = selectedSystem.Emulators.Emulator.EmulatorParameters;
-        var fixedEmulatorParameters = emulatorParameters.Replace("%BASEFOLDER%", sanitizedBasePath);
-        var fixedEmulatorParameters2 = fixedEmulatorParameters.Replace("%EMULATORFOLDER%", finalEmulatorLocationFolderName);
-        var finalEmulatorParameters = fixedEmulatorParameters2.Replace("%SYSTEMFOLDER%", finalSystemFolder);
-
-        // Overwrite existing system
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-        existingSystem.SetElementValue("SystemFolder", finalSystemFolder);
-        existingSystem.SetElementValue("SystemImageFolder", finalSystemImageFolder);
+        existingSystem.SetElementValue("SystemFolder", finalSystemFolder); // Already resolved
+        existingSystem.SetElementValue("SystemImageFolder", finalSystemImageFolder); // Already resolved
         existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
-        existingSystem.Element("FileFormatsToSearch")?.Remove();
-        existingSystem.Add(new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))));
+        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
-        existingSystem.Element("FileFormatsToLaunch")?.Remove();
-        existingSystem.Add(new XElement("FileFormatsToLaunch", selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))));
+        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(selectedSystem.FileFormatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(new XElement("Emulators",
             new XElement("Emulator",
                 new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
-                new XElement("EmulatorLocation", finalEmulatorLocation),
-                new XElement("EmulatorParameters", finalEmulatorParameters)
+                new XElement("EmulatorLocation", emulatorLocation), // Save resolved location
+                new XElement("EmulatorParameters", emulatorParameters) // Save resolved parameters
             )
         ));
     }
@@ -686,44 +645,37 @@ public partial class EasyModeWindow : IDisposable
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-        // Paths for the primary system folder and image folder
         var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(finalSystemFolder);
         var imagesFolderPath = PathHelper.ResolveRelativeToAppDirectory(finalSystemImageFolder);
 
-        // List of additional folders to create from appsettings.json
         var additionalFolders = GetAdditionalFolders.GetFolders();
 
         try
         {
-            // Create the primary system folder if it doesn't exist
-            if (!Directory.Exists(systemFolderPath))
+            if (!string.IsNullOrEmpty(systemFolderPath) && !Directory.Exists(systemFolderPath))
             {
                 try
                 {
-                    if (systemFolderPath != null) Directory.CreateDirectory(systemFolderPath);
+                    Directory.CreateDirectory(systemFolderPath);
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating the primary system folder.");
                 }
             }
 
-            // Create the primary image folder if it doesn't exist
-            if (!Directory.Exists(imagesFolderPath))
+            if (!string.IsNullOrEmpty(imagesFolderPath) && !Directory.Exists(imagesFolderPath))
             {
                 try
                 {
-                    if (imagesFolderPath != null) Directory.CreateDirectory(imagesFolderPath);
+                    Directory.CreateDirectory(imagesFolderPath);
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Error creating the primary image folder.");
                 }
             }
 
-            // Create each additional folder
             foreach (var folder in additionalFolders)
             {
                 var folderPath = Path.Combine(baseDirectory, folder, systemName);
@@ -735,20 +687,15 @@ public partial class EasyModeWindow : IDisposable
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error creating the {folder} folder.");
                 }
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();
-
             throw;
         }
     }

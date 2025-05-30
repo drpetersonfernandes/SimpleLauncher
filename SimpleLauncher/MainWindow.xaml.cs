@@ -547,109 +547,94 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     }
 
     private async void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+{
+    try
     {
-        try
+        SearchTextBox.Text = "";
+        EmulatorComboBox.ItemsSource = null;
+        EmulatorComboBox.SelectedIndex = -1;
+        PreviewImage.Source = null;
+
+        _currentSearchResults.Clear();
+        _currentFilter = null;
+        _activeSearchQueryOrMode = null;
+
+        GameFileGrid.Visibility = Visibility.Visible;
+        ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+        if (SystemComboBox.SelectedItem == null)
         {
-            SearchTextBox.Text = ""; // Empty search field
-            EmulatorComboBox.ItemsSource = null; // Null selected emulator
-            EmulatorComboBox.SelectedIndex = -1; // No emulator selected
-            PreviewImage.Source = null; // Empty PreviewImage
-
-            // Clear search results and active filters
-            _currentSearchResults.Clear();
-            _currentFilter = null;
-            _activeSearchQueryOrMode = null;
-
-            // Hide ListView
-            GameFileGrid.Visibility = Visibility.Visible;
-            ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-            if (SystemComboBox.SelectedItem == null)
-            {
-                return;
-            }
-
-            var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-            if (selectedSystem == null)
-            {
-                // Notify developer
-                const string errorMessage = "selectedSystem is null.";
-                _ = LogErrors.LogErrorAsync(null, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                await DisplaySystemSelectionScreenAsync();
-
-                return;
-            }
-
-            if (selectedConfig == null)
-            {
-                // Notify developer
-                const string errorMessage = "selectedConfig is null.";
-                _ = LogErrors.LogErrorAsync(null, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                await DisplaySystemSelectionScreenAsync();
-
-                return;
-            }
-
-            // Populate EmulatorComboBox
-            EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-
-            // Select the first emulator
-            if (EmulatorComboBox.Items.Count > 0)
-            {
-                EmulatorComboBox.SelectedIndex = 0;
-            }
-
-            // Update the selected system property
-            SelectedSystem = selectedSystem;
-
-            // Retrieve the playtime for the selected system
-            var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-            PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
-
-            // Count files for that system
-            var systemFolderPath = selectedConfig.SystemFolder;
-            var fileExtensions = selectedConfig.FileFormatsToSearch; // Pass just the extensions to CountFiles
-            var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
-
-            // Display SystemInfo for that system
-            await DisplaySystemInformation.DisplaySystemInfo(systemFolderPath, await gameCount, selectedConfig, _gameFileGrid);
-
-            // Update Image Folder and Rom Folder Variables
-            _selectedRomFolder = selectedConfig.SystemFolder;
-            _selectedImageFolder = string.IsNullOrWhiteSpace(selectedConfig.SystemImageFolder)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName)
-                : selectedConfig.SystemImageFolder;
-
-            // Call DeselectLetter to clear any selected letter
-            _topLetterNumberMenu.DeselectLetter();
-
-            // Reset pagination
-            ResetPaginationButtons();
-
-            // Load files from cache or rescan if needed
-            // Pass just the extensions to LoadSystemFilesAsync
-            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
+            return;
         }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
-            // Notify user
+        var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+        var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+        if (selectedSystem == null || selectedConfig == null) // Combine null checks
+        {
+            const string errorMessage = "Selected system or its configuration is null.";
+            _ = LogErrors.LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.InvalidSystemConfigMessageBox();
+            await DisplaySystemSelectionScreenAsync();
+            return;
         }
+
+        EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+        if (EmulatorComboBox.Items.Count > 0)
+        {
+            EmulatorComboBox.SelectedIndex = 0;
+        }
+
+        SelectedSystem = selectedSystem;
+
+        var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+        PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+        // Resolve the system folder path using PathHelper
+        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
+
+        // Check if the resolved path is valid before proceeding
+        int gameCount;
+        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
+        {
+             if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
+             {
+                 _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
+             }
+             gameCount = 0; // Set count to 0 if folder is invalid
+        }
+        else
+        {
+            // Pass the resolved path to CountFiles
+            gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+        }
+
+
+        // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
+        await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
+
+        // Resolve the system image folder path using PathHelper
+        var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
+
+        _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
+        _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use default resolved path
+            : resolvedSystemImageFolderPath; // Use resolved configured path
+
+        _topLetterNumberMenu.DeselectLetter();
+        ResetPaginationButtons();
+
+        // Load files from cache or rescan if needed (pass the resolved folder path)
+        _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch, gameCount);
     }
+    catch (Exception ex)
+    {
+        const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+        _ = LogErrors.LogErrorAsync(ex, errorMessage);
+        MessageBoxLibrary.InvalidSystemConfigMessageBox();
+    }
+}
+
 
     private void AddNoFilesMessage()
     {
@@ -682,191 +667,129 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
+{
+    Dispatcher.Invoke(() => SetUiLoadingState(true));
+    await SetUiBeforeLoadGameFilesAsync();
+
+    try
     {
-        Dispatcher.Invoke(() => SetUiLoadingState(true));
-
-        await SetUiBeforeLoadGameFilesAsync();
-
-        try
+        if (SystemComboBox.SelectedItem == null)
         {
-            if (SystemComboBox.SelectedItem == null)
+            await DisplaySystemSelectionScreenAsync();
+            return;
+        }
+
+        var selectedSystem = SystemComboBox.SelectedItem.ToString();
+        var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+        if (selectedManager == null)
+        {
+            const string contextMessage = "selectedConfig is null.";
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            MessageBoxLibrary.InvalidSystemConfigMessageBox();
+            await DisplaySystemSelectionScreenAsync();
+            return;
+        }
+
+        List<string> allFiles;
+
+        switch (searchQuery)
+        {
+            case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+            case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+                allFiles = new List<string>(_currentSearchResults);
+                break;
+            default:
             {
-                await DisplaySystemSelectionScreenAsync();
-                return;
-            }
+                // Use the cached files (which are already resolved paths)
+                allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
 
-            var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-            if (selectedManager == null)
-            {
-                // Notify developer
-                const string contextMessage = "selectedConfig is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                await DisplaySystemSelectionScreenAsync();
-                return;
-            }
-
-            // Create allFiles
-            List<string> allFiles;
-
-            switch (searchQuery)
-            {
-                // If we are in "FAVORITES" mode, use '_currentSearchResults'
-                case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                // If we are in "RANDOM_SELECTION" mode, use '_currentSearchResults'
-                case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                    allFiles = new List<string>(_currentSearchResults); // Use a copy for manipulation
-                    break;
-                // Regular behavior: load files based on startLetter or searchQuery
-                default:
+                if (!string.IsNullOrWhiteSpace(startLetter))
                 {
-                    allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
-
-                    // Filter by TopMenu Letter if specified
-                    if (!string.IsNullOrWhiteSpace(startLetter))
-                    {
-                        allFiles = await FilterFilesAsync(allFiles, startLetter);
-                    }
-
-                    // Process search query (from SearchBox)
-                    if (!string.IsNullOrWhiteSpace(searchQuery))
-                    {
-                        // If _currentSearchResults already exists from a previous identical text search, use it to avoid re-filtering.
-                        // This check is subtle. If _activeSearchQueryOrMode matches searchQuery, and it's a text search,
-                        // _currentSearchResults should already hold the full unpaginated list.
-                        // However, LoadGameFilesAsync is also responsible for populating _currentSearchResults for new text searches.
-                        // The existing logic:
-                        // if (_currentSearchResults != null && _currentSearchResults.Count != 0 &&
-                        //     searchQuery != "RANDOM_SELECTION" &&
-                        //     searchQuery != "FAVORITES")
-                        // {
-                        //     allFiles = _currentSearchResults; // This assumes _currentSearchResults is for THIS searchQuery
-                        // }
-                        // This part might be redundant if ExecuteSearch clears _currentSearchResults before calling.
-                        // Let's assume _currentSearchResults is either pre-filled for FAV/RANDOM, or needs to be filled for text search.
-
-                        // Perform the search if it's a text search (not FAV/RANDOM)
-                        if (searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
-                        {
-                            var systemIsMame = selectedManager.SystemIsMame;
-                            if (systemIsMame && _mameLookup != null)
-                            {
-                                var lowerQuery = searchQuery.ToLowerInvariant();
-                                allFiles = await Task.Run(() =>
-                                    allFiles.FindAll(file =>
-                                    {
-                                        var fileName = Path.GetFileNameWithoutExtension(file);
-                                        var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase); // Check if the filename contains the search query.
-                                        if (filenameMatch) return true;
-
-                                        if (_mameLookup.TryGetValue(fileName, out var description)) // Lookup in the dictionary.
-                                        {
-                                            return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                                        }
-
-                                        return false;
-                                    }));
-                            }
-                            else
-                            {
-                                // For non-MAME systems, use the original filtering by filename.
-                                allFiles = await Task.Run(() =>
-                                    allFiles.FindAll(file =>
-                                    {
-                                        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                                        return fileNameWithoutExtension.Contains(searchQuery, StringComparison.OrdinalIgnoreCase);
-                                    }));
-                            }
-
-                            // Store the full results of this text search in _currentSearchResults
-                            _currentSearchResults = new List<string>(allFiles);
-                        }
-                    }
-                    else if (string.IsNullOrWhiteSpace(startLetter)) // Neither search nor letter filter
-                    {
-                        // If no search query and no start letter, _currentSearchResults should be empty
-                        // unless explicitly set by favorites/random (handled by switch cases above).
-                        // For "All" games (no filter, no search), _currentSearchResults should be cleared
-                        // if it held previous search results.
-                        // This is typically handled by the calling context (e.g., TopLetterNumberMenu_Click("All") clears SearchTextBox and _activeSearchQueryOrMode).
-                        // If LoadGameFilesAsync(null,null) is called, it means "All" for the system.
-                        // _currentSearchResults should not interfere here.
-                        // The _currentSearchResults is cleared in ExecuteSearch, ResetUI, SystemComboBox_SelectionChanged.
-                        // For letter filters, _currentSearchResults is not touched by LoadGameFilesAsync.
-                    }
-
-                    break;
+                    // Filter the list of resolved paths
+                    allFiles = await FilterFilesAsync(allFiles, startLetter);
                 }
-            }
 
-            // Sort the collection of files
-            allFiles.Sort();
-
-            // Apply ShowGames filter before pagination
-            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
-
-            allFiles = SetPaginationOfListOfFiles(allFiles); // This paginates the 'allFiles' list
-
-            // Reload the FavoritesConfig
-            _favoritesManager = FavoritesManager.LoadFavorites();
-
-            // Initialize GameButtonFactory with updated FavoritesConfig
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
-                _settings, _favoritesManager, _gameFileGrid, this);
-
-            // Initialize GameListFactory with updated FavoritesConfig
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
-                _settings, _favoritesManager, _playHistoryManager, this);
-
-            // Display files based on ViewMode
-            foreach (var filePath in allFiles) // 'allFiles' is now the paginated list
-            {
-                if (_settings.ViewMode == "GridView")
+                if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
                 {
-                    var gameButton =
-                        await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
-                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
-                }
-                else // ListView
-                {
-                    var gameListViewItem =
-                        await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
-                    await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
-                }
-            }
+                     var systemIsMame = selectedManager.SystemIsMame;
+                     var lowerQuery = searchQuery.ToLowerInvariant();
+                     allFiles = await Task.Run(() =>
+                         allFiles.FindAll(file => // 'file' here is already a resolved absolute path
+                         {
+                             var fileName = Path.GetFileNameWithoutExtension(file);
+                             var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                             if (filenameMatch) return true;
 
-            // Set focus
-            switch (_settings.ViewMode)
-            {
-                // Set focus to the ScrollViewer
-                case "GridView":
-                    Scroller.Focus();
-                    break;
-                // Set focus to the GameDataGrid
-                case "ListView":
-                    GameDataGrid.Focus();
-                    break;
+                             if (systemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
+                             {
+                                 return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                             }
+
+                             return false;
+                         }));
+
+                     _currentSearchResults = new List<string>(allFiles);
+                }
+                // If no search query and no start letter, allFiles is already the full cached list for the system.
+                // _currentSearchResults remains empty in this case.
+
+                break;
             }
         }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
-        }
-        finally
+        allFiles.Sort();
+
+        allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+
+        allFiles = SetPaginationOfListOfFiles(allFiles);
+
+        _favoritesManager = FavoritesManager.LoadFavorites();
+
+        // GameButtonFactory and GameListFactory now use the resolved file paths directly
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+            _settings, _favoritesManager, _gameFileGrid, this);
+
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+            _settings, _favoritesManager, _playHistoryManager, this);
+
+        foreach (var filePath in allFiles) // 'filePath' is already resolved here
         {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
+            if (_settings.ViewMode == "GridView")
+            {
+                var gameButton =
+                    await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
+            }
+            else // ListView
+            {
+                var gameListViewItem =
+                    await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
+            }
+        }
+
+        switch (_settings.ViewMode)
+        {
+            case "GridView":
+                Scroller.Focus();
+                break;
+            case "ListView":
+                GameDataGrid.Focus();
+                break;
         }
     }
+    catch (Exception ex)
+    {
+        const string contextMessage = "Error in the method LoadGameFilesAsync.";
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+    }
+    finally
+    {
+        Dispatcher.Invoke(() => SetUiLoadingState(false));
+    }
+}
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
     {
@@ -921,34 +844,43 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private async Task<List<string>> TryToUseCachedListOfFiles(string selectedSystem, SystemManager selectedManager)
     {
         List<string> allFiles;
-        // Attempt to use the cached file list first
         _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
 
-        // Recount the number of files in the system folder
-        var systemFolderPath = selectedManager.SystemFolder;
-        var fileExtensions = selectedManager.FileFormatsToSearch; // Pass just the extensions to CountFiles
-        var gameCount = CountFiles.CountFilesAsync(systemFolderPath, fileExtensions);
+        // Resolve the system folder path for recounting
+        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemFolder);
+
+        // Check if the resolved path is valid before recounting
+        int gameCount;
+        if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || selectedManager.FileFormatsToSearch == null)
+        {
+            if (!string.IsNullOrEmpty(selectedManager.SystemFolder))
+            {
+                _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot recount files for cache validation.");
+            }
+            gameCount = 0; // Set count to 0 if folder is invalid
+        }
+        else
+        {
+            gameCount = await CountFiles.CountFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
+        }
+
         var cachedFilesCount = _cachedFiles?.Count ?? 0;
 
-        // Check the total number of games
-        if (cachedFilesCount != await gameCount)
+        if (cachedFilesCount != gameCount)
         {
-            // If the cached file list is not up to date, rescan the system folder
-            // Pass just the extensions to LoadSystemFilesAsync
-            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, fileExtensions, await gameCount);
+            // Rescan using the resolved path and update cache
+            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, selectedManager.FileFormatsToSearch, gameCount);
         }
 
         if (_cachedFiles is { Count: > 0 })
         {
-            allFiles = new List<string>(_cachedFiles); // Return a copy
+            return new List<string>(_cachedFiles);
         }
         else
         {
-            // Fall back to scanning the folder if no cache is available
-            allFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions); // Pass just the extensions to GetFilesAsync
+            // Fall back to scanning the folder if no cache is available (using the resolved path)
+            return await GetFilePaths.GetFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
         }
-
-        return allFiles;
     }
 
     private async Task SetUiBeforeLoadGameFilesAsync()
@@ -982,13 +914,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
     {
-        // If there are no files or showing all, no filtering needed
         if (files.Count == 0 || _settings.ShowGames == "ShowAll")
             return files;
 
         var filteredFiles = new List<string>();
 
-        // Create a pleaseWaitWindow for longer operations
         var filteringPleasewait = (string)Application.Current.TryFindResource("Filteringpleasewait") ?? "Filtering, please wait...";
         var pleaseWaitWindow = new PleaseWaitWindow(filteringPleasewait);
 
@@ -996,28 +926,26 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
 
-            foreach (var filePath in files)
+            foreach (var filePath in files) // 'filePath' is already resolved here
             {
                 var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
 
-                // Find the image path for this file
                 var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig);
 
-                // Check if the image is named "default.png"
                 bool isDefaultImage;
-
                 if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                 {
                     isDefaultImage = true;
                 }
                 else
                 {
-                    isDefaultImage = false;
+                    // Resolve the found image path before checking existence
+                    var resolvedImagePath = PathHelper.ResolveRelativeToAppDirectory(imagePath);
+                    isDefaultImage = string.IsNullOrEmpty(resolvedImagePath) || !File.Exists(resolvedImagePath) || resolvedImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
                 }
 
                 switch (_settings.ShowGames)
                 {
-                    // Filter based on the showGames setting
                     case "ShowWithCover" when !isDefaultImage:
                     case "ShowWithoutCover" when isDefaultImage:
                         filteredFiles.Add(filePath);
@@ -1061,7 +989,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return Task.Run(() =>
         {
             if (string.IsNullOrEmpty(startLetter))
-                return files; // If no startLetter is provided, no filtering is required
+                return files;
 
             if (startLetter == "#")
             {

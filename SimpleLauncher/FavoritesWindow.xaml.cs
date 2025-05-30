@@ -176,30 +176,23 @@ public partial class FavoritesWindow
             var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemConfig == null)
             {
-                // Notify developer
                 const string contextMessage = "systemConfig is null for the selected favorite";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
                 return;
             }
 
             var fileNameWithExtension = selectedFavorite.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemConfig.SystemFolder);
-            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolderPath, selectedFavorite.FileName);
+            // Use PathHelper to combine and resolve
+            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemConfig.SystemFolder, selectedFavorite.FileName);
 
             AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "There was an error in the right-click context menu.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
@@ -237,20 +230,16 @@ public partial class FavoritesWindow
             var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
-                // Notify developer
                 const string contextMessage = "selectedSystemManager is null.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
                 return;
             }
 
-            var partialPath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
-            var filePath = PathHelper.ResolveRelativeToAppDirectory(partialPath);
+            // Use PathHelper to combine and resolve
+            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
 
-            if (!File.Exists(filePath))
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) // Add null/empty check for resolved path
             {
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
                 if (favoriteToRemove != null)
@@ -260,26 +249,18 @@ public partial class FavoritesWindow
                     _favoritesManager.SaveFavorites();
                 }
 
-                // Notify developer
-                var contextMessage = $"Favorite file does not exist: {filePath}";
+                var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.GameFileDoesNotExistMessageBox();
-
                 return;
             }
 
             var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                // Notify developer
                 const string contextMessage = "emulatorManager is null.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
                 return;
             }
 
@@ -288,13 +269,10 @@ public partial class FavoritesWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
             var contextMessage = $"There was an error launching the game from Favorites.\n" +
                                  $"File Path: {fileName}\n" +
                                  $"System Name: {selectedSystemName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }

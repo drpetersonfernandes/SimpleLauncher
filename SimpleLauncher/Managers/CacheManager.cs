@@ -66,7 +66,7 @@ public class CacheManager
 
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
 
-        // If cached file count doesn't match the current game count, rebuild the cache
+        // If the cached file count doesn't match the current game count, rebuild the cache
         if (cachedData.FileCount != gameCount)
             return await RebuildCache(systemName, systemFolderPath, fileExtensions);
 

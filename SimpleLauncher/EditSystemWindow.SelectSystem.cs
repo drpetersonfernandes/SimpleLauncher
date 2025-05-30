@@ -194,16 +194,17 @@ public partial class EditSystemWindow
         var resolvedDefaultPatternPath = PathHelper.ResolveRelativeToAppDirectory(defaultPatternPathWithSystemName);
 
         // Only create if the current path matches the default pattern AND the directory doesn't exist
-        if (resolvedCurrentPath != resolvedDefaultPatternPath || Directory.Exists(resolvedCurrentPath)) return;
-
-        try
+        // Also check if the resolved path is valid before attempting creation
+        if (!string.IsNullOrEmpty(resolvedCurrentPath) && resolvedCurrentPath.Equals(resolvedDefaultPatternPath, StringComparison.OrdinalIgnoreCase) && !Directory.Exists(resolvedCurrentPath))
         {
-            Directory.CreateDirectory(resolvedCurrentPath); // Create the resolved path
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            try
+            {
+                Directory.CreateDirectory(resolvedCurrentPath); // Create the resolved path
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            }
         }
     }
 }

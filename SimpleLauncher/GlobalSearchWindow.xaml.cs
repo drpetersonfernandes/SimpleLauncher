@@ -114,97 +114,100 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private List<SearchResult> PerformSearch(string searchTerm) // This method runs on a background thread
+    private List<SearchResult> PerformSearch(string searchTerm)
+{
+    var results = new List<SearchResult>();
+    var searchTerms = ParseSearchTerms(searchTerm);
+
+    foreach (var systemManager in _systemManagers)
     {
-        var results = new List<SearchResult>();
-        var searchTerms = ParseSearchTerms(searchTerm);
+        // Resolve the system folder path using PathHelper
+        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
 
-        foreach (var systemManager in _systemManagers)
+        // Check if the resolved path is valid before proceeding
+        if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
         {
-            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
-
-            if (!Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
-                continue;
-
-            var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
-                .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
-
-            if (systemManager.SystemIsMame && _mameLookup != null)
-            {
-                filesInSystemFolder = filesInSystemFolder.Where(file =>
-                {
-                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                    if (MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms))
-                        return true;
-                    if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
-                        return MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
-
-                    return false;
-                });
-            }
-            else
-            {
-                filesInSystemFolder = filesInSystemFolder.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
-            }
-
-            var matchedFilePaths = filesInSystemFolder.ToList();
-
-            foreach (var filePath in matchedFilePaths)
-            {
-                var searchResultItem = new SearchResult
-                {
-                    FileName = Path.GetFileNameWithoutExtension(filePath),
-                    FileNameWithExtension = Path.GetFileName(filePath),
-                    FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
-                    FilePath = filePath,
-                    FileSizeBytes = -1, // Initialize with placeholder for "Calculating..."
-                    MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
-                    SystemName = systemManager.SystemName,
-                    EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
-                    CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager)
-                };
-                results.Add(searchResultItem);
-
-                // Start a background task to get the file size for this specific searchResultItem.
-                // Capture the item for the closure.
-                _ = Task.Run(() => // Fire and forget, UI updates via INotifyPropertyChanged
-                {
-                    try
-                    {
-                        if (File.Exists(searchResultItem.FilePath))
-                        {
-                            searchResultItem.FileSizeBytes = new FileInfo(searchResultItem.FilePath).Length;
-                        }
-                        else
-                        {
-                            // Notify developer
-                            var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
-                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
-
-                            searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error (will show "N/A")
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                        searchResultItem.FileSizeBytes = -2; // Indicate Not Found/Error
-                    }
-                });
-            }
+             if (!string.IsNullOrEmpty(systemManager.SystemFolder)) // Only log if a path was actually configured
+             {
+                 _ = LogErrors.LogErrorAsync(null, $"GlobalSearch: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemFolder}' -> '{systemFolderPath}'");
+             }
+             continue;
         }
 
-        var scoredResults = ScoreResults(results, searchTerms);
-        return scoredResults;
+        var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+            .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
-        string GetMachineDescription(string fileNameWithoutExtension)
+        if (systemManager.SystemIsMame && _mameLookup != null)
         {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-            return machine?.Description ?? string.Empty;
+            filesInSystemFolder = filesInSystemFolder.Where(file =>
+            {
+                var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
+                if (MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms))
+                    return true;
+                if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
+                    return MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
+
+                return false;
+            });
+        }
+        else
+        {
+            filesInSystemFolder = filesInSystemFolder.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
+        }
+
+        var matchedFilePaths = filesInSystemFolder.ToList();
+
+        foreach (var filePath in matchedFilePaths)
+        {
+            var searchResultItem = new SearchResult
+            {
+                FileName = Path.GetFileNameWithoutExtension(filePath),
+                FileNameWithExtension = Path.GetFileName(filePath),
+                FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
+                FilePath = filePath, // This is already the resolved absolute path
+                FileSizeBytes = -1,
+                MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
+                SystemName = systemManager.SystemName,
+                EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
+                CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager)
+            };
+            results.Add(searchResultItem);
+
+            _ = Task.Run(() =>
+            {
+                try
+                {
+                    // FilePath is already resolved here
+                    if (File.Exists(searchResultItem.FilePath))
+                    {
+                        searchResultItem.FileSizeBytes = new FileInfo(searchResultItem.FilePath).Length;
+                    }
+                    else
+                    {
+                        var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
+                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
+                        searchResultItem.FileSizeBytes = -2;
+                    }
+                }
+                catch (Exception ex)
+                {
+                    var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    searchResultItem.FileSizeBytes = -2;
+                }
+            });
         }
     }
+
+    var scoredResults = ScoreResults(results, searchTerms);
+    return scoredResults;
+
+    string GetMachineDescription(string fileNameWithoutExtension)
+    {
+        var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+        return machine?.Description ?? string.Empty;
+    }
+}
 
     private static List<SearchResult> ScoreResults(List<SearchResult> results, List<string> searchTerms)
     {

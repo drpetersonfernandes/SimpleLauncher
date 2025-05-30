@@ -14,7 +14,7 @@ public static class CheckPath
     {
         if (string.IsNullOrWhiteSpace(path))
         {
-            return false; // Empty or whitespace paths are not considered valid existing paths
+            return false;
         }
 
         try
@@ -27,7 +27,6 @@ public static class CheckPath
         }
         catch
         {
-            // Any exception during path resolution or checking means it's invalid
             return false;
         }
     }

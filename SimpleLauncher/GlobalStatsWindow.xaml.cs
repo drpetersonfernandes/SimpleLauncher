@@ -100,63 +100,80 @@ public partial class GlobalStatsWindow
     }
 
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
+{
+    _systemStats = [];
+    var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
+
+    foreach (var config in _systemConfigs)
     {
-        _systemStats = []; // Create a list for DataGrid binding
-        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions(); // Get extensions from service
+        // Resolve the system folder path using PathHelper
+        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(config.SystemFolder);
 
-        foreach (var config in _systemConfigs)
+        // Check if the resolved path is valid before proceeding
+        List<string> romFiles;
+        if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
         {
-            // Asynchronous file count and base filenames of ROMs/ISOs
-            // Pass just the extensions to GetFilesAsync
-            var romFiles = await GetFilePaths.GetFilesAsync(config.SystemFolder, config.FileFormatsToSearch);
-
-            // Create a case-insensitive HashSet for ROM base filenames
-            var romFileBaseNames = new HashSet<string>(
-                romFiles.Select(Path.GetFileNameWithoutExtension),
-                StringComparer.OrdinalIgnoreCase);
-
-            // Calculate the total disk size for the ROM/ISO files
-            var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
-
-            var systemImagePath = config.SystemImageFolder;
-            systemImagePath = string.IsNullOrEmpty(systemImagePath)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName)
-                : PathHelper.ResolveRelativeToAppDirectory(systemImagePath);
-
-
-            var numberOfImages = 0;
-            if (Directory.Exists(systemImagePath))
-            {
-                await RenameImagesToMatchRomCaseAsync(systemImagePath, romFileBaseNames);
-
-                // Get image files using extensions from appsettings.json
-                var imageFiles = Directory.EnumerateFiles(systemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .ToList();
-
-                // Count images that have matching base filenames in romFileBaseNames
-                numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
-            }
-
-            // Add to the systemStats list with total disk size
-            _systemStats.Add(new SystemStatsData
-            {
-                SystemName = config.SystemName,
-                NumberOfFiles = romFiles.Count,
-                NumberOfImages = numberOfImages,
-                TotalDiskSize = totalDiskSize // Set the disk size here
-            });
+             if (!string.IsNullOrEmpty(config.SystemFolder)) // Only log if a path was configured
+             {
+                 _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{config.SystemFolder}' -> '{systemFolderPath}'. Cannot count files.");
+             }
+             romFiles = new List<string>(); // Use empty list if folder is invalid
+        }
+        else
+        {
+            // Pass the resolved path to GetFilesAsync
+            romFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
         }
 
-        // Bind the data to the DataGrid (on UI thread)
-        await Application.Current.Dispatcher.InvokeAsync(() =>
-        {
-            SystemStatsDataGrid.ItemsSource = _systemStats;
-        });
 
-        return _systemStats; // Return the system stats to be included in the report
+        var romFileBaseNames = new HashSet<string>(
+            romFiles.Select(Path.GetFileNameWithoutExtension),
+            StringComparer.OrdinalIgnoreCase);
+
+        var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
+
+        var systemImageFolder = config.SystemImageFolder;
+        // Resolve the system image path using PathHelper
+        var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
+            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) // Default path
+            : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder); // Resolve configured path
+
+
+        var numberOfImages = 0;
+        // Check if the resolved image path is valid before proceeding
+        if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
+        {
+            await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
+
+            var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                .Select(Path.GetFileNameWithoutExtension)
+                .ToList();
+
+            numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
+        }
+        else if (!string.IsNullOrEmpty(config.SystemImageFolder)) // Only log if a path was actually configured
+        {
+             _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{config.SystemName}': '{config.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+        }
+
+
+        _systemStats.Add(new SystemStatsData
+        {
+            SystemName = config.SystemName,
+            NumberOfFiles = romFiles.Count,
+            NumberOfImages = numberOfImages,
+            TotalDiskSize = totalDiskSize
+        });
     }
+
+    await Application.Current.Dispatcher.InvokeAsync(() =>
+    {
+        SystemStatsDataGrid.ItemsSource = _systemStats;
+    });
+
+    return _systemStats;
+}
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {

@@ -16,35 +16,35 @@ public static class FindCoverImage
     private const int MaxPrefixLength = 4;
 
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
+{
+    var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
+    var imageExtensions = GetImageExtensions.GetExtensions();
+
+    string systemImageFolder;
+    if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
     {
-        var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
-        var imageExtensions = GetImageExtensions.GetExtensions();
+        systemImageFolder = Path.Combine(applicationPath, "images", systemName ?? string.Empty);
+    }
+    else
+    {
+        // Resolve the configured system image folder using PathHelper
+        systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
+    }
 
-        string systemImagePath;
-        // systemManager is checked for null by the caller (GameListFactory)
-        if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
-        {
-            systemImagePath = Path.Combine(applicationPath, "images", systemName ?? string.Empty); // Handle null systemName
-        }
-        else
-        {
-            systemImagePath = Path.IsPathRooted(systemManager.SystemImageFolder)
-                ? systemManager.SystemImageFolder // If already absolute
-                : Path.Combine(applicationPath, systemManager.SystemImageFolder); // Make it absolute
-        }
-
-        // 1. Check for exact match first
+    // Check if the resolved system image folder path is valid before proceeding
+    if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(systemImageFolder))
+    {
+        // 1. Check for exact match first within the resolved folder
         foreach (var ext in imageExtensions)
         {
-            var imagePath = Path.Combine(systemImagePath, $"{fileNameWithoutExtension}{ext}");
+            var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
             if (File.Exists(imagePath))
-                return imagePath;
+                return imagePath; // Return the found path (which is already resolved)
         }
 
-        // Get settings for fuzzy matching
         var settings = App.Settings;
-        var enableFuzzyMatching = false; // Default to false if settings are null or property is false
-        var similarityThreshold = 0.8; // Default threshold (e.g., 80%)
+        var enableFuzzyMatching = false;
+        var similarityThreshold = 0.8;
 
         if (settings != null)
         {
@@ -56,52 +56,57 @@ public static class FindCoverImage
             _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
         }
 
-        // 2. If no exact match and fuzzy matching is enabled, check for similar filenames if the directory exists
-        if (enableFuzzyMatching && Directory.Exists(systemImagePath))
+        // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
+        if (enableFuzzyMatching)
         {
-            var filesInImageFolder = Directory.GetFiles(systemImagePath)
+            var filesInImageFolder = Directory.GetFiles(systemImageFolder)
                 .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                 .ToList();
 
             string bestMatchPath = null;
             double highestSimilarity = 0;
-            // fileNameWithoutExtension should not be null here based on GameListFactory logic
             var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
 
-            foreach (var filePathInFolder in filesInImageFolder) // Renamed filePath to avoid conflict with parameter
+            foreach (var filePathInFolder in filesInImageFolder)
             {
                 var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
                 if (string.IsNullOrEmpty(fileWithoutExt)) continue;
 
                 var lowerFileName = fileWithoutExt.ToLowerInvariant();
-
-                // Calculate similarity using Jaro-Winkler
                 var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
 
                 if (!(similarity > highestSimilarity)) continue;
 
                 highestSimilarity = similarity;
-                bestMatchPath = filePathInFolder;
+                bestMatchPath = filePathInFolder; // This is already a resolved path
             }
 
-            // If the highest similarity meets the threshold, return that path
             if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
             {
-                return bestMatchPath;
+                return bestMatchPath; // Return the found resolved path
             }
         }
+    }
+    else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
+    {
+         _ = LogErrors.LogErrorAsync(null, $"FindCoverImage: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
+    }
 
-        // 3. If no exact or similar match, fall back to default images
-        var defaultSystemImagePath = Path.Combine(systemImagePath, "default.png");
+
+    // 3. Fallback to default images
+    // Check the default system image path within the resolved system image folder first
+    if (!string.IsNullOrEmpty(systemImageFolder)) // Only check if the resolved folder path was valid
+    {
+        var defaultSystemImagePath = Path.Combine(systemImageFolder, "default.png");
         if (File.Exists(defaultSystemImagePath))
         {
-            return defaultSystemImagePath;
-        }
-        else
-        {
-            return GlobalDefaultImagePath;
+            return defaultSystemImagePath; // Return the resolved default path
         }
     }
+
+    // Fallback to the global default image
+    return GlobalDefaultImagePath; // This is already a resolved path
+}
 
     /// <summary>
     /// Calculates the Jaro-Winkler similarity between two strings.

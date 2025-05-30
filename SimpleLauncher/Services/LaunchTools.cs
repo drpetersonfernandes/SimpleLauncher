@@ -100,51 +100,57 @@ public static class LaunchTools
     }
 
     internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder)
+{
+    var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
+
+    var arguments = string.Empty;
+    string workingDirectory = null;
+
+    // Resolve the selected image and rom folders using PathHelper
+    string absoluteImageFolder = null;
+    if (!string.IsNullOrEmpty(selectedImageFolder))
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
-
-        var arguments = string.Empty;
-        string workingDirectory = null; // Let it default to tool's directory initially
-
-        // Determine arguments based on available folders, resolving them to absolute paths
-        string absoluteImageFolder = null;
-        if (!string.IsNullOrEmpty(selectedImageFolder))
-        {
-            absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
-        }
-
-        string absoluteRomFolder = null;
-        if (!string.IsNullOrEmpty(selectedRomFolder))
-        {
-            absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
-        }
-
-        if (absoluteImageFolder != null && absoluteRomFolder != null)
-        {
-            // Quote paths to handle spaces
-            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
-            // Set the working directory to the tool's directory explicitly if arguments are passed
-            workingDirectory = Path.GetDirectoryName(toolPath);
-        }
-
-        try
-        {
-            // Use the generic launcher
-            LaunchExternalTool(toolPath, arguments, workingDirectory);
-        }
-        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
-        {
-            // Notify developer
-            // This specific exception handling for user cancellation remains here
-            // because it's a specific behavior of the FindRomCover tool launch.
-            const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
-        }
-        // Generic Exception handling is now inside LaunchExternalTool
+        absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
     }
+
+    string absoluteRomFolder = null;
+    if (!string.IsNullOrEmpty(selectedRomFolder))
+    {
+        absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
+    }
+
+    if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder)) // Check if both resolved paths are valid
+    {
+        arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+        workingDirectory = Path.GetDirectoryName(toolPath); // Keep working directory as tool's directory
+    }
+    else
+    {
+        // Log a warning if paths couldn't be resolved
+        if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
+        {
+            _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
+        }
+        if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
+        {
+            _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
+        }
+        // If paths couldn't be resolved, arguments remain empty, and workingDirectory defaults.
+        // The tool might handle empty arguments or show its own error.
+    }
+
+    try
+    {
+        LaunchExternalTool(toolPath, arguments, workingDirectory);
+    }
+    catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+    {
+        const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+    }
+}
+
 
     internal static void CreateBatchFilesForPS3Games_Click()
     {

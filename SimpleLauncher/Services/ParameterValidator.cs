@@ -90,50 +90,42 @@ public static partial class ParameterValidator
     /// </summary>
     private static bool ValidateSinglePath(string path, string systemFolder = null)
     {
-        // Skip ROM placeholders
+        if (string.IsNullOrWhiteSpace(path)) return false;
         if (ContainsPlaceholder(path)) return true;
 
         // Expand environment variables *before* resolving relative paths
-        if (path.Contains('%')) // Simple check for potential env vars
+        if (path.Contains('%'))
         {
             path = Environment.ExpandEnvironmentVariables(path);
         }
 
         try
         {
-            // Resolve the path relative to the app directory, which now handles %BASEFOLDER%
+            // Primary resolution: relative to app directory (handles %BASEFOLDER%)
             var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(path);
 
-            // If resolution failed (e.g., invalid path format), it's invalid
-            if (string.IsNullOrEmpty(resolvedPath))
-            {
-                return false;
-            }
-
-            // Check if the resolved path exists as a file or directory
-            if (File.Exists(resolvedPath) || Directory.Exists(resolvedPath))
+            // If primary resolution was successful and the path exists, it's valid
+            if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
             {
                 return true;
             }
 
-            // Try resolving relative to the system folder *if* the path
-            // didn't start with %BASEFOLDER% and wasn't absolute.
-            // This covers cases where a parameter path might be relative to the ROM folder.
-            if (Path.IsPathRooted(path) || path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
-                string.IsNullOrEmpty(systemFolder))
-                return false; // Path does not exist after trying all resolution methods
-
-            var resolvedSystemRelativePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, path);
-            if (File.Exists(resolvedSystemRelativePath) || Directory.Exists(resolvedSystemRelativePath))
+            // Secondary resolution: try resolving relative to the system folder
+            // Only attempt this if the original path was not absolute and didn't start with %BASEFOLDER%
+            if (!Path.IsPathRooted(path) && !path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemFolder))
             {
-                return true;
+                var resolvedSystemRelativePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, path);
+                if (!string.IsNullOrEmpty(resolvedSystemRelativePath) && (File.Exists(resolvedSystemRelativePath) || Directory.Exists(resolvedSystemRelativePath)))
+                {
+                    return true;
+                }
             }
 
-            return false; // Path does not exist after trying all resolution methods
+            // If neither resolution method found an existing path, it's invalid
+            return false;
         }
         catch (Exception)
         {
-            // If there's any exception parsing/resolving the path, consider it invalid
             return false;
         }
     }
@@ -323,61 +315,54 @@ public static partial class ParameterValidator
     /// <param name="parameters">The parameter string to analyze.</param>
     /// <returns>A list of identified relative paths without the %BASEFOLDER% prefix.</returns>
     public static List<string> GetRelativePathsInParameters(string parameters)
+{
+    var relativePathsWithoutPrefix = new HashSet<string>();
+    if (string.IsNullOrWhiteSpace(parameters)) return relativePathsWithoutPrefix.ToList();
+
+    var potentialPaths = new List<string>();
+
+    var flaggedPaths = ExtractParameterPaths(parameters);
+    potentialPaths.AddRange(flaggedPaths.Select(p => p.Path));
+
+    var quotedPathsRegex = MyRegex1();
+    var quotedMatches = quotedPathsRegex.Matches(parameters);
+    potentialPaths.AddRange(quotedMatches.Select(match => match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value));
+
+    var remainingParams = MyRegex2().Replace(parameters, " ");
+    var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
+    var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
+    potentialPaths.AddRange(words);
+
+    foreach (var potentialPath in potentialPaths)
     {
-        var relativePathsWithoutPrefix = new HashSet<string>();
-        if (string.IsNullOrWhiteSpace(parameters)) return relativePathsWithoutPrefix.ToList();
+        var trimmedPath = potentialPath.Trim();
 
-        // Combine all potential path extraction logic
-        var potentialPaths = new List<string>();
-
-        // 1. Extract flagged paths
-        var flaggedPaths = ExtractParameterPaths(parameters);
-        potentialPaths.AddRange(flaggedPaths.Select(p => p.Path));
-
-        // 2. Extract quoted paths
-        var quotedPathsRegex = MyRegex1();
-        var quotedMatches = quotedPathsRegex.Matches(parameters);
-        potentialPaths.AddRange(quotedMatches.Select(match => match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value));
-
-        // 3. Extract remaining unquoted tokens
-        var remainingParams = MyRegex2().Replace(parameters, " ");
-        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
-        var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
-        potentialPaths.AddRange(words);
-
-        // Filter and identify relative paths *without* the %BASEFOLDER% prefix
-        foreach (var potentialPath in potentialPaths)
+        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath) || IsKnownFlag(trimmedPath))
         {
-            var trimmedPath = potentialPath.Trim();
+            continue;
+        }
 
-            // Skip empty, placeholders, or known flags
-            if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath) || IsKnownFlag(trimmedPath))
+        // Use PathHelper.IsRelativePathWithoutBaseFolder to check if it's relative AND lacks the prefix
+        if (LooksLikePath(trimmedPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedPath))
+        {
+            relativePathsWithoutPrefix.Add(trimmedPath);
+        }
+        else if (trimmedPath.Contains(';'))
+        {
+            var subPaths = trimmedPath.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
+            foreach (var subPath in subPaths)
             {
-                continue;
-            }
-
-            // Check if it looks like a path and is relative *without* the %BASEFOLDER% prefix
-            if (LooksLikePath(trimmedPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedPath))
-            {
-                relativePathsWithoutPrefix.Add(trimmedPath);
-            }
-            // Special case: Handle paths within -rompath or -L that are semicolon separated
-            else if (trimmedPath.Contains(';'))
-            {
-                var subPaths = trimmedPath.Split(Separator5, StringSplitOptions.RemoveEmptyEntries);
-                foreach (var subPath in subPaths)
+                var trimmedSubPath = subPath.Trim();
+                if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedSubPath))
                 {
-                    var trimmedSubPath = subPath.Trim();
-                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedSubPath))
-                    {
-                        relativePathsWithoutPrefix.Add(trimmedSubPath);
-                    }
+                    relativePathsWithoutPrefix.Add(trimmedSubPath);
                 }
             }
         }
-
-        return relativePathsWithoutPrefix.Distinct().ToList();
     }
+
+    return relativePathsWithoutPrefix.Distinct().ToList();
+}
 
     /// <summary>
     /// Resolves all path-like tokens within a parameter string to their absolute paths,
@@ -387,75 +372,60 @@ public static partial class ParameterValidator
     /// <param name="systemFolder">The system's folder path for relative resolution.</param>
     /// <returns>The parameter string with path tokens resolved to absolute paths.</returns>
     public static string ResolveParameterString(string parameters, string systemFolder = null)
+{
+    if (string.IsNullOrWhiteSpace(parameters))
     {
-        if (string.IsNullOrWhiteSpace(parameters))
+        return string.Empty;
+    }
+
+    var pathTokenRegex = new Regex("""
+                                   "[^"]*"|'[^']*'|\S+
+                                   """);
+
+    var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
+    {
+        var token = match.Value;
+        var trimmedToken = token.Trim('"', '\'');
+
+        if (ContainsPlaceholder(trimmedToken) || IsKnownFlag(trimmedToken))
         {
-            return string.Empty;
+            return token;
         }
 
-        // Use a regex that captures potential path tokens (quoted or unquoted)
-        // This regex tries to be broad to find anything that *might* be a path token.
-        // It captures quoted strings or sequences of non-whitespace characters.
-        // We use a MatchEvaluator to process each potential token.
-        var pathTokenRegex = new Regex("""
-                                       "[^"]*"|'[^']*'|\S+
-                                       """);
+        if (!LooksLikePath(trimmedToken)) return token;
 
-        var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
+        try
         {
-            var token = match.Value;
-            var trimmedToken = token.Trim('"', '\''); // Remove quotes for processing
+            // Attempt primary resolution: relative to app directory (handles %BASEFOLDER%)
+            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(trimmedToken);
 
-            // Skip known placeholders (like %ROM%)
-            if (ContainsPlaceholder(trimmedToken))
+            // If primary resolution failed, try secondary resolution: relative to system folder
+            // Only attempt this if the original token was not absolute and didn't start with %BASEFOLDER%
+            if ((string.IsNullOrEmpty(resolvedPath) || !(File.Exists(resolvedPath) || Directory.Exists(resolvedPath))) && // Check if primary resolution failed or didn't find the path
+                !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemFolder))
             {
-                return token; // Return the original token with quotes if present
+                resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, trimmedToken);
             }
 
-            // Skip known flags
-            if (IsKnownFlag(trimmedToken))
+            // If resolution was successful (either primary or secondary) and the path exists, return the resolved path.
+            // Otherwise, return the original token.
+            if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
             {
-                return token; // Return original token
+                return token.StartsWith('"') ? $"\"{resolvedPath}\"" :
+                    token.StartsWith('\'') ? $"'{resolvedPath}'" :
+                    resolvedPath;
             }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Error resolving parameter path token '{token}'.");
+        }
 
-            // Check if the token looks like a path
-            if (!LooksLikePath(trimmedToken)) return token;
+        return token;
+    });
 
-            try
-            {
-                // Attempt to resolve the path relative to the app directory (handles %BASEFOLDER%)
-                var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(trimmedToken);
-
-                // If resolution failed, try resolving relative to the system folder
-                if (string.IsNullOrEmpty(resolvedPath) && !string.IsNullOrEmpty(systemFolder) && !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
-                {
-                    resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, trimmedToken);
-                }
-
-                // If resolution was successful and the path exists, return the resolved path.
-                // Otherwise, return the original token. We only replace if we successfully resolved
-                // to an existing file/directory. This avoids breaking parameters that look
-                // *like* paths but aren't intended as such or are invalid.
-                if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
-                {
-                    // Return the resolved path, re-adding quotes if the original was quoted
-                    return token.StartsWith('"') ? $"\"{resolvedPath}\"" :
-                        token.StartsWith('\'') ? $"'{resolvedPath}'" :
-                        resolvedPath;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Log any errors during resolution but don't fail the whole process.
-                _ = LogErrors.LogErrorAsync(ex, $"Error resolving parameter path token '{token}'.");
-            }
-
-            // If it doesn't look like a path, or resolution failed, or path doesn't exist, return the original token
-            return token;
-        });
-
-        return resolvedParameters;
-    }
+    return resolvedParameters;
+}
 
     [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
