@@ -9,10 +9,11 @@ public partial class LogWindow
     private LogWindow()
     {
         InitializeComponent();
+
         // Prevent the log window from appearing in the taskbar
         ShowInTaskbar = false;
-        // Handle closing to just hide the window instead of closing the app
-        Closing += LogWindow_Closing;
+
+        Closed += LogWindow_Closed;
     }
 
     // Static instance managed by DebugLogger
@@ -47,13 +48,11 @@ public partial class LogWindow
         });
     }
 
-    // Handle closing event
-    private void LogWindow_Closing(object sender, System.ComponentModel.CancelEventArgs e)
+    private static void LogWindow_Closed(object sender, EventArgs e)
     {
-        // Cancel the closing and hide the window instead
-        e.Cancel = true;
-        Hide();
+        Instance = null;
     }
+
 
     // Button click handler to clear the log
     private void ClearLogButton_Click(object sender, RoutedEventArgs e)

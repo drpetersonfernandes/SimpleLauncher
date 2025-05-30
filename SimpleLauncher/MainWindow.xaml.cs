@@ -547,93 +547,94 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     }
 
     private async void SystemComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
-{
-    try
     {
-        SearchTextBox.Text = "";
-        EmulatorComboBox.ItemsSource = null;
-        EmulatorComboBox.SelectedIndex = -1;
-        PreviewImage.Source = null;
-
-        _currentSearchResults.Clear();
-        _currentFilter = null;
-        _activeSearchQueryOrMode = null;
-
-        GameFileGrid.Visibility = Visibility.Visible;
-        ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-        if (SystemComboBox.SelectedItem == null)
+        try
         {
-            return;
+            SearchTextBox.Text = "";
+            EmulatorComboBox.ItemsSource = null;
+            EmulatorComboBox.SelectedIndex = -1;
+            PreviewImage.Source = null;
+
+            _currentSearchResults.Clear();
+            _currentFilter = null;
+            _activeSearchQueryOrMode = null;
+
+            GameFileGrid.Visibility = Visibility.Visible;
+            ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+            if (SystemComboBox.SelectedItem == null)
+            {
+                return;
+            }
+
+            var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+            if (selectedSystem == null || selectedConfig == null) // Combine null checks
+            {
+                const string errorMessage = "Selected system or its configuration is null.";
+                _ = LogErrors.LogErrorAsync(null, errorMessage);
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                await DisplaySystemSelectionScreenAsync();
+                return;
+            }
+
+            EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+            if (EmulatorComboBox.Items.Count > 0)
+            {
+                EmulatorComboBox.SelectedIndex = 0;
+            }
+
+            SelectedSystem = selectedSystem;
+
+            var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+            PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+            // Resolve the system folder path using PathHelper
+            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
+
+            // Check if the resolved path is valid before proceeding
+            int gameCount;
+            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
+            {
+                if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
+                {
+                    _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
+                }
+
+                gameCount = 0; // Set count to 0 if folder is invalid
+            }
+            else
+            {
+                // Pass the resolved path to CountFiles
+                gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+            }
+
+
+            // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
+            await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
+
+            // Resolve the system image folder path using PathHelper
+            var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
+
+            _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
+            _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use default resolved path
+                : resolvedSystemImageFolderPath; // Use resolved configured path
+
+            _topLetterNumberMenu.DeselectLetter();
+            ResetPaginationButtons();
+
+            // Load files from cache or rescan if needed (pass the resolved folder path)
+            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch, gameCount);
         }
-
-        var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-        var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-        if (selectedSystem == null || selectedConfig == null) // Combine null checks
+        catch (Exception ex)
         {
-            const string errorMessage = "Selected system or its configuration is null.";
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
             MessageBoxLibrary.InvalidSystemConfigMessageBox();
-            await DisplaySystemSelectionScreenAsync();
-            return;
         }
-
-        EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-        if (EmulatorComboBox.Items.Count > 0)
-        {
-            EmulatorComboBox.SelectedIndex = 0;
-        }
-
-        SelectedSystem = selectedSystem;
-
-        var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-        PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
-
-        // Resolve the system folder path using PathHelper
-        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
-
-        // Check if the resolved path is valid before proceeding
-        int gameCount;
-        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
-        {
-             if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
-             {
-                 _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
-             }
-             gameCount = 0; // Set count to 0 if folder is invalid
-        }
-        else
-        {
-            // Pass the resolved path to CountFiles
-            gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-        }
-
-
-        // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
-        await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
-
-        // Resolve the system image folder path using PathHelper
-        var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
-
-        _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
-        _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use default resolved path
-            : resolvedSystemImageFolderPath; // Use resolved configured path
-
-        _topLetterNumberMenu.DeselectLetter();
-        ResetPaginationButtons();
-
-        // Load files from cache or rescan if needed (pass the resolved folder path)
-        _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch, gameCount);
     }
-    catch (Exception ex)
-    {
-        const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-        _ = LogErrors.LogErrorAsync(ex, errorMessage);
-        MessageBoxLibrary.InvalidSystemConfigMessageBox();
-    }
-}
 
 
     private void AddNoFilesMessage()
@@ -667,129 +668,129 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     }
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
-{
-    Dispatcher.Invoke(() => SetUiLoadingState(true));
-    await SetUiBeforeLoadGameFilesAsync();
-
-    try
     {
-        if (SystemComboBox.SelectedItem == null)
+        Dispatcher.Invoke(() => SetUiLoadingState(true));
+        await SetUiBeforeLoadGameFilesAsync();
+
+        try
         {
-            await DisplaySystemSelectionScreenAsync();
-            return;
-        }
-
-        var selectedSystem = SystemComboBox.SelectedItem.ToString();
-        var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-        if (selectedManager == null)
-        {
-            const string contextMessage = "selectedConfig is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-            MessageBoxLibrary.InvalidSystemConfigMessageBox();
-            await DisplaySystemSelectionScreenAsync();
-            return;
-        }
-
-        List<string> allFiles;
-
-        switch (searchQuery)
-        {
-            case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-            case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
-                allFiles = new List<string>(_currentSearchResults);
-                break;
-            default:
+            if (SystemComboBox.SelectedItem == null)
             {
-                // Use the cached files (which are already resolved paths)
-                allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
+                await DisplaySystemSelectionScreenAsync();
+                return;
+            }
 
-                if (!string.IsNullOrWhiteSpace(startLetter))
+            var selectedSystem = SystemComboBox.SelectedItem.ToString();
+            var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+            if (selectedManager == null)
+            {
+                const string contextMessage = "selectedConfig is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                await DisplaySystemSelectionScreenAsync();
+                return;
+            }
+
+            List<string> allFiles;
+
+            switch (searchQuery)
+            {
+                case "FAVORITES" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+                case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
+                    allFiles = new List<string>(_currentSearchResults);
+                    break;
+                default:
                 {
-                    // Filter the list of resolved paths
-                    allFiles = await FilterFilesAsync(allFiles, startLetter);
-                }
+                    // Use the cached files (which are already resolved paths)
+                    allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
 
-                if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
+                    if (!string.IsNullOrWhiteSpace(startLetter))
+                    {
+                        // Filter the list of resolved paths
+                        allFiles = await FilterFilesAsync(allFiles, startLetter);
+                    }
+
+                    if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
+                    {
+                        var systemIsMame = selectedManager.SystemIsMame;
+                        var lowerQuery = searchQuery.ToLowerInvariant();
+                        allFiles = await Task.Run(() =>
+                            allFiles.FindAll(file => // 'file' here is already a resolved absolute path
+                            {
+                                var fileName = Path.GetFileNameWithoutExtension(file);
+                                var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                                if (filenameMatch) return true;
+
+                                if (systemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
+                                {
+                                    return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
+                                }
+
+                                return false;
+                            }));
+
+                        _currentSearchResults = new List<string>(allFiles);
+                    }
+                    // If no search query and no start letter, allFiles is already the full cached list for the system.
+                    // _currentSearchResults remains empty in this case.
+
+                    break;
+                }
+            }
+
+            allFiles.Sort();
+
+            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+
+            allFiles = SetPaginationOfListOfFiles(allFiles);
+
+            _favoritesManager = FavoritesManager.LoadFavorites();
+
+            // GameButtonFactory and GameListFactory now use the resolved file paths directly
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+                _settings, _favoritesManager, _gameFileGrid, this);
+
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+                _settings, _favoritesManager, _playHistoryManager, this);
+
+            foreach (var filePath in allFiles) // 'filePath' is already resolved here
+            {
+                if (_settings.ViewMode == "GridView")
                 {
-                     var systemIsMame = selectedManager.SystemIsMame;
-                     var lowerQuery = searchQuery.ToLowerInvariant();
-                     allFiles = await Task.Run(() =>
-                         allFiles.FindAll(file => // 'file' here is already a resolved absolute path
-                         {
-                             var fileName = Path.GetFileNameWithoutExtension(file);
-                             var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                             if (filenameMatch) return true;
-
-                             if (systemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileName, out var description))
-                             {
-                                 return description.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
-                             }
-
-                             return false;
-                         }));
-
-                     _currentSearchResults = new List<string>(allFiles);
+                    var gameButton =
+                        await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
-                // If no search query and no start letter, allFiles is already the full cached list for the system.
-                // _currentSearchResults remains empty in this case.
-
-                break;
+                else // ListView
+                {
+                    var gameListViewItem =
+                        await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                    await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
+                }
             }
-        }
 
-        allFiles.Sort();
-
-        allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
-
-        allFiles = SetPaginationOfListOfFiles(allFiles);
-
-        _favoritesManager = FavoritesManager.LoadFavorites();
-
-        // GameButtonFactory and GameListFactory now use the resolved file paths directly
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
-            _settings, _favoritesManager, _gameFileGrid, this);
-
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
-            _settings, _favoritesManager, _playHistoryManager, this);
-
-        foreach (var filePath in allFiles) // 'filePath' is already resolved here
-        {
-            if (_settings.ViewMode == "GridView")
+            switch (_settings.ViewMode)
             {
-                var gameButton =
-                    await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
-                GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
-            }
-            else // ListView
-            {
-                var gameListViewItem =
-                    await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
-                await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
+                case "GridView":
+                    Scroller.Focus();
+                    break;
+                case "ListView":
+                    GameDataGrid.Focus();
+                    break;
             }
         }
-
-        switch (_settings.ViewMode)
+        catch (Exception ex)
         {
-            case "GridView":
-                Scroller.Focus();
-                break;
-            case "ListView":
-                GameDataGrid.Focus();
-                break;
+            const string contextMessage = "Error in the method LoadGameFilesAsync.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+        }
+        finally
+        {
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
         }
     }
-    catch (Exception ex)
-    {
-        const string contextMessage = "Error in the method LoadGameFilesAsync.";
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-        MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
-    }
-    finally
-    {
-        Dispatcher.Invoke(() => SetUiLoadingState(false));
-    }
-}
 
     private List<string> SetPaginationOfListOfFiles(List<string> allFiles)
     {
@@ -843,7 +844,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task<List<string>> TryToUseCachedListOfFiles(string selectedSystem, SystemManager selectedManager)
     {
-        List<string> allFiles;
         _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
 
         // Resolve the system folder path for recounting
@@ -857,6 +857,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot recount files for cache validation.");
             }
+
             gameCount = 0; // Set count to 0 if folder is invalid
         }
         else

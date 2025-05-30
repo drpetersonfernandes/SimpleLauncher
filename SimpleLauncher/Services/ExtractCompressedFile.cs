@@ -149,7 +149,7 @@ public class ExtractCompressedFile
         {
             CleanFolder.CleanupTempDirectory(tempDirectory);
             const string catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
-                                          $"The file may be corrupted.";
+                                               $"The file may be corrupted.";
             _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
             MessageBoxLibrary.ExtractionFailedMessageBox();
             return null;
@@ -330,8 +330,8 @@ public class ExtractCompressedFile
         {
             CleanFolder.CleanupTempDirectory(tempDirectory);
             var catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
-                                     $"The file may be corrupted.\n" +
-                                     $"File: {archivePath}";
+                                      $"The file may be corrupted.\n" +
+                                      $"File: {archivePath}";
             _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
             MessageBoxLibrary.ExtractionFailedMessageBox();
             return null;
@@ -414,8 +414,6 @@ public class ExtractCompressedFile
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
             return false;
         }
-
-        var extractionSuccessful = false; // Declared outside try
 
         try
         {
@@ -517,7 +515,6 @@ public class ExtractCompressedFile
                 DeleteFiles.TryDeleteFile(extractionTrackingFile);
             }
 
-            extractionSuccessful = true; // Set to true on successful extraction
             return true;
         }
         catch (Exception ex)
@@ -541,15 +538,10 @@ public class ExtractCompressedFile
 
             var exceptionDetails = GetDetailedExceptionInfo(ex);
             var catchContextMessage = $"Error extracting the file: {filePath}\n" + // Renamed
-                                     $"{exceptionDetails}";
+                                      $"{exceptionDetails}";
             _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
             MessageBoxLibrary.ExtractionFailedMessageBox();
             return false;
-        }
-        finally
-        {
-            // No pleaseWaitExtraction window in this method, so no cleanup needed here.
-            // The cleanup logic for partial extraction is handled in the catch block above.
         }
     }
 

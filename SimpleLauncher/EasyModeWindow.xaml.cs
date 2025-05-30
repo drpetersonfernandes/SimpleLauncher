@@ -221,155 +221,156 @@ public partial class EasyModeWindow : IDisposable
     }
 
     private async Task<bool> DownloadAndExtractAsync(DownloadType downloadType)
-{
-    var selectedSystem = GetSelectedSystem();
-    if (selectedSystem == null) return false;
-
-    string downloadUrl;
-    string destinationPath;
-    string componentName;
-    string easyModeExtractPath; // Use a variable for the path from EasyMode config
-
-    switch (downloadType)
     {
-        case DownloadType.Emulator:
-            downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-            easyModeExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
-            componentName = "Emulator";
-            break;
-        case DownloadType.Core:
-            downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-            easyModeExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
-            componentName = "Core";
-            break;
-        case DownloadType.ImagePack:
-            downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
-            easyModeExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-            componentName = "Image Pack";
-            break;
-        default:
-            return false;
-    }
+        var selectedSystem = GetSelectedSystem();
+        if (selectedSystem == null) return false;
 
-    // Resolve the destination path using PathHelper
-    destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
-
-    // Ensure valid URL and destination path
-    if (string.IsNullOrEmpty(downloadUrl))
-    {
-        var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
-        DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
-        return false;
-    }
-    if (string.IsNullOrEmpty(destinationPath)) // Check if resolution failed
-    {
-         var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
-         DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
-         _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
-         return false;
-    }
-
-
-    try
-    {
-        var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
-        DownloadStatus = $"{preparingtodownload} {componentName}...";
-
-        DownloadProgressBar.Visibility = Visibility.Visible;
-        DownloadProgressBar.Value = 0;
-        StopDownloadButton.IsEnabled = true;
-
-        var success = false;
-
-        var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-        var pleaseWaitWindow = new PleaseWaitWindow($"{extracting} {componentName}...");
-        pleaseWaitWindow.Owner = this;
-
-        var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
-        DownloadStatus = $"{downloading} {componentName}...";
-
-        var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
-
-        if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
-        {
-            DownloadStatus = $"{extracting} {componentName}...";
-            pleaseWaitWindow.Show();
-            success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-            pleaseWaitWindow.Close();
-        }
-
-        if (success)
-        {
-            var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
-            DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
-            MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
-            StopDownloadButton.IsEnabled = false;
-            return true;
-        }
-        else
-        {
-            if (_downloadManager.IsUserCancellation)
-            {
-                var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
-                var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
-                DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
-            }
-            else
-            {
-                var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
-                DownloadStatus = $"{errorFailedtoextract} {componentName}.";
-
-                switch (downloadType)
-                {
-                    case DownloadType.Emulator:
-                        await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
-                        break;
-                    case DownloadType.Core:
-                        await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
-                        break;
-                    case DownloadType.ImagePack:
-                        await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
-                        break;
-                    default:
-                        MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                        break;
-                }
-            }
-
-            StopDownloadButton.IsEnabled = false;
-            return false;
-        }
-    }
-    catch (Exception ex)
-    {
-        var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
-        var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
-        DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
-
-        var contextMessage = $"Error downloading {componentName}.\n" +
-                             $"URL: {downloadUrl}";
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+        string downloadUrl;
+        string componentName;
+        string easyModeExtractPath; // Use a variable for the path from EasyMode config
 
         switch (downloadType)
         {
             case DownloadType.Emulator:
-                await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath;
+                componentName = "Emulator";
                 break;
             case DownloadType.Core:
-                await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators.Emulator.CoreDownloadExtractPath;
+                componentName = "Core";
                 break;
             case DownloadType.ImagePack:
-                await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+                componentName = "Image Pack";
                 break;
             default:
-                MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                break;
+                return false;
         }
 
-        StopDownloadButton.IsEnabled = false;
-        return false;
+        // Resolve the destination path using PathHelper
+        var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
+
+        // Ensure valid URL and destination path
+        if (string.IsNullOrEmpty(downloadUrl))
+        {
+            var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
+            return false;
+        }
+
+        if (string.IsNullOrEmpty(destinationPath)) // Check if resolution failed
+        {
+            var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+            DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
+            _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+            return false;
+        }
+
+
+        try
+        {
+            var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+            DownloadStatus = $"{preparingtodownload} {componentName}...";
+
+            DownloadProgressBar.Visibility = Visibility.Visible;
+            DownloadProgressBar.Value = 0;
+            StopDownloadButton.IsEnabled = true;
+
+            var success = false;
+
+            var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting} {componentName}...");
+            pleaseWaitWindow.Owner = this;
+
+            var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            DownloadStatus = $"{downloading} {componentName}...";
+
+            var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+            if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
+            {
+                DownloadStatus = $"{extracting} {componentName}...";
+                pleaseWaitWindow.Show();
+                success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                pleaseWaitWindow.Close();
+            }
+
+            if (success)
+            {
+                var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                DownloadStatus = $"{componentName} {hasbeensuccessfullydownloadedandinstalled}";
+                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
+                StopDownloadButton.IsEnabled = false;
+                return true;
+            }
+            else
+            {
+                if (_downloadManager.IsUserCancellation)
+                {
+                    var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                    var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                    DownloadStatus = $"{downloadof} {componentName} {wascanceled}";
+                }
+                else
+                {
+                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    DownloadStatus = $"{errorFailedtoextract} {componentName}.";
+
+                    switch (downloadType)
+                    {
+                        case DownloadType.Emulator:
+                            await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        case DownloadType.Core:
+                            await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        case DownloadType.ImagePack:
+                            await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                            break;
+                        default:
+                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                            break;
+                    }
+                }
+
+                StopDownloadButton.IsEnabled = false;
+                return false;
+            }
+        }
+        catch (Exception ex)
+        {
+            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
+            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+            DownloadStatus = $"{errorduring2} {componentName} {downloadprocess2}";
+
+            var contextMessage = $"Error downloading {componentName}.\n" +
+                                 $"URL: {downloadUrl}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            switch (downloadType)
+            {
+                case DownloadType.Emulator:
+                    await MessageBoxLibrary.EmulatorDownloadErrorMessageBox(selectedSystem);
+                    break;
+                case DownloadType.Core:
+                    await MessageBoxLibrary.CoreDownloadErrorMessageBox(selectedSystem);
+                    break;
+                case DownloadType.ImagePack:
+                    await MessageBoxLibrary.ImagePackDownloadErrorMessageBox(selectedSystem);
+                    break;
+                default:
+                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                    break;
+            }
+
+            StopDownloadButton.IsEnabled = false;
+            return false;
+        }
     }
-}
+
     private void DownloadManager_ProgressChanged(object sender, DownloadProgressEventArgs e)
     {
         Dispatcher.InvokeAsync(() =>

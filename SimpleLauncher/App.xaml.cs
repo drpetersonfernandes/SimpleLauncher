@@ -78,6 +78,11 @@ public partial class App
 
         // If we are the first instance (_isFirstInstance is true) OR we are restarting, proceed with normal startup
         base.OnStartup(e);
+
+        // Set ShutdownMode to OnMainWindowClose
+        // This ensures the application shuts down when MainWindow (the StartupUri) is closed.
+        Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
+
         Settings = new SettingsManager();
         ApplyTheme(Settings.BaseTheme, Settings.AccentColor);
         ApplyLanguage(Settings.Language);

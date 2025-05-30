@@ -100,80 +100,81 @@ public partial class GlobalStatsWindow
     }
 
     private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
-{
-    _systemStats = [];
-    var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
-
-    foreach (var config in _systemConfigs)
     {
-        // Resolve the system folder path using PathHelper
-        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(config.SystemFolder);
+        _systemStats = [];
+        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
 
-        // Check if the resolved path is valid before proceeding
-        List<string> romFiles;
-        if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
+        foreach (var config in _systemConfigs)
         {
-             if (!string.IsNullOrEmpty(config.SystemFolder)) // Only log if a path was configured
-             {
-                 _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{config.SystemFolder}' -> '{systemFolderPath}'. Cannot count files.");
-             }
-             romFiles = new List<string>(); // Use empty list if folder is invalid
+            // Resolve the system folder path using PathHelper
+            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(config.SystemFolder);
+
+            // Check if the resolved path is valid before proceeding
+            List<string> romFiles;
+            if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
+            {
+                if (!string.IsNullOrEmpty(config.SystemFolder)) // Only log if a path was configured
+                {
+                    _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{config.SystemFolder}' -> '{systemFolderPath}'. Cannot count files.");
+                }
+
+                romFiles = new List<string>(); // Use empty list if folder is invalid
+            }
+            else
+            {
+                // Pass the resolved path to GetFilesAsync
+                romFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
+            }
+
+
+            var romFileBaseNames = new HashSet<string>(
+                romFiles.Select(Path.GetFileNameWithoutExtension),
+                StringComparer.OrdinalIgnoreCase);
+
+            var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
+
+            var systemImageFolder = config.SystemImageFolder;
+            // Resolve the system image path using PathHelper
+            var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) // Default path
+                : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder); // Resolve configured path
+
+
+            var numberOfImages = 0;
+            // Check if the resolved image path is valid before proceeding
+            if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
+            {
+                await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
+
+                var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                    .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                    .Select(Path.GetFileNameWithoutExtension)
+                    .ToList();
+
+                numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
+            }
+            else if (!string.IsNullOrEmpty(config.SystemImageFolder)) // Only log if a path was actually configured
+            {
+                _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{config.SystemName}': '{config.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+            }
+
+
+            _systemStats.Add(new SystemStatsData
+            {
+                SystemName = config.SystemName,
+                NumberOfFiles = romFiles.Count,
+                NumberOfImages = numberOfImages,
+                TotalDiskSize = totalDiskSize
+            });
         }
-        else
+
+        await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            // Pass the resolved path to GetFilesAsync
-            romFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
-        }
-
-
-        var romFileBaseNames = new HashSet<string>(
-            romFiles.Select(Path.GetFileNameWithoutExtension),
-            StringComparer.OrdinalIgnoreCase);
-
-        var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
-
-        var systemImageFolder = config.SystemImageFolder;
-        // Resolve the system image path using PathHelper
-        var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
-            ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) // Default path
-            : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder); // Resolve configured path
-
-
-        var numberOfImages = 0;
-        // Check if the resolved image path is valid before proceeding
-        if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
-        {
-            await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
-
-            var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                .Select(Path.GetFileNameWithoutExtension)
-                .ToList();
-
-            numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
-        }
-        else if (!string.IsNullOrEmpty(config.SystemImageFolder)) // Only log if a path was actually configured
-        {
-             _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{config.SystemName}': '{config.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
-        }
-
-
-        _systemStats.Add(new SystemStatsData
-        {
-            SystemName = config.SystemName,
-            NumberOfFiles = romFiles.Count,
-            NumberOfImages = numberOfImages,
-            TotalDiskSize = totalDiskSize
+            SystemStatsDataGrid.ItemsSource = _systemStats;
         });
+
+        return _systemStats;
     }
-
-    await Application.Current.Dispatcher.InvokeAsync(() =>
-    {
-        SystemStatsDataGrid.ItemsSource = _systemStats;
-    });
-
-    return _systemStats;
-}
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
     {

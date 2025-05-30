@@ -16,97 +16,96 @@ public static class FindCoverImage
     private const int MaxPrefixLength = 4;
 
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
-{
-    var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
-    var imageExtensions = GetImageExtensions.GetExtensions();
+    {
+        var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
+        var imageExtensions = GetImageExtensions.GetExtensions();
 
-    string systemImageFolder;
-    if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
-    {
-        systemImageFolder = Path.Combine(applicationPath, "images", systemName ?? string.Empty);
-    }
-    else
-    {
-        // Resolve the configured system image folder using PathHelper
-        systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
-    }
-
-    // Check if the resolved system image folder path is valid before proceeding
-    if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(systemImageFolder))
-    {
-        // 1. Check for exact match first within the resolved folder
-        foreach (var ext in imageExtensions)
+        string systemImageFolder;
+        if (string.IsNullOrEmpty(systemManager.SystemImageFolder))
         {
-            var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
-            if (File.Exists(imagePath))
-                return imagePath; // Return the found path (which is already resolved)
-        }
-
-        var settings = App.Settings;
-        var enableFuzzyMatching = false;
-        var similarityThreshold = 0.8;
-
-        if (settings != null)
-        {
-            enableFuzzyMatching = settings.EnableFuzzyMatching;
-            similarityThreshold = settings.FuzzyMatchingThreshold;
+            systemImageFolder = Path.Combine(applicationPath, "images", systemName ?? string.Empty);
         }
         else
         {
-            _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
+            // Resolve the configured system image folder using PathHelper
+            systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
         }
 
-        // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
-        if (enableFuzzyMatching)
+        // Check if the resolved system image folder path is valid before proceeding
+        if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(systemImageFolder))
         {
-            var filesInImageFolder = Directory.GetFiles(systemImageFolder)
-                .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                .ToList();
-
-            string bestMatchPath = null;
-            double highestSimilarity = 0;
-            var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
-
-            foreach (var filePathInFolder in filesInImageFolder)
+            // 1. Check for exact match first within the resolved folder
+            foreach (var ext in imageExtensions)
             {
-                var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
-                if (string.IsNullOrEmpty(fileWithoutExt)) continue;
-
-                var lowerFileName = fileWithoutExt.ToLowerInvariant();
-                var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
-
-                if (!(similarity > highestSimilarity)) continue;
-
-                highestSimilarity = similarity;
-                bestMatchPath = filePathInFolder; // This is already a resolved path
+                var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
+                if (File.Exists(imagePath))
+                    return imagePath; // Return the found path (which is already resolved)
             }
 
-            if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
+            var settings = App.Settings;
+            var enableFuzzyMatching = false;
+            var similarityThreshold = 0.8;
+
+            if (settings != null)
             {
-                return bestMatchPath; // Return the found resolved path
+                enableFuzzyMatching = settings.EnableFuzzyMatching;
+                similarityThreshold = settings.FuzzyMatchingThreshold;
+            }
+            else
+            {
+                _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
+            }
+
+            // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
+            if (enableFuzzyMatching)
+            {
+                var filesInImageFolder = Directory.GetFiles(systemImageFolder)
+                    .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                    .ToList();
+
+                string bestMatchPath = null;
+                double highestSimilarity = 0;
+                var lowerRomName = fileNameWithoutExtension.ToLowerInvariant();
+
+                foreach (var filePathInFolder in filesInImageFolder)
+                {
+                    var fileWithoutExt = Path.GetFileNameWithoutExtension(filePathInFolder);
+                    if (string.IsNullOrEmpty(fileWithoutExt)) continue;
+
+                    var lowerFileName = fileWithoutExt.ToLowerInvariant();
+                    var similarity = CalculateJaroWinklerSimilarity(lowerRomName, lowerFileName);
+
+                    if (!(similarity > highestSimilarity)) continue;
+
+                    highestSimilarity = similarity;
+                    bestMatchPath = filePathInFolder; // This is already a resolved path
+                }
+
+                if (bestMatchPath != null && highestSimilarity >= similarityThreshold)
+                {
+                    return bestMatchPath; // Return the found resolved path
+                }
             }
         }
-    }
-    else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
-    {
-         _ = LogErrors.LogErrorAsync(null, $"FindCoverImage: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
-    }
+        else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
+        {
+            _ = LogErrors.LogErrorAsync(null, $"FindCoverImage: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
+        }
 
 
-    // 3. Fallback to default images
-    // Check the default system image path within the resolved system image folder first
-    if (!string.IsNullOrEmpty(systemImageFolder)) // Only check if the resolved folder path was valid
-    {
+        // 3. Fallback to default images
+        // Check the default system image path within the resolved system image folder first
+        if (string.IsNullOrEmpty(systemImageFolder)) return GlobalDefaultImagePath; // This is already a resolved path
+        // Only check if the resolved folder path was valid
         var defaultSystemImagePath = Path.Combine(systemImageFolder, "default.png");
         if (File.Exists(defaultSystemImagePath))
         {
             return defaultSystemImagePath; // Return the resolved default path
         }
-    }
 
-    // Fallback to the global default image
-    return GlobalDefaultImagePath; // This is already a resolved path
-}
+        // Fallback to the global default image
+        return GlobalDefaultImagePath; // This is already a resolved path
+    }
 
     /// <summary>
     /// Calculates the Jaro-Winkler similarity between two strings.

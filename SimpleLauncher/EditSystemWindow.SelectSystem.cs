@@ -195,16 +195,17 @@ public partial class EditSystemWindow
 
         // Only create if the current path matches the default pattern AND the directory doesn't exist
         // Also check if the resolved path is valid before attempting creation
-        if (!string.IsNullOrEmpty(resolvedCurrentPath) && resolvedCurrentPath.Equals(resolvedDefaultPatternPath, StringComparison.OrdinalIgnoreCase) && !Directory.Exists(resolvedCurrentPath))
+        if (string.IsNullOrEmpty(resolvedCurrentPath) ||
+            !resolvedCurrentPath.Equals(resolvedDefaultPatternPath, StringComparison.OrdinalIgnoreCase) ||
+            Directory.Exists(resolvedCurrentPath)) return;
+
+        try
         {
-            try
-            {
-                Directory.CreateDirectory(resolvedCurrentPath); // Create the resolved path
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
-            }
+            Directory.CreateDirectory(resolvedCurrentPath); // Create the resolved path
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }
