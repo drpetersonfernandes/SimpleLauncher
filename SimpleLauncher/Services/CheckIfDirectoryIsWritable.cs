@@ -12,7 +12,6 @@ public static class CheckIfDirectoryIsWritable
             if (!Directory.Exists(path))
                 return false;
 
-            // Generate a unique temporary file path
             var testFile = Path.Combine(path, Guid.NewGuid() + ".tmp");
 
             // Attempt to create and delete the file

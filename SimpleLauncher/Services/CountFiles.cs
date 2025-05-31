@@ -13,7 +13,7 @@ public static class CountFiles
 
     public static async Task<int> CountFilesAsync(string folderPath, List<string> fileExtensions)
     {
-        // Create and show the PleaseWaitWindow
+        // Show the PleaseWaitWindow
         var processingpleasewait = (string)Application.Current.TryFindResource("Processingpleasewait") ?? "Processing, please wait...";
         var pleaseWaitWindow = new PleaseWaitWindow(processingpleasewait);
 
@@ -44,21 +44,30 @@ public static class CountFiles
                             // Directory was deleted or inaccessible during enumeration
                             // Log the specific extension that caused the problem but continue counting
                             var contextMessage = $"Directory not found while counting files with extension '{extension}' in '{folderPath}'.";
+
+                            // Notify developer
                             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
                             // Continue with the next extension
                         }
                         catch (UnauthorizedAccessException)
                         {
                             // No permission to access the directory
                             var contextMessage = $"Access denied while counting files with extension '{extension}' in '{folderPath}'.";
+
+                            // Notify developer
                             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
                             // Continue with the next extension
                         }
                         catch (Exception ex)
                         {
                             // Other exceptions during file enumeration
                             var contextMessage = $"Error counting files with extension '{extension}' in '{folderPath}'.";
+
+                            // Notify developer
                             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                             // Continue with the next extension
                         }
                     }

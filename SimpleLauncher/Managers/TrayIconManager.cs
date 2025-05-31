@@ -83,11 +83,9 @@ public class TrayIconManager : IDisposable
         if (_mainWindow.WindowState != WindowState.Minimized) return;
 
         _mainWindow.Hide();
-        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ??
-                                   "is minimized to the tray.";
+        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
         ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
 
-        // <<< ADDED: Stop GamePadController if it's running
         if (GamePadController.Instance2.IsRunning)
         {
             GamePadController.Instance2.Stop();
@@ -95,27 +93,23 @@ public class TrayIconManager : IDisposable
         // No 'else' needed here for restoring, OnOpen handles explicit restore from tray.
     }
 
-    // Handle "Open" context menu item or tray icon double-click
     private void OnOpen(object sender, RoutedEventArgs e)
     {
         _mainWindow.Show();
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
 
-        // <<< ADDED: Start GamePadController if allowed by settings and not already running
         if (_settings.EnableGamePadNavigation && !GamePadController.Instance2.IsRunning)
         {
             GamePadController.Instance2.Start();
         }
     }
 
-    // Handle "Debug Window" context menu item
     private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
     {
         try
         {
             // Initialize debug mode if it wasn't already enabled,
-            // This ensures the LogWindow is properly set up even if the app wasn't started with -debug
             DebugLogger.Initialize(true);
 
             // Initialize LogWindow if it doesn't exist yet
@@ -140,15 +134,13 @@ public class TrayIconManager : IDisposable
         }
     }
 
-    // Handle "Exit" context menu item
     private void OnExit(object sender, RoutedEventArgs e)
     {
         _taskbarIcon.Visibility = Visibility.Collapsed;
         QuitApplication.SimpleQuitApplication();
     }
 
-    // Display a balloon message
-    private void ShowTrayMessage(string message)
+    public void ShowTrayMessage(string message)
     {
         _taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }

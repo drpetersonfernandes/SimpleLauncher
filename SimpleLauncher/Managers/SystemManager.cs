@@ -18,7 +18,7 @@ public partial class SystemManager
     public string SystemImageFolder { get; private init; }
     public bool SystemIsMame { get; private init; }
     public List<string> FileFormatsToSearch { get; private init; }
-    public bool ExtractFileBeforeLaunch { get; set; }
+    public bool ExtractFileBeforeLaunch { get; private set; }
     public List<string> FileFormatsToLaunch { get; private init; }
     public List<Emulator> Emulators { get; private init; }
 
@@ -33,7 +33,6 @@ public partial class SystemManager
 
         try
         {
-            // Check if system.xml exists
             if (!File.Exists(XmlPath))
             {
                 var directoryPath = Path.GetDirectoryName(XmlPath);
@@ -159,7 +158,9 @@ public partial class SystemManager
                     if (string.IsNullOrEmpty(systemFolder))
                         throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Folder' in XML.");
 
-                    var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value; // Image folder is optional, allow null/empty
+                    var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value;
+                    if (string.IsNullOrEmpty(systemImageFolder))
+                        throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Image Folder' in XML.");
 
                     if (!bool.TryParse(sysConfigElement.Element("SystemIsMAME")?.Value, out var systemIsMame))
                         throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'System Is MAME'.");
@@ -192,13 +193,12 @@ public partial class SystemManager
                     if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
                         throw new InvalidOperationException($"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
-
                     // Validate emulator configurations
                     var emulators = new List<Emulator>();
                     var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
 
                     if (emulators == null || emulatorElements.Count == 0)
-                        throw new InvalidOperationException($"System '{systemName}': Emulators list should not be empty or null.");
+                        throw new InvalidOperationException($"System '{systemName}': Emulators list should not be empty or null."); // Need at least one EmulatorName element
 
                     foreach (var emulatorElement in emulatorElements)
                     {
@@ -206,8 +206,8 @@ public partial class SystemManager
                         if (string.IsNullOrEmpty(emulatorName))
                             throw new InvalidOperationException($"System '{systemName}': An 'Emulator Name' should not be empty or null.");
 
-                        var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty;
-                        var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty;
+                        var emulatorLocation = emulatorElement.Element("EmulatorLocation")?.Value ?? string.Empty; // can be empty
+                        var emulatorParameters = emulatorElement.Element("EmulatorParameters")?.Value ?? string.Empty; // can be empty
 
                         // Parse the ReceiveANotificationOnEmulatorError value with default = true
                         // If the element is missing or parsing fails, it defaults to true.
@@ -223,7 +223,7 @@ public partial class SystemManager
                         emulators.Add(new Emulator
                         {
                             EmulatorName = emulatorName,
-                            EmulatorLocation = emulatorLocation, // Store the raw string (potentially with %BASEFOLDER%)
+                            EmulatorLocation = emulatorLocation, // Store the raw string
                             EmulatorParameters = emulatorParameters, // Store the raw string
                             ReceiveANotificationOnEmulatorError = receiveNotification
                         });
@@ -232,8 +232,8 @@ public partial class SystemManager
                     systemConfigs.Add(new SystemManager
                     {
                         SystemName = systemName,
-                        SystemFolder = systemFolder, // Store the raw string (potentially with %BASEFOLDER%)
-                        SystemImageFolder = systemImageFolder, // Store the raw string (potentially with %BASEFOLDER%)
+                        SystemFolder = systemFolder, // Store the raw string
+                        SystemImageFolder = systemImageFolder, // Store the raw string
                         SystemIsMame = systemIsMame,
                         ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                         FileFormatsToSearch = formatsToSearch,
@@ -260,8 +260,6 @@ public partial class SystemManager
             }
 
             // Save the document back to disk with formatting.
-            // This ensures the file is always formatted correctly after loading,
-            // whether invalid configs were removed or not.
             try
             {
                 doc.Save(XmlPath, SaveOptions.None); // Save with formatting
@@ -286,7 +284,6 @@ public partial class SystemManager
         catch (Exception ex)
         {
             // Notify developer
-            // Catch any other unexpected errors during the loading process
             const string contextMessage = "Error loading system configurations from 'system.xml'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 

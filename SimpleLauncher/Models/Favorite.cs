@@ -8,7 +8,7 @@ namespace SimpleLauncher.Models;
 
 // MessagePack format
 [MessagePackObject]
-public class Favorite : INotifyPropertyChanged // Implement INotifyPropertyChanged
+public class Favorite : INotifyPropertyChanged
 {
     private long _fileSizeBytes = -1; // Backing field, initialized to -1 (e.g., "Calculating...")
     private string? _defaultEmulator; // Backing field for DefaultEmulator

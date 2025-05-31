@@ -32,6 +32,8 @@ public static class CheckForRequiredFiles
             if (missingFiles.Count == 0) return;
 
             var fileList = string.Join(Environment.NewLine, missingFiles);
+
+            // Notify user
             MessageBoxLibrary.HandleMissingRequiredFilesMessageBox(fileList);
         }
         catch (Exception ex)

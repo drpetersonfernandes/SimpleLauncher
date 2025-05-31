@@ -7,7 +7,7 @@ using System.Runtime.CompilerServices; // Required for CallerMemberName
 namespace SimpleLauncher.Models;
 
 [MessagePackObject]
-public class PlayHistoryItem : INotifyPropertyChanged // Implement INotifyPropertyChanged
+public class PlayHistoryItem : INotifyPropertyChanged
 {
     private long _internalFileSizeBytes = -1; // Backing field, initialized to -1 ("Calculating...")
 

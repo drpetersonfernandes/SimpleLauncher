@@ -19,7 +19,6 @@ public static class CheckPath
 
         try
         {
-            // Resolve the path relative to the app directory, which now handles %BASEFOLDER%
             var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(path);
 
             // Check if the resolved path exists as a file or directory

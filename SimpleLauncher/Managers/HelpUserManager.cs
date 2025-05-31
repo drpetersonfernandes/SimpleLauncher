@@ -116,7 +116,6 @@ public class HelpUserManager
 
             {
                 // Notify developer
-                // Log that no valid systems were found, regardless of the reason (empty file or all failed parse and no reinstall)
                 const string contextMessage = "No valid systems found in 'helpuser.xml' after processing.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
@@ -125,7 +124,7 @@ public class HelpUserManager
             }
             // If Systems.Count > 0, the method completes, and Systems is populated.
         }
-        catch (Exception ex) // Catch-all for unexpected errors during the Load process
+        catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";

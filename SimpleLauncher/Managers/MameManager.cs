@@ -21,7 +21,6 @@ public class MameManager
     {
         datPath ??= DefaultDatPath;
 
-        // Check if the mame.dat file exists
         if (!File.Exists(datPath))
         {
             // Notify developer
@@ -31,7 +30,7 @@ public class MameManager
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
 
-            return [];
+            return []; // return an empty list
         }
 
         try
@@ -51,7 +50,7 @@ public class MameManager
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();
 
-            return [];
+            return []; // return an empty list
         }
     }
 }

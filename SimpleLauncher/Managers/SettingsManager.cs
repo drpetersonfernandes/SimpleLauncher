@@ -87,6 +87,7 @@ public class SettingsManager
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
             ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
+
             // Parse DeadZoneX value from string to float
             if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
             {
@@ -94,6 +95,7 @@ public class SettingsManager
             }
 
             DeadZoneX = deadZoneX;
+
             // Parse DeadZoneY value from string to float
             if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
             {
@@ -111,7 +113,6 @@ public class SettingsManager
 
             FuzzyMatchingThreshold = fuzzyThreshold;
 
-
             // Load multiple SystemPlayTime elements
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
@@ -127,7 +128,6 @@ public class SettingsManager
                 }
             }
 
-            // Ensure all values are saved if they were missing
             Save();
         }
         catch (Exception ex)
@@ -194,7 +194,7 @@ public class SettingsManager
         GamesPerPage = 100;
         ShowGames = "ShowAll";
         ViewMode = "GridView";
-        EnableGamePadNavigation = true; // Default to enabled
+        EnableGamePadNavigation = true;
         VideoUrl = "https://www.youtube.com/results?search_query=";
         InfoUrl = "https://www.igdb.com/search?q=";
         MainWindowWidth = 900;
@@ -208,8 +208,8 @@ public class SettingsManager
         DeadZoneX = 0.05f;
         DeadZoneY = 0.02f;
         ButtonAspectRatio = "Square";
-        EnableFuzzyMatching = true; // Default to enabled
-        FuzzyMatchingThreshold = 0.80; // Default threshold
+        EnableFuzzyMatching = true;
+        FuzzyMatchingThreshold = 0.80;
         SystemPlayTimes = [];
         Save();
     }
@@ -244,8 +244,8 @@ public class SettingsManager
             new XElement("DeadZoneX", DeadZoneX),
             new XElement("DeadZoneY", DeadZoneY),
             new XElement("ButtonAspectRatio", ButtonAspectRatio),
-            new XElement("EnableFuzzyMatching", EnableFuzzyMatching), // Save fuzzy matching state
-            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold), // Save fuzzy matching threshold
+            new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
+            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold),
             systemPlayTimesElement
         ).Save(_filePath);
     }

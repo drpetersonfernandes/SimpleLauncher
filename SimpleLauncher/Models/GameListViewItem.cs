@@ -10,7 +10,6 @@ public class GameListViewItem : INotifyPropertyChanged
     private string _timesPlayed = "0";
 
     private string _playTime = "0m 0s";
-    // FileSize string property will now be a getter based on _internalFileSizeBytes
 
     public string FilePath { get; init; }
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
@@ -34,7 +33,7 @@ public class GameListViewItem : INotifyPropertyChanged
     public string FileName
     {
         get;
-        init // Assuming FileName is set once at creation and doesn't change
+        init // FileName is set once at creation and doesn't change
         ;
     }
 
@@ -74,7 +73,6 @@ public class GameListViewItem : INotifyPropertyChanged
         }
     }
 
-    // This property will be set by the background task
     // Not directly bound in XAML, but triggers update for the formatted FileSize
     public long FileSizeBytes
     {
@@ -84,7 +82,6 @@ public class GameListViewItem : INotifyPropertyChanged
             if (_internalFileSizeBytes == value) return;
 
             _internalFileSizeBytes = value;
-            // OnPropertyChanged(); // If FileSizeBytes itself were bound
             OnPropertyChanged(nameof(FileSize)); // Notify that the formatted FileSize string has changed
         }
     }

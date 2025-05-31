@@ -31,7 +31,7 @@ public class PlayHistoryManager
         if (!File.Exists(FilePath))
         {
             var defaultManager = new PlayHistoryManager();
-            defaultManager.SavePlayHistory(); // Use instance method
+            defaultManager.SavePlayHistory();
             return defaultManager;
         }
 
@@ -78,7 +78,6 @@ public class PlayHistoryManager
             needsSaving = true;
         }
 
-        // Save the updated data if any records were migrated
         if (needsSaving)
         {
             SavePlayHistory();
@@ -183,7 +182,6 @@ public class PlayHistoryManager
         catch (Exception ex)
         {
             // Notify developer
-            // Log the error but don't crash
             const string contextMessage = "Error in date format migration";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -244,7 +242,6 @@ public class PlayHistoryManager
                 PlayHistoryList.Add(newItem);
             }
 
-            // Save the updated list
             SavePlayHistory();
         }
         catch (Exception ex)

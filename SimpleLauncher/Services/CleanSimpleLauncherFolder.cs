@@ -7,7 +7,6 @@ public static class CleanSimpleLauncherFolder
 {
     private static readonly string AppDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
-    // Arrays of directories and files to clean up
     private static readonly string[] DirectoriesToClean =
     [
         Path.Combine(AppDirectory, "temp"),
@@ -46,7 +45,6 @@ public static class CleanSimpleLauncherFolder
         }
         catch (Exception)
         {
-            // _ = LogErrors.LogErrorAsync(ex, "Failed to delete directory.");
             // Ignore
         }
     }
@@ -61,7 +59,6 @@ public static class CleanSimpleLauncherFolder
         }
         catch (Exception)
         {
-            // _ = LogErrors.LogErrorAsync(ex, "Failed to delete files.");
             // Ignore
         }
     }
