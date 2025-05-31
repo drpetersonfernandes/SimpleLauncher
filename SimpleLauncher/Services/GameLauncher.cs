@@ -592,8 +592,8 @@ public static class GameLauncher
             case ".ZIP":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                // ExtractGameToTempAsync2 uses PathHelper internally
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync2(absoluteFilePath);
+                // ExtractWithNativeLibraryToTempAsync uses PathHelper internally
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithNativeLibraryToTempAsync(absoluteFilePath);
 
                 // ValidateAndFindGameFile needs the resolved temp path
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
@@ -605,8 +605,8 @@ public static class GameLauncher
             case ".7Z" or ".RAR":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                // ExtractGameToTempAsync uses PathHelper internally
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractGameToTempAsync(absoluteFilePath);
+                // ExtractWith7zToTempAsync uses PathHelper internally
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractWith7ZToTempAsync(absoluteFilePath);
 
                 // ValidateAndFindGameFile needs the resolved temp path
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);

@@ -21,29 +21,40 @@ public class ExtractCompressedFile
     /// </summary>
     /// <param name="archivePath">Full path to the archive file</param>
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
-    public async Task<string> ExtractGameToTempAsync(string archivePath)
+    public async Task<string> ExtractWith7ZToTempAsync(string archivePath)
     {
         if (string.IsNullOrEmpty(archivePath) || !File.Exists(archivePath))
         {
             const string contextMessage = "Archive path cannot be null, empty, or file not found.";
+
+            // Notify developer
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return null;
         }
 
         var extension = Path.GetExtension(archivePath).ToLowerInvariant();
         if (extension != ".7z" && extension != ".zip" && extension != ".rar")
         {
+            // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
+
             return null;
         }
 
         var sevenZipPath = Get7ZipPath.Get7ZipExecutablePath();
         if (string.IsNullOrEmpty(sevenZipPath) || !File.Exists(sevenZipPath))
         {
+            // Notify developer
             const string contextMessage = "7-Zip executable not found or is inaccessible.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return null;
         }
 
@@ -58,13 +69,16 @@ public class ExtractCompressedFile
             // Validate that the resolved temp folder is within the system's temp path
             var systemTempPath = Path.GetTempPath(); // Use standard GetTempPath for comparison
 
-            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase)) // Resolve system temp path too
+            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase))
             {
-                // The _tempFolder has been manipulated or resolution failed - use default temp path instead
+                // The _tempFolder has been manipulated, or resolution failed - use default temp path instead
                 resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
+                // Notify developer
                 const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
@@ -82,9 +96,13 @@ public class ExtractCompressedFile
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string contextMessage = "Could not create the temp directory.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
+
                 return null;
             }
 
@@ -134,7 +152,9 @@ public class ExtractCompressedFile
                 }
                 else
                 {
+                    // Notify developer
                     MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+
                     throw new SecurityException("Potential path traversal detected in archive contents");
                 }
             }
@@ -148,10 +168,15 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             CleanFolder.CleanupTempDirectory(tempDirectory);
+
+            // Notify developer
             const string catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
                                                $"The file may be corrupted.";
-            _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
+            _ = LogErrors.LogErrorAsync(ex, catchContextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return null;
         }
         finally
@@ -174,13 +199,17 @@ public class ExtractCompressedFile
     /// </summary>
     /// <param name="archivePath">Full path to the zip file</param>
     /// <returns>Path to the extraction directory or null if extraction failed</returns>
-    public async Task<string> ExtractGameToTempAsync2(string archivePath)
+    public async Task<string> ExtractWithNativeLibraryToTempAsync(string archivePath)
     {
         if (string.IsNullOrEmpty(archivePath) || !File.Exists(archivePath))
         {
+            // Notify developer
             const string contextMessage = "Archive path cannot be null, empty, or file not found.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return null;
         }
 
@@ -193,23 +222,25 @@ public class ExtractCompressedFile
 
         string tempDirectory = null;
         PleaseWaitWindow pleaseWaitExtraction = null;
-        var extractionSuccessful = false; // Declared outside try
+        var extractionSuccessful = false;
 
         try
         {
-            // Resolve the base temp folder path using PathHelper
             var resolvedTempFolder = PathHelper.ResolveRelativeToAppDirectory(_tempFolder);
 
             // Validate that the resolved temp folder is within the system's temp path
-            var systemTempPath = Path.GetTempPath(); // Use standard GetTempPath for comparison
+            var systemTempPath = Path.GetTempPath();
 
-            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase)) // Resolve system temp path too
+            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase))
             {
-                // The _tempFolder has been manipulated or resolution failed - use default temp path instead
+                // The _tempFolder has been manipulated, or resolution failed - use default temp path instead
                 resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
 
+                // Notify developer
                 const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
             }
 
@@ -227,9 +258,13 @@ public class ExtractCompressedFile
             }
             catch (Exception ex)
             {
+                // Notify developer
                 const string contextMessage = "Could not create the temp directory.";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
+
                 return null;
             }
 
@@ -262,20 +297,25 @@ public class ExtractCompressedFile
                             var drive = new DriveInfo(rootPath);
                             if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                             {
-                                var contextMessage =
-                                    $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                Exception ex = new IOException(contextMessage);
-                                _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
+                                // Notify developer
+                                var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                                // Notify user
                                 MessageBoxLibrary.DiskSpaceErrorMessageBox();
-                                return; // Exit the Task.Run lambda
+
+                                return;
                             }
                         }
                         catch (ArgumentException ex)
                         {
-                            _ = LogErrors.LogErrorAsync(ex,
-                                $"Unable to check disk space for path {tempDirectory}: {ex.Message}");
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {tempDirectory}: {ex.Message}");
+
+                            // Notify user
                             MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
-                            return; // Exit the Task.Run lambda
+
+                            return;
                         }
                     }
 
@@ -289,7 +329,9 @@ public class ExtractCompressedFile
 
                         if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
                         {
+                            // Notify user
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
                         }
 
@@ -302,6 +344,7 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
+                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }
@@ -329,11 +372,16 @@ public class ExtractCompressedFile
         catch (Exception ex)
         {
             CleanFolder.CleanupTempDirectory(tempDirectory);
-            var catchContextMessage = $"Extraction of the compressed file failed.\n" + // Renamed
+
+            // Notify developer
+            var catchContextMessage = $"Extraction of the compressed file failed.\n" +
                                       $"The file may be corrupted.\n" +
                                       $"File: {archivePath}";
-            _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
+            _ = LogErrors.LogErrorAsync(ex, catchContextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return null;
         }
         finally
@@ -351,7 +399,8 @@ public class ExtractCompressedFile
                 }
                 catch (Exception cleanupEx)
                 {
-                    var contextMessage = $"Failed to clean up partial extraction in: {tempDirectory}"; // Use tempDirectory
+                    // Notify developer
+                    var contextMessage = $"Failed to clean up partial extraction in: {tempDirectory}";
                     _ = LogErrors.LogErrorAsync(cleanupEx, contextMessage);
                 }
             }
@@ -367,7 +416,6 @@ public class ExtractCompressedFile
         }
     }
 
-
     /// <summary>
     /// Extracts downloaded compressed files to a specified destination folder.
     /// This method extracts files inside the 'Simple Launcher' folder
@@ -376,42 +424,58 @@ public class ExtractCompressedFile
     /// <param name="filePath">The full path to the compressed file</param>
     /// <param name="destinationFolder">The destination folder where files will be extracted</param>
     /// <returns>True if extraction was successful, false otherwise</returns>
-    public static async Task<bool> ExtractDownloadFilesAsync(string filePath, string destinationFolder)
+    public static async Task<bool> ExtractDownloadFilesToBaseFolderAsync(string filePath, string destinationFolder)
     {
         if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath) || new FileInfo(filePath).Length == 0)
         {
+            // Notify developer
             const string contextMessage = "File path is invalid.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
+
             return false;
         }
 
         // Resolve the destination folder using PathHelper
         var resolvedDestinationFolder = PathHelper.ResolveRelativeToAppDirectory(destinationFolder);
 
-        if (string.IsNullOrEmpty(resolvedDestinationFolder)) // Check if resolution failed
+        if (string.IsNullOrEmpty(resolvedDestinationFolder))
         {
+            // Notify developer
             const string contextMessage = "Destination folder path resolution failed.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return false;
         }
 
         if (CheckForFileLock.IsFileLocked(filePath))
         {
+            // Notify developer
             var contextMessage = $"The downloaded file appears to be locked: {filePath}";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.FileIsLockedMessageBox();
+
             return false;
         }
 
         var extension = Path.GetExtension(filePath).ToLowerInvariant();
         if (extension != ".zip")
         {
+            // Notify developer
             var contextMessage = $"Only ZIP files are supported by this extraction method.\n" +
                                  $"File type: {extension}";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
+
             return false;
         }
 
@@ -424,6 +488,7 @@ public class ExtractCompressedFile
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {resolvedDestinationFolder}");
             }
 
@@ -454,20 +519,25 @@ public class ExtractCompressedFile
                             var drive = new DriveInfo(rootPath);
                             if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
                             {
-                                var contextMessage =
-                                    $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                Exception ex = new IOException(contextMessage);
-                                _ = LogErrors.LogErrorAsync(ex, "Not enough disk space for extraction.");
+                                // Notify developer
+                                var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                                // Notify user
                                 MessageBoxLibrary.DiskSpaceErrorMessageBox();
-                                return; // Exit the Task.Run lambda
+
+                                return;
                             }
                         }
                         catch (ArgumentException ex)
                         {
-                            _ = LogErrors.LogErrorAsync(ex,
-                                $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+
+                            // Notify user
                             MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
-                            return; // Exit the Task.Run lambda
+
+                            return;
                         }
                     }
 
@@ -482,7 +552,9 @@ public class ExtractCompressedFile
 
                         if (!fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
                         {
-                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(filePath); // Use original filePath for message
+                            // Notify user
+                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(filePath);
+
                             throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
                         }
 
@@ -495,6 +567,7 @@ public class ExtractCompressedFile
                             }
                             catch (Exception ex)
                             {
+                                // Notify developer
                                 _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
                             }
                         }
@@ -526,25 +599,29 @@ public class ExtractCompressedFile
                     var extractionTrackingFile = Path.Combine(resolvedDestinationFolder, ".extraction_in_progress");
                     if (File.Exists(extractionTrackingFile))
                     {
-                        CleanFolder.CleanupPartialExtraction(resolvedDestinationFolder); // Use resolvedDestinationFolder
+                        CleanFolder.CleanupPartialExtraction(resolvedDestinationFolder);
                     }
                 }
                 catch (Exception cleanupEx)
                 {
-                    var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}"; // Use resolvedDestinationFolder
+                    // Notify developer
+                    var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}";
                     _ = LogErrors.LogErrorAsync(cleanupEx, contextMessage);
                 }
             }
 
+            // Notify developer
             var exceptionDetails = GetDetailedExceptionInfo(ex);
-            var catchContextMessage = $"Error extracting the file: {filePath}\n" + // Renamed
+            var catchContextMessage = $"Error extracting the file: {filePath}\n" +
                                       $"{exceptionDetails}";
             _ = LogErrors.LogErrorAsync(ex, catchContextMessage); // Use renamed variable
+
+            // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
+
             return false;
         }
     }
-
 
     /// <summary>
     /// Estimates the extracted size of a ZIP archive

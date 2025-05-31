@@ -11,7 +11,6 @@ public static class DebugLogger
 
     /// <summary>
     /// Initializes the DebugLogger based on whether debug mode is enabled.
-    /// Should be called early in the application startup.
     /// </summary>
     /// <param name="isDebugModeEnabled">True if the application is running in debug mode (e.g., via command-line argument).</param>
     public static void Initialize(bool isDebugModeEnabled)
@@ -19,14 +18,16 @@ public static class DebugLogger
         _isDebugMode = isDebugModeEnabled;
 
         if (!_isDebugMode) return;
+
         // Initialize and show the LogWindow
         LogWindow.Initialize();
+
         _logWindowInstance = LogWindow.Instance; // Store the instance reference
         Log("Debug logging initialized."); // Log the initialization
     }
 
     /// <summary>
-    /// Logs a debug message. The message is only displayed if debug mode is enabled.
+    /// Logs a debug message.
     /// </summary>
     /// <param name="message">The debug message.</param>
     public static void Log(string message)

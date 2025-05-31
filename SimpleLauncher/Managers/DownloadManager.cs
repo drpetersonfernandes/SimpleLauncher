@@ -331,7 +331,7 @@ public class DownloadManager : IDisposable
                     $"Extracting to {destinationPath}...")
             });
 
-            var result = await ExtractCompressedFile.ExtractDownloadFilesAsync(filePath, destinationPath);
+            var result = await ExtractCompressedFile.ExtractDownloadFilesToBaseFolderAsync(filePath, destinationPath);
 
             if (result)
             {

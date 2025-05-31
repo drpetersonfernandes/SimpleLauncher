@@ -36,11 +36,9 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new Run($"{clickontheletterbuttonsabove2}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        // Display the raw string from config
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}")); // Display the raw string from config
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        // Display the raw string from config, or default message if null/empty
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}")); // Display the raw string from config, or default image folder if null/empty
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{isthesystemMamEbased2}: {selectedManager.SystemIsMame}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
@@ -59,11 +57,9 @@ public static class DisplaySystemInformation
         verticalStackPanel.Children.Add(gameCountTextBlock);
 
         var imageFolderPath = selectedManager.SystemImageFolder;
-        // Resolve the system image path using PathHelper for checking existence and counting
-        var resolvedImageFolderPath = string.IsNullOrWhiteSpace(imageFolderPath)
+        var resolvedImageFolderPath = string.IsNullOrWhiteSpace(imageFolderPath) // Resolve the system image path for checking existence and counting
             ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName)
             : PathHelper.ResolveRelativeToAppDirectory(imageFolderPath);
-
 
         var numberOfImages2 = (string)Application.Current.TryFindResource("NumberOfImages") ?? "Number of images in the System Image Folder: {0}";
         var imageFolderNotExist2 = (string)Application.Current.TryFindResource("ImageFolderNotExist") ?? "System Image Folder does not exist or is not specified.";
@@ -96,11 +92,9 @@ public static class DisplaySystemInformation
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
             emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorName2}: {emulator.EmulatorName}"));
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
-            // Display the raw string from config
-            emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorLocation2}: {emulator.EmulatorLocation}"));
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorLocation2}: {emulator.EmulatorLocation}")); // Display the raw string from config
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
-            // Display the raw string from config
-            emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorParameters2}: {emulator.EmulatorParameters}"));
+            emulatorInfoTextBlock.Inlines.Add(new Run($"{emulatorParameters2}: {emulator.EmulatorParameters}")); // Display the raw string from config
             emulatorInfoTextBlock.Inlines.Add(new LineBreak());
             emulatorInfoTextBlock.Inlines.Add(new Run($"{receiveNotificationEmulatorError2}: {emulator.ReceiveANotificationOnEmulatorError}"));
             verticalStackPanel.Children.Add(emulatorInfoTextBlock);
@@ -117,18 +111,17 @@ public static class DisplaySystemInformation
         var errorMessages = new StringBuilder();
         var hasErrors = false;
 
-        // Resolve paths using PathHelper for validation
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
         var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
 
-        if (!CheckPath.IsValidPath(resolvedSystemFolder)) // CheckPath uses PathHelper internally
+        if (!CheckPath.IsValidPath(resolvedSystemFolder))
         {
             var systemFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemFolderpathisnotvalid") ?? "System Folder path is not valid or does not exist:";
             hasErrors = true;
             errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{systemFolderpathisnotvalid2} '{systemFolder}'\n\n"); // Display the raw string
         }
 
-        if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder) && !CheckPath.IsValidPath(resolvedSystemImageFolder)) // CheckPath uses PathHelper internally
+        if (!string.IsNullOrWhiteSpace(selectedManager.SystemImageFolder) && !CheckPath.IsValidPath(resolvedSystemImageFolder))
         {
             var systemImageFolderpathisnotvalid2 = (string)Application.Current.TryFindResource("SystemImageFolderpathisnotvalid") ?? "System Image Folder path is not valid or does not exist:";
             hasErrors = true;
@@ -137,10 +130,9 @@ public static class DisplaySystemInformation
 
         foreach (var emulator in selectedManager.Emulators)
         {
-            // Resolve emulator location using PathHelper for validation
             var resolvedEmulatorLocation = PathHelper.ResolveRelativeToAppDirectory(emulator.EmulatorLocation);
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
-                CheckPath.IsValidPath(resolvedEmulatorLocation)) continue; // CheckPath uses PathHelper internally
+                CheckPath.IsValidPath(resolvedEmulatorLocation)) continue;
 
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;
@@ -149,6 +141,7 @@ public static class DisplaySystemInformation
 
         if (!hasErrors) return;
 
+        // Notify user
         MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
     }
 }
