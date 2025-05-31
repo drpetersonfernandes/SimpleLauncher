@@ -436,6 +436,32 @@ Core may require BIOS files or system files to work properly.
         </SystemHelper>
     </System>
     <System>
+        <SystemName>Commodore Amiga</SystemName>
+        <SystemHelper>
+            <![CDATA[
+## Commodore Amiga
+
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+
+**System Folder (Example):** c:\Commodore Amiga<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** adf, adz, dms, fdi, ipf,
+raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
+
+**Emulator Name:** Retroarch puae<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
+Core requires BIOS files or system files to work.
+]]>
+        </SystemHelper>
+    </System>
+    <System>
         <SystemName>Commodore Amiga CD32</SystemName>
         <SystemHelper>
             <![CDATA[
@@ -570,6 +596,11 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bat<br>
+
+**Emulator Name:** DOSBox<br>
+**Emulator Path (Example):** c:\emulators\DOSBox\DOSBox.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** DOSBox Staging<br>
 **Emulator Path (Example):** c:\emulators\DOSBox Staging\dosbox.exe<br>
@@ -1388,6 +1419,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+**Emulator Name:** Yuzu Fork Eden<br>
+**Emulator Path (Example):** c:\emulators\Yuzu Fork Eden\eden.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 **Emulator Name:** Yuzu Fork Sudachi<br>
 **Emulator Path (Example):** c:\emulators\Yuzu Fork Sudachi\sudachi.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -1398,8 +1434,13 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-**Emulator Name:** Ryujinx Fork GreemDev<br>
-**Emulator Path (Example):** c:\emulators\Ryujinx Fork GreemDev\Ryujinx.exe<br>
+**Emulator Name:** Ryujinx Fork Ryubing<br>
+**Emulator Path (Example):** c:\emulators\Ryujinx Fork Ryubing\Ryujinx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** Ryujinx Fork Kenji-NX<br>
+**Emulator Path (Example):** c:\emulators\Ryujinx Fork Kenji-Nx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 ]]>
@@ -2037,6 +2078,11 @@ Core may require BIOS files or system files to work properly.
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fuse/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Speccy<br>
+**Emulator Path (Example):** c:\emulators\Speccy\Speccy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** 
 ]]>
         </SystemHelper>
     </System>

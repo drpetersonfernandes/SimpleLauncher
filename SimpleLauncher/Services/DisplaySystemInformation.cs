@@ -37,7 +37,7 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         // Display the raw string from config
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {selectedManager.SystemFolder}"));
+        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         // Display the raw string from config, or default message if null/empty
         systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}"));
@@ -141,6 +141,7 @@ public static class DisplaySystemInformation
             var resolvedEmulatorLocation = PathHelper.ResolveRelativeToAppDirectory(emulator.EmulatorLocation);
             if (string.IsNullOrWhiteSpace(emulator.EmulatorLocation) ||
                 CheckPath.IsValidPath(resolvedEmulatorLocation)) continue; // CheckPath uses PathHelper internally
+
             var emulatorpathisnotvalidfor2 = (string)Application.Current.TryFindResource("Emulatorpathisnotvalidfor") ?? "Emulator path is not valid for";
             hasErrors = true;
             errorMessages.AppendLine(CultureInfo.InvariantCulture, $"{emulatorpathisnotvalidfor2} {emulator.EmulatorName}: '{emulator.EmulatorLocation}'\n\n"); // Display the raw string

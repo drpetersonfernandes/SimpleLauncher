@@ -99,8 +99,8 @@ public partial class FavoritesWindow
                         else
                         {
                             // Notify developer
-                            var contextMessage = $"Favorite file not found during async size calculation: {filePath}";
-                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
+                            // var contextMessage = $"Favorite file not found during async size calculation: {filePath}";
+                            // _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
 
                             sizeToSet = -2; // Indicate Not Found/Error (will show "N/A")
                         }

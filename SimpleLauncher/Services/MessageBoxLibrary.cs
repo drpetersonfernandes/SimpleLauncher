@@ -714,9 +714,7 @@ public static class MessageBoxLibrary
             }
             catch (Exception)
             {
-                var thefileerroruserlogwasnotfound =
-                    (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ??
-                    "The file 'error_user.log' was not found!";
+                var thefileerroruserlogwasnotfound = (string)Application.Current.TryFindResource("Thefileerroruserlogwasnotfound") ?? "The file 'error_user.log' was not found!";
                 MessageBox.Show(thefileerroruserlogwasnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }

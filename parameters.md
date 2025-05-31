@@ -2,8 +2,8 @@
 
 ## Amstrad CPC
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Amstrad CPC<br>
 **System Is MAME?** false<br>
@@ -21,8 +21,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Amstrad CPC GX4000
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Amstrad CPC GX4000<br>
 **System Is MAME?** true<br>
@@ -37,8 +37,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Arcade
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\emulators\mame\roms<br>
 **System Is MAME?** true<br>
@@ -61,8 +61,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari 2600
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari 2600<br>
 **System Is MAME?** false<br>
@@ -87,8 +87,8 @@ Command line documentation can be found on [Stella Website](https://stella-emu.g
 
 ## Atari 5200
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari 5200<br>
 **System Is MAME?** false<br>
@@ -111,8 +111,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari 7800
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari 7800<br>
 **System Is MAME?** false<br>
@@ -130,8 +130,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari 8-Bit
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari 8-Bit<br>
 **System Is MAME?** false<br>
@@ -146,8 +146,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Atari Jaguar
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari Jaguar<br>
 **System Is MAME?** false<br>
@@ -162,8 +162,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Atari Jaguar CD
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari Jaguar CD<br>
 **System Is MAME?** false<br>
@@ -178,8 +178,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Atari Lynx
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari Lynx<br>
 **System Is MAME?** false<br>
@@ -197,8 +197,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Atari ST
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Atari ST<br>
 **System Is MAME?** false<br>
@@ -224,8 +224,8 @@ Emulator may require BIOS or system files to work properly.
 
 ## Bandai WonderSwan
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
 **System Is MAME?** false<br>
@@ -255,8 +255,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 ## Bandai WonderSwan Color
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
 **System Is MAME?** false<br>
@@ -286,8 +286,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 ## Casio PV-1000
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Casio PV-1000<br>
 **System Is MAME?** true<br>
@@ -302,8 +302,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Colecovision
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Colecovision<br>
 **System Is MAME?** false<br>
@@ -321,8 +321,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Commodore 64
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Commodore 64<br>
 **System Is MAME?** false<br>
@@ -338,10 +338,30 @@ While relative paths might work, I strongly recommend against using them, especi
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work properly.
 
+## Commodore Amiga
+
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+
+**System Folder (Example):** c:\Commodore Amiga<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** adf, adz, dms, fdi, ipf,
+raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
+
+**Emulator Name:** Retroarch puae<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
+Core requires BIOS files or system files to work.
+
 ## Commodore Amiga CD32
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
 **System Is MAME?** false<br>
@@ -359,8 +379,8 @@ Core may require BIOS files or system files to work properly.
 
 ## LaserDisk
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\LaserDisk<br>
 **System Is MAME?** false<br>
@@ -377,8 +397,8 @@ You need to create BAT files to launch the games.
 
 ## Magnavox Odyssey 2
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **System Is MAME?** false<br>
@@ -396,8 +416,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Mattel Aquarius
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Mattel Aquarius<br>
 **System Is MAME?** true<br>
@@ -412,8 +432,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Mattel Intellivision
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
 **System Is MAME?** false<br>
@@ -431,14 +451,19 @@ Core may require BIOS files or system files to work properly.
 
 ## Microsoft DOS
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Microsoft DOS<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bat<br>
+
+**Emulator Name:** DOSBox<br>
+**Emulator Path (Example):** c:\emulators\DOSBox\DOSBox.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** DOSBox Staging<br>
 **Emulator Path (Example):** c:\emulators\DOSBox Staging\dosbox.exe<br>
@@ -466,8 +491,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 ## Microsoft MSX
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Microsoft MSX<br>
 **System Is MAME?** false<br>
@@ -505,8 +530,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Microsoft MSX2
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder:** [ROM Folder]<br>
 **System Is MAME?** false<br>
@@ -544,8 +569,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Microsoft Windows
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Windows Games<br>
 **System Is MAME?** false<br>
@@ -564,8 +589,8 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 
 ## Microsoft Xbox
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Microsoft Xbox<br>
 **System Is MAME?** false<br>
@@ -587,8 +612,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 
 ## Microsoft Xbox 360
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Microsoft Xbox 360<br>
 **System Is MAME?** false<br>
@@ -603,8 +628,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Microsoft Xbox 360 XBLA
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **System Is MAME?** false<br>
@@ -621,8 +646,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 ## NEC PC Engine / TurboGrafx 16
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\NEC PC Engine<br>
 **System Is MAME?** false<br>
@@ -647,8 +672,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 ## NEC PC Engine CD
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder:** c:\NEC PC Engine CD<br>
 **System Is MAME?** false<br>
@@ -674,8 +699,8 @@ This emulator requires a BIOS file to work properly.
 
 ## NEC PC-FX
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\NEC PC-FX<br>
 **System Is MAME?** false<br>
@@ -693,8 +718,8 @@ Core may require BIOS files or system files to work properly.
 
 ## NEC SuperGrafx
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\NEC SuperGrafx<br>
 **System Is MAME?** false<br>
@@ -719,8 +744,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 ## Nintendo 3DS
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo 3DS<br>
 **System Is MAME?** false<br>
@@ -767,8 +792,8 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 
 ## Nintendo 64
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo 64<br>
 **System Is MAME?** false<br>
@@ -810,8 +835,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 ## Nintendo 64DD
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
 **System Is MAME?** false<br>
@@ -835,8 +860,8 @@ This emulator requires a BIOS file to work properly.
 
 ## Nintendo DS
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **System Is MAME?** false<br>
@@ -860,8 +885,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 ## Nintendo Family Computer Disk System
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **System Is MAME?** false<br>
@@ -887,8 +912,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo Game Boy
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
 **System Is MAME?** false<br>
@@ -911,8 +936,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo Game Boy Advance
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
 **System Is MAME?** false<br>
@@ -930,8 +955,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo Game Boy Color
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
 **System Is MAME?** false<br>
@@ -954,8 +979,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo GameCube
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo GameCube<br>
 **System Is MAME?** false<br>
@@ -978,8 +1003,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo NES
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo NES<br>
 **System Is MAME?** false<br>
@@ -1015,8 +1040,8 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 
 ## Nintendo Satellaview
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Satellaview<br>
 **System Is MAME?** false<br>
@@ -1033,8 +1058,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 ## Nintendo SNES
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **System Is MAME?** false<br>
@@ -1070,8 +1095,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo SNES MSU1
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **System Is MAME?** false<br>
@@ -1094,8 +1119,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo Switch
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Switch<br>
 **System Is MAME?** false<br>
@@ -1113,6 +1138,11 @@ While relative paths might work, I strongly recommend against using them, especi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+**Emulator Name:** Yuzu Fork Eden<br>
+**Emulator Path (Example):** c:\emulators\Yuzu Fork Eden\eden.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 **Emulator Name:** Yuzu Fork Sudachi<br>
 **Emulator Path (Example):** c:\emulators\Yuzu Fork Sudachi\sudachi.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -1123,15 +1153,20 @@ While relative paths might work, I strongly recommend against using them, especi
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-**Emulator Name:** Ryujinx Fork GreemDev<br>
-**Emulator Path (Example):** c:\emulators\Ryujinx Fork GreemDev\Ryujinx.exe<br>
+**Emulator Name:** Ryujinx Fork Ryubing<br>
+**Emulator Path (Example):** c:\emulators\Ryujinx Fork Ryubing\Ryujinx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** Ryujinx Fork Kenji-NX<br>
+**Emulator Path (Example):** c:\emulators\Ryujinx Fork Kenji-Nx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 ## Nintendo Wii
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo Wii<br>
 **System Is MAME?** false<br>
@@ -1154,8 +1189,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Nintendo WiiU
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo WiiU<br>
 **System Is MAME?** false<br>
@@ -1170,8 +1205,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Nintendo WiiWare
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Nintendo WiiWare<br>
 **System Is MAME?** false<br>
@@ -1194,8 +1229,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Panasonic 3DO
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Panasonic 3DO<br>
 **System Is MAME?** false<br>
@@ -1213,8 +1248,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Philips CD-i
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Philips CD-i<br>
 **System Is MAME?** false<br>
@@ -1232,8 +1267,8 @@ Core may require BIOS files or system files to work properly.
 
 ## ScummVM
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\ScummVM<br>
 **System Is MAME?** false<br>
@@ -1252,8 +1287,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 
 ## Sega Dreamcast
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
 **System Is MAME?** false<br>
@@ -1276,8 +1311,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sega Game Gear
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Game Gear<br>
 **System Is MAME?** false<br>
@@ -1317,8 +1352,8 @@ The list of commands available for this emulator can be found on [MasterGear Web
 
 ## Sega Genesis
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Genesis<br>
 **System Is MAME?** false<br>
@@ -1362,8 +1397,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sega Genesis 32X
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
 **System Is MAME?** false<br>
@@ -1391,8 +1426,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sega Genesis CD
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
 **System Is MAME?** false<br>
@@ -1430,8 +1465,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 ## Sega Master System
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Master System<br>
 **System Is MAME?** false<br>
@@ -1478,8 +1513,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 ## Sega Model 3
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Model 3<br>
 **System Is MAME?** true<br>
@@ -1496,8 +1531,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 ## Sega Saturn
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega Saturn<br>
 **System Is MAME?** false<br>
@@ -1553,8 +1588,8 @@ Emulator documentation can be found on [Emulation General Wiki](https://emulatio
 
 ## Sega SC-3000
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega SC-3000<br>
 **System Is MAME?** false<br>
@@ -1581,8 +1616,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 ## Sega SG-1000
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sega SG-1000<br>
 **System Is MAME?** false<br>
@@ -1614,8 +1649,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 ## Sharp x68000
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sharp x68000<br>
 **System Is MAME?** true<br>
@@ -1638,8 +1673,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sinclair ZX Spectrum
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **System Is MAME?** false<br>
@@ -1655,10 +1690,15 @@ While relative paths might work, I strongly recommend against using them, especi
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fuse/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** Speccy<br>
+**Emulator Path (Example):** c:\emulators\Speccy\Speccy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:**
+
 ## SNK Neo Geo CD
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
 **System Is MAME?** false<br>
@@ -1676,8 +1716,8 @@ Core may require BIOS files or system files to work properly.
 
 ## SNK Neo Geo Pocket
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
 **System Is MAME?** false<br>
@@ -1710,8 +1750,8 @@ This emulator requires a BIOS file to work properly.
 
 ## SNK Neo Geo Pocket Color
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
 **System Is MAME?** false<br>
@@ -1744,8 +1784,8 @@ This emulator requires a BIOS file to work properly.
 
 ## Sony PlayStation 1
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
 **System Is MAME?** false<br>
@@ -1771,8 +1811,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sony PlayStation 2
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PlayStation 2<br>
 **System Is MAME?** false<br>
@@ -1798,8 +1838,8 @@ Core may require BIOS files or system files to work properly.
 
 ## Sony PlayStation 3
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **System Is MAME?** false<br>
@@ -1816,8 +1856,8 @@ Use the tool available in the 'Simple Launcher' menu to generate BAT files for y
 
 ## Sony PlayStation 4
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **System Is MAME?** false<br>
@@ -1832,8 +1872,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Sony PlayStation Vita
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PlayStation Vita<br>
 **System Is MAME?** false<br>
@@ -1848,8 +1888,8 @@ While relative paths might work, I strongly recommend against using them, especi
 
 ## Sony PSP
 
-**Double-check file and folder paths when entering them in Simple Launcher.
-While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
+**Double-check file and folder paths when entering them in Simple Launcher.**
+**While relative paths might work, I strongly recommend against using them, especially in the Parameters field.**
 
 **System Folder (Example):** c:\Sony PSP<br>
 **System Is MAME?** false<br>
