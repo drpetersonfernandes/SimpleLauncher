@@ -485,7 +485,7 @@ public static class GameLauncher
         string workingDirectory = null;
         try
         {
-            // Set working directory to the directory of the emulator executable
+            // Set the working directory to the directory of the emulator executable
             workingDirectory = Path.GetDirectoryName(programLocation);
         }
         catch (Exception ex)
@@ -505,10 +505,11 @@ public static class GameLauncher
             CreateNoWindow = true
         };
 
-        DebugLogger.Log($"Program Location: {programLocation}");
-        DebugLogger.Log($"Arguments: {arguments}");
-        DebugLogger.Log($"Working Directory: {workingDirectory}");
-        DebugLogger.Log($"PSI Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log($"LaunchRegularEmulator:\n\n" +
+                        $"Program Location: {programLocation}\n" +
+                        $"Arguments: {arguments}\n" +
+                        $"Working Directory: {workingDirectory}\n" +
+                        $"PSI Working Directory: {psi.WorkingDirectory}\n");
 
         using var process = new Process();
         process.StartInfo = psi;
