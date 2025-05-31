@@ -1,6 +1,6 @@
 using System;
 using System.Diagnostics;
-using System.Globalization; // Required for Debug.WriteLine
+using System.Globalization;
 
 namespace SimpleLauncher.Services;
 

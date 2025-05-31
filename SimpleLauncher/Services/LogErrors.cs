@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Diagnostics;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -95,6 +94,13 @@ public static class LogErrors
 
     public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
+        if (ex == null)
+        {
+            ex = new Exception("Exception is null.");
+        }
+
+        DebugLogger.LogException(ex, contextMessage);
+
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var errorLogPath = Path.Combine(baseDirectory, "error.log");
         var userLogPath = GetLogPath.Path();
@@ -106,11 +112,6 @@ public static class LogErrors
         var architecture = RuntimeInformation.OSArchitecture.ToString();
         var is64Bit = Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit";
         var windowsVersion = GetWindowsVersion.GetVersion();
-
-        if (ex == null)
-        {
-            ex = new Exception("Exception is null.");
-        }
 
         // Write error Message
         var errorMessage =
@@ -146,7 +147,7 @@ public static class LogErrors
                     catch (Exception ex2)
                     {
                         WriteLocalErrorLog(ex2, "Error deleting the ErrorLog.");
-                        Debug.WriteLine(@"There was an error deleting the ErrorLog: " + ex2.Message);
+                        DebugLogger.LogException(ex2, "Error deleting the ErrorLog");
                     }
                 }
             }
@@ -154,7 +155,7 @@ public static class LogErrors
         catch (Exception ex3)
         {
             WriteLocalErrorLog(ex3, "Error writing the ErrorLog.");
-            Debug.WriteLine(@"There was an error sending the ErrorLog: " + ex3.Message);
+            DebugLogger.LogException(ex3, "Error writing the ErrorLog");
         }
     }
 
@@ -180,16 +181,14 @@ public static class LogErrors
             var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
             using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
 
-            // for debug
-            Debug.WriteLine(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
+            DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 
             return response.IsSuccessStatusCode;
         }
         catch (Exception ex)
         {
             // for debug
-            Debug.WriteLine(@"There was an error sending the ErrorLog: " + ex.Message);
-
+            DebugLogger.LogException(ex, "There was an error sending the ErrorLog");
             WriteLocalErrorLog(ex, "Error sending the ErrorLog to the API.");
 
             // If sending fails, don't disable logging, just return false
@@ -229,7 +228,7 @@ public static class LogErrors
         catch (Exception ex2)
         {
             // for debug
-            Debug.WriteLine(@"There was an error writing the local ErrorLog: " + ex2.Message);
+            DebugLogger.LogException(ex2, "There was an error writing the local ErrorLog");
         }
     }
 }

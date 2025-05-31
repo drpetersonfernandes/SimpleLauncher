@@ -246,8 +246,8 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        Debug.WriteLine($"Launching Batch: {psi.FileName}");
-        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log($"Launching Batch: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -337,8 +337,8 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        Debug.WriteLine($"Launching Shortcut: {psi.FileName}");
-        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log($"Launching Shortcut: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -403,8 +403,8 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        Debug.WriteLine($"Launching Executable: {psi.FileName}");
-        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log($"Launching Executable: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -504,10 +504,6 @@ public static class GameLauncher
             RedirectStandardError = true,
             CreateNoWindow = true
         };
-
-        Debug.WriteLine($"Launching Emulator: {psi.FileName}");
-        Debug.WriteLine($"Arguments: {psi.Arguments}");
-        Debug.WriteLine($"Working Directory: {psi.WorkingDirectory}");
 
         DebugLogger.Log($"Program Location: {programLocation}");
         DebugLogger.Log($"Arguments: {arguments}");

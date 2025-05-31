@@ -76,8 +76,8 @@ public static class PathHelper
         {
             // Log the error but return the original path or empty string
             // depending on how the caller handles invalid paths.
-            // For now, let's return an empty string to indicate resolution failure.
-            // The calling code (like validation or launcher) should handle the empty string.
+            // Return an empty string to indicate resolution failure.
+            // The calling code should handle the empty string.
             _ = LogErrors.LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
             return string.Empty;
         }

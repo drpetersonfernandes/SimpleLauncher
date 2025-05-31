@@ -53,15 +53,14 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null || gameCount == 0)
         {
-            return new List<string>();
+            return new List<string>(); // Return an empty list
         }
 
         var cacheFilePath = GetCacheFilePath(systemName);
 
         if (!File.Exists(cacheFilePath))
         {
-            // Cache doesn't exist, rebuild it
-            return await RebuildCache(systemName, systemFolderPath, fileExtensions);
+            return await RebuildCache(systemName, systemFolderPath, fileExtensions); // Cache doesn't exist, rebuild it
         }
 
         var cachedData = await LoadCacheFromDisk(cacheFilePath);
@@ -90,10 +89,10 @@ public class CacheManager
     {
         if (systemFolderPath == null || fileExtensions == null)
         {
-            return new List<string>();
+            return new List<string>(); // return an empty list
         }
 
-        var files = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
+        var files = await GetFilePaths.GetFilesAsync(PathHelper.ResolveRelativeToAppDirectory(systemFolderPath), fileExtensions);
 
         lock (_cacheLock)
         {

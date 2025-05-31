@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -72,9 +73,10 @@ public partial class LogWindow
         }
         catch (Exception ex)
         {
-            // Log this error somewhere else if possible, or show a simple message box
-            // Avoid recursive logging issues
-            System.Diagnostics.Debug.WriteLine($"Error copying log: {ex.Message}");
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error copying log");
+
+            // Notify user
             MessageBox.Show("Failed to copy log content.", "Copy Error", MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }

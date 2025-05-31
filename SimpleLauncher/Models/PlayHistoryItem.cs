@@ -59,7 +59,7 @@ public class PlayHistoryItem : INotifyPropertyChanged // Implement INotifyProper
     public string FormattedFileSize =>
         _internalFileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
         _internalFileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
-        FormatFileSize.Format(_internalFileSizeBytes); // Otherwise, format the size
+        FormatFileSize.FormatToMb(_internalFileSizeBytes); // Otherwise, format the size
 
     [IgnoreMember]
     public string FormattedPlayTime

@@ -17,6 +17,7 @@ public class TrayIconManager : IDisposable
     // Updated delegate types
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onExitHandler;
+    private readonly RoutedEventHandler _onOpenDebugWindowHandler;
     private readonly EventHandler _mainWindowStateChangedHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
@@ -28,6 +29,7 @@ public class TrayIconManager : IDisposable
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
         _onExitHandler = OnExit;
+        _onOpenDebugWindowHandler = OnOpenDebugWindow;
         _mainWindowStateChangedHandler = MainWindow_StateChanged;
         _trayMouseDoubleClickHandler = OnOpen;
 
@@ -47,14 +49,19 @@ public class TrayIconManager : IDisposable
         var menu = new ContextMenu();
         var open = (string)Application.Current.TryFindResource("Open") ?? "Open";
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
+        var debugWindow = (string)Application.Current.TryFindResource("DebugWindow") ?? "Debug Window";
 
         var openMenuItem = new MenuItem { Header = open };
         openMenuItem.Click += _onOpenHandler;
+
+        var debugWindowMenuItem = new MenuItem { Header = debugWindow };
+        debugWindowMenuItem.Click += _onOpenDebugWindowHandler;
 
         var exitMenuItem = new MenuItem { Header = exit };
         exitMenuItem.Click += _onExitHandler;
 
         menu.Items.Add(openMenuItem);
+        menu.Items.Add(debugWindowMenuItem);
         menu.Items.Add(exitMenuItem);
 
         return menu;
@@ -76,7 +83,8 @@ public class TrayIconManager : IDisposable
         if (_mainWindow.WindowState != WindowState.Minimized) return;
 
         _mainWindow.Hide();
-        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
+        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ??
+                                   "is minimized to the tray.";
         ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
 
         // <<< ADDED: Stop GamePadController if it's running
@@ -98,6 +106,37 @@ public class TrayIconManager : IDisposable
         if (_settings.EnableGamePadNavigation && !GamePadController.Instance2.IsRunning)
         {
             GamePadController.Instance2.Start();
+        }
+    }
+
+    // Handle "Debug Window" context menu item
+    private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Initialize debug mode if it wasn't already enabled,
+            // This ensures the LogWindow is properly set up even if the app wasn't started with -debug
+            DebugLogger.Initialize(true);
+
+            // Initialize LogWindow if it doesn't exist yet
+            LogWindow.Initialize();
+
+            // Show the debug window
+            if (LogWindow.Instance == null) return;
+
+            LogWindow.Instance.Show();
+            LogWindow.Instance.WindowState = WindowState.Normal;
+            LogWindow.Instance.Activate();
+
+            // Log that the debug window was opened from tray
+            DebugLogger.Log("Debug window opened from tray menu");
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Failed to open debug window from tray menu");
+
+            ShowTrayMessage("Failed to open debug window");
         }
     }
 
@@ -135,6 +174,7 @@ public class TrayIconManager : IDisposable
 
                 menuItem.Click -= _onOpenHandler;
                 menuItem.Click -= _onExitHandler;
+                menuItem.Click -= _onOpenDebugWindowHandler;
             }
         }
 

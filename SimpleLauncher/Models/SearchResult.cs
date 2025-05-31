@@ -51,7 +51,7 @@ public class SearchResult : INotifyPropertyChanged
     public string FormattedFileSize =>
         _fileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
         _fileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
-        FormatFileSize.Format(_fileSizeBytes); // Otherwise, format the size
+        FormatFileSize.FormatToMb(_fileSizeBytes); // Otherwise, format the size
 
     public event PropertyChangedEventHandler PropertyChanged;
 

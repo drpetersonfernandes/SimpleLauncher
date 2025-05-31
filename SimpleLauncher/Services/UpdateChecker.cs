@@ -64,7 +64,7 @@ public static partial class UpdateChecker
             var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine(@"Check for Updates Success");
+                DebugLogger.Log("Check for Updates Success");
 
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content); // releasePackageUrl not strictly needed for silent decision
@@ -86,8 +86,6 @@ public static partial class UpdateChecker
                     {
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{UpdaterZipFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", UpdaterZipFileName), "Update Check Info");
-
-                        Debug.WriteLine(@"Silent update check failed. No updater.zip found.");
                     }
                 }
             }
@@ -97,8 +95,6 @@ public static partial class UpdateChecker
             // Notify developer
             const string contextMessage = "Error checking for updates (silent).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            Debug.WriteLine(@"Silent update check failed.");
         }
     }
 
@@ -117,7 +113,7 @@ public static partial class UpdateChecker
             var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine(@"Check for Updates Success");
+                DebugLogger.Log("Check for Updates Success");
 
                 var content = await response.Content.ReadAsStringAsync();
                 var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
@@ -173,8 +169,6 @@ public static partial class UpdateChecker
             // Notify developer
             const string contextMessage = "Error checking for updates (variant).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            Debug.WriteLine(@"Variant update check failed.");
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
@@ -278,8 +272,6 @@ public static partial class UpdateChecker
             // Notify developer
             const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            Debug.WriteLine(@"Update preparation failed.");
 
             if (logWindow != null)
             {

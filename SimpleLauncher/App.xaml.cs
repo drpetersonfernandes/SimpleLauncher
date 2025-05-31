@@ -64,7 +64,6 @@ public partial class App
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
-                DebugLogger.LogException(ex, "Failed to create or acquire single instance mutex.");
 
                 // Notify user
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
@@ -104,7 +103,6 @@ public partial class App
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                    DebugLogger.LogException(ex, contextMessage);
                 }
             }));
         }
@@ -129,7 +127,6 @@ public partial class App
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
-                DebugLogger.LogException(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -179,14 +176,13 @@ public partial class App
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(culture.IetfLanguageTag)));
 
-                DebugLogger.Log($"Applied language: {culture.Name}");
+                DebugLogger.Log("Resource language file has been applied.");
             }
             catch (Exception innerEx)
             {
                 // Notify developer
                 var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
                 _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
-                DebugLogger.LogException(innerEx, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -201,7 +197,6 @@ public partial class App
 
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources.");
-                DebugLogger.Log("Fallback to English language resources.");
             }
         }
         catch (Exception ex)
@@ -211,7 +206,6 @@ public partial class App
             // (e.g., invalid cultureCode format).
             var contextMessage = $"Failed to determine or set culture for {cultureCode}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            DebugLogger.LogException(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -227,7 +221,6 @@ public partial class App
 
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");
-                DebugLogger.Log("Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -237,14 +230,12 @@ public partial class App
         try
         {
             ThemeManager.Current.ChangeTheme(Current, $"{baseTheme}.{accentColor}");
-            DebugLogger.Log($"Applied theme: {baseTheme}.{accentColor}");
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            DebugLogger.LogException(ex, contextMessage);
         }
     }
 
@@ -255,13 +246,11 @@ public partial class App
         try
         {
             ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
-            DebugLogger.Log($"Applied theme to window {window.GetType().Name}: {baseTheme}.{accentColor}");
         }
         catch (Exception ex)
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}.");
-            DebugLogger.LogException(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 
@@ -272,6 +261,7 @@ public partial class App
         Settings.AccentColor = accentColor;
         Settings.Save();
 
+        DebugLogger.Log("Theme has been applied.");
         DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}");
     }
 }

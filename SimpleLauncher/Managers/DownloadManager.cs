@@ -54,7 +54,6 @@ public class DownloadManager : IDisposable
         }
 
         // Get HttpClient from the factory
-        // If no specific configuration is needed beyond default, CreateClient() is fine.
         _httpClient = _httpClientFactory.CreateClient();
 
         // Initialize cancellation token source
@@ -160,8 +159,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("RetryingDownload",
-                            $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                        StatusMessage = GetResourceString("RetryingDownload", $"Download incomplete, retrying ({currentRetry}/{RetryMaxAttempts})...")
                     });
 
                     await Task.Delay(delay, _cancellationTokenSource.Token);
@@ -237,8 +235,7 @@ public class DownloadManager : IDisposable
                     OnProgressChanged(new DownloadProgressEventArgs
                     {
                         ProgressPercentage = 0,
-                        StatusMessage = GetResourceString("DownloadFailedAfterRetries",
-                            $"Download failed after {RetryMaxAttempts} attempts.")
+                        StatusMessage = GetResourceString("DownloadFailedAfterRetries", $"Download failed after {RetryMaxAttempts} attempts.")
                     });
                 }
 
@@ -341,8 +338,7 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 100,
-                    StatusMessage = GetResourceString("ExtractionCompleted",
-                        "Extraction completed successfully.")
+                    StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
                 });
             }
             else
@@ -350,8 +346,7 @@ public class DownloadManager : IDisposable
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
                     ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("ExtractionFailed",
-                        "Extraction failed.")
+                    StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
                 });
             }
 
@@ -362,8 +357,7 @@ public class DownloadManager : IDisposable
             OnProgressChanged(new DownloadProgressEventArgs
             {
                 ProgressPercentage = 0,
-                StatusMessage = GetResourceString("ExtractionError",
-                    $"Extraction error: {ex.Message}")
+                StatusMessage = GetResourceString("ExtractionError", $"Extraction error: {ex.Message}")
             });
 
             // Notify developer
@@ -435,7 +429,7 @@ public class DownloadManager : IDisposable
 
             var totalBytes = response.Content.Headers.ContentLength;
             var totalSizeFormatted = totalBytes.HasValue
-                ? FormatFileSize(totalBytes.Value)
+                ? FormatFileSize.FormatToHumanReadable(totalBytes.Value)
                 : GetResourceString("unknownsize", "unknown size");
 
             // Report initial progress
@@ -472,8 +466,8 @@ public class DownloadManager : IDisposable
                     : 0;
 
                 var sizeStatus = totalBytes.HasValue
-                    ? $"{FormatFileSize(totalBytesRead)} of {FormatFileSize(totalBytes.Value)}"
-                    : $"{FormatFileSize(totalBytesRead)} of {totalSizeFormatted}";
+                    ? $"{FormatFileSize.FormatToHumanReadable(totalBytesRead)} of {FormatFileSize.FormatToHumanReadable(totalBytes.Value)}"
+                    : $"{FormatFileSize.FormatToHumanReadable(totalBytesRead)} of {totalSizeFormatted}";
 
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
@@ -496,7 +490,7 @@ public class DownloadManager : IDisposable
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytes,
                     ProgressPercentage = 100,
-                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize(totalBytesRead)}"
+                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
                 });
             }
             else if (totalBytes.HasValue)
@@ -509,8 +503,8 @@ public class DownloadManager : IDisposable
                     TotalBytesToReceive = totalBytes,
                     ProgressPercentage = 0,
                     StatusMessage = $"{GetResourceString("Downloadincomplete", "Download incomplete")}: " +
-                                    $"{GetResourceString("Expected", "Expected")} {FormatFileSize(totalBytes.Value)} " +
-                                    $"{GetResourceString("butreceived", "but received")} {FormatFileSize(totalBytesRead)}"
+                                    $"{GetResourceString("Expected", "Expected")} {FormatFileSize.FormatToHumanReadable(totalBytes.Value)} " +
+                                    $"{GetResourceString("butreceived", "but received")} {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
                 });
 
                 throw new IOException("Download incomplete. Bytes downloaded do not match the expected file size.");
@@ -525,7 +519,7 @@ public class DownloadManager : IDisposable
                     BytesReceived = totalBytesRead,
                     TotalBytesToReceive = totalBytesRead,
                     ProgressPercentage = 100,
-                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize(totalBytesRead)}"
+                    StatusMessage = $"{GetResourceString("Downloadcomplete2", "Download complete")}: {FormatFileSize.FormatToHumanReadable(totalBytesRead)}"
                 });
             }
         }
@@ -638,26 +632,6 @@ public class DownloadManager : IDisposable
     }
 
     /// <summary>
-    /// Formats a byte size into a human-readable format.
-    /// </summary>
-    /// <param name="bytes">The size in bytes.</param>
-    /// <returns>A formatted string representation of the size.</returns>
-    private static string FormatFileSize(long bytes)
-    {
-        string[] suffixes = ["B", "KB", "MB", "GB", "TB"];
-        var counter = 0;
-        double size = bytes;
-
-        while (size > 1024 && counter < suffixes.Length - 1)
-        {
-            size /= 1024;
-            counter++;
-        }
-
-        return $"{size:F2} {suffixes[counter]}";
-    }
-
-    /// <summary>
     /// Gets a localized string from resources.
     /// </summary>
     /// <param name="resourceKey">The resource key.</param>
@@ -676,8 +650,6 @@ public class DownloadManager : IDisposable
     {
         DownloadProgressChanged?.Invoke(this, e);
     }
-
-    #region IDisposable Implementation
 
     /// <inheritdoc />
     /// <summary>
@@ -715,6 +687,4 @@ public class DownloadManager : IDisposable
     {
         Dispose(false);
     }
-
-    #endregion
 }

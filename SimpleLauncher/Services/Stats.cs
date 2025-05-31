@@ -1,5 +1,4 @@
 using System;
-using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
@@ -128,8 +127,6 @@ public static class Stats
             // This indicates a logic error if _isApiEnabled is true but _httpClient is null
             _ = LogErrors.LogErrorAsync(new InvalidOperationException("HttpClient is null when attempting Stats API call."), "Stats API call failed: HttpClient not initialized.");
 
-            Debug.WriteLine(@"Stats API return failure.");
-
             return false;
         }
 
@@ -151,7 +148,8 @@ public static class Stats
 
             if (response.IsSuccessStatusCode)
             {
-                Debug.WriteLine(@"Stats API return success.");
+                DebugLogger.Log("The Stats was successfully sent. API response: OK");
+
                 return true; // Success.
             }
 
@@ -165,8 +163,6 @@ public static class Stats
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
 
-            Debug.WriteLine(@"Stats API return failure.");
-
             return false;
         }
         catch (HttpRequestException ex)
@@ -178,8 +174,6 @@ public static class Stats
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            Debug.WriteLine(@"Stats API return failure.");
-
             return false;
         }
         catch (Exception ex)
@@ -190,8 +184,6 @@ public static class Stats
                                  $"CallType: {callType}" +
                                  (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            Debug.WriteLine(@"Stats API return failure.");
 
             return false;
         }

@@ -93,7 +93,7 @@ public class GameListViewItem : INotifyPropertyChanged
     public string FileSize =>
         _internalFileSizeBytes == -1 ? "Calculating..." :
         _internalFileSizeBytes < -1 ? "N/A" : // For errors or file not found
-        FormatFileSize.Format(_internalFileSizeBytes);
+        FormatFileSize.FormatToMb(_internalFileSizeBytes);
 
     public event PropertyChangedEventHandler PropertyChanged;
 
