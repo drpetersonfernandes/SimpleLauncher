@@ -6,7 +6,6 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Threading;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -99,11 +98,10 @@ public static class GameLauncher
 
         _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
-        var isMameSystem = selectedSystemManager.SystemIsMame;
-        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
-
         // // Resolve paths within the parameter string using ParameterValidator
         // // It will just validate the paths, not actually resolve them.
+        // var isMameSystem = selectedSystemManager.SystemIsMame;
+        // var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
         // var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, resolvedSystemFolder, isMameSystem);
         //
         // if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
