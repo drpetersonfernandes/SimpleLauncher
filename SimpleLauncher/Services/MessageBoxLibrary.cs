@@ -2601,18 +2601,12 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void SystemAddedMessageBox(string systemFolder, string fullImageFolderPathForMessage,
-        EasyModeSystemConfig selectedSystem)
+    internal static void SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
     {
         var thesystem = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-        var hasbeenaddedsuccessfully = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ??
-                                       "has been added successfully.";
-        var putRoMsorIsOsforthissysteminside =
-            (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ??
-            "Put ROMs or ISOs for this system inside";
-        var putcoverimagesforthissysteminside =
-            (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ??
-            "Put cover images for this system inside";
+        var hasbeenaddedsuccessfully = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
+        var putRoMsorIsOsforthissysteminside = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
+        var putcoverimagesforthissysteminside = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
         var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -2628,7 +2622,10 @@ public static class MessageBoxLibrary
 
         void Action()
         {
-            MessageBox.Show($"{thesystem} '{selectedSystem.SystemName}' {hasbeenaddedsuccessfully}\n\n" + $"{putRoMsorIsOsforthissysteminside} '{systemFolder}'\n\n" + $"{putcoverimagesforthissysteminside} '{fullImageFolderPathForMessage}'.", info, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show($"{thesystem} '{systemName}' {hasbeenaddedsuccessfully}\n\n"
+                            + $"{putRoMsorIsOsforthissysteminside} '{resolvedSystemFolder}'\n\n"
+                            + $"{putcoverimagesforthissysteminside} '{resolvedSystemImageFolder}'.",
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

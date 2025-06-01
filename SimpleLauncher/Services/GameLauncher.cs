@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -98,11 +99,11 @@ public static class GameLauncher
         _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
         var isMameSystem = selectedSystemManager.SystemIsMame;
-        var systemFolder = selectedSystemManager.SystemFolder;
+        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
 
         // Resolve paths within the parameter string using ParameterValidator
         // It will just validate the paths, not actually resolve them.
-        var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, systemFolder, isMameSystem);
+        var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, resolvedSystemFolder, isMameSystem);
 
         if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
         {
@@ -167,6 +168,19 @@ public static class GameLauncher
 
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();
+
+            try
+            {
+                var fileName2 = Path.GetFileNameWithoutExtension(resolvedFilePath);
+                var youPlayed = (string)Application.Current.TryFindResource("Youplayed") ?? "You played";
+                var for2 = (string)Application.Current.TryFindResource("for") ?? "for";
+                var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+                TrayIconManager.ShowTrayMessage($"{youPlayed} {fileName2} {for2} {playTimeFormatted}");
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error updating tray message");
+            }
 
             try
             {
@@ -503,6 +517,10 @@ public static class GameLauncher
                         $"Program Location: {resolvedEmulatorPath}\n" +
                         $"Arguments: {arguments}\n" +
                         $"PSI Working Directory: {psi.WorkingDirectory}\n");
+
+        var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+        var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
+        TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
 
         using var process = new Process();
         process.StartInfo = psi;

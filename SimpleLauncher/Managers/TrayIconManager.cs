@@ -9,7 +9,7 @@ namespace SimpleLauncher.Managers;
 
 public class TrayIconManager : IDisposable
 {
-    private readonly TaskbarIcon _taskbarIcon;
+    private static TaskbarIcon _taskbarIcon;
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
     private readonly SettingsManager _settings;
@@ -140,7 +140,7 @@ public class TrayIconManager : IDisposable
         QuitApplication.SimpleQuitApplication();
     }
 
-    public void ShowTrayMessage(string message)
+    public static void ShowTrayMessage(string message)
     {
         _taskbarIcon.ShowBalloonTip("Simple Launcher", message, BalloonIcon.Info);
     }

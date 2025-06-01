@@ -85,8 +85,8 @@ public static class PathHelper
 
     public static string ResolveOtherParameterString(string resolvedEmulatorParameters, string resolvedSystemFolder, string resolvedEmulatorPath)
     {
-        var resolvedEmulatorParameters2 = Path.GetFullPath(resolvedEmulatorParameters.Replace("%SYSTEMFOLDER%", resolvedSystemFolder));
-        var resolvedEmulatorParameters3 = Path.GetFullPath(resolvedEmulatorParameters2.Replace("%EMULATORFOLDER%", resolvedEmulatorPath));
+        var resolvedEmulatorParameters2 = resolvedEmulatorParameters.Replace("%SYSTEMFOLDER%", resolvedSystemFolder);
+        var resolvedEmulatorParameters3 = resolvedEmulatorParameters2.Replace("%EMULATORFOLDER%", resolvedEmulatorPath);
         return resolvedEmulatorParameters3;
     }
 
