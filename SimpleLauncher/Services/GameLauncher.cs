@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Threading;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -101,19 +102,19 @@ public static class GameLauncher
         var isMameSystem = selectedSystemManager.SystemIsMame;
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
 
-        // Resolve paths within the parameter string using ParameterValidator
-        // It will just validate the paths, not actually resolve them.
-        var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, resolvedSystemFolder, isMameSystem);
-
-        if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
-        {
-            // Notify user
-            var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
-            if (proceedAnyway == MessageBoxResult.No)
-            {
-                return;
-            }
-        }
+        // // Resolve paths within the parameter string using ParameterValidator
+        // // It will just validate the paths, not actually resolve them.
+        // var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, resolvedSystemFolder, isMameSystem);
+        //
+        // if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
+        // {
+        //     // Notify user
+        //     var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
+        //     if (proceedAnyway == MessageBoxResult.No)
+        //     {
+        //         return;
+        //     }
+        // }
 
         var wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
         if (wasGamePadControllerRunning)
@@ -168,19 +169,13 @@ public static class GameLauncher
 
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();
+            DebugLogger.Log($"PlayTime saved: {playTime}");
 
-            try
-            {
-                var fileName2 = Path.GetFileNameWithoutExtension(resolvedFilePath);
-                var youPlayed = (string)Application.Current.TryFindResource("Youplayed") ?? "You played";
-                var for2 = (string)Application.Current.TryFindResource("for") ?? "for";
-                var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-                TrayIconManager.ShowTrayMessage($"{youPlayed} {fileName2} {for2} {playTimeFormatted}");
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error updating tray message");
-            }
+            var fileName2 = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            var youPlayed = (string)Application.Current.TryFindResource("Youplayed") ?? "You played";
+            var for2 = (string)Application.Current.TryFindResource("for") ?? "for";
+            var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+            TrayIconManager.ShowTrayMessage($"{youPlayed} {fileName2} {for2} {playTimeFormatted}");
 
             try
             {
@@ -199,6 +194,7 @@ public static class GameLauncher
             if (systemPlayTime != null)
             {
                 mainWindow.PlayTime = systemPlayTime.PlayTime;
+                DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
             }
 
             if (selectedEmulatorName is not null)
