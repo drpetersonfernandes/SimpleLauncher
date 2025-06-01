@@ -140,7 +140,7 @@ public partial class EditSystemWindow
             return true;
         }
 
-        if (!extractFileBeforeLaunch || formatsToSearch.All(static f => f is "zip" or "7z" or "rar")) return false;
+        if (!extractFileBeforeLaunch || formatsToSearch.Any(static f => f is "zip" or "7z" or "rar")) return false;
 
         // Notify user
         MessageBoxLibrary.FileMustBeCompressedMessageBox();
@@ -244,26 +244,39 @@ public partial class EditSystemWindow
             Emulator3ParametersTextBox, Emulator4ParametersTextBox,
             Emulator5ParametersTextBox
         ];
+        TextBox[] emulatorLocationTextBoxes =
+        [
+            Emulator1PathTextBox, Emulator2PathTextBox,
+            Emulator3PathTextBox, Emulator4PathTextBox,
+            Emulator5PathTextBox
+        ];
 
         var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
                            ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-        var systemFolder = SystemFolderTextBox.Text; // Use the potentially prefixed value from UI
+        var systemFolder = SystemFolderTextBox.Text;
 
-        foreach (var textBox in parameterTextBoxes)
+        for (var i = 0; i < parameterTextBoxes.Length; i++)
         {
-            if (string.IsNullOrWhiteSpace(textBox.Text))
+            var paramTextBox = parameterTextBoxes[i];
+            var emulatorLocation = emulatorLocationTextBoxes[i].Text;
+
+            if (string.IsNullOrWhiteSpace(paramTextBox.Text))
             {
-                MarkValid(textBox);
+                MarkValid(paramTextBox);
                 continue;
             }
 
-            var (areParametersValid, _) = ParameterValidator.ValidateParameterPaths(textBox.Text, systemFolder, isMameSystem);
-            MarkInvalid(textBox, areParametersValid);
+            var (areParametersValid, _) = ParameterValidator.ValidateParameterPaths(
+                paramTextBox.Text,
+                systemFolder,
+                emulatorLocation,
+                isMameSystem);
+            MarkInvalid(paramTextBox, areParametersValid);
         }
     }
 
     // Validate and warn about parameters before saving
-    private void ValidateAndWarnAboutParameters(string[] parameterTexts)
+    private void ValidateAndWarnAboutParameters(string[] parameterTexts, string[] emulatorLocationTexts)
     {
         var hasInvalidParameters = false;
         var allInvalidPaths = new List<string>();
@@ -283,13 +296,18 @@ public partial class EditSystemWindow
 
         var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
                            ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-        var systemFolder = SystemFolderTextBox.Text; // Use the potentially prefixed value from UI
+        var systemFolder = SystemFolderTextBox.Text;
 
         for (var i = 0; i < parameterTextBoxes.Length; i++)
         {
             if (string.IsNullOrEmpty(emulatorNames[i]) || string.IsNullOrWhiteSpace(parameterTexts[i])) continue;
 
-            var (areParametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(parameterTexts[i], systemFolder, isMameSystem);
+            var currentEmulatorLocation = emulatorLocationTexts[i];
+            var (areParametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(
+                parameterTexts[i],
+                systemFolder,
+                currentEmulatorLocation,
+                isMameSystem);
 
             MarkInvalid(parameterTextBoxes[i], areParametersValid);
             if (areParametersValid) continue;
@@ -303,3 +321,4 @@ public partial class EditSystemWindow
         MessageBoxLibrary.ParameterPathsInvalidWarningMessageBox(allInvalidPaths);
     }
 }
+

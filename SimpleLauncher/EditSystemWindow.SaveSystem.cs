@@ -160,13 +160,18 @@ public partial class EditSystemWindow
                 emulator1ParametersText, emulator2ParametersText, emulator3ParametersText, emulator4ParametersText,
                 emulator5ParametersText
             ];
+            string[] allEmulatorLocationTexts = // Used for validating parameters
+            [
+                emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText
+            ];
+
 
             // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
-            // This will now use the updated ParameterValidator which understands %BASEFOLDER%
-            ValidateAndWarnAboutParameters(parameterTexts);
+            // This will now use the updated ParameterValidator which understands %BASEFOLDER% etc.
+            ValidateAndWarnAboutParameters(parameterTexts, allEmulatorLocationTexts); // Pass all emulator locations
             // Note: ValidateAndWarnAboutParameters shows a warning but *does not* return, allowing the user to proceed.
 
-            // --- Check for *relative* paths *in parameters* that *don't* have %BASEFOLDER% ---
+            // --- Check for *relative* paths *in parameters* that *don't* have %BASEFOLDER% (or other known structural prefixes) ---
             var relativePathsWithoutPrefixInParameters = new List<string>();
             relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator1ParametersText));
             relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator2ParametersText));
@@ -184,7 +189,7 @@ public partial class EditSystemWindow
                     return;
                 }
                 // If result is Yes, continue with the save process (paths will be saved as entered,
-                // and the user was warned they might not resolve correctly at launch without %BASEFOLDER%)
+                // and the user was warned they might not resolve correctly at launch without %BASEFOLDER% or other structural prefix)
             }
 
             var receiveNotification1 =
@@ -220,13 +225,13 @@ public partial class EditSystemWindow
             }
 
             string[] nameTexts = [emulator2NameText, emulator3NameText, emulator4NameText, emulator5NameText];
-            string[] locationTexts = [emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText]; // Use potentially prefixed locations
+            // locationTexts are already defined as allEmulatorLocationTexts
             bool[] receiveNotifications = [receiveNotification2, receiveNotification3, receiveNotification4, receiveNotification5];
 
             for (var i = 0; i < nameTexts.Length; i++)
             {
                 var currentEmulatorName = nameTexts[i];
-                var currentEmulatorLocation = locationTexts[i]; // Use potentially prefixed location
+                var currentEmulatorLocation = allEmulatorLocationTexts[i + 1]; // Use potentially prefixed location (index i+1 for emulators 2-5)
                 var currentEmulatorParameters = parameterTexts[i + 1]; // Use original parameter text
                 var currentReceiveNotification = receiveNotifications[i];
 

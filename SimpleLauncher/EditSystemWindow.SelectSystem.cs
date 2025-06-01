@@ -134,7 +134,7 @@ public partial class EditSystemWindow
             MarkInvalid(Emulator4PathTextBox, string.IsNullOrWhiteSpace(Emulator4PathTextBox.Text) || CheckPath.IsValidPath(Emulator4PathTextBox.Text));
             MarkInvalid(Emulator5PathTextBox, string.IsNullOrWhiteSpace(Emulator5PathTextBox.Text) || CheckPath.IsValidPath(Emulator5PathTextBox.Text));
 
-            // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER%.
+            // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER% etc.
             ValidateParameterFields();
 
             HelpUserTextBlock.Text = string.Empty;

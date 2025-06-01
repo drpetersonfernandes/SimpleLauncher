@@ -11,8 +11,8 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public static partial class ParameterValidator
 {
-    // Known parameter placeholders that shouldn't be validated as actual paths
-    private static readonly string[] KnownPlaceholders =
+    // Known game-specific parameter placeholders that shouldn't be validated as actual paths
+    private static readonly string[] GameSpecificPlaceholders =
     [
         "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
         "{rom}", "{game}", "{romname}", "{romfile}"
@@ -29,7 +29,7 @@ public static partial class ParameterValidator
     private static readonly char[] Separator2 = [';']; // Used for -rompath splitting
     private static readonly char[] Separator3 = [';']; // Used for quoted path splitting
     private static readonly char[] Separator4 = [' ', '\t']; // Used for splitting remaining words
-    private static readonly char[] Separator5 = [';']; // Used for ValidateEmulatorParameters splitting
+    private static readonly char[] Separator5 = [';']; // Used for ValidateEmulatorParameters splitting (and GetRelativePathsInParameters)
 
     /// <summary>
     /// Checks if a string looks like a file path
@@ -40,13 +40,14 @@ public static partial class ParameterValidator
         if (string.IsNullOrWhiteSpace(text)) return false;
 
         // Check if it contains any of these characters that suggest it's a path
-        // Also check for %BASEFOLDER% prefix
         return text.Contains('\\') || text.Contains('/') ||
                (text.Length >= 2 && text[1] == ':') || // drive letter
                text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
                text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
                text.Contains(".dll") || // Catch DLL files even if they have additional text after
-               text.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) || // Check for the placeholder
+               text.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+               text.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+               text.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) ||
                IsDirectoryPath(text);
     }
 
@@ -74,55 +75,96 @@ public static partial class ParameterValidator
     }
 
     /// <summary>
-    /// Checks if a path contains a known placeholder (like %ROM%)
+    /// Checks if a path contains a game-specific placeholder (like %ROM%).
     /// </summary>
-    private static bool ContainsPlaceholder(string path)
+    private static bool ContainsGameSpecificPlaceholder(string text)
     {
-        // Exclude %BASEFOLDER% from this check, as it's a valid prefix we handle
-        return KnownPlaceholders.Any(placeholder =>
-                   path.Contains(placeholder, StringComparison.OrdinalIgnoreCase)) &&
-               !path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase);
+        if (string.IsNullOrWhiteSpace(text)) return false;
+
+        return GameSpecificPlaceholders.Any(placeholder =>
+            text.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
     }
 
     /// <summary>
-    /// Validates a single path string by resolving it relative to the app directory
-    /// (handling %BASEFOLDER%) and checking if the resulting file or directory exists.
+    /// Validates a single path string by resolving it using known structural placeholders
+    /// (%BASEFOLDER%, %SYSTEMFOLDER%, %EMULATORFOLDER%) and checking if the resulting file or directory exists.
     /// </summary>
-    private static bool ValidateSinglePath(string path, string systemFolder = null)
+    private static bool ValidateSinglePath(string pathToValidate, string configuredSystemFolder, string configuredEmulatorLocation)
     {
-        if (string.IsNullOrWhiteSpace(path)) return false;
-        if (ContainsPlaceholder(path)) return true;
+        if (string.IsNullOrWhiteSpace(pathToValidate)) return false;
+        if (ContainsGameSpecificPlaceholder(pathToValidate)) return true; // If it contains %ROM% etc., assume valid for validation purposes.
 
-        // Expand environment variables *before* resolving relative paths
-        if (path.Contains('%'))
-        {
-            path = Environment.ExpandEnvironmentVariables(path);
-        }
+        var pathAfterEnvExpansion = Environment.ExpandEnvironmentVariables(pathToValidate);
 
         try
         {
-            // Primary resolution: relative to app directory (handles %BASEFOLDER%)
-            var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(path);
-
-            // If primary resolution was successful and the path exists, it's valid
-            if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
+            string finalPathToTest;
+            if (pathAfterEnvExpansion.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
-                return true;
+                finalPathToTest = PathHelper.ResolveRelativeToAppDirectory(pathAfterEnvExpansion);
+            }
+            else if (pathAfterEnvExpansion.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(configuredSystemFolder)) return false;
+
+                var resolvedSystemDir = PathHelper.ResolveRelativeToAppDirectory(configuredSystemFolder);
+                if (string.IsNullOrEmpty(resolvedSystemDir) || !Directory.Exists(resolvedSystemDir)) return false;
+
+                var relativePart = pathAfterEnvExpansion.Substring("%SYSTEMFOLDER%".Length).TrimStart('\\', '/');
+                finalPathToTest = Path.GetFullPath(Path.Combine(resolvedSystemDir, relativePart));
+            }
+            else if (pathAfterEnvExpansion.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                if (string.IsNullOrEmpty(configuredEmulatorLocation)) return false;
+
+                var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(configuredEmulatorLocation);
+                string emulatorDir;
+
+                if (File.Exists(resolvedEmulatorPath))
+                {
+                    emulatorDir = Path.GetDirectoryName(resolvedEmulatorPath);
+                }
+                else if (Directory.Exists(resolvedEmulatorPath))
+                {
+                    emulatorDir = resolvedEmulatorPath;
+                }
+                else
+                {
+                    return false;
+                }
+
+                if (string.IsNullOrEmpty(emulatorDir)) return false;
+
+                var relativePart = pathAfterEnvExpansion.Substring("%EMULATORFOLDER%".Length).TrimStart('\\', '/');
+                finalPathToTest = Path.GetFullPath(Path.Combine(emulatorDir, relativePart));
+            }
+            else if (Path.IsPathRooted(pathAfterEnvExpansion))
+            {
+                finalPathToTest = Path.GetFullPath(pathAfterEnvExpansion);
+            }
+            else
+            {
+                finalPathToTest = PathHelper.ResolveRelativeToAppDirectory(pathAfterEnvExpansion);
+                if (!string.IsNullOrEmpty(finalPathToTest) && (File.Exists(finalPathToTest) || Directory.Exists(finalPathToTest)))
+                {
+                    return true;
+                }
+
+                if (string.IsNullOrEmpty(configuredSystemFolder)) return false;
+
+                var resolvedSystemDir = PathHelper.ResolveRelativeToAppDirectory(configuredSystemFolder);
+                if (string.IsNullOrEmpty(resolvedSystemDir) || !Directory.Exists(resolvedSystemDir)) return false;
+
+                finalPathToTest = Path.GetFullPath(Path.Combine(resolvedSystemDir, pathAfterEnvExpansion));
+                if (File.Exists(finalPathToTest) || Directory.Exists(finalPathToTest))
+                {
+                    return true;
+                }
+
+                return false;
             }
 
-            // Secondary resolution: try resolving relative to the system folder
-            // Only attempt this if the original path was not absolute and didn't start with %BASEFOLDER%
-            if (Path.IsPathRooted(path) || path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
-                string.IsNullOrEmpty(systemFolder)) return false;
-
-            var resolvedSystemRelativePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, path);
-            if (!string.IsNullOrEmpty(resolvedSystemRelativePath) && (File.Exists(resolvedSystemRelativePath) || Directory.Exists(resolvedSystemRelativePath)))
-            {
-                return true;
-            }
-
-            // If neither resolution method found an existing path, it's invalid
-            return false;
+            return !string.IsNullOrEmpty(finalPathToTest) && (File.Exists(finalPathToTest) || Directory.Exists(finalPathToTest));
         }
         catch (Exception)
         {
@@ -138,15 +180,12 @@ public static partial class ParameterValidator
         var result = new List<(string Flag, string Path)>();
         if (string.IsNullOrWhiteSpace(parameters)) return result;
 
-        // Match parameter flags followed by paths
-        var flaggedPathRegex = MyRegex(); // Regex: (-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))
+        var flaggedPathRegex = MyRegex();
         var matches = flaggedPathRegex.Matches(parameters);
 
         foreach (Match match in matches)
         {
             var flag = match.Groups[1].Value;
-
-            // Get the path value from whichever group matched
             var path = match.Groups[2].Success ? match.Groups[2].Value :
                 match.Groups[3].Success ? match.Groups[3].Value :
                 match.Groups[4].Value;
@@ -163,33 +202,31 @@ public static partial class ParameterValidator
     /// <summary>
     /// Validates paths in parameter strings and returns invalid paths
     /// </summary>
-    public static (bool overallValid, List<string> allInvalidPaths) ValidateParameterPaths(string parameters, string systemFolder = null, bool isMameSystem = false)
+    public static (bool overallValid, List<string> allInvalidPaths) ValidateParameterPaths(
+        string parameters,
+        string configuredSystemFolder = null,
+        string configuredEmulatorLocation = null,
+        bool isMameSystem = false)
     {
-        var invalidPaths = new List<string>(); // Local list to collect all invalid paths
-        if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths); // No parameters, so valid
+        var invalidPaths = new List<string>();
+        if (string.IsNullOrWhiteSpace(parameters)) return (true, invalidPaths);
 
-        var allPathsValid = true; // Initial assumption
+        var allPathsValid = true;
 
-        // Get all parameter paths with their flags
         var parameterPaths = ExtractParameterPaths(parameters);
 
-        // Validate each parameter path based on its flag
         foreach (var (flag, path) in parameterPaths)
         {
             switch (flag)
             {
-                // Handle specific flag types differently
                 case "-rompath":
                 {
-                    // For rompath, split by semicolons and validate each directory
                     var romPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
                     foreach (var romPath in romPaths)
                     {
                         var trimmedPath = romPath.Trim();
-                        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath)) continue;
-
-                        // Validate using the updated ValidateSinglePath
-                        if (ValidateSinglePath(trimmedPath, systemFolder)) continue;
+                        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsGameSpecificPlaceholder(trimmedPath)) continue;
+                        if (ValidateSinglePath(trimmedPath, configuredSystemFolder, configuredEmulatorLocation)) continue;
 
                         invalidPaths.Add(trimmedPath);
                         allPathsValid = false;
@@ -199,8 +236,8 @@ public static partial class ParameterValidator
                 }
                 case "-L":
                 {
-                    // For library paths (-L), check for file existence using updated ValidateSinglePath
-                    if (!string.IsNullOrWhiteSpace(path) && !ContainsPlaceholder(path) && !ValidateSinglePath(path, systemFolder))
+                    if (!string.IsNullOrWhiteSpace(path) && !ContainsGameSpecificPlaceholder(path) &&
+                        !ValidateSinglePath(path, configuredSystemFolder, configuredEmulatorLocation))
                     {
                         invalidPaths.Add(path);
                         allPathsValid = false;
@@ -210,11 +247,10 @@ public static partial class ParameterValidator
                 }
                 default:
                 {
-                    // For other parameters, check using standard path validation with updated ValidateSinglePath
                     if (!string.IsNullOrWhiteSpace(path) &&
-                        !ContainsPlaceholder(path) &&
-                        LooksLikePath(path) && // Ensure it looks like a path before validating existence
-                        !ValidateSinglePath(path, systemFolder))
+                        !ContainsGameSpecificPlaceholder(path) &&
+                        LooksLikePath(path) &&
+                        !ValidateSinglePath(path, configuredSystemFolder, configuredEmulatorLocation))
                     {
                         invalidPaths.Add(path);
                         allPathsValid = false;
@@ -225,31 +261,24 @@ public static partial class ParameterValidator
             }
         }
 
-        // Process all quoted paths that might not be associated with flags
-        var quotedPathsRegex = MyRegex1(); // Regex: (?:"([^"]+)"|'([^']+)')
+        var quotedPathsRegex = MyRegex1();
         var quotedMatches = quotedPathsRegex.Matches(parameters);
         foreach (Match match in quotedMatches)
         {
-            // Get the value from whichever group matched
             var quotedPath = match.Groups[1].Success ? match.Groups[1].Value : match.Groups[2].Value;
 
-            // Skip if it's not a path-like string, contains a placeholder,
-            // or was already validated as a parameter path (to avoid duplicates)
             if (!LooksLikePath(quotedPath) ||
-                ContainsPlaceholder(quotedPath) ||
+                ContainsGameSpecificPlaceholder(quotedPath) ||
                 parameterPaths.Any(p => p.Path == quotedPath)) continue;
 
-            // Handle multi-paths separated by semicolons (like in -rompath)
             if (quotedPath.Contains(';'))
             {
-                // Split by semicolons and validate each part using updated ValidateSinglePath
                 var subPaths = quotedPath.Split(Separator3, StringSplitOptions.RemoveEmptyEntries);
                 foreach (var subPath in subPaths)
                 {
                     var trimmedSubPath = subPath.Trim();
-                    if (string.IsNullOrWhiteSpace(trimmedSubPath) || ContainsPlaceholder(trimmedSubPath)) continue;
-
-                    if (ValidateSinglePath(trimmedSubPath, systemFolder)) continue;
+                    if (string.IsNullOrWhiteSpace(trimmedSubPath) || ContainsGameSpecificPlaceholder(trimmedSubPath)) continue;
+                    if (ValidateSinglePath(trimmedSubPath, configuredSystemFolder, configuredEmulatorLocation)) continue;
 
                     invalidPaths.Add(trimmedSubPath);
                     allPathsValid = false;
@@ -257,63 +286,61 @@ public static partial class ParameterValidator
             }
             else
             {
-                // Single path, validate normally using updated ValidateSinglePath
-                if (ValidateSinglePath(quotedPath, systemFolder)) continue;
+                if (ValidateSinglePath(quotedPath, configuredSystemFolder, configuredEmulatorLocation)) continue;
 
                 invalidPaths.Add(quotedPath);
                 allPathsValid = false;
             }
         }
 
-        // Process remaining unquoted potential paths (less common)
-        // Remove quoted strings first
-        var remainingParams = MyRegex2().Replace(parameters, " "); // Regex: (?:"[^"]*"|'[^']*')
-        // Remove flagged parameters (flag + value)
-        var flagsRemoved = MyRegex3().Replace(remainingParams, " "); // Regex: -\w+\s+
+        var remainingParams = MyRegex2().Replace(parameters, " ");
+        var flagsRemoved = MyRegex3().Replace(remainingParams, " ");
 
-        // Split by whitespace and check each token
         var words = flagsRemoved.Split(Separator4, StringSplitOptions.RemoveEmptyEntries);
         foreach (var word in words)
         {
-            // Skip known parameter flags or placeholders
-            if (IsKnownFlag(word) || ContainsPlaceholder(word)) continue;
+            if (IsKnownFlag(word) || ContainsGameSpecificPlaceholder(word)) continue;
+            if (!LooksLikePath(word) || ValidateSinglePath(word, configuredSystemFolder, configuredEmulatorLocation)) continue;
 
-            // If it looks like a path, validate it using updated ValidateSinglePath
-            if (!LooksLikePath(word) || ValidateSinglePath(word, systemFolder)) continue;
-
-            // Add the invalid path
             invalidPaths.Add(word);
             allPathsValid = false;
         }
 
-        // For MAME systems, apply leniency
         if (!isMameSystem || invalidPaths.Count <= 0)
-            return (allPathsValid, invalidPaths.Distinct().ToList()); // Return the final state and the distinct list
+            return (allPathsValid, invalidPaths.Distinct().ToList());
 
         {
-            // Identify critical paths for MAME leniency: -rompath or -L
             var criticalPaths = invalidPaths
                 .Where(path => parameterPaths.Any(p =>
                     p.Flag is "-rompath" or "-L" &&
-                    (p.Path == path || (p.Path != null && p.Path.Contains(path))))) // Check if the invalid path is part of a flagged path
+                    (p.Path == path || (p.Path != null && p.Path.Contains(path)))))
                 .ToList();
 
             if (criticalPaths.Count == 0)
             {
-                // Only non-critical paths are invalid, so overall valid due to leniency
-                return (true, invalidPaths.Distinct().ToList()); // Return true but still provide the full list
+                return (true, invalidPaths.Distinct().ToList());
             }
-            // If critical paths exist, overallValid remains false
         }
+        return (allPathsValid, invalidPaths.Distinct().ToList());
+    }
 
-        return (allPathsValid, invalidPaths.Distinct().ToList()); // Return the final state and the distinct list
+    private static bool IsRelativePathWithoutKnownStructuralPrefix(string path)
+    {
+        if (string.IsNullOrWhiteSpace(path)) return false;
+        if (Path.IsPathRooted(path)) return false;
+        if (path.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase)) return false;
+        if (path.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase)) return false;
+        if (path.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)) return false;
+
+        return true;
     }
 
     /// <summary>
-    /// Identifies potential relative paths within a parameter string that do NOT start with %BASEFOLDER%.
+    /// Identifies potential relative paths within a parameter string that do NOT start with a known structural prefix.
+    /// Known structural prefixes are %BASEFOLDER%, %SYSTEMFOLDER%, %EMULATORFOLDER%.
     /// </summary>
     /// <param name="parameters">The parameter string to analyze.</param>
-    /// <returns>A list of identified relative paths without the %BASEFOLDER% prefix.</returns>
+    /// <returns>A list of identified relative paths without a known structural prefix.</returns>
     public static List<string> GetRelativePathsInParameters(string parameters)
     {
         var relativePathsWithoutPrefix = new HashSet<string>();
@@ -337,13 +364,12 @@ public static partial class ParameterValidator
         {
             var trimmedPath = potentialPath.Trim();
 
-            if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsPlaceholder(trimmedPath) || IsKnownFlag(trimmedPath))
+            if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsGameSpecificPlaceholder(trimmedPath) || IsKnownFlag(trimmedPath))
             {
                 continue;
             }
 
-            // Use PathHelper.IsRelativePathWithoutBaseFolder to check if it's relative AND lacks the prefix
-            if (LooksLikePath(trimmedPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedPath))
+            if (LooksLikePath(trimmedPath) && IsRelativePathWithoutKnownStructuralPrefix(trimmedPath))
             {
                 relativePathsWithoutPrefix.Add(trimmedPath);
             }
@@ -353,7 +379,10 @@ public static partial class ParameterValidator
                 foreach (var subPath in subPaths)
                 {
                     var trimmedSubPath = subPath.Trim();
-                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) && !ContainsPlaceholder(trimmedSubPath) && LooksLikePath(trimmedSubPath) && PathHelper.IsRelativePathWithoutBaseFolder(trimmedSubPath))
+                    if (!string.IsNullOrWhiteSpace(trimmedSubPath) &&
+                        !ContainsGameSpecificPlaceholder(trimmedSubPath) &&
+                        LooksLikePath(trimmedSubPath) &&
+                        IsRelativePathWithoutKnownStructuralPrefix(trimmedSubPath))
                     {
                         relativePathsWithoutPrefix.Add(trimmedSubPath);
                     }
@@ -366,12 +395,13 @@ public static partial class ParameterValidator
 
     /// <summary>
     /// Resolves all path-like tokens within a parameter string to their absolute paths,
-    /// handling %BASEFOLDER% and relative paths.
+    /// handling %BASEFOLDER%, %SYSTEMFOLDER%, %EMULATORFOLDER% and relative paths.
     /// </summary>
     /// <param name="parameters">The parameter string.</param>
-    /// <param name="resolvedSystemFolder"></param>
+    /// <param name="configuredSystemFolder">The configured system folder (may contain %BASEFOLDER%).</param>
+    /// <param name="configuredEmulatorLocation">The configured emulator location (may contain %BASEFOLDER%).</param>
     /// <returns>The parameter string with path tokens resolved to absolute paths.</returns>
-    public static string ResolveParameterString(string parameters, string resolvedSystemFolder = null)
+    public static string ResolveParameterString(string parameters, string configuredSystemFolder = null, string configuredEmulatorLocation = null)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
@@ -384,42 +414,88 @@ public static partial class ParameterValidator
 
         var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
         {
-            var token = match.Value;
-            var trimmedToken = token.Trim('"', '\'');
+            var originalToken = match.Value;
+            var tokenForLogic = originalToken.Trim('"', '\'');
 
-            if (ContainsPlaceholder(trimmedToken) || IsKnownFlag(trimmedToken) || !LooksLikePath(trimmedToken))
+            if (ContainsGameSpecificPlaceholder(tokenForLogic) || IsKnownFlag(tokenForLogic) || !LooksLikePath(tokenForLogic))
             {
-                return token;
+                return originalToken;
             }
+
+            var expandedToken = Environment.ExpandEnvironmentVariables(tokenForLogic);
+            var resolvedPath = string.Empty;
 
             try
             {
-                // Attempt primary resolution: relative to app directory (handles %BASEFOLDER%)
-                var resolvedPath = PathHelper.ResolveRelativeToAppDirectory(trimmedToken);
-
-                // If primary resolution failed, try secondary resolution: relative to system folder
-                // Only attempt this if the original token was not absolute and didn't start with %BASEFOLDER%
-                if ((string.IsNullOrEmpty(resolvedPath) || !(File.Exists(resolvedPath) || Directory.Exists(resolvedPath))) && // Check if primary resolution failed or didn't find the path
-                    !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(resolvedSystemFolder))
+                if (expandedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
                 {
-                    resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(resolvedSystemFolder, trimmedToken);
+                    resolvedPath = PathHelper.ResolveRelativeToAppDirectory(expandedToken);
+                }
+                else if (expandedToken.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!string.IsNullOrEmpty(configuredSystemFolder))
+                    {
+                        var resolvedSystemDir = PathHelper.ResolveRelativeToAppDirectory(configuredSystemFolder);
+                        if (!string.IsNullOrEmpty(resolvedSystemDir) && Directory.Exists(resolvedSystemDir))
+                        {
+                            var relativePart = expandedToken.Substring("%SYSTEMFOLDER%".Length).TrimStart('\\', '/');
+                            resolvedPath = Path.GetFullPath(Path.Combine(resolvedSystemDir, relativePart));
+                        }
+                    }
+                }
+                else if (expandedToken.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
+                {
+                    if (!string.IsNullOrEmpty(configuredEmulatorLocation))
+                    {
+                        var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(configuredEmulatorLocation);
+                        var emulatorDir = File.Exists(resolvedEmulatorPath) ? Path.GetDirectoryName(resolvedEmulatorPath) :
+                            Directory.Exists(resolvedEmulatorPath) ? resolvedEmulatorPath : null;
+
+                        if (!string.IsNullOrEmpty(emulatorDir))
+                        {
+                            var relativePart = expandedToken.Substring("%EMULATORFOLDER%".Length).TrimStart('\\', '/');
+                            resolvedPath = Path.GetFullPath(Path.Combine(emulatorDir, relativePart));
+                        }
+                    }
+                }
+                else if (Path.IsPathRooted(expandedToken))
+                {
+                    resolvedPath = Path.GetFullPath(expandedToken);
+                }
+                else
+                {
+                    var tempResolvedPath = PathHelper.ResolveRelativeToAppDirectory(expandedToken);
+                    if (!string.IsNullOrEmpty(tempResolvedPath) && (File.Exists(tempResolvedPath) || Directory.Exists(tempResolvedPath)))
+                    {
+                        resolvedPath = tempResolvedPath;
+                    }
+                    else if (!string.IsNullOrEmpty(configuredSystemFolder))
+                    {
+                        var resolvedSystemDir = PathHelper.ResolveRelativeToAppDirectory(configuredSystemFolder);
+                        if (!string.IsNullOrEmpty(resolvedSystemDir) && Directory.Exists(resolvedSystemDir))
+                        {
+                            tempResolvedPath = Path.GetFullPath(Path.Combine(resolvedSystemDir, expandedToken));
+                            if (File.Exists(tempResolvedPath) || Directory.Exists(tempResolvedPath))
+                            {
+                                resolvedPath = tempResolvedPath;
+                            }
+                        }
+                    }
                 }
 
-                // If resolution was successful (either primary or secondary) and the path exists, return the resolved path.
-                // Otherwise, return the original token.
                 if (!string.IsNullOrEmpty(resolvedPath) && (File.Exists(resolvedPath) || Directory.Exists(resolvedPath)))
                 {
-                    return token.StartsWith('"') ? $"\"{resolvedPath}\"" :
-                        token.StartsWith('\'') ? $"'{resolvedPath}'" :
+                    return originalToken.StartsWith('"') ? $"\"{resolvedPath}\"" :
+                        originalToken.StartsWith('\'') ? $"'{resolvedPath}'" :
                         resolvedPath;
                 }
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, $"Error resolving parameter path token '{token}'.");
+                _ = LogErrors.LogErrorAsync(ex, $"Error resolving parameter path token '{tokenForLogic}'.");
             }
 
-            return token;
+            return originalToken;
         });
 
         return resolvedParameters;
