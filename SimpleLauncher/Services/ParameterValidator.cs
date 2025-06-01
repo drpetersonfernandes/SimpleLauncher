@@ -369,9 +369,9 @@ public static partial class ParameterValidator
     /// handling %BASEFOLDER% and relative paths.
     /// </summary>
     /// <param name="parameters">The parameter string.</param>
-    /// <param name="systemFolder">The system's folder path for relative resolution.</param>
+    /// <param name="resolvedSystemFolder"></param>
     /// <returns>The parameter string with path tokens resolved to absolute paths.</returns>
-    public static string ResolveParameterString(string parameters, string systemFolder = null)
+    public static string ResolveParameterString(string parameters, string resolvedSystemFolder = null)
     {
         if (string.IsNullOrWhiteSpace(parameters))
         {
@@ -387,12 +387,10 @@ public static partial class ParameterValidator
             var token = match.Value;
             var trimmedToken = token.Trim('"', '\'');
 
-            if (ContainsPlaceholder(trimmedToken) || IsKnownFlag(trimmedToken))
+            if (ContainsPlaceholder(trimmedToken) || IsKnownFlag(trimmedToken) || !LooksLikePath(trimmedToken))
             {
                 return token;
             }
-
-            if (!LooksLikePath(trimmedToken)) return token;
 
             try
             {
@@ -402,9 +400,9 @@ public static partial class ParameterValidator
                 // If primary resolution failed, try secondary resolution: relative to system folder
                 // Only attempt this if the original token was not absolute and didn't start with %BASEFOLDER%
                 if ((string.IsNullOrEmpty(resolvedPath) || !(File.Exists(resolvedPath) || Directory.Exists(resolvedPath))) && // Check if primary resolution failed or didn't find the path
-                    !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(systemFolder))
+                    !Path.IsPathRooted(trimmedToken) && !trimmedToken.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) && !string.IsNullOrEmpty(resolvedSystemFolder))
                 {
-                    resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemFolder, trimmedToken);
+                    resolvedPath = PathHelper.CombineAndResolveRelativeToAppDirectory(resolvedSystemFolder, trimmedToken);
                 }
 
                 // If resolution was successful (either primary or secondary) and the path exists, return the resolved path.

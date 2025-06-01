@@ -123,7 +123,7 @@ public partial class GlobalStatsWindow
             else
             {
                 // Pass the resolved path to GetFilesAsync
-                romFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
+                romFiles = await GetListOfFiles.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
             }
 
 

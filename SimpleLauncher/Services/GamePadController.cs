@@ -95,7 +95,6 @@ public class GamePadController : IDisposable
             _playStationControllerGuid = Guid.Empty;
         }
 
-
         _mouseSimulator = new InputSimulator().Mouse;
         _timer = new Timer(_ => Update(), null, Timeout.Infinite, Timeout.Infinite);
     }
@@ -700,7 +699,6 @@ public class GamePadController : IDisposable
         {
             resultY = resultY * (1.0f / (1.0f - dzY)); // Scale up to full range
         }
-
 
         return (resultX, resultY);
     }

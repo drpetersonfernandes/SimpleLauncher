@@ -7,7 +7,6 @@ namespace SimpleLauncher.Services;
 
 public static class LaunchTools
 {
-    // Define the LogPath
     private static readonly string LogPath = GetLogPath.Path();
 
     /// <summary>
@@ -27,6 +26,7 @@ public static class LaunchTools
 
             // Notify user (using a generic message for tool not found)
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+
             return;
         }
 
@@ -39,6 +39,7 @@ public static class LaunchTools
 
             // Notify user
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
+
             return;
         }
 
@@ -47,14 +48,13 @@ public static class LaunchTools
             var psi = new ProcessStartInfo
             {
                 FileName = toolPath,
-                Arguments = arguments ?? string.Empty, // Use empty string if no arguments
+                Arguments = arguments ?? string.Empty,
                 UseShellExecute = true // Use shell execute for launching external tools
             };
 
             // Set working directory if provided, otherwise it defaults to the executable's directory
             if (!string.IsNullOrEmpty(workingDirectory))
             {
-                // Resolve the working directory relative to the app directory for robustness
                 var resolvedWorkingDirectory = PathHelper.ResolveRelativeToAppDirectory(workingDirectory);
 
                 if (Directory.Exists(resolvedWorkingDirectory))
@@ -64,11 +64,8 @@ public static class LaunchTools
                 else
                 {
                     // Notify developer
-                    // Log a warning if the specified working directory doesn't exist,
-                    // but still attempt to launch using the default working directory.
                     var warningMessage = $"Specified working directory not found: {workingDirectory}. Launching with default working directory.";
                     _ = LogErrors.LogErrorAsync(new DirectoryNotFoundException(warningMessage), warningMessage);
-                    // Do not set psi.WorkingDirectory, let it default.
                 }
             }
 
@@ -106,7 +103,7 @@ public static class LaunchTools
         var arguments = string.Empty;
         string workingDirectory = null;
 
-        // Resolve the selected image and rom folders using PathHelper
+        // Resolve the selected image and rom folders
         string absoluteImageFolder = null;
         if (!string.IsNullOrEmpty(selectedImageFolder))
         {
@@ -119,25 +116,25 @@ public static class LaunchTools
             absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
         }
 
-        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder)) // Check if both resolved paths are valid
+        // Check if both resolved paths are valid
+        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
         {
             arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
             workingDirectory = Path.GetDirectoryName(toolPath); // Keep working directory as tool's directory
         }
         else
         {
-            // Log a warning if paths couldn't be resolved
             if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
             }
 
             if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
             }
-            // If paths couldn't be resolved, arguments remain empty, and workingDirectory defaults.
-            // The tool might handle empty arguments or show its own error.
         }
 
         try
@@ -146,12 +143,14 @@ public static class LaunchTools
         }
         catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
         {
+            // Notify developer
             const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
         }
     }
-
 
     internal static void CreateBatchFilesForPS3Games_Click()
     {

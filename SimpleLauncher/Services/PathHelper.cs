@@ -83,6 +83,13 @@ public static class PathHelper
         }
     }
 
+    public static string ResolveOtherParameterString(string resolvedEmulatorParameters, string resolvedSystemFolder, string resolvedEmulatorPath)
+    {
+        var resolvedEmulatorParameters2 = Path.GetFullPath(resolvedEmulatorParameters.Replace("%SYSTEMFOLDER%", resolvedSystemFolder));
+        var resolvedEmulatorParameters3 = Path.GetFullPath(resolvedEmulatorParameters2.Replace("%EMULATORFOLDER%", resolvedEmulatorPath));
+        return resolvedEmulatorParameters3;
+    }
+
     /// <summary>
     /// Checks if a path is relative and does NOT start with the %BASEFOLDER% placeholder.
     /// </summary>

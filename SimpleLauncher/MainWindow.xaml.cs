@@ -327,7 +327,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 var systemFolderPath = selectedConfig.SystemFolder;
                 var fileExtensions = selectedConfig.FileFormatsToSearch;
-                gameFiles = await GetFilePaths.GetFilesAsync(systemFolderPath, fileExtensions);
+                gameFiles = await GetListOfFiles.GetFilesAsync(systemFolderPath, fileExtensions);
             }
 
             // Check if we have any games after filtering
@@ -880,7 +880,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         else
         {
             // Fall back to scanning the folder if no cache is available (using the resolved path)
-            return await GetFilePaths.GetFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
+            return await GetListOfFiles.GetFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
         }
     }
 

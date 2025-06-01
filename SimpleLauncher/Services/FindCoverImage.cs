@@ -27,14 +27,13 @@ public static class FindCoverImage
         }
         else
         {
-            // Resolve the configured system image folder using PathHelper
             systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
         }
 
         // Check if the resolved system image folder path is valid before proceeding
         if (!string.IsNullOrEmpty(systemImageFolder) && Directory.Exists(systemImageFolder))
         {
-            // 1. Check for exact match first within the resolved folder
+            // 1. Check for the exact match first within the resolved folder
             foreach (var ext in imageExtensions)
             {
                 var imagePath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}{ext}");
@@ -53,6 +52,7 @@ public static class FindCoverImage
             }
             else
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
             }
 
@@ -89,13 +89,14 @@ public static class FindCoverImage
         }
         else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(null, $"FindCoverImage: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
         }
 
-
         // 3. Fallback to default images
         // Check the default system image path within the resolved system image folder first
-        if (string.IsNullOrEmpty(systemImageFolder)) return GlobalDefaultImagePath; // This is already a resolved path
+        if (string.IsNullOrEmpty(systemImageFolder)) return GlobalDefaultImagePath;
+
         // Only check if the resolved folder path was valid
         var defaultSystemImagePath = Path.Combine(systemImageFolder, "default.png");
         if (File.Exists(defaultSystemImagePath))
@@ -104,7 +105,7 @@ public static class FindCoverImage
         }
 
         // Fallback to the global default image
-        return GlobalDefaultImagePath; // This is already a resolved path
+        return GlobalDefaultImagePath;
     }
 
     /// <summary>
@@ -192,4 +193,3 @@ public static class FindCoverImage
         return jaroWinklerDistance;
     }
 }
-

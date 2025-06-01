@@ -36,7 +36,7 @@ public static class LogErrors
                 // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("File 'appsettings.json' is missing.");
 
-                return; // Stop loading configuration
+                return;
             }
 
             var jsonString = File.ReadAllText(configFile);
@@ -57,7 +57,7 @@ public static class LogErrors
                 // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("API Key is missing or empty in 'appsettings.json'.");
 
-                return; // Stop loading configuration
+                return;
             }
 
             // Read BugReportApiUrl
@@ -66,7 +66,8 @@ public static class LogErrors
                 BugReportApiUrl = urlElement.GetString();
             }
 
-            if (string.IsNullOrEmpty(BugReportApiUrl)) // BugReportApiUrl is missing or empty, disable API logging and notify the user
+            // BugReportApiUrl is missing or empty, disable API logging and notify the user
+            if (string.IsNullOrEmpty(BugReportApiUrl))
             {
                 _isApiLoggingEnabled = false;
 
@@ -86,6 +87,7 @@ public static class LogErrors
 
             // Log this critical error locally, as API logging is disabled
             WriteLocalErrorLog(ex, "Error loading API configuration from appsettings.json.");
+            DebugLogger.LogException(ex, "Error loading API configuration from appsettings.json.");
 
             // Notify user
             MessageBoxLibrary.HandleApiConfigErrorMessageBox($"Error loading API configuration: {ex.Message}");
@@ -187,9 +189,8 @@ public static class LogErrors
         }
         catch (Exception ex)
         {
-            // for debug
-            DebugLogger.LogException(ex, "There was an error sending the ErrorLog");
             WriteLocalErrorLog(ex, "Error sending the ErrorLog to the API.");
+            DebugLogger.LogException(ex, "There was an error sending the ErrorLog");
 
             // If sending fails, don't disable logging, just return false
             return false;
@@ -199,7 +200,7 @@ public static class LogErrors
     /// <summary>
     /// Writes a critical error to a local log file when API logging is not available.
     /// </summary>
-    public static void WriteLocalErrorLog(Exception ex, string contextMessage)
+    private static void WriteLocalErrorLog(Exception ex, string contextMessage)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var criticalLogPath = Path.Combine(baseDirectory, "critical_error.log");
@@ -227,7 +228,6 @@ public static class LogErrors
         }
         catch (Exception ex2)
         {
-            // for debug
             DebugLogger.LogException(ex2, "There was an error writing the local ErrorLog");
         }
     }

@@ -92,7 +92,7 @@ public class CacheManager
             return new List<string>(); // return an empty list
         }
 
-        var files = await GetFilePaths.GetFilesAsync(PathHelper.ResolveRelativeToAppDirectory(systemFolderPath), fileExtensions);
+        var files = await GetListOfFiles.GetFilesAsync(PathHelper.ResolveRelativeToAppDirectory(systemFolderPath), fileExtensions);
 
         lock (_cacheLock)
         {

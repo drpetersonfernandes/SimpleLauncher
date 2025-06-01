@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 
 namespace SimpleLauncher.Services;
 
-public abstract class GetFilePaths
+public abstract class GetListOfFiles
 {
     private static readonly string LogPath = GetLogPath.Path();
 
@@ -56,6 +56,7 @@ public abstract class GetFilePaths
                         // Directory was deleted or became inaccessible during enumeration
                         var contextMessage = $"Directory not found while processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(dirEx, contextMessage);
+
                         break; // Exit the loop since the directory is gone
                     }
                     catch (UnauthorizedAccessException authEx)
@@ -63,6 +64,7 @@ public abstract class GetFilePaths
                         // Notify developer
                         var contextMessage = $"Access denied while processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(authEx, contextMessage);
+
                         // Continue with the next extension
                     }
                     catch (PathTooLongException pathEx)
@@ -70,6 +72,7 @@ public abstract class GetFilePaths
                         // Notify developer
                         var contextMessage = $"Path too long while processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(pathEx, contextMessage);
+
                         // Continue with the next extension
                     }
                     catch (Exception innerEx)
@@ -77,6 +80,7 @@ public abstract class GetFilePaths
                         // Notify developer
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+
                         // Continue with the next extension rather than failing the entire operation
                     }
                 }

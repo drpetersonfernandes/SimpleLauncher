@@ -64,11 +64,8 @@ public static class ImageLoader
             const string contextMessage = "Failed to load global default image: images\\default.png.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify the user about the missing critical file
-            // Note: Calling MessageBox directly from a static helper is generally discouraged,
-            // but given the existing pattern and the critical nature (default image missing),
-            // we'll keep it for now, but ideally, this notification should be handled by the UI layer.
-            // System.Windows.Application.Current.Dispatcher.Invoke(MessageBoxLibrary.DefaultImageNotFoundMessageBox);
+            // Notify user
+            System.Windows.Application.Current.Dispatcher.Invoke(MessageBoxLibrary.DefaultImageNotFoundMessageBox);
 
             // Return null and true (indicating the default attempt failed)
             return (null, true);
@@ -109,7 +106,6 @@ public static class ImageLoader
             // Catch any other exceptions during file reading
             throw new Exception($"An unexpected error occurred while reading image file '{filePath}'.", ex);
         }
-
 
         using var ms = new MemoryStream(imageData);
         var bi = new BitmapImage();
