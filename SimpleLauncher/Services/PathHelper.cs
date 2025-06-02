@@ -50,12 +50,14 @@ public static class PathHelper
             // Remove the placeholder and any trailing separators
             remainingPath = path.Substring(BaseFolderPlaceholder.Length).TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
         }
+
         else if (Path.IsPathRooted(path))
         {
             // If the path is already rooted (absolute), use it directly as the base.
             // Path.GetFullPath below will canonicalize it.
             basePath = string.Empty; // Path.Combine handles this case correctly
         }
+
         else
         {
             // If the path is relative and doesn't use %BASEFOLDER%,
@@ -105,7 +107,6 @@ public static class PathHelper
         // It's relative if it's not rooted AND doesn't start with the placeholder
         return !Path.IsPathRooted(path) && !path.StartsWith(BaseFolderPlaceholder, StringComparison.OrdinalIgnoreCase);
     }
-
 
     /// <summary>
     /// Combines two path segments and resolves the result to a canonical absolute path

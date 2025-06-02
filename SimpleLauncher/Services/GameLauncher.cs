@@ -169,11 +169,10 @@ public static class GameLauncher
             settings.Save();
             DebugLogger.Log($"PlayTime saved: {playTime}");
 
-            var fileName2 = Path.GetFileNameWithoutExtension(resolvedFilePath);
-            var youPlayed = (string)Application.Current.TryFindResource("Youplayed") ?? "You played";
-            var for2 = (string)Application.Current.TryFindResource("for") ?? "for";
+            var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
             var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-            TrayIconManager.ShowTrayMessage($"{youPlayed} {fileName2} {for2} {playTimeFormatted}");
+            TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
+            DebugLogger.Log($"PlayTime: {playTimeFormatted}");
 
             try
             {
@@ -233,6 +232,8 @@ public static class GameLauncher
 
         DebugLogger.Log($"Launching Batch: {psi.FileName}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
+
+        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -327,6 +328,8 @@ public static class GameLauncher
         DebugLogger.Log($"Launching Shortcut: {psi.FileName}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
 
+        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
+
         using var process = new Process();
         process.StartInfo = psi;
 
@@ -396,6 +399,8 @@ public static class GameLauncher
         DebugLogger.Log($"Launching Executable: {psi.FileName}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
 
+        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
+
         using var process = new Process();
         process.StartInfo = psi;
 
@@ -462,6 +467,7 @@ public static class GameLauncher
 
         // Resolve the Emulator Path
         var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
+        var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorPath);
         if (string.IsNullOrEmpty(resolvedEmulatorPath) || !File.Exists(resolvedEmulatorPath))
         {
             // Notify developer
@@ -477,7 +483,7 @@ public static class GameLauncher
         // Resolve Emulator Parameters
         var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemConfig.SystemFolder);
         var resolvedEmulatorParameters = ParameterValidator.ResolveParameterString(selectedEmulatorParameters, resolvedSystemFolder);
-        var resolvedEmulatorParameters2 = PathHelper.ResolveOtherParameterString(resolvedEmulatorParameters, resolvedSystemFolder, resolvedEmulatorPath);
+        var resolvedEmulatorParameters2 = PathHelper.ResolveOtherParameterString(resolvedEmulatorParameters, resolvedSystemFolder, resolvedEmulatorFolderPath);
 
         var arguments = $"{resolvedEmulatorParameters2} \"{resolvedFilePath}\"";
 
@@ -485,12 +491,12 @@ public static class GameLauncher
         try
         {
             // Set the working directory to the directory of the emulator executable
-            workingDirectory = Path.GetDirectoryName(resolvedEmulatorPath);
+            workingDirectory = resolvedEmulatorFolderPath;
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Could not get workingDirectory for programLocation: '{resolvedEmulatorPath}'";
+            var contextMessage = $"Could not get workingDirectory for programLocation: '{resolvedEmulatorFolderPath}'";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
@@ -692,9 +698,17 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
+    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output,
+        StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
         if (!process.HasExited || process.ExitCode == 0) return Task.CompletedTask; // Ensure process has exited
+
+        // Check if the output contains "File open/read error" and ignore it,
+        // This is a common RetroArch error that should be ignored
+        if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
+        {
+            return Task.CompletedTask; // Ignore this specific error
+        }
 
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
         {
