@@ -920,4 +920,24 @@ public partial class MainWindow
             _ = LogErrors.LogErrorAsync(ex, "Error in the method NavToggleViewMode_Click.");
         }
     }
+
+    private void SoundConfiguration_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            PlaySoundEffects.PlayClickSound(); // Or a more general UI click sound if available
+            var soundConfigWindow = new SoundConfigurationWindow(_settings);
+            soundConfigWindow.ShowDialog();
+            // Settings are saved within the SoundConfigurationWindow, no need to explicitly save here.
+            // PlaySoundEffects will automatically use the new settings on its next call
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error opening Sound Configuration window.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotOpenSoundConfigurationWindow();
+        }
+    }
 }

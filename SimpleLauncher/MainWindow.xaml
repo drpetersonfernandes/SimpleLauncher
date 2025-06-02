@@ -327,6 +327,16 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{DynamicResource SoundConfiguration}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="{DynamicResource SoundConfiguration}" Click="SoundConfiguration_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
             </MenuItem>
             <MenuItem
                 Header="{DynamicResource EditSystem}">

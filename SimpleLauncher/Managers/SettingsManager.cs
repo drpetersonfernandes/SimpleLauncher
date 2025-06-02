@@ -38,12 +38,15 @@ public class SettingsManager
     public string ButtonAspectRatio { get; set; }
 
     public bool EnableFuzzyMatching { get; set; }
-    public double FuzzyMatchingThreshold { get; set; } // Store as double (0.0 to 1.0)
+    public double FuzzyMatchingThreshold { get; set; }
 
-    // List to hold multiple SystemPlayTime instances
+    public bool EnableNotificationSound { get; set; }
+    public string CustomNotificationSoundFile { get; set; }
+
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
     private const string DefaultSettingsFilePath = "settings.xml";
+    private const string DefaultNotificationSoundFileName = "notification.mp3";
 
     public SettingsManager() : this(DefaultSettingsFilePath)
     {
@@ -58,7 +61,6 @@ public class SettingsManager
 
     private void Load()
     {
-        // Clear existing play times to prevent duplication
         SystemPlayTimes.Clear();
 
         if (!File.Exists(_filePath))
@@ -88,32 +90,36 @@ public class SettingsManager
             Language = settings.Element("Language")?.Value ?? "en";
             ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
 
-            // Parse DeadZoneX value from string to float
             if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
             {
-                deadZoneX = 0.05f; // default value
+                deadZoneX = 0.05f;
             }
 
             DeadZoneX = deadZoneX;
 
-            // Parse DeadZoneY value from string to float
             if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
             {
-                deadZoneY = 0.02f; // default value
+                deadZoneY = 0.02f;
             }
 
             DeadZoneY = deadZoneY;
 
-            // Load Fuzzy Matching settings
             EnableFuzzyMatching = ParseBoolSetting(settings, "EnableFuzzyMatching");
             if (!double.TryParse(settings.Element("FuzzyMatchingThreshold")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var fuzzyThreshold))
             {
-                fuzzyThreshold = 0.80; // default value
+                fuzzyThreshold = 0.80;
             }
 
             FuzzyMatchingThreshold = fuzzyThreshold;
 
-            // Load multiple SystemPlayTime elements
+            EnableNotificationSound = ParseBoolSetting(settings, "EnableNotificationSound", true); // Default to true if not found
+            CustomNotificationSoundFile = settings.Element("CustomNotificationSoundFile")?.Value ?? DefaultNotificationSoundFileName;
+            if (string.IsNullOrWhiteSpace(CustomNotificationSoundFile)) // Ensure it's not empty
+            {
+                CustomNotificationSoundFile = DefaultNotificationSoundFileName;
+            }
+
+
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
             {
@@ -128,6 +134,7 @@ public class SettingsManager
                 }
             }
 
+            // Save to ensure new sound settings are written if they were missing
             Save();
         }
         catch (Exception ex)
@@ -135,8 +142,7 @@ public class SettingsManager
             SetDefaultsAndSave();
 
             // Notify developer
-            const string contextMessage = "Error loading or parsing 'setting.xml'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
 
             // Notify user
             MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
@@ -146,9 +152,7 @@ public class SettingsManager
     private int ValidateThumbnailSize(string value)
     {
         if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validThumbnailSizes.Contains(parsed))
-        {
             return parsed;
-        }
 
         return 200;
     }
@@ -156,26 +160,24 @@ public class SettingsManager
     private int ValidateGamesPerPage(string value)
     {
         if (int.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) && _validGamesPerPage.Contains(parsed))
-        {
             return parsed;
-        }
 
         return 100;
     }
 
     private string ValidateShowGames(string value)
     {
-        return _validShowGames.Contains(value) ? value : "ShowAll";
+        return !string.IsNullOrEmpty(value) && _validShowGames.Contains(value) ? value : "ShowAll";
     }
 
     private string ValidateViewMode(string value)
     {
-        return _validViewModes.Contains(value) ? value : "GridView";
+        return !string.IsNullOrEmpty(value) && _validViewModes.Contains(value) ? value : "GridView";
     }
 
     private string ValidateButtonAspectRatio(string value)
     {
-        return _validButtonAspectRatio.Contains(value) ? value : "Square";
+        return !string.IsNullOrEmpty(value) && _validButtonAspectRatio.Contains(value) ? value : "Square";
     }
 
     private static double ValidateDimension(string value, double defaultValue)
@@ -183,9 +185,9 @@ public class SettingsManager
         return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) ? parsed : defaultValue;
     }
 
-    private static bool ParseBoolSetting(XElement settings, string settingName)
+    private static bool ParseBoolSetting(XElement settings, string settingName, bool defaultValue = false)
     {
-        return bool.TryParse(settings.Element(settingName)?.Value, out var value) && value;
+        return bool.TryParse(settings.Element(settingName)?.Value, out var value) ? value : defaultValue;
     }
 
     private void SetDefaultsAndSave()
@@ -210,6 +212,8 @@ public class SettingsManager
         ButtonAspectRatio = "Square";
         EnableFuzzyMatching = true;
         FuzzyMatchingThreshold = 0.80;
+        EnableNotificationSound = true;
+        CustomNotificationSoundFile = DefaultNotificationSoundFileName;
         SystemPlayTimes = [];
         Save();
     }
@@ -241,11 +245,13 @@ public class SettingsManager
             new XElement("BaseTheme", BaseTheme),
             new XElement("AccentColor", AccentColor),
             new XElement("Language", Language),
-            new XElement("DeadZoneX", DeadZoneX),
-            new XElement("DeadZoneY", DeadZoneY),
+            new XElement("DeadZoneX", DeadZoneX.ToString(CultureInfo.InvariantCulture)),
+            new XElement("DeadZoneY", DeadZoneY.ToString(CultureInfo.InvariantCulture)),
             new XElement("ButtonAspectRatio", ButtonAspectRatio),
             new XElement("EnableFuzzyMatching", EnableFuzzyMatching),
-            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold),
+            new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
+            new XElement("EnableNotificationSound", EnableNotificationSound),
+            new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
             systemPlayTimesElement
         ).Save(_filePath);
     }
@@ -255,8 +261,7 @@ public class SettingsManager
         if (string.IsNullOrWhiteSpace(systemName))
         {
             // Notify developer
-            const string contextMessage = "The systemName is null or empty.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, "The systemName is null or empty.");
 
             return;
         }
@@ -264,26 +269,18 @@ public class SettingsManager
         if (playTime == TimeSpan.Zero)
         {
             // Notify developer
-            const string contextMessage = "The playTime is equal to 0 in the method UpdateSystemPlayTime.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = LogErrors.LogErrorAsync(null, "The playTime is equal to 0 in the method UpdateSystemPlayTime.");
 
             return;
         }
 
-        // Find the existing System PlayTime or create a new one
         var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
-
         if (systemPlayTime == null)
         {
-            systemPlayTime = new SystemPlayTime
-            {
-                SystemName = systemName,
-                PlayTime = "00:00:00"
-            };
+            systemPlayTime = new SystemPlayTime { SystemName = systemName, PlayTime = "00:00:00" };
             SystemPlayTimes.Add(systemPlayTime);
         }
 
-        // Safely parse the existing playtime
         var existingPlayTime = TimeSpan.Zero;
         try
         {
@@ -295,15 +292,12 @@ public class SettingsManager
         catch (FormatException ex)
         {
             // Notify developer
-            var error = $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.";
-            _ = LogErrors.LogErrorAsync(ex, error);
+            _ = LogErrors.LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
 
             existingPlayTime = TimeSpan.Zero;
         }
 
         var updatedPlayTime = existingPlayTime + playTime;
-
-        // Update the playtime in the correct format
         systemPlayTime.PlayTime = updatedPlayTime.ToString(@"hh\:mm\:ss", CultureInfo.InvariantCulture);
     }
 }

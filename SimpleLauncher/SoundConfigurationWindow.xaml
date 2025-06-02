@@ -1,0 +1,78 @@
+<controls:MetroWindow x:Class="SimpleLauncher.SoundConfigurationWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      mc:Ignorable="d"
+                      Title="{DynamicResource SoundConfiguration}"
+                      Width="500" Height="300"
+                      WindowStartupLocation="CenterOwner"
+                      ShowMinButton="False"
+                      ResizeMode="NoResize">
+    <Grid Margin="15">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="*"/>
+            <ColumnDefinition Width="Auto"/>
+        </Grid.ColumnDefinitions>
+
+        <CheckBox x:Name="EnableNotificationSoundCheckBox"
+                  Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
+                  Content="{DynamicResource EnableNotificationSound}"
+                  Margin="0,0,0,10"/>
+
+        <Label Grid.Row="1" Grid.Column="0"
+               Content="{DynamicResource NotificationSoundFileLabel}"
+               VerticalAlignment="Center"/>
+        <TextBox x:Name="NotificationSoundFileTextBox"
+                 Grid.Row="1" Grid.Column="1"
+                 IsReadOnly="True"
+                 Margin="5,0,5,0"
+                 VerticalAlignment="Center"/>
+        <Button x:Name="ChooseSoundFileButton"
+                Grid.Row="1" Grid.Column="2"
+                Content="{DynamicResource ChooseFile}"
+                Click="ChooseSoundFileButton_Click"
+                VerticalAlignment="Center"
+                Width="100"/>
+
+        <Button x:Name="PlayCurrentSoundButton"
+                Grid.Row="2" Grid.Column="1"
+                Content="{DynamicResource PlayCurrentSound}"
+                Click="PlayCurrentSoundButton_Click"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Left"
+                Width="150"/>
+
+        <Button x:Name="ResetToDefaultButton"
+                Grid.Row="3" Grid.Column="1"
+                Content="{DynamicResource ResetToDefault}"
+                Click="ResetToDefaultButton_Click"
+                Margin="5,10,5,0"
+                HorizontalAlignment="Left"
+                Width="150"/>
+        
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="3"
+                    Orientation="Horizontal"
+                    HorizontalAlignment="Right">
+            <Button x:Name="SaveButton"
+                    Content="{DynamicResource Save}"
+                    Click="SaveButton_Click"
+                    IsDefault="True"
+                    Width="100" Margin="0,0,10,0"/>
+            <Button x:Name="CancelButton"
+                    Content="{DynamicResource Cancel}"
+                    IsCancel="True"
+                    Width="100"/>
+        </StackPanel>
+    </Grid>
+</controls:MetroWindow>

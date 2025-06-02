@@ -4659,4 +4659,104 @@ public static class MessageBoxLibrary
             return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         }
     }
+
+    internal static void CouldNotOpenSoundConfigurationWindow()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var couldNotOpenSoundConfigurationWindow = (string)Application.Current.TryFindResource("CouldNotOpenSoundConfigurationWindow") ?? "Could not open sound configuration window";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(couldNotOpenSoundConfigurationWindow,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void ErrorSettingSoundFile()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var errorSettingSoundFile = (string)Application.Current.TryFindResource("errorSettingSoundFile") ?? "Error choosing or copying sound file.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(errorSettingSoundFile,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void NotificationSoundIsDisable()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var notificationSoundIsDisable = (string)Application.Current.TryFindResource("NotificationSoundIsDisable") ?? "Notification sound is disable";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(notificationSoundIsDisable,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    internal static void NoSoundFileIsSelected()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var noSoundFileSelectedWarning = (string)Application.Current.TryFindResource("NoSoundFileSelectedWarning") ?? "No sound file is selected.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(noSoundFileSelectedWarning,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static void SettingsSavedSuccessfully()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var settingsSavedSuccessfully = (string)Application.Current.TryFindResource("SettingsSavedSuccessfully") ?? "Settings saved successfully.";
+        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(settingsSavedSuccessfully,
+                info, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }
