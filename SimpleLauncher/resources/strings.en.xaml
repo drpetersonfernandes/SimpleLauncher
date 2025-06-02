@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Batch Convert To Compressed File</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Batch Verify CHD Files</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Batch Verify Compressed Files</system:String>
     <system:String x:Key="Blue">Blue</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">But I found a backup file.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
+    <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="cannotbeextracted">can not be extracted.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Choose a folder with 'ROMs' or 'ISOs' for this system</system:String>
     <system:String x:Key="Chooseasystem">Choose a system</system:String>
     <system:String x:Key="ChooseASystemToAdd">Select a system to add</system:String>
+    <system:String x:Key="ChooseFile">Choose file</system:String>
     <system:String x:Key="ChooseFolder">Choose Folder</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Select a folder containing ROMs or ISOs</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Confirm Deletion</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Could not find the selected system in the configuration.</system:String>
+    <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Could not open sound configuration window</system:String>
     <system:String x:Key="Cover">Cover</system:String>
     <system:String x:Key="Covernotfound">Cover not found</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Create Batch Files For PS3 Games</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">DeadZone values saved successfully.</system:String>
     <system:String x:Key="DeadZoneX">DeadZone X</system:String>
     <system:String x:Key="DeadZoneY">DeadZone Y</system:String>
+    <system:String x:Key="DebugWindow">Debug Window</system:String>
     <system:String x:Key="DefaultImageFolder">Using default image folder</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' file is missing.</system:String>
     <system:String x:Key="DeleteGame">Delete Game</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Emulator Parameters</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator path is not valid for</system:String>
     <system:String x:Key="Enable">Enable</system:String>
+    <system:String x:Key="EnableNotificationSound">Enable notification sound</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Ensure that the 'Simple Launcher' folder is located in a writable directory.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Ensure the file is not corrupted.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Error during</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: Failed to add system.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Failed to extract</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Error: Invalid destination path for</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Error loading the file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: No download URL for</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Error opening the download link.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error opening the Update History window.</system:String>
+    <system:String x:Key="errorSettingSoundFile">Error choosing or copying sound file.</system:String>
     <system:String x:Key="Exit">Exit</system:String>
     <system:String x:Key="ExpertMode">Expert Mode</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
+    <system:String x:Key="InvalidPathsDetected">Invalid Paths Detected</system:String>
+    <system:String x:Key="InvalidPathsMessage">The following paths in the emulator parameters appear to be invalid (file or directory not found):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">It will not accept other extensions.</system:String>
     <system:String x:Key="Language">Language</system:String>
     <system:String x:Key="LanguageLoadingError">Language Loading Error</system:String>
+    <system:String x:Key="LaunchAnywayQuestion">Do you want to launch the game anyway?</system:String>
+    <system:String x:Key="launchedwith">launched with</system:String>
     <system:String x:Key="LaunchGame">Launch Game</system:String>
     <system:String x:Key="LaunchSelectedGame">Launch Selected Game</system:String>
     <system:String x:Key="Light">Light</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">No information available for system:</system:String>
     <system:String x:Key="Noresultsfound">No results found.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">No ROM history found in the local database for the selected file.</system:String>
+    <system:String x:Key="NoSoundFileSelectedWarning">No sound file is selected.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">No statistics available to save. Please wait until the data is loaded.</system:String>
     <system:String x:Key="Nosystemnameprovided">No system name provided.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">No systems configured. Please use the 'Edit System' menu to add systems.</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Not enough disk space for extraction.</system:String>
     <system:String x:Key="Notextavailable">No text available.</system:String>
+    <system:String x:Key="NotificationSoundFileLabel">Notification sound</system:String>
+    <system:String x:Key="NotificationSoundIsDisable">Notification sound is disable</system:String>
     <system:String x:Key="Noupdateavailable">No update available</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">No valid systems found in the file 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Number of images in the System Image Folder: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Options</system:String>
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">out of</system:String>
+    <system:String x:Key="ParameterExplanation">For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...and {0} more</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Potentially invalid paths:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">You can still save, but these paths may cause issues when launching games.</system:String>
+    <system:String x:Key="PathCheckNote">Note: Paths using %BASEFOLDER% or relative paths are checked against the application's directory and the system folder.</system:String>
     <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
     <system:String x:Key="Pink">Pink</system:String>
+    <system:String x:Key="PlayCurrentSound">Play current sound</system:String>
     <system:String x:Key="PlayHistory">Play History</system:String>
     <system:String x:Key="PlayHistoryList">Play history List</system:String>
     <system:String x:Key="Playtime">Playtime:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Receive a Notification on Emulator Error?</system:String>
     <system:String x:Key="Red">Red</system:String>
     <system:String x:Key="ReinstallSuggestion">This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?</system:String>
+    <system:String x:Key="RelativePathsDetected">Relative Paths Detected</system:String>
+    <system:String x:Key="RelativePathsMessage">The following relative paths were detected in your configuration:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
     <system:String x:Key="RemovefromFavorites">Remove from Favorites</system:String>
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
     <system:String x:Key="RemovefromHistory">Remove from history</system:String>
     <system:String x:Key="ReportedToDeveloper">This security issue has been reported to the developer team.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Report saved successfully.</system:String>
+    <system:String x:Key="ResetToDefault">Reset to default</system:String>
     <system:String x:Key="Restart">Restart</system:String>
     <system:String x:Key="RestartError">Restart Error</system:String>
     <system:String x:Key="RestoreBackup">Restore Backup?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Revert to Default Values</system:String>
     <system:String x:Key="RomHistory">Rom History</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM History not found</system:String>
+    <system:String x:Key="Save">Save</system:String>
+    <system:String x:Key="SaveConfigurationQuestion">Do you want to save this configuration?</system:String>
     <system:String x:Key="SaveDeadZone">Save</system:String>
     <system:String x:Key="SaveorUpdateLinks">Save or Update Links</system:String>
     <system:String x:Key="SaveorUpdateSystem">Save or Update System</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Select Emulator 4</system:String>
     <system:String x:Key="SelectEmulator5">Select Emulator 5</system:String>
     <system:String x:Key="SelectionRequired">Selection Required</system:String>
+    <system:String x:Key="SelectNotificationSoundFile">Select notification sound file</system:String>
     <system:String x:Key="SelectSystem">Select System</system:String>
     <system:String x:Key="SendSupportRequest">Send Support Request</system:String>
     <system:String x:Key="SetButtonAspectRatio">Set Button Aspect Ratio</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Set System Image Folder</system:String>
     <system:String x:Key="Setthegamewindowto">Set the game window to non-fullscreen. This is important.</system:String>
     <system:String x:Key="SetThreshold">SetThreshold</system:String>
+    <system:String x:Key="SettingsSavedSuccessfully">Settings saved successfully.</system:String>
     <system:String x:Key="ShowAllGames">Show All Games</system:String>
     <system:String x:Key="ShowGames">Show Games</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Show Only Games With Cover</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Sort By Date</system:String>
     <system:String x:Key="SortByPlayTime">Sort By PlayTime</system:String>
     <system:String x:Key="SortByTimesPlayed">Sort By Times Played</system:String>
+    <system:String x:Key="SoundConfiguration">Sound Configuration</system:String>
     <system:String x:Key="Square">Square</system:String>
     <system:String x:Key="Steel">Steel</system:String>
     <system:String x:Key="StopDownload">Stop Download</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">System:</system:String>
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
+    <system:String x:Key="SystemFolderExplanation">For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").</system:String>
     <system:String x:Key="SystemFolderOptional">System Folder (Optional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">The file 'error_user.log' was not found!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">The file 'error_user.log' was not found!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Wider</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Would you like to be redirected to the 'Simple Launcher' download page to download it manually?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Would you like to restore the last backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
@@ -607,35 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Would you like to be redirected to the 'Simple Launcher' download page to download it manually?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
-    
-    ErrorInvalidDestinationPath
-    SoundConfiguration
-    EnableNotificationSound
-    NotificationSoundFileLabel
-    ChooseFile
-    PlayCurrentSound
-    ResetToDefault
-    Save
-    Cancel
-    SelectNotificationSoundFile
-    DebugWindow
-    launchedwith
-    RelativePathsDetected
-    RelativePathsMessage
-    SystemFolderExplanation
-    ParameterExplanation
-    SaveConfigurationQuestion
-    InvalidPathsDetected
-    InvalidPathsMessage
-    PathCheckNote
-    LaunchAnywayQuestion
-    CouldNotOpenSoundConfigurationWindow
-    errorSettingSoundFile
-    NotificationSoundIsDisable
-    NoSoundFileSelectedWarning
-    SettingsSavedSuccessfully
-    
 </ResourceDictionary>

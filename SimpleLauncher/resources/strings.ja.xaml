@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">ISO を XISO に一括変換</system:String>
     <system:String x:Key="BatchConvertToCHD">バッチ変換をCHDに</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">バッチ圧縮ファイルへの変換</system:String>
+    <system:String x:Key="BatchConvertToRVZ">バッチをRVZに変換</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">CHDファイルのバッチ検証</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">圧縮ファイルのバッチ検証</system:String>
     <system:String x:Key="Blue">青</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">しかし、バックアップファイルが見つかりました。</system:String>
     <system:String x:Key="Cabinet">キャビネット</system:String>
     <system:String x:Key="Cabinetnotfound">キャビネットが見つかりません</system:String>
+<system:String x:Key="Cancel">キャンセル</system:String>
     <system:String x:Key="CancelButtonText">キャンセル</system:String>
     <system:String x:Key="Cancelingdownload">ダウンロードをキャンセルしています...</system:String>
     <system:String x:Key="cannotbeextracted">は抽出できません。</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">このシステムの「ROMs」または「ISOs」を含むフォルダを選択してください</system:String>
     <system:String x:Key="Chooseasystem">システムを選択</system:String>
     <system:String x:Key="ChooseASystemToAdd">追加するシステムを選択</system:String>
+<system:String x:Key="ChooseFile">ファイルを選択</system:String>
     <system:String x:Key="ChooseFolder">フォルダーを選択</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROMまたはISOを含むフォルダーを選択</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">上の文字ボタンをクリックしてゲームを表示します</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">削除を確認</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">抽出フォルダ内で『抽出後に起動する拡張子』で定義された拡張子のファイルが見つかりませんでした。</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">設定で選択されたシステムが見つかりませんでした。</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">サウンド設定ウィンドウを開けませんでした</system:String>
     <system:String x:Key="Cover">カバー</system:String>
     <system:String x:Key="Covernotfound">カバーが見つかりません</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3ゲーム用バッチファイルを作成</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">デッドゾーンの値が正常に保存されました。</system:String>
     <system:String x:Key="DeadZoneX">デッドゾーンX</system:String>
     <system:String x:Key="DeadZoneY">デッドゾーンY</system:String>
+<system:String x:Key="DebugWindow">デバッグウィンドウ</system:String>
     <system:String x:Key="DefaultImageFolder">[デフォルトの画像フォルダを使用中]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' ファイルが見つかりません。</system:String>
     <system:String x:Key="DeleteGame">ゲームを削除</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">エミュレーターのパラメーター</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">エミュレーターのパスが無効です:</system:String>
     <system:String x:Key="Enable">有効化</system:String>
+<system:String x:Key="EnableNotificationSound">通知音を有効にする</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' フォルダが書き込み可能なディレクトリにあることを確認してください。</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">ファイルが破損していないことを確認してください。</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">『Simple Launcher』フォルダーが書き込み可能なディレクトリ内にあることを確認してください。</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">エラー中</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">エラー: システムの追加に失敗しました。</system:String>
     <system:String x:Key="ErrorFailedtoextract">エラー: 抽出に失敗しました</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">エラー: 無効な宛先パス:</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' ファイルの読み込み中にエラーが発生しました。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">エラー: のダウンロードURLがありません</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ダウンロードリンクの開封中にエラーが発生しました。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">アップデート履歴ウィンドウを開く際にエラーが発生しました。</system:String>
+<system:String x:Key="errorSettingSoundFile">サウンドファイルの選択またはコピー中にエラーが発生しました。</system:String>
     <system:String x:Key="Exit">終了</system:String>
     <system:String x:Key="ExpertMode">エキスパートモード</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">「抽出後に起動する拡張子」は、「起動前にファイルを抽出」がオンになっている場合に必要です。</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="InvalidInputMessageText">閾値には0.0から1.0の間の有効な数値を入力してください。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">無効な入力</system:String>
+<system:String x:Key="InvalidPathsDetected">無効なパスを検出</system:String>
+<system:String x:Key="InvalidPathsMessage">エミュレーターパラメータ内の以下のパスは無効なようです (ファイルまたはディレクトリが見つかりません):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">他の拡張子は受け付けません。</system:String>
     <system:String x:Key="Language">言語</system:String>
     <system:String x:Key="LanguageLoadingError">言語読み込みエラー</system:String>
+<system:String x:Key="LaunchAnywayQuestion">それでもゲームを起動しますか？</system:String>
+<system:String x:Key="launchedwith">で起動しました</system:String>
     <system:String x:Key="LaunchGame">ゲームを起動</system:String>
     <system:String x:Key="LaunchSelectedGame">選択したゲームを起動する</system:String>
     <system:String x:Key="Light">ライト</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">このシステムに関する情報はありません：</system:String>
     <system:String x:Key="Noresultsfound">結果が見つかりませんでした。</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">選択したファイルのROM履歴がローカルデータベースに見つかりませんでした。</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">サウンドファイルが選択されていません。</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">保存する統計情報がありません。データが読み込まれるまでお待ちください。</system:String>
     <system:String x:Key="Nosystemnameprovided">システム名が指定されていません。</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">システムが設定されていません。「システム編集」メニューを使用してシステムを追加してください。</system:String>
     <system:String x:Key="Nosystemselected">システムが選択されていません</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">展開するためのディスク容量が不足しています。</system:String>
     <system:String x:Key="Notextavailable">利用可能なテキストはありません。</system:String>
+<system:String x:Key="NotificationSoundFileLabel">通知音</system:String>
+<system:String x:Key="NotificationSoundIsDisable">通知音は無効です</system:String>
     <system:String x:Key="Noupdateavailable">更新はありません</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' ファイルに有効なシステムが見つかりませんでした。</system:String>
     <system:String x:Key="NumberOfImages">システム画像フォルダ内の画像数：{0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">オプション</system:String>
     <system:String x:Key="Orange">オレンジ</system:String>
     <system:String x:Key="outof">のうち</system:String>
+<system:String x:Key="ParameterExplanation">エミュレーターパラメータ内のパスについては、アプリケーションディレクトリからの相対パスとする場合、手動で %BASEFOLDER% を追加する必要があります (例: -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")。パラメータ内の %BASEFOLDER% がないパスは正しく解決されない可能性があります。</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...その他 {0} 件</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">無効の可能性のあるパス:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">エミュレータのパラメータ内のいくつかのパスが無効または欠落しているようです。これらのフィールドを再度確認してください。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">保存は可能ですが、これらのパスはゲーム起動時に問題を引き起こす可能性があります。</system:String>
+<system:String x:Key="PathCheckNote">注: %BASEFOLDER% または相対パスを使用するパスは、アプリケーションのディレクトリとシステムフォルダに対してチェックされます。</system:String>
     <system:String x:Key="PathManipulationDetected">潜在的なパス操作が検出されました</system:String>
     <system:String x:Key="PCB">基板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
     <system:String x:Key="Pink">ピンク</system:String>
+<system:String x:Key="PlayCurrentSound">現在のサウンドを再生</system:String>
     <system:String x:Key="PlayHistory">再生履歴</system:String>
     <system:String x:Key="PlayHistoryList">再生履歴リスト</system:String>
     <system:String x:Key="Playtime">プレイ時間：</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">エミュレーターエラー時に通知を受け取りますか？</system:String>
     <system:String x:Key="Red">赤</system:String>
     <system:String x:Key="ReinstallSuggestion">これにより、一部の機能 (自動バグ報告など) が正しく機能しない可能性があります。これを修正するために Simple Launcher を再インストールしますか？</system:String>
+<system:String x:Key="RelativePathsDetected">相対パスを検出</system:String>
+<system:String x:Key="RelativePathsMessage">設定で以下の相対パスが検出されました:</system:String>
     <system:String x:Key="RemoveAllfromHistory">履歴からすべて削除</system:String>
     <system:String x:Key="RemovefromFavorites">お気に入りから削除</system:String>
     <system:String x:Key="RemoveFromFavorites">お気に入りから削除</system:String>
     <system:String x:Key="RemovefromHistory">履歴から削除</system:String>
     <system:String x:Key="ReportedToDeveloper">このセキュリティ問題は開発者チームに報告されました。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">レポートが正常に保存されました。</system:String>
+<system:String x:Key="ResetToDefault">デフォルトにリセット</system:String>
     <system:String x:Key="Restart">再起動</system:String>
     <system:String x:Key="RestartError">再起動エラー</system:String>
     <system:String x:Key="RestoreBackup">バックアップを復元しますか？</system:String>
     <system:String x:Key="ReverttoDefaultValues">デフォルト値に戻す</system:String>
     <system:String x:Key="RomHistory">ROM履歴</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM履歴が見つかりませんでした</system:String>
+<system:String x:Key="Save">保存</system:String>
+<system:String x:Key="SaveConfigurationQuestion">この設定を保存しますか？</system:String>
     <system:String x:Key="SaveDeadZone">保存</system:String>
     <system:String x:Key="SaveorUpdateLinks">リンクを保存または更新</system:String>
     <system:String x:Key="SaveorUpdateSystem">システムを保存または更新</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">エミュレーター 4 を選択してください。</system:String>
     <system:String x:Key="SelectEmulator5">エミュレーター 5 を選択してください。</system:String>
     <system:String x:Key="SelectionRequired">選択が必要です</system:String>
+<system:String x:Key="SelectNotificationSoundFile">通知音ファイルを選択</system:String>
     <system:String x:Key="SelectSystem">システムを選択</system:String>
     <system:String x:Key="SendSupportRequest">サポートリクエストを送信</system:String>
     <system:String x:Key="SetButtonAspectRatio">ボタンの縦横比を設定</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">システム画像フォルダーを設定</system:String>
     <system:String x:Key="Setthegamewindowto">ゲームウィンドウを非フルスクリーンモードに設定してください。これは重要です。</system:String>
     <system:String x:Key="SetThreshold">閾値を設定</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">設定が正常に保存されました。</system:String>
     <system:String x:Key="ShowAllGames">すべてのゲームを表示</system:String>
     <system:String x:Key="ShowGames">ゲームを表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">日付で並べ替え</system:String>
     <system:String x:Key="SortByPlayTime">再生時間で並べ替え</system:String>
     <system:String x:Key="SortByTimesPlayed">再生回数で並べ替え</system:String>
+<system:String x:Key="SoundConfiguration">サウンド設定</system:String>
     <system:String x:Key="Square">正方形</system:String>
     <system:String x:Key="Steel">スチール</system:String>
     <system:String x:Key="StopDownload">ダウンロードを停止</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">システム：</system:String>
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「システムフォルダー」は空白やスペースのみであってはいけません。</system:String>
+<system:String x:Key="SystemFolderExplanation">システムフォルダ、システムイメージフォルダ、エミュレーターパスの各フィールドでは、相対パスは自動的に %BASEFOLDER% プレフィックスを使用して保存されます (例: ".\roms" は "%BASEFOLDER%\roms" になります)。</system:String>
     <system:String x:Key="SystemFolderOptional">システムフォルダー（任意）</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">システムフォルダパスが無効であるか、存在しません:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ファイルが見つかりませんでした！</system:String>
     <system:String x:Key="Thefileerroruserlogwas">ファイル 'error_user.log' が見つかりませんでした！</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">ファイル 'error_user.log' が見つかりませんでした！</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">ファイルはリストから削除されました。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ファイルが存在しません。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">アプリケーションフォルダーで'mame.dat'ファイルが見つかりませんでした。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ファイルが深刻な破損をしています。</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">横長</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">ダウンロードページにリダイレクトしますか？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">手動でインストールまたは更新するためにダウンロードページにリダイレクトしますか？</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">「Simple Launcher」のダウンロードページに移動して手動でダウンロードしますか？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">問題を調査するために 'error_user.log' ファイルを開きますか？</system:String>
     <system:String x:Key="Wouldyouliketorestore">最後のバックアップを復元しますか？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">結果を含むレポートを保存しますか？</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
-    <system:String x:Key="BatchConvertToRVZ">バッチをRVZに変換</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">「Simple Launcher」のダウンロードページに移動して手動でダウンロードしますか？</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">ファイルはリストから削除されました。</system:String>
-
 </ResourceDictionary>

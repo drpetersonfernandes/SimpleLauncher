@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">ISO dosyalarını toplu olarak XISO'ya dönüştür</system:String>
     <system:String x:Key="BatchConvertToCHD">Toplu Olarak CHD'ye Dönüştür</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Toplu Sıkıştırılmış Dosyaya Dönüştür</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Parti RVZ'ye Dönüştür</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Toplu CHD Dosyalarını Doğrula</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Toplu Sıkıştırılmış Dosyaları Doğrula</system:String>
     <system:String x:Key="Blue">Mavi</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
     <system:String x:Key="Cabinet">Kabin</system:String>
     <system:String x:Key="Cabinetnotfound">Kabin bulunamadı</system:String>
+<system:String x:Key="Cancel">İptal</system:String>
     <system:String x:Key="CancelButtonText">İptal</system:String>
     <system:String x:Key="Cancelingdownload">İndirme iptal ediliyor...</system:String>
     <system:String x:Key="cannotbeextracted">çıkarılamıyor.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Bu sistem için 'ROMs' veya 'ISOs' içeren bir klasör seçin</system:String>
     <system:String x:Key="Chooseasystem">Bir sistem seçin</system:String>
     <system:String x:Key="ChooseASystemToAdd">Eklemek için bir sistem seçin</system:String>
+<system:String x:Key="ChooseFile">Dosya seç</system:String>
     <system:String x:Key="ChooseFolder">Klasör Seç</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM veya ISO içeren bir klasör seçin</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Oyunları görmek için yukarıdaki harf düğmelerine tıklayın</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Seçilen sistem yapılandırmada bulunamadı.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">Ses yapılandırma penceresi açılamadı</system:String>
     <system:String x:Key="Cover">Kapak</system:String>
     <system:String x:Key="Covernotfound">Kapak bulunamadı</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 Oyunları İçin Toplu Dosyalar Oluştur</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Ölü bölge değerleri başarıyla kaydedildi.</system:String>
     <system:String x:Key="DeadZoneX">Ölü Bölge X</system:String>
     <system:String x:Key="DeadZoneY">Ölü Bölge Y</system:String>
+<system:String x:Key="DebugWindow">Hata Ayıklama Penceresi</system:String>
     <system:String x:Key="DefaultImageFolder">[Varsayılan görsel klasörü kullanılıyor]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' dosyası eksik.</system:String>
     <system:String x:Key="DeleteGame">Oyunu Sil</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Emülatör Parametreleri</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Emulator yolu geçersiz:</system:String>
     <system:String x:Key="Enable">Etkinleştir</system:String>
+<system:String x:Key="EnableNotificationSound">Bildirim sesini etkinleştir</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Dosyanın bozuk olmadığından emin olun.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">sırasında hata</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Hata: Sistem eklenemedi.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Hata: Çıkartma başarısız</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Hata: Geçersiz hedef yolu:</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' dosyasını yüklerken hata oluştu.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Hata: için indirme URL'si yok</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">İndirme bağlantısını açarken hata oluştu.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Güncelleme Geçmişi penceresi açılırken hata oluştu.</system:String>
+<system:String x:Key="errorSettingSoundFile">Ses dosyası seçilirken veya kopyalanırken hata oluştu.</system:String>
     <system:String x:Key="Exit">Çıkış</system:String>
     <system:String x:Key="ExpertMode">Uzman Mod</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘Çıkarmadan Sonra Başlatılacak Uzantı’, ‘Başlatmadan Önce Dosyayı Çıkar’ etkin olduğunda gereklidir.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Geçersiz Girdi</system:String>
+<system:String x:Key="InvalidPathsDetected">Geçersiz Yollar Algılandı</system:String>
+<system:String x:Key="InvalidPathsMessage">Emülatör parametrelerindeki aşağıdaki yollar geçersiz görünüyor (dosya veya dizin bulunamadı):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">Diğer uzantılar kabul edilmez.</system:String>
     <system:String x:Key="Language">Dil</system:String>
     <system:String x:Key="LanguageLoadingError">Dil Yükleme Hatası</system:String>
+<system:String x:Key="LaunchAnywayQuestion">Oyunu yine de başlatmak istiyor musunuz?</system:String>
+<system:String x:Key="launchedwith">ile başlatıldı</system:String>
     <system:String x:Key="LaunchGame">Oyunu Başlat</system:String>
     <system:String x:Key="LaunchSelectedGame">Seçilen Oyunu Başlat</system:String>
     <system:String x:Key="Light">Açık</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">Sistem için kullanılabilir bilgi yok:</system:String>
     <system:String x:Key="Noresultsfound">Sonuç bulunamadı.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Seçilen dosya için yerel veri tabanında herhangi bir ROM geçmişi bulunamadı.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">Ses dosyası seçilmedi.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Kaydedilecek istatistik yok. Veriler yüklenene kadar bekleyin.</system:String>
     <system:String x:Key="Nosystemnameprovided">Sistem adı belirtilmedi.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">Hiç sistem yapılandırılmadı. Sistem eklemek için 'Sistemi Düzenle' menüsünü kullanın.</system:String>
     <system:String x:Key="Nosystemselected">Hiçbir sistem seçilmedi</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Çıkarma için yeterli disk alanı yok.</system:String>
     <system:String x:Key="Notextavailable">Metin bulunamadı.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Bildirim sesi</system:String>
+<system:String x:Key="NotificationSoundIsDisable">Bildirim sesi devre dışı</system:String>
     <system:String x:Key="Noupdateavailable">Güncelleme mevcut değil</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' dosyasında geçerli bir sistem bulunamadı.</system:String>
     <system:String x:Key="NumberOfImages">Sistem görsel klasöründeki görsel sayısı: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Seçenekler</system:String>
     <system:String x:Key="Orange">Turuncu</system:String>
     <system:String x:Key="outof">toplam</system:String>
+<system:String x:Key="ParameterExplanation">Emülatör Parametreleri içindeki yollar için, uygulama dizinine göreceli olmalarını istiyorsanız %BASEFOLDER%'ı manuel olarak eklemelisiniz (örneğin, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Parametrelerde %BASEFOLDER% olmayan yollar doğru şekilde çözülemeyebilir.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...ve {0} tane daha</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Potansiyel olarak geçersiz yollar:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Emülatör parametrelerindeki bazı yollar geçersiz görünüyor veya eksik. Bu alanları lütfen tekrar kontrol edin.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Yine de kaydedebilirsiniz, ancak bu yollar oyunları başlatırken sorunlara neden olabilir.</system:String>
+<system:String x:Key="PathCheckNote">Not: %BASEFOLDER% veya göreceli yolları kullanan yollar, uygulamanın dizini ve sistem klasörüne göre kontrol edilir.</system:String>
     <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
     <system:String x:Key="Pink">Pembe</system:String>
+<system:String x:Key="PlayCurrentSound">Mevcut sesi çal</system:String>
     <system:String x:Key="PlayHistory">Oynatma Geçmişi</system:String>
     <system:String x:Key="PlayHistoryList">Oynatma geçmişi listesi</system:String>
     <system:String x:Key="Playtime">Oynama Süresi:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Emülatör Hatasında Bildirim Almak İstiyor musunuz?</system:String>
     <system:String x:Key="Red">Kırmızı</system:String>
     <system:String x:Key="ReinstallSuggestion">Bu, bazı özelliklerin (otomatik hata raporlama gibi) doğru çalışmasını engelleyebilir. Bunu düzeltmek için Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>
+<system:String x:Key="RelativePathsDetected">Göreceli Yollar Algılandı</system:String>
+<system:String x:Key="RelativePathsMessage">Yapılandırmanızda aşağıdaki göreceli yollar algılandı:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hepsini geçmişten kaldır</system:String>
     <system:String x:Key="RemovefromFavorites">Favorilerden Çıkar</system:String>
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
     <system:String x:Key="RemovefromHistory">Geçmişten kaldır</system:String>
     <system:String x:Key="ReportedToDeveloper">Bu güvenlik sorunu geliştirici ekibine bildirildi.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapor başarıyla kaydedildi.</system:String>
+<system:String x:Key="ResetToDefault">Varsayılana sıfırla</system:String>
     <system:String x:Key="Restart">Yeniden Başlat</system:String>
     <system:String x:Key="RestartError">Yeniden Başlatma Hatası</system:String>
     <system:String x:Key="RestoreBackup">Yedeği geri yükle?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Varsayılan Değerlere Döndür</system:String>
     <system:String x:Key="RomHistory">ROM Geçmişi</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM geçmişi bulunamadı</system:String>
+<system:String x:Key="Save">Kaydet</system:String>
+<system:String x:Key="SaveConfigurationQuestion">Bu yapılandırmayı kaydetmek istiyor musunuz?</system:String>
     <system:String x:Key="SaveDeadZone">Kaydet</system:String>
     <system:String x:Key="SaveorUpdateLinks">Bağlantıları Kaydet veya Güncelle</system:String>
     <system:String x:Key="SaveorUpdateSystem">Sistemi kaydet veya güncelle</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">4. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectEmulator5">5. Emülatörü Seçin.</system:String>
     <system:String x:Key="SelectionRequired">Seçim Gerekli</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Bildirim ses dosyasını seçin</system:String>
     <system:String x:Key="SelectSystem">Sistem Seç</system:String>
     <system:String x:Key="SendSupportRequest">Destek Talebi Gönder</system:String>
     <system:String x:Key="SetButtonAspectRatio">Düğme En Boy Oranını Ayarla</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Sistem görüntü klasörünü ayarla</system:String>
     <system:String x:Key="Setthegamewindowto">Oyun penceresini tam ekran olmayan bir moda ayarlayın. Bu önemlidir.</system:String>
     <system:String x:Key="SetThreshold">Eşiği Ayarla</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Ayarlar başarıyla kaydedildi.</system:String>
     <system:String x:Key="ShowAllGames">Tüm Oyunları Göster</system:String>
     <system:String x:Key="ShowGames">Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Tarihe Göre Sırala</system:String>
     <system:String x:Key="SortByPlayTime">Oynatma Süresine Göre Sırala</system:String>
     <system:String x:Key="SortByTimesPlayed">Oynatma Sayısına Göre Sırala</system:String>
+<system:String x:Key="SoundConfiguration">Ses Yapılandırması</system:String>
     <system:String x:Key="Square">Kare</system:String>
     <system:String x:Key="Steel">Çelik</system:String>
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘Sistem Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
+<system:String x:Key="SystemFolderExplanation">Sistem Klasörü, Sistem Görüntü Klasörü ve Emülatör Yolu alanları için, göreceli yollar otomatik olarak %BASEFOLDER% öneki kullanılarak kaydedilecektir (örneğin, ".\roms" "%BASEFOLDER%\roms" olur).</system:String>
     <system:String x:Key="SystemFolderOptional">Sistem klasörü (isteğe bağlı)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Sistem klasörü yolu geçersiz veya mevcut değil:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' dosyası bulunamadı!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">'error_user.log' dosyası bulunamadı!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">'error_user.log' dosyası bulunamadı!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' dosyası eksik.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' dosyası ciddi şekilde bozuk.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Daha Geniş</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">İndirme sayfasına yönlendirilmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Manuel olarak yüklemek veya güncellemek için indirme sayfasına yönlendirilmek ister misiniz?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' indirme sayfasına yönlendirilip manuel olarak indirmek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bu sorunu araştırmak için 'error_user.log' dosyasını açmak ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Son yedeği geri yüklemek ister misiniz?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Sonuçları içeren bir rapor kaydetmek ister misiniz?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Parti RVZ'ye Dönüştür</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' indirme sayfasına yönlendirilip manuel olarak indirmek ister misiniz?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
-
 </ResourceDictionary>

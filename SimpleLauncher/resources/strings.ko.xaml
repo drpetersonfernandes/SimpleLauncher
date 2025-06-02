@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Iso를 Xiso로 일괄 변환</system:String>
     <system:String x:Key="BatchConvertToCHD">배치 변환: CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">압축된 파일로 일괄 변환</system:String>
+    <system:String x:Key="BatchConvertToRVZ">일괄로 RVZ로 변환</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">CHD 파일 일괄 확인</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">압축 파일 일괄 확인</system:String>
     <system:String x:Key="Blue">파랑</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
     <system:String x:Key="Cabinet">캐비닛</system:String>
     <system:String x:Key="Cabinetnotfound">캐비닛을 찾을 수 없습니다</system:String>
+<system:String x:Key="Cancel">취소</system:String>
     <system:String x:Key="CancelButtonText">취소</system:String>
     <system:String x:Key="Cancelingdownload">다운로드 취소 중...</system:String>
     <system:String x:Key="cannotbeextracted">을(를) 추출할 수 없습니다.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">이 시스템에 대한 'ROMs' 또는 'ISOs'가 있는 폴더를 선택하십시오</system:String>
     <system:String x:Key="Chooseasystem">시스템 선택</system:String>
     <system:String x:Key="ChooseASystemToAdd">추가할 시스템 선택</system:String>
+<system:String x:Key="ChooseFile">파일 선택</system:String>
     <system:String x:Key="ChooseFolder">폴더 선택</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM 또는 ISO가 포함된 폴더 선택</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">삭제 확인</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">구성에서 선택한 시스템을 찾을 수 없습니다.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">사운드 구성 창을 열 수 없습니다</system:String>
     <system:String x:Key="Cover">표지</system:String>
     <system:String x:Key="Covernotfound">표지를 찾을 수 없습니다</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 게임용 배치 파일 생성</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">데드존 값이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="DeadZoneX">데드존 X</system:String>
     <system:String x:Key="DeadZoneY">데드존 Y</system:String>
+<system:String x:Key="DebugWindow">디버그 창</system:String>
     <system:String x:Key="DefaultImageFolder">[기본 이미지 폴더를 사용 중]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' 파일이 없습니다.</system:String>
     <system:String x:Key="DeleteGame">게임 삭제</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">에뮬레이터 매개변수</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">에뮬레이터 경로가 잘못되었습니다:</system:String>
     <system:String x:Key="Enable">활성화</system:String>
+<system:String x:Key="EnableNotificationSound">알림 소리 활성화</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리 안에 있는지 확인하세요.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">파일이 손상되지 않았는지 확인하세요.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">'Simple Launcher' 폴더가 쓰기 가능한 디렉터리에 있는지 확인하십시오.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">동안 오류</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">오류: 시스템을 추가하지 못했습니다.</system:String>
     <system:String x:Key="ErrorFailedtoextract">오류: 추출 실패</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">오류: 잘못된 대상 경로:</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' 파일을 로드하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">오류: 의 다운로드 URL이 없습니다</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">다운로드 링크를 여는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">업데이트 기록 창을 여는 중 오류가 발생했습니다.</system:String>
+<system:String x:Key="errorSettingSoundFile">사운드 파일을 선택하거나 복사하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Exit">종료</system:String>
     <system:String x:Key="ExpertMode">전문가 모드</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘추출 후 실행할 확장자’는 ‘실행 전 파일 추출’이 활성화된 경우 필수입니다.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
+<system:String x:Key="InvalidPathsDetected">잘못된 경로 감지됨</system:String>
+<system:String x:Key="InvalidPathsMessage">에뮬레이터 매개변수의 다음 경로가 잘못된 것 같습니다 (파일 또는 디렉터리를 찾을 수 없음):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">다른 확장자는 허용되지 않습니다.</system:String>
     <system:String x:Key="Language">언어</system:String>
     <system:String x:Key="LanguageLoadingError">언어 로딩 오류</system:String>
+<system:String x:Key="LaunchAnywayQuestion">그래도 게임을 실행하시겠습니까?</system:String>
+<system:String x:Key="launchedwith">으로 실행됨</system:String>
     <system:String x:Key="LaunchGame">게임 시작</system:String>
     <system:String x:Key="LaunchSelectedGame">선택한 게임 실행</system:String>
     <system:String x:Key="Light">밝음</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">시스템에 대한 정보가 제공되지 않았습니다:</system:String>
     <system:String x:Key="Noresultsfound">결과를 찾을 수 없습니다.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">선택한 파일에 대한 ROM 히스토리가 로컬 데이터베이스에서 발견되지 않았습니다.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">선택된 사운드 파일이 없습니다.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">저장할 수 있는 통계가 없습니다. 데이터가 로드될 때까지 기다려주세요.</system:String>
     <system:String x:Key="Nosystemnameprovided">시스템 이름이 제공되지 않았습니다.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">설정된 시스템이 없습니다. '시스템 편집' 메뉴를 사용하여 시스템을 추가하세요.</system:String>
     <system:String x:Key="Nosystemselected">선택된 시스템이 없습니다</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">압축 해제를 위한 디스크 공간이 부족합니다.</system:String>
     <system:String x:Key="Notextavailable">사용 가능한 텍스트가 없습니다.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">알림 소리</system:String>
+<system:String x:Key="NotificationSoundIsDisable">알림 소리가 비활성화되었습니다</system:String>
     <system:String x:Key="Noupdateavailable">사용 가능한 업데이트가 없습니다</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' 파일에서 유효한 시스템을 찾을 수 없습니다.</system:String>
     <system:String x:Key="NumberOfImages">시스템 이미지 폴더 내 이미지 수: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">옵션</system:String>
     <system:String x:Key="Orange">주황</system:String>
     <system:String x:Key="outof">중</system:String>
+<system:String x:Key="ParameterExplanation">에뮬레이터 매개변수 내의 경로의 경우, 애플리케이션 디렉터리에 상대적으로 만들려면 %BASEFOLDER%를 수동으로 추가해야 합니다 (예: -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). 매개변수에 %BASEFOLDER%가 없는 경로는 올바르게 해결되지 않을 수 있습니다.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...외 {0}개 더</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">잠재적으로 유효하지 않은 경로:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">에뮬레이터 매개변수의 일부 경로가 잘못되었거나 누락된 것 같습니다. 이 필드를 다시 확인하십시오.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">계속 저장할 수 있지만, 이 경로들은 게임 실행 시 문제를 일으킬 수 있습니다.</system:String>
+<system:String x:Key="PathCheckNote">참고: %BASEFOLDER% 또는 상대 경로를 사용하는 경로는 애플리케이션의 디렉터리와 시스템 폴더에 대해 확인됩니다.</system:String>
     <system:String x:Key="PathManipulationDetected">잠재적 경로 조작 감지됨</system:String>
     <system:String x:Key="PCB">PCB(회로기판)</system:String>
     <system:String x:Key="PCBnotfound">PCB(회로기판)를 찾을 수 없습니다</system:String>
     <system:String x:Key="Pink">핑크</system:String>
+<system:String x:Key="PlayCurrentSound">현재 소리 재생</system:String>
     <system:String x:Key="PlayHistory">재생 기록</system:String>
     <system:String x:Key="PlayHistoryList">재생 기록 목록</system:String>
     <system:String x:Key="Playtime">플레이 시간:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">에뮬레이터 오류 시 알림을 받으시겠습니까?</system:String>
     <system:String x:Key="Red">빨강</system:String>
     <system:String x:Key="ReinstallSuggestion">이로 인해 일부 기능(예: 자동 버그 보고)이 제대로 작동하지 않을 수 있습니다. 이 문제를 해결하기 위해 Simple Launcher를 다시 설치하시겠습니까?</system:String>
+<system:String x:Key="RelativePathsDetected">상대 경로 감지됨</system:String>
+<system:String x:Key="RelativePathsMessage">구성에서 다음 상대 경로가 감지되었습니다:</system:String>
     <system:String x:Key="RemoveAllfromHistory">모두 기록에서 제거</system:String>
     <system:String x:Key="RemovefromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemovefromHistory">기록에서 제거</system:String>
     <system:String x:Key="ReportedToDeveloper">이 보안 문제는 개발자 팀에 보고되었습니다.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">보고서가 성공적으로 저장되었습니다.</system:String>
+<system:String x:Key="ResetToDefault">기본값으로 재설정</system:String>
     <system:String x:Key="Restart">재시작</system:String>
     <system:String x:Key="RestartError">재시작 오류</system:String>
     <system:String x:Key="RestoreBackup">백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="ReverttoDefaultValues">기본값으로 복원</system:String>
     <system:String x:Key="RomHistory">ROM 히스토리</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM 히스토리를 찾을 수 없습니다</system:String>
+<system:String x:Key="Save">저장</system:String>
+<system:String x:Key="SaveConfigurationQuestion">이 구성을 저장하시겠습니까?</system:String>
     <system:String x:Key="SaveDeadZone">저장</system:String>
     <system:String x:Key="SaveorUpdateLinks">링크 저장 또는 업데이트</system:String>
     <system:String x:Key="SaveorUpdateSystem">시스템 저장 또는 업데이트</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">에뮬레이터 4를 선택하세요.</system:String>
     <system:String x:Key="SelectEmulator5">에뮬레이터 5를 선택하세요.</system:String>
     <system:String x:Key="SelectionRequired">선택 필요</system:String>
+<system:String x:Key="SelectNotificationSoundFile">알림 소리 파일 선택</system:String>
     <system:String x:Key="SelectSystem">시스템 선택</system:String>
     <system:String x:Key="SendSupportRequest">지원 요청 보내기</system:String>
     <system:String x:Key="SetButtonAspectRatio">단추 가로 세로 비율 설정</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">시스템 이미지 폴더 설정</system:String>
     <system:String x:Key="Setthegamewindowto">게임 창을 전체 화면이 아닌 모드로 설정하세요. 이는 중요합니다.</system:String>
     <system:String x:Key="SetThreshold">임계값 설정</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">설정이 성공적으로 저장되었습니다.</system:String>
     <system:String x:Key="ShowAllGames">모든 게임 보기</system:String>
     <system:String x:Key="ShowGames">게임 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">날짜별 정렬</system:String>
     <system:String x:Key="SortByPlayTime">재생 시간별 정렬</system:String>
     <system:String x:Key="SortByTimesPlayed">재생 횟수별 정렬</system:String>
+<system:String x:Key="SoundConfiguration">사운드 구성</system:String>
     <system:String x:Key="Square">정사각형</system:String>
     <system:String x:Key="Steel">스틸</system:String>
     <system:String x:Key="StopDownload">다운로드 중지</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">시스템:</system:String>
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘시스템 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
+<system:String x:Key="SystemFolderExplanation">시스템 폴더, 시스템 이미지 폴더 및 에뮬레이터 경로 필드의 경우, 상대 경로는 %BASEFOLDER% 접두사를 사용하여 자동으로 저장됩니다 (예: ".\roms"는 "%BASEFOLDER%\roms"가 됩니다).</system:String>
     <system:String x:Key="SystemFolderOptional">시스템 폴더 (선택)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">시스템 폴더 경로가 잘못되었거나 존재하지 않습니다:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 파일을 찾을 수 없습니다!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">파일 'error_user.log'를 찾을 수 없습니다!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">파일이 목록에서 제거되었습니다.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' 파일이 없습니다.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">애플리케이션 폴더에서 'mame.dat' 파일을 찾을 수 없습니다.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' 파일이 심각하게 손상되었습니다.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">넓게</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">다운로드 페이지로 이동하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">수동으로 설치하거나 업데이트하기 위해 다운로드 페이지로 이동하시겠습니까?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' 다운로드 페이지로 이동하여 수동으로 다운로드하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">문제를 조사하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketorestore">마지막 백업을 복원하시겠습니까?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">결과와 함께 보고서를 저장하시겠습니까?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
-    <system:String x:Key="BatchConvertToRVZ">일괄로 RVZ로 변환</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">'Simple Launcher' 다운로드 페이지로 이동하여 수동으로 다운로드하시겠습니까?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">파일이 목록에서 제거되었습니다.</system:String>
-
 </ResourceDictionary>

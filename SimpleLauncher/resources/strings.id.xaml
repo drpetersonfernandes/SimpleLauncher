@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Konversi massal dari Iso ke Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">Konversi Batch ke CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Konversi Batch ke File Terkompresi</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Mengonversi Batch ke RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Verifikasi Batch File CHD</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Verifikasi Batch File Terkompresi</system:String>
     <system:String x:Key="Blue">Biru</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
     <system:String x:Key="Cabinet">Kabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Kabinet tidak ditemukan</system:String>
+<system:String x:Key="Cancel">Batal</system:String>
     <system:String x:Key="CancelButtonText">Batal</system:String>
     <system:String x:Key="Cancelingdownload">Membatalkan unduhan...</system:String>
     <system:String x:Key="cannotbeextracted">tidak dapat diekstraksi.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Pilih folder dengan 'ROMs' atau 'ISOs' untuk sistem ini</system:String>
     <system:String x:Key="Chooseasystem">Pilih sebuah sistem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Pilih sistem yang akan ditambahkan</system:String>
+<system:String x:Key="ChooseFile">Pilih file</system:String>
     <system:String x:Key="ChooseFolder">Pilih Folder</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Pilih folder berisi ROM atau ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Tidak dapat menemukan sistem yang dipilih dalam konfigurasi.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">Tidak dapat membuka jendela konfigurasi suara</system:String>
     <system:String x:Key="Cover">Sampul</system:String>
     <system:String x:Key="Covernotfound">Sampul tidak ditemukan</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Buat Berkas Batch untuk Permainan PS3</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Nilai zona mati berhasil disimpan.</system:String>
     <system:String x:Key="DeadZoneX">Zona Mati X</system:String>
     <system:String x:Key="DeadZoneY">Zona Mati Y</system:String>
+<system:String x:Key="DebugWindow">Jendela Debug</system:String>
     <system:String x:Key="DefaultImageFolder">[Menggunakan folder gambar default]</system:String>
     <system:String x:Key="defaultpngfileismissing">File 'default.png' hilang.</system:String>
     <system:String x:Key="DeleteGame">Hapus Game</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Parameter Emulator</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Jalur emulator tidak valid untuk:</system:String>
     <system:String x:Key="Enable">Aktifkan</system:String>
+<system:String x:Key="EnableNotificationSound">Aktifkan suara notifikasi</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Pastikan file tidak rusak.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Pastikan folder 'Simple Launcher' berada dalam direktori yang mempunyai kebenaran menulis.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Error selama</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Kesalahan: Gagal menambahkan sistem.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Gagal mengekstrak</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Kesalahan: Jalur tujuan tidak valid untuk</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Kesalahan saat memuat file 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: Tidak ada URL unduhan untuk</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Kesalahan saat membuka tautan unduhan.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Kesalahan saat membuka jendela Riwayat Pembaruan.</system:String>
+<system:String x:Key="errorSettingSoundFile">Kesalahan saat memilih atau menyalin file suara.</system:String>
     <system:String x:Key="Exit">Keluar</system:String>
     <system:String x:Key="ExpertMode">Mode Ahli</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Ekstensi untuk Diluncurkan Setelah Ekstraksi" diperlukan jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Input Tidak Valid</system:String>
+<system:String x:Key="InvalidPathsDetected">Jalur Tidak Valid Terdeteksi</system:String>
+<system:String x:Key="InvalidPathsMessage">Jalur berikut dalam parameter emulator tampaknya tidak valid (file atau direktori tidak ditemukan):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">Tidak akan menerima ekstensi lain.</system:String>
     <system:String x:Key="Language">Bahasa</system:String>
     <system:String x:Key="LanguageLoadingError">Ralat pemuatan bahasa</system:String>
+<system:String x:Key="LaunchAnywayQuestion">Apakah Anda ingin meluncurkan game ini?</system:String>
+<system:String x:Key="launchedwith">diluncurkan dengan</system:String>
     <system:String x:Key="LaunchGame">Luncurkan Game</system:String>
     <system:String x:Key="LaunchSelectedGame">Luncurkan Game yang Dipilih</system:String>
     <system:String x:Key="Light">Terang</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">Tidak ada informasi yang tersedia untuk sistem:</system:String>
     <system:String x:Key="Noresultsfound">Tidak ada hasil yang ditemukan.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Tidak ada riwayat ROM yang ditemukan di basis data lokal untuk file yang dipilih.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">Tidak ada file suara yang dipilih.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Tidak ada statistik yang tersedia untuk disimpan. Harap tunggu hingga data dimuat.</system:String>
     <system:String x:Key="Nosystemnameprovided">Tidak ada nama sistem yang diberikan.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">Tidak ada sistem yang dikonfigurasi. Harap gunakan menu 'Edit Sistem' untuk menambahkan sistem.</system:String>
     <system:String x:Key="Nosystemselected">Tidak ada sistem yang dipilih</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Ruang disk tidak cukup untuk ekstraksi.</system:String>
     <system:String x:Key="Notextavailable">Tidak ada teks yang tersedia.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Suara notifikasi</system:String>
+<system:String x:Key="NotificationSoundIsDisable">Suara notifikasi dinonaktifkan</system:String>
     <system:String x:Key="Noupdateavailable">Tidak ada pembaruan</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Tidak ada sistem valid yang ditemukan dalam file 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Jumlah gambar di Folder Gambar Sistem: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Pilihan</system:String>
     <system:String x:Key="Orange">Oranye</system:String>
     <system:String x:Key="outof">dari</system:String>
+<system:String x:Key="ParameterExplanation">Untuk jalur dalam Parameter Emulator, Anda harus menambahkan %BASEFOLDER% secara manual jika Anda ingin jalur tersebut relatif terhadap direktori aplikasi (misalnya, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Jalur tanpa %BASEFOLDER% dalam parameter mungkin tidak terselesaikan dengan benar.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...dan {0} lainnya</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Jalur yang berpotensi tidak valid:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Beberapa jalur dalam parameter emulator tampaknya tidak valid atau hilang. Silakan periksa kembali bidang-bidang ini.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Anda masih bisa menyimpan, tetapi jalur ini dapat menyebabkan masalah saat meluncurkan game.</system:String>
+<system:String x:Key="PathCheckNote">Catatan: Jalur yang menggunakan %BASEFOLDER% atau jalur relatif diperiksa terhadap direktori aplikasi dan folder sistem.</system:String>
     <system:String x:Key="PathManipulationDetected">Potensi Manipulasi Jalur Terdeteksi</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
     <system:String x:Key="Pink">Merah Muda</system:String>
+<system:String x:Key="PlayCurrentSound">Putar suara saat ini</system:String>
     <system:String x:Key="PlayHistory">Riwayat Pemutaran</system:String>
     <system:String x:Key="PlayHistoryList">Daftar Riwayat Pemutaran</system:String>
     <system:String x:Key="Playtime">Waktu Bermain:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Menerima Pemberitahuan saat terjadi Kesalahan Emulator?</system:String>
     <system:String x:Key="Red">Merah</system:String>
     <system:String x:Key="ReinstallSuggestion">Ini mungkin mencegah beberapa fitur (seperti pelaporan bug otomatis) berfungsi dengan benar. Apakah Anda ingin menginstal ulang Simple Launcher untuk memperbaikinya?</system:String>
+<system:String x:Key="RelativePathsDetected">Jalur Relatif Terdeteksi</system:String>
+<system:String x:Key="RelativePathsMessage">Jalur relatif berikut terdeteksi dalam konfigurasi Anda:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hapus semua dari riwayat</system:String>
     <system:String x:Key="RemovefromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemoveFromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemovefromHistory">Hapus dari riwayat</system:String>
     <system:String x:Key="ReportedToDeveloper">Masalah keamanan ini telah dilaporkan ke tim pengembang.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Laporan berhasil disimpan.</system:String>
+<system:String x:Key="ResetToDefault">Setel ulang ke default</system:String>
     <system:String x:Key="Restart">Mulai Ulang</system:String>
     <system:String x:Key="RestartError">Kesalahan Restart</system:String>
     <system:String x:Key="RestoreBackup">Pulihkan Cadangan?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Kembalikan ke Nilai Default</system:String>
     <system:String x:Key="RomHistory">Riwayat ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Riwayat ROM tidak ditemukan</system:String>
+<system:String x:Key="Save">Simpan</system:String>
+<system:String x:Key="SaveConfigurationQuestion">Apakah Anda ingin menyimpan konfigurasi ini?</system:String>
     <system:String x:Key="SaveDeadZone">Simpan</system:String>
     <system:String x:Key="SaveorUpdateLinks">Simpan atau Perbarui Tautan</system:String>
     <system:String x:Key="SaveorUpdateSystem">Simpan atau Perbarui Sistem</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Pilih Emulator 4.</system:String>
     <system:String x:Key="SelectEmulator5">Pilih Emulator 5.</system:String>
     <system:String x:Key="SelectionRequired">Pemilihan Diperlukan</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Pilih file suara notifikasi</system:String>
     <system:String x:Key="SelectSystem">Pilih Sistem</system:String>
     <system:String x:Key="SendSupportRequest">Kirim Permintaan Dukungan</system:String>
     <system:String x:Key="SetButtonAspectRatio">Atur Rasio Aspek Tombol</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Atur Folder Gambar Sistem</system:String>
     <system:String x:Key="Setthegamewindowto">Atur jendela game ke non-layar penuh. Ini penting.</system:String>
     <system:String x:Key="SetThreshold">Atur Ambang Batas</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Pengaturan berhasil disimpan.</system:String>
     <system:String x:Key="ShowAllGames">Tampilkan Semua Permainan</system:String>
     <system:String x:Key="ShowGames">Tampilkan Permainan</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Urutkan Berdasarkan Tanggal</system:String>
     <system:String x:Key="SortByPlayTime">Urutkan Berdasarkan Waktu Pemutaran</system:String>
     <system:String x:Key="SortByTimesPlayed">Urutkan Berdasarkan Jumlah Pemutaran</system:String>
+<system:String x:Key="SoundConfiguration">Konfigurasi Suara</system:String>
     <system:String x:Key="Square">Persegi</system:String>
     <system:String x:Key="Steel">Biru Baja</system:String>
     <system:String x:Key="StopDownload">Hentikan Unduhan</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Sistem:</system:String>
     <system:String x:Key="SystemFolder">Folder Sistem</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">"Folder Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
+<system:String x:Key="SystemFolderExplanation">Untuk bidang Folder Sistem, Folder Gambar Sistem, dan Jalur Emulator, jalur relatif akan secara otomatis disimpan menggunakan awalan %BASEFOLDER% (misalnya, ".\roms" menjadi "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">Folder Sistem (Opsional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Jalur folder sistem tidak valid atau tidak ada:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem telah berhasil ditambahkan!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">File 'error_user.log' tidak ditemukan!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">File 'error_user.log' tidak ditemukan!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">File 'error_user.log' tidak ditemukan!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">File 'helpuser.xml' hilang.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">File 'system.xml' sangat rusak.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Lebih Lebar</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Apakah Anda ingin diarahkan ke halaman unduhan?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan untuk menginstal atau memperbarui secara manual?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk menyelidiki masalah ini?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Apakah Anda ingin memulihkan cadangan terakhir?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Apakah Anda ingin menyimpan laporan dengan hasilnya?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Mengonversi Batch ke RVZ</system:String>
-
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Apakah Anda ingin diarahkan ke halaman unduhan 'Simple Launcher' untuk mengunduhnya secara manual?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
-    
 </ResourceDictionary>

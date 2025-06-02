@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Batchconversie van ISO naar XISO</system:String>
     <system:String x:Key="BatchConvertToCHD">Batch Converteren naar CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Batch Omzetten naar Gecomprimeerd Bestand</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Batch naar RVZ converteren</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Batch Controleren van CHD-bestanden</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Batch Controleren van Gecomprimeerde Bestanden</system:String>
     <system:String x:Key="Blue">Blauw</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
     <system:String x:Key="Cabinet">Kast</system:String>
     <system:String x:Key="Cabinetnotfound">Kast niet gevonden</system:String>
+<system:String x:Key="Cancel">Annuleren</system:String>
     <system:String x:Key="CancelButtonText">Annuleer</system:String>
     <system:String x:Key="Cancelingdownload">Download wordt geannuleerd...</system:String>
     <system:String x:Key="cannotbeextracted">kan niet worden uitgepakt.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Kies een map met 'ROMs' of 'ISOs' voor dit systeem</system:String>
     <system:String x:Key="Chooseasystem">Kies een systeem</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecteer een systeem om toe te voegen</system:String>
+<system:String x:Key="ChooseFile">Bestand kiezen</system:String>
     <system:String x:Key="ChooseFolder">Kies map</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Selecteer een map met ROM’s of ISO’s</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Kon het geselecteerde systeem niet vinden in de configuratie.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">Kon geluidsconfiguratievenster niet openen</system:String>
     <system:String x:Key="Cover">Voorblad</system:String>
     <system:String x:Key="Covernotfound">Voorblad niet gevonden</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Batchbestanden maken voor PS3-spellen</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Dode zone waarden succesvol opgeslagen.</system:String>
     <system:String x:Key="DeadZoneX">Dode zone X</system:String>
     <system:String x:Key="DeadZoneY">Dode zone Y</system:String>
+<system:String x:Key="DebugWindow">Debugvenster</system:String>
     <system:String x:Key="DefaultImageFolder">[Standaard afbeeldingenmap wordt gebruikt]</system:String>
     <system:String x:Key="defaultpngfileismissing">Het bestand 'default.png' ontbreekt.</system:String>
     <system:String x:Key="DeleteGame">Verwijder spel</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Parameters van de emulator</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Het emulatorpad is ongeldig voor:</system:String>
     <system:String x:Key="Enable">Inschakelen</system:String>
+<system:String x:Key="EnableNotificationSound">Meldingsgeluid inschakelen</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Controleer of de map 'Simple Launcher' zich in een schrijfbare locatie bevindt.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Zorg ervoor dat het bestand niet beschadigd is.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Zorg ervoor dat de map 'Simple Launcher' zich bevindt in een beschrijfbare maplocatie.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Fout tijdens</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Fout: Systeem toevoegen mislukt.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Fout: Extractie mislukt</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Fout: Ongeldig doelpad voor</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Fout bij het laden van het bestand 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Fout: Geen download-URL voor</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Fout bij het openen van de downloadlink.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Fout bij het openen van het updategeschiedenisvenster.</system:String>
+<system:String x:Key="errorSettingSoundFile">Fout bij het kiezen of kopiëren van geluidsbestand.</system:String>
     <system:String x:Key="Exit">Afsluiten</system:String>
     <system:String x:Key="ExpertMode">Expertmodus</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">De 'Extensie om na extractie te starten' is vereist wanneer 'Bestand extraheren vóór starten' is ingeschakeld.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Ongeldige invoer</system:String>
+<system:String x:Key="InvalidPathsDetected">Ongeldige paden gedetecteerd</system:String>
+<system:String x:Key="InvalidPathsMessage">De volgende paden in de emulatorparameters lijken ongeldig te zijn (bestand of map niet gevonden):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">Andere extensies worden niet geaccepteerd.</system:String>
     <system:String x:Key="Language">Taal</system:String>
     <system:String x:Key="LanguageLoadingError">Fout bij het laden van taal</system:String>
+<system:String x:Key="LaunchAnywayQuestion">Wilt u het spel toch starten?</system:String>
+<system:String x:Key="launchedwith">gestart met</system:String>
     <system:String x:Key="LaunchGame">Spel starten</system:String>
     <system:String x:Key="LaunchSelectedGame">Geselecteerd spel starten</system:String>
     <system:String x:Key="Light">Licht</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">Geen informatie beschikbaar voor het systeem:</system:String>
     <system:String x:Key="Noresultsfound">Geen resultaten gevonden.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Geen ROM-geschiedenis gevonden in de lokale database voor het geselecteerde bestand.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">Geen geluidsbestand geselecteerd.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Geen statistieken beschikbaar om op te slaan. Wacht tot de gegevens zijn geladen.</system:String>
     <system:String x:Key="Nosystemnameprovided">Geen systeemnaam opgegeven.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">Geen systemen geconfigureerd. Gebruik het menu 'Systeem bewerken' om systemen toe te voegen.</system:String>
     <system:String x:Key="Nosystemselected">Geen systeem geselecteerd</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Onvoldoende schijfruimte voor extractie.</system:String>
     <system:String x:Key="Notextavailable">Geen tekst beschikbaar.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Meldingsgeluid</system:String>
+<system:String x:Key="NotificationSoundIsDisable">Meldingsgeluid is uitgeschakeld</system:String>
     <system:String x:Key="Noupdateavailable">Geen update beschikbaar</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Geen geldige systemen gevonden in het bestand 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Aantal afbeeldingen in de systeemafbeeldingenmap: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Opties</system:String>
     <system:String x:Key="Orange">Oranje</system:String>
     <system:String x:Key="outof">van</system:String>
+<system:String x:Key="ParameterExplanation">Voor paden binnen de Emulatorparameters moet u handmatig %BASEFOLDER% toevoegen als u wilt dat deze relatief zijn ten opzichte van de applicatiemap (bijv. -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Paden zonder %BASEFOLDER% in parameters worden mogelijk niet correct opgelost.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...en nog {0} meer</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Mogelijk ongeldige paden:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">U kunt nog steeds opslaan, maar deze paden kunnen problemen veroorzaken bij het starten van games.</system:String>
+<system:String x:Key="PathCheckNote">Opmerking: Paden die %BASEFOLDER% of relatieve paden gebruiken, worden gecontroleerd ten opzichte van de applicatiemap en de systeemmap.</system:String>
     <system:String x:Key="PathManipulationDetected">Mogelijke padmanipulatie gedetecteerd</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
     <system:String x:Key="Pink">Roze</system:String>
+<system:String x:Key="PlayCurrentSound">Huidig geluid afspelen</system:String>
     <system:String x:Key="PlayHistory">Afspeelgeschiedenis</system:String>
     <system:String x:Key="PlayHistoryList">Lijst van afspeelgeschiedenis</system:String>
     <system:String x:Key="Playtime">Speeltijd:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Een notificatie ontvangen bij emulatorfout?</system:String>
     <system:String x:Key="Red">Rood</system:String>
     <system:String x:Key="ReinstallSuggestion">Dit kan voorkomen dat sommige functies (zoals automatische bugrapportage) correct werken. Wilt u Simple Launcher opnieuw installeren om dit op te lossen?</system:String>
+<system:String x:Key="RelativePathsDetected">Relatieve paden gedetecteerd</system:String>
+<system:String x:Key="RelativePathsMessage">De volgende relatieve paden zijn gedetecteerd in uw configuratie:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles uit geschiedenis verwijderen</system:String>
     <system:String x:Key="RemovefromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemovefromHistory">Verwijderen uit geschiedenis</system:String>
     <system:String x:Key="ReportedToDeveloper">Dit beveiligingsprobleem is gemeld aan het ontwikkelaarsteam.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Rapport succesvol opgeslagen.</system:String>
+<system:String x:Key="ResetToDefault">Herstellen naar standaard</system:String>
     <system:String x:Key="Restart">Opnieuw starten</system:String>
     <system:String x:Key="RestartError">Herstartfout</system:String>
     <system:String x:Key="RestoreBackup">Back-up herstellen?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Herstellen naar standaardwaarden</system:String>
     <system:String x:Key="RomHistory">ROM-geschiedenis</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM-geschiedenis niet gevonden</system:String>
+<system:String x:Key="Save">Opslaan</system:String>
+<system:String x:Key="SaveConfigurationQuestion">Wilt u deze configuratie opslaan?</system:String>
     <system:String x:Key="SaveDeadZone">Opslaan</system:String>
     <system:String x:Key="SaveorUpdateLinks">Koppelingen opslaan of bijwerken</system:String>
     <system:String x:Key="SaveorUpdateSystem">Systeem opslaan of bijwerken</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Selecteer Emulator 4.</system:String>
     <system:String x:Key="SelectEmulator5">Selecteer Emulator 5.</system:String>
     <system:String x:Key="SelectionRequired">Selectie Vereist</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Meldingsgeluidsbestand selecteren</system:String>
     <system:String x:Key="SelectSystem">Selecteer Systeem</system:String>
     <system:String x:Key="SendSupportRequest">Ondersteuningsverzoek Verzenden</system:String>
     <system:String x:Key="SetButtonAspectRatio">Knopverhouding instellen</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Afbeeldingsmap van systeem instellen</system:String>
     <system:String x:Key="Setthegamewindowto">Stel het venster van het spel in op niet-volledig scherm. Dit is belangrijk.</system:String>
     <system:String x:Key="SetThreshold">Drempel instellen</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Instellingen succesvol opgeslagen.</system:String>
     <system:String x:Key="ShowAllGames">Alle spellen weergeven</system:String>
     <system:String x:Key="ShowGames">Spellen weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Sorteren op datum</system:String>
     <system:String x:Key="SortByPlayTime">Sorteren op afspeeltijd</system:String>
     <system:String x:Key="SortByTimesPlayed">Sorteren op aantal keer afgespeeld</system:String>
+<system:String x:Key="SoundConfiguration">Geluidsconfiguratie</system:String>
     <system:String x:Key="Square">Vierkant</system:String>
     <system:String x:Key="Steel">Staal</system:String>
     <system:String x:Key="StopDownload">Stop download</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Systeem:</system:String>
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
+<system:String x:Key="SystemFolderExplanation">Voor de velden Systeemmap, Systeemafbeeldingsmap en Emulatorpad worden relatieve paden automatisch opgeslagen met het %BASEFOLDER% voorvoegsel (bijv. ".\roms" wordt "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">Systeemmap (optioneel)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Het systeemmap-pad is ongeldig of bestaat niet:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">Het bestand 'error_user.log' werd niet gevonden!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">Het bestand 'error_user.log' is niet gevonden!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Het bestand 'error_user.log' is niet gevonden!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Het bestand is uit de lijst verwijderd.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Het bestand 'helpuser.xml' ontbreekt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Breder</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Wilt u doorverwezen worden naar de downloadpagina?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Wilt u worden doorverwezen naar de downloadpagina om deze handmatig te installeren of bij te werken?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u worden doorgestuurd naar de downloadpagina van 'Simple Launcher' om het handmatig te downloaden?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Wilt u het bestand 'error_user.log' openen om dit probleem te onderzoeken?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Wil je de laatste back-up herstellen?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Wil je een rapport opslaan met de resultaten?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Batch naar RVZ converteren</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Wilt u worden doorgestuurd naar de downloadpagina van 'Simple Launcher' om het handmatig te downloaden?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">Het bestand is uit de lijst verwijderd.</system:String>
-
 </ResourceDictionary>

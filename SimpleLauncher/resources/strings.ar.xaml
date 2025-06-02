@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">تحويل دفعة من ملفات Iso إلى Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">التحويل المجمع إلى CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">التحويل الدفعي إلى ملف مضغوط</system:String>
+    <system:String x:Key="BatchConvertToRVZ">تحويل دفعة إلى RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">التحقق الدفعي من ملفات CHD</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">التحقق الدفعي من الملفات المضغوطة</system:String>
     <system:String x:Key="Blue">أزرق</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
     <system:String x:Key="Cabinet">الخزانة</system:String>
     <system:String x:Key="Cabinetnotfound">الخزانة غير موجودة</system:String>
+<system:String x:Key="Cancel">إلغاء</system:String>
     <system:String x:Key="CancelButtonText">إلغاء</system:String>
     <system:String x:Key="Cancelingdownload">جارٍ إلغاء التحميل...</system:String>
     <system:String x:Key="cannotbeextracted">لا يمكن استخراجه.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اختر مجلدًا يحتوي على 'ROMs' أو 'ISOs' لهذا النظام</system:String>
     <system:String x:Key="Chooseasystem">اختر نظام</system:String>
     <system:String x:Key="ChooseASystemToAdd">اختر نظامًا لإضافته</system:String>
+<system:String x:Key="ChooseFile">اختيار ملف</system:String>
     <system:String x:Key="ChooseFolder">اختر مجلد</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">اختر مجلدًا يحتوي على ROMs أو ISOs</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">لم يتم العثور على ملف بالامتداد المحدد في 'الامتداد المطلوب تشغيله بعد الاستخراج' داخل المجلد المُستخرج.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">تعذر العثور على النظام المحدد في التكوين.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">تعذر فتح نافذة إعدادات الصوت</system:String>
     <system:String x:Key="Cover">الغلاف</system:String>
     <system:String x:Key="Covernotfound">الغلاف غير موجود</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">إنشاء ملفات دفعة لألعاب PS3</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">تم حفظ قيم المنطقة الميتة بنجاح.</system:String>
     <system:String x:Key="DeadZoneX">المنطقة الميتة X</system:String>
     <system:String x:Key="DeadZoneY">المنطقة الميتة Y</system:String>
+<system:String x:Key="DebugWindow">نافذة تصحيح الأخطاء</system:String>
     <system:String x:Key="DefaultImageFolder">[استخدام مجلد الصور الافتراضي]</system:String>
     <system:String x:Key="defaultpngfileismissing">ملف 'default.png' مفقود.</system:String>
     <system:String x:Key="DeleteGame">حذف اللعبة</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">معلمات المحاكي</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">مسار المحاكي غير صالح لـ</system:String>
     <system:String x:Key="Enable">تفعيل</system:String>
+<system:String x:Key="EnableNotificationSound">تمكين صوت الإشعار</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">تأكد من أن مجلد 'Simple Launcher' موجود في دليل قابل للكتابة.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">تأكد من أن الملف غير تالف.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">تأكد من أن مجلد 'Simple Launcher' هو دليل قابل للكتابة.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">خطأ أثناء</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خطأ: فشل في إضافة النظام.</system:String>
     <system:String x:Key="ErrorFailedtoextract">خطأ: فشل الاستخراج</system:String>
+<system:String x:Key="ErrorInvalidDestinationPath">خطأ: مسار وجهة غير صالح لـ</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">حدث خطأ أثناء تحميل ملف "easymode.xml".</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خطأ: لا يوجد عنوان تحميل لـ</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">خطأ في فتح رابط التنزيل.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">خطأ في فتح نافذة سجل التحديث.</system:String>
+<system:String x:Key="errorSettingSoundFile">خطأ في اختيار أو نسخ ملف الصوت.</system:String>
     <system:String x:Key="Exit">خروج</system:String>
     <system:String x:Key="ExpertMode">الوضع المتقدم</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">'الامتداد المطلوب تشغيله بعد الاستخراج' مطلوب عند تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">إدخال غير صالح</system:String>
+<system:String x:Key="InvalidPathsDetected">تم اكتشاف مسارات غير صالحة</system:String>
+<system:String x:Key="InvalidPathsMessage">يبدو أن المسارات التالية في معلمات المحاكي غير صالحة (لم يتم العثور على الملف أو الدليل):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">لن يقبل الامتدادات الأخرى.</system:String>
     <system:String x:Key="Language">اللغة</system:String>
     <system:String x:Key="LanguageLoadingError">خطأ في تحميل اللغة</system:String>
+<system:String x:Key="LaunchAnywayQuestion">هل تريد تشغيل اللعبة على أي حال؟</system:String>
+<system:String x:Key="launchedwith">تم الإطلاق باستخدام</system:String>
     <system:String x:Key="LaunchGame">تشغيل اللعبة</system:String>
     <system:String x:Key="LaunchSelectedGame">تشغيل اللعبة المحددة</system:String>
     <system:String x:Key="Light">فاتح</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">لا توجد معلومات متاحة للنظام:</system:String>
     <system:String x:Key="Noresultsfound">لم يتم العثور على نتائج.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">لم يتم العثور على تاريخ روم في قاعدة البيانات المحلية للملف المحدد.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">لم يتم تحديد ملف صوت.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">لا توجد إحصائيات للحفظ. يرجى الانتظار حتى يتم تحميل البيانات.</system:String>
     <system:String x:Key="Nosystemnameprovided">لم يتم توفير اسم النظام.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">لا توجد أنظمة مُكوّنة. يرجى استخدام قائمة "تحرير النظام" لإضافة أنظمة.</system:String>
     <system:String x:Key="Nosystemselected">لم يتم اختيار أي نظام</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">مساحة القرص غير كافية للاستخراج.</system:String>
     <system:String x:Key="Notextavailable">لا يوجد نص متاح.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">صوت الإشعار</system:String>
+<system:String x:Key="NotificationSoundIsDisable">صوت الإشعار معطل</system:String>
     <system:String x:Key="Noupdateavailable">لا يوجد تحديث</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">لم يتم العثور على أنظمة صالحة في ملف 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">عدد الصور في مجلد الصور للنظام: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">الخيارات</system:String>
     <system:String x:Key="Orange">برتقالي</system:String>
     <system:String x:Key="outof">من أصل</system:String>
+<system:String x:Key="ParameterExplanation">بالنسبة للمسارات داخل معلمات المحاكي، يجب عليك إضافة %BASEFOLDER% يدويًا إذا كنت تنوي أن تكون نسبية لدليل التطبيق (على سبيل المثال، -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). المسارات بدون %BASEFOLDER% في المعلمات قد لا يتم حلها بشكل صحيح.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...و {0} أخرى</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">مسارات قد تكون غير صالحة:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">لا يزال بإمكانك الحفظ، ولكن هذه المسارات قد تسبب مشاكل عند تشغيل الألعاب.</system:String>
+<system:String x:Key="PathCheckNote">ملاحظة: يتم فحص المسارات التي تستخدم %BASEFOLDER% أو المسارات النسبية مقابل دليل التطبيق ومجلد النظام.</system:String>
     <system:String x:Key="PathManipulationDetected">تم اكتشاف تلاعب محتمل في المسار</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
     <system:String x:Key="Pink">وردي</system:String>
+<system:String x:Key="PlayCurrentSound">تشغيل الصوت الحالي</system:String>
     <system:String x:Key="PlayHistory">سجل التشغيل</system:String>
     <system:String x:Key="PlayHistoryList">قائمة سجل التشغيل</system:String>
     <system:String x:Key="Playtime">وقت اللعب:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">تلقي إشعار عند حدوث خطأ في المحاكي؟</system:String>
     <system:String x:Key="Red">أحمر</system:String>
     <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت Simple Launcher لإصلاح هذا؟</system:String>
+<system:String x:Key="RelativePathsDetected">تم اكتشاف مسارات نسبية</system:String>
+<system:String x:Key="RelativePathsMessage">تم اكتشاف المسارات النسبية التالية في إعداداتك:</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
     <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemovefromHistory">إزالة من السجل</system:String>
     <system:String x:Key="ReportedToDeveloper">تم الإبلاغ عن هذه المشكلة الأمنية إلى فريق المطورين.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">تم حفظ التقرير بنجاح.</system:String>
+<system:String x:Key="ResetToDefault">إعادة تعيين إلى الافتراضي</system:String>
     <system:String x:Key="Restart">إعادة التشغيل</system:String>
     <system:String x:Key="RestartError">خطأ في إعادة التشغيل</system:String>
     <system:String x:Key="RestoreBackup">استعادة النسخة الاحتياطية؟</system:String>
     <system:String x:Key="ReverttoDefaultValues">الرجوع إلى القيم الافتراضية</system:String>
     <system:String x:Key="RomHistory">تاريخ روم</system:String>
     <system:String x:Key="ROMHistorynotfound">لم يتم العثور على تاريخ روم</system:String>
+<system:String x:Key="Save">حفظ</system:String>
+<system:String x:Key="SaveConfigurationQuestion">هل تريد حفظ هذا الإعداد؟</system:String>
     <system:String x:Key="SaveDeadZone">حفظ</system:String>
     <system:String x:Key="SaveorUpdateLinks">حفظ أو تحديث الروابط</system:String>
     <system:String x:Key="SaveorUpdateSystem">حفظ أو تحديث النظام</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">اختر المحاكي 4</system:String>
     <system:String x:Key="SelectEmulator5">اختر المحاكي 5</system:String>
     <system:String x:Key="SelectionRequired">التحديد مطلوب</system:String>
+<system:String x:Key="SelectNotificationSoundFile">تحديد ملف صوت الإشعار</system:String>
     <system:String x:Key="SelectSystem">اختر النظام</system:String>
     <system:String x:Key="SendSupportRequest">إرسال طلب الدعم</system:String>
     <system:String x:Key="SetButtonAspectRatio">تعيين نسبة العرض إلى الارتفاع للزر</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">تعيين مجلد صور النظام</system:String>
     <system:String x:Key="Setthegamewindowto">اضبط نافذة اللعبة على الوضع غير الكامل. هذا مهم.</system:String>
     <system:String x:Key="SetThreshold">تعيين العتبة</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">تم حفظ الإعدادات بنجاح.</system:String>
     <system:String x:Key="ShowAllGames">عرض جميع الألعاب</system:String>
     <system:String x:Key="ShowGames">عرض الألعاب</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">ترتيب حسب التاريخ</system:String>
     <system:String x:Key="SortByPlayTime">ترتيب حسب وقت التشغيل</system:String>
     <system:String x:Key="SortByTimesPlayed">ترتيب حسب عدد مرات التشغيل</system:String>
+<system:String x:Key="SoundConfiguration">إعدادات الصوت</system:String>
     <system:String x:Key="Square">مربع</system:String>
     <system:String x:Key="Steel">فولاذي</system:String>
     <system:String x:Key="StopDownload">إيقاف التنزيل</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">النظام:</system:String>
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
+<system:String x:Key="SystemFolderExplanation">بالنسبة لحقول مجلد النظام، مجلد صور النظام، ومسار المحاكي، سيتم حفظ المسارات النسبية تلقائيًا باستخدام البادئة %BASEFOLDER% (على سبيل المثال، ".\roms" يصبح "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">مجلد النظام (اختياري)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">مسار مجلد النظام غير صالح أو غير موجود:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">ملف 'error_user.log' غير موجود!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">لم يتم العثور على الملف 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">لم يتم العثور على الملف 'error_user.log'!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">أوسع</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">هل ترغب في الانتقال إلى صفحة التنزيل؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">هل ترغب في الانتقال إلى صفحة التنزيل لتثبيته أو تحديثه يدويًا؟</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل ترغب في إعادة توجيهك إلى صفحة تنزيل 'Simple Launcher' لتنزيله يدويًا؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">هل ترغب في فتح ملف 'error_user.log' للتحقق من المشكلة؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">هل ترغب في استعادة النسخة الاحتياطية الأخيرة؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">هل ترغب في حفظ تقرير بالنتائج؟</system:String>
@@ -607,10 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
-    <system:String x:Key="BatchConvertToRVZ">تحويل دفعة إلى RVZ</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">هل ترغب في إعادة توجيهك إلى صفحة تنزيل 'Simple Launcher' لتنزيله يدويًا؟</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
-
-
 </ResourceDictionary>

@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">ISO کو XISO میں بیچ کنورٹ کریں</system:String>
     <system:String x:Key="BatchConvertToCHD">بیچ کنورٹ کریں: CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">بیچ کمپریسڈ فائل میں تبدیل کریں</system:String>
+    <system:String x:Key="BatchConvertToRVZ">بیچ کو RVZ میں تبدیل کریں</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">بیچ CHD فائلوں کی تصدیق کریں</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">بیچ کمپریسڈ فائلوں کی تصدیق کریں</system:String>
     <system:String x:Key="Blue">نیلا</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">لیکن مجھے ایک بیک اپ فائل ملی۔</system:String>
     <system:String x:Key="Cabinet">کابینہ</system:String>
     <system:String x:Key="Cabinetnotfound">کابینہ نہیں ملی</system:String>
+<system:String x:Key="Cancel">منسوخ کریں</system:String>
     <system:String x:Key="CancelButtonText">منسوخ کریں</system:String>
     <system:String x:Key="Cancelingdownload">ڈاؤن لوڈ منسوخ کر رہے ہیں...</system:String>
     <system:String x:Key="cannotbeextracted">کو ایکسٹریکٹ نہیں کیا جا سکتا۔</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">اس سسٹم کے لیے 'ROMs' یا 'ISOs' والا فولڈر منتخب کریں</system:String>
     <system:String x:Key="Chooseasystem">ایک نظام منتخب کریں</system:String>
     <system:String x:Key="ChooseASystemToAdd">شامل کرنے کے لیے سسٹم منتخب کریں</system:String>
+<system:String x:Key="ChooseFile">فائل منتخب کریں</system:String>
     <system:String x:Key="ChooseFolder">فولڈر منتخب کریں</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROMs یا ISOs والا فولڈر منتخب کریں</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">گیمز دیکھنے کے لیے اوپر کے حرف والے بٹنوں پر کلک کریں</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'ایکسٹریکشن کے بعد چلائی جانے والی ایکسٹینشنز' کے تحت دی گئی ایکسٹینشن کے ساتھ فائل ایکسٹریکٹ کردہ فولڈر میں نہیں ملی۔</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">منتخب شدہ سسٹم ترتیب میں نہیں ملا۔</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">آواز کی ترتیب ونڈو نہیں کھول سکا</system:String>
     <system:String x:Key="Cover">کور</system:String>
     <system:String x:Key="Covernotfound">کور نہیں ملا</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 کھیلوں کے لئے بیچ فائلیں بنائیں</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ڈیڈ زون کی قدریں کامیابی سے محفوظ کر لی گئیں۔</system:String>
     <system:String x:Key="DeadZoneX">ڈیڈ زون X</system:String>
     <system:String x:Key="DeadZoneY">ڈیڈ زون Y</system:String>
+<system:String x:Key="DebugWindow">ڈیبگ ونڈو</system:String>
     <system:String x:Key="DefaultImageFolder">[ڈیفالٹ امیج فولڈر استعمال ہو رہا ہے]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="DeleteGame">گیم حذف کریں</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">ایمولیٹر کے پیرامیٹرز</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">ایمولیٹر کا راستہ درست نہیں ہے:</system:String>
     <system:String x:Key="Enable">فعال کریں</system:String>
+<system:String x:Key="EnableNotificationSound">اطلاع کی آواز فعال کریں</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">'Simple Launcher' فولڈر کو ایک قابل لکھائی لوکیشن پر رکھیں۔</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">یقینی بنائیں کہ فائل کرپٹ نہیں ہے۔</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">یقینی بنائیں کہ 'Simple Launcher' فولڈر ایک ایسی ڈائریکٹری میں موجود ہے جس میں لکھنے کی اجازت ہو۔</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">کے دوران خرابی</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">خرابی: سسٹم شامل کرنے میں ناکام۔</system:String>
     <system:String x:Key="ErrorFailedtoextract">خرابی: استخراج میں ناکامی</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">خرابی: کے لیے غلط منزل کا راستہ</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' فائل لوڈ کرنے میں خرابی۔</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">خرابی: کے لیے کوئی ڈاؤن لوڈ یو آر ایل نہیں</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ڈاؤن لوڈ لنک کھولنے میں خرابی۔</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">اپ ڈیٹ ہسٹری ونڈو کھولنے میں خرابی۔</system:String>
+<system:String x:Key="errorSettingSoundFile">آواز کی فائل منتخب کرنے یا کاپی کرنے میں خرابی۔</system:String>
     <system:String x:Key="Exit">خروج</system:String>
     <system:String x:Key="ExpertMode">ماہر موڈ</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">ایکسٹریکشن کے بعد لانچ کرنے کا ایکسٹینشن ضروری ہے۔</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
     <system:String x:Key="InvalidInputMessageText">براہ کرم حد کے لیے 0.0 سے 1.0 کے درمیان ایک درست نمبر درج کریں۔</system:String>
     <system:String x:Key="InvalidInputMessageTitle">غلط ان پُٹ</system:String>
+<system:String x:Key="InvalidPathsDetected">غلط راستے دریافت ہوئے</system:String>
+<system:String x:Key="InvalidPathsMessage">ایمولیٹر پیرامیٹرز میں درج ذیل راستے غلط معلوم ہوتے ہیں (فائل یا ڈائرکٹری نہیں ملی):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">دیگر ایکسٹینشن قبول نہیں ہوں گے۔</system:String>
     <system:String x:Key="Language">زبان</system:String>
     <system:String x:Key="LanguageLoadingError">زبان لوڈنگ کی خرابی</system:String>
+<system:String x:Key="LaunchAnywayQuestion">کیا آپ پھر بھی گیم لانچ کرنا چاہتے ہیں؟</system:String>
+<system:String x:Key="launchedwith">کے ساتھ لانچ کیا گیا</system:String>
     <system:String x:Key="LaunchGame">گیم شروع کریں</system:String>
     <system:String x:Key="LaunchSelectedGame">منتخب کردہ گیم چلائیں</system:String>
     <system:String x:Key="Light">ہلکا</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">سسٹم کے لیے کوئی معلومات دستیاب نہیں ہیں:</system:String>
     <system:String x:Key="Noresultsfound">کوئی نتائج نہیں ملے۔</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">منتخب کردہ فائل کے لیے مقامی ڈیٹا بیس میں ROM کی تاریخ نہیں ملی۔</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">کوئی آواز کی فائل منتخب نہیں کی گئی ہے۔</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">محفوظ کرنے کے لیے کوئی اعداد و شمار دستیاب نہیں۔ براہ کرم ڈیٹا لوڈ ہونے تک انتظار کریں۔</system:String>
     <system:String x:Key="Nosystemnameprovided">کوئی سسٹم کا نام فراہم نہیں کیا گیا۔</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">کوئی سسٹمز ترتیب نہیں دیے گئے۔ سسٹمز شامل کرنے کے لیے 'سسٹم ترمیم کریں' مینو استعمال کریں۔</system:String>
     <system:String x:Key="Nosystemselected">کوئی سسٹم منتخب نہیں ہوا</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">نکالنے کے لیے کافی ڈسک کی جگہ نہیں۔</system:String>
     <system:String x:Key="Notextavailable">کوئی متن دستیاب نہیں ہے۔</system:String>
+<system:String x:Key="NotificationSoundFileLabel">اطلاع کی آواز</system:String>
+<system:String x:Key="NotificationSoundIsDisable">اطلاع کی آواز غیر فعال ہے</system:String>
     <system:String x:Key="Noupdateavailable">کوئی اپ ڈیٹ دستیاب نہیں</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' فائل میں کوئی درست سسٹم موجود نہیں۔</system:String>
     <system:String x:Key="NumberOfImages">سسٹم امیج فولڈر میں تصاویر کی تعداد: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">اختیارات</system:String>
     <system:String x:Key="Orange">نارنجی</system:String>
     <system:String x:Key="outof">میں سے</system:String>
+<system:String x:Key="ParameterExplanation">ایمولیٹر پیرامیٹرز کے اندر راستوں کے لیے، اگر آپ انہیں ایپلیکیشن ڈائرکٹری کے نسبت بنانا چاہتے ہیں تو آپ کو دستی طور پر %BASEFOLDER% شامل کرنا ہوگا (مثال کے طور پر، -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")۔ پیرامیٹرز میں %BASEFOLDER% کے بغیر راستے صحیح طریقے سے حل نہیں ہوسکتے ہیں۔</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...اور {0} مزید</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">ممکنہ طور پر غلط راستے:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">ایمولیٹر پیرامیٹرز میں کچھ راستے غیر درست یا غائب ظاہر ہوتے ہیں۔ براہ کرم ان فیلڈز کو دوبارہ چیک کریں۔</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">آپ اب بھی محفوظ کر سکتے ہیں، لیکن یہ راستے گیمز شروع کرتے وقت مسائل پیدا کر سکتے ہیں۔</system:String>
+<system:String x:Key="PathCheckNote">نوٹ: %BASEFOLDER% یا نسبتی راستے استعمال کرنے والے راستوں کی جانچ ایپلیکیشن کی ڈائرکٹری اور سسٹم فولڈر کے خلاف کی جاتی ہے۔</system:String>
     <system:String x:Key="PathManipulationDetected">ممکنہ راستہ میں ہیرا پھیری کا پتہ چلا</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
     <system:String x:Key="Pink">گلابی</system:String>
+<system:String x:Key="PlayCurrentSound">موجودہ آواز چلائیں</system:String>
     <system:String x:Key="PlayHistory">پلے کی تاریخ</system:String>
     <system:String x:Key="PlayHistoryList">پلے ہسٹری کی فہرست</system:String>
     <system:String x:Key="Playtime">کھیل کا وقت:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">ایمولیٹر کی خرابی پر نوٹیفکیشن حاصل کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Red">لال</system:String>
     <system:String x:Key="ReinstallSuggestion">یہ کچھ خصوصیات (جیسے خودکار بگ رپورٹنگ) کو صحیح طریقے سے کام کرنے سے روک سکتا ہے۔ کیا آپ اسے ٹھیک کرنے کے لیے Simple Launcher کو دوبارہ انسٹال کرنا چاہیں گے؟</system:String>
+<system:String x:Key="RelativePathsDetected">نسبتی راستے دریافت ہوئے</system:String>
+<system:String x:Key="RelativePathsMessage">آپ کی ترتیب میں درج ذیل نسبتی راستے دریافت ہوئے:</system:String>
     <system:String x:Key="RemoveAllfromHistory">تمام کو تاریخ سے ہٹائیں</system:String>
     <system:String x:Key="RemovefromFavorites">پسندیدہ سے ہٹائیں</system:String>
     <system:String x:Key="RemoveFromFavorites">پسندیدہ سے نکالیں</system:String>
     <system:String x:Key="RemovefromHistory">تاریخ سے ہٹائیں</system:String>
     <system:String x:Key="ReportedToDeveloper">اس سیکیورٹی مسئلے کی اطلاع ڈویلپر ٹیم کو دے دی گئی ہے۔</system:String>
     <system:String x:Key="Reportsavedsuccessfully">رپورٹ کامیابی سے محفوظ ہو گئی۔</system:String>
+<system:String x:Key="ResetToDefault">ڈیفالٹ پر ری سیٹ کریں</system:String>
     <system:String x:Key="Restart">دوبارہ شروع کریں</system:String>
     <system:String x:Key="RestartError">دوبارہ آغاز کی خرابی</system:String>
     <system:String x:Key="RestoreBackup">بیک اپ بحال کریں؟</system:String>
     <system:String x:Key="ReverttoDefaultValues">ڈیفالٹ ویلیوز پر واپس جائیں</system:String>
     <system:String x:Key="RomHistory">ROM کی تاریخ</system:String>
     <system:String x:Key="ROMHistorynotfound">ROM کی تاریخ نہیں ملی</system:String>
+<system:String x:Key="Save">محفوظ کریں</system:String>
+<system:String x:Key="SaveConfigurationQuestion">کیا آپ یہ ترتیب محفوظ کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="SaveDeadZone">محفوظ کریں</system:String>
     <system:String x:Key="SaveorUpdateLinks">لنکس محفوظ کریں یا اپ ڈیٹ کریں</system:String>
     <system:String x:Key="SaveorUpdateSystem">سسٹم محفوظ یا اپ ڈیٹ کریں</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">ایمولیٹر 4 منتخب کریں۔</system:String>
     <system:String x:Key="SelectEmulator5">ایمولیٹر 5 منتخب کریں۔</system:String>
     <system:String x:Key="SelectionRequired">انتخاب درکار ہے</system:String>
+<system:String x:Key="SelectNotificationSoundFile">اطلاع کی آواز کی فائل منتخب کریں</system:String>
     <system:String x:Key="SelectSystem">سسٹم منتخب کریں</system:String>
     <system:String x:Key="SendSupportRequest">سپورٹ کی درخواست بھیجیں</system:String>
     <system:String x:Key="SetButtonAspectRatio">بٹن کا تناسب سیٹ کریں</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">سسٹم امیج فولڈر سیٹ کریں</system:String>
     <system:String x:Key="Setthegamewindowto">گیم ونڈو کو مکمل اسکرین سے ہٹائیں۔ یہ ضروری ہے۔</system:String>
     <system:String x:Key="SetThreshold">حد سیٹ کریں</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">ترتیبات کامیابی سے محفوظ ہو گئیں۔</system:String>
     <system:String x:Key="ShowAllGames">تمام کھیل دکھائیں</system:String>
     <system:String x:Key="ShowGames">کھیل دکھائیں</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">صرف کور والے کھیل دکھائیں</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">تاریخ کے مطابق ترتیب دیں</system:String>
     <system:String x:Key="SortByPlayTime">پلے وقت کے مطابق ترتیب دیں</system:String>
     <system:String x:Key="SortByTimesPlayed">کھیلے جانے کے اوقات کے مطابق ترتیب دیں</system:String>
+<system:String x:Key="SoundConfiguration">آواز کی ترتیب</system:String>
     <system:String x:Key="Square">مربع</system:String>
     <system:String x:Key="Steel">اسٹیل</system:String>
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">سسٹم:</system:String>
     <system:String x:Key="SystemFolder">سسٹم فولڈر</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">سسٹم فولڈر خالی نہیں ہو سکتا۔</system:String>
+<system:String x:Key="SystemFolderExplanation">سسٹم فولڈر، سسٹم امیج فولڈر، اور ایمولیٹر پاتھ فیلڈز کے لیے، نسبتی راستے خود بخود %BASEFOLDER% پریفکس کا استعمال کرتے ہوئے محفوظ کیے جائیں گے (مثال کے طور پر، ".\roms" "%BASEFOLDER%\roms" بن جاتا ہے)۔</system:String>
     <system:String x:Key="SystemFolderOptional">سسٹم فولڈر (اختیاری)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">سسٹم فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">سسٹم کامیابی کے ساتھ شامل کر لیا گیا ہے!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' فائل نہیں ملی!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">‎'error_user.log'‎ فائل نہیں ملی!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">فائل کو فہرست سے ہٹا دیا گیا ہے۔</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' فائل موجود نہیں ہے۔</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">ایپلیکیشن فولڈر میں 'mame.dat' فائل نہیں ملی۔</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' فائل بری طرح خراب ہو چکی ہے۔</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">وسیع تر</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">کیا آپ ڈاؤن لوڈ صفحے پر ری ڈائریکٹ ہونا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">کیا آپ ایپلیکیشن کو دستی طور پر انسٹال یا اپ ڈیٹ کرنے کے لیے ڈاؤن لوڈ صفحہ پر جانا چاہتے ہیں؟</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">کیا آپ 'سمپل لانچر' کو دستی طور پر ڈاؤن لوڈ کرنے کے لیے ڈاؤن لوڈ پیج پر ریڈائریکٹ ہونا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">کیا آپ اس مسئلے کو دیکھنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketorestore">کیا آپ آخری بیک اپ بحال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">کیا آپ نتائج کے ساتھ ایک رپورٹ محفوظ کرنا چاہیں گے؟</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
-    <system:String x:Key="BatchConvertToRVZ">بیچ کو RVZ میں تبدیل کریں</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">کیا آپ 'سمپل لانچر' کو دستی طور پر ڈاؤن لوڈ کرنے کے لیے ڈاؤن لوڈ پیج پر ریڈائریکٹ ہونا چاہتے ہیں؟</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">فائل کو فہرست سے ہٹا دیا گیا ہے۔</system:String>
-
 </ResourceDictionary>

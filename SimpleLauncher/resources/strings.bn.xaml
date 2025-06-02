@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">ব্যাচ কনভার্ট Iso থেকে Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">ব্যাচ কনভার্ট টু CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">ব্যান্ডলভাবে সংকুচিত ফাইলে রূপান্তর করুন</system:String>
+    <system:String x:Key="BatchConvertToRVZ">একটি ব্যাচ কনভার্ট টু আরভিজেড</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">ব্যান্ডলভাবে CHD ফাইল যাচাই করুন</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">ব্যান্ডলভাবে সংকুচিত ফাইল যাচাই করুন</system:String>
     <system:String x:Key="Blue">নীল</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
     <system:String x:Key="Cabinet">কেবিনেট</system:String>
     <system:String x:Key="Cabinetnotfound">কেবিনেট পাওয়া যায়নি</system:String>
+<system:String x:Key="Cancel">বাতিল করুন</system:String>
     <system:String x:Key="CancelButtonText">বাতিল করুন</system:String>
     <system:String x:Key="Cancelingdownload">ডাউনলোড বাতিল করা হচ্ছে...</system:String>
     <system:String x:Key="cannotbeextracted">এক্সট্র্যাক্ট করা যাবে না।</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">এই সিস্টেমের জন্য 'ROMs' বা 'ISOs' সহ একটি ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="Chooseasystem">একটি সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseASystemToAdd">একটি সিস্টেম যোগ করতে নির্বাচন করুন</system:String>
+<system:String x:Key="ChooseFile">ফাইল নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseFolder">ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">ROM বা ISO সহ ফোল্ডার নির্বাচন করুন</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">মোছার নিশ্চয়তা দিন</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'এক্সট্র্যাকশন পর চালানোর জন্য এক্সটেনশন'-এ সংজ্ঞায়িত এক্সটেনশনসহ কোনও ফাইল এক্সট্র্যাকশন ফোল্ডারের ভিতর খুঁজে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">কনফিগারেশনে নির্বাচিত সিস্টেম খুঁজে পাওয়া যায়নি।</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">শব্দ কনফিগারেশন উইন্ডো খোলা যায়নি</system:String>
     <system:String x:Key="Cover">কভার</system:String>
     <system:String x:Key="Covernotfound">কভার পাওয়া যায়নি</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">PS3 গেমগুলির জন্য ব্যাচ ফাইল তৈরি করুন</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">ডেডজোন মান সফলভাবে সংরক্ষিত হয়েছে।</system:String>
     <system:String x:Key="DeadZoneX">ডেডজোন X</system:String>
     <system:String x:Key="DeadZoneY">ডেডজোন Y</system:String>
+<system:String x:Key="DebugWindow">ডিবাগ উইন্ডো</system:String>
     <system:String x:Key="DefaultImageFolder">[ডিফল্ট ইমেজ ফোল্ডার ব্যবহার করা হচ্ছে]</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="DeleteGame">গেম মুছুন</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">এমুলেটর প্যারামিটার</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">এমুলেটরের পাথটি এর জন্য বৈধ নয়</system:String>
     <system:String x:Key="Enable">সক্রিয় করুন</system:String>
+<system:String x:Key="EnableNotificationSound">বিজ্ঞপ্তি শব্দ সক্ষম করুন</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">নিশ্চিত করুন যে 'Simple Launcher' ফোল্ডারটি একটি লিখনযোগ্য ডিরেক্টরিতে অবস্থিত।</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">ফাইলটি ক্ষতিগ্রস্ত নয় তা নিশ্চিত করুন।</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">নিশ্চিত করুন যে 'Simple Launcher' ফোল্ডারটি লেখার যোগ্য একটি ডিরেক্টরি।</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">দুর্ঘটনা সময়</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">ত্রুটি: সিস্টেম যোগ করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="ErrorFailedtoextract">ত্রুটি: আনতে ব্যর্থ</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">ত্রুটি: গন্তব্য পথ অবৈধ</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">'easymode.xml' ফাইল লোড করার সময় ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">ত্রুটি: এর জন্য কোন ডাউনলোড URL নেই</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">ডাউনলোড লিঙ্ক খোলার সময় ত্রুটি।</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">আপডেট ইতিহাস উইন্ডো খোলা যাচ্ছে না।</system:String>
+<system:String x:Key="errorSettingSoundFile">শব্দ ফাইল নির্বাচন বা কপি করার সময় ত্রুটি।</system:String>
     <system:String x:Key="Exit">প্রস্থান</system:String>
     <system:String x:Key="ExpertMode">বিশেষজ্ঞ মোড</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">‘এক্সট্র্যাকশন পরে লঞ্চ করার এক্সটেনশন’ প্রয়োজন যখন ‘এক্সট্র্যাকশন লঞ্চ করার আগে’ সেট করা হয়।</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
     <system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
     <system:String x:Key="InvalidInputMessageTitle">অবৈধ ইনপুট</system:String>
+<system:String x:Key="InvalidPathsDetected">অবৈধ পথ সনাক্ত করা হয়েছে</system:String>
+<system:String x:Key="InvalidPathsMessage">এমুলেটর প্যারামিটারের নিম্নলিখিত পথগুলি অবৈধ বলে মনে হচ্ছে (ফাইল বা ডিরেক্টরি পাওয়া যায়নি):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">অবৈধ সিস্টেম কনফিগারেশন</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">এটি অন্যান্য এক্সটেনশন গ্রহণ করবে না।</system:String>
     <system:String x:Key="Language">ভাষা</system:String>
     <system:String x:Key="LanguageLoadingError">ভাষা লোডিং ত্রুটি</system:String>
+<system:String x:Key="LaunchAnywayQuestion">আপনি কি খেলাটি তবুও চালু করতে চান?</system:String>
+<system:String x:Key="launchedwith">দিয়ে চালু হয়েছে</system:String>
     <system:String x:Key="LaunchGame">গেম চালু করুন</system:String>
     <system:String x:Key="LaunchSelectedGame">নির্বাচিত গেম চালু করুন</system:String>
     <system:String x:Key="Light">হালকা</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">সিস্টেমের জন্য কোনো তথ্য নেই।</system:String>
     <system:String x:Key="Noresultsfound">ফলাফল পাওয়া যায়নি।</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">স্থানীয় ডাটাবেস খালি।</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">কোন শব্দ ফাইল নির্বাচন করা হয়নি।</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">পরিসংখ্যান সংরক্ষণের জন্য নয়।</system:String>
     <system:String x:Key="Nosystemnameprovided">কোনও সিস্টেম নাম পাওয়া যায়নি।</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">কোন সিস্টেম কনফিগার করা হয়নি। সিস্টেম যোগ করার জন্য 'এডিট সিস্টেম' মেনু ব্যবহার করুন।</system:String>
     <system:String x:Key="Nosystemselected">কোনো সিস্টেম নির্বাচিত হয়নি</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">নিষ্কাশনের জন্য পর্যাপ্ত ডিস্ক স্পেস নেই।</system:String>
     <system:String x:Key="Notextavailable">কোনো পাঠ্য উপলব্ধ নেই।</system:String>
+<system:String x:Key="NotificationSoundFileLabel">বিজ্ঞপ্তি শব্দ</system:String>
+<system:String x:Key="NotificationSoundIsDisable">বিজ্ঞপ্তি শব্দ নিষ্ক্রিয়</system:String>
     <system:String x:Key="Noupdateavailable">কোন আপডেটপরিচিত।</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">'helpuser.xml' ফাইলে কোনো বৈধ সিস্টেম পাওয়া যায়নি।</system:String>
     <system:String x:Key="NumberOfImages">সিস্টেম ইমেজ ফোল্ডারের ইমেজ সংখ্যা: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">বিকল্প</system:String>
     <system:String x:Key="Orange">কমলা</system:String>
     <system:String x:Key="outof">এর মধ্যে</system:String>
+<system:String x:Key="ParameterExplanation">এমুলেটর প্যারামিটারের মধ্যে থাকা পথগুলির জন্য, আপনি যদি সেগুলিকে অ্যাপ্লিকেশন ডিরেক্টরির সাথে আপেক্ষিক করতে চান তবে আপনাকে ম্যানুয়ালি %BASEFOLDER% যোগ করতে হবে (যেমন, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")। প্যারামিটারে %BASEFOLDER% ছাড়া পথগুলি সঠিকভাবে সমাধান নাও হতে পারে।</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...এবং আরও {0}টি</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">সম্ভাব্য অবৈধ পাথ:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">এমুলেটরের প্যারামিটারে কিছু পথে অবৈধ বা অনুপস্থিত বলে মনে হচ্ছে। অনুগ্রহ করে এই ক্ষেত্রগুলিকে ডবল চেক করুন।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">আপনি এখনও সেভ করতে পারেন, তবে এই পাথগুলি গেম চালু করার সময় সমস্যা সৃষ্টি করতে পারে।</system:String>
+<system:String x:Key="PathCheckNote">দ্রষ্টব্য: %BASEFOLDER% বা আপেক্ষিক পথ ব্যবহার করে পথগুলি অ্যাপ্লিকেশনের ডিরেক্টরি এবং সিস্টেম ফোল্ডারের বিপরীতে পরীক্ষা করা হয়।</system:String>
     <system:String x:Key="PathManipulationDetected">সম্ভাব্য পাথ ম্যানিপুলেশন সনাক্ত করা হয়েছে</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
     <system:String x:Key="Pink">গোলাপি</system:String>
+<system:String x:Key="PlayCurrentSound">বর্তমান শব্দ চালান</system:String>
     <system:String x:Key="PlayHistory">প্লে ইতিহাস</system:String>
     <system:String x:Key="PlayHistoryList">প্লে ইতিহাসের তালিকা</system:String>
     <system:String x:Key="Playtime">খেলার সময়কাল:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">এমুলেটর ত্রুটির উপর একটি বিজ্ঞপ্তি পেতে চান?</system:String>
     <system:String x:Key="Red">লাল</system:String>
     <system:String x:Key="ReinstallSuggestion">এটি কিছু বৈশিষ্ট্য (যেমন স্বয়ংক্রিয় বাগ রিপোর্টিং) সঠিকভাবে কাজ করা থেকে আটকাতে পারে। আপনি কি এটি ঠিক করার জন্য Simple Launcher পুনরায় ইনস্টল করতে চান?</system:String>
+<system:String x:Key="RelativePathsDetected">আপেক্ষিক পথ সনাক্ত করা হয়েছে</system:String>
+<system:String x:Key="RelativePathsMessage">আপনার কনফিগারেশনে নিম্নলিখিত আপেক্ষিক পথগুলি সনাক্ত করা হয়েছে:</system:String>
     <system:String x:Key="RemoveAllfromHistory">ইতিহাস থেকে সব সরান</system:String>
     <system:String x:Key="RemovefromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemoveFromFavorites">প্রিয় থেকে সরান</system:String>
     <system:String x:Key="RemovefromHistory">ইতিহাস থেকে সরান</system:String>
     <system:String x:Key="ReportedToDeveloper">এই নিরাপত্তা সমস্যাটি ডেভেলপার টিমের কাছে রিপোর্ট করা হয়েছে।</system:String>
     <system:String x:Key="Reportsavedsuccessfully">রিপোর্ট সফল হয়েছে।</system:String>
+<system:String x:Key="ResetToDefault">ডিফল্টে রিসেট করুন</system:String>
     <system:String x:Key="Restart">রিস্টার্ট</system:String>
     <system:String x:Key="RestartError">পুনরায় চালু ত্রুটি</system:String>
     <system:String x:Key="RestoreBackup">ব্যাকআপ পুনরুদ্ধার।</system:String>
     <system:String x:Key="ReverttoDefaultValues">ডিফল্ট মানে পুনঃস্থাপন করুন</system:String>
     <system:String x:Key="RomHistory">পূর্ব জ্ঞান রম।</system:String>
     <system:String x:Key="ROMHistorynotfound">কোনো সন্ধান পাওয়া যায়নি।</system:String>
+<system:String x:Key="Save">সংরক্ষণ করুন</system:String>
+<system:String x:Key="SaveConfigurationQuestion">আপনি কি এই কনফিগারেশন সংরক্ষণ করতে চান?</system:String>
     <system:String x:Key="SaveDeadZone">সংরক্ষণ করুন</system:String>
     <system:String x:Key="SaveorUpdateLinks">লিংক সংরক্ষণ বা আপডেট করুন</system:String>
     <system:String x:Key="SaveorUpdateSystem">সিস্টেম সংরক্ষণ বা আপডেট করুন</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">ইমুলেটর ৪ নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectEmulator5">ইমুলেটর ৫ নির্বাচন করুন।</system:String>
     <system:String x:Key="SelectionRequired">নির্বাচন প্রয়োজন</system:String>
+<system:String x:Key="SelectNotificationSoundFile">বিজ্ঞপ্তি শব্দ ফাইল নির্বাচন করুন</system:String>
     <system:String x:Key="SelectSystem">সিস্টেম নির্বাচন করুন</system:String>
     <system:String x:Key="SendSupportRequest">সমর্থন অনুরোধ পাঠান</system:String>
     <system:String x:Key="SetButtonAspectRatio">বাটন আকৃতির অনুপাত সেট করুন</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">সিস্টেম ইমেজ ফোল্ডার নির্ধারণ করুন</system:String>
     <system:String x:Key="Setthegamewindowto">গেম উইন্ডোটিকে ফুলস্ক্রিন না করে সেট করুন। এটি গুরুত্বপূর্ণ</system:String>
     <system:String x:Key="SetThreshold">থ্রেশহোল্ড সেট করুন</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">সেটিংস সফলভাবে সংরক্ষিত হয়েছে।</system:String>
     <system:String x:Key="ShowAllGames">সব গেম দেখান</system:String>
     <system:String x:Key="ShowGames">গেমগুলি দেখান</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">শুধুমাত্র প্রচ্ছদ সহ গেম দেখান</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">তারিখ অনুযায়ী সাজান</system:String>
     <system:String x:Key="SortByPlayTime">প্লের সময় অনুযায়ী সাজান</system:String>
     <system:String x:Key="SortByTimesPlayed">খেলেছে বলে সংখ্যার ভিত্তিতে সাজান</system:String>
+<system:String x:Key="SoundConfiguration">শব্দ কনফিগারেশন</system:String>
     <system:String x:Key="Square">বর্গাকার</system:String>
     <system:String x:Key="Steel">ইস্পাত</system:String>
     <system:String x:Key="StopDownload">ডাউনলোড বন্ধ করুন</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">সিস্টেম:</system:String>
     <system:String x:Key="SystemFolder">সিস্টেম ফোল্ডার</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘সিস্টেম ফোল্ডার’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>
+<system:String x:Key="SystemFolderExplanation">সিস্টেম ফোল্ডার, সিস্টেম ইমেজ ফোল্ডার, এবং এমুলেটর পাথ ফিল্ডের জন্য, আপেক্ষিক পথগুলি স্বয়ংক্রিয়ভাবে %BASEFOLDER% প্রিফিক্স ব্যবহার করে সংরক্ষণ করা হবে (যেমন, ".\roms" হবে "%BASEFOLDER%\roms")।</system:String>
     <system:String x:Key="SystemFolderOptional">সিস্টেম ফোল্ডার (ঐচ্ছিক)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">সিস্টেম ফোল্ডার পাথটি বৈধ নয় বা নেই:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">সিস্টেম সফলভাবে যুক্ত হয়েছে!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' ফাইল পাওয়া যায়নি!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">ফাইল 'error_user.log' খুঁজে পাওয়া যায়নি!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">ফাইলটি তালিকা থেকে সরানো হয়েছে।</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ফাইল অনুপস্থিত।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">অ্যাপ্লিকেশন ফোল্ডারে 'mame.dat' ফাইলটি পাওয়া যায়নি।</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ফাইলটি মারাত্মকভাবে ক্ষতিগ্রস্ত।</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">প্রশস্ত</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">আপনি কি ডাউনলোড পেজে যেতে চান?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">ম্যানুয়ালি ইনস্টল বা আপডেট করতে ডাউনলোড পৃষ্ঠায় যাওয়ার জন্য আপনাকে পুনঃনির্দেশিত করা হবে কি?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">আপনি কি ম্যানুয়ালি ডাউনলোড করার জন্য 'Simple Launcher' ডাউনলোড পেজে রিডাইরেক্ট হতে চান?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">'error_user.log' ফাইল খুলে সমস্যা পরীক্ষা করতে চান?</system:String>
     <system:String x:Key="Wouldyouliketorestore">ব্যাকআপ পুনরায় ইন্সটল চাওয়া।</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">আপনি কি ফলাফল সহ একটি রিপোর্ট সংরক্ষণ করতে চান?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
-    <system:String x:Key="BatchConvertToRVZ">একটি ব্যাচ কনভার্ট টু আরভিজেড</system:String>
-
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">আপনি কি ম্যানুয়ালি ডাউনলোড করার জন্য 'Simple Launcher' ডাউনলোড পেজে রিডাইরেক্ট হতে চান?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">ফাইলটি তালিকা থেকে সরানো হয়েছে।</system:String>
-    
 </ResourceDictionary>

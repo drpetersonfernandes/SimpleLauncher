@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">批量將ISO轉換為XISO</system:String>
     <system:String x:Key="BatchConvertToCHD">批量轉換為 CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">批量轉換為壓縮文件</system:String>
+    <system:String x:Key="BatchConvertToRVZ">批量轉換為RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">批量驗證 CHD 文件</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">批量驗證壓縮文件</system:String>
     <system:String x:Key="Blue">藍色</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">但我找到了一個備份文件。</system:String>
     <system:String x:Key="Cabinet">機台</system:String>
     <system:String x:Key="Cabinetnotfound">找不到機台</system:String>
+<system:String x:Key="Cancel">取消</system:String>
     <system:String x:Key="CancelButtonText">取消</system:String>
     <system:String x:Key="Cancelingdownload">正在取消下載...</system:String>
     <system:String x:Key="cannotbeextracted">無法解壓。</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">為此系統選擇一個包含「ROMs」或「ISOs」的資料夾</system:String>
     <system:String x:Key="Chooseasystem">選擇一個系統</system:String>
     <system:String x:Key="ChooseASystemToAdd">選擇要新增的系統</system:String>
+<system:String x:Key="ChooseFile">選擇檔案</system:String>
     <system:String x:Key="ChooseFolder">選擇資料夾</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">選擇包含 ROM 或 ISO 的資料夾</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">點擊上方的字母按鈕查看遊戲</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">確認刪除</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">無法在解壓資料夾中找到具有 '解壓之後執行的擴展名' 的檔案。</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">在配置中找不到所選系統。</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">無法開啟聲音配置視窗</system:String>
     <system:String x:Key="Cover">封面</system:String>
     <system:String x:Key="Covernotfound">找不到封面</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">為 PS3 遊戲建立批次檔案</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">死區值已成功儲存。</system:String>
     <system:String x:Key="DeadZoneX">死區 X</system:String>
     <system:String x:Key="DeadZoneY">死區 Y</system:String>
+<system:String x:Key="DebugWindow">偵錯視窗</system:String>
     <system:String x:Key="DefaultImageFolder">[使用預設圖片資料夾]</system:String>
     <system:String x:Key="defaultpngfileismissing">缺少檔案「default.png」。</system:String>
     <system:String x:Key="DeleteGame">刪除遊戲</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">模擬器參數</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">模擬器路徑無效：</system:String>
     <system:String x:Key="Enable">啟用</system:String>
+<system:String x:Key="EnableNotificationSound">啟用通知聲音</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">請確保「Simple Launcher」資料夾位於可寫入的位置。</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">確保文件無損壞。</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">確保 'Simple Launcher' 資料夾位於具有寫入權限的目錄中。</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">期間發生錯誤</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">錯誤：新增系統失敗。</system:String>
     <system:String x:Key="ErrorFailedtoextract">錯誤：提取失敗</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">錯誤：無效的目標路徑：</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">載入 'easymode.xml' 檔案時發生錯誤。</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">錯誤：沒有下載URL為</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">打開下載連結時發生錯誤。</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">打開更新歷史窗口時出錯。</system:String>
+<system:String x:Key="errorSettingSoundFile">選擇或複製聲音檔案時出錯。</system:String>
     <system:String x:Key="Exit">退出</system:String>
     <system:String x:Key="ExpertMode">專家模式</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">當「啟動前解壓縮文件」已啟用時，「解壓縮後啟動的擴展名」是必需的。</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
     <system:String x:Key="InvalidInputMessageText">請輸入介於0.0與1.0之間的有效數字作為閾值。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">無效輸入</system:String>
+<system:String x:Key="InvalidPathsDetected">偵測到無效路徑</system:String>
+<system:String x:Key="InvalidPathsMessage">模擬器參數中的以下路徑似乎無效（未找到檔案或目錄）：</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系統配置無效</system:String>
     <system:String x:Key="isalreadyinfavorites">已經在收藏中。</system:String>
     <system:String x:Key="isminimizedtothetray">已縮小至系統匣。</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">不接受其他擴展名。</system:String>
     <system:String x:Key="Language">語言</system:String>
     <system:String x:Key="LanguageLoadingError">語言加載錯誤</system:String>
+<system:String x:Key="LaunchAnywayQuestion">您要繼續啟動遊戲嗎？</system:String>
+<system:String x:Key="launchedwith">啟動方式：</system:String>
     <system:String x:Key="LaunchGame">啟動遊戲</system:String>
     <system:String x:Key="LaunchSelectedGame">啟動選定的遊戲</system:String>
     <system:String x:Key="Light">淺色</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">沒有可用的系統資訊：</system:String>
     <system:String x:Key="Noresultsfound">未找到結果。</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">在本機資料庫中未找到所選文件的 ROM 歷史記錄。</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">未選擇聲音檔案。</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">沒有可供儲存的統計資料。請等待數據加載完成。</system:String>
     <system:String x:Key="Nosystemnameprovided">未提供系統名稱。</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">尚未配置系統。請使用「編輯系統」選單新增系統。</system:String>
     <system:String x:Key="Nosystemselected">未選擇任何系統</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">沒有足夠的磁碟空間進行解壓縮。</system:String>
     <system:String x:Key="Notextavailable">沒有可用的文本。</system:String>
+<system:String x:Key="NotificationSoundFileLabel">通知聲音</system:String>
+<system:String x:Key="NotificationSoundIsDisable">通知聲音已停用</system:String>
     <system:String x:Key="Noupdateavailable">沒有可用的更新</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">在檔案「helpuser.xml」中找不到有效的系統。</system:String>
     <system:String x:Key="NumberOfImages">系統圖片資料夾中的圖片數量：{0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">選項</system:String>
     <system:String x:Key="Orange">橙色</system:String>
     <system:String x:Key="outof">共計</system:String>
+<system:String x:Key="ParameterExplanation">對於模擬器參數中的路徑，如果您希望它們相對於應用程式目錄，則必須手動添加 %BASEFOLDER%（例如，-F “%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll”）。參數中沒有 %BASEFOLDER% 的路徑可能無法正確解析。</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...還有 {0} 個</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">潛在的無效路徑：</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">模擬器參數中的某些路徑似乎無效或缺失。請重新檢查這些欄位。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">您仍然可以儲存，但這些路徑在啟動遊戲時可能會導致問題。</system:String>
+<system:String x:Key="PathCheckNote">注意：使用 %BASEFOLDER% 或相對路徑的路徑會根據應用程式目錄和系統資料夾進行檢查。</system:String>
     <system:String x:Key="PathManipulationDetected">檢測到潛在的路徑操縱</system:String>
     <system:String x:Key="PCB">電路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">找不到電路板（PCB）</system:String>
     <system:String x:Key="Pink">粉紅色</system:String>
+<system:String x:Key="PlayCurrentSound">播放目前聲音</system:String>
     <system:String x:Key="PlayHistory">播放歷史</system:String>
     <system:String x:Key="PlayHistoryList">播放歷史列表</system:String>
     <system:String x:Key="Playtime">遊玩時間：</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">在模擬器錯誤時接收通知？</system:String>
     <system:String x:Key="Red">紅色</system:String>
     <system:String x:Key="ReinstallSuggestion">這可能會阻止某些功能（例如自動錯誤報告）正常工作。您想重新安裝 Simple Launcher 來解決此問題嗎？</system:String>
+<system:String x:Key="RelativePathsDetected">偵測到相對路徑</system:String>
+<system:String x:Key="RelativePathsMessage">您的配置中偵測到以下相對路徑：</system:String>
     <system:String x:Key="RemoveAllfromHistory">從歷史中全部移除</system:String>
     <system:String x:Key="RemovefromFavorites">從收藏中移除</system:String>
     <system:String x:Key="RemoveFromFavorites">從收藏中移除</system:String>
     <system:String x:Key="RemovefromHistory">從歷史中移除</system:String>
     <system:String x:Key="ReportedToDeveloper">此安全問題已報告給開發團隊。</system:String>
     <system:String x:Key="Reportsavedsuccessfully">報告已成功儲存。</system:String>
+<system:String x:Key="ResetToDefault">重設為預設</system:String>
     <system:String x:Key="Restart">重啟</system:String>
     <system:String x:Key="RestartError">重新啟動錯誤</system:String>
     <system:String x:Key="RestoreBackup">是否恢復備份？</system:String>
     <system:String x:Key="ReverttoDefaultValues">恢復為預設值</system:String>
     <system:String x:Key="RomHistory">ROM 歷史記錄</system:String>
     <system:String x:Key="ROMHistorynotfound">未找到 ROM 歷史記錄</system:String>
+<system:String x:Key="Save">儲存</system:String>
+<system:String x:Key="SaveConfigurationQuestion">您要儲存此配置嗎？</system:String>
     <system:String x:Key="SaveDeadZone">儲存</system:String>
     <system:String x:Key="SaveorUpdateLinks">保存或更新連結</system:String>
     <system:String x:Key="SaveorUpdateSystem">保存或更新系統</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">選擇模擬器 4。</system:String>
     <system:String x:Key="SelectEmulator5">選擇模擬器 5。</system:String>
     <system:String x:Key="SelectionRequired">需要選擇</system:String>
+<system:String x:Key="SelectNotificationSoundFile">選擇通知聲音檔案</system:String>
     <system:String x:Key="SelectSystem">選擇系統</system:String>
     <system:String x:Key="SendSupportRequest">發送支援請求</system:String>
     <system:String x:Key="SetButtonAspectRatio">設定按鈕長寬比</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">設置系統圖片資料夾</system:String>
     <system:String x:Key="Setthegamewindowto">請將遊戲視窗設為非全螢幕模式。這很重要。</system:String>
     <system:String x:Key="SetThreshold">設定閾值</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">設定已成功儲存。</system:String>
     <system:String x:Key="ShowAllGames">顯示所有遊戲</system:String>
     <system:String x:Key="ShowGames">顯示遊戲</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">僅顯示有封面的遊戲</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">按日期排序</system:String>
     <system:String x:Key="SortByPlayTime">按播放時間排序</system:String>
     <system:String x:Key="SortByTimesPlayed">按播放次數排序</system:String>
+<system:String x:Key="SoundConfiguration">聲音配置</system:String>
     <system:String x:Key="Square">正方形</system:String>
     <system:String x:Key="Steel">鋼鐵色</system:String>
     <system:String x:Key="StopDownload">停止下載</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">系統：</system:String>
     <system:String x:Key="SystemFolder">系統資料夾</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「系統文件夾」不能為空或僅包含空格。</system:String>
+<system:String x:Key="SystemFolderExplanation">對於系統資料夾、系統映像資料夾和模擬器路徑欄位，相對路徑將自動使用 %BASEFOLDER% 前綴儲存（例如，“.\roms” 將變為 “%BASEFOLDER%\roms”）。</system:String>
     <system:String x:Key="SystemFolderOptional">系統資料夾（可選）</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">系統資料夾路徑無效或不存在：</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">系統已成功添加！</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">'error_user.log' 檔案未找到！</system:String>
     <system:String x:Key="Thefileerroruserlogwas">找不到檔案 'error_user.log'！</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">找不到檔案 'error_user.log'！</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">檔案已從清單中移除。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">檔案「helpuser.xml」遺失。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在應用程式資料夾中找不到 'mame.dat' 檔案。</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">檔案「system.xml」嚴重損壞。</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">更寬</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">是否需要跳轉到下載頁面？</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">您是否希望跳轉到下載頁面以手動安裝或更新？</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您想要被重定向到'Simple Launcher'下載頁面以手動下載嗎？</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">您是否想開啟 'error_user.log' 檔案來調查此問題？</system:String>
     <system:String x:Key="Wouldyouliketorestore">您是否希望恢復最新的備份？</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">您希望保存包含結果的報告嗎？</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
-    <system:String x:Key="BatchConvertToRVZ">批量轉換為RVZ</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">您想要被重定向到'Simple Launcher'下載頁面以手動下載嗎？</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">檔案已從清單中移除。</system:String>
-
 </ResourceDictionary>

@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Chuyển đổi hàng loạt từ ISO sang XISO</system:String>
     <system:String x:Key="BatchConvertToCHD">Chuyển đổi hàng loạt sang CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Chuyển Đổi Hàng Loạt Sang Tệp Nén</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Chuyển đổi lô thành RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Xác Minh Tệp CHD Hàng Loạt</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Xác Minh Tệp Nén Hàng Loạt</system:String>
     <system:String x:Key="Blue">Xanh dương</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Nhưng tôi đã tìm thấy một tệp sao lưu.</system:String>
     <system:String x:Key="Cabinet">Tủ</system:String>
     <system:String x:Key="Cabinetnotfound">Không tìm thấy tủ</system:String>
+<system:String x:Key="Cancel">Hủy</system:String>
     <system:String x:Key="CancelButtonText">Hủy</system:String>
     <system:String x:Key="Cancelingdownload">Đang hủy tải xuống...</system:String>
     <system:String x:Key="cannotbeextracted">không thể được trích xuất.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Chọn một thư mục chứa 'ROMs' hoặc 'ISOs' cho hệ thống này</system:String>
     <system:String x:Key="Chooseasystem">Chọn một hệ thống</system:String>
     <system:String x:Key="ChooseASystemToAdd">Chọn hệ thống để thêm</system:String>
+<system:String x:Key="ChooseFile">Chọn tệp</system:String>
     <system:String x:Key="ChooseFolder">Chọn thư mục</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Chọn thư mục chứa ROM hoặc ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Nhấp vào các nút chữ cái ở trên để xem các trò chơi</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Xác nhận việc xóa</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Không thể tìm thấy tệp với phần mở rộng được chỉ định trong 'Phần mở rộng để thực thi sau khi trích xuất' trong thư mục đã trích xuất.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Không tìm thấy hệ thống đã chọn trong cấu hình.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">Không thể mở cửa sổ cấu hình âm thanh</system:String>
     <system:String x:Key="Cover">Bìa</system:String>
     <system:String x:Key="Covernotfound">Không tìm thấy bìa</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Tạo tệp hàng loạt cho trò chơi PS3</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Đã lưu thành công giá trị vùng chết.</system:String>
     <system:String x:Key="DeadZoneX">Vùng chết X</system:String>
     <system:String x:Key="DeadZoneY">Vùng chết Y</system:String>
+<system:String x:Key="DebugWindow">Cửa sổ gỡ lỗi</system:String>
     <system:String x:Key="DefaultImageFolder">[Đang sử dụng thư mục ảnh mặc định]</system:String>
     <system:String x:Key="defaultpngfileismissing">Tệp 'default.png' bị thiếu.</system:String>
     <system:String x:Key="DeleteGame">Xóa trò chơi</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Tham số của Trình giả lập</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Đường dẫn của trình giả lập không hợp lệ cho:</system:String>
     <system:String x:Key="Enable">Kích hoạt</system:String>
+<system:String x:Key="EnableNotificationSound">Bật âm thanh thông báo</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong vị trí có thể ghi được.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Đảm bảo rằng tệp không bị hỏng.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Lỗi trong khi</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Lỗi: Không thể thêm hệ thống.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Lỗi: Giải nén thất bại</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Lỗi: Đường dẫn đích không hợp lệ cho</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Lỗi khi tải tệp 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Lỗi: Không có URL tải xuống cho</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Lỗi mở liên kết tải xuống.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Lỗi khi mở cửa sổ Lịch sử Cập nhật.</system:String>
+<system:String x:Key="errorSettingSoundFile">Lỗi khi chọn hoặc sao chép tệp âm thanh.</system:String>
     <system:String x:Key="Exit">Thoát</system:String>
     <system:String x:Key="ExpertMode">Chế độ chuyên gia</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">"Phần mở rộng để khởi động sau khi giải nén" là bắt buộc khi "Giải nén tệp trước khi khởi động" được bật.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidInputMessageText">Vui lòng nhập một số hợp lệ từ 0.0 đến 1.0 cho ngưỡng.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Thông tin không hợp lệ</system:String>
+<system:String x:Key="InvalidPathsDetected">Đã phát hiện đường dẫn không hợp lệ</system:String>
+<system:String x:Key="InvalidPathsMessage">Các đường dẫn sau trong tham số trình giả lập dường như không hợp lệ (không tìm thấy tệp hoặc thư mục):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Cấu hình hệ thống không hợp lệ</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
     <system:String x:Key="isminimizedtothetray">đã được thu nhỏ vào khay hệ thống.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">Không chấp nhận các phần mở rộng khác.</system:String>
     <system:String x:Key="Language">Ngôn ngữ</system:String>
     <system:String x:Key="LanguageLoadingError">Lỗi tải ngôn ngữ</system:String>
+<system:String x:Key="LaunchAnywayQuestion">Bạn có muốn khởi chạy trò chơi không?</system:String>
+<system:String x:Key="launchedwith">đã khởi chạy với</system:String>
     <system:String x:Key="LaunchGame">Khởi động trò chơi</system:String>
     <system:String x:Key="LaunchSelectedGame">Khởi chạy trò chơi đã chọn</system:String>
     <system:String x:Key="Light">Sáng</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">Không có thông tin nào cho hệ thống:</system:String>
     <system:String x:Key="Noresultsfound">Không tìm thấy kết quả.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">Không tìm thấy lịch sử ROM trong cơ sở dữ liệu cục bộ cho tệp đã chọn.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">Chưa chọn tệp âm thanh nào.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Không có số liệu thống kê nào để lưu. Vui lòng đợi cho đến khi dữ liệu được tải.</system:String>
     <system:String x:Key="Nosystemnameprovided">Không có tên hệ thống được cung cấp.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">Chưa cấu hình hệ thống nào. Vui lòng sử dụng menu 'Chỉnh sửa hệ thống' để thêm hệ thống.</system:String>
     <system:String x:Key="Nosystemselected">Không có hệ thống nào được chọn</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Không đủ dung lượng đĩa để giải nén.</system:String>
     <system:String x:Key="Notextavailable">Không có văn bản nào khả dụng.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Âm thanh thông báo</system:String>
+<system:String x:Key="NotificationSoundIsDisable">Âm thanh thông báo bị tắt</system:String>
     <system:String x:Key="Noupdateavailable">Không có bản cập nhật nào</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">Không tìm thấy hệ thống hợp lệ nào trong tệp 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Số lượng ảnh trong thư mục ảnh của hệ thống: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Tùy chọn</system:String>
     <system:String x:Key="Orange">Cam</system:String>
     <system:String x:Key="outof">trên tổng số</system:String>
+<system:String x:Key="ParameterExplanation">Đối với các đường dẫn trong Tham số trình giả lập, bạn phải thêm %BASEFOLDER% theo cách thủ công nếu bạn muốn chúng tương đối với thư mục ứng dụng (ví dụ: -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Các đường dẫn không có %BASEFOLDER% trong tham số có thể không được giải quyết chính xác.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...và {0} mục khác</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Các đường dẫn có thể không hợp lệ:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Một số đường dẫn trong các tham số của trình giả lập dường như không hợp lệ hoặc thiếu. Vui lòng kiểm tra lại các trường này.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Bạn vẫn có thể lưu, nhưng các đường dẫn này có thể gây ra sự cố khi khởi chạy trò chơi.</system:String>
+<system:String x:Key="PathCheckNote">Lưu ý: Các đường dẫn sử dụng %BASEFOLDER% hoặc đường dẫn tương đối được kiểm tra dựa trên thư mục ứng dụng và thư mục hệ thống.</system:String>
     <system:String x:Key="PathManipulationDetected">Phát hiện thao túng đường dẫn tiềm năng</system:String>
     <system:String x:Key="PCB">Mạch in (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
     <system:String x:Key="Pink">Hồng</system:String>
+<system:String x:Key="PlayCurrentSound">Phát âm thanh hiện tại</system:String>
     <system:String x:Key="PlayHistory">Lịch sử Phát</system:String>
     <system:String x:Key="PlayHistoryList">Danh sách Lịch sử Phát</system:String>
     <system:String x:Key="Playtime">Thời Gian Chơi:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Nhận thông báo khi có lỗi của trình giả lập?</system:String>
     <system:String x:Key="Red">Đỏ</system:String>
     <system:String x:Key="ReinstallSuggestion">Điều này có thể ngăn một số tính năng (như báo cáo lỗi tự động) hoạt động chính xác. Bạn có muốn cài đặt lại Simple Launcher để khắc phục điều này không?</system:String>
+<system:String x:Key="RelativePathsDetected">Đã phát hiện đường dẫn tương đối</system:String>
+<system:String x:Key="RelativePathsMessage">Các đường dẫn tương đối sau đã được phát hiện trong cấu hình của bạn:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Xóa tất cả khỏi lịch sử</system:String>
     <system:String x:Key="RemovefromFavorites">Xóa khỏi mục yêu thích</system:String>
     <system:String x:Key="RemoveFromFavorites">Xóa khỏi mục yêu thích</system:String>
     <system:String x:Key="RemovefromHistory">Xóa khỏi lịch sử</system:String>
     <system:String x:Key="ReportedToDeveloper">Vấn đề bảo mật này đã được báo cáo cho đội ngũ phát triển.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Báo cáo đã được lưu thành công.</system:String>
+<system:String x:Key="ResetToDefault">Đặt lại về mặc định</system:String>
     <system:String x:Key="Restart">Khởi động lại</system:String>
     <system:String x:Key="RestartError">Lỗi khởi động lại</system:String>
     <system:String x:Key="RestoreBackup">Khôi phục sao lưu?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Khôi phục về giá trị mặc định</system:String>
     <system:String x:Key="RomHistory">Lịch Sử ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Không tìm thấy lịch sử ROM</system:String>
+<system:String x:Key="Save">Lưu</system:String>
+<system:String x:Key="SaveConfigurationQuestion">Bạn có muốn lưu cấu hình này không?</system:String>
     <system:String x:Key="SaveDeadZone">Lưu</system:String>
     <system:String x:Key="SaveorUpdateLinks">Lưu hoặc cập nhật liên kết</system:String>
     <system:String x:Key="SaveorUpdateSystem">Lưu hoặc cập nhật hệ thống</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Chọn Trình giả lập 4.</system:String>
     <system:String x:Key="SelectEmulator5">Chọn Trình giả lập 5.</system:String>
     <system:String x:Key="SelectionRequired">Yêu Cầu Lựa Chọn</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Chọn tệp âm thanh thông báo</system:String>
     <system:String x:Key="SelectSystem">Chọn Hệ Thống</system:String>
     <system:String x:Key="SendSupportRequest">Gửi Yêu Cầu Hỗ Trợ</system:String>
     <system:String x:Key="SetButtonAspectRatio">Đặt tỷ lệ khung hình nút</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Đặt thư mục hình ảnh hệ thống</system:String>
     <system:String x:Key="Setthegamewindowto">Đặt cửa sổ trò chơi vào chế độ không toàn màn hình. Điều này quan trọng.</system:String>
     <system:String x:Key="SetThreshold">Đặt ngưỡng</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Đã lưu cài đặt thành công.</system:String>
     <system:String x:Key="ShowAllGames">Hiển thị tất cả trò chơi</system:String>
     <system:String x:Key="ShowGames">Hiển thị trò chơi</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Sắp xếp theo ngày</system:String>
     <system:String x:Key="SortByPlayTime">Sắp xếp theo thời gian phát</system:String>
     <system:String x:Key="SortByTimesPlayed">Sắp xếp theo số lần phát</system:String>
+<system:String x:Key="SoundConfiguration">Cấu hình âm thanh</system:String>
     <system:String x:Key="Square">Hình vuông</system:String>
     <system:String x:Key="Steel">Thép</system:String>
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Hệ Thống:</system:String>
     <system:String x:Key="SystemFolder">Thư mục Hệ thống</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">"Thư mục hệ thống" không được để trống hoặc chỉ chứa khoảng trắng.</system:String>
+<system:String x:Key="SystemFolderExplanation">Đối với các trường Thư mục hệ thống, Thư mục ảnh hệ thống và Đường dẫn trình giả lập, các đường dẫn tương đối sẽ được tự động lưu bằng tiền tố %BASEFOLDER% (ví dụ: ".\roms" trở thành "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">Thư mục hệ thống (tùy chọn)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Đường dẫn thư mục hệ thống không hợp lệ hoặc không tồn tại:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Hệ thống đã được thêm thành công!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">Tệp 'error_user.log' không được tìm thấy!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">Không tìm thấy tệp 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Không tìm thấy tệp 'error_user.log'!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Tệp đã được xóa khỏi danh sách.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Tệp 'helpuser.xml' bị thiếu.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Không tìm thấy tệp 'mame.dat' trong thư mục ứng dụng.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Tệp 'system.xml' bị hỏng nghiêm trọng.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Rộng hơn</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Bạn có muốn được chuyển hướng đến trang tải xuống không?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Bạn có muốn được chuyển hướng đến trang tải xuống để cài đặt hoặc cập nhật thủ công không?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển đến trang tải xuống 'Simple Launcher' để tải xuống theo cách thủ công không?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Bạn có muốn mở tệp 'error_user.log' để điều tra vấn đề này không?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Bạn có muốn khôi phục lại bản sao lưu cuối cùng không?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Bạn có muốn lưu một báo cáo cùng với kết quả không?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Chuyển đổi lô thành RVZ</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Bạn có muốn được chuyển đến trang tải xuống 'Simple Launcher' để tải xuống theo cách thủ công không?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">Tệp đã được xóa khỏi danh sách.</system:String>
-
 </ResourceDictionary>

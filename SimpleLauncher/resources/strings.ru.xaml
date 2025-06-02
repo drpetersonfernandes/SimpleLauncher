@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Пакетное преобразование ISO в XISO</system:String>
     <system:String x:Key="BatchConvertToCHD">Пакетное преобразование в CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Пакетное преобразование в сжатый файл</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Пакетное преобразование в RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Пакетная проверка CHD файлов</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Пакетная проверка сжатых файлов</system:String>
     <system:String x:Key="Blue">Синий</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Но я нашёл резервную копию файла.</system:String>
     <system:String x:Key="Cabinet">Кабинет</system:String>
     <system:String x:Key="Cabinetnotfound">Кабинет не найден</system:String>
+<system:String x:Key="Cancel">Отмена</system:String>
     <system:String x:Key="CancelButtonText">Отмена</system:String>
     <system:String x:Key="Cancelingdownload">Отмена загрузки...</system:String>
     <system:String x:Key="cannotbeextracted">не может быть извлечён.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Выберите папку с 'ROMs' или 'ISOs' для этой системы</system:String>
     <system:String x:Key="Chooseasystem">Выберите систему</system:String>
     <system:String x:Key="ChooseASystemToAdd">Выберите систему для добавления</system:String>
+<system:String x:Key="ChooseFile">Выбрать файл</system:String>
     <system:String x:Key="ChooseFolder">Выбрать папку</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Выберите папку с ROM или ISO</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Подтвердите удаление</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Не удалось найти файл с указанным в 'Расширение для запуска после извлечения' расширением в извлечённой папке.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Не удалось найти выбранную систему в конфигурации.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">Не удалось открыть окно настройки звука</system:String>
     <system:String x:Key="Cover">Обложка</system:String>
     <system:String x:Key="Covernotfound">Обложка не найдена</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Создать пакеты для игр PS3</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Значения мертвой зоны успешно сохранены.</system:String>
     <system:String x:Key="DeadZoneX">Мертвая зона X</system:String>
     <system:String x:Key="DeadZoneY">Мертвая зона Y</system:String>
+<system:String x:Key="DebugWindow">Окно отладки</system:String>
     <system:String x:Key="DefaultImageFolder">[Используется папка изображений по умолчанию]</system:String>
     <system:String x:Key="defaultpngfileismissing">Файл 'default.png' отсутствует.</system:String>
     <system:String x:Key="DeleteGame">Удалить игру</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Параметры эмулятора</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">Путь к эмулятору недействителен для:</system:String>
     <system:String x:Key="Enable">Включить</system:String>
+<system:String x:Key="EnableNotificationSound">Включить звук уведомлений</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Убедитесь, что папка 'Simple Launcher' находится в доступном для записи каталоге.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Убедитесь, что файл не поврежден.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Убедитесь, что папка 'Simple Launcher' находится в каталоге с правами на запись.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Ошибка во время</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Ошибка: Не удалось добавить систему.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Ошибка: Не удалось извлечь</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Ошибка: Неверный путь назначения для</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Ошибка при загрузке файла 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Ошибка: Нет URL для загрузки для</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Ошибка при открытии ссылки для загрузки.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Ошибка при открытии окна истории обновлений.</system:String>
+<system:String x:Key="errorSettingSoundFile">Ошибка при выборе или копировании звукового файла.</system:String>
     <system:String x:Key="Exit">Выход</system:String>
     <system:String x:Key="ExpertMode">Экспертный режим</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">«Расширение для запуска после извлечения» требуется, если «Извлечение файла перед запуском» включено.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Недопустимый ввод</system:String>
+<system:String x:Key="InvalidPathsDetected">Обнаружены неверные пути</system:String>
+<system:String x:Key="InvalidPathsMessage">Следующие пути в параметрах эмулятора кажутся неверными (файл или каталог не найден):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">Другие расширения не принимаются.</system:String>
     <system:String x:Key="Language">Язык</system:String>
     <system:String x:Key="LanguageLoadingError">Ошибка загрузки языка</system:String>
+<system:String x:Key="LaunchAnywayQuestion">Вы хотите запустить игру в любом случае?</system:String>
+<system:String x:Key="launchedwith">запущено с помощью</system:String>
     <system:String x:Key="LaunchGame">Запустить игру</system:String>
     <system:String x:Key="LaunchSelectedGame">Запустить выбранную игру</system:String>
     <system:String x:Key="Light">Светлая</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">Нет информации о системе:</system:String>
     <system:String x:Key="Noresultsfound">Результатов не найдено.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">История ROM для выбранного файла не найдена в локальной базе данных.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">Не выбран звуковой файл.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">Нет доступной статистики для сохранения. Пожалуйста, дождитесь загрузки данных.</system:String>
     <system:String x:Key="Nosystemnameprovided">Название системы не указано.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">Системы не настроены. Пожалуйста, используйте меню «Редактировать систему» для добавления систем.</system:String>
     <system:String x:Key="Nosystemselected">Система не выбрана</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Недостаточно места на диске для извлечения.</system:String>
     <system:String x:Key="Notextavailable">Текст недоступен.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Звук уведомления</system:String>
+<system:String x:Key="NotificationSoundIsDisable">Звук уведомлений отключен</system:String>
     <system:String x:Key="Noupdateavailable">Обновления отсутствуют</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">В файле 'helpuser.xml' не найдено действительных систем.</system:String>
     <system:String x:Key="NumberOfImages">Количество изображений в папке изображений системы: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Опции</system:String>
     <system:String x:Key="Orange">Оранжевый</system:String>
     <system:String x:Key="outof">из</system:String>
+<system:String x:Key="ParameterExplanation">Для путей в параметрах эмулятора необходимо вручную добавить %BASEFOLDER%, если вы хотите, чтобы они были относительными к каталогу приложения (например, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Пути без %BASEFOLDER% в параметрах могут быть разрешены некорректно.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...и еще {0}</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Потенциально неверные пути:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Некоторые пути в параметрах эмулятора кажутся неверными или отсутствуют. Пожалуйста, проверьте эти поля ещё раз.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Вы все равно можете сохранить, но эти пути могут вызвать проблемы при запуске игр.</system:String>
+<system:String x:Key="PathCheckNote">Примечание: Пути, использующие %BASEFOLDER% или относительные пути, проверяются относительно каталога приложения и папки системы.</system:String>
     <system:String x:Key="PathManipulationDetected">Обнаружена потенциальная манипуляция с путями</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
     <system:String x:Key="Pink">Розовый</system:String>
+<system:String x:Key="PlayCurrentSound">Воспроизвести текущий звук</system:String>
     <system:String x:Key="PlayHistory">История воспроизведения</system:String>
     <system:String x:Key="PlayHistoryList">Список истории воспроизведения</system:String>
     <system:String x:Key="Playtime">Время игры:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">Получать уведомление о сбое эмулятора?</system:String>
     <system:String x:Key="Red">Красный</system:String>
     <system:String x:Key="ReinstallSuggestion">Это может помешать правильной работе некоторых функций (например, автоматической отправки отчетов об ошибках). Хотите переустановить Simple Launcher, чтобы исправить это?</system:String>
+<system:String x:Key="RelativePathsDetected">Обнаружены относительные пути</system:String>
+<system:String x:Key="RelativePathsMessage">В вашей конфигурации обнаружены следующие относительные пути:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Удалить все из истории</system:String>
     <system:String x:Key="RemovefromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemovefromHistory">Удалить из истории</system:String>
     <system:String x:Key="ReportedToDeveloper">Эта проблема безопасности была сообщена команде разработчиков.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Отчёт успешно сохранён.</system:String>
+<system:String x:Key="ResetToDefault">Сбросить до стандартных</system:String>
     <system:String x:Key="Restart">Перезапустить</system:String>
     <system:String x:Key="RestartError">Ошибка перезапуска</system:String>
     <system:String x:Key="RestoreBackup">Восстановить резервную копию?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Восстановить значения по умолчанию</system:String>
     <system:String x:Key="RomHistory">История ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">История ROM не найдена</system:String>
+<system:String x:Key="Save">Сохранить</system:String>
+<system:String x:Key="SaveConfigurationQuestion">Вы хотите сохранить эту конфигурацию?</system:String>
     <system:String x:Key="SaveDeadZone">Сохранить</system:String>
     <system:String x:Key="SaveorUpdateLinks">Сохранить или обновить ссылки</system:String>
     <system:String x:Key="SaveorUpdateSystem">Сохранить или обновить систему</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Выберите Эмулятор 4.</system:String>
     <system:String x:Key="SelectEmulator5">Выберите Эмулятор 5.</system:String>
     <system:String x:Key="SelectionRequired">Требуется Выбор</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Выбрать файл звука уведомления</system:String>
     <system:String x:Key="SelectSystem">Выбрать систему</system:String>
     <system:String x:Key="SendSupportRequest">Отправить запрос на поддержку</system:String>
     <system:String x:Key="SetButtonAspectRatio">Задать соотношение сторон кнопки</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Установить папку изображений системы</system:String>
     <system:String x:Key="Setthegamewindowto">Установите окно игры в режим, отличный от полноэкранного. Это важно.</system:String>
     <system:String x:Key="SetThreshold">Установить порог</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Настройки успешно сохранены.</system:String>
     <system:String x:Key="ShowAllGames">Показать все игры</system:String>
     <system:String x:Key="ShowGames">Показать игры</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Сортировать по дате</system:String>
     <system:String x:Key="SortByPlayTime">Сортировать по времени воспроизведения</system:String>
     <system:String x:Key="SortByTimesPlayed">Сортировать по количеству воспроизведений</system:String>
+<system:String x:Key="SoundConfiguration">Настройка звука</system:String>
     <system:String x:Key="Square">Квадрат</system:String>
     <system:String x:Key="Steel">Стальной</system:String>
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Система:</system:String>
     <system:String x:Key="SystemFolder">Системная папка</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">Папка «Системная папка» не может быть пустой или содержать только пробелы.</system:String>
+<system:String x:Key="SystemFolderExplanation">Для полей Папка системы, Папка образов системы и Путь эмулятора относительные пути будут автоматически сохранены с использованием префикса %BASEFOLDER% (например, ".\roms" станет "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">Папка системы (необязательно)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Путь к папке системы недействителен или не существует:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">Файл 'error_user.log' не найден!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">Файл 'error_user.log' не найден!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">Файл 'error_user.log' не найден!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">Файл был удален из списка.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Файл 'helpuser.xml' отсутствует.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Файл 'mame.dat' не найден в папке приложения.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Файл 'system.xml' серьезно поврежден.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Шире</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">Вы хотите быть перенаправлены на страницу загрузки?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Хотите перейти на страницу скачивания для ручной установки или обновления?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу загрузки 'Simple Launcher', чтобы загрузить его вручную?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Вы хотите открыть файл 'error_user.log', чтобы исследовать эту проблему?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Хотите восстановить последнюю резервную копию?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Вы хотите сохранить отчет с результатами?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Пакетное преобразование в RVZ</system:String>
-    
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Хотите перейти на страницу загрузки 'Simple Launcher', чтобы загрузить его вручную?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">Файл был удален из списка.</system:String>
-
 </ResourceDictionary>

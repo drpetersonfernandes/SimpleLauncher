@@ -63,6 +63,7 @@
     <system:String x:Key="BatchConvertIsoToXiso">Conversión masiva de Iso a Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">Conversión por lotes a CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Convertir por lotes a archivo comprimido</system:String>
+    <system:String x:Key="BatchConvertToRVZ">Convertir lote a RVZ</system:String>
     <system:String x:Key="BatchVerifyCHDFiles">Verificar archivos CHD por lotes</system:String>
     <system:String x:Key="BatchVerifyCompressedFiles">Verificar archivos comprimidos por lotes</system:String>
     <system:String x:Key="Blue">Azul</system:String>
@@ -70,6 +71,7 @@
     <system:String x:Key="ButIfoundabackupfile">Pero encontré un archivo de respaldo.</system:String>
     <system:String x:Key="Cabinet">Gabinete</system:String>
     <system:String x:Key="Cabinetnotfound">Gabinete no encontrado</system:String>
+<system:String x:Key="Cancel">Cancelar</system:String>
     <system:String x:Key="CancelButtonText">Cancelar</system:String>
     <system:String x:Key="Cancelingdownload">Cancelando descarga...</system:String>
     <system:String x:Key="cannotbeextracted">no se puede extraer.</system:String>
@@ -82,6 +84,7 @@
     <system:String x:Key="ChooseafolderwithROMsorISOsforthissystem">Elige una carpeta con 'ROMs' o 'ISOs' para este sistema</system:String>
     <system:String x:Key="Chooseasystem">Elige un sistema</system:String>
     <system:String x:Key="ChooseASystemToAdd">Selecciona un sistema para agregar</system:String>
+<system:String x:Key="ChooseFile">Elegir archivo</system:String>
     <system:String x:Key="ChooseFolder">Elegir carpeta</system:String>
     <system:String x:Key="ChooseFolderWithROMsOrIsos">Selecciona una carpeta con ROMs o ISOs</system:String>
     <system:String x:Key="Clickontheletterbuttonsabove">Haga clic en los botones de letras de arriba para ver los juegos</system:String>
@@ -91,6 +94,7 @@
     <system:String x:Key="ConfirmDeletion">Confirmar eliminación</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">No se pudo encontrar un archivo con la extensión definida en 'Extensión para iniciar después de la extracción' dentro de la carpeta extraída.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">No se pudo encontrar el sistema seleccionado en la configuración.</system:String>
+<system:String x:Key="CouldNotOpenSoundConfigurationWindow">No se pudo abrir la ventana de configuración de sonido</system:String>
     <system:String x:Key="Cover">Portada</system:String>
     <system:String x:Key="Covernotfound">Portada no encontrada</system:String>
     <system:String x:Key="CreateBatchFilesForPS3Games">Crear archivos por lotes para juegos de PS3</system:String>
@@ -106,6 +110,7 @@
     <system:String x:Key="DeadZonevaluessavedsuccessfully">Valores de zona muerta guardados correctamente.</system:String>
     <system:String x:Key="DeadZoneX">Zona muerta X</system:String>
     <system:String x:Key="DeadZoneY">Zona muerta Y</system:String>
+<system:String x:Key="DebugWindow">Ventana de depuración</system:String>
     <system:String x:Key="DefaultImageFolder">[Usando carpeta de imágenes predeterminada]</system:String>
     <system:String x:Key="defaultpngfileismissing">El archivo 'default.png' no se encuentra.</system:String>
     <system:String x:Key="DeleteGame">Eliminar juego</system:String>
@@ -178,6 +183,7 @@
     <system:String x:Key="EmulatorParameters">Parámetros del Emulador</system:String>
     <system:String x:Key="Emulatorpathisnotvalidfor">La ruta del emulador no es válida para</system:String>
     <system:String x:Key="Enable">Habilitar</system:String>
+<system:String x:Key="EnableNotificationSound">Habilitar sonido de notificación</system:String>
     <system:String x:Key="EnsurethattheSimpleLauncherfolderislocatedinawritable">Asegúrese de que la carpeta de 'Simple Launcher' esté ubicada en un directorio con permisos de escritura.</system:String>
     <system:String x:Key="Ensurethefileisnotcorrupted">Asegúrese de que el archivo no esté dañado.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncher">Asegúrese de que la carpeta de 'Simple Launcher' esté en un directorio con permisos de escritura.</system:String>
@@ -188,10 +194,12 @@
     <system:String x:Key="Errorduring">Error durante</system:String>
     <system:String x:Key="ErrorFailedtoaddsystem">Error: No se pudo añadir el sistema.</system:String>
     <system:String x:Key="ErrorFailedtoextract">Error: Falló la extracción</system:String>
+    <system:String x:Key="ErrorInvalidDestinationPath">Error: Ruta de destino no válida para</system:String>
     <system:String x:Key="Errorloadingthefileeasymodexml">Error al cargar el archivo 'easymode.xml'.</system:String>
     <system:String x:Key="ErrorNodownloadURLfor">Error: No hay URL de descarga para</system:String>
     <system:String x:Key="Erroropeningthedownloadlink">Error al abrir el enlace de descarga.</system:String>
     <system:String x:Key="ErroropeningtheUpdateHistorywindow">Error al abrir la ventana de Historial de Actualizaciones.</system:String>
+<system:String x:Key="errorSettingSoundFile">Error al elegir o copiar el archivo de sonido.</system:String>
     <system:String x:Key="Exit">Salir</system:String>
     <system:String x:Key="ExpertMode">Modo experto</system:String>
     <system:String x:Key="ExtensiontoLaunchAfterExtraction">La 'Extensión para ejecutar después de la extracción' es obligatoria si 'Extraer archivo antes de ejecutar' está activado.</system:String>
@@ -263,6 +271,8 @@
     <system:String x:Key="InvalidExtractionFolder">Carpeta de Extracción Inválida</system:String>
     <system:String x:Key="InvalidInputMessageText">Por favor, ingrese un número válido entre 0.0 y 1.0 para el umbral.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Entrada no válida</system:String>
+<system:String x:Key="InvalidPathsDetected">Rutas no válidas detectadas</system:String>
+<system:String x:Key="InvalidPathsMessage">Las siguientes rutas en los parámetros del emulador parecen no ser válidas (archivo o directorio no encontrado):</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuración del sistema no válida</system:String>
     <system:String x:Key="isalreadyinfavorites">ya está en favoritos.</system:String>
     <system:String x:Key="isminimizedtothetray">se ha minimizado a la bandeja del sistema.</system:String>
@@ -273,6 +283,8 @@
     <system:String x:Key="Itwillnotacceptotherextensions">No aceptará otras extensiones.</system:String>
     <system:String x:Key="Language">Idioma</system:String>
     <system:String x:Key="LanguageLoadingError">Error al cargar el idioma</system:String>
+<system:String x:Key="LaunchAnywayQuestion">¿Desea iniciar el juego de todos modos?</system:String>
+<system:String x:Key="launchedwith">iniciado con</system:String>
     <system:String x:Key="LaunchGame">Iniciar juego</system:String>
     <system:String x:Key="LaunchSelectedGame">Iniciar juego seleccionado</system:String>
     <system:String x:Key="Light">Claro</system:String>
@@ -304,12 +316,15 @@
     <system:String x:Key="Noinformationavailableforsystem">No hay información disponible para el sistema:</system:String>
     <system:String x:Key="Noresultsfound">No se encontraron resultados.</system:String>
     <system:String x:Key="NoROMhistoryfoundinthelocal">No se encontró un historial de ROM en la base de datos local para el archivo seleccionado.</system:String>
+<system:String x:Key="NoSoundFileSelectedWarning">No se ha seleccionado ningún archivo de sonido.</system:String>
     <system:String x:Key="Nostatisticsavailabletosave">No hay estadísticas disponibles para guardar. Por favor, espere a que se carguen los datos.</system:String>
     <system:String x:Key="Nosystemnameprovided">No se proporcionó un nombre de sistema.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">No hay sistemas configurados. Por favor use el menú 'Editar sistema' para agregar sistemas.</system:String>
     <system:String x:Key="Nosystemselected">No se ha seleccionado ningún sistema</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">No hay suficiente espacio en disco para la extracción.</system:String>
     <system:String x:Key="Notextavailable">No hay texto disponible.</system:String>
+<system:String x:Key="NotificationSoundFileLabel">Sonido de notificación</system:String>
+<system:String x:Key="NotificationSoundIsDisable">El sonido de notificación está deshabilitado</system:String>
     <system:String x:Key="Noupdateavailable">No hay actualización disponible</system:String>
     <system:String x:Key="Novalidsystemsfoundinthefilehelpuserxml">No se encontraron sistemas válidos en el archivo 'helpuser.xml'.</system:String>
     <system:String x:Key="NumberOfImages">Número de imágenes en la Carpeta de Imágenes del Sistema: {0}</system:String>
@@ -323,14 +338,17 @@
     <system:String x:Key="Options">Opciones</system:String>
     <system:String x:Key="Orange">Naranja</system:String>
     <system:String x:Key="outof">de</system:String>
+<system:String x:Key="ParameterExplanation">Para las rutas dentro de los Parámetros del emulador, debe añadir manualmente %BASEFOLDER% si desea que sean relativas al directorio de la aplicación (por ejemplo, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Las rutas sin %BASEFOLDER% en los parámetros podrían no resolverse correctamente.</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsMore">...y {0} más</system:String>
     <system:String x:Key="ParameterPathsInvalidPathsTitle">Rutas potencialmente inválidas:</system:String>
     <system:String x:Key="ParameterPathsInvalidWarning">Algunas rutas en los parámetros del emulador parecen ser inválidas o están ausentes. Por favor, verifica estos campos nuevamente.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Aún puede guardar, pero estas rutas pueden causar problemas al iniciar juegos.</system:String>
+<system:String x:Key="PathCheckNote">Nota: Las rutas que utilizan %BASEFOLDER% o rutas relativas se comprueban con respecto al directorio de la aplicación y la carpeta del sistema.</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulación potencial de ruta detectada</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB no encontrado</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
+<system:String x:Key="PlayCurrentSound">Reproducir sonido actual</system:String>
     <system:String x:Key="PlayHistory">Historial de Reproducción</system:String>
     <system:String x:Key="PlayHistoryList">Lista de historial de reproducción</system:String>
     <system:String x:Key="Playtime">Tiempo de juego:</system:String>
@@ -374,18 +392,23 @@
     <system:String x:Key="receiveNotificationEmulatorError">¿Recibir una notificación sobre errores del emulador?</system:String>
     <system:String x:Key="Red">Rojo</system:String>
     <system:String x:Key="ReinstallSuggestion">Esto podría impedir que algunas funciones (como la notificación automática de errores) funcionen correctamente. ¿Le gustaría reinstalar Simple Launcher para solucionarlo?</system:String>
+<system:String x:Key="RelativePathsDetected">Rutas relativas detectadas</system:String>
+<system:String x:Key="RelativePathsMessage">Las siguientes rutas relativas fueron detectadas en su configuración:</system:String>
     <system:String x:Key="RemoveAllfromHistory">Eliminar todo del historial</system:String>
     <system:String x:Key="RemovefromFavorites">Eliminar de favoritos</system:String>
     <system:String x:Key="RemoveFromFavorites">Eliminar de favoritos</system:String>
     <system:String x:Key="RemovefromHistory">Eliminar del historial</system:String>
     <system:String x:Key="ReportedToDeveloper">Este problema de seguridad ha sido reportado al equipo de desarrolladores.</system:String>
     <system:String x:Key="Reportsavedsuccessfully">Informe guardado con éxito.</system:String>
+<system:String x:Key="ResetToDefault">Restablecer a predeterminado</system:String>
     <system:String x:Key="Restart">Reiniciar</system:String>
     <system:String x:Key="RestartError">Error de reinicio</system:String>
     <system:String x:Key="RestoreBackup">¿Restaurar copia de seguridad?</system:String>
     <system:String x:Key="ReverttoDefaultValues">Restablecer a valores predeterminados</system:String>
     <system:String x:Key="RomHistory">Historial de ROM</system:String>
     <system:String x:Key="ROMHistorynotfound">Historial de ROM no encontrado</system:String>
+<system:String x:Key="Save">Guardar</system:String>
+<system:String x:Key="SaveConfigurationQuestion">¿Desea guardar esta configuración?</system:String>
     <system:String x:Key="SaveDeadZone">Guardar</system:String>
     <system:String x:Key="SaveorUpdateLinks">Guardar o actualizar enlaces</system:String>
     <system:String x:Key="SaveorUpdateSystem">Guardar o actualizar sistema</system:String>
@@ -404,6 +427,7 @@
     <system:String x:Key="SelectEmulator4">Selecciona el emulador 4.</system:String>
     <system:String x:Key="SelectEmulator5">Selecciona el emulador 5.</system:String>
     <system:String x:Key="SelectionRequired">Selección Requerida</system:String>
+<system:String x:Key="SelectNotificationSoundFile">Seleccionar archivo de sonido de notificación</system:String>
     <system:String x:Key="SelectSystem">Seleccionar sistema</system:String>
     <system:String x:Key="SendSupportRequest">Enviar solicitud de soporte</system:String>
     <system:String x:Key="SetButtonAspectRatio">Establecer la relación de aspecto del botón</system:String>
@@ -421,6 +445,7 @@
     <system:String x:Key="SetSystemImageFolder">Establecer carpeta de imágenes del sistema</system:String>
     <system:String x:Key="Setthegamewindowto">Configura la ventana del juego en modo no pantalla completa. Esto es importante.</system:String>
     <system:String x:Key="SetThreshold">Establecer umbral</system:String>
+<system:String x:Key="SettingsSavedSuccessfully">Configuración guardada correctamente.</system:String>
     <system:String x:Key="ShowAllGames">Mostrar todos los juegos</system:String>
     <system:String x:Key="ShowGames">Mostrar juegos</system:String>
     <system:String x:Key="ShowOnlyGamesWithCover">Mostrar solo juegos con portada</system:String>
@@ -443,6 +468,7 @@
     <system:String x:Key="SortByDate">Ordenar por fecha</system:String>
     <system:String x:Key="SortByPlayTime">Ordenar por tiempo de reproducción</system:String>
     <system:String x:Key="SortByTimesPlayed">Ordenar por veces reproducidas</system:String>
+<system:String x:Key="SoundConfiguration">Configuración de sonido</system:String>
     <system:String x:Key="Square">Cuadrado</system:String>
     <system:String x:Key="Steel">Acero</system:String>
     <system:String x:Key="StopDownload">Detener descarga</system:String>
@@ -454,6 +480,7 @@
     <system:String x:Key="System">Sistema:</system:String>
     <system:String x:Key="SystemFolder">Carpeta del Sistema</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">La 'Carpeta del sistema' no puede estar vacía ni contener solo espacios.</system:String>
+<system:String x:Key="SystemFolderExplanation">Para los campos Carpeta del sistema, Carpeta de imagen del sistema y Ruta del emulador, las rutas relativas se guardarán automáticamente utilizando el prefijo %BASEFOLDER% (por ejemplo, ".\roms" se convierte en "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderOptional">Carpeta del sistema (opcional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">La ruta de la carpeta del sistema no es válida o no existe:</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">¡El sistema ha sido agregado exitosamente!</system:String>
@@ -485,6 +512,7 @@
     <system:String x:Key="Thefileerroruserlog">¡El archivo 'error_user.log' no se encontró!</system:String>
     <system:String x:Key="Thefileerroruserlogwas">¡No se encontró el archivo 'error_user.log'!</system:String>
     <system:String x:Key="Thefileerroruserlogwasnotfound">¡No se encontró el archivo 'error_user.log'!</system:String>
+    <system:String x:Key="Thefilehasbeenremovedfromthelist">El archivo ha sido eliminado de la lista.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">El archivo 'helpuser.xml' no se encuentra.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">No se encontró el archivo 'mame.dat' en la carpeta de la aplicación.</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">El archivo 'system.xml' está gravemente dañado.</system:String>
@@ -592,6 +620,7 @@
     <system:String x:Key="Wider">Más ancho</system:String>
     <system:String x:Key="Wouldyouliketoberedirected">¿Te gustaría ser redirigido a la página de descarga?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">¿Te gustaría ser redirigido a la página de descarga para instalarlo o actualizarlo manualmente?</system:String>
+    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">¿Le gustaría ser redirigido a la página de descarga de 'Simple Launcher' para descargarlo manualmente?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">¿Le gustaría abrir el archivo 'error_user.log' para investigar el problema?</system:String>
     <system:String x:Key="Wouldyouliketorestore">¿Le gustaría restaurar la última copia de seguridad?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">¿Te gustaría guardar un informe con los resultados?</system:String>
@@ -607,9 +636,4 @@
     <system:String x:Key="ZipSlipExplanation">Se detectó una vulnerabilidad de seguridad llamada 'Zip Slip' en el archivo comprimido. Esta es una vulnerabilidad de recorrido de ruta que podría permitir a un atacante escribir archivos fuera del directorio de extracción previsto.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
-    <system:String x:Key="BatchConvertToRVZ">Convertir lote a RVZ</system:String>
-
-    <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">¿Le gustaría ser redirigido a la página de descarga de 'Simple Launcher' para descargarlo manualmente?</system:String>
-    <system:String x:Key="Thefilehasbeenremovedfromthelist">El archivo ha sido eliminado de la lista.</system:String>
-    
 </ResourceDictionary>
