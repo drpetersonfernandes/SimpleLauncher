@@ -76,20 +76,14 @@ public static class PathHelper
         }
         catch (Exception ex)
         {
-            // Log the error but return the original path or empty string
-            // depending on how the caller handles invalid paths.
-            // Return an empty string to indicate resolution failure.
+            // Log the error but return an empty string to indicate resolution failure.
             // The calling code should handle the empty string.
+
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
+
             return string.Empty;
         }
-    }
-
-    public static string ResolveOtherParameterString(string resolvedEmulatorParameters, string resolvedSystemFolder, string resolvedEmulatorPath)
-    {
-        var resolvedEmulatorParameters2 = resolvedEmulatorParameters.Replace("%SYSTEMFOLDER%", resolvedSystemFolder);
-        var resolvedEmulatorParameters3 = resolvedEmulatorParameters2.Replace("%EMULATORFOLDER%", resolvedEmulatorPath);
-        return resolvedEmulatorParameters3;
     }
 
     /// <summary>

@@ -88,9 +88,6 @@ public class GameListFactory(
                 }
                 else
                 {
-                    // Notify developer
-                    // _ = LogErrors.LogErrorAsync(new FileNotFoundException($"File not found for size calc: {absoluteFilePath}", absoluteFilePath),
-                    //     $"File not found for size calc: {absoluteFilePath}");
                     sizeToSet = -2; // Indicate N/A or Error
                 }
             }
@@ -98,6 +95,7 @@ public class GameListFactory(
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {absoluteFilePath}");
+
                 sizeToSet = -2; // Indicate Error
             }
 
@@ -113,7 +111,7 @@ public class GameListFactory(
     {
         try
         {
-            // Ensure MainWindow and its PreviewImage control are available.
+            // Ensure the MainWindow and its PreviewImage control are available.
             if (_mainWindow == null)
             {
                 _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
@@ -150,20 +148,26 @@ public class GameListFactory(
                 var selectedSystem = _systemComboBox.SelectedItem as string;
                 if (string.IsNullOrEmpty(selectedSystem))
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
+
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+
                     return;
                 }
 
                 var systemConfig = _systemConfigs?.FirstOrDefault(c => c.SystemName == selectedSystem); // Added ?. for robustness
                 if (systemConfig == null)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
+
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+
                     return;
                 }
 
@@ -185,7 +189,9 @@ public class GameListFactory(
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
+
                 // Attempt to set a default image in case of any error during the process
                 try
                 {
@@ -200,12 +206,14 @@ public class GameListFactory(
                 }
                 catch (Exception fallbackEx)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(fallbackEx, "Error loading fallback preview image after an initial error.");
                 }
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChanged.");
         }
     }

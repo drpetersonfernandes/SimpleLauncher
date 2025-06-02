@@ -98,22 +98,6 @@ public static class GameLauncher
 
         _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
-        // // Resolve paths within the parameter string using ParameterValidator
-        // // It will just validate the paths, not actually resolve them.
-        // var isMameSystem = selectedSystemManager.SystemIsMame;
-        // var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
-        // var (parametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(_selectedEmulatorParameters, resolvedSystemFolder, isMameSystem);
-        //
-        // if (!parametersValid && invalidPaths != null && invalidPaths.Count > 0)
-        // {
-        //     // Notify user
-        //     var proceedAnyway = MessageBoxLibrary.AskUserToProceedWithInvalidPath(invalidPaths);
-        //     if (proceedAnyway == MessageBoxResult.No)
-        //     {
-        //         return;
-        //     }
-        // }
-
         var wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
         if (wasGamePadControllerRunning)
         {
@@ -150,7 +134,7 @@ public static class GameLauncher
                                  $"SelectedEmulator: {selectedEmulatorName}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            //
+            // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
         }
         finally
@@ -167,12 +151,11 @@ public static class GameLauncher
 
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();
-            DebugLogger.Log($"PlayTime saved: {playTime}");
+            var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+            DebugLogger.Log($"PlayTime saved: {playTimeFormatted}");
 
             var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
-            var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
             TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
-            DebugLogger.Log($"PlayTime: {playTimeFormatted}");
 
             try
             {
@@ -230,8 +213,9 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        DebugLogger.Log($"Launching Batch: {psi.FileName}");
-        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log("LaunchBatchFile:\n\n");
+        DebugLogger.Log($"Batch File: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
 
@@ -325,8 +309,9 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        DebugLogger.Log($"Launching Shortcut: {psi.FileName}");
-        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log("LaunchShortcutFile:\n\n");
+        DebugLogger.Log($"Shortcut File: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
 
@@ -396,8 +381,9 @@ public static class GameLauncher
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
 
-        DebugLogger.Log($"Launching Executable: {psi.FileName}");
-        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}");
+        DebugLogger.Log("LaunchExecutable:\n\n");
+        DebugLogger.Log($"Executable File: {psi.FileName}");
+        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
 
@@ -446,7 +432,7 @@ public static class GameLauncher
         string selectedEmulatorName,
         SystemManager selectedSystemConfig,
         SystemManager.Emulator selectedEmulatorConfig,
-        string selectedEmulatorParameters) // This is the raw parameter string
+        string rawEmulatorParameters) // This is the raw parameter string from config
     {
         if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
         {
@@ -465,13 +451,12 @@ public static class GameLauncher
             return;
         }
 
-        // Resolve the Emulator Path
-        var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
-        var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorPath);
-        if (string.IsNullOrEmpty(resolvedEmulatorPath) || !File.Exists(resolvedEmulatorPath))
+        // Resolve the Emulator Path (executable)
+        var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
+        if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
         {
             // Notify developer
-            var contextMessage = $"Emulator resolvedEmulatorPath is null, empty, or does not exist after resolving: '{selectedEmulatorConfig.EmulatorLocation}' -> '{resolvedEmulatorPath}'";
+            var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorConfig.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -480,12 +465,32 @@ public static class GameLauncher
             return;
         }
 
-        // Resolve Emulator Parameters
-        var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemConfig.SystemFolder);
-        var resolvedEmulatorParameters = ParameterValidator.ResolveParameterString(selectedEmulatorParameters, resolvedSystemFolder);
-        var resolvedEmulatorParameters2 = PathHelper.ResolveOtherParameterString(resolvedEmulatorParameters, resolvedSystemFolder, resolvedEmulatorFolderPath);
+        // Determine the emulator's directory, which is the base for %EMULATORFOLDER%
+        var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
+        if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(resolvedEmulatorFolderPath)) // Should exist if exe exists
+        {
+             // Notify developer
+             var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
+             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-        var arguments = $"{resolvedEmulatorParameters2} \"{resolvedFilePath}\"";
+             // Notify user
+             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+             return;
+        }
+
+        // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
+        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemConfig.SystemFolder);
+        // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
+        // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
+
+        // Resolve Emulator Parameters using the ParameterValidator.ResolveParameterString
+        var resolvedParameters = ParameterValidator.ResolveParameterString(
+            rawEmulatorParameters, // The raw parameter string from config
+            resolvedSystemFolderPath, // The fully resolved system folder path
+            resolvedEmulatorFolderPath // The fully resolved emulator directory path
+        );
+
+        var arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
 
         string workingDirectory;
         try
@@ -496,7 +501,7 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Could not get workingDirectory for programLocation: '{resolvedEmulatorFolderPath}'";
+            var contextMessage = $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
@@ -504,9 +509,9 @@ public static class GameLauncher
 
         var psi = new ProcessStartInfo
         {
-            FileName = resolvedEmulatorPath,
+            FileName = resolvedEmulatorExePath, // Use the resolved executable path
             Arguments = arguments,
-            WorkingDirectory = workingDirectory ?? AppDomain.CurrentDomain.BaseDirectory,
+            WorkingDirectory = workingDirectory,
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
@@ -514,9 +519,9 @@ public static class GameLauncher
         };
 
         DebugLogger.Log($"LaunchRegularEmulator:\n\n" +
-                        $"Program Location: {resolvedEmulatorPath}\n" +
+                        $"Program Location: {resolvedEmulatorExePath}\n" +
                         $"Arguments: {arguments}\n" +
-                        $"PSI Working Directory: {psi.WorkingDirectory}\n");
+                        $"Working Directory: {psi.WorkingDirectory}\n");
 
         var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
         var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";

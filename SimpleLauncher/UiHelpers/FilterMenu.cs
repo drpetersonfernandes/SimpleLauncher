@@ -3,7 +3,6 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Media.Imaging;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -13,16 +12,12 @@ public class FilterMenu
     private Button _selectedButton;
 
     public event Action<string> OnLetterSelected;
-    public event Action OnFavoritesSelected;
-    public event Action OnFeelingLuckySelected;
 
     public FilterMenu()
     {
         InitializeAllButton();
         InitializeNumberButton();
         InitializeLetterButtons();
-        // InitializeFavoritesButton();
-        // InitializeDiceButton();
     }
 
     private void InitializeNumberButton()
@@ -60,60 +55,6 @@ public class FilterMenu
             OnLetterSelected?.Invoke(null);
         };
         LetterPanel.Children.Add(allButton);
-    }
-
-    private void InitializeFavoritesButton()
-    {
-        var favoritesButton = new Button
-        {
-            Width = 32,
-            Height = 32,
-            ToolTip = "Favorites"
-        };
-
-        var starImage = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/star.png")),
-            Width = 18,
-            Height = 18
-        };
-        favoritesButton.Content = starImage;
-
-        // Attach event for Favorites button
-        favoritesButton.Click += (_, _) =>
-        {
-            UpdateSelectedButton(favoritesButton);
-            OnFavoritesSelected?.Invoke(); // Trigger favorites event
-        };
-
-        LetterPanel.Children.Add(favoritesButton);
-    }
-
-    private void InitializeDiceButton()
-    {
-        var diceButton = new Button
-        {
-            Width = 32,
-            Height = 32,
-            ToolTip = "Feeling Lucky"
-        };
-
-        var diceImage = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/dice.png")),
-            Width = 18,
-            Height = 18
-        };
-        diceButton.Content = diceImage;
-
-        // Attach event for Dice button
-        diceButton.Click += (_, _) =>
-        {
-            UpdateSelectedButton(diceButton);
-            OnFeelingLuckySelected?.Invoke(); // Trigger feeling lucky event
-        };
-
-        LetterPanel.Children.Add(diceButton);
     }
 
     private void UpdateSelectedButton(Button button)

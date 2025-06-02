@@ -260,4 +260,3 @@ public class GameButtonFactory(
             _emulatorComboBox, _favoritesManager, selectedSystemManager, _machines, _settings, _mainWindow, _gameFileGrid, _button);
     }
 }
-

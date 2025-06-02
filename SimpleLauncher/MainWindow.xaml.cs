@@ -149,14 +149,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             await TopLetterNumberMenu_Click(selectedLetter);
         };
-        _topLetterNumberMenu.OnFavoritesSelected += async () =>
-        {
-            await ShowSystemFavoriteGames_Click();
-        };
-        _topLetterNumberMenu.OnFeelingLuckySelected += async () =>
-        {
-            await ShowSystemFeelingLucky_Click(null, null);
-        };
 
         // Initialize _favoritesManager
         _favoritesManager = FavoritesManager.LoadFavorites();
@@ -602,7 +594,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
                 }
 
-                gameCount = 0; // Set count to 0 if folder is invalid
+                gameCount = 0; // Set the count to 0 if the folder is invalid
             }
             else
             {
@@ -619,7 +611,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
             _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use default resolved path
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use the default resolved path
                 : resolvedSystemImageFolderPath; // Use resolved configured path
 
             _topLetterNumberMenu.DeselectLetter();
@@ -733,7 +725,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         _currentSearchResults = new List<string>(allFiles);
                     }
                     // If no search query and no start letter, allFiles is already the full cached list for the system.
-                    // _currentSearchResults remains empty in this case.
+                    // _currentSearchResults remain empty in this case.
 
                     break;
                 }
@@ -858,7 +850,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot recount files for cache validation.");
             }
 
-            gameCount = 0; // Set count to 0 if folder is invalid
+            gameCount = 0; // Set the count to 0 if the folder is invalid
         }
         else
         {

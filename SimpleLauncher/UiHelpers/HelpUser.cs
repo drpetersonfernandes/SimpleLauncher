@@ -48,6 +48,7 @@ public static partial class HelpUser
         var responses = new Dictionary<string, Func<string>>(StringComparer.OrdinalIgnoreCase)
         {
             { "Amstrad CPC", AmstradCpcDetails },
+            { "Amiga", CommodoreAmigaDetails },
             { "CPC", AmstradCpcDetails },
             { "Amstrad CPC GX4000", AmstradCpcgx4000Details },
             { "CPC GX4000", AmstradCpcgx4000Details },
@@ -85,6 +86,7 @@ public static partial class HelpUser
             { "Colecovision", ColecovisionDetails },
             { "Commodore 64", Commodore64Details },
             { "Commodore64", Commodore64Details },
+            { "Commodore Amiga", CommodoreAmigaDetails },
             { "Commodore Amiga CD32", CommodoreAmigaCd32Details },
             { "Commodore Amiga CD", CommodoreAmigaCd32Details },
             { "Amiga CD", CommodoreAmigaCd32Details },
@@ -369,6 +371,11 @@ public static partial class HelpUser
     private static string Commodore64Details()
     {
         return GetSystemDetails("Commodore 64");
+    }
+
+    private static string CommodoreAmigaDetails()
+    {
+        return GetSystemDetails("Commodore Amiga");
     }
 
     private static string CommodoreAmigaCd32Details()

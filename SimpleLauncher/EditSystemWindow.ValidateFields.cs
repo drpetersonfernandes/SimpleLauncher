@@ -213,7 +213,7 @@ public partial class EditSystemWindow
     private static bool ValidateSystemName(string systemNameText)
     {
         // First, sanitize the input (though this is primarily handled in SaveSystemButton_Click)
-        systemNameText = SanitizePaths.SanitizeFolderName(systemNameText);
+        systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
 
         if (!string.IsNullOrEmpty(systemNameText)) return false;
 

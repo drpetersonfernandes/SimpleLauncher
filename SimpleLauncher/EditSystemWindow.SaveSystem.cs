@@ -95,7 +95,7 @@ public partial class EditSystemWindow
                 out var emulator4ParametersText, out var emulator5ParametersText);
 
             // Sanitize SystemNameTextBox.Text immediately
-            systemNameText = SanitizePaths.SanitizeFolderName(systemNameText);
+            systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
 
             // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
             systemFolderText = MaybeAddBaseFolderPrefix(systemFolderText);

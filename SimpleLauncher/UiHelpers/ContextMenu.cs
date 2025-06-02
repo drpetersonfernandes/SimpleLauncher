@@ -358,6 +358,8 @@ public static class ContextMenu
         takeScreenshot.Click += async (_, _) =>
         {
             PlayClick.PlayNotificationSound();
+
+            // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
             string selectedEmulatorName;

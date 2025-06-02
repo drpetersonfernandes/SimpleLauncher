@@ -3,7 +3,7 @@ using System.Text;
 
 namespace SimpleLauncher.Services;
 
-public static class SanitizePaths
+public static class SanitizeInputSystemName
 {
     /// <summary>
     /// Sanitizes a string to be safe for use as a folder name.
