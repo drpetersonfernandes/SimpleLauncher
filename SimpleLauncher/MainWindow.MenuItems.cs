@@ -51,7 +51,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
@@ -71,7 +71,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             EditSystemWindow editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
@@ -91,7 +91,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             ResetUi();
 
@@ -149,7 +149,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 SetLinksWindow editLinksWindow = new(_settings);
                 editLinksWindow.ShowDialog();
@@ -176,7 +176,7 @@ public partial class MainWindow
 
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             // Update the settings
             _settings.EnableGamePadNavigation = menuItem.IsChecked;
@@ -205,7 +205,7 @@ public partial class MainWindow
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
@@ -235,7 +235,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
                 _settings.Save();
@@ -264,7 +264,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
             setThresholdWindow.ShowDialog();
@@ -284,7 +284,7 @@ public partial class MainWindow
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         SupportWindow supportRequestWindow = new();
         supportRequestWindow.ShowDialog();
@@ -294,7 +294,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             var psi = new ProcessStartInfo
             {
@@ -316,7 +316,7 @@ public partial class MainWindow
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         AboutWindow aboutWindow = new();
         aboutWindow.ShowDialog();
@@ -335,7 +335,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowAll");
                 UpdateMenuCheckMarks("ShowAll");
@@ -363,7 +363,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithCover");
                 UpdateMenuCheckMarks("ShowWithCover");
@@ -392,7 +392,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithoutCover");
                 UpdateMenuCheckMarks("ShowWithoutCover");
@@ -436,7 +436,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 var sizeText = clickedItem.Name.Replace("Size", "");
 
@@ -478,7 +478,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 var aspectRatio = clickedItem.Name;
                 _settings.ButtonAspectRatio = aspectRatio;
@@ -516,7 +516,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 var pageText = clickedItem.Name.Replace("Page", "");
                 if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
@@ -546,7 +546,7 @@ public partial class MainWindow
 
     private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
 
@@ -560,7 +560,7 @@ public partial class MainWindow
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         var globalStatsWindow = new GlobalStatsWindow(_systemConfigs);
         globalStatsWindow.Show();
@@ -568,7 +568,7 @@ public partial class MainWindow
 
     private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
 
@@ -581,7 +581,7 @@ public partial class MainWindow
 
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
 
@@ -642,7 +642,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             if (Equals(sender, GridView))
             {
@@ -689,7 +689,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         var selectedLanguage = menuItem.Name switch
         {
@@ -727,35 +727,35 @@ public partial class MainWindow
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
     }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ShowGlobalSearchWindow_Click(sender, e);
     }
 
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ShowFavoritesWindow_Click(sender, e);
     }
 
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ShowPlayHistoryWindow_Click(sender, e);
     }
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
     {
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
 
         ExpertMode_Click(sender, e);
     }
@@ -794,7 +794,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 const int zoomStep = 50;
                 const int maxSize = 800;
@@ -835,7 +835,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 const int zoomStep = 50;
                 const int minSize = 50;
@@ -876,7 +876,7 @@ public partial class MainWindow
 
             try
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
 
                 if (_settings.ViewMode == "GridView")
                 {

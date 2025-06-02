@@ -216,7 +216,7 @@ public partial class PlayTimeWindow
             _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
             _playHistoryManager.SavePlayHistory(); // Save using the existing instance
 
-            PlayClick.PlayTrashSound();
+            PlaySoundEffects.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else
@@ -256,7 +256,7 @@ public partial class PlayTimeWindow
         _playHistoryManager.SavePlayHistory();
 
         // Play sound effect
-        PlayClick.PlayTrashSound();
+        PlaySoundEffects.PlayTrashSound();
 
         // Clear preview image
         PreviewImage.Source = null;
@@ -318,7 +318,7 @@ public partial class PlayTimeWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
                 await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
             }
             else
@@ -472,7 +472,7 @@ public partial class PlayTimeWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
 
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
             await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
         }
         catch (Exception ex)
@@ -520,7 +520,7 @@ public partial class PlayTimeWindow
 
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
-            PlayClick.PlayTrashSound();
+            PlaySoundEffects.PlayTrashSound();
 
             _playHistoryList.Remove(selectedItem);
             _playHistoryManager.PlayHistoryList = _playHistoryList;

@@ -157,7 +157,7 @@ public partial class FavoritesWindow
             _favoritesManager.FavoriteList = _favoriteList;
             _favoritesManager.SaveFavorites();
 
-            PlayClick.PlayTrashSound();
+            PlaySoundEffects.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else
@@ -203,7 +203,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                PlayClick.PlayNotificationSound();
+                PlaySoundEffects.PlayNotificationSound();
                 await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -292,7 +292,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
             await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
         }
         catch (Exception ex)
@@ -332,7 +332,7 @@ public partial class FavoritesWindow
     {
         if (e.Key != Key.Delete) return;
 
-        PlayClick.PlayTrashSound();
+        PlaySoundEffects.PlayTrashSound();
 
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {

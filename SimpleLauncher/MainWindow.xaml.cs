@@ -220,7 +220,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
@@ -242,7 +242,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             // Change the filter to ShowAll (as favorites might not have covers)
             _settings.ShowGames = "ShowAll";
@@ -282,7 +282,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             // Change the filter to ShowAll (as random might not have covers)
             _settings.ShowGames = "ShowAll";

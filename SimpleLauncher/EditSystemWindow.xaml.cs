@@ -550,7 +550,7 @@ public partial class EditSystemWindow
             UseShellExecute = true
         });
 
-        PlayClick.PlayNotificationSound();
+        PlaySoundEffects.PlayNotificationSound();
     }
 
     private void SystemNameTextBox_LostFocus(object sender, RoutedEventArgs e)

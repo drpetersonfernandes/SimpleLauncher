@@ -170,7 +170,7 @@ public partial class MainWindow
         {
             if (_isGameListLoading) return;
 
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
             string[] aspectRatios = { "Square", "Wider", "SuperWider", "Taller", "SuperTaller" };

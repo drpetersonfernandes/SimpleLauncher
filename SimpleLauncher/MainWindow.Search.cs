@@ -12,7 +12,7 @@ public partial class MainWindow
     {
         try
         {
-            PlayClick.PlayNotificationSound();
+            PlaySoundEffects.PlayNotificationSound();
             await ExecuteSearch();
         }
         catch (Exception ex)
@@ -32,7 +32,7 @@ public partial class MainWindow
         {
             if (e.Key != Key.Enter) return;
 
-            PlayClick.PlayNotificationSound(); // Play sound immediately
+            PlaySoundEffects.PlayNotificationSound(); // Play sound immediately
             await ExecuteSearch();
         }
         catch (Exception ex)

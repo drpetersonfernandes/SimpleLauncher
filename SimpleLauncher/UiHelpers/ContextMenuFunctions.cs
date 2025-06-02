@@ -637,7 +637,7 @@ public static class ContextMenuFunctions
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            PlayClick.PlayShutterSound();
+            PlaySoundEffects.PlayShutterSound();
 
             // Wait
             await Task.Delay(1000);
@@ -706,7 +706,7 @@ public static class ContextMenuFunctions
             {
                 DeleteFiles.TryDeleteFile(filePath);
 
-                PlayClick.PlayTrashSound();
+                PlaySoundEffects.PlayTrashSound();
 
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);

@@ -5,7 +5,7 @@ using System.Windows.Media;
 
 namespace SimpleLauncher.Services;
 
-public static class PlayClick
+public static class PlaySoundEffects
 {
     private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
     private const string ClickSoundFile = "click.mp3";
