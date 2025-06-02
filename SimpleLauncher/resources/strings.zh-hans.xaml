@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">点击上方的字母按钮查看游戏</system:String>
     <system:String x:Key="Close">关闭</system:String>
     <system:String x:Key="Cobalt">钴蓝色</system:String>
-    <system:String x:Key="ConfigEditHint">您可以稍后编辑此系统配置以修复这些问题。</system:String>
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="ConfirmDeletion">确认删除</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">无法在提取文件夹中找到具有 '提取后执行的扩展名' 的文件。</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">无效的解压文件夹</system:String>
     <system:String x:Key="InvalidInputMessageText">请输入0.0到1.0之间的有效数字作为阈值。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">无效输入</system:String>
-    <system:String x:Key="InvalidPathsLabel">• 参数中的以下路径可能无效：</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系统配置无效</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
     <system:String x:Key="isminimizedtothetray">已最小化到托盘。</system:String>
-    <system:String x:Key="IssuesWithEmulator">模拟器配置存在问题：</system:String>
     <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
     <system:String x:Key="isusedmultipletimes">已被多次使用。每个模拟器名称必须是唯一的。</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">看起来“Simple Launcher”安装在受限文件夹（例如 Program Files）中，没有写入权限。</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">模拟器参数中的某些路径似乎无效或缺失。请重新检查这些字段。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">您仍然可以保存，但这些路径在启动游戏时可能会导致问题。</system:String>
     <system:String x:Key="PathManipulationDetected">检测到潜在的路径操纵</system:String>
-    <system:String x:Key="PathValidationWarningCaption">路径验证警告</system:String>
     <system:String x:Key="PCB">电路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">未找到电路板（PCB）</system:String>
     <system:String x:Key="Pink">粉色</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">准备下载</system:String>
     <system:String x:Key="PreviewImage">预览图片</system:String>
     <system:String x:Key="PreviousPage">上一页</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">您是否仍要继续启动？</system:String>
     <system:String x:Key="Processingpleasewait">正在处理，请稍候...</system:String>
     <system:String x:Key="ProgressBar">进度条</system:String>
     <system:String x:Key="Purple">紫色</system:String>

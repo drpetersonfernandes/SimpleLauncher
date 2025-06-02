@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Haga clic en los botones de letras de arriba para ver los juegos</system:String>
     <system:String x:Key="Close">Cerrar</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
-    <system:String x:Key="ConfigEditHint">Puede editar la configuración de este sistema más tarde para solucionar estos problemas.</system:String>
     <system:String x:Key="Confirmation">Confirmación</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmar eliminación</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">No se pudo encontrar un archivo con la extensión definida en 'Extensión para iniciar después de la extracción' dentro de la carpeta extraída.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Carpeta de Extracción Inválida</system:String>
     <system:String x:Key="InvalidInputMessageText">Por favor, ingrese un número válido entre 0.0 y 1.0 para el umbral.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Entrada no válida</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Las siguientes rutas en los parámetros pueden ser inválidas:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuración del sistema no válida</system:String>
     <system:String x:Key="isalreadyinfavorites">ya está en favoritos.</system:String>
     <system:String x:Key="isminimizedtothetray">se ha minimizado a la bandeja del sistema.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Hay problemas con la configuración del emulador:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">¿El sistema está basado en MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">se utiliza varias veces. Cada nombre de emulador debe ser único.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Parece que 'Simple Launcher' está instalado en una carpeta restringida (por ejemplo, Archivos de programa), donde no tiene acceso de escritura.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Algunas rutas en los parámetros del emulador parecen ser inválidas o están ausentes. Por favor, verifica estos campos nuevamente.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Aún puede guardar, pero estas rutas pueden causar problemas al iniciar juegos.</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulación potencial de ruta detectada</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Advertencia de validación de ruta</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB no encontrado</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Preparando para descargar</system:String>
     <system:String x:Key="PreviewImage">Vista previa de la imagen</system:String>
     <system:String x:Key="PreviousPage">Página anterior</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">¿Desea proceder con el lanzamiento de todos modos?</system:String>
     <system:String x:Key="Processingpleasewait">Procesando, por favor espera...</system:String>
     <system:String x:Key="ProgressBar">Barra de progreso</system:String>
     <system:String x:Key="Purple">Púrpura</system:String>

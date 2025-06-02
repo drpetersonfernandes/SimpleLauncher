@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Cliquez sur les boutons des lettres ci-dessus pour voir les jeux</system:String>
     <system:String x:Key="Close">Fermer</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
-    <system:String x:Key="ConfigEditHint">Vous pouvez modifier la configuration de ce système plus tard pour corriger ces problèmes.</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmer la suppression</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossible de trouver un fichier avec l'extension définie dans 'Extension à lancer après extraction' dans le dossier extrait.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Dossier d'Extraction Invalide</system:String>
     <system:String x:Key="InvalidInputMessageText">Veuillez entrer un nombre valide entre 0,0 et 1,0 pour le seuil.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Entrée invalide</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Les chemins suivants dans les paramètres peuvent être invalides :</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuration système invalide</system:String>
     <system:String x:Key="isalreadyinfavorites">est déjà dans les favoris.</system:String>
     <system:String x:Key="isminimizedtothetray">est réduit dans la barre des tâches.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Il y a des problèmes avec la configuration de l'émulateur :</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Le système est-il basé sur MAME ?</system:String>
     <system:String x:Key="isusedmultipletimes">est utilisé plusieurs fois. Chaque nom d'émulateur doit être unique.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Il semble que 'Simple Launcher' soit installé dans un dossier restreint (par exemple, Program Files), où il n'a pas les droits d'écriture.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Certaines chemins dans les paramètres de l'émulateur semblent être invalides ou manquants. Veuillez vérifier ces champs à nouveau.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Vous pouvez toujours enregistrer, mais ces chemins peuvent causer des problèmes lors du lancement des jeux.</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulation potentielle de chemin détectée</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Avertissement de validation de chemin</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB introuvable</system:String>
     <system:String x:Key="Pink">Rose</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Préparation au téléchargement</system:String>
     <system:String x:Key="PreviewImage">Aperçu de l'image</system:String>
     <system:String x:Key="PreviousPage">Page précédente</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Voulez-vous quand même procéder au lancement ?</system:String>
     <system:String x:Key="Processingpleasewait">Traitement en cours, veuillez patienter...</system:String>
     <system:String x:Key="ProgressBar">Barre de progression</system:String>
     <system:String x:Key="Purple">Violet</system:String>

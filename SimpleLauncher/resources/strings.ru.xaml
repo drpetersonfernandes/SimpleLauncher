@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Нажмите на кнопки с буквами выше, чтобы увидеть игры</system:String>
     <system:String x:Key="Close">Закрыть</system:String>
     <system:String x:Key="Cobalt">Кобальтовый</system:String>
-    <system:String x:Key="ConfigEditHint">Вы можете отредактировать конфигурацию этой системы позже, чтобы исправить эти проблемы.</system:String>
     <system:String x:Key="Confirmation">Подтверждение</system:String>
     <system:String x:Key="ConfirmDeletion">Подтвердите удаление</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Не удалось найти файл с указанным в 'Расширение для запуска после извлечения' расширением в извлечённой папке.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
     <system:String x:Key="InvalidInputMessageText">Пожалуйста, введите допустимое число между 0.0 и 1.0 для порога.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Недопустимый ввод</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Следующие пути в параметрах могут быть неверными:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Неверная конфигурация системы</system:String>
     <system:String x:Key="isalreadyinfavorites">уже находится в избранном.</system:String>
     <system:String x:Key="isminimizedtothetray">свернуто в панель задач.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Возникли проблемы с конфигурацией эмулятора:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Система основана на MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">используется несколько раз. Имя каждого эмулятора должно быть уникальным.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Похоже, 'Simple Launcher' установлен в ограниченную папку (например, Program Files), где у него нет прав на запись.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Некоторые пути в параметрах эмулятора кажутся неверными или отсутствуют. Пожалуйста, проверьте эти поля ещё раз.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Вы все равно можете сохранить, но эти пути могут вызвать проблемы при запуске игр.</system:String>
     <system:String x:Key="PathManipulationDetected">Обнаружена потенциальная манипуляция с путями</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Предупреждение проверки пути</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
     <system:String x:Key="Pink">Розовый</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Подготовка к загрузке</system:String>
     <system:String x:Key="PreviewImage">Предпросмотр изображения</system:String>
     <system:String x:Key="PreviousPage">Предыдущая страница</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Вы хотите продолжить запуск в любом случае?</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
     <system:String x:Key="ProgressBar">Индикатор выполнения</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>

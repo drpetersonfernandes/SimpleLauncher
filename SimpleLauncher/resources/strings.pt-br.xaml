@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Clique nos botões de letras acima para ver os jogos</system:String>
     <system:String x:Key="Close">Fechar</system:String>
     <system:String x:Key="Cobalt">Cobalto</system:String>
-    <system:String x:Key="ConfigEditHint">Você pode editar a configuração deste sistema mais tarde para corrigir esses problemas.</system:String>
     <system:String x:Key="Confirmation">Confirmação</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmar Exclusão</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Não foi possível encontrar um arquivo com a extensão definida em 'Extensão para Executar Após Extração' na pasta extraída.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Pasta de Extração Inválida</system:String>
     <system:String x:Key="InvalidInputMessageText">Por favor, insira um número válido entre 0,0 e 1,0 para o limite.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Entrada Inválida</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Os seguintes caminhos nos parâmetros podem ser inválidos:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuração de sistema inválida</system:String>
     <system:String x:Key="isalreadyinfavorites">já está nos favoritos.</system:String>
     <system:String x:Key="isminimizedtothetray">foi minimizado para a bandeja do sistema.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Existem problemas com a configuração do emulador:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">O sistema é baseado em MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">é usado várias vezes. O nome de cada emulador deve ser único.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Parece que o 'Simple Launcher' está instalado em uma pasta restrita (por exemplo, Arquivos de Programas), onde ele não tem acesso de escrita.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Alguns caminhos nos parâmetros do emulador parecem inválidos ou estão faltando. Por favor, verifique esses campos novamente.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Você ainda pode salvar, mas esses caminhos podem causar problemas ao iniciar jogos.</system:String>
     <system:String x:Key="PathManipulationDetected">Potencial manipulação de caminho detectada</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Aviso de Validação de Caminho</system:String>
     <system:String x:Key="PCB">Placa de Circuito (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB não encontrada</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Preparando para baixar</system:String>
     <system:String x:Key="PreviewImage">Pré-visualizar imagem</system:String>
     <system:String x:Key="PreviousPage">Página anterior</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Deseja prosseguir com o lançamento mesmo assim?</system:String>
     <system:String x:Key="Processingpleasewait">Processando, por favor aguarde...</system:String>
     <system:String x:Key="ProgressBar">Barra de Progresso</system:String>
     <system:String x:Key="Purple">Roxo</system:String>

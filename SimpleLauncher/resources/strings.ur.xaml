@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">گیمز دیکھنے کے لیے اوپر کے حرف والے بٹنوں پر کلک کریں</system:String>
     <system:String x:Key="Close">بند کریں</system:String>
     <system:String x:Key="Cobalt">کوبالٹ</system:String>
-    <system:String x:Key="ConfigEditHint">آپ ان مسائل کو ٹھیک کرنے کے لیے بعد میں اس سسٹم کنفیگریشن میں ترمیم کر سکتے ہیں۔</system:String>
     <system:String x:Key="Confirmation">تصدیق</system:String>
     <system:String x:Key="ConfirmDeletion">حذف کرنے کی تصدیق کریں</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'ایکسٹریکشن کے بعد چلائی جانے والی ایکسٹینشنز' کے تحت دی گئی ایکسٹینشن کے ساتھ فائل ایکسٹریکٹ کردہ فولڈر میں نہیں ملی۔</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
     <system:String x:Key="InvalidInputMessageText">براہ کرم حد کے لیے 0.0 سے 1.0 کے درمیان ایک درست نمبر درج کریں۔</system:String>
     <system:String x:Key="InvalidInputMessageTitle">غلط ان پُٹ</system:String>
-    <system:String x:Key="InvalidPathsLabel">• پیرامیٹرز میں درج ذیل راستے غلط ہو سکتے ہیں:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">غلط سسٹم کنفیگریشن</system:String>
     <system:String x:Key="isalreadyinfavorites">پہلے ہی پسندیدہ میں موجود ہے۔</system:String>
     <system:String x:Key="isminimizedtothetray">ٹری میں کم سے کم کیا گیا ہے۔</system:String>
-    <system:String x:Key="IssuesWithEmulator">ایمولیٹر کنفیگریشن میں مسائل ہیں:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">کیا یہ سسٹم MAME بیسڈ ہے؟</system:String>
     <system:String x:Key="isusedmultipletimes">کئی بار استعمال کیا گیا ہے۔ ہر ایمولیٹر کا نام منفرد ہونا چاہیے۔</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ایسا لگتا ہے کہ 'Simple Launcher' ایک محدود فولڈر (مثلاً Program Files) میں انسٹال ہے، جہاں اسے لکھنے کی رسائی نہیں ہے۔</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">ایمولیٹر پیرامیٹرز میں کچھ راستے غیر درست یا غائب ظاہر ہوتے ہیں۔ براہ کرم ان فیلڈز کو دوبارہ چیک کریں۔</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">آپ اب بھی محفوظ کر سکتے ہیں، لیکن یہ راستے گیمز شروع کرتے وقت مسائل پیدا کر سکتے ہیں۔</system:String>
     <system:String x:Key="PathManipulationDetected">ممکنہ راستہ میں ہیرا پھیری کا پتہ چلا</system:String>
-    <system:String x:Key="PathValidationWarningCaption">راستے کی توثیق کی وارننگ</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
     <system:String x:Key="Pink">گلابی</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">ڈاؤن لوڈ کے لیے تیاری کر رہا ہے</system:String>
     <system:String x:Key="PreviewImage">پیش منظر امیج</system:String>
     <system:String x:Key="PreviousPage">پچھلا صفحہ</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">کیا آپ بہرحال لانچ کرنے کے ساتھ آگے بڑھنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Processingpleasewait">پروسیسنگ جاری ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="ProgressBar">پروگریس بار</system:String>
     <system:String x:Key="Purple">جامنی</system:String>

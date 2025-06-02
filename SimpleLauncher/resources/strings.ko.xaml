@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">위의 글자 버튼을 클릭하여 게임을 확인하세요</system:String>
     <system:String x:Key="Close">닫기</system:String>
     <system:String x:Key="Cobalt">코발트</system:String>
-    <system:String x:Key="ConfigEditHint">나중에 이 시스템 구성을 편집하여 이러한 문제를 해결할 수 있습니다.</system:String>
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="ConfirmDeletion">삭제 확인</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
-    <system:String x:Key="InvalidPathsLabel">• 매개변수의 다음 경로가 유효하지 않을 수 있습니다:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="isminimizedtothetray">트레이로 최소화되었습니다.</system:String>
-    <system:String x:Key="IssuesWithEmulator">에뮬레이터 구성에 문제가 있습니다:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
     <system:String x:Key="isusedmultipletimes">이 여러 번 사용되고 있습니다. 각 에뮬레이터 이름은 고유해야 합니다.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">'Simple Launcher'가 쓰기 권한이 없는 제한된 폴더(예: Program Files)에 설치된 것 같습니다.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">에뮬레이터 매개변수의 일부 경로가 잘못되었거나 누락된 것 같습니다. 이 필드를 다시 확인하십시오.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">계속 저장할 수 있지만, 이 경로들은 게임 실행 시 문제를 일으킬 수 있습니다.</system:String>
     <system:String x:Key="PathManipulationDetected">잠재적 경로 조작 감지됨</system:String>
-    <system:String x:Key="PathValidationWarningCaption">경로 유효성 검사 경고</system:String>
     <system:String x:Key="PCB">PCB(회로기판)</system:String>
     <system:String x:Key="PCBnotfound">PCB(회로기판)를 찾을 수 없습니다</system:String>
     <system:String x:Key="Pink">핑크</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">다운로드 준비 중</system:String>
     <system:String x:Key="PreviewImage">이미지 미리보기</system:String>
     <system:String x:Key="PreviousPage">이전 페이지</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">그래도 실행을 진행하시겠습니까?</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
     <system:String x:Key="ProgressBar">진행률 바</system:String>
     <system:String x:Key="Purple">보라</system:String>

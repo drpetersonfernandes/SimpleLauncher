@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Oyunları görmek için yukarıdaki harf düğmelerine tıklayın</system:String>
     <system:String x:Key="Close">Kapat</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
-    <system:String x:Key="ConfigEditHint">Bu sorunları düzeltmek için bu sistem yapılandırmasını daha sonra düzenleyebilirsiniz.</system:String>
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Geçersiz Girdi</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Parametrelerdeki aşağıdaki yollar geçersiz olabilir:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="isminimizedtothetray">sistem tepsisine küçültüldü.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Emülatör yapılandırmasında sorunlar var:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
     <system:String x:Key="isusedmultipletimes">birden fazla kez kullanılıyor. Her emülatör adı benzersiz olmalıdır.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Görünüşe göre 'Simple Launcher', yazma erişimi olmayan kısıtlı bir klasöre (örn. Program Files) yüklenmiş.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Emülatör parametrelerindeki bazı yollar geçersiz görünüyor veya eksik. Bu alanları lütfen tekrar kontrol edin.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Yine de kaydedebilirsiniz, ancak bu yollar oyunları başlatırken sorunlara neden olabilir.</system:String>
     <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Yol Doğrulama Uyarısı</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
     <system:String x:Key="Pink">Pembe</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">İndirme hazırlanıyor</system:String>
     <system:String x:Key="PreviewImage">Önizleme Görseli</system:String>
     <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Yine de başlatmaya devam etmek istiyor musunuz?</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="ProgressBar">İlerleme Çubuğu</system:String>
     <system:String x:Key="Purple">Mor</system:String>

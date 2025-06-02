@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Click on the letter buttons above to see the games</system:String>
     <system:String x:Key="Close">Close</system:String>
     <system:String x:Key="Cobalt">Cobalt</system:String>
-    <system:String x:Key="ConfigEditHint">You can edit this system configuration later to fix these issues.</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirm Deletion</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Invalid Extraction Folder</system:String>
     <system:String x:Key="InvalidInputMessageText">Please enter a valid number between 0.0 and 1.0 for the threshold.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Invalid Input</system:String>
-    <system:String x:Key="InvalidPathsLabel">• The following paths in parameters may be invalid:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Invalid System Configuration</system:String>
     <system:String x:Key="isalreadyinfavorites">is already in favorites.</system:String>
     <system:String x:Key="isminimizedtothetray">is minimized to the tray.</system:String>
-    <system:String x:Key="IssuesWithEmulator">There are issues with the emulator configuration:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is the system MAME-based?</system:String>
     <system:String x:Key="isusedmultipletimes">is used multiple times. Each emulator name must be unique.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">It looks like 'Simple Launcher' is installed in a restricted folder (e.g., Program Files), where it does not have write access.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">You can still save, but these paths may cause issues when launching games.</system:String>
     <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Path Validation Warning</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
     <system:String x:Key="Pink">Pink</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Preparing to download</system:String>
     <system:String x:Key="PreviewImage">Preview Image</system:String>
     <system:String x:Key="PreviousPage">Previous Page</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Do you want to proceed with launching anyway?</system:String>
     <system:String x:Key="Processingpleasewait">Processing, please wait...</system:String>
     <system:String x:Key="ProgressBar">Progress Bar</system:String>
     <system:String x:Key="Purple">Purple</system:String>
@@ -613,8 +608,34 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="BatchConvertToRVZ">Batch Convert To RVZ</system:String>
-    
     <system:String x:Key="WouldyouliketoberedirectedtotheSimpleLauncherdownloadpage">Would you like to be redirected to the 'Simple Launcher' download page to download it manually?</system:String>
     <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
+    
+    ErrorInvalidDestinationPath
+    SoundConfiguration
+    EnableNotificationSound
+    NotificationSoundFileLabel
+    ChooseFile
+    PlayCurrentSound
+    ResetToDefault
+    Save
+    Cancel
+    SelectNotificationSoundFile
+    DebugWindow
+    launchedwith
+    RelativePathsDetected
+    RelativePathsMessage
+    SystemFolderExplanation
+    ParameterExplanation
+    SaveConfigurationQuestion
+    InvalidPathsDetected
+    InvalidPathsMessage
+    PathCheckNote
+    LaunchAnywayQuestion
+    CouldNotOpenSoundConfigurationWindow
+    errorSettingSoundFile
+    NotificationSoundIsDisable
+    NoSoundFileSelectedWarning
+    SettingsSavedSuccessfully
     
 </ResourceDictionary>

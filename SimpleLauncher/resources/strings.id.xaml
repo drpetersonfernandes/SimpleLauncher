@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Klik tombol huruf di atas untuk melihat permainan</system:String>
     <system:String x:Key="Close">Tutup</system:String>
     <system:String x:Key="Cobalt">Biru Kobalt</system:String>
-    <system:String x:Key="ConfigEditHint">Anda dapat mengedit konfigurasi sistem ini nanti untuk memperbaiki masalah ini.</system:String>
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Input Tidak Valid</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Jalur berikut dalam parameter mungkin tidak valid:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="isminimizedtothetray">diminimalkan ke tray.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Ada masalah dengan konfigurasi emulator:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
     <system:String x:Key="isusedmultipletimes">digunakan beberapa kali. Setiap nama emulator harus unik.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Sepertinya 'Simple Launcher' diinstal di folder yang dibatasi (misalnya, Program Files), di mana ia tidak memiliki akses tulis.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Beberapa jalur dalam parameter emulator tampaknya tidak valid atau hilang. Silakan periksa kembali bidang-bidang ini.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Anda masih bisa menyimpan, tetapi jalur ini dapat menyebabkan masalah saat meluncurkan game.</system:String>
     <system:String x:Key="PathManipulationDetected">Potensi Manipulasi Jalur Terdeteksi</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Peringatan Validasi Jalur</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
     <system:String x:Key="Pink">Merah Muda</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Sedang mempersiapkan untuk mengunduh</system:String>
     <system:String x:Key="PreviewImage">Pratinjau Gambar</system:String>
     <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Apakah Anda ingin melanjutkan peluncuran?</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
     <system:String x:Key="ProgressBar">Bilah Progres</system:String>
     <system:String x:Key="Purple">Ungu</system:String>

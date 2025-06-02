@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">গেমগুলি দেখতে উপরের অক্ষর বোতামগুলোতে ক্লিক করুন</system:String>
     <system:String x:Key="Close">বন্ধ করুন</system:String>
     <system:String x:Key="Cobalt">কোবাল্ট</system:String>
-    <system:String x:Key="ConfigEditHint">এই সমস্যাগুলি ঠিক করতে আপনি পরে এই সিস্টেম কনফিগারেশন সম্পাদনা করতে পারেন।</system:String>
     <system:String x:Key="Confirmation">নিশ্চিতকরণ</system:String>
     <system:String x:Key="ConfirmDeletion">মোছার নিশ্চয়তা দিন</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'এক্সট্র্যাকশন পর চালানোর জন্য এক্সটেনশন'-এ সংজ্ঞায়িত এক্সটেনশনসহ কোনও ফাইল এক্সট্র্যাকশন ফোল্ডারের ভিতর খুঁজে পাওয়া যায়নি।</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">অবৈধ এক্সট্র্যাকশন ফোল্ডার</system:String>
     <system:String x:Key="InvalidInputMessageText">অনুগ্রহ করে থ্রেশহোল্ডের জন্য ০.০ থেকে ১.০ এর মধ্যে একটি বৈধ সংখ্যা প্রবেশ করুন।</system:String>
     <system:String x:Key="InvalidInputMessageTitle">অবৈধ ইনপুট</system:String>
-    <system:String x:Key="InvalidPathsLabel">• প্যারামিটারে নিম্নলিখিত পাথগুলি অবৈধ হতে পারে:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">অবৈধ সিস্টেম কনফিগারেশন</system:String>
     <system:String x:Key="isalreadyinfavorites">ইতিমধ্যে প্রিয়তে রয়েছে</system:String>
     <system:String x:Key="isminimizedtothetray">ট্রে-তে মিনিমাইজ করা হয়েছে</system:String>
-    <system:String x:Key="IssuesWithEmulator">এমুলেটর কনফিগারেশনে সমস্যা আছে:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">সিস্টেমটি কি MAME ভিত্তিক?</system:String>
     <system:String x:Key="isusedmultipletimes">ইতিমধ্যে একাধিকবার ব্যবহৃত হয়েছে। প্রতিটি ইমুলেটর নাম আলাদা হতে হবে।</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">মনে হচ্ছে 'Simple Launcher' একটি সীমাবদ্ধ ফোল্ডারে (যেমন Program Files) ইনস্টল করা আছে, যেখানে এটির লেখার অনুমতি নেই।</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">এমুলেটরের প্যারামিটারে কিছু পথে অবৈধ বা অনুপস্থিত বলে মনে হচ্ছে। অনুগ্রহ করে এই ক্ষেত্রগুলিকে ডবল চেক করুন।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">আপনি এখনও সেভ করতে পারেন, তবে এই পাথগুলি গেম চালু করার সময় সমস্যা সৃষ্টি করতে পারে।</system:String>
     <system:String x:Key="PathManipulationDetected">সম্ভাব্য পাথ ম্যানিপুলেশন সনাক্ত করা হয়েছে</system:String>
-    <system:String x:Key="PathValidationWarningCaption">পাথ বৈধতা সতর্কতা</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
     <system:String x:Key="Pink">গোলাপি</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">ডাউনলোডের জন্য প্রস্তুতি নিচ্ছে</system:String>
     <system:String x:Key="PreviewImage">ইমেজ পূর্বরূপ</system:String>
     <system:String x:Key="PreviousPage">পূর্ববর্তী পাতা</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">আপনি কি তবুও চালু করতে এগিয়ে যেতে চান?</system:String>
     <system:String x:Key="Processingpleasewait">প্রসেসিং, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
     <system:String x:Key="ProgressBar">প্রগ্রেস বার</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>

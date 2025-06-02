@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">上の文字ボタンをクリックしてゲームを表示します</system:String>
     <system:String x:Key="Close">閉じる</system:String>
     <system:String x:Key="Cobalt">コバルト</system:String>
-    <system:String x:Key="ConfigEditHint">これらの問題を修正するために、後でこのシステム設定を編集できます。</system:String>
     <system:String x:Key="Confirmation">確認</system:String>
     <system:String x:Key="ConfirmDeletion">削除を確認</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">抽出フォルダ内で『抽出後に起動する拡張子』で定義された拡張子のファイルが見つかりませんでした。</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">無効な展開フォルダ</system:String>
     <system:String x:Key="InvalidInputMessageText">閾値には0.0から1.0の間の有効な数値を入力してください。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">無効な入力</system:String>
-    <system:String x:Key="InvalidPathsLabel">• パラメータ内の以下のパスが無効である可能性があります:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">無効なシステム構成</system:String>
     <system:String x:Key="isalreadyinfavorites">はすでにお気に入りに登録されています。</system:String>
     <system:String x:Key="isminimizedtothetray">システムトレイに最小化されました。</system:String>
-    <system:String x:Key="IssuesWithEmulator">エミュレーターの設定に問題があります:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">システムはMAMEベースですか？</system:String>
     <system:String x:Key="isusedmultipletimes">は複数回使用されています。エミュレーター名は一意である必要があります。</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">'Simple Launcher' は、書き込みアクセス権のない制限されたフォルダ (例: Program Files) にインストールされているようです。</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">エミュレータのパラメータ内のいくつかのパスが無効または欠落しているようです。これらのフィールドを再度確認してください。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">保存は可能ですが、これらのパスはゲーム起動時に問題を引き起こす可能性があります。</system:String>
     <system:String x:Key="PathManipulationDetected">潜在的なパス操作が検出されました</system:String>
-    <system:String x:Key="PathValidationWarningCaption">パス検証警告</system:String>
     <system:String x:Key="PCB">基板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
     <system:String x:Key="Pink">ピンク</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">ダウンロードの準備中</system:String>
     <system:String x:Key="PreviewImage">プレビュー画像</system:String>
     <system:String x:Key="PreviousPage">前のページ</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">いずれにしても起動を続行しますか？</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
     <system:String x:Key="ProgressBar">進行バー</system:String>
     <system:String x:Key="Purple">紫</system:String>

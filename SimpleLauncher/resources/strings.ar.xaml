@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">انقر على أزرار الحروف أعلاه لرؤية الألعاب</system:String>
     <system:String x:Key="Close">إغلاق</system:String>
     <system:String x:Key="Cobalt">كوبالت</system:String>
-    <system:String x:Key="ConfigEditHint">يمكنك تعديل تهيئة هذا النظام لاحقًا لإصلاح هذه المشاكل.</system:String>
     <system:String x:Key="Confirmation">تأكيد</system:String>
     <system:String x:Key="ConfirmDeletion">تأكيد الحذف</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">لم يتم العثور على ملف بالامتداد المحدد في 'الامتداد المطلوب تشغيله بعد الاستخراج' داخل المجلد المُستخرج.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">مجلد الاستخراج غير صالح</system:String>
     <system:String x:Key="InvalidInputMessageText">يرجى إدخال رقم صالح بين 0.0 و 1.0 للعتبة.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">إدخال غير صالح</system:String>
-    <system:String x:Key="InvalidPathsLabel">• المسارات التالية في المعلمات قد تكون غير صالحة:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">تكوين النظام غير صالح</system:String>
     <system:String x:Key="isalreadyinfavorites">موجود بالفعل في المفضلة.</system:String>
     <system:String x:Key="isminimizedtothetray">تم تصغيره إلى شريط المهام.</system:String>
-    <system:String x:Key="IssuesWithEmulator">هناك مشاكل في تهيئة المحاكي:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">النظام يعتمد على MAME؟</system:String>
     <system:String x:Key="isusedmultipletimes">اُستخدم عدة مرات. يجب أن يكون اسم كل محاكي فريدًا.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">يبدو أن 'Simple Launcher' مثبت في مجلد مقيد (مثل Program Files)، حيث لا يملك صلاحية الكتابة.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">لا يزال بإمكانك الحفظ، ولكن هذه المسارات قد تسبب مشاكل عند تشغيل الألعاب.</system:String>
     <system:String x:Key="PathManipulationDetected">تم اكتشاف تلاعب محتمل في المسار</system:String>
-    <system:String x:Key="PathValidationWarningCaption">تحذير التحقق من المسار</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
     <system:String x:Key="Pink">وردي</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">جارٍ التحضير للتحميل</system:String>
     <system:String x:Key="PreviewImage">معاينة الصورة</system:String>
     <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">هل تريد المتابعة بالتشغيل على أي حال؟</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
     <system:String x:Key="ProgressBar">شريط التقدم</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>

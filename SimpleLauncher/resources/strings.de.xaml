@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Klicken Sie auf die Buchstabentasten oben, um die Spiele zu sehen</system:String>
     <system:String x:Key="Close">Schließen</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
-    <system:String x:Key="ConfigEditHint">Sie können diese Systemkonfiguration später bearbeiten, um diese Probleme zu beheben.</system:String>
     <system:String x:Key="Confirmation">Bestätigung</system:String>
     <system:String x:Key="ConfirmDeletion">Löschung bestätigen</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Es konnte keine Datei mit der in 'Erweiterung zum Starten nach der Extraktion' definierten Erweiterung im extrahierten Ordner gefunden werden.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Ungültiger Extraktionsordner</system:String>
     <system:String x:Key="InvalidInputMessageText">Bitte geben Sie eine gültige Zahl zwischen 0,0 und 1,0 für den Schwellenwert ein.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Ungültige Eingabe</system:String>
-    <system:String x:Key="InvalidPathsLabel">• Die folgenden Pfade in den Parametern sind möglicherweise ungültig:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ungültige Systemkonfiguration</system:String>
     <system:String x:Key="isalreadyinfavorites">ist bereits in den Favoriten.</system:String>
     <system:String x:Key="isminimizedtothetray">wird in die Taskleiste minimiert.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Es gibt Probleme mit der Emulator-Konfiguration:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Ist das System MAME-basiert?</system:String>
     <system:String x:Key="isusedmultipletimes">wird mehrmals verwendet. Jeder Emulatorname muss einzigartig sein.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Es sieht so aus, als wäre 'Simple Launcher' in einem eingeschränkten Ordner (z. B. Programme) installiert, in dem er keine Schreibrechte hat.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Einige Pfade in den Emulatorparametern scheinen ungültig oder fehlen. Bitte überprüfen Sie diese Felder erneut.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">Sie können trotzdem speichern, aber diese Pfade können beim Starten von Spielen Probleme verursachen.</system:String>
     <system:String x:Key="PathManipulationDetected">Mögliche Pfadmanipulation erkannt</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Pfadvalidierungswarnung</system:String>
     <system:String x:Key="PCB">Leiterplatte</system:String>
     <system:String x:Key="PCBnotfound">Leiterplatte nicht gefunden</system:String>
     <system:String x:Key="Pink">Rosa</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Vorbereiten des Downloads</system:String>
     <system:String x:Key="PreviewImage">Vorschaubild</system:String>
     <system:String x:Key="PreviousPage">Vorherige Seite</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Möchten Sie trotzdem mit dem Starten fortfahren?</system:String>
     <system:String x:Key="Processingpleasewait">Verarbeitung läuft, bitte warten...</system:String>
     <system:String x:Key="ProgressBar">Fortschrittsbalken</system:String>
     <system:String x:Key="Purple">Lila</system:String>

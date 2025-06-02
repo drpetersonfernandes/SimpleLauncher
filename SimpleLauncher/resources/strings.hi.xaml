@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">खिलाड़ियों को देखने के लिए ऊपर अक्षर बटन पर क्लिक करें</system:String>
     <system:String x:Key="Close">बंद करें</system:String>
     <system:String x:Key="Cobalt">कोबाल्ट</system:String>
-    <system:String x:Key="ConfigEditHint">आप इन समस्याओं को ठीक करने के लिए बाद में इस सिस्टम कॉन्फ़िगरेशन को संपादित कर सकते हैं।</system:String>
     <system:String x:Key="Confirmation">पुष्टि</system:String>
     <system:String x:Key="ConfirmDeletion">हटाने की पुष्टि करें</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' में परिभाषित एक्सटेंशन वाली फ़ाइल एक्सट्रैक्टेड फ़ोल्डर के अंदर नहीं मिली।</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
     <system:String x:Key="InvalidInputMessageText">कृपया सीमा के लिए 0.0 और 1.0 के बीच एक मान्य संख्या दर्ज करें।</system:String>
     <system:String x:Key="InvalidInputMessageTitle">अमान्य इनपुट</system:String>
-    <system:String x:Key="InvalidPathsLabel">• पैरामीटर में निम्नलिखित पथ अमान्य हो सकते हैं:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
     <system:String x:Key="isminimizedtothetray">ट्रे में न्यूनतम कर दिया गया है।</system:String>
-    <system:String x:Key="IssuesWithEmulator">एमुलेटर कॉन्फ़िगरेशन में समस्याएँ हैं:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
     <system:String x:Key="isusedmultipletimes">कई बार उपयोग किया गया है। प्रत्येक एमुलेटर का नाम अद्वितीय होना चाहिए।</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">ऐसा लगता है कि 'Simple Launcher' एक प्रतिबंधित फ़ोल्डर (जैसे Program Files) में स्थापित है, जहाँ उसके पास लिखने की अनुमति नहीं है।</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">एमुलेटर पैरामीटर में कुछ पथ अमान्य या गायब प्रतीत होते हैं। कृपया इन फ़ील्ड्स की दोबारा जांच करें।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">आप अभी भी सहेज सकते हैं, लेकिन ये पथ गेम लॉन्च करते समय समस्याएँ पैदा कर सकते हैं।</system:String>
     <system:String x:Key="PathManipulationDetected">संभावित पथ हेरफेर का पता चला</system:String>
-    <system:String x:Key="PathValidationWarningCaption">पथ सत्यापन चेतावनी</system:String>
     <system:String x:Key="PCB">सर्किट बोर्ड (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB नहीं मिला</system:String>
     <system:String x:Key="Pink">गुलाबी</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">डाउनलोड करने की तैयारी कर रहा है</system:String>
     <system:String x:Key="PreviewImage">पूर्वावलोकन छवि</system:String>
     <system:String x:Key="PreviousPage">पिछला पृष्ठ</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">क्या आप फिर भी लॉन्च करने के लिए आगे बढ़ना चाहते हैं?</system:String>
     <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
     <system:String x:Key="ProgressBar">प्रगति पट्टी</system:String>
     <system:String x:Key="Purple">बैंगनी</system:String>

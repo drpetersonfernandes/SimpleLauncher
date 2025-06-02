@@ -87,7 +87,6 @@
     <system:String x:Key="Clickontheletterbuttonsabove">Klik op de letterknoppen hierboven om de spellen te zien</system:String>
     <system:String x:Key="Close">Sluiten</system:String>
     <system:String x:Key="Cobalt">Kobalt</system:String>
-    <system:String x:Key="ConfigEditHint">U kunt deze systeemconfiguratie later bewerken om deze problemen op te lossen.</system:String>
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
@@ -264,11 +263,9 @@
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Ongeldige invoer</system:String>
-    <system:String x:Key="InvalidPathsLabel">• De volgende paden in parameters zijn mogelijk ongeldig:</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="isminimizedtothetray">is geminimaliseerd naar het systeemvak.</system:String>
-    <system:String x:Key="IssuesWithEmulator">Er zijn problemen met de emulatorconfiguratie:</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
     <system:String x:Key="isusedmultipletimes">wordt meerdere keren gebruikt. Elke emulatornaam moet uniek zijn.</system:String>
     <system:String x:Key="ItlookslikeSimpleLauncherisinstalled">Het lijkt erop dat 'Simple Launcher' is geïnstalleerd in een beperkte map (bijv. Program Files), waar het geen schrijftoegang heeft.</system:String>
@@ -331,7 +328,6 @@
     <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter">U kunt nog steeds opslaan, maar deze paden kunnen problemen veroorzaken bij het starten van games.</system:String>
     <system:String x:Key="PathManipulationDetected">Mogelijke padmanipulatie gedetecteerd</system:String>
-    <system:String x:Key="PathValidationWarningCaption">Waarschuwing padvalidatie</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
     <system:String x:Key="Pink">Roze</system:String>
@@ -368,7 +364,6 @@
     <system:String x:Key="Preparingtodownload">Voorbereiden op downloaden</system:String>
     <system:String x:Key="PreviewImage">Voorbeeldafbeelding</system:String>
     <system:String x:Key="PreviousPage">Vorige pagina</system:String>
-    <system:String x:Key="ProceedWithLaunchQuestion">Wilt u toch doorgaan met starten?</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
     <system:String x:Key="ProgressBar">Voortgangsbalk</system:String>
     <system:String x:Key="Purple">Paars</system:String>
