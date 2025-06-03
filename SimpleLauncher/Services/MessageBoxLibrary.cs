@@ -4759,4 +4759,24 @@ public static class MessageBoxLibrary
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    internal static void ThereWasAnErrorDeletingTheHistoryItem()
+    {
+        var dispatcher = Application.Current.Dispatcher;
+
+        var thereWasAnErrorDeletingTheHistoryItem = (string)Application.Current.TryFindResource("ThereWasAnErrorDeletingTheHistoryItem") ?? "There was an error deleting the history item.";
+        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+
+        if (dispatcher.CheckAccess())
+            ShowMsg();
+        else
+            dispatcher.Invoke(ShowMsg);
+        return;
+
+        void ShowMsg()
+        {
+            MessageBox.Show(thereWasAnErrorDeletingTheHistoryItem,
+                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
 }

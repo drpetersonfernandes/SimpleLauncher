@@ -238,6 +238,9 @@ public partial class PlayTimeWindow
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the DeleteHistoryItem method.");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
         }
     }
 

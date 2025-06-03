@@ -51,7 +51,7 @@ public partial class App
 
                 if (!_isFirstInstance)
                 {
-                    // Another instance is running. Inform the user (optional) and exit this instance.
+                    // Another instance is running. Inform the user and exit this instance.
                     // Notify user
                     MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
 
