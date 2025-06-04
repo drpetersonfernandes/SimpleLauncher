@@ -46,6 +46,77 @@
                 </Setter.Value>
             </Setter>
         </Style>
+
+        <!-- Reusable ControlTemplate for Image Buttons with 3D Effect -->
+        <ControlTemplate x:Key="ImageButton3DEffectTemplate" TargetType="Button">
+            <Border x:Name="ButtonBorder"
+                    Background="White"
+                    BorderBrush="#FFAAAAAA"
+                    BorderThickness="1"
+                    CornerRadius="4"
+                    Padding="8">
+                <Border.Effect>
+                    <DropShadowEffect Color="Gray"
+                                      Direction="315"
+                                      ShadowDepth="3"
+                                      Opacity="0.5"
+                                      BlurRadius="4" />
+                </Border.Effect>
+                <!-- Image source will be set on the button instance -->
+                <ContentPresenter x:Name="ButtonContentPresenter"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background" Value="#FFE0F0FF" />
+                    <!-- Use MahApps Accent Brush for BorderBrush on hover -->
+                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <!-- Use MahApps Accent Color for DropShadowEffect on hover -->
+                            <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}"
+                                              Direction="315"
+                                              ShadowDepth="4"
+                                              Opacity="0.7"
+                                              BlurRadius="6" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background" Value="#FFD0E0F0" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Gray"
+                                              Direction="315"
+                                              ShadowDepth="1"
+                                              Opacity="0.8"
+                                              BlurRadius="2" />
+                        </Setter.Value>
+                    </Setter>
+                    <!-- Apply translate transform to the content presenter -->
+                    <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="1" Y="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Style applying the 3D template to image-only buttons (used for nav buttons etc.) -->
+        <Style x:Key="NavImageButton3DStyle" TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource ImageButton3DEffectTemplate}" />
+            <!-- Default values that can be overridden per button -->
+            <Setter Property="Width" Value="40" />
+            <Setter Property="Height" Value="40" />
+            <Setter Property="HorizontalAlignment" Value="Center" />
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="0,5,3,5" /> <!-- Default margin -->
+        </Style>
+
     </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
@@ -499,67 +570,69 @@
             <!-- Left Navigation Panel -->
             <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                     VerticalAlignment="Top"
-                    Width="50"
+                    Width="53"
                     BorderThickness="1"
                     CornerRadius="5"
-                    Margin="5,0,0,0"
+                    Margin="8,5,0,0"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                     Background="{DynamicResource MahApps.Brushes.Gray9}">
                 <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center"
                             Margin="0">
                     <Button x:Name="NavRestartButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Restart}"
                             Click="NavRestartButton_Click"
-                            Width="40" Height="40" Margin="0,10,0,5">
-                        <Image Source="pack://application:,,,/images/refresh.png" Width="24" Height="24" />
+                            Margin="0,10,3,5"> <!-- Overriding default margin for the first button -->
+                        <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource GlobalSearch}"
-                            Click="NavGlobalSearchButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/search2.png" Width="24" Height="24" />
+                            Click="NavGlobalSearchButton_Click">
+                        <Image Source="pack://application:,,,/images/search2.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavFavoritesButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Favorites}"
-                            Click="NavFavoritesButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/heart.png" Width="24" Height="24" />
+                            Click="NavFavoritesButton_Click">
+                        <Image Source="pack://application:,,,/images/heart.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavHistoryButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource PlayHistory}"
-                            Click="NavHistoryButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/playhistory.png" Width="24" Height="24" />
+                            Click="NavHistoryButton_Click">
+                        <Image Source="pack://application:,,,/images/playhistory.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavExpertModeButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource EditSystem}"
-                            Click="NavExpertModeButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/settings.png" Width="24" Height="24" />
+                            Click="NavExpertModeButton_Click">
+                        <Image Source="pack://application:,,,/images/settings.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ToggleViewMode"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleViewMode}"
-                            Click="NavToggleViewMode_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/show.png" Width="24" Height="24" />
+                            Click="NavToggleViewMode_Click">
+                        <Image Source="pack://application:,,,/images/show.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ToggleButtonAspectRatio"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleButtonAspectRatio}"
-                            Click="NavToggleButtonAspectRatio_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="24" Height="24" />
+                            Click="NavToggleButtonAspectRatio_Click">
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ZoomInButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomIn}"
-                            Click="NavZoomInButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,5">
-                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="24" Height="24" />
+                            Click="NavZoomInButton_Click">
+                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ZoomOutButton"
+                            Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomOut}"
                             Click="NavZoomOutButton_Click"
-                            Width="40" Height="40" Margin="0,5,0,10">
-                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="24" Height="24" />
+                            Margin="0,5,3,10"> <!-- Overriding default margin for the last button -->
+                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="22" Height="22" />
                     </Button>
                 </StackPanel>
             </Border>
@@ -567,7 +640,7 @@
             <!-- Main Panel -->
             <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"
                     BorderThickness="1"
-                    Margin="10,0,0,0"
+                    Margin="10,5,0,0"
                     Padding="5"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                     CornerRadius="5">
@@ -589,8 +662,9 @@
                                 Grid.Row="0"
                                 Grid.Column="0"
                                 Grid.ColumnSpan="5"
-                                Margin="0"
+                                Margin="0,5,0,0"
                                 Orientation="Horizontal">
+                        <!-- Buttons for LetterNumberMenu will be added here programmatically -->
                     </StackPanel>
                     <Label
                         Grid.Row="1"
@@ -606,7 +680,7 @@
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
                         SelectionChanged="SystemComboBox_SelectionChanged" />
-                    
+
                     <StackPanel x:Name="SearchSystem"
                                 Grid.Row="1"
                                 Grid.RowSpan="2"
@@ -619,18 +693,16 @@
                                  VerticalAlignment="Center"
                                  KeyDown="SearchTextBox_KeyDown" />
                         <Button x:Name="SearchButton"
-                            Click="SearchButton_Click"
-                            Margin="10,0,0,0"
-                            HorizontalAlignment="Center"
-                            VerticalAlignment="Center"
-                            ToolTip="{DynamicResource Search}"
-                            Width="40" Height="40">
+                                Style="{StaticResource NavImageButton3DStyle}"
+                                Click="SearchButton_Click"
+                                Margin="10,0,0,0"
+                                ToolTip="{DynamicResource Search}">
                             <Image Source="pack://application:,,,/images/search3.png"
-                                   Width="24"
-                                   Height="24" />
+                                   Width="22"
+                                   Height="22" />
                         </Button>
                     </StackPanel>
-                    
+
                     <Label
                         Grid.Row="2"
                         Grid.Column="0"
@@ -647,27 +719,25 @@
 
                     <Button
                         x:Name="SelectedSystemFavoriteButton"
+                        Style="{StaticResource NavImageButton3DStyle}"
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Grid.Column="3"
-                            ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
-                            Click="NavSelectedSystemFavoriteButton_Click"
-                            Width="40" Height="40"
-                        VerticalAlignment="Center"
+                        ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
+                        Click="NavSelectedSystemFavoriteButton_Click"
                         Margin="10,10,0,0">
-                        <Image Source="pack://application:,,,/images/star.png" Width="24" Height="24" />
+                        <Image Source="pack://application:,,,/images/star.png" Width="22" Height="22" />
                     </Button>
                     <Button
                         Grid.Row="1"
                         Grid.RowSpan="2"
                         Grid.Column="4"
                         x:Name="RandomLuckGameButton"
+                        Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource FeelingLucky}"
                         Click="NavRandomLuckGameButton_Click"
-                        Width="40" Height="40"
-                        VerticalAlignment="Center"
-                        Margin="10,10,0,0">
-                        <Image Source="pack://application:,,,/images/dice.png" Width="24" Height="24" />
+                        Margin="10,10,3,0">
+                        <Image Source="pack://application:,,,/images/dice.png" Width="22" Height="22" />
                     </Button>
                 </Grid>
             </Border>
@@ -675,6 +745,7 @@
             <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
                           Margin="5,5,5,0">
                 <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0">
+                    <!-- Game buttons will be added here programmatically -->
                 </WrapPanel>
             </ScrollViewer>
 
@@ -746,7 +817,7 @@
                         <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                     </DataGrid.Columns>
                 </DataGrid>
-                
+
                 <!-- GridSplitter between columns 0 and 2 -->
                 <GridSplitter Grid.Row="0" Grid.Column="1"
                               Background="Gray"

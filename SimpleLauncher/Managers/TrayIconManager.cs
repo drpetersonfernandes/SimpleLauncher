@@ -51,13 +51,40 @@ public class TrayIconManager : IDisposable
         var exit = (string)Application.Current.TryFindResource("Exit") ?? "Exit";
         var debugWindow = (string)Application.Current.TryFindResource("DebugWindow") ?? "Debug Window";
 
-        var openMenuItem = new MenuItem { Header = open };
+        var openMenuItem = new MenuItem
+        {
+            Header = open,
+            Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/play.png")),
+                Width = 16,
+                Height = 16
+            }
+        };
         openMenuItem.Click += _onOpenHandler;
 
-        var debugWindowMenuItem = new MenuItem { Header = debugWindow };
+        var debugWindowMenuItem = new MenuItem
+        {
+            Header = debugWindow,
+            Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/bug.png")),
+                Width = 16,
+                Height = 16
+            }
+        };
         debugWindowMenuItem.Click += _onOpenDebugWindowHandler;
 
-        var exitMenuItem = new MenuItem { Header = exit };
+        var exitMenuItem = new MenuItem
+        {
+            Header = exit,
+            Icon = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/exit.png")),
+                Width = 16,
+                Height = 16
+            }
+        };
         exitMenuItem.Click += _onExitHandler;
 
         menu.Items.Add(openMenuItem);

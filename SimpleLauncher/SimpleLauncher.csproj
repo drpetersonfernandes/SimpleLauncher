@@ -959,6 +959,8 @@
     <Resource Include="images\refresh.png" />
     <None Remove="images\sound.png" />
     <Resource Include="images\sound.png" />
+    <None Remove="images\play.png" />
+    <Resource Include="images\play.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />
