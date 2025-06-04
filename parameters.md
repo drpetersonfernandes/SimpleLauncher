@@ -734,7 +734,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Xenia<br>
-**Emulator Path (Example):** c:\emulators\xenia\xenia.exe<br>
+**Emulator Path (Example):** c:\emulators\xenia\xenia_canary.exe<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
@@ -1062,6 +1062,13 @@ Core may require BIOS files or system files to work properly.
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** Mesen<br>
+**Emulator Path (Example):** c:\emulators\mesen\Mesen.exe<br>
+**Emulator Parameters (Example):** --fullscreen<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator requires a BIOS file to run this system.
+
 ## Nintendo Game Boy
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1208,6 +1215,11 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+**Emulator Name:** Mesen<br>
+**Emulator Path (Example):** c:\emulators\mesen\Mesen.exe<br>
+**Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 ## Nintendo Satellaview

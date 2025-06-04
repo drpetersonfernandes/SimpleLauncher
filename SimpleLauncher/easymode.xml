@@ -1,5 +1,19 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--230525-->
+<!--040625-->
+<!--OK        Dolphin - Add a .txt file named "portable"-->
+<!--OK        Xenia - Add a .txt file named "portable"-->
+<!--OK        DuckStation - Add a .txt file named "portable"-->
+<!--OK        Citra - Add a folder named "user"-->
+<!--OK        Azahar - Add a folder named "user"-->
+<!--        Cemu - Add a folder named "portable"-->
+<!--        Xemu - Add a .toml file named "xemu"-->
+<!--        PCSX2 - Add an .ini file named "portable"-->
+<!--        puNES - Rename punes64.exe to punes64_p.exe-->
+<!--        Project64 - Download the Zip version-->
+<!--        mGBA - Download the portable .7z archive version-->
+<!--        RMG - Download the portable zip version-->
+<!--        PPSSPP - Download the Zip (portable) version-->
+<!--        Vita3K - Set to portable mode on startup-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -271,8 +285,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v119.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -308,8 +322,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.18</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v118.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_v119.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -904,11 +918,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Xenia</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia_canary.exe</EmulatorLocation>
                 <EmulatorParameters/>
-                <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/xenia-canary/xenia-canary-releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>15008cc</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/xenia_canary_windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -939,11 +953,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Xenia</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia_canary.exe</EmulatorLocation>
                 <EmulatorParameters/>
-                <EmulatorDownloadPage>https://xenia.jp/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.0.2817-master</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/latest/download/xenia_master.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/xenia-canary/xenia-canary-releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>15008cc</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/xenia_canary_windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1125,11 +1139,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Azahar</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Azahar\azahar-2121.1-windows-msys2\azahar.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Azahar\azahar-2121.2-windows-msys2\azahar.exe</EmulatorLocation>
                 <EmulatorParameters>-f</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/azahar-emu/azahar</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2121.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/azahar-emu/azahar/releases/download/2121.1/azahar-2121.1-windows-msys2.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2121.2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/azahar-2121.2-windows-msys2.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Azahar\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1794,8 +1808,8 @@
                 <EmulatorLocation/>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.scummvm.org/downloads/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.9.0</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://downloads.scummvm.org/frs/scummvm/2.9.0/scummvm-2.9.0-win32-x86_64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://downloads.scummvm.org/frs/scummvm/2.9.1/scummvm-2.9.1-win32-x86_64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ScummVM\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2393,8 +2407,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250517</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.20250527</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2469,8 +2483,8 @@
                 <EmulatorLocation/>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.0.35</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.35-17639-ec5b2bc8_win64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.0.37</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.37-17994-d15b7a99_win64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RPCS3\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2504,8 +2518,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\shadPS4\shadPS4.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://github.com/shadps4-emu/shadPS4</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.8.0</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/shadps4-emu/shadPS4/releases/download/v.0.8.0/shadps4-win64-qt-0.8.0.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.9.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/shadps4-emu/shadPS4/releases/download/v.0.9.0/shadps4-win64-qt-0.9.0.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\shadPS4\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>

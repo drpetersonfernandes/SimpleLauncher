@@ -114,7 +114,7 @@
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,5,3,5" /> <!-- Default margin -->
+            <Setter Property="Margin" Value="0,5,2,5" /> <!-- Default margin -->
         </Style>
 
     </Window.Resources>
@@ -582,7 +582,7 @@
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Restart}"
                             Click="NavRestartButton_Click"
-                            Margin="0,10,3,5"> <!-- Overriding default margin for the first button -->
+                            Margin="0,10,2,5"> <!-- Overriding default margin for the first button -->
                         <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
@@ -631,7 +631,7 @@
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomOut}"
                             Click="NavZoomOutButton_Click"
-                            Margin="0,5,3,10"> <!-- Overriding default margin for the last button -->
+                            Margin="0,5,2,10"> <!-- Overriding default margin for the last button -->
                         <Image Source="pack://application:,,,/images/zoom-out.png" Width="22" Height="22" />
                     </Button>
                 </StackPanel>
@@ -736,7 +736,7 @@
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource FeelingLucky}"
                         Click="NavRandomLuckGameButton_Click"
-                        Margin="10,10,3,0">
+                        Margin="10,10,2,0">
                         <Image Source="pack://application:,,,/images/dice.png" Width="22" Height="22" />
                     </Button>
                 </Grid>

@@ -658,7 +658,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>Xenia</EmulatorName>
-        <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\Xenia\xenia_canary.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
@@ -681,7 +681,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>Xenia</EmulatorName>
-        <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\Xenia\xenia_canary.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
@@ -702,7 +702,7 @@
     <Emulators>
       <Emulator>
         <EmulatorName>Xenia</EmulatorName>
-        <EmulatorLocation>.\emulators\Xenia\xenia.exe</EmulatorLocation>
+        <EmulatorLocation>.\emulators\Xenia\xenia_canary.exe</EmulatorLocation>
         <EmulatorParameters/>
       </Emulator>
     </Emulators>
