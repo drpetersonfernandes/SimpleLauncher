@@ -5,15 +5,15 @@
 <!--OK        DuckStation - Add a .txt file named "portable"-->
 <!--OK        Citra - Add a folder named "user"-->
 <!--OK        Azahar - Add a folder named "user"-->
-<!--        Cemu - Add a folder named "portable"-->
-<!--        Xemu - Add a .toml file named "xemu"-->
-<!--        PCSX2 - Add an .ini file named "portable"-->
-<!--        puNES - Rename punes64.exe to punes64_p.exe-->
-<!--        Project64 - Download the Zip version-->
-<!--        mGBA - Download the portable .7z archive version-->
-<!--        RMG - Download the portable zip version-->
-<!--        PPSSPP - Download the Zip (portable) version-->
-<!--        Vita3K - Set to portable mode on startup-->
+<!--OK        Cemu - Add a folder named "portable"-->
+<!--OK        Xemu - Add a .toml file named "xemu"-->
+<!--OK        PCSX2 - Add an .ini file named "portable"-->
+<!--OK        puNES - Rename punes64.exe to punes64_p.exe-->
+<!--OK        Project64 - Download the Zip version-->
+<!--OK        mGBA - Download the portable .7z archive version-->
+<!--OK        RMG - Download the portable zip version-->
+<!--OK        PPSSPP - Download the Zip (portable) version-->
+<!--OK        Vita3K - Set to portable mode on startup-->
 <EasyMode>
 
     <EasyModeSystemConfig>
@@ -1668,7 +1668,7 @@
                 <EmulatorParameters>-f -g</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>
                 <EmulatorLatestVersion>2.6</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/cemu-project/Cemu/releases/download/v2.6/cemu-2.6-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/cemu-2.6-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Cemu\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2558,8 +2558,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.18.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_18_1/ppsspp_win.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19/ppsspp_win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
