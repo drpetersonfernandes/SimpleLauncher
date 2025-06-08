@@ -3,15 +3,15 @@ release4.1.0
 
 08/06/25
 
-*   Added a **Sound Configuration** feature allowing customizable notification sounds.
-*   Implemented a **Debug Logger** with a dedicated UI window for enhanced logging.
-*   Major overhaul and standardization of **path resolution and handling**, including support for placeholders `%BASEFOLDER%`, '%SYSTEMFOLDER%' and '%EMULATORFOLDER%'.
-*   Refactored **Parameter Validation** logic for clarity and robustness, particularly concerning paths.
-*   Improved **Error Handling, Logging**, and messaging across various components (GameLauncher, Services, Managers), replacing `Debug.WriteLine` with the new `DebugLogger`.
-*   Added **Status Bar** updates to show current actions (e.g., game launched).
-*   Introduced **3D button styles** for navigation buttons.
-*   Updated **Tray Icon** messaging and functionality (including Debug Window access).
-*   Refactored **Edit System Window** logic and validation for better user feedback on paths.
+* Added a Sound Configuration feature allowing customizable notification sounds.
+* Implemented a Debug Logger with a dedicated UI window for enhanced logging.
+* Major overhaul and standardization of path resolution and handling, including support for placeholders `%BASEFOLDER%`, '%SYSTEMFOLDER%' and '%EMULATORFOLDER%'.
+* Refactored Parameter Validation logic for clarity and robustness, particularly concerning paths.
+* Improved Error Handling, Logging, and messaging across various components (GameLauncher, Services, Managers), replacing `Debug.WriteLine` with the new `DebugLogger`.
+* Added Status Bar updates to show current actions (e.g., game launched).
+* Introduced 3D button styles for navigation buttons.
+* Updated Tray Icon messaging and functionality (including Debug Window access).
+* Refactored Edit System Window logic and validation for better user feedback on paths.
 
 release4.0.1
 ------------
