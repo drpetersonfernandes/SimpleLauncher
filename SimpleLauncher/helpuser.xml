@@ -1417,7 +1417,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Name:** Dolphin<br>
 **Emulator Path (Example):** c:\emulators\dolphin\Dolphin.exe<br>
 **Emulator Parameters:** <br>
-**Fullscreen Parameter:** -f<br>
+**Fullscreen Parameter:** <br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
