@@ -63,23 +63,16 @@ public class ExtractCompressedFile
 
         try
         {
-            // Resolve the base temp folder path using PathHelper
-            var resolvedTempFolder = PathHelper.ResolveRelativeToAppDirectory(_tempFolder);
-
-            // Validate that the resolved temp folder is within the system's temp path
-            var systemTempPath = Path.GetTempPath(); // Use standard GetTempPath for comparison
-
-            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(_tempFolder))
             {
-                // The _tempFolder has been manipulated, or resolution failed - use default temp path instead
-                resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-
                 // Notify developer
-                const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
+                const string contextMessage = "Temp folder resolution failed.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+                MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                return null;
             }
 
             var randomName = Path.GetRandomFileName();
@@ -89,7 +82,7 @@ public class ExtractCompressedFile
             }
 
             // Combine the resolved temp folder with the random name
-            tempDirectory = Path.Combine(resolvedTempFolder, randomName);
+            tempDirectory = Path.Combine(_tempFolder, randomName);
             try
             {
                 Directory.CreateDirectory(tempDirectory);
@@ -226,22 +219,16 @@ public class ExtractCompressedFile
 
         try
         {
-            var resolvedTempFolder = PathHelper.ResolveRelativeToAppDirectory(_tempFolder);
-
-            // Validate that the resolved temp folder is within the system's temp path
-            var systemTempPath = Path.GetTempPath();
-
-            if (string.IsNullOrEmpty(resolvedTempFolder) || !resolvedTempFolder.StartsWith(PathHelper.ResolveRelativeToAppDirectory(systemTempPath), StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrEmpty(_tempFolder))
             {
-                // The _tempFolder has been manipulated, or resolution failed - use default temp path instead
-                resolvedTempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-
                 // Notify developer
-                const string contextMessage = "Potential path manipulation detected or temp folder resolution failed. Reverting to default temp path.";
+                const string contextMessage = "Temp folder resolution failed.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
+                MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                return null;
             }
 
             var randomName = Path.GetRandomFileName();
@@ -251,7 +238,7 @@ public class ExtractCompressedFile
             }
 
             // Combine the resolved temp folder with the random name
-            tempDirectory = Path.Combine(resolvedTempFolder, randomName);
+            tempDirectory = Path.Combine(_tempFolder, randomName);
             try
             {
                 Directory.CreateDirectory(tempDirectory);
@@ -321,7 +308,7 @@ public class ExtractCompressedFile
 
                     foreach (var entry in archive.Entries)
                     {
-                        var entryDestinationPath = Path.Combine(tempDirectory, entry.FullName);
+                        var entryDestinationPath = Path.GetFullPath(Path.Combine(tempDirectory, entry.FullName));
 
                         // Verify the destination path is within the intended temp directory
                         var fullDestPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(entryDestinationPath);
@@ -544,7 +531,7 @@ public class ExtractCompressedFile
                     foreach (var entry in archive.Entries)
                     {
                         // Combine with the resolved destination folder
-                        var entryDestinationPath = Path.Combine(resolvedDestinationFolder, entry.FullName);
+                        var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.FullName));
 
                         // Verify the destination path is within the resolved destination folder
                         var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);

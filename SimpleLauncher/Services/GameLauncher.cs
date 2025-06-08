@@ -112,16 +112,16 @@ public static class GameLauncher
             switch (fileExtension)
             {
                 case ".BAT":
-                    await LaunchBatchFile(resolvedFilePath);
+                    await LaunchBatchFile(resolvedFilePath, mainWindow);
                     break;
                 case ".LNK":
-                    await LaunchShortcutFile(resolvedFilePath);
+                    await LaunchShortcutFile(resolvedFilePath, mainWindow);
                     break;
                 case ".EXE":
-                    await LaunchExecutable(resolvedFilePath);
+                    await LaunchExecutable(resolvedFilePath, mainWindow);
                     break;
                 default:
-                    await LaunchRegularEmulator(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters);
+                    await LaunchRegularEmulator(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
                     break;
             }
         }
@@ -157,6 +157,8 @@ public static class GameLauncher
             var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
             TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
 
+            UpdateStatusBar.UpdateContent("", mainWindow);
+
             try
             {
                 var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
@@ -185,7 +187,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchBatchFile(string resolvedFilePath)
+    private static async Task LaunchBatchFile(string resolvedFilePath, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -218,6 +220,7 @@ public static class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
+        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -283,7 +286,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchShortcutFile(string resolvedFilePath)
+    private static async Task LaunchShortcutFile(string resolvedFilePath, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -314,6 +317,7 @@ public static class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
+        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -356,7 +360,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchExecutable(string resolvedFilePath)
+    private static async Task LaunchExecutable(string resolvedFilePath, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -386,6 +390,7 @@ public static class GameLauncher
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
 
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
+        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
@@ -426,13 +431,12 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchRegularEmulator(
-        string resolvedFilePath,
+    private static async Task LaunchRegularEmulator(string resolvedFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
         SystemManager selectedSystemConfig,
         SystemManager.Emulator selectedEmulatorConfig,
-        string rawEmulatorParameters) // This is the raw parameter string from config
+        string rawEmulatorParameters, MainWindow mainWindow) // This is the raw parameter string from config
     {
         if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
         {
@@ -526,6 +530,7 @@ public static class GameLauncher
         var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
         var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
         TrayIconManager.ShowTrayMessage($"{fileName} {launchedwith} {selectedEmulatorName}");
+        UpdateStatusBar.UpdateContent($"{fileName} {launchedwith} {selectedEmulatorName}", mainWindow);
 
         using var process = new Process();
         process.StartInfo = psi;
