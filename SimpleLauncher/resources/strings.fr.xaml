@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Une erreur s'est produite lors de la suppression de l'élément d'historique.</system:String>
     <system:String x:Key="100games">100 jeux</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>

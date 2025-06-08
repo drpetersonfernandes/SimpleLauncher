@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">刪除歷史記錄項目時發生錯誤。</system:String>
     <system:String x:Key="100games">100 個遊戲</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>

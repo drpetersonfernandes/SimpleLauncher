@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">履歴項目の削除中にエラーが発生しました。</system:String>
     <system:String x:Key="100games">100 ゲーム</system:String>
     <system:String x:Key="100pixels">100 ピクセル</system:String>
     <system:String x:Key="150pixels">150 ピクセル</system:String>

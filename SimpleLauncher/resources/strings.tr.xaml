@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Geçmiş öğesi silinirken bir hata oluştu.</system:String>
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>

@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">ইতিহাসের আইটেমটি মুছতে একটি ত্রুটি ঘটেছে।</system:String>
     <system:String x:Key="100games">১০০ গেম</system:String>
     <system:String x:Key="100pixels">১০০ পিক্সেল</system:String>
     <system:String x:Key="150pixels">১৫০ পিক্সেল</system:String>

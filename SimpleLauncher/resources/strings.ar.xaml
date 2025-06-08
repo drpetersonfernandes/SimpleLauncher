@@ -1,6 +1,7 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">حدث خطأ أثناء حذف عنصر السجل.</system:String>
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
