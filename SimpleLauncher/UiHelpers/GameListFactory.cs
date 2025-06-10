@@ -136,10 +136,13 @@ public class GameListFactory(
                 var filePath = selectedItem.FilePath;
                 if (string.IsNullOrEmpty(filePath))
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
+
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
                     _mainWindow.Dispatcher.Invoke(() => _mainWindow.PreviewImage.Source = defaultImg);
+
                     return;
                 }
 

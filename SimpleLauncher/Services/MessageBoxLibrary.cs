@@ -3529,12 +3529,9 @@ public static class MessageBoxLibrary
     internal static void CannotExtractThisFileMessageBox(string filePath)
     {
         var theselectedfile = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
-        var cannotbeextracted =
-            (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
-        var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ??
-                                        "To extract a file, it needs to be a 7z, zip, or rar file.";
-        var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ??
-                                   "Please go to Edit System - Expert Mode and edit this system.";
+        var cannotbeextracted = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
+        var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+        var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
         var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
 
         if (Application.Current.Dispatcher.CheckAccess())

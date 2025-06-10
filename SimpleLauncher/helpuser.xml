@@ -1167,6 +1167,11 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
 
+**Emulator Name:** Retroarch parallel_n64_libretro<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\parallel_n64_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
 **Emulator Name:** Project64<br>
 **Emulator Path (Example):** c:\emulators\project64\Project64.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -1325,6 +1330,30 @@ This emulator requires a BIOS file to run this system.
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** Retroarch gambatte<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch tgbdual<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch gearboy<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
+Core may require BIOS files or system files to work properly.
+
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
@@ -1386,6 +1415,30 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch gambatte<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch tgbdual<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch gearboy<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
 Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** JGenesis<br>

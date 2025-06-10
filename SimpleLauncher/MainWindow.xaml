@@ -877,8 +877,8 @@
                         ToolTip="{DynamicResource PreviousPage}"
                         Click="PrevPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
-                           Height="24"
-                           Width="24"/>
+                           Height="22"
+                           Width="22"/>
                 </Button>
                 <Button x:Name="NextPageButton"
                         Height="40"
@@ -889,8 +889,8 @@
                         ToolTip="{DynamicResource NextPage}"
                         Click="NextPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowright.png"
-                           Height="24"
-                           Width="24"/>
+                           Height="22"
+                           Width="22"/>
                 </Button>
                 <Label
                     x:Name="TotalFilesLabel"

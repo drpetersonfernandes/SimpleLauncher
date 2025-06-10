@@ -125,7 +125,7 @@ public partial class PlayTimeWindow
             else
             {
                 // Notify developer
-                var contextMessage = $"System config not found for history item: {item.SystemName} - {item.FileName}";
+                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
 
                 sizeToSet = -2; // System config not found, set to "N/A" state
