@@ -602,7 +602,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
             }
 
-
             // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
             await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
 
