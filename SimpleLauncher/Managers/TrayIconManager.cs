@@ -109,15 +109,16 @@ public class TrayIconManager : IDisposable
     {
         if (_mainWindow.WindowState != WindowState.Minimized) return;
 
-        _mainWindow.Hide();
-        var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
-        ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
+        // _mainWindow.Hide();
 
+        // var isminimizedtothetray = (string)Application.Current.TryFindResource("isminimizedtothetray") ?? "is minimized to the tray.";
+        // ShowTrayMessage($"Simple Launcher {isminimizedtothetray}");
+
+        // Gamepad navigation will stop when the window is minimized to the taskbar.
         if (GamePadController.Instance2.IsRunning)
         {
             GamePadController.Instance2.Stop();
         }
-        // No 'else' needed here for restoring, OnOpen handles explicit restore from tray.
     }
 
     private void OnOpen(object sender, RoutedEventArgs e)
