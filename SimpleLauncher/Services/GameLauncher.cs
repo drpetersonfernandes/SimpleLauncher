@@ -572,7 +572,7 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
-                if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorConfig)) return;
+                // if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorConfig)) return;
                 if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorConfig)) return;
 
                 await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorConfig);
@@ -708,16 +708,19 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output,
-        StringBuilder error, SystemManager.Emulator emulatorConfig)
+    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
     {
-        if (!process.HasExited || process.ExitCode == 0) return Task.CompletedTask; // Ensure process has exited
+        // Ignore MemoryAccessViolation
+        if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation)
+        {
+            return Task.CompletedTask;
+        }
 
         // Check if the output contains "File open/read error" and ignore it,
         // This is a common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
-            return Task.CompletedTask; // Ignore this specific error
+            return Task.CompletedTask;
         }
 
         if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
