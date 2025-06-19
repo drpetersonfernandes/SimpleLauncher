@@ -30,7 +30,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            MessageBoxLibrary.FilePathIsInvalid(LogPath);
 
             return;
         }

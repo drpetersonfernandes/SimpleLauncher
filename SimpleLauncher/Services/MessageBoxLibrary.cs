@@ -4776,4 +4776,49 @@ public static class MessageBoxLibrary
                 warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
+
+    public static void FilePathIsInvalid(string logPath)
+    {
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            ShowMessage();
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke(ShowMessage);
+        }
+
+        return;
+
+        void ShowMessage()
+        {
+            var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+            var thefilepathisinvalidorthefiledoesnotexist = (string)Application.Current.TryFindResource("Thefilepathisinvalidorthefiledoesnotexist") ?? "The file path is invalid or the file does not exist!";
+            var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show(
+                $"{simpleLaunchercouldnotlaunch}\n\n" +
+                $"{thefilepathisinvalidorthefiledoesnotexist}\n\n" +
+                $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                $"{doyouwanttoopenthefile}",
+                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result != MessageBoxResult.Yes) return;
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwas,
+                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
 }
