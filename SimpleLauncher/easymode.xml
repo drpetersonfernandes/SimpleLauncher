@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--040625-->
+<!--190625-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
 <!--OK        DuckStation - Add a .txt file named "portable"-->
@@ -758,11 +758,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>DOSBox Staging</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\DOSBox Staging\dosbox-staging-v0.82.1\dosbox.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\DOSBox Staging\dosbox-staging-v0.82.2\dosbox.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.dosbox-staging.org/releases/windows/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.82.1</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.1/dosbox-staging-windows-x64-v0.82.1.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.82.2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/dosbox-staging/dosbox-staging/releases/download/v0.82.2/dosbox-staging-windows-x64-v0.82.2.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DOSBox Staging\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -770,10 +770,10 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ImagePackLocation/>
-                                <ImagePackLatestVersion/>
-                                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ImagePackDownloadLink>
-                                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>-->
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1139,11 +1139,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Azahar</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Azahar\azahar-2121.2-windows-msys2\azahar.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Azahar\azahar-2122-windows-msys2\azahar.exe</EmulatorLocation>
                 <EmulatorParameters>-f</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/azahar-emu/azahar</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2121.2</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/azahar-2121.2-windows-msys2.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2122</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/azahar-2122-windows-msys2.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Azahar\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1443,8 +1443,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1632,8 +1632,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1701,8 +1701,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin-x64\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2503</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2503-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2558,8 +2558,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19/ppsspp_win.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.19.2</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19_2/ppsspp_win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
