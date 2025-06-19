@@ -271,13 +271,9 @@ public static class ContextMenuFunctions
         var systemImageFolder = systemManager.SystemImageFolder;
 
         // Ensure the systemImageFolder considers both absolute and relative paths
-        if (!Path.IsPathRooted(systemImageFolder))
-        {
-            if (systemImageFolder != null)
-            {
-                systemImageFolder = Path.Combine(baseDirectory, systemImageFolder);
-            }
-        }
+        // Resolve the path using PathHelper
+        var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
+
 
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
@@ -286,7 +282,7 @@ public static class ContextMenuFunctions
 
         // Try to find the image in the systemImageFolder directory first
         // Then search inside the globalImageDirectory
-        if (TryFindImage(systemImageFolder, out var foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
+        if (TryFindImage(resolvedSystemImageFolder, out var foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
             imageViewerWindow.LoadImage(foundImagePath);
@@ -303,6 +299,12 @@ public static class ContextMenuFunctions
         // Function to search for the file in a given directory
         bool TryFindImage(string directory, out string foundPath)
         {
+            foundPath = null;
+            if (string.IsNullOrEmpty(directory) || !Directory.Exists(directory))
+            {
+                return false;
+            }
+
             foreach (var extension in imageExtensions)
             {
                 var imagePath = Path.Combine(directory, fileNameWithoutExtension + extension);
@@ -312,7 +314,6 @@ public static class ContextMenuFunctions
                 return true;
             }
 
-            foundPath = null;
             return false;
         }
     }
@@ -568,21 +569,24 @@ public static class ContextMenuFunctions
             }
 
             var systemName = systemManager.SystemName;
-            var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var systemImageFolder = systemManager.SystemImageFolder;
 
-            if (string.IsNullOrEmpty(systemImageFolder))
+            // Resolve the systemImageFolder using PathHelper
+            var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
+
+            if (string.IsNullOrEmpty(resolvedSystemImageFolder))
             {
-                systemImageFolder = Path.Combine(baseDirectory, "images", systemName);
-                try
-                {
-                    Directory.CreateDirectory(systemImageFolder);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Could not create the system image folder.");
-                }
+                // Fallback to default if resolution fails or path is empty
+                resolvedSystemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+            }
+
+            try
+            {
+                Directory.CreateDirectory(resolvedSystemImageFolder);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, $"Could not create the system image folder: {resolvedSystemImageFolder}");
             }
 
             // Wait for the Game or Emulator to launch
@@ -620,7 +624,7 @@ public static class ContextMenuFunctions
             var width = rectangle.Right - rectangle.Left;
             var height = rectangle.Bottom - rectangle.Top;
 
-            var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
+            var screenshotPath = Path.Combine(resolvedSystemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
             using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
