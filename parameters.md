@@ -714,8 +714,15 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
 
-The ISO file needs to be formated in XBOX format, as the original XBOX discs.
-You can find information about that on [Xemu Website](https://xemu.app/docs/disc-images/).
+**Emulator Name:** Cxbx-Reloaded<br>
+**Emulator Path (Example):** c:\emulators\Cxbx-Reloaded\cxbx.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
+
+The ISO file needs to be formated in XISO format for both emulators, as the original XBOX discs.
 You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
 
 ## Microsoft Xbox 360
@@ -737,6 +744,9 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Emulator Path (Example):** c:\emulators\xenia\xenia_canary.exe<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
+
+I recommend that you convert the original Redump ISO file to an optimized XISO file, which is smaller.
+You can find a tool in the 'Simple Launcher' tools menu that can optimize original Xbox ISO files.
 
 ## Microsoft Xbox 360 XBLA
 

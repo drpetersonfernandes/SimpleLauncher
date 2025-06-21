@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Text;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using SimpleLauncher.Managers;
@@ -108,27 +109,37 @@ public static class GameLauncher
 
         try
         {
-            var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
-            switch (fileExtension)
+            // Specific handling for Cxbx-Reloaded
+            if (selectedEmulatorName.Equals("Cxbx-Reloaded", StringComparison.OrdinalIgnoreCase) &&
+                Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
             {
-                case ".BAT":
-                    await LaunchBatchFile(resolvedFilePath, mainWindow);
-                    break;
-                case ".LNK":
-                    await LaunchShortcutFile(resolvedFilePath, mainWindow);
-                    break;
-                case ".EXE":
-                    await LaunchExecutable(resolvedFilePath, mainWindow);
-                    break;
-                default:
-                    await LaunchRegularEmulator(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
-                    break;
+                DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
+                await MountXisoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+            }
+            else
+            {
+                var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
+                switch (fileExtension)
+                {
+                    case ".BAT":
+                        await LaunchBatchFile(resolvedFilePath, mainWindow);
+                        break;
+                    case ".LNK":
+                        await LaunchShortcutFile(resolvedFilePath, mainWindow);
+                        break;
+                    case ".EXE":
+                        await LaunchExecutable(resolvedFilePath, mainWindow);
+                        break;
+                    default:
+                        await LaunchRegularEmulator(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                        break;
+                }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Generic error in the GameLauncher class.\n" +
+            var contextMessage = $"Unhandled error in GameLauncher's main launch block.\n" +
                                  $"FilePath: {resolvedFilePath}\n" +
                                  $"SelectedSystem: {selectedSystemName}\n" +
                                  $"SelectedEmulator: {selectedEmulatorName}";
@@ -183,6 +194,236 @@ public static class GameLauncher
             {
                 // Update stats
                 _ = Stats.CallApiAsync(selectedEmulatorName);
+            }
+        }
+    }
+
+    private static async Task MountXisoFile(string resolvedIsoFilePath,
+        string selectedSystemName,
+        string selectedEmulatorName,
+        SystemManager selectedSystemManager,
+        SystemManager.Emulator selectedEmulatorManager,
+        string rawEmulatorParameters,
+        MainWindow mainWindow)
+    {
+        DebugLogger.Log($"[MountXisoFile] Starting to mount ISO: {resolvedIsoFilePath}");
+        DebugLogger.Log($"[MountXisoFile] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+        const string xboxIsoVfsExe = "xbox-iso-vfs.exe";
+        var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(xboxIsoVfsExe);
+
+        DebugLogger.Log($"[MountXisoFile] Path to {xboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
+
+        if (string.IsNullOrWhiteSpace(resolvedXboxIsoVfsPath) || !File.Exists(resolvedXboxIsoVfsPath))
+        {
+            // Notify developer
+            const string errorMessage = "xbox-iso-vfs.exe not found in application directory. Cannot mount ISO.";
+            DebugLogger.Log($"[MountXisoFile] Error: {errorMessage}");
+            _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(LogPath);
+
+            return;
+        }
+
+        var psiMount = new ProcessStartInfo
+        {
+            FileName = resolvedXboxIsoVfsPath,
+            Arguments = $"/l \"{resolvedIsoFilePath}\" w",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+            WorkingDirectory = Path.GetDirectoryName(resolvedXboxIsoVfsPath) ?? AppDomain.CurrentDomain.BaseDirectory
+        };
+
+        DebugLogger.Log($"[MountXisoFile] ProcessStartInfo for {xboxIsoVfsExe}:");
+        DebugLogger.Log($"[MountXisoFile] FileName: {psiMount.FileName}");
+        DebugLogger.Log($"[MountXisoFile] Arguments: {psiMount.Arguments}");
+        DebugLogger.Log($"[MountXisoFile] WorkingDirectory: {psiMount.WorkingDirectory}");
+
+        using var mountProcess = new Process();
+        mountProcess.StartInfo = psiMount;
+        mountProcess.EnableRaisingEvents = true;
+        var mountProcessId = -1; // To store process ID for reliable logging
+
+        var mountOutput = new StringBuilder();
+        var mountError = new StringBuilder();
+
+        mountProcess.OutputDataReceived += (_, args) =>
+        {
+            if (args.Data == null) return;
+
+            mountOutput.AppendLine(args.Data);
+            DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} STDOUT: {args.Data}");
+        };
+        mountProcess.ErrorDataReceived += (_, args) =>
+        {
+            if (args.Data == null) return;
+
+            mountError.AppendLine(args.Data);
+            DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} STDERR: {args.Data}");
+        };
+
+        try
+        {
+            DebugLogger.Log($"[MountXisoFile] Starting {xboxIsoVfsExe} process...");
+            var processStarted = mountProcess.Start();
+            if (!processStarted)
+            {
+                throw new InvalidOperationException($"Failed to start the {xboxIsoVfsExe} process.");
+            }
+
+            mountProcessId = mountProcess.Id; // Store ID after process started
+            DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} process started (ID: {mountProcessId}).");
+
+            mountProcess.BeginOutputReadLine();
+            mountProcess.BeginErrorReadLine();
+
+            DebugLogger.Log("[MountXisoFile] Waiting a few seconds for ISO to mount...");
+            await Task.Delay(3000);
+
+            const string defaultXbePath = "W:\\default.xbe";
+            var mountSuccessful = File.Exists(defaultXbePath);
+
+            DebugLogger.Log($"[MountXisoFile] Checking for mounted file: {defaultXbePath}. Exists: {mountSuccessful}");
+
+            if (!mountSuccessful)
+            {
+                DebugLogger.Log($"[MountXisoFile] Mount check failed. {xboxIsoVfsExe} Output:\n{mountOutput}");
+                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} Error:\n{mountError}");
+
+                if (!mountProcess.HasExited)
+                {
+                    DebugLogger.Log($"[MountXisoFile] Terminating unsuccessful {xboxIsoVfsExe} process (ID: {mountProcessId}).");
+                    try
+                    {
+                        mountProcess.Kill(true);
+                        // Wait for exit with CancellationToken for timeout (5 seconds)
+                        using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(5)))
+                        {
+                            await mountProcess.WaitForExitAsync(cts.Token);
+                        }
+
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) exited after Kill (in mount failure path).");
+                    }
+                    catch (TaskCanceledException) // Timeout occurred
+                    {
+                        DebugLogger.Log($"[MountXisoFile] Timeout (5s) waiting for {xboxIsoVfsExe} (ID: {mountProcessId}) to exit after Kill (in mount failure path).");
+                    }
+                    catch (InvalidOperationException killEx) when (killEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase))
+                    {
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) already exited before WaitForExitAsync after kill (in mount failure path).");
+                    }
+                    catch (Exception killEx)
+                    {
+                        DebugLogger.Log($"[MountXisoFile] Exception while killing/waiting for {xboxIsoVfsExe} (ID: {mountProcessId}) after failed mount: {killEx.Message}");
+                    }
+                }
+
+                // Notify developer
+                var contextMessage = $"Failed to mount the ISO file {resolvedIsoFilePath} or {defaultXbePath} not found after attempting to mount.\n" +
+                                     $"{xboxIsoVfsExe} Output: {mountOutput}\n" +
+                                     $"{xboxIsoVfsExe} Error: {mountError}";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(LogPath);
+
+                return;
+            }
+
+            DebugLogger.Log($"[MountXisoFile] ISO mounted successfully. Proceeding to launch {defaultXbePath} with {selectedEmulatorName}.");
+
+            // Launch default.xbe
+            await LaunchRegularEmulator(defaultXbePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+
+            DebugLogger.Log($"[MountXisoFile] Emulator for {defaultXbePath} has exited.");
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountXisoFile] Exception during mounting or launching: {ex}");
+
+            // Notify developer
+            var contextMessage = $"Error during ISO mount/launch process for {resolvedIsoFilePath}.\n" +
+                                 $"Exception: {ex.Message}\n" +
+                                 $"{xboxIsoVfsExe} Output: {mountOutput}\n" +
+                                 $"{xboxIsoVfsExe} Error: {mountError}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(LogPath);
+        }
+        finally
+        {
+            if (!mountProcess.HasExited)
+            {
+                DebugLogger.Log($"[MountXisoFile] Attempting to unmount by terminating {xboxIsoVfsExe} (ID: {mountProcessId}).");
+                try
+                {
+                    mountProcess.Kill(true);
+                    DebugLogger.Log($"[MountXisoFile] Kill signal sent to {xboxIsoVfsExe} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
+
+                    // Wait for exit with CancellationToken for timeout (10 seconds)
+                    using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
+                    {
+                        try
+                        {
+                            await mountProcess.WaitForExitAsync(cts.Token);
+                        }
+                        catch (TaskCanceledException) // Timeout occurred
+                        {
+                            DebugLogger.Log($"[MountXisoFile] Timeout (10s) waiting for {xboxIsoVfsExe} (ID: {mountProcessId}) to exit after Kill.");
+                        }
+                    }
+
+                    if (mountProcess.HasExited)
+                    {
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
+                }
+                catch (InvalidOperationException ioEx)
+                {
+                    if (ioEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase) ||
+                        ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase) ||
+                        ioEx.Message.Contains("Process has not been started", StringComparison.OrdinalIgnoreCase))
+                    {
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited or was not running when explicit kill/wait in finally was attempted: {ioEx.Message}. Output:\n{mountOutput}\nError:\n{mountError}");
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[MountXisoFile] Unexpected InvalidOperationException while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {ioEx}");
+
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {xboxIsoVfsExe} termination.");
+                    }
+                }
+                catch (Exception termEx)
+                {
+                    DebugLogger.Log($"[MountXisoFile] Exception while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {termEx}");
+
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {xboxIsoVfsExe} (ID: {mountProcessId}) for unmounting.");
+                }
+            }
+            else
+            {
+                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited before finally block's kill check. Exit code likely {(mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}. Output:\n{mountOutput}\nError:\n{mountError}");
+            }
+
+            await Task.Delay(1000);
+            if (Directory.Exists("W:\\"))
+            {
+                DebugLogger.Log("[MountXisoFile] WARNING: W: drive still exists after attempting to unmount. Manual unmount might be needed or xbox-iso-vfs.exe did not unmount on Kill().");
+            }
+            else
+            {
+                DebugLogger.Log("[MountXisoFile] W: drive successfully unmounted (or was not detected after unmount attempt).");
             }
         }
     }
@@ -275,7 +516,8 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Exception running the batch process. User was not notified.\n" +
                                  $"Batch file: {psi.FileName}\n" +
-                                 $"Exit code {process.ExitCode}\n" +
+                                 // Safely get ExitCode
+                                 $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"Output: {output}\n" +
                                  $"Error: {error}";
@@ -422,7 +664,8 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Exception launching the executable file.\n" +
                                  $"Executable file: {psi.FileName}\n" +
-                                 $"Exit code {process.ExitCode}" +
+                                 // Safely get ExitCode
+                                 $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
                                  $"Exception: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
@@ -434,19 +677,37 @@ public static class GameLauncher
     private static async Task LaunchRegularEmulator(string resolvedFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
-        SystemManager selectedSystemConfig,
-        SystemManager.Emulator selectedEmulatorConfig,
+        SystemManager selectedSystemManager,
+        SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters, MainWindow mainWindow) // This is the raw parameter string from config
     {
-        if (selectedSystemConfig.ExtractFileBeforeLaunch == true)
+        // Check if the file to launch is the mounted XBE path, which should not be extracted again.
+        var isMountedXbe = resolvedFilePath.Equals("W:\\default.xbe", StringComparison.OrdinalIgnoreCase);
+
+        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe)
         {
-            resolvedFilePath = await ExtractFilesBeforeLaunch(resolvedFilePath, selectedSystemConfig);
+            resolvedFilePath = await ExtractFilesBeforeLaunch(resolvedFilePath, selectedSystemManager);
         }
 
         if (string.IsNullOrEmpty(resolvedFilePath))
         {
             // Notify developer
-            const string contextMessage = "resolvedFilePath is null or empty after extraction attempt.";
+            const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted XBE).";
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+            return;
+        }
+
+        // For mounted XBE, ensure it still exists before proceeding (it should, if MountXisoFile worked)
+        if (isMountedXbe && !File.Exists(resolvedFilePath))
+        {
+            var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
+
+            // Notify developer
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -456,11 +717,11 @@ public static class GameLauncher
         }
 
         // Resolve the Emulator Path (executable)
-        var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorConfig.EmulatorLocation);
+        var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
         if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
         {
             // Notify developer
-            var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorConfig.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
+            var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -483,7 +744,7 @@ public static class GameLauncher
         }
 
         // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
-        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemConfig.SystemFolder);
+        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
         // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
         // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
 
@@ -525,7 +786,8 @@ public static class GameLauncher
         DebugLogger.Log($"LaunchRegularEmulator:\n\n" +
                         $"Program Location: {resolvedEmulatorExePath}\n" +
                         $"Arguments: {arguments}\n" +
-                        $"Working Directory: {psi.WorkingDirectory}\n");
+                        $"Working Directory: {psi.WorkingDirectory}\n" +
+                        $"File to launch: {resolvedFilePath}");
 
         var fileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
         var launchedwith = (string)Application.Current.TryFindResource("launchedwith") ?? "launched with";
@@ -572,10 +834,10 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
-                // if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorConfig)) return;
-                if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorConfig)) return;
+                // if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorManager)) return;
+                if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorManager)) return;
 
-                await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorConfig);
+                await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorManager);
             }
         }
         catch (InvalidOperationException ex)
@@ -584,7 +846,7 @@ public static class GameLauncher
             const string contextMessage = "Invalid Operation Exception while launching emulator.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox(LogPath);
@@ -598,11 +860,11 @@ public static class GameLauncher
                               $"Emulator output: {output}\n" +
                               $"Emulator error: {error}\n" +
                               $"Calling parameters: {psi.Arguments}";
-            var userNotified = selectedEmulatorConfig.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (selectedEmulatorConfig.ReceiveANotificationOnEmulatorError)
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -613,6 +875,7 @@ public static class GameLauncher
     private static async Task<string> ExtractFilesBeforeLaunch(string resolvedFilePath, SystemManager systemManager)
     {
         var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
+        DebugLogger.Log($"[ExtractFilesBeforeLaunch] Attempting to extract: {resolvedFilePath}, Extension: {fileExtension}");
 
         switch (fileExtension)
         {
@@ -643,6 +906,7 @@ public static class GameLauncher
                 // Notify developer
                 var contextMessage = $"Can not extract file: {resolvedFilePath}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[ExtractFilesBeforeLaunch] Error: {contextMessage}");
 
                 // Notify user
                 MessageBoxLibrary.CannotExtractThisFileMessageBox(resolvedFilePath);
@@ -651,15 +915,18 @@ public static class GameLauncher
             }
         }
 
-        return null;
+        DebugLogger.Log($"[ExtractFilesBeforeLaunch] No suitable file found after extraction attempt for: {resolvedFilePath}");
+        return null; // Explicitly return null if no file found or extraction failed
 
-        static Task<string> ValidateAndFindGameFile(string tempExtractLocation, SystemManager sysConfig)
+        static Task<string> ValidateAndFindGameFile(string tempExtractLocation, SystemManager sysManager)
         {
+            DebugLogger.Log($"[ValidateAndFindGameFile] Validating extracted path: {tempExtractLocation}");
             if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
             {
                 // Notify developer
                 var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[ValidateAndFindGameFile] Error: {contextMessage}");
 
                 // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -667,11 +934,12 @@ public static class GameLauncher
                 return Task.FromResult<string>(null);
             }
 
-            if (sysConfig.FileFormatsToLaunch == null || sysConfig.FileFormatsToLaunch.Count == 0)
+            if (sysManager.FileFormatsToLaunch == null || sysManager.FileFormatsToLaunch.Count == 0)
             {
                 // Notify developer
                 const string contextMessage = "FileFormatsToLaunch is null or empty.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[ValidateAndFindGameFile] Error: {contextMessage}");
 
                 // Notify user
                 MessageBoxLibrary.NullFileExtensionMessageBox();
@@ -679,27 +947,36 @@ public static class GameLauncher
                 return Task.FromResult<string>(null);
             }
 
-            foreach (var formatToLaunch in sysConfig.FileFormatsToLaunch)
+            DebugLogger.Log($"[ValidateAndFindGameFile] Searching for formats: {string.Join(", ", sysManager.FileFormatsToLaunch)} in {tempExtractLocation}");
+            foreach (var formatToLaunch in sysManager.FileFormatsToLaunch)
             {
                 try
                 {
-                    var files = Directory.GetFiles(tempExtractLocation, $"*{formatToLaunch}", SearchOption.AllDirectories);
-                    if (files.Length > 0)
+                    // Ensure formatToLaunch is just the extension like ".cue", not "*.cue"
+                    var searchPattern = $"*{formatToLaunch}";
+                    if (!formatToLaunch.StartsWith('.'))
                     {
-                        return Task.FromResult(files[0]); // Return the first found file (which is already an absolute path)
+                        searchPattern = $"*.{formatToLaunch}"; // Normalize if needed
                     }
+
+                    var files = Directory.GetFiles(tempExtractLocation, searchPattern, SearchOption.AllDirectories);
+                    if (files.Length <= 0) continue;
+
+                    DebugLogger.Log($"[ValidateAndFindGameFile] Found file to launch: {files[0]}");
+                    return Task.FromResult(files[0]);
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
+                    DebugLogger.Log($"[ValidateAndFindGameFile] Exception searching for {formatToLaunch}: {ex.Message}");
                 }
             }
 
             // Notify developer
-            const string notFoundContext = "Could not find a file with the extension defined in 'Extension to Launch After Extraction'.";
-            var exNotFound = new Exception(notFoundContext);
-            _ = LogErrors.LogErrorAsync(exNotFound, notFoundContext);
+            const string notFoundContext = "Could not find a file with any of the extensions defined in 'FileFormatsToLaunch' after extraction.";
+            _ = LogErrors.LogErrorAsync(new FileNotFoundException(notFoundContext), notFoundContext);
+            DebugLogger.Log($"[ValidateAndFindGameFile] Error: {notFoundContext}");
 
             // Notify user
             MessageBoxLibrary.CouldNotFindAFileMessageBox();
@@ -708,7 +985,7 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
+    private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         // Ignore MemoryAccessViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation)
@@ -720,10 +997,11 @@ public static class GameLauncher
         // This is a common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
+            DebugLogger.Log($"[CheckForExitCodeWithErrorAny] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
             return Task.CompletedTask;
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify developer
             var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
@@ -748,7 +1026,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
@@ -757,14 +1035,14 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
+    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         if (!process.HasExited || process.ExitCode != MemoryAccessViolation) // Ensure process has exited
         {
             return Task.FromResult(false);
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify developer
             var contextMessage = $"There was an memory access violation error running the emulator.\n" +
@@ -789,7 +1067,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify user
             MessageBoxLibrary.CheckForMemoryAccessViolation(LogPath);
@@ -798,14 +1076,14 @@ public static class GameLauncher
         return Task.FromResult(true);
     }
 
-    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorConfig)
+    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         if (!process.HasExited || process.ExitCode != DepViolation) // Ensure process has exited
         {
             return Task.FromResult(false);
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify developer
             var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
@@ -830,7 +1108,7 @@ public static class GameLauncher
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
-        if (emulatorConfig.ReceiveANotificationOnEmulatorError == true)
+        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify user
             MessageBoxLibrary.DepViolationMessageBox(LogPath);
