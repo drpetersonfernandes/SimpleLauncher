@@ -310,16 +310,30 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             List<string> gameFiles;
 
             // Otherwise, use the cached files for the selected system
+            // _cachedFiles is populated by the smart CacheManager, so it should be up-to-date
+            // if LoadSystemFilesAsync or SystemComboBox_SelectionChanged was called.
+            // For "Feeling Lucky", we want the full list for the system, not a filtered one.
+            // So, we should ensure _cachedFiles represents the full, unfiltered list for the system.
+            // This is handled by SystemComboBox_SelectionChanged calling _cacheManager.LoadSystemFilesAsync.
             if (_cachedFiles is { Count: > 0 })
             {
                 gameFiles = _cachedFiles;
             }
-            // If needed, rescan the system folder
+            // If _cachedFiles is empty (e.g., system just selected, but no games, or error),
+            // we might need to explicitly load/scan here.
+            // However, SystemComboBox_SelectionChanged should have already populated _cachedFiles.
             else
             {
-                var systemFolderPath = selectedConfig.SystemFolder;
-                var fileExtensions = selectedConfig.FileFormatsToSearch;
-                gameFiles = await GetListOfFiles.GetFilesAsync(systemFolderPath, fileExtensions);
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
+                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
+                {
+                    gameFiles = [];
+                }
+                else
+                {
+                    // Explicitly load/scan if _cachedFiles is empty for some reason
+                    gameFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+                }
             }
 
             // Check if we have any games after filtering
@@ -617,7 +631,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             ResetPaginationButtons();
 
             // Load files from cache or rescan if needed (pass the resolved folder path)
-            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch, gameCount);
+            // The CacheManager's LoadSystemFilesAsync will now internally handle validation based on folder timestamp and file count.
+            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
         }
         catch (Exception ex)
         {
@@ -693,7 +708,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     break;
                 default:
                 {
-                    // Use the cached files (which are already resolved paths)
+                    // Use the cached files (which are already resolved paths and validated by CacheManager)
                     allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
@@ -835,44 +850,25 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task<List<string>> TryToUseCachedListOfFiles(string selectedSystem, SystemManager selectedManager)
     {
-        _cachedFiles = _cacheManager.GetCachedFiles(selectedSystem);
-
-        // Resolve the system folder path for recounting
         var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemFolder);
 
-        // Check if the resolved path is valid before recounting
-        int gameCount;
+        // Basic validation for folderPath
         if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || selectedManager.FileFormatsToSearch == null)
         {
-            if (!string.IsNullOrEmpty(selectedManager.SystemFolder))
+            if (!string.IsNullOrEmpty(selectedManager.SystemFolder)) // Log only if a path was configured
             {
-                _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot recount files for cache validation.");
+                _ = LogErrors.LogErrorAsync(null, $"MainWindow.TryToUseCachedListOfFiles: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot load files.");
             }
 
-            gameCount = 0; // Set the count to 0 if the folder is invalid
-        }
-        else
-        {
-            gameCount = await CountFiles.CountFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
+            _cachedFiles = []; // Ensure _cachedFiles is an empty list
+            return _cachedFiles;
         }
 
-        var cachedFilesCount = _cachedFiles?.Count ?? 0;
+        // The CacheManager handles all validation and loading logic.
+        _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, selectedManager.FileFormatsToSearch);
 
-        if (cachedFilesCount != gameCount)
-        {
-            // Rescan using the resolved path and update cache
-            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, selectedManager.FileFormatsToSearch, gameCount);
-        }
-
-        if (_cachedFiles is { Count: > 0 })
-        {
-            return new List<string>(_cachedFiles);
-        }
-        else
-        {
-            // Fall back to scanning the folder if no cache is available (using the resolved path)
-            return await GetListOfFiles.GetFilesAsync(systemFolderPath, selectedManager.FileFormatsToSearch);
-        }
+        // Ensure _cachedFiles is not null if LoadSystemFilesAsync could return null on error.
+        return _cachedFiles ?? [];
     }
 
     private async Task SetUiBeforeLoadGameFilesAsync()

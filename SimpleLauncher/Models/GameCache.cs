@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using MessagePack;
 
@@ -11,4 +12,7 @@ public class GameCache
 
     [Key(1)]
     public required List<string> FileNames { get; set; }
+
+    [Key(2)]
+    public DateTime FolderLastWriteTimeUtc { get; set; }
 }
