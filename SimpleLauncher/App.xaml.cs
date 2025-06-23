@@ -5,6 +5,7 @@ using System.Threading;
 using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 using SimpleLauncher.Managers;
@@ -15,6 +16,7 @@ public partial class App
 {
     public static SettingsManager Settings { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
+    public static IConfiguration Configuration { get; private set; }
 
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
@@ -23,6 +25,12 @@ public partial class App
 
     protected override void OnStartup(StartupEventArgs e)
     {
+        var builder = new ConfigurationBuilder()
+            .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+            .AddJsonFile("appsettings.json", false, true);
+
+        Configuration = builder.Build();
+
         var serviceCollection = new ServiceCollection();
         // Register IHttpClientFactory and named clients
         serviceCollection.AddHttpClient("LogErrorsClient");
@@ -75,16 +83,16 @@ public partial class App
         }
         // --- End Single Instance Check ---
 
-        // If we are the first instance (_isFirstInstance is true) OR we are restarting, proceed with normal startup
         base.OnStartup(e);
 
-        // Set ShutdownMode to OnMainWindowClose
-        // This ensures the application shuts down when MainWindow (the StartupUri) is closed.
         Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
         Settings = new SettingsManager();
         ApplyTheme(Settings.BaseTheme, Settings.AccentColor);
         ApplyLanguage(Settings.Language);
+
+        // --- Initialize services that need configuration ---
+        GameLauncher.Initialize(Configuration); // This will call MountZipFiles.Configure
 
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
