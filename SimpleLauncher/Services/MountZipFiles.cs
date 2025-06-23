@@ -77,7 +77,7 @@ public static class MountZipFiles
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.GeneralErrorOccurred(logPath, $"{_zipToVdExecutableName} not found.");
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
 
             return;
         }
@@ -177,7 +177,7 @@ public static class MountZipFiles
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.GeneralErrorOccurred(logPath, $"Error mounting or launching ZIP file: {ex.Message}");
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
 
             return;
         }

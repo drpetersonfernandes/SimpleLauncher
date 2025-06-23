@@ -36,7 +36,7 @@ public static class MountXisoFiles
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
 
             return;
         }
@@ -143,7 +143,7 @@ public static class MountXisoFiles
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(logPath);
+                MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
 
                 return;
             }
@@ -167,7 +167,7 @@ public static class MountXisoFiles
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorMountingTheXisoFile(logPath);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
         }
         finally
         {

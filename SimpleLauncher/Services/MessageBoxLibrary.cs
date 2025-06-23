@@ -4822,7 +4822,7 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorMountingTheXisoFile(string logPath)
+    internal static void ThereWasAnErrorMountingTheFile(string logPath)
     {
         if (Application.Current.Dispatcher.CheckAccess())
         {
