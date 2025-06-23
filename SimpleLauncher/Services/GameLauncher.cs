@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -19,6 +20,12 @@ public static class GameLauncher
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
+    // Load Config to Mount Zip Drive
+    public static void Initialize(IConfiguration configuration)
+    {
+        MountZipFiles.Configure(configuration);
+    }
+
     public static async Task HandleButtonClick(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
     {
         var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
@@ -26,7 +33,9 @@ public static class GameLauncher
         if (string.IsNullOrWhiteSpace(resolvedFilePath) || !File.Exists(resolvedFilePath))
         {
             // Notify developer
-            const string contextMessage = "Invalid resolvedFilePath or file does not exist.";
+            var contextMessage = $"Invalid resolvedFilePath or file does not exist.\n\n" +
+                                 $"Original filePath: {filePath}\n" +
+                                 $"Resolved filePath: {resolvedFilePath}";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
@@ -109,11 +118,18 @@ public static class GameLauncher
         try
         {
             // Specific handling for Cxbx-Reloaded
-            if (selectedEmulatorName.Equals("Cxbx-Reloaded", StringComparison.OrdinalIgnoreCase) &&
+            if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                 Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
             {
                 DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
                 await MountXisoFiles.MountXisoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+            }
+            // Specific handling for RPCS3 with ZIP files
+            else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
+                     Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+            {
+                DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                await MountZipFiles.MountZipFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
             }
             else
             {
@@ -157,7 +173,14 @@ public static class GameLauncher
             var endTime = DateTime.Now;
             var playTime = endTime - startTime;
 
-            var fileName = Path.GetFileName(resolvedFilePath);
+            // Use the original ZIP file path for history/stats if it was a mounted ZIP
+            // Otherwise, use the resolvedFilePath (which might be an extracted file or the direct game file)
+            var historyFilePath = Path.GetExtension(filePath).Equals(".zip", StringComparison.OrdinalIgnoreCase) &&
+                                  selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase)
+                ? filePath // Original ZIP path for RPCS3 ZIPs
+                : resolvedFilePath; // Path used for launching (could be EBOOT.BIN, extracted file, etc.)
+
+            var fileNameForHistory = Path.GetFileName(historyFilePath);
 
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();
@@ -172,8 +195,8 @@ public static class GameLauncher
             try
             {
                 var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-                playHistoryManager.AddOrUpdatePlayHistoryItem(fileName, selectedSystemName, playTime);
-                mainWindow.RefreshGameListAfterPlay(fileName, selectedSystemName);
+                playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
+                mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
             }
             catch (Exception ex)
             {
@@ -285,7 +308,6 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Exception running the batch process. User was not notified.\n" +
                                  $"Batch file: {psi.FileName}\n" +
-                                 // Safely get ExitCode
                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"Output: {output}\n" +
@@ -433,7 +455,6 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Exception launching the executable file.\n" +
                                  $"Executable file: {psi.FileName}\n" +
-                                 // Safely get ExitCode
                                  $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
                                  $"Exception: {ex.Message}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
@@ -447,12 +468,17 @@ public static class GameLauncher
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
-        string rawEmulatorParameters, MainWindow mainWindow) // This is the raw parameter string from config
+        string rawEmulatorParameters,
+        MainWindow mainWindow) // This is the raw parameter string from config
     {
-        // Check if the file to launch is the mounted XBE path, which should not be extracted again.
+        // Check if the file to launch a mounted XBE path, which should not be extracted
         var isMountedXbe = resolvedFilePath.Equals("W:\\default.xbe", StringComparison.OrdinalIgnoreCase);
 
-        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe)
+        // Check if the file to launch a mounted ZIP file, which will not be extracted
+        var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase) &&
+                           resolvedFilePath.EndsWith("EBOOT.BIN", StringComparison.OrdinalIgnoreCase);
+
+        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe && !isMountedZip)
         {
             resolvedFilePath = await ExtractFilesBeforeLaunch(resolvedFilePath, selectedSystemManager);
         }
@@ -469,8 +495,8 @@ public static class GameLauncher
             return;
         }
 
-        // For mounted XBE, ensure it still exists before proceeding (it should, if MountXisoFile worked)
-        if (isMountedXbe && !File.Exists(resolvedFilePath))
+        // For mounted files, ensure it still exists before proceeding
+        if ((isMountedXbe || isMountedZip) && !File.Exists(resolvedFilePath))
         {
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
             DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
@@ -508,6 +534,7 @@ public static class GameLauncher
 
              // Notify user
              MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
              return;
         }
 
@@ -602,16 +629,15 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
-                // if (await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorManager)) return;
-                if (await CheckForDepViolation(process, psi, output, error, selectedEmulatorManager)) return;
-
+                await CheckForMemoryAccessViolation(process, psi, output, error, selectedEmulatorManager);
+                await CheckForDepViolation(process, psi, output, error, selectedEmulatorManager);
                 await CheckForExitCodeWithErrorAny(process, psi, output, error, selectedEmulatorManager);
             }
         }
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            const string contextMessage = "Invalid Operation Exception while launching emulator.";
+            const string contextMessage = "InvalidOperationException while launching emulator.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
@@ -755,8 +781,8 @@ public static class GameLauncher
 
     private static Task CheckForExitCodeWithErrorAny(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
-        // Ignore MemoryAccessViolation
-        if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation)
+        // Ignore MemoryAccessViolation and DepViolation
+        if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation || process.ExitCode == DepViolation)
         {
             return Task.CompletedTask;
         }
@@ -803,85 +829,37 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static Task<bool> CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private static Task CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
-        if (!process.HasExited || process.ExitCode != MemoryAccessViolation) // Ensure process has exited
-        {
-            return Task.FromResult(false);
-        }
+        if (process.HasExited && process.ExitCode != MemoryAccessViolation) return Task.CompletedTask;
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
-        {
-            // Notify developer
-            var contextMessage = $"There was an memory access violation error running the emulator.\n" +
-                                 $"User was notified.\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-        }
-        else
-        {
-            // Notify developer
-            var contextMessage = $"There was an memory access violation error running the emulator.\n" +
-                                 $"User was not notified.\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-        }
+        // Notify developer
+        var contextMessage = $"There was an memory access violation error running the emulator.\n" +
+                             $"User was not notified.\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n" +
+                             $"Calling parameters: {psi.Arguments}";
+        _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
-        {
-            // Notify user
-            MessageBoxLibrary.CheckForMemoryAccessViolation(LogPath);
-        }
-
-        return Task.FromResult(true);
+        return Task.CompletedTask;
     }
 
-    private static Task<bool> CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private static Task CheckForDepViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
-        if (!process.HasExited || process.ExitCode != DepViolation) // Ensure process has exited
-        {
-            return Task.FromResult(false);
-        }
+        if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
-        {
-            // Notify developer
-            var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
-                                 $"User was notified.\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-        }
-        else
-        {
-            // Notify developer
-            var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
-                                 $"User was not notified.\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-        }
+        // Notify developer
+        var contextMessage = $"Data Execution Prevention (DEP) violation error occurred while running the emulator.\n" +
+                             $"User was not notified.\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n" +
+                             $"Calling parameters: {psi.Arguments}";
+        _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-        if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
-        {
-            // Notify user
-            MessageBoxLibrary.DepViolationMessageBox(LogPath);
-        }
-
-        return Task.FromResult(true);
+        return Task.CompletedTask;
     }
 }
