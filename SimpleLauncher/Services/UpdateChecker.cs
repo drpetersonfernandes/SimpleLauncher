@@ -2,13 +2,14 @@
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
-using System.IO.Compression;
 using System.Net.Http;
 using System.Reflection;
+using System.Security;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
+using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
@@ -339,99 +340,57 @@ public static partial class UpdateChecker
         memoryStream.Position = 0;
     }
 
-    private static bool ExtractAllFromZip(Stream zipStream, string destinationPath, UpdateLogWindow logWindow)
+    private static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
     {
-        var allEntriesExtractedSuccessfully = true;
         try
         {
-            using var archive = new ZipArchive(zipStream, ZipArchiveMode.Read);
-            if (archive.Entries.Count == 0)
+            // First, validate all entry paths to prevent Zip Slip
+            using (var zipInputStream = new ZipInputStream(zipStream))
             {
-                logWindow.Log("Warning: The downloaded ZIP archive is empty or corrupted.");
-                return false;
+                zipInputStream.IsStreamOwner = false; // We will reset and reuse the stream
+                var hasEntries = false;
+                var fullDestinationPath = Path.GetFullPath(destinationPath);
+
+                while (zipInputStream.GetNextEntry() is { } entry)
+                {
+                    hasEntries = true;
+                    var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.Name));
+                    if (destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
+                        continue;
+
+                    var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Name}'. Aborting update.";
+                    logWindow.Log(errorMessage);
+
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
+
+                    return false; // Abort on security risk
+                }
+
+                if (!hasEntries)
+                {
+                    logWindow.Log("Warning: The downloaded ZIP archive is empty or corrupted.");
+                    return false;
+                }
             }
 
-            foreach (var entry in archive.Entries)
-            {
-                if (string.IsNullOrEmpty(entry.Name)) // Skip directory entries represented by empty names
-                {
-                    // Ensure directory structure is created if entry.FullName represents a directory path
-                    var fullPath = Path.Combine(destinationPath, entry.FullName);
-                    if (entry.FullName.EndsWith('/') || entry.FullName.EndsWith('\\')) // Heuristic for directory
-                    {
-                        Directory.CreateDirectory(fullPath);
-                        logWindow.Log($"Ensured directory exists: {fullPath}");
-                    }
+            // If validation passes, reset stream and extract
+            zipStream.Position = 0;
 
-                    continue;
-                }
+            var fastZip = new FastZip();
+            fastZip.ExtractZip(zipStream, destinationPath, FastZip.Overwrite.Always, null, null, null, true, false);
 
-                var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.FullName));
-                var directoryOfFile = Path.GetDirectoryName(destinationFileFullPath);
-
-                if (!string.IsNullOrEmpty(directoryOfFile))
-                {
-                    Directory.CreateDirectory(directoryOfFile);
-                }
-
-                logWindow.Log($"Extracting: {entry.FullName} to {destinationFileFullPath}");
-                try
-                {
-                    entry.ExtractToFile(destinationFileFullPath, true); // true: overwrite existing files
-                }
-                catch (IOException ioEx)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ioEx, $"IO Error extracting '{entry.FullName}'. File might be in use or path too long: {destinationFileFullPath}");
-
-                    logWindow.Log($"Failed to extract (IO Error): {entry.FullName}. Error: {ioEx.Message}");
-                    allEntriesExtractedSuccessfully = false;
-                }
-                catch (UnauthorizedAccessException uaEx)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(uaEx, $"Access Denied extracting '{entry.FullName}' to '{destinationFileFullPath}'. Check permissions.");
-
-                    logWindow.Log($"Failed to extract (Access Denied): {entry.FullName}. Error: {uaEx.Message}");
-                    allEntriesExtractedSuccessfully = false;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error extracting file '{entry.FullName}' to '{destinationFileFullPath}'.");
-
-                    logWindow.Log($"Failed to extract file: {entry.FullName}. Error: {ex.Message}");
-                    allEntriesExtractedSuccessfully = false;
-                }
-            }
-        }
-        catch (InvalidDataException zipEx) // Catches errors like "End of Central Directory record could not be found."
-        {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(zipEx, "Error reading the update ZIP archive. It might be corrupted or not a valid ZIP file.");
-
-            logWindow.Log($"Failed to read the update ZIP archive (InvalidDataException): {zipEx.Message}");
-            return false;
+            logWindow.Log($"All files from '{UpdaterZipFileName}' extracted successfully.");
+            return true;
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "General error processing the update ZIP archive.");
-
+            _ = LogErrors.LogErrorAsync(ex, "Error processing the update ZIP archive.");
             logWindow.Log($"Failed to process the update ZIP archive. Error: {ex.Message}");
+
             return false;
         }
-
-        if (allEntriesExtractedSuccessfully)
-        {
-            logWindow.Log($"All files from '{UpdaterZipFileName}' appear to have been processed for extraction.");
-        }
-        else
-        {
-            logWindow.Log($"Some files from '{UpdaterZipFileName}' could not be extracted. See previous log messages.");
-        }
-
-        return allEntriesExtractedSuccessfully;
     }
 
     private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)

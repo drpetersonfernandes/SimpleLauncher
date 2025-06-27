@@ -2,11 +2,12 @@
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.IO.Compression;
+using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace SimpleLauncher.Services;
 
@@ -187,7 +188,7 @@ public class ExtractCompressedFile
 
     /// <summary>
     /// Use to extract Zip files from GameLauncher
-    /// Use native .net library to extract files
+    /// Use SharpZipLib library to extract files
     /// It extracts to temp folder
     /// </summary>
     /// <param name="archivePath">Full path to the zip file</param>
@@ -266,80 +267,62 @@ public class ExtractCompressedFile
             {
                 try
                 {
-                    using var fileStream = new FileStream(archivePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var archive = new ZipArchive(fileStream, ZipArchiveMode.Read);
-
-                    if (archive.Entries.Count == 0)
+                    using (var zipFile = new ZipFile(archivePath))
                     {
-                        throw new InvalidDataException("The ZIP file contains no entries.");
-                    }
-
-                    var estimatedSize = EstimateExtractedSize(archive);
-                    var rootPath = Path.GetPathRoot(Path.GetFullPath(tempDirectory)); // Use tempDirectory for drive check
-
-                    if (!string.IsNullOrEmpty(rootPath))
-                    {
-                        try
+                        if (zipFile.Count == 0)
                         {
-                            var drive = new DriveInfo(rootPath);
-                            if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
+                            throw new InvalidDataException("The ZIP file contains no entries.");
+                        }
+
+                        var estimatedSize = EstimateExtractedSize(archivePath);
+                        var rootPath = Path.GetPathRoot(Path.GetFullPath(tempDirectory)); // Use tempDirectory for drive check
+
+                        if (!string.IsNullOrEmpty(rootPath))
+                        {
+                            try
+                            {
+                                var drive = new DriveInfo(rootPath);
+                                if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
+                                {
+                                    // Notify developer
+                                    var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                                    // Notify user
+                                    MessageBoxLibrary.DiskSpaceErrorMessageBox();
+
+                                    return;
+                                }
+                            }
+                            catch (ArgumentException ex)
                             {
                                 // Notify developer
-                                var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                                _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {tempDirectory}: {ex.Message}");
 
                                 // Notify user
-                                MessageBoxLibrary.DiskSpaceErrorMessageBox();
+                                MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
 
                                 return;
                             }
                         }
-                        catch (ArgumentException ex)
-                        {
-                            // Notify developer
-                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {tempDirectory}: {ex.Message}");
 
-                            // Notify user
-                            MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
-
-                            return;
-                        }
-                    }
-
-                    foreach (var entry in archive.Entries)
-                    {
-                        var entryDestinationPath = Path.GetFullPath(Path.Combine(tempDirectory, entry.FullName));
-
-                        // Verify the destination path is within the intended temp directory
-                        var fullDestPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(entryDestinationPath);
+                        // Path traversal check
                         var fullTempDir = PathHelper.ResolveRelativeToCurrentWorkingDirectory(tempDirectory);
-
-                        if (!fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase))
+                        foreach (ZipEntry zipEntry in zipFile)
                         {
-                            // Notify user
+                            var entryDestinationPath = Path.GetFullPath(Path.Combine(tempDirectory, zipEntry.Name));
+                            var fullDestPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(entryDestinationPath);
+
+                            if (fullDestPath.StartsWith(fullTempDir, StringComparison.OrdinalIgnoreCase)) continue;
+
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
-
-                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
+                            throw new SecurityException($"Potentially dangerous zip entry path: {zipEntry.Name}");
                         }
-
-                        var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
-                        if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
-                        {
-                            try
-                            {
-                                Directory.CreateDirectory(entryDirectoryPath);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Notify developer
-                                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
-                            }
-                        }
-
-                        if (string.IsNullOrEmpty(entry.Name)) continue;
-
-                        entry.ExtractToFile(entryDestinationPath, true);
                     }
+
+                    // Extract using FastZip
+                    var fastZip = new FastZip();
+                    fastZip.ExtractZip(archivePath, tempDirectory, FastZip.Overwrite.Always, null, null, null, true);
                 }
                 catch (Exception)
                 {
@@ -487,82 +470,64 @@ public class ExtractCompressedFile
             {
                 try
                 {
-                    using var fileStream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.ReadWrite);
-                    using var archive = new ZipArchive(fileStream, ZipArchiveMode.Read);
-
-                    if (archive.Entries.Count == 0)
+                    using (var zipFile = new ZipFile(filePath))
                     {
-                        throw new InvalidDataException("The ZIP file contains no entries.");
-                    }
-
-                    var estimatedSize = EstimateExtractedSize(archive);
-
-                    // Check disk space using the resolved destination folder
-                    var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
-                    if (!string.IsNullOrEmpty(rootPath))
-                    {
-                        try
+                        if (zipFile.Count == 0)
                         {
-                            var drive = new DriveInfo(rootPath);
-                            if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
+                            throw new InvalidDataException("The ZIP file contains no entries.");
+                        }
+
+                        var estimatedSize = EstimateExtractedSize(filePath);
+
+                        // Check disk space using the resolved destination folder
+                        var rootPath = Path.GetPathRoot(resolvedDestinationFolder);
+                        if (!string.IsNullOrEmpty(rootPath))
+                        {
+                            try
+                            {
+                                var drive = new DriveInfo(rootPath);
+                                if (drive.IsReady && drive.AvailableFreeSpace < estimatedSize)
+                                {
+                                    // Notify developer
+                                    var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
+                                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                                    // Notify user
+                                    MessageBoxLibrary.DiskSpaceErrorMessageBox();
+
+                                    return;
+                                }
+                            }
+                            catch (ArgumentException ex)
                             {
                                 // Notify developer
-                                var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                                _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
                                 // Notify user
-                                MessageBoxLibrary.DiskSpaceErrorMessageBox();
+                                MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
 
                                 return;
                             }
                         }
-                        catch (ArgumentException ex)
-                        {
-                            // Notify developer
-                            _ = LogErrors.LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
-                            // Notify user
-                            MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
-
-                            return;
-                        }
-                    }
-
-                    foreach (var entry in archive.Entries)
-                    {
-                        // Combine with the resolved destination folder
-                        var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, entry.FullName));
-
-                        // Verify the destination path is within the resolved destination folder
-                        var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
+                        // Path traversal check
                         var fullResolvedDestFolder = PathHelper.ResolveRelativeToAppDirectory(resolvedDestinationFolder);
-
-                        if (!fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                        foreach (ZipEntry zipEntry in zipFile)
                         {
-                            // Notify user
+                            var entryDestinationPath = Path.GetFullPath(Path.Combine(resolvedDestinationFolder, zipEntry.Name));
+                            var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
+
+                            if (fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                                continue;
+
                             MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(filePath);
-
-                            throw new SecurityException($"Potentially dangerous zip entry path: {entry.FullName}");
+                            throw new SecurityException($"Potentially dangerous zip entry path: {zipEntry.Name}");
                         }
-
-                        var entryDirectoryPath = Path.GetDirectoryName(entryDestinationPath);
-                        if (!string.IsNullOrEmpty(entryDirectoryPath) && !Directory.Exists(entryDirectoryPath))
-                        {
-                            try
-                            {
-                                Directory.CreateDirectory(entryDirectoryPath);
-                            }
-                            catch (Exception ex)
-                            {
-                                // Notify developer
-                                _ = LogErrors.LogErrorAsync(ex, $"Failed to create directory: {entryDirectoryPath}");
-                            }
-                        }
-
-                        if (string.IsNullOrEmpty(entry.Name)) continue;
-
-                        entry.ExtractToFile(entryDestinationPath, true);
                     }
+
+                    // Extract using FastZip
+                    var fastZip = new FastZip();
+                    fastZip.ExtractZip(filePath, resolvedDestinationFolder, FastZip.Overwrite.Always, null, null, null, true);
                 }
                 catch (Exception)
                 {
@@ -613,14 +578,14 @@ public class ExtractCompressedFile
     /// <summary>
     /// Estimates the extracted size of a ZIP archive
     /// </summary>
-    /// <param name="archive">The ZIP archive to estimate</param>
+    /// <param name="archivePath">The path to the ZIP archive to estimate</param>
     /// <returns>Estimated size in bytes</returns>
-    private static long EstimateExtractedSize(ZipArchive archive)
+    private static long EstimateExtractedSize(string archivePath)
     {
-        long totalSize = 0;
-        foreach (var entry in archive.Entries)
+        long totalSize;
+        using (var zipFile = new ZipFile(archivePath))
         {
-            totalSize += entry.Length;
+            totalSize = zipFile.Cast<ZipEntry>().Where(static entry => !entry.IsDirectory).Sum(entry => entry.Size);
         }
 
         // Add a safety margin of 20%
