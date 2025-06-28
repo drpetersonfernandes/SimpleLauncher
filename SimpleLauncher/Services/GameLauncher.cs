@@ -683,7 +683,7 @@ public static class GameLauncher
             case ".ZIP":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithNativeLibraryToTempAsync(resolvedFilePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithSharpZipLibToTempAsync(resolvedFilePath);
 
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))
