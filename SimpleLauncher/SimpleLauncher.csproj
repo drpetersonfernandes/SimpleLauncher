@@ -752,7 +752,7 @@
     <None Update="xbox-iso-vfs.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="zip2vd.cli.exe">
+    <None Update="SimpleZipDrive.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

@@ -13,7 +13,7 @@ namespace SimpleLauncher.Services;
 public static class MountZipFiles
 {
     private static string _configuredMountDriveLetterOnly = "Z";
-    private static string _zipToVdExecutableName = "zip2vd.cli.exe";
+    private static string _zipMountExecutableName = "SimpleZipDrive.exe";
 
     // Public property to get the letter ("Z")
     private static string ConfiguredMountDriveLetter => _configuredMountDriveLetterOnly;
@@ -24,7 +24,7 @@ public static class MountZipFiles
     public static void Configure(IConfiguration configuration)
     {
         var mountPathFromConfig = configuration.GetValue("ZipMountOptions:MountDriveLetter", "Z:");
-        _zipToVdExecutableName = configuration.GetValue("ZipMountOptions:ZipToVdExecutableName", "zip2vd.cli.exe");
+        _zipMountExecutableName = configuration.GetValue("ZipMountOptions:ZipMountExecutableName", "SimpleZipDrive.exe");
 
         if (string.IsNullOrEmpty(mountPathFromConfig))
         {
@@ -47,9 +47,9 @@ public static class MountZipFiles
                 : "Z";
         }
 
-        DebugLogger.Log($"[MountZipFiles] Configured MountDriveLetter (for zip2vd): {_configuredMountDriveLetterOnly}");
+        DebugLogger.Log($"[MountZipFiles] Configured MountDriveLetter (for {_zipMountExecutableName}): {_configuredMountDriveLetterOnly}");
         DebugLogger.Log($"[MountZipFiles] Configured MountDriveRoot (for checks): {ConfiguredMountDriveRoot}");
-        DebugLogger.Log($"[MountZipFiles] Configured ZipToVdExecutableName: {_zipToVdExecutableName}");
+        DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
     }
 
     public static async Task MountZipFile(
@@ -65,14 +65,14 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipToVdPath = PathHelper.ResolveRelativeToAppDirectory(_zipToVdExecutableName);
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
 
-        DebugLogger.Log($"[MountZipFiles] Path to {_zipToVdExecutableName}: {resolvedZipToVdPath}");
+        DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
-        if (string.IsNullOrWhiteSpace(resolvedZipToVdPath) || !File.Exists(resolvedZipToVdPath))
+        if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipToVdExecutableName} not found in application directory. Cannot mount ZIP.";
+            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
@@ -82,22 +82,23 @@ public static class MountZipFiles
             return;
         }
 
-        // Use the letter ONLY for the --MountPath argument
+        // Use the letter ONLY for the mount point argument
         var mountPathArgument = ConfiguredMountDriveLetter; // This will be "Z"
         var mountDriveRootForChecks = ConfiguredMountDriveRoot; // This will be "Z:\" for Directory.Exists
 
         var psiMount = new ProcessStartInfo
         {
-            FileName = resolvedZipToVdPath,
-            Arguments = $"--FilePath \"{resolvedZipFilePath}\" --MountPath \"{mountPathArgument}\"",
+            FileName = resolvedZipMountExePath,
+            // SimpleZipDrive uses positional arguments: "<PathToZipFile>" "<MountPoint>"
+            Arguments = $"\"{resolvedZipFilePath}\" \"{mountPathArgument}\"",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
             CreateNoWindow = true,
-            WorkingDirectory = Path.GetDirectoryName(resolvedZipToVdPath) ?? AppDomain.CurrentDomain.BaseDirectory
+            WorkingDirectory = Path.GetDirectoryName(resolvedZipMountExePath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
-        DebugLogger.Log($"[MountZipFiles] ProcessStartInfo for {_zipToVdExecutableName}:");
+        DebugLogger.Log($"[MountZipFiles] ProcessStartInfo for {_zipMountExecutableName}:");
         DebugLogger.Log($"[MountZipFiles] FileName: {psiMount.FileName}");
         DebugLogger.Log($"[MountZipFiles] Arguments: {psiMount.Arguments}");
         DebugLogger.Log($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
@@ -118,25 +119,25 @@ public static class MountZipFiles
                 if (args.Data == null) return;
 
                 mountOutput.AppendLine(args.Data);
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} STDOUT: {args.Data}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDOUT: {args.Data}");
             };
             mountProcess.ErrorDataReceived += (_, args) =>
             {
                 if (args.Data == null) return;
 
                 mountError.AppendLine(args.Data);
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} STDERR: {args.Data}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDERR: {args.Data}");
             };
 
-            DebugLogger.Log($"[MountZipFiles] Starting {_zipToVdExecutableName} process...");
+            DebugLogger.Log($"[MountZipFiles] Starting {_zipMountExecutableName} process...");
             var processStarted = mountProcess.Start();
             if (!processStarted)
             {
-                throw new InvalidOperationException($"Failed to start the {_zipToVdExecutableName} process.");
+                throw new InvalidOperationException($"Failed to start the {_zipMountExecutableName} process.");
             }
 
             mountProcessId = mountProcess.Id;
-            DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} process started (ID: {mountProcessId}).");
+            DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process started (ID: {mountProcessId}).");
 
             mountProcess.BeginOutputReadLine();
             mountProcess.BeginErrorReadLine();
@@ -148,8 +149,8 @@ public static class MountZipFiles
             if (!Directory.Exists(mountDriveRootForChecks))
             {
                 DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found.");
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} Output:\n{mountOutput}");
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} Error:\n{mountError}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Output:\n{mountOutput}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Error:\n{mountError}");
                 throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
             }
 
@@ -172,8 +173,8 @@ public static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
-                                 $"{_zipToVdExecutableName} Output: {mountOutput}\n" +
-                                 $"{_zipToVdExecutableName} Error: {mountError}";
+                                 $"{_zipMountExecutableName} Output: {mountOutput}\n" +
+                                 $"{_zipMountExecutableName} Error: {mountError}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -186,11 +187,11 @@ public static class MountZipFiles
             DebugLogger.Log($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
             if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
             {
-                DebugLogger.Log($"[MountZipFiles] Attempting to unmount by terminating {_zipToVdExecutableName} (ID: {mountProcessId}).");
+                DebugLogger.Log($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipToVdExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
                     using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
                     try
                     {
@@ -198,16 +199,16 @@ public static class MountZipFiles
                     }
                     catch (TaskCanceledException)
                     {
-                        DebugLogger.Log($"[MountZipFiles] Timeout (10s) waiting for {_zipToVdExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                        DebugLogger.Log($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
                     }
                     else
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (InvalidOperationException ioEx)
@@ -215,31 +216,31 @@ public static class MountZipFiles
                     if (ioEx.Message.Contains("process has already exited", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase))
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} (ID: {mountProcessId}) already exited or no process associated: {ioEx.Message}");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) already exited or no process associated: {ioEx.Message}");
                     }
                     else
                     {
-                        DebugLogger.Log($"[MountZipFiles] InvalidOperationException while terminating {_zipToVdExecutableName} (ID: {mountProcessId}): {ioEx}");
+                        DebugLogger.Log($"[MountZipFiles] InvalidOperationException while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {ioEx}");
 
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipToVdExecutableName} termination.");
+                        _ = LogErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipToVdExecutableName} (ID: {mountProcessId}): {termEx}");
+                    DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipToVdExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
             {
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {(mountProcess != null && mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}.");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {(mountProcess != null && mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}.");
             }
             else
             {
-                DebugLogger.Log($"[MountZipFiles] {_zipToVdExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
             }
 
             mountProcess?.Dispose();
@@ -248,7 +249,7 @@ public static class MountZipFiles
             // Use mountDriveRootForChecks for Directory.Exists
             if (Directory.Exists(mountDriveRootForChecks))
             {
-                DebugLogger.Log($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount. {_zipToVdExecutableName} might not have unmounted correctly or is still running.");
+                DebugLogger.Log($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount. {_zipMountExecutableName} might not have unmounted correctly or is still running.");
             }
             else
             {
