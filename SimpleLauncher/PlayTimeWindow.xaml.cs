@@ -109,8 +109,9 @@ public partial class PlayTimeWindow
                     {
                         sizeToSet = -2; // File not found, set to "N/A" state
 
-                        // Delete selected item from the PlayHistoryList
-                        DeleteHistoryItem(item);
+                        // Delete selected item from the PlayHistoryList on UI thread
+                        await Dispatcher.InvokeAsync(() => DeleteHistoryItem(item));
+                        return; // Skip the rest since we're removing the item
                     }
                 }
                 catch (Exception ex)
@@ -230,9 +231,12 @@ public partial class PlayTimeWindow
     {
         try
         {
-            _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistory();
+            Dispatcher.Invoke(() =>
+            {
+                _playHistoryList.Remove(selectedItem);
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _playHistoryManager.SavePlayHistory();
+            });
         }
         catch (Exception ex)
         {

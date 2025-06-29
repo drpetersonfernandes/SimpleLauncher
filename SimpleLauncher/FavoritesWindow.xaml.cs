@@ -249,9 +249,13 @@ public partial class FavoritesWindow
                     _favoritesManager.SaveFavorites();
                 }
 
+                // Notify developer
                 var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+
                 return;
             }
 
