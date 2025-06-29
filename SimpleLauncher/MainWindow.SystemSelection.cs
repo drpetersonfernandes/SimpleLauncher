@@ -57,11 +57,17 @@ public partial class MainWindow
 
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
 
+            var systemImageSize = _settings.ThumbnailSize;
+            if (systemImageSize > 151)
+            {
+                systemImageSize = 150;
+            }
+
             var image = new Image
             {
                 Source = loadedImage,
-                Height = _settings.ThumbnailSize * 1.3,
-                Width = _settings.ThumbnailSize * 1.3 * 1.6,
+                Height = systemImageSize * 1.3,
+                Width = systemImageSize * 1.3 * 1.6,
                 Stretch = Stretch.Uniform,
                 Margin = new Thickness(5)
             };
@@ -85,8 +91,8 @@ public partial class MainWindow
             {
                 Content = buttonContentPanel,
                 Tag = config.SystemName,
-                Width = _settings.ThumbnailSize * 1.3 * 1.6 + 20,
-                Height = _settings.ThumbnailSize * 1.3 + 40 + 20, // +40 for text, +20 for padding
+                Width = systemImageSize * 1.3 * 1.6 + 20,
+                Height = systemImageSize * 1.3 + 40 + 20, // +40 for text, +20 for padding
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
