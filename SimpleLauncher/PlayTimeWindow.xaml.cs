@@ -90,7 +90,6 @@ public partial class PlayTimeWindow
     {
         await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
         {
-            long sizeToSet; // Declare without initializing here
             var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
 
@@ -103,15 +102,16 @@ public partial class PlayTimeWindow
                 {
                     if (File.Exists(filePath))
                     {
-                        sizeToSet = new FileInfo(filePath).Length;
+                        var sizeToSet = new FileInfo(filePath).Length;
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            item.FileSizeBytes = sizeToSet;
+                        });
                     }
                     else
                     {
-                        sizeToSet = -2; // File not found, set to "N/A" state
-
-                        // Delete selected item from the PlayHistoryList on UI thread
+                        // File not found - remove the item
                         await Dispatcher.InvokeAsync(() => DeleteHistoryItem(item));
-                        return; // Skip the rest since we're removing the item
                     }
                 }
                 catch (Exception ex)
@@ -120,7 +120,10 @@ public partial class PlayTimeWindow
                     var contextMessage = $"Error getting file size for history item: {filePath}";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                    sizeToSet = -2; // Error, set to "N/A" state
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        item.FileSizeBytes = -2; // Error state ("N/A")
+                    });
                 }
             }
             else
@@ -129,14 +132,11 @@ public partial class PlayTimeWindow
                 var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
 
-                sizeToSet = -2; // System config not found, set to "N/A" state
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    item.FileSizeBytes = -2; // System config not found ("N/A")
+                });
             }
-
-            // Update on UI thread
-            await Dispatcher.InvokeAsync(() =>
-            {
-                item.FileSizeBytes = sizeToSet; // This will trigger INotifyPropertyChanged
-            });
         });
     }
 
