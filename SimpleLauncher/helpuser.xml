@@ -875,15 +875,18 @@ If you prefer to use BAT files, use the tool available in the ''Simple Launcher'
 This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
 
+The ISO file needs to be formated in XISO format, as the original XBOX discs.
+You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
+
 **Emulator Name:** Cxbx-Reloaded<br>
 **Emulator Path (Example):** c:\emulators\Cxbx-Reloaded\cxbx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
+**For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).**<br>
+**'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.**<br>
 
-The ISO file needs to be formated in XISO format for both emulators, as the original XBOX discs.
+The ISO file needs to be formated in XISO format, as the original XBOX discs.
 You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
 ]]>
         </SystemHelper>
@@ -2665,7 +2668,11 @@ Core may require BIOS files or system files to work properly.
 **If you want to use relative paths, use the following placeholders:**<br>
 **%BASEFOLDER%** - Represents the Simple Launcher folder<br>
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
-**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)<br>
+
+There are multiple ways to use this emulator. You can use [Game Folders], ZIP files or ISO files.<br>
+
+**Option 1 - Use [Game Folders]**
 
 **System Folder (Example):** c:\Sony PlayStation 3<br>
 **System Is MAME?** false<br>
@@ -2678,7 +2685,37 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-Use the tool available in the ''Simple Launcher'' menu to generate BAT files for you.
+Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files for you.<br>
+
+**Option 2 - Use ZIP files**
+
+**System Folder (Example):** c:\Sony PlayStation 3<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** RPCS3<br>
+**Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using the emulator.<br>
+
+**Option 3 — Use decrypted ISO files**
+
+**System Folder (Example):** c:\Sony PlayStation 3<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** iso<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** RPCS3<br>
+**Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+'Simple Launcher' will mount the ISO file into a virtual drive, then load the game using the emulator.
 ]]>
         </SystemHelper>
     </System>
