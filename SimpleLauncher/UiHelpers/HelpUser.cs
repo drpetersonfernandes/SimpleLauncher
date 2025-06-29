@@ -238,6 +238,10 @@ public static partial class HelpUser
             { "ZX Spectrum", SinclairZxSpectrumDetails },
             { "ZX-Spectrum", SinclairZxSpectrumDetails },
             { "Spectrum", SinclairZxSpectrumDetails },
+            { "SNK Neo Geo", SnkNeoGeoDetails },
+            { "SNK NeoGeo", SnkNeoGeoDetails },
+            { "Neo Geo", SnkNeoGeoDetails },
+            { "NeoGeo", SnkNeoGeoDetails },
             { "SNK Neo Geo CD", SnkNeoGeoCdDetails },
             { "SNK NeoGeo CD", SnkNeoGeoCdDetails },
             { "SNK NeoGeoCD", SnkNeoGeoCdDetails },
@@ -621,6 +625,11 @@ public static partial class HelpUser
     private static string SinclairZxSpectrumDetails()
     {
         return GetSystemDetails("Sinclair ZX Spectrum");
+    }
+
+    private static string SnkNeoGeoDetails()
+    {
+        return GetSystemDetails("SNK Neo Geo");
     }
 
     private static string SnkNeoGeoCdDetails()

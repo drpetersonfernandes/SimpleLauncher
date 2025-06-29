@@ -2030,6 +2030,26 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:**
 
+## SNK Neo Geo
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** c:\SNK Neo Geo<br>
+**System Is MAME?** true<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Fullscreen Parameter:** -window<br>
+
 ## SNK Neo Geo CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2076,6 +2096,14 @@ Core may require BIOS files or system files to work properly.
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** Retroarch race<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
+Core may require BIOS files or system files to work properly.
+
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -2112,6 +2140,14 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch race<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
 Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Mednafen<br>

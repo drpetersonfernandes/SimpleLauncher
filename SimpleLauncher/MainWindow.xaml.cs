@@ -860,8 +860,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _ = LogErrors.LogErrorAsync(null, $"MainWindow.TryToUseCachedListOfFiles: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot load files.");
             }
 
-            _cachedFiles = []; // Ensure _cachedFiles is an empty list
-            return _cachedFiles;
+            _cachedFiles = [];
+            return _cachedFiles; // Return an empty list
         }
 
         // The CacheManager handles all validation and loading logic.
