@@ -461,7 +461,7 @@ public class GamePadController : IDisposable
                         _playStationControllerGuid = foundDevice.InstanceGuid; // Update the GUID
 
                         // Notify developer
-                        ErrorLogger?.Invoke(null, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
+                        // ErrorLogger?.Invoke(null, $"Successfully reconnected DirectInput controller: {foundDevice.InstanceName}"); // Log success
                     }
                     else
                     {
@@ -469,7 +469,7 @@ public class GamePadController : IDisposable
                         _directInputController.Acquire();
 
                         // Notify developer
-                        DebugLogger.Log($"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}");
+                        // DebugLogger.Log($"Successfully re-acquired DirectInput controller: {foundDevice.InstanceName}");
                     }
                 }
                 catch (Exception acquireEx)
