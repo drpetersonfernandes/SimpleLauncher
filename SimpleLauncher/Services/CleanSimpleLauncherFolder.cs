@@ -17,7 +17,12 @@ public static class CleanSimpleLauncherFolder
     private static readonly string[] FilesToClean =
     [
         Path.Combine(AppDirectory, "update.zip"),
-        Path.Combine(AppDirectory, "mame.xml")
+        Path.Combine(AppDirectory, "mame.xml"),
+        Path.Combine(AppDirectory, "Updater.deps.json"),
+        Path.Combine(AppDirectory, "Updater.dll"),
+        Path.Combine(AppDirectory, "Updater.pdb"),
+        Path.Combine(AppDirectory, "Updater.runtimeconfig.json"),
+        Path.Combine(AppDirectory, "SimpleLauncher.pdb")
     ];
 
     public static void CleanupTrash()

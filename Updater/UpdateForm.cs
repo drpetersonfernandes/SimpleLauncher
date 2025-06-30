@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using System.IO.Compression;
 using System.Reflection;
 using System.Text.Json;
 using System.Text.RegularExpressions;
+using ICSharpCode.SharpZipLib.Zip;
 
 namespace Updater;
 
@@ -83,43 +83,47 @@ public partial class UpdateForm : Form
             Log("Downloading the update file...");
             using var updateFileStream = await DownloadUpdateFileToMemoryAsync(assetUrl);
 
-            // Extract the ZIP file directly in memory
-            Log("Extracting update files...");
-            using var archive = new ZipArchive(updateFileStream);
-
             // Files to exclude during extraction
             var ignoredFiles = new[]
             {
-                "Updater.deps.json",
-                "Updater.dll",
-                "Updater.exe",
-                "Updater.pdb",
-                "Updater.runtimeconfig.json"
+                "Updater.exe"
             };
 
-            foreach (var entry in archive.Entries)
+            // Extract the ZIP file directly in memory using SharpZipLib
+            Log("Extracting update files...");
+            await using (var zipInputStream = new ZipInputStream(updateFileStream))
             {
-                // Skip ignored files and directories
-                if (string.IsNullOrEmpty(entry.Name) || ignoredFiles.Contains(entry.Name))
-                    continue;
+                while (zipInputStream.GetNextEntry() is { } entry)
+                {
+                    // Skip ignored files and directories
+                    if (string.IsNullOrEmpty(entry.Name))
+                        continue;
 
-                // Construct the destination path
-                var destinationPath = Path.Combine(AppDirectory, entry.FullName);
+                    var fileName = Path.GetFileName(entry.Name);
+                    if (ignoredFiles.Contains(fileName))
+                        continue;
 
-                // Ensure the destination directory exists
-                var destinationDirectory = Path.GetDirectoryName(destinationPath);
-                if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
-                    Directory.CreateDirectory(destinationDirectory);
+                    // Construct the destination path
+                    var destinationPath = Path.Combine(AppDirectory, entry.Name);
 
-                // Extract the file
-                await using var entryStream = entry.Open();
-                await using var destinationFileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
-                await entryStream.CopyToAsync(destinationFileStream);
+                    // Ensure the destination directory exists
+                    var destinationDirectory = Path.GetDirectoryName(destinationPath);
+                    if (!string.IsNullOrEmpty(destinationDirectory) && !Directory.Exists(destinationDirectory))
+                        Directory.CreateDirectory(destinationDirectory);
 
-                Log($"Extracted: {entry.FullName}");
+                    // Skip directories (they're created above)
+                    if (entry.IsDirectory)
+                        continue;
+
+                    // Extract the file
+                    await using var destinationFileStream = new FileStream(destinationPath, FileMode.Create, FileAccess.Write, FileShare.ReadWrite);
+                    await zipInputStream.CopyToAsync(destinationFileStream);
+
+                    Log($"Extracted: {entry.Name}");
+                }
             }
 
-            // Notify the user of a successful update
+            // Notify the user
             Log("Update installed successfully.");
             MessageBox.Show("Update installed successfully.",
                 "Success", MessageBoxButtons.OK, MessageBoxIcon.Information);

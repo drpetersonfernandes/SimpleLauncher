@@ -46,7 +46,7 @@ public class SettingsManager
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
     private const string DefaultSettingsFilePath = "settings.xml";
-    private const string DefaultNotificationSoundFileName = "notification.mp3";
+    private const string DefaultNotificationSoundFileName = "click.mp3";
 
     public SettingsManager() : this(DefaultSettingsFilePath)
     {

@@ -10,7 +10,7 @@ public static class FormatFileSize
     public static string FormatToMb(long bytes)
     {
         var sizeMb = bytes / (1024.0 * 1024.0);
-        return $"{sizeMb:F3} MB";
+        return $"{sizeMb:F2} MB";
     }
 
     /// <summary>

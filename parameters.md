@@ -722,8 +722,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-**For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).**<br>
-**'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.**<br>
+For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
 
 The ISO file needs to be formated in XISO format, as the original XBOX discs.
 You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
