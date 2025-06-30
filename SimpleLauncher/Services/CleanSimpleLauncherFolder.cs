@@ -22,7 +22,13 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "Updater.dll"),
         Path.Combine(AppDirectory, "Updater.pdb"),
         Path.Combine(AppDirectory, "Updater.runtimeconfig.json"),
-        Path.Combine(AppDirectory, "SimpleLauncher.pdb")
+        Path.Combine(AppDirectory, "SimpleLauncher.pdb"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.deps.json"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.pdb"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.runtimeconfig.json")
     ];
 
     public static void CleanupTrash()
