@@ -30,11 +30,6 @@ public partial class MainWindow
         LaunchTools.BatchConvertToRVZ_Click();
     }
 
-    private void BatchVerifyCHDFiles_Click(object sender, RoutedEventArgs e)
-    {
-        LaunchTools.BatchVerifyCHDFiles_Click();
-    }
-
     private void BatchVerifyCompressedFiles_Click(object sender, RoutedEventArgs e)
     {
         LaunchTools.BatchVerifyCompressedFiles_Click();

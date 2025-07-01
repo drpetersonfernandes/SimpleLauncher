@@ -11,7 +11,8 @@ public static class CleanSimpleLauncherFolder
     [
         Path.Combine(AppDirectory, "temp"),
         Path.Combine(AppDirectory, "temp2"),
-        Path.Combine(Path.GetTempPath(), "SimpleLauncher")
+        Path.Combine(Path.GetTempPath(), "SimpleLauncher"),
+        Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles")
     ];
 
     private static readonly string[] FilesToClean =
@@ -23,12 +24,20 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "Updater.pdb"),
         Path.Combine(AppDirectory, "Updater.runtimeconfig.json"),
         Path.Combine(AppDirectory, "SimpleLauncher.pdb"),
+
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.exe"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.deps.json"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.pdb"),
-        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.runtimeconfig.json")
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.runtimeconfig.json"),
+
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "7z.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.deps.json"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.pdb"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.runtimeconfig.json")
     ];
 
     public static void CleanupTrash()
