@@ -30,11 +30,6 @@ public partial class MainWindow
         LaunchTools.BatchConvertToRVZ_Click();
     }
 
-    private void BatchVerifyCompressedFiles_Click(object sender, RoutedEventArgs e)
-    {
-        LaunchTools.BatchVerifyCompressedFiles_Click();
-    }
-
     private void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
     {
         LaunchTools.CreateBatchFilesForPS3Games_Click();

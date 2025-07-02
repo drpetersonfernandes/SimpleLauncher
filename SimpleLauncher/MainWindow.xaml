@@ -475,12 +475,6 @@
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="BatchVerifyCompressedFiles_Click"
-                          Header="{DynamicResource BatchVerifyCompressedFiles}">
-                    <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
-                    </MenuItem.Icon>
-                </MenuItem>
                 <MenuItem Click="CreateBatchFilesForPS3Games_Click"
                           Header="{DynamicResource CreateBatchFilesForPS3Games}">
                     <MenuItem.Icon>
