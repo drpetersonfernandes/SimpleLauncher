@@ -13,7 +13,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "temp2"),
         Path.Combine(Path.GetTempPath(), "SimpleLauncher"),
         Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles"),
-        Path.Combine(AppDirectory, "tools", "BatchVerifyCompressedFiles")
+        Path.Combine(AppDirectory, "tools", "BatchVerifyCompressedFiles"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "de")
     ];
 
     private static readonly string[] FilesToClean =
@@ -45,7 +46,17 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.deps.json"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.pdb"),
-        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.runtimeconfig.json")
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.runtimeconfig.json"),
+
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "ControlzEx.dll"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "error_user.log"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.deps.json"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.dll"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.pdb"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.runtimeconfig.json"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "MahApps.Metro.dll"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "Microsoft.Xaml.Behaviors.dll"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "Newtonsoft.Json.dll")
     ];
 
     public static void CleanupTrash()
