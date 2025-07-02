@@ -343,54 +343,6 @@
     <None Update="mame.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertToCompressedFile\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\7z.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\7z_x86.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\7z.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\7z_x86.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchVerifyCompressedFiles\BatchVerifyCompressedFiles.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="images\systems\Atari 2600.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -719,6 +671,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToCHD\maxcso.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\7z.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
