@@ -250,21 +250,6 @@
     <None Update="tools\createbatchfilesforwindowsgames\CreateBatchFilesForWindowsGames.runtimeconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.runtimeconfig.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games.deps.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -677,6 +662,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForPS3Games\CreateBatchFilesForPS3Games.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
