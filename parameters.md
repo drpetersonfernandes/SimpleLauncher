@@ -1031,9 +1031,9 @@ This emulator requires a BIOS file to work properly.
 
 **System Folder (Example):** c:\Nintendo DS<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** nds, bin<br>
+**Format To Launch After Extraction:** nds<br>
 
 **Emulator Name:** Retroarch melonds<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -1048,6 +1048,20 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/desmume/).
+
+**Emulator Name:** melonDS<br>
+**Emulator Path (Example):** c:\emulators\melonDS\melonDS.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS).
+
+**Emulator Name:** DeSmuME<br>
+**Emulator Path (Example):** c:\emulators\DeSmuME\DeSmuME.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+Emulator repository available on [GitHub](https://github.com/TASEmulators/desmume).
 
 ## Nintendo Family Computer Disk System
 
