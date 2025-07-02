@@ -12,7 +12,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "temp"),
         Path.Combine(AppDirectory, "temp2"),
         Path.Combine(Path.GetTempPath(), "SimpleLauncher"),
-        Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles")
+        Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles"),
+        Path.Combine(AppDirectory, "tools", "BatchVerifyCompressedFiles")
     ];
 
     private static readonly string[] FilesToClean =
@@ -37,7 +38,14 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.deps.json"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.pdb"),
-        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.runtimeconfig.json")
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.runtimeconfig.json"),
+
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "7z.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "7z_x86.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.deps.json"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.pdb"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.runtimeconfig.json")
     ];
 
     public static void CleanupTrash()
