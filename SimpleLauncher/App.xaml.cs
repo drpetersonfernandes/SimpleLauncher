@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Windows;
@@ -7,8 +8,9 @@ using System.Windows.Markup;
 using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
+using SevenZip;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
@@ -47,6 +49,9 @@ public partial class App
 
         // Initialize DebugLogger early
         DebugLogger.Initialize(isDebugMode);
+
+        // Initialize SevenZipSharp library path
+        InitializeSevenZipSharp();
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
@@ -143,6 +148,34 @@ public partial class App
         }
 
         base.OnExit(e);
+    }
+
+    private static void InitializeSevenZipSharp()
+    {
+        try
+        {
+            // Determine the path to the 7z.dll based on the process architecture.
+            var dllName = Environment.Is64BitProcess ? "7z_x64.dll" : "7z_x86.dll";
+            var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
+
+            if (File.Exists(dllPath))
+            {
+                SevenZipBase.SetLibraryPath(dllPath);
+                DebugLogger.Log($"SevenZipSharp library path set to: {dllPath}");
+            }
+            else
+            {
+                // Notify developer
+                // If the specific DLL is not found, log an error. Extraction will likely fail.
+                var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {AppDomain.CurrentDomain.BaseDirectory}";
+                _ = LogErrors.LogErrorAsync(null, errorMessage);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
+        }
     }
 
     private void ApplyLanguage(string cultureCode = null)

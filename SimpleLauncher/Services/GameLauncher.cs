@@ -686,21 +686,10 @@ public static class GameLauncher
 
         switch (fileExtension)
         {
-            case ".ZIP":
+            case ".ZIP" or ".7Z" or ".RAR":
             {
                 var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithSharpZipLibToTempAsync(resolvedFilePath);
-
-                var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
-                if (!string.IsNullOrEmpty(extractedFileToLaunch))
-                    return extractedFileToLaunch;
-
-                break;
-            }
-            case ".7Z" or ".RAR":
-            {
-                var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractWith7ZToTempAsync(resolvedFilePath);
+                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithSevenZipSharpToTempAsync(resolvedFilePath);
 
                 var extractedFileToLaunch = await ValidateAndFindGameFile(pathToExtractionDirectory, systemManager);
                 if (!string.IsNullOrEmpty(extractedFileToLaunch))

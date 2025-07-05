@@ -15,7 +15,9 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles"),
         Path.Combine(AppDirectory, "tools", "BatchVerifyCompressedFiles"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "de"),
-        Path.Combine(AppDirectory, "cache")
+        Path.Combine(AppDirectory, "cache"),
+        Path.Combine(AppDirectory, "x64"),
+        Path.Combine(AppDirectory, "x86")
     ];
 
     private static readonly string[] FilesToClean =
