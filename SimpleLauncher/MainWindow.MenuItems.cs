@@ -56,7 +56,7 @@ public partial class MainWindow
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
-            LoadOrReloadSystemConfig();
+            LoadOrReloadSystemManager();
 
             ResetUi(); // To load new or edited systems into UI
         }
@@ -76,7 +76,7 @@ public partial class MainWindow
             EditSystemWindow editSystemWindow = new(_settings);
             editSystemWindow.ShowDialog();
 
-            LoadOrReloadSystemConfig();
+            LoadOrReloadSystemManager();
 
             ResetUi(); // To load new or edited systems into UI
         }
@@ -133,10 +133,10 @@ public partial class MainWindow
         }
     }
 
-    private void LoadOrReloadSystemConfig()
+    private void LoadOrReloadSystemManager()
     {
-        _systemConfigs = SystemManager.LoadSystemConfigs();
-        var sortedSystemNames = _systemConfigs.Select(static config => config.SystemName).OrderBy(static name => name)
+        _systemManagers = SystemManager.LoadSystemConfigs();
+        var sortedSystemNames = _systemManagers.Select(static config => config.SystemName).OrderBy(static name => name)
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
     }
@@ -551,7 +551,7 @@ public partial class MainWindow
         ResetUi();
 
         var globalSearchWindow =
-            new GlobalSearchWindow(_systemConfigs, _machines, _mameLookup, _settings, _favoritesManager, this);
+            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _settings, _favoritesManager, this);
         globalSearchWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();
@@ -562,7 +562,7 @@ public partial class MainWindow
     {
         PlaySoundEffects.PlayNotificationSound();
 
-        var globalStatsWindow = new GlobalStatsWindow(_systemConfigs);
+        var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
         globalStatsWindow.Show();
     }
 
@@ -572,7 +572,7 @@ public partial class MainWindow
 
         ResetUi();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemConfigs, _machines, _favoritesManager, this);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this);
         favoritesWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();
@@ -585,7 +585,7 @@ public partial class MainWindow
 
         ResetUi();
 
-        var playHistoryWindow = new PlayTimeWindow(_systemConfigs, _machines, _settings, _favoritesManager,
+        var playHistoryWindow = new PlayTimeWindow(_systemManagers, _machines, _settings, _favoritesManager,
             _playHistoryManager, this);
         playHistoryWindow.Show();
 

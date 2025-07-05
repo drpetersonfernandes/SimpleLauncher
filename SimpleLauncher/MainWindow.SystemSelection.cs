@@ -29,7 +29,7 @@ public partial class MainWindow
         GameFileGrid.Visibility = Visibility.Visible;
         ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-        if (_systemConfigs == null || _systemConfigs.Count == 0)
+        if (_systemManagers == null || _systemManagers.Count == 0)
         {
             var noSystemsConfiguredMsg = (string)Application.Current.TryFindResource("NoSystemsConfiguredMessage") ?? "No systems configured. Please use the 'Edit System' menu to add systems.";
             GameFileGrid.Children.Add(new TextBlock
@@ -50,7 +50,7 @@ public partial class MainWindow
 
     private async Task PopulateSystemSelectionGridAsync()
     {
-        foreach (var config in _systemConfigs.OrderBy(static s => s.SystemName))
+        foreach (var config in _systemManagers.OrderBy(static s => s.SystemName))
         {
             var imagePath = await GetSystemDisplayImagePathAsync(config);
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);

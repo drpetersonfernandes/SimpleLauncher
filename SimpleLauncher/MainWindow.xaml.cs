@@ -25,10 +25,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Declare Controller Detection
     private DispatcherTimer _controllerCheckTimer;
 
-    // Declare CacheManager and CacheFiles
-    private readonly CacheManager _cacheManager = new();
-    private List<string> _cachedFiles;
-
     // Declare GameListItems
     // Used in ListView Mode
     public ObservableCollection<GameListViewItem> GameListItems { get; set; } = [];
@@ -83,7 +79,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private List<string> _currentSearchResults = [];
 
     // Define and Instantiate variables
-    private List<SystemManager> _systemConfigs;
+    private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu = new();
     private GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
@@ -127,7 +123,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             .GroupBy(static m => m.MachineName, StringComparer.OrdinalIgnoreCase)
             .ToDictionary(static g => g.Key, static g => g.First().Description, StringComparer.OrdinalIgnoreCase);
 
-        LoadOrReloadSystemConfig();
+        LoadOrReloadSystemManager();
 
         // Initialize the GamePadController
         GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
@@ -162,10 +158,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Initialize _gameButtonFactory
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
         // Check for Updates
         Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
@@ -299,41 +295,23 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
 
             if (selectedConfig == null)
             {
                 return;
             }
 
-            // Determine which game list to use
             List<string> gameFiles;
 
-            // Otherwise, use the cached files for the selected system
-            // _cachedFiles is populated by the smart CacheManager, so it should be up-to-date
-            // if LoadSystemFilesAsync or SystemComboBox_SelectionChanged was called.
-            // For "Feeling Lucky", we want the full list for the system, not a filtered one.
-            // So, we should ensure _cachedFiles represents the full, unfiltered list for the system.
-            // This is handled by SystemComboBox_SelectionChanged calling _cacheManager.LoadSystemFilesAsync.
-            if (_cachedFiles is { Count: > 0 })
+            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
+            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
             {
-                gameFiles = _cachedFiles;
+                gameFiles = []; // Return an empty list
             }
-            // If _cachedFiles is empty (e.g., system just selected, but no games, or error),
-            // we might need to explicitly load/scan here.
-            // However, SystemComboBox_SelectionChanged should have already populated _cachedFiles.
             else
             {
-                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
-                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
-                {
-                    gameFiles = [];
-                }
-                else
-                {
-                    // Explicitly load/scan if _cachedFiles is empty for some reason
-                    gameFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-                }
+                gameFiles = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
             }
 
             // Check if we have any games after filtering
@@ -490,7 +468,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Retrieve the system configuration for the selected system
-        var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
         if (selectedConfig == null)
         {
             return []; // Return an empty list if there is no favorite for that system
@@ -527,7 +505,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
 
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
@@ -574,7 +552,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-            var selectedConfig = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
 
             if (selectedSystem == null || selectedConfig == null) // Combine null checks
             {
@@ -629,10 +607,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             _topLetterNumberMenu.DeselectLetter();
             ResetPaginationButtons();
-
-            // Load files from cache or rescan if needed (pass the resolved folder path)
-            // The CacheManager's LoadSystemFilesAsync will now internally handle validation based on folder timestamp and file count.
-            _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
         }
         catch (Exception ex)
         {
@@ -687,14 +661,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystem);
+            var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
 
             if (selectedManager == null)
             {
+                // Notify developer
                 const string contextMessage = "selectedConfig is null.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
                 await DisplaySystemSelectionScreenAsync();
+
                 return;
             }
 
@@ -708,8 +687,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     break;
                 default:
                 {
-                    // Use the cached files (which are already resolved paths and validated by CacheManager)
-                    allFiles = await TryToUseCachedListOfFiles(selectedSystem, selectedManager);
+                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemFolder);
+                    allFiles = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
@@ -754,10 +733,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _favoritesManager = FavoritesManager.LoadFavorites();
 
             // GameButtonFactory and GameListFactory now use the resolved file paths directly
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines,
                 _settings, _favoritesManager, _gameFileGrid, this);
 
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemConfigs, _machines,
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines,
                 _settings, _favoritesManager, _playHistoryManager, this);
 
             foreach (var filePath in allFiles) // 'filePath' is already resolved here
@@ -846,29 +825,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             TotalFilesLabel.Content = _totalFiles == 0 ? $"{displayingfiles0To} 0 {outOf} 0 {total}" : $"{displayingfiles} {(_totalFiles > 0 ? startIndex : 0)} {to} {endIndex} {outOf} {_totalFiles} {total}"
         );
         return allFiles;
-    }
-
-    private async Task<List<string>> TryToUseCachedListOfFiles(string selectedSystem, SystemManager selectedManager)
-    {
-        var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemFolder);
-
-        // Basic validation for folderPath
-        if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || selectedManager.FileFormatsToSearch == null)
-        {
-            if (!string.IsNullOrEmpty(selectedManager.SystemFolder)) // Log only if a path was configured
-            {
-                _ = LogErrors.LogErrorAsync(null, $"MainWindow.TryToUseCachedListOfFiles: System folder path invalid or not found for system '{selectedManager.SystemName}': '{selectedManager.SystemFolder}' -> '{systemFolderPath}'. Cannot load files.");
-            }
-
-            _cachedFiles = [];
-            return _cachedFiles; // Return an empty list
-        }
-
-        // The CacheManager handles all validation and loading logic.
-        _cachedFiles = await _cacheManager.LoadSystemFilesAsync(selectedSystem, systemFolderPath, selectedManager.FileFormatsToSearch);
-
-        // Ensure _cachedFiles is not null if LoadSystemFilesAsync could return null on error.
-        return _cachedFiles ?? [];
     }
 
     private async Task SetUiBeforeLoadGameFilesAsync()

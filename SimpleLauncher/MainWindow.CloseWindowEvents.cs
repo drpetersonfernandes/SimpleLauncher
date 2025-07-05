@@ -45,9 +45,8 @@ public partial class MainWindow
 
         // Clean up collections
         GameListItems?.Clear();
-        _cachedFiles?.Clear();
         _currentSearchResults?.Clear();
-        _systemConfigs?.Clear();
+        _systemManagers?.Clear();
 
         // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
