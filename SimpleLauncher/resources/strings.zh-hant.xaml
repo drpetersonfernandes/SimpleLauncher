@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">批量轉換為 CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">批量轉換為壓縮文件</system:String>
     <system:String x:Key="BatchConvertToRVZ">批量轉換為RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">批量驗證 CHD 文件</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">批量驗證壓縮文件</system:String>
     <system:String x:Key="Blue">藍色</system:String>
     <system:String x:Key="Brown">棕色</system:String>
     <system:String x:Key="ButIfoundabackupfile">但我找到了一個備份文件。</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">檔案路徑無效或檔案不存在！</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」無法掛載所選遊戲。</system:String>
 </ResourceDictionary>

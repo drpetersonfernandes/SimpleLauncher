@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">بیچ کنورٹ کریں: CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">بیچ کمپریسڈ فائل میں تبدیل کریں</system:String>
     <system:String x:Key="BatchConvertToRVZ">بیچ کو RVZ میں تبدیل کریں</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">بیچ CHD فائلوں کی تصدیق کریں</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">بیچ کمپریسڈ فائلوں کی تصدیق کریں</system:String>
     <system:String x:Key="Blue">نیلا</system:String>
     <system:String x:Key="Brown">بھورا</system:String>
     <system:String x:Key="ButIfoundabackupfile">لیکن مجھے ایک بیک اپ فائل ملی۔</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">فائل کا راستہ غلط ہے یا فائل موجود نہیں ہے!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'سادہ لانچر' منتخب کردہ گیم کو ماؤنٹ نہیں کر سکا۔</system:String>
 </ResourceDictionary>

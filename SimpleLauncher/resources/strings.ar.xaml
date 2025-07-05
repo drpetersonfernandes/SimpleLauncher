@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">التحويل المجمع إلى CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">التحويل الدفعي إلى ملف مضغوط</system:String>
     <system:String x:Key="BatchConvertToRVZ">تحويل دفعة إلى RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">التحقق الدفعي من ملفات CHD</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">التحقق الدفعي من الملفات المضغوطة</system:String>
     <system:String x:Key="Blue">أزرق</system:String>
     <system:String x:Key="Brown">بني</system:String>
     <system:String x:Key="ButIfoundabackupfile">لكنني عثرت على ملف نسخة احتياطية.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">مسار الملف غير صالح أو الملف غير موجود!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن "Simple Launcher" من تحميل اللعبة المحددة.</system:String>
 </ResourceDictionary>

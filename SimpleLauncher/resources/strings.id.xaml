@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Konversi Batch ke CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Konversi Batch ke File Terkompresi</system:String>
     <system:String x:Key="BatchConvertToRVZ">Mengonversi Batch ke RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Verifikasi Batch File CHD</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Verifikasi Batch File Terkompresi</system:String>
     <system:String x:Key="Blue">Biru</system:String>
     <system:String x:Key="Brown">Coklat</system:String>
     <system:String x:Key="ButIfoundabackupfile">Namun, saya menemukan file cadangan.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Path file tidak valid atau file tidak ada!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' tidak dapat memasang game yang dipilih.</system:String>
 </ResourceDictionary>

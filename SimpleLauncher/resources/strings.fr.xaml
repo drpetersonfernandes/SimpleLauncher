@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Conversion en lot en CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Conversion par lot en fichier compressé</system:String>
     <system:String x:Key="BatchConvertToRVZ">Convertir lot en RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Vérification par lot des fichiers CHD</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Vérification par lot des fichiers compressés</system:String>
     <system:String x:Key="Blue">Bleu</system:String>
     <system:String x:Key="Brown">Brun</system:String>
     <system:String x:Key="ButIfoundabackupfile">Mais j'ai trouvé un fichier de sauvegarde.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Une vulnérabilité de sécurité appelée 'Zip Slip' a été détectée dans le fichier d'archive. Il s'agit d'une vulnérabilité de traversée de chemin qui pourrait permettre à un attaquant d'écrire des fichiers en dehors du répertoire d'extraction prévu.</system:String>
     <system:String x:Key="ZoomIn">Zoomer</system:String>
     <system:String x:Key="ZoomOut">Dézoomer</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Le chemin du fichier est invalide ou le fichier n'existe pas !</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" n'a pas pu monter le jeu sélectionné.</system:String>
 </ResourceDictionary>

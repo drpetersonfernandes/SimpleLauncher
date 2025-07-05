@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Converter em Lote para CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Conversão em Lote para Arquivo Comprimido</system:String>
     <system:String x:Key="BatchConvertToRVZ">Converter lote para RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Verificar Arquivos CHD em Lote</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Verificar Arquivos Comprimidos em Lote</system:String>
     <system:String x:Key="Blue">Azul</system:String>
     <system:String x:Key="Brown">Marrom</system:String>
     <system:String x:Key="ButIfoundabackupfile">Mas encontrei um arquivo de backup.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Uma vulnerabilidade de segurança chamada 'Zip Slip' foi detectada no arquivo compactado. Esta é uma vulnerabilidade de travessia de caminho que poderia permitir a um atacante escrever arquivos fora do diretório de extração pretendido.</system:String>
     <system:String x:Key="ZoomIn">Aumentar zoom</system:String>
     <system:String x:Key="ZoomOut">Diminuir zoom</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">O caminho do arquivo é inválido ou o arquivo não existe!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' não conseguiu montar o jogo selecionado.</system:String>
 </ResourceDictionary>

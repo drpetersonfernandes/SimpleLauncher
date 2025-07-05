@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Stapelkonvertierung zu CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Batch in komprimierte Datei konvertieren</system:String>
     <system:String x:Key="BatchConvertToRVZ">Batch zu RVZ konvertieren</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Batch-Überprüfung von CHD-Dateien</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Batch-Überprüfung von komprimierten Dateien</system:String>
     <system:String x:Key="Blue">Blau</system:String>
     <system:String x:Key="Brown">Braun</system:String>
     <system:String x:Key="ButIfoundabackupfile">Aber ich habe eine Sicherungsdatei gefunden.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Der Dateipfad ist ungültig oder die Datei existiert nicht!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" konnte das ausgewählte Spiel nicht mounten.</system:String>
 </ResourceDictionary>

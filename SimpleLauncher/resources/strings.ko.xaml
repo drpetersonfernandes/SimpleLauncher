@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">배치 변환: CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">압축된 파일로 일괄 변환</system:String>
     <system:String x:Key="BatchConvertToRVZ">일괄로 RVZ로 변환</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">CHD 파일 일괄 확인</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">압축 파일 일괄 확인</system:String>
     <system:String x:Key="Blue">파랑</system:String>
     <system:String x:Key="Brown">갈색</system:String>
     <system:String x:Key="ButIfoundabackupfile">백업 파일을 발견했습니다.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">파일 경로가 유효하지 않거나 파일이 존재하지 않습니다!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher'가 선택한 게임을 마운트할 수 없었습니다.</system:String>
 </ResourceDictionary>

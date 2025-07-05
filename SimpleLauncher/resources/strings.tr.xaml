@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Toplu Olarak CHD'ye Dönüştür</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Toplu Sıkıştırılmış Dosyaya Dönüştür</system:String>
     <system:String x:Key="BatchConvertToRVZ">Parti RVZ'ye Dönüştür</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Toplu CHD Dosyalarını Doğrula</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Toplu Sıkıştırılmış Dosyaları Doğrula</system:String>
     <system:String x:Key="Blue">Mavi</system:String>
     <system:String x:Key="Brown">Kahverengi</system:String>
     <system:String x:Key="ButIfoundabackupfile">Ancak bir yedek dosya bulundu.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Dosya yolu geçersiz veya dosya mevcut değil!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' seçilen oyunu bağlayamadı.</system:String>
 </ResourceDictionary>

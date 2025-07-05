@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">ব্যাচ কনভার্ট টু CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">ব্যান্ডলভাবে সংকুচিত ফাইলে রূপান্তর করুন</system:String>
     <system:String x:Key="BatchConvertToRVZ">একটি ব্যাচ কনভার্ট টু আরভিজেড</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">ব্যান্ডলভাবে CHD ফাইল যাচাই করুন</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">ব্যান্ডলভাবে সংকুচিত ফাইল যাচাই করুন</system:String>
     <system:String x:Key="Blue">নীল</system:String>
     <system:String x:Key="Brown">বাদামি</system:String>
     <system:String x:Key="ButIfoundabackupfile">পূর্ববর্তী ব্যাকআপ ব্যবহার যোগ্য।</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">ফাইল পাথ অবৈধ অথবা ফাইলটি বিদ্যমান নেই!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' নির্বাচিত গেমটি মাউন্ট করতে পারেনি।</system:String>
 </ResourceDictionary>

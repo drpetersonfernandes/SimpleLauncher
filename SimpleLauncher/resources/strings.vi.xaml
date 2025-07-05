@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Chuyển đổi hàng loạt sang CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Chuyển Đổi Hàng Loạt Sang Tệp Nén</system:String>
     <system:String x:Key="BatchConvertToRVZ">Chuyển đổi lô thành RVZ</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Xác Minh Tệp CHD Hàng Loạt</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Xác Minh Tệp Nén Hàng Loạt</system:String>
     <system:String x:Key="Blue">Xanh dương</system:String>
     <system:String x:Key="Brown">Nâu</system:String>
     <system:String x:Key="ButIfoundabackupfile">Nhưng tôi đã tìm thấy một tệp sao lưu.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Đường dẫn tệp không hợp lệ hoặc tệp không tồn tại!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' không thể gắn kết trò chơi đã chọn.</system:String>
 </ResourceDictionary>

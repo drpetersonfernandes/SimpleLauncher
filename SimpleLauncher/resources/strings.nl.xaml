@@ -65,8 +65,6 @@
     <system:String x:Key="BatchConvertToCHD">Batch Converteren naar CHD</system:String>
     <system:String x:Key="BatchConvertToCompressedFile">Batch Omzetten naar Gecomprimeerd Bestand</system:String>
     <system:String x:Key="BatchConvertToRVZ">Batch naar RVZ converteren</system:String>
-    <system:String x:Key="BatchVerifyCHDFiles">Batch Controleren van CHD-bestanden</system:String>
-    <system:String x:Key="BatchVerifyCompressedFiles">Batch Controleren van Gecomprimeerde Bestanden</system:String>
     <system:String x:Key="Blue">Blauw</system:String>
     <system:String x:Key="Brown">Bruin</system:String>
     <system:String x:Key="ButIfoundabackupfile">Maar ik heb een back-upbestand gevonden.</system:String>
@@ -637,4 +635,7 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
+    
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Het bestandspad is ongeldig of het bestand bestaat niet!</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' kon het geselecteerde spel niet koppelen.</system:String>
 </ResourceDictionary>
