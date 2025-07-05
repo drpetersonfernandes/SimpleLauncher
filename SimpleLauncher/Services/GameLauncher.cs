@@ -129,7 +129,7 @@ public static class GameLauncher
                      Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
             {
                 DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                await MountZipFiles.MountZipFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                await MountZipFiles.MountZipFileAndLoadEbootBin(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
             }
             // Specific handling for RPCS3 with ISO files
             else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
@@ -137,6 +137,13 @@ public static class GameLauncher
             {
                 DebugLogger.Log($"RPCS3 with ISO call detected. Attempting to mount ISO and launch: {resolvedFilePath}");
                 await MountIsoFiles.MountIsoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+            }
+            // Specific handling for XBLA games with ZIP files
+            else if (selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || (resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase) &&
+                         Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase)))
+            {
+                DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                await MountZipFiles.MountZipFileAndSearchForFileToLoad(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
             }
             else
             {
@@ -482,8 +489,7 @@ public static class GameLauncher
         var isMountedXbe = resolvedFilePath.Equals("W:\\default.xbe", StringComparison.OrdinalIgnoreCase);
 
         // Check if the file to launch a mounted ZIP file, which will not be extracted
-        var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase) &&
-                           resolvedFilePath.EndsWith("EBOOT.BIN", StringComparison.OrdinalIgnoreCase);
+        var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);
 
         if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe && !isMountedZip)
         {

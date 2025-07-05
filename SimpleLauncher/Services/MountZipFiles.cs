@@ -52,7 +52,7 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
     }
 
-    public static async Task MountZipFile(
+    public static async Task MountZipFileAndLoadEbootBin(
         string resolvedZipFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -62,7 +62,7 @@ public static class MountZipFiles
         MainWindow mainWindow,
         string logPath)
     {
-        DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP: {resolvedZipFilePath}");
+        DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
         var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
@@ -164,7 +164,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulator(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulator(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)
@@ -258,6 +258,179 @@ public static class MountZipFiles
         }
     }
 
+    public static async Task MountZipFileAndSearchForFileToLoad(
+        string resolvedZipFilePath,
+        string selectedSystemName,
+        string selectedEmulatorName,
+        SystemManager selectedSystemManager,
+        SystemManager.Emulator selectedEmulatorManager,
+        string rawEmulatorParameters,
+        MainWindow mainWindow,
+        string logPath)
+    {
+        DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
+        DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
+
+        DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
+
+        if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
+        {
+            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            return;
+        }
+
+        var mountPathArgument = ConfiguredMountDriveLetter;
+        var mountDriveRootForChecks = ConfiguredMountDriveRoot;
+
+        var psiMount = new ProcessStartInfo
+        {
+            FileName = resolvedZipMountExePath,
+            Arguments = $"\"{resolvedZipFilePath}\" \"{mountPathArgument}\"",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+            WorkingDirectory = Path.GetDirectoryName(resolvedZipMountExePath) ?? AppDomain.CurrentDomain.BaseDirectory
+        };
+
+        DebugLogger.Log($"[MountZipFiles] ProcessStartInfo for {_zipMountExecutableName}:");
+        DebugLogger.Log($"[MountZipFiles] FileName: {psiMount.FileName}");
+        DebugLogger.Log($"[MountZipFiles] Arguments: {psiMount.Arguments}");
+        DebugLogger.Log($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
+
+        Process mountProcess = null;
+        var mountProcessId = -1;
+        var mountOutput = new StringBuilder();
+        var mountError = new StringBuilder();
+
+        try
+        {
+            mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
+
+            mountProcess.OutputDataReceived += (_, args) =>
+            {
+                if (args.Data == null) return;
+
+                mountOutput.AppendLine(args.Data);
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDOUT: {args.Data}");
+            };
+            mountProcess.ErrorDataReceived += (_, args) =>
+            {
+                if (args.Data == null) return;
+
+                mountError.AppendLine(args.Data);
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDERR: {args.Data}");
+            };
+
+            DebugLogger.Log($"[MountZipFiles] Starting {_zipMountExecutableName} process...");
+            if (!mountProcess.Start())
+            {
+                throw new InvalidOperationException($"Failed to start the {_zipMountExecutableName} process.");
+            }
+
+            mountProcessId = mountProcess.Id;
+            DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process started (ID: {mountProcessId}).");
+
+            mountProcess.BeginOutputReadLine();
+            mountProcess.BeginErrorReadLine();
+
+            DebugLogger.Log($"[MountZipFiles] Waiting a few seconds for ZIP to mount to {mountDriveRootForChecks}...");
+            await Task.Delay(5000);
+
+            if (!Directory.Exists(mountDriveRootForChecks))
+            {
+                DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found.");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Output:\n{mountOutput}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Error:\n{mountError}");
+                throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+            }
+
+            DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for nested file...");
+            var fileToLoad = FindNestedFile(mountDriveRootForChecks);
+
+            if (string.IsNullOrEmpty(fileToLoad))
+            {
+                DebugLogger.Log($"[MountZipFiles] No suitable file found in nested directory structure in {mountDriveRootForChecks}.");
+                throw new FileNotFoundException($"Could not find a file to launch within the expected nested directory structure of the mounted ZIP at {mountDriveRootForChecks}.");
+            }
+
+            DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
+            await GameLauncher.LaunchRegularEmulator(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
+            var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
+                                 $"Exception: {ex.Message}\n" +
+                                 $"{_zipMountExecutableName} Output: {mountOutput}\n" +
+                                 $"{_zipMountExecutableName} Error: {mountError}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+        }
+        finally
+        {
+            DebugLogger.Log($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
+            if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
+            {
+                DebugLogger.Log($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
+                try
+                {
+                    mountProcess.Kill(true);
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    try
+                    {
+                        await mountProcess.WaitForExitAsync(cts.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        DebugLogger.Log($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                    }
+
+                    if (mountProcess.HasExited)
+                    {
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
+                }
+                catch (Exception termEx)
+                {
+                    DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                }
+            }
+            else if (mountProcessId != -1)
+            {
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted.");
+            }
+            else
+            {
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+            }
+
+            mountProcess?.Dispose();
+
+            await Task.Delay(2000);
+            if (Directory.Exists(mountDriveRootForChecks))
+            {
+                DebugLogger.Log($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+            }
+            else
+            {
+                DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
+            }
+        }
+    }
+
     private static string FindEbootBinRecursive(string directoryPath)
     {
         const string targetFileName = "EBOOT.BIN";
@@ -296,5 +469,41 @@ public static class MountZipFiles
         }
 
         return null;
+    }
+
+    private static string FindNestedFile(string directoryPath)
+    {
+        const string targetFolderName = "000D0000";
+        try
+        {
+            DebugLogger.Log($"[FindNestedFile] Searching for directory '{targetFolderName}' in {directoryPath}...");
+            var targetDirs = Directory.GetDirectories(directoryPath, targetFolderName, SearchOption.AllDirectories);
+
+            if (targetDirs.Length == 0)
+            {
+                DebugLogger.Log($"[FindNestedFile] Directory '{targetFolderName}' not found in {directoryPath}.");
+                return null;
+            }
+
+            var nestedDirPath = targetDirs[0];
+            DebugLogger.Log($"[FindNestedFile] Found directory at: {nestedDirPath}. Searching for first file inside...");
+
+            var filesInNestedDir = Directory.GetFiles(nestedDirPath, "*", SearchOption.TopDirectoryOnly);
+            if (filesInNestedDir.Length > 0)
+            {
+                var fileToLaunch = filesInNestedDir[0];
+                DebugLogger.Log($"[FindNestedFile] Found file to launch: {fileToLaunch}");
+                return fileToLaunch;
+            }
+
+            DebugLogger.Log($"[FindNestedFile] Directory '{nestedDirPath}' was found but is empty.");
+            return null;
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[FindNestedFile] Error searching for nested file in {directoryPath}: {ex.Message}");
+            _ = LogErrors.LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
+            return null;
+        }
     }
 }
