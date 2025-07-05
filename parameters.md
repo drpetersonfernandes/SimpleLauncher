@@ -760,6 +760,10 @@ You can find a tool in the 'Simple Launcher' tools menu that can optimize origin
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
+There are multiple ways to use this emulator. You can use [Game Folders] or ZIP files.<br>
+
+**Option 1 - Use [Game Folders]**
+
 **System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** bat<br>
@@ -771,7 +775,24 @@ You can find a tool in the 'Simple Launcher' tools menu that can optimize origin
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
+Use the tool 'Create Batch Files For Xbox360 XBLA Games' in the 'Simple Launcher' tools menu.
+This tool will generate BAT files for you.
+
+**Option 2 - Use ZIP files (Recommended)**
+
+**System Folder (Example):** c:\Microsoft Xbox 360 XBLA<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** Xenia<br>
+**Emulator Path (Example):** c:\emulators\Xenia\xenia_canary.exe<br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside '000D0000' folder.<br>
 
 ## NEC PC Engine / TurboGrafx 16
 
@@ -2283,6 +2304,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using the emulator.<br>
 
 **Option 3 — Use decrypted ISO files**
@@ -2298,6 +2320,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
 'Simple Launcher' will mount the ISO file into a virtual drive, then load the game using the emulator.
 
 ## Sony PlayStation 4
