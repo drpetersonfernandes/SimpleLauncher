@@ -58,9 +58,9 @@ public partial class MainWindow
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
 
             var systemImageSize = _settings.ThumbnailSize;
-            if (systemImageSize > 151)
+            if (systemImageSize > 101)
             {
-                systemImageSize = 150;
+                systemImageSize = 100;
             }
 
             var image = new Image
