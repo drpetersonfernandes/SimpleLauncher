@@ -30,6 +30,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "Updater.runtimeconfig.json"),
         Path.Combine(AppDirectory, "SimpleLauncher.pdb"),
 
+        Path.Combine(AppDirectory, "7z.dll"),
+
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.exe"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.deps.json"),
