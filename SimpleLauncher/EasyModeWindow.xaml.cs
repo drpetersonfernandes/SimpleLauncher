@@ -405,8 +405,8 @@ public partial class EasyModeWindow : IDisposable
     private static async Task UpdateSystemXmlAsync(
         string xmlPath,
         EasyModeSystemConfig selectedSystem,
-        string resolvedSystemFolder,
-        string resolvedSystemImageFolder)
+        string systemFolder,
+        string systemImageFolder)
     {
         XDocument xmlDoc = null; // Initialize to null
         try
@@ -455,19 +455,17 @@ public partial class EasyModeWindow : IDisposable
             // --- Proceed with modification logic ---
             if (xmlDoc.Root != null)
             {
-                var systemConfigs =
-                    xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
-                var existingSystem = systemConfigs.FirstOrDefault(config =>
-                    config.Element("SystemName")?.Value == selectedSystem.SystemName);
+                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
+                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
                 if (existingSystem != null)
                 {
                     // Overwrite existing system (in memory)
-                    OverwriteExistingSystem(existingSystem, selectedSystem, resolvedSystemFolder, resolvedSystemImageFolder);
+                    OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolder);
                 }
                 else
                 {
                     // Create new system element (in memory)
-                    var newSystemElement = SaveNewSystem(selectedSystem, resolvedSystemFolder, resolvedSystemImageFolder);
+                    var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolder);
                     xmlDoc.Root.Add(newSystemElement);
                 }
             }
@@ -526,7 +524,6 @@ public partial class EasyModeWindow : IDisposable
             }
 
             var systemImageFolder = selectedSystem.SystemImageFolder;
-            var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemImageFolder);
 
             var addingsystemtoconfiguration = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
             DownloadStatus = addingsystemtoconfiguration;
@@ -545,14 +542,15 @@ public partial class EasyModeWindow : IDisposable
                 var creatingsystemfolders = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                 DownloadStatus = creatingsystemfolders;
 
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
-
-                CreateSystemFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
+                // Create System Folders
+                CreateSystemFolders.CreateFolders(selectedSystem.SystemName, systemFolder, systemImageFolder);
 
                 var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                 DownloadStatus = systemhasbeensuccessfullyadded;
 
                 // Notify user
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
+                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
                 MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                 // Close the window after successful addition
@@ -594,12 +592,12 @@ public partial class EasyModeWindow : IDisposable
         }
     }
 
-    private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string resolvedSystemFolder, string resolvedSystemImageFolder)
+    private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
     {
         var newSystemElement = new XElement("SystemConfig",
             new XElement("SystemName", selectedSystem.SystemName),
-            new XElement("SystemFolder", resolvedSystemFolder),
-            new XElement("SystemImageFolder", resolvedSystemImageFolder),
+            new XElement("SystemFolder", systemFolder),
+            new XElement("SystemImageFolder", systemImageFolder),
             new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
             new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString()),
@@ -615,11 +613,11 @@ public partial class EasyModeWindow : IDisposable
         return newSystemElement;
     }
 
-    private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string resolvedSystemFolder, string resolvedSystemImageFolder)
+    private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
     {
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-        existingSystem.SetElementValue("SystemFolder", resolvedSystemFolder);
-        existingSystem.SetElementValue("SystemImageFolder", resolvedSystemImageFolder);
+        existingSystem.SetElementValue("SystemFolder", systemFolder);
+        existingSystem.SetElementValue("SystemImageFolder", systemImageFolder);
         existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", selectedSystem.ExtractFileBeforeLaunch.ToString());
@@ -637,68 +635,6 @@ public partial class EasyModeWindow : IDisposable
     private void UpdateAddSystemButtonState()
     {
         AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
-    }
-
-    private static void CreateSystemFolders(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
-    {
-        var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var additionalFolders = GetAdditionalFolders.GetFolders();
-
-        try
-        {
-            if (!string.IsNullOrEmpty(resolvedSystemFolder) && !Directory.Exists(resolvedSystemFolder))
-            {
-                try
-                {
-                    Directory.CreateDirectory(resolvedSystemFolder);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary system folder.");
-                }
-            }
-
-            if (!string.IsNullOrEmpty(resolvedSystemImageFolder) && !Directory.Exists(resolvedSystemImageFolder))
-            {
-                try
-                {
-                    Directory.CreateDirectory(resolvedSystemImageFolder);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary image folder.");
-                }
-            }
-
-            foreach (var folder in additionalFolders)
-            {
-                var folderPath = Path.Combine(baseDirectory, folder, systemName);
-                if (Directory.Exists(folderPath)) continue;
-
-                try
-                {
-                    Directory.CreateDirectory(folderPath);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error creating the {folder} folder.");
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.FolderCreationFailedMessageBox();
-
-            throw;
-        }
     }
 
     private async void CloseWindowRoutine(object sender, EventArgs e)
