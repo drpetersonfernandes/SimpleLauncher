@@ -556,9 +556,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             if (selectedSystem == null || selectedConfig == null) // Combine null checks
             {
+                // Notify developer
                 const string errorMessage = "Selected system or its configuration is null.";
                 _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+                // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
                 await DisplaySystemSelectionScreenAsync();
                 return;
             }
@@ -583,6 +587,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
                 }
 
@@ -610,8 +615,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
             MessageBoxLibrary.InvalidSystemConfigMessageBox();
         }
     }
@@ -767,8 +775,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
         }
         finally

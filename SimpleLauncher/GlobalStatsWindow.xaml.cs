@@ -115,6 +115,7 @@ public partial class GlobalStatsWindow
             {
                 if (!string.IsNullOrEmpty(config.SystemFolder)) // Only log if a path was configured
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{config.SystemFolder}' -> '{systemFolderPath}'. Cannot count files.");
                 }
 
@@ -155,6 +156,7 @@ public partial class GlobalStatsWindow
             }
             else if (!string.IsNullOrEmpty(config.SystemImageFolder)) // Only log if a path was actually configured
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{config.SystemName}': '{config.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
             }
 

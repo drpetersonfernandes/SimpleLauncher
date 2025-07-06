@@ -129,6 +129,7 @@ public partial class GlobalSearchWindow
             {
                 if (!string.IsNullOrEmpty(systemManager.SystemFolder)) // Only log if a path was actually configured
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(null, $"GlobalSearch: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemFolder}' -> '{systemFolderPath}'");
                 }
 
@@ -185,15 +186,19 @@ public partial class GlobalSearchWindow
                         }
                         else
                         {
+                            // Notify developer
                             var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
                             _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
+
                             searchResultItem.FileSizeBytes = -2;
                         }
                     }
                     catch (Exception ex)
                     {
+                        // Notify developer
                         var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
                         _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                         searchResultItem.FileSizeBytes = -2;
                     }
                 });
@@ -314,6 +319,8 @@ public partial class GlobalSearchWindow
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
+
+                // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
 
                 return;

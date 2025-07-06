@@ -114,13 +114,17 @@ public class GameListFactory(
             // Ensure the MainWindow and its PreviewImage control are available.
             if (_mainWindow == null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
+
                 return;
             }
 
             if (_mainWindow.PreviewImage == null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChanged."), "PreviewImage control in MainWindow is null. Cannot update preview.");
+
                 return;
             }
 

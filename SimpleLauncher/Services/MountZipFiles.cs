@@ -155,7 +155,9 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Searching for EBOOT.BIN...");
-            var ebootBinPath = FindEbootBinRecursive(mountDriveRootForChecks);
+
+            // Find EBOOT.BIN
+            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountDriveRootForChecks);
 
             if (string.IsNullOrEmpty(ebootBinPath))
             {
@@ -277,10 +279,14 @@ public static class MountZipFiles
 
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
+            // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+            // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+
             return;
         }
 
@@ -366,11 +372,15 @@ public static class MountZipFiles
         catch (Exception ex)
         {
             DebugLogger.Log($"[MountZipFiles] Exception during ZIP mounting or launching: {ex}");
+
+            // Notify developer
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"{_zipMountExecutableName} Output: {mountOutput}\n" +
                                  $"{_zipMountExecutableName} Error: {mountError}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
         }
         finally
@@ -405,6 +415,8 @@ public static class MountZipFiles
                 catch (Exception termEx)
                 {
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
@@ -429,46 +441,6 @@ public static class MountZipFiles
                 DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
             }
         }
-    }
-
-    private static string FindEbootBinRecursive(string directoryPath)
-    {
-        const string targetFileName = "EBOOT.BIN";
-        try
-        {
-            var files = Directory.GetFiles(directoryPath, targetFileName, SearchOption.TopDirectoryOnly);
-            if (files.Length != 0)
-            {
-                return files[0];
-            }
-
-            var ps3GameDirs = Directory.GetDirectories(directoryPath, "PS3_GAME", SearchOption.TopDirectoryOnly);
-            foreach (var ps3GameDir in ps3GameDirs)
-            {
-                var usrDir = Path.Combine(ps3GameDir, "USRDIR");
-                if (!Directory.Exists(usrDir)) continue;
-
-                files = Directory.GetFiles(usrDir, targetFileName, SearchOption.TopDirectoryOnly);
-                if (files.Length != 0)
-                {
-                    return files[0];
-                }
-            }
-
-            DebugLogger.Log($"[FindEbootBinRecursive] EBOOT.BIN not found in typical PS3_GAME/USRDIR structure in {directoryPath}. Starting full recursive search...");
-            files = Directory.GetFiles(directoryPath, targetFileName, SearchOption.AllDirectories);
-            if (files.Length != 0)
-            {
-                DebugLogger.Log($"[FindEbootBinRecursive] Found EBOOT.BIN via full recursive search: {files[0]}");
-                return files[0];
-            }
-        }
-        catch (Exception ex)
-        {
-            DebugLogger.Log($"[FindEbootBinRecursive] Error searching for EBOOT.BIN in {directoryPath}: {ex.Message}");
-        }
-
-        return null;
     }
 
     private static string FindNestedFile(string directoryPath)
@@ -502,7 +474,10 @@ public static class MountZipFiles
         catch (Exception ex)
         {
             DebugLogger.Log($"[FindNestedFile] Error searching for nested file in {directoryPath}: {ex.Message}");
+
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
+
             return null;
         }
     }

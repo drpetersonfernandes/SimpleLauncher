@@ -48,8 +48,13 @@ public static class MountIsoFiles
             {
                 var errorMessage = $"Mount path {mountPath} does not exist after mounting ISO {resolvedIsoFilePath}. PowerShell might have failed silently or the drive is not accessible.";
                 DebugLogger.Log($"[MountIsoFiles] Error: {errorMessage}");
+
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+                // Notify user
                 MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+
                 // The finally block will attempt to dismount.
                 return;
             }
@@ -58,14 +63,21 @@ public static class MountIsoFiles
 
             // 2. Find EBOOT.BIN in the mounted ISO
             DebugLogger.Log($"[MountIsoFiles] Searching for EBOOT.BIN in {mountPath}...");
-            var ebootBinPath = FindEbootBinRecursive(mountPath); // Uses the local FindEbootBinRecursive method
+
+            // Find EBOOT.BIN
+            var ebootBinPath = FindEbootBin.FindEbootBinRecursive(mountPath);
 
             if (string.IsNullOrEmpty(ebootBinPath))
             {
                 var errorMessage = $"EBOOT.BIN not found in mounted ISO at {mountPath}. Original ISO: {resolvedIsoFilePath}";
                 DebugLogger.Log($"[MountIsoFiles] Error: {errorMessage}");
+
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new FileNotFoundException(errorMessage), errorMessage);
+
+                // Notify user
                 MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath); // Or a more specific message like "Required game files not found in ISO"
+
                 return;
             }
 
@@ -79,7 +91,11 @@ public static class MountIsoFiles
         {
             DebugLogger.Log($"[MountIsoFiles] Exception during ISO mount/launch process for {resolvedIsoFilePath}: {ex}");
             var contextMessage = $"Error during ISO mount/launch process for {resolvedIsoFilePath}.\nException: {ex.Message}";
+
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
         }
         finally
@@ -153,9 +169,11 @@ public static class MountIsoFiles
             var errors = errorBuilder.ToString().Trim();
             if (process.ExitCode != 0 || !string.IsNullOrEmpty(errors))
             {
+                // Notify developer
                 var errorMessage = $"PowerShell command to mount ISO failed. Exit Code: {process.ExitCode}.\nPath: {isoPath}\nErrors: {errors}\nOutput: {outputBuilder}";
                 DebugLogger.Log($"[MountIsoFiles] Error: {errorMessage}");
                 _ = LogErrors.LogErrorAsync(null, errorMessage);
+
                 return null;
             }
 
@@ -166,16 +184,20 @@ public static class MountIsoFiles
                 return driveLetter.ToUpperInvariant();
             }
 
+            // Notify developer
             var failureMessage = $"Failed to parse drive letter from PowerShell output for ISO {isoPath}. Output: '{driveLetter}'\nErrors: {errors}";
             DebugLogger.Log($"[MountIsoFiles] Error: {failureMessage}");
             _ = LogErrors.LogErrorAsync(null, failureMessage);
+
             return null;
         }
         catch (OperationCanceledException) // Catches TaskCanceledException from WaitForExitAsync with timeout
         {
+            // Notify developer
             var timeoutMessage = $"PowerShell mount command timed out (30s) for ISO {isoPath}.";
             DebugLogger.Log($"[MountIsoFiles] Timeout: {timeoutMessage}");
             _ = LogErrors.LogErrorAsync(null, timeoutMessage);
+
             if (process.HasExited) return null;
 
             try
@@ -191,9 +213,11 @@ public static class MountIsoFiles
         }
         catch (Exception ex)
         {
+            // Notify developer
             var errorMessage = $"Exception while executing PowerShell mount command for ISO {isoPath}: {ex.Message}\nOutput: {outputBuilder}\nError: {errorBuilder}";
             DebugLogger.Log($"[MountIsoFiles] Exception: {errorMessage}");
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
             return null;
         }
     }
@@ -245,9 +269,11 @@ public static class MountIsoFiles
         }
         catch (OperationCanceledException)
         {
+            // Notify developer
             var timeoutMessage = $"PowerShell dismount command timed out (30s) for ISO {isoPath}.";
             DebugLogger.Log($"[MountIsoFiles] Timeout: {timeoutMessage}");
             _ = LogErrors.LogErrorAsync(null, timeoutMessage); // Log timeout as an error
+
             if (!process.HasExited)
             {
                 try
@@ -262,62 +288,10 @@ public static class MountIsoFiles
         }
         catch (Exception ex)
         {
+            // Notify developer
             var errorMessage = $"Exception while executing PowerShell dismount command for ISO {isoPath}: {ex.Message}";
             DebugLogger.Log($"[MountIsoFiles] Exception: {errorMessage}");
             _ = LogErrors.LogErrorAsync(ex, errorMessage);
         }
-    }
-
-    // Adapted from MountZipFiles.cs. Consider refactoring to a shared utility if used in more places.
-    private static string FindEbootBinRecursive(string directoryPath)
-    {
-        const string targetFileName = "EBOOT.BIN";
-        DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] Searching for {targetFileName} in {directoryPath}");
-        try
-        {
-            // Check top directory first
-            var filesInTopDir = Directory.GetFiles(directoryPath, targetFileName, SearchOption.TopDirectoryOnly);
-            if (filesInTopDir.Length > 0)
-            {
-                DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] Found {targetFileName} in top directory: {filesInTopDir[0]}");
-                return filesInTopDir[0];
-            }
-
-            // Check common PS3 structure: <mount>\PS3_GAME\USRDIR\EBOOT.BIN
-            var ps3GameDirs = Directory.GetDirectories(directoryPath, "PS3_GAME", SearchOption.TopDirectoryOnly);
-            foreach (var ps3GameDir in ps3GameDirs)
-            {
-                var usrDir = Path.Combine(ps3GameDir, "USRDIR");
-                if (!Directory.Exists(usrDir)) continue;
-
-                var filesInUsrDir = Directory.GetFiles(usrDir, targetFileName, SearchOption.TopDirectoryOnly);
-                if (filesInUsrDir.Length <= 0) continue;
-
-                DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] Found {targetFileName} in PS3_GAME/USRDIR: {filesInUsrDir[0]}");
-                return filesInUsrDir[0];
-            }
-
-            // Fallback to full recursive search if not found in common locations
-            DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] {targetFileName} not found in typical locations. Starting full recursive search in {directoryPath}...");
-            var filesRecursive = Directory.GetFiles(directoryPath, targetFileName, SearchOption.AllDirectories);
-            if (filesRecursive.Length > 0)
-            {
-                DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] Found {targetFileName} via full recursive search: {filesRecursive[0]}");
-                return filesRecursive[0]; // Return the first one found
-            }
-        }
-        catch (UnauthorizedAccessException uaEx)
-        {
-            DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
-            _ = LogErrors.LogErrorAsync(uaEx, $"Unauthorized access while searching for EBOOT.BIN in mounted ISO at {directoryPath}.");
-        }
-        catch (Exception ex) // Catch other IOExceptions, etc.
-        {
-            DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
-            _ = LogErrors.LogErrorAsync(ex, $"Generic error while searching for EBOOT.BIN in mounted ISO at {directoryPath}.");
-        }
-
-        DebugLogger.Log($"[MountIsoFiles.FindEbootBinRecursive] {targetFileName} not found in {directoryPath}.");
-        return null;
     }
 }

@@ -72,8 +72,10 @@ public static class PlaySoundEffects
         var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
         if (!File.Exists(soundPath))
         {
+            // Notify developer
             var contextMessageMissing = $"Sound file not found: {soundPath}";
             _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessageMissing, soundPath), contextMessageMissing);
+
             return;
         }
 
@@ -103,6 +105,7 @@ public static class PlaySoundEffects
         }
         catch (Exception ex)
         {
+            // Notify developer
             var contextMessageError = $"Error playing '{soundFileName}' sound from path '{soundPath}'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessageError);
         }

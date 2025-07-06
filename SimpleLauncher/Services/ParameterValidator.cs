@@ -492,6 +492,7 @@ public static partial class ParameterValidator
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error during path canonicalization for token '{processedToken}'. Using as-is after placeholder/env var replacement: '{finalTokenValue}'.");
                     // finalTokenValue already holds processedToken, so it's the fallback.
                 }

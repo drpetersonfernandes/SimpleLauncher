@@ -400,6 +400,7 @@ public partial class EditSystemWindow
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, $"Error creating parent directory: {parentDirectory}");
                 }
             }
@@ -413,15 +414,18 @@ public partial class EditSystemWindow
                     Directory.CreateDirectory(newFolderPath);
                     if (folderName == "images")
                     {
+                        // Notify user
                         MessageBoxLibrary.FolderCreatedMessageBox(systemNameText);
                     }
                 }
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Error creating system specific folder: {newFolderPath}");
                 if (folderName == "images") // Only show failure for images as per original logic
                 {
+                    // Notify user
                     MessageBoxLibrary.FolderCreationFailedMessageBox();
                 }
             }
