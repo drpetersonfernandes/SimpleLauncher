@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -88,6 +89,8 @@ public partial class PlayTimeWindow
     /// <param name="itemsToProcess">A list of PlayHistoryItem objects to process.</param>
     private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
     {
+        var itemsToDelete = new ConcurrentBag<PlayHistoryItem>();
+
         await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
         {
             var systemManager = _systemManagers.FirstOrDefault(config =>
@@ -110,8 +113,8 @@ public partial class PlayTimeWindow
                     }
                     else
                     {
-                        // File not found - remove the item
-                        await Dispatcher.InvokeAsync(() => DeleteHistoryItem(item));
+                        // File not found - collect for batch removal
+                        itemsToDelete.Add(item);
                     }
                 }
                 catch (Exception ex)
@@ -138,6 +141,32 @@ public partial class PlayTimeWindow
                 });
             }
         });
+
+        if (itemsToDelete.IsEmpty) return;
+
+        try
+        {
+            await Dispatcher.InvokeAsync(() =>
+            {
+                foreach (var itemToRemove in itemsToDelete)
+                {
+                    _playHistoryList.Remove(itemToRemove);
+                }
+
+                // Persist the changes after removal
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _playHistoryManager.SavePlayHistory();
+            });
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error during batch deletion of history items.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
+        }
     }
 
     private static DateTime TryParseDateTime(string dateStr, string timeStr)
@@ -224,27 +253,6 @@ public partial class PlayTimeWindow
         {
             // Notify the user to select a history item first
             MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
-        }
-    }
-
-    private void DeleteHistoryItem(PlayHistoryItem selectedItem)
-    {
-        try
-        {
-            Dispatcher.Invoke(() =>
-            {
-                _playHistoryList.Remove(selectedItem);
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                _playHistoryManager.SavePlayHistory();
-            });
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the DeleteHistoryItem method.");
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
         }
     }
 
@@ -611,7 +619,7 @@ public partial class PlayTimeWindow
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
         // Restore selection based on identifier
-        // Check if the identifier tuple has non-nullable elements
+        // Check if the identifier tuple has non-null elements
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
         {
