@@ -1,165 +1,112 @@
 # Welcome to the SimpleLauncher Wiki!
 
 ## Introduction
-Simple Launcher is an open-source emulator frontend.
+Simple Launcher is an open-source emulator frontend for Windows, designed to be powerful, customizable, and easy to use.
 
 ## Installation
-Download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).  
-Extract the ZIP file into a writable folder. We do not recommend using a network folder or installing it inside `C:\Program Files`.  
-If necessary, you may need to grant "Simple Launcher" administrative access. The application requires write access to its own folder.
+1.  Download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
+2.  Extract the ZIP file into a writable folder (e.g., `C:\SimpleLauncher`, or a folder within your Documents). We do not recommend using a network folder or installing it inside `C:\Program Files`.
+3.  For certain features like on-the-fly file mounting, you must install the [Dokan Library](https://github.com/dokan-dev/dokany).
+4.  If necessary, you may need to grant "Simple Launcher" administrative access, as the application requires write access to its own folder for saving settings, logs, and other data.
 
 ## Basic Usage
-- Click the **Edit System** menu item.
-- Click the **Easy Mode** menu item.
-- Follow the steps to install a system.
-- Add ROM files for that system in the designated folder.
-- Add cover images for that system in the designated folder.
-- Return to the Main Window.
-- If no system is selected, a visual **System Selection Screen** will help you choose your gaming platform. Otherwise, select the added system from the dropdown menu.
-- Click the **All** button (or a letter/number filter) to display games for that system.
-- Click the game you wish to launch.
+1.  Click the **Edit System** menu item, then select **Easy Mode**.
+2.  Follow the on-screen steps to download and install an emulator and its necessary files for a system.
+3.  Add your ROM/ISO files for that system into the designated folder (e.g., `.\roms\[SystemName]\`).
+4.  Add your cover images for that system into the designated image folder (e.g., `.\images\[SystemName]\`).
+5.  Return to the Main Window. If no system is selected, a visual **System Selection Screen** will help you choose your gaming platform. Otherwise, select the system from the dropdown menu.
+6.  Click the **All** button (or a letter/number filter) to display games for that system.
+7.  Click the game you wish to launch.
 
-## Easy Mode
-This mode downloads and installs the most commonly used emulator for a specific System.<br>
-It also creates default folders for ROMs and Cover Images inside the 'Simple Launcher' folder.
+## Key Features
+
+- **Intuitive User Interface:** Modern WPF interface with light and dark themes, and customizable accent colors.
+- **System Selection Screen:** A visual way to choose your gaming platform.
+- **Navigation Panel:** Quick access to common actions like Global Search, Favorites, Play History, and UI adjustments.
+- **Dual View Modes:**
+  - **Grid View:** Displays game covers as interactive buttons.
+  - **List View:** Shows game details in a sortable table, including file size, play count, and playtime.
+- **Easy Mode:** Simplifies adding new systems by automatically downloading and configuring common emulators and cores.
+- **Expert Mode:** Allows manual and detailed configuration of systems, emulators, paths, and launch parameters.
+- **Global Search:** Quickly find games across all your configured systems.
+- **Favorites Management:** Mark games as favorites for easy access.
+- **Play History Tracking:** See which games you've played, how many times, and for how long.
+- **Global Stats:** Get an overview of your game library, including total systems, games, and image counts.
+- **Fuzzy Image Matching:** Helps find cover images even if filenames don't perfectly match.
+- **Image Pack Downloader:** Download pre-made image packs for various systems.
+- **Context Menus:** Rich right-click menus for games to launch, manage favorites, open external links (video/info), view local media (covers, snapshots, manuals), take screenshots, and delete game files.
+- **Gamepad Support:** Navigate the UI using Xbox and PlayStation controllers (configurable deadzone).
+- **Customizable UI:** Adjust thumbnail sizes, button aspect ratios, and games per page.
+- **Automatic Updates:** Keeps Simple Launcher up-to-date with the latest features and fixes.
+- **Multilingual:** Translated into 17 languages.
+- **Single Instance Enforcement:** Prevents multiple copies of the application from running simultaneously.
+- **Sound Configuration:** Customize or disable UI sound effects via the Options menu.
+- **On-the-Fly File Mounting:**
+  - **PS3 (ZIP/ISO), Xbox (XISO), XBLA (ZIP):** Games for these systems can be mounted as virtual drives, allowing you to launch them without manual extraction. This feature requires the [Dokan Library](https://github.com/dokan-dev/dokany).
+  - **Other Compressed Files (.7z, .rar, .zip):** For other systems, if "Extract File Before Launch" is enabled, the application will automatically extract the contents to a temporary folder before launching the game.
 
 ## Expert Mode (Advanced Mode)
-In this mode, you will be able to customize the variables of each System:
+In this mode, you can manually customize every aspect of a system configuration:
 
-* System Name
-* System Folder
-* Image Folder
-* File Extensions to search inside the System Folder
-* Need for Extraction, in case the file needs to be extracted before launch
-* File Extensions to launch after extraction
-* Emulator name
-* Emulator path
-* Emulator launch parameters
-* Option to receive notifications for emulator errors
-* Users can also set multiple emulators for each system
-
-The provided values will be checked for valid paths before being added to the frontend database.
+*   **System Name:** The display name for the system.
+*   **System Folder:** The path to your ROMs/ISOs.
+*   **Image Folder:** The path to your cover images.
+*   **File Extensions:** Define which file types to search for.
+*   **Extraction:** Configure whether files need to be extracted before launch and which file to launch post-extraction.
+*   **Emulators:** Set up multiple emulators per system, each with a unique name, path, and launch parameters.
+*   **Dynamic Paths:** Use placeholders like `%BASEFOLDER%`, `%SYSTEMFOLDER%`, and `%EMULATORFOLDER%` in your paths and parameters for a portable configuration.
+*   **Error Notifications:** Toggle error popups on a per-emulator basis.
 
 ## Where to Find ROMs or ISOs
-We do NOT provide ROMs or ISOs.
+We do **NOT** provide ROMs or ISOs.
 
 ## Where to Find Game Cover Images
-We provide Image Packs for some systems, accessible via the **Edit System -> Download Image Pack** menu.<br>
+We provide Image Packs for some systems, accessible via the **Edit System -> Download Image Pack** menu.
 If an Image Pack is not available for your desired system, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 Simple Launcher also features **Fuzzy Image Matching**, which can help find cover images even if their filenames don't perfectly match the ROM names. This feature can be enabled/disabled and its sensitivity adjusted in the **Options -> Fuzzy Image Matching** menu.
 
 ## List of Parameters for Emulators
-We have compiled a list of parameters for each emulator for your convenience.<br>
+We have compiled a list of parameters for each emulator for your convenience.
 Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters) to see the list.
 
-## Special Settings & Bundled Tools
+## Bundled Tools
 Simple Launcher includes a "Tools" menu with utilities to help manage your game collection:
 
 *   **Batch Convert Iso To Xiso:** Converts standard ISO files to XISO format for Xbox.
 *   **Batch Convert To CHD:** Converts CUE/BIN, ISO, IMG, ZIP, 7z, and RAR files to CHD format (MAME). Features parallel processing.
 *   **Batch Convert To Compressed File:** Compresses files into ZIP or 7Z archives.
+*   **Batch Convert To RVZ:** Converts GameCube and Wii ISO files to the compressed RVZ format.
 *   **Batch Verify CHD Files:** Verifies the integrity of CHD files.
 *   **Batch Verify Compressed Files:** Verifies the integrity of ZIP, 7Z, or RAR files.
-*   **Create Batch Files For PS3 Games:** Generates launcher scripts for PS3 games.
-*   **Create Batch Files For ScummVM Games:** Generates launcher scripts for ScummVM games.
-*   **Create BatchFiles For Sega Model 3 Games:** Generates launcher scripts for Sega Model 3 games.
-*   **Create Batch Files For Windows Games:** Generates launcher scripts for PC games.
-*   **Create Batch Files For Xbox 360 XBLA Games:** Generates launcher scripts for Xbox 360 XBLA titles.
+*   **Create Batch Files:** Generates launcher scripts for PS3, ScummVM, Sega Model 3, Windows Games, and Xbox 360 XBLA titles.
 *   **FindRomCover (Organize System Images):** Helps match and organize your cover images with your ROMs.
 
-**Specific System Notes:**
-*   **LaserDisk (Daphne):** Create BAT files that directly call the games.
-*   **MAME CHD Games:** CHD folders should be in the same folder as the ROM zipped files.
-*   **Microsoft Windows Games, Microsoft XBOX 360 XBLA, ScummVM Games, Sega Model 3, Sony PlayStation 3:** Use the respective tools in the "Tools" menu to generate launcher BAT files.
-
 ## Right Click Context Menu
-When 'Simple Launcher' generates the buttons for each game (in Grid View) or lists them (in List View), it adds a Context Menu with various options:
+When Simple Launcher displays your games, you can right-click on any entry to access a powerful context menu:
 
 - **Launch Game:** Launches the selected game.
-- **Add To Favorites:** Adds the game to your favorites list.
-- **Remove From Favorites:** Removes the game from your favorites list.
-- **Open Video Link:** Searches for a video of the game on your configured video site (default: YouTube).
-- **Open Info Link:** Searches for information about the game on your configured info site (default: IGDB).
-- **Open ROM History:** Displays historical data and information about the game, especially useful for MAME ROMs.
-- **Cover:** Opens the game's cover image. Images are typically stored in your system's designated image folder (e.g., `.\images\[SystemName]\`) or a custom path defined in Expert Mode.
-- **Title Snapshot:** Opens the title screen snapshot. Files should be in `.\title_snapshots\[SystemName]\`.
-- **Gameplay Snapshot:** Opens an in-game snapshot. Files should be in `.\gameplay_snapshots\[SystemName]\`.
-- **Cart:** Opens an image of the game's cartridge (if applicable). Files should be in `.\carts\[SystemName]\`.
-- **Video:** Plays a local video preview of the game. Files should be in `.\videos\[SystemName]\`.
-- **Manual:** Opens the game's manual (PDF). Files should be in `.\manuals\[SystemName]\`.
-- **Walkthrough:** Opens a game walkthrough (PDF). Files should be in `.\walkthrough\[SystemName]\`.
-- **Cabinet:** Opens an image of the game's arcade cabinet (if applicable). Files should be in `.\cabinets\[SystemName]\`.
-- **Flyer:** Opens an image of the game's promotional flyer. Files should be in `.\flyers\[SystemName]\`.
-- **PCB:** Opens an image of the game's Printed Circuit Board (if applicable). Files should be in `.\pcbs\[SystemName]\`.
-- **Take Screenshot:** Allows you to take a screenshot of the game running in an emulator and save it as the cover image for the selected system.
-- **Delete Game:** Deletes the selected game file from your hard drive (use with caution!).
+- **Add To/Remove From Favorites:** Manage your favorites list.
+- **Open Video/Info Link:** Searches for the game on YouTube and IGDB (or your custom configured sites).
+- **Open ROM History:** Displays historical data about the game (especially for MAME ROMs).
+- **View Local Media:**
+  - **Cover:** Opens the game's cover image.
+  - **Title/Gameplay Snapshot:** Opens screen captures.
+  - **Cart/Cabinet/Flyer/PCB:** Opens hardware-related images.
+  - **Video:** Plays a local video preview.
+  - **Manual/Walkthrough:** Opens PDF documents.
+- **Take Screenshot:** Captures the game window and saves it as the cover image.
+- **Delete Game:** Permanently deletes the game file from your hard drive (use with caution!).
 
-Links will be opened by the user's default browser.<br>
-Image files should be in JPG, JPEG, or PNG format and will be opened by 'Simple Launcher'.<br>
-Video files should be in MP4, AVI, or MKV format and will be opened by the user's default video player. We recommend using [VLC Player](https://www.videolan.org/vlc/download-windows.html).<br>
-PDF files will be opened by the user's default PDF viewer.
+## Technical Details
+- **Framework:** C# using Windows Presentation Foundation (WPF) and Microsoft .NET 9.
+- **Platform:** Windows-only (tested on Windows 11).
+- **MAME Data:** Game information is loaded from `mame.dat`.
+- **User Data:** Favorites are stored in `favorites.dat`, and play history in `playhistory.dat`.
 
-## Global Search
-This search engine will look for filenames (and MAME descriptions if applicable) in the System Folder of every system configured in 'Simple Launcher'.<br>
-From within the search results, users can launch the game and access context menu options.
-
-## Favorites
-'Simple Launcher' allows users to save favorite games. These can be accessed via the "Favorites" menu item or the dedicated navigation panel button, opening a window to manage and launch your favorite titles.
-
-## Play History
-Track system playtime and per-game playtime, including the number of times played and the last played date/time. Access this information via the "Play History" menu item or the navigation panel button.
-
-## Global Stats
-This window will generate a summary report of every system configured in the frontend. It will report:
-
-* Total Number of Systems
-* Total Number of Emulators
-* Total Number of Games
-* Total Number of Matched Images
-* Application Folder
-* Disk Size of all Games
-* Per-system statistics on game and image counts.
-
-## Additional Features:
-- **New System Selection Screen:** A visual and intuitive screen to select your gaming platform when the application starts or no system is currently chosen.
-- **Revamped Navigation Panel:** Quick access buttons on the left side of the Main Window for core actions:
-    - Restart UI: Resets the main view to the system selection screen.
-    - Global Search: Opens the global game search window.
-    - Favorites: Opens the favorites window.
-    - Play History: Opens the play history window.
-    - Edit System (Expert Mode): Opens the system configuration window.
-    - Toggle View Mode: Switches between Grid View and List View.
-    - Toggle Aspect Ratio: Cycles through different aspect ratios for game buttons in Grid View.
-    - Zoom In / Zoom Out: Adjusts the size of game thumbnails in Grid View.
-- **Switchable View Modes:** Choose how you want to browse your games:
-    - **Grid View:** Displays game cover images as interactive buttons.
-    - **List View:** Presents games in a sortable table with details like filename, MAME description, file size, times played, and total playtime.
-- **Enhanced Zooming (Grid View):** Easily resize game cover thumbnails using the navigation panel buttons or by holding `Ctrl` and using the mouse wheel.
-- **File Size Display:** The List View, Favorites Window, Global Search Window, and Play History Window now show game file sizes.
-- **Edit Systems Menu:** Easily edit, add, or delete a system using Easy Mode or Expert Mode.
-- **Automatic Installation of Most Emulators:** Easy Mode can automatically download and set up emulators and their cores for many systems.
-- **Search Engine:** Users can easily search for games within the frontend (per-system search in Main Window, and a Global Search).
-- **Fuzzy Image Matching:** Helps find cover images even if their filenames don't perfectly match the ROM names. This feature can be enabled/disabled and its sensitivity adjusted in the Options menu.
-- **Single Instance Enforcement:** Ensures only one instance of Simple Launcher runs at a time, preventing potential conflicts.
-- **Edit Links Menu:** Customize the video and info search engines used within the UI.
-- **Control Button Size and Aspect Ratio:** Conveniently adjust the size and aspect ratio of the generated game buttons in the Grid View via the Options menu or navigation panel.
-- **Automatic Update:** The application features an automatic update mechanism.
-- **GamePad Support:** Simple Launcher supports Xbox and PlayStation gamepads for UI navigation. Deadzone can be configured.
-- **Multilingual Support:** The application is translated into 17 languages.
-
-## Related Utilities:
-- **[MAME Utility](https://github.com/drpetersonfernandes/MAMEUtility):** A utility for managing the MAME full driver information in XML format available on the [MAME](https://www.mamedev.org/release.html) website. It can generate multiple simplified (and smaller) XML subsets and also copy ROMs and image files based on the created XML.
-- **[FindRomCover](https://github.com/drpetersonfernandes/FindRomCover):** An application that supports the organization of your cover image collection. It attempts to match the filename of image files with the ROM filenames. Users can choose the similarity algorithm to compare filenames.
-
-## Technical Details:
-Simple Launcher is developed in C# using Windows Presentation Foundation (WPF) and Microsoft .NET 9 Framework.<br>
-This program is Windows-only and has been tested on Windows 11.
-
-## Support the Project:
-Did you enjoy using the Simple Launcher frontend?  
+## Support the Project
+Did you enjoy using the Simple Launcher frontend?
 Consider [donating](https://www.purelogiccode.com/donate) to support the project or simply to express your gratitude!
 
-## Contributors:
+## Contributors
 - **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
 - **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)
-
