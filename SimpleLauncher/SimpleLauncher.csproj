@@ -640,9 +640,6 @@
     <None Update="tools\BatchConvertIsoToXiso\x86\7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertToCHD\x64\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\BatchConvertToCHD\x86\7z.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -674,6 +671,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertIsoToXiso\7z_x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCHD\7z_x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCHD\7z_x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
