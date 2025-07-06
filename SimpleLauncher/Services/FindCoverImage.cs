@@ -90,7 +90,7 @@ public static class FindCoverImage
         else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, $"FindCoverImage: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
+            _ = LogErrors.LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
         }
 
         // 3. Fallback to default images

@@ -139,8 +139,8 @@ public static class GameLauncher
                 await MountIsoFiles.MountIsoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
             }
             // Specific handling for XBLA games with ZIP files
-            else if (selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || (resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase) &&
-                         Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase)))
+            else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
+                     && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
             {
                 DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
                 await MountZipFiles.MountZipFileAndSearchForFileToLoad(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
@@ -831,7 +831,7 @@ public static class GameLauncher
         if (process.HasExited && process.ExitCode != MemoryAccessViolation) return Task.CompletedTask;
 
         // Notify developer
-        var contextMessage = $"There was an memory access violation error running the emulator.\n" +
+        var contextMessage = $"There was a memory access violation error running the emulator.\n" +
                              $"User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
