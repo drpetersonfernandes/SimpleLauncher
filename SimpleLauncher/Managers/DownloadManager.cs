@@ -101,6 +101,9 @@ public class DownloadManager : IDisposable
     /// <returns>The path to the downloaded file, or null if the download failed.</returns>
     public async Task<string> DownloadFileAsync(string downloadUrl, string fileName = null)
     {
+        // Reset the cancellation token source at the beginning of every download attempt.
+        ResetCancellationToken();
+
         IsDownloadCompleted = false;
         IsUserCancellation = false;
 

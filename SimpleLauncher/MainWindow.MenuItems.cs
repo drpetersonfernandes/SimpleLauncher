@@ -109,26 +109,40 @@ public partial class MainWindow
     {
         try
         {
-            ResetPaginationButtons();
+            if (_isUiUpdating) return;
 
-            SearchTextBox.Text = "";
+            _isUiUpdating = true;
+            try
+            {
+                ResetPaginationButtons();
 
-            _currentFilter = null;
-            _activeSearchQueryOrMode = null;
+                SearchTextBox.Text = "";
 
-            _selectedSystem = null;
-            PreviewImage.Source = null;
-            SystemComboBox.SelectedItem = null;
+                _currentFilter = null;
+                _activeSearchQueryOrMode = null;
 
-            var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
-            SelectedSystem = nosystemselected;
-            PlayTime = "00:00:00";
+                _selectedSystem = null;
+                PreviewImage.Source = null;
+                SystemComboBox.SelectedItem = null;
 
-            await DisplaySystemSelectionScreenAsync();
+                var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
+                SelectedSystem = nosystemselected;
+                PlayTime = "00:00:00";
+
+                await DisplaySystemSelectionScreenAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
+            }
+            finally
+            {
+                _isUiUpdating = false;
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
         }
     }

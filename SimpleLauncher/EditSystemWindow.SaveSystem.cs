@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Xml.Linq;
-using System.Xml.XPath;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -34,7 +33,8 @@ public partial class EditSystemWindow
             var systemIdentifier = isUpdate ? originalSystemName : systemNameText;
 
             // Find the existing system element or prepare to add a new one
-            var existingSystem = _xmlDoc.Root?.XPathSelectElement($"//SystemConfig[SystemName='{systemIdentifier}']");
+            var existingSystem = _xmlDoc.Root?.Elements("SystemConfig")
+                .FirstOrDefault(el => el.Element("SystemName")?.Value == systemIdentifier);
 
             if (existingSystem != null)
             {

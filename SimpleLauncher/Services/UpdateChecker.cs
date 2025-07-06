@@ -303,7 +303,7 @@ public static partial class UpdateChecker
             Process.Start(new ProcessStartInfo
             {
                 FileName = updaterExePath,
-                UseShellExecute = false
+                UseShellExecute = true
             });
 
             logWindow.Log($"Updater.exe ({context}) launched successfully. Closing Simple Launcher...");

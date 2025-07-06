@@ -187,14 +187,9 @@ public static class GameLauncher
             var endTime = DateTime.Now;
             var playTime = endTime - startTime;
 
-            // Use the original ZIP file path for history/stats if it was a mounted ZIP
-            // Otherwise, use the resolvedFilePath (which might be an extracted file or the direct game file)
-            var historyFilePath = Path.GetExtension(filePath).Equals(".zip", StringComparison.OrdinalIgnoreCase) &&
-                                  selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase)
-                ? filePath // Original ZIP path for RPCS3 ZIPs
-                : resolvedFilePath; // Path used for launching (could be EBOOT.BIN, extracted file, etc.)
-
-            var fileNameForHistory = Path.GetFileName(historyFilePath);
+            // Always use the original file path for history, not the resolved/extracted path.
+            // The 'filePath' parameter passed into HandleButtonClick is the original path from the game list.
+            var fileNameForHistory = Path.GetFileName(filePath);
 
             settings.UpdateSystemPlayTime(selectedSystemName, playTime);
             settings.Save();

@@ -22,6 +22,8 @@ namespace SimpleLauncher;
 
 public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
+    private bool _isUiUpdating;
+
     // Declare Controller Detection
     private DispatcherTimer _controllerCheckTimer;
 
@@ -534,93 +536,107 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            SearchTextBox.Text = "";
-            EmulatorComboBox.ItemsSource = null;
-            EmulatorComboBox.SelectedIndex = -1;
-            PreviewImage.Source = null;
+            if (_isUiUpdating) return; // Prevent re-entrancy
 
-            _currentSearchResults.Clear();
-            _currentFilter = null;
-            _activeSearchQueryOrMode = null;
-
-            GameFileGrid.Visibility = Visibility.Visible;
-            ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-            if (SystemComboBox.SelectedItem == null)
+            _isUiUpdating = true;
+            try
             {
-                return;
+                SearchTextBox.Text = "";
+                EmulatorComboBox.ItemsSource = null;
+                EmulatorComboBox.SelectedIndex = -1;
+                PreviewImage.Source = null;
+
+                _currentSearchResults.Clear();
+                _currentFilter = null;
+                _activeSearchQueryOrMode = null;
+
+                GameFileGrid.Visibility = Visibility.Visible;
+                ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    return;
+                }
+
+                var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+                var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+
+                if (selectedSystem == null || selectedConfig == null) // Combine null checks
+                {
+                    // Notify developer
+                    const string errorMessage = "Selected system or its configuration is null.";
+                    _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
+
+                    await DisplaySystemSelectionScreenAsync();
+                    return;
+                }
+
+                EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+                if (EmulatorComboBox.Items.Count > 0)
+                {
+                    EmulatorComboBox.SelectedIndex = 0;
+                }
+
+                SelectedSystem = selectedSystem;
+
+                var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+                // Resolve the system folder path using PathHelper
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
+
+                // Check if the resolved path is valid before proceeding
+                int gameCount;
+                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
+                {
+                    if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
+                    {
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
+                    }
+
+                    gameCount = 0; // Set the count to 0 if the folder is invalid
+                }
+                else
+                {
+                    // Pass the resolved path to CountFiles
+                    gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+                }
+
+                // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
+                await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
+
+                // Resolve the system image folder path using PathHelper
+                var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
+
+                _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
+                _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use the default resolved path
+                    : resolvedSystemImageFolderPath; // Use resolved configured path
+
+                _topLetterNumberMenu.DeselectLetter();
+                ResetPaginationButtons();
             }
-
-            var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-            var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-            if (selectedSystem == null || selectedConfig == null) // Combine null checks
+            catch (Exception ex)
             {
                 // Notify developer
-                const string errorMessage = "Selected system or its configuration is null.";
-                _ = LogErrors.LogErrorAsync(null, errorMessage);
+                const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+                _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
-
-                await DisplaySystemSelectionScreenAsync();
-                return;
             }
-
-            EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-            if (EmulatorComboBox.Items.Count > 0)
+            finally
             {
-                EmulatorComboBox.SelectedIndex = 0;
+                _isUiUpdating = false;
             }
-
-            SelectedSystem = selectedSystem;
-
-            var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-            PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
-
-            // Resolve the system folder path using PathHelper
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
-
-            // Check if the resolved path is valid before proceeding
-            int gameCount;
-            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
-            {
-                if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
-                }
-
-                gameCount = 0; // Set the count to 0 if the folder is invalid
-            }
-            else
-            {
-                // Pass the resolved path to CountFiles
-                gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-            }
-
-            // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
-            await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
-
-            // Resolve the system image folder path using PathHelper
-            var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
-
-            _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
-            _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use the default resolved path
-                : resolvedSystemImageFolderPath; // Use resolved configured path
-
-            _topLetterNumberMenu.DeselectLetter();
-            ResetPaginationButtons();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-            // Notify user
-            MessageBoxLibrary.InvalidSystemConfigMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
         }
     }
 
