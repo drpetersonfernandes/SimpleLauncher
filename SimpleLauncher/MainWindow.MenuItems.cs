@@ -24,7 +24,7 @@ public partial class MainWindow
         }
     }
 
-    private void SetLanguageAndCheckMenu(string languageCode)
+    public void SetLanguageAndCheckMenu(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
         LanguageBengali.IsChecked = languageCode == "bn";

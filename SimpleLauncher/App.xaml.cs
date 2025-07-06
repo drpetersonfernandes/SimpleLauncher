@@ -127,6 +127,17 @@ public partial class App
 
     protected override void OnExit(ExitEventArgs e)
     {
+        try
+        {
+            // Dispose gamepad resources
+            GamePadController.Instance2?.Stop();
+            GamePadController.Instance2?.Dispose();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Failed to dispose gamepad resources.");
+        }
+
         // Release the mutex if this was the first instance and the mutex was successfully created
         // The new instance (started with --restarting) didn't acquire the mutex, so _isFirstInstance will be false,
         // and it won't try to release it.
@@ -233,8 +244,18 @@ public partial class App
                 {
                     Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
                 };
+
                 // Ensure the fallback is added even if the requested one failed
                 Resources.MergedDictionaries.Add(fallbackDictionary);
+
+                // Apply English culture metadata for consistent formatting
+                var englishCulture = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentCulture = englishCulture;
+                Thread.CurrentThread.CurrentUICulture = englishCulture;
+
+                FrameworkElement.LanguageProperty.OverrideMetadata(
+                    typeof(FrameworkElement),
+                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
 
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources.");
@@ -259,6 +280,16 @@ public partial class App
                     Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
                 };
                 Resources.MergedDictionaries.Add(fallbackDictionary);
+
+                // Apply English culture metadata for consistent formatting
+                var englishCulture = new CultureInfo("en-US");
+                Thread.CurrentThread.CurrentCulture = englishCulture;
+                Thread.CurrentThread.CurrentUICulture = englishCulture;
+
+                FrameworkElement.LanguageProperty.OverrideMetadata(
+                    typeof(FrameworkElement),
+                    new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
+
 
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");

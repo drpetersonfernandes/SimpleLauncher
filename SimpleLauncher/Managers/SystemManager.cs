@@ -197,7 +197,7 @@ public partial class SystemManager
                     var emulators = new List<Emulator>();
                     var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
 
-                    if (emulators == null || emulatorElements.Count == 0)
+                    if (emulatorElements == null || emulatorElements.Count == 0)
                         throw new InvalidOperationException($"System '{systemName}': Emulators list should not be empty or null."); // Need at least one EmulatorName element
 
                     foreach (var emulatorElement in emulatorElements)

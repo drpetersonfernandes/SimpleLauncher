@@ -29,10 +29,6 @@ public partial class MainWindow
 
     public void Dispose()
     {
-        // Dispose gamepad resources
-        GamePadController.Instance2.Stop();
-        GamePadController.Instance2.Dispose();
-
         // Dispose tray icon resources
         _trayIconManager?.Dispose();
 

@@ -57,9 +57,10 @@ public static class ContextMenuFunctions
                             viewModel.IsFavorite = true; // This automatically makes the star overlay visible.
                         }
                     }
-                    catch (Exception)
+                    catch (Exception ex)
                     {
-                        // ignore
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ex, "An error occurred while adding a game to the favorites.");
                     }
                 }
 
@@ -74,9 +75,10 @@ public static class ContextMenuFunctions
                         gameItem.IsFavorite = true;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // ignore
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ex, "An error occurred while adding a game to the favorites.");
                 }
 
                 // Notify user
@@ -135,9 +137,10 @@ public static class ContextMenuFunctions
                         viewModel.IsFavorite = false; // This will collapse the star overlay.
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
-                    // ignore
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ex, "An error occurred while removing a game from favorites.");
                 }
             }
 
@@ -152,9 +155,10 @@ public static class ContextMenuFunctions
                     gameItem.IsFavorite = false;
                 }
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                // ignore
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "An error occurred while removing a game from favorites.");
             }
 
             // Notify user
