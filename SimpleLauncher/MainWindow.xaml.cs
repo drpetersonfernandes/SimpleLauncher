@@ -585,14 +585,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
                 PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
-                // Resolve the system folder path using PathHelper
                 var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
 
                 // Check if the resolved path is valid before proceeding
                 int gameCount;
                 if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
                 {
-                    if (!string.IsNullOrEmpty(selectedConfig.SystemFolder)) // Only log if a path was configured
+                    if (!string.IsNullOrEmpty(selectedConfig.SystemFolder))
                     {
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
@@ -639,7 +638,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _ = LogErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
         }
     }
-
 
     private void AddNoFilesMessage()
     {
