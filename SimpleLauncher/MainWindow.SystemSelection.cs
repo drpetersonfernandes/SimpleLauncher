@@ -80,7 +80,7 @@ public partial class MainWindow
                 TextAlignment = TextAlignment.Center,
                 FontWeight = FontWeights.Bold,
                 TextTrimming = TextTrimming.CharacterEllipsis,
-                FontSize = 13,
+                FontSize = 12,
                 ToolTip = config.SystemName,
                 TextWrapping = TextWrapping.Wrap,
                 Margin = new Thickness(0, 5, 0, 0)
