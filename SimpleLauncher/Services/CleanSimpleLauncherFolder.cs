@@ -56,6 +56,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.pdb"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.runtimeconfig.json"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "7z.dll"),
 
         Path.Combine(AppDirectory, "tools", "FindRomCover", "ControlzEx.dll"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "error_user.log"),
