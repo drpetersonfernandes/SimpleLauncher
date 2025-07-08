@@ -403,9 +403,4 @@ FodyWeavers.xsd
 !/SimpleLauncher/appsettings.json
 !/SimpleLauncher/obj/
 !/.gitignore
-!/.gitignore
-!/.gitignore
-!/TODO.txt
-!/TODO.txt
-!/TODO.txt
 !/TODO.txt
