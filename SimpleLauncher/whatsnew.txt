@@ -6,7 +6,7 @@ release4.2.0
 Core Feature Enhancements: On-the-Fly File Mounting
 
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP file mounting.
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP and XISO file mounting.
 
 *   ISO & ZIP Mounting for RPCS3: The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
 *   XISO Mounting for Cxbx-Reloaded: Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
