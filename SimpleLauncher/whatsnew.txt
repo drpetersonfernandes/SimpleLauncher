@@ -1,41 +1,41 @@
 release4.2.0
 ------------
 
-07/05/25
+07/08/25
 
-### Core Feature Enhancements: On-the-Fly File Mounting
+Core Feature Enhancements: On-the-Fly File Mounting
 
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP file mounting.
 
-*   **ISO & ZIP Mounting for RPCS3:** The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
-*   **XISO Mounting for Cxbx-Reloaded:** Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
-*   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for the specific nested file structure required to launch them.
+*   ISO & ZIP Mounting for RPCS3: The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
+*   XISO Mounting for Cxbx-Reloaded: Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
+*   XBLA ZIP Mounting: The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for the specific nested file structure required to launch them.
+*   ScummVM ZIP Mounting: The system can now mount `.zip` files for ScummVM games and automatically launch the game.
 
-### Major Refactoring & Dependency Changes
+Major Refactoring & Dependency Changes
 
 The project's core dependencies and internal logic for handling files have been substantially overhauled to improve robustness and unify functionality.
 
-*   **Unified Archive Handling:** The application has migrated away from using multiple libraries and external executables for file extraction. It now primarily uses **Squid-Box.SevenZipSharp** and **ICSharpCode.SharpZipLib**, providing a more integrated and reliable way to handle `.zip`, `.7z`, and `.rar` files. The `ExtractCompressedFile` service was refactored to use these new libraries.
-*   **Removal of Caching System:** The `CacheManager` has been completely removed. The previous system of caching game lists for each system has been replaced with a more direct, on-demand file scanning approach. This simplifies the application's logic, eliminates the `cache` directory, and ensures the game list is always up-to-date.
+*   Unified Archive Handling: The application has migrated away from using multiple libraries and external executables for file extraction. It now primarily uses 'Squid-Box.SevenZipSharp' and 'ICSharpCode.SharpZipLib', providing a more integrated and reliable way to handle `.zip`, `.7z`, and `.rar` files. The `ExtractCompressedFile` service was refactored to use these new libraries.
+*   Removal of Caching System: The `CacheManager` has been completely removed. The previous system of caching game lists for each system has been replaced with a more direct, on-demand file scanning approach. This simplifies the application's logic, eliminates the `cache` directory, and ensures the game list is always up to date.
 
-### Update Tools
+Update Tools
 
-*   **Tool Update:** Several external batch processing tools have been updated from the project. This includes:
-    *   `BatchConvertToCHD:` Improved UI. Added the ability to check the integrity of CHD files. Added the ability to convert CSO files to CHD.
-    *   `BatchConvertToCompressedFile:` Improved UI. Added the ability to verify the integrity of compressed files.
-    *   `BatchConvertIsoToXiso:` Improved UI. Added the ability to test the integrity of the XISO files.
-    *   `BatchConvertToRvz:` Improved UI. Added the ability to test the integrity of the RVZ files
+*   `BatchConvertToCHD:` Improved UI. Added the ability to check the integrity of CHD files. Added the ability to convert CSO files to CHD.
+*   `BatchConvertToCompressedFile:` Improved UI. Added the ability to verify the integrity of compressed files.
+*   `BatchConvertIsoToXiso:` Improved UI. Added the ability to test the integrity of the XISO files.
+*   `BatchConvertToRvz:` Improved UI. Added the ability to test the integrity of the RVZ files
 
-### Bug fix and Other Enhancements
+Bug Fixes and Other Enhancements
 
-*   **Fix Threading issue:** The `PlayTimeWindow` and `FavoritesWindow` have been refactored to handle file operations and UI updates more safely across different threads, preventing crashes and ensuring a smoother user experience.
-*   **UI Consistency:** The system selection screen now limits the maximum size of system thumbnails to 100px to prevent oversized images from distorting the layout and to ensure a consistent look.
+*   Fixed Threading Issue: The `PlayTimeWindow` and `FavoritesWindow` have been refactored to handle file operations and UI updates more safely across different threads, preventing crashes and ensuring a smoother user experience.
+*   UI Consistency: The system selection screen now limits the maximum size of system thumbnails to 100 px to prevent oversized images from distorting the layout and to ensure a consistent look.
 
 release4.1.0
 ------------
 
-08/06/25
+06/08/25
 
 * Added a Sound Configuration feature allowing customizable notification sounds.
 * Implemented a Debug Logger with a dedicated UI window for enhanced logging.
@@ -50,7 +50,7 @@ release4.1.0
 release4.0.1
 ------------
 
-26/05/25
+05/26/25
 
 Bug Fix Version
                                                             
