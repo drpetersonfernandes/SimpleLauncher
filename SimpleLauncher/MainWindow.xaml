@@ -631,6 +631,7 @@
                     Margin="10,5,0,0"
                     Padding="5"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                    Background="{DynamicResource MahApps.Brushes.Gray9}"
                     CornerRadius="5">
                 <Grid>
                     <Grid.RowDefinitions>
