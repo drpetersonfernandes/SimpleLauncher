@@ -1595,6 +1595,10 @@ Core may require BIOS files or system files to work properly.
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
+There are multiple ways to use this program. You can use [Game Folders] or ZIP files.<br>
+
+**Option 1 - Use [Game Folders]**
+
 **System Folder (Example):** c:\ScummVM<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** bat<br>
@@ -1606,9 +1610,25 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
+Use the tool available in the 'Simple Launcher' tools menu to generate BAT files for you.
 
-Use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
+**Option 2 - Use ZIP files**
+
+**System Folder (Example):** c:\ScummVM<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** <br>
+
+**Emulator Name:** ScummVM<br>
+**Emulator Path:** c:\Emulators\ScummVM\scummvm.exe<br>
+**Emulator Parameters:** --auto-detect --fullscreen<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using the program.<br>
+
+Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
 
 ## Sega Dreamcast
 

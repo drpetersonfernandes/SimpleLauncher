@@ -481,4 +481,229 @@ public static class MountZipFiles
             return null;
         }
     }
+
+    public static async Task MountZipFileAndLoadWithScummVm(
+        string resolvedZipFilePath,
+        string selectedSystemName,
+        string selectedEmulatorName,
+        SystemManager selectedSystemManager,
+        SystemManager.Emulator selectedEmulatorManager,
+        string selectedEmulatorParameters,
+        string logPath)
+    {
+        DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
+        DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
+
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
+
+        DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
+
+        if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
+        {
+            // Notify developer
+            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+
+            return;
+        }
+
+        var mountPathArgument = ConfiguredMountDriveLetter;
+        var mountDriveRootForChecks = ConfiguredMountDriveRoot;
+
+        var psiMount = new ProcessStartInfo
+        {
+            FileName = resolvedZipMountExePath,
+            Arguments = $"\"{resolvedZipFilePath}\" \"{mountPathArgument}\"",
+            UseShellExecute = false,
+            RedirectStandardOutput = true,
+            RedirectStandardError = true,
+            CreateNoWindow = true,
+            WorkingDirectory = Path.GetDirectoryName(resolvedZipMountExePath) ?? AppDomain.CurrentDomain.BaseDirectory
+        };
+
+        DebugLogger.Log($"[MountZipFiles] ProcessStartInfo for {_zipMountExecutableName}:");
+        DebugLogger.Log($"[MountZipFiles] FileName: {psiMount.FileName}");
+        DebugLogger.Log($"[MountZipFiles] Arguments: {psiMount.Arguments}");
+        DebugLogger.Log($"[MountZipFiles] WorkingDirectory: {psiMount.WorkingDirectory}");
+
+        Process mountProcess = null;
+        var mountProcessId = -1;
+        var mountOutput = new StringBuilder();
+        var mountError = new StringBuilder();
+
+        try
+        {
+            mountProcess = new Process { StartInfo = psiMount, EnableRaisingEvents = true };
+
+            mountProcess.OutputDataReceived += (_, args) =>
+            {
+                if (args.Data == null) return;
+
+                mountOutput.AppendLine(args.Data);
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDOUT: {args.Data}");
+            };
+            mountProcess.ErrorDataReceived += (_, args) =>
+            {
+                if (args.Data == null) return;
+
+                mountError.AppendLine(args.Data);
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} STDERR: {args.Data}");
+            };
+
+            DebugLogger.Log($"[MountZipFiles] Starting {_zipMountExecutableName} process...");
+            if (!mountProcess.Start())
+            {
+                throw new InvalidOperationException($"Failed to start the {_zipMountExecutableName} process.");
+            }
+
+            mountProcessId = mountProcess.Id;
+            DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process started (ID: {mountProcessId}).");
+
+            mountProcess.BeginOutputReadLine();
+            mountProcess.BeginErrorReadLine();
+
+            DebugLogger.Log($"[MountZipFiles] Waiting a few seconds for ZIP to mount to {mountDriveRootForChecks}...");
+            await Task.Delay(5000);
+
+            if (!Directory.Exists(mountDriveRootForChecks))
+            {
+                DebugLogger.Log($"[MountZipFiles] Mount check failed. Drive {mountDriveRootForChecks} not found.");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Output:\n{mountOutput}");
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} Error:\n{mountError}");
+                throw new Exception($"Failed to mount ZIP. Drive {mountDriveRootForChecks} not found after timeout.");
+            }
+
+            DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} detected. Proceeding to launch with {selectedEmulatorName}.");
+
+            // --- Custom ScummVM Launch Logic ---
+
+            // 1. Resolve Emulator Path
+            var resolvedEmulatorExePath = PathHelper.ResolveRelativeToAppDirectory(selectedEmulatorManager.EmulatorLocation);
+            if (string.IsNullOrEmpty(resolvedEmulatorExePath) || !File.Exists(resolvedEmulatorExePath))
+            {
+                throw new FileNotFoundException($"Emulator executable not found: {selectedEmulatorManager.EmulatorLocation}");
+            }
+
+            var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
+            if (string.IsNullOrEmpty(resolvedEmulatorFolderPath))
+            {
+                throw new FileNotFoundException("Emulator executable folder could not be determined");
+            }
+
+            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
+
+            // 2. Resolve Parameters
+            var resolvedParameters = ParameterValidator.ResolveParameterString(
+                selectedEmulatorParameters,
+                resolvedSystemFolderPath,
+                resolvedEmulatorFolderPath
+            );
+
+            var fixedMountDriveRootForChecks = mountDriveRootForChecks.TrimEnd('\\'); // Remove '\'
+            var arguments = $"-p \"{fixedMountDriveRootForChecks}\" {resolvedParameters} ";
+
+            var psiEmulator = new ProcessStartInfo
+            {
+                FileName = resolvedEmulatorExePath,
+                Arguments = arguments,
+                WorkingDirectory = resolvedEmulatorFolderPath,
+                UseShellExecute = false,
+                RedirectStandardOutput = true,
+                RedirectStandardError = true,
+                CreateNoWindow = true
+            };
+
+            DebugLogger.Log($"[MountZipFiles] Launching ScummVM with mounted ZIP:\n\n" +
+                            $"Program Location: {psiEmulator.FileName}\n" +
+                            $"Arguments: {psiEmulator.Arguments}\n" +
+                            $"Working Directory: {psiEmulator.WorkingDirectory}");
+
+            // 3. Launch Emulator
+            using (var emulatorProcess = new Process())
+            {
+                emulatorProcess.StartInfo = psiEmulator;
+                emulatorProcess.Start();
+                await emulatorProcess.WaitForExitAsync();
+                DebugLogger.Log($"[MountZipFiles] ScummVM process has exited with code: {emulatorProcess.ExitCode}.");
+            }
+
+            DebugLogger.Log($"[MountZipFiles] Emulator for {mountDriveRootForChecks} has exited.");
+        }
+        catch (Exception ex)
+        {
+            DebugLogger.Log($"[MountZipFiles] Exception during ScummVM ZIP mounting or launching: {ex}");
+
+            // Notify developer
+            var contextMessage = $"Error during ScummVM ZIP mount/launch process for {resolvedZipFilePath}.\n" +
+                                 $"Exception: {ex.Message}\n" +
+                                 $"{_zipMountExecutableName} Output: {mountOutput}\n" +
+                                 $"{_zipMountExecutableName} Error: {mountError}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+        }
+        finally
+        {
+            DebugLogger.Log($"[MountZipFiles] Entering finally block for {resolvedZipFilePath}. Mount Process ID: {mountProcessId}");
+            if (mountProcess != null && mountProcessId != -1 && !mountProcess.HasExited)
+            {
+                DebugLogger.Log($"[MountZipFiles] Attempting to unmount by terminating {_zipMountExecutableName} (ID: {mountProcessId}).");
+                try
+                {
+                    mountProcess.Kill(true);
+                    DebugLogger.Log($"[MountZipFiles] Kill signal sent to {_zipMountExecutableName} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
+                    using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10));
+                    try
+                    {
+                        await mountProcess.WaitForExitAsync(cts.Token);
+                    }
+                    catch (TaskCanceledException)
+                    {
+                        DebugLogger.Log($"[MountZipFiles] Timeout (10s) waiting for {_zipMountExecutableName} (ID: {mountProcessId}) to exit after Kill.");
+                    }
+
+                    if (mountProcess.HasExited)
+                    {
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                    }
+                }
+                catch (Exception termEx)
+                {
+                    DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
+
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                }
+            }
+            else if (mountProcessId != -1)
+            {
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted.");
+            }
+            else
+            {
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} process was not started successfully (ID: {mountProcessId}). No termination needed.");
+            }
+
+            mountProcess?.Dispose();
+
+            await Task.Delay(2000);
+            if (Directory.Exists(mountDriveRootForChecks))
+            {
+                DebugLogger.Log($"[MountZipFiles] WARNING: Drive {mountDriveRootForChecks} still exists after attempting to unmount.");
+            }
+            else
+            {
+                DebugLogger.Log($"[MountZipFiles] Drive {mountDriveRootForChecks} successfully unmounted.");
+            }
+        }
+    }
 }
