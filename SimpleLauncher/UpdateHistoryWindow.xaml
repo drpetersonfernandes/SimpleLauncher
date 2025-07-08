@@ -2,6 +2,7 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
                       Title="{DynamicResource UpdateHistory}"
                       Width="800"
                       Height="700"
@@ -10,11 +11,7 @@
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled" Margin="10">
-            <TextBox Name="WhatsNewTextBox"
-                     IsReadOnly="True"
-                     TextWrapping="Wrap"
-                     VerticalScrollBarVisibility="Auto"
-                     HorizontalScrollBarVisibility="Disabled" />
+            <markdig:MarkdownViewer x:Name="MarkdownViewer" />
         </ScrollViewer>
     </Grid>
 </controls:MetroWindow>
