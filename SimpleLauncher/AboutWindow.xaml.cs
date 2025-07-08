@@ -52,7 +52,7 @@ public partial class AboutWindow
     {
         try
         {
-            await UpdateChecker.CheckForUpdatesVariantAsync(this);
+            await UpdateChecker.ManualCheckForUpdatesAsync(this);
         }
         catch (Exception ex)
         {

@@ -166,7 +166,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
         // Check for Updates
-        Loaded += async (_, _) => await UpdateChecker.CheckForUpdatesAsync(this);
+        Loaded += async (_, _) => await UpdateChecker.SilentCheckForUpdatesAsync(this);
 
         // Call Stats API
         Loaded += static (_, _) =>

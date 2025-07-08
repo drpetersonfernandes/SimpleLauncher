@@ -50,7 +50,7 @@ public static partial class UpdateChecker
 
     private static readonly char[] Separator = new[] { '.' };
 
-    public static async Task CheckForUpdatesAsync(Window mainWindow) // Silent check
+    public static async Task SilentCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
@@ -99,7 +99,7 @@ public static partial class UpdateChecker
         }
     }
 
-    public static async Task CheckForUpdatesVariantAsync(Window mainWindow) // User-initiated check
+    public static async Task ManualCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
@@ -179,6 +179,8 @@ public static partial class UpdateChecker
     private static async Task ShowUpdateWindow(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
         UpdateLogWindow logWindow = null;
+        var updaterLaunchedSuccessfully = false;
+
         try
         {
             var result = MessageBoxLibrary.DoYouWantToUpdateMessageBox(currentVersion, latestVersion, owner);
@@ -188,85 +190,76 @@ public static partial class UpdateChecker
             logWindow.Show();
             logWindow.Log("Starting update process...");
 
-            if (owner == null)
+            // Hide the main window
+            if (owner != null)
             {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(owner), @"Owner window was null when trying to close it during update."), "Update Process Warning");
-
-                // Notify user
-                logWindow.Log("Main window reference is null; cannot close it explicitly. Attempting global shutdown later.");
+                owner.Hide();
             }
             else
             {
-                owner.Close();
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(owner), @"Owner window was null when trying to hide it during update."), "Update Process Warning");
+
+                logWindow.Log("Main window reference is null; cannot hide it explicitly. Update will proceed.");
             }
 
             var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            var updaterLaunchedSuccessfully = false;
 
             // Attempt 1: Download, extract, and run new Updater.exe
             logWindow.Log($"Attempting to download and update Updater.exe using '{UpdaterZipFileName}' from URL: {updaterZipUrl}");
             try
             {
-                await Task.Run(async () => // Offload download and extraction to a background thread
+                using var memoryStream = new MemoryStream();
+                await DownloadUpdateFileToMemory(updaterZipUrl, memoryStream);
+
+                logWindow.Log($"Extracting contents of '{UpdaterZipFileName}' to '{appDirectory}'...");
+                var allFilesExtracted = ExtractAllFromZip(memoryStream, appDirectory, logWindow);
+
+                if (allFilesExtracted)
                 {
-                    using var memoryStream = new MemoryStream();
-                    await DownloadUpdateFileToMemory(updaterZipUrl, memoryStream);
-
-                    logWindow.Log($"Extracting contents of '{UpdaterZipFileName}' to '{appDirectory}'...");
-                    var allFilesExtracted = ExtractAllFromZip(memoryStream, appDirectory, logWindow);
-
-                    if (allFilesExtracted)
-                    {
-                        logWindow.Log("Updater files from ZIP extracted successfully.");
-                        await Task.Delay(1000); // Brief pause
-                        updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, true);
-                    }
-                    else
-                    {
-                        logWindow.Log($"Update of Updater.exe failed: Not all files from '{UpdaterZipFileName}' could be extracted.");
-                        // updaterLaunchedSuccessfully remains false, will fall through to next attempt
-                    }
-                });
+                    logWindow.Log("Updater files from ZIP extracted successfully.");
+                    updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, true);
+                }
+                else
+                {
+                    logWindow.Log($"Update of Updater.exe failed: Not all files from '{UpdaterZipFileName}' could be extracted.");
+                }
             }
             catch (Exception ex) // Catches exceptions from downloading/extracting updater.zip
             {
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Error processing '{UpdaterZipFileName}'.");
 
-                // Notify user
                 logWindow.Log($"Error downloading or extracting '{UpdaterZipFileName}': {ex.Message}");
-                // updaterLaunchedSuccessfully remains false
             }
 
             // Attempt 2: Run existing Updater.exe if the first attempt failed
             if (!updaterLaunchedSuccessfully)
             {
-                // Notify user
                 logWindow.Log("Failed to update and launch Updater.exe from remote zip. Attempting to launch existing local Updater.exe...");
                 updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, false);
             }
 
-            // Fallback: Manual download if all attempts to launch Updater.exe failed
-            if (!updaterLaunchedSuccessfully)
+            // If updater was launched, we can now quit the main application.
+            if (updaterLaunchedSuccessfully)
             {
-                // Notify user
-                logWindow.Log("All attempts to launch Updater.exe (new or existing) have failed.");
-                if (!string.IsNullOrEmpty(releasePackageUrl))
-                {
-                    // Notify user
-                    logWindow.Log($"Please download the main update package manually from: {releasePackageUrl}");
-                }
-                else
-                {
-                    // Notify user
-                    logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
-                }
-
-                // Notify user
-                MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName); // Consider if this needs the releasePackageUrl
+                Application.Current.Dispatcher.Invoke(QuitApplication.ForcefullyQuitApplication);
+                return; // The application is shutting down.
             }
-            // If updaterLaunchedSuccessfully is true, the application would have been quit by TryExecuteUpdater.
+
+            // Fallback: Manual download if all attempts to launch Updater.exe failed
+            logWindow.Log("All attempts to launch Updater.exe (new or existing) have failed.");
+            if (!string.IsNullOrEmpty(releasePackageUrl))
+            {
+                logWindow.Log($"Please download the main update package manually from: {releasePackageUrl}");
+            }
+            else
+            {
+                logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
+            }
+
+            // Notify user
+            MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
         }
         catch (Exception ex)
         {
@@ -274,13 +267,19 @@ public static partial class UpdateChecker
             const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (logWindow != null)
-            {
-                logWindow.Log($"Outer catch block error during update preparation: {ex.Message}");
-            }
+            logWindow?.Log($"Outer catch block error during update preparation: {ex.Message}");
 
             // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+        }
+        finally
+        {
+            // This 'finally' block will run if the update process fails and doesn't shut down the app.
+            if (!updaterLaunchedSuccessfully)
+            {
+                logWindow?.Close();
+                owner?.Show();
+            }
         }
     }
 
@@ -306,14 +305,9 @@ public static partial class UpdateChecker
                 UseShellExecute = true
             });
 
-            logWindow.Log($"Updater.exe ({context}) launched successfully. Closing Simple Launcher...");
+            logWindow.Log($"Updater.exe ({context}) launched successfully. Simple Launcher will now exit.");
             await Task.Delay(1000); // Give log a moment to be seen and updater to initialize
-
-            Application.Current.Dispatcher.Invoke(static () =>
-            {
-                QuitApplication.ForcefullyQuitApplication();
-            });
-            return true; // Successfully launched and initiated application quit
+            return true;
         }
         catch (Exception ex)
         {
@@ -581,5 +575,5 @@ public static partial class UpdateChecker
     // (?<=release(?:-[a-zA-Z0-9]+)?-?) : Positive lookbehind for "release", optional alphanumeric part, optional hyphen
     // \d+(\.\d+)* : Matches one or more digits, followed by zero or more groups of (a dot and one or more digits)
     [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+){0,3}", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
-    private static partial Regex MyRegex2(); // Capture typical release tag versions up to 4 parts
+    private static partial Regex MyRegex2();
 }
