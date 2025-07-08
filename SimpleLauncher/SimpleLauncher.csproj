@@ -135,7 +135,7 @@
     <None Update="favorites.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Update="whatsnew.md">
+    <None Update="WhatsNew.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Remove="settings_model.xml" />

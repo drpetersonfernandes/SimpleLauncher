@@ -14,18 +14,18 @@ public partial class UpdateHistoryWindow
 
     private void LoadWhatsNewContent()
     {
-        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "whatsnew.md");
+        var filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "WhatsNew.md");
 
         try
         {
             MarkdownViewer.Markdown = File.Exists(filePath)
                 ? File.ReadAllText(filePath)
-                : "# 'whatsnew.md' not found\n\nThe update history file could not be found in the application folder.";
+                : "# 'WhatsNew.md' not found\n\nThe update history file could not be found in the application folder.";
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "'whatsnew.md' not found or could not be loaded.";
+            const string contextMessage = "'WhatsNew.md' not found or could not be loaded.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
             MarkdownViewer.Markdown = "# Error\n\nCould not load the update history. The error has been logged.";
         }
