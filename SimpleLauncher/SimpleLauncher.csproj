@@ -604,9 +604,6 @@
     <None Update="images\systems\Commodore Amiga.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SimpleZipDrive.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="images\systems\SNK Neo Geo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -670,10 +667,13 @@
     <None Update="tools\BatchConvertToRVZ\7z_x86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="SimpleXisoDrive.exe">
+    <None Update="tools\SimpleXisoDrive\SimpleXisoDrive.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="extract-xiso.exe">
+    <None Update="tools\SimpleXisoDrive\extract-xiso.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\SimpleZipDrive\SimpleZipDrive.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

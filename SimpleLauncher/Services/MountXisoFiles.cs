@@ -22,7 +22,7 @@ public static class MountXisoFiles
         DebugLogger.Log($"[MountXisoFile] Starting to mount ISO: {resolvedIsoFilePath}");
         DebugLogger.Log($"[MountXisoFile] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        const string xboxIsoVfsExe = "SimpleXisoDrive.exe";
+        const string xboxIsoVfsExe = @"tools\SimpleXisoDrive\SimpleXisoDrive.exe";
         var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(xboxIsoVfsExe);
 
         DebugLogger.Log($"[MountXisoFile] Path to {xboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
@@ -30,7 +30,7 @@ public static class MountXisoFiles
         if (string.IsNullOrWhiteSpace(resolvedXboxIsoVfsPath) || !File.Exists(resolvedXboxIsoVfsPath))
         {
             // Notify developer
-            const string errorMessage = "SimpleXisoDrive.exe not found in application directory. Cannot mount ISO.";
+            const string errorMessage = "SimpleXisoDrive.exe not found in tools directory. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFile] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
