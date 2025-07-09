@@ -135,13 +135,19 @@ public static class Stats
             var httpClient = HttpClientFactory.CreateClient("StatsClient");
             httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
 
-            // Build the payload depending on the call type.
-            object requestData = callType == "emulator"
-                ? new { callType, emulatorName }
-                : new { callType }; // For a general usage call, we simply send the callType.
-
-            var json = JsonSerializer.Serialize(requestData);
-            var jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+            HttpContent jsonContent;
+            if (callType == "emulator")
+            {
+                // For emulator calls, send ONLY the emulatorName
+                var requestData = new { emulatorName };
+                var json = JsonSerializer.Serialize(requestData);
+                jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+            }
+            else
+            {
+                // For general usage calls, send an empty body.
+                jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+            }
 
             // Send the POST request.
             using var response = await httpClient.PostAsync(apiUrl, jsonContent);
