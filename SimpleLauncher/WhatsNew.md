@@ -7,7 +7,7 @@ The most significant change is the introduction of on-the-fly file mounting, whi
 **Note:** You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP and XISO file mounting.
 
 *   **ISO & ZIP Mounting for RPCS3:** The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
-*   **XISO Mounting for Cxbx-Reloaded:** Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
+*   **XISO Mounting for Cxbx-Reloaded:** Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `SimpleXisoDrive.exe` tool to create a virtual drive and launch the `default.xbe` file.
 *   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for the specific nested file structure required to launch them.
 *   **ScummVM ZIP Mounting:** The system can now mount `.zip` files for ScummVM games and automatically launch the game.
 

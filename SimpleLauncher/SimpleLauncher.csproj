@@ -604,9 +604,6 @@
     <None Update="images\systems\Commodore Amiga.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="xbox-iso-vfs.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="SimpleZipDrive.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -671,6 +668,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToRVZ\7z_x86.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="SimpleXisoDrive.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="extract-xiso.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>

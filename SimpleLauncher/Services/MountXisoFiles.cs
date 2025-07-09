@@ -23,7 +23,7 @@ public static class MountXisoFiles
         DebugLogger.Log($"[MountXisoFile] Starting to mount ISO: {resolvedIsoFilePath}");
         DebugLogger.Log($"[MountXisoFile] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        const string xboxIsoVfsExe = "xbox-iso-vfs.exe";
+        const string xboxIsoVfsExe = "SimpleXisoDrive.exe";
         var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(xboxIsoVfsExe);
 
         DebugLogger.Log($"[MountXisoFile] Path to {xboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
@@ -31,7 +31,7 @@ public static class MountXisoFiles
         if (string.IsNullOrWhiteSpace(resolvedXboxIsoVfsPath) || !File.Exists(resolvedXboxIsoVfsPath))
         {
             // Notify developer
-            const string errorMessage = "xbox-iso-vfs.exe not found in application directory. Cannot mount ISO.";
+            const string errorMessage = "SimpleXisoDrive.exe not found in application directory. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFile] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
@@ -233,7 +233,7 @@ public static class MountXisoFiles
             await Task.Delay(1000);
             if (Directory.Exists("W:\\"))
             {
-                DebugLogger.Log("[MountXisoFile] WARNING: W: drive still exists after attempting to unmount. Manual unmount might be needed or xbox-iso-vfs.exe did not unmount on Kill().");
+                DebugLogger.Log("[MountXisoFile] WARNING: W: drive still exists after attempting to unmount. Manual unmount might be needed or SimpleXisoDrive.exe did not unmount on Kill().");
             }
             else
             {
