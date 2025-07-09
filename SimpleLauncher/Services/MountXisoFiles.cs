@@ -44,11 +44,11 @@ public static class MountXisoFiles
         var psiMount = new ProcessStartInfo
         {
             FileName = resolvedXboxIsoVfsPath,
-            Arguments = $"/l \"{resolvedIsoFilePath}\" w",
+            Arguments = $"\"{resolvedIsoFilePath}\" w",
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            CreateNoWindow = true,
+            CreateNoWindow = false,
             WorkingDirectory = Path.GetDirectoryName(resolvedXboxIsoVfsPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
@@ -95,16 +95,45 @@ public static class MountXisoFiles
             mountProcess.BeginOutputReadLine();
             mountProcess.BeginErrorReadLine();
 
-            DebugLogger.Log("[MountXisoFile] Waiting a few seconds for ISO to mount...");
-            await Task.Delay(3000);
-
+            // Replace the fixed delay with a polling mechanism to wait for the mount to complete.
             const string defaultXbePath = "W:\\default.xbe";
-            var mountSuccessful = File.Exists(defaultXbePath);
+            var mountSuccessful = false;
+            var timeout = TimeSpan.FromMinutes(2); // Generous 2-minute timeout for large ISOs
+            var pollInterval = TimeSpan.FromMilliseconds(500);
+            var stopwatch = Stopwatch.StartNew();
+
+            DebugLogger.Log($"[MountXisoFile] Polling for '{defaultXbePath}' to appear (timeout: {timeout.TotalSeconds}s)...");
+
+            while (stopwatch.Elapsed < timeout)
+            {
+                if (File.Exists(defaultXbePath))
+                {
+                    mountSuccessful = true;
+                    DebugLogger.Log($"[MountXisoFile] Found '{defaultXbePath}' after {stopwatch.Elapsed.TotalSeconds:F1} seconds.");
+                    break;
+                }
+
+                // Also check if the mount process exited prematurely
+                if (mountProcess.HasExited)
+                {
+                    DebugLogger.Log($"[MountXisoFile] Mount process {xboxIsoVfsExe} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                    break; // Exit loop, mountSuccessful will remain false
+                }
+
+                await Task.Delay(pollInterval);
+            }
+
+            stopwatch.Stop();
 
             DebugLogger.Log($"[MountXisoFile] Checking for mounted file: {defaultXbePath}. Exists: {mountSuccessful}");
 
             if (!mountSuccessful)
             {
+                if (stopwatch.Elapsed >= timeout)
+                {
+                    DebugLogger.Log($"[MountXisoFile] Timed out waiting for '{defaultXbePath}'. The mounting tool may be stuck or still processing a large file.");
+                }
+
                 DebugLogger.Log($"[MountXisoFile] Mount check failed. {xboxIsoVfsExe} Output:\n{mountOutput}");
                 DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} Error:\n{mountError}");
 
@@ -151,7 +180,7 @@ public static class MountXisoFiles
             DebugLogger.Log($"[MountXisoFile] ISO mounted successfully. Proceeding to launch {defaultXbePath} with {selectedEmulatorName}.");
 
             // Launch default.xbe
-            await GameLauncher.LaunchRegularEmulator(defaultXbePath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulator(defaultXbePath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
 
             DebugLogger.Log($"[MountXisoFile] Emulator for {defaultXbePath} has exited.");
         }
