@@ -2,7 +2,6 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using SimpleLauncher.Managers;
@@ -46,9 +45,10 @@ public static class MountXisoFiles
             FileName = resolvedXboxIsoVfsPath,
             Arguments = $"\"{resolvedIsoFilePath}\" w",
             UseShellExecute = false,
-            RedirectStandardOutput = true,
-            RedirectStandardError = true,
-            CreateNoWindow = false,
+            // Do not redirect output; let it show in the tool's own console window.
+            RedirectStandardOutput = false,
+            RedirectStandardError = false,
+            CreateNoWindow = false, // Ensure the console window is created and visible.
             WorkingDirectory = Path.GetDirectoryName(resolvedXboxIsoVfsPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
@@ -62,24 +62,6 @@ public static class MountXisoFiles
         mountProcess.EnableRaisingEvents = true;
         var mountProcessId = -1; // To store process ID for reliable logging
 
-        var mountOutput = new StringBuilder();
-        var mountError = new StringBuilder();
-
-        mountProcess.OutputDataReceived += (_, args) =>
-        {
-            if (args.Data == null) return;
-
-            mountOutput.AppendLine(args.Data);
-            DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} STDOUT: {args.Data}");
-        };
-        mountProcess.ErrorDataReceived += (_, args) =>
-        {
-            if (args.Data == null) return;
-
-            mountError.AppendLine(args.Data);
-            DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} STDERR: {args.Data}");
-        };
-
         try
         {
             DebugLogger.Log($"[MountXisoFile] Starting {xboxIsoVfsExe} process...");
@@ -92,8 +74,7 @@ public static class MountXisoFiles
             mountProcessId = mountProcess.Id; // Store ID after process started
             DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} process started (ID: {mountProcessId}).");
 
-            mountProcess.BeginOutputReadLine();
-            mountProcess.BeginErrorReadLine();
+            // Output is no longer redirected, so BeginOutputReadLine/BeginErrorReadLine are not needed.
 
             // Replace the fixed delay with a polling mechanism to wait for the mount to complete.
             const string defaultXbePath = "W:\\default.xbe";
@@ -134,8 +115,8 @@ public static class MountXisoFiles
                     DebugLogger.Log($"[MountXisoFile] Timed out waiting for '{defaultXbePath}'. The mounting tool may be stuck or still processing a large file.");
                 }
 
-                DebugLogger.Log($"[MountXisoFile] Mount check failed. {xboxIsoVfsExe} Output:\n{mountOutput}");
-                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} Error:\n{mountError}");
+                var exitCodeInfoOnFailure = mountProcess.HasExited ? $"The process exited with code {mountProcess.ExitCode}." : "The process was still running.";
+                DebugLogger.Log($"[MountXisoFile] Mount check failed. {exitCodeInfoOnFailure} Check the console window of {xboxIsoVfsExe} for details.");
 
                 if (!mountProcess.HasExited)
                 {
@@ -166,9 +147,8 @@ public static class MountXisoFiles
                 }
 
                 // Notify developer
-                var contextMessage = $"Failed to mount the ISO file {resolvedIsoFilePath} or {defaultXbePath} not found after attempting to mount.\n" +
-                                     $"{xboxIsoVfsExe} Output: {mountOutput}\n" +
-                                     $"{xboxIsoVfsExe} Error: {mountError}";
+                var contextMessage = $"Failed to mount the ISO file {resolvedIsoFilePath} or {defaultXbePath} not found after attempting to mount. " +
+                                     $"Output was not redirected and should have been visible in the tool's console window. {exitCodeInfoOnFailure}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -189,10 +169,10 @@ public static class MountXisoFiles
             DebugLogger.Log($"[MountXisoFile] Exception during mounting or launching: {ex}");
 
             // Notify developer
+            var exitCodeInfoInCatch = mountProcess.HasExited ? $"Exit Code: {mountProcess.ExitCode}" : "Process was still running or state unknown.";
             var contextMessage = $"Error during ISO mount/launch process for {resolvedIsoFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
-                                 $"{xboxIsoVfsExe} Output: {mountOutput}\n" +
-                                 $"{xboxIsoVfsExe} Error: {mountError}";
+                                 $"The tool's output was not redirected. {exitCodeInfoInCatch}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
@@ -236,7 +216,7 @@ public static class MountXisoFiles
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("Process has not been started", StringComparison.OrdinalIgnoreCase))
                     {
-                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited or was not running when explicit kill/wait in finally was attempted: {ioEx.Message}. Output:\n{mountOutput}\nError:\n{mountError}");
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited or was not running when explicit kill/wait in finally was attempted: {ioEx.Message}. Output was not redirected.");
                     }
                     else
                     {
@@ -256,7 +236,7 @@ public static class MountXisoFiles
             }
             else
             {
-                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited before finally block's kill check. Exit code likely {(mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}. Output:\n{mountOutput}\nError:\n{mountError}");
+                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited before finally block's kill check. Exit code likely {(mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}. Output was not redirected.");
             }
 
             await Task.Delay(1000);
