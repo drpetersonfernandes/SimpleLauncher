@@ -26,7 +26,6 @@ If necessary, you may need to grant "Simple Launcher" administrative access. The
 
 ## Basic Usage
 
-- Click the **Edit System** menu item.
 - Click the **Easy Mode** menu item.
 - Follow the steps to install a system.
 - Add ROM files for that system in the designated folder.
@@ -58,11 +57,11 @@ If necessary, you may need to grant "Simple Launcher" administrative access. The
 -   **Automatic Updates:** Keeps Simple Launcher up-to-date with the latest features and fixes.
 -   **Multilingual:** Translated into 17 languages.
 -   **Single Instance Enforcement:** Prevents multiple copies of the application from running simultaneously.
--   **On-the-Fly File Mounting:** Allows users to launch games directly from compressed or disk image files without needing to manually extract them first. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany/releases) for ZIP and XISO file mounting.
+-   **On-the-Fly File Mounting:** Allows users to launch games directly from compressed or disk image files without needing to manually extract them first. You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany/releases) to use this feature.
 
 ## Bundled Tools
 
-Simple Launcher comes with a suite of command-line utilities accessible via the "Tools" menu to help manage your game library:
+Simple Launcher comes with a suite of utilities accessible via the "Tools" menu to help manage your game library:
 -   Batch Convert ISO to XISO
 -   Batch Convert to CHD (supports CUE/BIN, ISO, IMG, ZIP, 7z, RAR, CSO)
 -   Batch Convert to Compressed File (ZIP or 7Z)
@@ -77,8 +76,7 @@ We do **NOT** provide ROMs or ISOs.
 ## Where to Find Game Cover Images
 
 Image packs for some systems can be downloaded via **Edit System -> Download Image Pack**.<br>
-If an image pack is not available, or for more comprehensive collections, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).<br>
-Simple Launcher's **Fuzzy Image Matching** feature can also assist in finding relevant covers for specific files.
+If an image pack is not available, or for more comprehensive collections, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
 
 ## Advanced Usage & Documentation
 
