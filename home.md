@@ -1,59 +1,75 @@
-# Welcome to the SimpleLauncher Wiki!
+# Simple Launcher Wiki
 
-## Introduction
-Simple Launcher is a powerful and flexible open-source emulator frontend for Windows, designed to be powerful, customizable, and easy to use. While its name implies simplicity, it packs powerful features for both beginners and advanced users.
+Welcome to the official documentation for Simple Launcher, a powerful and flexible open-source frontend for emulators.
 
 ## Table of Contents
-1. [Getting Started](#getting-started)
-  - [System Requirements](#system-requirements)
-  - [Installation](#installation)
-  - [Basic Usage](#basic-usage)
-2. [Core Concepts](#core-concepts)
-  - [Systems](#systems)
-  - [Game Files (ROMs/ISOs)](#game-files-romsisos)
-  - [Emulators](#emulators)
-  - [Media and Folders](#media-and-folders)
-3. [Configuration](#configuration)
-  - [Easy Mode](#easy-mode)
-  - [Expert Mode](#expert-mode)
-  - [Path Placeholders](#path-placeholders)
-4. [User Interface](#user-interface)
-  - [System Selection Screen](#system-selection-screen)
-  - [Navigation Panel](#navigation-panel)
-  - [View Modes](#view-modes)
-  - [Context Menu](#context-menu)
-5. [Key Features](#key-features)
-6. [Bundled Tools](#bundled-tools)
-7. [Where to Find Content](#where-to-find-content)
-8. [Troubleshooting](#troubleshooting)
-9. [Technical Details](#technical-details)
-10. [Support the Project](#support-the-project)
+1.  [Introduction](#1-introduction)
+2.  [Getting Started](#2-getting-started)
+  *   [System Requirements](#system-requirements)
+  *   [Required Dependencies](#required-dependencies)
+  *   [Installation](#installation)
+3.  [Core Concepts](#3-core-concepts)
+  *   [Systems](#systems)
+  *   [Game Files (ROMs/ISOs)](#game-files-roms-isos)
+  *   [Emulators](#emulators)
+  *   [Media and Folders](#media-and-folders)
+4.  [Configuring Systems](#4-configuring-systems)
+  *   [Easy Mode: Guided Setup](#easy-mode-guided-setup)
+  *   [Expert Mode: Manual Configuration (`system.xml`)](#expert-mode-manual-configuration-systemxml)
+  *   [Path Placeholders](#path-placeholders)
+5.  [Main Window and UI](#5-main-window-and-ui)
+  *   [System Selection Screen](#system-selection-screen)
+  *   [Game Browsing](#game-browsing)
+  *   [Navigation Panel](#navigation-panel)
+  *   [View Modes (Grid vs. List)](#view-modes-grid-vs-list)
+  *   [Context Menu](#context-menu)
+6.  [Key Features](#6-key-features)
+  *   [Game Launching & File Mounting](#game-launching--file-mounting)
+  *   [Favorites Manager](#favorites-manager)
+  *   [Play History](#play-history)
+  *   [Global Search](#global-search)
+  *   [Global Statistics](#global-statistics)
+  *   [Image Pack Downloader](#image-pack-downloader)
+  *   [Controller Support](#controller-support)
+  *   [Automatic Updates](#automatic-updates)
+7.  [Bundled Tools](#7-bundled-tools)
+8.  [Troubleshooting](#8-troubleshooting)
+9.  [Dependencies & Credits](#9-dependencies--credits)
 
 ---
 
-## Getting Started
+## 1. Introduction
+
+**Simple Launcher** is a feature-rich, open-source frontend for managing and launching your retro game collection. While its name implies simplicity, it packs powerful features for both beginners and advanced users.
+
+**Key Features:**
+- **Easy and Expert Configuration:** Use a guided wizard to add systems or dive deep into manual XML configuration.
+- **On-the-Fly File Mounting:** Launch games directly from `.zip`, `.iso`, and `.xiso` files without manual extraction.
+- **Extensive Customization:** Control themes, languages, button sizes, aspect ratios, and more.
+- **Rich Media Support:** Display covers, snapshots, videos, manuals, and other media for your games.
+- **Powerful Game Management:** Keep track of your favorites, view your play history, and use a global search to find any game across all your systems.
+- **Bundled Conversion Tools:** A suite of utilities to help you convert, verify, and manage your game files.
+- **Modern UI:** A clean, responsive interface built with WPF and MahApps.Metro.
+
+## 2. Getting Started
 
 ### System Requirements
-- **Operating System:** Windows 7 or newer (tested on Windows 11)
-- **.NET Framework:** .NET 9
+- **Operating System:** Windows 7 or newer.
+- **.NET Framework:** .NET 9 (The installer will handle this).
+
+### Required Dependencies
+For full functionality, especially the on-the-fly file mounting, you must install **Dokan**.
+- **Dokan:** A user-mode file system for Windows that allows Simple Launcher to mount archive files as virtual drives.
+  - **Download Link:** [https://github.com/dokan-dev/dokany/releases](https://github.com/dokan-dev/dokany/releases)
+  - Please install Dokan before using features that rely on mounting ZIP or ISO files.
 
 ### Installation
-1. Download the application from the [release page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
-2. Extract the ZIP file into a **writable folder** (e.g., `C:\SimpleLauncher`, or a folder within your Documents). We do not recommend using a network folder or installing it inside `C:\Program Files`.
-3. For certain features like on-the-fly file mounting, you must install the [Dokan Library](https://github.com/dokan-dev/dokany/releases).
-4. If necessary, you may need to grant "Simple Launcher" administrative access, as the application requires write access to its own folder for saving settings, logs, and other data.
-5. Run `SimpleLauncher.exe`.
+1.  Download the latest release from the [GitHub Releases page](https://github.com/drpetersonfernandes/SimpleLauncher/releases).
+2.  Unzip the entire application folder to a **writable location** on your computer, such as `C:\Users\YourName\Documents\SimpleLauncher` or `D:\Emulation\SimpleLauncher`.
+3.  **Do not** place it in restricted folders like `C:\Program Files` or `C:\Program Files (x86)`, as Simple Launcher needs to write configuration files (`system.xml`, `settings.xml`, etc.) and logs in its own directory.
+4.  Run `SimpleLauncher.exe`.
 
-### Basic Usage
-1. Click the **Edit System** menu item, then select **Easy Mode**.
-2. Follow the on-screen steps to download and install an emulator and its necessary files for a system.
-3. Add your ROM/ISO files for that system into the designated folder (e.g., `.\roms\[SystemName]\`).
-4. Add your cover images for that system into the designated image folder (e.g., `.\images\[SystemName]\`).
-5. Return to the Main Window. If no system is selected, a visual **System Selection Screen** will help you choose your gaming platform. Otherwise, select the system from the dropdown menu.
-6. Click the **All** button (or a letter/number filter) to display games for that system.
-7. Click the game you wish to launch.
-
-## Core Concepts
+## 3. Core Concepts
 
 ### Systems
 A "System" represents a gaming console or platform you want to emulate (e.g., "Nintendo SNES", "Sega Genesis", "Arcade"). Each system has its own configuration, including its game folder, emulators, and media paths.
@@ -98,43 +114,70 @@ SimpleLauncher/
 ├── tools/
 └── SimpleLauncher.exe
 ```
+- **`roms/[SystemName]`**: The default location for your game files for a specific system.
+- **`images/[SystemName]`**: The default location for your game cover art.
+- **`images/systems`**: The location for system logos displayed on the selection screen.
+- Other folders (`videos`, `manuals`, etc.) are for additional media accessible via the context menu.
 
-## Configuration
+## 4. Configuring Systems
 
-### Easy Mode
-This is the recommended method for new users. Simplifies adding new systems by automatically downloading and configuring common emulators and cores.
+You can add and edit systems in two ways: **Easy Mode** for a guided setup and **Expert Mode** for detailed manual control.
 
-1. Go to **Edit System -> Easy Mode**.
-2. **Choose a System:** Select a pre-configured system from the dropdown list.
-3. **Choose a ROMs Folder (Optional):** Specify a folder for your games or use the default.
-4. **Install Components:** Download emulator, cores, and image packs as needed.
-5. **Add System:** Save the configuration once components are downloaded.
+### Easy Mode: Guided Setup
+This is the recommended method for new users.
+1.  Go to **Edit System -> Easy Mode**.
+2.  **Choose a System:** Select a pre-configured system from the dropdown list. These presets contain recommended settings and download links.
+3.  **Choose a ROMs Folder (Optional):** You can specify a folder for your games. If you leave it blank, a default folder will be created for you inside `SimpleLauncher\roms\[SystemName]`.
+4.  **Install Components:**
+  - **Download Emulator:** Downloads the recommended emulator for the system.
+  - **Download Core (for RetroArch):** Downloads the necessary core if the emulator is RetroArch.
+  - **Download Image Pack:** Downloads a pre-packaged set of cover art for the system.
+5.  **Add System:** Once the required components (Emulator and Core, if applicable) are downloaded, click this button to save the configuration to `system.xml`.
 
-### Expert Mode
-Allows manual and detailed configuration of systems, emulators, paths, and launch parameters. In this mode, you can manually customize every aspect of a system configuration:
+### Expert Mode: Manual Configuration (`system.xml`)
+This mode gives you full control over the `system.xml` file, which stores all system configurations. Go to **Edit System -> Expert Mode**.
 
-- **System Name:** The display name for the system.
-- **System Folder:** The path to your ROMs/ISOs.
-- **Image Folder:** The path to your cover images.
-- **File Extensions:** Define which file types to search for.
-- **Extraction:** Configure whether files need to be extracted before launch and which file to launch post-extraction.
-- **Emulators:** Set up multiple emulators per system, each with a unique name, path, and launch parameters.
-- **Error Notifications:** Toggle error popups on a per-emulator basis.
+Here's a breakdown of the `system.xml` structure and fields:
+
+| Field | Description | Example |
+| :--- | :--- | :--- |
+| **SystemName** | The display name of the system (e.g., "Nintendo SNES"). This must be unique. | `Nintendo SNES` |
+| **SystemFolder** | The path to the folder containing the game files for this system. Can be absolute or relative. | `.\roms\SNES` or `D:\Games\SNES` |
+| **SystemImageFolder** | The path to the folder containing the cover art for this system. | `.\images\Nintendo SNES` |
+| **SystemIsMAME** | `true` or `false`. If `true`, the launcher will use the MAME description for display and search instead of just the filename. | `true` |
+| **FileFormatsToSearch** | A comma-separated list of file extensions to look for in the `SystemFolder`. Do not include the dot. | `zip, 7z, smc, sfc` |
+| **ExtractFileBeforeLaunch** | `true` or `false`. If `true`, the launcher will extract compressed files (`.zip`, `.7z`, `.rar`) to a temporary folder before launching. | `true` |
+| **FileFormatsToLaunch** | Required if `ExtractFileBeforeLaunch` is `true`. A comma-separated list of extensions to look for *inside* the extracted archive. The first one found will be launched. | `smc, sfc` |
+| **EmulatorName** | A unique name for this emulator configuration (e.g., "RetroArch Snes9x", "ZSNES"). | `RetroArch Snes9x` |
+| **EmulatorLocation** | The path to the emulator's executable file. | `.\emulators\RetroArch\retroarch.exe` |
+| **EmulatorParameters** | The command-line arguments to pass to the emulator. Use `%ROM%` as a placeholder for the game file path. | `-L "cores\snes9x_libretro.dll" "%ROM%"` |
+| **ReceiveANotification...** | `true` or `false`. If `true`, Simple Launcher will show a message if the emulator exits with an error code. | `true` |
 
 ### Path Placeholders
-Use placeholders like `%BASEFOLDER%`, `%SYSTEMFOLDER%`, and `%EMULATORFOLDER%` in your paths and parameters for a portable configuration.
-
+To make your configuration portable, you can use special placeholders in path fields:
 - **`%BASEFOLDER%`**: Represents the root directory where `SimpleLauncher.exe` is located.
 - **`%SYSTEMFOLDER%`**: Represents the path defined in the `<SystemFolder>` tag for the current system.
 - **`%EMULATORFOLDER%`**: Represents the directory where the emulator's executable is located.
 
-## User Interface
+**Example Usage in `system.xml`:**
+```xml
+<EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\retroarch.exe</EmulatorLocation>
+<EmulatorParameters>-L "%EMULATORFOLDER%\cores\snes9x_libretro.dll" -f "%ROM%"</EmulatorParameters>
+```
+
+## 5. Main Window and UI
 
 ### System Selection Screen
-A visual way to choose your gaming platform. When you first start Simple Launcher, you'll see a grid of all configured systems.
+When you first start Simple Launcher, or when no system is selected, you'll see a grid of all configured systems. Click a system's logo to load its game library.
+
+### Game Browsing
+- **Top Bar:** Use the letter/number filter bar to quickly jump to games starting with that character.
+- **System & Emulator Dropdowns:** Select the system you want to browse and the emulator you want to use.
+- **Search Bar:** Search for games within the currently selected system.
+- **Pagination:** Use the "Next" and "Previous" buttons at the bottom to navigate through large game lists.
 
 ### Navigation Panel
-Quick access to common actions like Global Search, Favorites, Play History, and UI adjustments:
+The vertical panel on the left provides quick access to key features:
 - **Restart:** Reloads the UI to the system selection screen.
 - **Global Search:** Opens the Global Search window.
 - **Favorites:** Opens the Favorites window.
@@ -144,76 +187,91 @@ Quick access to common actions like Global Search, Favorites, Play History, and 
 - **Toggle Aspect Ratio:** Cycles through different button aspect ratios in Grid View.
 - **Zoom In/Out:** Changes the size of game thumbnails in Grid View.
 
-### View Modes
-**Dual View Modes:**
-- **Grid View:** Displays game covers as interactive buttons.
-- **List View:** Shows game details in a sortable table, including file size, play count, and playtime.
+### View Modes (Grid vs. List)
+- **Grid View:** A visual layout showing game covers as clickable buttons.
+- **List View:** A detailed table showing filename, MAME description, file size, play count, and total playtime.
 
 ### Context Menu
-Rich right-click menus for games to launch, manage favorites, open external links (video/info), view local media (covers, snapshots, manuals), take screenshots, and delete game files:
+Right-click on any game in either Grid or List view to access a rich context menu with many options:
+- **Launch Game:** Starts the game with the selected emulator.
+- **Add/Remove from Favorites:** Manages your favorites list.
+- **Open Video/Info Link:** Searches YouTube or IGDB for the game.
+- **Open ROM History:** Shows historical information about the game from `history.xml`.
+- **View Media:** Opens viewers for associated media like covers, snapshots, manuals, etc.
+- **Take Screenshot:** Launches the game and prompts you to select the game window to capture a new cover image.
+- **Delete Game:** Permanently deletes the game file from your hard drive.
 
-- **Launch Game:** Launches the selected game.
-- **Add To/Remove From Favorites:** Manage your favorites list.
-- **Open Video/Info Link:** Searches for the game on YouTube and IGDB (or your custom configured sites).
-- **Open ROM History:** Displays historical data about the game (especially for MAME ROMs).
-- **View Local Media:** Opens viewers for covers, snapshots, videos, manuals, and other media.
-- **Take Screenshot:** Captures the game window and saves it as the cover image.
-- **Delete Game:** Permanently deletes the game file from your hard drive (use with caution!).
+## 6. Key Features
 
-## Key Features
+### Game Launching & File Mounting
+Simple Launcher's most powerful feature is its ability to handle different file types seamlessly.
+- **Direct Launch:** `.exe`, `.bat`, and `.lnk` files are launched directly.
+- **Standard Launch:** Uncompressed ROMs and disc images are passed to the configured emulator.
+- **Extract Before Launch:** If enabled for a system, `.zip`, `.7z`, or `.rar` files are automatically extracted to a temporary folder before launching.
+- **On-the-Fly Mounting (Requires Dokan):**
+  - **RPCS3 (PS3):** Mounts `.iso` or `.zip` files to a virtual drive and automatically finds and launches the `EBOOT.BIN`.
+  - **Cxbx-Reloaded (Xbox):** Mounts `.xiso` files and launches `default.xbe`.
+  - **ScummVM:** Mounts `.zip` files and launches the game via ScummVM's auto-detect feature.
+  - **XBLA (Xbox 360):** Mounts `.zip` files and finds the game executable within the required nested folder structure.
 
-- **Intuitive User Interface:** Modern WPF interface with light and dark themes, and customizable accent colors.
-- **Global Search:** Quickly find games across all your configured systems.
-- **Favorites Management:** Mark games as favorites for easy access.
-- **Play History Tracking:** See which games you've played, how many times, and for how long.
-- **Global Stats:** Get an overview of your game library, including total systems, games, and image counts.
-- **Fuzzy Image Matching:** Helps find cover images even if filenames don't perfectly match.
-- **Image Pack Downloader:** Download pre-made image packs for various systems.
-- **Gamepad Support:** Navigate the UI using Xbox and PlayStation controllers (configurable deadzone).
-- **Customizable UI:** Adjust thumbnail sizes, button aspect ratios, and games per page.
-- **Automatic Updates:** Keeps Simple Launcher up-to-date with the latest features and fixes.
-- **Multilingual:** Translated into 17 languages.
-- **Single Instance Enforcement:** Prevents multiple copies of the application from running simultaneously.
-- **Sound Configuration:** Customize or disable UI sound effects via the Options menu.
-- **On-the-Fly File Mounting:**
-  - **PS3 (ZIP/ISO), Xbox (XISO), XBLA (ZIP):** Games for these systems can be mounted as virtual drives, allowing you to launch them without manual extraction. This feature requires the [Dokan Library](https://github.com/dokan-dev/dokany).
-  - **Other Compressed Files (.7z, .rar, .zip):** For other systems, if "Extract File Before Launch" is enabled, the application will automatically extract the contents to a temporary folder before launching the game.
+### Favorites Manager
+- Access via **Favorites -> Favorites** or the heart icon in the navigation panel.
+- Add games to your favorites from the context menu.
+- View, launch, and manage all your favorite games from a single window.
+- Favorites are stored in `favorites.dat`.
 
-## Bundled Tools
+### Play History
+- Access via **Play History -> Play History** or the clock icon in the navigation panel.
+- Automatically tracks every game you play, recording the number of plays, total playtime, and last played date/time.
+- Data is stored in `playhistory.dat`.
 
-Simple Launcher includes a "Tools" menu with utilities to help manage your game collection:
+### Global Search
+- Access via **Global Search -> Global Search** or the magnifying glass icon in the navigation panel.
+- Search for a game across **all** configured systems.
+- Supports logical operators `AND` and `OR` for advanced queries.
 
-- **Batch Convert Iso To Xiso:** Converts standard ISO files to XISO format for Xbox. Verifies the integrity of XISO files.
-- **Batch Convert To CHD:** Converts CUE/BIN, ISO, IMG, ZIP, 7z, and RAR files to CHD format (MAME). Features parallel processing. Verifies the integrity of CHD files.
-- **Batch Convert To Compressed File:** Compresses files into ZIP or 7Z archives. Verifies the integrity of ZIP, 7Z, or RAR files.
-- **Batch Convert To RVZ:** Converts GameCube and Wii ISO files to the compressed RVZ format.
-- **Create Batch Files:** Generates launcher scripts for PS3, ScummVM, Sega Model 3, Windows Games, and Xbox 360 XBLA titles.
-- **FindRomCover (Organize System Images):** Helps match and organize your cover images with your ROMs.
+### Global Statistics
+- Access via **Tools -> Global Stats**.
+- Provides a detailed report of your entire collection, including:
+  - Total number of systems, emulators, and games.
+  - Total number of matched cover images.
+  - Total disk space used by your games.
+- You can save the report as a `.txt` file.
 
-## Where to Find Content
+### Image Pack Downloader
+- Access via **Edit System -> Download Image Pack**.
+- Provides an easy way to download complete cover art sets for systems defined in `easymode.xml`.
 
-### ROMs and ISOs
-We do **NOT** provide ROMs or ISOs.
+### Controller Support
+- Full navigation of the UI is possible with an Xbox or PlayStation-compatible controller.
+- Enable/disable via **Options -> Gamepad Support -> Enable**.
+- Adjust the analog stick deadzone via **Options -> Gamepad Support -> Set Gamepad Dead Zone**.
 
-### Game Cover Images
-We provide Image Packs for some systems, accessible via the **Edit System -> Download Image Pack** menu.
-If an Image Pack is not available for your desired system, you can download cover images from websites like [Libretro Thumbnails](https://github.com/libretro-thumbnails/libretro-thumbnails) or [EmuMovies](https://emumovies.com).
+### Automatic Updates
+- Simple Launcher automatically checks for new versions on startup.
+- If an update is found, it will prompt you to download and install it.
+- The update process uses a separate `Updater.exe` application to ensure a smooth transition.
 
-Simple Launcher also features **Fuzzy Image Matching**, which can help find cover images even if their filenames don't perfectly match the ROM names. This feature can be enabled/disabled and its sensitivity adjusted in the **Options -> Fuzzy Image Matching** menu.
+## 7. Bundled Tools
+Simple Launcher includes a suite of command-line tools accessible from the **Tools** menu to help you manage your game library.
 
-### Emulator Parameters
-We have compiled a list of parameters for each emulator for your convenience.
-Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters) to see the list.
+| Tool | Description |
+| :--- | :--- |
+| **Batch Convert Iso To Xiso** | Converts standard Xbox ISO files to the `.xiso` format required by some emulators. |
+| **Batch Convert To CHD** | Converts disc images (`.cue`, `.iso`, `.gdi`, etc.) to the compressed CHD format. |
+| **Batch Convert To Compressed File** | Compresses files or folders into `.zip` or `.7z` archives. |
+| **Batch Convert To RVZ** | Converts GameCube and Wii disc images to the highly compressed RVZ format used by Dolphin. |
+| **Create Batch Files...** | A series of tools to generate `.bat` files for launching games that require special setups, such as for PS3, ScummVM, Sega Model 3, Windows, and Xbox 360 XBLA. |
+| **FindRomCover** | A utility to help you find and organize cover art for your games. |
 
-## Troubleshooting
-
+## 8. Troubleshooting
 - **Application doesn't start:**
   - Ensure you have .NET 9 installed.
   - Make sure you are not running another instance of Simple Launcher.
   - Check that the application is in a writable folder.
 - **Games won't launch:**
-  - **Check paths:** Use **Expert Mode** to verify that the `SystemFolder` and `EmulatorLocation` are correct.
-  - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using.
+  - **Check paths:** Use **Expert Mode** to verify that the `SystemFolder` and `EmulatorLocation` are correct. Use absolute paths if you are unsure.
+  - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using. Refer to the `helpuser.xml` guide in the Expert Mode window or the emulator's official documentation.
   - **Check for BIOS files:** Many emulators require BIOS files to be placed in a specific folder.
 - **Mounting features don't work:**
   - **Install Dokan:** This is a mandatory dependency for mounting `.zip` and `.xiso` files.
@@ -221,24 +279,19 @@ Click [here](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/paramete
   - Check the `error_user.log` file in the Simple Launcher directory for detailed error messages.
   - You can also enable the debug window by launching `SimpleLauncher.exe -debug` from the command line for real-time logs.
 
-## Technical Details
+## 9. Dependencies & Credits
+Simple Launcher is built using several excellent open-source libraries and tools.
 
-- **Framework:** C# using Windows Presentation Foundation (WPF) and Microsoft .NET 9.
-- **Platform:** Windows-only (tested on Windows 11).
-- **MAME Data:** Game information is loaded from `mame.dat`.
-- **User Data:** Favorites are stored in `favorites.dat`, and play history in `playhistory.dat`.
-
-### Dependencies & Credits
-Simple Launcher is built using several excellent open-source libraries and tools:
-
-**External Dependencies:**
+### External Dependencies
 - **Dokan:** For virtual drive mounting. [https://github.com/dokan-dev/dokany](https://github.com/dokan-dev/dokany)
 
-**Bundled Executables:**
-- **xbox-iso-vfs.exe / SimpleZipDrive.exe:** Custom tools based on Dokan for mounting archives.
-- **7z_x64.dll / 7z_x86.dll:** Used for 7-Zip archive operations.
+### Bundled Executables
+- **SimpleZipDrive.exe / xbox-iso-vfs.exe:** Custom tools based on Dokan for mounting archives.
+- **extract-xiso.exe:** Used by the Batch Convert to XISO tool.
+- **chdman.exe:** The official MAME tool for creating and managing CHD files.
+- **7z.dll:** Used for 7-Zip archive operations.
 
-**Core Libraries (NuGet Packages):**
+### Core Libraries (NuGet Packages)
 - **MahApps.Metro:** For the modern UI theme and controls.
 - **Markdig.Wpf:** For rendering Markdown in the Update History window.
 - **SharpDX:** For XInput and DirectInput controller support.
@@ -247,15 +300,5 @@ Simple Launcher is built using several excellent open-source libraries and tools
 - **MessagePack:** For fast serialization of data files like `favorites.dat` and `playhistory.dat`.
 - **Microsoft.Extensions.*:** For modern dependency injection and configuration.
 
-## Support the Project
-
-Did you enjoy using the Simple Launcher frontend?
-Consider [donating](https://www.purelogiccode.com/donate) to support the project or simply to express your gratitude!
-
-### Contributors
-- **Peterson Fernandes** - [Github Profile](https://github.com/drpetersonfernandes)
-- **RFSVIEIRA** - [Github Profile](https://github.com/RFSVIEIRA)
-
 ---
-
 Thank you for using Simple Launcher! For further help, please open an issue on the [GitHub repository](https://github.com/drpetersonfernandes/SimpleLauncher/issues).
