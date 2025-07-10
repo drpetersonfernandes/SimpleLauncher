@@ -1,5 +1,5 @@
 # Release 4.2.0
-*07/08/25*
+*07/10/25*
 ---
 ### Core Feature Enhancements: On-the-Fly File Mounting
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
