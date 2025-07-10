@@ -150,7 +150,7 @@ Here's a breakdown of the `system.xml` structure and fields:
 | **FileFormatsToLaunch** | Required if `ExtractFileBeforeLaunch` is `true`. A comma-separated list of extensions to look for *inside* the extracted archive. The first one found will be launched. | `smc, sfc` |
 | **EmulatorName** | A unique name for this emulator configuration (e.g., "RetroArch Snes9x", "ZSNES"). | `RetroArch Snes9x` |
 | **EmulatorLocation** | The path to the emulator's executable file. | `.\emulators\RetroArch\retroarch.exe` |
-| **EmulatorParameters** | The command-line arguments to pass to the emulator. Use `%ROM%` as a placeholder for the game file path. | `-L "cores\snes9x_libretro.dll" "%ROM%"` |
+| **EmulatorParameters** | The command-line arguments to pass to the emulator. | `-L "cores\snes9x_libretro.dll"` |
 | **ReceiveANotification...** | `true` or `false`. If `true`, Simple Launcher will show a message if the emulator exits with an error code. | `true` |
 
 ### Path Placeholders
@@ -162,7 +162,7 @@ To make your configuration portable, you can use special placeholders in path fi
 **Example Usage in `system.xml`:**
 ```xml
 <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\retroarch.exe</EmulatorLocation>
-<EmulatorParameters>-L "%EMULATORFOLDER%\cores\snes9x_libretro.dll" -f "%ROM%"</EmulatorParameters>
+<EmulatorParameters>-L "%EMULATORFOLDER%\cores\snes9x_libretro.dll" -f</EmulatorParameters>
 ```
 
 ## 5. Main Window and UI
@@ -253,7 +253,7 @@ Simple Launcher's most powerful feature is its ability to handle different file 
 - The update process uses a separate `Updater.exe` application to ensure a smooth transition.
 
 ## 7. Bundled Tools
-Simple Launcher includes a suite of command-line tools accessible from the **Tools** menu to help you manage your game library.
+Simple Launcher includes a suite of tools accessible from the **Tools** menu to help you manage your game library.
 
 | Tool | Description |
 | :--- | :--- |
