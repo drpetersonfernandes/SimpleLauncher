@@ -13,6 +13,7 @@ public static class MountZipFiles
 {
     private static string _configuredMountDriveLetterOnly = "Z";
     private static string _zipMountExecutableName = "SimpleZipDrive.exe";
+    private static string _zipMountExecutableRelativePath = @"tools\SimpleZipDrive\SimpleZipDrive.exe";
 
     // Public property to get the letter ("Z")
     private static string ConfiguredMountDriveLetter => _configuredMountDriveLetterOnly;
@@ -24,6 +25,7 @@ public static class MountZipFiles
     {
         var mountPathFromConfig = configuration.GetValue("ZipMountOptions:MountDriveLetter", "Z:");
         _zipMountExecutableName = configuration.GetValue("ZipMountOptions:ZipMountExecutableName", "SimpleZipDrive.exe");
+        _zipMountExecutableRelativePath = configuration.GetValue("ZipMountOptions:ZipMountExecutableRelativePath", @"tools\SimpleZipDrive\SimpleZipDrive.exe");
 
         if (string.IsNullOrEmpty(mountPathFromConfig))
         {
@@ -49,6 +51,7 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Configured MountDriveLetter (for {_zipMountExecutableName}): {_configuredMountDriveLetterOnly}");
         DebugLogger.Log($"[MountZipFiles] Configured MountDriveRoot (for checks): {ConfiguredMountDriveRoot}");
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
+        DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableRelativePath: {_zipMountExecutableRelativePath}");
     }
 
     public static async Task MountZipFileAndLoadEbootBin(
@@ -64,14 +67,14 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
+            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
@@ -275,14 +278,14 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
+            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
@@ -500,14 +503,14 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
 
-        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableName);
+        var resolvedZipMountExePath = PathHelper.ResolveRelativeToAppDirectory(_zipMountExecutableRelativePath);
 
         DebugLogger.Log($"[MountZipFiles] Path to {_zipMountExecutableName}: {resolvedZipMountExePath}");
 
         if (string.IsNullOrWhiteSpace(resolvedZipMountExePath) || !File.Exists(resolvedZipMountExePath))
         {
             // Notify developer
-            var errorMessage = $"{_zipMountExecutableName} not found in application directory. Cannot mount ZIP.";
+            var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
             _ = LogErrors.LogErrorAsync(null, errorMessage);
 
