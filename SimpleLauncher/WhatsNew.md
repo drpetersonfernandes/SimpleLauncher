@@ -1,14 +1,13 @@
 # Release 4.2.0
 *07/08/25*
 ---
-
 ### Core Feature Enhancements: On-the-Fly File Mounting
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
-**Note:** You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP and XISO file mounting.
+**Note:** You need to install the Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP and XISO file mounting.
 
 *   **ISO & ZIP Mounting for RPCS3:** The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
-*   **XISO Mounting for Cxbx-Reloaded:** Support was added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `SimpleXisoDrive.exe` tool to create a virtual drive and launch the `default.xbe` file.
-*   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for the specific nested file structure required to launch them.
+*   **XISO Mounting for Cxbx-Reloaded:** Support has been added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
+*   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for a specific nested file structure required to launch them.
 *   **ScummVM ZIP Mounting:** The system can now mount `.zip` files for ScummVM games and automatically launch the game.
 
 ### Major Refactoring & Dependency Changes
@@ -18,20 +17,20 @@ The project's core dependencies and internal logic for handling files have been 
 *   **Removal of Caching System:** The `CacheManager` has been completely removed. The previous system of caching game lists for each system has been replaced with a more direct, on-demand file scanning approach. This simplifies the application's logic, eliminates the `cache` directory, and ensures the game list is always up to date.
 
 ### Update Tools
-*   **BatchConvertToCHD:** Improved UI. Added the ability to check the integrity of CHD files. Added the ability to convert CSO files to CHD.
+*   **BatchConvertToCHD:** Improved UI. Added the ability to check the integrity of CHD files and convert CSO files to CHD.
 *   **BatchConvertToCompressedFile:** Improved UI. Added the ability to verify the integrity of compressed files.
-*   **BatchConvertIsoToXiso:** Improved UI. Added the ability to test the integrity of the XISO files.
-*   **BatchConvertToRvz:** Improved UI. Added the ability to test the integrity of the RVZ files
+*   **BatchConvertIsoToXiso:** Improved UI. Added the ability to verify the integrity of XISO files.
+*   **BatchConvertToRvz:** Improved UI. Added the ability to test the integrity of the RVZ files.
 
 ### Bug Fixes and Other Enhancements
 *   **Fixed Threading Issue:** The `PlayTimeWindow` and `FavoritesWindow` have been refactored to handle file operations and UI updates more safely across different threads, preventing crashes and ensuring a smoother user experience.
-*   **UI Consistency:** The system selection screen now limits the maximum size of system thumbnails to 100px to prevent oversized images from distorting the layout and to ensure a consistent look.
+*   **UI Consistency:** The system selection screen now limits the maximum size of system thumbnails to 100 px to prevent oversized images from distorting the layout and to ensure a consistent look.
 
 # Release 4.1.0
 *06/08/25*
 ---
 *   Added a Sound Configuration feature allowing customizable notification sounds.
-*   Implemented a Debug Logger with a dedicated UI window for enhanced logging.
+*   Implement a Debug Logger with a dedicated UI window for enhanced logging.
 *   Major overhaul and standardization of path resolution and handling, including support for placeholders `%BASEFOLDER%`, `%SYSTEMFOLDER%` and `%EMULATORFOLDER%`.
 *   Refactored Parameter Validation logic for clarity and robustness, particularly concerning paths.
 *   Improved Error Handling, Logging, and messaging across various components (`GameLauncher`, `Services`, `Managers`), replacing `Debug.WriteLine` with the new `DebugLogger`.
@@ -63,7 +62,7 @@ This release brings significant user-interface improvements, new features for ga
 -   **Displayed Game File Sizes:** Showed file sizes in List View.
 -   **Overhauled UI Layout:** Redesigned the main window and multiple dialogs (Easy Mode, Download Image Pack, Global Search, Favorites, Play History, Edit System).
 -   **Refined Error Handling:** Improved error messages and user prompts throughout the application.
--   **Updated Documentation Links:** Improved Help User section and parameters guide links.
+-   **Updated Documentation Links:** Improved Help User section and parameters' guide links.
 -   **Enhanced Gamepad Logic:** Made controller navigation more reliable.
 -   **Standardized Sound Effects:** Switched to a consistent notification sound across the app.
 -   **Updated Batch Convert To CHD:** Added support for `.7z` and `.rar` files, enabled parallel processing, and improved multithreading.
@@ -275,11 +274,11 @@ This release brings significant user-interface improvements, new features for ga
 *11/03/2024*
 ---
 -   Added a new menu item called **Tools**. In it, you will find tools related to emulation.
--   Added tool to Create Batch Files for PS3 Games.
--   Added tool to Create Batch Files for ScummVM Games.
--   Added tool to Create Batch Files for Windows Games.
--   Added tool to Organize System Images.
--   Implemented code to automatically redirect the user to Simple Launcher Wiki page if the provided parameters for emulator launch fail.
+-   Added a tool to Create Batch Files for PS3 Games.
+-   Added a tool to Create Batch Files for ScummVM Games.
+-   Added a tool to Create Batch Files for Windows Games.
+-   Added a tool to Organize System Images.
+-   Implemented code to automatically redirect the user to the Simple Launcher Wiki page if the provided parameters for emulator launch fail.
 -   Implemented the automatic launch of the UpdateHistory window after an update so the user can see what is new in the release.
 -   Implemented logic to automatically reinstall Simple Launcher if the required files are missing.
 -   Improved the Updater application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.

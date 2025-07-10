@@ -668,13 +668,13 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\SimpleXisoDrive\SimpleXisoDrive.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="tools\SimpleXisoDrive\extract-xiso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
     <None Update="tools\SimpleZipDrive\SimpleZipDrive.exe">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\xbox-iso-vfs\xbox-iso-vfs.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
