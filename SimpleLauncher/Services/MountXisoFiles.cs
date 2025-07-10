@@ -46,11 +46,10 @@ public static class MountXisoFiles
             FileName = resolvedXboxIsoVfsPath,
             Arguments = $"/l \"{resolvedIsoFilePath}\" w",
             UseShellExecute = false,
-            // Make the console window visible and don't redirect output
             RedirectStandardOutput = false,
             RedirectStandardError = false,
             CreateNoWindow = false,
-            WindowStyle = ProcessWindowStyle.Normal, // Ensure the window is visible
+            WindowStyle = ProcessWindowStyle.Normal,
             WorkingDirectory = Path.GetDirectoryName(resolvedXboxIsoVfsPath) ?? AppDomain.CurrentDomain.BaseDirectory
         };
 
@@ -75,10 +74,6 @@ public static class MountXisoFiles
 
             mountProcessId = mountProcess.Id; // Store ID after process started
             DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} process started (ID: {mountProcessId}).");
-
-            // Since we're not redirecting output, we don't need these
-            // mountProcess.BeginOutputReadLine();
-            // mountProcess.BeginErrorReadLine();
 
             // Replace fixed delay with a robust polling mechanism
             const string defaultXbePath = "W:\\default.xbe";
@@ -170,8 +165,7 @@ public static class MountXisoFiles
                 try
                 {
                     mountProcess.Kill(true);
-                    DebugLogger.Log(
-                        $"[MountXisoFile] Kill signal sent to {xboxIsoVfsExe} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
+                    DebugLogger.Log($"[MountXisoFile] Kill signal sent to {xboxIsoVfsExe} (ID: {mountProcessId}). Waiting for process to exit (up to 10s).");
 
                     // Wait for exit with CancellationToken for timeout (10 seconds)
                     using (var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)))
@@ -182,20 +176,17 @@ public static class MountXisoFiles
                         }
                         catch (TaskCanceledException) // Timeout occurred
                         {
-                            DebugLogger.Log(
-                                $"[MountXisoFile] Timeout (10s) waiting for {xboxIsoVfsExe} (ID: {mountProcessId}) to exit after Kill.");
+                            DebugLogger.Log($"[MountXisoFile] Timeout (10s) waiting for {xboxIsoVfsExe} (ID: {mountProcessId}) to exit after Kill.");
                         }
                     }
 
                     if (mountProcess.HasExited)
                     {
-                        DebugLogger.Log(
-                            $"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
                     }
                     else
                     {
-                        DebugLogger.Log(
-                            $"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) did NOT terminate after Kill signal and 10s wait.");
                     }
                 }
                 catch (InvalidOperationException ioEx)
@@ -204,45 +195,37 @@ public static class MountXisoFiles
                         ioEx.Message.Contains("No process is associated", StringComparison.OrdinalIgnoreCase) ||
                         ioEx.Message.Contains("Process has not been started", StringComparison.OrdinalIgnoreCase))
                     {
-                        DebugLogger.Log(
-                            $"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited or was not running when explicit kill/wait in finally was attempted: {ioEx.Message}. Output was not redirected.");
+                        DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited or was not running when explicit kill/wait in finally was attempted: {ioEx.Message}. Output was not redirected.");
                     }
                     else
                     {
-                        DebugLogger.Log(
-                            $"[MountXisoFile] Unexpected InvalidOperationException while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {ioEx}");
+                        DebugLogger.Log($"[MountXisoFile] Unexpected InvalidOperationException while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {ioEx}");
 
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ioEx,
-                            $"Unexpected InvalidOperationException during {xboxIsoVfsExe} termination.");
+                        _ = LogErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {xboxIsoVfsExe} termination.");
                     }
                 }
                 catch (Exception termEx)
                 {
-                    DebugLogger.Log(
-                        $"[MountXisoFile] Exception while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {termEx}");
+                    DebugLogger.Log($"[MountXisoFile] Exception while terminating {xboxIsoVfsExe} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(termEx,
-                        $"Failed to terminate {xboxIsoVfsExe} (ID: {mountProcessId}) for unmounting.");
+                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {xboxIsoVfsExe} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else
             {
-                DebugLogger.Log(
-                    $"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited before finally block's kill check. Exit code likely {(mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}. Output was not redirected.");
+                DebugLogger.Log($"[MountXisoFile] {xboxIsoVfsExe} (ID: {mountProcessId}) had already exited before finally block's kill check. Exit code likely {(mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}. Output was not redirected.");
             }
 
             await Task.Delay(1000);
             if (Directory.Exists("W:\\"))
             {
-                DebugLogger.Log(
-                    "[MountXisoFile] WARNING: W: drive still exists after attempting to unmount. Manual unmount might be needed or xbox-iso-vfs.exe did not unmount on Kill().");
+                DebugLogger.Log("[MountXisoFile] WARNING: W: drive still exists after attempting to unmount. Manual unmount might be needed or xbox-iso-vfs.exe did not unmount on Kill().");
             }
             else
             {
-                DebugLogger.Log(
-                    "[MountXisoFile] W: drive successfully unmounted (or was not detected after unmount attempt).");
+                DebugLogger.Log("[MountXisoFile] W: drive successfully unmounted (or was not detected after unmount attempt).");
             }
         }
     }
@@ -271,23 +254,20 @@ public static class MountXisoFiles
             // Check if the target file exists (mount successful)
             if (File.Exists(defaultXbePath))
             {
-                DebugLogger.Log(
-                    $"[MountXisoFile] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
+                DebugLogger.Log($"[MountXisoFile] Found '{defaultXbePath}' after {retryCount * pollIntervalMs / 1000.0:F1} seconds. Mount successful!");
                 return true;
             }
 
             // Check if the drive exists even if default.xbe doesn't
             if (Directory.Exists("W:\\"))
             {
-                DebugLogger.Log(
-                    $"[MountXisoFile] W: drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
+                DebugLogger.Log($"[MountXisoFile] W: drive exists after {retryCount * pollIntervalMs / 1000.0:F1} seconds, but '{defaultXbePath}' not found. Continuing to poll...");
             }
 
             // Check if the mount process exited prematurely
             if (mountProcess.HasExited)
             {
-                DebugLogger.Log(
-                    $"[MountXisoFile] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                DebugLogger.Log($"[MountXisoFile] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
                 return false;
             }
 
@@ -295,8 +275,7 @@ public static class MountXisoFiles
             await Task.Delay(pollIntervalMs);
         }
 
-        DebugLogger.Log(
-            $"[MountXisoFile] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
+        DebugLogger.Log($"[MountXisoFile] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
         return false;
     }
 }
