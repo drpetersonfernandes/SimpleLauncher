@@ -2340,9 +2340,6 @@ You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' will mount the ISO file into a virtual drive, then load the game using the emulator.
-
 ## Sony PlayStation 4
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>

@@ -2769,10 +2769,7 @@ You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' will mount the ISO file into a virtual drive, then load the game using the emulator.
+**Fullscreen Parameter:** 
 ]]>
         </SystemHelper>
     </System>
