@@ -74,6 +74,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "FindRomCover", "MahApps.Metro.dll"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "Microsoft.Xaml.Behaviors.dll"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "Newtonsoft.Json.dll"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "appsettings.json"),
 
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.deps.json"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.dll"),
