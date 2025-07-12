@@ -212,6 +212,9 @@ public class GameButtonFactory(
             Padding = new Thickness(0, 5, 0, 0)
         };
 
+        // Apply the 3D style from MainWindow's resources
+        _button.SetResourceReference(FrameworkElement.StyleProperty, "GameButtonStyle");
+
         // Create a unique key for the favorite status
         var key = $"{selectedSystemName}|{fileNameWithExtension}";
 

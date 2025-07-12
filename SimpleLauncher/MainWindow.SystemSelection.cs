@@ -96,6 +96,10 @@ public partial class MainWindow
                 Margin = new Thickness(5),
                 Padding = new Thickness(5)
             };
+
+            // Apply the 3D style from MainWindow's resources
+            systemButton.SetResourceReference(FrameworkElement.StyleProperty, "GameButtonStyle");
+
             systemButton.Click += SystemButton_Click;
             GameFileGrid.Children.Add(systemButton);
         }

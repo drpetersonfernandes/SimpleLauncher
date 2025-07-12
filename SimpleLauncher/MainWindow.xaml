@@ -50,13 +50,13 @@
         <!-- Reusable ControlTemplate for Image Buttons with 3D Effect -->
         <ControlTemplate x:Key="ImageButton3DEffectTemplate" TargetType="Button">
             <Border x:Name="ButtonBorder"
-                    Background="White"
-                    BorderBrush="#FFAAAAAA"
+                    Background="{DynamicResource MahApps.Brushes.Gray10}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                     BorderThickness="1"
                     CornerRadius="4"
                     Padding="8">
                 <Border.Effect>
-                    <DropShadowEffect Color="Gray"
+                    <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}"
                                       Direction="315"
                                       ShadowDepth="3"
                                       Opacity="0.5"
@@ -69,9 +69,11 @@
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
-                    <Setter TargetName="ButtonBorder" Property="Background" Value="#FFE0F0FF" />
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent3}" />
                     <!-- Use MahApps Accent Brush for BorderBrush on hover -->
-                    <Setter TargetName="ButtonBorder" Property="BorderBrush" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
                     <Setter TargetName="ButtonBorder" Property="Effect">
                         <Setter.Value>
                             <!-- Use MahApps Accent Color for DropShadowEffect on hover -->
@@ -84,10 +86,13 @@
                     </Setter>
                 </Trigger>
                 <Trigger Property="IsPressed" Value="True">
-                    <Setter TargetName="ButtonBorder" Property="Background" Value="#FFD0E0F0" />
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                    <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
                     <Setter TargetName="ButtonBorder" Property="Effect">
                         <Setter.Value>
-                            <DropShadowEffect Color="Gray"
+                            <DropShadowEffect Color="Black"
                                               Direction="315"
                                               ShadowDepth="1"
                                               Opacity="0.8"
@@ -115,6 +120,62 @@
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Margin" Value="0,5,2,5" /> <!-- Default margin -->
+        </Style>
+
+        <!-- Reusable ControlTemplate for Game Buttons with 3D Effect -->
+        <ControlTemplate x:Key="GameButton3DTemplate" TargetType="Button">
+            <Border x:Name="ButtonBorder"
+                    Background="{DynamicResource MahApps.Brushes.Gray9}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                    BorderThickness="1"
+                    CornerRadius="5">
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
+                                      Opacity="0.4" BlurRadius="5" />
+                </Border.Effect>
+                <ContentPresenter x:Name="ButtonContentPresenter"
+                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                  Margin="{TemplateBinding Padding}" />
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                    <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                              ShadowDepth="5" Opacity="0.6" BlurRadius="8" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" Direction="315" ShadowDepth="1" Opacity="0.7"
+                                              BlurRadius="2" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="1" Y="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Style for Game Buttons -->
+        <Style x:Key="GameButtonStyle" TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource GameButton3DTemplate}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="0,5,0,0" />
         </Style>
 
     </Window.Resources>
@@ -816,7 +877,7 @@
                               VerticalAlignment="Stretch"
                               ShowsPreview="True"
                               ResizeBehavior="PreviousAndNext"
-                              Cursor="SizeWE"/>
+                              Cursor="SizeWE" />
 
                 <Grid Grid.Column="2" Margin="5,0,10,0">
                     <Grid.RowDefinitions>
@@ -847,7 +908,7 @@
                 <ColumnDefinition Width="*" />
                 <ColumnDefinition Width="Auto" />
             </Grid.ColumnDefinitions>
-            
+
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
                         Margin="5,0,0,0"
                         Orientation="Horizontal">
@@ -864,10 +925,11 @@
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
                         ToolTip="{DynamicResource PreviousPage}"
+                        Style="{StaticResource NavImageButton3DStyle}"
                         Click="PrevPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
                            Height="22"
-                           Width="22"/>
+                           Width="22" />
                 </Button>
                 <Button x:Name="NextPageButton"
                         Height="40"
@@ -876,10 +938,11 @@
                         VerticalAlignment="Center"
                         VerticalContentAlignment="Center"
                         ToolTip="{DynamicResource NextPage}"
+                        Style="{StaticResource NavImageButton3DStyle}"
                         Click="NextPageButton_Click">
                     <Image Source="pack://application:,,,/images/arrowright.png"
                            Height="22"
-                           Width="22"/>
+                           Width="22" />
                 </Button>
                 <Label
                     x:Name="TotalFilesLabel"
