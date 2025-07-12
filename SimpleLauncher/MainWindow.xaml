@@ -128,7 +128,11 @@
                     Background="{DynamicResource MahApps.Brushes.Gray9}"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                     BorderThickness="1"
-                    CornerRadius="5">
+                    CornerRadius="5"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+                </Border.RenderTransform>
                 <Border.Effect>
                     <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
                                       Opacity="0.4" BlurRadius="5" />
@@ -148,6 +152,11 @@
                         <Setter.Value>
                             <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
                                               ShadowDepth="5" Opacity="0.6" BlurRadius="8" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.02" ScaleY="1.02" />
                         </Setter.Value>
                     </Setter>
                 </Trigger>
@@ -170,6 +179,7 @@
         </ControlTemplate>
 
         <!-- Style for Game Buttons -->
+        <!-- ReSharper disable once Xaml.RedundantResource -->
         <Style x:Key="GameButtonStyle" TargetType="Button">
             <Setter Property="Template" Value="{StaticResource GameButton3DTemplate}" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
@@ -919,11 +929,7 @@
                         VerticalAlignment="Center"
                         Margin="0">
                 <Button x:Name="PrevPageButton"
-                        Height="40"
-                        Width="40"
                         Margin="0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
                         ToolTip="{DynamicResource PreviousPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
                         Click="PrevPageButton_Click">
@@ -932,11 +938,7 @@
                            Width="22" />
                 </Button>
                 <Button x:Name="NextPageButton"
-                        Height="40"
-                        Width="40"
                         Margin="10,0,0,0"
-                        VerticalAlignment="Center"
-                        VerticalContentAlignment="Center"
                         ToolTip="{DynamicResource NextPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
                         Click="NextPageButton_Click">

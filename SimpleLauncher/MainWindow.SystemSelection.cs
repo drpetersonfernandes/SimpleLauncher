@@ -98,7 +98,7 @@ public partial class MainWindow
             };
 
             // Apply the 3D style from MainWindow's resources
-            systemButton.SetResourceReference(FrameworkElement.StyleProperty, "GameButtonStyle");
+            systemButton.SetResourceReference(StyleProperty, "GameButtonStyle");
 
             systemButton.Click += SystemButton_Click;
             GameFileGrid.Children.Add(systemButton);
