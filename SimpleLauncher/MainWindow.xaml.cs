@@ -669,6 +669,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _topLetterNumberMenu.DeselectLetter();
     }
 
+    public void SetGameButtonsEnabled(bool isEnabled)
+    {
+        if (_gameFileGrid == null) return;
+
+        foreach (var child in _gameFileGrid.Children)
+        {
+            if (child is Button button)
+            {
+                button.IsEnabled = isEnabled;
+            }
+        }
+    }
+
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
         Dispatcher.Invoke(() => SetUiLoadingState(true));

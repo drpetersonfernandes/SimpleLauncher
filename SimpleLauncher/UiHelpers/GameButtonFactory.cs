@@ -235,7 +235,7 @@ public class GameButtonFactory(
             // Prevent multiple clicks while launching
             if (!clickedButton.IsEnabled) return;
 
-            clickedButton.IsEnabled = false; // Disable the button
+            _mainWindow.SetGameButtonsEnabled(false); // Disable all game buttons
 
             var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
             if (string.IsNullOrEmpty(selectedEmulatorName))
@@ -245,6 +245,9 @@ public class GameButtonFactory(
 
                 // Notify user
                 MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+
+                _mainWindow.SetGameButtonsEnabled(true); // Re-enable buttons on error
+                return;
             }
 
             try
@@ -254,8 +257,7 @@ public class GameButtonFactory(
             }
             finally
             {
-                // Re-enable the button after the game process exits
-                clickedButton.IsEnabled = true;
+                _mainWindow.SetGameButtonsEnabled(true); // Re-enable all game buttons
             }
         };
 
