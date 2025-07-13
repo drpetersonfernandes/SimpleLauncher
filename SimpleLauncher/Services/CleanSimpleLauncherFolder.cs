@@ -81,7 +81,12 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.pdb"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.runtimeconfig.json"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "Microsoft.Extensions.DependencyInjection.Abstractions.dll"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "Microsoft.Extensions.DependencyInjection.dll")
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "Microsoft.Extensions.DependencyInjection.dll"),
+
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.deps.json"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.dll"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.pdb"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.runtimeconfig.json")
     ];
 
     public static void CleanupTrash()
