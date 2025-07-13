@@ -280,19 +280,7 @@
     <None Update="helpuser.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.pdb">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.deps.json">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames.runtimeconfig.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertTo7z\7z.dll">
