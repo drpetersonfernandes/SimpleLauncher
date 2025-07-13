@@ -460,24 +460,39 @@ public static class MountZipFiles
             DebugLogger.Log($"[FindNestedFile] Searching for directory '{targetFolderName}' in {directoryPath}...");
             var targetDirs = Directory.GetDirectories(directoryPath, targetFolderName, SearchOption.AllDirectories);
 
-            if (targetDirs.Length == 0)
+            if (targetDirs.Length > 0)
             {
-                DebugLogger.Log($"[FindNestedFile] Directory '{targetFolderName}' not found in {directoryPath}.");
-                return null;
+                var nestedDirPath = targetDirs[0];
+                DebugLogger.Log($"[FindNestedFile] Found directory at: {nestedDirPath}. Searching for first file inside...");
+
+                var filesInNestedDir = Directory.GetFiles(nestedDirPath, "*", SearchOption.TopDirectoryOnly);
+                if (filesInNestedDir.Length > 0)
+                {
+                    var fileToLaunch = filesInNestedDir[0];
+                    DebugLogger.Log($"[FindNestedFile] Found file to launch in nested directory: {fileToLaunch}");
+                    return fileToLaunch;
+                }
+
+                DebugLogger.Log(
+                    $"[FindNestedFile] Directory '{nestedDirPath}' was found but is empty. Checking root folder...");
+            }
+            else
+            {
+                DebugLogger.Log(
+                    $"[FindNestedFile] Directory '{targetFolderName}' not found in {directoryPath}. Checking root folder...");
             }
 
-            var nestedDirPath = targetDirs[0];
-            DebugLogger.Log($"[FindNestedFile] Found directory at: {nestedDirPath}. Searching for first file inside...");
-
-            var filesInNestedDir = Directory.GetFiles(nestedDirPath, "*", SearchOption.TopDirectoryOnly);
-            if (filesInNestedDir.Length > 0)
+            // Check root folder if nested folder doesn't exist or is empty
+            var filesInRootDir = Directory.GetFiles(directoryPath, "*", SearchOption.TopDirectoryOnly);
+            if (filesInRootDir.Length > 0)
             {
-                var fileToLaunch = filesInNestedDir[0];
-                DebugLogger.Log($"[FindNestedFile] Found file to launch: {fileToLaunch}");
+                var fileToLaunch = filesInRootDir[0];
+                DebugLogger.Log($"[FindNestedFile] Found file to launch in root directory: {fileToLaunch}");
                 return fileToLaunch;
             }
 
-            DebugLogger.Log($"[FindNestedFile] Directory '{nestedDirPath}' was found but is empty.");
+            DebugLogger.Log(
+                $"[FindNestedFile] No files found in nested directory '{targetFolderName}' or root directory '{directoryPath}'.");
             return null;
         }
         catch (Exception ex)
