@@ -4838,11 +4838,14 @@ public static class MessageBoxLibrary
         void ShowMessage()
         {
             var simpleLaunchercouldnotmount = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotmount") ?? "'Simple Launcher' could not mount the selected game.";
+            var thismaybeduetoDokannotbeinginstalled = (string)Application.Current.TryFindResource("ThismaybeduetoDokannotbeinginstalled") ?? "This may be due to Dokan not being installed. Dokan is required for mounting ZIP and disk image files.";
+            var youcandownloadDokanfrom = (string)Application.Current.TryFindResource("YoucandownloadDokanfrom") ?? "You can download Dokan from: https://github.com/dokan-dev/dokany";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show(
-                $"{simpleLaunchercouldnotmount}\n\n" +
-                $"{doyouwanttoopenthefile}",
+            var result = MessageBox.Show($"{simpleLaunchercouldnotmount}\n\n" +
+                                         $"{thismaybeduetoDokannotbeinginstalled}\n\n" +
+                                         $"{youcandownloadDokanfrom}\n\n" +
+                                         $"{doyouwanttoopenthefile}",
                 error, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result != MessageBoxResult.Yes) return;
 
@@ -4857,8 +4860,7 @@ public static class MessageBoxLibrary
             catch (Exception)
             {
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
