@@ -48,7 +48,7 @@ public abstract class GetListOfFiles
                     {
                         // Construct the search pattern by prepending "*.
                         var searchPattern = $"*.{ext}";
-                        foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.TopDirectoryOnly)); // Added SearchOption.TopDirectoryOnly for consistency
+                        foundFiles.AddRange(Directory.EnumerateFiles(directoryPath, searchPattern, SearchOption.AllDirectories));
                     }
                     catch (DirectoryNotFoundException dirEx)
                     {
