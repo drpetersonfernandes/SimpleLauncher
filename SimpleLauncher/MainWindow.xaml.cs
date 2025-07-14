@@ -591,11 +591,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 int gameCount;
                 if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
                 {
-                    if (!string.IsNullOrEmpty(selectedConfig.SystemFolder))
-                    {
-                        // Notify developer
-                        _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
-                    }
+                    // if (!string.IsNullOrEmpty(selectedConfig.SystemFolder))
+                    // {
+                    //     // Notify developer
+                    //     _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
+                    // }
 
                     gameCount = 0; // Set the count to 0 if the folder is invalid
                 }

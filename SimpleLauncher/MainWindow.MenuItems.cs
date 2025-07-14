@@ -124,6 +124,7 @@ public partial class MainWindow
                 _selectedSystem = null;
                 PreviewImage.Source = null;
                 SystemComboBox.SelectedItem = null;
+                EmulatorComboBox.SelectedItem = null;
 
                 var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;

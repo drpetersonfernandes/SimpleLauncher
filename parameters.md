@@ -483,7 +483,7 @@ You need to create BAT files to launch the games.
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** bin<br>
 
 **Emulator Name:** Retroarch o2em<br>
@@ -513,6 +513,10 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
 **Fullscreen Parameter:** -window<br>
+
+'Simple Launcher' has a special logic to launch Mattel Aquarius games; that is required by MAME.<br>
+For the logic to work, you need to add the word 'Aquarius' into the System Name.<br>
+The logic will only send the filename of the file (without the filepath and without the file extension) to the launching call.<br>
 
 ## Mattel Intellivision
 
@@ -722,10 +726,11 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-For this emulator to work in 'Simple Launcher' you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
+For this emulator to work in 'Simple Launcher', you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
 'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
+For the logic to work; the 'Emulator Name' needs to have the word 'Cxbx' in it.<br>
 
-The ISO file needs to be formated in XISO format, as the original XBOX discs.
+The ISO file needs to be formated in XISO format, as the original XBOX discs.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
 
 ## Microsoft Xbox 360
@@ -791,8 +796,9 @@ This tool will generate BAT files for you.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside '000D0000' folder.<br>
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game inside a nested '000D0000' folder.<br>
+For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live arcade' into the 'System Name'.
 
 ## NEC PC Engine / TurboGrafx 16
 
@@ -1625,8 +1631,9 @@ Use the tool available in the 'Simple Launcher' tools menu to generate BAT files
 **Emulator Parameters:** --auto-detect --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using the program.<br>
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
+For the logic to work you need to add the word 'ScummVM' or 'Scumm-VM' or 'Scumm' into the 'System Name'
 
 Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
 
@@ -1702,6 +1709,18 @@ The list of commands available for this emulator can be found on [MasterGear Web
 **Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+**Emulator Name:** Emulicious<br>
+**Emulator Path (Example):** c:\emulators\Emulicious\Emulicious.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Game Gear"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sega Genesis
 
@@ -2324,8 +2343,9 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
-'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using the emulator.<br>
+You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to mount files on Windows.<br>
+'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
+For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'.
 
 **Option 3 — Use decrypted ISO files**
 
@@ -2339,6 +2359,9 @@ You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
+
+'Simple Launcher' will mount the ISO file using native Microsoft Windows capabilities, then load the game using a custom logic.<br>
+For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'.
 
 ## Sony PlayStation 4
 

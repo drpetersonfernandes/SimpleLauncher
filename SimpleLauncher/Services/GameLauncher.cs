@@ -565,7 +565,21 @@ public static class GameLauncher
             resolvedEmulatorFolderPath // The fully resolved emulator directory path
         );
 
-        var arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
+        string arguments;
+
+        // Handling Mattel Aquarius Games
+        if ((selectedSystemManager.SystemName.Contains("aquarius", StringComparison.OrdinalIgnoreCase) || selectedSystemManager.SystemName.Contains("mattel", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename without extension and without the path
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"Mattel Aquarius game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        else // General call - Provide full filepath
+        {
+            arguments = $"{resolvedParameters} \"{resolvedFilePath}\"";
+        }
 
         string workingDirectory;
         try

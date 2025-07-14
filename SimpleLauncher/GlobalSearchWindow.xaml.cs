@@ -127,11 +127,11 @@ public partial class GlobalSearchWindow
             // Check if the resolved path is valid before proceeding
             if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
             {
-                if (!string.IsNullOrEmpty(systemManager.SystemFolder)) // Only log if a path was actually configured
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"GlobalSearch: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemFolder}' -> '{systemFolderPath}'");
-                }
+                // if (!string.IsNullOrEmpty(systemManager.SystemFolder)) // Only log if a path was actually configured
+                // {
+                //     // Notify developer
+                //     _ = LogErrors.LogErrorAsync(null, $"GlobalSearch: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemFolder}' -> '{systemFolderPath}'");
+                // }
 
                 continue;
             }
