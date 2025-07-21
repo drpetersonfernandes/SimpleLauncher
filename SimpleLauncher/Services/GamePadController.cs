@@ -304,13 +304,13 @@ public class GamePadController : IDisposable
                                 CheckAndReconnectControllers(); // Attempt full reconnection
                             }
                         }
-                        catch (Exception ex)
+                        catch (Exception)
                         {
                             // Catch any other exceptions during DirectInput processing
                             // Notify developer
-                            ErrorLogger?.Invoke(ex, $"Unexpected error during DirectInput processing. Attempting reconnection.\n\n" +
-                                                    $"Exception type: {ex.GetType().Name}\n" +
-                                                    $"Exception details: {ex.Message}");
+                            // ErrorLogger?.Invoke(ex, $"Unexpected error during DirectInput processing. Attempting reconnection.\n\n" +
+                            //                         $"Exception type: {ex.GetType().Name}\n" +
+                            //                         $"Exception details: {ex.Message}");
 
                             _directInputController?.Unacquire();
                             _directInputController?.Dispose();

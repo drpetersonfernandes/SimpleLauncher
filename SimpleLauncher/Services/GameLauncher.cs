@@ -158,13 +158,13 @@ public static class GameLauncher
                 switch (fileExtension)
                 {
                     case ".BAT":
-                        await LaunchBatchFile(resolvedFilePath, mainWindow);
+                        await LaunchBatchFile(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                         break;
                     case ".LNK":
-                        await LaunchShortcutFile(resolvedFilePath, mainWindow);
+                        await LaunchShortcutFile(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                         break;
                     case ".EXE":
-                        await LaunchExecutable(resolvedFilePath, mainWindow);
+                        await LaunchExecutable(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                         break;
                     default:
                         await LaunchRegularEmulator(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
@@ -236,7 +236,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchBatchFile(string resolvedFilePath, MainWindow mainWindow)
+    private static async Task LaunchBatchFile(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -308,34 +308,44 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"There was an issue running the batch process. User was not notified.\n" +
-                                     $"Batch file: {psi.FileName}\n" +
-                                     $"Exit code {process.ExitCode}\n" +
-                                     $"Output: {output}\n" +
-                                     $"Error: {error}";
+                var errorDetail = $"There was an issue running the batch process.\n" +
+                                  $"Batch file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}\n" +
+                                  $"Output: {output}\n" +
+                                  $"Error: {error}";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n{userNotified}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Exception running the batch process. User was not notified.\n" +
-                                 $"Batch file: {psi.FileName}\n" +
-                                 $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
-                                 $"Exception: {ex.Message}\n" +
-                                 $"Output: {output}\n" +
-                                 $"Error: {error}";
+            var errorDetail = $"Exception running the batch process.\n" +
+                              $"Batch file: {psi.FileName}\n" +
+                              $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                              $"Exception: {ex.Message}\n" +
+                              $"Output: {output}\n" +
+                              $"Error: {error}";
+            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+            var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            }
         }
     }
 
-    private static async Task LaunchShortcutFile(string resolvedFilePath, MainWindow mainWindow)
+    private static async Task LaunchShortcutFile(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -390,26 +400,39 @@ public static class GameLauncher
                  // Log the exit code, but don't necessarily treat it as a critical error
                  // since it might just be the shell's exit code.
                  // Notify developer
-                 var contextMessage = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
-                                      $"Shortcut file: {psi.FileName}\n" +
-                                      $"Exit code {process.ExitCode}";
+                 var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
+                                   $"Shortcut file: {psi.FileName}\n" +
+                                   $"Exit code {process.ExitCode}";
+                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                 var contextMessage = $"{errorDetail}\n{userNotified}";
                  _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                 {
+                     // Notify user
+                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                 }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Exception launching the shortcut file.\n" +
-                                 $"Shortcut file: {psi.FileName}\n" +
-                                 $"Exception: {ex.Message}";
+            var errorDetail = $"Exception launching the shortcut file.\n" +
+                              $"Shortcut file: {psi.FileName}\n" +
+                              $"Exception: {ex.Message}";
+            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+            var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            }
         }
     }
 
-    private static async Task LaunchExecutable(string resolvedFilePath, MainWindow mainWindow)
+    private static async Task LaunchExecutable(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -457,26 +480,36 @@ public static class GameLauncher
             if (process.ExitCode != 0)
             {
                 // Notify developer
-                var contextMessage = $"Executable process exited with non-zero code.\n" +
-                                     $"Executable file: {psi.FileName}\n" +
-                                     $"Exit code {process.ExitCode}";
+                var errorDetail = $"Executable process exited with non-zero code.\n" +
+                                  $"Executable file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}";
+                var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+                var contextMessage = $"{errorDetail}\n{userNotified}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+                {
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            var contextMessage = $"Exception launching the executable file.\n" +
-                                 $"Executable file: {psi.FileName}\n" +
-                                 $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
-                                 $"Exception: {ex.Message}";
+            var errorDetail = $"Exception launching the executable file.\n" +
+                              $"Executable file: {psi.FileName}\n" +
+                              $"Exit code: {(process.HasExited ? process.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}\n" +
+                              $"Exception: {ex.Message}";
+            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+            var contextMessage = $"{errorDetail}\n{userNotified}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            }
         }
     }
 
@@ -513,10 +546,9 @@ public static class GameLauncher
         // For mounted files, ensure it still exists before proceeding
         if ((isMountedXbe || isMountedZip) && !File.Exists(resolvedFilePath))
         {
+            // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
             DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
-
-            // Notify developer
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user

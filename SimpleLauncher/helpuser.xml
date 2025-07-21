@@ -2480,8 +2480,8 @@ Core may require BIOS files or system files to work properly.
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** tzx, tap, z80, rzx, scl, trd<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
 
 **Emulator Name:** Retroarch fuse<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -2494,7 +2494,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Name:** Speccy<br>
 **Emulator Path (Example):** c:\emulators\Speccy\Speccy.exe<br>
 **Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** 
+**Fullscreen Parameter:**
 ]]>
         </SystemHelper>
     </System>
@@ -2690,6 +2690,14 @@ Emulator may need BIOS or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Retroarch swanstation<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
 Core may require BIOS files or system files to work properly.
 ]]>
         </SystemHelper>
