@@ -667,6 +667,9 @@
     <None Update="tools\xbox-iso-vfs\xbox-iso-vfs.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\RomValidator\RomValidator.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

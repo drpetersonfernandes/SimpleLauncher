@@ -205,4 +205,10 @@ public static class LaunchTools
         var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
         LaunchExternalTool(toolPath);
     }
+
+    public static void RomValidator_Click()
+    {
+        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RomValidator", "RomValidator.exe");
+        LaunchExternalTool(toolPath);
+    }
 }

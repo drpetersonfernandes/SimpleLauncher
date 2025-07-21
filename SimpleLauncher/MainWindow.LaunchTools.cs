@@ -55,4 +55,10 @@ public partial class MainWindow
         ResetUi();
         LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder);
     }
+
+    private void RomValidator_Click(object sender, RoutedEventArgs e)
+    {
+        ResetUi();
+        LaunchTools.RomValidator_Click();
+    }
 }
