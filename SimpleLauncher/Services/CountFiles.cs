@@ -37,7 +37,7 @@ public static class CountFiles
                         try
                         {
                             var searchPattern = $"*.{extension}";
-                            totalCount += Directory.EnumerateFiles(folderPath, searchPattern, SearchOption.AllDirectories).Count();
+                            totalCount += Directory.EnumerateFiles(folderPath, searchPattern, SearchOption.TopDirectoryOnly).Count();
                         }
                         catch (DirectoryNotFoundException)
                         {
