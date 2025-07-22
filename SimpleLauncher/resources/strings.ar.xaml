@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">حدث خطأ أثناء حذف عنصر السجل.</system:String>
     <system:String x:Key="100games">١٠٠ لعبة</system:String>
     <system:String x:Key="100pixels">١٠٠ بكسل</system:String>
     <system:String x:Key="150pixels">١٥٠ بكسل</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">حول</system:String>
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
     <system:String x:Key="ActionTaken">من أجل أمانك، تمت معالجة عملية الاستخراج بشكل صحيح وتم تسجيل المشكلة.</system:String>
+    <system:String x:Key="Add">إضافة</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">مجلدات النظام الإضافية اختيارية</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">قد يمنع هذا بعض الميزات (مثل الإبلاغ التلقائي عن الأخطاء) من العمل بشكل صحيح. هل ترغب في إعادة تثبيت Simple Launcher لإصلاح هذا؟</system:String>
 <system:String x:Key="RelativePathsDetected">تم اكتشاف مسارات نسبية</system:String>
 <system:String x:Key="RelativePathsMessage">تم اكتشاف المسارات النسبية التالية في إعداداتك:</system:String>
+    <system:String x:Key="Remove">إزالة</system:String>
     <system:String x:Key="RemoveAllfromHistory">إزالة الكل من السجل</system:String>
     <system:String x:Key="RemovefromFavorites">إزالة من المفضلة</system:String>
     <system:String x:Key="RemoveFromFavorites">إزالة من المفضلة</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">لم يتمكن 'Simple Launcher' من تحميل الملف 'mame.dat' أو أنه تالف.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن "Simple Launcher" من تحميل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' لم يتمكن من فتح رابط التنزيل.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' لم يتمكن من فتح رابط تحميل حزمة الصور.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' لم يتمكن من التقاط لقطة الشاشة.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">مجلد النظام</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
 <system:String x:Key="SystemFolderExplanation">بالنسبة لحقول مجلد النظام، مجلد صور النظام، ومسار المحاكي، سيتم حفظ المسارات النسبية تلقائيًا باستخدام البادئة %BASEFOLDER% (على سبيل المثال، ".\roms" يصبح "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">مجلد النظام (اختياري)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">مسار مجلد النظام غير صالح أو غير موجود:</system:String>
+    <system:String x:Key="SystemFolderRequired">مجلد النظام مطلوب</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
     <system:String x:Key="SystemImageFolder">مجلد الصور للنظام</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'مجلد صور النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">تمت إزالة الملف من القائمة.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">ملف 'helpuser.xml' مفقود.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">لم يتم العثور على الملف 'mame.dat' في مجلد التطبيق.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">مسار الملف غير صالح أو الملف غير موجود!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">الملف 'system.xml' تالف بشدة.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">الملفات المطلوبة التالية مفقودة:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ملف اللعبة غير موجود!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">حدث خطأ أثناء إضافة هذا النظام.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">حدث خطأ أثناء التحقق من التحديثات.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">حدث خطأ أثناء حذف الملف.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">حدث خطأ أثناء حذف عنصر السجل.</system:String>
     <system:String x:Key="Therewasanerrorfinding">حدث خطأ أثناء العثور على ملفات اللعبة.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">حدث خطأ أثناء تثبيت أو تحديث التطبيق.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">حدث خطأ في مفتاح API الخاص بهذا النموذج.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">إصدار التحديث هو</system:String>
     <system:String x:Key="Thisactionwilldelete">سيقوم هذا الإجراء بحذف الملف من القرص الصلب ولا يمكن التراجع عنه.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">قد تكون هذه الصورة تالفة.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">قد يكون هذا بسبب عدم تثبيت Dokan. Dokan مطلوب لتحميل ملفات ZIP وصور الأقراص.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">يبحث محرك البحث هذا عن أسماء الملفات وأوصاف الآلات داخل كل نظام تم تكوينه في واجهة المحاكي.</system:String>
     <system:String x:Key="TitleSnapshot">لقطة العنوان</system:String>
     <system:String x:Key="TitleSnapshotnotfound">لقطة العنوان غير موجودة</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">يمكنك أيضًا تعطيل برنامج مكافحة الفيروسات مؤقتًا أو إضافة مجلد "Simple Launcher" إلى قائمة الاستثناءات في برنامج مكافحة الفيروسات.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">يمكنك تحديد منطقة ميتة مخصصة لوحدة التحكم</system:String>
     <system:String x:Key="YoucandefinecustomURL">يمكنك تحديد رابط مخصص لاستخدامه في زر رابط الفيديو وزر رابط المعلومات.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">يمكنك تنزيل Dokan من: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">يمكنك إيقاف رسالة الخطأ هذه في وضع الخبير.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">يمكنك استخدام العوامل المنطقية AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">يمكنك وضع صور الغلاف لهذا النظام داخل هذا المجلد.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">مسار الملف غير صالح أو الملف غير موجود!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">لم يتمكن "Simple Launcher" من تحميل اللعبة المحددة.</system:String>
 </ResourceDictionary>

@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Si è verificato un errore durante l'eliminazione della voce di cronologia.</system:String>
     <system:String x:Key="100games">100 giochi</system:String>
     <system:String x:Key="100pixels">100 pixel</system:String>
     <system:String x:Key="150pixels">150 pixel</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">Informazioni</system:String>
     <system:String x:Key="AccentColors">Colori accento</system:String>
     <system:String x:Key="ActionTaken">Per la tua sicurezza, il processo di estrazione è stato gestito correttamente e il problema è stato registrato.</system:String>
+    <system:String x:Key="Add">Aggiungi</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Aggiunta del sistema alla configurazione...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Cartelle di Sistema Aggiuntive Opzionali</system:String>
     <system:String x:Key="AddNewSystem">Aggiungi un nuovo sistema</system:String>
     <system:String x:Key="AddSystem">Aggiungi sistema</system:String>
     <system:String x:Key="AddToFavorites">Aggiungi ai preferiti</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Ciò potrebbe impedire ad alcune funzionalità (come la segnalazione automatica dei bug) di funzionare correttamente. Vuoi reinstallare Simple Launcher per risolvere questo problema?</system:String>
 <system:String x:Key="RelativePathsDetected">Percorsi relativi rilevati</system:String>
 <system:String x:Key="RelativePathsMessage">I seguenti percorsi relativi sono stati rilevati nella tua configurazione:</system:String>
+    <system:String x:Key="Remove">Rimuovi</system:String>
     <system:String x:Key="RemoveAllfromHistory">Rimuovi tutto dalla cronologia</system:String>
     <system:String x:Key="RemovefromFavorites">Rimuovi dai preferiti</system:String>
     <system:String x:Key="RemoveFromFavorites">Rimuovi dai preferiti</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' non è riuscito a lanciare questo gioco.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' non è riuscito a caricare 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' non è riuscito a caricare il file 'mame.dat' o il file è danneggiato.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" non è riuscito a montare il gioco selezionato.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' non è riuscito ad aprire il link di download.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' non è riuscito ad aprire il collegamento per il download del pacchetto di immagini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' non è riuscito a fare lo screenshot.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Cartella del Sistema</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">La 'Cartella di sistema' non può essere vuota o contenere solo spazi.</system:String>
 <system:String x:Key="SystemFolderExplanation">Per i campi Cartella di sistema, Cartella immagine di sistema e Percorso emulatore, i percorsi relativi verranno salvati automaticamente utilizzando il prefisso %BASEFOLDER% (ad esempio, ".\roms" diventa "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">Cartella del sistema (opzionale)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Il percorso della cartella di sistema non è valido o non esiste:</system:String>
+    <system:String x:Key="SystemFolderRequired">Cartella di Sistema Richiesta</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Il sistema è stato aggiunto con successo!</system:String>
     <system:String x:Key="SystemImageFolder">Cartella Immagini del Sistema</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">La 'Cartella immagini del sistema' non può essere vuota o contenere solo spazi.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Il file è stato rimosso dall'elenco.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Il file 'helpuser.xml' è mancante.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Il file 'mame.dat' non è stato trovato nella cartella dell'applicazione.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Il percorso del file non è valido o il file non esiste!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Il file 'system.xml' è gravemente corrotto.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">I seguenti file richiesti sono mancanti:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Il file del gioco non esiste!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Si è verificato un errore nell'aggiunta di questo sistema.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Si è verificato un errore durante il controllo degli aggiornamenti.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Si è verificato un errore durante l'eliminazione del file.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Si è verificato un errore durante l'eliminazione della voce di cronologia.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Si è verificato un errore nella ricerca dei file del gioco.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Si è verificato un errore durante l'installazione o l'aggiornamento dell'applicazione.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">C'è stato un errore nella chiave API per questo modulo.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">La versione di aggiornamento è</system:String>
     <system:String x:Key="Thisactionwilldelete">Questa azione eliminerà il file dall'hard disk e non potrà essere annullata.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Quest'immagine potrebbe essere corrotta.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Questo potrebbe essere dovuto al fatto che Dokan non è installato. Dokan è necessario per montare file ZIP e immagini disco.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Questo motore di ricerca cerca nomi di file e descrizioni delle macchine all'interno di ogni sistema configurato nell'interfaccia dell'emulatore.</system:String>
     <system:String x:Key="TitleSnapshot">Istantanea del titolo</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Istantanea del titolo non trovata</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Puoi anche disattivare temporaneamente il tuo software antivirus o aggiungere la cartella 'Simple Launcher' all'elenco delle esclusioni dell'antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">È possibile definire una zona morta gamepad personalizzata</system:String>
     <system:String x:Key="YoucandefinecustomURL">Puoi definire un URL personalizzato da utilizzare nel pulsante del collegamento video e nel pulsante del collegamento informazioni.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Puoi scaricare Dokan da: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Puoi disattivare questo messaggio di errore in modalità Esperto.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Puoi utilizzare gli operatori logici AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Puoi posizionare le immagini di copertina per questo sistema all'interno di questa cartella.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">Nel file di archivio è stata rilevata una vulnerabilità di sicurezza chiamata 'Zip Slip'. Si tratta di una vulnerabilità di attraversamento del percorso che potrebbe consentire a un attaccante di scrivere file al di fuori della directory di estrazione prevista.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Il percorso del file non è valido o il file non esiste!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" non è riuscito a montare il gioco selezionato.</system:String>
 </ResourceDictionary>

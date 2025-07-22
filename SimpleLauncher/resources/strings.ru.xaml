@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Произошла ошибка при удалении элемента истории.</system:String>
     <system:String x:Key="100games">100 игр</system:String>
     <system:String x:Key="100pixels">100 пикселей</system:String>
     <system:String x:Key="150pixels">150 пикселей</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
     <system:String x:Key="ActionTaken">Для вашей безопасности процесс извлечения был корректно обработан, и проблема была зарегистрирована.</system:String>
+    <system:String x:Key="Add">Добавить</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Дополнительные Системные Папки Опциональны</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Это может помешать правильной работе некоторых функций (например, автоматической отправки отчетов об ошибках). Хотите переустановить Simple Launcher, чтобы исправить это?</system:String>
 <system:String x:Key="RelativePathsDetected">Обнаружены относительные пути</system:String>
 <system:String x:Key="RelativePathsMessage">В вашей конфигурации обнаружены следующие относительные пути:</system:String>
+    <system:String x:Key="Remove">Удалить</system:String>
     <system:String x:Key="RemoveAllfromHistory">Удалить все из истории</system:String>
     <system:String x:Key="RemovefromFavorites">Удалить из избранного</system:String>
     <system:String x:Key="RemoveFromFavorites">Удалить из избранного</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не удалось запустить эту игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' не удалось загрузить файл 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' не может загрузить файл 'mame.dat' или файл поврежден.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">«Simple Launcher» не смог смонтировать выбранную игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' не смог открыть ссылку для загрузки.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' не удалось открыть ссылку для загрузки пакета изображений.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' не смог сделать скриншот.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Системная папка</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">Папка «Системная папка» не может быть пустой или содержать только пробелы.</system:String>
 <system:String x:Key="SystemFolderExplanation">Для полей Папка системы, Папка образов системы и Путь эмулятора относительные пути будут автоматически сохранены с использованием префикса %BASEFOLDER% (например, ".\roms" станет "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">Папка системы (необязательно)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Путь к папке системы недействителен или не существует:</system:String>
+    <system:String x:Key="SystemFolderRequired">Системная Папка Обязательна</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>
     <system:String x:Key="SystemImageFolder">Папка изображений системы</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">Папка «Изображения системы» не может быть пустой или содержать только пробелы.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Файл был удален из списка.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Файл 'helpuser.xml' отсутствует.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Файл 'mame.dat' не найден в папке приложения.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Путь к файлу недействителен или файл не существует!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Файл 'system.xml' серьезно поврежден.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Отсутствуют следующие необходимые файлы:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Файл игры не существует!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Произошла ошибка при добавлении этой системы.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Произошла ошибка при проверке обновлений.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Произошла ошибка при удалении файла.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Произошла ошибка при удалении элемента истории.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Произошла ошибка поиска игровых файлов.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Произошла ошибка при установке или обновлении приложения.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">В ключе API этой формы обнаружена ошибка.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">Версия обновления:</system:String>
     <system:String x:Key="Thisactionwilldelete">Это действие удалит файл с жёсткого диска и не может быть отменено.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Это изображение может быть повреждено.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Это может быть из-за того, что Dokan не установлен. Dokan необходим для монтирования ZIP и образов дисков.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Этот поисковый механизм ищет имена файлов и описания машин в каждой системе, настроенной в интерфейсе эмулятора.</system:String>
     <system:String x:Key="TitleSnapshot">Скриншот с заголовком</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Скриншот с заголовком не найден</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Вы также можете временно отключить антивирусное ПО или добавить папку 'Simple Launcher' в список исключений антивируса.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Вы можете задать пользовательскую мертвую зону геймпада</system:String>
     <system:String x:Key="YoucandefinecustomURL">Вы можете задать собственный URL для использования в кнопке видеоссылки и кнопке информации.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Вы можете скачать Dokan с: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Вы можете отключить это сообщение об ошибке в режиме Эксперта.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Вы можете использовать логические операторы AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Вы можете поместить обложки для этой системы в эту папку.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Путь к файлу недействителен или файл не существует!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">«Simple Launcher» не смог смонтировать выбранную игру.</system:String>
 </ResourceDictionary>

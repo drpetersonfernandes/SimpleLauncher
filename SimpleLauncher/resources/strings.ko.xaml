@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">기록 항목을 삭제하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="100games">100 게임</system:String>
     <system:String x:Key="100pixels">100 픽셀</system:String>
     <system:String x:Key="150pixels">150 픽셀</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">정보</system:String>
     <system:String x:Key="AccentColors">포인트 색상</system:String>
     <system:String x:Key="ActionTaken">귀하의 보안을 위해 추출 프로세스가 적절히 처리되었으며 문제가 기록되었습니다.</system:String>
+    <system:String x:Key="Add">추가</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">구성에 시스템 추가 중...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">추가 시스템 폴더 선택사항</system:String>
     <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
     <system:String x:Key="AddSystem">시스템 추가</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">이로 인해 일부 기능(예: 자동 버그 보고)이 제대로 작동하지 않을 수 있습니다. 이 문제를 해결하기 위해 Simple Launcher를 다시 설치하시겠습니까?</system:String>
 <system:String x:Key="RelativePathsDetected">상대 경로 감지됨</system:String>
 <system:String x:Key="RelativePathsMessage">구성에서 다음 상대 경로가 감지되었습니다:</system:String>
+    <system:String x:Key="Remove">제거</system:String>
     <system:String x:Key="RemoveAllfromHistory">모두 기록에서 제거</system:String>
     <system:String x:Key="RemovefromFavorites">즐겨찾기에서 제거</system:String>
     <system:String x:Key="RemoveFromFavorites">즐겨찾기에서 제거</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'가 이 게임을 실행하지 못했습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher'에서 'helpuser.xml'을 로드할 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'가 'mame.dat' 파일을 로드할 수 없거나 파일이 손상되었습니다.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher'가 선택한 게임을 마운트할 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher'가 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher'에서 이미지 팩 다운로드 링크를 열 수 없습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher'가 스크린샷을 찍을 수 없습니다.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">시스템 폴더</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘시스템 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
 <system:String x:Key="SystemFolderExplanation">시스템 폴더, 시스템 이미지 폴더 및 에뮬레이터 경로 필드의 경우, 상대 경로는 %BASEFOLDER% 접두사를 사용하여 자동으로 저장됩니다 (예: ".\roms"는 "%BASEFOLDER%\roms"가 됩니다).</system:String>
-    <system:String x:Key="SystemFolderOptional">시스템 폴더 (선택)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">시스템 폴더 경로가 잘못되었거나 존재하지 않습니다:</system:String>
+    <system:String x:Key="SystemFolderRequired">시스템 폴더 필수</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
     <system:String x:Key="SystemImageFolder">시스템 이미지 폴더</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">‘시스템 이미지 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">파일이 목록에서 제거되었습니다.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' 파일이 없습니다.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">애플리케이션 폴더에서 'mame.dat' 파일을 찾을 수 없습니다.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">파일 경로가 유효하지 않거나 파일이 존재하지 않습니다!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' 파일이 심각하게 손상되었습니다.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">다음 필수 파일이 누락되었습니다:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">게임 파일이 존재하지 않습니다!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">이 시스템을 추가하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">업데이트 확인 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">파일을 삭제하는 중에 오류가 발생했습니다.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">기록 항목을 삭제하는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorfinding">게임 파일을 찾는 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">애플리케이션 설치 또는 업데이트 중 오류가 발생했습니다.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">이 폼의 API 키에 오류가 있습니다.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">업데이트 버전은 다음과 같습니다:</system:String>
     <system:String x:Key="Thisactionwilldelete">이 작업은 파일을 하드 디스크에서 삭제하며, 복원할 수 없습니다.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">이 이미지는 손상되었을 수 있습니다.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">이는 Dokan이 설치되지 않아서일 수 있습니다. ZIP 및 디스크 이미지 파일을 마운트하려면 Dokan이 필요합니다.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">이 검색 엔진은 에뮬레이터 프론트엔드에 설정된 각 시스템의 파일 이름과 머신 설명을 검색합니다.</system:String>
     <system:String x:Key="TitleSnapshot">타이틀 스냅샷</system:String>
     <system:String x:Key="TitleSnapshotnotfound">타이틀 스냅샷을 찾을 수 없습니다</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">안티바이러스 소프트웨어를 일시적으로 비활성화하거나 'Simple Launcher' 폴더를 안티바이러스 제외 목록에 추가할 수 있습니다.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">사용자 지정 게임패드 데드존을 정의할 수 있습니다.</system:String>
     <system:String x:Key="YoucandefinecustomURL">비디오 링크 버튼 및 정보 링크 버튼에서 사용할 사용자 지정 URL을 정의할 수 있습니다.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Dokan은 다음에서 다운로드할 수 있습니다: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">전문가 모드에서 이 오류 메시지를 끌 수 있습니다.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">AND / OR 논리 연산자를 사용할 수 있습니다.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">이 시스템의 커버 이미지를 해당 폴더에 넣을 수 있습니다.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">파일 경로가 유효하지 않거나 파일이 존재하지 않습니다!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher'가 선택한 게임을 마운트할 수 없었습니다.</system:String>
 </ResourceDictionary>

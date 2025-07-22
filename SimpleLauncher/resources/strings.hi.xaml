@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">इतिहास आइटम को हटाने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="100games">100 खेल</system:String>
     <system:String x:Key="100pixels">100 पिक्सल</system:String>
     <system:String x:Key="150pixels">150 पिक्सल</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">के बारे में</system:String>
     <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
     <system:String x:Key="ActionTaken">आपकी सुरक्षा के लिए, निष्कर्षण प्रक्रिया को उचित रूप से संभाला गया है और समस्या को लॉग किया गया है।</system:String>
+    <system:String x:Key="Add">जोड़ें</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">अतिरिक्त सिस्टम फोल्डर वैकल्पिक</system:String>
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddToFavorites">पसंदीदा में जोड़ें</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">यह कुछ सुविधाओं (जैसे स्वचालित बग रिपोर्टिंग) को सही ढंग से काम करने से रोक सकता है। क्या आप इसे ठीक करने के लिए Simple Launcher को फिर से स्थापित करना चाहेंगे?</system:String>
 <system:String x:Key="RelativePathsDetected">सापेक्ष पथों का पता चला</system:String>
 <system:String x:Key="RelativePathsMessage">आपकी कॉन्फ़िगरेशन में निम्नलिखित सापेक्ष पथों का पता चला:</system:String>
+    <system:String x:Key="Remove">हटाएं</system:String>
     <system:String x:Key="RemoveAllfromHistory">इतिहास से सभी हटाएं</system:String>
     <system:String x:Key="RemovefromFavorites">पसंदीदा से हटाएं</system:String>
     <system:String x:Key="RemoveFromFavorites">पसंदीदा से हटाएं</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' इस गेम को लॉन्च नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' को लोड नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' फ़ाइल को लोड नहीं कर सका या यह खराब है।</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'सिंपल लॉन्चर' चयनित गेम को माउंट नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' डाउनलोड लिंक खोल नहीं सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' इमेज पैक डाउनलोड लिंक खोलने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' स्क्रीनशॉट नहीं ले सका।</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">सिस्टम फ़ोल्डर</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'सिस्टम फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
 <system:String x:Key="SystemFolderExplanation">सिस्टम फ़ोल्डर, सिस्टम इमेज फ़ोल्डर, और एमुलेटर पथ फ़ील्ड के लिए, सापेक्ष पथ स्वचालित रूप से %BASEFOLDER% उपसर्ग का उपयोग करके सहेजे जाएंगे (उदाहरण के लिए, ".\roms" "%BASEFOLDER%\roms" बन जाता है)।</system:String>
-    <system:String x:Key="SystemFolderOptional">सिस्टम फ़ोल्डर (ऐच्छिक)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">सिस्टम फोल्डर का पथ अमान्य है या मौजूद नहीं है:</system:String>
+    <system:String x:Key="SystemFolderRequired">सिस्टम फोल्डर आवश्यक</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">सिस्टम सफलतापूर्वक जोड़ा गया है!</system:String>
     <system:String x:Key="SystemImageFolder">सिस्टम छवि फ़ोल्डर</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'सिस्टम इमेज फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">फ़ाइल को सूची से हटा दिया गया है।</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' फाइल गायब है।</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">एप्लिकेशन फ़ोल्डर में 'mame.dat' फ़ाइल नहीं मिली।</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">फ़ाइल पथ अमान्य है या फ़ाइल मौजूद नहीं है!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' फाइल गंभीर रूप से भ्रष्ट है।</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">निम्नलिखित आवश्यक फ़ाइलें गायब हैं:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">खेल फ़ाइल मौजूद नहीं है!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">इस सिस्टम को जोड़ने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">अपडेट की जाँच करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">फाइल को हटाने में त्रुटि हुई।</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">इतिहास आइटम को हटाने में एक त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorfinding">गेम फाइलों को खोजने में त्रुटि हुई।</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">ऐप्लिकेशन को इंस्टॉल या अपडेट करते समय त्रुटि हुई।</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">इस फॉर्म के API कुंजी में त्रुटि है।</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">अपडेट संस्करण है</system:String>
     <system:String x:Key="Thisactionwilldelete">यह क्रिया फ़ाइल को आपके हार्ड डिस्क से हटा देगी और इसे वापस नहीं लाया जा सकेगा।</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">यह इमेज क्षतिग्रस्त हो सकती है।</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">यह Dokan इंस्टॉल न होने के कारण हो सकता है। ZIP और डिस्क इमेज फाइलों को माउंट करने के लिए Dokan आवश्यक है।</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">यह सर्च इंजन एम्युलेटर फ्रंटेंड में कॉन्फ़िगर की गई हर प्रणाली के भीतर फ़ाइल नामों और मशीन विवरणों की खोज करता है।</system:String>
     <system:String x:Key="TitleSnapshot">शीर्षक स्नैपशॉट</system:String>
     <system:String x:Key="TitleSnapshotnotfound">शीर्षक स्नैपशॉट नहीं मिला</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">आप अस्थायी रूप से अपना एंटीवायरस सॉफ़्टवेयर निष्क्रिय कर सकते हैं या 'Simple Launcher' फ़ोल्डर को एंटीवायरस बहिष्कार सूची में जोड़ सकते हैं।</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">आप कस्टम गेमपैड डेड ज़ोन परिभाषित कर सकते हैं</system:String>
     <system:String x:Key="YoucandefinecustomURL">आप वीडियो लिंक बटन और जानकारी लिंक बटन में उपयोग करने के लिए एक कस्टम URL परिभाषित कर सकते हैं।</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">आप Dokan डाउनलोड कर सकते हैं: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">आप एक्सपर्ट मोड में इस त्रुटि संदेश को बंद कर सकते हैं।</system:String>
     <system:String x:Key="Youcanuselogicaloperators">आप तार्किक ऑपरेटर AND / OR का उपयोग कर सकते हैं।</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">आप इस फ़ोल्डर के अंदर इस सिस्टम की कवर छवियां रख सकते हैं।</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">फ़ाइल पथ अमान्य है या फ़ाइल मौजूद नहीं है!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'सिंपल लॉन्चर' चयनित गेम को माउंट नहीं कर सका।</system:String>
 </ResourceDictionary>

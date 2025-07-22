@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Terjadi kesalahan saat menghapus item riwayat.</system:String>
     <system:String x:Key="100games">100 permainan</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
     <system:String x:Key="ActionTaken">Untuk keamanan Anda, proses ekstraksi telah ditangani dengan benar dan masalah telah dicatat.</system:String>
+    <system:String x:Key="Add">Tambah</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Folder Sistem Tambahan Opsional</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Ini mungkin mencegah beberapa fitur (seperti pelaporan bug otomatis) berfungsi dengan benar. Apakah Anda ingin menginstal ulang Simple Launcher untuk memperbaikinya?</system:String>
 <system:String x:Key="RelativePathsDetected">Jalur Relatif Terdeteksi</system:String>
 <system:String x:Key="RelativePathsMessage">Jalur relatif berikut terdeteksi dalam konfigurasi Anda:</system:String>
+    <system:String x:Key="Remove">Hapus</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hapus semua dari riwayat</system:String>
     <system:String x:Key="RemovefromFavorites">Hapus dari Favorit</system:String>
     <system:String x:Key="RemoveFromFavorites">Hapus dari Favorit</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' tidak dapat memuat 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' tidak dapat memuat file 'mame.dat' atau file tersebut rusak.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' tidak dapat memasang game yang dipilih.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' tidak dapat membuka tautan unduhan.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' tidak dapat membuka tautan unduh untuk paket gambar.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' tidak dapat mengambil tangkapan layar.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Folder Sistem</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">"Folder Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
 <system:String x:Key="SystemFolderExplanation">Untuk bidang Folder Sistem, Folder Gambar Sistem, dan Jalur Emulator, jalur relatif akan secara otomatis disimpan menggunakan awalan %BASEFOLDER% (misalnya, ".\roms" menjadi "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">Folder Sistem (Opsional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Jalur folder sistem tidak valid atau tidak ada:</system:String>
+    <system:String x:Key="SystemFolderRequired">Folder Sistem Diperlukan</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem telah berhasil ditambahkan!</system:String>
     <system:String x:Key="SystemImageFolder">Folder Gambar Sistem</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">"Folder Gambar Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">File telah dihapus dari daftar.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">File 'helpuser.xml' hilang.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">File 'mame.dat' tidak ditemukan di folder aplikasi.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Path file tidak valid atau file tidak ada!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">File 'system.xml' sangat rusak.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">File yang diperlukan berikut hilang:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">File game tidak ada!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Terjadi kesalahan saat menambahkan sistem ini.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Terjadi kesalahan saat memeriksa pembaruan.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Terjadi kesalahan saat menghapus file.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Terjadi kesalahan saat menghapus item riwayat.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Terjadi kesalahan saat mencari file game.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Terjadi kesalahan saat menginstal atau memperbarui aplikasi.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">Terdapat kesilapan dengan kunci API untuk borang ini.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">Versi pembaruan adalah</system:String>
     <system:String x:Key="Thisactionwilldelete">Tindakan ini akan menghapus file dari HDD dan tidak dapat dibatalkan.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Gambar ini mungkin rusak.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Ini mungkin karena Dokan tidak terinstal. Dokan diperlukan untuk mounting file ZIP dan image disk.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Mesin pencari ini mencari nama file dan deskripsi mesin dalam setiap Sistem yang dikonfigurasi di frontend emulator.</system:String>
     <system:String x:Key="TitleSnapshot">Snapshot Judul</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Snapshot Judul tidak ditemukan</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Anda juga dapat menonaktifkan perangkat lunak antivirus Anda sementara atau menambahkan folder 'Simple Launcher' ke daftar pengecualian antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Anda Dapat Menentukan Zona Mati Gamepad Kustom</system:String>
     <system:String x:Key="YoucandefinecustomURL">Anda dapat mendefinisikan URL khusus untuk digunakan pada Tombol Tautan Video dan Tombol Tautan Info.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Anda dapat mengunduh Dokan dari: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Anda dapat mematikan pesan kesalahan ini dalam mode Ahli.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Anda dapat menggunakan operator logika AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Anda dapat menempatkan gambar cover untuk sistem ini di dalam folder tersebut.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Path file tidak valid atau file tidak ada!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' tidak dapat memasang game yang dipilih.</system:String>
 </ResourceDictionary>

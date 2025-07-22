@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">履歴項目の削除中にエラーが発生しました。</system:String>
     <system:String x:Key="100games">100 ゲーム</system:String>
     <system:String x:Key="100pixels">100 ピクセル</system:String>
     <system:String x:Key="150pixels">150 ピクセル</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">情報</system:String>
     <system:String x:Key="AccentColors">アクセントカラー</system:String>
     <system:String x:Key="ActionTaken">セキュリティのために、展開プロセスは適切に処理され、問題は記録されました。</system:String>
+    <system:String x:Key="Add">追加</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">システムを設定に追加しています...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">追加システムフォルダはオプション</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="AddSystem">システムを追加</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">これにより、一部の機能 (自動バグ報告など) が正しく機能しない可能性があります。これを修正するために Simple Launcher を再インストールしますか？</system:String>
 <system:String x:Key="RelativePathsDetected">相対パスを検出</system:String>
 <system:String x:Key="RelativePathsMessage">設定で以下の相対パスが検出されました:</system:String>
+    <system:String x:Key="Remove">削除</system:String>
     <system:String x:Key="RemoveAllfromHistory">履歴からすべて削除</system:String>
     <system:String x:Key="RemovefromFavorites">お気に入りから削除</system:String>
     <system:String x:Key="RemoveFromFavorites">お気に入りから削除</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">「Simple Launcher」はこのゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' は 'helpuser.xml' を読み込めませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher'は'mame.dat'ファイルを読み込めないか、ファイルが破損しています。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」は選択されたゲームをマウントできませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">「Simple Launcher」はダウンロードリンクを開くことができませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' は画像パックのダウンロードリンクを開けませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">「Simple Launcher」はスクリーンショットを撮ることができませんでした。</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">システムフォルダ</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「システムフォルダー」は空白やスペースのみであってはいけません。</system:String>
 <system:String x:Key="SystemFolderExplanation">システムフォルダ、システムイメージフォルダ、エミュレーターパスの各フィールドでは、相対パスは自動的に %BASEFOLDER% プレフィックスを使用して保存されます (例: ".\roms" は "%BASEFOLDER%\roms" になります)。</system:String>
-    <system:String x:Key="SystemFolderOptional">システムフォルダー（任意）</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">システムフォルダパスが無効であるか、存在しません:</system:String>
+    <system:String x:Key="SystemFolderRequired">システムフォルダが必要</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>
     <system:String x:Key="SystemImageFolder">システム画像フォルダ</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">「システム画像フォルダー」は空白やスペースのみであってはいけません。</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">ファイルはリストから削除されました。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' ファイルが存在しません。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">アプリケーションフォルダーで'mame.dat'ファイルが見つかりませんでした。</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">ファイルパスが無効であるか、ファイルが存在しません！</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' ファイルが深刻な破損をしています。</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">以下の必須ファイルが見つかりません:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">ゲームファイルが存在しません！</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">このシステムを追加中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">更新の確認中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">ファイルの削除中にエラーが発生しました。</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">履歴項目の削除中にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorfinding">ゲームファイルを見つける際にエラーが発生しました。</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">アプリケーションのインストールまたはアップデート中にエラーが発生しました。</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">このフォームの API キーにエラーがあります。</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">更新バージョンは</system:String>
     <system:String x:Key="Thisactionwilldelete">この操作により、ハードディスクからファイルが削除され、取り消しはできません。</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">この画像は破損している可能性があります。</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">これはDokanがインストールされていないことが原因かもしれません。ZIPおよびディスクイメージファイルのマウントにはDokanが必要です。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">この検索エンジンは、エミュレーターのフロントエンドで設定された各システムの中のファイル名とマシンの説明を検索します。</system:String>
     <system:String x:Key="TitleSnapshot">タイトルのスクリーンショット</system:String>
     <system:String x:Key="TitleSnapshotnotfound">タイトルのスクリーンショットが見つかりません</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">アンチウイルスソフトを一時的に無効化するか、「Simple Launcher」フォルダーをアンチウイルスの除外リストに追加することもできます。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">カスタムゲームパッドのデッドゾーンを定義できます</system:String>
     <system:String x:Key="YoucandefinecustomURL">ビデオリンクボタンと情報リンクボタンに使用するカスタムURLを定義できます。</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Dokanは以下からダウンロードできます: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">エキスパートモードでこのエラーメッセージをオフにすることができます。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">論理演算子 AND / OR を使用できます。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">このシステムのカバー画像をこのフォルダー内に配置できます。</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">ファイルパスが無効であるか、ファイルが存在しません！</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」は選択されたゲームをマウントできませんでした。</system:String>
 </ResourceDictionary>

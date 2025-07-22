@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">There was an error deleting the history item.</system:String>
     <system:String x:Key="100games">100 games</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
     <system:String x:Key="ActionTaken">For your security, the extraction process has been properly handle and the issue has been logged.</system:String>
+    <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Additional System Folders Optional</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">This might prevent some features (like automatic bug reporting) from working correctly. Would you like to reinstall Simple Launcher to fix this?</system:String>
     <system:String x:Key="RelativePathsDetected">Relative Paths Detected</system:String>
     <system:String x:Key="RelativePathsMessage">The following relative paths were detected in your configuration:</system:String>
+    <system:String x:Key="Remove">Remove</system:String>
     <system:String x:Key="RemoveAllfromHistory">Remove all from history</system:String>
     <system:String x:Key="RemovefromFavorites">Remove from Favorites</system:String>
     <system:String x:Key="RemoveFromFavorites">Remove From Favorites</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' could not load the file 'mame.dat' or it is corrupted.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' could not mount the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' could not open the download link.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' could not open the Image Pack download link.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' could not take the screenshot.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">System Folder</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemFolderExplanation">For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").</system:String>
-    <system:String x:Key="SystemFolderOptional">System Folder (Optional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
+    <system:String x:Key="SystemFolderRequired">System Folder Required</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
     <system:String x:Key="SystemImageFolder">System Image Folder</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'System Image Folder' cannot be empty or contain only spaces.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">The file path is invalid or the file does not exist!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">The following required file(s) are missing:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">There was an error adding this system.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">There was an error checking for updates.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">There was an error deleting the file.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">There was an error deleting the history item.</system:String>
     <system:String x:Key="Therewasanerrorfinding">There was an error finding the game files.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">There was an error installing or updating the application.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">There was an error in the API Key of this form.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">The update version is</system:String>
     <system:String x:Key="Thisactionwilldelete">This action will delete the file from the HDD and cannot be undone.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">This image may be corrupted.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">This may be due to Dokan not being installed. Dokan is required for mounting ZIP and disk image files.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">This search engine searches for filenames and machine descriptions within every System configured in the emulator frontend.</system:String>
     <system:String x:Key="TitleSnapshot">Title Snapshot</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Title Snapshot not found</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">You can define custom Gamepad DeadZone</system:String>
     <system:String x:Key="YoucandefinecustomURL">You can define custom URL to use in the Video Link Button and Info Link Button.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">You can download Dokan from: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">You can turn off this error message in Expert mode.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">You can use logical operators AND / OR.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">You may place the cover images for this system inside this folder.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">The file path is invalid or the file does not exist!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' could not mount the selected game.</system:String>
 </ResourceDictionary>

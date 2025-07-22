@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">刪除歷史記錄項目時發生錯誤。</system:String>
     <system:String x:Key="100games">100 個遊戲</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">關於</system:String>
     <system:String x:Key="AccentColors">強調色</system:String>
     <system:String x:Key="ActionTaken">為了您的安全，解壓過程已被正確處理，問題已被記錄。</system:String>
+    <system:String x:Key="Add">新增</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">正在將系統添加到配置中...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">附加系統資料夾可選</system:String>
     <system:String x:Key="AddNewSystem">新增系統</system:String>
     <system:String x:Key="AddSystem">添加系統</system:String>
     <system:String x:Key="AddToFavorites">新增到收藏</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">這可能會阻止某些功能（例如自動錯誤報告）正常工作。您想重新安裝 Simple Launcher 來解決此問題嗎？</system:String>
 <system:String x:Key="RelativePathsDetected">偵測到相對路徑</system:String>
 <system:String x:Key="RelativePathsMessage">您的配置中偵測到以下相對路徑：</system:String>
+    <system:String x:Key="Remove">移除</system:String>
     <system:String x:Key="RemoveAllfromHistory">從歷史中全部移除</system:String>
     <system:String x:Key="RemovefromFavorites">從收藏中移除</system:String>
     <system:String x:Key="RemoveFromFavorites">從收藏中移除</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'無法啟動此遊戲。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">「Simple Launcher」無法載入檔案「helpuser.xml」。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 無法載入檔案 'mame.dat' 或檔案已損壞。</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」無法掛載所選遊戲。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">“Simple Launcher”無法打開下載連結。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">「Simple Launcher」無法開啟圖片包的下載鏈接。</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">“Simple Launcher”無法截取螢幕截圖。</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">系統資料夾</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">「系統文件夾」不能為空或僅包含空格。</system:String>
 <system:String x:Key="SystemFolderExplanation">對於系統資料夾、系統映像資料夾和模擬器路徑欄位，相對路徑將自動使用 %BASEFOLDER% 前綴儲存（例如，“.\roms” 將變為 “%BASEFOLDER%\roms”）。</system:String>
-    <system:String x:Key="SystemFolderOptional">系統資料夾（可選）</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">系統資料夾路徑無效或不存在：</system:String>
+    <system:String x:Key="SystemFolderRequired">系統資料夾必需</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">系統已成功添加！</system:String>
     <system:String x:Key="SystemImageFolder">系統圖片資料夾</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">「系統圖像文件夾」不能為空或僅包含空格。</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">檔案已從清單中移除。</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">檔案「helpuser.xml」遺失。</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">在應用程式資料夾中找不到 'mame.dat' 檔案。</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">檔案路徑無效或檔案不存在！</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">檔案「system.xml」嚴重損壞。</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">缺少以下必要檔案：</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">遊戲檔案不存在！</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">新增此系統時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">檢查更新時出現錯誤。</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">刪除檔案時發生錯誤。</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">刪除歷史記錄項目時發生錯誤。</system:String>
     <system:String x:Key="Therewasanerrorfinding">尋找遊戲文件時出現錯誤。</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">安裝或更新應用程式時出現錯誤。</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">此表單的 API 金鑰中存在錯誤。</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">更新版本是</system:String>
     <system:String x:Key="Thisactionwilldelete">此操作將從硬碟中刪除此檔案，且無法還原。</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">此圖像可能已損壞。</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">這可能是因為未安裝 Dokan。掛載 ZIP 和磁碟映像檔需要 Dokan。</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">此搜尋引擎會尋找每個系統中配置的機器的檔案名稱和描述。</system:String>
     <system:String x:Key="TitleSnapshot">標題截圖</system:String>
     <system:String x:Key="TitleSnapshotnotfound">找不到標題截圖</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">您也可以暫時停用您的防毒軟體，或將「Simple Launcher」資料夾加入防毒軟體的排除清單。</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">您可以自訂遊戲手把死區</system:String>
     <system:String x:Key="YoucandefinecustomURL">您可以自訂一個 URL，用於視頻連結按鈕和信息連結按鈕。</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">您可以從以下地址下載 Dokan：https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">您可以在專家模式下關閉此錯誤訊息。</system:String>
     <system:String x:Key="Youcanuselogicaloperators">您可以使用邏輯運算符 AND / OR。</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">您可以將此系統的封面圖片放入該資料夾中。</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">檔案路徑無效或檔案不存在！</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">「Simple Launcher」無法掛載所選遊戲。</system:String>
 </ResourceDictionary>

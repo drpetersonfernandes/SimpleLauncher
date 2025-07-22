@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Beim Löschen des Verlaufseintrags ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="100games">100 Spiele</system:String>
     <system:String x:Key="100pixels">100 Pixel</system:String>
     <system:String x:Key="150pixels">150 Pixel</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">Über</system:String>
     <system:String x:Key="AccentColors">Akzentfarben</system:String>
     <system:String x:Key="ActionTaken">Zu Ihrer Sicherheit wurde der Extraktionsprozess ordnungsgemäß durchgeführt und das Problem protokolliert.</system:String>
+    <system:String x:Key="Add">Hinzufügen</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">System wird zur Konfiguration hinzugefügt...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Zusätzliche Systemordner optional</system:String>
     <system:String x:Key="AddNewSystem">Neues System hinzufügen</system:String>
     <system:String x:Key="AddSystem">System hinzufügen</system:String>
     <system:String x:Key="AddToFavorites">Zu den Favoriten hinzufügen</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Dies könnte verhindern, dass einige Funktionen (wie die automatische Fehlerberichterstattung) korrekt funktionieren. Möchten Sie Simple Launcher neu installieren, um dies zu beheben?</system:String>
 <system:String x:Key="RelativePathsDetected">Relative Pfade erkannt</system:String>
 <system:String x:Key="RelativePathsMessage">Die folgenden relativen Pfade wurden in Ihrer Konfiguration erkannt:</system:String>
+    <system:String x:Key="Remove">Entfernen</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles aus Verlauf entfernen</system:String>
     <system:String x:Key="RemovefromFavorites">Aus Favoriten entfernen</system:String>
     <system:String x:Key="RemoveFromFavorites">Aus den Favoriten entfernen</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' konnte dieses Spiel nicht starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' konnte 'helpuser.xml' nicht laden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' konnte die Datei 'mame.dat' nicht laden oder sie ist beschädigt.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" konnte das ausgewählte Spiel nicht mounten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' konnte den Download-Link nicht öffnen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' konnte den Download-Link für das Image-Pack nicht öffnen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' konnte keinen Screenshot machen.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Systemordner</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">"Systemordner" darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
 <system:String x:Key="SystemFolderExplanation">Für die Felder Systemordner, System-Image-Ordner und Emulator-Pfad werden relative Pfade automatisch mit dem Präfix %BASEFOLDER% gespeichert (z. B. wird ".\roms" zu "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">Systemordner (optional)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Der Pfad des Systemordners ist ungültig oder existiert nicht:</system:String>
+    <system:String x:Key="SystemFolderRequired">Systemordner erforderlich</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System wurde erfolgreich hinzugefügt!</system:String>
     <system:String x:Key="SystemImageFolder">System-Bildordner</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">"System-Bildordner" darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Die Datei wurde aus der Liste entfernt.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Die Datei 'helpuser.xml' fehlt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Die Datei 'mame.dat' wurde im Anwendungsordner nicht gefunden.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Der Dateipfad ist ungültig oder die Datei existiert nicht!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Die Datei 'system.xml' ist stark beschädigt.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Die folgenden erforderlichen Datei(en) fehlen:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Die Spieldatei existiert nicht!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Beim Hinzufügen dieses Systems ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Beim Überprüfen auf Updates ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Beim Löschen der Datei ist ein Fehler aufgetreten.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Beim Löschen des Verlaufseintrags ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Es gab einen Fehler beim Auffinden der Spieldateien.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Bei der Installation oder Aktualisierung der Anwendung ist ein Fehler aufgetreten.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">Es ist ein Fehler im API-Schlüssel dieses Formulars aufgetreten.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">Die Update-Version ist</system:String>
     <system:String x:Key="Thisactionwilldelete">Diese Aktion löscht die Datei von der Festplatte und kann nicht rückgängig gemacht werden.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Dieses Bild könnte beschädigt sein.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Dies könnte daran liegen, dass Dokan nicht installiert ist. Dokan wird zum Einbinden von ZIP- und Disc-Image-Dateien benötigt.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Diese Suchmaschine durchsucht Dateinamen und Maschinenbeschreibungen in jedem System, das im Emulator-Frontend konfiguriert ist.</system:String>
     <system:String x:Key="TitleSnapshot">Titel-Schnappschuss</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Titel-Schnappschuss nicht gefunden</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Sie können auch Ihre Antivirus-Software vorübergehend deaktivieren oder den Ordner 'Simple Launcher' zur Ausschlussliste Ihrer Antivirus-Software hinzufügen.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Sie können eine benutzerdefinierte Gamepad-Totzone definieren</system:String>
     <system:String x:Key="YoucandefinecustomURL">Sie können eine benutzerdefinierte URL für die Video-Link-Schaltfläche und die Info-Link-Schaltfläche definieren.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Sie können Dokan herunterladen von: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Sie können diese Fehlermeldung im Expertenmodus ausschalten.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Sie können logische Operatoren UND / ODER verwenden.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Sie können die Cover-Bilder für dieses System in diesem Ordner ablegen.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Der Dateipfad ist ungültig oder die Datei existiert nicht!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">"Simple Launcher" konnte das ausgewählte Spiel nicht mounten.</system:String>
 </ResourceDictionary>

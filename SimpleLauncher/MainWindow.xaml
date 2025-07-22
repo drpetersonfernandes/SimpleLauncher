@@ -875,8 +875,8 @@
                             </DataGridTemplateColumn.CellTemplate>
                         </DataGridTemplateColumn>
                         <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
-                        <DataGridTextColumn Header="Machine Description for MAME files"
-                                            Binding="{Binding MachineDescription}" Width="*" />
+                        <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
+                        <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                         <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
                         <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                         <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />

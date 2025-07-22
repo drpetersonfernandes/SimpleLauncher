@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Er is een fout opgetreden bij het verwijderen van het geschiedenisitem.</system:String>
     <system:String x:Key="100games">100 spellen</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
     <system:String x:Key="ActionTaken">Voor uw veiligheid is het extractieproces correct afgehandeld en is het probleem geregistreerd.</system:String>
+    <system:String x:Key="Add">Toevoegen</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Extra Systeemmappen Optioneel</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Dit kan voorkomen dat sommige functies (zoals automatische bugrapportage) correct werken. Wilt u Simple Launcher opnieuw installeren om dit op te lossen?</system:String>
 <system:String x:Key="RelativePathsDetected">Relatieve paden gedetecteerd</system:String>
 <system:String x:Key="RelativePathsMessage">De volgende relatieve paden zijn gedetecteerd in uw configuratie:</system:String>
+    <system:String x:Key="Remove">Verwijderen</system:String>
     <system:String x:Key="RemoveAllfromHistory">Alles uit geschiedenis verwijderen</system:String>
     <system:String x:Key="RemovefromFavorites">Verwijderen uit favorieten</system:String>
     <system:String x:Key="RemoveFromFavorites">Verwijderen uit favorieten</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' kon 'helpuser.xml' niet laden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' kon het bestand 'mame.dat' niet laden of het bestand is beschadigd.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' kon het geselecteerde spel niet koppelen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' kon de downloadlink niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher' kon de downloadlink voor het afbeeldingspakket niet openen.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' kon geen screenshot maken.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Systeemmap</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
 <system:String x:Key="SystemFolderExplanation">Voor de velden Systeemmap, Systeemafbeeldingsmap en Emulatorpad worden relatieve paden automatisch opgeslagen met het %BASEFOLDER% voorvoegsel (bijv. ".\roms" wordt "%BASEFOLDER%\roms").</system:String>
-    <system:String x:Key="SystemFolderOptional">Systeemmap (optioneel)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Het systeemmap-pad is ongeldig of bestaat niet:</system:String>
+    <system:String x:Key="SystemFolderRequired">Systeemmap Vereist</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>
     <system:String x:Key="SystemImageFolder">Systeemafbeeldingenmap</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">De 'Systeem afbeelding-map' mag niet leeg zijn of alleen spaties bevatten.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Het bestand is uit de lijst verwijderd.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">Het bestand 'helpuser.xml' ontbreekt.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">Het bestand 'mame.dat' werd niet gevonden in de applicatiemap.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Het bestandspad is ongeldig of het bestand bestaat niet!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">Het bestand 'system.xml' is ernstig beschadigd.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">De volgende vereiste bestand(en) ontbreken:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Het spelbestand bestaat niet!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Er is een fout opgetreden bij het toevoegen van dit systeem.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Er is een fout opgetreden bij het controleren op updates.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Er is een fout opgetreden bij het verwijderen van het bestand.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Er is een fout opgetreden bij het verwijderen van het geschiedenisitem.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Er was een fout bij het vinden van de spelbestanden.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Er was een fout bij het installeren of bijwerken van de toepassing.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">Er is een fout opgetreden met de API-sleutel voor dit formulier.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">De updateversie is</system:String>
     <system:String x:Key="Thisactionwilldelete">Deze actie verwijdert het bestand van de harde schijf en kan niet ongedaan worden gemaakt.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Deze afbeelding kan beschadigd zijn.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Dit kan komen doordat Dokan niet is geïnstalleerd. Dokan is vereist voor het koppelen van ZIP- en schijfimagebestanden.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Deze zoekmachine zoekt naar bestandsnamen en beschrijvingen van machines binnen elk systeem dat is geconfigureerd in de emulatorinterface.</system:String>
     <system:String x:Key="TitleSnapshot">Titelmomentopname</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Titelmomentopname niet gevonden</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">U kunt ook tijdelijk uw antivirussoftware uitschakelen of de map 'Simple Launcher' toevoegen aan de uitsluitingslijst van uw antivirus.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">U kunt een aangepaste gamepad-dode zone definiëren</system:String>
     <system:String x:Key="YoucandefinecustomURL">U kunt een aangepaste URL definiëren om te gebruiken in de videokoppelingsknop en de informatiekoppelingsknop.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">U kunt Dokan downloaden van: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">U kunt dit foutbericht uitschakelen in de expertmodus.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Je kunt de logische operatoren AND / OR gebruiken.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">U kunt de omslagafbeeldingen voor dit systeem in deze map plaatsen.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Het bestandspad is ongeldig of het bestand bestaat niet!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' kon het geselecteerde spel niet koppelen.</system:String>
 </ResourceDictionary>

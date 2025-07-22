@@ -36,7 +36,7 @@ public static class DisplaySystemInformation
         systemInfoTextBlock.Inlines.Add(new Run($"{clickontheletterbuttonsabove2}"));
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new LineBreak());
-        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {systemFolder}")); // Display the raw string from config
+        systemInfoTextBlock.Inlines.Add(new Run($"{systemFolder2}: {string.Join("; ", selectedManager.SystemFolders)}")); // Display all folders
         systemInfoTextBlock.Inlines.Add(new LineBreak());
         systemInfoTextBlock.Inlines.Add(new Run($"{systemImageFolder2}: {selectedManager.SystemImageFolder ?? defaultImageFolder2}")); // Display the raw string from config, or default image folder if null/empty
         systemInfoTextBlock.Inlines.Add(new LineBreak());
@@ -102,8 +102,8 @@ public static class DisplaySystemInformation
 
         gameFileGrid.Children.Add(verticalStackPanel);
 
-        // Validate the System (pass the raw systemFolder string, validation uses resolved path internally)
-        ValidateSystemConfiguration(selectedManager.SystemFolder, selectedManager);
+        // Validate the System (pass the raw primary systemFolder string, validation uses resolved path internally)
+        ValidateSystemConfiguration(selectedManager.PrimarySystemFolder, selectedManager);
     }
 
     private static void ValidateSystemConfiguration(string systemFolder, SystemManager selectedManager)

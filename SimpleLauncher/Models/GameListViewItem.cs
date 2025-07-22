@@ -12,6 +12,7 @@ public class GameListViewItem : INotifyPropertyChanged
     private string _playTime = "0m 0s";
 
     public string FilePath { get; init; }
+    public string FolderPath { get; init; }
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
     private bool _isFavorite;
 

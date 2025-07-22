@@ -66,6 +66,7 @@ public class GameListFactory(
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
             FilePath = absoluteFilePath,
+            FolderPath = Path.GetDirectoryName(absoluteFilePath),
             ContextMenu = ContextMenu.AddRightClickReturnContextMenu(absoluteFilePath, fileNameWithExtension, fileNameWithoutExtension, systemName,
                 _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
             IsFavorite = isFavorite,

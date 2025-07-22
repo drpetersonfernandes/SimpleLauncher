@@ -1,7 +1,6 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
-    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Geçmiş öğesi silinirken bir hata oluştu.</system:String>
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -30,7 +29,9 @@
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
     <system:String x:Key="ActionTaken">Güvenliğiniz için, çıkarma işlemi düzgün bir şekilde ele alındı ve sorun kaydedildi.</system:String>
+    <system:String x:Key="Add">Ekle</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Ek Sistem Klasörleri İsteğe Bağlı</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
@@ -393,6 +394,7 @@
     <system:String x:Key="ReinstallSuggestion">Bu, bazı özelliklerin (otomatik hata raporlama gibi) doğru çalışmasını engelleyebilir. Bunu düzeltmek için Simple Launcher'ı yeniden yüklemek ister misiniz?</system:String>
 <system:String x:Key="RelativePathsDetected">Göreceli Yollar Algılandı</system:String>
 <system:String x:Key="RelativePathsMessage">Yapılandırmanızda aşağıdaki göreceli yollar algılandı:</system:String>
+    <system:String x:Key="Remove">Kaldır</system:String>
     <system:String x:Key="RemoveAllfromHistory">Hepsini geçmişten kaldır</system:String>
     <system:String x:Key="RemovefromFavorites">Favorilerden Çıkar</system:String>
     <system:String x:Key="RemoveFromFavorites">Favorilerden Kaldır</system:String>
@@ -455,6 +457,7 @@
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher', 'helpuser.xml' dosyasını yükleyemedi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadthefilemamedat">'Simple Launcher' 'mame.dat' dosyasını yükleyemedi veya dosya bozuk.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' seçilen oyunu bağlayamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopenthedownloadlink">'Simple Launcher' indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotopentheImage">'Simple Launcher', resim paketini indirme bağlantısını açamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnottakethescreenshot">'Simple Launcher' ekran görüntüsü alamadı.</system:String>
@@ -480,8 +483,8 @@
     <system:String x:Key="SystemFolder">Sistem Klasörü</system:String>
     <system:String x:Key="SystemFoldercannotbeempty">‘Sistem Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
 <system:String x:Key="SystemFolderExplanation">Sistem Klasörü, Sistem Görüntü Klasörü ve Emülatör Yolu alanları için, göreceli yollar otomatik olarak %BASEFOLDER% öneki kullanılarak kaydedilecektir (örneğin, ".\roms" "%BASEFOLDER%\roms" olur).</system:String>
-    <system:String x:Key="SystemFolderOptional">Sistem klasörü (isteğe bağlı)</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Sistem klasörü yolu geçersiz veya mevcut değil:</system:String>
+    <system:String x:Key="SystemFolderRequired">Sistem Klasörü Gerekli</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>
     <system:String x:Key="SystemImageFolder">Sistem Görselleri Klasörü</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">‘Sistem Görsel Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
@@ -514,6 +517,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">Dosya listeden kaldırıldı.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">'helpuser.xml' dosyası eksik.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">'mame.dat' dosyası uygulama klasöründe bulunamadı.</system:String>
+    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Dosya yolu geçersiz veya dosya mevcut değil!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">'system.xml' dosyası ciddi şekilde bozuk.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">Aşağıdaki gerekli dosya(lar) eksik:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">Oyun dosyası mevcut değil!</system:String>
@@ -542,6 +546,7 @@
     <system:String x:Key="Therewasanerroradding">Bu sistemi eklerken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">Güncellemeleri kontrol ederken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">Dosya silinirken bir hata oluştu.</system:String>
+    <system:String x:Key="ThereWasAnErrorDeletingTheHistoryItem">Geçmiş öğesi silinirken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorfinding">Oyun dosyaları bulunurken bir hata oluştu.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">Uygulamayı yüklerken veya güncellerken bir hata oluştu.</system:String>
     <system:String x:Key="TherewasanerrorintheAPIKey">Bu formun API anahtarında bir hata oluştu.</system:String>
@@ -572,6 +577,7 @@
     <system:String x:Key="Theupdateversionis">Güncelleme sürümü:</system:String>
     <system:String x:Key="Thisactionwilldelete">Bu işlem dosyayı sabit diskinizden silecek ve geri alınamayacaktır.</system:String>
     <system:String x:Key="Thisimagemaybecorrupted">Bu görüntü bozulmuş olabilir.</system:String>
+    <system:String x:Key="ThismaybeduetoDokannotbeinginstalled">Bu, Dokan'ın kurulu olmamasından kaynaklanıyor olabilir. ZIP ve disk imaj dosyalarını bağlamak için Dokan gereklidir.</system:String>
     <system:String x:Key="Thissearchenginesearchesfor">Bu arama motoru, her sistemdeki dosya adlarını ve makine açıklamalarını emülatör ara yüzünde arar.</system:String>
     <system:String x:Key="TitleSnapshot">Başlık Görüntüsü</system:String>
     <system:String x:Key="TitleSnapshotnotfound">Başlık Görüntüsü Bulunamadı</system:String>
@@ -628,6 +634,7 @@
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">Antivirüs yazılımınızı geçici olarak devre dışı bırakabilir veya 'Simple Launcher' klasörünü antivirüs hariç tutma listesine ekleyebilirsiniz.</system:String>
     <system:String x:Key="YouCanDefineCustomGamepadDeadZone">Özel Gamepad Ölü Bölgesi Tanımlayabilirsiniz</system:String>
     <system:String x:Key="YoucandefinecustomURL">Video bağlantı düğmesi ve bilgi bağlantı düğmesinde kullanılacak özel bir URL tanımlayabilirsiniz.</system:String>
+    <system:String x:Key="YoucandownloadDokanfrom">Dokan'ı şuradan indirebilirsiniz: https://github.com/dokan-dev/dokany</system:String>
     <system:String x:Key="YoucanturnoffthiserrormessageinExpertmode">Bu hata mesajını Uzman modunda kapatabilirsiniz.</system:String>
     <system:String x:Key="Youcanuselogicaloperators">Mantıksal operatörleri AND / OR kullanabilirsiniz.</system:String>
     <system:String x:Key="Youmayplacethecoverimagesforthissysteminside">Bu sistem için kapak resimlerini bu klasörün içine koyabilirsiniz.</system:String>
@@ -635,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    
-    <system:String x:Key="Thefilepathisinvalidorthefiledoesnotexist">Dosya yolu geçersiz veya dosya mevcut değil!</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotmount">'Simple Launcher' seçilen oyunu bağlayamadı.</system:String>
 </ResourceDictionary>
