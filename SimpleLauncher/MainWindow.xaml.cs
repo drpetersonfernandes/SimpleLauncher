@@ -89,9 +89,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly SettingsManager _settings;
     private FavoritesManager _favoritesManager;
     private readonly List<MameManager> _machines;
-    private readonly Dictionary<string, string> _mameLookup; // Used for faster lookup of MAME machine names
+    private readonly Dictionary<string, string> _mameLookup;
     private string _selectedImageFolder;
-    private string _selectedRomFolder;
+    private List<string> _selectedRomFolders;
 
     // Define the LogPath
     private readonly string _logPath = GetLogPath.Path();
@@ -304,17 +304,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 return;
             }
 
-            List<string> gameFiles;
+            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+            foreach (var folder in selectedConfig.SystemFolders)
+            {
+                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
+                    selectedConfig.FileFormatsToSearch == null) continue;
 
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
-            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
-            {
-                gameFiles = []; // Return an empty list
+                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+                foreach (var file in filesInFolder)
+                {
+                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                }
             }
-            else
-            {
-                gameFiles = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-            }
+
+            var gameFiles = uniqueFiles.Values.ToList();
 
             // Check if we have any games after filtering
             if (gameFiles.Count == 0)
@@ -476,12 +480,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             return []; // Return an empty list if there is no favorite for that system
         }
 
-        var systemFolderPath = selectedConfig.SystemFolder;
-
         // Filter the favorites and build the full file path for each favorite game
         var favoriteGamePaths = _favoritesManager.FavoriteList
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
-            .Select(fav => Path.Combine(systemFolderPath, fav.FileName))
+            .Select(fav => PathHelper.FindFileInSystemFolders(selectedConfig, fav.FileName))
+            .Where(static path => !string.IsNullOrEmpty(path))
             .ToList();
 
         return favoriteGamePaths;
@@ -536,7 +539,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            if (_isUiUpdating) return; // Prevent re-entrancy
+            if (_isUiUpdating) return; // Prevent re-entrance
 
             _isUiUpdating = true;
             try
@@ -585,33 +588,29 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
                 PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
-                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemFolder);
-
-                // Check if the resolved path is valid before proceeding
-                int gameCount;
-                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) || selectedConfig.FileFormatsToSearch == null)
+                var uniqueFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var folder in selectedConfig.SystemFolders)
                 {
-                    // if (!string.IsNullOrEmpty(selectedConfig.SystemFolder))
-                    // {
-                    //     // Notify developer
-                    //     _ = LogErrors.LogErrorAsync(null, $"MainWindow: System folder path invalid or not found for system '{selectedConfig.SystemName}': '{selectedConfig.SystemFolder}' -> '{resolvedSystemFolderPath}'. Cannot count files.");
-                    // }
+                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
+                        selectedConfig.FileFormatsToSearch == null) continue;
 
-                    gameCount = 0; // Set the count to 0 if the folder is invalid
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+                    foreach (var file in filesInFolder)
+                    {
+                        uniqueFileNames.Add(Path.GetFileName(file));
+                    }
                 }
-                else
-                {
-                    // Pass the resolved path to CountFiles
-                    gameCount = await CountFiles.CountFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-                }
+
+                var gameCount = uniqueFileNames.Count;
 
                 // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
-                await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.SystemFolder, gameCount, selectedConfig, _gameFileGrid);
+                await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.PrimarySystemFolder, gameCount, selectedConfig, _gameFileGrid);
 
                 // Resolve the system image folder path using PathHelper
                 var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
 
-                _selectedRomFolder = resolvedSystemFolderPath; // Use resolved path
+                _selectedRomFolders = selectedConfig.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
                 _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
                     ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use the default resolved path
                     : resolvedSystemImageFolderPath; // Use resolved configured path
@@ -722,8 +721,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     break;
                 default:
                 {
-                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemFolder);
-                    allFiles = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                    var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (var folder in selectedManager.SystemFolders)
+                    {
+                        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
+                            !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                        var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                        foreach (var file in filesInFolder)
+                        {
+                            uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                        }
+                    }
+
+                    allFiles = uniqueFiles.Values.ToList();
 
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
@@ -759,7 +771,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
             }
 
-            allFiles.Sort();
+            allFiles = allFiles.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
 
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 

@@ -1,3 +1,4 @@
+using System.Linq;
 using System.Windows;
 using SimpleLauncher.Services;
 
@@ -53,7 +54,7 @@ public partial class MainWindow
     private void FindRomCover_Click(object sender, RoutedEventArgs e)
     {
         ResetUi();
-        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolder);
+        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 
     private void RomValidator_Click(object sender, RoutedEventArgs e)
