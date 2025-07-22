@@ -15,7 +15,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class PlayTimeWindow
+public partial class PlayHistoryWindow
 {
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
@@ -29,7 +29,7 @@ public partial class PlayTimeWindow
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
 
-    public PlayTimeWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
     {
         InitializeComponent();
 
@@ -98,8 +98,7 @@ public partial class PlayTimeWindow
 
             if (systemManager != null)
             {
-                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemFolder);
-                var filePath = Path.Combine(systemFolderPath, item.FileName);
+                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
 
                 try
                 {
@@ -312,7 +311,7 @@ public partial class PlayTimeWindow
 
             var fileNameWithExtension = selectedItem.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemConfig.SystemFolder, selectedItem.FileName);
+            var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedItem.FileName);
 
             AddRightClickContextMenuPlayHistoryWindowContextMenu(fileNameWithExtension, selectedItem, fileNameWithoutExtension, systemConfig, filePath);
         }
@@ -368,7 +367,7 @@ public partial class PlayTimeWindow
             return;
         }
 
-        var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
+        var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
         if (!File.Exists(filePath))
         {
             // Auto remove the history item from the list since the file no longer exists

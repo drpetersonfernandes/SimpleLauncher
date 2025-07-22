@@ -171,6 +171,7 @@
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
                         <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
                     </Grid.RowDefinitions>
                     <Grid.ColumnDefinitions>
                         <ColumnDefinition Width="Auto" />
@@ -202,7 +203,7 @@
                         Grid.Row="1"
                         Grid.Column="0"
                         VerticalAlignment="Center"
-                        Content="{DynamicResource SystemFolderOptional}">
+                        Content="{DynamicResource SystemFolderRequired}">
                     </Label>
                     <TextBox
                         Margin="0,0,10,10"
@@ -221,29 +222,40 @@
                         IsEnabled="False"
                         HorizontalAlignment="Left" />
 
+                    <!-- Additional System Folders -->
+                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="Auto" />
+                            </Grid.ColumnDefinitions>
+                            <ListBox x:Name="AdditionalFoldersListBox" Margin="5" IsEnabled="False" />
+                            <StackPanel Grid.Column="1" VerticalAlignment="Center">
+                                <Button x:Name="AddFolderButton" Content="{DynamicResource Add}" Margin="5" Click="AddFolderButton_Click" IsEnabled="False" />
+                                <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" />
+                            </StackPanel>
+                        </Grid>
+                    </GroupBox>
+
                     <!-- System Image Folder -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource SystemImageFolderOptional}">
                     </Label>
                     <TextBox
                         Margin="0,0,10,10"
-                        Grid.Row="2"
-                        Grid.Column="1" />
-                    <TextBox
-                        Margin="0,0,10,10"
                         x:Name="SystemImageFolderTextBox"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False" />
                     <Button
                         Margin="0,0,10,10"
                         x:Name="ChooseSystemImageFolderButton"
-                        Grid.Row="2"
+                        Grid.Row="3"
                         Grid.Column="2"
                         Click="ChooseSystemImageFolder"
                         Content="{DynamicResource SetSystemImageFolder}"
@@ -253,14 +265,14 @@
                     <!-- System Is MAME? -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource IsthesystemMAMEbased}" />
                     <ComboBox
                         Margin="0,0,10,10"
                         x:Name="SystemIsMameComboBox"
-                        Grid.Row="3"
+                        Grid.Row="4"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False">
@@ -271,7 +283,7 @@
                     <!-- Format To Search Inside System Folder -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource ExtensiontoSearchintheSystemFolderRequired}">
@@ -279,13 +291,13 @@
                     <TextBox
                         Margin="0,0,10,10"
                         x:Name="FormatToSearchTextBox"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False" />
                     <Label
                         Margin="0,0,10,10"
-                        Grid.Row="4"
+                        Grid.Row="5"
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         Content="{DynamicResource Useacommatoaddmultipleextensions}">
@@ -294,14 +306,14 @@
                     <!-- Extract File Before Launch -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource ExtractFileBeforeLaunch}" />
                     <ComboBox
                         Margin="0,0,10,10"
                         x:Name="ExtractFileBeforeLaunchComboBox"
-                        Grid.Row="5"
+                        Grid.Row="6"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False">
@@ -312,7 +324,7 @@
                     <!-- Format To Launch After Extraction -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}">
@@ -320,20 +332,20 @@
                     <TextBox
                         Margin="0,0,10,10"
                         x:Name="FormatToLaunchTextBox"
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False" />
                     <Label
                         Margin="0,0,10,10"
-                        Grid.Row="6"
+                        Grid.Row="7"
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         Content="{DynamicResource Useacommatoaddmultipleextensions}">
                     </Label>
 
                     <!-- Emulator 1 -->
-                    <GroupBox Grid.Row="7" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}">
+                    <GroupBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -428,7 +440,7 @@
                         </GroupBox>
 
                     <!-- Emulator 2 -->
-                    <GroupBox Grid.Row="8" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}">
+                    <GroupBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -522,7 +534,7 @@
                     </GroupBox>
 
                     <!-- Emulator 3 -->
-                    <GroupBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}">
+                    <GroupBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -616,7 +628,7 @@
                     </GroupBox>
 
                     <!-- Emulator 4 -->
-                    <GroupBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}">
+                    <GroupBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -710,7 +722,7 @@
                     </GroupBox>
 
                     <!-- Emulator 5 -->
-                    <GroupBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}">
+                    <GroupBox Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
