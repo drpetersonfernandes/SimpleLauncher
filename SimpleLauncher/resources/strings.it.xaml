@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Per la tua sicurezza, il processo di estrazione è stato gestito correttamente e il problema è stato registrato.</system:String>
     <system:String x:Key="Add">Aggiungi</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Aggiunta del sistema alla configurazione...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Cartelle di Sistema Aggiuntive Opzionali</system:String>
     <system:String x:Key="AddNewSystem">Aggiungi un nuovo sistema</system:String>
     <system:String x:Key="AddSystem">Aggiungi sistema</system:String>
     <system:String x:Key="AddToFavorites">Aggiungi ai preferiti</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">La 'Cartella di sistema' non può essere vuota o contenere solo spazi.</system:String>
 <system:String x:Key="SystemFolderExplanation">Per i campi Cartella di sistema, Cartella immagine di sistema e Percorso emulatore, i percorsi relativi verranno salvati automaticamente utilizzando il prefisso %BASEFOLDER% (ad esempio, ".\roms" diventa "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Il percorso della cartella di sistema non è valido o non esiste:</system:String>
-    <system:String x:Key="SystemFolderRequired">Cartella di Sistema Richiesta</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Il sistema è stato aggiunto con successo!</system:String>
     <system:String x:Key="SystemImageFolder">Cartella Immagini del Sistema</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">La 'Cartella immagini del sistema' non può essere vuota o contenere solo spazi.</system:String>

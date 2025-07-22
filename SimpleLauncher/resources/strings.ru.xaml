@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Для вашей безопасности процесс извлечения был корректно обработан, и проблема была зарегистрирована.</system:String>
     <system:String x:Key="Add">Добавить</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Добавление системы в конфигурацию...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Дополнительные Системные Папки Опциональны</system:String>
     <system:String x:Key="AddNewSystem">Добавить новую систему</system:String>
     <system:String x:Key="AddSystem">Добавить систему</system:String>
     <system:String x:Key="AddToFavorites">Добавить в избранное</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">Папка «Системная папка» не может быть пустой или содержать только пробелы.</system:String>
 <system:String x:Key="SystemFolderExplanation">Для полей Папка системы, Папка образов системы и Путь эмулятора относительные пути будут автоматически сохранены с использованием префикса %BASEFOLDER% (например, ".\roms" станет "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Путь к папке системы недействителен или не существует:</system:String>
-    <system:String x:Key="SystemFolderRequired">Системная Папка Обязательна</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Система успешно добавлена!</system:String>
     <system:String x:Key="SystemImageFolder">Папка изображений системы</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">Папка «Изображения системы» не может быть пустой или содержать только пробелы.</system:String>

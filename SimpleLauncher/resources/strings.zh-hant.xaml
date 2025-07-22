@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">為了您的安全，解壓過程已被正確處理，問題已被記錄。</system:String>
     <system:String x:Key="Add">新增</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">正在將系統添加到配置中...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">附加系統資料夾可選</system:String>
     <system:String x:Key="AddNewSystem">新增系統</system:String>
     <system:String x:Key="AddSystem">添加系統</system:String>
     <system:String x:Key="AddToFavorites">新增到收藏</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">「系統文件夾」不能為空或僅包含空格。</system:String>
 <system:String x:Key="SystemFolderExplanation">對於系統資料夾、系統映像資料夾和模擬器路徑欄位，相對路徑將自動使用 %BASEFOLDER% 前綴儲存（例如，“.\roms” 將變為 “%BASEFOLDER%\roms”）。</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">系統資料夾路徑無效或不存在：</system:String>
-    <system:String x:Key="SystemFolderRequired">系統資料夾必需</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">系統已成功添加！</system:String>
     <system:String x:Key="SystemImageFolder">系統圖片資料夾</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">「系統圖像文件夾」不能為空或僅包含空格。</system:String>

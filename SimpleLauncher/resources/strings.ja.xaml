@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">セキュリティのために、展開プロセスは適切に処理され、問題は記録されました。</system:String>
     <system:String x:Key="Add">追加</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">システムを設定に追加しています...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">追加システムフォルダはオプション</system:String>
     <system:String x:Key="AddNewSystem">新しいシステムを追加</system:String>
     <system:String x:Key="AddSystem">システムを追加</system:String>
     <system:String x:Key="AddToFavorites">お気に入りに追加</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">「システムフォルダー」は空白やスペースのみであってはいけません。</system:String>
 <system:String x:Key="SystemFolderExplanation">システムフォルダ、システムイメージフォルダ、エミュレーターパスの各フィールドでは、相対パスは自動的に %BASEFOLDER% プレフィックスを使用して保存されます (例: ".\roms" は "%BASEFOLDER%\roms" になります)。</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">システムフォルダパスが無効であるか、存在しません:</system:String>
-    <system:String x:Key="SystemFolderRequired">システムフォルダが必要</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">システムが正常に追加されました！</system:String>
     <system:String x:Key="SystemImageFolder">システム画像フォルダ</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">「システム画像フォルダー」は空白やスペースのみであってはいけません。</system:String>

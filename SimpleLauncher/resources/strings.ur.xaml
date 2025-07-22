@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">آپ کی سیکیورٹی کے لیے، نکالنے کے عمل کو صحیح طریقے سے نمٹا لیا گیا ہے اور مسئلہ کو لاگ کر دیا گیا ہے۔</system:String>
     <system:String x:Key="Add">شامل کریں</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">سسٹم کو کنفیگریشن میں شامل کر رہے ہیں...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">اضافی سسٹم فولڈرز اختیاری</system:String>
     <system:String x:Key="AddNewSystem">نیا نظام شامل کریں</system:String>
     <system:String x:Key="AddSystem">سسٹم شامل کریں</system:String>
     <system:String x:Key="AddToFavorites">پسندیدہ میں شامل کریں</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">سسٹم فولڈر خالی نہیں ہو سکتا۔</system:String>
 <system:String x:Key="SystemFolderExplanation">سسٹم فولڈر، سسٹم امیج فولڈر، اور ایمولیٹر پاتھ فیلڈز کے لیے، نسبتی راستے خود بخود %BASEFOLDER% پریفکس کا استعمال کرتے ہوئے محفوظ کیے جائیں گے (مثال کے طور پر، ".\roms" "%BASEFOLDER%\roms" بن جاتا ہے)۔</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">سسٹم فولڈر کا راستہ درست نہیں ہے یا موجود نہیں ہے:</system:String>
-    <system:String x:Key="SystemFolderRequired">سسٹم فولڈر درکار</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">سسٹم کامیابی کے ساتھ شامل کر لیا گیا ہے!</system:String>
     <system:String x:Key="SystemImageFolder">سسٹم امیج فولڈر</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">سسٹم امیج فولڈر خالی نہیں ہو سکتا۔</system:String>

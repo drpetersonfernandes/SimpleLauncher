@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Por su seguridad, el proceso de extracción se ha manejado correctamente y el problema ha sido registrado.</system:String>
     <system:String x:Key="Add">Agregar</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Agregando sistema a la configuración...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Carpetas de Sistema Adicionales Opcionales</system:String>
     <system:String x:Key="AddNewSystem">Añadir un nuevo sistema</system:String>
     <system:String x:Key="AddSystem">Agregar sistema</system:String>
     <system:String x:Key="AddToFavorites">Añadir a favoritos</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">La 'Carpeta del sistema' no puede estar vacía ni contener solo espacios.</system:String>
 <system:String x:Key="SystemFolderExplanation">Para los campos Carpeta del sistema, Carpeta de imagen del sistema y Ruta del emulador, las rutas relativas se guardarán automáticamente utilizando el prefijo %BASEFOLDER% (por ejemplo, ".\roms" se convierte en "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">La ruta de la carpeta del sistema no es válida o no existe:</system:String>
-    <system:String x:Key="SystemFolderRequired">Carpeta del Sistema Requerida</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">¡El sistema ha sido agregado exitosamente!</system:String>
     <system:String x:Key="SystemImageFolder">Carpeta de Imágenes del Sistema</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">La 'Carpeta de imágenes del sistema' no puede estar vacía ni contener solo espacios.</system:String>

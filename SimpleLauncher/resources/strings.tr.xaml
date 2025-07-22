@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Güvenliğiniz için, çıkarma işlemi düzgün bir şekilde ele alındı ve sorun kaydedildi.</system:String>
     <system:String x:Key="Add">Ekle</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Sistem konfigürasyona ekleniyor...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Ek Sistem Klasörleri İsteğe Bağlı</system:String>
     <system:String x:Key="AddNewSystem">Yeni Sistem Ekle</system:String>
     <system:String x:Key="AddSystem">Sistem ekle</system:String>
     <system:String x:Key="AddToFavorites">Favorilere Ekle</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">‘Sistem Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>
 <system:String x:Key="SystemFolderExplanation">Sistem Klasörü, Sistem Görüntü Klasörü ve Emülatör Yolu alanları için, göreceli yollar otomatik olarak %BASEFOLDER% öneki kullanılarak kaydedilecektir (örneğin, ".\roms" "%BASEFOLDER%\roms" olur).</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Sistem klasörü yolu geçersiz veya mevcut değil:</system:String>
-    <system:String x:Key="SystemFolderRequired">Sistem Klasörü Gerekli</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem başarıyla eklendi!</system:String>
     <system:String x:Key="SystemImageFolder">Sistem Görselleri Klasörü</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">‘Sistem Görsel Klasörü’ boş olamaz veya yalnızca boşluk içeremez.</system:String>

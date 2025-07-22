@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Zu Ihrer Sicherheit wurde der Extraktionsprozess ordnungsgemäß durchgeführt und das Problem protokolliert.</system:String>
     <system:String x:Key="Add">Hinzufügen</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">System wird zur Konfiguration hinzugefügt...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Zusätzliche Systemordner optional</system:String>
     <system:String x:Key="AddNewSystem">Neues System hinzufügen</system:String>
     <system:String x:Key="AddSystem">System hinzufügen</system:String>
     <system:String x:Key="AddToFavorites">Zu den Favoriten hinzufügen</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">"Systemordner" darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>
 <system:String x:Key="SystemFolderExplanation">Für die Felder Systemordner, System-Image-Ordner und Emulator-Pfad werden relative Pfade automatisch mit dem Präfix %BASEFOLDER% gespeichert (z. B. wird ".\roms" zu "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Der Pfad des Systemordners ist ungültig oder existiert nicht:</system:String>
-    <system:String x:Key="SystemFolderRequired">Systemordner erforderlich</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System wurde erfolgreich hinzugefügt!</system:String>
     <system:String x:Key="SystemImageFolder">System-Bildordner</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">"System-Bildordner" darf nicht leer sein oder nur Leerzeichen enthalten.</system:String>

@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">আপনার নিরাপত্তার জন্য, এক্সট্রাকশন প্রক্রিয়াটি সঠিকভাবে পরিচালনা করা হয়েছে এবং সমস্যাটি লগ করা হয়েছে।</system:String>
     <system:String x:Key="Add">যোগ করুন</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">সিস্টেমটি কনফিগারেশনে যোগ করা হচ্ছে...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">অতিরিক্ত সিস্টেম ফোল্ডার ঐচ্ছিক</system:String>
     <system:String x:Key="AddNewSystem">নতুন সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddSystem">সিস্টেম যোগ করুন</system:String>
     <system:String x:Key="AddToFavorites">প্রিয়তে যোগ করুন</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">‘সিস্টেম ফোল্ডার’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>
 <system:String x:Key="SystemFolderExplanation">সিস্টেম ফোল্ডার, সিস্টেম ইমেজ ফোল্ডার, এবং এমুলেটর পাথ ফিল্ডের জন্য, আপেক্ষিক পথগুলি স্বয়ংক্রিয়ভাবে %BASEFOLDER% প্রিফিক্স ব্যবহার করে সংরক্ষণ করা হবে (যেমন, ".\roms" হবে "%BASEFOLDER%\roms")।</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">সিস্টেম ফোল্ডার পাথটি বৈধ নয় বা নেই:</system:String>
-    <system:String x:Key="SystemFolderRequired">সিস্টেম ফোল্ডার প্রয়োজন</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">সিস্টেম সফলভাবে যুক্ত হয়েছে!</system:String>
     <system:String x:Key="SystemImageFolder">সিস্টেম ইমেজ ফোল্ডার</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">‘সিস্টেম ইমেজ ফোল্ডার’ খালি বা শুধুমাত্র স্পেস থাকতে পারবে না।</system:String>

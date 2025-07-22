@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">귀하의 보안을 위해 추출 프로세스가 적절히 처리되었으며 문제가 기록되었습니다.</system:String>
     <system:String x:Key="Add">추가</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">구성에 시스템 추가 중...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">추가 시스템 폴더 선택사항</system:String>
     <system:String x:Key="AddNewSystem">새 시스템 추가</system:String>
     <system:String x:Key="AddSystem">시스템 추가</system:String>
     <system:String x:Key="AddToFavorites">즐겨찾기에 추가</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">‘시스템 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>
 <system:String x:Key="SystemFolderExplanation">시스템 폴더, 시스템 이미지 폴더 및 에뮬레이터 경로 필드의 경우, 상대 경로는 %BASEFOLDER% 접두사를 사용하여 자동으로 저장됩니다 (예: ".\roms"는 "%BASEFOLDER%\roms"가 됩니다).</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">시스템 폴더 경로가 잘못되었거나 존재하지 않습니다:</system:String>
-    <system:String x:Key="SystemFolderRequired">시스템 폴더 필수</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">시스템이 성공적으로 추가되었습니다!</system:String>
     <system:String x:Key="SystemImageFolder">시스템 이미지 폴더</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">‘시스템 이미지 폴더’는 비어 있거나 공백만 포함할 수 없습니다.</system:String>

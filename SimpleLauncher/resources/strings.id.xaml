@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Untuk keamanan Anda, proses ekstraksi telah ditangani dengan benar dan masalah telah dicatat.</system:String>
     <system:String x:Key="Add">Tambah</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Menambahkan sistem ke konfigurasi...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Folder Sistem Tambahan Opsional</system:String>
     <system:String x:Key="AddNewSystem">Tambah Sistem Baru</system:String>
     <system:String x:Key="AddSystem">Tambahkan Sistem</system:String>
     <system:String x:Key="AddToFavorites">Tambah ke Favorit</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">"Folder Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>
 <system:String x:Key="SystemFolderExplanation">Untuk bidang Folder Sistem, Folder Gambar Sistem, dan Jalur Emulator, jalur relatif akan secara otomatis disimpan menggunakan awalan %BASEFOLDER% (misalnya, ".\roms" menjadi "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Jalur folder sistem tidak valid atau tidak ada:</system:String>
-    <system:String x:Key="SystemFolderRequired">Folder Sistem Diperlukan</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistem telah berhasil ditambahkan!</system:String>
     <system:String x:Key="SystemImageFolder">Folder Gambar Sistem</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">"Folder Gambar Sistem" tidak boleh kosong atau hanya berisi spasi.</system:String>

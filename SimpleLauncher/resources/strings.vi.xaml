@@ -31,7 +31,6 @@
     <system:String x:Key="ActionTaken">Vì sự an toàn của bạn, quá trình giải nén đã được xử lý đúng cách và vấn đề đã được ghi lại.</system:String>
     <system:String x:Key="Add">Thêm</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Đang thêm hệ thống vào cấu hình...</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Thư Mục Hệ Thống Bổ Sung Tùy Chọn</system:String>
     <system:String x:Key="AddNewSystem">Thêm hệ thống mới</system:String>
     <system:String x:Key="AddSystem">Thêm hệ thống</system:String>
     <system:String x:Key="AddToFavorites">Thêm vào mục yêu thích</system:String>
@@ -484,7 +483,6 @@
     <system:String x:Key="SystemFoldercannotbeempty">"Thư mục hệ thống" không được để trống hoặc chỉ chứa khoảng trắng.</system:String>
 <system:String x:Key="SystemFolderExplanation">Đối với các trường Thư mục hệ thống, Thư mục ảnh hệ thống và Đường dẫn trình giả lập, các đường dẫn tương đối sẽ được tự động lưu bằng tiền tố %BASEFOLDER% (ví dụ: ".\roms" trở thành "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Đường dẫn thư mục hệ thống không hợp lệ hoặc không tồn tại:</system:String>
-    <system:String x:Key="SystemFolderRequired">Thư Mục Hệ Thống Bắt Buộc</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Hệ thống đã được thêm thành công!</system:String>
     <system:String x:Key="SystemImageFolder">Thư mục Ảnh của Hệ thống</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">"Thư mục hình ảnh hệ thống" không được để trống hoặc chỉ chứa khoảng trắng.</system:String>
