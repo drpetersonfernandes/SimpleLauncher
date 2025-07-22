@@ -87,8 +87,7 @@ public partial class FavoritesWindow
                 _ = Task.Run(() => // Fire and forget the task for UI responsiveness
                 {
                     long sizeToSet;
-                    var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(currentSystemManager.SystemFolder);
-                    var filePath = Path.Combine(systemFolderPath, currentFavoriteItem.FileName);
+                    var filePath = PathHelper.FindFileInSystemFolders(currentSystemManager, currentFavoriteItem.FileName);
 
                     try
                     {
@@ -188,8 +187,7 @@ public partial class FavoritesWindow
 
             var fileNameWithExtension = selectedFavorite.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-            // Use PathHelper to combine and resolve
-            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(systemConfig.SystemFolder, selectedFavorite.FileName);
+            var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedFavorite.FileName);
 
             AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
         }
@@ -247,8 +245,7 @@ public partial class FavoritesWindow
                 return;
             }
 
-            // Use PathHelper to combine and resolve
-            var filePath = PathHelper.CombineAndResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder, fileName);
+            var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
 
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) // Add null/empty check for resolved path
             {

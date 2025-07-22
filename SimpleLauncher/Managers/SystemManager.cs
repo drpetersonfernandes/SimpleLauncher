@@ -14,7 +14,8 @@ public partial class SystemManager
     private static readonly string LogPath = GetLogPath.Path();
 
     public string SystemName { get; private init; }
-    public string SystemFolder { get; private init; }
+    public List<string> SystemFolders { get; private init; }
+    public string PrimarySystemFolder => SystemFolders?.FirstOrDefault();
     public string SystemImageFolder { get; private init; }
     public bool SystemIsMame { get; private init; }
     public List<string> FileFormatsToSearch { get; private init; }
@@ -154,9 +155,24 @@ public partial class SystemManager
                     if (string.IsNullOrEmpty(systemName))
                         throw new InvalidOperationException("Missing or empty 'System Name' in XML.");
 
-                    var systemFolder = sysConfigElement.Element("SystemFolder")?.Value;
-                    if (string.IsNullOrEmpty(systemFolder))
-                        throw new InvalidOperationException($"System '{systemName}': Missing or empty 'System Folder' in XML.");
+                    List<string> systemFolders;
+                    var systemFoldersElement = sysConfigElement.Element("SystemFolders");
+                    if (systemFoldersElement != null)
+                    {
+                        systemFolders = systemFoldersElement.Elements("SystemFolder")
+                            .Select(f => f.Value)
+                            .Where(f => !string.IsNullOrWhiteSpace(f))
+                            .ToList();
+                    }
+                    else
+                    {
+                        // Backward compatibility for the old <SystemFolder> tag
+                        var singleFolder = sysConfigElement.Element("SystemFolder")?.Value;
+                        systemFolders = !string.IsNullOrWhiteSpace(singleFolder) ? new List<string> { singleFolder } : new List<string>();
+                    }
+
+                    if (systemFolders.Count == 0)
+                        throw new InvalidOperationException($"System '{systemName}': At least one 'System Folder' is required in XML.");
 
                     var systemImageFolder = sysConfigElement.Element("SystemImageFolder")?.Value;
                     if (string.IsNullOrEmpty(systemImageFolder))
@@ -232,7 +248,7 @@ public partial class SystemManager
                     systemConfigs.Add(new SystemManager
                     {
                         SystemName = systemName,
-                        SystemFolder = systemFolder, // Store the raw string
+                        SystemFolders = systemFolders, // Store the raw string
                         SystemImageFolder = systemImageFolder, // Store the raw string
                         SystemIsMame = systemIsMame,
                         ExtractFileBeforeLaunch = extractFileBeforeLaunch,
@@ -253,25 +269,50 @@ public partial class SystemManager
                 }
             }
 
-            // Remove any invalid configurations from the XML document
-            foreach (var invalidConfig in invalidConfigs.Keys)
+            // Rebuild the XML document from the valid, in-memory configurations
+            var newRoot = new XElement("SystemConfigs");
+            foreach (var config in systemConfigs.OrderBy(c => c.SystemName, StringComparer.OrdinalIgnoreCase))
             {
-                invalidConfig.Remove();
+                newRoot.Add(new XElement("SystemConfig",
+                    new XElement("SystemName", config.SystemName),
+                    new XElement("SystemFolders", config.SystemFolders.Select(f => new XElement("SystemFolder", f))),
+                    new XElement("SystemImageFolder", config.SystemImageFolder),
+                    new XElement("SystemIsMAME", config.SystemIsMame),
+                    new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(f => new XElement("FormatToSearch", f))),
+                    new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
+                    new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(f => new XElement("FormatToLaunch", f))),
+                    new XElement("Emulators", config.Emulators.Select(e =>
+                        new XElement("Emulator",
+                            new XElement("EmulatorName", e.EmulatorName),
+                            new XElement("EmulatorLocation", e.EmulatorLocation),
+                            new XElement("EmulatorParameters", e.EmulatorParameters),
+                            new XElement("ReceiveANotificationOnEmulatorError", e.ReceiveANotificationOnEmulatorError)
+                        )
+                    ))
+                ));
             }
 
-            // Save the document back to disk with formatting.
+            doc.Root.ReplaceNodes(newRoot.Nodes());
+
+            // Save the cleaned, sorted, and reformatted document back to disk.
             try
             {
-                doc.Save(XmlPath, SaveOptions.None); // Save with formatting
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    NewLineOnAttributes = false
+                };
+                using var writer = XmlWriter.Create(XmlPath, settings);
+                doc.Save(writer);
             }
             catch (Exception saveEx)
             {
                 // Notify developer
-                const string contextMessage = "Error saving 'system.xml' after loading and processing.";
+                const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
                 _ = LogErrors.LogErrorAsync(saveEx, contextMessage);
             }
 
-            // Notify user about each invalid configuration in a single message per system
+            // Notify user about each invalid configuration that was removed
             foreach (var error in invalidConfigs.Values)
             {
                 // Notify user

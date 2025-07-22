@@ -85,8 +85,31 @@ public partial class EditSystemWindow
         if (selectedSystem != null)
         {
             SystemNameTextBox.Text = selectedSystem.Element("SystemName")?.Value ?? string.Empty;
-            // Load the saved string directly into the UI, including %BASEFOLDER% if present
-            SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
+
+            // Load system folders
+            SystemFolderTextBox.Text = string.Empty;
+            AdditionalFoldersListBox.Items.Clear();
+
+            var systemFoldersElement = selectedSystem.Element("SystemFolders");
+            if (systemFoldersElement != null)
+            {
+                var folders = systemFoldersElement.Elements("SystemFolder").Select(static f => f.Value).ToList();
+                if (folders.Count > 0)
+                {
+                    SystemFolderTextBox.Text = folders[0];
+                }
+
+                for (var i = 1; i < folders.Count; i++)
+                {
+                    AdditionalFoldersListBox.Items.Add(folders[i]);
+                }
+            }
+            else
+            {
+                // Backward compatibility for the old <SystemFolder> tag
+                SystemFolderTextBox.Text = selectedSystem.Element("SystemFolder")?.Value ?? string.Empty;
+            }
+
             SystemImageFolderTextBox.Text = selectedSystem.Element("SystemImageFolder")?.Value ?? string.Empty;
 
             var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "true" : "false";

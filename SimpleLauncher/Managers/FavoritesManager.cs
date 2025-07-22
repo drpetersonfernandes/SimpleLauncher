@@ -51,7 +51,7 @@ public class FavoritesManager
     {
         // Order the favorites by FileName
         var orderedFavorites = new ObservableCollection<Favorite>(
-            FavoriteList.OrderBy(static fav => fav.FileName)
+            FavoriteList.OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
         );
         FavoriteList = orderedFavorites;
 
