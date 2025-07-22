@@ -106,33 +106,32 @@ public partial class GlobalStatsWindow
 
         foreach (var config in _systemConfigs)
         {
-            // Resolve the system folder path using PathHelper
-            var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(config.SystemFolder);
+            var allRomFiles = new List<string>();
 
-            // Check if the resolved path is valid before proceeding
-            List<string> romFiles;
-            if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
+            foreach (var systemFolderPathRaw in config.SystemFolders)
             {
-                if (!string.IsNullOrEmpty(config.SystemFolder)) // Only log if a path was configured
+                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
+
+                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
                 {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{config.SystemFolder}' -> '{systemFolderPath}'. Cannot count files.");
+                    if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
+                    {
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
+                    }
                 }
-
-                romFiles = new List<string>(); // Use empty list if folder is invalid
+                else
+                {
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
+                    allRomFiles.AddRange(filesInFolder);
+                }
             }
-            else
-            {
-                // Pass the resolved path to GetFilesAsync
-                romFiles = await GetListOfFiles.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
-            }
-
 
             var romFileBaseNames = new HashSet<string>(
-                romFiles.Select(Path.GetFileNameWithoutExtension),
+                allRomFiles.Select(Path.GetFileNameWithoutExtension),
                 StringComparer.OrdinalIgnoreCase);
 
-            var totalDiskSize = romFiles.Sum(static file => new FileInfo(file).Length);
+            var totalDiskSize = allRomFiles.Sum(static file => new FileInfo(file).Length);
 
             var systemImageFolder = config.SystemImageFolder;
             // Resolve the system image path using PathHelper
@@ -164,7 +163,7 @@ public partial class GlobalStatsWindow
             _systemStats.Add(new SystemStatsData
             {
                 SystemName = config.SystemName,
-                NumberOfFiles = romFiles.Count,
+                NumberOfFiles = allRomFiles.Count,
                 NumberOfImages = numberOfImages,
                 TotalDiskSize = totalDiskSize
             });
@@ -313,4 +312,3 @@ public partial class GlobalStatsWindow
         return Task.CompletedTask;
     }
 }
-
