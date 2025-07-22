@@ -474,25 +474,25 @@ public static class MountZipFiles
                 }
 
                 DebugLogger.Log(
-                    $"[FindNestedFile] Directory '{nestedDirPath}' was found but is empty. Checking root folder...");
+                    $"[FindNestedFile] Directory '{nestedDirPath}' was found but is empty. Will check other folders.");
             }
             else
             {
                 DebugLogger.Log(
-                    $"[FindNestedFile] Directory '{targetFolderName}' not found in {directoryPath}. Checking root folder...");
+                    $"[FindNestedFile] Directory '{targetFolderName}' not found in {directoryPath}. Will check other folders.");
             }
 
-            // Check root folder if nested folder doesn't exist or is empty
-            var filesInRootDir = Directory.GetFiles(directoryPath, "*", SearchOption.TopDirectoryOnly);
+            // Check other folders if the nested folder doesn't exist or is empty
+            var filesInRootDir = Directory.GetFiles(directoryPath, "*", SearchOption.AllDirectories);
             if (filesInRootDir.Length > 0)
             {
                 var fileToLaunch = filesInRootDir[0];
-                DebugLogger.Log($"[FindNestedFile] Found file to launch in root directory: {fileToLaunch}");
+                DebugLogger.Log($"[FindNestedFile] Found file to launch: {fileToLaunch}");
                 return fileToLaunch;
             }
 
             DebugLogger.Log(
-                $"[FindNestedFile] No files found in nested directory '{targetFolderName}' or root directory '{directoryPath}'.");
+                $"[FindNestedFile] No files found in nested directory '{targetFolderName}' or inside other folders.");
             return null;
         }
         catch (Exception ex)
@@ -622,7 +622,7 @@ public static class MountZipFiles
                 throw new FileNotFoundException("Emulator executable folder could not be determined");
             }
 
-            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemFolder);
+            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
 
             // 2. Resolve Parameters
             var resolvedParameters = ParameterValidator.ResolveParameterString(

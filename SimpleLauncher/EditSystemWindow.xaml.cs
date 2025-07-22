@@ -260,6 +260,9 @@ public partial class EditSystemWindow
 
         SystemFolderTextBox.IsReadOnly = false;
         SystemFolderTextBox.IsEnabled = true;
+        AdditionalFoldersListBox.IsEnabled = true;
+        AddFolderButton.IsEnabled = true;
+        RemoveFolderButton.IsEnabled = true;
 
         SystemImageFolderTextBox.IsReadOnly = false;
         SystemImageFolderTextBox.IsEnabled = true;
@@ -330,6 +333,9 @@ public partial class EditSystemWindow
 
         SystemFolderTextBox.IsReadOnly = true;
         SystemFolderTextBox.IsEnabled = false;
+        AdditionalFoldersListBox.IsEnabled = false;
+        AddFolderButton.IsEnabled = false;
+        RemoveFolderButton.IsEnabled = false;
 
         SystemImageFolderTextBox.IsReadOnly = true;
         SystemImageFolderTextBox.IsEnabled = false;
@@ -407,6 +413,7 @@ public partial class EditSystemWindow
 
         SystemFolderTextBox.Text = string.Empty;
         MarkValid(SystemFolderTextBox);
+        AdditionalFoldersListBox.Items.Clear();
 
         SystemImageFolderTextBox.Text = string.Empty;
         MarkValid(SystemImageFolderTextBox);
@@ -558,5 +565,22 @@ public partial class EditSystemWindow
         // Update HelpUserTextBlock
         HelpUserTextBlock.Text = string.Empty;
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
+    }
+
+    private void AddFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        var openFolderDialog = new OpenFolderDialog { Title = "Select an additional system folder" };
+        if (openFolderDialog.ShowDialog() == true)
+        {
+            AdditionalFoldersListBox.Items.Add(openFolderDialog.FolderName);
+        }
+    }
+
+    private void RemoveFolderButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (AdditionalFoldersListBox.SelectedItem != null)
+        {
+            AdditionalFoldersListBox.Items.Remove(AdditionalFoldersListBox.SelectedItem);
+        }
     }
 }

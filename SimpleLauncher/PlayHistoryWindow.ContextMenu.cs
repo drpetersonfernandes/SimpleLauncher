@@ -11,7 +11,7 @@ using ContextMenu = System.Windows.Controls.ContextMenu;
 
 namespace SimpleLauncher;
 
-public partial class PlayTimeWindow
+public partial class PlayHistoryWindow
 {
     private void AddRightClickContextMenuPlayHistoryWindowContextMenu(string fileNameWithExtension, PlayHistoryItem selectedItem,
         string fileNameWithoutExtension, SystemManager systemManager, string filePath)
