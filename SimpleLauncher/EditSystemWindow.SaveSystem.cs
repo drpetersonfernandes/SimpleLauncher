@@ -5,6 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
 
@@ -14,7 +15,7 @@ public partial class EditSystemWindow
 {
     private async Task SaveSystemConfigurationAsync(
         string systemNameText,
-        string systemFolderText,
+        List<string> systemFolders,
         string systemImageFolderText,
         bool systemIsMame,
         List<string> formatsToSearch,
@@ -47,13 +48,13 @@ public partial class EditSystemWindow
 
                 // Update all other fields
                 // Pass the potentially modified strings from SaveSystemButton_Click
-                UpdateXml(existingSystem, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+                UpdateXml(existingSystem, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
             }
             else
             {
                 // Create and add a new system element
                 // Pass the potentially modified strings from SaveSystemButton_Click
-                var newSystem = AddToXml(systemNameText, systemFolderText, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+                var newSystem = AddToXml(systemNameText, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
                 _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
 
@@ -66,9 +67,17 @@ public partial class EditSystemWindow
                 ?? Enumerable.Empty<XElement>() // Handle case where Root is null
             ));
 
-            // Save the sorted document asynchronously with formatting
-            // Use SaveOptions.None for default indentation
-            await Task.Run(() => sortedDoc.Save(XmlFilePath, SaveOptions.None));
+            // Save the sorted document asynchronously with explicit formatting
+            await Task.Run(() =>
+            {
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    NewLineOnAttributes = false
+                };
+                using var writer = XmlWriter.Create(XmlFilePath, settings);
+                sortedDoc.Save(writer);
+            });
         }
         catch (Exception ex)
         {
@@ -97,29 +106,39 @@ public partial class EditSystemWindow
             // Sanitize SystemNameTextBox.Text immediately
             systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
 
-            // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
-            systemFolderText = MaybeAddBaseFolderPrefix(systemFolderText);
-            SystemFolderTextBox.Text = systemFolderText; // Update UI
-            systemImageFolderText = MaybeAddBaseFolderPrefix(systemImageFolderText);
-            SystemImageFolderTextBox.Text = systemImageFolderText; // Update UI
-            emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
-            Emulator1PathTextBox.Text = emulator1LocationText; // Update UI
-            emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
-            Emulator2PathTextBox.Text = emulator2LocationText; // Update UI
-            emulator3LocationText = MaybeAddBaseFolderPrefix(emulator3LocationText);
-            Emulator3PathTextBox.Text = emulator3LocationText; // Update UI
-            emulator4LocationText = MaybeAddBaseFolderPrefix(emulator4LocationText);
-            Emulator4PathTextBox.Text = emulator4LocationText; // Update UI
-            emulator5LocationText = MaybeAddBaseFolderPrefix(emulator5LocationText);
-            Emulator5PathTextBox.Text = emulator5LocationText; // Update UI
+            // --- Collect all system folders ---
+            var allSystemFolders = new List<string> { systemFolderText };
+            allSystemFolders.AddRange(AdditionalFoldersListBox.Items.Cast<string>().Select(static f => f.Trim()));
+            allSystemFolders = allSystemFolders.Where(static f => !string.IsNullOrWhiteSpace(f)).ToList();
 
-            // Note: Parameters are NOT automatically prefixed. User must type %BASEFOLDER% manually.
-            // We will validate and warn about relative paths in parameters that *don't* have the prefix.
+            // --- Apply %BASEFOLDER% prefix to relative paths before validation/saving ---
+            allSystemFolders = allSystemFolders.Select(MaybeAddBaseFolderPrefix).ToList();
+            systemImageFolderText = MaybeAddBaseFolderPrefix(systemImageFolderText);
+            emulator1LocationText = MaybeAddBaseFolderPrefix(emulator1LocationText);
+            emulator2LocationText = MaybeAddBaseFolderPrefix(emulator2LocationText);
+            emulator3LocationText = MaybeAddBaseFolderPrefix(emulator3LocationText);
+            emulator4LocationText = MaybeAddBaseFolderPrefix(emulator4LocationText);
+            emulator5LocationText = MaybeAddBaseFolderPrefix(emulator5LocationText);
+
+            // --- Update UI with processed values ---
+            SystemFolderTextBox.Text = allSystemFolders.FirstOrDefault() ?? string.Empty;
+            AdditionalFoldersListBox.Items.Clear();
+            foreach (var folder in allSystemFolders.Skip(1))
+            {
+                AdditionalFoldersListBox.Items.Add(folder);
+            }
+
+            SystemImageFolderTextBox.Text = systemImageFolderText;
+            Emulator1PathTextBox.Text = emulator1LocationText;
+            Emulator2PathTextBox.Text = emulator2LocationText;
+            Emulator3PathTextBox.Text = emulator3LocationText;
+            Emulator4PathTextBox.Text = emulator4LocationText;
+            Emulator5PathTextBox.Text = emulator5LocationText;
 
             // Validate paths (now using potentially prefixed paths)
             // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
             // because CheckPath.IsValidPath will be updated to handle it.
-            ValidatePaths(systemNameText, systemFolderText, systemImageFolderText, emulator1LocationText,
+            ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault(), systemImageFolderText, emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
                 out var isEmulator2LocationValid, out var isEmulator3LocationValid, out var isEmulator4LocationValid,
@@ -133,7 +152,18 @@ public partial class EditSystemWindow
             if (ValidateSystemName(systemNameText)) return;
 
             // Validate SystemFolder (uses the potentially prefixed value)
-            if (ValidateSystemFolder(systemNameText, ref systemFolderText)) return;
+            var firstFolder = allSystemFolders.FirstOrDefault() ?? string.Empty;
+            if (ValidateSystemFolder(systemNameText, ref firstFolder)) return;
+
+            if (allSystemFolders.Count > 0)
+            {
+                allSystemFolders[0] = firstFolder;
+            }
+            else
+            {
+                allSystemFolders.Add(firstFolder);
+            }
+
 
             // Validate SystemImageFolder (uses the potentially prefixed value)
             if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
@@ -263,7 +293,7 @@ public partial class EditSystemWindow
                 SaveSystemButton.IsEnabled = false;
 
                 await SaveSystemConfigurationAsync(
-                    systemNameText, systemFolderText, systemImageFolderText, // Pass potentially prefixed paths
+                    systemNameText, allSystemFolders, systemImageFolderText, // Pass potentially prefixed paths
                     systemIsMame, formatsToSearch, extractFileBeforeLaunch,
                     formatsToLaunch, emulatorsElement, isUpdate,
                     _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
@@ -347,13 +377,13 @@ public partial class EditSystemWindow
         emulatorsElement.Add(emulatorElement);
     }
 
-    private static XElement AddToXml(string systemNameText, string systemFolderText, string systemImageFolderText,
+    private static XElement AddToXml(string systemNameText, List<string> systemFolders, string systemImageFolderText,
         bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
         var newSystem = new XElement("SystemConfig",
             new XElement("SystemName", systemNameText),
-            new XElement("SystemFolder", systemFolderText),
+            new XElement("SystemFolders", systemFolders.Select(static folder => new XElement("SystemFolder", folder))),
             new XElement("SystemImageFolder", systemImageFolderText),
             new XElement("SystemIsMAME", systemIsMame),
             new XElement("FileFormatsToSearch",
@@ -365,11 +395,24 @@ public partial class EditSystemWindow
         return newSystem;
     }
 
-    private static void UpdateXml(XElement existingSystem, string systemFolderText, string systemImageFolderText,
+    private static void UpdateXml(XElement existingSystem, List<string> systemFolders, string systemImageFolderText,
         bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
-        existingSystem.SetElementValue("SystemFolder", systemFolderText);
+        // Remove the old single SystemFolder tag for backward compatibility
+        existingSystem.Element("SystemFolder")?.Remove();
+
+        // Use ReplaceNodes on SystemFolders for a clean update
+        var foldersElement = existingSystem.Element("SystemFolders");
+        if (foldersElement == null)
+        {
+            foldersElement = new XElement("SystemFolders");
+            // Add it after SystemName to maintain order
+            existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
+        }
+
+        foldersElement.ReplaceNodes(systemFolders.Select(static folder => new XElement("SystemFolder", folder)));
+
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
         existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
         existingSystem.Element("FileFormatsToSearch")
