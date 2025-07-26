@@ -1018,6 +1018,11 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
+**Emulator Name:** Gopher64<br>
+**Emulator Path (Example):** c:\emulators\Gopher64\gopher64-windows-x86_64.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
 ## Nintendo 64DD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1202,6 +1207,19 @@ Core may require BIOS files or system files to work properly.
 
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mgba/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Hades<br>
+**Emulator Path (Example):** c:\emulators\Hades\Hades.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+Emulator documentation can be found on [GitHub](https://github.com/hades-emu/hades).<br>
+This emulator requires a BIOS file to work properly.
+
+**Emulator Name:** VisualBoy Advance M<br>
+**Emulator Path (Example):** c:\emulators\VisualBoy Advance M\visualboyadvance-m.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
 
 ## Nintendo Game Boy Color
 
