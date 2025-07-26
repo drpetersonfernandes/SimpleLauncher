@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--190625-->
+<!--260725-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
 <!--OK        DuckStation - Add a .txt file named "portable"-->
@@ -70,8 +70,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.278</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0278b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -501,8 +501,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.278</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0278b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -687,8 +687,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.277</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0277b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>0.278</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0278b_64bit.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1181,11 +1181,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>144</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>>
@@ -1512,11 +1512,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>144</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1990,11 +1990,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v144\ares.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
                 <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>144</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v144/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2407,7 +2407,7 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\DuckStation\duckstation-qt-x64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250527</EmulatorLatestVersion>
+                <EmulatorLatestVersion>1.20250627</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/duckstation-windows-x64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
@@ -2448,8 +2448,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2.2.0</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/pcsx2-v2.2.0-windows-x64-Qt.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2.4.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/pcsx2-v2.4.0-windows-x64-Qt.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PCSX2\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2558,8 +2558,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\PPSSPP\PPSSPPWindows64.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.19.2</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19_2/ppsspp_win.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.19.3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19_3/ppsspp_win.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PPSSPP\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
