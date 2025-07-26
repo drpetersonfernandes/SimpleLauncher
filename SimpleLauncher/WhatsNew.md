@@ -9,16 +9,16 @@
 - **Improved Button Styles:** Game and system buttons now feature refined 3D styles with hover and press animations for a more dynamic user experience.
 
 ### Stability Improvements
-- **Improved Mounting Logic:** The on-the-fly mounting for ZIP and XISO files no longer uses fixed delays. It now uses a more robust polling mechanism that actively checks for a successful mount, improving reliability and reducing unnecessary waiting.
+- **Improved Mounting Logic:** The on-the-fly mounting for ZIP and XISO files no longer uses fixed delays. It now uses a more robust polling mechanism that actively checks for successful mounts, improving reliability and reducing unnecessary waiting.
 
 ### Tooling
-- **New Tool Integration:** A new `RomValidator` tool has been added. This new tool can compare the user game files with No-Intro dat files.
+- **New Tool Integration:** A new `RomValidator` tool has been added. This tool can compare user game files with No-Intro dat files.
 
 ### Other Enhancements
 - **Emulator Updates:** Documentation and help files have been updated with information for new emulators (Gopher64, Hades, VisualBoy Advance M, Retroarch SwanStation).
-- **Emulator Updates:** Emulators from Easy Mode were updated to the latest version.
-- **MAME database Update:** mame.dat file updated to the MAME 0.278.
-- **History database Update:** history.xml updated to the latest version.
+- **Emulator Updates:** Emulators from Easy Mode have been updated to the latest versions.
+- **MAME Database Update:** The mame.dat file has been updated to MAME 0.278.
+- **History Database Update:** The history.xml file has been updated to the latest version.
 
 # Release 4.2.0
 *07/10/25*
