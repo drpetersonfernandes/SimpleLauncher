@@ -91,7 +91,12 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.deps.json"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.dll"),
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.pdb"),
-        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.runtimeconfig.json")
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.runtimeconfig.json"),
+
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.deps.json"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.dll"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.pdb"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.runtimeconfig.json")
     ];
 
     public static void CleanupTrash()
