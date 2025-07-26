@@ -31,6 +31,7 @@
     <system:String x:Key="ActionTaken">من أجل أمانك، تمت معالجة عملية الاستخراج بشكل صحيح وتم تسجيل المشكلة.</system:String>
     <system:String x:Key="Add">إضافة</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">جارٍ إضافة النظام إلى التكوين...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">مجلدات النظام الإضافية (اختياري)</system:String>
     <system:String x:Key="AddNewSystem">إضافة نظام جديد</system:String>
     <system:String x:Key="AddSystem">إضافة نظام</system:String>
     <system:String x:Key="AddToFavorites">إضافة إلى المفضلة</system:String>
@@ -483,6 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">'مجلد النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>
 <system:String x:Key="SystemFolderExplanation">بالنسبة لحقول مجلد النظام، مجلد صور النظام، ومسار المحاكي، سيتم حفظ المسارات النسبية تلقائيًا باستخدام البادئة %BASEFOLDER% (على سبيل المثال، ".\roms" يصبح "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">مسار مجلد النظام غير صالح أو غير موجود:</system:String>
+    <system:String x:Key="SystemFolderRequired">مجلد النظام (مطلوب)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">تمت إضافة النظام بنجاح!</system:String>
     <system:String x:Key="SystemImageFolder">مجلد الصور للنظام</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'مجلد صور النظام' لا يمكن أن يكون فارغًا أو يحتوي فقط على مسافات.</system:String>

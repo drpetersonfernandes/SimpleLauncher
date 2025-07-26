@@ -31,6 +31,7 @@
     <system:String x:Key="ActionTaken">Voor uw veiligheid is het extractieproces correct afgehandeld en is het probleem geregistreerd.</system:String>
     <system:String x:Key="Add">Toevoegen</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Systeem wordt toegevoegd aan configuratie...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Extra Systeem Mappen (Optioneel)</system:String>
     <system:String x:Key="AddNewSystem">Nieuw systeem toevoegen</system:String>
     <system:String x:Key="AddSystem">Systeem toevoegen</system:String>
     <system:String x:Key="AddToFavorites">Toevoegen aan favorieten</system:String>
@@ -483,6 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">De 'Systeemmap' mag niet leeg zijn of alleen spaties bevatten.</system:String>
 <system:String x:Key="SystemFolderExplanation">Voor de velden Systeemmap, Systeemafbeeldingsmap en Emulatorpad worden relatieve paden automatisch opgeslagen met het %BASEFOLDER% voorvoegsel (bijv. ".\roms" wordt "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Het systeemmap-pad is ongeldig of bestaat niet:</system:String>
+    <system:String x:Key="SystemFolderRequired">Systeemmap (Vereist)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Systeem is succesvol toegevoegd!</system:String>
     <system:String x:Key="SystemImageFolder">Systeemafbeeldingenmap</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">De 'Systeem afbeelding-map' mag niet leeg zijn of alleen spaties bevatten.</system:String>

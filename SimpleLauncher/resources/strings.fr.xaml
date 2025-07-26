@@ -31,6 +31,7 @@
     <system:String x:Key="ActionTaken">Pour votre sécurité, le processus d'extraction a été correctement géré et le problème a été enregistré.</system:String>
     <system:String x:Key="Add">Ajouter</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Ajout du système à la configuration...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Dossiers système supplémentaires (Optionnel)</system:String>
     <system:String x:Key="AddNewSystem">Ajouter un nouveau système</system:String>
     <system:String x:Key="AddSystem">Ajouter un système</system:String>
     <system:String x:Key="AddToFavorites">Ajouter aux favoris</system:String>
@@ -483,6 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">Le 'Dossier système' ne peut pas être vide ou contenir uniquement des espaces.</system:String>
 <system:String x:Key="SystemFolderExplanation">Pour les champs Dossier système, Dossier d'image système et Chemin de l'émulateur, les chemins relatifs seront automatiquement enregistrés en utilisant le préfixe %BASEFOLDER% (par exemple, ".\roms" devient "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">Le chemin du dossier système n'est pas valide ou n'existe pas :</system:String>
+    <system:String x:Key="SystemFolderRequired">Dossier système (Requis)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Le système a été ajouté avec succès !</system:String>
     <system:String x:Key="SystemImageFolder">Dossier d'Images du Système</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">Le 'Dossier d'images système' ne peut pas être vide ou contenir uniquement des espaces.</system:String>

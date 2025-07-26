@@ -31,6 +31,7 @@
     <system:String x:Key="ActionTaken">आपकी सुरक्षा के लिए, निष्कर्षण प्रक्रिया को उचित रूप से संभाला गया है और समस्या को लॉग किया गया है।</system:String>
     <system:String x:Key="Add">जोड़ें</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">सिस्टम को कॉन्फ़िगरेशन में जोड़ रहा है...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">अतिरिक्त सिस्टम फ़ोल्डर (वैकल्पिक)</system:String>
     <system:String x:Key="AddNewSystem">नया सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddSystem">सिस्टम जोड़ें</system:String>
     <system:String x:Key="AddToFavorites">पसंदीदा में जोड़ें</system:String>
@@ -483,6 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">'सिस्टम फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>
 <system:String x:Key="SystemFolderExplanation">सिस्टम फ़ोल्डर, सिस्टम इमेज फ़ोल्डर, और एमुलेटर पथ फ़ील्ड के लिए, सापेक्ष पथ स्वचालित रूप से %BASEFOLDER% उपसर्ग का उपयोग करके सहेजे जाएंगे (उदाहरण के लिए, ".\roms" "%BASEFOLDER%\roms" बन जाता है)।</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">सिस्टम फोल्डर का पथ अमान्य है या मौजूद नहीं है:</system:String>
+    <system:String x:Key="SystemFolderRequired">सिस्टम फ़ोल्डर (आवश्यक)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">सिस्टम सफलतापूर्वक जोड़ा गया है!</system:String>
     <system:String x:Key="SystemImageFolder">सिस्टम छवि फ़ोल्डर</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'सिस्टम इमेज फ़ोल्डर' खाली नहीं हो सकता या केवल स्पेस नहीं हो सकता।</system:String>

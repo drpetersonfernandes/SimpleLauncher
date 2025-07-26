@@ -31,6 +31,7 @@
     <system:String x:Key="ActionTaken">For your security, the extraction process has been properly handle and the issue has been logged.</system:String>
     <system:String x:Key="Add">Add</system:String>
     <system:String x:Key="Addingsystemtoconfiguration">Adding system to configuration...</system:String>
+    <system:String x:Key="AdditionalSystemFoldersOptional">Additional System Folders (Optional)</system:String>
     <system:String x:Key="AddNewSystem">Add New System</system:String>
     <system:String x:Key="AddSystem">Add System</system:String>
     <system:String x:Key="AddToFavorites">Add To Favorites</system:String>
@@ -483,6 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">'System Folder' cannot be empty or contain only spaces.</system:String>
     <system:String x:Key="SystemFolderExplanation">For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">System Folder path is not valid or does not exist:</system:String>
+    <system:String x:Key="SystemFolderRequired">System Folder (Required)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">System has been successfully added!</system:String>
     <system:String x:Key="SystemImageFolder">System Image Folder</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">'System Image Folder' cannot be empty or contain only spaces.</system:String>
@@ -640,7 +642,4 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
-    <system:String x:Key="SystemFolderRequired">System Folder (Required)</system:String>
-    <system:String x:Key="AdditionalSystemFoldersOptional">Additional System Folders (Optional)</system:String>
 </ResourceDictionary>

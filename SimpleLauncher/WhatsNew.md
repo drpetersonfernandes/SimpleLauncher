@@ -1,3 +1,25 @@
+# Release 4.3
+*07/26/25*
+---
+
+### Major Feature: Multi-Folder Support
+- **Multiple System Folders:** The core logic has been refactored to allow each system to scan for games across multiple folders instead of just one.
+
+### UI & UX Enhancements
+- **Improved Button Styles:** Game and system buttons now feature refined 3D styles with hover and press animations for a more dynamic user experience.
+
+### Stability Improvements
+- **Improved Mounting Logic:** The on-the-fly mounting for ZIP and XISO files no longer uses fixed delays. It now uses a more robust polling mechanism that actively checks for a successful mount, improving reliability and reducing unnecessary waiting.
+
+### Tooling
+- **New Tool Integration:** A new `RomValidator` tool has been added. This new tool can compare the user game files with No-Intro dat files.
+
+### Other Enhancements
+- **Emulator Updates:** Documentation and help files have been updated with information for new emulators (Gopher64, Hades, VisualBoy Advance M, Retroarch SwanStation).
+- **Emulator Updates:** Emulators from Easy Mode were updated to the latest version.
+- **MAME database Update:** mame.dat file updated to the MAME 0.278.
+- **History database Update:** history.xml updated to the latest version.
+
 # Release 4.2.0
 *07/10/25*
 ---
