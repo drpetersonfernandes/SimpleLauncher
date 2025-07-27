@@ -484,7 +484,7 @@
     <system:String x:Key="SystemFoldercannotbeempty">A "Pasta do Sistema" não pode estar vazia ou conter apenas espaços.</system:String>
 <system:String x:Key="SystemFolderExplanation">Para os campos Pasta do Sistema, Pasta de Imagem do Sistema e Caminho do Emulador, os caminhos relativos serão salvos automaticamente usando o prefixo %BASEFOLDER% (por exemplo, ".\roms" torna-se "%BASEFOLDER%\roms").</system:String>
     <system:String x:Key="SystemFolderpathisnotvalid">O caminho da pasta do sistema é inválido ou não existe:</system:String>
-    <system:String x:Key="SystemFolderRequired">Pasta do Sistema (Obrigatório)</system:String>
+    <system:String x:Key="SystemFolderRequired">Pasta do Sistema (obrigatório)</system:String>
     <system:String x:Key="Systemhasbeensuccessfullyadded">Sistema foi adicionado com sucesso!</system:String>
     <system:String x:Key="SystemImageFolder">Pasta de Imagens do Sistema</system:String>
     <system:String x:Key="SystemImageFoldercannotbeempty">A "Pasta de Imagem do Sistema" não pode estar vazia ou conter apenas espaços.</system:String>
