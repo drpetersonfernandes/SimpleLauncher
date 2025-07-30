@@ -40,7 +40,7 @@ public class HelpUserManager
                     XmlResolver = null
                 };
                 using var reader = XmlReader.Create(FilePath, settings);
-                doc = XDocument.Load(reader);
+                doc = XDocument.Load(reader, LoadOptions.None);
             }
             catch (Exception ex)
             {

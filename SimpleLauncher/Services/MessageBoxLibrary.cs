@@ -2864,7 +2864,7 @@ public static class MessageBoxLibrary
 
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            MessageBox.Show($"{emulator} {i + 2} {nameisrequiredbecauserelateddata}\n\n" +
+            MessageBox.Show($"{emulator} {i} {nameisrequiredbecauserelateddata}\n\n" +
                             $"{pleasefixthisfield}",
                 info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
@@ -2872,7 +2872,7 @@ public static class MessageBoxLibrary
         {
             Application.Current.Dispatcher.Invoke(() =>
             {
-                MessageBox.Show($"{emulator} {i + 2} {nameisrequiredbecauserelateddata}\n\n" +
+                MessageBox.Show($"{emulator} {i} {nameisrequiredbecauserelateddata}\n\n" +
                                 $"{pleasefixthisfield}",
                     info, MessageBoxButton.OK, MessageBoxImage.Information);
             });

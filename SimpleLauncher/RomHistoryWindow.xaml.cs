@@ -72,7 +72,7 @@ public partial class RomHistoryWindow
                 };
 
                 using var reader = XmlReader.Create(historyFilePath, settings);
-                var doc = XDocument.Load(reader);
+                var doc = XDocument.Load(reader, LoadOptions.None);
 
                 return doc.Descendants("entry")
                            .FirstOrDefault(e => e.Element("systems")?.Elements("system")

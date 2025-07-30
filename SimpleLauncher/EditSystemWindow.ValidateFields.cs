@@ -109,43 +109,49 @@ public partial class EditSystemWindow
         return true;
     }
 
-    private static bool ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch,
-        out List<string> formatsToLaunch)
+    private static bool ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch, out List<string> formatsToLaunch)
     {
         formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
             .Where(static format => !string.IsNullOrEmpty(format))
             .ToList();
 
-        if (formatsToLaunch.Count != 0 || !extractFileBeforeLaunch) return false;
+        // When extractFileBeforeLaunch is true AND formatsToLaunch is empty, that's invalid
+        // ReSharper disable once InvertIf
+        if (extractFileBeforeLaunch && formatsToLaunch.Count == 0)
+        {
+            // Notify user
+            MessageBoxLibrary.ExtensionToLaunchIsRequiredMessageBox();
+            return true; // Return true to indicate validation failed
+        }
 
-        // Notify user
-        MessageBoxLibrary.ExtensionToLaunchIsRequiredMessageBox();
-
-        return true;
+        return false; // Return false to indicate validation passed
     }
 
-    private static bool ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch,
-        out List<string> formatsToSearch)
+    private static bool ValidateFormatToSearch(string formatToSearchText, bool extractFileBeforeLaunch, out List<string> formatsToSearch)
     {
         formatsToSearch = formatToSearchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)
             .Select(static format => format.Trim())
             .Where(static format => !string.IsNullOrEmpty(format))
             .ToList();
+
         if (formatsToSearch.Count == 0)
         {
             // Notify user
             MessageBoxLibrary.ExtensionToSearchIsRequiredMessageBox();
-
             return true;
         }
 
-        if (!extractFileBeforeLaunch || formatsToSearch.Any(static f => f is "zip" or "7z" or "rar")) return false;
+        // When extractFileBeforeLaunch is true, ALL formats must be zip, rar, or 7z
+        // ReSharper disable once InvertIf
+        if (extractFileBeforeLaunch && !formatsToSearch.All(static f => f is "zip" or "7z" or "rar"))
+        {
+            // Notify user
+            MessageBoxLibrary.FileMustBeCompressedMessageBox();
+            return true;
+        }
 
-        // Notify user
-        MessageBoxLibrary.FileMustBeCompressedMessageBox();
-
-        return true;
+        return false;
     }
 
     private bool ValidateSystemImageFolder(string systemNameText, ref string systemImageFolderText)

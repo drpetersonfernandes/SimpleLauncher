@@ -58,25 +58,33 @@ public partial class EditSystemWindow
                 _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
 
-            // Create a new document for sorting to avoid modifying _xmlDoc directly during sort
-            var sortedDoc = new XDocument(new XElement("SystemConfigs",
-                _xmlDoc.Root?.Elements("SystemConfig")
-                    .OrderBy(static system => system.Element("SystemName")?.Value)
-                    .Select(static el =>
-                        new XElement(el)) // Create copies to avoid modifying original _xmlDoc elements during sort
-                ?? Enumerable.Empty<XElement>() // Handle case where Root is null
-            ));
+            // Sort the system configurations alphabetically by SystemName
+            var sortedSystems = _xmlDoc.Root?
+                .Elements("SystemConfig")
+                .OrderBy(static system => system.Element("SystemName")?.Value)
+                .ToList();
 
-            // Save the sorted document asynchronously with explicit formatting
+            // Replace the existing unsorted systems with the sorted list
+            if (sortedSystems != null && _xmlDoc.Root != null)
+            {
+                _xmlDoc.Root.RemoveNodes();
+                _xmlDoc.Root.Add(sortedSystems);
+            }
+
+            // Save the sorted document asynchronously with proper formatting
             await Task.Run(() =>
             {
                 var settings = new XmlWriterSettings
                 {
                     Indent = true,
-                    NewLineOnAttributes = false
+                    IndentChars = "  ", // Use 2 spaces for indentation
+                    NewLineHandling = NewLineHandling.Replace,
+                    Encoding = System.Text.Encoding.UTF8
                 };
+
                 using var writer = XmlWriter.Create(XmlFilePath, settings);
-                sortedDoc.Save(writer);
+                _xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                _xmlDoc.Save(writer);
             });
         }
         catch (Exception ex)
@@ -164,7 +172,6 @@ public partial class EditSystemWindow
                 allSystemFolders.Add(firstFolder);
             }
 
-
             // Validate SystemImageFolder (uses the potentially prefixed value)
             if (ValidateSystemImageFolder(systemNameText, ref systemImageFolderText)) return;
 
@@ -176,9 +183,25 @@ public partial class EditSystemWindow
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
                                               ?.Content.ToString() ?? "false");
 
-            if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch)) return;
-            if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch)) return;
-            if (ValidateEmulator1Name(emulator1NameText)) return;
+            if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch))
+            {
+                MarkInvalid(FormatToSearchTextBox, false); // Invalid state
+                return;
+            }
+            else
+            {
+                MarkValid(FormatToSearchTextBox); // Valid state
+            }
+
+            if (ValidateFormatToLaunch(formatToLaunchText, extractFileBeforeLaunch, out var formatsToLaunch))
+            {
+                return;
+            }
+
+            if (ValidateEmulator1Name(emulator1NameText))
+            {
+                return;
+            }
 
             // Check if any of the *location* paths are invalid after prefixing/validation
             if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
@@ -298,7 +321,6 @@ public partial class EditSystemWindow
                     formatsToLaunch, emulatorsElement, isUpdate,
                     _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
 
-
                 PopulateSystemNamesDropdown();
                 SystemNameDropdown.SelectedItem = systemNameText;
                 LoadSystemDetails(systemNameText); // This will load the saved values (including %BASEFOLDER%) back into UI
@@ -364,7 +386,6 @@ public partial class EditSystemWindow
         return $"%BASEFOLDER%\\{trimmedPath}";
     }
 
-
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)
     {
         if (string.IsNullOrEmpty(name)) return;
@@ -386,11 +407,9 @@ public partial class EditSystemWindow
             new XElement("SystemFolders", systemFolders.Select(static folder => new XElement("SystemFolder", folder))),
             new XElement("SystemImageFolder", systemImageFolderText),
             new XElement("SystemIsMAME", systemIsMame),
-            new XElement("FileFormatsToSearch",
-                formatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
+            new XElement("FileFormatsToSearch", formatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
             new XElement("ExtractFileBeforeLaunch", extractFileBeforeLaunch),
-            new XElement("FileFormatsToLaunch",
-                formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
+            new XElement("FileFormatsToLaunch", formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
             emulatorsElement);
         return newSystem;
     }
@@ -415,11 +434,9 @@ public partial class EditSystemWindow
 
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
         existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
-        existingSystem.Element("FileFormatsToSearch")
-            ?.ReplaceNodes(formatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
+        existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(formatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
-        existingSystem.Element("FileFormatsToLaunch")
-            ?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
+        existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")?.Remove();
         existingSystem.Add(emulatorsElement);
     }

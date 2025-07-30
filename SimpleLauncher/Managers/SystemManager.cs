@@ -121,7 +121,7 @@ public partial class SystemManager
                 };
 
                 using var reader = XmlReader.Create(XmlPath, settings);
-                doc = XDocument.Load(reader);
+                doc = XDocument.Load(reader, LoadOptions.None);
             }
             catch (XmlException ex)
             {

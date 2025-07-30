@@ -56,7 +56,7 @@ public partial class EditSystemWindow
                 };
 
                 using var reader = XmlReader.Create(XmlFilePath, settings);
-                return XDocument.Load(reader);
+                return XDocument.Load(reader, LoadOptions.None);
             });
 
             if (xmlDoc == null)
