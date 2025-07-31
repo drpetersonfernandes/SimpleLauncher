@@ -2276,6 +2276,41 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo</SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%"</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.278</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0278b_64bit.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeo.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>SNK Neo Geo CD</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo CD</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo CD</SystemImageFolder>
