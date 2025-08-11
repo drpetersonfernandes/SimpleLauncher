@@ -130,14 +130,13 @@ public partial class PlayHistoryWindow
             }
             else
             {
-                // Notify developer
-                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}";
-                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+                // System config not found, this history item is orphaned.
+                // It should be collected for batch removal.
+                itemsToDelete.Add(item);
 
-                await Dispatcher.InvokeAsync(() =>
-                {
-                    item.FileSizeBytes = -2; // System config not found ("N/A")
-                });
+                // Notify developer
+                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
+                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
             }
         });
 

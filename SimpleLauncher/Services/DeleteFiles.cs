@@ -17,6 +17,13 @@ public static class DeleteFiles
         {
             try
             {
+                // FIX: Check for and remove the read-only attribute before deleting.
+                var fileInfo = new FileInfo(filePath);
+                if (fileInfo.IsReadOnly)
+                {
+                    fileInfo.IsReadOnly = false;
+                }
+
                 File.Delete(filePath);
                 // If deletion succeeds, return
                 return;

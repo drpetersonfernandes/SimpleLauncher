@@ -111,6 +111,8 @@ public partial class MainWindow
         {
             SystemComboBox.SelectedItem = systemName;
         }
+
+        PlaySoundEffects.PlayNotificationSound();
     }
 
     private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config)
