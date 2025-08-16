@@ -345,7 +345,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task LaunchShortcutFile(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private static Task LaunchShortcutFile(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -388,31 +388,6 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the shortcut process.");
             }
-
-            // Note: With UseShellExecute = true, process.WaitForExit() might not wait for the launched application,
-            // but rather for the shell process that opened it (like explorer.exe). This is a limitation.
-            // I will keep the wait for consistency. It might return immediately.
-            await process.WaitForExitAsync();
-
-            // ExitCode might not be reliable with UseShellExecute = true
-            if (process.ExitCode != 0)
-            {
-                 // Log the exit code, but don't necessarily treat it as a critical error
-                 // since it might just be the shell's exit code.
-                 // Notify developer
-                 var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
-                                   $"Shortcut file: {psi.FileName}\n" +
-                                   $"Exit code {process.ExitCode}";
-                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-                 {
-                     // Notify user
-                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-                 }
-            }
         }
         catch (Exception ex)
         {
@@ -430,6 +405,8 @@ public static class GameLauncher
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
             }
         }
+
+        return Task.CompletedTask;
     }
 
     private static async Task LaunchExecutable(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
