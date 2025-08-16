@@ -25,6 +25,18 @@ public static class MountIsoFiles
 
         string mountPath = null;
 
+        if (resolvedIsoFilePath == null)
+        {
+            // Notify developer
+            var contextMessage = $"Resolved ISO path is null. ISO: {resolvedIsoFilePath}";
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+
+            return;
+        }
+
         try
         {
             // 1. Mount ISO and get drive letter

@@ -26,7 +26,12 @@ public static class GameLauncher
         MountZipFiles.Configure(configuration);
     }
 
-    public static async Task HandleButtonClick(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
+    public static async Task HandleButtonClick(string filePath,
+        string selectedEmulatorName,
+        string selectedSystemName,
+        SystemManager selectedSystemManager,
+        SettingsManager settings,
+        MainWindow mainWindow)
     {
         var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
 
