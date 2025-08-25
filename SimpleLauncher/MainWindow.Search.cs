@@ -79,15 +79,10 @@ public partial class MainWindow
             return;
         }
 
-        var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ??
-                                  "Searching, please wait...";
-        var pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait);
-
         try
         {
-            await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
             // LoadGameFilesAsync will use _activeSearchQueryOrMode (which is searchQuery here)
-            // and _currentFilter (which is null here)
+            // and _currentFilter (which is null here). It will also manage the loading indicator.
             await LoadGameFilesAsync(null, searchQuery);
         }
         catch (Exception ex)
@@ -98,10 +93,6 @@ public partial class MainWindow
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
-        }
-        finally
-        {
-            await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
         }
     }
 }

@@ -820,124 +820,133 @@
                 </Grid>
             </Border>
 
-            <ScrollViewer x:Name="Scroller" Grid.Row="1" Grid.Column="1" VerticalScrollBarVisibility="Visible"
-                          Margin="5,5,5,0">
-                <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0">
-                    <!-- Game buttons will be added here programmatically -->
-                </WrapPanel>
-            </ScrollViewer>
+            <Grid Grid.Row="1" Grid.Column="1">
+                <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Visible"
+                              Margin="5,5,5,0">
+                    <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0">
+                        <!-- Game buttons will be added here programmatically -->
+                    </WrapPanel>
+                </ScrollViewer>
 
-            <!-- Embedded Grid -->
-            <Grid x:Name="ListViewPreviewArea" Grid.Row="1" Grid.Column="1" Visibility="Collapsed" Margin="0">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="4.5*" />
-                    <ColumnDefinition Width="5" />
-                    <ColumnDefinition Width="*" />
-                </Grid.ColumnDefinitions>
+                <!-- Embedded Grid -->
+                <Grid x:Name="ListViewPreviewArea" Visibility="Collapsed" Margin="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="4.5*" />
+                        <ColumnDefinition Width="5" />
+                        <ColumnDefinition Width="*" />
+                    </Grid.ColumnDefinitions>
 
-                <!-- DataGrid in the left column -->
-                <DataGrid Grid.Column="0"
-                          Name="GameDataGrid"
-                          MouseDoubleClick="GameListDoubleClickOnSelectedItem"
-                          ItemsSource="{Binding GameListItems}"
-                          Margin="10,10,5,0"
-                          BorderThickness="1"
-                          BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                          Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
-                          Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
-                          AutoGenerateColumns="False"
-                          CanUserAddRows="False"
-                          IsReadOnly="True"
-                          GridLinesVisibility="All"
-                          SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }">
-                    <DataGrid.RowStyle>
-                        <Style TargetType="DataGridRow">
-                            <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
-                            <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                            <!-- Text color from theme -->
-                            <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                            <!-- Row background from theme -->
-                            <!-- Set initial opacity to 0 for the fade-in effect -->
-                            <Setter Property="Opacity" Value="0" />
+                    <!-- DataGrid in the left column -->
+                    <DataGrid Grid.Column="0"
+                              Name="GameDataGrid"
+                              MouseDoubleClick="GameListDoubleClickOnSelectedItem"
+                              ItemsSource="{Binding GameListItems}"
+                              Margin="10,10,5,0"
+                              BorderThickness="1"
+                              BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                              Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
+                              Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                              AutoGenerateColumns="False"
+                              CanUserAddRows="False"
+                              IsReadOnly="True"
+                              GridLinesVisibility="All"
+                              SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }">
+                        <DataGrid.RowStyle>
+                            <Style TargetType="DataGridRow">
+                                <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
+                                <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
+                                <!-- Text color from theme -->
+                                <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
+                                <!-- Row background from theme -->
+                                <!-- Set initial opacity to 0 for the fade-in effect -->
+                                <Setter Property="Opacity" Value="0" />
 
-                            <!-- Trigger to control the hover background and foreground color -->
-                            <Style.Triggers>
-                                <EventTrigger RoutedEvent="Loaded">
-                                    <BeginStoryboard>
-                                        <Storyboard>
-                                            <DoubleAnimation
+                                <!-- Trigger to control the hover background and foreground color -->
+                                <Style.Triggers>
+                                    <EventTrigger RoutedEvent="Loaded">
+                                        <BeginStoryboard>
+                                            <Storyboard>
+                                                <DoubleAnimation
                                                 Storyboard.TargetProperty="Opacity"
                                                 From="0.0" To="1.0" Duration="0:0:0.5" />
-                                        </Storyboard>
-                                    </BeginStoryboard>
-                                </EventTrigger>
-                                <Trigger Property="IsMouseOver" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                    <!-- Accent color for selected row -->
-                                    <Setter Property="Foreground"
+                                            </Storyboard>
+                                        </BeginStoryboard>
+                                    </EventTrigger>
+                                    <Trigger Property="IsMouseOver" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                        <!-- Accent color for selected row -->
+                                        <Setter Property="Foreground"
                                             Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                    <!-- Keep text color from theme on hover -->
-                                </Trigger>
-                                <Trigger Property="IsSelected" Value="True">
-                                    <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                    <!-- Accent color for selected row -->
-                                    <Setter Property="Foreground"
+                                        <!-- Keep text color from theme on hover -->
+                                    </Trigger>
+                                    <Trigger Property="IsSelected" Value="True">
+                                        <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
+                                        <!-- Accent color for selected row -->
+                                        <Setter Property="Foreground"
                                             Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
-                                    <!-- Ideal foreground color on selection -->
-                                </Trigger>
-                            </Style.Triggers>
-                        </Style>
-                    </DataGrid.RowStyle>
-                    <DataGrid.Columns>
-                        <DataGridTemplateColumn Header="Favorite" Width="Auto">
-                            <DataGridTemplateColumn.CellTemplate>
-                                <DataTemplate>
-                                    <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
-                                           Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                           d:DataContext="{d:DesignInstance }" />
-                                </DataTemplate>
-                            </DataGridTemplateColumn.CellTemplate>
-                        </DataGridTemplateColumn>
-                        <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
-                        <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
-                        <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
-                        <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                        <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
-                        <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
-                    </DataGrid.Columns>
-                </DataGrid>
+                                        <!-- Ideal foreground color on selection -->
+                                    </Trigger>
+                                </Style.Triggers>
+                            </Style>
+                        </DataGrid.RowStyle>
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Favorite" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
+                                               Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                               d:DataContext="{d:DesignInstance }" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
+                            <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
+                            <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
+                            <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
+                            <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
+                            <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
+                        </DataGrid.Columns>
+                    </DataGrid>
 
-                <!-- GridSplitter between columns 0 and 2 -->
-                <GridSplitter Grid.Row="0" Grid.Column="1"
-                              Background="Gray"
-                              ResizeDirection="Columns"
-                              Style="{StaticResource EnhancedGridSplitterStyle}"
-                              HorizontalAlignment="Center"
-                              VerticalAlignment="Stretch"
-                              ShowsPreview="True"
-                              ResizeBehavior="PreviousAndNext"
-                              Cursor="SizeWE" />
+                    <!-- GridSplitter between columns 0 and 2 -->
+                    <GridSplitter Grid.Row="0" Grid.Column="1"
+                                  Background="Gray"
+                                  ResizeDirection="Columns"
+                                  Style="{StaticResource EnhancedGridSplitterStyle}"
+                                  HorizontalAlignment="Center"
+                                  VerticalAlignment="Stretch"
+                                  ShowsPreview="True"
+                                  ResizeBehavior="PreviousAndNext"
+                                  Cursor="SizeWE" />
 
-                <Grid Grid.Column="2" Margin="5,0,10,0">
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                        <RowDefinition Height="*" />
-                    </Grid.RowDefinitions>
-                    <Label Grid.Row="0"
-                           Content="{DynamicResource PreviewImage}"
-                           FontWeight="Bold"
-                           HorizontalAlignment="Center"
-                           Margin="0,0,0,5" />
-                    <Border Grid.Row="1"
-                            BorderBrush="Gray"
-                            BorderThickness="1"
-                            Padding="5">
-                        <Image Name="PreviewImage"
-                               Stretch="Uniform"
+                    <Grid Grid.Column="2" Margin="5,0,10,0">
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <Label Grid.Row="0"
+                               Content="{DynamicResource PreviewImage}"
+                               FontWeight="Bold"
                                HorizontalAlignment="Center"
-                               VerticalAlignment="Center" />
-                    </Border>
+                               Margin="0,0,0,5" />
+                        <Border Grid.Row="1"
+                                BorderBrush="Gray"
+                                BorderThickness="1"
+                                Padding="5">
+                            <Image Name="PreviewImage"
+                                   Stretch="Uniform"
+                                   HorizontalAlignment="Center"
+                                   VerticalAlignment="Center" />
+                        </Border>
+                    </Grid>
                 </Grid>
+                
+                <controls:ProgressRing x:Name="LoadingIndicator"
+                                       IsActive="{Binding IsLoadingGames}"
+                                       HorizontalAlignment="Center"
+                                       VerticalAlignment="Center"
+                                       Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                       Width="100" Height="100" d:DataContext="{d:DesignInstance }" />
             </Grid>
         </Grid>
 

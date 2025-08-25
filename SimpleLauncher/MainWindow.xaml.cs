@@ -57,6 +57,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+    private bool _isLoadingGames;
+
+    public bool IsLoadingGames
+    {
+        get => _isLoadingGames;
+        set
+        {
+            _isLoadingGames = value;
+            OnPropertyChanged(nameof(IsLoadingGames));
+        }
+    }
+
     private void OnPropertyChanged(string propertyName) // Update UI on OnPropertyChanged
     {
         PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
@@ -490,22 +502,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         return favoriteGamePaths;
     }
 
-    private static Task ShowPleaseWaitWindowAsync(Window window)
-    {
-        return Task.Run(() =>
-        {
-            window.Dispatcher.Invoke(window.Show);
-        });
-    }
-
-    private static Task ClosePleaseWaitWindowAsync(Window window)
-    {
-        return Task.Run(() =>
-        {
-            window.Dispatcher.Invoke(window.Close);
-        });
-    }
-
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
@@ -906,58 +902,47 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
-    private async Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
+    private Task<List<string>> FilterFilesByShowGamesSettingAsync(List<string> files, string selectedSystem, SystemManager selectedConfig)
     {
         if (files.Count == 0 || _settings.ShowGames == "ShowAll")
-            return files;
+            return Task.FromResult(files);
 
         var filteredFiles = new List<string>();
 
-        var filteringPleasewait = (string)Application.Current.TryFindResource("Filteringpleasewait") ?? "Filtering, please wait...";
-        var pleaseWaitWindow = new PleaseWaitWindow(filteringPleasewait);
-
-        try
+        foreach (var filePath in files) // 'filePath' is already resolved here
         {
-            await ShowPleaseWaitWindowAsync(pleaseWaitWindow);
+            var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
 
-            foreach (var filePath in files) // 'filePath' is already resolved here
+            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig);
+
+            bool isDefaultImage;
+            if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
-                var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
-
-                var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig);
-
-                bool isDefaultImage;
-                if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
-                {
-                    isDefaultImage = true;
-                }
-                else
-                {
-                    // Resolve the found image path before checking existence
-                    var resolvedImagePath = PathHelper.ResolveRelativeToAppDirectory(imagePath);
-                    isDefaultImage = string.IsNullOrEmpty(resolvedImagePath) || !File.Exists(resolvedImagePath) || resolvedImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
-                }
-
-                switch (_settings.ShowGames)
-                {
-                    case "ShowWithCover" when !isDefaultImage:
-                    case "ShowWithoutCover" when isDefaultImage:
-                        filteredFiles.Add(filePath);
-                        break;
-                }
+                isDefaultImage = true;
+            }
+            else
+            {
+                // Resolve the found image path before checking existence
+                var resolvedImagePath = PathHelper.ResolveRelativeToAppDirectory(imagePath);
+                isDefaultImage = string.IsNullOrEmpty(resolvedImagePath) || !File.Exists(resolvedImagePath) || resolvedImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase);
             }
 
-            return filteredFiles;
+            switch (_settings.ShowGames)
+            {
+                case "ShowWithCover" when !isDefaultImage:
+                case "ShowWithoutCover" when isDefaultImage:
+                    filteredFiles.Add(filePath);
+                    break;
+            }
         }
-        finally
-        {
-            await ClosePleaseWaitWindowAsync(pleaseWaitWindow);
-        }
+
+        return Task.FromResult(filteredFiles);
     }
 
     private void SetUiLoadingState(bool isLoading)
     {
         _isGameListLoading = isLoading;
+        IsLoadingGames = isLoading;
 
         // Disable/Enable main interaction controls
         SystemComboBox.IsEnabled = !isLoading;
