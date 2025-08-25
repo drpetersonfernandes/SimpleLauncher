@@ -985,10 +985,18 @@
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="10,0,0,0"
                         Orientation="Horizontal">
-                <Label Content="{DynamicResource System}" Margin="5,0,5,0" />
-                <Label Content="{Binding SelectedSystem}" Margin="5,0" d:DataContext="{d:DesignInstance }" />
-                <Label Content="{DynamicResource Playtime}" Margin="5,0,5,0" />
-                <Label Content="{Binding PlayTime}" Margin="5,0" d:DataContext="{d:DesignInstance }" />
+                <!-- System Info -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,15,0">
+                    <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0"/>
+                    <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
+                </StackPanel>
+                <!-- Playtime Info -->
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0">
+                    <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
+                    <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0"/>
+                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
+                </StackPanel>
             </StackPanel>
 
         </Grid>
