@@ -186,6 +186,19 @@
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Margin" Value="5" />
             <Setter Property="Padding" Value="0,5,0,0" />
+            <!-- Set initial opacity to 0 for the fade-in effect -->
+            <Setter Property="Opacity" Value="0" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1.0" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
         </Style>
 
     </Window.Resources>
@@ -844,9 +857,20 @@
                             <!-- Text color from theme -->
                             <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
                             <!-- Row background from theme -->
+                            <!-- Set initial opacity to 0 for the fade-in effect -->
+                            <Setter Property="Opacity" Value="0" />
 
                             <!-- Trigger to control the hover background and foreground color -->
                             <Style.Triggers>
+                                <EventTrigger RoutedEvent="Loaded">
+                                    <BeginStoryboard>
+                                        <Storyboard>
+                                            <DoubleAnimation
+                                                Storyboard.TargetProperty="Opacity"
+                                                From="0.0" To="1.0" Duration="0:0:0.5" />
+                                        </Storyboard>
+                                    </BeginStoryboard>
+                                </EventTrigger>
                                 <Trigger Property="IsMouseOver" Value="True">
                                     <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
                                     <!-- Accent color for selected row -->
