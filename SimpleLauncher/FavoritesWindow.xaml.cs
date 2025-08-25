@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -37,19 +38,22 @@ public partial class FavoritesWindow
         _ = LoadFavoritesAsync();
     }
 
-    private Task LoadFavoritesAsync()
+    private async Task LoadFavoritesAsync()
     {
         var favoritesConfig = FavoritesManager.LoadFavorites();
-        FavoritesDataGrid.ItemsSource = _favoriteList; // Set ItemsSource early
+        FavoritesDataGrid.ItemsSource = _favoriteList;
 
         if (_machines == null || _systemManagers == null)
         {
             // Notify developer
             _ = LogErrors.LogErrorAsync(new Exception("_machines or _systemManagers are null."), "_machines or _systemManagers are null.");
 
-            return Task.CompletedTask;
+            return;
         }
 
+        var itemsToProcess = new List<Favorite>();
+
+        // Phase 1: Create all Favorite objects and add to _favoriteList
         foreach (var favoriteConfigItem in favoritesConfig.FavoriteList)
         {
             // Find machine description if available
@@ -81,54 +85,89 @@ public partial class FavoritesWindow
 
             if (systemManager != null)
             {
-                var currentFavoriteItem = favoriteItem;
-                var currentSystemManager = systemManager;
-
-                _ = Task.Run(() => // Fire and forget the task for UI responsiveness
-                {
-                    long sizeToSet;
-                    var filePath = PathHelper.FindFileInSystemFolders(currentSystemManager, currentFavoriteItem.FileName);
-
-                    try
-                    {
-                        if (File.Exists(filePath))
-                        {
-                            sizeToSet = new FileInfo(filePath).Length;
-                        }
-                        else
-                        {
-                            // Notify developer
-                            // var contextMessage = $"Favorite file not found during async size calculation: {filePath}";
-                            // _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, filePath), contextMessage);
-
-                            sizeToSet = -2; // Indicate Not Found/Error (will show "N/A")
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        var contextMessage = $"Error getting file size async for favorite: {filePath}";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                        sizeToSet = -2; // Indicate Not Found/Error (will show "N/A")
-                    }
-
-                    currentFavoriteItem.FileSizeBytes = sizeToSet;
-                    return Task.CompletedTask;
-                });
+                itemsToProcess.Add(favoriteItem);
             }
             else
             {
-                // Log a warning if the system manager for a favorite is missing
-                // Notify developer
                 var contextMessage = $"System manager not found for favorite: {favoriteConfigItem.SystemName} - {favoriteConfigItem.FileName}. File size not calculated.";
                 _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
 
-                favoriteItem.FileSizeBytes = -2; // Set to N/A
+                favoriteItem.FileSizeBytes = -2; // "N/A"
             }
         }
 
-        return Task.CompletedTask;
+        // Phase 2: Use Parallel.ForEachAsync to load file sizes efficiently
+        var itemsToDelete = new ConcurrentBag<Favorite>();
+
+        await Parallel.ForEachAsync(
+            itemsToProcess,
+            new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+            async (favoriteItem, cancellationToken) =>
+            {
+                var systemManager = _systemManagers.FirstOrDefault(config =>
+                    config.SystemName.Equals(favoriteItem.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                // This should not happen since we filtered above, but double-check
+                if (systemManager == null)
+                {
+                    itemsToDelete.Add(favoriteItem);
+                    return;
+                }
+
+                var filePath = PathHelper.FindFileInSystemFolders(systemManager, favoriteItem.FileName);
+
+                try
+                {
+                    if (File.Exists(filePath))
+                    {
+                        var sizeToSet = new FileInfo(filePath).Length;
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            favoriteItem.FileSizeBytes = sizeToSet;
+                        });
+                    }
+                    else
+                    {
+                        // File not found — mark for deletion
+                        itemsToDelete.Add(favoriteItem);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    var contextMessage = $"Error getting file size for favorite: {filePath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        favoriteItem.FileSizeBytes = -2; // "N/A"
+                    });
+                }
+            });
+
+        // Phase 3: Remove invalid items from UI and persist changes
+        if (!itemsToDelete.IsEmpty)
+        {
+            try
+            {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    foreach (var item in itemsToDelete)
+                    {
+                        _favoriteList.Remove(item);
+                    }
+
+                    // Persist updated favorites
+                    _favoritesManager.FavoriteList = _favoriteList;
+                    _favoritesManager.SaveFavorites();
+                });
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error during batch deletion of invalid favorites.");
+            }
+        }
     }
 
     private string GetCoverImagePath(string systemName, string fileName)

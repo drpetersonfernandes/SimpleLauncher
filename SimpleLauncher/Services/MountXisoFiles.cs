@@ -89,8 +89,7 @@ public static class MountXisoFiles
 
                 if (!mountProcess.HasExited)
                 {
-                    DebugLogger.Log(
-                        $"[MountXisoFile] Terminating unsuccessful {xboxIsoVfsExe} process (ID: {mountProcessId}).");
+                    DebugLogger.Log($"[MountXisoFile] Terminating unsuccessful {xboxIsoVfsExe} process (ID: {mountProcessId}).");
                     try
                     {
                         mountProcess.Kill(true);
@@ -122,9 +121,8 @@ public static class MountXisoFiles
                 }
 
                 // Notify developer
-                var contextMessage =
-                    $"Failed to mount the ISO file {resolvedIsoFilePath} or {defaultXbePath} not found after attempting to mount. " +
-                    $"Output should be visible in the console window. {exitCodeInfo}";
+                var contextMessage = $"Failed to mount the ISO file {resolvedIsoFilePath} or {defaultXbePath} not found after attempting to mount. " +
+                                     $"Output should be visible in the console window. {exitCodeInfo}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -133,8 +131,7 @@ public static class MountXisoFiles
                 return;
             }
 
-            DebugLogger.Log(
-                $"[MountXisoFile] ISO mounted successfully. Proceeding to launch {defaultXbePath} with {selectedEmulatorName}.");
+            DebugLogger.Log($"[MountXisoFile] ISO mounted successfully. Proceeding to launch {defaultXbePath} with {selectedEmulatorName}.");
 
             // Launch default.xbe
             await GameLauncher.LaunchRegularEmulator(defaultXbePath, selectedEmulatorName, selectedSystemManager,

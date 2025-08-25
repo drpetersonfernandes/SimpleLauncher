@@ -246,20 +246,29 @@ public class GamePadController : IDisposable
                     // Prioritize XInput if connected
                     if (_xinputController.IsConnected)
                     {
-                        // Handle Xbox Controller Input
-                        _xinputController.GetState(out var state);
-                        HandleXInputMovement(state);
-                        HandleXInputScroll(state);
-                        HandleXInputLeftButton(state);
-                        HandleXInputRightButton(state);
+                        try
+                        {
+                            // Handle Xbox Controller Input
+                            _xinputController.GetState(out var state);
+                            HandleXInputMovement(state);
+                            HandleXInputScroll(state);
+                            HandleXInputLeftButton(state);
+                            HandleXInputRightButton(state);
 
-                        // If XInput is connected, ensure DirectInput controller is released
-                        if (_directInputController == null) return;
-
-                        _directInputController?.Unacquire();
-                        _directInputController?.Dispose(); // Dispose the old one
-                        _directInputController = null;
-                        _playStationControllerGuid = Guid.Empty;
+                            // If XInput is connected, ensure DirectInput controller is released
+                            if (_directInputController != null)
+                            {
+                                _directInputController.Unacquire();
+                                _directInputController.Dispose(); // Dispose the old one
+                                _directInputController = null;
+                                _playStationControllerGuid = Guid.Empty;
+                            }
+                        }
+                        catch (SharpDXException)
+                        {
+                            // Controller likely disconnected between the IsConnected check and GetState.
+                            // The main loop's reconnection logic will handle it on the next tick.
+                        }
                     }
                     // If XInput is not connected, try DirectInput
                     else if (_directInputController is { IsDisposed: false }) // Check if DirectInput controller exists and is not disposed
