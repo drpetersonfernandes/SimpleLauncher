@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">フェイリングラッキー</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ファイルが見つかりません。</system:String>
     <system:String x:Key="Filedeleted">ファイルが削除されました</system:String>
-    <system:String x:Key="Filteringpleasewait">フィルタリング中、しばらくお待ちください...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' が予想されるパスに見つかりませんでした。</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>

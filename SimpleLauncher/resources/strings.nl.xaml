@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Gelukkig Gevoel</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Het bestand 'appsettings.json' ontbreekt.</system:String>
     <system:String x:Key="Filedeleted">Bestand verwijderd</system:String>
-    <system:String x:Key="Filteringpleasewait">Filteren, even geduld aub...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' werd niet gevonden op het verwachte pad.</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>

@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Sentirsi Fortunato</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Il file 'appsettings.json' è mancante.</system:String>
     <system:String x:Key="Filedeleted">File eliminato</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtraggio in corso, attendere prego...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' non è stato trovato nel percorso previsto.</system:String>
     <system:String x:Key="Flyer">Volantino</system:String>
     <system:String x:Key="Flyernotfound">Volantino non trovato</system:String>

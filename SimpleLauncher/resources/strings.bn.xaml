@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">লাকি</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="Filedeleted">ফাইল মুছে ফেলা হয়েছে</system:String>
-    <system:String x:Key="Filteringpleasewait">ফিল্টারিং চলছে, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' প্রত্যাশিত পথের মধ্যে পাওয়া যায়নি।</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
     <system:String x:Key="Flyernotfound">ফ্লায়ার পাওয়া যায়নি</system:String>

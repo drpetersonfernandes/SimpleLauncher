@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Merasa Beruntung</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Fail 'appsettings.json' tidak ditemui.</system:String>
     <system:String x:Key="Filedeleted">File dihapus</system:String>
-    <system:String x:Key="Filteringpleasewait">Menyaring, harap tunggu...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' tidak ditemukan di jalur yang diharapkan.</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>

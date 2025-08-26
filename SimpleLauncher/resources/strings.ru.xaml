@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Чувствую Удачу</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Файл 'appsettings.json' отсутствует.</system:String>
     <system:String x:Key="Filedeleted">Файл удален</system:String>
-    <system:String x:Key="Filteringpleasewait">Фильтрация, пожалуйста, подождите...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' не найден по ожидаемому пути.</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>

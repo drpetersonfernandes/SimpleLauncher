@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Chanceux</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Le fichier 'appsettings.json' est manquant.</system:String>
     <system:String x:Key="Filedeleted">Fichier supprimé</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtrage en cours, veuillez patienter...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' n'a pas été trouvé dans le chemin attendu.</system:String>
     <system:String x:Key="Flyer">Prospectus</system:String>
     <system:String x:Key="Flyernotfound">Prospectus introuvable</system:String>

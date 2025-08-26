@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">محظوظ</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">الملف 'appsettings.json' مفقود.</system:String>
     <system:String x:Key="Filedeleted">تم حذف الملف</system:String>
-    <system:String x:Key="Filteringpleasewait">جاري التصفية، يرجى الانتظار...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' لم يتم العثور عليه في المسار المتوقع.</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>

@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Viel Glück</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Die Datei 'appsettings.json' fehlt.</system:String>
     <system:String x:Key="Filedeleted">Datei gelöscht</system:String>
-    <system:String x:Key="Filteringpleasewait">Filterung, bitte warten...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' wurde nicht im erwarteten Pfad gefunden.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer nicht gefunden</system:String>

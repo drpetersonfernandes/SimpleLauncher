@@ -411,6 +411,51 @@ public partial class FavoritesWindow
             }
         };
 
+        // Delete Cover Image Context Menu
+        var deleteCoverImageIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+            Width = 16,
+            Height = 16
+        };
+        var deleteCoverImage2 = (string)Application.Current.TryFindResource("DeleteCoverImage") ?? "Delete Cover Image";
+        var deleteCoverImage = new MenuItem
+        {
+            Header = deleteCoverImage2,
+            Icon = deleteCoverImageIcon
+        };
+        deleteCoverImage.Click += async (_, _) =>
+        {
+            PlaySoundEffects.PlayNotificationSound();
+
+            await DoYouWanToDeleteMessageBox();
+            return;
+
+            async Task DoYouWanToDeleteMessageBox()
+            {
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(fileNameWithoutExtension);
+
+                if (result != MessageBoxResult.Yes) return;
+
+                try
+                {
+                    await ContextMenuFunctions.DeleteCoverImage(fileNameWithoutExtension,
+                        selectedFavorite.SystemName,
+                        systemManager,
+                        _mainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    var contextMessage = $"Error deleting the cover image of {fileNameWithoutExtension}.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+                }
+            }
+        };
+
         contextMenu.Items.Add(launchMenuItem);
         contextMenu.Items.Add(removeMenuItem);
         contextMenu.Items.Add(videoLinkMenuItem);
@@ -428,6 +473,7 @@ public partial class FavoritesWindow
         contextMenu.Items.Add(pcbMenuItem);
         contextMenu.Items.Add(takeScreenshot);
         contextMenu.Items.Add(deleteGame);
+        contextMenu.Items.Add(deleteCoverImage);
         contextMenu.IsOpen = true;
     }
 }

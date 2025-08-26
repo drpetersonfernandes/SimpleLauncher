@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">행운을 느끼는 중</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' 파일이 누락되었습니다.</system:String>
     <system:String x:Key="Filedeleted">파일이 삭제되었습니다</system:String>
-    <system:String x:Key="Filteringpleasewait">필터링 중입니다. 기다려 주세요...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe'가 예상 경로에서 발견되지 않았습니다.</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>

@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">خوش قسمت محسوس کر رہا ہوں</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' فائل غائب ہے۔</system:String>
     <system:String x:Key="Filedeleted">فائل حذف کر دی گئی۔</system:String>
-    <system:String x:Key="Filteringpleasewait">فلٹرنگ ہو رہی ہے، براہ کرم انتظار کریں...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' متوقع راستے پر نہیں ملا۔</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>

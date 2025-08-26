@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Cảm thấy May Mắn</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">Thiếu tệp 'appsettings.json'.</system:String>
     <system:String x:Key="Filedeleted">Tệp đã bị xóa</system:String>
-    <system:String x:Key="Filteringpleasewait">Đang lọc, vui lòng chờ...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' không được tìm thấy tại đường dẫn dự kiến.</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
     <system:String x:Key="Flyernotfound">Không tìm thấy tờ rơi</system:String>

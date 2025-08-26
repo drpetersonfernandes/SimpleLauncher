@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Şansımı Deniyorum</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">'appsettings.json' dosyası eksik.</system:String>
     <system:String x:Key="Filedeleted">Dosya silindi</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtreleniyor, lütfen bekleyin...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' beklenen konumda bulunamadı.</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>

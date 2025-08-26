@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">感觉幸运</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">缺少文件 'appsettings.json'。</system:String>
     <system:String x:Key="Filedeleted">文件已删除</system:String>
-    <system:String x:Key="Filteringpleasewait">正在筛选，请稍候...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' 在预期路径中未找到。</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>

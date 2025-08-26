@@ -228,7 +228,6 @@
     <system:String x:Key="FeelingLucky">Feeling Lucky</system:String>
     <system:String x:Key="Fileappsettingsjsonismissing">File 'appsettings.json' is missing.</system:String>
     <system:String x:Key="Filedeleted">File deleted</system:String>
-    <system:String x:Key="Filteringpleasewait">Filtering, please wait...</system:String>
     <system:String x:Key="FindRomCoverexewasnotfound">'FindRomCover.exe' was not found in the expected path.</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer not found</system:String>
@@ -642,4 +641,9 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="Therewasanerrordeletingthecoverimage">There was an error deleting the cover image.</system:String>
+    <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Are you sure you want to delete the cover image of</system:String>
+    <system:String x:Key="DeleteCoverImage">Delete Cover Image</system:String>
+    
 </ResourceDictionary>
