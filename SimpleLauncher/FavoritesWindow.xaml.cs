@@ -228,7 +228,20 @@ public partial class FavoritesWindow
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
             var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedFavorite.FileName);
 
-            AddRightClickContextMenuFavoritesWindow(fileNameWithExtension, selectedFavorite, fileNameWithoutExtension, systemConfig, filePath);
+            var context = new RightClickContextFavoritesWindow(
+                filePath,
+                fileNameWithExtension,
+                fileNameWithoutExtension,
+                selectedFavorite.SystemName,
+                systemConfig,
+                _machines,
+                _favoritesManager,
+                _settings,
+                _mainWindow,
+                selectedFavorite
+            );
+
+            AddRightClickContextMenuFavoritesWindow(context);
         }
         catch (Exception ex)
         {
