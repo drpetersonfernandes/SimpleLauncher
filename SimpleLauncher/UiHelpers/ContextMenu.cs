@@ -1,27 +1,17 @@
 using System;
 using System.Collections.Generic;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenu
 {
-    public static System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(
-        string filePath,
-        string fileNameWithExtension,
-        string fileNameWithoutExtension,
-        string selectedSystemName,
-        ComboBox emulatorComboBox,
-        FavoritesManager favoritesManager,
-        SystemManager selectedSystemManager,
-        List<MameManager> machines,
-        SettingsManager settings,
-        MainWindow mainWindow)
+    public static System.Windows.Controls.ContextMenu AddRightClickReturnContextMenu(RightClickContext context)
     {
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
@@ -44,16 +34,16 @@ public static class ContextMenu
 
             string selectedEmulatorName;
 
-            if (emulatorComboBox.SelectedItem == null)
+            if (context.EmulatorComboBox.SelectedItem == null)
             {
                 selectedEmulatorName = null;
             }
             else
             {
-                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
             }
 
-            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+            await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
         };
 
         // Add To Favorites Context Menu
@@ -72,7 +62,7 @@ public static class ContextMenu
         addToFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.AddToFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
+            ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -91,7 +81,7 @@ public static class ContextMenu
         removeFromFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayTrashSound();
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
+            ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
         };
 
         // Open Video Link Context Menu
@@ -110,7 +100,7 @@ public static class ContextMenu
         openVideoLink.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, machines, settings);
+            ContextMenuFunctions.OpenVideoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings);
         };
 
         // Open Info Link Context Menu
@@ -129,7 +119,7 @@ public static class ContextMenu
         openInfoLink.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, machines, settings);
+            ContextMenuFunctions.OpenInfoLink(context.SelectedSystemName, context.FileNameWithoutExtension, context.Machines, context.Settings);
         };
 
         // Open History Context Menu
@@ -148,7 +138,7 @@ public static class ContextMenu
         openHistoryWindow.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(selectedSystemName, fileNameWithoutExtension, selectedSystemManager, machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines);
         };
 
         // Open Cover Context Menu
@@ -167,7 +157,7 @@ public static class ContextMenu
         openCover.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCover(selectedSystemName, fileNameWithoutExtension, selectedSystemManager);
+            ContextMenuFunctions.OpenCover(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -186,7 +176,7 @@ public static class ContextMenu
         openTitleSnapshot.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenTitleSnapshot(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -205,7 +195,7 @@ public static class ContextMenu
         openGameplaySnapshot.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenGameplaySnapshot(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -224,7 +214,7 @@ public static class ContextMenu
         openCart.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCart(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -243,7 +233,7 @@ public static class ContextMenu
         openVideo.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.PlayVideo(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -262,7 +252,7 @@ public static class ContextMenu
         openManual.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenManual(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -281,7 +271,7 @@ public static class ContextMenu
         openWalkthrough.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenWalkthrough(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -300,7 +290,7 @@ public static class ContextMenu
         openCabinet.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCabinet(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -319,7 +309,7 @@ public static class ContextMenu
         openFlyer.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenFlyer(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -338,7 +328,7 @@ public static class ContextMenu
         openPcb.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenPcb(selectedSystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -364,17 +354,18 @@ public static class ContextMenu
 
             string selectedEmulatorName;
 
-            if (emulatorComboBox.SelectedItem == null)
+            if (context.EmulatorComboBox.SelectedItem == null)
             {
                 selectedEmulatorName = null;
             }
             else
             {
-                selectedEmulatorName = emulatorComboBox.SelectedItem.ToString();
+                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
             }
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, selectedSystemManager, null, mainWindow);
-            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, context.MainWindow);
+
+            await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
         };
 
         // Delete Game Context Menu
@@ -394,7 +385,29 @@ public static class ContextMenu
         deleteGame.Click += async (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            await DoYouWantToDeleteGameMessageBox();
+
+            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error deleting the game.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
+            }
+
+            ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
         };
 
         // Delete Cover Image Context Menu
@@ -414,7 +427,31 @@ public static class ContextMenu
         deleteGame.Click += async (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            await DoYouWantToDeleteCoverImageMessageBox();
+
+            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
+
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
+
+            try
+            {
+                await ContextMenuFunctions.DeleteCoverImage(
+                    context.FileNameWithoutExtension,
+                    context.SelectedSystemName,
+                    context.SelectedSystemManager,
+                    context.MainWindow);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+            }
         };
 
         contextMenu.Items.Add(launchMenuItem);
@@ -438,60 +475,6 @@ public static class ContextMenu
         contextMenu.Items.Add(deleteCoverImage);
 
         return contextMenu;
-
-        async Task DoYouWantToDeleteGameMessageBox()
-        {
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(fileNameWithExtension);
-
-            if (result != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            try
-            {
-                await ContextMenuFunctions.DeleteGame(filePath, fileNameWithExtension, mainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error deleting the game.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
-            }
-
-            ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
-        }
-
-        async Task DoYouWantToDeleteCoverImageMessageBox()
-        {
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(fileNameWithoutExtension);
-
-            if (result != MessageBoxResult.Yes)
-            {
-                return;
-            }
-
-            try
-            {
-                await ContextMenuFunctions.DeleteCoverImage(
-                    fileNameWithoutExtension,
-                    selectedSystemName,
-                    selectedSystemManager,
-                    mainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                var contextMessage = $"Error deleting the cover image of {fileNameWithoutExtension}.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
-            }
-        }
     }
 
     public static Button AddRightClickReturnButton(

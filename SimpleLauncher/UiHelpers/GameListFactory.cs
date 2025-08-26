@@ -33,11 +33,8 @@ public class GameListFactory(
     public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
     {
         var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-
         var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
         var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
-        // var selectedSystemName = systemName; // Parameter 'systemName' is already this
-
         var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         var isFavorite = _favoritesManager.FavoriteList
@@ -67,8 +64,20 @@ public class GameListFactory(
             MachineDescription = machineDescription,
             FilePath = absoluteFilePath,
             FolderPath = Path.GetDirectoryName(absoluteFilePath),
-            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(absoluteFilePath, fileNameWithExtension, fileNameWithoutExtension, systemName,
-                _emulatorComboBox, _favoritesManager, systemManager, _machines, _settings, _mainWindow),
+            ContextMenu = ContextMenu.AddRightClickReturnContextMenu(
+                new RightClickContext(
+                    absoluteFilePath,
+                    fileNameWithExtension,
+                    fileNameWithoutExtension,
+                    systemName,
+                    systemManager,
+                    _machines,
+                    _favoritesManager,
+                    _settings,
+                    _emulatorComboBox,
+                    _mainWindow
+                )
+            ),
             IsFavorite = isFavorite,
             TimesPlayed = timesPlayed,
             PlayTime = playTime,
