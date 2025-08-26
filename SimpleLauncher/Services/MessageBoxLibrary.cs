@@ -3773,7 +3773,7 @@ public static class MessageBoxLibrary
 
     internal static MessageBoxResult AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
+        return Application.Current.Dispatcher.Invoke(() =>
         {
             var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
             var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
@@ -3783,29 +3783,14 @@ public static class MessageBoxLibrary
                 MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             return result;
-        }
-        else
-        {
-            return Application.Current.Dispatcher.Invoke(() =>
-            {
-                var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
-                var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
-                var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
-                var result = MessageBox.Show($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
-                                             $"{thisactionwilldelete}", confirmDeletion,
-                    MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-                return result;
-            });
-        }
+        });
     }
 
     internal static MessageBoxResult WoulYouLikeToSaveAReportMessageBox()
     {
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ??
-                                            "Would you like to save a report with the results?";
+            var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
             var saveReport = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
             var result = MessageBox.Show(wouldyouliketosaveareport,
                 saveReport, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -3813,11 +3798,9 @@ public static class MessageBoxLibrary
         }
         else
         {
-            return Application.Current.Dispatcher.Invoke(() =>
+            return Application.Current.Dispatcher.Invoke(static () =>
             {
-                var wouldyouliketosaveareport =
-                    (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ??
-                    "Would you like to save a report with the results?";
+                var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
                 var saveReport = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
                 var result = MessageBox.Show(wouldyouliketosaveareport,
                     saveReport, MessageBoxButton.YesNo, MessageBoxImage.Question);
@@ -3828,9 +3811,7 @@ public static class MessageBoxLibrary
 
     internal static void SimpleLauncherWasUnableToRestoreBackupMessageBox()
     {
-        var simpleLauncherwasunabletorestore =
-            (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ??
-            "'Simple Launcher' was unable to restore the last backup.";
+        var simpleLauncherwasunabletorestore = (string)Application.Current.TryFindResource("SimpleLauncherwasunabletorestore") ?? "'Simple Launcher' was unable to restore the last backup.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
