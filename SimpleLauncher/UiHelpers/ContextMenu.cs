@@ -879,53 +879,6 @@ public static class ContextMenu
         {
             PlaySoundEffects.PlayNotificationSound();
 
-            await DoYouWantToDeleteGameMessageBox();
-        };
-
-        // Delete Cover Image Context Menu
-        var deleteCoverImageIcon = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
-            Width = 16,
-            Height = 16
-        };
-        var deleteCoverImage2 = (string)Application.Current.TryFindResource("DeleteCoverImage") ?? "Delete Cover Image";
-        var deleteCoverImage = new MenuItem
-        {
-            Header = deleteCoverImage2,
-            Icon = deleteCoverImageIcon
-        };
-        deleteGame.Click += async (_, _) =>
-        {
-            PlaySoundEffects.PlayNotificationSound();
-
-            await DoYouWantToDeleteCoverImageMessageBox();
-        };
-
-        contextMenu.Items.Add(launchMenuItem);
-        contextMenu.Items.Add(addToFavorites);
-        contextMenu.Items.Add(removeFromFavorites);
-        contextMenu.Items.Add(openVideoLink);
-        contextMenu.Items.Add(openInfoLink);
-        contextMenu.Items.Add(openHistoryWindow);
-        contextMenu.Items.Add(openCover);
-        contextMenu.Items.Add(openTitleSnapshot);
-        contextMenu.Items.Add(openGameplaySnapshot);
-        contextMenu.Items.Add(openCart);
-        contextMenu.Items.Add(openVideo);
-        contextMenu.Items.Add(openManual);
-        contextMenu.Items.Add(openWalkthrough);
-        contextMenu.Items.Add(openCabinet);
-        contextMenu.Items.Add(openFlyer);
-        contextMenu.Items.Add(openPcb);
-        contextMenu.Items.Add(takeScreenshot);
-        contextMenu.Items.Add(deleteGame);
-        contextMenu.Items.Add(deleteCoverImage);
-        button.ContextMenu = contextMenu;
-        return button;
-
-        async Task DoYouWantToDeleteGameMessageBox()
-        {
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(fileNameWithExtension);
 
             if (result != MessageBoxResult.Yes)
@@ -948,10 +901,25 @@ public static class ContextMenu
             }
 
             ContextMenuFunctions.RemoveFromFavorites(selectedSystemName, fileNameWithExtension, null, favoritesManager, mainWindow);
-        }
+        };
 
-        async Task DoYouWantToDeleteCoverImageMessageBox()
+        // Delete Cover Image Context Menu
+        var deleteCoverImageIcon = new Image
         {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/delete.png")),
+            Width = 16,
+            Height = 16
+        };
+        var deleteCoverImage2 = (string)Application.Current.TryFindResource("DeleteCoverImage") ?? "Delete Cover Image";
+        var deleteCoverImage = new MenuItem
+        {
+            Header = deleteCoverImage2,
+            Icon = deleteCoverImageIcon
+        };
+        deleteCoverImage.Click += async (_, _) =>
+        {
+            PlaySoundEffects.PlayNotificationSound();
+
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(fileNameWithoutExtension);
 
             if (result != MessageBoxResult.Yes)
@@ -976,6 +944,28 @@ public static class ContextMenu
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
             }
-        }
+        };
+
+        contextMenu.Items.Add(launchMenuItem);
+        contextMenu.Items.Add(addToFavorites);
+        contextMenu.Items.Add(removeFromFavorites);
+        contextMenu.Items.Add(openVideoLink);
+        contextMenu.Items.Add(openInfoLink);
+        contextMenu.Items.Add(openHistoryWindow);
+        contextMenu.Items.Add(openCover);
+        contextMenu.Items.Add(openTitleSnapshot);
+        contextMenu.Items.Add(openGameplaySnapshot);
+        contextMenu.Items.Add(openCart);
+        contextMenu.Items.Add(openVideo);
+        contextMenu.Items.Add(openManual);
+        contextMenu.Items.Add(openWalkthrough);
+        contextMenu.Items.Add(openCabinet);
+        contextMenu.Items.Add(openFlyer);
+        contextMenu.Items.Add(openPcb);
+        contextMenu.Items.Add(takeScreenshot);
+        contextMenu.Items.Add(deleteGame);
+        contextMenu.Items.Add(deleteCoverImage);
+        button.ContextMenu = contextMenu;
+        return button;
     }
 }
