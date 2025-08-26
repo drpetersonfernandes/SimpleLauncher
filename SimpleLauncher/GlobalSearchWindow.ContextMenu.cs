@@ -358,13 +358,13 @@ public partial class GlobalSearchWindow
 
             async Task DoYouWanToDeleteMessageBox()
             {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheFileMessageBox(fileNameWithExtension);
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(fileNameWithExtension);
 
                 if (result != MessageBoxResult.Yes) return;
 
                 try
                 {
-                    await ContextMenuFunctions.DeleteFile(filePath, fileNameWithExtension, _mainWindow);
+                    await ContextMenuFunctions.DeleteGame(filePath, fileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {
@@ -373,7 +373,7 @@ public partial class GlobalSearchWindow
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheFileMessageBox();
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
                 }
 
                 ContextMenuFunctions.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);

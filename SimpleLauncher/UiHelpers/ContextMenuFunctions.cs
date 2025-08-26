@@ -706,7 +706,7 @@ public static class ContextMenuFunctions
     }
 
     // Use fileNameWithExtension
-    public static async Task DeleteFile(string filePath, string fileNameWithExtension, MainWindow mainWindow)
+    public static async Task DeleteGame(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
         if (File.Exists(filePath))
         {
@@ -749,6 +749,41 @@ public static class ContextMenuFunctions
 
             // Notify user
             MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(fileNameWithExtension);
+        }
+    }
+
+    public static async Task DeleteCoverImage(
+        string fileNameWithoutExtension,
+        string selectedSystemName,
+        SystemManager selectedSystemManager,
+        MainWindow mainWindow)
+    {
+        var coverPath = FindCoverImageForDeletion.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager);
+
+        try
+        {
+            PlaySoundEffects.PlayTrashSound();
+            DeleteFiles.TryDeleteFile(coverPath);
+
+            await Task.Delay(500);
+
+            if (!File.Exists(coverPath))
+            {
+                // Notify user
+                MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(coverPath);
+
+                // Reload the current Game List
+                await mainWindow.LoadGameFilesAsync();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            var errorMessage = $"An error occurred while trying to delete the game cover '{coverPath}'.";
+            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+
+            // Notify user
+            MessageBoxLibrary.FileCouldNotBeDeletedMessageBox(coverPath);
         }
     }
 }

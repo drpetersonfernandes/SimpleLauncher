@@ -440,12 +440,8 @@ public static class MessageBoxLibrary
 
     internal static void FileCouldNotBeDeletedMessageBox(string fileNameWithExtension)
     {
-        var anerroroccurredwhiletryingtodelete =
-            (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ??
-            "An error occurred while trying to delete the file";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
+        var anerroroccurredwhiletryingtodelete = (string)Application.Current.TryFindResource("Anerroroccurredwhiletryingtodelete") ?? "An error occurred while trying to delete the file";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
         var dispatcher = Application.Current.Dispatcher;
 
@@ -458,8 +454,8 @@ public static class MessageBoxLibrary
         void ShowMsg()
         {
             MessageBox.Show($"{anerroroccurredwhiletryingtodelete} '{fileNameWithExtension}'.\n\n" +
-                            $"{theerrorwasreportedtothedeveloper}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"{theerrorwasreportedtothedeveloper}", error,
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -3696,14 +3692,10 @@ public static class MessageBoxLibrary
         }
     }
 
-    internal static void ThereWasAnErrorDeletingTheFileMessageBox()
+    internal static void ThereWasAnErrorDeletingTheGameMessageBox()
     {
-        var therewasanerrordeletingthefile =
-            (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ??
-            "There was an error deleting the file.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
+        var therewasanerrordeletingthefile = (string)Application.Current.TryFindResource("Therewasanerrordeletingthefile") ?? "There was an error deleting the file.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (Application.Current.Dispatcher.CheckAccess())
@@ -3719,39 +3711,90 @@ public static class MessageBoxLibrary
 
         void ShowMessageBox()
         {
-            MessageBox.Show($"{therewasanerrordeletingthefile}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasanerrordeletingthefile}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}", error,
+                MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
-    internal static MessageBoxResult AreYouSureYouWantToDeleteTheFileMessageBox(string fileNameWithExtension)
+    internal static void ThereWasAnErrorDeletingTheCoverImageMessageBox()
+    {
+        var therewasanerrordeletingthecoverimage = (string)Application.Current.TryFindResource("Therewasanerrordeletingthecoverimage") ?? "There was an error deleting the cover image.";
+        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            ShowMessageBox();
+        }
+        else
+        {
+            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
+        }
+
+        return;
+
+        void ShowMessageBox()
+        {
+            MessageBox.Show($"{therewasanerrordeletingthecoverimage}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}", error,
+                MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static MessageBoxResult AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
     {
         if (Application.Current.Dispatcher.CheckAccess())
         {
-            var areyousureyouwanttodeletethefile =
-                (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ??
-                "Are you sure you want to delete the file";
-            var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ??
-                                       "This action will delete the file from the HDD and cannot be undone.";
+            var areyousureyouwanttodeletethefile = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+            var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
             var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
             var result = MessageBox.Show($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
-                                         $"{thisactionwilldelete}",
-                confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                         $"{thisactionwilldelete}", confirmDeletion,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
             return result;
         }
         else
         {
             return Application.Current.Dispatcher.Invoke(() =>
             {
-                var areyousureyouwanttodeletethefile =
-                    (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ??
-                    "Are you sure you want to delete the file";
-                var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ??
-                                           "This action will delete the file from the HDD and cannot be undone.";
-                var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ??
-                                      "Confirm Deletion";
+                var areyousureyouwanttodeletethefile = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
+                var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
                 var result = MessageBox.Show($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
-                                             $"{thisactionwilldelete}",
-                    confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                             $"{thisactionwilldelete}", confirmDeletion,
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+                return result;
+            });
+        }
+    }
+
+    internal static MessageBoxResult AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
+    {
+        if (Application.Current.Dispatcher.CheckAccess())
+        {
+            var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
+            var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+            var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+            var result = MessageBox.Show($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
+                                         $"{thisactionwilldelete}", confirmDeletion,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            return result;
+        }
+        else
+        {
+            return Application.Current.Dispatcher.Invoke(() =>
+            {
+                var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
+                var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
+                var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
+                var result = MessageBox.Show($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
+                                             $"{thisactionwilldelete}", confirmDeletion,
+                    MessageBoxButton.YesNo, MessageBoxImage.Question);
+
                 return result;
             });
         }

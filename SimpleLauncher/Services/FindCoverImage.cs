@@ -15,6 +15,16 @@ public static class FindCoverImage
     // Define the maximum prefix length for Winkler adjustment
     private const int MaxPrefixLength = 4;
 
+    /// <summary>
+    /// Attempts to find the cover image path for a given file and system.
+    /// Searches within specific directories and applies default fallback logic if no matching image is found.
+    /// </summary>
+    /// <param name="fileNameWithoutExtension">The file name without its extension for which the cover image is being searched.</param>
+    /// <param name="systemName">The name of the system associated with the file, used to determine the appropriate image directory.</param>
+    /// <param name="systemManager">The system manager instance that provides settings like system image folder configurations.</param>
+    /// <returns>
+    /// A string representing the file path of the cover image if found, or a global default image path when no matches are available.
+    /// </returns>
     public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
