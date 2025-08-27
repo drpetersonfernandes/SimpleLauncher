@@ -3,7 +3,7 @@ using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Models;
 
-public class RightClickContextFavoritesWindow(
+public class RightClickContextFavorites(
     string filePath,
     string fileNameWithExtension,
     string fileNameWithoutExtension,

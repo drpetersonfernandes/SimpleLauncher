@@ -12,7 +12,7 @@ namespace SimpleLauncher;
 
 public partial class FavoritesWindow
 {
-    private void AddRightClickContextMenuFavoritesWindow(RightClickContextFavoritesWindow context)
+    private void AddRightClickContextMenuFavoritesWindow(RightClickContextFavorites context)
     {
         var menu = new ContextMenu();
 

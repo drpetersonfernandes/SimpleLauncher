@@ -228,7 +228,7 @@ public partial class FavoritesWindow
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
             var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedFavorite.FileName);
 
-            var context = new RightClickContextFavoritesWindow(
+            var context = new RightClickContextFavorites(
                 filePath,
                 fileNameWithExtension,
                 fileNameWithoutExtension,

@@ -1,9 +1,8 @@
 using System;
 using System.Threading.Tasks;
 using System.Windows.Input;
-using SimpleLauncher.Services;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public class AsyncRelayCommand(Func<Task> execute, Func<bool> canExecute = null) : ICommand
 {

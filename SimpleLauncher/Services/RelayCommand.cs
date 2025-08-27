@@ -1,7 +1,7 @@
 using System;
 using System.Windows.Input;
 
-namespace SimpleLauncher;
+namespace SimpleLauncher.Services;
 
 public class RelayCommand(Action execute, Func<bool> canExecute = null) : ICommand
 {
