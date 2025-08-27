@@ -17,7 +17,6 @@ namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenuFunctions
 {
-    // Use fileNameWithExtension
     public static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         try
@@ -101,7 +100,6 @@ public static class ContextMenuFunctions
         }
     }
 
-    // Use fileNameWithExtension
     public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
     {
         try

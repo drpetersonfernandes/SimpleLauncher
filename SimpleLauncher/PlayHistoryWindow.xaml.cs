@@ -41,7 +41,7 @@ public partial class PlayHistoryWindow
         _mainWindow = mainWindow;
 
         App.ApplyThemeToWindow(this);
-        LoadPlayHistory(); // This will now load basic data and start async size calculation
+        LoadPlayHistory();
     }
 
     private void LoadPlayHistory()
@@ -130,7 +130,7 @@ public partial class PlayHistoryWindow
             }
             else
             {
-                // System config not found, this history item is orphaned.
+                // System manager isn't found, this history item is orphaned.
                 // It should be collected for batch removal.
                 itemsToDelete.Add(item);
 
@@ -140,20 +140,26 @@ public partial class PlayHistoryWindow
             }
         });
 
-        if (itemsToDelete.IsEmpty) return;
+        if (itemsToDelete.IsEmpty)
+        {
+            return;
+        }
 
         try
         {
             await Dispatcher.InvokeAsync(() =>
             {
-                foreach (var itemToRemove in itemsToDelete)
+                var result = MessageBox.Show("There are files inside the Play History Window that were not found on the HDD. Do you want to remove them from the history?", "File not found", MessageBoxButton.YesNo);
+                if (result == MessageBoxResult.Yes)
                 {
-                    _playHistoryList.Remove(itemToRemove);
-                }
+                    foreach (var itemToRemove in itemsToDelete)
+                    {
+                        _playHistoryList.Remove(itemToRemove);
+                    }
 
-                // Persist the changes after removal
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                _playHistoryManager.SavePlayHistory();
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+                }
             });
         }
         catch (Exception ex)
@@ -256,19 +262,19 @@ public partial class PlayHistoryWindow
 
     private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
-        // Ask for confirmation before removing all items
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
 
-        if (result != MessageBoxResult.Yes) return;
+        if (result != MessageBoxResult.Yes)
+        {
+            return;
+        }
 
         // Clear all items from the collection
         _playHistoryList.Clear();
 
-        // Update the manager and save changes
         _playHistoryManager.PlayHistoryList = _playHistoryList;
         _playHistoryManager.SavePlayHistory();
 
-        // Play sound effect
         PlaySoundEffects.PlayTrashSound();
 
         // Clear preview image
@@ -316,13 +322,16 @@ public partial class PlayHistoryWindow
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
                 if (itemToRemove != null)
                 {
-                    _playHistoryList.Remove(itemToRemove);
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
+                    var result = MessageBox.Show("The file you selected was not found on the HDD. Do you want to remove it from the history?", "File not found", MessageBoxButton.YesNo);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _playHistoryList.Remove(itemToRemove);
+                        _playHistoryManager.PlayHistoryList = _playHistoryList;
+                        _playHistoryManager.SavePlayHistory();
+                    }
                 }
 
-                // Notify user
-                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+                return;
             }
 
             var emulatorManager = systemManager.Emulators.FirstOrDefault();

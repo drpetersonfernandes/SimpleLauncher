@@ -158,14 +158,17 @@ public partial class FavoritesWindow
             {
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    foreach (var item in itemsToDelete)
+                    var result = MessageBox.Show("Some favorites were not found in the HDD. Do you want to delete them?", "Invalid Favorites", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result != MessageBoxResult.Yes)
                     {
-                        _favoriteList.Remove(item);
-                    }
+                        foreach (var item in itemsToDelete)
+                        {
+                            _favoriteList.Remove(item);
+                        }
 
-                    // Persist updated favorites
-                    _favoritesManager.FavoriteList = _favoriteList;
-                    _favoritesManager.SaveFavorites();
+                        _favoritesManager.FavoriteList = _favoriteList;
+                        _favoritesManager.SaveFavorites();
+                    }
                 });
             }
             catch (Exception ex)
@@ -239,17 +242,14 @@ public partial class FavoritesWindow
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
                 if (favoriteToRemove != null)
                 {
-                    _favoriteList.Remove(favoriteToRemove);
-                    _favoritesManager.FavoriteList = _favoriteList;
-                    _favoritesManager.SaveFavorites();
+                    var result = MessageBox.Show("Favorite file was not found on the HDD! Do you want to remove the favorite?", "Invalid Favorite", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        _favoriteList.Remove(favoriteToRemove);
+                        _favoritesManager.FavoriteList = _favoriteList;
+                        _favoritesManager.SaveFavorites();
+                    }
                 }
-
-                // Notify developer
-                var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
 
                 return;
             }

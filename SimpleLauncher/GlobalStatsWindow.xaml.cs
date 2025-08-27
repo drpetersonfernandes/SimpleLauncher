@@ -144,7 +144,7 @@ public partial class GlobalStatsWindow
             // Check if the resolved image path is valid before proceeding
             if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
             {
-                await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
+                // await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
 
                 var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
                     .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
