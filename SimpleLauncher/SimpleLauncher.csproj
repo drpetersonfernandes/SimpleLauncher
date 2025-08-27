@@ -132,9 +132,6 @@
     <None Remove="title_snapshots\**" />
     <None Remove="videos\**" />
     <None Remove="walkthrough\**" />
-    <None Update="favorites.xml">
-      <CopyToOutputDirectory>Never</CopyToOutputDirectory>
-    </None>
     <None Update="WhatsNew.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

@@ -461,7 +461,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings.GamesPerPage = _filesPerPage;
         _settings.ShowGames = _settings.ShowGames;
         _settings.EnableGamePadNavigation = ToggleGamepad.IsChecked;
-        _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked; // Save fuzzy matching state
+        _settings.EnableFuzzyMatching = ToggleFuzzyMatching.IsChecked;
 
         // Save theme settings
         var detectedTheme = ThemeManager.Current.DetectTheme(this);

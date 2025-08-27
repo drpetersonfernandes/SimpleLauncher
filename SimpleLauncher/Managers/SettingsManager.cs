@@ -295,6 +295,7 @@ public class SettingsManager
             _ = LogErrors.LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
 
             existingPlayTime = TimeSpan.Zero;
+            systemPlayTime.PlayTime = "00:00:00";
         }
 
         var updatedPlayTime = existingPlayTime + playTime;

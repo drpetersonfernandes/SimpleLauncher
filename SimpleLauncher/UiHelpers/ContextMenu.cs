@@ -1,4 +1,5 @@
 using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
@@ -404,6 +405,8 @@ public static class ContextMenu
 
             try
             {
+                ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
+                await Task.Delay(500);
                 await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
             }
             catch (Exception ex)
@@ -415,8 +418,6 @@ public static class ContextMenu
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
             }
-
-            ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
         };
 
         // Delete Cover Image Context Menu
