@@ -113,7 +113,10 @@ public static class ContextMenuFunctions
             var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
                                                                               && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
-            if (favoriteToRemove == null) return;
+            if (favoriteToRemove == null)
+            {
+                return;
+            }
 
             favorites.FavoriteList.Remove(favoriteToRemove);
 

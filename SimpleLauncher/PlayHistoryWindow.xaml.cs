@@ -275,13 +275,15 @@ public partial class PlayHistoryWindow
         PreviewImage.Source = null;
     }
 
-    private void AddRightClickContextMenuPlayHistoryWindow(object sender, MouseButtonEventArgs e)
+    private void PlayHistoryPrepareForRightClickContext(object sender, MouseButtonEventArgs e)
     {
         try
         {
-            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
+            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
+            {
+                return;
+            }
 
-            // Check filename
             if (selectedItem.FileName == null)
             {
                 // Notify developer
@@ -294,7 +296,6 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            // Check systemManager
             var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager == null)
             {
@@ -304,6 +305,35 @@ public partial class PlayHistoryWindow
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                return;
+            }
+
+            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedItem.FileName);
+            if (!File.Exists(filePath))
+            {
+                // Auto remove the history item from the list since the file no longer exists
+                var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
+                if (itemToRemove != null)
+                {
+                    _playHistoryList.Remove(itemToRemove);
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+                }
+
+                // Notify user
+                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+            }
+
+            var emulatorManager = systemManager.Emulators.FirstOrDefault();
+            if (emulatorManager == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorManager is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
                 return;
             }
@@ -319,18 +349,18 @@ public partial class PlayHistoryWindow
                 _settings,
                 null,
                 null,
-                null,
+                emulatorManager,
                 null,
                 null,
                 _mainWindow
             );
 
-            AddRightClickContextMenuPlayHistoryWindowContextMenu(context);
+            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
         }
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "There was an error in the method AddRightClickContextMenuPlayHistoryWindow.";
+            const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user

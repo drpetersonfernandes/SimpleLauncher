@@ -366,21 +366,57 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private void GlobalSearchWindowRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private void GlobalSearchPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
-                string.IsNullOrEmpty(selectedResult.FilePath))
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 return;
             }
 
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
-
-            if (CheckSystemConfig(systemManager))
+            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager == null)
             {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(new Exception("SystemManager is null"), "SystemManager is null");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(null, "FilePath is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedResult.SystemName))
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(null, "SystemName is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (selectedResult.EmulatorManager == null)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(null, "EmulatorManager is null.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
+
                 return;
             }
 
@@ -401,7 +437,7 @@ public partial class GlobalSearchWindow
                 _mainWindow
             );
 
-            AddRightClickContextMenuGlobalSearchWindow(context);
+            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
         }
         catch (Exception ex)
         {
@@ -472,23 +508,6 @@ public partial class GlobalSearchWindow
     {
         _searchResults?.Clear(); // Clear the collection
         _searchResults = null; // Allow GC
-    }
-
-    private static bool CheckSystemConfig(SystemManager systemManager)
-    {
-        if (systemManager != null)
-        {
-            return false;
-        }
-
-        // Notify developer
-        const string contextMessage = "systemManager is null in GlobalSearch.";
-        _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(systemManager), contextMessage), contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ErrorLoadingSystemConfigMessageBox();
-
-        return true;
     }
 
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)

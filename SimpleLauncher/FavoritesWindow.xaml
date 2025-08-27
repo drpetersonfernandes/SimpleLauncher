@@ -81,7 +81,7 @@
                   Grid.Row="2"
                   Grid.Column="0"
                   Margin="10"
-                  MouseRightButtonUp="FavoritesWindowRightClickContextMenu"
+                  MouseRightButtonUp="FavoritesPrepareForRightClickContextMenu"
                   MouseDoubleClick="LaunchGameWithDoubleClick"
                   SelectionChanged="SetPreviewImageOnSelectionChanged"
                   KeyDown="DeleteFavoriteWithDelButton" d:DataContext="{d:DesignInstance }">

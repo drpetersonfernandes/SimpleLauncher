@@ -211,21 +211,58 @@ public partial class FavoritesWindow
         }
     }
 
-    private void FavoritesWindowRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private void FavoritesPrepareForRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
-            if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
+            if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite)
+            {
+                return;
+            }
 
             var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager == null)
             {
                 // Notify developer
-                const string contextMessage = "systemConfig is null for the selected favorite";
+                const string contextMessage = "systemManager is null for the selected favorite";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
+
+                return;
+            }
+
+            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
+            {
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+                if (favoriteToRemove != null)
+                {
+                    _favoriteList.Remove(favoriteToRemove);
+                    _favoritesManager.FavoriteList = _favoriteList;
+                    _favoritesManager.SaveFavorites();
+                }
+
+                // Notify developer
+                var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+
+                return;
+            }
+
+            var emulatorManager = systemManager.Emulators.FirstOrDefault();
+            if (emulatorManager == null)
+            {
+                // Notify developer
+                const string contextMessage = "emulatorManager is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
                 return;
             }
@@ -241,13 +278,13 @@ public partial class FavoritesWindow
                 _settings,
                 null,
                 selectedFavorite,
-                null,
+                emulatorManager,
                 null,
                 null,
                 _mainWindow
             );
 
-            AddRightClickContextMenuFavoritesWindow(context);
+            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
         }
         catch (Exception ex)
         {
@@ -290,7 +327,7 @@ public partial class FavoritesWindow
     {
         try
         {
-            var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
                 // Notify developer

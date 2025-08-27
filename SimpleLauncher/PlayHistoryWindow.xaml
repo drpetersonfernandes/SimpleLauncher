@@ -94,7 +94,7 @@
                   Grid.Row="2"
                   Grid.Column="0"
                   Margin="10"
-                  MouseRightButtonUp="AddRightClickContextMenuPlayHistoryWindow"
+                  MouseRightButtonUp="PlayHistoryPrepareForRightClickContext"
                   MouseDoubleClick="LaunchGameWithDoubleClick"
                   SelectionChanged="SetPreviewImageOnSelectionChanged"
                   KeyDown="DeleteHistoryItemWithDelButton" d:DataContext="{d:DesignInstance }">
