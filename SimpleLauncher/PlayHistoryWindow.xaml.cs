@@ -294,12 +294,12 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            // Check systemConfig
-            var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
+            // Check systemManager
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager == null)
             {
                 // Notify developer
-                const string contextMessage = "systemConfig is null";
+                const string contextMessage = "systemManager is null";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -308,11 +308,22 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var fileNameWithExtension = selectedItem.FileName;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedItem.FileName);
-            var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedItem.FileName);
+            var context = new RightClickContext(
+                PathHelper.FindFileInSystemFolders(systemManager, selectedItem.FileName),
+                selectedItem.FileName,
+                Path.GetFileNameWithoutExtension(selectedItem.FileName),
+                selectedItem.SystemName,
+                systemManager,
+                _machines,
+                _favoritesManager,
+                _settings,
+                null,
+                null,
+                null,
+                _mainWindow
+            );
 
-            AddRightClickContextMenuPlayHistoryWindowContextMenu(fileNameWithExtension, selectedItem, fileNameWithoutExtension, systemConfig, filePath);
+            AddRightClickContextMenuPlayHistoryWindowContextMenu(context);
         }
         catch (Exception ex)
         {

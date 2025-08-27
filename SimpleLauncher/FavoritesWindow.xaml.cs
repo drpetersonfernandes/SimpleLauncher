@@ -230,17 +230,13 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var fileNameWithExtension = selectedFavorite.FileName;
-            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
             var context = new RightClickContext(
-                filePath,
-                fileNameWithExtension,
-                fileNameWithoutExtension,
+                PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName),
+                selectedFavorite.FileName,
+                Path.GetFileNameWithoutExtension(selectedFavorite.FileName),
                 selectedFavorite.SystemName,
                 systemManager,
                 _machines,
-                null,
                 _favoritesManager,
                 _settings,
                 null,

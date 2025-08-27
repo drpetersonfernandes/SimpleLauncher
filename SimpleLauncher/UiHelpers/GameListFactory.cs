@@ -72,7 +72,6 @@ public class GameListFactory(
                     systemName,
                     systemManager,
                     _machines,
-                    null,
                     _favoritesManager,
                     _settings,
                     _emulatorComboBox,

@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.UiHelpers;
@@ -13,12 +12,7 @@ namespace SimpleLauncher;
 
 public partial class PlayHistoryWindow
 {
-    private void AddRightClickContextMenuPlayHistoryWindowContextMenu(
-        string fileNameWithExtension,
-        PlayHistoryItem selectedItem,
-        string fileNameWithoutExtension,
-        SystemManager systemManager,
-        string filePath)
+    private void AddRightClickContextMenuPlayHistoryWindowContextMenu(RightClickContext context)
     {
         var contextMenu = new ContextMenu();
 
@@ -39,7 +33,7 @@ public partial class PlayHistoryWindow
         launchMenuItem.Click += async (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            await LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
+            await LaunchGameFromHistory(context.FileNameWithExtension, context.SelectedSystemName);
         };
 
         // "Add To Favorites" MenuItem
@@ -58,7 +52,7 @@ public partial class PlayHistoryWindow
         addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.AddToFavorites(selectedItem.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, _favoritesManager, _mainWindow);
         };
 
         // "Open Video Link" MenuItem
@@ -77,7 +71,7 @@ public partial class PlayHistoryWindow
         videoLinkMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenVideoLink(selectedItem.SystemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenVideoLink(context.SelectedSystemName, context.FileNameWithoutExtension, _machines, _settings);
         };
 
         // "Open Info Link" MenuItem
@@ -96,7 +90,7 @@ public partial class PlayHistoryWindow
         infoLinkMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenInfoLink(selectedItem.SystemName, fileNameWithoutExtension, _machines, _settings);
+            ContextMenuFunctions.OpenInfoLink(context.SelectedSystemName, context.FileNameWithoutExtension, _machines, _settings);
         };
 
         // Open ROM History Context Menu
@@ -116,8 +110,7 @@ public partial class PlayHistoryWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(selectedItem.SystemName, fileNameWithoutExtension, systemManager,
-                _machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, _machines);
         };
 
         // Open Cover Context Menu
@@ -136,7 +129,7 @@ public partial class PlayHistoryWindow
         coverMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCover(selectedItem.SystemName, fileNameWithoutExtension, systemManager);
+            ContextMenuFunctions.OpenCover(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager);
         };
 
         // Open Title Snapshot Context Menu
@@ -155,7 +148,7 @@ public partial class PlayHistoryWindow
         titleSnapshotMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenTitleSnapshot(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Gameplay Snapshot Context Menu
@@ -174,7 +167,7 @@ public partial class PlayHistoryWindow
         gameplaySnapshotMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenGameplaySnapshot(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Cart Context Menu
@@ -193,7 +186,7 @@ public partial class PlayHistoryWindow
         cartMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCart(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Video Context Menu
@@ -212,7 +205,7 @@ public partial class PlayHistoryWindow
         videoMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.PlayVideo(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Manual Context Menu
@@ -231,7 +224,7 @@ public partial class PlayHistoryWindow
         manualMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenManual(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Walkthrough Context Menu
@@ -250,7 +243,7 @@ public partial class PlayHistoryWindow
         walkthroughMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenWalkthrough(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Cabinet Context Menu
@@ -269,7 +262,7 @@ public partial class PlayHistoryWindow
         cabinetMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCabinet(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open Flyer Context Menu
@@ -288,7 +281,7 @@ public partial class PlayHistoryWindow
         flyerMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenFlyer(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Open PCB Context Menu
@@ -307,7 +300,7 @@ public partial class PlayHistoryWindow
         pcbMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenPcb(selectedItem.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -330,8 +323,9 @@ public partial class PlayHistoryWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
-            await LaunchGameFromHistory(fileNameWithExtension, selectedItem.SystemName);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, _mainWindow);
+
+            await LaunchGameFromHistory(context.FileNameWithExtension, context.SelectedSystemName);
         };
 
         // Delete Game Context Menu
@@ -357,13 +351,13 @@ public partial class PlayHistoryWindow
 
             async Task DoYouWanToDeleteMessageBox()
             {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(fileNameWithExtension);
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
 
                 if (result != MessageBoxResult.Yes) return;
 
                 try
                 {
-                    await ContextMenuFunctions.DeleteGame(filePath, fileNameWithExtension, _mainWindow);
+                    await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {
@@ -375,7 +369,7 @@ public partial class PlayHistoryWindow
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
                 }
 
-                ContextMenuFunctions.RemoveFromFavorites(selectedItem.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
+                ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, _favoritesManager, _mainWindow);
             }
         };
 
@@ -402,22 +396,22 @@ public partial class PlayHistoryWindow
 
             async Task DoYouWanToDeleteMessageBox()
             {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(fileNameWithoutExtension);
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
 
                 if (result != MessageBoxResult.Yes) return;
 
                 try
                 {
                     await ContextMenuFunctions.DeleteCoverImage(
-                        fileNameWithoutExtension,
-                        selectedItem.SystemName,
-                        systemManager,
+                        context.FileNameWithoutExtension,
+                        context.SelectedSystemName,
+                        context.SelectedSystemManager,
                         _mainWindow);
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"Error deleting the cover image of {fileNameWithoutExtension}.";
+                    var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user

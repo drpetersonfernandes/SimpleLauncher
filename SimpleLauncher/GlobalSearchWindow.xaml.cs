@@ -391,7 +391,6 @@ public partial class GlobalSearchWindow
                 selectedResult.SystemName,
                 systemManager,
                 _machines,
-                null,
                 _favoritesManager,
                 _settings,
                 null,

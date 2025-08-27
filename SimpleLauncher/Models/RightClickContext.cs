@@ -11,7 +11,6 @@ public class RightClickContext(
     string selectedSystemName,
     SystemManager selectedSystemManager,
     List<MameManager> machines,
-    Dictionary<string, string> mameLookup,
     FavoritesManager favoritesManager,
     SettingsManager settings,
     ComboBox emulatorComboBox,
@@ -25,7 +24,6 @@ public class RightClickContext(
     public string SelectedSystemName { get; } = selectedSystemName;
     public SystemManager SelectedSystemManager { get; } = selectedSystemManager;
     public List<MameManager> Machines { get; } = machines;
-    public Dictionary<string, string> MameLookup { get; } = mameLookup;
     public FavoritesManager FavoritesManager { get; } = favoritesManager;
     public SettingsManager Settings { get; } = settings;
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;
