@@ -320,6 +320,8 @@ public partial class PlayHistoryWindow
                 null,
                 null,
                 null,
+                null,
+                null,
                 _mainWindow
             );
 

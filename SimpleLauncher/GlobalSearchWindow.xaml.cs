@@ -386,8 +386,8 @@ public partial class GlobalSearchWindow
 
             var context = new RightClickContext(
                 selectedResult.FilePath,
+                selectedResult.FileNameWithExtension,
                 selectedResult.FileName,
-                Path.GetFileNameWithoutExtension(selectedResult.FileName),
                 selectedResult.SystemName,
                 systemManager,
                 _machines,
@@ -396,6 +396,8 @@ public partial class GlobalSearchWindow
                 null,
                 null,
                 selectedResult.EmulatorManager,
+                null,
+                null,
                 _mainWindow
             );
 

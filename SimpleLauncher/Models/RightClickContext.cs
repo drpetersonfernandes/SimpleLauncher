@@ -16,6 +16,8 @@ public class RightClickContext(
     ComboBox emulatorComboBox,
     Favorite selectedFavorite,
     SystemManager.Emulator emulatorManager,
+    WrapPanel gameFileGrid,
+    Button button,
     MainWindow mainWindow)
 {
     public string FilePath { get; } = filePath;
@@ -29,5 +31,7 @@ public class RightClickContext(
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;
     public Favorite Favorite { get; } = selectedFavorite;
     public SystemManager.Emulator Emulator { get; } = emulatorManager;
+    public WrapPanel GameFileGrid { get; } = gameFileGrid;
+    public Button Button { get; } = button;
     public MainWindow MainWindow { get; } = mainWindow;
 }

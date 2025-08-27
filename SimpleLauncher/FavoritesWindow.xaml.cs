@@ -242,6 +242,8 @@ public partial class FavoritesWindow
                 null,
                 selectedFavorite,
                 null,
+                null,
+                null,
                 _mainWindow
             );
 

@@ -261,7 +261,23 @@ public class GameButtonFactory(
             }
         };
 
-        return ContextMenu.AddRightClickReturnButton(absoluteFilePath, fileNameWithExtension, fileNameWithoutExtension, selectedSystemName,
-            _emulatorComboBox, _favoritesManager, selectedSystemManager, _machines, _settings, _mainWindow, _gameFileGrid, _button);
+        var context = new RightClickContext(
+            absoluteFilePath,
+            fileNameWithExtension,
+            fileNameWithoutExtension,
+            selectedSystemName,
+            selectedSystemManager,
+            _machines,
+            _favoritesManager,
+            _settings,
+            _emulatorComboBox,
+            null,
+            null,
+            _gameFileGrid,
+            _button,
+            _mainWindow
+        );
+
+        return ContextMenu.AddRightClickReturnButton(context);
     }
 }

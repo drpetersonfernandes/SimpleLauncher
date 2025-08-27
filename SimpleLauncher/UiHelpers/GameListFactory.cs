@@ -77,6 +77,8 @@ public class GameListFactory(
                     _emulatorComboBox,
                     null,
                     null,
+                    null,
+                    null,
                     _mainWindow
                 )
             ),
