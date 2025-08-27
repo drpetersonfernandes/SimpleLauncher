@@ -360,12 +360,6 @@ public class ExtractCompressedFile
         return sb.ToString();
     }
 
-    private static string EscapeCommandLineArgument(string arg)
-    {
-        // Replace any embedded quotes with escaped quotes
-        return arg.Replace("\"", "\\\"");
-    }
-
     // Helper function to verify no path traversal in extracted files
     private static bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
     {
