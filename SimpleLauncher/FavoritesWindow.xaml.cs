@@ -24,7 +24,13 @@ public partial class FavoritesWindow
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
 
-    public FavoritesWindow(SettingsManager settings, List<SystemManager> systemManagers, List<MameManager> machines, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public FavoritesWindow(
+        SettingsManager settings,
+        List<SystemManager> systemManagers,
+        List<MameManager> machines,
+        FavoritesManager favoritesManager,
+        MainWindow mainWindow
+    )
     {
         InitializeComponent();
 
@@ -211,8 +217,8 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
-            var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemConfig == null)
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager == null)
             {
                 // Notify developer
                 const string contextMessage = "systemConfig is null for the selected favorite";
@@ -226,19 +232,21 @@ public partial class FavoritesWindow
 
             var fileNameWithExtension = selectedFavorite.FileName;
             var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(selectedFavorite.FileName);
-            var filePath = PathHelper.FindFileInSystemFolders(systemConfig, selectedFavorite.FileName);
-
-            var context = new RightClickContextFavorites(
+            var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
+            var context = new RightClickContext(
                 filePath,
                 fileNameWithExtension,
                 fileNameWithoutExtension,
                 selectedFavorite.SystemName,
-                systemConfig,
+                systemManager,
                 _machines,
+                null,
                 _favoritesManager,
                 _settings,
-                _mainWindow,
-                selectedFavorite
+                null,
+                selectedFavorite,
+                null,
+                _mainWindow
             );
 
             AddRightClickContextMenuFavoritesWindow(context);

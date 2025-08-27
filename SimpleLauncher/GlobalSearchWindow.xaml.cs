@@ -26,7 +26,14 @@ public partial class GlobalSearchWindow
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
 
-    public GlobalSearchWindow(List<SystemManager> systemManagers, List<MameManager> machines, Dictionary<string, string> mameLookup, SettingsManager settings, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public GlobalSearchWindow(
+        List<SystemManager> systemManagers,
+        List<MameManager> machines,
+        Dictionary<string, string> mameLookup,
+        FavoritesManager favoritesManager,
+        SettingsManager settings,
+        MainWindow mainWindow
+    )
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -35,11 +42,11 @@ public partial class GlobalSearchWindow
         _systemManagers = systemManagers;
         _machines = machines;
         _mameLookup = mameLookup;
-        _settings = settings;
         _favoritesManager = favoritesManager;
+        _settings = settings;
+        _mainWindow = mainWindow;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
-        _mainWindow = mainWindow;
     }
 
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -164,7 +171,7 @@ public partial class GlobalSearchWindow
                         FileSizeBytes = -1,
                         MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
                         SystemName = systemManager.SystemName,
-                        EmulatorConfig = systemManager.Emulators.FirstOrDefault(),
+                        EmulatorManager = systemManager.Emulators.FirstOrDefault(),
                         CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager)
                     };
                     results.Add(searchResultItem);
@@ -341,7 +348,7 @@ public partial class GlobalSearchWindow
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 PlaySoundEffects.PlayNotificationSound();
-                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+                LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
             }
             else
             {
@@ -359,18 +366,41 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private void GlobalSearchRightClickContextMenu(object sender, MouseButtonEventArgs e)
+    private void GlobalSearchWindowRightClickContextMenu(object sender, MouseButtonEventArgs e)
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
+                string.IsNullOrEmpty(selectedResult.FilePath))
+            {
+                return;
+            }
 
-            var systemConfig = _systemManagers.FirstOrDefault(config =>
+            var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(selectedResult.SystemName, StringComparison.OrdinalIgnoreCase));
 
-            if (CheckSystemConfig(systemConfig)) return;
+            if (CheckSystemConfig(systemManager))
+            {
+                return;
+            }
 
-            AddRightClickContextMenuGlobalSearchWindow(selectedResult, selectedResult.FileName, systemConfig, selectedResult.FileNameWithExtension, selectedResult.FilePath);
+            var context = new RightClickContext(
+                selectedResult.FilePath,
+                selectedResult.FileName,
+                Path.GetFileNameWithoutExtension(selectedResult.FileName),
+                selectedResult.SystemName,
+                systemManager,
+                _machines,
+                null,
+                _favoritesManager,
+                _settings,
+                null,
+                null,
+                selectedResult.EmulatorManager,
+                _mainWindow
+            );
+
+            AddRightClickContextMenuGlobalSearchWindow(context);
         }
         catch (Exception ex)
         {
@@ -391,7 +421,7 @@ public partial class GlobalSearchWindow
                 string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             PlaySoundEffects.PlayNotificationSound();
-            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorConfig);
+            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
         }
         catch (Exception ex)
         {

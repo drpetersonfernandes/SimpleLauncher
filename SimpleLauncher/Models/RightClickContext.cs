@@ -11,26 +11,25 @@ public class RightClickContext(
     string selectedSystemName,
     SystemManager selectedSystemManager,
     List<MameManager> machines,
+    Dictionary<string, string> mameLookup,
     FavoritesManager favoritesManager,
     SettingsManager settings,
     ComboBox emulatorComboBox,
+    Favorite selectedFavorite,
+    SystemManager.Emulator emulatorManager,
     MainWindow mainWindow)
 {
-    // File-specific information
     public string FilePath { get; } = filePath;
     public string FileNameWithExtension { get; } = fileNameWithExtension;
     public string FileNameWithoutExtension { get; } = fileNameWithoutExtension;
-
-    // System and Game information
     public string SelectedSystemName { get; } = selectedSystemName;
     public SystemManager SelectedSystemManager { get; } = selectedSystemManager;
     public List<MameManager> Machines { get; } = machines;
-
-    // Core application managers and settings
+    public Dictionary<string, string> MameLookup { get; } = mameLookup;
     public FavoritesManager FavoritesManager { get; } = favoritesManager;
     public SettingsManager Settings { get; } = settings;
-
-    // UI Elements (if absolutely necessary)
     public ComboBox EmulatorComboBox { get; } = emulatorComboBox;
+    public Favorite Favorite { get; } = selectedFavorite;
+    public SystemManager.Emulator Emulator { get; } = emulatorManager;
     public MainWindow MainWindow { get; } = mainWindow;
 }

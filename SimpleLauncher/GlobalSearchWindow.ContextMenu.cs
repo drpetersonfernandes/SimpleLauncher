@@ -3,7 +3,6 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
-using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.UiHelpers;
@@ -13,12 +12,7 @@ namespace SimpleLauncher;
 
 public partial class GlobalSearchWindow
 {
-    private void AddRightClickContextMenuGlobalSearchWindow(
-        SearchResult selectedResult,
-        string fileNameWithoutExtension,
-        SystemManager systemManager,
-        string fileNameWithExtension,
-        string filePath)
+    private void AddRightClickContextMenuGlobalSearchWindow(RightClickContext context)
     {
         var contextMenu = new ContextMenu();
 
@@ -39,8 +33,7 @@ public partial class GlobalSearchWindow
         launchMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
-                selectedResult.EmulatorConfig);
+            LaunchGameFromSearchResult(context.FilePath, context.SelectedSystemName, context.Emulator);
         };
 
         // "Add To Favorites" MenuItem
@@ -59,7 +52,7 @@ public partial class GlobalSearchWindow
         addToFavoritesMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.AddToFavorites(selectedResult.SystemName, selectedResult.FileNameWithExtension, null, _favoritesManager, _mainWindow);
+            ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, _favoritesManager, _mainWindow);
         };
 
         // "Open Video Link" MenuItem
@@ -78,8 +71,7 @@ public partial class GlobalSearchWindow
         videoLinkMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenVideoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines,
-                _settings);
+            ContextMenuFunctions.OpenVideoLink(context.SelectedSystemName, context.FileNameWithoutExtension, _machines, _settings);
         };
 
         // "Open Info Link" MenuItem
@@ -98,8 +90,7 @@ public partial class GlobalSearchWindow
         infoLinkMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenInfoLink(selectedResult.SystemName, fileNameWithoutExtension, _machines,
-                _settings);
+            ContextMenuFunctions.OpenInfoLink(context.SelectedSystemName, context.FileNameWithoutExtension, _machines, _settings);
         };
 
         // "Open ROM History" MenuItem
@@ -119,8 +110,7 @@ public partial class GlobalSearchWindow
         openHistoryMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRomHistoryWindow(selectedResult.SystemName, fileNameWithoutExtension,
-                systemManager, _machines);
+            ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, _machines);
         };
 
         // "Cover" MenuItem
@@ -139,7 +129,7 @@ public partial class GlobalSearchWindow
         coverMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCover(selectedResult.SystemName, fileNameWithoutExtension, systemManager);
+            ContextMenuFunctions.OpenCover(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager);
         };
 
         // "Title Snapshot" MenuItem
@@ -158,7 +148,7 @@ public partial class GlobalSearchWindow
         titleSnapshotMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenTitleSnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenTitleSnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Gameplay Snapshot" MenuItem
@@ -177,7 +167,7 @@ public partial class GlobalSearchWindow
         gameplaySnapshotMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenGameplaySnapshot(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenGameplaySnapshot(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Cart" MenuItem
@@ -196,7 +186,7 @@ public partial class GlobalSearchWindow
         cartMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCart(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCart(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Video" MenuItem
@@ -215,7 +205,7 @@ public partial class GlobalSearchWindow
         videoMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.PlayVideo(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.PlayVideo(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Manual" MenuItem
@@ -234,7 +224,7 @@ public partial class GlobalSearchWindow
         manualMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenManual(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenManual(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Walkthrough" MenuItem
@@ -253,7 +243,7 @@ public partial class GlobalSearchWindow
         walkthroughMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenWalkthrough(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenWalkthrough(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Cabinet" MenuItem
@@ -272,7 +262,7 @@ public partial class GlobalSearchWindow
         cabinetMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenCabinet(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenCabinet(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "Flyer" MenuItem
@@ -291,7 +281,7 @@ public partial class GlobalSearchWindow
         flyerMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenFlyer(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenFlyer(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // "PCB" MenuItem
@@ -310,7 +300,7 @@ public partial class GlobalSearchWindow
         pcbMenuItem.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenPcb(selectedResult.SystemName, fileNameWithoutExtension);
+            ContextMenuFunctions.OpenPcb(context.SelectedSystemName, context.FileNameWithoutExtension);
         };
 
         // Take Screenshot Context Menu
@@ -333,10 +323,9 @@ public partial class GlobalSearchWindow
             // Notify user
             MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(fileNameWithoutExtension, systemManager, null, _mainWindow);
+            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, _mainWindow);
 
-            LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName,
-                selectedResult.EmulatorConfig);
+            LaunchGameFromSearchResult(context.FilePath, context.SelectedSystemName, context.Emulator);
         };
 
         // Delete Game Context Menu
@@ -362,13 +351,13 @@ public partial class GlobalSearchWindow
 
             async Task DoYouWanToDeleteMessageBox()
             {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(fileNameWithExtension);
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
 
                 if (result != MessageBoxResult.Yes) return;
 
                 try
                 {
-                    await ContextMenuFunctions.DeleteGame(filePath, fileNameWithExtension, _mainWindow);
+                    await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, _mainWindow);
                 }
                 catch (Exception ex)
                 {
@@ -380,7 +369,7 @@ public partial class GlobalSearchWindow
                     MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
                 }
 
-                ContextMenuFunctions.RemoveFromFavorites(selectedResult.SystemName, fileNameWithExtension, null, _favoritesManager, _mainWindow);
+                ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, _favoritesManager, _mainWindow);
             }
         };
 
@@ -407,22 +396,22 @@ public partial class GlobalSearchWindow
 
             async Task DoYouWanToDeleteMessageBox()
             {
-                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(fileNameWithoutExtension);
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
 
                 if (result != MessageBoxResult.Yes) return;
 
                 try
                 {
                     await ContextMenuFunctions.DeleteCoverImage(
-                        fileNameWithoutExtension,
-                        selectedResult.SystemName,
-                        systemManager,
+                        context.FileNameWithoutExtension,
+                        context.SelectedSystemName,
+                        context.SelectedSystemManager,
                         _mainWindow);
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"Error deleting the cover image of {fileNameWithoutExtension}.";
+                    var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                     // Notify user

@@ -566,7 +566,7 @@ public partial class MainWindow
         ResetUi();
 
         var globalSearchWindow =
-            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _settings, _favoritesManager, this);
+            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this);
         globalSearchWindow.Show();
 
         _favoritesManager = FavoritesManager.LoadFavorites();

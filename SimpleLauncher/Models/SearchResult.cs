@@ -29,7 +29,7 @@ public class SearchResult : INotifyPropertyChanged
     public string FolderName { get; init; }
     public string FilePath { get; init; }
     public string SystemName { get; init; }
-    public SystemManager.Emulator EmulatorConfig { get; init; }
+    public SystemManager.Emulator EmulatorManager { get; init; }
 
     private int _score;
 
@@ -46,7 +46,7 @@ public class SearchResult : INotifyPropertyChanged
     }
 
     public string CoverImage { get; init; }
-    public string DefaultEmulator => EmulatorConfig?.EmulatorName ?? "No Default Emulator";
+    public string DefaultEmulator => EmulatorManager?.EmulatorName ?? "No Default Emulator";
 
     public string FormattedFileSize =>
         _fileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
