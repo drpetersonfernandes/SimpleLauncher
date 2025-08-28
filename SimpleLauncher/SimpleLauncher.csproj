@@ -828,11 +828,6 @@
     <Resource Include="images\playhistory.png" />
     <None Remove="images\support.png" />
     <Resource Include="images\support.png" />
-    <Page Update="PleaseWaitWindow.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <XamlRuntime>Wpf</XamlRuntime>
-      <SubType>Designer</SubType>
-    </Page>
     <None Remove="images\match.png" />
     <Resource Include="images\match.png" />
     <None Remove="images\setthreshold.png" />

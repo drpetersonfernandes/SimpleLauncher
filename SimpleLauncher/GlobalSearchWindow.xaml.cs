@@ -20,7 +20,6 @@ public partial class GlobalSearchWindow
     private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
     private ObservableCollection<SearchResult> _searchResults;
-    private PleaseWaitWindow _pleaseWaitWindow;
     private readonly MainWindow _mainWindow;
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
@@ -60,9 +59,7 @@ public partial class GlobalSearchWindow
             PreviewImage.Source = null; // Clear preview on new search
             _searchResults.Clear();
 
-            var searchingpleasewait = (string)Application.Current.TryFindResource("Searchingpleasewait") ?? "Searching, please wait...";
-            _pleaseWaitWindow = new PleaseWaitWindow(searchingpleasewait) { Owner = this };
-            _pleaseWaitWindow.Show();
+            LoadingOverlay.Visibility = Visibility.Visible;
 
             try
             {
@@ -110,7 +107,7 @@ public partial class GlobalSearchWindow
             }
             finally
             {
-                _pleaseWaitWindow.Close();
+                LoadingOverlay.Visibility = Visibility.Collapsed;
             }
         }
         catch (Exception ex)

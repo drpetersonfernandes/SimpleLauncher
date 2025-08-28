@@ -277,10 +277,6 @@ public partial class EasyModeWindow : IDisposable
 
             var success = false;
 
-            var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-            var pleaseWaitWindow = new PleaseWaitWindow($"{extracting} {componentName}...");
-            pleaseWaitWindow.Owner = this;
-
             var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
             DownloadStatus = $"{downloading} {componentName}...";
 
@@ -288,10 +284,12 @@ public partial class EasyModeWindow : IDisposable
 
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
+                var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
                 DownloadStatus = $"{extracting} {componentName}...";
-                pleaseWaitWindow.Show();
+                LoadingMessage.Text = $"{extracting} {componentName}...";
+                LoadingOverlay.Visibility = Visibility.Visible;
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
-                pleaseWaitWindow.Close();
+                LoadingOverlay.Visibility = Visibility.Collapsed;
             }
 
             if (success)

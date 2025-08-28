@@ -5,7 +5,6 @@ using System.Linq;
 using System.Security;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
 using ICSharpCode.SharpZipLib.Zip;
 using SevenZip;
 
@@ -46,7 +45,6 @@ public class ExtractCompressedFile
         }
 
         string tempDirectory = null;
-        PleaseWaitWindow pleaseWaitExtraction = null;
 
         try
         {
@@ -70,13 +68,6 @@ public class ExtractCompressedFile
 
             tempDirectory = Path.Combine(_tempFolder, randomName);
             Directory.CreateDirectory(tempDirectory);
-
-            await Application.Current.Dispatcher.InvokeAsync(() =>
-            {
-                var extractionMessage = Application.Current.TryFindResource("Extractingcompressed").ToString() ?? "Extracting compressed file...";
-                pleaseWaitExtraction = new PleaseWaitWindow(extractionMessage);
-                pleaseWaitExtraction.Show();
-            });
 
             await Task.Run(() =>
             {
@@ -115,17 +106,6 @@ public class ExtractCompressedFile
             MessageBoxLibrary.ExtractionFailedMessageBox();
 
             return null;
-        }
-        finally
-        {
-            if (pleaseWaitExtraction != null)
-            {
-                await Application.Current.Dispatcher.InvokeAsync(() =>
-                {
-                    pleaseWaitExtraction.Close();
-                    pleaseWaitExtraction = null;
-                });
-            }
         }
     }
 

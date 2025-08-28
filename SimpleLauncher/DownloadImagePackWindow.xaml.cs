@@ -121,7 +121,6 @@ public partial class DownloadImagePackWindow : IDisposable
                 StopDownloadButton.IsEnabled = true;
                 DownloadImagePackButton.IsEnabled = false;
 
-                // Show the PleaseWaitExtraction window for extraction
                 // We'll use the DownloadManager to handle the download and extraction
                 var downloadSuccess = await _downloadManager.DownloadFileAsync(imagePackDownloadUrl);
 
@@ -130,16 +129,13 @@ public partial class DownloadImagePackWindow : IDisposable
                     var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
                     UpdateStatus($"{downloadcompleteStartingextractionto2} {finalImagePackDownloadExtractPath}...");
 
-                    // Show the PleaseWaitExtraction window
                     var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                    var pleaseWaitWindow = new PleaseWaitWindow($"{extracting2}...");
-                    pleaseWaitWindow.Owner = this;
-                    pleaseWaitWindow.Show();
+                    LoadingMessage.Text = $"{extracting2}...";
+                    LoadingOverlay.Visibility = Visibility.Visible;
 
                     var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, finalImagePackDownloadExtractPath);
 
-                    // Close the PleaseWaitExtraction window
-                    pleaseWaitWindow.Close();
+                    LoadingOverlay.Visibility = Visibility.Collapsed;
 
                     if (extractionSuccess)
                     {

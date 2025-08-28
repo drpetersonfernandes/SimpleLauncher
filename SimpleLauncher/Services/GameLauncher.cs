@@ -114,6 +114,7 @@ public static class GameLauncher
         }
 
         var startTime = DateTime.Now;
+        mainWindow.IsLoadingGames = true;
 
         try
         {
@@ -186,6 +187,7 @@ public static class GameLauncher
         }
         finally
         {
+            mainWindow.IsLoadingGames = false;
             if (wasGamePadControllerRunning)
             {
                 GamePadController.Instance2.Start();
