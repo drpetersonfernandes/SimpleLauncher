@@ -364,7 +364,12 @@ public partial class PlayHistoryWindow
                 _mainWindow
             );
 
-            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            if (contextMenu != null)
+            {
+                PlayHistoryDataGrid.ContextMenu = contextMenu;
+                contextMenu.IsOpen = true;
+            }
         }
         catch (Exception ex)
         {

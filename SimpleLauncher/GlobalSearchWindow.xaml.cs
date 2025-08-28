@@ -437,7 +437,12 @@ public partial class GlobalSearchWindow
                 _mainWindow
             );
 
-            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            if (contextMenu != null)
+            {
+                ResultsDataGrid.ContextMenu = contextMenu;
+                contextMenu.IsOpen = true;
+            }
         }
         catch (Exception ex)
         {

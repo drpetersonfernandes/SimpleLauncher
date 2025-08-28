@@ -284,7 +284,12 @@ public partial class FavoritesWindow
                 _mainWindow
             );
 
-            UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
+            if (contextMenu != null)
+            {
+                FavoritesDataGrid.ContextMenu = contextMenu;
+                contextMenu.IsOpen = true;
+            }
         }
         catch (Exception ex)
         {

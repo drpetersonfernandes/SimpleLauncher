@@ -44,13 +44,17 @@ public static class ContextMenu
 
             string selectedEmulatorName;
 
-            if (context.EmulatorComboBox.SelectedItem == null)
+            if (context.EmulatorComboBox is { SelectedItem: not null })
             {
-                selectedEmulatorName = null;
+                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+            }
+            else if (context.Emulator != null)
+            {
+                selectedEmulatorName = context.Emulator.EmulatorName;
             }
             else
             {
-                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+                selectedEmulatorName = null;
             }
 
             await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
@@ -364,13 +368,17 @@ public static class ContextMenu
 
             string selectedEmulatorName;
 
-            if (context.EmulatorComboBox.SelectedItem == null)
+            if (context.EmulatorComboBox is { SelectedItem: not null })
             {
-                selectedEmulatorName = null;
+                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+            }
+            else if (context.Emulator != null)
+            {
+                selectedEmulatorName = context.Emulator.EmulatorName;
             }
             else
             {
-                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+                selectedEmulatorName = null;
             }
 
             _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, context.MainWindow);
