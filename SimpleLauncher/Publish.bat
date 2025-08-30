@@ -8,3 +8,5 @@ echo Publishing for ARM64...
 dotnet publish -c Release -r win-arm64 --self-contained false -p:PublishSingleFile=true -o ./bin/Release/Publish/win-arm64
 
 echo All builds completed!
+
+pause
