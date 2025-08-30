@@ -165,8 +165,24 @@ public partial class App
     {
         try
         {
-            // Determine the path to the 7z.dll based on the process architecture.
-            var dllName = Environment.Is64BitProcess ? "7z_x64.dll" : "7z_x86.dll";
+            string dllName;
+            switch (System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture)
+            {
+                case System.Runtime.InteropServices.Architecture.Arm64:
+                    dllName = "7z_arm64.dll";
+                    break;
+                case System.Runtime.InteropServices.Architecture.X64:
+                    dllName = "7z_x64.dll";
+                    break;
+                case System.Runtime.InteropServices.Architecture.X86:
+                    dllName = "7z_x86.dll";
+                    break;
+                default:
+                    var errorMessage = $"Unsupported architecture for SevenZipSharp: {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
+                    _ = LogErrors.LogErrorAsync(null, errorMessage);
+                    return;
+            }
+
             var dllPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, dllName);
 
             if (File.Exists(dllPath))
@@ -176,15 +192,12 @@ public partial class App
             }
             else
             {
-                // Notify developer
-                // If the specific DLL is not found, log an error. Extraction will likely fail.
                 var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {AppDomain.CurrentDomain.BaseDirectory}";
                 _ = LogErrors.LogErrorAsync(null, errorMessage);
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
         }
     }
