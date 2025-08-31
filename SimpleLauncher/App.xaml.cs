@@ -18,12 +18,13 @@ public partial class App
 {
     public static SettingsManager Settings { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
-    public static IConfiguration Configuration { get; private set; }
+    private static IConfiguration Configuration { get; set; }
 
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
     private const string UniqueMutexIdentifier = "A8E2B9C1-F5D7-4E0A-8B3C-6D1E9F0A7B4C";
     private const string MutexName = "SimpleLauncher_SingleInstanceMutex_" + UniqueMutexIdentifier;
+    private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     protected override void OnStartup(StartupEventArgs e)
     {
@@ -135,6 +136,7 @@ public partial class App
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to dispose gamepad resources.");
         }
 
@@ -178,8 +180,10 @@ public partial class App
                     dllName = "7z_x86.dll";
                     break;
                 default:
+                    // Notify developer
                     var errorMessage = $"Unsupported architecture for SevenZipSharp: {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
                     _ = LogErrors.LogErrorAsync(null, errorMessage);
+
                     return;
             }
 
@@ -192,12 +196,14 @@ public partial class App
             }
             else
             {
-                var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {AppDomain.CurrentDomain.BaseDirectory}";
+                // Notify developer
+                var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {BaseDirectory}";
                 _ = LogErrors.LogErrorAsync(null, errorMessage);
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
         }
     }
@@ -225,11 +231,17 @@ public partial class App
                 Resources.MergedDictionaries.Remove(existingDictionary);
             }
 
-            // Create the resource dictionary for the requested culture
-            var dictionary = new ResourceDictionary
+            var dictionary = new ResourceDictionary();
+
+            try
             {
-                Source = new Uri($"/resources/strings.{culture.Name}.xaml", UriKind.Relative)
-            };
+                dictionary.Source = new Uri($"pack://application:,,,/resources/strings.{culture.Name}.xaml", UriKind.Absolute);
+            }
+            catch (Exception)
+            {
+                dictionary.Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute);
+                culture = new CultureInfo("en-US");
+            }
 
             try
             {
@@ -255,7 +267,7 @@ public partial class App
                 // Fallback to English
                 var fallbackDictionary = new ResourceDictionary
                 {
-                    Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+                    Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute)
                 };
 
                 // Ensure the fallback is added even if the requested one failed
@@ -290,7 +302,7 @@ public partial class App
             {
                 var fallbackDictionary = new ResourceDictionary
                 {
-                    Source = new Uri("/resources/strings.en.xaml", UriKind.Relative)
+                    Source = new Uri("pack://application:,,,/resources/strings.en.xaml", UriKind.Absolute)
                 };
                 Resources.MergedDictionaries.Add(fallbackDictionary);
 
@@ -302,7 +314,6 @@ public partial class App
                 FrameworkElement.LanguageProperty.OverrideMetadata(
                     typeof(FrameworkElement),
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
-
 
                 // Notify developer
                 _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");

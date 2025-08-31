@@ -21,7 +21,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "x64"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "x86"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x64"),
-        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86")
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
+        Path.Combine(AppDirectory, "resources")
     ];
 
     private static readonly string[] FilesToClean =
