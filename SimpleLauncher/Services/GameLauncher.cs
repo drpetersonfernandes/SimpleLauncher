@@ -883,7 +883,10 @@ public static class GameLauncher
 
     private static Task CheckForMemoryAccessViolation(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
-        if (process.HasExited && process.ExitCode != MemoryAccessViolation) return Task.CompletedTask;
+        if (process.HasExited && process.ExitCode != MemoryAccessViolation)
+        {
+            return Task.CompletedTask;
+        }
 
         // Notify developer
         var contextMessage = $"There was a memory access violation error running the emulator.\n" +

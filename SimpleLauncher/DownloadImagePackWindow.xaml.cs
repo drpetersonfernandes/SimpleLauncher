@@ -301,18 +301,13 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
-        // Cancel the ongoing download
         _downloadManager.CancelDownload();
-
-        // Disable the stop button
         StopDownloadButton.IsEnabled = false;
-
-        // Reset progress
         DownloadProgressBar.Value = 0;
+
         var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
         UpdateStatus(downloadcanceled2);
 
-        // Enable download button again
         DownloadImagePackButton.IsEnabled = true;
     }
 
@@ -333,12 +328,9 @@ public partial class DownloadImagePackWindow : IDisposable
         }
     }
 
-    // IDisposable implementation
     public void Dispose()
     {
         Dispose(true);
-
-        // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);
     }
 

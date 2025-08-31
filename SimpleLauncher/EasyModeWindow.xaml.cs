@@ -29,7 +29,6 @@ public partial class EasyModeWindow : IDisposable
 
     private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
 
-    // Download component types
     private enum DownloadType
     {
         Emulator,
@@ -37,7 +36,6 @@ public partial class EasyModeWindow : IDisposable
         ImagePack
     }
 
-    // Download status tracking
     private string _downloadStatus = string.Empty;
 
     private string DownloadStatus
@@ -388,16 +386,12 @@ public partial class EasyModeWindow : IDisposable
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
-        // Cancel the download
         _downloadManager.CancelDownload();
+        StopDownloadButton.IsEnabled = false;
+        DownloadProgressBar.Value = 0;
 
-        // Update UI
         var cancelingdownload2 = (string)Application.Current.TryFindResource("Cancelingdownload") ?? "Canceling download...";
         DownloadStatus = cancelingdownload2;
-        StopDownloadButton.IsEnabled = false;
-
-        // Reset progress
-        DownloadProgressBar.Value = 0;
     }
 
     private static async Task UpdateSystemXmlAsync(
