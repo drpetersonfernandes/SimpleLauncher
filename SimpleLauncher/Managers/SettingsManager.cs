@@ -187,7 +187,7 @@ public class SettingsManager
 
     private static bool ParseBoolSetting(XElement settings, string settingName, bool defaultValue = false)
     {
-        return bool.TryParse(settings.Element(settingName)?.Value, out var value) ? value : defaultValue;
+        return settingName != null && (bool.TryParse(settings.Element(settingName)?.Value, out var value) ? value : defaultValue);
     }
 
     private void SetDefaultsAndSave()

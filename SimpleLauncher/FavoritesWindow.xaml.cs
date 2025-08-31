@@ -159,7 +159,7 @@ public partial class FavoritesWindow
                 await Dispatcher.InvokeAsync(() =>
                 {
                     var result = MessageBox.Show("Some favorites were not found in the HDD. Do you want to delete them?", "Invalid Favorites", MessageBoxButton.YesNo, MessageBoxImage.Warning);
-                    if (result != MessageBoxResult.Yes)
+                    if (result == MessageBoxResult.Yes)
                     {
                         foreach (var item in itemsToDelete)
                         {

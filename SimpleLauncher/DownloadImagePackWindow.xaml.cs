@@ -242,12 +242,15 @@ public partial class DownloadImagePackWindow : IDisposable
             return false;
         }
 
-        var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-        var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-        var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
+        if (selectedSystem.Emulators is { Emulator: not null })
+        {
+            var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
+            var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
+            var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
 
-        // Verify the extraction folder exists or can be created
-        if (!CreateExtractionFolder(finalImagePackDownloadExtractPath)) return false;
+            // Verify the extraction folder exists or can be created
+            if (!CreateExtractionFolder(finalImagePackDownloadExtractPath)) return false;
+        }
 
         return true;
     }

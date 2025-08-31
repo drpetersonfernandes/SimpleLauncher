@@ -24,16 +24,6 @@ public abstract class GetListOfFiles
                 if (!Directory.Exists(directoryPath))
                 {
                     // Notify developer
-                    const string contextMessage = "Directory path is null or empty.";
-                    _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                    return new List<string>(); // Return an empty list
-                }
-
-                // Initial directory existence check
-                if (!Directory.Exists(directoryPath))
-                {
-                    // Notify developer
                     var contextMessage = $"Directory does not exist: '{directoryPath}'.";
                     _ = LogErrors.LogErrorAsync(null, contextMessage);
 
@@ -53,7 +43,6 @@ public abstract class GetListOfFiles
                     catch (DirectoryNotFoundException dirEx)
                     {
                         // Notify developer
-                        // Directory was deleted or became inaccessible during enumeration
                         var contextMessage = $"Directory not found while processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(dirEx, contextMessage);
 
@@ -81,11 +70,11 @@ public abstract class GetListOfFiles
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
                         _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
 
-                        // Continue with the next extension rather than failing the entire operation
+                        // Continue with the next extension
                     }
                 }
 
-                return foundFiles; // Return the list directly from Task.Run
+                return foundFiles; // Return the full list of found files
             }
             catch (Exception ex)
             {
