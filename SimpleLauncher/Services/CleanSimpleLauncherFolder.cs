@@ -74,6 +74,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "WindowsInput.dll"),
         Path.Combine(AppDirectory, "SimpleLauncher.deps.json"),
         Path.Combine(AppDirectory, "SimpleLauncher.runtimeconfig.json"),
+        Path.Combine(AppDirectory, "SevenZipExtractor.dll"),
 
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.dll"),
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso", "7z.exe"),
