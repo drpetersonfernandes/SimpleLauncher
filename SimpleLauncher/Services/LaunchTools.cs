@@ -513,7 +513,37 @@ public static class LaunchTools
 
     public static void RomValidator_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RomValidator", "RomValidator.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "RomValidator.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "RomValidator_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "RomValidator_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RomValidator", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching RomValidator");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RomValidator", LogPath);
+        }
     }
 }
