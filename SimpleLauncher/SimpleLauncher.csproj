@@ -624,9 +624,6 @@
     <None Update="tools\BatchConvertToRVZ\7z_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertToRVZ\7z_x86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -670,6 +667,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToRVZ\7z_arm64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToRVZ\BatchConvertToRVZ_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToRVZ\DolphinTool_arm64.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
