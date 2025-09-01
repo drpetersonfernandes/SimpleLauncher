@@ -233,8 +233,38 @@ public static class LaunchTools
 
     internal static void BatchConvertToCompressedFile_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "BatchConvertToCompressedFile.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "BatchConvertToCompressedFile_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "BatchConvertToCompressedFile_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCompressedFile", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCHD");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", LogPath);
+        }
     }
 
     internal static void BatchConvertToRVZ_Click()

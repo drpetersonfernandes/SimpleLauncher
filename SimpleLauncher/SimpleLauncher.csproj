@@ -666,6 +666,12 @@
     <None Update="tools\BatchConvertToCHD\BatchConvertToCHD_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\BatchConvertToCompressedFile\BatchConvertToCompressedFile_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
