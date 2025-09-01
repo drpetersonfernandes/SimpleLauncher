@@ -10,7 +10,7 @@ using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services;
 
-public static class MessageBoxLibrary
+internal static class MessageBoxLibrary
 {
     internal static void TakeScreenShotMessageBox()
     {
@@ -4889,7 +4889,7 @@ public static class MessageBoxLibrary
         }
     }
 
-    public static void LaunchToolInformation(string info)
+    internal static void LaunchToolInformation(string info)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4901,7 +4901,7 @@ public static class MessageBoxLibrary
         }
     }
 
-    public static void ThereWasAnErrorLaunchingTheToolMessageBox(string toolName, string logPath)
+    internal static void ThereWasAnErrorLaunchingTheToolMessageBox(string toolName, string logPath)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -4932,6 +4932,22 @@ public static class MessageBoxLibrary
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
                 MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
+        }
+    }
+
+    internal static void XisoMountNotSupportedOnArm64()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            const string message = "XISO mounting is not supported on ARM64 systems.";
+            const string title = "XISO Mount Not Supported";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            // Log the event
+            DebugLogger.Log("XISO mount not supported on ARM64.");
         }
     }
 }

@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -122,6 +123,16 @@ public static class GameLauncher
             if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                 Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
             {
+                // Check if the system architecture is ARM64
+                if (IsArm64System())
+                {
+                    // Notify the user that XISO mounting is not available on ARM64
+                    MessageBoxLibrary.XisoMountNotSupportedOnArm64();
+                    DebugLogger.Log("XISO mount attempt blocked on ARM64 system.");
+                    mainWindow.IsLoadingGames = false;
+                    return;
+                }
+
                 DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
                 await MountXisoFiles.MountXisoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
             }
@@ -235,6 +246,21 @@ public static class GameLauncher
                 // Update stats
                 _ = Stats.CallApiAsync(selectedEmulatorName);
             }
+        }
+    }
+
+    private static bool IsArm64System()
+    {
+        try
+        {
+            var architecture = RuntimeInformation.OSArchitecture;
+            return architecture == Architecture.Arm64;
+        }
+        catch (Exception ex)
+        {
+            // Log the exception but don't fail - assume not ARM64
+            DebugLogger.Log($"Error detecting system architecture: {ex.Message}");
+            return false;
         }
     }
 
