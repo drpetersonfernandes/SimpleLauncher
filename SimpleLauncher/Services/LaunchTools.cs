@@ -197,8 +197,38 @@ public static class LaunchTools
 
     internal static void BatchConvertToCHD_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", "BatchConvertToCHD.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "BatchConvertToCHD.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "BatchConvertToCHD_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    MessageBoxLibrary.LaunchToolInformation("This application is not available for win-arm64");
+                    return;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertToCHD", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCHD");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", LogPath);
+        }
     }
 
     internal static void BatchConvertToCompressedFile_Click()
