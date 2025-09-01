@@ -702,6 +702,12 @@
     <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForXbox360XBLAGames\CreateBatchFilesForXbox360XBLAGames_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

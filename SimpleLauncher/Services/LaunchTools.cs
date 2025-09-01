@@ -87,8 +87,38 @@ public static class LaunchTools
 
     internal static void CreateBatchFilesForXbox360XBLAGames_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "CreateBatchFilesForXbox360XBLAGames.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "CreateBatchFilesForXbox360XBLAGames_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "CreateBatchFilesForXbox360XBLAGames_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForXbox360XBLAGames");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForXbox360XBLAGames", LogPath);
+        }
     }
 
     internal static void CreateBatchFilesForWindowsGames_Click()
