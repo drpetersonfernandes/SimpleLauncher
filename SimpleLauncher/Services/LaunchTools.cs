@@ -93,8 +93,38 @@ public static class LaunchTools
 
     internal static void CreateBatchFilesForWindowsGames_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "CreateBatchFilesForWindowsGames.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "CreateBatchFilesForWindowsGames_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "CreateBatchFilesForWindowsGames_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForWindowsGames", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForWindowsGames");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForWindowsGames", LogPath);
+        }
     }
 
     internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder)

@@ -696,6 +696,12 @@
     <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForWindowsGames\CreateBatchFilesForWindowsGames_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
