@@ -155,8 +155,38 @@ public static class LaunchTools
 
     internal static void CreateBatchFilesForPS3Games_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "CreateBatchFilesForPS3Games.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "CreateBatchFilesForPS3Games_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "CreateBatchFilesForPS3Games_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForPS3Games", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForPS3Games");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForPS3Games", LogPath);
+        }
     }
 
     internal static void BatchConvertIsoToXiso_Click()
