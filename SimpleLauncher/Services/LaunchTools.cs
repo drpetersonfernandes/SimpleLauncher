@@ -159,57 +159,94 @@ public static class LaunchTools
 
     internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder)
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", "FindRomCover.exe");
-
-        var arguments = string.Empty;
-        string workingDirectory = null;
-
-        // Resolve the selected image and rom folders
-        string absoluteImageFolder = null;
-        if (!string.IsNullOrEmpty(selectedImageFolder))
-        {
-            absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
-        }
-
-        string absoluteRomFolder = null;
-        if (!string.IsNullOrEmpty(selectedRomFolder))
-        {
-            absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
-        }
-
-        // Check if both resolved paths are valid
-        if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
-        {
-            arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
-            workingDirectory = Path.GetDirectoryName(toolPath); // Keep working directory as tool's directory
-        }
-        else
-        {
-            if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
-            }
-
-            if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
-            }
-        }
-
         try
         {
-            LaunchExternalTool(toolPath, arguments, workingDirectory);
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "FindRomCover.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "FindRomCover_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "FindRomCover_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "FindRomCover", executableName);
+            var arguments = string.Empty;
+            string workingDirectory = null;
+
+            // Resolve the selected image and rom folders
+            string absoluteImageFolder = null;
+            if (!string.IsNullOrEmpty(selectedImageFolder))
+            {
+                absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
+            }
+
+            string absoluteRomFolder = null;
+            if (!string.IsNullOrEmpty(selectedRomFolder))
+            {
+                absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
+            }
+
+            // Check if both resolved paths are valid
+            if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
+            {
+                arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+                workingDirectory = Path.GetDirectoryName(toolPath); // Keep working directory as tool's directory
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
+                }
+
+                if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
+                }
+            }
+
+            try
+            {
+                LaunchExternalTool(toolPath, arguments, workingDirectory);
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+            {
+                // Notify developer
+                const string contextMessage = "The operation was canceled by the user while trying to launch FindRomCover.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", LogPath);
+            }
         }
-        catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+        catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "The operation was canceled by the user while trying to launch 'FindRomCover.exe'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
 
             // Notify user
-            MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", LogPath);
         }
     }
 
