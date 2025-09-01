@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
@@ -12,8 +13,8 @@ namespace SimpleLauncher.Services;
 public static class MountZipFiles
 {
     private static string _configuredMountDriveLetterOnly = "Z";
-    private static string _zipMountExecutableName = "SimpleZipDrive.exe";
-    private static string _zipMountExecutableRelativePath = @"tools\SimpleZipDrive\SimpleZipDrive.exe";
+    private static string _zipMountExecutableName;
+    private static string _zipMountExecutableRelativePath;
 
     // Public property to get the letter ("Z")
     private static string ConfiguredMountDriveLetter => _configuredMountDriveLetterOnly;
@@ -24,8 +25,10 @@ public static class MountZipFiles
     public static void Configure(IConfiguration configuration)
     {
         var mountPathFromConfig = configuration.GetValue("ZipMountOptions:MountDriveLetter", "Z:");
-        _zipMountExecutableName = configuration.GetValue("ZipMountOptions:ZipMountExecutableName", "SimpleZipDrive.exe");
-        _zipMountExecutableRelativePath = configuration.GetValue("ZipMountOptions:ZipMountExecutableRelativePath", @"tools\SimpleZipDrive\SimpleZipDrive.exe");
+
+        // Determine the correct executable based on architecture
+        _zipMountExecutableName = GetArchitectureSpecificExecutableName();
+        _zipMountExecutableRelativePath = $@"tools\SimpleZipDrive\{_zipMountExecutableName}";
 
         if (string.IsNullOrEmpty(mountPathFromConfig))
         {
@@ -52,6 +55,19 @@ public static class MountZipFiles
         DebugLogger.Log($"[MountZipFiles] Configured MountDriveRoot (for checks): {ConfiguredMountDriveRoot}");
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableRelativePath: {_zipMountExecutableRelativePath}");
+    }
+
+    private static string GetArchitectureSpecificExecutableName()
+    {
+        var arch = RuntimeInformation.ProcessArchitecture;
+
+        return arch switch
+        {
+            Architecture.X64 => "SimpleZipDrive.exe",
+            Architecture.X86 => "SimpleZipDrive_x86.exe",
+            Architecture.Arm64 => "SimpleZipDrive_arm64.exe",
+            _ => "SimpleZipDrive.exe" // Default fallback
+        };
     }
 
     public static async Task MountZipFileAndLoadEbootBin(

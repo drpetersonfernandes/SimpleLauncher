@@ -642,12 +642,6 @@
     <None Update="tools\RomValidator\RomValidator.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\SimpleXisoDrive\extract-xiso.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\SimpleXisoDrive\SimpleXisoDrive.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="tools\SimpleZipDrive\SimpleZipDrive.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -718,6 +712,12 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\RomValidator\RomValidator_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\SimpleZipDrive\SimpleZipDrive_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\SimpleZipDrive\SimpleZipDrive_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
   </ItemGroup>
