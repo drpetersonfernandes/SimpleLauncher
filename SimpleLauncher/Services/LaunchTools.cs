@@ -2,6 +2,7 @@ using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services;
 
@@ -160,8 +161,38 @@ public static class LaunchTools
 
     internal static void BatchConvertIsoToXiso_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", "BatchConvertIsoToXiso.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "BatchConvertIsoToXiso.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "BatchConvertIsoToXiso_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    MessageBoxLibrary.LaunchToolInformation("This application is not available for win-arm64");
+                    return;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchConvertIsoToXiso", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertIsoToXiso");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertIsoToXiso", LogPath);
+        }
     }
 
     internal static void BatchConvertToCHD_Click()

@@ -4888,4 +4888,50 @@ public static class MessageBoxLibrary
             }
         }
     }
+
+    public static void LaunchToolInformation(string info)
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(info, error, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
+
+    public static void ThereWasAnErrorLaunchingTheToolMessageBox(string toolName, string logPath)
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        void ShowMessage()
+        {
+            var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch";
+            var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch} {toolName}.\n\n" +
+                                         $"{doyouwanttoopenthefile}", error,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
+
+            try
+            {
+                Process.Start(new ProcessStartInfo
+                {
+                    FileName = logPath,
+                    UseShellExecute = true
+                });
+            }
+            catch (Exception)
+            {
+                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
+            }
+        }
+    }
 }

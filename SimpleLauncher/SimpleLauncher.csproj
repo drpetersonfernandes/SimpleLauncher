@@ -660,6 +660,9 @@
     <None Update="7z_arm64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\BatchConvertIsoToXiso\BatchConvertIsoToXiso-x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
