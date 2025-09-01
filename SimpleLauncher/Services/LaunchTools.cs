@@ -344,8 +344,38 @@ public static class LaunchTools
 
     internal static void CreateBatchFilesForScummVMGames_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "CreateBatchFilesForScummVMGames.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "CreateBatchFilesForScummVMGames_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "CreateBatchFilesForScummVMGames_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForScummVMGames", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForScummVMGames");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForScummVMGames", LogPath);
+        }
     }
 
     internal static void CreateBatchFilesForSegaModel3Games_Click()
