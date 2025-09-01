@@ -690,6 +690,12 @@
     <None Update="tools\CreateBatchFilesForScummVMGames\CreateBatchFilesForScummVMGames_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\CreateBatchFilesForSegaModel3Games\CreateBatchFilesForSegaModel3Games_x86.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">

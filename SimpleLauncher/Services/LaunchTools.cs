@@ -380,8 +380,38 @@ public static class LaunchTools
 
     internal static void CreateBatchFilesForSegaModel3Games_Click()
     {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe");
-        LaunchExternalTool(toolPath);
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executableName;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executableName = "CreateBatchFilesForSegaModel3Games.exe";
+                    break;
+                case Architecture.X86:
+                    executableName = "CreateBatchFilesForSegaModel3Games_x86.exe";
+                    break;
+                case Architecture.Arm64:
+                    executableName = "CreateBatchFilesForSegaModel3Games_arm64.exe";
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "CreateBatchFilesForSegaModel3Games", executableName);
+            LaunchExternalTool(toolPath);
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForSegaModel3Games");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForSegaModel3Games", LogPath);
+        }
     }
 
     public static void RomValidator_Click()
