@@ -1,0 +1,1523 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--260725-->
+<!--OK        Dolphin - Add a .txt file named "portable"-->
+<!--OK        Xenia - Add a .txt file named "portable"-->
+<!--OK        DuckStation - Add a .txt file named "portable"-->
+<!--OK        Citra - Add a folder named "user"-->
+<!--OK        Azahar - Add a folder named "user"-->
+<!--OK        Cemu - Add a folder named "portable"-->
+<!--OK        Xemu - Add a .toml file named "xemu"-->
+<!--OK        PCSX2 - Add an .ini file named "portable"-->
+<!--OK        puNES - Rename punes64.exe to punes64_p.exe-->
+<!--OK        Project64 - Download the Zip version-->
+<!--OK        mGBA - Download the portable .7z archive version-->
+<!--OK        RMG - Download the portable zip version-->
+<!--OK        PPSSPP - Download the Zip (portable) version-->
+<!--OK        Vita3K - Set to portable mode on startup-->
+<!--https://emulation.gametechwiki.com/index.php/Emulators_on_Windows/ARM-->
+<!--https://ares-emu.net/-->
+
+<EasyMode>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 2600</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Atari 2600</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Atari 2600</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Atari 2600"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari2600.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 2600</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 5200</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Atari 5200</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Atari 5200</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Altirra</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorParameters>/f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
+                <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.virtualdub.org/downloads/Altirra-4.31-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Altirra\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari5200.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 5200</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari 8-Bit</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Atari 8-Bit</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Atari 8-Bit</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Altirra</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorParameters>/f</EmulatorParameters>
+                <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
+                <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.virtualdub.org/downloads/Altirra-4.31-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Altirra\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 8-Bit</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Bandai WonderSwan</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Bandai WonderSwan</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Bandai WonderSwan</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "WonderSwan"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswan.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Bandai WonderSwan Color</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Bandai WonderSwan Color</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Bandai WonderSwan Color</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "WonderSwan Color"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswancolor.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan Color</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Colecovision</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Colecovision</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Colecovision</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>cv</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "ColecoVision"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/colecovision.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Colecovision</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Commodore 64</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Commodore 64</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Commodore 64</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Vice</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>
+                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 64</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft DOS</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Microsoft DOS</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Microsoft DOS</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>bat</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>DOSBox-X</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\DOSBox-X\dosbox-x.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/joncampbell123/dosbox-x/releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.20250503</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dosbox-x-vsbuild-arm64-20250503164337.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DOSBox-X\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Microsoft MSX</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Microsoft MSX</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>r1</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "MSX"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Microsoft MSX2</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Microsoft MSX2</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Microsoft MSX2</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch>r1</FormatToLaunch>
+            <FormatToLaunch>mx1</FormatToLaunch>
+            <FormatToLaunch>mx2</FormatToLaunch>
+            <FormatToLaunch>col</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cas</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>m3u</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "MSX2"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx2.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX2</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC PC Engine</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\NEC PC Engine</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\NEC PC Engine</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "PC-Engine"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcengine.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC PC Engine CD</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\NEC PC Engine CD</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\NEC PC Engine CD</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>pce</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>ccd</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+            <FormatToSearch>img</FormatToSearch>
+            <FormatToSearch>bin</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "PC-Engine CD"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcenginecd.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine CD</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>NEC SuperGrafx</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\NEC SuperGrafx</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\NEC SuperGrafx</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "PC-Engine SuperGrafx"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necsupergrafx.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC SuperGrafx</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo 64</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo 64</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo 64</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>n64</FormatToLaunch>
+            <FormatToLaunch>v64</FormatToLaunch>
+            <FormatToLaunch>z64</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>u1</FormatToLaunch>
+            <FormatToLaunch>ndd</FormatToLaunch>
+            <FormatToLaunch>gb</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Nintendo 64"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo 64DD</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo 64DD</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo 64DD</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>n64</FormatToLaunch>
+            <FormatToLaunch>v64</FormatToLaunch>
+            <FormatToLaunch>z64</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch>u1</FormatToLaunch>
+            <FormatToLaunch>ndd</FormatToLaunch>
+            <FormatToLaunch>gb</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Nintendo 64DD"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64DD</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>MelonDS</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo DS</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo DS</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>nds</FormatToLaunch>
+            <FormatToLaunch>bin</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MelonDS</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\MelonDS\melonDS.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/mijk84/win-arm64-binaries</EmulatorDownloadPage>
+                <EmulatorLatestVersion>11.03.2024</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/melonds-03112024-warm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\MelonDS\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo DS</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Family Computer Disk System</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Family Computer Disk System</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Family Computer Disk System</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>nes</FormatToLaunch>
+            <FormatToLaunch>fds</FormatToLaunch>
+            <FormatToLaunch>unf</FormatToLaunch>
+            <FormatToLaunch>unif</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Famicom Disk System"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendofamilycomputerdisksystem.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Family Computer Disk System</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Game Boy</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Game Boy</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Game Boy"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy Advance</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Game Boy Advance</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Game Boy Advance</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Game Boy Advance"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Advance</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Game Boy Color</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Game Boy Color</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Game Boy Color</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Game Boy Color"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Color</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo GameCube</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo GameCube</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo GameCube</SystemImageFolder>
+        <FileFormatsToSearch>
+            <FormatToSearch>rvz</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Dolphin</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo GameCube</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo NES</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo NES</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo NES</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "NES"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo NES</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Satellaview</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Satellaview</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Satellaview</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Satellaview"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Satellaview</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo SNES</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo SNES</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo SNES</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>smc</FormatToLaunch>
+            <FormatToLaunch>sfc</FormatToLaunch>
+            <FormatToLaunch>swc</FormatToLaunch>
+            <FormatToLaunch>fig</FormatToLaunch>
+            <FormatToLaunch>bs</FormatToLaunch>
+            <FormatToLaunch>st</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "SNES"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo SNES MSU1</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo SNES MSU1</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo SNES MSU1</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>smc</FormatToLaunch>
+            <FormatToLaunch>sfc</FormatToLaunch>
+            <FormatToLaunch>swc</FormatToLaunch>
+            <FormatToLaunch>fig</FormatToLaunch>
+            <FormatToLaunch>bs</FormatToLaunch>
+            <FormatToLaunch>st</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "SNES"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Wii</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Wii</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Wii</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>rvz</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Dolphin</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo WiiWare</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo WiiWare</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo WiiWare</SystemImageFolder>
+        <FileFormatsToSearch>
+            <FormatToSearch>wad</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Dolphin</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>ScummVM</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\ScummVM</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\ScummVM</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bat</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Direct Launch</EmulatorName>
+                <EmulatorLocation/>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/ArminiusTux/WinARM64-binaries</EmulatorDownloadPage>
+                <EmulatorLatestVersion>2.9.1</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/scummvm-2.9.1-win32-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ScummVM\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/scummvm.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\ScummVM</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Game Gear</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Game Gear</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Game Gear</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Game Gear"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagamegear.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Game Gear</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Genesis</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Genesis</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Mega Drive"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis 32X</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Genesis 32X</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Genesis 32X</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "32X"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis32x.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis 32X</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Genesis CD</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Genesis CD</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Genesis CD</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>bin</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesiscd.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis CD</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega Master System</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Master System</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Master System</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Master System"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamastersystem.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Master System</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega SG-1000</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega SG-1000</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega SG-1000</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>sms</FormatToLaunch>
+            <FormatToLaunch>gg</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>sf</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cht</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "SG-1000"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasg1000.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SG-1000</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sinclair ZX Spectrum</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sinclair ZX Spectrum</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sinclair ZX Spectrum</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "ZX Spectrum"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sinclairzxspectrum.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sinclair ZX Spectrum</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo</SystemImageFolder>
+        <SystemIsMAME>true</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Neo Geo (AES/MVS)"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeo.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo Pocket</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo Pocket</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo Pocket</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Neo Geo Pocket"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocket.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>SNK Neo Geo Pocket Color</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo Pocket Color</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo Pocket Color</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+            <FormatToSearch>7z</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--system "Neo Geo Pocket Color"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>145</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocketcolor.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket Color</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony PlayStation 1</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sony PlayStation 1</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sony PlayStation 1</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>bin</FormatToSearch>
+            <FormatToSearch>img</FormatToSearch>
+            <FormatToSearch>mds</FormatToSearch>
+            <FormatToSearch>mdf</FormatToSearch>
+            <FormatToSearch>pbp</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>DuckStation</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\DuckStation\duckstation-qt-ARM64-ReleaseLTCG.exe</EmulatorLocation>
+                <EmulatorParameters>-fullscreen</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.20250902</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-arm64-release.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sony PSP</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sony PSP</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sony PSP</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+            <FormatToSearch>cso</FormatToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>pbp</FormatToSearch>
+            <FormatToSearch>elf</FormatToSearch>
+            <FormatToSearch>prx</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>PPSSPP</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\PPSSPP\PPSSPPWindowsARM64.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.ppsspp.org/download/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19.3</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.ppsspp.org/files/1_19_3/PPSSPPWindowsARM64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PPSSPP\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonypsp.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+</EasyMode>
