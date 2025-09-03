@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Serialization;
 using SimpleLauncher.Models;
@@ -17,14 +18,24 @@ public class EasyModeManager
 
     public static EasyModeManager Load()
     {
-        const string xmlFile = "easymode.xml";
+        // Determine the XML file based on system architecture
+        var xmlFile = Environment.OSVersion.Platform == PlatformID.Win32NT
+            ? RuntimeInformation.OSArchitecture switch
+            {
+                Architecture.X64 => "easymode.xml",
+                Architecture.X86 => "easymode_x86.xml",
+                Architecture.Arm64 => "easymode_arm64.xml",
+                _ => "easymode.xml" // Default fallback
+            }
+            : "easymode.xml"; // Default fallback
+
         var xmlFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, xmlFile);
 
         // Check if xmlFile exists before proceeding.
         if (!File.Exists(xmlFilePath))
         {
             // Notify developer
-            const string contextMessage = "The file 'easymode.xml' was not found in the application folder.";
+            var contextMessage = $"The file '{xmlFile}' was not found in the application folder.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify the user.
@@ -63,7 +74,7 @@ public class EasyModeManager
         catch (InvalidOperationException ex)
         {
             // Notify developer
-            const string contextMessage = "The file 'easymode.xml' is corrupted or invalid.";
+            var contextMessage = $"The file '{xmlFile}' is corrupted or invalid.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return new EasyModeManager { Systems = [] }; // Return an empty config
@@ -71,7 +82,7 @@ public class EasyModeManager
         catch (Exception ex)
         {
             // Notify developer
-            const string contextMessage = "An unexpected error occurred while loading the file 'easymode.xml'.";
+            var contextMessage = $"An unexpected error occurred while loading the file '{xmlFile}'.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             return new EasyModeManager { Systems = [] }; // Return an empty config
