@@ -381,7 +381,6 @@ public class GamePadController : IDisposable
     public void CheckAndReconnectControllers()
     {
         // This method is called from within the Update method, which already holds _stateLock.
-        // Therefore, an additional lock here is redundant and has been removed.
         try
         {
             if (!IsRunning || _isDisposed) return;
@@ -657,18 +656,15 @@ public class GamePadController : IDisposable
         var thumbX = (short)(state.X - 32767); // Convert absolute to relative
         var thumbY = (short)(state.Y - 32767); // Convert absolute to relative
 
-        // Invert the Y-axis. For screen coordinates, positive Y is down, while for thumbsticks, positive Y is typically up.
-        // We align with XInput's behavior where positive Y from the stick means "up".
+        // Invert the X and Y-axis (DirectInput typically has an inverted axis relative to screen coordinates)
         thumbY = (short)-thumbY;
+        thumbX = (short)-thumbX;
 
         // Process the thumbstick values with the dead zone
         var (x, y) = ProcessLeftThumbStickDirectInput(thumbX, thumbY, DeadZoneX, DeadZoneY);
 
-        // Move the mouse based on processed values.
-        // The call matches the XInput implementation for consistent behavior:
-        // - Positive x moves right.
-        // - Positive y (from stick, meaning "up") is negated to move the cursor up (negative deltaY).
-        _mouseSimulator.MoveMouseBy((int)x, -(int)y);
+        // Move the mouse based on processed values
+        _mouseSimulator.MoveMouseBy(-(int)x, -(int)y);
     }
 
     private void HandleDirectInputScroll(JoystickState state)
