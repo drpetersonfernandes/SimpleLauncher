@@ -23,7 +23,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x64"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
         Path.Combine(AppDirectory, "resources"),
-        Path.Combine(AppDirectory, "de")
+        Path.Combine(AppDirectory, "de"),
+        Path.Combine(Path.GetTempPath(), "SimpleZipDrive")
     ];
 
     private static readonly string[] FilesToClean =
