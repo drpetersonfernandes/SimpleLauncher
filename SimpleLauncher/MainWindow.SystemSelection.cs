@@ -105,14 +105,28 @@ public partial class MainWindow
         }
     }
 
-    private void SystemButton_Click(object sender, RoutedEventArgs e)
+    private async void SystemButton_Click(object sender, RoutedEventArgs e)
     {
-        if (sender is Button button && button.Tag is string systemName)
+        try
         {
-            SystemComboBox.SelectedItem = systemName;
-        }
+            if (sender is Button button && button.Tag is string systemName)
+            {
+                if (_isUiUpdating)
+                {
+                    return;
+                }
 
-        PlaySoundEffects.PlayNotificationSound();
+                SetUiLoadingState(true);
+                await Task.Yield(); // Allow UI to update and show spinner
+                SystemComboBox.SelectedItem = systemName;
+            }
+
+            PlaySoundEffects.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in SystemButton_Click.");
+        }
     }
 
     private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config)

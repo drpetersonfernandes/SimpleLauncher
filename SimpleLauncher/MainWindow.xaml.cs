@@ -535,9 +535,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            if (_isUiUpdating) return; // Prevent re-entrance
+            if (_isUiUpdating)
+            {
+                return; // Prevent re-entrance
+            }
+
+            if (SystemComboBox.SelectedItem == null)
+            {
+                return;
+            }
 
             _isUiUpdating = true;
+            SetUiLoadingState(true);
             try
             {
                 SearchTextBox.Text = "";
@@ -551,11 +560,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-                if (SystemComboBox.SelectedItem == null)
-                {
-                    return;
-                }
 
                 var selectedSystem = SystemComboBox.SelectedItem?.ToString();
                 var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
@@ -625,6 +629,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             finally
             {
+                SetUiLoadingState(false);
                 _isUiUpdating = false;
             }
         }
