@@ -158,12 +158,13 @@ public partial class FavoritesWindow
             {
                 await Dispatcher.InvokeAsync(() =>
                 {
-                    var result = MessageBox.Show("Some favorites were not found in the HDD. Do you want to delete them?", "Invalid Favorites", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBoxLibrary.DoYouWantToDeleteInvalidFavoritesMessageBox();
                     if (result == MessageBoxResult.Yes)
                     {
                         foreach (var item in itemsToDelete)
                         {
                             _favoriteList.Remove(item);
+                            DebugLogger.Log($"Removed invalid favorite: {item}");
                         }
 
                         _favoritesManager.FavoriteList = _favoriteList;
@@ -242,12 +243,13 @@ public partial class FavoritesWindow
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
                 if (favoriteToRemove != null)
                 {
-                    var result = MessageBox.Show("Favorite file was not found on the HDD! Do you want to remove the favorite?", "Invalid Favorite", MessageBoxButton.YesNo, MessageBoxImage.Warning);
+                    var result = MessageBoxLibrary.DoYouWantToDeleteInvalidFavoriteMessageBox();
                     if (result == MessageBoxResult.Yes)
                     {
                         _favoriteList.Remove(favoriteToRemove);
                         _favoritesManager.FavoriteList = _favoriteList;
                         _favoritesManager.SaveFavorites();
+                        DebugLogger.Log($"Invalid favorite was removed: {favoriteToRemove}");
                     }
                 }
 

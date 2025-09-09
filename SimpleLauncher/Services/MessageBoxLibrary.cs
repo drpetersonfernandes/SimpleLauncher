@@ -4957,9 +4957,85 @@ internal static class MessageBoxLibrary
             var cannottakeascreenshotofaminimizedwindow = (string)Application.Current.TryFindResource("Cannottakeascreenshotofaminimizedwindow") ?? "Cannot take a screenshot of a minimized window.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(cannottakeascreenshotofaminimizedwindow, error,
-                MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBoxButton.OK, MessageBoxImage.Error);
 
             DebugLogger.Log("Cannot take a screenshot of a minimized window.");
+        }
+    }
+
+    internal static void FailedToCopyLogContent()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var failedtocopylogcontent = (string)Application.Current.TryFindResource("Failedtocopylogcontent") ?? "Failed to copy log content.";
+            var copyError = (string)Application.Current.TryFindResource("CopyError") ?? "Copy Error";
+            MessageBox.Show(failedtocopylogcontent, copyError,
+                MessageBoxButton.OK, MessageBoxImage.Error);
+
+            DebugLogger.Log("Failed to copy log content.");
+        }
+    }
+
+    internal static MessageBoxResult DoYouWantToDeleteInvalidFavoritesMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return MessageBoxResult.No;
+
+        static MessageBoxResult ShowMessage()
+        {
+            var somefavoriteswerenotfoundintheHdd = (string)Application.Current.TryFindResource("SomefavoriteswerenotfoundintheHDD") ?? "Some favorites were not found in the HDD. Do you want to delete them?";
+            var invalidFavorites = (string)Application.Current.TryFindResource("InvalidFavorites") ?? "Invalid Favorites";
+            var result = MessageBox.Show(somefavoriteswerenotfoundintheHdd, invalidFavorites,
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            return result;
+        }
+    }
+
+    internal static MessageBoxResult DoYouWantToDeleteInvalidFavoriteMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return MessageBoxResult.No;
+
+        static MessageBoxResult ShowMessage()
+        {
+            var favoritefilewasnotfoundontheHdd = (string)Application.Current.TryFindResource("FavoritefilewasnotfoundontheHDD") ?? "Favorite file was not found on the HDD! Do you want to remove the favorite?";
+            var invalidFavorite = (string)Application.Current.TryFindResource("InvalidFavorite") ?? "Invalid Favorite";
+            var result = MessageBox.Show(favoritefilewasnotfoundontheHdd, invalidFavorite,
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            return result;
+        }
+    }
+
+    internal static MessageBoxResult DoYouWantToRemoveInvalidPlayHistoryEntries()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return MessageBoxResult.No;
+
+        static MessageBoxResult ShowMessage()
+        {
+            var therearefilesinsidethePlayHistoryWindowthatwerenotfoundontheHdd = (string)Application.Current.TryFindResource("TherearefilesinsidethePlayHistoryWindowthatwerenotfoundontheHDD") ?? "There are files inside the Play History Window that were not found on the HDD. Do you want to remove them from the history?";
+            var filenotfound = (string)Application.Current.TryFindResource("Filenotfound") ?? "File not found";
+            var result = MessageBox.Show(therearefilesinsidethePlayHistoryWindowthatwerenotfoundontheHdd, filenotfound,
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            return result;
+        }
+    }
+
+    internal static MessageBoxResult FileNotFoundDoYouWantToRemoveIt()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return MessageBoxResult.No;
+
+        static MessageBoxResult ShowMessage()
+        {
+            var thefileyouselectedwasnotfoundontheHdd = (string)Application.Current.TryFindResource("ThefileyouselectedwasnotfoundontheHDD") ?? "The file you selected was not found on the HDD. Do you want to remove it from the history?";
+            var filenotfound = (string)Application.Current.TryFindResource("Filenotfound") ?? "File not found";
+            var result = MessageBox.Show(thefileyouselectedwasnotfoundontheHdd, filenotfound,
+                MessageBoxButton.YesNo, MessageBoxImage.Warning);
+            return result;
         }
     }
 }

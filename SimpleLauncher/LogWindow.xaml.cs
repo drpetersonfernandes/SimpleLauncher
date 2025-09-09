@@ -77,7 +77,7 @@ public partial class LogWindow
             _ = LogErrors.LogErrorAsync(ex, "Error copying log");
 
             // Notify user
-            MessageBox.Show("Failed to copy log content.", "Copy Error", MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBoxLibrary.FailedToCopyLogContent();
         }
     }
 }

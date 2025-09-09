@@ -149,12 +149,13 @@ public partial class PlayHistoryWindow
         {
             await Dispatcher.InvokeAsync(() =>
             {
-                var result = MessageBox.Show("There are files inside the Play History Window that were not found on the HDD. Do you want to remove them from the history?", "File not found", MessageBoxButton.YesNo);
+                var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
                 if (result == MessageBoxResult.Yes)
                 {
                     foreach (var itemToRemove in itemsToDelete)
                     {
                         _playHistoryList.Remove(itemToRemove);
+                        DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
                     }
 
                     _playHistoryManager.PlayHistoryList = _playHistoryList;
@@ -318,16 +319,16 @@ public partial class PlayHistoryWindow
             var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedItem.FileName);
             if (!File.Exists(filePath))
             {
-                // Auto remove the history item from the list since the file no longer exists
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
                 if (itemToRemove != null)
                 {
-                    var result = MessageBox.Show("The file you selected was not found on the HDD. Do you want to remove it from the history?", "File not found", MessageBoxButton.YesNo);
+                    var result = MessageBoxLibrary.FileNotFoundDoYouWantToRemoveIt();
                     if (result == MessageBoxResult.Yes)
                     {
                         _playHistoryList.Remove(itemToRemove);
                         _playHistoryManager.PlayHistoryList = _playHistoryList;
                         _playHistoryManager.SavePlayHistory();
+                        DebugLogger.Log("The entry " + itemToRemove + " was removed from the history.");
                     }
                 }
 
