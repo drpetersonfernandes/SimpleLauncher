@@ -97,9 +97,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "CreateBatchFilesForXbox360XBLAGames.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "CreateBatchFilesForXbox360XBLAGames_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     executableName = "CreateBatchFilesForXbox360XBLAGames_arm64.exe";
                     break;
@@ -133,9 +130,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "CreateBatchFilesForWindowsGames.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "CreateBatchFilesForWindowsGames_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     executableName = "CreateBatchFilesForWindowsGames_arm64.exe";
                     break;
@@ -168,9 +162,6 @@ public static class LaunchTools
             {
                 case Architecture.X64:
                     executableName = "FindRomCover.exe";
-                    break;
-                case Architecture.X86:
-                    executableName = "FindRomCover_x86.exe";
                     break;
                 case Architecture.Arm64:
                     executableName = "FindRomCover_arm64.exe";
@@ -262,9 +253,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "CreateBatchFilesForPS3Games.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "CreateBatchFilesForPS3Games_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     executableName = "CreateBatchFilesForPS3Games_arm64.exe";
                     break;
@@ -297,9 +285,6 @@ public static class LaunchTools
             {
                 case Architecture.X64:
                     executableName = "BatchConvertIsoToXiso.exe";
-                    break;
-                case Architecture.X86:
-                    executableName = "BatchConvertIsoToXiso_x86.exe";
                     break;
                 case Architecture.Arm64:
                     MessageBoxLibrary.LaunchToolInformation("This application is not available for win-arm64");
@@ -334,9 +319,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "BatchConvertToCHD.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "BatchConvertToCHD_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     MessageBoxLibrary.LaunchToolInformation("This application is not available for win-arm64");
                     return;
@@ -369,9 +351,6 @@ public static class LaunchTools
             {
                 case Architecture.X64:
                     executableName = "BatchConvertToCompressedFile.exe";
-                    break;
-                case Architecture.X86:
-                    executableName = "BatchConvertToCompressedFile_x86.exe";
                     break;
                 case Architecture.Arm64:
                     executableName = "BatchConvertToCompressedFile_arm64.exe";
@@ -451,9 +430,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "CreateBatchFilesForScummVMGames.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "CreateBatchFilesForScummVMGames_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     executableName = "CreateBatchFilesForScummVMGames_arm64.exe";
                     break;
@@ -487,9 +463,6 @@ public static class LaunchTools
                 case Architecture.X64:
                     executableName = "CreateBatchFilesForSegaModel3Games.exe";
                     break;
-                case Architecture.X86:
-                    executableName = "CreateBatchFilesForSegaModel3Games_x86.exe";
-                    break;
                 case Architecture.Arm64:
                     executableName = "CreateBatchFilesForSegaModel3Games_arm64.exe";
                     break;
@@ -522,9 +495,6 @@ public static class LaunchTools
             {
                 case Architecture.X64:
                     executableName = "RomValidator.exe";
-                    break;
-                case Architecture.X86:
-                    executableName = "RomValidator_x86.exe";
                     break;
                 case Architecture.Arm64:
                     executableName = "RomValidator_arm64.exe";

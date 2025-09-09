@@ -176,9 +176,6 @@ public partial class App
                 case System.Runtime.InteropServices.Architecture.X64:
                     dllName = "7z_x64.dll";
                     break;
-                case System.Runtime.InteropServices.Architecture.X86:
-                    dllName = "7z_x86.dll";
-                    break;
                 default:
                     // Notify developer
                     var errorMessage = $"Unsupported architecture for SevenZipSharp: {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";

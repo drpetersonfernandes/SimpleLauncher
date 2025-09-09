@@ -23,7 +23,6 @@ public class EasyModeManager
             ? RuntimeInformation.OSArchitecture switch
             {
                 Architecture.X64 => "easymode.xml",
-                Architecture.X86 => "easymode_x86.xml",
                 Architecture.Arm64 => "easymode_arm64.xml",
                 _ => "easymode.xml" // Default fallback
             }

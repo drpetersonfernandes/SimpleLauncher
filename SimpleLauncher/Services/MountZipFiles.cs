@@ -64,7 +64,6 @@ public static class MountZipFiles
         return arch switch
         {
             Architecture.X64 => "SimpleZipDrive.exe",
-            Architecture.X86 => "SimpleZipDrive_x86.exe",
             Architecture.Arm64 => "SimpleZipDrive_arm64.exe",
             _ => "SimpleZipDrive.exe" // Default fallback
         };
