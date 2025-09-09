@@ -93,12 +93,9 @@ public static partial class UpdateChecker
                     }
                     else
                     {
-                        // --- FIX START ---
-                        // Re-construct the expected filename for logging purposes.
-                        var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
                         // Notify developer
+                        var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
                         _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
-                        // --- FIX END ---
                     }
                 }
             }
@@ -146,7 +143,6 @@ public static partial class UpdateChecker
                     }
                     else
                     {
-                        // --- FIX START ---
                         var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
                         var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
                         message += releasePackageAssetUrl != null
@@ -155,26 +151,33 @@ public static partial class UpdateChecker
 
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
-                        // --- FIX END ---
 
+                        // Notify user
                         MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
                     }
                 }
                 else
                 {
+                    // Notify user
                     MessageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(mainWindow, CurrentVersion);
                 }
             }
             else
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+
+                // Notify user
                 MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "Error checking for updates (variant).";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
         }
     }
@@ -194,6 +197,7 @@ public static partial class UpdateChecker
             var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
             if (!response.IsSuccessStatusCode)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
                 return (null, null);
             }
@@ -204,6 +208,7 @@ public static partial class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error fetching latest updater info.");
             return (null, null);
         }
@@ -229,6 +234,7 @@ public static partial class UpdateChecker
             }
             else
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(owner), @"Owner window was null when trying to hide it during update."), "Update Process Warning");
                 logWindow.Log("Main window reference is null; cannot hide it explicitly. Update will proceed.");
             }
@@ -256,6 +262,7 @@ public static partial class UpdateChecker
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error processing updater package.");
                 logWindow.Log($"Error downloading or extracting updater package: {ex.Message}");
             }
@@ -282,13 +289,18 @@ public static partial class UpdateChecker
                 logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
             }
 
+            // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
         }
         catch (Exception ex)
         {
+            // Notify developer
             const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
             logWindow?.Log($"Outer catch block error during update preparation: {ex.Message}");
+
+            // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
         }
         finally
@@ -329,6 +341,7 @@ public static partial class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Failed to start {context} Updater.exe from '{updaterExePath}'.");
             logWindow?.Log($"Failed to start {context} Updater.exe. Error: {ex.Message}");
             return false;
@@ -370,6 +383,7 @@ public static partial class UpdateChecker
                     var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Name}'. Aborting update.";
                     logWindow?.Log(errorMessage);
 
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
                     return false;
                 }
@@ -391,8 +405,10 @@ public static partial class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error processing the update ZIP archive.");
             logWindow?.Log($"Failed to process the update ZIP archive. Error: {ex.Message}");
+
             return false;
         }
     }
@@ -403,6 +419,7 @@ public static partial class UpdateChecker
         {
             if (string.IsNullOrEmpty(currentVersion) || string.IsNullOrEmpty(latestVersion))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentException("Current or latest version string is null or empty."), "Invalid version string for comparison.");
                 return false;
             }
@@ -412,6 +429,7 @@ public static partial class UpdateChecker
 
             if (string.IsNullOrEmpty(currentNormalized) || string.IsNullOrEmpty(latestNormalized))
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new ArgumentException("Normalized version string is null or empty after regex replace."), "Invalid version string after normalization.");
                 return false;
             }
@@ -426,6 +444,7 @@ public static partial class UpdateChecker
 
             if (latestVersion != null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, $"Invalid version number format after normalization. Current: '{currentVersion}' (Normalized: '{MyRegex1().Replace(currentVersion, "")}'), Latest: '{latestVersion}' (Normalized: '{MyRegex1().Replace(latestVersion, "")}').");
             }
 
@@ -433,6 +452,7 @@ public static partial class UpdateChecker
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Unexpected error in IsNewVersionAvailable.");
             return false;
         }
@@ -452,6 +472,7 @@ public static partial class UpdateChecker
             }
             else
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new KeyNotFoundException("'tag_name' not found in GitHub API response."), "GitHub API Response Error");
                 return (null, null, null);
             }
@@ -471,6 +492,7 @@ public static partial class UpdateChecker
 
             if (extractedNormalizedVersion == null)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new FormatException($"Could not extract or normalize a valid version from tag_name: '{versionTag}'."), "GitHub API Response Error");
                 return (null, null, null);
             }
@@ -512,11 +534,13 @@ public static partial class UpdateChecker
 
                 if (foundUpdaterZipUrl == null)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' asset not found in release '{versionTag}'.", expectedUpdaterFileName), "GitHub API Asset Info");
                 }
 
                 if (foundReleasePackageUrl == null)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(new FileNotFoundException($"Expected release package '{expectedReleaseFileName}' not found in release '{versionTag}'.", expectedReleaseFileName), "GitHub API Asset Info");
                 }
 
@@ -524,15 +548,18 @@ public static partial class UpdateChecker
             }
             else
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(new KeyNotFoundException("'assets' array not found or invalid in GitHub API response."), "GitHub API Response Error");
             }
         }
         catch (JsonException jsonEx)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(jsonEx, "Failed to parse JSON response from GitHub API.");
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Unexpected error in ParseVersionAndAssetUrlsFromResponse.");
         }
 
