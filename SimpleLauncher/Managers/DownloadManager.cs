@@ -672,12 +672,14 @@ public class DownloadManager : IDisposable
     /// <param name="disposing">True if called from Dispose(), false if called from finalizer.</param>
     protected virtual void Dispose(bool disposing)
     {
-        if (_disposed) return;
+        if (_disposed)
+        {
+            return;
+        }
 
         if (disposing)
         {
             _cancellationTokenSource?.Dispose();
-            _httpClient?.Dispose();
         }
 
         _disposed = true;
