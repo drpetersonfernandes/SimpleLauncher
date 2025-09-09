@@ -7,7 +7,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{4CEFA333-2272-44CD-A2AB-1DBF5F753AF5}"
 	ProjectSection(SolutionItems) = preProject
 		README.md = README.md
-		parameters.md = parameters.md
+		parameters_win-x64.md = parameters_win-x64.md
 		home.md = home.md
 		screenshot2.png = screenshot2.png
 		screenshot3.png = screenshot3.png
@@ -17,6 +17,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		PlantUML.png = PlantUML.png
 		SoftwareMap.md = SoftwareMap.md
 		repository-open-graph-template.png = repository-open-graph-template.png
+		parameters_win-arm64.md = parameters_win-arm64.md
 	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Updater", "Updater\Updater.csproj", "{E58A9CE1-1CE2-430E-AC17-344A0DC5C4A6}"
