@@ -1495,14 +1495,9 @@ internal static class MessageBoxLibrary
     internal static void UpdaterNotFoundMessageBox()
     {
         var dispatcher = Application.Current.Dispatcher;
-        var updaterexenotfound = (string)Application.Current.TryFindResource("Updaterexenotfound") ??
-                                 "'Updater.exe' not found.";
-        var pleasereinstallSimpleLaunchermanually =
-            (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ??
-            "Please reinstall 'Simple Launcher' manually to fix the issue.";
-        var theapplicationwillnowshutdown =
-            (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ??
-            "The application will now shutdown.";
+        var updaterexenotfound = (string)Application.Current.TryFindResource("Updaterexenotfound") ?? "'Updater.exe' not found.";
+        var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+        var theapplicationwillnowshutdown = (string)Application.Current.TryFindResource("Theapplicationwillnowshutdown") ?? "The application will now shutdown.";
         var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
         if (dispatcher.CheckAccess()) ShowMsgBox();
@@ -5037,5 +5032,30 @@ internal static class MessageBoxLibrary
                 MessageBoxButton.YesNo, MessageBoxImage.Warning);
             return result;
         }
+    }
+
+    public static void UpdaterIsMissingAttemptingDownload()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void CouldNotFindUpdaterOnGitHub()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void FailedToExtractUpdater()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void UpdaterNotFoundAfterExtraction()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void UpdaterDownloadFailedMessageBox()
+    {
+        throw new NotImplementedException();
     }
 }
