@@ -48,7 +48,7 @@ public partial class MainWindow
 
     private async Task ExecuteSearch()
     {
-        if (_isGameListLoading) return;
+        if (_isLoadingGames) return;
 
         ResetPaginationButtons();
 

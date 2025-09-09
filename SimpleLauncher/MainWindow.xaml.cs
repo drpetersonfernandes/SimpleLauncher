@@ -108,7 +108,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Define the LogPath
     private readonly string _logPath = GetLogPath.Path();
 
-    private bool _isGameListLoading;
     private string _activeSearchQueryOrMode;
 
     public MainWindow()
@@ -226,7 +225,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task TopLetterNumberMenu_Click(string selectedLetter)
     {
-        if (_isGameListLoading) return;
+        if (_isLoadingGames) return;
 
         try
         {
@@ -248,7 +247,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task ShowSystemFavoriteGames_Click()
     {
-        if (_isGameListLoading) return;
+        if (_isLoadingGames) return;
 
         try
         {
@@ -288,7 +287,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
     {
-        if (_isGameListLoading) return;
+        if (_isLoadingGames) return;
 
         try
         {
@@ -959,7 +958,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void SetUiLoadingState(bool isLoading)
     {
-        _isGameListLoading = isLoading;
+        _isLoadingGames = isLoading;
         IsLoadingGames = isLoading;
 
         // Disable/Enable main interaction controls

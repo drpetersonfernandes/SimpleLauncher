@@ -160,7 +160,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -244,7 +244,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             if (sender is not MenuItem menuItem) return;
 
@@ -346,7 +346,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -374,7 +374,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -403,7 +403,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -445,7 +445,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             if (sender is not MenuItem clickedItem) return;
 
@@ -487,7 +487,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             if (sender is not MenuItem clickedItem) return;
 
@@ -525,7 +525,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             if (sender is not MenuItem clickedItem) return;
 
@@ -805,7 +805,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -846,7 +846,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {
@@ -887,7 +887,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             try
             {

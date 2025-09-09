@@ -19,7 +19,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             if (_currentPage <= 1)
             {
@@ -57,7 +57,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             var totalPages = (int)Math.Ceiling(_totalFiles / (double)_filesPerPage);
 
@@ -96,7 +96,7 @@ public partial class MainWindow
     private void UpdatePaginationButtons()
     {
         // Only enable if not currently loading
-        if (!_isGameListLoading)
+        if (!_isLoadingGames)
         {
             _prevPageButton.IsEnabled = _currentPage > 1;
             _nextPageButton.IsEnabled = _currentPage * _filesPerPage < _totalFiles;

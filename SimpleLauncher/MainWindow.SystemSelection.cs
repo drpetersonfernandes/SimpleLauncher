@@ -194,7 +194,7 @@ public partial class MainWindow
     {
         try
         {
-            if (_isGameListLoading) return;
+            if (_isLoadingGames) return;
 
             PlaySoundEffects.PlayNotificationSound();
 

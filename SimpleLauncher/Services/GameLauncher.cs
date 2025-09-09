@@ -134,7 +134,19 @@ public static class GameLauncher
                 }
 
                 DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
-                await MountXisoFiles.MountXisoFile(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                await using var mountedDrive = await MountXisoFiles.MountAsync(resolvedFilePath, LogPath);
+                if (mountedDrive.IsMounted)
+                {
+                    DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
+                    // Launch default.xbe
+                    await LaunchRegularEmulator(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                    DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
+                }
+                else
+                {
+                    DebugLogger.Log("ISO mounting failed. The user has been notified. Aborting launch.");
+                    // User is already notified by MountAsync on failure.
+                }
             }
             // Specific handling for ScummVM games with ZIP files
             else if ((selectedSystemName.Contains("ScummVM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm-VM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase))
@@ -548,8 +560,9 @@ public static class GameLauncher
         string rawEmulatorParameters,
         MainWindow mainWindow) // This is the raw parameter string from config
     {
-        // Check if the file to launch a mounted XBE path, which should not be extracted
-        var isMountedXbe = resolvedFilePath.Equals("W:\\default.xbe", StringComparison.OrdinalIgnoreCase);
+        // A simple and effective way to identify a mounted XBE path from our tool
+        // is by its characteristic filename. This avoids hardcoding drive letters.
+        var isMountedXbe = Path.GetFileName(resolvedFilePath).Equals("default.xbe", StringComparison.OrdinalIgnoreCase);
 
         // Check if the file to launch a mounted ZIP file, which will not be extracted
         var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);

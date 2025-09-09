@@ -294,6 +294,13 @@ public partial class SystemManager
 
             doc.Root.ReplaceNodes(newRoot.Nodes());
 
+            // Notify user about each invalid configuration that was removed
+            foreach (var error in invalidConfigs.Values)
+            {
+                // Notify user
+                MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
+            }
+
             // Save the cleaned, sorted, and reformatted document back to disk.
             try
             {
@@ -310,13 +317,6 @@ public partial class SystemManager
                 // Notify developer
                 const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
                 _ = LogErrors.LogErrorAsync(saveEx, contextMessage);
-            }
-
-            // Notify user about each invalid configuration that was removed
-            foreach (var error in invalidConfigs.Values)
-            {
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
             }
 
             // Return the list of valid system configurations (could be empty)
