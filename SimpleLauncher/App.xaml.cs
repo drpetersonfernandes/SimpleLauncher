@@ -14,7 +14,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class App
+public partial class App : IDisposable
 {
     public static SettingsManager Settings { get; private set; }
     public static IServiceProvider ServiceProvider { get; private set; }
@@ -356,5 +356,11 @@ public partial class App
 
         DebugLogger.Log("Theme has been applied.");
         DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}");
+    }
+
+    public void Dispose()
+    {
+        _singleInstanceMutex?.Dispose();
+        GC.SuppressFinalize(this);
     }
 }

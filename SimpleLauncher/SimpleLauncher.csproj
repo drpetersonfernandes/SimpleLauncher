@@ -39,14 +39,9 @@
     <PlatformTarget>AnyCPU</PlatformTarget>
   </PropertyGroup>
   <ItemGroup>
-    <None Remove="images\logo2.png" />
-    <None Remove="~syncthing~EditSystem.xaml.tmp" />
-    <None Remove="~syncthing~EditSystem.xaml.cs.tmp" />
-    <None Remove="database\**" />
     <None Update="system_model.xml">
       <CopyToOutputDirectory>Never</CopyToOutputDirectory>
     </None>
-    <None Remove="system.xml" />
     <None Update="appsettings.json">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -54,10 +49,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Remove="ClassDiagram.cd" />
-    <None Remove="system_empty.xml" />
-    <None Update="pdf_viewer.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Remove="images\Amstrad CPC GX4000\**" />
     <None Remove="images\Arcade\**" />
     <None Remove="images\Atari Jaguar\**" />
@@ -134,7 +125,6 @@
     <None Update="WhatsNew.md">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Remove="settings_model.xml" />
     <None Update="tools\findromcover\ControlzEx.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -251,7 +241,6 @@
     </None>
     <None Remove="handle.exe" />
     <None Remove="handle_arm64.exe" />
-    <None Remove="handle_x86.exe" />
     <None Update="audio\shutter.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -265,9 +254,6 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertTo7z\7z.exe">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertTo7z\7z_x86.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="tools\BatchConvertTo7z\BatchConvertTo7z.dll">
@@ -567,12 +553,6 @@
     <None Update="images\systems\SNK Neo Geo.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Update="tools\BatchConvertIsoToXiso\x86\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
-    <None Update="tools\BatchConvertToCHD\x86\7z.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </None>
     <None Update="7z_x64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -681,7 +661,7 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
+      <CopyToOutputDirectory/>
     </Resource>
     <None Remove="images\help.png" />
     <Resource Include="images\help.png" />
@@ -847,7 +827,7 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Update="images\logo.png">
-      <CopyToOutputDirectory></CopyToOutputDirectory>
+      <CopyToOutputDirectory/>
     </None>
   </ItemGroup>
   <ItemGroup>
