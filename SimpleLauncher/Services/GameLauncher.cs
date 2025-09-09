@@ -738,7 +738,21 @@ public static class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            var errorDetail = $"Exit code: {(process.HasExited ? process.ExitCode : -1)}\n" +
+            // Safely check if the process ever started before trying to access its properties.
+            // A simple way is to check if an ID was ever assigned.
+            string exitCodeInfo;
+            try
+            {
+                // This check is safe even if the process didn't start.
+                _ = process.Id;
+                exitCodeInfo = $"Exit code: {(process.HasExited ? process.ExitCode : "N/A (Still Running or Failed to get code)")}";
+            }
+            catch (InvalidOperationException)
+            {
+                exitCodeInfo = "Exit code: N/A (Process failed to start)";
+            }
+
+            var errorDetail = $"{exitCodeInfo}\n" +
                               $"Emulator: {psi.FileName}\n" +
                               $"Emulator output: {output}\n" +
                               $"Emulator error: {error}\n" +

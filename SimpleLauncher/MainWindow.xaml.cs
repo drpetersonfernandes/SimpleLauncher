@@ -504,8 +504,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void GameListSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
-        if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem) return;
+        if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
+        {
+            PreviewImage.Source = null; // Clear preview if selection is cleared
+            return;
+        }
 
+        // If the selected item is the "No results" message, its FilePath will be null.
+        // In this case, just clear the preview and do nothing else.
+        if (string.IsNullOrEmpty(selectedItem.FilePath))
+        {
+            PreviewImage.Source = null;
+            return;
+        }
+
+        // If it's a real game item, proceed with loading the preview.
         var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }

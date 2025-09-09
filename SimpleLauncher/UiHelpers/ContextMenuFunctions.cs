@@ -629,6 +629,14 @@ public static class ContextMenuFunctions
             var width = rectangle.Right - rectangle.Left;
             var height = rectangle.Bottom - rectangle.Top;
 
+            // Add a check for invalid dimensions (i.e., a minimized window)
+            if (width <= 0 || height <= 0)
+            {
+                // Notify the user that they can't screenshot a minimized window.
+                MessageBoxLibrary.CannotScreenshotMinimizedWindowMessageBox();
+                return; // Exit the method gracefully
+            }
+
             var screenshotPath = Path.Combine(resolvedSystemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap

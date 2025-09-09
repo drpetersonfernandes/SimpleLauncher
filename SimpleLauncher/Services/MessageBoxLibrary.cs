@@ -4803,31 +4803,28 @@ internal static class MessageBoxLibrary
 
     internal static void FilePathIsInvalid(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
+        Application.Current.Dispatcher.Invoke(ShowMessage);
 
         return;
 
         void ShowMessage()
         {
             var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
-            var thefilepathisinvalidorthefiledoesnotexist = (string)Application.Current.TryFindResource("Thefilepathisinvalidorthefiledoesnotexist") ?? "The file path is invalid or the file does not exist!";
+            var thefilepathisinvalid = (string)Application.Current.TryFindResource("Thefilepathisinvalid") ?? "The filepath is invalid or the file does not exist!";
+            var avoidusingspecialcharactersinthefilepath = (string)Application.Current.TryFindResource("Avoidusingspecialcharactersinthefilepath") ?? "Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show(
-                $"{simpleLaunchercouldnotlaunch}\n\n" +
-                $"{thefilepathisinvalidorthefiledoesnotexist}\n\n" +
-                $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
-                $"{doyouwanttoopenthefile}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
+            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
+                                         $"{thefilepathisinvalid}\n\n" +
+                                         $"{avoidusingspecialcharactersinthefilepath}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefile}", error,
+                MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.No)
+            {
+                return;
+            }
 
             try
             {
@@ -4840,8 +4837,7 @@ internal static class MessageBoxLibrary
             catch (Exception)
             {
                 var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
             }
         }
     }
@@ -4942,12 +4938,28 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            const string message = "XISO mounting is not supported on ARM64 systems.";
-            const string title = "XISO Mount Not Supported";
-            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+            var xIsOmountingisnotsupportedonArm64Systems = (string)Application.Current.TryFindResource("XISOmountingisnotsupportedonARM64systems") ?? "XISO mounting is not supported on ARM64 systems.";
+            var xIsoMountNotSupported = (string)Application.Current.TryFindResource("XISOMountNotSupported") ?? "XISO Mount Not Supported";
+            MessageBox.Show(xIsOmountingisnotsupportedonArm64Systems, xIsoMountNotSupported,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
 
-            // Log the event
-            DebugLogger.Log("XISO mount not supported on ARM64.");
+            DebugLogger.Log("XISO mounting is not supported on ARM64 systems.");
+        }
+    }
+
+    internal static void CannotScreenshotMinimizedWindowMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var cannottakeascreenshotofaminimizedwindow = (string)Application.Current.TryFindResource("Cannottakeascreenshotofaminimizedwindow") ?? "Cannot take a screenshot of a minimized window.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(cannottakeascreenshotofaminimizedwindow, error,
+                MessageBoxButton.OK, MessageBoxImage.Warning);
+
+            DebugLogger.Log("Cannot take a screenshot of a minimized window.");
         }
     }
 }
