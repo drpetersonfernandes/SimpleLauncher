@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -19,7 +18,6 @@ public partial class PlayHistoryWindow
 {
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
-
     private static readonly string LogPath = GetLogPath.Path();
     private readonly PlayHistoryManager _playHistoryManager;
     private ObservableCollection<PlayHistoryItem> _playHistoryList;
@@ -73,28 +71,69 @@ public partial class PlayHistoryWindow
             _playHistoryList.Add(playHistoryItem);
         }
 
-        SortByDateSafely();
+        // Set the ItemsSource first
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+        var collectionOfEntries = _playHistoryList.ToList();
+
+        // Delete missing entries
+        DeleteMissingEntries(collectionOfEntries);
+
+        // Sort by date
+        SortByDate();
+
+        // Calculate file sizes for the remaining entries
         _ = LoadFileSizesAsync(_playHistoryList.ToList());
     }
 
-    /// <summary>
-/// Asynchronously loads file sizes for items in the play history list.
-/// Updates the corresponding items on the UI thread when size is determined.
-/// </summary>
-/// <param name="itemsToProcess">A list of PlayHistoryItem objects to process.</param>
-private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
-{
-    var itemsToDelete = new ConcurrentBag<PlayHistoryItem>();
-
-    await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
+    private void DeleteMissingEntries(List<PlayHistoryItem> collectionOfEntries)
     {
-        var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-        if (systemManager != null)
+        var itemsToDelete = new List<PlayHistoryItem>();
+
+        foreach (var item in collectionOfEntries)
         {
-            var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
-            try
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager != null)
             {
+                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
+                if (!File.Exists(filePath))
+                {
+                    itemsToDelete.Add(item);
+                }
+            }
+        }
+
+        foreach (var itemToRemove in itemsToDelete)
+        {
+            _playHistoryList.Remove(itemToRemove);
+            DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
+        }
+
+        // Update the manager with the current collection
+        _playHistoryManager.PlayHistoryList = _playHistoryList;
+        _playHistoryManager.SavePlayHistory();
+
+        // Explicitly refresh the data grid binding to ensure UI updates
+        PlayHistoryDataGrid.ItemsSource = null;
+        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+    }
+
+    private void SortByDate()
+    {
+        var sorted = new ObservableCollection<PlayHistoryItem>(
+            _playHistoryList.OrderByDescending(static item =>
+                TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
+        );
+        _playHistoryList = sorted;
+    }
+
+    private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
+    {
+        await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
+        {
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+            if (systemManager != null)
+            {
+                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
                 if (File.Exists(filePath))
                 {
                     var sizeToSet = new FileInfo(filePath).Length;
@@ -102,96 +141,25 @@ private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
                 }
                 else
                 {
-                    // File not found - collect for batch removal
-                    itemsToDelete.Add(item);
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        item.FileSizeBytes = -2; // Error state ("N/A")
+                    });
                 }
             }
-            catch (Exception ex)
+            else
             {
-                // Notify developer
-                var contextMessage = $"Error getting file size for history item: {filePath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
                 await Dispatcher.InvokeAsync(() =>
                 {
                     item.FileSizeBytes = -2; // Error state ("N/A")
                 });
+
+                // Notify developer
+                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
+                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
             }
-        }
-        else
-        {
-            // System manager isn't found, this history item is orphaned.
-            // It should be collected for batch removal.
-            itemsToDelete.Add(item);
-
-            // Notify developer
-            var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
-            _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
-        }
-    });
-
-    // Handle deletion of invalid entries
-    if (!itemsToDelete.IsEmpty)
-    {
-        await HandleInvalidEntryDeletion(itemsToDelete);
+        });
     }
-}
-
-    /// <summary>
-/// Handles the deletion of invalid entries from the play history.
-/// </summary>
-/// <param name="itemsToDelete">Collection of items to delete.</param>
-private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> itemsToDelete)
-{
-    try
-    {
-        var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
-        if (result == MessageBoxResult.Yes)
-        {
-            // Ensure we're on the UI thread for collection modifications
-            await Dispatcher.InvokeAsync(() =>
-            {
-                try
-                {
-                    // Convert to list to avoid collection modification issues during enumeration
-                    var itemsToRemoveList = itemsToDelete.ToList();
-
-                    foreach (var itemToRemove in itemsToRemoveList)
-                    {
-                        _playHistoryList.Remove(itemToRemove);
-                        DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
-                    }
-
-                    // Update the manager with the current collection
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
-
-                    // Explicitly refresh the data grid binding to ensure UI updates
-                    PlayHistoryDataGrid.ItemsSource = null;
-                    PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error during batch deletion of history items in UI thread.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                    // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
-                }
-            });
-        }
-    }
-    catch (Exception ex)
-    {
-        // Notify developer
-        const string contextMessage = "Error during batch deletion of history items.";
-        _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-        // Notify user
-        MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
-    }
-}
 
     private static DateTime TryParseDateTime(string dateStr, string timeStr)
     {
@@ -235,15 +203,6 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
         }
     }
 
-    private void SortByDateSafely()
-    {
-        var sorted = new ObservableCollection<PlayHistoryItem>(
-            _playHistoryList.OrderByDescending(static item =>
-                TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
-        );
-        _playHistoryList = sorted;
-    }
-
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
@@ -260,45 +219,6 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
             // Use FindCoverImage which already handles system-specific paths and fuzzy matching
             return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);
         }
-    }
-
-    private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
-    {
-        if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
-        {
-            _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
-            _playHistoryManager.SavePlayHistory(); // Save using the existing instance
-
-            PlaySoundEffects.PlayTrashSound();
-            PreviewImage.Source = null;
-        }
-        else
-        {
-            // Notify the user to select a history item first
-            MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
-        }
-    }
-
-    private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
-    {
-        var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
-
-        if (result != MessageBoxResult.Yes)
-        {
-            return;
-        }
-
-        // Clear all items from the collection
-        _playHistoryList.Clear();
-
-        _playHistoryManager.PlayHistoryList = _playHistoryList;
-        _playHistoryManager.SavePlayHistory();
-
-        PlaySoundEffects.PlayTrashSound();
-
-        // Clear preview image
-        PreviewImage.Source = null;
     }
 
     private void PlayHistoryPrepareForRightClickContext(object sender, MouseButtonEventArgs e)
@@ -402,32 +322,6 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
         }
     }
 
-    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
-            {
-                PlaySoundEffects.PlayNotificationSound();
-                await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
-            }
-            else
-            {
-                // Notify user
-                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error in the LaunchGame_Click method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-        }
-    }
-
     private async Task LaunchGameFromHistory(string fileName, string selectedSystemName)
     {
         var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
@@ -485,16 +379,10 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
         RefreshPlayHistoryData(selectedItemIdentifier);
     }
 
-    /// <summary>
-    /// Refreshes the play history data and attempts to restore the selection
-    /// based on the unique identifier of the previously selected item.
-    /// </summary>
-    /// <param name="previousSelectedItemIdentifier">The (FileName, SystemName) tuple of the item that was selected before the refresh. Elements can be null if no item was selected.</param>
     private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default)
     {
         try
         {
-            // Add null check
             if (_playHistoryManager == null)
             {
                 DebugLogger.Log("PlayHistoryManager is null in RefreshPlayHistoryData");
@@ -510,11 +398,9 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
                     m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
 
-                var systemConfig = _systemManagers.FirstOrDefault(config => // Keep this to get DefaultEmulator and CoverImage
-                    config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
 
-                var defaultEmulator = systemConfig?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
-                // GetCoverImagePath needs systemConfig, so it's fine to keep systemConfig lookup
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
                 var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
                 // The filePath variable and its associated check are removed from here.
@@ -538,19 +424,27 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
             }
 
             _playHistoryList = newPlayHistoryList;
-            SortByDateSafely();
-            PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-            _ = LoadFileSizesAsync(_playHistoryList.ToList()); // LoadFileSizesAsync will handle N/A for missing files
 
-            if (previousSelectedItemIdentifier.FileName == null ||
-                previousSelectedItemIdentifier.SystemName == null) return;
+            SortByDate();
+
+            PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+            _ = LoadFileSizesAsync(_playHistoryList.ToList());
+
+            if (previousSelectedItemIdentifier.FileName == null || previousSelectedItemIdentifier.SystemName == null)
+            {
+                return;
+            }
 
             var (prevFileName, prevSystemName) = previousSelectedItemIdentifier;
             var updatedItem = _playHistoryList.FirstOrDefault(item =>
                 item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
                 item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
 
-            if (updatedItem == null) return;
+            if (updatedItem == null)
+            {
+                return;
+            }
 
             PlayHistoryDataGrid.SelectedItem = updatedItem;
             PlayHistoryDataGrid.ScrollIntoView(updatedItem);
@@ -567,7 +461,10 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
     {
         try
         {
-            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem) return;
+            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
+            {
+                return;
+            }
 
             PlaySoundEffects.PlayNotificationSound();
             await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
@@ -613,7 +510,10 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
 
     private void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Delete) return;
+        if (e.Key != Key.Delete)
+        {
+            return;
+        }
 
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
@@ -637,7 +537,7 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null);
 
-        SortByDateSafely();
+        SortByDate();
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
         // Restore selection based on identifier
@@ -683,6 +583,71 @@ private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> ite
 
             PlayHistoryDataGrid.SelectedItem = updatedItem;
             PlayHistoryDataGrid.ScrollIntoView(updatedItem);
+        }
+    }
+
+    private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
+        {
+            _playHistoryList.Remove(selectedItem);
+            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
+            _playHistoryManager.SavePlayHistory(); // Save using the existing instance
+
+            PlaySoundEffects.PlayTrashSound();
+            PreviewImage.Source = null;
+        }
+        else
+        {
+            // Notify the user to select a history item first
+            MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
+        }
+    }
+
+    private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
+    {
+        var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
+
+        if (result != MessageBoxResult.Yes)
+        {
+            return;
+        }
+
+        // Clear all items from the collection
+        _playHistoryList.Clear();
+
+        _playHistoryManager.PlayHistoryList = _playHistoryList;
+        _playHistoryManager.SavePlayHistory();
+
+        PlaySoundEffects.PlayTrashSound();
+
+        // Clear preview image
+        PreviewImage.Source = null;
+    }
+
+    private async void LaunchGame_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
+            {
+                PlaySoundEffects.PlayNotificationSound();
+                await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
+            }
+            else
+            {
+                // Notify user
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in the LaunchGame_Click method.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
         }
     }
 

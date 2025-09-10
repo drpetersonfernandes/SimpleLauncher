@@ -1,5 +1,4 @@
 using System;
-using System.Collections.Concurrent;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -34,32 +33,30 @@ public partial class FavoritesWindow
     {
         InitializeComponent();
 
-        _settings = settings;
-        _systemManagers = systemManagers;
-        _machines = machines;
-        _mainWindow = mainWindow;
-        _favoritesManager = favoritesManager;
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _systemManagers = systemManagers ?? throw new ArgumentNullException(nameof(systemManagers));
+        _machines = machines ?? throw new ArgumentNullException(nameof(machines));
+        _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+        _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
 
         App.ApplyThemeToWindow(this);
-        _ = LoadFavoritesAsync();
+
+        // Load favorites
+        var favorites = LoadFavorites();
+
+        // Delete missing entries
+        DeleteMissingFavorites(favorites);
+
+        // Calculate file sizes
+        _ = CalculateFileSizeAsync();
     }
 
-    private async Task LoadFavoritesAsync()
+    private ObservableCollection<Favorite> LoadFavorites()
     {
         var favoritesConfig = FavoritesManager.LoadFavorites();
         FavoritesDataGrid.ItemsSource = _favoriteList;
 
-        if (_machines == null || _systemManagers == null)
-        {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(new Exception("_machines or _systemManagers are null."), "_machines or _systemManagers are null.");
-
-            return;
-        }
-
-        var itemsToProcess = new List<Favorite>();
-
-        // Phase 1: Create all Favorite objects and add to _favoriteList
+        // Create all Favorite objects and add to _favoriteList
         foreach (var favoriteConfigItem in favoritesConfig.FavoriteList)
         {
             // Find machine description if available
@@ -68,13 +65,14 @@ public partial class FavoritesWindow
                     StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
 
-            // Retrieve the system configuration for the favorite
+            // Retrieve the system manager for the favorite
             var systemManager = _systemManagers.FirstOrDefault(config =>
                 config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
-            // Get the default emulator, e.g., the first one in the list
+            // Get the default emulator (the first one in the list)
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
 
+            // Get the cover image path for the favorite
             var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
 
             var favoriteItem = new Favorite
@@ -88,35 +86,59 @@ public partial class FavoritesWindow
             };
 
             _favoriteList.Add(favoriteItem);
+        }
+
+        return _favoriteList;
+    }
+
+    private void DeleteMissingFavorites(ObservableCollection<Favorite> favorites)
+    {
+        var itemsToRemove = new List<Favorite>();
+
+        foreach (var item in favorites)
+        {
+            var systemManager = _systemManagers.FirstOrDefault(manager =>
+                manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
 
             if (systemManager != null)
             {
-                itemsToProcess.Add(favoriteItem);
-            }
-            else
-            {
-                var contextMessage = $"System manager not found for favorite: {favoriteConfigItem.SystemName} - {favoriteConfigItem.FileName}. File size not calculated.";
-                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
-
-                favoriteItem.FileSizeBytes = -2; // "N/A"
+                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
+                if (!File.Exists(filePath))
+                {
+                    itemsToRemove.Add(item);
+                    DebugLogger.Log("Invalid Favorite removed: " + item.FileName);
+                }
             }
         }
 
-        // Phase 2: Use Parallel.ForEachAsync to load file sizes efficiently
-        var itemsToDelete = new ConcurrentBag<Favorite>();
+        foreach (var item in itemsToRemove)
+        {
+            favorites.Remove(item);
+        }
 
-        await Parallel.ForEachAsync(
-            itemsToProcess,
-            new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
+        // Update the manager with the current collection
+        _favoritesManager.FavoriteList = favorites;
+        _favoritesManager.SaveFavorites();
+
+        // Explicitly refresh the data grid binding to ensure UI updates
+        FavoritesDataGrid.Items.Refresh();
+    }
+
+    private async Task CalculateFileSizeAsync()
+    {
+        var itemsToProcess = _favoriteList.ToList(); // Create a snapshot to avoid collection modification during iteration
+
+        await Parallel.ForEachAsync(itemsToProcess, new ParallelOptions { MaxDegreeOfParallelism = Environment.ProcessorCount },
             async (favoriteItem, cancellationToken) =>
             {
-                var systemManager = _systemManagers.FirstOrDefault(config =>
-                    config.SystemName.Equals(favoriteItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(favoriteItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
-                // This should not happen since we filtered above, but double-check
                 if (systemManager == null)
                 {
-                    itemsToDelete.Add(favoriteItem);
+                    await Dispatcher.InvokeAsync(() =>
+                    {
+                        favoriteItem.FileSizeBytes = -2; // "N/A"
+                    });
                     return;
                 }
 
@@ -134,57 +156,32 @@ public partial class FavoritesWindow
                     }
                     else
                     {
-                        // File not found — mark for deletion
-                        itemsToDelete.Add(favoriteItem);
+                        await Dispatcher.InvokeAsync(() =>
+                        {
+                            favoriteItem.FileSizeBytes = -2; // "N/A"
+                        });
                     }
                 }
                 catch (Exception ex)
                 {
-                    // Notify developer
-                    var contextMessage = $"Error getting file size for favorite: {filePath}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
                     await Dispatcher.InvokeAsync(() =>
                     {
                         favoriteItem.FileSizeBytes = -2; // "N/A"
                     });
+
+                    // Notify developer
+                    var contextMessage = $"Error getting file size for favorite: {filePath}";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
             });
-
-        // Phase 3: Remove invalid items from UI and persist changes
-        if (!itemsToDelete.IsEmpty)
-        {
-            try
-            {
-                await Dispatcher.InvokeAsync(() =>
-                {
-                    var result = MessageBoxLibrary.DoYouWantToDeleteInvalidFavoritesMessageBox();
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        foreach (var item in itemsToDelete)
-                        {
-                            _favoriteList.Remove(item);
-                            DebugLogger.Log($"Removed invalid favorite: {item}");
-                        }
-
-                        _favoritesManager.FavoriteList = _favoriteList;
-                        _favoritesManager.SaveFavorites();
-                    }
-                });
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error during batch deletion of invalid favorites.");
-            }
-        }
     }
 
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemConfig = _systemManagers.FirstOrDefault(config =>
+            config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
         if (systemConfig == null)
@@ -201,12 +198,7 @@ public partial class FavoritesWindow
     {
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
-            _favoriteList.Remove(selectedFavorite);
-            _favoritesManager.FavoriteList = _favoriteList;
-            _favoritesManager.SaveFavorites();
-
-            PlaySoundEffects.PlayTrashSound();
-            PreviewImage.Source = null;
+            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
         }
         else
         {
@@ -224,7 +216,9 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemManager = _systemManagers.FirstOrDefault(config =>
+                config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+
             if (systemManager == null)
             {
                 // Notify developer
@@ -240,16 +234,15 @@ public partial class FavoritesWindow
             var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav =>
+                    fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+
                 if (favoriteToRemove != null)
                 {
                     var result = MessageBoxLibrary.DoYouWantToDeleteInvalidFavoriteMessageBox();
                     if (result == MessageBoxResult.Yes)
                     {
-                        _favoriteList.Remove(favoriteToRemove);
-                        _favoritesManager.FavoriteList = _favoriteList;
-                        _favoritesManager.SaveFavorites();
-                        DebugLogger.Log($"Invalid favorite was removed: {favoriteToRemove}");
+                        RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
                     }
                 }
 
@@ -334,7 +327,9 @@ public partial class FavoritesWindow
     {
         try
         {
-            var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+            var selectedSystemManager = _systemManagers.FirstOrDefault(manager =>
+                manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+
             if (selectedSystemManager == null)
             {
                 // Notify developer
@@ -349,14 +344,14 @@ public partial class FavoritesWindow
 
             var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
 
-            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath)) // Add null/empty check for resolved path
+            if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav =>
+                    fav.FileName == fileName && fav.SystemName == selectedSystemName);
+
                 if (favoriteToRemove != null)
                 {
-                    _favoriteList.Remove(favoriteToRemove);
-                    _favoritesManager.FavoriteList = _favoriteList;
-                    _favoritesManager.SaveFavorites();
+                    RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
                 }
 
                 // Notify developer
@@ -438,7 +433,7 @@ public partial class FavoritesWindow
             }
 
             var imagePath = selectedFavorite.CoverImage;
-            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath); // Use the new ImageLoader to load the image
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
 
             PreviewImage.Source = loadedImage; // Assign the loaded image to the PreviewImage control
         }
@@ -457,10 +452,7 @@ public partial class FavoritesWindow
 
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
-            _favoriteList.Remove(selectedFavorite);
-            _favoritesManager.FavoriteList = _favoriteList;
-            _favoritesManager.SaveFavorites();
-            PreviewImage.Source = null;
+            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
         }
         else
         {
