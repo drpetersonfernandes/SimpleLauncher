@@ -136,29 +136,26 @@ public partial class PlayHistoryWindow
 
         try
         {
-            await Dispatcher.InvokeAsync(() =>
+            var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
+            if (result == MessageBoxResult.Yes)
             {
-                var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
-                if (result == MessageBoxResult.Yes)
+                // Convert to list to avoid collection modification issues
+                var itemsToRemoveList = itemsToDelete.ToList();
+
+                foreach (var itemToRemove in itemsToRemoveList)
                 {
-                    // Convert to list to avoid collection modification issues
-                    var itemsToRemoveList = itemsToDelete.ToList();
-
-                    foreach (var itemToRemove in itemsToRemoveList)
-                    {
-                        _playHistoryList.Remove(itemToRemove);
-                        DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
-                    }
-
-                    // Update the manager with the current collection
-                    _playHistoryManager.PlayHistoryList = _playHistoryList;
-                    _playHistoryManager.SavePlayHistory();
-
-                    // Explicitly refresh the data grid binding to ensure UI updates
-                    PlayHistoryDataGrid.ItemsSource = null;
-                    PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+                    _playHistoryList.Remove(itemToRemove);
+                    DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
                 }
-            });
+
+                // Update the manager with the current collection
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _playHistoryManager.SavePlayHistory();
+
+                // Explicitly refresh the data grid binding to ensure UI updates
+                PlayHistoryDataGrid.ItemsSource = null;
+                PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+            }
         }
         catch (Exception ex)
         {
