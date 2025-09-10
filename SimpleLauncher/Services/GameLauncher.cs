@@ -477,10 +477,9 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = resolvedFilePath,
-            UseShellExecute = true // UseShellExecute=true is typical for launching .exe directly
+            UseShellExecute = false
         };
 
-        // Set the working directory to the directory of the executable
         try
         {
             var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
@@ -719,8 +718,6 @@ public static class GameLauncher
             {
                 throw new InvalidOperationException("Failed to start the process.");
             }
-
-            await Task.Delay(100);
 
             if (!process.HasExited)
             {
