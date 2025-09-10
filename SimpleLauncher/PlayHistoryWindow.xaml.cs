@@ -51,13 +51,9 @@ public partial class PlayHistoryWindow
 
         foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList)
         {
-            var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
             var machineDescription = machine?.Description ?? string.Empty;
-
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
             var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
             var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
@@ -90,25 +86,18 @@ public partial class PlayHistoryWindow
     private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
     {
         var itemsToDelete = new ConcurrentBag<PlayHistoryItem>();
-
         await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
         {
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager != null)
             {
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
-
                 try
                 {
                     if (File.Exists(filePath))
                     {
                         var sizeToSet = new FileInfo(filePath).Length;
-                        await Dispatcher.InvokeAsync(() =>
-                        {
-                            item.FileSizeBytes = sizeToSet;
-                        });
+                        await Dispatcher.InvokeAsync(() => { item.FileSizeBytes = sizeToSet; });
                     }
                     else
                     {
@@ -152,14 +141,22 @@ public partial class PlayHistoryWindow
                 var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
                 if (result == MessageBoxResult.Yes)
                 {
-                    foreach (var itemToRemove in itemsToDelete)
+                    // Convert to list to avoid collection modification issues
+                    var itemsToRemoveList = itemsToDelete.ToList();
+
+                    foreach (var itemToRemove in itemsToRemoveList)
                     {
                         _playHistoryList.Remove(itemToRemove);
                         DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
                     }
 
+                    // Update the manager with the current collection
                     _playHistoryManager.PlayHistoryList = _playHistoryList;
                     _playHistoryManager.SavePlayHistory();
+
+                    // Explicitly refresh the data grid binding to ensure UI updates
+                    PlayHistoryDataGrid.ItemsSource = null;
+                    PlayHistoryDataGrid.ItemsSource = _playHistoryList;
                 }
             });
         }
