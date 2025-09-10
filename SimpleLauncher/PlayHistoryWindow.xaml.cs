@@ -79,94 +79,119 @@ public partial class PlayHistoryWindow
     }
 
     /// <summary>
-    /// Asynchronously loads file sizes for items in the play history list.
-    /// Updates the corresponding items on the UI thread when size is determined.
-    /// </summary>
-    /// <param name="itemsToProcess">A list of PlayHistoryItem objects to process.</param>
-    private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
+/// Asynchronously loads file sizes for items in the play history list.
+/// Updates the corresponding items on the UI thread when size is determined.
+/// </summary>
+/// <param name="itemsToProcess">A list of PlayHistoryItem objects to process.</param>
+private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
+{
+    var itemsToDelete = new ConcurrentBag<PlayHistoryItem>();
+
+    await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
     {
-        var itemsToDelete = new ConcurrentBag<PlayHistoryItem>();
-        await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
+        var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+        if (systemManager != null)
         {
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemManager != null)
+            var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
+            try
             {
-                var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
+                if (File.Exists(filePath))
+                {
+                    var sizeToSet = new FileInfo(filePath).Length;
+                    await Dispatcher.InvokeAsync(() => { item.FileSizeBytes = sizeToSet; });
+                }
+                else
+                {
+                    // File not found - collect for batch removal
+                    itemsToDelete.Add(item);
+                }
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                var contextMessage = $"Error getting file size for history item: {filePath}";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    item.FileSizeBytes = -2; // Error state ("N/A")
+                });
+            }
+        }
+        else
+        {
+            // System manager isn't found, this history item is orphaned.
+            // It should be collected for batch removal.
+            itemsToDelete.Add(item);
+
+            // Notify developer
+            var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
+            _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+        }
+    });
+
+    // Handle deletion of invalid entries
+    if (!itemsToDelete.IsEmpty)
+    {
+        await HandleInvalidEntryDeletion(itemsToDelete);
+    }
+}
+
+    /// <summary>
+/// Handles the deletion of invalid entries from the play history.
+/// </summary>
+/// <param name="itemsToDelete">Collection of items to delete.</param>
+private async Task HandleInvalidEntryDeletion(ConcurrentBag<PlayHistoryItem> itemsToDelete)
+{
+    try
+    {
+        var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
+        if (result == MessageBoxResult.Yes)
+        {
+            // Ensure we're on the UI thread for collection modifications
+            await Dispatcher.InvokeAsync(() =>
+            {
                 try
                 {
-                    if (File.Exists(filePath))
+                    // Convert to list to avoid collection modification issues during enumeration
+                    var itemsToRemoveList = itemsToDelete.ToList();
+
+                    foreach (var itemToRemove in itemsToRemoveList)
                     {
-                        var sizeToSet = new FileInfo(filePath).Length;
-                        await Dispatcher.InvokeAsync(() => { item.FileSizeBytes = sizeToSet; });
+                        _playHistoryList.Remove(itemToRemove);
+                        DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
                     }
-                    else
-                    {
-                        // File not found - collect for batch removal
-                        itemsToDelete.Add(item);
-                    }
+
+                    // Update the manager with the current collection
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+
+                    // Explicitly refresh the data grid binding to ensure UI updates
+                    PlayHistoryDataGrid.ItemsSource = null;
+                    PlayHistoryDataGrid.ItemsSource = _playHistoryList;
                 }
                 catch (Exception ex)
                 {
                     // Notify developer
-                    var contextMessage = $"Error getting file size for history item: {filePath}";
+                    const string contextMessage = "Error during batch deletion of history items in UI thread.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                    await Dispatcher.InvokeAsync(() =>
-                    {
-                        item.FileSizeBytes = -2; // Error state ("N/A")
-                    });
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
                 }
-            }
-            else
-            {
-                // System manager isn't found, this history item is orphaned.
-                // It should be collected for batch removal.
-                itemsToDelete.Add(item);
-
-                // Notify developer
-                var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
-                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
-            }
-        });
-
-        if (itemsToDelete.IsEmpty)
-        {
-            return;
-        }
-
-        try
-        {
-            var result = MessageBoxLibrary.DoYouWantToRemoveInvalidPlayHistoryEntries();
-            if (result == MessageBoxResult.Yes)
-            {
-                // Convert to list to avoid collection modification issues
-                var itemsToRemoveList = itemsToDelete.ToList();
-
-                foreach (var itemToRemove in itemsToRemoveList)
-                {
-                    _playHistoryList.Remove(itemToRemove);
-                    DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
-                }
-
-                // Update the manager with the current collection
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
-                _playHistoryManager.SavePlayHistory();
-
-                // Explicitly refresh the data grid binding to ensure UI updates
-                PlayHistoryDataGrid.ItemsSource = null;
-                PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error during batch deletion of history items.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
+            });
         }
     }
+    catch (Exception ex)
+    {
+        // Notify developer
+        const string contextMessage = "Error during batch deletion of history items.";
+        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+        // Notify user
+        MessageBoxLibrary.ThereWasAnErrorDeletingTheHistoryItem();
+    }
+}
 
     private static DateTime TryParseDateTime(string dateStr, string timeStr)
     {
@@ -469,6 +494,13 @@ public partial class PlayHistoryWindow
     {
         try
         {
+            // Add null check
+            if (_playHistoryManager == null)
+            {
+                DebugLogger.Log("PlayHistoryManager is null in RefreshPlayHistoryData");
+                return;
+            }
+
             var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
             var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
 
