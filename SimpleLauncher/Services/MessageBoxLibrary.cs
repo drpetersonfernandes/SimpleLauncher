@@ -1759,314 +1759,206 @@ internal static class MessageBoxLibrary
     internal static async Task ImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
     {
         if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
+        {
             return;
+        }
 
         var dispatcher = Application.Current.Dispatcher;
-        if (dispatcher.CheckAccess())
-        {
-            ShowImagePackDownloadErrorBox(selectedSystem);
-        }
-        else
-        {
-            await dispatcher.InvokeAsync(() => ShowImagePackDownloadErrorBox(selectedSystem));
-        }
+        await dispatcher.InvokeAsync(() => ShowImagePackDownloadErrorBox(selectedSystem));
     }
 
     private static void ShowImagePackDownloadErrorBox(EasyModeSystemConfig selectedSystem)
     {
-        var downloadError = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
-        var wouldYouLikeToBeRedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ??
-                                         "Would you like to be redirected to the download page?";
-        var errorCaption = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke((Action)ShowMessage);
         return;
 
-        void Action()
+        void ShowMessage()
         {
-            var result = MessageBox.Show($"{downloadError}\n\n{wouldYouLikeToBeRedirected}", errorCaption, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes)
-            {
-                return;
-            }
+            var downloadError = (string)Application.Current.TryFindResource("Downloaderror") ?? "Download error.";
+            var wouldYouLikeToBeRedirected = (string)Application.Current.TryFindResource("Wouldyouliketoberedirected") ?? "Would you like to be redirected to the download page?";
+            var errorCaption = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            try
-            {
-                Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ImagePackDownloadLink, UseShellExecute = true });
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error opening the download link.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            var result = MessageBox.Show($"{downloadError}\n\n" +
+                                         $"{wouldYouLikeToBeRedirected}", errorCaption, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-                // Notify user
-                var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
-                var errorWasReported = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-                MessageBox.Show($"{errorOpeningDownloadLink}\n\n{errorWasReported}", errorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    Process.Start(new ProcessStartInfo { FileName = selectedSystem.Emulators.Emulator.ImagePackDownloadLink, UseShellExecute = true });
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error opening the download link.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                    // Notify user
+                    var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
+                    var errorWasReported = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+                    MessageBox.Show($"{errorOpeningDownloadLink}\n\n{errorWasReported}", errorCaption, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
     {
-        var thesystem = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
-        var hasbeenaddedsuccessfully = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
-        var putRoMsorIsOsforthissysteminside = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
-        var putcoverimagesforthissysteminside = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        void ShowMessage()
         {
+            var thesystem = (string)Application.Current.TryFindResource("Thesystem") ?? "The system";
+            var hasbeenaddedsuccessfully = (string)Application.Current.TryFindResource("hasbeenaddedsuccessfully") ?? "has been added successfully.";
+            var putRoMsorIsOsforthissysteminside = (string)Application.Current.TryFindResource("PutROMsorISOsforthissysteminside") ?? "Put ROMs or ISOs for this system inside";
+            var putcoverimagesforthissysteminside = (string)Application.Current.TryFindResource("Putcoverimagesforthissysteminside") ?? "Put cover images for this system inside";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show($"{thesystem} '{systemName}' {hasbeenaddedsuccessfully}\n\n"
                             + $"{putRoMsorIsOsforthissysteminside} '{resolvedSystemFolder}'\n\n"
-                            + $"{putcoverimagesforthissysteminside} '{resolvedSystemImageFolder}'.",
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
+                            + $"{putcoverimagesforthissysteminside} '{resolvedSystemImageFolder}'.", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void AddSystemFailedMessageBox(string details = null)
     {
-        var therewasanerroradding = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
-        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-        var errorDetails = (string)Application.Current.TryFindResource("ErrorDetails") ?? "Details:";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        var message = $"{therewasanerroradding}\n\n{theerrorwasreportedtothedeveloper}";
-        if (!string.IsNullOrEmpty(details))
+        void ShowMessage()
         {
-            message += $"\n\n{errorDetails} {details}";
-        }
+            var therewasanerroradding = (string)Application.Current.TryFindResource("Therewasanerroradding") ?? "There was an error adding this system.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            var errorDetails = (string)Application.Current.TryFindResource("ErrorDetails") ?? "Details:";
 
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
+            var message = $"{therewasanerroradding}\n\n" +
+                          $"{theerrorwasreportedtothedeveloper}";
+
+            if (!string.IsNullOrEmpty(details))
             {
-                MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+                message += $"\n\n{errorDetails} {details}";
+            }
+
+            MessageBox.Show(message, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void RightClickContextMenuErrorMessageBox()
     {
-        var therewasanerrorintherightclick =
-            (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ??
-            "There was an error in the right-click context menu.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{therewasanerrorintherightclick}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var therewasanerrorintherightclick = (string)Application.Current.TryFindResource("Therewasanerrorintherightclick") ?? "There was an error in the right-click context menu.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrorintherightclick}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void GameFileDoesNotExistMessageBox()
     {
-        var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
-        var thefilehasbeenremovedfromthelist = (string)Application.Current.TryFindResource("Thefilehasbeenremovedfromthelist") ?? "The file has been removed from the list.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{thegamefiledoesnotexist}\n\n" + $"{thefilehasbeenremovedfromthelist}", info, MessageBoxButton.OK, MessageBoxImage.Information);
+            var thegamefiledoesnotexist = (string)Application.Current.TryFindResource("Thegamefiledoesnotexist") ?? "The game file does not exist!";
+            var thefilehasbeenremovedfromthelist = (string)Application.Current.TryFindResource("Thefilehasbeenremovedfromthelist") ?? "The file has been removed from the list.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show($"{thegamefiledoesnotexist}\n\n" +
+                            $"{thefilehasbeenremovedfromthelist}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void CouldNotOpenHistoryWindowMessageBox()
     {
-        var therewasaproblemopeningtheHistorywindow =
-            (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ??
-            "There was a problem opening the History window.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{therewasaproblemopeningtheHistorywindow}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var therewasaproblemopeningtheHistorywindow = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheHistorywindow") ?? "There was a problem opening the History window.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasaproblemopeningtheHistorywindow}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void ErrorOpeningCoverImageMessageBox()
     {
-        var therewasanerrortryingtoopenthe =
-            (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
-        var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{therewasanerrortryingtoopenthe}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var therewasanerrortryingtoopenthe = (string)Application.Current.TryFindResource("Therewasanerrortryingtoopenthe") ?? "There was an error trying to open the cover image.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{therewasanerrortryingtoopenthe}\n\n" +
+                            $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void CouldNotOpenWalkthroughMessageBox()
     {
-        var failedtoopenthewalkthroughfile =
-            (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ??
-            "Failed to open the walkthrough file.";
-        var theerrorwasreportedtothedeveloper =
-            (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ??
-            "The error was reported to the developer who will try to fix the issue.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{failedtoopenthewalkthroughfile}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var failedtoopenthewalkthroughfile = (string)Application.Current.TryFindResource("Failedtoopenthewalkthroughfile") ?? "Failed to open the walkthrough file.";
+            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{failedtoopenthewalkthroughfile}\n\n"
+                            + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void SelectAFavoriteToRemoveMessageBox()
     {
-        var pleaseselectafavoritetoremove =
-            (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ??
-            "Please select a favorite to remove.";
-        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
+            var pleaseselectafavoritetoremove = (string)Application.Current.TryFindResource("Pleaseselectafavoritetoremove") ?? "Please select a favorite to remove.";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             MessageBox.Show(pleaseselectafavoritetoremove, warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
     internal static void SystemXmlNotFoundMessageBox()
     {
-        var systemxmlnotfound = (string)Application.Current.TryFindResource("systemxmlnotfound") ??
-                                "'system.xml' not found inside the application folder.";
-        var pleaserestartSimpleLauncher = (string)Application.Current.TryFindResource("PleaserestartSimpleLauncher") ??
-                                          "Please restart 'Simple Launcher'.";
-        var ifthatdoesnotwork = (string)Application.Current.TryFindResource("Ifthatdoesnotwork") ??
-                                "If that does not work, please reinstall 'Simple Launcher'.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            Action();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)Action);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void Action()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{systemxmlnotfound}\n\n" + $"{pleaserestartSimpleLauncher}\n\n" + $"{ifthatdoesnotwork}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var systemxmlnotfound = (string)Application.Current.TryFindResource("systemxmlnotfound") ?? "'system.xml' not found inside the application folder.";
+            var pleaserestartSimpleLauncher = (string)Application.Current.TryFindResource("PleaserestartSimpleLauncher") ?? "Please restart 'Simple Launcher'.";
+            var ifthatdoesnotwork = (string)Application.Current.TryFindResource("Ifthatdoesnotwork") ?? "If that does not work, please reinstall 'Simple Launcher'.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{systemxmlnotfound}\n\n" +
+                            $"{pleaserestartSimpleLauncher}\n\n" +
+                            $"{ifthatdoesnotwork}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void YouCanAddANewSystemMessageBox()
     {
-        var youcanaddanewsystem = (string)Application.Current.TryFindResource("Youcanaddanewsystem") ??
-                                  "You can add a new system now.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
-            MessageBox.Show(youcanaddanewsystem,
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(youcanaddanewsystem,
-                    info, MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            var youcanaddanewsystem = (string)Application.Current.TryFindResource("Youcanaddanewsystem") ?? "You can add a new system now.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show(youcanaddanewsystem, info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
