@@ -1964,508 +1964,314 @@ internal static class MessageBoxLibrary
 
     internal static void EmulatorNameRequiredMessageBox(int i)
     {
-        var emulator = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
-        var nameisrequiredbecauserelateddata = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        void ShowMessage()
         {
+            var emulator = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
+            var nameisrequiredbecauserelateddata = (string)Application.Current.TryFindResource("nameisrequiredbecauserelateddata") ?? "name is required because related data has been provided.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show($"{emulator} {i} {nameisrequiredbecauserelateddata}\n\n" +
-                            $"{pleasefixthisfield}",
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{emulator} {i} {nameisrequiredbecauserelateddata}\n\n" +
-                                $"{pleasefixthisfield}",
-                    info, MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+                            $"{pleasefixthisfield}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void EmulatorNameIsRequiredMessageBox()
     {
-        var emulatornameisrequired = (string)Application.Current.TryFindResource("Emulatornameisrequired") ?? "Emulator name is required.";
-        var pleasefixthat = (string)Application.Current.TryFindResource("Pleasefixthat") ?? "Please fix that.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
+            var emulatornameisrequired = (string)Application.Current.TryFindResource("Emulatornameisrequired") ?? "Emulator name is required.";
+            var pleasefixthat = (string)Application.Current.TryFindResource("Pleasefixthat") ?? "Please fix that.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{emulatornameisrequired}\n\n" +
-                            $"{pleasefixthat}",
-                error, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{emulatornameisrequired}\n\n" +
-                                $"{pleasefixthat}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+                            $"{pleasefixthat}", error, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void EmulatorNameMustBeUniqueMessageBox(string emulatorName)
     {
-        var thename = (string)Application.Current.TryFindResource("Thename") ?? "The name";
-        var isusedmultipletimes = (string)Application.Current.TryFindResource("isusedmultipletimes") ??
-                                  "is used multiple times. Each emulator name must be unique.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        void ShowMessage()
         {
-            MessageBox.Show($"{thename} '{emulatorName}' {isusedmultipletimes}",
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{thename} '{emulatorName}' {isusedmultipletimes}",
-                    info, MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            var thename = (string)Application.Current.TryFindResource("Thename") ?? "The name";
+            var isusedmultipletimes = (string)Application.Current.TryFindResource("isusedmultipletimes") ?? "is used multiple times. Each emulator name must be unique.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show($"{thename} '{emulatorName}' {isusedmultipletimes}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void SystemSavedSuccessfullyMessageBox()
     {
-        var systemsavedsuccessfully = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ??
-                                      "System saved successfully.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
-            MessageBox.Show(systemsavedsuccessfully,
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show(systemsavedsuccessfully,
-                    info, MessageBoxButton.OK, MessageBoxImage.Information);
-            });
+            var systemsavedsuccessfully = (string)Application.Current.TryFindResource("Systemsavedsuccessfully") ?? "System saved successfully.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+            MessageBox.Show(systemsavedsuccessfully, info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void PathOrParameterInvalidMessageBox()
     {
-        var oneormorepathsorparameters = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ??
-                                         "One or more paths or parameters are invalid.";
-        var pleasefixthemtoproceed = (string)Application.Current.TryFindResource("Pleasefixthemtoproceed") ??
-                                     "Please fix them to proceed.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
+            var oneormorepathsorparameters = (string)Application.Current.TryFindResource("Oneormorepathsorparameters") ?? "One or more paths or parameters are invalid.";
+            var pleasefixthemtoproceed = (string)Application.Current.TryFindResource("Pleasefixthemtoproceed") ?? "Please fix them to proceed.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{oneormorepathsorparameters}\n\n" +
-                            $"{pleasefixthemtoproceed}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{oneormorepathsorparameters}\n\n" +
-                                $"{pleasefixthemtoproceed}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+                            $"{pleasefixthemtoproceed}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void Emulator1RequiredMessageBox()
     {
-        var emulator1Nameisrequired = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ??
-                                      "'Emulator 1 Name' is required.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
+            var emulator1Nameisrequired = (string)Application.Current.TryFindResource("Emulator1Nameisrequired") ?? "'Emulator 1 Name' is required.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{emulator1Nameisrequired}\n\n" +
-                            $"{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{emulator1Nameisrequired}\n\n" +
-                                $"{pleasefixthisfield}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void ExtensionToLaunchIsRequiredMessageBox()
     {
-        var extensiontoLaunchAfterExtraction =
-            (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ??
-            "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
+            var extensiontoLaunchAfterExtraction = (string)Application.Current.TryFindResource("ExtensiontoLaunchAfterExtraction") ?? "'Extension to Launch After Extraction' is required when 'Extract File Before Launch' is set to true.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{extensiontoLaunchAfterExtraction}\n\n" +
-                            $"{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{extensiontoLaunchAfterExtraction}\n\n" +
-                                $"{pleasefixthisfield}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void ExtensionToSearchIsRequiredMessageBox()
     {
-        var extensiontoSearchintheSystemFolder =
-            (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ??
-            "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
+            var extensiontoSearchintheSystemFolder = (string)Application.Current.TryFindResource("ExtensiontoSearchintheSystemFolder") ?? "'Extension to Search in the System Folder' cannot be empty or contain only spaces.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{extensiontoSearchintheSystemFolder}\n\n" +
-                            $"{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{extensiontoSearchintheSystemFolder}\n\n" +
-                                $"{pleasefixthisfield}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void FileMustBeCompressedMessageBox()
     {
-        var whenExtractFileBeforeLaunch = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ??
-                                          "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
-        var itwillnotacceptotherextensions =
-            (string)Application.Current.TryFindResource("Itwillnotacceptotherextensions") ??
-            "It will not accept other extensions.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
-            MessageBox.Show($"{whenExtractFileBeforeLaunch}\n\n{itwillnotacceptotherextensions}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{whenExtractFileBeforeLaunch}\n\n{itwillnotacceptotherextensions}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+            var whenExtractFileBeforeLaunch = (string)Application.Current.TryFindResource("WhenExtractFileBeforeLaunch") ?? "When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.";
+            var itwillnotacceptotherextensions = (string)Application.Current.TryFindResource("Itwillnotacceptotherextensions") ?? "It will not accept other extensions.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{whenExtractFileBeforeLaunch}\n\n" +
+                            $"{itwillnotacceptotherextensions}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void SystemImageFolderCanNotBeEmptyMessageBox()
     {
-        var systemImageFoldercannotbeempty =
-            (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ??
-            "'System Image Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
 
-        if (Application.Current.Dispatcher.CheckAccess())
+        static void ShowMessage()
         {
-            MessageBox.Show($"{systemImageFoldercannotbeempty}\n\n{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(() =>
-            {
-                MessageBox.Show($"{systemImageFoldercannotbeempty}\n\n{pleasefixthisfield}",
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
-            });
+            var systemImageFoldercannotbeempty = (string)Application.Current.TryFindResource("SystemImageFoldercannotbeempty") ?? "'System Image Folder' cannot be empty or contain only spaces.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{systemImageFoldercannotbeempty}\n\n" +
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void SystemFolderCanNotBeEmptyMessageBox()
     {
-        var systemFoldercannotbeempty = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ??
-                                        "'System Folder' cannot be empty or contain only spaces.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{systemFoldercannotbeempty}\n\n{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var systemFoldercannotbeempty = (string)Application.Current.TryFindResource("SystemFoldercannotbeempty") ?? "'System Folder' cannot be empty or contain only spaces.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{systemFoldercannotbeempty}\n\n" +
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void SystemNameCanNotBeEmptyMessageBox()
     {
-        var systemNamecannotbeemptyor = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ??
-                                        "'System Name' cannot be empty or contain only spaces.";
-        var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ??
-                                 "Please fix this field.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
+            var systemNamecannotbeemptyor = (string)Application.Current.TryFindResource("SystemNamecannotbeemptyor") ?? "'System Name' cannot be empty or contain only spaces.";
+            var pleasefixthisfield = (string)Application.Current.TryFindResource("Pleasefixthisfield") ?? "Please fix this field.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show($"{systemNamecannotbeemptyor}\n\n" +
-                            $"{pleasefixthisfield}",
-                error, MessageBoxButton.OK, MessageBoxImage.Error);
+                            $"{pleasefixthisfield}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void FolderCreatedMessageBox(string systemNameText)
     {
-        var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
-        var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
         {
+            var simpleLaunchercreatedaimagefolder = (string)Application.Current.TryFindResource("SimpleLaunchercreatedaimagefolder") ?? "'Simple Launcher' created a image folder for this system at";
+            var youmayplacethecoverimagesforthissystem = (string)Application.Current.TryFindResource("Youmayplacethecoverimagesforthissysteminside") ?? "You may place the cover images for this system inside this folder.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show($"{simpleLaunchercreatedaimagefolder} '.\\images\\{systemNameText}'.\n\n" +
-                            $"{youmayplacethecoverimagesforthissystem}\n\n",
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
+                            $"{youmayplacethecoverimagesforthissystem}\n\n", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void FolderCreationFailedMessageBox()
     {
-        var simpleLauncherfailedtocreatethe =
-            (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ??
-            "'Simple Launcher' failed to create the necessary folders for this system.";
-        var grantSimpleLauncheradministrative =
-            (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ??
-            "Grant 'Simple Launcher' administrative access and try again.";
-        var temporarilydisableyourantivirus =
-            (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ??
-            "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
-        var ensurethattheSimpleLauncherfolderislocatedinawritable =
-            (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ??
-            "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
-        var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
+            var simpleLauncherfailedtocreatethe = (string)Application.Current.TryFindResource("SimpleLauncherfailedtocreatethe") ?? "'Simple Launcher' failed to create the necessary folders for this system.";
+            var grantSimpleLauncheradministrative = (string)Application.Current.TryFindResource("GrantSimpleLauncheradministrative") ?? "Grant 'Simple Launcher' administrative access and try again.";
+            var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
+            var ensurethattheSimpleLauncherfolderislocatedinawritable = (string)Application.Current.TryFindResource("EnsurethattheSimpleLauncherfolderislocatedinawritable") ?? "Ensure that the 'Simple Launcher' folder is located in a writable directory.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
             MessageBox.Show($"{simpleLauncherfailedtocreatethe}\n\n" +
                             $"{grantSimpleLauncheradministrative}\n\n" +
                             $"{temporarilydisableyourantivirus}\n\n" +
-                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable}",
-                info, MessageBoxButton.OK, MessageBoxImage.Information);
+                            $"{ensurethattheSimpleLauncherfolderislocatedinawritable}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
     internal static void SelectASystemToDeleteMessageBox()
     {
-        var pleaseselectasystemtodelete = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ??
-                                          "Please select a system to delete.";
-        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
-            MessageBox.Show(pleaseselectasystemtodelete,
-                warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            var pleaseselectasystemtodelete = (string)Application.Current.TryFindResource("Pleaseselectasystemtodelete") ?? "Please select a system to delete.";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(pleaseselectasystemtodelete, warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
     internal static void SystemNotFoundInTheXmlMessageBox()
     {
-        var selectedsystemnotfound = (string)Application.Current.TryFindResource("Selectedsystemnotfound") ??
-                                     "Selected system not found in the XML document!";
-        var alert = (string)Application.Current.TryFindResource("Alert") ?? "Alert";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessage()
+        static void ShowMessage()
         {
-            MessageBox.Show(selectedsystemnotfound,
-                alert, MessageBoxButton.OK, MessageBoxImage.Exclamation);
+            var selectedsystemnotfound = (string)Application.Current.TryFindResource("Selectedsystemnotfound") ?? "Selected system not found in the XML document!";
+            var alert = (string)Application.Current.TryFindResource("Alert") ?? "Alert";
+            MessageBox.Show(selectedsystemnotfound, alert, MessageBoxButton.OK, MessageBoxImage.Exclamation);
         }
     }
 
     internal static void ErrorFindingGameFilesMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
         {
-            var therewasanerrorfinding = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ??
-                                         "There was an error finding the game files.";
-            var doyouwanttoopenthefileerroruserlog =
-                (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ??
-                "Do you want to open the file 'error_user.log' to debug the error?";
+            var therewasanerrorfinding = (string)Application.Current.TryFindResource("Therewasanerrorfinding") ?? "There was an error finding the game files.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{therewasanerrorfinding}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
 
-            try
+            var result = MessageBox.Show($"{therewasanerrorfinding}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                // Notify user
-                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
-                                             "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    // Notify user
+                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void ErrorWhileCountingFilesMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
         {
-            var anerroroccurredwhilecounting =
-                (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ??
-                "An error occurred while counting files.";
-            var doyouwanttoopenthefileerroruserlog =
-                (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ??
-                "Do you want to open the file 'error_user.log' to debug the error?";
+            var anerroroccurredwhilecounting = (string)Application.Current.TryFindResource("Anerroroccurredwhilecounting") ?? "An error occurred while counting files.";
+            var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefileerroruserlog") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{anerroroccurredwhilecounting}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
 
-            try
+            var result = MessageBox.Show($"{anerroroccurredwhilecounting}\n\n" +
+                                         $"{doyouwanttoopenthefileerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ??
-                                          "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlog,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ??
+                                              "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlog,
+                        error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void GamePadErrorMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2475,96 +2281,80 @@ internal static class MessageBoxLibrary
             var temporarilydisableyourantivirus = (string)Application.Current.TryFindResource("Youcanalsotemporarilydisableyourantivirussoftware") ?? "You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
             var result = MessageBox.Show($"{therewasanerrorwiththeGamePadController}\n\n" +
                                          $"{grantSimpleLauncheradministrative}\n\n" +
                                          $"{temporarilydisableyourantivirus}\n\n" +
-                                         $"{doyouwanttoopenthefile}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
+                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            try
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
-                                             "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
+                                                 "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlogwas,
+                        error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void CouldNotLaunchGameMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessage();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke(ShowMessage);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
         {
-            var simpleLaunchercouldnotlaunch =
-                (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
+            var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch the selected game.";
             var ifyouaretryingtorunMamEensurethatyourRom = (string)Application.Current.TryFindResource("IfyouaretryingtorunMAMEensurethatyourROM") ?? "If you are trying to run MAME, ensure that your ROM collection is compatible with the MAME version you are using.";
             var ifyouaretryingtorunRetroarchensurethattheBios = (string)Application.Current.TryFindResource("IfyouaretryingtorunRetroarchensurethattheBIOS") ?? "If you are trying to run Retroarch, ensure that the BIOS or required files for the core are installed.";
             var alsomakesureyouarecallingtheemulator = (string)Application.Current.TryFindResource("Alsomakesureyouarecallingtheemulator") ?? "Also, make sure you are calling the emulator with the correct parameter.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show(
-                $"{simpleLaunchercouldnotlaunch}\n\n" +
-                $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
-                $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
-                $"{alsomakesureyouarecallingtheemulator}\n\n" +
-                $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
-                $"{doyouwanttoopenthefile}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
 
-            try
+            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch}\n\n" +
+                                         $"{ifyouaretryingtorunMamEensurethatyourRom}\n" +
+                                         $"{ifyouaretryingtorunRetroarchensurethattheBios}\n" +
+                                         $"{alsomakesureyouarecallingtheemulator}\n\n" +
+                                         $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
+                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ??
-                                             "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlogwas,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlogwas = (string)Application.Current.TryFindResource("Thefileerroruserlogwas") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlogwas, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void InvalidOperationExceptionMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        void ShowMessage()
         {
             var failedtostarttheemulator = (string)Application.Current.TryFindResource("Failedtostarttheemulator") ?? "Failed to start the emulator or it has not exited as expected.";
             var checktheintegrityoftheemulatoranditsdependencies = (string)Application.Current.TryFindResource("Checktheintegrityoftheemulatoranditsdependencies") ?? "Check the integrity of the emulator and its dependencies.";
@@ -2575,187 +2365,159 @@ internal static class MessageBoxLibrary
             var result = MessageBox.Show($"{failedtostarttheemulator}\n\n" +
                                          $"{checktheintegrityoftheemulatoranditsdependencies}\n\n" +
                                          $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
-                                         $"{doyouwanttoopenthefile}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
+                                         $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            try
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo
+                try
                 {
-                    FileName = logPath,
-                    UseShellExecute = true
-                });
-            }
-            catch (Exception)
-            {
-                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlog,
-                    error, MessageBoxButton.OK, MessageBoxImage.Error);
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlog,
+                        error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void ThereWasAnErrorLaunchingThisGameMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        void ShowMessage()
         {
             var therewasanerrorlaunchingthisgame = (string)Application.Current.TryFindResource("Therewasanerrorlaunchingthisgame") ?? "There was an error launching this game.";
             var youcanturnoffthistypeoferrormessageinExpertmode = (string)Application.Current.TryFindResource("YoucanturnoffthiserrormessageinExpertmode") ?? "You can turn off this error message in Expert mode.";
             var doyouwanttoopenthefileerroruserlog = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
             var result = MessageBox.Show($"{therewasanerrorlaunchingthisgame}\n\n" +
                                          $"{youcanturnoffthistypeoferrormessageinExpertmode}\n\n" +
-                                         $"{doyouwanttoopenthefileerroruserlog}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
+                                         $"{doyouwanttoopenthefileerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
-            try
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
-            }
-            catch (Exception)
-            {
-                var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruserlog = (string)Application.Current.TryFindResource("Thefileerroruserlog") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruserlog, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void CannotExtractThisFileMessageBox(string filePath)
     {
-        var theselectedfile = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
-        var cannotbeextracted = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
-        var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
-        var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
-        var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        void ShowMessage()
         {
-            MessageBox.Show($"{theselectedfile} '{filePath}' {cannotbeextracted}\n\n" + $"{toextractafileitneedstobe}\n\n" + $"{pleasegotoEditSystem}", warning, MessageBoxButton.OK, MessageBoxImage.Warning);
+            var theselectedfile = (string)Application.Current.TryFindResource("Theselectedfile") ?? "The selected file";
+            var cannotbeextracted = (string)Application.Current.TryFindResource("cannotbeextracted") ?? "can not be extracted.";
+            var toextractafileitneedstobe = (string)Application.Current.TryFindResource("Toextractafileitneedstobe") ?? "To extract a file, it needs to be a 7z, zip, or rar file.";
+            var pleasegotoEditSystem = (string)Application.Current.TryFindResource("PleasegotoEditSystem") ?? "Please go to Edit System - Expert Mode and edit this system.";
+            var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show($"{theselectedfile} '{filePath}' {cannotbeextracted}\n\n" +
+                            $"{toextractafileitneedstobe}\n\n" +
+                            $"{pleasegotoEditSystem}", warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
     }
 
     internal static void EmulatorCouldNotOpenXboxXblaSimpleMessageBox(string logPath)
     {
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        void ShowMessage()
         {
             var theemulatorcouldnotopenthegame = (string)Application.Current.TryFindResource("Theemulatorcouldnotopenthegame") ?? "The emulator could not open the game with the provided parameters.";
             var doyouwanttoopenthefileerror = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            var result = MessageBox.Show($"{theemulatorcouldnotopenthegame}\n\n" + $"{doyouwanttoopenthefileerror}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result != MessageBoxResult.Yes) return;
 
-            try
+            var result = MessageBox.Show($"{theemulatorcouldnotopenthegame}\n\n" +
+                                         $"{doyouwanttoopenthefileerror}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
             {
-                Process.Start(new ProcessStartInfo { FileName = logPath, UseShellExecute = true });
-            }
-            catch (Exception)
-            {
-                var thefileerroruser = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
-                MessageBox.Show(thefileerroruser, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                try
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = logPath,
+                        UseShellExecute = true
+                    });
+                }
+                catch (Exception)
+                {
+                    var thefileerroruser = (string)Application.Current.TryFindResource("Thefileerroruser") ?? "The file 'error_user.log' was not found!";
+                    MessageBox.Show(thefileerroruser, error, MessageBoxButton.OK, MessageBoxImage.Error);
+                }
             }
         }
     }
 
     internal static void NullFileExtensionMessageBox()
     {
-        var thereisnoExtension = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
-        var pleaseeditthissystemto = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{thereisnoExtension}\n\n" + $"{pleaseeditthissystemto}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var thereisnoExtension = (string)Application.Current.TryFindResource("ThereisnoExtension") ?? "There is no 'Extension to Launch After Extraction' set in the system configuration.";
+            var pleaseeditthissystemto = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{thereisnoExtension}\n\n" +
+                            $"{pleaseeditthissystemto}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static void CouldNotFindAFileMessageBox()
     {
-        var couldnotfindafilewiththeextensiondefined =
-            (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
-        var pleaseeditthissystemtofix = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
-        var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            ShowMessageBox();
-        }
-        else
-        {
-            Application.Current.Dispatcher.Invoke((Action)ShowMessageBox);
-        }
-
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
-        void ShowMessageBox()
+        static void ShowMessage()
         {
-            MessageBox.Show($"{couldnotfindafilewiththeextensiondefined}\n\n" + $"{pleaseeditthissystemtofix}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            var couldnotfindafilewiththeextensiondefined = (string)Application.Current.TryFindResource("Couldnotfindafilewiththeextensiondefined") ?? "Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.";
+            var pleaseeditthissystemtofix = (string)Application.Current.TryFindResource("Pleaseeditthissystemto") ?? "Please edit this system to fix that.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{couldnotfindafilewiththeextensiondefined}\n\n" +
+                            $"{pleaseeditthissystemtofix}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
     internal static MessageBoxResult SearchOnlineForRomHistoryMessageBox()
     {
+        Application.Current.Dispatcher.Invoke(ShowMessageBox);
+        return MessageBoxResult.No;
+
         static MessageBoxResult ShowMessageBox()
         {
             var thereisnoRoMhistoryinthelocaldatabase = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
             var doyouwanttosearchonline = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
             var rOmHistoryNotFound = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
-            var result = MessageBox.Show($"{thereisnoRoMhistoryinthelocaldatabase}\n\n" + $"{doyouwanttosearchonline}", rOmHistoryNotFound, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return result;
-        }
 
-        if (Application.Current.Dispatcher.CheckAccess())
-        {
-            return ShowMessageBox();
-        }
-        else
-        {
-            return Application.Current.Dispatcher.Invoke((Func<MessageBoxResult>)ShowMessageBox);
+            var result = MessageBox.Show($"{thereisnoRoMhistoryinthelocaldatabase}\n\n" +
+                                         $"{doyouwanttosearchonline}", rOmHistoryNotFound, MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            return result;
         }
     }
 
