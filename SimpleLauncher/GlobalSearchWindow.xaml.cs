@@ -46,6 +46,7 @@ public partial class GlobalSearchWindow
         _mainWindow = mainWindow;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
+        NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
     }
 
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -56,8 +57,9 @@ public partial class GlobalSearchWindow
             if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
             LaunchButton.IsEnabled = false;
-            PreviewImage.Source = null; // Clear preview on new search
+            PreviewImage.Source = null;
             _searchResults.Clear();
+            NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
             LoadingOverlay.Visibility = Visibility.Visible;
 
@@ -75,24 +77,14 @@ public partial class GlobalSearchWindow
                         // FileSizeBytes will initially show "Calculating..."
                         _searchResults.Add(result);
                     }
-                    // LaunchButton.IsEnabled = true; // Enable only if items are selected or always if results exist
+                    // LaunchButton.IsEnabled will be handled by ActionsWhenUserSelectAResultItem when an item is selected.
+                    // If no item is selected, it remains false.
                 }
                 else
                 {
-                    var noresultsfound2 = (string)Application.Current.TryFindResource("Noresultsfound") ?? "No results found.";
-                    // Create a dummy result for "No results found"
-                    // No need for async size calculation here.
-                    _searchResults.Add(new SearchResult
-                    {
-                        FileName = noresultsfound2,
-                        FileNameWithExtension = noresultsfound2,
-                        FolderName = "",
-                        FileSizeBytes = 0, // Or -2 to show N/A if preferred for a "no result" item
-                        MachineName = "",
-                        FilePath = "",
-                        SystemName = "",
-                        CoverImage = ""
-                    });
+                    // No results found, display the overlay message
+                    NoResultsMessageOverlay.Visibility = Visibility.Visible;
+
                     LaunchButton.IsEnabled = false; // No results, so disable the launch button
                 }
             }
@@ -104,6 +96,10 @@ public partial class GlobalSearchWindow
 
                 // Notify user
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
+
+                // In case of error, also show the "No results found" message or a specific error message.
+                NoResultsMessageOverlay.Visibility = Visibility.Visible;
+                LaunchButton.IsEnabled = false; // Disable launch button on error
             }
             finally
             {
@@ -367,6 +363,7 @@ public partial class GlobalSearchWindow
     {
         try
         {
+            // This check handles cases where no item is selected or the selected item is not a valid game.
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 return;
@@ -456,8 +453,8 @@ public partial class GlobalSearchWindow
     {
         try
         {
-            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult ||
-                string.IsNullOrEmpty(selectedResult.FilePath)) return;
+            // This check correctly handles cases where no item is selected or the selected item is not a valid game.
+            if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
             PlaySoundEffects.PlayNotificationSound();
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
@@ -493,7 +490,8 @@ public partial class GlobalSearchWindow
             }
             else
             {
-                LaunchButton.IsEnabled = false; // Disable if no item or dummy item is selected
+                // This branch will be hit if ResultsDataGrid.SelectedItem is null (no selection)
+                LaunchButton.IsEnabled = false; // Disable if no item is selected
                 PreviewImage.Source = null;
             }
         }

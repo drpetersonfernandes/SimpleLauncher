@@ -98,6 +98,23 @@
                 </DataGrid.Columns>
             </DataGrid>
 
+            <!-- Overlay for "No results found" message -->
+            <Border x:Name="NoResultsMessageOverlay"
+                    Grid.Row="3" Grid.Column="0"
+                    Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Control.Border}"
+                    BorderThickness="1"
+                    CornerRadius="2"
+                    Visibility="Collapsed">
+                <TextBlock Text="{DynamicResource Noresultsfound}"
+                           VerticalAlignment="Center"
+                           HorizontalAlignment="Center"
+                           FontSize="18"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource MahApps.Brushes.Text}"
+                           Margin="20"/>
+            </Border>
+
             <!-- GridSplitter between columns 0 and 2 -->
             <GridSplitter Grid.Row="0" Grid.RowSpan="4" Grid.Column="1"
                           Background="Gray"
