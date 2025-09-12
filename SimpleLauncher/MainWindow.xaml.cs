@@ -110,12 +110,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private string _activeSearchQueryOrMode;
 
-    public MainWindow()
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager)
     {
         InitializeComponent();
 
-        // Initialize settings from App
-        _settings = App.Settings;
+        // Inject settings from DI
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+        _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -158,9 +160,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             await TopLetterNumberMenu_Click(selectedLetter);
         };
-
-        // Initialize _favoritesManager
-        _favoritesManager = FavoritesManager.LoadFavorites();
 
         // Initialize _gameFileGrid
         _gameFileGrid = FindName("GameFileGrid") as WrapPanel;
@@ -930,7 +929,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(filePath);
 
-            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig);
+            var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, selectedConfig, _settings);
 
             bool isDefaultImage;
             if (string.IsNullOrEmpty(imagePath) || imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))

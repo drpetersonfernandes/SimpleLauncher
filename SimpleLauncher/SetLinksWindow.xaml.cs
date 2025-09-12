@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
@@ -13,7 +14,7 @@ public partial class SetLinksWindow
         InitializeComponent();
 
         // Load Config
-        _settingsManager = settingsManager;
+        _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));
         LoadLinks();
     }
 

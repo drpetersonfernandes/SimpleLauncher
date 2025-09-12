@@ -52,7 +52,8 @@ public partial class MainWindow
     {
         foreach (var config in _systemManagers.OrderBy(static s => s.SystemName))
         {
-            var imagePath = await GetSystemDisplayImagePathAsync(config);
+            // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
+            var imagePath = await GetSystemDisplayImagePathAsync(config, _settings); // UPDATED CALL
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
 
             var buttonContentPanel = new StackPanel { Orientation = Orientation.Vertical };
@@ -129,7 +130,8 @@ public partial class MainWindow
         }
     }
 
-    private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config)
+    // Update method signature to accept SettingsManager
+    private static Task<string> GetSystemDisplayImagePathAsync(SystemManager config, SettingsManager settings) // ADDED PARAMETER
     {
         var appBaseDir = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = Path.Combine(appBaseDir, "images", "systems");
@@ -146,8 +148,8 @@ public partial class MainWindow
             }
         }
 
-        // Get settings for fuzzy matching
-        var settings = App.Settings;
+        // Get settings for fuzzy matching (now from the passed parameter)
+        // var settings = App.Settings; // REMOVED: settings is now a parameter
         var enableFuzzyMatching = settings.EnableFuzzyMatching;
         var similarityThreshold = settings.FuzzyMatchingThreshold;
 

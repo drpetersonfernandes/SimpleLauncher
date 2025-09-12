@@ -22,10 +22,11 @@ public static class FindCoverImage
     /// <param name="fileNameWithoutExtension">The file name without its extension for which the cover image is being searched.</param>
     /// <param name="systemName">The name of the system associated with the file, used to determine the appropriate image directory.</param>
     /// <param name="systemManager">The system manager instance that provides settings like system image folder configurations.</param>
+    /// <param name="settings">The SettingsManager instance for fuzzy matching configuration.</param> // ADDED PARAMETER
     /// <returns>
     /// A string representing the file path of the cover image if found, or a global default image path when no matches are available.
     /// </returns>
-    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager)
+    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager, SettingsManager settings) // UPDATED METHOD SIGNATURE
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
         var imageExtensions = GetImageExtensions.GetExtensions();
@@ -51,11 +52,11 @@ public static class FindCoverImage
                     return imagePath; // Return the found path (which is already resolved)
             }
 
-            var settings = App.Settings;
+            // var settings = App.Settings; // REMOVED: settings is now a parameter
             var enableFuzzyMatching = false;
             var similarityThreshold = 0.8;
 
-            if (settings != null)
+            if (settings != null) // Use the passed settings instance
             {
                 enableFuzzyMatching = settings.EnableFuzzyMatching;
                 similarityThreshold = settings.FuzzyMatchingThreshold;
@@ -63,7 +64,7 @@ public static class FindCoverImage
             else
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "App.Settings was null in FindCoverImage. Using default fuzzy matching settings.");
+                _ = LogErrors.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
             }
 
             // 2. If no exact match and fuzzy matching is enabled, check for similar filenames

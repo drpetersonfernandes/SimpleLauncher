@@ -165,7 +165,7 @@ public partial class GlobalSearchWindow
                         MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
                         SystemName = systemManager.SystemName,
                         EmulatorManager = systemManager.Emulators.FirstOrDefault(),
-                        CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager)
+                        CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager, _settings)
                     };
                     results.Add(searchResultItem);
 

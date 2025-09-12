@@ -47,7 +47,7 @@ public class GameButtonFactory(
         var selectedSystemManager = systemManager;
 
         // Pass the original filename without extension for image lookup
-        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager);
+        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
 
         // Use the new ImageLoader to load the image and get the isDefault flag
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);

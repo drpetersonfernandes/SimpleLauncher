@@ -41,14 +41,51 @@ public partial class FavoritesWindow
 
         App.ApplyThemeToWindow(this);
 
-        // Load favorites
-        var favorites = LoadFavorites();
+        // Load favorites (now uses the injected manager)
+        LoadFavoritesData();
 
         // Delete missing entries
-        DeleteMissingFavorites(favorites);
+        DeleteMissingFavorites(_favoriteList);
 
         // Calculate file sizes
         _ = CalculateFileSizeAsync();
+    }
+
+    private void LoadFavoritesData()
+    {
+        FavoritesDataGrid.ItemsSource = _favoriteList;
+
+        // Create all Favorite objects and add to _favoriteList from the injected manager's list
+        foreach (var favoriteConfigItem in _favoritesManager.FavoriteList) // Use the injected manager's list
+        {
+            // Find machine description if available
+            var machine = _machines.FirstOrDefault(m =>
+                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
+                    StringComparison.OrdinalIgnoreCase));
+            var machineDescription = machine?.Description ?? string.Empty;
+
+            // Retrieve the system manager for the favorite
+            var systemManager = _systemManagers.FirstOrDefault(config =>
+                config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
+
+            // Get the default emulator (the first one in the list)
+            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+
+            // Get the cover image path for the favorite
+            var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
+
+            var favoriteItem = new Favorite
+            {
+                FileName = favoriteConfigItem.FileName,
+                SystemName = favoriteConfigItem.SystemName,
+                MachineDescription = machineDescription,
+                DefaultEmulator = defaultEmulator,
+                CoverImage = coverImagePath,
+                FileSizeBytes = -1 // Initial value: "Calculating..."
+            };
+
+            _favoriteList.Add(favoriteItem);
+        }
     }
 
     private ObservableCollection<Favorite> LoadFavorites()
@@ -116,8 +153,8 @@ public partial class FavoritesWindow
             favorites.Remove(item);
         }
 
-        // Update the manager with the current collection
-        _favoritesManager.FavoriteList = favorites;
+        // Update the injected manager with the current collection and save
+        _favoritesManager.FavoriteList = favorites; // Ensure the singleton instance is updated
         _favoritesManager.SaveFavorites();
 
         // Explicitly refresh the data grid binding to ensure UI updates
@@ -190,7 +227,7 @@ public partial class FavoritesWindow
         }
         else
         {
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig, _settings);
         }
     }
 

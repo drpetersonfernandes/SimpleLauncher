@@ -568,9 +568,6 @@ public partial class MainWindow
         var globalSearchWindow =
             new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this);
         globalSearchWindow.Show();
-
-        _favoritesManager = FavoritesManager.LoadFavorites();
-        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
@@ -589,9 +586,6 @@ public partial class MainWindow
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this);
         favoritesWindow.Show();
-
-        _favoritesManager = FavoritesManager.LoadFavorites();
-        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
@@ -603,9 +597,6 @@ public partial class MainWindow
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager,
             _playHistoryManager, this);
         playHistoryWindow.Show();
-
-        _favoritesManager = FavoritesManager.LoadFavorites();
-        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
     }
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)

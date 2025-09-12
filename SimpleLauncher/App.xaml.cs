@@ -16,7 +16,8 @@ namespace SimpleLauncher;
 
 public partial class App : IDisposable
 {
-    public static SettingsManager Settings { get; private set; }
+    // Make SettingsManager an instance property, it will be injected.
+    // public static SettingsManager Settings { get; private set; } // REMOVE THIS STATIC PROPERTY
     public static IServiceProvider ServiceProvider { get; private set; }
     private static IConfiguration Configuration { get; set; }
 
@@ -40,6 +41,12 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("StatsClient");
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
+
+        // Register Managers as singletons
+        serviceCollection.AddSingleton<SettingsManager>(); // SettingsManager loads its config in its constructor
+        serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites()); // Load once at startup
+        serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory()); // Load once at startup
+
         ServiceProvider = serviceCollection.BuildServiceProvider();
 
         // --- Single Instance Check ---
@@ -93,12 +100,22 @@ public partial class App : IDisposable
 
         Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-        Settings = new SettingsManager();
-        ApplyTheme(Settings.BaseTheme, Settings.AccentColor);
-        ApplyLanguage(Settings.Language);
+        // Settings = new SettingsManager(); // REMOVE: SettingsManager is now injected
+        // ApplyTheme(Settings.BaseTheme, Settings.AccentColor); // Will be done in MainWindow
+        // ApplyLanguage(Settings.Language); // Will be done in MainWindow
+
+        // Get the singleton SettingsManager instance
+        var settingsManager = ServiceProvider.GetRequiredService<SettingsManager>();
+        ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
+        ApplyLanguage(settingsManager.Language);
 
         // --- Initialize services that need configuration ---
         GameLauncher.Initialize(Configuration); // This will call MountZipFiles.Configure
+
+        // Manually create and show the MainWindow using DI
+        var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
+        Current.MainWindow = mainWindow;
+        mainWindow.Show();
 
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization
@@ -334,8 +351,10 @@ public partial class App : IDisposable
 
     public static void ApplyThemeToWindow(Window window)
     {
-        var baseTheme = Settings.BaseTheme;
-        var accentColor = Settings.AccentColor;
+        // Get the singleton SettingsManager instance
+        var settings = ServiceProvider.GetRequiredService<SettingsManager>();
+        var baseTheme = settings.BaseTheme;
+        var accentColor = settings.AccentColor;
         try
         {
             ThemeManager.Current.ChangeTheme(window, $"{baseTheme}.{accentColor}");
@@ -350,9 +369,11 @@ public partial class App : IDisposable
     public static void ChangeTheme(string baseTheme, string accentColor)
     {
         ApplyTheme(baseTheme, accentColor);
-        Settings.BaseTheme = baseTheme;
-        Settings.AccentColor = accentColor;
-        Settings.Save();
+        // Get the singleton SettingsManager instance
+        var settings = ServiceProvider.GetRequiredService<SettingsManager>();
+        settings.BaseTheme = baseTheme;
+        settings.AccentColor = accentColor;
+        settings.Save();
 
         DebugLogger.Log("Theme has been applied.");
         DebugLogger.Log($"Saved theme settings: {baseTheme}.{accentColor}");

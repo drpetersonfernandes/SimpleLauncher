@@ -192,7 +192,7 @@ public class GameListFactory(
                     return;
                 }
 
-                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig);
+                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig, _settings);
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 

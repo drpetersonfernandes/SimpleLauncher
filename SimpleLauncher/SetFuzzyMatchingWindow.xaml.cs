@@ -2,12 +2,13 @@ using System;
 using System.Globalization;
 using System.Windows;
 using ControlzEx.Theming;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
+public partial class SetFuzzyMatchingWindow
 {
     private readonly SettingsManager _settings;
 
@@ -17,6 +18,8 @@ public partial class SetFuzzyMatchingWindow // Inherit from MetroWindow
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
         // Apply Theme
+        // Get the singleton SettingsManager instance for theme application
+        App.ServiceProvider.GetRequiredService<SettingsManager>();
         var detectedTheme = ThemeManager.Current.DetectTheme(this);
         if (detectedTheme != null)
         {

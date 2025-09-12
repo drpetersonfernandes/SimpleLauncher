@@ -1,3 +1,4 @@
+using System;
 using System.Windows;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
@@ -12,7 +13,7 @@ public partial class SetGamepadDeadZoneWindow
     {
         InitializeComponent();
 
-        _settingsManager = settings;
+        _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         LoadDeadZones();
     }
 

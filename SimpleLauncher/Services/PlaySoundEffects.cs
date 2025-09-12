@@ -2,6 +2,8 @@
 using System;
 using System.IO;
 using System.Windows.Media;
+using Microsoft.Extensions.DependencyInjection; // Add this using directive
+using SimpleLauncher.Managers; // Add this using directive
 
 namespace SimpleLauncher.Services;
 
@@ -22,7 +24,9 @@ public static class PlaySoundEffects
 
     public static void PlayNotificationSound()
     {
-        var settings = App.Settings;
+        // Retrieve SettingsManager from the service provider
+        // This is acceptable for static utility classes that need singleton dependencies.
+        var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
         if (!settings.EnableNotificationSound)
         {
             return;

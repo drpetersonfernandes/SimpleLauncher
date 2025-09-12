@@ -58,9 +58,6 @@ public partial class MainWindow
         // Initialize TrayIconManager
         _trayIconManager = new TrayIconManager(this, _settings);
 
-        // Initialize PlayHistory
-        _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-
         // Check for required files
         CheckForRequiredFiles.CheckFiles();
     }

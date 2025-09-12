@@ -27,7 +27,7 @@ public partial class EditSystemWindow
     {
         InitializeComponent();
 
-        _settings = settings;
+        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
         _ = LoadXml();
 

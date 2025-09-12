@@ -39,7 +39,49 @@ public partial class PlayHistoryWindow
         _mainWindow = mainWindow;
 
         App.ApplyThemeToWindow(this);
-        LoadPlayHistory();
+        LoadPlayHistoryData();
+    }
+
+    private void LoadPlayHistoryData()
+    {
+        _playHistoryList = new ObservableCollection<PlayHistoryItem>();
+
+        foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList) // Use the injected manager's list
+        {
+            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+            var machineDescription = machine?.Description ?? string.Empty;
+            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
+            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+            var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
+
+            var playHistoryItem = new PlayHistoryItem // Create a new instance
+            {
+                FileName = historyItemConfig.FileName,
+                SystemName = historyItemConfig.SystemName,
+                TotalPlayTime = historyItemConfig.TotalPlayTime,
+                TimesPlayed = historyItemConfig.TimesPlayed,
+                LastPlayDate = historyItemConfig.LastPlayDate,
+                LastPlayTime = historyItemConfig.LastPlayTime,
+                MachineDescription = machineDescription,
+                DefaultEmulator = defaultEmulator,
+                CoverImage = coverImagePath,
+                FileSizeBytes = -1 // Initialize to the "Calculating..." state
+            };
+            _playHistoryList.Add(playHistoryItem);
+        }
+
+        // Set the ItemsSource first
+        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+        var collectionOfEntries = _playHistoryList.ToList();
+
+        // Delete missing entries
+        DeleteMissingEntries(collectionOfEntries);
+
+        // Sort by date
+        SortByDate();
+
+        // Calculate file sizes for the remaining entries
+        _ = LoadFileSizesAsync(_playHistoryList.ToList());
     }
 
     private void LoadPlayHistory()
@@ -108,8 +150,8 @@ public partial class PlayHistoryWindow
             DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
         }
 
-        // Update the manager with the current collection
-        _playHistoryManager.PlayHistoryList = _playHistoryList;
+        // Update the injected manager with the current collection and save
+        _playHistoryManager.PlayHistoryList = _playHistoryList; // Ensure the singleton instance is updated
         _playHistoryManager.SavePlayHistory();
 
         // Explicitly refresh the data grid binding to ensure UI updates
@@ -217,7 +259,7 @@ public partial class PlayHistoryWindow
         else
         {
             // Use FindCoverImage which already handles system-specific paths and fuzzy matching
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig, _settings);
         }
     }
 
@@ -386,10 +428,11 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
+            // Load the latest data from the singleton instance
+            // _playHistoryManager = PlayHistoryManager.LoadPlayHistory(); // REMOVE: Already injected and updated by AddOrUpdatePlayHistoryItem
             var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
 
-            foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList)
+            foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
             {
                 var machine = _machines.FirstOrDefault(m =>
                     m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
@@ -399,10 +442,6 @@ public partial class PlayHistoryWindow
 
                 var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
                 var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
-
-                // The filePath variable and its associated check are removed from here.
-                // All items from historyItemConfig will be added.
-                // LoadFileSizesAsync will determine if the file exists and set the size to N/A if not.
 
                 var playHistoryItem = new PlayHistoryItem
                 {

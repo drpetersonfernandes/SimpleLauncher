@@ -193,12 +193,35 @@ public class GamePadController : IDisposable
     {
         try
         {
+            // First, signal the running update loop to stop.
+            // We do this in a preliminary lock to ensure atomicity of the check-and-set.
             lock (_stateLock)
             {
                 if (_isDisposed) return;
 
-                Stop(); // Stop the timer first
-                _timer?.Dispose(); // Dispose the timer
+                Stop(); // Sets IsRunning = false and stops new timer invocations.
+            }
+
+            // Now, dispose the timer and wait for any in-flight callback to complete.
+            // This is done OUTSIDE the lock to prevent a deadlock, as the Update method
+            // also acquires _stateLock.
+            using (var waitHandle = new ManualResetEvent(false))
+            {
+                if (_timer?.Dispose(waitHandle) ?? false)
+                {
+                    // Wait for the timer to signal that the final callback has completed.
+                    // A timeout is a safeguard against unforeseen issues.
+                    waitHandle.WaitOne(5000);
+                }
+            }
+
+            // At this point, we are guaranteed that the Update() method is no longer running.
+            // We can now safely dispose of the remaining shared resources.
+            lock (_stateLock)
+            {
+                // Check again in case Dispose was called concurrently.
+                if (_isDisposed) return;
+
                 _directInputController?.Unacquire();
                 _directInputController?.Dispose(); // Dispose the joystick
                 _directInputController = null;
