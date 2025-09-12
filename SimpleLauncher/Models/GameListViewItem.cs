@@ -1,5 +1,6 @@
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Models;
@@ -89,8 +90,8 @@ public class GameListViewItem : INotifyPropertyChanged
 
     // This is the property bound in the DataGrid (XAML uses "FileSize")
     public string FileSize =>
-        _internalFileSizeBytes == -1 ? "Calculating..." :
-        _internalFileSizeBytes < -1 ? "N/A" : // For errors or file not found
+        _internalFileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
+        _internalFileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "N/A" : // Show "N/A" for other negative values (errors/not found)
         FormatFileSize.FormatToMb(_internalFileSizeBytes);
 
     public event PropertyChangedEventHandler PropertyChanged;

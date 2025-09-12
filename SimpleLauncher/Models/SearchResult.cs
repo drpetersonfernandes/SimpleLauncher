@@ -2,6 +2,7 @@ using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using System.Windows;
 
 namespace SimpleLauncher.Models;
 
@@ -49,8 +50,8 @@ public class SearchResult : INotifyPropertyChanged
     public string DefaultEmulator => EmulatorManager?.EmulatorName ?? "No Default Emulator";
 
     public string FormattedFileSize =>
-        _fileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
-        _fileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
+        _fileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
+        _fileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "N/A" : // Show "N/A" for other negative values (errors/not found)
         FormatFileSize.FormatToMb(_fileSizeBytes); // Otherwise, format the size
 
     public event PropertyChangedEventHandler PropertyChanged;

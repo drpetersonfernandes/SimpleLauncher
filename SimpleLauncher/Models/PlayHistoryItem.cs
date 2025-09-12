@@ -2,7 +2,8 @@ using System;
 using MessagePack;
 using SimpleLauncher.Services;
 using System.ComponentModel; // Required for INotifyPropertyChanged
-using System.Runtime.CompilerServices; // Required for CallerMemberName
+using System.Runtime.CompilerServices;
+using System.Windows; // Required for CallerMemberName
 
 namespace SimpleLauncher.Models;
 
@@ -57,8 +58,8 @@ public class PlayHistoryItem : INotifyPropertyChanged
     // This is the property bound in the DataGrid
     [IgnoreMember]
     public string FormattedFileSize =>
-        _internalFileSizeBytes == -1 ? "Calculating..." : // Show "Calculating..." if size is -1
-        _internalFileSizeBytes < -1 ? "N/A" : // Show "N/A" for other negative values (errors/not found)
+        _internalFileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
+        _internalFileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "N/A" : // Show "N/A" for other negative values (errors/not found)
         FormatFileSize.FormatToMb(_internalFileSizeBytes); // Otherwise, format the size
 
     [IgnoreMember]
