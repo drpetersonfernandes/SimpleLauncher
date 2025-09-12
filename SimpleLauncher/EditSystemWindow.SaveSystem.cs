@@ -113,6 +113,7 @@ public partial class EditSystemWindow
 
             // Sanitize SystemNameTextBox.Text immediately
             systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
+            SystemNameTextBox.Text = systemNameText;
 
             // --- Collect all system folders ---
             var allSystemFolders = new List<string> { systemFolderText };

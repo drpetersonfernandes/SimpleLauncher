@@ -223,7 +223,10 @@ public partial class EditSystemWindow
         // First, sanitize the input (though this is primarily handled in SaveSystemButton_Click)
         systemNameText = SanitizeInputSystemName.SanitizeFolderName(systemNameText);
 
-        if (!string.IsNullOrEmpty(systemNameText)) return false;
+        if (!string.IsNullOrEmpty(systemNameText))
+        {
+            return false;
+        }
 
         // Notify user
         MessageBoxLibrary.SystemNameCanNotBeEmptyMessageBox();
