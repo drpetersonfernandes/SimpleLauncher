@@ -599,24 +599,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
                 PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
-                var uniqueFileNames = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
-                foreach (var folder in selectedConfig.SystemFolders)
+                // Display SystemInfo and get the validation result. Game count is now handled inside this method.
+                var validationResult = await DisplaySystemInformation.DisplaySystemInfo(selectedConfig, _gameFileGrid);
+
+                // If validation failed, show the message box with aggregated errors
+                if (!validationResult.IsValid)
                 {
-                    var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                    if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
-                        selectedConfig.FileFormatsToSearch == null) continue;
-
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
-                    foreach (var file in filesInFolder)
+                    var errorMessages = new System.Text.StringBuilder();
+                    foreach (var msg in validationResult.ErrorMessages)
                     {
-                        uniqueFileNames.Add(Path.GetFileName(file));
+                        errorMessages.Append(msg);
                     }
+
+                    MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
                 }
-
-                var gameCount = uniqueFileNames.Count;
-
-                // Display SystemInfo for that system (pass the raw string for display, resolved for logic within DisplaySystemInfo)
-                await DisplaySystemInformation.DisplaySystemInfo(selectedConfig.PrimarySystemFolder, gameCount, selectedConfig, _gameFileGrid);
 
                 // Resolve the system image folder path using PathHelper
                 var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);

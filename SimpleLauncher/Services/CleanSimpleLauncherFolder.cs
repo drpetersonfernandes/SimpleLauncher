@@ -11,7 +11,6 @@ public static class CleanSimpleLauncherFolder
     [
         Path.Combine(AppDirectory, "temp"),
         Path.Combine(AppDirectory, "temp2"),
-        Path.Combine(Path.GetTempPath(), "SimpleLauncher"),
         Path.Combine(AppDirectory, "tools", "BatchVerifyCHDFiles"),
         Path.Combine(AppDirectory, "tools", "BatchVerifyCompressedFiles"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "de"),
@@ -24,7 +23,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD", "x86"),
         Path.Combine(AppDirectory, "resources"),
         Path.Combine(AppDirectory, "de"),
-        Path.Combine(Path.GetTempPath(), "SimpleZipDrive")
+        Path.Combine(Path.GetTempPath(), "SimpleZipDrive"),
+        Path.Combine(Path.GetTempPath(), "SimpleLauncher")
     ];
 
     private static readonly string[] FilesToClean =
@@ -163,7 +163,10 @@ public static class CleanSimpleLauncherFolder
 
     private static void DeleteDirectorySafely(string path)
     {
-        if (!Directory.Exists(path)) return;
+        if (!Directory.Exists(path))
+        {
+            return;
+        }
 
         try
         {

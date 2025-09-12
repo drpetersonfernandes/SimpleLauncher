@@ -15,10 +15,4 @@
   <BaseTheme>Light</BaseTheme>
   <AccentColor>Blue</AccentColor>
   <Language>en</Language>
-  <SystemPlayTimes>
-    <SystemPlayTime>
-      <SystemName/>
-      <PlayTime/>
-    </SystemPlayTime>
-  </SystemPlayTimes>
 </Settings>

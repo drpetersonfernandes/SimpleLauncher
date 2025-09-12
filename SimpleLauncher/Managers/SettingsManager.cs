@@ -221,7 +221,7 @@ public class SettingsManager
     public void Save()
     {
         var systemPlayTimesElement = new XElement("SystemPlayTimes");
-        foreach (var systemPlayTime in SystemPlayTimes)
+        foreach (var systemPlayTime in SystemPlayTimes.Where(static s => !string.IsNullOrWhiteSpace(s.SystemName)))
         {
             systemPlayTimesElement.Add(new XElement("SystemPlayTime",
                 new XElement("SystemName", systemPlayTime.SystemName),

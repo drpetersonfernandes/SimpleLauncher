@@ -393,8 +393,6 @@ public static class GameLauncher
             UseShellExecute = true // UseShellExecute=true is typical for launching .lnk
         };
 
-        // Working directory is often ignored for .lnk files when UseShellExecute is true,
-        // but setting it doesn't hurt.
         try
         {
             var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
@@ -408,7 +406,7 @@ public static class GameLauncher
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
 
-            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
+            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
 
         DebugLogger.Log("LaunchShortcutFile:\n\n");
@@ -442,16 +440,9 @@ public static class GameLauncher
                  // Notify developer
                  var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
                                    $"Shortcut file: {psi.FileName}\n" +
-                                   $"Exit code {process.ExitCode}";
-                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-                 {
-                     // Notify user
-                     MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-                 }
+                                   $"Exit code {process.ExitCode}\n\n" +
+                                   $"User was not notified.";
+                 _ = LogErrors.LogErrorAsync(null, errorDetail);
             }
         }
         catch (Exception ex)
@@ -459,16 +450,9 @@ public static class GameLauncher
             // Notify developer
             var errorDetail = $"Exception launching the shortcut file.\n" +
                               $"Shortcut file: {psi.FileName}\n" +
-                              $"Exception: {ex.Message}";
-            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
-            var contextMessage = $"{errorDetail}\n{userNotified}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
-            {
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-            }
+                              $"Exception: {ex.Message}\n\n" +
+                              $"User was not notified.";
+            _ = LogErrors.LogErrorAsync(ex, errorDetail);
         }
     }
 
@@ -775,6 +759,18 @@ public static class GameLauncher
             {
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            }
+        }
+        finally
+        {
+            try
+            {
+                // Delete the temporary file if it exists
+                Directory.Delete(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), true);
+            }
+            catch (Exception)
+            {
+                // Ignore
             }
         }
     }

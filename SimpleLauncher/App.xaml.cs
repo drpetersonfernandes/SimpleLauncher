@@ -16,8 +16,6 @@ namespace SimpleLauncher;
 
 public partial class App : IDisposable
 {
-    // Make SettingsManager an instance property, it will be injected.
-    // public static SettingsManager Settings { get; private set; } // REMOVE THIS STATIC PROPERTY
     public static IServiceProvider ServiceProvider { get; private set; }
     private static IConfiguration Configuration { get; set; }
 
@@ -43,9 +41,10 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("SupportWindowClient");
 
         // Register Managers as singletons
-        serviceCollection.AddSingleton<SettingsManager>(); // SettingsManager loads its config in its constructor
-        serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites()); // Load once at startup
-        serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory()); // Load once at startup
+        serviceCollection.AddSingleton<SettingsManager>();
+        serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
+        serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
+        serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
 

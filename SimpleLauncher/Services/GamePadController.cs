@@ -549,12 +549,14 @@ public class GamePadController : IDisposable
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
 
-            // Clean up potentially invalid state
-            _directInputController?.Unacquire();
-            _directInputController?.Dispose();
-            _directInputController = null;
-            _playStationControllerGuid = Guid.Empty;
-            // Do NOT dispose _directInput here, let the next attempt recreate it if needed.
+            // // Clean up potentially invalid state
+            // _directInputController?.Unacquire();
+            // _directInputController?.Dispose();
+            // _directInputController = null;
+            // _playStationControllerGuid = Guid.Empty;
+            // // Do NOT dispose _directInput here, let the next attempt recreate it if needed.
+
+            Stop();
         }
     }
 

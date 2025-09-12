@@ -88,46 +88,6 @@ public partial class FavoritesWindow
         }
     }
 
-    private ObservableCollection<Favorite> LoadFavorites()
-    {
-        var favoritesConfig = FavoritesManager.LoadFavorites();
-        FavoritesDataGrid.ItemsSource = _favoriteList;
-
-        // Create all Favorite objects and add to _favoriteList
-        foreach (var favoriteConfigItem in favoritesConfig.FavoriteList)
-        {
-            // Find machine description if available
-            var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
-                    StringComparison.OrdinalIgnoreCase));
-            var machineDescription = machine?.Description ?? string.Empty;
-
-            // Retrieve the system manager for the favorite
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
-
-            // Get the default emulator (the first one in the list)
-            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
-
-            // Get the cover image path for the favorite
-            var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
-
-            var favoriteItem = new Favorite
-            {
-                FileName = favoriteConfigItem.FileName,
-                SystemName = favoriteConfigItem.SystemName,
-                MachineDescription = machineDescription,
-                DefaultEmulator = defaultEmulator,
-                CoverImage = coverImagePath,
-                FileSizeBytes = -1 // Initial value: "Calculating..."
-            };
-
-            _favoriteList.Add(favoriteItem);
-        }
-
-        return _favoriteList;
-    }
-
     private void DeleteMissingFavorites(ObservableCollection<Favorite> favorites)
     {
         var itemsToRemove = new List<Favorite>();
