@@ -128,7 +128,7 @@ public static class GameLauncher
                 {
                     // Notify the user that XISO mounting is not available on ARM64
                     MessageBoxLibrary.XisoMountNotSupportedOnArm64();
-                    DebugLogger.Log("XISO mount attempt blocked on ARM64 system.");
+                    DebugLogger.Log("XISO mounting is not supported on ARM64 systems.");
                     mainWindow.IsLoadingGames = false;
                     return;
                 }

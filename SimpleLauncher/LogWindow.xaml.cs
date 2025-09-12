@@ -78,6 +78,7 @@ public partial class LogWindow
 
             // Notify user
             MessageBoxLibrary.FailedToCopyLogContent();
+            DebugLogger.Log("Failed to copy log content.");
         }
     }
 }

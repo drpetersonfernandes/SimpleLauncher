@@ -21,6 +21,7 @@ public partial class DownloadImagePackWindow : IDisposable
     private EasyModeManager _manager;
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
+    private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
     public DownloadImagePackWindow()
     {
@@ -257,7 +258,7 @@ public partial class DownloadImagePackWindow : IDisposable
         return true;
     }
 
-    private static bool CreateExtractionFolder(string extractionFolder)
+    private bool CreateExtractionFolder(string extractionFolder)
     {
         try
         {
@@ -277,7 +278,11 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify user
-            MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(ex);
+            MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(_logPath);
+
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error creating the extraction folder.");
+
             return false;
         }
 

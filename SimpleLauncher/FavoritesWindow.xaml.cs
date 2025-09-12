@@ -239,11 +239,7 @@ public partial class FavoritesWindow
 
                 if (favoriteToRemove != null)
                 {
-                    var result = MessageBoxLibrary.DoYouWantToDeleteInvalidFavoriteMessageBox();
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
-                    }
+                    RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
                 }
 
                 return;

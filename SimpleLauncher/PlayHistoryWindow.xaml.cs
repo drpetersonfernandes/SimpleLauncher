@@ -261,14 +261,11 @@ public partial class PlayHistoryWindow
                 var itemToRemove = _playHistoryList.FirstOrDefault(item => item.FileName == selectedItem.FileName && item.SystemName == selectedItem.SystemName);
                 if (itemToRemove != null)
                 {
-                    var result = MessageBoxLibrary.FileNotFoundDoYouWantToRemoveIt();
-                    if (result == MessageBoxResult.Yes)
-                    {
-                        _playHistoryList.Remove(itemToRemove);
-                        _playHistoryManager.PlayHistoryList = _playHistoryList;
-                        _playHistoryManager.SavePlayHistory();
-                        DebugLogger.Log("The entry " + itemToRemove + " was removed from the history.");
-                    }
+                    _playHistoryList.Remove(itemToRemove);
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+
+                    DebugLogger.Log("The entry " + itemToRemove + " was removed from the history.");
                 }
 
                 return;

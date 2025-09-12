@@ -634,6 +634,8 @@ public static class ContextMenuFunctions
             {
                 // Notify the user that they can't screenshot a minimized window.
                 MessageBoxLibrary.CannotScreenshotMinimizedWindowMessageBox();
+                DebugLogger.Log("Cannot take a screenshot of a minimized window.");
+
                 return; // Exit the method gracefully
             }
 
