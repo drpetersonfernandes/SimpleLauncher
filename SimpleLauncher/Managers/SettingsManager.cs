@@ -40,6 +40,8 @@ public class SettingsManager
     public bool EnableFuzzyMatching { get; set; }
     public double FuzzyMatchingThreshold { get; set; }
 
+    public const float DefaultDeadZoneX = 0.05f;
+    public const float DefaultDeadZoneY = 0.02f;
     public bool EnableNotificationSound { get; set; }
     public string CustomNotificationSoundFile { get; set; }
 
@@ -92,14 +94,14 @@ public class SettingsManager
 
             if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
             {
-                deadZoneX = 0.05f;
+                deadZoneX = DefaultDeadZoneX;
             }
 
             DeadZoneX = deadZoneX;
 
             if (!float.TryParse(settings.Element("DeadZoneY")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneY))
             {
-                deadZoneY = 0.02f;
+                deadZoneY = DefaultDeadZoneY;
             }
 
             DeadZoneY = deadZoneY;
@@ -207,8 +209,8 @@ public class SettingsManager
         BaseTheme = "Light";
         AccentColor = "Blue";
         Language = "en";
-        DeadZoneX = 0.05f;
-        DeadZoneY = 0.02f;
+        DeadZoneX = DefaultDeadZoneX;
+        DeadZoneY = DefaultDeadZoneY;
         ButtonAspectRatio = "Square";
         EnableFuzzyMatching = true;
         FuzzyMatchingThreshold = 0.80;

@@ -42,16 +42,36 @@ public partial class FavoritesWindow
         App.ApplyThemeToWindow(this);
 
         // Load favorites (now uses the injected manager)
-        LoadFavoritesData();
-
-        // Delete missing entries
-        DeleteMissingFavorites(_favoriteList);
-
-        // Calculate file sizes
-        _ = CalculateFileSizeAsync();
+        Loaded += FavoritesWindow_Loaded; // Attach the Loaded event handler
     }
 
-    private void LoadFavoritesData()
+    private async void FavoritesWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        LoadingOverlay.Visibility = Visibility.Visible;
+        LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
+
+        try
+        {
+            await LoadFavoritesDataAsync();
+
+            // Delete missing entries
+            DeleteMissingFavorites(_favoriteList);
+
+            // Calculate file sizes
+            _ = CalculateFileSizeAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
+            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox(); // Re-use an existing message box for a similar error type
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private Task LoadFavoritesDataAsync()
     {
         FavoritesDataGrid.ItemsSource = _favoriteList;
 
@@ -86,6 +106,8 @@ public partial class FavoritesWindow
 
             _favoriteList.Add(favoriteItem);
         }
+
+        return Task.CompletedTask;
     }
 
     private void DeleteMissingFavorites(ObservableCollection<Favorite> favorites)

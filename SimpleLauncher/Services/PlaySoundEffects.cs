@@ -2,9 +2,8 @@
 using System;
 using System.IO;
 using System.Windows.Media;
-using Microsoft.Extensions.DependencyInjection; // Add this using directive
-using SimpleLauncher.Managers; // Add this using directive
-
+using SimpleLauncher.Managers;
+ 
 namespace SimpleLauncher.Services;
 
 public static class PlaySoundEffects
@@ -16,6 +15,17 @@ public static class PlaySoundEffects
     private const string TrashSoundFile = "trash.mp3";
 
     private static MediaPlayer? _currentMediaPlayer;
+    private static SettingsManager? _settingsManager;
+
+    /// <summary>
+    /// Initializes the PlaySoundEffects service with the necessary dependencies.
+    /// This method should be called once during application startup.
+    /// </summary>
+    /// <param name="settings">The application's settings manager.</param>
+    public static void Initialize(SettingsManager settings)
+    {
+        _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
+    }
 
     public static void PlayClickSound()
     {
@@ -24,10 +34,16 @@ public static class PlaySoundEffects
 
     public static void PlayNotificationSound()
     {
-        // Retrieve SettingsManager from the service provider
-        // This is acceptable for static utility classes that need singleton dependencies.
-        var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
-        if (!settings.EnableNotificationSound)
+        if (_settingsManager == null)
+        {
+            // This indicates a setup issue: Initialize was not called or settingsManager was null.
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(new InvalidOperationException("PlaySoundEffects not initialized with SettingsManager."), "Attempted to play notification sound before PlaySoundEffects was initialized.");
+
+            return;
+        }
+
+        if (!_settingsManager.EnableNotificationSound)
         {
             return;
         }
@@ -35,7 +51,7 @@ public static class PlaySoundEffects
         // Use the custom sound file from settings.
         // If CustomNotificationSoundFile is empty or null, fall back to a default or do nothing.
         // For now, assume CustomNotificationSoundFile always has a valid default.
-        PlaySound(settings.CustomNotificationSoundFile);
+        PlaySound(_settingsManager.CustomNotificationSoundFile);
     }
 
     public static void PlayShutterSound()
@@ -53,7 +69,7 @@ public static class PlaySoundEffects
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, "PlayConfiguredSound called with null or empty soundFileName.");
+            _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."), "Attempted to play sound with an empty filename.");
 
             return;
         }

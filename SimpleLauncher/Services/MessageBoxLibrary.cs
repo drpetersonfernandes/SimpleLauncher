@@ -34,6 +34,28 @@ internal static class MessageBoxLibrary
         }
     }
 
+    internal static void LoadingHistory()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            // This method is primarily for the DynamicResource lookup, the actual message is set in XAML/code-behind.
+        }
+    }
+
+    internal static void LoadingFavorites()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            // This method is primarily for the DynamicResource lookup, actual message is set in XAML/code-behind.
+        }
+    }
+
     internal static void CouldNotSaveScreenshotMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);

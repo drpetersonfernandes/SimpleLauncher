@@ -36,17 +36,13 @@ public partial class SetGamepadDeadZoneWindow
 
     private void RevertDeadZoneButton_Click(object sender, RoutedEventArgs e)
     {
-        // Define default values.
-        const float defaultDeadZoneX = 0.05f;
-        const float defaultDeadZoneY = 0.02f;
-
         // Revert settings to the defaults.
-        _settingsManager.DeadZoneX = defaultDeadZoneX;
-        _settingsManager.DeadZoneY = defaultDeadZoneY;
+        _settingsManager.DeadZoneX = SettingsManager.DefaultDeadZoneX;
+        _settingsManager.DeadZoneY = SettingsManager.DefaultDeadZoneY;
 
         // Update the sliders to show the default values.
-        DeadZoneXSlider.Value = defaultDeadZoneX;
-        DeadZoneYSlider.Value = defaultDeadZoneY;
+        DeadZoneXSlider.Value = SettingsManager.DefaultDeadZoneX;
+        DeadZoneYSlider.Value = SettingsManager.DefaultDeadZoneY;
 
         _settingsManager.Save();
     }

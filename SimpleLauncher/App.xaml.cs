@@ -108,6 +108,9 @@ public partial class App : IDisposable
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
         ApplyLanguage(settingsManager.Language);
 
+        // --- Initialize PlaySoundEffects with the SettingsManager ---
+        PlaySoundEffects.Initialize(settingsManager);
+
         // --- Initialize services that need configuration ---
         GameLauncher.Initialize(Configuration); // This will call MountZipFiles.Configure
 

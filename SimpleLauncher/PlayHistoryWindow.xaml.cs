@@ -39,10 +39,37 @@ public partial class PlayHistoryWindow
         _mainWindow = mainWindow;
 
         App.ApplyThemeToWindow(this);
-        LoadPlayHistoryData();
+        Loaded += PlayHistoryWindow_Loaded; // Attach the Loaded event handler
     }
 
-    private void LoadPlayHistoryData()
+    private async void PlayHistoryWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...";
+
+            try
+            {
+                await LoadPlayHistoryDataAsync();
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
+                MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox(); // Re-use an existing message box for a similar error type
+            }
+            finally
+            {
+                LoadingOverlay.Visibility = Visibility.Collapsed;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in the method PlayHistoryWindow_Loaded.");
+        }
+    }
+
+    private async Task LoadPlayHistoryDataAsync()
     {
         _playHistoryList = new ObservableCollection<PlayHistoryItem>();
 
@@ -81,7 +108,7 @@ public partial class PlayHistoryWindow
         SortByDate();
 
         // Calculate file sizes for the remaining entries
-        _ = LoadFileSizesAsync(_playHistoryList.ToList());
+        await LoadFileSizesAsync(_playHistoryList.ToList()); // Await this task
     }
 
     private void DeleteMissingEntries(List<PlayHistoryItem> collectionOfEntries)
@@ -104,12 +131,10 @@ public partial class PlayHistoryWindow
         foreach (var itemToRemove in itemsToDelete)
         {
             _playHistoryList.Remove(itemToRemove);
+            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
+            _playHistoryManager.SavePlayHistory();
             DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
         }
-
-        // Update the injected manager with the current collection and save
-        _playHistoryManager.PlayHistoryList = _playHistoryList; // Ensure the singleton instance is updated
-        _playHistoryManager.SavePlayHistory();
 
         // Explicitly refresh the data grid binding to ensure UI updates
         PlayHistoryDataGrid.ItemsSource = null;
@@ -341,7 +366,7 @@ public partial class PlayHistoryWindow
             if (itemToRemove != null)
             {
                 _playHistoryList.Remove(itemToRemove);
-                _playHistoryManager.PlayHistoryList = _playHistoryList;
+                _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
                 _playHistoryManager.SavePlayHistory();
             }
 
@@ -513,7 +538,7 @@ public partial class PlayHistoryWindow
             PlaySoundEffects.PlayTrashSound();
 
             _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
+            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
             _playHistoryManager.SavePlayHistory();
         }
         else
