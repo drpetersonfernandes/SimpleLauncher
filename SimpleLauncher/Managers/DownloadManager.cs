@@ -663,6 +663,6 @@ public class DownloadManager : IDisposable
 
         _cancellationTokenSource?.Dispose();
         _disposed = true;
-        GC.SuppressFinalize(this); // Keep this if you add a finalizer later
+        GC.SuppressFinalize(this);
     }
 }
