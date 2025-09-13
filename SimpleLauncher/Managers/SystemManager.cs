@@ -52,7 +52,6 @@ public partial class SystemManager
 
                             // Notify user and ask to restore
                             var restoreResult = MessageBoxLibrary.WouldYouLikeToRestoreTheLastBackupMessageBox();
-
                             if (restoreResult == MessageBoxResult.Yes)
                             {
                                 try

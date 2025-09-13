@@ -222,7 +222,10 @@ public static partial class UpdateChecker
         try
         {
             var result = MessageBoxLibrary.DoYouWantToUpdateMessageBox(currentVersion, latestVersion, owner);
-            if (result != MessageBoxResult.Yes) return;
+            if (result != MessageBoxResult.Yes)
+            {
+                return;
+            }
 
             logWindow = new UpdateLogWindow();
             logWindow.Show();

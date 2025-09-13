@@ -4,7 +4,7 @@
   <GamesPerPage>200</GamesPerPage>
   <ViewMode>GridView</ViewMode>
   <ShowGames>ShowAll</ShowGames>
-  <ActivateGamepad>false</ActivateGamepad>
+  <EnableGamePadNavigation>false</EnableGamePadNavigation>
   <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
   <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
   <MainWindowWidth>1500</MainWindowWidth>

@@ -84,49 +84,6 @@ public partial class PlayHistoryWindow
         _ = LoadFileSizesAsync(_playHistoryList.ToList());
     }
 
-    private void LoadPlayHistory()
-    {
-        var playHistoryConfig = PlayHistoryManager.LoadPlayHistory();
-        _playHistoryList = new ObservableCollection<PlayHistoryItem>();
-
-        foreach (var historyItemConfig in playHistoryConfig.PlayHistoryList)
-        {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-            var machineDescription = machine?.Description ?? string.Empty;
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
-            var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
-
-            var playHistoryItem = new PlayHistoryItem // Create a new instance
-            {
-                FileName = historyItemConfig.FileName,
-                SystemName = historyItemConfig.SystemName,
-                TotalPlayTime = historyItemConfig.TotalPlayTime,
-                TimesPlayed = historyItemConfig.TimesPlayed,
-                LastPlayDate = historyItemConfig.LastPlayDate,
-                LastPlayTime = historyItemConfig.LastPlayTime,
-                MachineDescription = machineDescription,
-                DefaultEmulator = defaultEmulator,
-                CoverImage = coverImagePath,
-                FileSizeBytes = -1 // Initialize to the "Calculating..." state
-            };
-            _playHistoryList.Add(playHistoryItem);
-        }
-
-        // Set the ItemsSource first
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-        var collectionOfEntries = _playHistoryList.ToList();
-
-        // Delete missing entries
-        DeleteMissingEntries(collectionOfEntries);
-
-        // Sort by date
-        SortByDate();
-
-        // Calculate file sizes for the remaining entries
-        _ = LoadFileSizesAsync(_playHistoryList.ToList());
-    }
-
     private void DeleteMissingEntries(List<PlayHistoryItem> collectionOfEntries)
     {
         var itemsToDelete = new List<PlayHistoryItem>();
@@ -644,21 +601,21 @@ public partial class PlayHistoryWindow
     {
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
 
-        if (result != MessageBoxResult.Yes)
+        if (result == MessageBoxResult.Yes)
+        {
+            _playHistoryList.Clear();
+            _playHistoryManager.PlayHistoryList = _playHistoryList;
+            _playHistoryManager.SavePlayHistory();
+
+            PlaySoundEffects.PlayTrashSound();
+
+            // Clear preview image
+            PreviewImage.Source = null;
+        }
+        else
         {
             return;
         }
-
-        // Clear all items from the collection
-        _playHistoryList.Clear();
-
-        _playHistoryManager.PlayHistoryList = _playHistoryList;
-        _playHistoryManager.SavePlayHistory();
-
-        PlaySoundEffects.PlayTrashSound();
-
-        // Clear preview image
-        PreviewImage.Source = null;
     }
 
     private async void LaunchGame_Click(object sender, RoutedEventArgs e)

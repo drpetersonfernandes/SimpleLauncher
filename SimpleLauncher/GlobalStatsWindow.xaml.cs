@@ -84,10 +84,13 @@ public partial class GlobalStatsWindow
             void DoYouWantToSaveTheReportMessageBox()
             {
                 var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
-
                 if (result == MessageBoxResult.Yes)
                 {
                     SaveReport(_globalStats, _systemStats);
+                }
+                else
+                {
+                    return;
                 }
             }
         }

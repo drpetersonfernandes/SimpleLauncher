@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Models;
@@ -94,15 +95,14 @@ public class HelpUserManager
             // If any entry failed to parse, notify the user once.
             if (entryParseErrorOccurred)
             {
-                // MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox() returns:
-                // - true if the user chooses "No" (do not reinstall)
-                // - false if the user chooses "Yes" (reinstall and shutdown is initiated)
-                var userDeclinedReinstall = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
-                if (!userDeclinedReinstall) // User chose "Yes" to reinstall
+                var result = MessageBoxLibrary.CouldNotLoadHelpUserXmlMessageBox();
+                if (result == MessageBoxResult.Yes)
                 {
-                    // ReinstallSimpleLauncher.StartUpdaterAndShutdown() was called.
-                    // The application is expected to shut down. We can set Systems to empty and return.
-                    Systems = [];
+                    ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+                }
+                else
+                {
+                    Systems = []; // Return an empty list
                     return;
                 }
                 // If user declined reinstall, proceed with any systems that were successfully parsed.

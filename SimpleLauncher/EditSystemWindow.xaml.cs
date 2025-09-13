@@ -501,10 +501,15 @@ public partial class EditSystemWindow
             void DoYouWanToDeleteSystemMessageBox()
             {
                 var result = MessageBoxLibrary.AreYouSureDoYouWantToDeleteThisSystemMessageBox();
-                if (result != MessageBoxResult.Yes) return;
-
-                systemNode.Remove();
-                _xmlDoc.Save(XmlFilePath);
+                if (result == MessageBoxResult.Yes)
+                {
+                    systemNode.Remove();
+                    _xmlDoc.Save(XmlFilePath);
+                }
+                else
+                {
+                    return;
+                }
 
                 PopulateSystemNamesDropdown();
 

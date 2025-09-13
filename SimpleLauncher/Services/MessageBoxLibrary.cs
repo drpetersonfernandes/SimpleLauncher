@@ -824,30 +824,17 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static bool CouldNotLoadHelpUserXmlMessageBox()
+    internal static MessageBoxResult CouldNotLoadHelpUserXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return true;
-
-        static bool ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var simpleLaunchercouldnotloadhelpuserxml = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotloadhelpuserxml") ?? "'Simple Launcher' could not load 'helpuser.xml'.";
             var doyouwanttoautomaticreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoautomaticreinstallSimpleLauncher") ?? "Do you want to automatic reinstall 'Simple Launcher' to fix it.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml}\n\n" +
-                                         $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            if (result == MessageBoxResult.Yes)
-            {
-                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
-                return false;
-            }
-            else
-            {
-                return true;
-            }
-        }
+            return MessageBox.Show($"{simpleLaunchercouldnotloadhelpuserxml}\n\n" +
+                                   $"{doyouwanttoautomaticreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void FailedToLoadHelpUserXmlMessageBox()
@@ -1638,24 +1625,12 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult ReallyWantToRemoveAllPlayHistoryMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        static MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var message = (string)Application.Current.TryFindResource("AreYouSureYouWantToRemoveAllHistory") ?? "Are you sure you want to remove all play history?";
             var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
-
-            var result = MessageBox.Show(message, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            if (result == MessageBoxResult.Yes)
-            {
-                return MessageBoxResult.Yes;
-            }
-            else
-            {
-                return MessageBoxResult.No;
-            }
-        }
+            return MessageBox.Show(message, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static Task ShowImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
@@ -2318,20 +2293,14 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult SearchOnlineForRomHistoryMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessageBox);
-        return MessageBoxResult.No;
-
-        static MessageBoxResult ShowMessageBox()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var thereisnoRoMhistoryinthelocaldatabase = (string)Application.Current.TryFindResource("ThereisnoROMhistoryinthelocaldatabase") ?? "There is no ROM history in the local database for this file.";
             var doyouwanttosearchonline = (string)Application.Current.TryFindResource("Doyouwanttosearchonline") ?? "Do you want to search online for the ROM history?";
             var rOmHistoryNotFound = (string)Application.Current.TryFindResource("ROMHistorynotfound") ?? "ROM History not found";
-
-            var result = MessageBox.Show($"{thereisnoRoMhistoryinthelocaldatabase}\n\n" +
-                                         $"{doyouwanttosearchonline}", rOmHistoryNotFound, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            return result;
-        }
+            return MessageBox.Show($"{thereisnoRoMhistoryinthelocaldatabase}\n\n" +
+                                   $"{doyouwanttosearchonline}", rOmHistoryNotFound, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void SystemHasBeenDeletedMessageBox(string selectedSystemName)
@@ -2350,16 +2319,12 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult AreYouSureDoYouWantToDeleteThisSystemMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        static MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var areyousureyouwanttodeletethis = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethis") ?? "Are you sure you want to delete this system?";
             var confirmation = (string)Application.Current.TryFindResource("Confirmation") ?? "Confirmation";
-            var result = MessageBox.Show(areyousureyouwanttodeletethis, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return result;
-        }
+            return MessageBox.Show(areyousureyouwanttodeletethis, confirmation, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void ThereWasAnErrorDeletingTheGameMessageBox()
@@ -2394,51 +2359,36 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult AreYouSureYouWantToDeleteTheGameMessageBox(string fileNameWithExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(() =>
         {
             var areyousureyouwanttodeletethefile = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethefile") ?? "Are you sure you want to delete the file";
             var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
             var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
-
-            var result = MessageBox.Show($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
-                                         $"{thisactionwilldelete}", confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            return result;
-        }
+            return MessageBox.Show($"{areyousureyouwanttodeletethefile} '{fileNameWithExtension}'?\n\n" +
+                                   $"{thisactionwilldelete}", confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static MessageBoxResult AreYouSureYouWantToDeleteTheCoverImageMessageBox(string fileNameWithoutExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(() =>
         {
             var areyousureyouwanttodeletethecoverimageof = (string)Application.Current.TryFindResource("Areyousureyouwanttodeletethecoverimageof") ?? "Are you sure you want to delete the cover image of";
             var thisactionwilldelete = (string)Application.Current.TryFindResource("Thisactionwilldelete") ?? "This action will delete the file from the HDD and cannot be undone.";
             var confirmDeletion = (string)Application.Current.TryFindResource("ConfirmDeletion") ?? "Confirm Deletion";
-            var result = MessageBox.Show($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
-                                         $"{thisactionwilldelete}", confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
-
-            return result;
-        }
+            return MessageBox.Show($"{areyousureyouwanttodeletethecoverimageof} '{fileNameWithoutExtension}'?\n\n" +
+                                   $"{thisactionwilldelete}", confirmDeletion, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static MessageBoxResult WoulYouLikeToSaveAReportMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        static MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var wouldyouliketosaveareport = (string)Application.Current.TryFindResource("Wouldyouliketosaveareport") ?? "Would you like to save a report with the results?";
             var saveReport = (string)Application.Current.TryFindResource("SaveReport") ?? "Save Report";
-            var result = MessageBox.Show(wouldyouliketosaveareport, saveReport, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return result;
-        }
+            return MessageBox.Show(wouldyouliketosaveareport, saveReport, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void SimpleLauncherWasUnableToRestoreBackupMessageBox()
@@ -2456,20 +2406,16 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult WouldYouLikeToRestoreTheLastBackupMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        static MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var icouldnotfindthefilesystemxml = (string)Application.Current.TryFindResource("Icouldnotfindthefilesystemxml") ?? "I could not find the file 'system.xml', which is required to start the application.";
             var butIfoundabackupfile = (string)Application.Current.TryFindResource("ButIfoundabackupfile") ?? "But I found a backup file.";
             var wouldyouliketorestore = (string)Application.Current.TryFindResource("Wouldyouliketorestore") ?? "Would you like to restore the last backup?";
             var restoreBackup = (string)Application.Current.TryFindResource("RestoreBackup") ?? "Restore Backup?";
-            var result = MessageBox.Show($"{icouldnotfindthefilesystemxml}\n\n" +
-                                         $"{butIfoundabackupfile}\n\n" +
-                                         $"{wouldyouliketorestore}", restoreBackup, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return result;
-        }
+            return MessageBox.Show($"{icouldnotfindthefilesystemxml}\n\n" +
+                                   $"{butIfoundabackupfile}\n\n" +
+                                   $"{wouldyouliketorestore}", restoreBackup, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void FailedToLoadLanguageResourceMessageBox()
@@ -2771,23 +2717,18 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult DoYouWantToUpdateMessageBox(string currentVersion, string latestVersion, Window window)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(() =>
         {
             var thereIsAsoftwareUpdateAvailable = (string)Application.Current.TryFindResource("Thereisasoftwareupdateavailable") ?? "There is a software update available.";
             var theCurrentVersionIs = (string)Application.Current.TryFindResource("Thecurrentversionis") ?? "The current version is";
             var theUpdateVersionIs = (string)Application.Current.TryFindResource("Theupdateversionis") ?? "The update version is";
             var doYouWantToDownloadAndInstall = (string)Application.Current.TryFindResource("Doyouwanttodownloadandinstall") ?? "Do you want to download and install the latest version automatically?";
             var updateAvailable = (string)Application.Current.TryFindResource("UpdateAvailable") ?? "Update Available";
-
-            var result = MessageBox.Show(window, $"{thereIsAsoftwareUpdateAvailable}\n" +
-                                                 $"{theCurrentVersionIs} {currentVersion}\n" +
-                                                 $"{theUpdateVersionIs} {latestVersion}\n\n" +
-                                                 $"{doYouWantToDownloadAndInstall}", updateAvailable, MessageBoxButton.YesNo, MessageBoxImage.Information);
-            return result;
-        }
+            return MessageBox.Show(window, $"{thereIsAsoftwareUpdateAvailable}\n" +
+                                           $"{theCurrentVersionIs} {currentVersion}\n" +
+                                           $"{theUpdateVersionIs} {latestVersion}\n\n" +
+                                           $"{doYouWantToDownloadAndInstall}", updateAvailable, MessageBoxButton.YesNo, MessageBoxImage.Information);
+        });
     }
 
     internal static void HandleMissingRequiredFilesMessageBox(string fileList)
@@ -2953,25 +2894,19 @@ internal static class MessageBoxLibrary
 
     internal static MessageBoxResult RelativePathsWarningMessageBox(List<string> relativePaths)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return MessageBoxResult.No;
-
-        MessageBoxResult ShowMessage()
+        return Application.Current.Dispatcher.Invoke(() =>
         {
             var title = (string)Application.Current.TryFindResource("RelativePathsDetected") ?? "Relative Paths Detected";
             var relativePathsMessage = (string)Application.Current.TryFindResource("RelativePathsMessage") ?? "The following relative paths were detected in your configuration:";
             var systemFolderExplanation = (string)Application.Current.TryFindResource("SystemFolderExplanation") ?? "For System Folder, System Image Folder, and Emulator Path fields, relative paths will be automatically saved using the %BASEFOLDER% prefix (e.g., \".\\roms\" becomes \"%BASEFOLDER%\\roms\").";
             var parameterExplanation = (string)Application.Current.TryFindResource("ParameterExplanation") ?? "For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.";
             var saveConfigurationQuestion = (string)Application.Current.TryFindResource("SaveConfigurationQuestion") ?? "Do you want to save this configuration?";
-
             var pathsList = string.Join("\n", relativePaths.Select(static p => $"- {p}"));
-
-            var result = MessageBox.Show($"{relativePathsMessage}\n\n{pathsList}\n\n" +
-                                         $"{systemFolderExplanation}\n\n" +
-                                         $"{parameterExplanation}\n\n" +
-                                         $"{saveConfigurationQuestion}", title, MessageBoxButton.YesNo, MessageBoxImage.Question);
-            return result;
-        }
+            return MessageBox.Show($"{relativePathsMessage}\n\n{pathsList}\n\n" +
+                                   $"{systemFolderExplanation}\n\n" +
+                                   $"{parameterExplanation}\n\n" +
+                                   $"{saveConfigurationQuestion}", title, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     internal static void CouldNotOpenSoundConfigurationWindow()

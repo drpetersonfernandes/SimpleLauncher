@@ -405,26 +405,27 @@ public static class ContextMenu
             PlaySoundEffects.PlayNotificationSound();
 
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
+                    await Task.Delay(500);
+                    await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error deleting the game.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (result != MessageBoxResult.Yes)
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
+                }
+            }
+            else
             {
                 return;
-            }
-
-            try
-            {
-                ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
-                await Task.Delay(500);
-                await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error deleting the game.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
             }
         };
 
@@ -447,28 +448,29 @@ public static class ContextMenu
             PlaySoundEffects.PlayNotificationSound();
 
             var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
+            if (result == MessageBoxResult.Yes)
+            {
+                try
+                {
+                    await ContextMenuFunctions.DeleteCoverImage(
+                        context.FileNameWithoutExtension,
+                        context.SelectedSystemName,
+                        context.SelectedSystemManager,
+                        context.MainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            if (result != MessageBoxResult.Yes)
+                    // Notify user
+                    MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+                }
+            }
+            else
             {
                 return;
-            }
-
-            try
-            {
-                await ContextMenuFunctions.DeleteCoverImage(
-                    context.FileNameWithoutExtension,
-                    context.SelectedSystemName,
-                    context.SelectedSystemManager,
-                    context.MainWindow);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
-                MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
             }
         };
 

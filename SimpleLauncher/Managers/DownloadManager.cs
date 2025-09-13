@@ -654,42 +654,15 @@ public class DownloadManager : IDisposable
         DownloadProgressChanged?.Invoke(this, e);
     }
 
-    /// <inheritdoc />
-    /// <summary>
-    /// Disposes the DownloadManager.
-    /// </summary>
     public void Dispose()
-    {
-        Dispose(true);
-
-        // Tell GC not to call the finalizer since we've already cleaned up
-        GC.SuppressFinalize(this);
-    }
-
-    /// <summary>
-    /// Disposes the DownloadManager resources.
-    /// </summary>
-    /// <param name="disposing">True if called from Dispose(), false if called from finalizer.</param>
-    protected virtual void Dispose(bool disposing)
     {
         if (_disposed)
         {
             return;
         }
 
-        if (disposing)
-        {
-            _cancellationTokenSource?.Dispose();
-        }
-
+        _cancellationTokenSource?.Dispose();
         _disposed = true;
-    }
-
-    /// <summary>
-    /// Finalizer.
-    /// </summary>
-    ~DownloadManager()
-    {
-        Dispose(false);
+        GC.SuppressFinalize(this); // Keep this if you add a finalizer later
     }
 }

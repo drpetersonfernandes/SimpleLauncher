@@ -77,7 +77,7 @@ public class SettingsManager
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
             ShowGames = ValidateShowGames(settings.Element("ShowGames")?.Value);
             ViewMode = ValidateViewMode(settings.Element("ViewMode")?.Value);
-            EnableGamePadNavigation = ParseBoolSetting(settings, "ActivateGamepad");
+            EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
             VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
             InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
             MainWindowWidth = (int)ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
@@ -234,7 +234,7 @@ public class SettingsManager
             new XElement("GamesPerPage", GamesPerPage),
             new XElement("ShowGames", ShowGames),
             new XElement("ViewMode", ViewMode),
-            new XElement("ActivateGamepad", EnableGamePadNavigation),
+            new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
             new XElement("VideoUrl", VideoUrl),
             new XElement("InfoUrl", InfoUrl),
             new XElement("MainWindowWidth", MainWindowWidth),
