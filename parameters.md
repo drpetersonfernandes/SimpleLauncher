@@ -20,7 +20,7 @@
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -44,7 +44,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 
 ## Arcade
 
@@ -66,14 +66,14 @@ This emulator is available for Windows x64.<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch mame<br>
 **Emulator Path (Example):** C:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mame_2010/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -97,7 +97,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/stella/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -106,7 +106,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -fullscreen 1<br>
 **Fullscreen Parameter:** -fullscreen 1<br>
 
-This emulator is available for Windows x64.<br>
+This emulator is available for Windows-x64.<br>
 Command line documentation can be found on [Stella Website](https://stella-emu.github.io/docs/index.html#CommandLine).
 
 ## Atari 5200
@@ -136,7 +136,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\a5200_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -160,7 +160,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/prosystem/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -250,7 +250,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_lynx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -274,7 +274,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\hatari_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/hatari/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -283,7 +283,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [GitHub Website](https://github.com/hatari/hatari).<br>
 Emulator may require BIOS or system files to work properly.
 
@@ -307,7 +307,7 @@ Emulator may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
 Core may require BIOS or system files to work properly.
 
@@ -316,14 +316,14 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Bandai WonderSwan Color
@@ -346,7 +346,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_cygne/).<br>
 Core may require BIOS or system files to work properly.
 
@@ -355,14 +355,14 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Mednafen<br>
 **Emulator Path (Example):** c:\emulators\mednafen\mednafen.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Casio PV-1000
@@ -385,7 +385,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios\;c:\Casio PV-1000" pv1000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Colecovision
 
@@ -407,7 +407,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearcoleco/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -424,16 +424,68 @@ Core may require BIOS files or system files to work properly.
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap<br>
 
 **Emulator Name:** Retroarch vice_x64<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Vice<br>
+**Emulator Path (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+## Commodore 128
+
+**Double-check file and folder paths when entering them in Simple Launcher.**<br>
+
+**If you want to use relative paths, use the following placeholders:**<br>
+**%BASEFOLDER%** - Represents the Simple Launcher folder<br>
+**%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
+**%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
+
+**System Folder (Example):** c:\Commodore 128<br>
+**System Is MAME?** false<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap<br>
+
+**Emulator Name:** Retroarch vice_x64<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
+Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Vice<br>
+**Emulator Path (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
 
 ## Commodore Amiga
 
@@ -456,9 +508,16 @@ raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
 Core requires BIOS files or system files to work.
+
+**Emulator Name:** WinFellow<br>
+**Emulator Path (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Commodore Amiga CD32
 
@@ -480,7 +539,7 @@ Core requires BIOS files or system files to work.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -504,7 +563,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 You need to create BAT files to launch the games.
 
 ## Magnavox Odyssey 2
@@ -527,7 +586,7 @@ You need to create BAT files to launch the games.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\o2em_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/o2em/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -551,7 +610,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 'Simple Launcher' has a special logic to launch Mattel Aquarius games; that is required by MAME.<br>
 For the logic to work, you need to add the word 'Aquarius' into the System Name.<br>
 The logic will only send the filename of the file (without the filepath and without the file extension) to the launching call.<br>
@@ -576,7 +635,7 @@ The logic will only send the filename of the file (without the filepath and with
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\freeintv_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/freeintv/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -600,28 +659,28 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** DOSBox Staging<br>
 **Emulator Path (Example):** c:\emulators\DOSBox Staging\dosbox.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** DOSBox-X<br>
 **Emulator Path (Example):** c:\emulators\DOSBox-X\dosbox-x.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dosbox_pure<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox_pure/).
 
 **Emulator Name:** Retroarch dosbox<br>
@@ -629,7 +688,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_core_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox/).
 
 ## Microsoft MSX
@@ -652,7 +711,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).
 
 **Emulator Name:** Retroarch bluemsx<br>
@@ -660,7 +719,7 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -669,7 +728,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -678,7 +737,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Microsoft MSX2
 
@@ -700,7 +759,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 You can find a list of parameters for this emulator on [OpenMSX Website](https://openmsx.org/manual/commands.html).
 
 **Emulator Name:** Retroarch bluemsx<br>
@@ -708,7 +767,7 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/bluemsx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -717,7 +776,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fmsx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -726,7 +785,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Microsoft Windows
 
@@ -749,7 +808,6 @@ This emulator is available for Windows x64<br>
 
 LNK files are shortcut files.
 You can create a shortcut by right-clicking on the Game.exe and selecting 'Create Shortcut'.<br>
-
 If you prefer to use BAT files, use the tool available in the 'Simple Launcher' menu to generate BAT files for you.
 
 ## Microsoft Xbox
@@ -776,7 +834,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
 
-The ISO file needs to be formated in XISO format, as the original XBOX discs.
+The ISO file needs to be formated in XISO format, as the original XBOX discs.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to XISO format.
 
 **Emulator Name:** Cxbx-Reloaded<br>
@@ -784,7 +842,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 For this emulator to work in 'Simple Launcher', you need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany).<br>
 'Simple Launcher' has logic to mount XISO files into a virtual drive on Window and then load the file default.exe.<br>
 For the logic to work; the 'Emulator Name' needs to have the word 'Cxbx' in it.<br>
@@ -812,8 +870,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
-I recommend that you convert the original Redump ISO file to an optimized XISO file, which is smaller.
+This emulator is available for Windows-x64.<br>
+I recommend that you convert the original Redump ISO file to an optimized XISO file, which is smaller.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can optimize original Xbox ISO files.
 
 ## Microsoft Xbox 360 XBLA
@@ -825,7 +883,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can optimize origin
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 There are multiple ways to use this emulator. You can use [Game Folders] or ZIP files.<br>
 
 **Option 1 - Use [Game Folders]**
@@ -881,7 +939,7 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -890,7 +948,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## NEC PC Engine CD
@@ -913,7 +971,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pce_fast/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -946,7 +1004,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pcfx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_pc_fx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -970,7 +1028,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_supergrafx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_sgx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -979,7 +1037,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 ## Nintendo 3DS
@@ -1002,28 +1060,28 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Borked3DS<br>
 **Emulator Path (Example):** c:\emulators\Borked3DS\borked3ds.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Citra<br>
 **Emulator Path (Example):** c:\emulators\citra\citra-qt.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Panda3DS<br>
 **Emulator Path (Example):** c:\emulators\panda3ds\Alber.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS).
 
 **Emulator Name:** Retroarch citra<br>
@@ -1031,7 +1089,7 @@ Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\citra_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/citra/). <br>
 Core may require BIOS or system files to work properly.
 
@@ -1040,7 +1098,7 @@ Core may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\panda3ds_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).<br>
 
 ## Nintendo 64
@@ -1070,14 +1128,14 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
 
 **Emulator Name:** Retroarch parallel_n64_libretro<br>
@@ -1085,35 +1143,35 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\parallel_n64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Project64<br>
 **Emulator Path (Example):** c:\emulators\project64\Project64.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** BizHawk<br>
 **Emulator Path (Example):** c:\emulators\BizHawk\EmuHawk.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Rosalie Mupen GUI<br>
 **Emulator Path (Example):** c:\emulators\Rosalie Mupen GUI\RMG.exe<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Gopher64<br>
 **Emulator Path (Example):** c:\emulators\Gopher64\gopher64-windows-x86_64.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo 64DD
 
@@ -1135,7 +1193,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
 
 **Emulator Name:** Ares<br>
@@ -1166,7 +1224,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\melonds_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/melonds/).
 
 **Emulator Name:** Retroarch desmume<br>
@@ -1174,7 +1232,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\desmume_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/desmume/).
 
 **Emulator Name:** melonDS<br>
@@ -1182,7 +1240,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS).
 
 **Emulator Name:** DeSmuME<br>
@@ -1190,7 +1248,7 @@ Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator repository available on [GitHub](https://github.com/TASEmulators/desmume).
 
 ## Nintendo Family Computer Disk System
@@ -1213,7 +1271,7 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1222,7 +1280,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1231,7 +1289,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 This emulator requires a BIOS file to run this system.
 
 ## Nintendo Game Boy
@@ -1254,7 +1312,7 @@ This emulator requires a BIOS file to run this system.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1263,7 +1321,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1272,7 +1330,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1281,7 +1339,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1290,7 +1348,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo Game Boy Advance
 
@@ -1312,7 +1370,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mgba_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mgba/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1321,7 +1379,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [GitHub](https://github.com/hades-emu/hades).<br>
 This emulator requires a BIOS file to work properly.
 
@@ -1352,7 +1410,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/sameboy/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1361,7 +1419,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gambatte/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1370,7 +1428,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/tgb_dual/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1379,7 +1437,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearboy/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1388,7 +1446,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo GameCube
 
@@ -1417,7 +1475,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1441,7 +1499,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mesen/).
 
 **Emulator Name:** Retroarch nestopia<br>
@@ -1449,7 +1507,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/nestopia_ue/).
 
 **Emulator Name:** Mednafen<br>
@@ -1457,7 +1515,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** JGenesis<br>
@@ -1465,14 +1523,14 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Mesen<br>
 **Emulator Path (Example):** c:\emulators\mesen\Mesen.exe<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo Satellaview
 
@@ -1517,7 +1575,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1526,7 +1584,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bsnes_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_bsnes/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1535,14 +1593,14 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo SNES MSU1
 
@@ -1564,7 +1622,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/snes9x/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1573,7 +1631,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo Switch
 
@@ -1595,49 +1653,49 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Yuzu Fork Citron<br>
 **Emulator Path (Example):** c:\emulators\Yuzu Fork Citron\citron.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Yuzu Fork Eden<br>
 **Emulator Path (Example):** c:\emulators\Yuzu Fork Eden\eden.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Yuzu Fork Sudachi<br>
 **Emulator Path (Example):** c:\emulators\Yuzu Fork Sudachi\sudachi.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Ryujinx Original<br>
 **Emulator Path (Example):** c:\emulators\Ryujinx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Ryujinx Fork Ryubing<br>
 **Emulator Path (Example):** c:\emulators\Ryujinx Fork Ryubing\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Ryujinx Fork Kenji-NX<br>
 **Emulator Path (Example):** c:\emulators\Ryujinx Fork Kenji-Nx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo Wii
 
@@ -1666,7 +1724,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1690,7 +1748,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -f -g<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Nintendo WiiWare
 
@@ -1719,7 +1777,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dolphin/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1743,7 +1801,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\opera_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/opera/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1767,7 +1825,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\same_cdi_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/same_cdi/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1780,7 +1838,7 @@ Core may require BIOS files or system files to work properly.
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 There are multiple ways to use this program. You can use [Game Folders] or ZIP files.<br>
 
 **Option 1 - Use [Game Folders]**
@@ -1837,16 +1895,23 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch flycast<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\flycast_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/flycast/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Flycast<br>
+**Emulator Path (Example):** c:\emulators\Flycast\flycast.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Sega Game Gear
 
@@ -1868,7 +1933,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1877,7 +1942,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 The list of commands available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
 
 **Emulator Name:** Kega Fusion<br>
@@ -1885,14 +1950,14 @@ The list of commands available for this emulator can be found on [MasterGear Web
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** GearSystem<br>
 **Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
@@ -1906,7 +1971,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
@@ -1936,7 +2001,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1945,7 +2010,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1954,7 +2019,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\blastem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/blastem/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -1963,14 +2028,14 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sega Genesis 32X
 
@@ -1992,7 +2057,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2001,14 +2066,14 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sega Genesis CD
 
@@ -2030,7 +2095,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/picodrive/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2039,7 +2104,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2056,7 +2121,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sega Master System
 
@@ -2078,7 +2143,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2095,7 +2160,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 The list of command-line arguments available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
 
 **Emulator Name:** Kega Fusion<br>
@@ -2103,14 +2168,14 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** GearSystem<br>
 **Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
@@ -2139,7 +2204,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 You can find a tool in the 'Simple Launcher' tools menu that can generate BAT files for you.
 
 ## Sega Saturn
@@ -2162,7 +2227,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_saturn/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2171,7 +2236,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\kronos_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/kronos/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2180,7 +2245,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabasanshiro_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabasanshiro/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2189,7 +2254,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabause_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/yabause/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2198,7 +2263,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** SSF<br>
@@ -2206,8 +2271,15 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Emulation General Wiki](https://emulation.gametechwiki.com/index.php/SSF).
+
+**Emulator Name:** Ymir<br>
+**Emulator Path (Example):** c:\emulators\Ymir\ymir-sdl3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Sega SC-3000
 
@@ -2229,14 +2301,14 @@ Emulator documentation can be found on [Emulation General Wiki](https://emulatio
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** MasterGear<br>
 **Emulator Path (Example):** c:\emulators\MasterGear\MG.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 The list of command-line arguments available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
 
 **Emulator Name:** Kega Fusion<br>
@@ -2244,7 +2316,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sega SG-1000
 
@@ -2266,14 +2338,14 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** MasterGear<br>
 **Emulator Path (Example):** c:\emulators\MasterGear\MG.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 The list of command-line arguments available for this emulator can be found on [MasterGear Website](https://fms.komkon.org/MG/MG.html).
 
 **Emulator Name:** Kega Fusion<br>
@@ -2281,7 +2353,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** GearSystem<br>
 **Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
@@ -2310,14 +2382,14 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch px68k<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\px68k_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [libretro Website](https://docs.libretro.com/library/px68k/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2341,7 +2413,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fuse_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/fuse/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2350,7 +2422,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:**
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## SNK Neo Geo
 
@@ -2372,7 +2444,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## SNK Neo Geo CD
 
@@ -2394,7 +2466,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\neocd_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [NeoCD Repository](https://github.com/libretro/neocd_libretro).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2418,7 +2490,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2427,7 +2499,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2436,7 +2508,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** Ares<br>
@@ -2468,7 +2540,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_neopop/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2477,7 +2549,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/race/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2486,7 +2558,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** Ares<br>
@@ -2527,7 +2599,7 @@ Emulator may need BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_psx/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2536,7 +2608,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2560,7 +2632,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Documentation can be found on [PCSX2 Website](https://pcsx2.net/docs/).<br>
 This emulator may require BIOS or system files to work properly.
 
@@ -2569,7 +2641,7 @@ This emulator may require BIOS or system files to work properly.
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\pcsx2_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/pcsx2/).<br>
 Core may require BIOS files or system files to work properly.
 
@@ -2582,7 +2654,7 @@ Core may require BIOS files or system files to work properly.
 **%SYSTEMFOLDER%** - Represents the System Folder (where the ROMs or ISOs are)<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 There are multiple ways to use this emulator. You can use [Game Folders], ZIP files or ISO files.<br>
 
 **Option 1 - Use [Game Folders]**
@@ -2653,7 +2725,7 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sony PlayStation Vita
 
@@ -2675,7 +2747,7 @@ This emulator is available for Windows x64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 
 ## Sony PSP
 
@@ -2704,6 +2776,6 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\ppsspp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows x64<br>
+This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/ppsspp/).<br>
 Core may require BIOS files or system files to work properly.
