@@ -39,7 +39,8 @@ public partial class PlayHistoryWindow
         _mainWindow = mainWindow;
 
         App.ApplyThemeToWindow(this);
-        Loaded += PlayHistoryWindow_Loaded; // Attach the Loaded event handler
+
+        Loaded += PlayHistoryWindow_Loaded;
     }
 
     private async void PlayHistoryWindow_Loaded(object sender, RoutedEventArgs e)
@@ -48,15 +49,32 @@ public partial class PlayHistoryWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
             LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...";
+            await Task.Yield(); // Allow the UI to render the loading overlay
 
             try
             {
-                await LoadPlayHistoryDataAsync();
+                // Step 1: Load and process all history data in a background thread
+                var processedHistory = await LoadAndProcessHistoryAsync();
+
+                // Step 2: Populate the UI collection on the UI thread
+                _playHistoryList = new ObservableCollection<PlayHistoryItem>(processedHistory);
+
+                // Step 3: Check for and remove entries with missing files in the background
+                await DeleteMissingEntriesAsync();
+
+                // Step 4: Sort the data now that it's in the collection and bind to DataGrid
+                SortByDate();
+
+                // Step 5: Asynchronously calculate file sizes for the visible items
+                _ = LoadFileSizesAsync(_playHistoryList.ToList());
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
-                MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox(); // Re-use an existing message box for a similar error type
+
+                // Notify user
+                MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
             }
             finally
             {
@@ -65,76 +83,79 @@ public partial class PlayHistoryWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in the method PlayHistoryWindow_Loaded.");
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
         }
     }
 
-    private async Task LoadPlayHistoryDataAsync()
+    private Task<List<PlayHistoryItem>> LoadAndProcessHistoryAsync()
     {
-        _playHistoryList = new ObservableCollection<PlayHistoryItem>();
-
-        foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList) // Use the injected manager's list
+        return Task.Run(() =>
         {
-            var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
-            var machineDescription = machine?.Description ?? string.Empty;
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
-            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
-            var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
-
-            var playHistoryItem = new PlayHistoryItem // Create a new instance
+            var processedList = new List<PlayHistoryItem>();
+            foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
             {
-                FileName = historyItemConfig.FileName,
-                SystemName = historyItemConfig.SystemName,
-                TotalPlayTime = historyItemConfig.TotalPlayTime,
-                TimesPlayed = historyItemConfig.TimesPlayed,
-                LastPlayDate = historyItemConfig.LastPlayDate,
-                LastPlayTime = historyItemConfig.LastPlayTime,
-                MachineDescription = machineDescription,
-                DefaultEmulator = defaultEmulator,
-                CoverImage = coverImagePath,
-                FileSizeBytes = -1 // Initialize to the "Calculating..." state
-            };
-            _playHistoryList.Add(playHistoryItem);
-        }
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+                var machineDescription = machine?.Description ?? string.Empty;
+                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+                var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);
 
-        // Set the ItemsSource first
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
-        var collectionOfEntries = _playHistoryList.ToList();
+                var playHistoryItem = new PlayHistoryItem
+                {
+                    FileName = historyItemConfig.FileName,
+                    SystemName = historyItemConfig.SystemName,
+                    TotalPlayTime = historyItemConfig.TotalPlayTime,
+                    TimesPlayed = historyItemConfig.TimesPlayed,
+                    LastPlayDate = historyItemConfig.LastPlayDate,
+                    LastPlayTime = historyItemConfig.LastPlayTime,
+                    MachineDescription = machineDescription,
+                    DefaultEmulator = defaultEmulator,
+                    CoverImage = coverImagePath,
+                    FileSizeBytes = -1
+                };
+                processedList.Add(playHistoryItem);
+            }
 
-        // Delete missing entries
-        DeleteMissingEntries(collectionOfEntries);
-
-        // Sort by date
-        SortByDate();
-
-        // Calculate file sizes for the remaining entries
-        await LoadFileSizesAsync(_playHistoryList.ToList()); // Await this task
+            return processedList;
+        });
     }
 
-    private void DeleteMissingEntries(List<PlayHistoryItem> collectionOfEntries)
+    private async Task DeleteMissingEntriesAsync()
     {
-        var itemsToDelete = new List<PlayHistoryItem>();
-
-        foreach (var item in collectionOfEntries)
+        var itemsToRemove = await Task.Run(() =>
         {
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-            if (systemManager != null)
+            var toRemove = new List<PlayHistoryItem>();
+            var currentHistory = _playHistoryList.ToList();
+            foreach (var item in currentHistory)
             {
+                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                if (systemManager == null) continue;
+
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
                 if (!File.Exists(filePath))
                 {
-                    itemsToDelete.Add(item);
+                    toRemove.Add(item);
                 }
+            }
+
+            return toRemove;
+        });
+
+        if (itemsToRemove.Count == 0) return;
+
+        foreach (var itemToRemove in itemsToRemove)
+        {
+            var itemInList = _playHistoryList.FirstOrDefault(i => i.FileName == itemToRemove.FileName && i.SystemName == itemToRemove.SystemName);
+            if (itemInList != null)
+            {
+                _playHistoryList.Remove(itemInList);
+                DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
             }
         }
 
-        foreach (var itemToRemove in itemsToDelete)
-        {
-            _playHistoryList.Remove(itemToRemove);
-            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
-            _playHistoryManager.SavePlayHistory();
-            DebugLogger.Log("Invalid Play History entry removed: " + itemToRemove.FileName);
-        }
+        _playHistoryManager.PlayHistoryList = _playHistoryList;
+        _playHistoryManager.SavePlayHistory();
 
         // Explicitly refresh the data grid binding to ensure UI updates
         PlayHistoryDataGrid.ItemsSource = null;
@@ -148,6 +169,7 @@ public partial class PlayHistoryWindow
                 TryParseDateTime(item.LastPlayDate, item.LastPlayTime))
         );
         _playHistoryList = sorted;
+        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
     private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
@@ -366,7 +388,7 @@ public partial class PlayHistoryWindow
             if (itemToRemove != null)
             {
                 _playHistoryList.Remove(itemToRemove);
-                _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
+                _playHistoryManager.PlayHistoryList = _playHistoryList;
                 _playHistoryManager.SavePlayHistory();
             }
 
@@ -410,8 +432,6 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            // Load the latest data from the singleton instance
-            // _playHistoryManager = PlayHistoryManager.LoadPlayHistory(); // REMOVE: Already injected and updated by AddOrUpdatePlayHistoryItem
             var newPlayHistoryList = new ObservableCollection<PlayHistoryItem>();
 
             foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
@@ -436,7 +456,7 @@ public partial class PlayHistoryWindow
                     MachineDescription = machineDescription,
                     DefaultEmulator = defaultEmulator,
                     CoverImage = coverImagePath,
-                    FileSizeBytes = -1 // Initialize to the "Calculating..." state
+                    FileSizeBytes = -1
                 };
                 newPlayHistoryList.Add(playHistoryItem);
             }
@@ -444,8 +464,6 @@ public partial class PlayHistoryWindow
             _playHistoryList = newPlayHistoryList;
 
             SortByDate();
-
-            PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
             _ = LoadFileSizesAsync(_playHistoryList.ToList());
 
@@ -511,8 +529,6 @@ public partial class PlayHistoryWindow
             var imagePath = selectedItem.CoverImage;
             var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
 
-            // Assign the loaded image to the PreviewImage control.
-            // loadedImage will be null if even the default image failed to load.
             PreviewImage.Source = loadedImage;
         }
         catch (Exception ex)
@@ -538,7 +554,7 @@ public partial class PlayHistoryWindow
             PlaySoundEffects.PlayTrashSound();
 
             _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
+            _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
         }
         else
@@ -556,13 +572,10 @@ public partial class PlayHistoryWindow
             : (FileName: null, SystemName: null);
 
         SortByDate();
-        PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
-        // Restore selection based on identifier
-        // Check if the identifier tuple has non-null elements
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
-        var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+        var (prevFileName, prevSystemName) = selectedItemIdentifier;
         var updatedItem = _playHistoryList.FirstOrDefault(item =>
             item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
             item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
@@ -587,12 +600,10 @@ public partial class PlayHistoryWindow
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
-        // Restore selection based on identifier
-        // Check if the identifier tuple has non-null elements
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
         {
-            var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+            var (prevFileName, prevSystemName) = selectedItemIdentifier;
             var updatedItem = _playHistoryList.FirstOrDefault(item =>
                 item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
                 item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));
@@ -609,8 +620,8 @@ public partial class PlayHistoryWindow
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
             _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList; // Keep the instance in sync
-            _playHistoryManager.SavePlayHistory(); // Save using the existing instance
+            _playHistoryManager.PlayHistoryList = _playHistoryList;
+            _playHistoryManager.SavePlayHistory();
 
             PlaySoundEffects.PlayTrashSound();
             PreviewImage.Source = null;
@@ -688,7 +699,7 @@ public partial class PlayHistoryWindow
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
         {
-            var (prevFileName, prevSystemName) = selectedItemIdentifier; // Deconstruct the non-nullable tuple
+            var (prevFileName, prevSystemName) = selectedItemIdentifier;
             var updatedItem = _playHistoryList.FirstOrDefault(item =>
                 item.FileName.Equals(prevFileName, StringComparison.OrdinalIgnoreCase) &&
                 item.SystemName.Equals(prevSystemName, StringComparison.OrdinalIgnoreCase));

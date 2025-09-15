@@ -41,102 +41,133 @@ public partial class FavoritesWindow
 
         App.ApplyThemeToWindow(this);
 
-        // Load favorites (now uses the injected manager)
-        Loaded += FavoritesWindow_Loaded; // Attach the Loaded event handler
+        // Set the ItemsSource immediately to the empty collection
+        FavoritesDataGrid.ItemsSource = _favoriteList;
+
+        Loaded += FavoritesWindow_Loaded;
     }
 
     private async void FavoritesWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        LoadingOverlay.Visibility = Visibility.Visible;
-        LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
-
         try
         {
-            await LoadFavoritesDataAsync();
+            LoadingOverlay.Visibility = Visibility.Visible;
+            LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...";
+            await Task.Yield(); // Allow the UI to render the loading overlay before starting work
 
-            // Delete missing entries
-            DeleteMissingFavorites(_favoriteList);
+            try
+            {
+                // Step 1: Load and process all favorite data in a background thread
+                var processedFavorites = await LoadAndProcessFavoritesAsync();
 
-            // Calculate file sizes
-            _ = CalculateFileSizeAsync();
+                // Step 2: Populate the UI collection on the UI thread
+                _favoriteList.Clear();
+                foreach (var fav in processedFavorites)
+                {
+                    _favoriteList.Add(fav);
+                }
+
+                // Step 3: Check for and remove entries with missing files, also in the background
+                await DeleteMissingFavoritesAsync();
+
+                // Step 4: Asynchronously calculate file sizes for the visible items
+                _ = CalculateFileSizeAsync();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
+
+                // Notify user
+                MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
+            }
+            finally
+            {
+                LoadingOverlay.Visibility = Visibility.Collapsed;
+            }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
-            MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox(); // Re-use an existing message box for a similar error type
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error in the FavoritesWindow_Loaded method.");
         }
     }
 
-    private Task LoadFavoritesDataAsync()
+    private Task<List<Favorite>> LoadAndProcessFavoritesAsync()
     {
-        FavoritesDataGrid.ItemsSource = _favoriteList;
-
-        // Create all Favorite objects and add to _favoriteList from the injected manager's list
-        foreach (var favoriteConfigItem in _favoritesManager.FavoriteList) // Use the injected manager's list
+        return Task.Run(() =>
         {
-            // Find machine description if available
-            var machine = _machines.FirstOrDefault(m =>
-                m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
-                    StringComparison.OrdinalIgnoreCase));
-            var machineDescription = machine?.Description ?? string.Empty;
-
-            // Retrieve the system manager for the favorite
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
-
-            // Get the default emulator (the first one in the list)
-            var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
-
-            // Get the cover image path for the favorite
-            var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
-
-            var favoriteItem = new Favorite
+            var processedList = new List<Favorite>();
+            foreach (var favoriteConfigItem in _favoritesManager.FavoriteList)
             {
-                FileName = favoriteConfigItem.FileName,
-                SystemName = favoriteConfigItem.SystemName,
-                MachineDescription = machineDescription,
-                DefaultEmulator = defaultEmulator,
-                CoverImage = coverImagePath,
-                FileSizeBytes = -1 // Initial value: "Calculating..."
-            };
+                // Find machine description if available
+                var machine = _machines.FirstOrDefault(m =>
+                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
+                        StringComparison.OrdinalIgnoreCase));
+                var machineDescription = machine?.Description ?? string.Empty;
 
-            _favoriteList.Add(favoriteItem);
-        }
+                // Retrieve the system manager for the favorite
+                var systemManager = _systemManagers.FirstOrDefault(config =>
+                    config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
-        return Task.CompletedTask;
+                // Get the default emulator (the first one in the list)
+                var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
+
+                // Get the cover image path for the favorite
+                var coverImagePath = GetCoverImagePath(favoriteConfigItem.SystemName, favoriteConfigItem.FileName);
+
+                var favoriteItem = new Favorite
+                {
+                    FileName = favoriteConfigItem.FileName,
+                    SystemName = favoriteConfigItem.SystemName,
+                    MachineDescription = machineDescription,
+                    DefaultEmulator = defaultEmulator,
+                    CoverImage = coverImagePath,
+                    FileSizeBytes = -1
+                };
+                processedList.Add(favoriteItem);
+            }
+
+            return processedList;
+        });
     }
 
-    private void DeleteMissingFavorites(ObservableCollection<Favorite> favorites)
+    private async Task DeleteMissingFavoritesAsync()
     {
-        var itemsToRemove = new List<Favorite>();
-
-        foreach (var item in favorites)
+        var itemsToRemove = await Task.Run(() =>
         {
-            var systemManager = _systemManagers.FirstOrDefault(manager =>
-                manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
-
-            if (systemManager != null)
+            var toRemove = new List<Favorite>();
+            var currentFavorites = _favoriteList.ToList();
+            foreach (var item in currentFavorites)
             {
+                // Get System Manager for Favorite
+                var systemManager = _systemManagers.FirstOrDefault(manager =>
+                    manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+
+                if (systemManager == null) continue;
+
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
                 if (!File.Exists(filePath))
                 {
-                    itemsToRemove.Add(item);
-                    DebugLogger.Log("Invalid Favorite removed: " + item.FileName);
+                    toRemove.Add(item);
+                    DebugLogger.Log("Invalid Favorite queued for removal: " + item.FileName);
                 }
             }
-        }
+
+            return toRemove;
+        });
+
+        if (itemsToRemove.Count == 0) return;
 
         foreach (var item in itemsToRemove)
         {
-            favorites.Remove(item);
+            var itemInList = _favoriteList.FirstOrDefault(f => f.FileName == item.FileName && f.SystemName == item.SystemName);
+            if (itemInList != null)
+                _favoriteList.Remove(itemInList);
         }
 
         // Update the injected manager with the current collection and save
-        _favoritesManager.FavoriteList = favorites; // Ensure the singleton instance is updated
+        _favoritesManager.FavoriteList = _favoriteList;
         _favoritesManager.SaveFavorites();
 
         // Explicitly refresh the data grid binding to ensure UI updates
