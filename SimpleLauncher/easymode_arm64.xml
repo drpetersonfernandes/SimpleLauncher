@@ -25,7 +25,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -35,7 +34,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Atari 2600"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Atari 2600"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -61,7 +60,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -70,7 +68,7 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\AltirraARM64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
@@ -97,7 +95,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -106,7 +103,7 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Altirra</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\Altirra64.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Altirra\AltirraARM64.exe</EmulatorLocation>
                 <EmulatorParameters>/f</EmulatorParameters>
                 <EmulatorDownloadPage>https://www.virtualdub.org/altirra.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>4.31</EmulatorLatestVersion>
@@ -127,13 +124,83 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Atari Jaguar</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Atari Jaguar</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Atari Jaguar</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>BigPEmu</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_WinARM64_v119.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguar.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Atari Jaguar CD</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Atari Jaguar CD</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Atari Jaguar CD</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>cue</FormatToLaunch>
+            <FormatToLaunch>cdi</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>BigPEmu</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\BigPEmu\BigPEmu.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://www.richwhitehouse.com/jaguar/index.php?content=download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.19</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.richwhitehouse.com/jaguar/builds/BigPEmu_WinARM64_v119.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\BigPEmu\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguarcd.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar CD</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Bandai WonderSwan</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Bandai WonderSwan</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Bandai WonderSwan</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -143,7 +210,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "WonderSwan"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "WonderSwan"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -169,7 +236,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -179,7 +245,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "WonderSwan Color"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "WonderSwan Color"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -205,7 +271,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -244,7 +309,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -252,13 +316,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Vice</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>
-                <EmulatorParameters/>
-                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>
-                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
+<!--                <EmulatorName>Vice</EmulatorName>-->
+<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
+<!--                <EmulatorParameters/>-->
+<!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
+<!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
+<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
+<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -274,13 +338,82 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Commodore 128</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Commodore 128</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Commodore 128</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <!--                <EmulatorName>Vice</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
+                <!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore128.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 128</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Commodore Amiga</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+<!--                <EmulatorName>WinFellow</EmulatorName>-->
+<!--                <EmulatorLocation>%BASEFOLDER%\emulators\WinFellow\.exe</EmulatorLocation>-->
+<!--                <EmulatorParameters/>-->
+<!--                <EmulatorDownloadPage/>-->
+<!--                <EmulatorLatestVersion/>-->
+<!--                <EmulatorDownloadLink/>-->
+<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\WinFellow\</EmulatorDownloadExtractPath>-->
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Microsoft DOS</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Microsoft DOS</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Microsoft DOS</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -316,7 +449,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -335,7 +467,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "MSX"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "MSX"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -361,7 +493,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -380,7 +511,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "MSX2"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "MSX2"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -400,13 +531,47 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Microsoft Xbox</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Microsoft Xbox</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Microsoft Xbox</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>iso</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+<!--                <EmulatorName>Xemu</EmulatorName>-->
+<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xemu\xemu.exe</EmulatorLocation>-->
+<!--                <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>-->
+<!--                <EmulatorDownloadPage/>-->
+<!--                <EmulatorLatestVersion/>-->
+<!--                <EmulatorDownloadLink/>-->
+<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xemu\</EmulatorDownloadExtractPath>-->
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>NEC PC Engine</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\NEC PC Engine</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\NEC PC Engine</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -416,7 +581,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "PC-Engine"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "PC Engine"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -457,7 +622,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "PC-Engine CD"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "PC Engine CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -483,7 +648,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -493,12 +657,12 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "PC-Engine SuperGrafx"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "SuperGrafx"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
-
+                
                 <CoreLocation/>
                 <CoreLatestVersion/>
                 <CoreDownloadLink/>
@@ -535,12 +699,12 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Nintendo 64"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Nintendo 64"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
-
+                
                 <CoreLocation/>
                 <CoreLatestVersion/>
                 <CoreDownloadLink/>
@@ -577,7 +741,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Nintendo 64DD"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Nintendo 64DD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -597,7 +761,7 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>MelonDS</SystemName>
+        <SystemName>Nintendo DS</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Nintendo DS</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Nintendo DS</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
@@ -616,7 +780,7 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\MelonDS\melonDS.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://github.com/mijk84/win-arm64-binaries</EmulatorDownloadPage>
-                <EmulatorLatestVersion>11.03.2024</EmulatorLatestVersion>
+                <EmulatorLatestVersion>0.03112024</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/melonds-03112024-warm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\MelonDS\</EmulatorDownloadExtractPath>
 
@@ -653,7 +817,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Famicom Disk System"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Famicom Disk System"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -679,7 +843,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -689,7 +852,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Game Boy"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Game Boy"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -724,7 +887,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Game Boy Advance"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Game Boy Advance"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -760,7 +923,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Game Boy Color"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Game Boy Color"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -820,7 +983,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -830,7 +992,7 @@
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "NES"</EmulatorParameters>
+                <EmulatorParameters>--fullscreen --system "Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
@@ -865,11 +1027,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Satellaview"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -906,11 +1068,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "SNES"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -947,11 +1109,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "SNES"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Super Famicom"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1050,7 +1212,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Direct Launch</EmulatorName>
+                <EmulatorName>ScummVM</EmulatorName>
                 <EmulatorLocation/>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://github.com/ArminiusTux/WinARM64-binaries</EmulatorDownloadPage>
@@ -1087,11 +1249,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Game Gear"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Game Gear"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1123,11 +1285,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Mega Drive"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Mega Drive"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1159,11 +1321,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "32X"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Mega 32X"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1197,11 +1359,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Mega CD"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Mega CD"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1233,11 +1395,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Master System"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Master System"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1254,13 +1416,51 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sega SG-1000</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sega SG-1000</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sega SG-1000</SystemImageFolder>
+        <SystemName>Sega Saturn</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Saturn</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Saturn</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>toc</FormatToSearch>
+            <FormatToSearch>m3u</FormatToSearch>
+            <FormatToSearch>ccd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+<!--                <EmulatorName>Ymir</EmulatorName>-->
+<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>-->
+<!--                <EmulatorParameters/>-->
+<!--                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>-->
+<!--                <EmulatorLatestVersion>0.1.8</EmulatorLatestVersion>-->
+<!--                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.1.8/ymir-windows-ARM64-v0.1.8.zip</EmulatorDownloadLink>-->
+<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>-->
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega SC-3000</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega SC-3000</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega SC-3000</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1275,11 +1475,52 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "SG-1000"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "SC-3000"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasc3000.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SC-3000</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Sega SG-1000</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega SG-1000</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega SG-1000</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch>sms</FormatToLaunch>
+            <FormatToLaunch>gg</FormatToLaunch>
+            <FormatToLaunch>sg</FormatToLaunch>
+            <FormatToLaunch>sc</FormatToLaunch>
+            <FormatToLaunch>sf</FormatToLaunch>
+            <FormatToLaunch>dsk</FormatToLaunch>
+            <FormatToLaunch>cht</FormatToLaunch>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ares</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "SG-1000"</EmulatorParameters>
+                <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1311,11 +1552,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "ZX Spectrum"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "ZX Spectrum"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1346,11 +1587,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Neo Geo (AES/MVS)"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Neo Geo AES"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1382,11 +1623,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Neo Geo Pocket"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Neo Geo Pocket"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1409,7 +1650,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1418,11 +1658,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v145\ares.exe</EmulatorLocation>
-                <EmulatorParameters>--system "Neo Geo Pocket Color"</EmulatorParameters>
+                <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>
+                <EmulatorParameters>--fullscreen --system "Neo Geo Pocket Color"</EmulatorParameters>
                 <EmulatorDownloadPage>https://ares-emu.net/download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>145</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v145/ares-windows-x64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>146</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>

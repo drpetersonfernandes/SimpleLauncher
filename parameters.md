@@ -109,6 +109,15 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 Command line documentation can be found on [Stella Website](https://stella-emu.github.io/docs/index.html#CommandLine).
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Atari 2600"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
+
 ## Atari 5200
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -122,7 +131,7 @@ Command line documentation can be found on [Stella Website](https://stella-emu.g
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
 
 **Emulator Name:** Altirra<br>
 **Emulator Path (Example):** c:\emulators\altirra\Altirra64.exe<br>
@@ -177,7 +186,7 @@ Core may require BIOS files or system files to work properly.
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
 
 **Emulator Name:** Altirra<br>
 **Emulator Path (Example):** c:\emulators\altirra\Altirra64.exe<br>
@@ -326,6 +335,15 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "WonderSwan"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
+
 ## Bandai WonderSwan Color
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -364,6 +382,15 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "WonderSwan Color"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
 
 ## Casio PV-1000
 
@@ -411,6 +438,15 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearcoleco/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "ColecoVision"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
+
 ## Commodore 64
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -435,19 +471,19 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work properly.
 
-**Emulator Name:** Vice<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Vice<br>
+**Emulator Path (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 ## Commodore 128
 
@@ -473,19 +509,19 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work properly.
 
-**Emulator Name:** Vice<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Vice<br>
+**Emulator Path (Example):** <br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 ## Commodore Amiga
 
@@ -668,13 +704,6 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.<br>
 
-**Emulator Name:** DOSBox-X<br>
-**Emulator Path (Example):** c:\emulators\DOSBox-X\dosbox-x.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-
 **Emulator Name:** Retroarch dosbox_pure<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
@@ -690,6 +719,13 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/dosbox/).
+
+**Emulator Name:** DOSBox-X<br>
+**Emulator Path (Example):** c:\emulators\DOSBox-X\dosbox-x.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 ## Microsoft MSX
 
@@ -739,6 +775,15 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "MSX"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
+
 ## Microsoft MSX2
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -786,6 +831,15 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "MSX2"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
 
 ## Microsoft Windows
 
@@ -951,6 +1005,15 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "PC Engine"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
+
 ## NEC PC Engine CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -976,7 +1039,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "PC Engine CD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1039,6 +1102,15 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "SuperGrafx"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
 
 ## Nintendo 3DS
 
@@ -1117,7 +1189,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1197,7 +1269,7 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/mupen64plus/).
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64DD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1292,6 +1364,14 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 This emulator requires a BIOS file to run this system.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Famicom Disk System"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
+
 ## Nintendo Game Boy
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1350,6 +1430,14 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Game Boy"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1389,6 +1477,14 @@ This emulator requires a BIOS file to work properly.
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Game Boy Advance"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
 
 ## Nintendo Game Boy Color
 
@@ -1447,6 +1543,14 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Game Boy Color"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
 
 ## Nintendo GameCube
 
@@ -1532,6 +1636,14 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Famicom"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
+
 ## Nintendo Satellaview
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1548,7 +1660,7 @@ This emulator is available for Windows-x64.
 **Format To Launch After Extraction:** <br>
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -1602,6 +1714,14 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
 ## Nintendo SNES MSU1
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -1632,6 +1752,14 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Nintendo Switch
 
@@ -1911,7 +2039,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64.
+This emulator is available for Windows-x64.
 
 ## Sega Game Gear
 
@@ -1959,13 +2087,6 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.<br>
 
-**Emulator Name:** GearSystem<br>
-**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-
 **Emulator Name:** Emulicious<br>
 **Emulator Path (Example):** c:\emulators\Emulicious\Emulicious.exe<br>
 **Emulator Parameters (Example):** <br>
@@ -1973,8 +2094,15 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 This emulator is available for Windows-x64.<br>
 
+**Emulator Name:** GearSystem<br>
+**Emulator Path (Example):** c:\emulators\GearSystem\Gearsystem.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Game Gear"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2037,6 +2165,14 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega Drive"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
 ## Sega Genesis 32X
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2075,6 +2211,14 @@ This emulator is available for Windows-x64.<br>
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega 32X"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
 ## Sega Genesis CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2108,20 +2252,20 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
 
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
-
 **Emulator Name:** JGenesis<br>
 **Emulator Path (Example):** c:\emulators\JGenesis\jgenesis-cli.exe<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sega Master System
 
@@ -2146,14 +2290,6 @@ This emulator is available for Windows-x64.
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/genesis_plus_gx/).<br>
 Core may require BIOS files or system files to work properly.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v141\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Master System"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 **Emulator Name:** MasterGear<br>
 **Emulator Path (Example):** c:\emulators\mastergear\MG.exe<br>
@@ -2183,6 +2319,14 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Master System"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sega Model 3
 
@@ -2318,6 +2462,14 @@ The list of command-line arguments available for this emulator can be found on [
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "SC-3000"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
 ## Sega SG-1000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2361,6 +2513,14 @@ This emulator is available for Windows-x64.<br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64 and Windows-arm64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "SG-1000"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sharp x68000
 
@@ -2424,6 +2584,14 @@ Core may require BIOS files or system files to work properly.
 
 This emulator is available for Windows-x64.
 
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "ZX Spectrum"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
 ## SNK Neo Geo
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2445,6 +2613,14 @@ This emulator is available for Windows-x64.
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Neo Geo AES"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## SNK Neo Geo CD
 
@@ -2512,7 +2688,7 @@ This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2562,7 +2738,7 @@ This emulator is available for Windows-x64.<br>
 Emulator documentation can be found on [Mednafen Website](https://mednafen.github.io/documentation/).
 
 **Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v141\ares.exe<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket Color"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
@@ -2611,6 +2787,15 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [GitHub](https://github.com/libretro/swanstation).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "PlayStation"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
+This emulator requires a BIOS file to work properly.
 
 ## Sony PlayStation 2
 

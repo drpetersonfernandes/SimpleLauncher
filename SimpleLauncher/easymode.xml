@@ -595,6 +595,41 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Commodore Amiga</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Retroarch puae</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
+                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>
+                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
+
+                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>
+                <CoreLatestVersion>1.21.0</CoreLatestVersion>
+                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
+                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Commodore Amiga CD32</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga CD32</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga CD32</SystemImageFolder>
