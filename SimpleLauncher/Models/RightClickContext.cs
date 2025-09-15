@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
+using System;
 
 namespace SimpleLauncher.Models;
 
@@ -18,7 +19,8 @@ public class RightClickContext(
     SystemManager.Emulator emulatorManager,
     WrapPanel gameFileGrid,
     Button button,
-    MainWindow mainWindow)
+    MainWindow mainWindow,
+    Action onFavoriteRemoved = null)
 {
     public string FilePath { get; } = filePath;
     public string FileNameWithExtension { get; } = fileNameWithExtension;
@@ -34,4 +36,5 @@ public class RightClickContext(
     public WrapPanel GameFileGrid { get; } = gameFileGrid;
     public Button Button { get; } = button;
     public MainWindow MainWindow { get; } = mainWindow;
+    public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
 }

@@ -76,8 +76,6 @@ public static class ContextMenu
         addToFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-
-            // Pass the gameFileGrid from the context instead of null
             ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
         };
 
@@ -97,9 +95,10 @@ public static class ContextMenu
         removeFromFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayTrashSound();
-
-            // Pass the gameFileGrid from the context instead of null
             ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
+
+            // *** FIX: Invoke the callback if it exists ***
+            context.OnFavoriteRemoved?.Invoke();
         };
 
         // Open Video Link Context Menu

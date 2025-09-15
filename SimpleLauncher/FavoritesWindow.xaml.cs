@@ -271,13 +271,9 @@ public partial class FavoritesWindow
 
             if (systemManager == null)
             {
-                // Notify developer
                 const string contextMessage = "systemManager is null for the selected favorite";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
-
                 return;
             }
 
@@ -298,14 +294,20 @@ public partial class FavoritesWindow
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
-                // Notify developer
                 const string contextMessage = "emulatorManager is null.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
-
                 return;
+            }
+
+            // *** FIX: Create the callback action here ***
+            void OnRemovedCallback()
+            {
+                if (selectedFavorite != null)
+                {
+                    _favoriteList.Remove(selectedFavorite);
+                    PreviewImage.Source = null; // Also clear the preview image
+                }
             }
 
             var context = new RightClickContext(
@@ -322,7 +324,8 @@ public partial class FavoritesWindow
                 emulatorManager,
                 null,
                 null,
-                _mainWindow
+                _mainWindow,
+                OnRemovedCallback // *** FIX: Pass the callback to the context ***
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -334,11 +337,8 @@ public partial class FavoritesWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "There was an error in the right-click context menu.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
