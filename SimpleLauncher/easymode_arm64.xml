@@ -31,7 +31,7 @@
         <FileFormatsToLaunch>
             <FormatToLaunch/>
         </FileFormatsToLaunch>
-        <Emulators>
+        <Emulators>+
             <Emulator>
                 <EmulatorName>Ares</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\ares\ares-v146\ares.exe</EmulatorLocation>

@@ -89,6 +89,8 @@ public static partial class HelpUser
             { "Colecovision", ColecovisionDetails },
             { "Commodore 64", Commodore64Details },
             { "Commodore64", Commodore64Details },
+            { "Commodore 128", Commodore128Details },
+            { "Commodore128", Commodore128Details },
             { "Commodore Amiga", CommodoreAmigaDetails },
             { "Commodore Amiga CD32", CommodoreAmigaCd32Details },
             { "Commodore Amiga CD", CommodoreAmigaCd32Details },
@@ -384,6 +386,11 @@ public static partial class HelpUser
     private static string Commodore64Details()
     {
         return GetSystemDetails("Commodore 64");
+    }
+
+    private static string Commodore128Details()
+    {
+        return GetSystemDetails("Commodore 128");
     }
 
     private static string CommodoreAmigaDetails()

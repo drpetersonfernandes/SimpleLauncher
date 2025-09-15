@@ -44,7 +44,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Arcade
 
@@ -129,7 +129,7 @@ Command line documentation can be found on [Stella Website](https://stella-emu.g
 **Emulator Parameters (Example):** /f<br>
 **Fullscreen Parameter:** /f<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch a5200<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -184,7 +184,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** /f<br>
 **Fullscreen Parameter:** /f<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Atari Jaguar
 
@@ -206,7 +206,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Atari Jaguar CD
 
@@ -228,7 +228,7 @@ This emulator is available for Windows-x64 and Windows-arm64<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Atari Lynx
 
@@ -385,7 +385,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios\;c:\Casio PV-1000" pv1000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Colecovision
 
@@ -447,7 +447,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Commodore 128
 
@@ -485,7 +485,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Commodore Amiga
 
@@ -613,7 +613,7 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 'Simple Launcher' has a special logic to launch Mattel Aquarius games; that is required by MAME.<br>
 For the logic to work, you need to add the word 'Aquarius' into the System Name.<br>
-The logic will only send the filename of the file (without the filepath and without the file extension) to the launching call.<br>
+The logic will only send the filename of the file (without the filepath and without the file extension) to the launching call.
 
 ## Mattel Intellivision
 
@@ -737,7 +737,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Microsoft MSX2
 
@@ -785,7 +785,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Microsoft Windows
 
@@ -830,7 +830,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **Emulator Parameters (Example):** -full-screen -dvd_path<br>
 **Fullscreen Parameter:** -full-screen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator requires BIOS and system files to work properly.<br>
 The list of required files can be found on [Xemu Website](https://xemu.app/docs/required-files/).<br>
 
@@ -980,7 +980,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --fullscreen --system "PC Engine CD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work properly.
 
@@ -1099,7 +1099,7 @@ Core may require BIOS or system files to work properly.
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
-Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).<br>
+Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3ds) or [GitLab](https://git.libretro.com/libretro/Panda3DS).
 
 ## Nintendo 64
 
@@ -1121,7 +1121,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Simple64<br>
 **Emulator Path (Example):** c:\emulators\Simple64\simple64-gui.exe<br>
@@ -1171,7 +1171,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo 64DD
 
@@ -1201,7 +1201,7 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 **Emulator Parameters (Example):** --fullscreen --system "Nintendo 64DD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator requires a BIOS file to work properly.
 
 ## Nintendo DS
@@ -1348,7 +1348,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo Game Boy Advance
 
@@ -1388,7 +1388,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Nintendo Game Boy Color
 
@@ -1446,7 +1446,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo GameCube
 
@@ -1468,7 +1468,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -1530,7 +1530,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo Satellaview
 
@@ -1552,7 +1552,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --fullscreen --system "Super Famicom"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Nintendo SNES
@@ -1600,7 +1600,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo SNES MSU1
 
@@ -1631,7 +1631,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo Switch
 
@@ -1695,7 +1695,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo Wii
 
@@ -1717,7 +1717,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -1748,7 +1748,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** -f -g<br>
 **Fullscreen Parameter:** -f<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Nintendo WiiWare
 
@@ -1770,7 +1770,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -1873,7 +1873,7 @@ You need to install Dokan from [GitHub](https://github.com/dokan-dev/dokany) to 
 'Simple Launcher' will mount the ZIP file into a virtual drive, then load the game using a custom logic.<br>
 For the logic to work you need to add the word 'ScummVM' or 'Scumm-VM' or 'Scumm' into the 'System Name'
 
-Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).<br>
+Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.readthedocs.io/en/latest/advanced/command_line.html#command-line-interface).
 
 ## Sega Dreamcast
 
@@ -1964,7 +1964,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Emulicious<br>
 **Emulator Path (Example):** c:\emulators\Emulicious\Emulicious.exe<br>
@@ -1978,7 +1978,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --fullscreen --system "Game Gear"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 ## Sega Genesis
@@ -2035,7 +2035,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sega Genesis 32X
 
@@ -2073,7 +2073,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sega Genesis CD
 
@@ -2113,7 +2113,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --fullscreen --system "Mega CD"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 **Emulator Name:** JGenesis<br>
@@ -2121,7 +2121,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** --file-path<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sega Master System
 
@@ -2152,7 +2152,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** --fullscreen --system "Master System"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
 **Emulator Name:** MasterGear<br>
@@ -2182,7 +2182,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Sega Model 3
 
@@ -2316,7 +2316,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sega SG-1000
 
@@ -2360,7 +2360,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.
 
 ## Sharp x68000
 
@@ -2422,7 +2422,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:**
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## SNK Neo Geo
 
@@ -2444,7 +2444,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## SNK Neo Geo CD
 
@@ -2516,7 +2516,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work properly.
 
@@ -2566,7 +2566,7 @@ Emulator documentation can be found on [Mednafen Website](https://mednafen.githu
 **Emulator Parameters (Example):** --fullscreen --system "Neo Geo Pocket Color"<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Command-line options can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).<br>
 This emulator requires a BIOS file to work properly.
 
@@ -2590,7 +2590,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example):** -fullscreen<br>
 **Fullscreen Parameter:** -fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 Emulator documentation can be found on [DuckStation Repository](https://github.com/stenzek/duckstation).<br>
 Emulator may need BIOS or system files to work properly.
 
@@ -2725,7 +2725,7 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sony PlayStation Vita
 
@@ -2747,7 +2747,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 ## Sony PSP
 
@@ -2769,7 +2769,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
 
-This emulator is available for Windows-x64 and Windows-arm64<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch ppsspp<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
