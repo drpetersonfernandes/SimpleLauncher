@@ -76,7 +76,9 @@ public static class ContextMenu
         addToFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
+
+            // Pass the gameFileGrid from the context instead of null
+            ContextMenuFunctions.AddToFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
         };
 
         // Remove From Favorites Context Menu
@@ -95,7 +97,9 @@ public static class ContextMenu
         removeFromFavorites.Click += (_, _) =>
         {
             PlaySoundEffects.PlayTrashSound();
-            ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
+
+            // Pass the gameFileGrid from the context instead of null
+            ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
         };
 
         // Open Video Link Context Menu
@@ -409,7 +413,7 @@ public static class ContextMenu
             {
                 try
                 {
-                    ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, null, context.FavoritesManager, context.MainWindow);
+                    ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
                     await Task.Delay(500);
                     await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
                 }

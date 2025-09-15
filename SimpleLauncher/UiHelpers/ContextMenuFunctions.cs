@@ -38,46 +38,28 @@ public static class ContextMenuFunctions
                 favoritesManager.FavoriteList = favorites.FavoriteList;
                 favoritesManager.SaveFavorites();
 
-                if (gameFileGrid != null)
+                // Dynamic UI Update for both Grid and List views
+                if (gameFileGrid != null) // GridView is active
                 {
-                    // Update the button's view model by locating the button using the composite tag.
-                    try
-                    {
-                        // Build the key using systemName and file name WITH extension.
-                        var key = $"{systemName}|{fileNameWithExtension}";
+                    var key = $"{systemName}|{fileNameWithExtension}";
+                    var button = gameFileGrid.Children.OfType<Button>()
+                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
-                        // Find the button by checking if its Tag is a GameButtonTag and comparing its Key.
-                        var button = gameFileGrid.Children.OfType<Button>()
-                            .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                                 string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
-
-                        if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
-                        {
-                            viewModel.IsFavorite = true; // This automatically makes the star overlay visible.
-                        }
-                    }
-                    catch (Exception ex)
+                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                     {
-                        // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, "An error occurred while adding a game to the favorites.");
+                        viewModel.IsFavorite = true;
                     }
                 }
-
-                // Find the GameListViewItem and update its IsFavorite property
-                try
+                else // ListView is active (or called from another window)
                 {
                     var gameItem = mainWindow.GameListItems
-                        .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
 
                     if (gameItem != null)
                     {
                         gameItem.IsFavorite = true;
                     }
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "An error occurred while adding a game to the favorites.");
                 }
 
                 // Notify user
@@ -122,44 +104,28 @@ public static class ContextMenuFunctions
             favoritesManager.FavoriteList = favorites.FavoriteList;
             favoritesManager.SaveFavorites();
 
-            if (gameFileGrid != null)
+            // Dynamic UI Update Logic for both Grid and List views
+            if (gameFileGrid != null) // GridView is active
             {
-                // Update the button's view model by locating the button using the composite tag.
-                try
-                {
-                    // Build the key using systemName and file name WITH extension.
-                    var key = $"{systemName}|{fileNameWithExtension}";
-                    var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+                var key = $"{systemName}|{fileNameWithExtension}";
+                var button = gameFileGrid.Children.OfType<Button>()
+                    .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
+                                         string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
-                    if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
-                    {
-                        viewModel.IsFavorite = false; // This will collapse the star overlay.
-                    }
-                }
-                catch (Exception ex)
+                if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                 {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "An error occurred while removing a game from favorites.");
+                    viewModel.IsFavorite = false;
                 }
             }
-
-            // Find the GameListViewItem and update its IsFavorite property
-            try
+            else // ListView is active (or called from another window)
             {
                 var gameItem = mainWindow.GameListItems
-                    .FirstOrDefault(g => g.FileName.Equals(Path.GetFileNameWithoutExtension(fileNameWithExtension), StringComparison.OrdinalIgnoreCase));
+                    .FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
 
                 if (gameItem != null)
                 {
                     gameItem.IsFavorite = false;
                 }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "An error occurred while removing a game from favorites.");
             }
 
             // Notify user
@@ -278,7 +244,6 @@ public static class ContextMenuFunctions
         // Ensure the systemImageFolder considers both absolute and relative paths
         // Resolve the path using PathHelper
         var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
-
 
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
 
@@ -673,7 +638,6 @@ public static class ContextMenuFunctions
                     if (button?.Content is Grid grid)
                     {
                         // Find the Image control within the button's template
-
                         if (grid.Children.OfType<Border>()
                                 .FirstOrDefault()?.Child is Image imageControl)
                         {
