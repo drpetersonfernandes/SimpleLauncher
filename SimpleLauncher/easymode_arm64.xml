@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--260725-->
+<!--160925-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
 <!--OK        DuckStation - Add a .txt file named "portable"-->
@@ -316,13 +316,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Vice</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters/>-->
-<!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
-<!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
-<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
+                <!--                <EmulatorName>Vice</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
+                <!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
+                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -386,13 +386,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>WinFellow</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\WinFellow\.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters/>-->
-<!--                <EmulatorDownloadPage/>-->
-<!--                <EmulatorLatestVersion/>-->
-<!--                <EmulatorDownloadLink/>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\WinFellow\</EmulatorDownloadExtractPath>-->
+                <!--                <EmulatorName>WinFellow</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\WinFellow\.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage/>-->
+                <!--                <EmulatorLatestVersion/>-->
+                <!--                <EmulatorDownloadLink/>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\WinFellow\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -544,13 +544,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Xemu</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xemu\xemu.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>-->
-<!--                <EmulatorDownloadPage/>-->
-<!--                <EmulatorLatestVersion/>-->
-<!--                <EmulatorDownloadLink/>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xemu\</EmulatorDownloadExtractPath>-->
+                <!--                <EmulatorName>Xemu</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xemu\xemu.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>-->
+                <!--                <EmulatorDownloadPage/>-->
+                <!--                <EmulatorLatestVersion/>-->
+                <!--                <EmulatorDownloadLink/>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xemu\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -662,7 +662,7 @@
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
-                
+
                 <CoreLocation/>
                 <CoreLatestVersion/>
                 <CoreDownloadLink/>
@@ -704,7 +704,7 @@
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
-                
+
                 <CoreLocation/>
                 <CoreLatestVersion/>
                 <CoreDownloadLink/>
@@ -1433,13 +1433,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Ymir</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters/>-->
-<!--                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>-->
-<!--                <EmulatorLatestVersion>0.1.8</EmulatorLatestVersion>-->
-<!--                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.1.8/ymir-windows-ARM64-v0.1.8.zip</EmulatorDownloadLink>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>-->
+                <!--                <EmulatorName>Ymir</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>-->
+                <!--                <EmulatorLatestVersion>0.1.8</EmulatorLatestVersion>-->
+                <!--                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.1.8/ymir-windows-ARM64-v0.1.8.zip</EmulatorDownloadLink>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -1702,7 +1702,7 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\DuckStation\duckstation-qt-ARM64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250902</EmulatorLatestVersion>
+                <EmulatorLatestVersion>0.20250909</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-arm64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
 
