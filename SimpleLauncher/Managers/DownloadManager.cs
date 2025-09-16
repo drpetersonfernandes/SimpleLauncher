@@ -661,6 +661,8 @@ public class DownloadManager : IDisposable
             return;
         }
 
+        _httpClient?.Dispose();
+
         _cancellationTokenSource?.Dispose();
         _disposed = true;
         GC.SuppressFinalize(this);

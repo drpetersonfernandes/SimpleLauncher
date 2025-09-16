@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -136,18 +137,37 @@ public class SettingsManager
                 }
             }
 
-            // Save to ensure new sound settings are written if they were missing
             Save();
+        }
+        catch (XmlException ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'.");
+
+            // Notify user
+            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+
+            SetDefaultsAndSave();
+        }
+        catch (IOException ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "There was an IOException while loading the file 'setting.xml'.");
+
+            // Notify user
+            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+
+            SetDefaultsAndSave();
         }
         catch (Exception ex)
         {
-            SetDefaultsAndSave();
-
             // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
 
             // Notify user
             MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+
+            SetDefaultsAndSave();
         }
     }
 

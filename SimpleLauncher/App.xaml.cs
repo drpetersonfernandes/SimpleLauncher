@@ -179,6 +179,7 @@ public partial class App : IDisposable
             }
         }
 
+        Dispose();
         base.OnExit(e);
     }
 
