@@ -57,7 +57,7 @@ public class Favorite : INotifyPropertyChanged
     [IgnoreMember]
     public string FormattedFileSize =>
         _fileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
-        _fileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "N/A" : // Show "N/A" for other negative values (errors/not found)
+        _fileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "Not Available" : // Show "N/A" for other negative values (errors/not found)
         FormatFileSize.FormatToMb(_fileSizeBytes); // Otherwise, format the size
 
     public event PropertyChangedEventHandler? PropertyChanged;
