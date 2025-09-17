@@ -120,5 +120,5 @@
     <SimilarityAlgorithm>Jaro-Winkler Distance</SimilarityAlgorithm>
     <BaseTheme>Light</BaseTheme>
     <AccentColor>Blue</AccentColor>
-    <UseMameDescription>true</UseMameDescription>
+    <UseMameDescription>false</UseMameDescription>
 </Settings>
