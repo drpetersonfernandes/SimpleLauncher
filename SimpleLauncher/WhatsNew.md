@@ -1,3 +1,23 @@
+# Release 4.4
+*09/17/25*
+---
+
+### 🖥️ Platform Support
+- Introduced support for Windows-arm64
+
+### 🎨 User Interface
+- Improved UI responsiveness in `PlayHistoryWindow` and `FavoritesWindow`
+- Replaced `PleaseWaitWindow` with a consistent, embedded `LoadingOverlay`
+- Added "Delete Cover Image" option in the right-click context menu
+
+### 🔧 Technical Improvements
+- Improved error handling and user notifications
+- Updated existing emulator versions
+- Enabled MAME description support in `FindRomCover` tool
+- Upgraded NuGet packages `MahApps.Metro` and `Microsoft.Extensions`
+- Transitioned `SettingsManager` and `FavoritesManager` to Dependency Injection (DI)
+- Improved localization resource management
+
 # Release 4.3
 *07/26/25*
 ---
