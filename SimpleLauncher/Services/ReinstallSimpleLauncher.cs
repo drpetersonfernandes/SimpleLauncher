@@ -1,5 +1,6 @@
 using System;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Windows;
 
@@ -15,7 +16,13 @@ public static class ReinstallSimpleLauncher
 
             if (File.Exists(updaterPath))
             {
-                Process.Start(updaterPath);
+                var startInfo = new ProcessStartInfo(updaterPath)
+                {
+                    Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                    UseShellExecute = true
+                };
+                Process.Start(startInfo);
+
                 ShutdownApplication();
             }
             else
@@ -50,7 +57,13 @@ public static class ReinstallSimpleLauncher
                     // 4. Verify Updater.exe now exists and launches it
                     if (File.Exists(updaterPath))
                     {
-                        Process.Start(updaterPath);
+                        var startInfo = new ProcessStartInfo(updaterPath)
+                        {
+                            Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
+                            UseShellExecute = true
+                        };
+                        Process.Start(startInfo);
+
                         ShutdownApplication();
                     }
                     else

@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Reflection;
+using System.Runtime.InteropServices;
 using System.Text.Json;
 using System.Text.RegularExpressions;
 using ICSharpCode.SharpZipLib.Zip;
@@ -20,6 +21,21 @@ public partial class UpdateForm : Form
 
     // Use a single, static HttpClient instance for performance and resource management
     private static readonly HttpClient HttpClient = new();
+
+    // Gets the runtime identifier for the current process architecture (e.g., "win-x64", "win-arm64")
+    private static string CurrentRuntimeIdentifier
+    {
+        get
+        {
+            var arch = RuntimeInformation.ProcessArchitecture;
+            return arch switch
+            {
+                Architecture.Arm64 => "win-arm64",
+                Architecture.X64 => "win-x64",
+                _ => "win-x64" // Fallback to x64 for any other architecture
+            };
+        }
+    }
 
     public UpdateForm(string[] args)
     {
@@ -47,9 +63,10 @@ public partial class UpdateForm : Form
             // Start the update process directly on the UI thread context
             await UpdateProcess();
         }
-        catch (Exception)
+        catch (Exception ex)
         {
-            // TODO
+            Log($"An error occurred during update process: {ex.Message}");
+            Log("Please updated manually.");
         }
     }
 
@@ -72,7 +89,8 @@ public partial class UpdateForm : Form
             // Fetch the latest release from GitHub
             Log("Fetching the latest release from GitHub...");
             var (latestVersion, assetUrl) = await GetLatestReleaseAssetUrlAsync();
-            Log($"Latest version: {latestVersion}");
+            Log($"Latest version found: {latestVersion}");
+            Log($"Release package URL: {assetUrl}");
 
             // Download the update file to memory
             Log("Downloading the update file...");
@@ -83,8 +101,10 @@ public partial class UpdateForm : Form
             {
                 "Updater.exe",
                 "Updater.pdb",
-                "SharpZipLib.dll"
-                // Add any other updater-specific dependencies here
+                "Updater.dll",
+                "Updater.deps.json",
+                "Updater.runtimeconfig.json",
+                "ICSharpCode.SharpZipLib.dll" // Using SharpZipLib now
             };
 
             // Extract the ZIP file
@@ -98,7 +118,7 @@ public partial class UpdateForm : Form
                     var fileName = Path.GetFileName(entry.Name);
                     if (ignoredFiles.Contains(fileName, StringComparer.OrdinalIgnoreCase))
                     {
-                        Log($"Skipping: {entry.Name}");
+                        Log($"Skipping self-update file: {entry.Name}");
                         continue;
                     }
 
@@ -138,26 +158,26 @@ public partial class UpdateForm : Form
             try
             {
                 var mainAppProcess = Process.GetProcessById(pid);
-                Log($"Waiting for main application (PID: {pid}) to exit...");
+                Log($"Waiting for Simple Launcher (PID: {pid}) to exit...");
                 mainAppProcess.WaitForExit(10000); // Wait for up to 10 seconds
                 if (!mainAppProcess.HasExited)
                 {
-                    Log("Main application did not exit in time. Update may fail.");
+                    Log("Warning: Simple Launcher did not exit in time. Update may fail.");
                 }
                 else
                 {
-                    Log("Main application has exited.");
+                    Log("Simple Launcher has exited.");
                 }
             }
             catch (ArgumentException)
             {
-                Log("Main application process not found. Assuming it has already exited.");
+                Log("Simple Launcher process not found. Assuming it has already exited.");
             }
         }
         else
         {
-            // Fallback for legacy behavior or manual launch, though it's unreliable.
-            Log("No PID provided. Waiting for 3 seconds (this is unreliable)...");
+            // This is now a less likely fallback.
+            Log("No PID provided by Simple Launcher. Waiting for 3 seconds (this is unreliable)...");
             Thread.Sleep(3000);
         }
     }
@@ -193,23 +213,30 @@ public partial class UpdateForm : Form
         var root = jsonDoc.RootElement;
 
         var versionTag = root.GetProperty("tag_name").GetString() ?? string.Empty;
-        var versionMatch = MyRegex1().Match(versionTag);
-        var version = versionMatch.Success ? NormalizeVersion(versionMatch.Value) : "0.0.0.0";
+        var versionMatch = MyRegex().Match(versionTag);
+        var rawVersionString = versionMatch.Success ? versionMatch.Value : "0.0.0.0";
+        var normalizedVersion = NormalizeVersion(rawVersionString);
 
-        // ReSharper disable once InvertIf
-        if (root.TryGetProperty("assets", out var assetsElement) && assetsElement.EnumerateArray().FirstOrDefault() is var firstAsset)
+        var expectedAssetName = $"release_{rawVersionString}_{CurrentRuntimeIdentifier}.zip";
+        Log($"Searching for asset: {expectedAssetName}");
+
+        if (root.TryGetProperty("assets", out var assetsElement))
         {
-            if (!firstAsset.TryGetProperty("browser_download_url", out var downloadUrlElement))
-                throw new InvalidOperationException("Could not find a downloadable asset in the latest release.");
-
-            var assetUrl = downloadUrlElement.GetString();
-            if (!string.IsNullOrEmpty(assetUrl))
+            foreach (var asset in assetsElement.EnumerateArray())
             {
-                return (version, assetUrl);
+                var assetName = asset.GetProperty("name").GetString();
+                if (assetName?.Equals(expectedAssetName, StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    var assetUrl = asset.GetProperty("browser_download_url").GetString();
+                    if (!string.IsNullOrEmpty(assetUrl))
+                    {
+                        return (normalizedVersion, assetUrl);
+                    }
+                }
             }
         }
 
-        throw new InvalidOperationException("Could not find a downloadable asset in the latest release.");
+        throw new InvalidOperationException($"Could not find the required asset '{expectedAssetName}' in the latest release.");
     }
 
     private void RestartMainApplication()
@@ -221,7 +248,7 @@ public partial class UpdateForm : Form
             {
                 FileName = simpleLauncherExePath,
                 Arguments = "-whatsnew",
-                UseShellExecute = true, // UseShellExecute is often more reliable for launching UI apps
+                UseShellExecute = true,
                 WorkingDirectory = AppDirectory
             };
             Process.Start(startInfo);
@@ -275,9 +302,9 @@ public partial class UpdateForm : Form
             parts.Add("0");
         }
 
-        return string.Join(".", parts);
+        return string.Join(".", parts.Take(4));
     }
 
-    [GeneratedRegex(@"(?<=release(?:-[a-zA-Z0-9]+)?-?)\d+(\.\d+)*", RegexOptions.Compiled)]
-    private static partial Regex MyRegex1();
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled)]
+    private static partial Regex MyRegex();
 }

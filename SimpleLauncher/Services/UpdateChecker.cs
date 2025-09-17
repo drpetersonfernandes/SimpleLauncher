@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -335,6 +336,7 @@ public static partial class UpdateChecker
             Process.Start(new ProcessStartInfo
             {
                 FileName = updaterExePath,
+                Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
                 UseShellExecute = true
             });
 
@@ -595,6 +597,6 @@ public static partial class UpdateChecker
     [GeneratedRegex(@"[^\d\.]")]
     private static partial Regex MyRegex1();
 
-    [GeneratedRegex(@"(\d+\.\d+\.\d+)", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
+    [GeneratedRegex(@"(\d+(\.\d+){1,3})", RegexOptions.Compiled | RegexOptions.IgnoreCase)]
     private static partial Regex MyRegex2();
 }
