@@ -54,11 +54,13 @@
     <system:String x:Key="ApplicationFolder">Application Folder:</system:String>
     <system:String x:Key="ArchivePathMessage">Archive file:</system:String>
     <system:String x:Key="areyourunningasecondinstance">Are you running a second instance of 'Simple Launcher'? If yes, please open only one instance at a time or you may encounter issues.</system:String>
+    <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Are you sure you want to delete the cover image of</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethefile">Are you sure you want to delete the file</system:String>
     <system:String x:Key="Areyousureyouwanttodeletethis">Are you sure you want to delete this system?</system:String>
     <system:String x:Key="AreYouSureYouWantToRemoveAllHistory">Are you sure you want to remove all play history?</system:String>
     <system:String x:Key="AselectionwindowwillopeninSimpleLauncherallowingyou">A selection window will open in 'Simple Launcher', allowing you to choose the desired window to capture.</system:String>
     <system:String x:Key="assoonasyouselectawindow">As soon as you select a window, a screenshot will be taken and saved in the image folder of the selected system.</system:String>
+    <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.</system:String>
     <system:String x:Key="BaseTheme">Base Theme</system:String>
     <system:String x:Key="BatchConvertIsoToXiso">Batch Convert Iso To Xiso</system:String>
     <system:String x:Key="BatchConvertToCHD">Batch Convert To CHD</system:String>
@@ -69,10 +71,13 @@
     <system:String x:Key="ButIfoundabackupfile">But I found a backup file.</system:String>
     <system:String x:Key="Cabinet">Cabinet</system:String>
     <system:String x:Key="Cabinetnotfound">Cabinet not found</system:String>
+    <system:String x:Key="Calculating">Calculating...</system:String>
     <system:String x:Key="Cancel">Cancel</system:String>
     <system:String x:Key="CancelButtonText">Cancel</system:String>
     <system:String x:Key="Cancelingdownload">Canceling download...</system:String>
     <system:String x:Key="cannotbeextracted">can not be extracted.</system:String>
+    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Cannot create or access the extraction folder.</system:String>
+    <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Cannot take a screenshot of a minimized window.</system:String>
     <system:String x:Key="Cart">Cart</system:String>
     <system:String x:Key="Cartnotfound">Cart not found</system:String>
     <system:String x:Key="CheckFilePermissions">Please check file permissions and ensure the file is not locked.</system:String>
@@ -89,6 +94,7 @@
     <system:String x:Key="Cobalt">Cobalt</system:String>
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirm Deletion</system:String>
+    <system:String x:Key="CopyError">Copy Error</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Could not find a file with the extension defined in 'Extension to Launch After Extraction' inside the extracted folder.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Could not find the selected system in the configuration.</system:String>
     <system:String x:Key="CouldNotOpenSoundConfigurationWindow">Could not open sound configuration window</system:String>
@@ -110,6 +116,7 @@
     <system:String x:Key="DebugWindow">Debug Window</system:String>
     <system:String x:Key="DefaultImageFolder">Using default image folder</system:String>
     <system:String x:Key="defaultpngfileismissing">'default.png' file is missing.</system:String>
+    <system:String x:Key="DeleteCoverImage">Delete Cover Image</system:String>
     <system:String x:Key="DeleteGame">Delete Game</system:String>
     <system:String x:Key="DeleteSelectedSystem">Delete Selected System</system:String>
     <system:String x:Key="DeveloperSuggestion">Developer Suggestion</system:String>
@@ -180,6 +187,7 @@
     <system:String x:Key="EnsuretheSimpleLauncher">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Ensure the 'Simple Launcher' folder is a writable directory.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Ensure you have enough space in the HDD to extract the file.</system:String>
+    <system:String x:Key="error">Error</system:String>
     <system:String x:Key="Error">Error</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
     <system:String x:Key="Errorduring">Error during</system:String>
@@ -203,6 +211,7 @@
     <system:String x:Key="Extracting">Extracting</system:String>
     <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
     <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Extraction failed. See error message for details.</system:String>
+    <system:String x:Key="Failedtocopylogcontent">Failed to copy log content.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Failed to load language resources.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
     <system:String x:Key="Failedtoopenthemanual">Failed to open the manual.</system:String>
@@ -274,12 +283,15 @@
     <system:String x:Key="Linkssavedsuccessfully">Links saved successfully.</system:String>
     <system:String x:Key="ListofFavorites">List of Favorites</system:String>
     <system:String x:Key="ListView">List View</system:String>
+    <system:String x:Key="LoadingFavorites">Loading favorites...</system:String>
+    <system:String x:Key="LoadingHistory">Loading history...</system:String>
     <system:String x:Key="Magenta">Magenta</system:String>
     <system:String x:Key="Manual">Manual</system:String>
     <system:String x:Key="Manualnotfound">Manual not found</system:String>
     <system:String x:Key="ManualReinstallSuggestion">Please reinstall 'Simple Launcher' manually to fix the issue.</system:String>
     <system:String x:Key="Mauve">Mauve</system:String>
     <system:String x:Key="Maybethereisaproblemwithyourinternet">Maybe there is a problem with your internet access or the GitHub server is offline.</system:String>
+    <system:String x:Key="MissingFile">Missing File</system:String>
     <system:String x:Key="MissingRequiredFiles">Missing Required Files</system:String>
     <system:String x:Key="Name">Name</system:String>
     <system:String x:Key="nameisrequiredbecauserelateddata">name is required because related data has been provided.</system:String>
@@ -297,6 +309,7 @@
     <system:String x:Key="Nosystemnameprovided">No system name provided.</system:String>
     <system:String x:Key="NoSystemsConfiguredMessage">No systems configured. Please use the 'Edit System' menu to add systems.</system:String>
     <system:String x:Key="Nosystemselected">No system selected</system:String>
+    <system:String x:Key="NotAvailable">Not Available</system:String>
     <system:String x:Key="Notenoughdiskspaceforextraction">Not enough disk space for extraction.</system:String>
     <system:String x:Key="Notextavailable">No text available.</system:String>
     <system:String x:Key="NotificationSoundFileLabel">Notification sound</system:String>
@@ -427,6 +440,9 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' could not extract the updater application.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' could not find the updater application on GitHub.</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' could not find the 'updater.exe' inside the downloaded archive.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
@@ -437,6 +453,7 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Error</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
+    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' failed to download and reinstall the updater.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="SortByDate">Sort By Date</system:String>
@@ -485,6 +502,7 @@
     <system:String x:Key="Thefilehasbeenremovedfromthelist">The file has been removed from the list.</system:String>
     <system:String x:Key="Thefilehelpuserxmlismissing">The file 'helpuser.xml' is missing.</system:String>
     <system:String x:Key="Thefilemamedatcouldnotbefound">The file 'mame.dat' could not be found in the application folder.</system:String>
+    <system:String x:Key="Thefilepathisinvalid">The filepath is invalid or the file does not exist!</system:String>
     <system:String x:Key="Thefilesystemxmlisbadlycorrupted">The file 'system.xml' is badly corrupted.</system:String>
     <system:String x:Key="Thefollowingrequiredfilesaremissing">The following required file(s) are missing:</system:String>
     <system:String x:Key="Thegamefiledoesnotexist">The game file does not exist!</system:String>
@@ -512,6 +530,7 @@
     <system:String x:Key="Therewasanerror">There was an error.</system:String>
     <system:String x:Key="Therewasanerroradding">There was an error adding this system.</system:String>
     <system:String x:Key="Therewasanerrorcheckingforupdates">There was an error checking for updates.</system:String>
+    <system:String x:Key="Therewasanerrordeletingthecoverimage">There was an error deleting the cover image.</system:String>
     <system:String x:Key="Therewasanerrordeletingthefile">There was an error deleting the file.</system:String>
     <system:String x:Key="Therewasanerrorfinding">There was an error finding the game files.</system:String>
     <system:String x:Key="Therewasanerrorinstallingorupdating">There was an error installing or updating the application.</system:String>
@@ -561,6 +580,7 @@
     <system:String x:Key="Unknown">Unknown</system:String>
     <system:String x:Key="UpdateAvailable">Update Available</system:String>
     <system:String x:Key="UpdateHistory">Update History</system:String>
+    <system:String x:Key="Updaterexeismissing">'Updater.exe' is missing, 'Simple Launcher' will try to download it.</system:String>
     <system:String x:Key="Updating">Updating</system:String>
     <system:String x:Key="Useacommatoaddmultipleextensions">Use a comma [ , ] to add multiple extensions</system:String>
     <system:String x:Key="UsetheformbelowToGetSupport">Use the form below to get support</system:String>
@@ -582,8 +602,11 @@
     <system:String x:Key="Wouldyouliketoberedirected">Would you like to be redirected to the download page?</system:String>
     <system:String x:Key="Wouldyouliketoberedirectedtothedownloadpage">Would you like to be redirected to the download page to install or update it manually?</system:String>
     <system:String x:Key="Wouldyouliketoopentheerroruserlog">Would you like to open the 'error_user.log' file to investigate the issue?</system:String>
+    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Would you like to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Wouldyouliketorestore">Would you like to restore the last backup?</system:String>
     <system:String x:Key="Wouldyouliketosaveareport">Would you like to save a report with the results?</system:String>
+    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">XISO mounting is not supported on ARM64 systems.</system:String>
+    <system:String x:Key="XISOMountNotSupported">XISO Mount Not Supported</system:String>
     <system:String x:Key="Yellow">Yellow</system:String>
     <system:String x:Key="Youcanaddanewsystem">You can add a new system now.</system:String>
     <system:String x:Key="Youcanalsotemporarilydisableyourantivirussoftware">You can also temporarily disable your antivirus software or add 'Simple Launcher' folder to the antivirus exclusion list.</system:String>
@@ -598,28 +621,6 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
 
-    <system:String x:Key="Therewasanerrordeletingthecoverimage">There was an error deleting the cover image.</system:String>
-    <system:String x:Key="Areyousureyouwanttodeletethecoverimageof">Are you sure you want to delete the cover image of</system:String>
-    <system:String x:Key="DeleteCoverImage">Delete Cover Image</system:String>
-    <system:String x:Key="LoadingFavorites">Loading favorites...</system:String>
-    <system:String x:Key="LoadingHistory">Loading history...</system:String>
-    <system:String x:Key="Calculating">Calculating...</system:String>
-    <system:String x:Key="NotAvailable">Not Available</system:String>
-    <system:String x:Key="Cannotcreateoraccesstheextractionfolder2">Cannot create or access the extraction folder.</system:String>
-    <system:String x:Key="Wouldyouliketoopenthefileerroruserlogtodebugtheerror">Would you like to open the file 'error_user.log' to debug the error?</system:String>
-    <system:String x:Key="error">Error</system:String>
-    <system:String x:Key="Thefilepathisinvalid">The filepath is invalid or the file does not exist!</system:String>
-    <system:String x:Key="Avoidusingspecialcharactersinthefilepath">Avoid using special characters in the filepath, such as @, !, ?, ~, or any other special characters.</system:String>
-    <system:String x:Key="XISOmountingisnotsupportedonARM64systems">XISO mounting is not supported on ARM64 systems.</system:String>
-    <system:String x:Key="XISOMountNotSupported">XISO Mount Not Supported</system:String>
-    <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Cannot take a screenshot of a minimized window.</system:String>
-    <system:String x:Key="Failedtocopylogcontent">Failed to copy log content.</system:String>
-    <system:String x:Key="CopyError">Copy Error</system:String>
-    <system:String x:Key="Updaterexeismissing">'Updater.exe' is missing, 'Simple Launcher' will try to download it.</system:String>
-    <system:String x:Key="MissingFile">Missing File</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' could not find the updater application on GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' could not extract the updater application.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' could not find the 'updater.exe' inside the downloaded archive.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' failed to download and reinstall the updater.</system:String>
-    
+    <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' could not launch the tool</system:String>
+     
 </ResourceDictionary>

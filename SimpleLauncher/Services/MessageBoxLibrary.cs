@@ -3068,11 +3068,11 @@ internal static class MessageBoxLibrary
 
         void ShowMessage()
         {
-            var simpleLaunchercouldnotlaunch = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunch") ?? "'Simple Launcher' could not launch";
+            var simpleLaunchercouldnotlaunchthetool = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotlaunchthetool") ?? "'Simple Launcher' could not launch the tool";
             var doyouwanttoopenthefile = (string)Application.Current.TryFindResource("Doyouwanttoopenthefile") ?? "Do you want to open the file 'error_user.log' to debug the error?";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunch} {toolName}.\n\n" +
+            var result = MessageBox.Show($"{simpleLaunchercouldnotlaunchthetool} {toolName}.\n\n" +
                                          $"{doyouwanttoopenthefile}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
