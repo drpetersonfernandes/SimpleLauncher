@@ -435,14 +435,14 @@ public static class GameLauncher
             // ExitCode might not be reliable with UseShellExecute = true
             if (process.ExitCode != 0)
             {
-                 // Log the exit code, but don't necessarily treat it as a critical error
-                 // since it might just be the shell's exit code.
-                 // Notify developer
-                 var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
-                                   $"Shortcut file: {psi.FileName}\n" +
-                                   $"Exit code {process.ExitCode}\n\n" +
-                                   $"User was not notified.";
-                 _ = LogErrors.LogErrorAsync(null, errorDetail);
+                // Log the exit code, but don't necessarily treat it as a critical error
+                // since it might just be the shell's exit code.
+                // Notify developer
+                var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
+                                  $"Shortcut file: {psi.FileName}\n" +
+                                  $"Exit code {process.ExitCode}\n\n" +
+                                  $"User was not notified.";
+                _ = LogErrors.LogErrorAsync(null, errorDetail);
             }
         }
         catch (Exception ex)
@@ -559,10 +559,11 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted XBE).";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            await LogErrors.LogErrorAsync(null, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
             return;
         }
@@ -572,11 +573,11 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
+            await LogErrors.LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
             return;
         }
@@ -587,10 +588,11 @@ public static class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            await LogErrors.LogErrorAsync(null, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
             return;
         }
@@ -599,14 +601,15 @@ public static class GameLauncher
         var resolvedEmulatorFolderPath = Path.GetDirectoryName(resolvedEmulatorExePath);
         if (string.IsNullOrEmpty(resolvedEmulatorFolderPath) || !Directory.Exists(resolvedEmulatorFolderPath)) // Should exist if exe exists
         {
-             // Notify developer
-             var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
-             _ = LogErrors.LogErrorAsync(null, contextMessage);
+            // Notify developer
+            var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
+            await LogErrors.LogErrorAsync(null, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
-             // Notify user
-             MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
 
-             return;
+            return;
         }
 
         // Resolve System Folder Path, which is the base for %SYSTEMFOLDER%
@@ -648,13 +651,14 @@ public static class GameLauncher
             // Notify developer
             var contextMessage = $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
             workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
         }
 
         var psi = new ProcessStartInfo
         {
-            FileName = resolvedEmulatorExePath, // Use the resolved executable path
+            FileName = resolvedEmulatorExePath,
             Arguments = arguments,
             WorkingDirectory = workingDirectory,
             UseShellExecute = false,
@@ -721,7 +725,8 @@ public static class GameLauncher
         {
             // Notify developer
             const string contextMessage = "InvalidOperationException while launching emulator.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -753,7 +758,7 @@ public static class GameLauncher
                               $"Calling parameters: {psi.Arguments}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            await LogErrors.LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {

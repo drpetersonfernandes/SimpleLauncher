@@ -57,49 +57,7 @@ public static class ContextMenu
                 selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
             }
 
-            if (string.IsNullOrEmpty(context.FilePath))
-            {
-                // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(selectedEmulatorName))
-            {
-                // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
-
-                return;
-            }
-
-            if (string.IsNullOrEmpty(context.SelectedSystemName))
-            {
-                // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
-
-                return;
-            }
-
-            if (context.SelectedSystemManager == null)
-            {
-                // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
-
-                // Notify user
-                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
-
-                return;
-            }
+            if (await CheckParametersForNullOrEmpty(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
 
             await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
         };
@@ -542,5 +500,54 @@ public static class ContextMenu
         contextMenu.Items.Add(deleteCoverImage);
 
         return contextMenu;
+
+        async Task<bool> CheckParametersForNullOrEmpty(string selectedEmulatorName)
+        {
+            if (string.IsNullOrEmpty(context.FilePath))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(selectedEmulatorName))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return true;
+            }
+
+            if (string.IsNullOrEmpty(context.SelectedSystemName))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return true;
+            }
+
+            if (context.SelectedSystemManager == null)
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return true;
+            }
+
+            return false;
+        }
     }
 }
