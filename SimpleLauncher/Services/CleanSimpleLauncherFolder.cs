@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services;
 
@@ -39,6 +40,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "7z.dll"),
         Path.Combine(AppDirectory, "7z_x86.dll"),
         Path.Combine(AppDirectory, "whatsnew.txt"),
+        Path.Combine(AppDirectory, "Updater.exe"),
 
         Path.Combine(AppDirectory, "ControlzEx.dll"),
         Path.Combine(AppDirectory, "Hardcodet.NotifyIcon.Wpf.dll"),
@@ -146,6 +148,56 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.runtimeconfig.json")
     ];
 
+    private static readonly string[] FilesToDeleteIfCurrentArchitectureIsX64 =
+    [
+        Path.Combine(AppDirectory, "7z_arm64.dll"),
+        Path.Combine(AppDirectory, "easymode_arm64.xml"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "7z_arm64.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "7z_arm64.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "BatchConvertToRVZ_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "DolphinTool_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive_arm64.exe")
+    ];
+
+    private static readonly string[] FilesToDeleteIfCurrentArchitectureIsArm64 =
+    [
+        Path.Combine(AppDirectory, "7z_x64.dll"),
+        Path.Combine(AppDirectory, "easymode.xml"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "7z_x64.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCompressedFile", "BatchConvertToCompressedFile.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "7z_x64.dll"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "BatchConvertToRVZ.exe"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToRVZ", "DolphinTool.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForPS3Games", "CreateBatchFilesForPS3Games.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForScummVMGames", "CreateBatchFilesForScummVMGames.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForSegaModel3Games", "CreateBatchFilesForSegaModel3Games.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForWindowsGames", "CreateBatchFilesForWindowsGames.exe"),
+        Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe"),
+        Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.exe"),
+        Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator.exe"),
+        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive.exe")
+    ];
+
+    private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsX64 =
+    [
+        // Path.Combine(AppDirectory, "x86"),
+    ];
+
+    private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsArm64 =
+    [
+        Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso"),
+        Path.Combine(AppDirectory, "tools", "BatchConvertToCHD"),
+        Path.Combine(AppDirectory, "tools", "xbox-iso-vfs")
+    ];
+
     public static void CleanupTrash()
     {
         // Clean directories
@@ -158,6 +210,57 @@ public static class CleanSimpleLauncherFolder
         foreach (var file in FilesToClean)
         {
             DeleteFileSafely(file);
+        }
+
+        CleanupArchitectureSpecificFiles();
+        CleanupArchitectureSpecificFolders();
+    }
+
+    private static void CleanupArchitectureSpecificFiles()
+    {
+        var currentArchitecture = RuntimeInformation.OSArchitecture;
+
+        string[] filesToDelete;
+
+        switch (currentArchitecture)
+        {
+            case Architecture.X64:
+                filesToDelete = FilesToDeleteIfCurrentArchitectureIsX64;
+                break;
+            case Architecture.Arm64:
+                filesToDelete = FilesToDeleteIfCurrentArchitectureIsArm64;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        foreach (var file in filesToDelete)
+        {
+            DeleteFileSafely(file);
+        }
+    }
+
+    private static void CleanupArchitectureSpecificFolders()
+    {
+        var currentArchitecture = RuntimeInformation.OSArchitecture;
+
+        string[] foldersToDelete;
+
+        switch (currentArchitecture)
+        {
+            case Architecture.X64:
+                foldersToDelete = DirectoriesToDeleteIfCurrentArchitectureIsX64;
+                break;
+            case Architecture.Arm64:
+                foldersToDelete = DirectoriesToDeleteIfCurrentArchitectureIsArm64;
+                break;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+
+        foreach (var folder in foldersToDelete)
+        {
+            DeleteDirectorySafely(folder);
         }
     }
 

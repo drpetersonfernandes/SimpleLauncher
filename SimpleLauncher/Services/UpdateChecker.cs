@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Diagnostics;
-using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -218,7 +216,7 @@ public static partial class UpdateChecker
     private static async Task ShowUpdateWindow(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
         UpdateLogWindow logWindow = null;
-        var updaterLaunchedSuccessfully = false;
+        // REMOVED: updaterLaunchedSuccessfully is no longer needed here.
 
         try
         {
@@ -232,18 +230,11 @@ public static partial class UpdateChecker
             logWindow.Show();
             logWindow.Log("Starting update process...");
 
-            if (owner != null)
-            {
-                owner.Hide();
-            }
-            else
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(new ArgumentNullException(nameof(owner), @"Owner window was null when trying to hide it during update."), "Update Process Warning");
-                logWindow.Log("Main window reference is null; cannot hide it explicitly. Update will proceed.");
-            }
+            owner?.Hide();
 
             var appDirectory = AppDomain.CurrentDomain.BaseDirectory;
+            var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
+            var updaterReady = false;
 
             logWindow.Log($"Attempting to download and update the updater from URL: {updaterZipUrl}");
             try
@@ -252,12 +243,10 @@ public static partial class UpdateChecker
                 await DownloadUpdateFileToMemory(updaterZipUrl, memoryStream);
 
                 logWindow.Log($"Extracting updater to '{appDirectory}'...");
-                var allFilesExtracted = ExtractAllFromZip(memoryStream, appDirectory, logWindow);
-
-                if (allFilesExtracted)
+                if (ExtractAllFromZip(memoryStream, appDirectory, logWindow))
                 {
                     logWindow.Log("Updater files extracted successfully.");
-                    updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, true);
+                    updaterReady = true;
                 }
                 else
                 {
@@ -266,23 +255,30 @@ public static partial class UpdateChecker
             }
             catch (Exception ex)
             {
-                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error processing updater package.");
                 logWindow.Log($"Error downloading or extracting updater package: {ex.Message}");
             }
 
-            if (!updaterLaunchedSuccessfully)
+            // If the new updater is ready, use it.
+            if (updaterReady && File.Exists(updaterExePath))
             {
-                logWindow.Log("Failed to update and launch Updater.exe from remote zip. Attempting to launch existing local Updater.exe...");
-                updaterLaunchedSuccessfully = await TryExecuteUpdater(logWindow, appDirectory, false);
+                logWindow.Log("Launching newly updated Updater.exe...");
+                await Task.Delay(500); // Brief delay for UI to update
+                QuitApplication.ShutdownForUpdate(updaterExePath);
+                return; // The application will be terminated by ShutdownForUpdate.
             }
 
-            if (updaterLaunchedSuccessfully)
+            // If downloading/extracting the new updater failed, try to use the existing one.
+            logWindow.Log("Failed to update Updater.exe from remote zip. Attempting to launch existing local Updater.exe...");
+            if (File.Exists(updaterExePath))
             {
-                Application.Current.Dispatcher.Invoke(QuitApplication.ForcefullyQuitApplication);
-                return;
+                logWindow.Log("Launching existing Updater.exe...");
+                await Task.Delay(500);
+                QuitApplication.ShutdownForUpdate(updaterExePath);
+                return; // The application will be terminated by ShutdownForUpdate.
             }
 
+            // If we reach here, all attempts to get and launch the updater have failed.
             logWindow.Log("All attempts to launch Updater.exe (new or existing) have failed.");
             if (!string.IsNullOrEmpty(releasePackageUrl))
             {
@@ -293,63 +289,20 @@ public static partial class UpdateChecker
                 logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
             }
 
-            // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
         }
         catch (Exception ex)
         {
-            // Notify developer
             const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            logWindow?.Log($"Outer catch block error during update preparation: {ex.Message}");
-
-            // Notify user
+            logWindow?.Log($"An unexpected error occurred during the update process: {ex.Message}");
             MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
         }
         finally
         {
-            if (!updaterLaunchedSuccessfully)
-            {
-                logWindow?.Close();
-                owner?.Show();
-            }
-        }
-    }
-
-    internal static async Task<bool> TryExecuteUpdater(UpdateLogWindow logWindow, string appDirectory, bool isNewlyUpdated)
-    {
-        var updaterExePath = Path.Combine(appDirectory, "Updater.exe");
-        var context = isNewlyUpdated ? "newly extracted" : "existing local";
-
-        if (!File.Exists(updaterExePath))
-        {
-            logWindow?.Log($"Updater application ('Updater.exe') ({context}) not found in '{appDirectory}'.");
-            return false;
-        }
-
-        logWindow?.Log($"Attempting to start {context} Updater.exe from: {updaterExePath}");
-        await Task.Delay(500);
-
-        try
-        {
-            Process.Start(new ProcessStartInfo
-            {
-                FileName = updaterExePath,
-                Arguments = Environment.ProcessId.ToString(CultureInfo.InvariantCulture),
-                UseShellExecute = true
-            });
-
-            logWindow?.Log($"Updater.exe ({context}) launched successfully. Simple Launcher will now exit.");
-            await Task.Delay(1000);
-            return true;
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to start {context} Updater.exe from '{updaterExePath}'.");
-            logWindow?.Log($"Failed to start {context} Updater.exe. Error: {ex.Message}");
-            return false;
+            // This finally block will now only be reached if the update process fails before shutdown.
+            logWindow?.Close();
+            owner?.Show();
         }
     }
 
