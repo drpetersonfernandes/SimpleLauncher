@@ -21,7 +21,7 @@ public static class ContextMenu
         return context.Button;
     }
 
-    public static System.Windows.Controls.ContextMenu CreateMenu(RightClickContext context)
+    private static System.Windows.Controls.ContextMenu CreateMenu(RightClickContext context)
     {
         var contextMenu = new System.Windows.Controls.ContextMenu();
 
