@@ -60,6 +60,11 @@ public partial class UpdateForm : Form
         try
         {
             base.OnLoad(e);
+
+            // Ensure the form is visible and in the foreground
+            WindowState = FormWindowState.Normal;
+            Activate();
+
             // Start the update process directly on the UI thread context
             await UpdateProcess();
         }
