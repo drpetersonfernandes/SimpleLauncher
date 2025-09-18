@@ -250,7 +250,10 @@ public class GameListFactory(
         if (selectedItem == null)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, "selectedItem is null.");
+            await LogErrors.LogErrorAsync(null, "selectedItem is null.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
 
             return;
         }
@@ -260,10 +263,46 @@ public class GameListFactory(
         var selectedSystemName = _systemComboBox.SelectedItem as string;
         var selectedSystemManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystemName);
 
+        if (string.IsNullOrEmpty(filePath))
+        {
+            // Notify developer
+            await LogErrors.LogErrorAsync(null, "filepath is null or empty.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+            return;
+        }
+
+        if (string.IsNullOrEmpty(selectedEmulatorName))
+        {
+            // Notify developer
+            await LogErrors.LogErrorAsync(null, "selectedEmulatorName is null or empty.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+            return;
+        }
+
+        if (string.IsNullOrEmpty(selectedSystemName))
+        {
+            // Notify developer
+            await LogErrors.LogErrorAsync(null, "selectedSystemName is null or empty.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+            return;
+        }
+
         if (selectedSystemManager == null)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, "selectedSystemManager is null.");
+            await LogErrors.LogErrorAsync(null, "selectedSystemManager is null.");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
 
             return;
         }

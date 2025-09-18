@@ -373,9 +373,7 @@ public partial class FavoritesWindow
     {
         try
         {
-            var selectedSystemManager = _systemManagers.FirstOrDefault(manager =>
-                manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
-
+            var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
             if (selectedSystemManager == null)
             {
                 // Notify developer
@@ -389,7 +387,6 @@ public partial class FavoritesWindow
             }
 
             var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
-
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
                 var favoriteToRemove = _favoriteList.FirstOrDefault(fav =>

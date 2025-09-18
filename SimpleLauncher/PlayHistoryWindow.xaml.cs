@@ -394,6 +394,8 @@ public partial class PlayHistoryWindow
 
             // Notify user
             MessageBoxLibrary.GameFileDoesNotExistMessageBox();
+
+            return;
         }
 
         var emulatorManager = selectedSystemManager.Emulators.FirstOrDefault();
@@ -419,7 +421,7 @@ public partial class PlayHistoryWindow
 
         await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
 
-        RefreshPlayHistoryData(selectedItemIdentifier);
+        RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }
 
     private void RefreshPlayHistoryData((string FileName, string SystemName) previousSelectedItemIdentifier = default)

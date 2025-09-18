@@ -733,8 +733,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     foreach (var folder in selectedManager.SystemFolders)
                     {
                         var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) ||
-                            !Directory.Exists(resolvedSystemFolderPath)) continue;
+                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
 
                         var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
                         foreach (var file in filesInFolder)
@@ -788,24 +787,19 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _favoritesManager = FavoritesManager.LoadFavorites();
 
             // GameButtonFactory and GameListFactory now use the resolved file paths directly
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines,
-                _settings, _favoritesManager, _gameFileGrid, this);
-
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines,
-                _settings, _favoritesManager, _playHistoryManager, this);
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
             foreach (var filePath in allFiles) // 'filePath' is already resolved here
             {
-                if (_settings.ViewMode == "GridView")
+                if (_settings.ViewMode == "GridView") // GridView
                 {
-                    var gameButton =
-                        await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
                 else // ListView
                 {
-                    var gameListViewItem =
-                        await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
                     await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
                 }
             }

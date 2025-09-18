@@ -133,7 +133,7 @@ public class DownloadManager : IDisposable
             OnProgressChanged(new DownloadProgressEventArgs
             {
                 ProgressPercentage = 0,
-                StatusMessage = GetResourceString("InsufficientDiskSpace", "Insufficient disk space.")
+                StatusMessage = GetResourceString("InsufficientdiskspaceinSimpleLauncherHDD", "Insufficient disk space in 'Simple Launcher' HDD.")
             });
 
             throw new IOException("Insufficient disk space in 'Simple Launcher' HDD or disk space *cannot* be checked.");
@@ -181,8 +181,7 @@ public class DownloadManager : IDisposable
                         OnProgressChanged(new DownloadProgressEventArgs
                         {
                             ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownloadTimeout",
-                                $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                            StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
                         });
 
                         await Task.Delay(delay, _cancellationTokenSource.Token);
@@ -206,8 +205,7 @@ public class DownloadManager : IDisposable
                         OnProgressChanged(new DownloadProgressEventArgs
                         {
                             ProgressPercentage = 0,
-                            StatusMessage = GetResourceString("RetryingDownloadError",
-                                $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                            StatusMessage = GetResourceString("RetryingDownloadError", $"Connection error, retrying ({currentRetry}/{RetryMaxAttempts})...")
                         });
 
                         await Task.Delay(delay, _cancellationTokenSource.Token);

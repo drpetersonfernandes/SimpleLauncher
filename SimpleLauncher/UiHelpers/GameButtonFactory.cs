@@ -40,16 +40,11 @@ public class GameButtonFactory(
     public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
     {
         var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-
         var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
         var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager;
-
-        // Pass the original filename without extension for image lookup
         var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
-
-        // Use the new ImageLoader to load the image and get the isDefault flag
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
 
         // Create the view model and determine the initial favorite state:
@@ -185,8 +180,7 @@ public class GameButtonFactory(
             Converter = new BooleanToVisibilityConverter()
         };
         starImage.SetBinding(UIElement.VisibilityProperty, binding);
-        // Add the star overlay to the grid.
-        grid.Children.Add(starImage);
+        grid.Children.Add(starImage); // Add the star overlay to the grid.
 
         // Set the DataContext of the grid to the view model.
         grid.DataContext = viewModel;

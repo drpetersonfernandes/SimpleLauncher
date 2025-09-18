@@ -48,13 +48,57 @@ public static class ContextMenu
             {
                 selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
             }
-            else if (context.Emulator != null)
+            else if (context.Emulator != null) // This branch is taken if EmulatorComboBox is null (e.g., from GlobalSearch)
             {
                 selectedEmulatorName = context.Emulator.EmulatorName;
             }
             else
             {
-                selectedEmulatorName = null;
+                selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
+            }
+
+            if (string.IsNullOrEmpty(context.FilePath))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(selectedEmulatorName))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return;
+            }
+
+            if (string.IsNullOrEmpty(context.SelectedSystemName))
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return;
+            }
+
+            if (context.SelectedSystemManager == null)
+            {
+                // Notify developer
+                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
+
+                return;
             }
 
             await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
