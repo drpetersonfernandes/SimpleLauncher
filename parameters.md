@@ -458,9 +458,9 @@ This emulator requires a BIOS file to work properly.
 
 **System Folder (Example):** c:\Commodore 64<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap<br>
+**Format To Search In System Folder:** zip, 7z<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 
 **Emulator Name:** Retroarch vice_x64<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -471,10 +471,20 @@ This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
 Core may require BIOS files or system files to work properly.
 
+**Emulator Name:** CCS64<br>
+**Emulator Path (Example):** c:\emulators\CCS64\CCS64.exe<br>
+**Emulator Parameters (Example):**<br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs64.html).
+
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -flop<br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -cass<br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -cart<br>
+**Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
 
@@ -498,7 +508,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap<br>
+**Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 
 **Emulator Name:** Retroarch vice_x64<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -511,8 +521,10 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -flop<br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -cass<br>
+**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -cart<br>
+**Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
 

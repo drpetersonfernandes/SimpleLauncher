@@ -753,9 +753,9 @@ public static class GameLauncher
 
             var errorDetail = $"{exitCodeInfo}\n" +
                               $"Emulator: {psi.FileName}\n" +
+                              $"Calling parameters: {psi.Arguments}" +
                               $"Emulator output: {output}\n" +
-                              $"Emulator error: {error}\n" +
-                              $"Calling parameters: {psi.Arguments}";
+                              $"Emulator error: {error}\n";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
             await LogErrors.LogErrorAsync(ex, contextMessage);
@@ -905,9 +905,9 @@ public static class GameLauncher
                                  $"User was notified.\n\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
+                                 $"Calling parameters: {psi.Arguments}" +
                                  $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
+                                 $"Emulator error: {error}\n";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
         else
@@ -917,9 +917,9 @@ public static class GameLauncher
                                  $"User was not notified.\n\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
+                                 $"Calling parameters: {psi.Arguments}" +
                                  $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n" +
-                                 $"Calling parameters: {psi.Arguments}";
+                                 $"Emulator error: {error}\n";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
@@ -944,9 +944,9 @@ public static class GameLauncher
                              $"User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
+                             $"Calling parameters: {psi.Arguments}" +
                              $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
+                             $"Emulator error: {error}\n";
         _ = LogErrors.LogErrorAsync(null, contextMessage);
 
         return Task.CompletedTask;
@@ -961,9 +961,9 @@ public static class GameLauncher
                              $"User was not notified.\n" +
                              $"Exit code: {process.ExitCode}\n" +
                              $"Emulator: {psi.FileName}\n" +
+                             $"Calling parameters: {psi.Arguments}" +
                              $"Emulator output: {output}\n" +
-                             $"Emulator error: {error}\n" +
-                             $"Calling parameters: {psi.Arguments}";
+                             $"Emulator error: {error}\n";
         _ = LogErrors.LogErrorAsync(null, contextMessage);
 
         return Task.CompletedTask;

@@ -2101,7 +2101,7 @@
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://www.supermodel3.com/Download.html</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.3.20102024</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.supermodel3.com/Files/Git_Snapshots/Supermodel_0.3a-git-f9cb795_Win64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/Supermodel_0.3a-git-f9cb795_Win64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Supermodel\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
