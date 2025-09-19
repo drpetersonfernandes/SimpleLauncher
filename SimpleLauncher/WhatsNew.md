@@ -2,7 +2,9 @@
 *09/19/25*
 ---
 
------
+### 🔧 Bug Fixes
+- Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
+- Fix the Supermodel emulator link.
 
 # Release 4.4
 *09/17/25*
