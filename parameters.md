@@ -547,9 +547,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **System Folder (Example):** c:\Commodore Amiga<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** adf, adz, dms, fdi, ipf,
-raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
+**Extract File Before Launch?** true<br>
+**Format To Launch After Extraction:** adf, adz, dms, fdi, ipf, raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
 
 **Emulator Name:** Retroarch puae<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
@@ -559,6 +558,17 @@ raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
 Core requires BIOS files or system files to work.
+
+**Emulator Name:** WinUAE<br>
+**Emulator Path (Example):** "C:\Emulators\WinUAE\WinUAE.exe"<br>
+**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /run<br>
+**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /floppy0<br>
+**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /harddrive<br>
+**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /cdrom<br>
+**Fullscreen Parameter:** /fullscreen<br>
+**Fullscreen Parameter:** /windowed<br>
+
+This emulator is available for Windows-x64.
 
 **Emulator Name:** WinFellow<br>
 **Emulator Path (Example):** <br>
@@ -626,7 +636,7 @@ You need to create BAT files to launch the games.
 **System Folder (Example):** c:\Magnavox Odyssey 2<br>
 **System Is MAME?** false<br>
 **Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** false<br>
+**Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bin<br>
 
 **Emulator Name:** Retroarch o2em<br>
@@ -637,6 +647,13 @@ You need to create BAT files to launch the games.
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/o2em/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** O2EM<br>
+**Emulator Path (Example):** "C:\Emulators\O2EM\o2em.exe"<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
 
 ## Mattel Aquarius
 
