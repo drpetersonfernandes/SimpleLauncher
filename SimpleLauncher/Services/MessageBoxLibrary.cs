@@ -1097,8 +1097,7 @@ internal static class MessageBoxLibrary
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
             var result = MessageBox.Show($"{thefilesystemxmlisbadlycorrupted}\n\n" +
-                                         $"{wouldyouliketoopentheerroruserlog}",
-                error, MessageBoxButton.YesNo, MessageBoxImage.Question);
+                                         $"{wouldyouliketoopentheerroruserlog}", error, MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
