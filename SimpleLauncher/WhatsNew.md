@@ -4,6 +4,7 @@
 
 ### 🔧 Bug Fixes
 - Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
+- Update SimpleZipDrive to the latest version.
 
 # Release 4.4.1
 *09/19/25*
