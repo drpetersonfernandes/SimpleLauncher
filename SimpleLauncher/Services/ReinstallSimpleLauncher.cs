@@ -50,7 +50,9 @@ public static class ReinstallSimpleLauncher
 
                     if (!extractionSuccess)
                     {
-                        MessageBoxLibrary.FailedToExtractUpdater();
+                        // Notify user
+                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
+
                         return;
                     }
 
@@ -68,19 +70,27 @@ public static class ReinstallSimpleLauncher
                     }
                     else
                     {
-                        MessageBoxLibrary.UpdaterNotFoundAfterExtraction();
+                        // Notify user
+                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
                     }
                 }
                 catch (Exception ex)
                 {
+                    // Notify developer
                     _ = LogErrors.LogErrorAsync(ex, "Failed to download and reinstall the updater.");
-                    MessageBoxLibrary.UpdaterDownloadFailedMessageBox();
+
+                    // Notify user
+                    MessageBoxLibrary.InstallUpdateManuallyMessageBox();
                 }
             }
         }
         catch (Exception ex)
         {
+            // Notify developer
             _ = LogErrors.LogErrorAsync(ex, "Failed to reinstall SimpleLauncher.");
+
+            // Notify user
+            MessageBoxLibrary.InstallUpdateManuallyMessageBox();
         }
     }
 

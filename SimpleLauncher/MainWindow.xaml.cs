@@ -525,20 +525,25 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            if (GameDataGrid.SelectedItem is GameListViewItem selectedItem)
+            if (GameDataGrid.SelectedItem is not GameListViewItem selectedItem)
             {
-                // Delegate the double-click handling to GameListFactory
-                await _gameListFactory.HandleDoubleClick(selectedItem);
+                return;
             }
+
+            if (string.IsNullOrEmpty(selectedItem.FilePath))
+            {
+                // This is likely the "No results found" placeholder item.
+                return;
+            }
+
+            // Delegate the double-click handling to GameListFactory
+            await _gameListFactory.HandleDoubleClick(selectedItem);
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItem.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorMessageBox();
         }
     }
 

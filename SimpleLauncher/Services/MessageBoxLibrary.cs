@@ -1118,7 +1118,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void InstallUpdateManuallyMessageBox(string repoOwner, string repoName)
+    internal static void InstallUpdateManuallyMessageBox()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -1134,7 +1134,7 @@ internal static class MessageBoxLibrary
 
             if (messageBoxResult == MessageBoxResult.Yes)
             {
-                var downloadPageUrl = $"https://github.com/{repoOwner}/{repoName}/releases/latest";
+                const string downloadPageUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/releases/latest";
                 try
                 {
                     Process.Start(new ProcessStartInfo
@@ -3155,45 +3155,6 @@ internal static class MessageBoxLibrary
             var simpleLaunchercouldnotfindtheupdater = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotfindtheupdater") ?? "'Simple Launcher' could not find the updater application on GitHub.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(simpleLaunchercouldnotfindtheupdater, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    public static void FailedToExtractUpdater()
-    {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var simpleLaunchercouldnotextract = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotextract") ?? "'Simple Launcher' could not extract the updater application.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(simpleLaunchercouldnotextract, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    public static void UpdaterNotFoundAfterExtraction()
-    {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var simpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded") ?? "'Simple Launcher' could not find the 'updater.exe' inside the downloaded archive.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(simpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
-    public static void UpdaterDownloadFailedMessageBox()
-    {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var simpleLauncherfailedtodownloadandreinstall = (string)Application.Current.TryFindResource("SimpleLauncherfailedtodownloadandreinstall") ?? "'Simple Launcher' failed to download and reinstall the updater.";
-            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
-            MessageBox.Show(simpleLauncherfailedtodownloadandreinstall, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

@@ -152,7 +152,7 @@ public static partial class UpdateChecker
                         _ = LogErrors.LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
 
                         // Notify user
-                        MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
                     }
                 }
                 else
@@ -216,7 +216,6 @@ public static partial class UpdateChecker
     private static async Task ShowUpdateWindow(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
         UpdateLogWindow logWindow = null;
-        // REMOVED: updaterLaunchedSuccessfully is no longer needed here.
 
         try
         {
@@ -255,6 +254,7 @@ public static partial class UpdateChecker
             }
             catch (Exception ex)
             {
+                // Notify developer
                 _ = LogErrors.LogErrorAsync(ex, "Error processing updater package.");
                 logWindow.Log($"Error downloading or extracting updater package: {ex.Message}");
             }
@@ -289,14 +289,14 @@ public static partial class UpdateChecker
                 logWindow.Log($"The main release package URL was not found. Please visit the GitHub releases page for {RepoOwner}/{RepoName}.");
             }
 
-            MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+            MessageBoxLibrary.InstallUpdateManuallyMessageBox();
         }
         catch (Exception ex)
         {
             const string contextMessage = "There was an error preparing for the application update.";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
             logWindow?.Log($"An unexpected error occurred during the update process: {ex.Message}");
-            MessageBoxLibrary.InstallUpdateManuallyMessageBox(RepoOwner, RepoName);
+            MessageBoxLibrary.InstallUpdateManuallyMessageBox();
         }
         finally
         {
