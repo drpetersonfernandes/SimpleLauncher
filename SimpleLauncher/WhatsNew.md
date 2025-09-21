@@ -1,3 +1,10 @@
+# Release 4.4.2
+*09/____/25*
+---
+
+### 🔧 Bug Fixes
+- Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
+
 # Release 4.4.1
 *09/19/25*
 ---
