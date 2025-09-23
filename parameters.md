@@ -524,31 +524,14 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 
-**Emulator Name:** Retroarch vice_x64<br>
-**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
-**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\vice_x64_libretro.dll" -f<br>
-**Fullscreen Parameter:** -f<br>
-
-This emulator is available for Windows-x64.<br>
-Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/vice/).<br>
-Core may require BIOS files or system files to work properly.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -flop<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -cass<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -flop<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -cass<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
-
-**Emulator Name:** Vice<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 ## Commodore Amiga
 
@@ -2637,14 +2620,6 @@ The list of command-line arguments available for this emulator can be found on [
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** MAME Sharp x68000<br>
-**Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" x68000 -flop1<br>
-**Fullscreen Parameter:** -window<br>
-
-This emulator is available for Windows-x64.<br>
-
 **Emulator Name:** Retroarch px68k<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\px68k_libretro.dll" -f<br>
@@ -2654,6 +2629,14 @@ This emulator is available for Windows-x64.<br>
 This emulator is available for Windows-x64.<br>
 Core documentation can be found on [libretro Website](https://docs.libretro.com/library/px68k/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** MAME Sharp x68000<br>
+**Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" x68000 -flop1<br>
+**Fullscreen Parameter:** -window<br>
+
+This emulator is available for Windows-x64.<br>
 
 ## Sinclair ZX Spectrum
 
