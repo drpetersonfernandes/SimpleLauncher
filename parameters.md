@@ -17,7 +17,8 @@
 
 **Emulator Name:** Retroarch caprice32<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\cap32_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\cap32_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -41,7 +42,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** MAME Amstrad CPC GX4000<br>
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Amstrad CPC GX4000" gx4000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
@@ -63,14 +65,16 @@ This emulator is available for Windows-x64.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch mame<br>
 **Emulator Path (Example):** C:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "C:\emulators\retroarch\cores\mame_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mame_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -94,7 +98,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch stella<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\stella_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\stella_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -142,7 +147,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch a5200<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\a5200_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\a5200_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\a5200_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -166,7 +172,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch prosystem<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\prosystem_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\prosystem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -256,7 +263,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 
 **Emulator Name:** Retroarch mednafen_lynx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_lynx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_lynx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -280,7 +288,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch hatari<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\hatari_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\hatari_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\hatari_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -313,7 +322,8 @@ Emulator may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -361,7 +371,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch mednafen_wswan<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_wswan_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_wswan_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -409,7 +420,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** MAME Casio PV-1000<br>
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios\;c:\Casio PV-1000" pv1000 -cart<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios\;c:\Casio PV-1000" pv1000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" pv1000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
@@ -431,7 +443,8 @@ This emulator is available for Windows-x64.
 
 **Emulator Name:** Retroarch gearcoleco<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\gearcoleco_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\gearcoleco_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -464,7 +477,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch vice_x64<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\vice_x64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -481,9 +495,9 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -flop<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -cass<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c64 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -flop<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cass<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
@@ -512,7 +526,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch vice_x64<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\vice_x64_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\vice_x64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -521,9 +536,9 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -flop<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -cass<br>
-**Emulator Parameters (Example):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;G:\MAME\MAME Roms;G:\MAME\MAME Bios Devices" c128 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -flop<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -cass<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios" c128 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
@@ -552,7 +567,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch puae<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\puae_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -561,10 +577,10 @@ Core requires BIOS files or system files to work.
 
 **Emulator Name:** WinUAE<br>
 **Emulator Path (Example):** "C:\Emulators\WinUAE\WinUAE.exe"<br>
-**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /run<br>
-**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /floppy0<br>
-**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /harddrive<br>
-**Emulator Parameters (Example):** /config "%EMULATORFOLDER%\Config.uae" /nogui /cdrom<br>
+**Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /run<br>
+**Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /floppy0<br>
+**Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /harddrive<br>
+**Emulator Parameters (Example using relative paths):** /config "%EMULATORFOLDER%\Config.uae" /nogui /cdrom<br>
 **Fullscreen Parameter:** /fullscreen<br>
 **Fullscreen Parameter:** /windowed<br>
 
@@ -594,7 +610,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 
 **Emulator Name:** Retroarch puae<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\puae_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\puae_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -641,7 +658,8 @@ You need to create BAT files to launch the games.
 
 **Emulator Name:** Retroarch o2em<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\o2em_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\o2em_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\o2em_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -672,7 +690,8 @@ This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** MAME Mattel Aquarius<br>
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" aquarius<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.<br>
@@ -697,7 +716,8 @@ The logic will only send the filename of the file (without the filepath and with
 
 **Emulator Name:** Retroarch freeintv<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\freeintv_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\freeintv_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\freeintv_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -735,7 +755,8 @@ This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch dosbox_pure<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\dosbox_pure_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\dosbox_pure_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -743,7 +764,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch dosbox<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dosbox_core_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\dosbox_core_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\dosbox_core_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -781,7 +803,8 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\bluemsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -790,7 +813,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch fmsx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fmsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -838,7 +862,8 @@ You can find a list of parameters for this emulator on [OpenMSX Website](https:/
 
 **Emulator Name:** Retroarch bluemsx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\bluemsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\bluemsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -847,7 +872,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch fmsx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fmsx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fmsx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1019,7 +1045,8 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 
 **Emulator Name:** Retroarch mednafen_pce<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_pce_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1060,7 +1087,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch mednafen_pce<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_pce_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_pce_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1093,7 +1121,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch mednafen_pcfx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_pcfx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_pcfx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_pcfx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1117,7 +1146,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_supergrafx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_supergrafx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_supergrafx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_supergrafx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1187,7 +1217,8 @@ Documentation can be found on [GitHub](https://github.com/wheremyfoodat/Panda3DS
 
 **Emulator Name:** Retroarch citra<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\citra_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\citra_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\citra_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1196,7 +1227,8 @@ Core may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch panda3ds<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\panda3ds_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\panda3ds_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\panda3ds_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1233,7 +1265,8 @@ This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mupen64plus_next_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1241,7 +1274,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch parallel_n64_libretro<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\parallel_n64_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\parallel_n64_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\parallel_n64_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1291,7 +1325,8 @@ This emulator is available for Windows-x64.
 
 **Emulator Name:** Retroarch mupen64plus_next<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mupen64plus_next_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mupen64plus_next_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1322,7 +1357,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch melonds<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\melonds_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\melonds_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\melonds_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1330,7 +1366,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch desmume<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\desmume_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\desmume_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\desmume_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1369,7 +1406,8 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 
 **Emulator Name:** Retroarch mesen<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mesen_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1378,7 +1416,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\nestopia_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1418,7 +1457,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch sameboy<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1427,7 +1467,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch gambatte<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\gambatte_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1436,7 +1477,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch tgbdual<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\tgbdual_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1445,7 +1487,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch gearboy<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\gearboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1484,7 +1527,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch mgba<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mgba_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mgba_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mgba_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1532,7 +1576,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch sameboy<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\sameboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\sameboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1541,7 +1586,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch gambatte<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\gambatte_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\gambatte_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1550,7 +1596,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch tgbdual<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\tgbdual_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\tgbdual_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1559,7 +1606,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch gearboy<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\gearboy_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\gearboy_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1605,7 +1653,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1629,7 +1678,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch mesen<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mesen_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mesen_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1637,7 +1687,8 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 
 **Emulator Name:** Retroarch nestopia<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\nestopia_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\nestopia_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1713,7 +1764,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 **Emulator Name:** Retroarch snes9x<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1722,7 +1774,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch bsnes<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\bsnes_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\bsnes_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\bsnes_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1768,7 +1821,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 **Emulator Name:** Retroarch snes9x<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\snes9x_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\snes9x_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1878,7 +1932,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1931,7 +1986,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 
 **Emulator Name:** Retroarch dolphin<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\dolphin_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\dolphin_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1955,7 +2011,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch opera<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\opera_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\opera_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\opera_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -1979,7 +2036,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch same_cdi<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\same_cdi_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\same_cdi_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\same_cdi_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2056,7 +2114,8 @@ This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch flycast<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\flycast_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\flycast_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\flycast_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2087,7 +2146,8 @@ This emulator is available for Windows-x64.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2155,7 +2215,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Retroarch picodrive<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2164,7 +2225,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2173,7 +2235,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch blastem<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\blastem_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\blastem_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\blastem_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2219,7 +2282,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Retroarch picodrive<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2265,7 +2329,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Retroarch picodrive<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\picodrive_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\picodrive_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2274,7 +2339,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2313,7 +2379,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Retroarch genesis_plus_gx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\genesis_plus_gx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\genesis_plus_gx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2397,7 +2464,8 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 **Emulator Name:** Retroarch mednafen_saturn<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_saturn_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2406,7 +2474,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch kronos<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\kronos_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\kronos_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\kronos_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2415,7 +2484,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch yabasanshiro<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabasanshiro_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\yabasanshiro_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\yabasanshiro_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2424,7 +2494,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch yabause<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\yabause_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\yabause_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\yabause_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2568,14 +2639,16 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** MAME Sharp x68000<br>
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" x68000 -flop1<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.<br>
 
 **Emulator Name:** Retroarch px68k<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\px68k_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\px68k_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\px68k_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2599,7 +2672,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch fuse<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\fuse_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\fuse_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\fuse_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2638,7 +2712,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
 This emulator is available for Windows-x64.
@@ -2668,7 +2743,8 @@ The list of command-line arguments available for this emulator can be found on [
 
 **Emulator Name:** Retroarch neocd<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\neocd_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\neocd_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\neocd_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2692,7 +2768,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_ngp<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2701,7 +2778,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch race<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\race_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2742,7 +2820,8 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** Retroarch mednafen_ngp<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_ngp_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_ngp_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2751,7 +2830,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch race<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\race_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\race_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2801,7 +2881,8 @@ Emulator may need BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch mednafen_psx<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_psx_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\mednafen_psx_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2810,7 +2891,8 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** Retroarch swanstation<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\swanstation_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\swanstation_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
@@ -2852,7 +2934,8 @@ This emulator may require BIOS or system files to work properly.
 
 **Emulator Name:** Retroarch pcsx2<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
-**Emulator Parameters (Example):** -L "c:\emulators\retroarch\cores\pcsx2_libretro.dll" -f<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\pcsx2_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\pcsx2_libretro.dll" -f<br>
 **Fullscreen Parameter:** -f<br>
 
 This emulator is available for Windows-x64.<br>
