@@ -223,46 +223,38 @@ public static partial class ParameterValidator
 
         foreach (var (flag, path) in parameterPaths)
         {
-            switch (flag)
-            {
-                case "-rompath":
-                {
-                    var romPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
-                    foreach (var romPath in romPaths)
-                    {
-                        var trimmedPath = romPath.Trim();
-                        if (string.IsNullOrWhiteSpace(trimmedPath) || ContainsGameSpecificPlaceholder(trimmedPath)) continue;
-                        if (ValidateSinglePath(trimmedPath, configuredSystemFolder, configuredEmulatorLocation)) continue;
+            if (string.IsNullOrWhiteSpace(path) || ContainsGameSpecificPlaceholder(path)) continue;
 
+            // For -rompath, we assume every semicolon-separated part is a path.
+            if (flag.Equals("-rompath", StringComparison.OrdinalIgnoreCase))
+            {
+                var romPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var romPath in romPaths)
+                {
+                    var trimmedPath = romPath.Trim();
+                    if (string.IsNullOrWhiteSpace(trimmedPath)) continue;
+
+                    if (!ValidateSinglePath(trimmedPath, configuredSystemFolder, configuredEmulatorLocation))
+                    {
                         invalidPaths.Add(trimmedPath);
                         allPathsValid = false;
                     }
-
-                    break;
                 }
-                case "-L":
+            }
+            else // For -L and all other flags, handle potential lists but only validate parts that look like paths.
+            {
+                var subPaths = path.Split(Separator2, StringSplitOptions.RemoveEmptyEntries);
+                foreach (var subPath in subPaths)
                 {
-                    if (!string.IsNullOrWhiteSpace(path) && !ContainsGameSpecificPlaceholder(path) &&
-                        !ValidateSinglePath(path, configuredSystemFolder, configuredEmulatorLocation))
+                    var trimmedPath = subPath.Trim();
+                    if (string.IsNullOrWhiteSpace(trimmedPath)) continue;
+
+                    // Only validate if it looks like a path to avoid false positives on non-path arguments (e.g., MAME machine names).
+                    if (LooksLikePath(trimmedPath) && !ValidateSinglePath(trimmedPath, configuredSystemFolder, configuredEmulatorLocation))
                     {
-                        invalidPaths.Add(path);
+                        invalidPaths.Add(trimmedPath);
                         allPathsValid = false;
                     }
-
-                    break;
-                }
-                default:
-                {
-                    if (!string.IsNullOrWhiteSpace(path) &&
-                        !ContainsGameSpecificPlaceholder(path) &&
-                        LooksLikePath(path) &&
-                        !ValidateSinglePath(path, configuredSystemFolder, configuredEmulatorLocation))
-                    {
-                        invalidPaths.Add(path);
-                        allPathsValid = false;
-                    }
-
-                    break;
                 }
             }
         }
@@ -522,7 +514,7 @@ public static partial class ParameterValidator
         return resolvedParameters;
     }
 
-    [GeneratedRegex("""(-\w+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
+    [GeneratedRegex("""([/-]{1,2}[\w-]+)\s+(?:"([^"]+)"|'([^']+)'|(\S+))""")]
     private static partial Regex MyRegex();
 
     [GeneratedRegex("""(?:"([^"]+)"|'([^']+)')""")]
@@ -531,6 +523,6 @@ public static partial class ParameterValidator
     [GeneratedRegex("""(?:"[^"]*"|'[^']*')""")]
     private static partial Regex MyRegex2();
 
-    [GeneratedRegex(@"-\w+\s+")]
+    [GeneratedRegex(@"[/-]{1,2}[\w-]+\s+")]
     private static partial Regex MyRegex3();
 }
