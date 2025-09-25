@@ -2565,28 +2565,24 @@ internal static class MessageBoxLibrary
 
         void ShowMessage()
         {
-            var warningMessage = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarning") ?? "Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.";
+            var potentiallyInvalidPathsDetected = (string)Application.Current.TryFindResource("PotentiallyInvalidPathsDetected2") ?? "Potentially invalid paths detected.";
+            var parameterPathsInvalidWarningFooter2 = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter2") ?? "The parameter validation may falsely identify paths as invalid sometimes. Double-check the parameter fields to ensure they are correct.";
+            var youCanSaveYourConfiguration = (string)Application.Current.TryFindResource("Youcansaveyourconfiguration2") ?? "You can save your configuration even when the parameter validation logic fails.";
             var warning = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
-            var invalidPathsTitle = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsTitle") ?? "Potentially invalid paths:";
-            var morePaths = (string)Application.Current.TryFindResource("ParameterPathsInvalidPathsMore") ?? "...and {0} more";
-            var warningFooter = (string)Application.Current.TryFindResource("ParameterPathsInvalidWarningFooter") ?? "You can still save, but these paths may cause issues when launching games.";
-            var finalWarningMessage = new StringBuilder(warningMessage);
+
+            var finalWarningMessage = new StringBuilder();
 
             if (invalidPaths.Count > 0)
             {
-                finalWarningMessage.Append("\n\n").Append(invalidPathsTitle);
-                foreach (var path in invalidPaths.Take(5))
+                finalWarningMessage.Append(potentiallyInvalidPathsDetected);
+                foreach (var path in invalidPaths)
                 {
                     finalWarningMessage.Append(CultureInfo.InvariantCulture, $"\n• {path}");
                 }
-
-                if (invalidPaths.Count > 5)
-                {
-                    finalWarningMessage.Append("\n• ").AppendFormat(CultureInfo.InvariantCulture, morePaths, invalidPaths.Count - 5);
-                }
             }
 
-            finalWarningMessage.Append("\n\n").Append(warningFooter);
+            finalWarningMessage.Append("\n\n").Append(parameterPathsInvalidWarningFooter2);
+            finalWarningMessage.Append("\n\n").Append(youCanSaveYourConfiguration);
 
             MessageBox.Show(finalWarningMessage.ToString(), warning, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
