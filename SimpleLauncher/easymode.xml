@@ -2134,9 +2134,9 @@
                 <EmulatorName>Supermodel</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\Supermodel\Supermodel.exe</EmulatorLocation>
                 <EmulatorParameters/>
-                <EmulatorDownloadPage>https://www.supermodel3.com/Download.html</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.3.20102024</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/Supermodel_0.3a-git-f9cb795_Win64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/trzy/Supermodel</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.3.20250924</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/trzy/Supermodel/releases/download/v0.3a-git-4e5905f/supermodel-0.3a-git-4e5905f-windows.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Supermodel\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>

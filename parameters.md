@@ -2422,7 +2422,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
-**Emulator Name:** Modeler<br>
+**Emulator Name:** Supermodel<br>
 **Emulator Path (Example):** <br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
