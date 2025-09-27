@@ -1,10 +1,12 @@
 # Release 4.4.2
-*09/____/25*
+*09/27/25*
 ---
 
-### 🔧 Bug Fixes
-- Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
-- Update SimpleZipDrive to the latest version.
+- Improvements to error handling, parameter validation, and user experience.
+- Updated SimpleZipDrive to the latest version.
+- Updated emulator references and download links to the latest version.
+- Improved parameter validation to reduce false positives on non-path arguments.
+- Fixed double-click handling in game list mode to prevent errors on placeholder items.
 
 # Release 4.4.1
 *09/19/25*
