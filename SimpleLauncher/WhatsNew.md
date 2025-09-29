@@ -1,5 +1,5 @@
 # Release 4.4.2
-*09/27/25*
+*09/29/25*
 ---
 
 - Improvements to error handling, parameter validation, and user experience.
