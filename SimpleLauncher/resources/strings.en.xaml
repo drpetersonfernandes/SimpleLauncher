@@ -328,10 +328,6 @@
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">out of</system:String>
     <system:String x:Key="ParameterExplanation">For paths within Emulator Parameters, you must manually add %BASEFOLDER% if you intend them to be relative to the application directory (e.g., -F \"%BASEFOLDER%\\roms\\Atari 2600\\stella_libretro.dll\"). Paths without %BASEFOLDER% in parameters might not resolve correctly.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...and {0} more</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Potentially invalid paths:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Some paths in the emulator parameters appear to be invalid or missing. Please double check these fields.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">You can still save, but these paths may cause issues when launching games.</system:String>
     <system:String x:Key="PathManipulationDetected">Potential Path Manipulation Detected</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB not found</system:String>
@@ -440,9 +436,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Show Only Games Without Cover</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' could not check disk space for the specified path. Please check the path and try again.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' could not extract the updater application.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' could not find the updater application on GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' could not find the 'updater.exe' inside the downloaded archive.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' could not launch the selected game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' could not launch this game.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' could not load 'helpuser.xml'.</system:String>
@@ -453,7 +447,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' created a image folder for this system at</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Error</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' failed to create the necessary folders for this system.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' failed to download and reinstall the updater.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' lacks sufficient privileges to write to the 'settings.xml' file.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' was unable to restore the last backup.</system:String>
     <system:String x:Key="SortByDate">Sort By Date</system:String>
@@ -620,7 +613,10 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-
     <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' could not launch the tool</system:String>
+    
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Potentially invalid paths detected.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">The parameter validation may falsely identify paths as invalid sometimes. Double-check the parameter fields to ensure they are correct.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">You can save your configuration even when the parameter validation logic fails.</system:String>
      
 </ResourceDictionary>

@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">sur</system:String>
     <system:String x:Key="ParameterExplanation">Pour les chemins dans les Paramètres de l'émulateur, vous devez ajouter manuellement %BASEFOLDER% si vous souhaitez qu'ils soient relatifs au répertoire de l'application (par exemple, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Les chemins sans %BASEFOLDER% dans les paramètres pourraient ne pas être résolus correctement.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...et {0} autres</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Chemins potentiellement invalides :</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Certaines chemins dans les paramètres de l'émulateur semblent être invalides ou manquants. Veuillez vérifier ces champs à nouveau.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Vous pouvez toujours enregistrer, mais ces chemins peuvent causer des problèmes lors du lancement des jeux.</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulation potentielle de chemin détectée</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB introuvable</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Afficher uniquement les jeux sans couverture</system:String>
     <system:String x:Key="Sienna">Terre de Sienne</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' n'a pas pu vérifier l'espace disque pour le chemin spécifié. Veuillez vérifier le chemin et réessayer.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' n'a pas pu extraire l'application de mise à jour.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' n'a pas pu trouver l'application de mise à jour sur GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' n'a pas pu trouver 'updater.exe' à l'intérieur de l'archive téléchargée.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' n'a pas pu lancer le jeu sélectionné.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' n'a pas pu lancer ce jeu.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' n'a pas pu charger 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' a créé un dossier d'images pour ce système à</system:String>
     <system:String x:Key="SimpleLauncherError">Erreur de Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' n'a pas pu créer les dossiers nécessaires pour ce système.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' n'a pas réussi à télécharger et réinstaller l'outil de mise à jour.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' ne dispose pas des privilèges suffisants pour écrire dans le fichier 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' n'a pas pu restaurer la dernière sauvegarde.</system:String>
     <system:String x:Key="SortByDate">Trier par date</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Une vulnérabilité de sécurité appelée 'Zip Slip' a été détectée dans le fichier d'archive. Il s'agit d'une vulnérabilité de traversée de chemin qui pourrait permettre à un attaquant d'écrire des fichiers en dehors du répertoire d'extraction prévu.</system:String>
     <system:String x:Key="ZoomIn">Zoomer</system:String>
     <system:String x:Key="ZoomOut">Dézoomer</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Chemins potentiellement invalides détectés.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">La validation des paramètres peut parfois identifier à tort des chemins comme invalides. Vérifiez attentivement les champs des paramètres pour vous assurer qu'ils sont corrects.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Vous pouvez enregistrer votre configuration même lorsque la logique de validation des paramètres échoue.</system:String>
 </ResourceDictionary>

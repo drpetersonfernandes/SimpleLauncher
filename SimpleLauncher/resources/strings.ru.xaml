@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Оранжевый</system:String>
     <system:String x:Key="outof">из</system:String>
     <system:String x:Key="ParameterExplanation">Для путей в параметрах эмулятора необходимо вручную добавить %BASEFOLDER%, если вы хотите, чтобы они были относительными к каталогу приложения (например, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Пути без %BASEFOLDER% в параметрах могут быть разрешены некорректно.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...и еще {0}</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Потенциально неверные пути:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Некоторые пути в параметрах эмулятора кажутся неверными или отсутствуют. Пожалуйста, проверьте эти поля ещё раз.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Вы все равно можете сохранить, но эти пути могут вызвать проблемы при запуске игр.</system:String>
     <system:String x:Key="PathManipulationDetected">Обнаружена потенциальная манипуляция с путями</system:String>
     <system:String x:Key="PCB">Печатная плата (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Печатная плата (PCB) не найдена</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Показать только игры без обложки</system:String>
     <system:String x:Key="Sienna">Охра</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' не удалось проверить место на диске для указанного пути. Пожалуйста, проверьте путь и попробуйте снова.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' не удалось извлечь приложение обновления.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' не удалось найти приложение обновления на GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' не удалось найти 'updater.exe' внутри загруженного архива.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' не удалось запустить эту игру.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' не удалось загрузить файл 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">Программа 'Simple Launcher' создала папку для изображений этой системы:</system:String>
     <system:String x:Key="SimpleLauncherError">Ошибка Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">Программа 'Simple Launcher' не смогла создать необходимые папки для этой системы.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' не удалось загрузить и переустановить программу обновления.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' недостаточно привилегий для записи в файл 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' не удалось восстановить последнюю резервную копию.</system:String>
     <system:String x:Key="SortByDate">Сортировать по дате</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Обнаружены потенциально недействительные пути.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">Проверка параметров иногда может ошибочно определять пути как недействительные. Дважды проверьте поля параметров, чтобы убедиться в их правильности.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Вы можете сохранить свою конфигурацию, даже если логика проверки параметров завершится сбоем.</system:String>
 </ResourceDictionary>

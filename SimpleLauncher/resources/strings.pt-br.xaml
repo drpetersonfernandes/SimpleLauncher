@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Laranja</system:String>
     <system:String x:Key="outof">de</system:String>
     <system:String x:Key="ParameterExplanation">Para caminhos dentro dos Parâmetros do Emulador, você deve adicionar manualmente %BASEFOLDER% se pretende que eles sejam relativos ao diretório do aplicativo (por exemplo, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Caminhos sem %BASEFOLDER% nos parâmetros podem não ser resolvidos corretamente.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...e mais {0}</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Caminhos potencialmente inválidos:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Alguns caminhos nos parâmetros do emulador parecem inválidos ou estão faltando. Por favor, verifique esses campos novamente.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Você ainda pode salvar, mas esses caminhos podem causar problemas ao iniciar jogos.</system:String>
     <system:String x:Key="PathManipulationDetected">Potencial manipulação de caminho detectada</system:String>
     <system:String x:Key="PCB">Placa de Circuito (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB não encontrada</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Exibir Apenas Jogos sem Capa</system:String>
     <system:String x:Key="Sienna">Siena</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">O 'Simple Launcher' não conseguiu verificar o espaço em disco para o caminho especificado. Por favor, verifique o caminho e tente novamente.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' não conseguiu extrair o aplicativo de atualização.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' não conseguiu encontrar o aplicativo de atualização no GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' não conseguiu encontrar o 'updater.exe' dentro do arquivo baixado.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">O 'Simple Launcher' não conseguiu iniciar o jogo selecionado.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' não conseguiu iniciar este jogo.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">O 'Simple Launcher' não conseguiu carregar o arquivo 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">O 'Simple Launcher' criou uma pasta de imagens para este sistema em:</system:String>
     <system:String x:Key="SimpleLauncherError">Erro do Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">O 'Simple Launcher' falhou ao criar as pastas necessárias para este sistema.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' falhou ao baixar e reinstalar o atualizador.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">O 'Simple Launcher' não possui privilégios suficientes para gravar no arquivo 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">O 'Simple Launcher' não conseguiu restaurar o backup mais recente.</system:String>
     <system:String x:Key="SortByDate">Ordenar por data</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Uma vulnerabilidade de segurança chamada 'Zip Slip' foi detectada no arquivo compactado. Esta é uma vulnerabilidade de travessia de caminho que poderia permitir a um atacante escrever arquivos fora do diretório de extração pretendido.</system:String>
     <system:String x:Key="ZoomIn">Aumentar zoom</system:String>
     <system:String x:Key="ZoomOut">Diminuir zoom</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Caminhos potencialmente inválidos detectados.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">A validação de parâmetros pode, às vezes, identificar falsamente caminhos como inválidos. Verifique novamente os campos de parâmetros para garantir que estejam corretos.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Você pode salvar sua configuração mesmo quando a lógica de validação de parâmetros falhar.</system:String>
 </ResourceDictionary>

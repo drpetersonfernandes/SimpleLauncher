@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Orange</system:String>
     <system:String x:Key="outof">von</system:String>
     <system:String x:Key="ParameterExplanation">Für Pfade innerhalb der Emulator-Parameter müssen Sie %BASEFOLDER% manuell hinzufügen, wenn diese relativ zum Anwendungsverzeichnis sein sollen (z. B. -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Pfade ohne %BASEFOLDER% in den Parametern werden möglicherweise nicht korrekt aufgelöst.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...und {0} weitere</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Potenziell ungültige Pfade:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Einige Pfade in den Emulatorparametern scheinen ungültig oder fehlen. Bitte überprüfen Sie diese Felder erneut.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Sie können trotzdem speichern, aber diese Pfade können beim Starten von Spielen Probleme verursachen.</system:String>
     <system:String x:Key="PathManipulationDetected">Mögliche Pfadmanipulation erkannt</system:String>
     <system:String x:Key="PCB">Leiterplatte</system:String>
     <system:String x:Key="PCBnotfound">Leiterplatte nicht gefunden</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Nur Spiele ohne Cover anzeigen</system:String>
     <system:String x:Key="Sienna">Siena</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' konnte den Speicherplatz für den angegebenen Pfad nicht überprüfen. Bitte überprüfen Sie den Pfad und versuchen Sie es erneut.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' konnte die Updater-Anwendung nicht entpacken.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' konnte die Updater-Anwendung auf GitHub nicht finden.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' konnte die 'updater.exe' im heruntergeladenen Archiv nicht finden.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' konnte das ausgewählte Spiel nicht starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' konnte dieses Spiel nicht starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' konnte 'helpuser.xml' nicht laden.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' hat für dieses System einen Image-Ordner erstellt unter</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Fehler</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' konnte die benötigten Ordner für dieses System nicht erstellen.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' konnte den Updater nicht herunterladen und neu installieren.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' verfügt nicht über ausreichende Berechtigungen, um die Datei 'settings.xml' zu schreiben.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' konnte das letzte Backup nicht wiederherstellen.</system:String>
     <system:String x:Key="SortByDate">Nach Datum sortieren</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Potenziell ungültige Pfade erkannt.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">Die Parametervalidierung kann Pfade manchmal fälschlicherweise als ungültig identifizieren. Überprüfen Sie die Parameterfelder sorgfältig, um sicherzustellen, dass sie korrekt sind.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Sie können Ihre Konfiguration auch dann speichern, wenn die Parametervalidierungslogik fehlschlägt.</system:String>
 </ResourceDictionary>

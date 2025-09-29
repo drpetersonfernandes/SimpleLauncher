@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Cam</system:String>
     <system:String x:Key="outof">trên tổng số</system:String>
     <system:String x:Key="ParameterExplanation">Đối với các đường dẫn trong Tham số trình giả lập, bạn phải thêm %BASEFOLDER% theo cách thủ công nếu bạn muốn chúng tương đối với thư mục ứng dụng (ví dụ: -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Các đường dẫn không có %BASEFOLDER% trong tham số có thể không được giải quyết chính xác.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...và {0} mục khác</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Các đường dẫn có thể không hợp lệ:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Một số đường dẫn trong các tham số của trình giả lập dường như không hợp lệ hoặc thiếu. Vui lòng kiểm tra lại các trường này.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Bạn vẫn có thể lưu, nhưng các đường dẫn này có thể gây ra sự cố khi khởi chạy trò chơi.</system:String>
     <system:String x:Key="PathManipulationDetected">Phát hiện thao túng đường dẫn tiềm năng</system:String>
     <system:String x:Key="PCB">Mạch in (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Không tìm thấy mạch in (PCB)</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Chỉ hiển thị trò chơi không có bìa</system:String>
     <system:String x:Key="Sienna">Nâu đất</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' không thể kiểm tra dung lượng đĩa cho đường dẫn đã chỉ định. Vui lòng kiểm tra đường dẫn và thử lại.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' không thể giải nén ứng dụng cập nhật.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' không thể tìm thấy ứng dụng cập nhật trên GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' không thể tìm thấy 'updater.exe' bên trong kho lưu trữ đã tải xuống.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' không thể khởi chạy trò chơi này.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' không thể tải tệp 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' đã tạo một thư mục ảnh cho hệ thống này tại:</system:String>
     <system:String x:Key="SimpleLauncherError">Lỗi Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' không thể tạo các thư mục cần thiết cho hệ thống này.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' không thể tải xuống và cài đặt lại trình cập nhật.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' không có đủ quyền để ghi vào tệp 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' không thể khôi phục bản sao lưu gần đây nhất.</system:String>
     <system:String x:Key="SortByDate">Sắp xếp theo ngày</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Đã phát hiện các đường dẫn có thể không hợp lệ.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">Xác thực tham số đôi khi có thể xác định sai các đường dẫn là không hợp lệ. Vui lòng kiểm tra kỹ các trường tham số để đảm bảo chúng chính xác.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Bạn có thể lưu cấu hình của mình ngay cả khi logic xác thực tham số thất bại.</system:String>
 </ResourceDictionary>

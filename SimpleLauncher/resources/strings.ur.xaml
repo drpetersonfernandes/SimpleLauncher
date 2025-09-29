@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">نارنجی</system:String>
     <system:String x:Key="outof">میں سے</system:String>
     <system:String x:Key="ParameterExplanation">ایمولیٹر پیرامیٹرز کے اندر راستوں کے لیے، اگر آپ انہیں ایپلیکیشن ڈائرکٹری کے نسبت بنانا چاہتے ہیں تو آپ کو دستی طور پر %BASEFOLDER% شامل کرنا ہوگا (مثال کے طور پر، -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")۔ پیرامیٹرز میں %BASEFOLDER% کے بغیر راستے صحیح طریقے سے حل نہیں ہوسکتے ہیں۔</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...اور {0} مزید</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">ممکنہ طور پر غلط راستے:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">ایمولیٹر پیرامیٹرز میں کچھ راستے غیر درست یا غائب ظاہر ہوتے ہیں۔ براہ کرم ان فیلڈز کو دوبارہ چیک کریں۔</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">آپ اب بھی محفوظ کر سکتے ہیں، لیکن یہ راستے گیمز شروع کرتے وقت مسائل پیدا کر سکتے ہیں۔</system:String>
     <system:String x:Key="PathManipulationDetected">ممکنہ راستہ میں ہیرا پھیری کا پتہ چلا</system:String>
     <system:String x:Key="PCB">پی سی بی</system:String>
     <system:String x:Key="PCBnotfound">پی سی بی نہیں ملی</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">صرف بغیر کور والے کھیل دکھائیں</system:String>
     <system:String x:Key="Sienna">سیانا</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' مخصوص راستے کے لیے ڈسک کی جگہ کی جانچ نہیں کر سکا۔ براہ کرم راستے کی جانچ کریں اور دوبارہ کوشش کریں۔</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' اپڈیٹر ایپلیکیشن کو ایکسٹریکٹ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' گٹ ہب پر اپڈیٹر ایپلیکیشن نہیں ڈھونڈ سکا۔</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' ڈاؤن لوڈ کردہ آرکائیو کے اندر 'updater.exe' نہیں ڈھونڈ سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' منتخب کردہ گیم لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'سمپل لانچر' اس گیم کو لانچ نہیں کر سکا۔</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' فائل کو لوڈ نہیں کر سکا۔</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' نے اس نظام کے لیے تصاویر کا ایک فولڈر بنایا ہے:۔</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher خرابی</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' اس نظام کے لیے ضروری فولڈر بنانے میں ناکام رہا۔</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' اپڈیٹر کو ڈاؤن لوڈ اور دوبارہ انسٹال کرنے میں ناکام رہا۔</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' کے پاس 'settings.xml' فائل پر لکھنے کے لئے کافی اختیارات نہیں ہیں۔</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' پچھلے بیک اپ کو بحال کرنے میں ناکام رہا۔</system:String>
     <system:String x:Key="SortByDate">تاریخ کے مطابق ترتیب دیں</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">ممکنہ طور پر غلط راستے دریافت ہوئے۔</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">پیرامیٹر کی توثیق بعض اوقات راستوں کو غلط طور پر غیر درست شناخت کر سکتی ہے۔ اس بات کو یقینی بنانے کے لیے پیرامیٹر کے فیلڈز کو دوبارہ چیک کریں کہ وہ درست ہیں۔</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">پیرامیٹر کی توثیق کا منطق ناکام ہونے پر بھی آپ اپنی ترتیب کو محفوظ کر سکتے ہیں۔</system:String>
 </ResourceDictionary>

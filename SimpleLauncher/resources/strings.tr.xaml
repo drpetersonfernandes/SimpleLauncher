@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Turuncu</system:String>
     <system:String x:Key="outof">toplam</system:String>
     <system:String x:Key="ParameterExplanation">Emülatör Parametreleri içindeki yollar için, uygulama dizinine göreceli olmalarını istiyorsanız %BASEFOLDER%'ı manuel olarak eklemelisiniz (örneğin, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Parametrelerde %BASEFOLDER% olmayan yollar doğru şekilde çözülemeyebilir.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...ve {0} tane daha</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Potansiyel olarak geçersiz yollar:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Emülatör parametrelerindeki bazı yollar geçersiz görünüyor veya eksik. Bu alanları lütfen tekrar kontrol edin.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Yine de kaydedebilirsiniz, ancak bu yollar oyunları başlatırken sorunlara neden olabilir.</system:String>
     <system:String x:Key="PathManipulationDetected">Potansiyel Yol Manipülasyonu Tespit Edildi</system:String>
     <system:String x:Key="PCB">Devre Kartı (PCB)</system:String>
     <system:String x:Key="PCBnotfound">Devre Kartı (PCB) bulunamadı</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Yalnızca Kapaksız Oyunları Göster</system:String>
     <system:String x:Key="Sienna">Kiremit</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher', belirtilen yol için disk alanını kontrol edemedi. Lütfen yolu kontrol edin ve tekrar deneyin.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' güncelleme uygulamasını çıkaramadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' güncelleme uygulamasını GitHub'da bulamadı.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' indirilen arşivin içinde 'updater.exe' dosyasını bulamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' bu oyunu başlatamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher', 'helpuser.xml' dosyasını yükleyemedi.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' bu sistem için şu konumda bir resim klasörü oluşturdu:</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher Hatası</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' bu sistem için gerekli olan klasörleri oluşturamadı.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' güncelleyiciyi indirip yeniden yükleyemedi.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher', 'settings.xml' dosyasına yazmak için gerekli izinlere sahip değil.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher', son yedeği geri yükleyemedi.</system:String>
     <system:String x:Key="SortByDate">Tarihe Göre Sırala</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Potansiyel olarak geçersiz yollar algılandı.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">Parametre doğrulama bazen yolları yanlışlıkla geçersiz olarak tanımlayabilir. Parametre alanlarının doğru olduğundan emin olmak için iki kez kontrol edin.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Parametre doğrulama mantığı başarısız olsa bile yapılandırmanızı kaydedebilirsiniz.</system:String>
 </ResourceDictionary>

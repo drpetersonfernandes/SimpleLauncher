@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Oranje</system:String>
     <system:String x:Key="outof">van</system:String>
     <system:String x:Key="ParameterExplanation">Voor paden binnen de Emulatorparameters moet u handmatig %BASEFOLDER% toevoegen als u wilt dat deze relatief zijn ten opzichte van de applicatiemap (bijv. -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Paden zonder %BASEFOLDER% in parameters worden mogelijk niet correct opgelost.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...en nog {0} meer</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Mogelijk ongeldige paden:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Sommige paden in de emulatorparameters lijken ongeldig of ontbreken. Controleer deze velden opnieuw.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">U kunt nog steeds opslaan, maar deze paden kunnen problemen veroorzaken bij het starten van games.</system:String>
     <system:String x:Key="PathManipulationDetected">Mogelijke padmanipulatie gedetecteerd</system:String>
     <system:String x:Key="PCB">Printplaat (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB niet gevonden</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' kon de updater-applicatie niet uitpakken.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' kon de updater-applicatie niet vinden op GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' kon 'updater.exe' niet vinden in het gedownloade archief.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' kon dit spel niet starten.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' kon 'helpuser.xml' niet laden.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' heeft een afbeeldingsmap voor dit systeem aangemaakt in:</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher-fout</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' kon de benodigde mappen voor dit systeem niet aanmaken.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' is er niet in geslaagd de updater te downloaden en opnieuw te installeren.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' heeft onvoldoende rechten om naar het bestand 'settings.xml' te schrijven.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' kon de laatste back-up niet herstellen.</system:String>
     <system:String x:Key="SortByDate">Sorteren op datum</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Mogelijk ongeldige paden gedetecteerd.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">De parametervalidatie kan paden soms ten onrechte als ongeldig identificeren. Controleer de parametervelden dubbel om er zeker van te zijn dat ze correct zijn.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">U kunt uw configuratie opslaan, zelfs als de parametervalidatielogica mislukt.</system:String>
 </ResourceDictionary>

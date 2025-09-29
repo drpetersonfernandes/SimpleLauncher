@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">オレンジ</system:String>
     <system:String x:Key="outof">のうち</system:String>
     <system:String x:Key="ParameterExplanation">エミュレーターパラメータ内のパスについては、アプリケーションディレクトリからの相対パスとする場合、手動で %BASEFOLDER% を追加する必要があります (例: -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")。パラメータ内の %BASEFOLDER% がないパスは正しく解決されない可能性があります。</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...その他 {0} 件</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">無効の可能性のあるパス:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">エミュレータのパラメータ内のいくつかのパスが無効または欠落しているようです。これらのフィールドを再度確認してください。</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">保存は可能ですが、これらのパスはゲーム起動時に問題を引き起こす可能性があります。</system:String>
     <system:String x:Key="PathManipulationDetected">潜在的なパス操作が検出されました</system:String>
     <system:String x:Key="PCB">基板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">基板（PCB）が見つかりません</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">カバーなしのゲームのみ表示</system:String>
     <system:String x:Key="Sienna">シエナ</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' は、指定されたパスのディスク容量を確認できませんでした。パスを確認して、もう一度お試しください。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">「Simple Launcher」はアップデーターアプリケーションを抽出できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">「Simple Launcher」は GitHub でアップデーターアプリケーションを見つけられませんでした。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">「Simple Launcher」はダウンロードしたアーカイブ内に「updater.exe」を見つけられませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' は選択したゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">「Simple Launcher」はこのゲームを起動できませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' は 'helpuser.xml' を読み込めませんでした。</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' はこのシステムのための画像フォルダーを作成しました:</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcherエラー</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' はこのシステム用に必要なフォルダーを作成できませんでした。</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">「Simple Launcher」はアップデーターのダウンロードと再インストールに失敗しました。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' は 'settings.xml' ファイルの書き込み権限が不十分です。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' は最後のバックアップを復元できませんでした。</system:String>
     <system:String x:Key="SortByDate">日付で並べ替え</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">無効な可能性のあるパスが検出されました。</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">パラメータ検証は、パスを誤って無効と識別する場合があります。パラメータフィールドを再確認して、正しいことを確認してください。</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">パラメータ検証ロジックが失敗した場合でも、設定を保存できます。</system:String>
 </ResourceDictionary>

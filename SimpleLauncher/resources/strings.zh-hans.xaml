@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">橙色</system:String>
     <system:String x:Key="outof">共计</system:String>
     <system:String x:Key="ParameterExplanation">对于模拟器参数中的路径，如果您希望它们相对于应用程序目录，则必须手动添加 %BASEFOLDER%（例如，-F “%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll”）。参数中没有 %BASEFOLDER% 的路径可能无法正确解析。</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...还有 {0} 个</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">潜在的无效路径：</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">模拟器参数中的某些路径似乎无效或缺失。请重新检查这些字段。</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">您仍然可以保存，但这些路径在启动游戏时可能会导致问题。</system:String>
     <system:String x:Key="PathManipulationDetected">检测到潜在的路径操纵</system:String>
     <system:String x:Key="PCB">电路板（PCB）</system:String>
     <system:String x:Key="PCBnotfound">未找到电路板（PCB）</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">仅显示无封面的游戏</system:String>
     <system:String x:Key="Sienna">赭石色</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">“Simple Launcher”无法检查指定路径的磁盘空间。请检查路径并重试。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' 无法提取更新器应用程序。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' 未能在 GitHub 上找到更新器应用程序。</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' 未能在下载的存档中找到 'updater.exe'。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">“Simple Launcher”无法启动所选游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher'无法启动这款游戏。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">“Simple Launcher”无法加载文件“helpuser.xml”。</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' 为此系统创建了一个图片文件夹：</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher错误</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' 无法为此系统创建所需文件夹。</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' 未能下载并重新安装更新器。</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">“Simple Launcher”没有对“settings.xml”文件的写入权限。</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">“Simple Launcher”未能恢复最近的备份。</system:String>
     <system:String x:Key="SortByDate">按日期排序</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">在存档文件中检测到名为"Zip Slip"的安全漏洞。这是一种路径遍历漏洞，可能允许攻击者在预期解压目录之外写入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">缩小</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">检测到潜在的无效路径。</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">参数验证有时可能会错误地将路径识别为无效。请仔细检查参数字段以确保其正确无误。</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">即使参数验证逻辑失败，您也可以保存您的配置。</system:String>
 </ResourceDictionary>

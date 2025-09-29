@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Oranye</system:String>
     <system:String x:Key="outof">dari</system:String>
     <system:String x:Key="ParameterExplanation">Untuk jalur dalam Parameter Emulator, Anda harus menambahkan %BASEFOLDER% secara manual jika Anda ingin jalur tersebut relatif terhadap direktori aplikasi (misalnya, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Jalur tanpa %BASEFOLDER% dalam parameter mungkin tidak terselesaikan dengan benar.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...dan {0} lainnya</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Jalur yang berpotensi tidak valid:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Beberapa jalur dalam parameter emulator tampaknya tidak valid atau hilang. Silakan periksa kembali bidang-bidang ini.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Anda masih bisa menyimpan, tetapi jalur ini dapat menyebabkan masalah saat meluncurkan game.</system:String>
     <system:String x:Key="PathManipulationDetected">Potensi Manipulasi Jalur Terdeteksi</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB tidak ditemukan</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Tampilkan Hanya Permainan Tanpa Sampul</system:String>
     <system:String x:Key="Sienna">Coklat Tua</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' tidak dapat memeriksa ruang disk untuk jalur yang ditentukan. Harap periksa jalur dan coba lagi.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' tidak dapat mengekstrak aplikasi pembaru.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' tidak dapat menemukan aplikasi pembaru di GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' tidak dapat menemukan 'updater.exe' di dalam arsip yang diunduh.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' tidak dapat meluncurkan game ini.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' tidak dapat memuat 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' telah membuat folder gambar untuk sistem ini di</system:String>
     <system:String x:Key="SimpleLauncherError">Kesalahan Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' gagal membuat folder yang dibutuhkan untuk sistem ini.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' gagal mengunduh dan menginstal ulang pembaru.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' tidak memiliki hak istimewa yang cukup untuk menulis ke file 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' tidak dapat memulihkan cadangan terakhir.</system:String>
     <system:String x:Key="SortByDate">Urutkan Berdasarkan Tanggal</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Jalur yang berpotensi tidak valid terdeteksi.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">Validasi parameter terkadang dapat secara keliru mengidentifikasi jalur sebagai tidak valid. Periksa kembali bidang parameter untuk memastikan semuanya benar.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Anda dapat menyimpan konfigurasi Anda bahkan ketika logika validasi parameter gagal.</system:String>
 </ResourceDictionary>

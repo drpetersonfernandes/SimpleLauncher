@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">برتقالي</system:String>
     <system:String x:Key="outof">من أصل</system:String>
     <system:String x:Key="ParameterExplanation">بالنسبة للمسارات داخل معلمات المحاكي، يجب عليك إضافة %BASEFOLDER% يدويًا إذا كنت تنوي أن تكون نسبية لدليل التطبيق (على سبيل المثال، -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). المسارات بدون %BASEFOLDER% في المعلمات قد لا يتم حلها بشكل صحيح.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...و {0} أخرى</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">مسارات قد تكون غير صالحة:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">بعض المسارات في معلمات المحاكي تبدو غير صالحة أو مفقودة. يرجى التحقق من هذه الحقول مرة أخرى.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">لا يزال بإمكانك الحفظ، ولكن هذه المسارات قد تسبب مشاكل عند تشغيل الألعاب.</system:String>
     <system:String x:Key="PathManipulationDetected">تم اكتشاف تلاعب محتمل في المسار</system:String>
     <system:String x:Key="PCB">اللوحة الإلكترونية</system:String>
     <system:String x:Key="PCBnotfound">اللوحة الإلكترونية غير موجودة</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">لم يتمكن 'Simple Launcher' من استخراج تطبيق التحديث.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">لم يتمكن 'Simple Launcher' من العثور على تطبيق التحديث على GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">لم يتمكن 'Simple Launcher' من العثور على 'updater.exe' داخل الأرشيف الذي تم تنزيله.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">لم يتمكن 'Simple Launcher' من تشغيل هذه اللعبة.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">لم يتمكن 'Simple Launcher' من تحميل 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">قام 'Simple Launcher' بإنشاء مجلد صور لهذا النظام في</system:String>
     <system:String x:Key="SimpleLauncherError">خطأ في Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">فشل 'Simple Launcher' في إنشاء المجلدات الضرورية لهذا النظام.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">فشل 'Simple Launcher' في تنزيل وإعادة تثبيت أداة التحديث.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' يفتقر إلى الصلاحيات الكافية للكتابة في ملف 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' لم يتمكن من استعادة النسخة الاحتياطية الأخيرة.</system:String>
     <system:String x:Key="SortByDate">ترتيب حسب التاريخ</system:String>
@@ -621,4 +614,8 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
+    
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">تم اكتشاف مسارات قد تكون غير صالحة.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">قد تحدد صلاحية المعلمات المسارات بشكل خاطئ على أنها غير صالحة أحيانًا. تحقق جيدًا من حقول المعلمات للتأكد من صحتها.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">يمكنك حفظ التكوين الخاص بك حتى عندما يفشل منطق التحقق من صحة المعلمات.</system:String>
 </ResourceDictionary>

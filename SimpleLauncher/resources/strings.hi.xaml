@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">नारंगी</system:String>
     <system:String x:Key="outof">में से</system:String>
     <system:String x:Key="ParameterExplanation">एमुलेटर पैरामीटर के भीतर पथों के लिए, यदि आप उन्हें एप्लिकेशन निर्देशिका के सापेक्ष बनाना चाहते हैं तो आपको मैन्युअल रूप से %BASEFOLDER% जोड़ना होगा (उदाहरण के लिए, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")। पैरामीटर में %BASEFOLDER% के बिना पथ सही ढंग से हल नहीं हो सकते हैं।</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...और {0} और</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">संभावित रूप से अमान्य पथ:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">एमुलेटर पैरामीटर में कुछ पथ अमान्य या गायब प्रतीत होते हैं। कृपया इन फ़ील्ड्स की दोबारा जांच करें।</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">आप अभी भी सहेज सकते हैं, लेकिन ये पथ गेम लॉन्च करते समय समस्याएँ पैदा कर सकते हैं।</system:String>
     <system:String x:Key="PathManipulationDetected">संभावित पथ हेरफेर का पता चला</system:String>
     <system:String x:Key="PCB">सर्किट बोर्ड (PCB)</system:String>
     <system:String x:Key="PCBnotfound">PCB नहीं मिला</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">केवल बिना कवर वाले खेल दिखाएँ</system:String>
     <system:String x:Key="Sienna">सिएना</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' निर्दिष्ट पथ के लिए डिस्क स्थान की जाँच नहीं कर सका। कृपया पथ की जाँच करें और पुनः प्रयास करें।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' अपडेटर एप्लिकेशन को एक्सट्रेक्ट नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' को GitHub पर अपडेटर एप्लिकेशन नहीं मिला।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' को डाउनलोड किए गए आर्काइव के अंदर 'updater.exe' नहीं मिला।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' चयनित गेम को लॉन्च नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' इस गेम को लॉन्च नहीं कर सका।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' को लोड नहीं कर सका।</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' ने इस सिस्टम के लिए एक छवि फ़ोल्डर बनाया</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher त्रुटि</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' इस सिस्टम के लिए आवश्यक फ़ोल्डर बनाने में विफल रहा।</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' अपडेटर को डाउनलोड और पुनः इंस्टॉल करने में विफल रहा।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' के पास 'settings.xml' फाइल में लिखने के लिए पर्याप्त अनुमति नहीं है।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' अंतिम बैकअप को पुनर्स्थापित करने में असमर्थ था।</system:String>
     <system:String x:Key="SortByDate">तारीख के अनुसार क्रमबद्ध करें</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">संभावित रूप से अमान्य पथों का पता चला।</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">पैरामीटर सत्यापन कभी-कभी पथों को गलत तरीके से अमान्य के रूप में पहचान सकता है। यह सुनिश्चित करने के लिए पैरामीटर फ़ील्ड की दोबारा जांच करें कि वे सही हैं।</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">पैरामीटर सत्यापन तर्क विफल होने पर भी आप अपनी कॉन्फ़िगरेशन सहेज सकते हैं।</system:String>
 </ResourceDictionary>

@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">কমলা</system:String>
     <system:String x:Key="outof">এর মধ্যে</system:String>
     <system:String x:Key="ParameterExplanation">এমুলেটর প্যারামিটারের মধ্যে থাকা পথগুলির জন্য, আপনি যদি সেগুলিকে অ্যাপ্লিকেশন ডিরেক্টরির সাথে আপেক্ষিক করতে চান তবে আপনাকে ম্যানুয়ালি %BASEFOLDER% যোগ করতে হবে (যেমন, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll")। প্যারামিটারে %BASEFOLDER% ছাড়া পথগুলি সঠিকভাবে সমাধান নাও হতে পারে।</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...এবং আরও {0}টি</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">সম্ভাব্য অবৈধ পাথ:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">এমুলেটরের প্যারামিটারে কিছু পথে অবৈধ বা অনুপস্থিত বলে মনে হচ্ছে। অনুগ্রহ করে এই ক্ষেত্রগুলিকে ডবল চেক করুন।</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">আপনি এখনও সেভ করতে পারেন, তবে এই পাথগুলি গেম চালু করার সময় সমস্যা সৃষ্টি করতে পারে।</system:String>
     <system:String x:Key="PathManipulationDetected">সম্ভাব্য পাথ ম্যানিপুলেশন সনাক্ত করা হয়েছে</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB পাওয়া যায়নি</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">শুধুমাত্র প্রচ্ছদ ছাড়া গেম দেখান</system:String>
     <system:String x:Key="Sienna">গাঢ় তামাটে</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' নির্দিষ্ট পাথের জন্য ডিস্ক স্পেস পরীক্ষা করতে পারেনি। অনুগ্রহ করে পাথটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' আপডেটার অ্যাপ্লিকেশনটি নিষ্কাশন করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' গিটহাবে আপডেটার অ্যাপ্লিকেশনটি খুঁজে পায়নি।</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' ডাউনলোড করা আর্কাইভের ভিতরে 'updater.exe' খুঁজে পায়নি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' এই গেমটি চালু করতে পারেনি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' 'helpuser.xml' লোড করতে পারেনি।</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' এই সিস্টেমটির জন্য একটি ছবি ফোল্ডার তৈরি করেছে</system:String>
     <system:String x:Key="SimpleLauncherError">Simple Launcher ত্রুটি</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' এই সিস্টেমটির জন্য প্রয়োজনীয় ফোল্ডার তৈরি করতে ব্যর্থ হয়েছে।</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' আপডেটার ডাউনলোড এবং পুনরায় ইনস্টল করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' এর 'settings.xml' ফাইল লিখতে পর্যাপ্ত অধিকার নেই।</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' শেষ ব্যাকআপটি পুনরুদ্ধার করতে অক্ষম ছিল।</system:String>
     <system:String x:Key="SortByDate">তারিখ অনুযায়ী সাজান</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">সম্ভাব্য অবৈধ পথ সনাক্ত করা হয়েছে।</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">প্যারামিটার বৈধতা কখনও কখনও ভুলভাবে পথগুলিকে অবৈধ হিসাবে চিহ্নিত করতে পারে। প্যারামিটার ক্ষেত্রগুলি সঠিক আছে কিনা তা নিশ্চিত করতে দুবার পরীক্ষা করুন।</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">প্যারামিটার বৈধতা যুক্তি ব্যর্থ হলেও আপনি আপনার কনফিগারেশন সংরক্ষণ করতে পারেন।</system:String>
 </ResourceDictionary>

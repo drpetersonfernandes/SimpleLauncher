@@ -329,10 +329,6 @@
     <system:String x:Key="Orange">Naranja</system:String>
     <system:String x:Key="outof">de</system:String>
     <system:String x:Key="ParameterExplanation">Para las rutas dentro de los Parámetros del emulador, debe añadir manualmente %BASEFOLDER% si desea que sean relativas al directorio de la aplicación (por ejemplo, -F "%BASEFOLDER%\roms\Atari 2600\stella_libretro.dll"). Las rutas sin %BASEFOLDER% en los parámetros podrían no resolverse correctamente.</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsMore">...y {0} más</system:String>
-    <system:String x:Key="ParameterPathsInvalidPathsTitle">Rutas potencialmente inválidas:</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarning">Algunas rutas en los parámetros del emulador parecen ser inválidas o están ausentes. Por favor, verifica estos campos nuevamente.</system:String>
-    <system:String x:Key="ParameterPathsInvalidWarningFooter">Aún puede guardar, pero estas rutas pueden causar problemas al iniciar juegos.</system:String>
     <system:String x:Key="PathManipulationDetected">Manipulación potencial de ruta detectada</system:String>
     <system:String x:Key="PCB">PCB</system:String>
     <system:String x:Key="PCBnotfound">PCB no encontrado</system:String>
@@ -441,9 +437,7 @@
     <system:String x:Key="ShowOnlyGamesWithoutCover">Mostrar solo juegos sin portada</system:String>
     <system:String x:Key="Sienna">Siena</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' no pudo verificar el espacio en disco para la ruta especificada. Por favor, verifique la ruta e inténtelo de nuevo.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotextract">'Simple Launcher' no pudo extraer la aplicación de actualización.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' no pudo encontrar la aplicación de actualización en GitHub.</system:String>
-    <system:String x:Key="SimpleLaunchercouldnotfindtheupdaterexeinsidethedownloaded">'Simple Launcher' no pudo encontrar 'updater.exe' dentro del archivo descargado.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' no pudo iniciar el juego seleccionado.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthisgame">'Simple Launcher' no pudo iniciar este juego.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotloadhelpuserxml">'Simple Launcher' no pudo cargar 'helpuser.xml'.</system:String>
@@ -454,7 +448,6 @@
     <system:String x:Key="SimpleLaunchercreatedaimagefolder">'Simple Launcher' creó una carpeta de imágenes para este sistema en</system:String>
     <system:String x:Key="SimpleLauncherError">Error de Simple Launcher</system:String>
     <system:String x:Key="SimpleLauncherfailedtocreatethe">'Simple Launcher' no pudo crear las carpetas necesarias para este sistema.</system:String>
-    <system:String x:Key="SimpleLauncherfailedtodownloadandreinstall">'Simple Launcher' no pudo descargar y reinstalar el actualizador.</system:String>
     <system:String x:Key="SimpleLauncherlackssufficientprivilegestowrite">'Simple Launcher' no tiene los permisos suficientes para escribir en el archivo 'settings.xml'.</system:String>
     <system:String x:Key="SimpleLauncherwasunabletorestore">'Simple Launcher' no pudo restaurar la última copia de seguridad.</system:String>
     <system:String x:Key="SortByDate">Ordenar por fecha</system:String>
@@ -621,4 +614,7 @@
     <system:String x:Key="ZipSlipExplanation">Se detectó una vulnerabilidad de seguridad llamada 'Zip Slip' en el archivo comprimido. Esta es una vulnerabilidad de recorrido de ruta que podría permitir a un atacante escribir archivos fuera del directorio de extracción previsto.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
+    <system:String x:Key="PotentiallyInvalidPathsDetected2">Se detectaron rutas potencialmente no válidas.</system:String>
+    <system:String x:Key="ParameterPathsInvalidWarningFooter2">La validación de parámetros puede identificar erróneamente rutas como no válidas en ocasiones. Verifique dos veces los campos de parámetros para asegurarse de que sean correctos.</system:String>
+    <system:String x:Key="Youcansaveyourconfiguration2">Puede guardar su configuración incluso cuando la lógica de validación de parámetros falla.</system:String>
 </ResourceDictionary>
