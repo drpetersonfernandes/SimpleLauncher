@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Percorsi potenzialmente non validi rilevati.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">La convalida dei parametri potrebbe talvolta identificare erroneamente i percorsi come non validi. Ricontrollare i campi dei parametri per assicurarsi che siano corretti.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">È possibile salvare la configurazione anche quando la logica di convalida dei parametri fallisce.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Impostazioni Obiettivi Retro</system:String>
+    <system:String x:Key="Username">Nome utente</system:String>
+    <system:String x:Key="ApiKey">Chiave API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Trova la tua chiave API qui</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Impossibile aprire la finestra degli obiettivi.</system:String>
+    <system:String x:Key="ViewAchievements">Visualizza Obiettivi</system:String>
 </ResourceDictionary>

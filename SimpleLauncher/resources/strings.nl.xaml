@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Mogelijk ongeldige paden gedetecteerd.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">De parametervalidatie kan paden soms ten onrechte als ongeldig identificeren. Controleer de parametervelden dubbel om er zeker van te zijn dat ze correct zijn.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">U kunt uw configuratie opslaan, zelfs als de parametervalidatielogica mislukt.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Retro Prestaties Instellingen</system:String>
+    <system:String x:Key="Username">Gebruikersnaam</system:String>
+    <system:String x:Key="ApiKey">API-sleutel</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Vind hier uw API-sleutel</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Kon het prestatievenster niet openen.</system:String>
+    <system:String x:Key="ViewAchievements">Prestaties bekijken</system:String>
 </ResourceDictionary>

@@ -3153,4 +3153,18 @@ internal static class MessageBoxLibrary
             MessageBox.Show(simpleLaunchercouldnotfindtheupdater, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void CouldNotOpenAchievementsWindowMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var couldNotOpenAchievementsWindow = (string)Application.Current.TryFindResource("CouldNotOpenAchievementsWindow") ?? "Could not open the achievements window.";
+            var theErrorWasReported = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{couldNotOpenAchievementsWindow}\n\n{theErrorWasReported}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

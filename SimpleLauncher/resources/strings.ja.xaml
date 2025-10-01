@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">無効な可能性のあるパスが検出されました。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">パラメータ検証は、パスを誤って無効と識別する場合があります。パラメータフィールドを再確認して、正しいことを確認してください。</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">パラメータ検証ロジックが失敗した場合でも、設定を保存できます。</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">レトロ実績設定</system:String>
+    <system:String x:Key="Username">ユーザー名</system:String>
+    <system:String x:Key="ApiKey">APIキー</system:String>
+    <system:String x:Key="FindYourApiKeyHere">こちらでAPIキーを見つけてください</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">実績ウィンドウを開けませんでした。</system:String>
+    <system:String x:Key="ViewAchievements">実績を見る</system:String>
 </ResourceDictionary>

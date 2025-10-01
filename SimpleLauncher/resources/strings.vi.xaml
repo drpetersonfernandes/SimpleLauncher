@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Đã phát hiện các đường dẫn có thể không hợp lệ.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">Xác thực tham số đôi khi có thể xác định sai các đường dẫn là không hợp lệ. Vui lòng kiểm tra kỹ các trường tham số để đảm bảo chúng chính xác.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Bạn có thể lưu cấu hình của mình ngay cả khi logic xác thực tham số thất bại.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Cài đặt Thành tích Retro</system:String>
+    <system:String x:Key="Username">Tên người dùng</system:String>
+    <system:String x:Key="ApiKey">Khóa API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Tìm Khóa API của bạn tại đây</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Không thể mở cửa sổ thành tích.</system:String>
+    <system:String x:Key="ViewAchievements">Xem Thành tích</system:String>
 </ResourceDictionary>

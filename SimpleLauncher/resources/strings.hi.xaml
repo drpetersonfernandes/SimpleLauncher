@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">संभावित रूप से अमान्य पथों का पता चला।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">पैरामीटर सत्यापन कभी-कभी पथों को गलत तरीके से अमान्य के रूप में पहचान सकता है। यह सुनिश्चित करने के लिए पैरामीटर फ़ील्ड की दोबारा जांच करें कि वे सही हैं।</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">पैरामीटर सत्यापन तर्क विफल होने पर भी आप अपनी कॉन्फ़िगरेशन सहेज सकते हैं।</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">रेट्रो उपलब्धियां सेटिंग्स</system:String>
+    <system:String x:Key="Username">उपयोगकर्ता नाम</system:String>
+    <system:String x:Key="ApiKey">एपीआई कुंजी</system:String>
+    <system:String x:Key="FindYourApiKeyHere">अपनी एपीआई कुंजी यहाँ पाएँ</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">उपलब्धियां विंडो नहीं खोली जा सकी।</system:String>
+    <system:String x:Key="ViewAchievements">उपलब्धियां देखें</system:String>
 </ResourceDictionary>

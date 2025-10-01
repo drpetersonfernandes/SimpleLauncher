@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Potenziell ungültige Pfade erkannt.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">Die Parametervalidierung kann Pfade manchmal fälschlicherweise als ungültig identifizieren. Überprüfen Sie die Parameterfelder sorgfältig, um sicherzustellen, dass sie korrekt sind.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Sie können Ihre Konfiguration auch dann speichern, wenn die Parametervalidierungslogik fehlschlägt.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Retro-Erfolge-Einstellungen</system:String>
+    <system:String x:Key="Username">Benutzername</system:String>
+    <system:String x:Key="ApiKey">API-Schlüssel</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Finden Sie Ihren API-Schlüssel hier</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Das Erfolge-Fenster konnte nicht geöffnet werden.</system:String>
+    <system:String x:Key="ViewAchievements">Erfolge anzeigen</system:String>
 </ResourceDictionary>

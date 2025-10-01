@@ -614,9 +614,15 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunchthetool">'Simple Launcher' could not launch the tool</system:String>
-    
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Potentially invalid paths detected.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">The parameter validation may falsely identify paths as invalid sometimes. Double-check the parameter fields to ensure they are correct.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">You can save your configuration even when the parameter validation logic fails.</system:String>
-     
+    
+    <system:String x:Key="RetroAchievementsSettings">Retro Achievements Settings</system:String>
+    <system:String x:Key="Username">Username</system:String>
+    <system:String x:Key="ApiKey">ApiKey</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Find Your Api Key Here</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Could not open the achievements window.</system:String>
+    <system:String x:Key="ViewAchievements">View Achievements</system:String>
+    
 </ResourceDictionary>

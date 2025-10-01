@@ -617,4 +617,12 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">检测到潜在的无效路径。</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">参数验证有时可能会错误地将路径识别为无效。请仔细检查参数字段以确保其正确无误。</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">即使参数验证逻辑失败，您也可以保存您的配置。</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">复古成就设置</system:String>
+    <system:String x:Key="Username">用户名</system:String>
+    <system:String x:Key="ApiKey">API密钥</system:String>
+    <system:String x:Key="FindYourApiKeyHere">在此处查找您的API密钥</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">无法打开成就窗口。</system:String>
+    <system:String x:Key="ViewAchievements">查看成就</system:String>
+
 </ResourceDictionary>

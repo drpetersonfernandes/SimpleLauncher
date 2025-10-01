@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Se detectaron rutas potencialmente no válidas.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">La validación de parámetros puede identificar erróneamente rutas como no válidas en ocasiones. Verifique dos veces los campos de parámetros para asegurarse de que sean correctos.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Puede guardar su configuración incluso cuando la lógica de validación de parámetros falla.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Ajustes de Logros Retro</system:String>
+    <system:String x:Key="Username">Nombre de usuario</system:String>
+    <system:String x:Key="ApiKey">Clave API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Encuentra tu clave API aquí</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">No se pudo abrir la ventana de logros.</system:String>
+    <system:String x:Key="ViewAchievements">Ver logros</system:String>
 </ResourceDictionary>

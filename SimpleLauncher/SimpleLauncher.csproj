@@ -818,6 +818,8 @@
     <Resource Include="images\sound.png" />
     <None Remove="images\play.png" />
     <Resource Include="images\play.png" />
+    <None Remove="images\trophy.png" />
+    <Resource Include="images\trophy.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

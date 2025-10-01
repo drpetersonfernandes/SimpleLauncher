@@ -614,8 +614,14 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
-    
     <system:String x:Key="PotentiallyInvalidPathsDetected2">تم اكتشاف مسارات قد تكون غير صالحة.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">قد تحدد صلاحية المعلمات المسارات بشكل خاطئ على أنها غير صالحة أحيانًا. تحقق جيدًا من حقول المعلمات للتأكد من صحتها.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">يمكنك حفظ التكوين الخاص بك حتى عندما يفشل منطق التحقق من صحة المعلمات.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">إعدادات إنجازات ريترو</system:String>
+    <system:String x:Key="Username">اسم المستخدم</system:String>
+    <system:String x:Key="ApiKey">مفتاح API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">ابحث عن مفتاح API الخاص بك هنا</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">تعذر فتح نافذة الإنجازات.</system:String>
+    <system:String x:Key="ViewAchievements">عرض الإنجازات</system:String>
 </ResourceDictionary>

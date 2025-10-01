@@ -137,10 +137,27 @@
                     <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
                                       Opacity="0.4" BlurRadius="5" />
                 </Border.Effect>
-                <ContentPresenter x:Name="ButtonContentPresenter"
-                                  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
-                                  Margin="{TemplateBinding Padding}" />
+                <Grid>
+                    <!-- Wrap the ContentPresenter in a Grid to allow overlays -->
+                    <ContentPresenter x:Name="ButtonContentPresenter"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}" />
+
+                    <!-- RetroAchievements Overlay -->
+                    <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
+                            Background="#A0000000" CornerRadius="0,0,4,4"
+                            Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}" d:DataContext="{d:DesignInstance }">
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
+                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" VerticalAlignment="Center" />
+                            <TextBlock Foreground="White" Margin="5,0,0,0" VerticalAlignment="Center">
+                                <Run Text="{Binding AchievementsEarned}" />
+                                <Run Text="/" />
+                                <Run Text="{Binding AchievementsTotal}" />
+                            </TextBlock>
+                        </StackPanel>
+                    </Border>
+                </Grid>
             </Border>
             <ControlTemplate.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
@@ -489,6 +506,16 @@
                     <MenuItem Header="{DynamicResource SoundConfiguration}" Click="SoundConfiguration_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/sound.png" Width="16" Height="16" />
+                        </MenuItem.Icon>
+                    </MenuItem>
+                </MenuItem>
+                <MenuItem Header="{DynamicResource RetroAchievementsSettings}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem Header="{DynamicResource RetroAchievementsSettings}" Click="RetroAchievementsSettings_Click">
+                        <MenuItem.Icon>
+                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
@@ -903,6 +930,19 @@
                             <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
                             <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                             <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
+                            <DataGridTextColumn Header="Achievements" Width="Auto">
+                                <DataGridTextColumn.Binding>
+                                    <MultiBinding StringFormat="{}{0}/{1}">
+                                        <Binding Path="AchievementsEarned" />
+                                        <Binding Path="AchievementsTotal" />
+                                    </MultiBinding>
+                                </DataGridTextColumn.Binding>
+                                <DataGridTextColumn.CellStyle>
+                                    <Style TargetType="DataGridCell">
+                                        <Setter Property="Visibility" Value="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"/>
+                                    </Style>
+                                </DataGridTextColumn.CellStyle>
+                            </DataGridTextColumn>
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                         </DataGrid.Columns>

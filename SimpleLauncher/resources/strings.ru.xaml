@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Обнаружены потенциально недействительные пути.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">Проверка параметров иногда может ошибочно определять пути как недействительные. Дважды проверьте поля параметров, чтобы убедиться в их правильности.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Вы можете сохранить свою конфигурацию, даже если логика проверки параметров завершится сбоем.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Настройки ретро-достижений</system:String>
+    <system:String x:Key="Username">Имя пользователя</system:String>
+    <system:String x:Key="ApiKey">Ключ API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Найдите свой ключ API здесь</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Не удалось открыть окно достижений.</system:String>
+    <system:String x:Key="ViewAchievements">Просмотр достижений</system:String>
 </ResourceDictionary>

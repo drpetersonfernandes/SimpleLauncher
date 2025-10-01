@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Caminhos potencialmente inválidos detectados.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">A validação de parâmetros pode, às vezes, identificar falsamente caminhos como inválidos. Verifique novamente os campos de parâmetros para garantir que estejam corretos.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Você pode salvar sua configuração mesmo quando a lógica de validação de parâmetros falhar.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Configurações de Conquistas Retro</system:String>
+    <system:String x:Key="Username">Nome de Usuário</system:String>
+    <system:String x:Key="ApiKey">Chave de API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Encontre sua Chave de API aqui</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Não foi possível abrir a janela de conquistas.</system:String>
+    <system:String x:Key="ViewAchievements">Ver Conquistas</system:String>
 </ResourceDictionary>

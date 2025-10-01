@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Jalur yang berpotensi tidak valid terdeteksi.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">Validasi parameter terkadang dapat secara keliru mengidentifikasi jalur sebagai tidak valid. Periksa kembali bidang parameter untuk memastikan semuanya benar.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Anda dapat menyimpan konfigurasi Anda bahkan ketika logika validasi parameter gagal.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Pengaturan Pencapaian Retro</system:String>
+    <system:String x:Key="Username">Nama Pengguna</system:String>
+    <system:String x:Key="ApiKey">Kunci API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Temukan Kunci API Anda di Sini</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Tidak dapat membuka jendela pencapaian.</system:String>
+    <system:String x:Key="ViewAchievements">Lihat Pencapaian</system:String>
 </ResourceDictionary>

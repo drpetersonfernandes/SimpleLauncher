@@ -160,6 +160,24 @@ public static class ContextMenu
             ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines);
         };
 
+        // View Achievements Context Menu ***
+        var viewAchievementsIcon = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+            Width = 16, Height = 16
+        };
+        var viewAchievementsText = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements";
+        var viewAchievementsItem = new MenuItem
+        {
+            Header = viewAchievementsText,
+            Icon = viewAchievementsIcon
+        };
+        viewAchievementsItem.Click += (s, e) =>
+        {
+            PlaySoundEffects.PlayNotificationSound();
+            ContextMenuFunctions.OpenAchievementsWindow(context.FileNameWithoutExtension, context.SelectedSystemName);
+        };
+
         // Open Cover Context Menu
         var openCoverIcon = new Image
         {
@@ -482,9 +500,13 @@ public static class ContextMenu
         contextMenu.Items.Add(launchMenuItem);
         contextMenu.Items.Add(addToFavorites);
         contextMenu.Items.Add(removeFromFavorites);
+        contextMenu.Items.Add(new Separator());
+        contextMenu.Items.Add(viewAchievementsItem);
+        contextMenu.Items.Add(new Separator());
         contextMenu.Items.Add(openVideoLink);
         contextMenu.Items.Add(openInfoLink);
         contextMenu.Items.Add(openHistoryWindow);
+        contextMenu.Items.Add(new Separator());
         contextMenu.Items.Add(openCover);
         contextMenu.Items.Add(openTitleSnapshot);
         contextMenu.Items.Add(openGameplaySnapshot);
@@ -495,6 +517,7 @@ public static class ContextMenu
         contextMenu.Items.Add(openCabinet);
         contextMenu.Items.Add(openFlyer);
         contextMenu.Items.Add(openPcb);
+        contextMenu.Items.Add(new Separator());
         contextMenu.Items.Add(takeScreenshot);
         contextMenu.Items.Add(deleteGame);
         contextMenu.Items.Add(deleteCoverImage);

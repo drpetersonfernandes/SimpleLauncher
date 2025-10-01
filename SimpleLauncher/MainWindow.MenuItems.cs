@@ -150,7 +150,7 @@ public partial class MainWindow
 
     private void LoadOrReloadSystemManager()
     {
-        _systemManagers = SystemManager.LoadSystemConfigs();
+        _systemManagers = SystemManager.LoadSystemManagers();
         var sortedSystemNames = _systemManagers.Select(static config => config.SystemName).OrderBy(static name => name)
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
@@ -944,6 +944,21 @@ public partial class MainWindow
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenSoundConfigurationWindow();
+        }
+    }
+
+    private void RetroAchievementsSettings_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            PlaySoundEffects.PlayNotificationSound();
+            var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
+            raSettingsWindow.ShowDialog();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error opening RetroAchievements settings window.");
+            MessageBoxLibrary.ErrorMessageBox();
         }
     }
 }

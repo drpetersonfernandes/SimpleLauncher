@@ -25,7 +25,7 @@ public partial class SystemManager
 
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
-    public static List<SystemManager> LoadSystemConfigs()
+    public static List<SystemManager> LoadSystemManagers()
     {
         if (string.IsNullOrEmpty(XmlPath))
         {

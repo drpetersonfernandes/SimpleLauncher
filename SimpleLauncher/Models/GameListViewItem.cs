@@ -19,6 +19,9 @@ public class GameListViewItem : INotifyPropertyChanged
 
     // Backing field for the actual size in bytes, initialized to -1 ("Calculating...")
     private long _internalFileSizeBytes = -1;
+    private bool _hasAchievements;
+    private int _achievementsEarned;
+    private int _achievementsTotal;
 
     public bool IsFavorite
     {
@@ -93,6 +96,42 @@ public class GameListViewItem : INotifyPropertyChanged
         _internalFileSizeBytes == -1 ? (string)Application.Current.TryFindResource("Calculating") ?? "Calculating..." : // Show "Calculating..." if size is -1
         _internalFileSizeBytes < -1 ? (string)Application.Current.TryFindResource("NotAvailable") ?? "Not Available" : // Show "N/A" for other negative values (errors/not found)
         FormatFileSize.FormatToMb(_internalFileSizeBytes);
+
+    public bool HasAchievements
+    {
+        get => _hasAchievements;
+        set
+        {
+            if (_hasAchievements == value) return;
+
+            _hasAchievements = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int AchievementsEarned
+    {
+        get => _achievementsEarned;
+        set
+        {
+            if (_achievementsEarned == value) return;
+
+            _achievementsEarned = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public int AchievementsTotal
+    {
+        get => _achievementsTotal;
+        set
+        {
+            if (_achievementsTotal == value) return;
+
+            _achievementsTotal = value;
+            OnPropertyChanged();
+        }
+    }
 
     public event PropertyChangedEventHandler PropertyChanged;
 

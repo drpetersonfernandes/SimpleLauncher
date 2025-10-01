@@ -1,3 +1,5 @@
+// Path: SimpleLauncher/UiHelpers/ContextMenuFunctions.cs
+
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -235,7 +237,20 @@ public static class ContextMenuFunctions
         }
     }
 
-    // Use fileNameWithoutExtension
+    public static void OpenAchievementsWindow(string fileNameWithoutExtension, string systemName)
+    {
+        try
+        {
+            var achievementsWindow = new AchievementsWindow(fileNameWithoutExtension, systemName);
+            achievementsWindow.Show();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to open achievements window for {fileNameWithoutExtension}.");
+            MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+        }
+    }
+
     public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemManager systemManager)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;

@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">সম্ভাব্য অবৈধ পথ সনাক্ত করা হয়েছে।</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">প্যারামিটার বৈধতা কখনও কখনও ভুলভাবে পথগুলিকে অবৈধ হিসাবে চিহ্নিত করতে পারে। প্যারামিটার ক্ষেত্রগুলি সঠিক আছে কিনা তা নিশ্চিত করতে দুবার পরীক্ষা করুন।</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">প্যারামিটার বৈধতা যুক্তি ব্যর্থ হলেও আপনি আপনার কনফিগারেশন সংরক্ষণ করতে পারেন।</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">রেট্রো অ্যাচিভমেন্টস সেটিংস</system:String>
+    <system:String x:Key="Username">ব্যবহারকারীর নাম</system:String>
+    <system:String x:Key="ApiKey">API কী</system:String>
+    <system:String x:Key="FindYourApiKeyHere">আপনার API কী এখানে খুঁজুন</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">অ্যাচিভমেন্টস উইন্ডো খোলা যায়নি।</system:String>
+    <system:String x:Key="ViewAchievements">অ্যাচিভমেন্টস দেখুন</system:String>
 </ResourceDictionary>

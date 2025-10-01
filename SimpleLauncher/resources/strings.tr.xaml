@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Potansiyel olarak geçersiz yollar algılandı.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">Parametre doğrulama bazen yolları yanlışlıkla geçersiz olarak tanımlayabilir. Parametre alanlarının doğru olduğundan emin olmak için iki kez kontrol edin.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Parametre doğrulama mantığı başarısız olsa bile yapılandırmanızı kaydedebilirsiniz.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Retro Başarımlar Ayarları</system:String>
+    <system:String x:Key="Username">Kullanıcı Adı</system:String>
+    <system:String x:Key="ApiKey">API Anahtarı</system:String>
+    <system:String x:Key="FindYourApiKeyHere">API Anahtarınızı Buradan Bulun</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Başarımlar penceresi açılamadı.</system:String>
+    <system:String x:Key="ViewAchievements">Başarımları Görüntüle</system:String>
 </ResourceDictionary>

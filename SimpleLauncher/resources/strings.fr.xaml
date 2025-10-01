@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">Chemins potentiellement invalides détectés.</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">La validation des paramètres peut parfois identifier à tort des chemins comme invalides. Vérifiez attentivement les champs des paramètres pour vous assurer qu'ils sont corrects.</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">Vous pouvez enregistrer votre configuration même lorsque la logique de validation des paramètres échoue.</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">Paramètres des succès rétro</system:String>
+    <system:String x:Key="Username">Nom d'utilisateur</system:String>
+    <system:String x:Key="ApiKey">Clé API</system:String>
+    <system:String x:Key="FindYourApiKeyHere">Trouvez votre clé API ici</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">Impossible d'ouvrir la fenêtre des succès.</system:String>
+    <system:String x:Key="ViewAchievements">Voir les succès</system:String>
 </ResourceDictionary>

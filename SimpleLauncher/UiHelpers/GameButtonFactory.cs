@@ -55,6 +55,20 @@ public class GameButtonFactory(
                 f.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase))
         };
 
+        // Placeholder logic for achievements
+        if (fileNameWithoutExtension.Contains("mario", StringComparison.OrdinalIgnoreCase))
+        {
+            viewModel.HasAchievements = true;
+            viewModel.AchievementsEarned = 15;
+            viewModel.AchievementsTotal = 50;
+        }
+        else
+        {
+            viewModel.HasAchievements = false;
+            viewModel.AchievementsEarned = 0;
+            viewModel.AchievementsTotal = 0;
+        }
+
         // Create a container for text that will hold two rows
         var textPanel = new StackPanel
         {

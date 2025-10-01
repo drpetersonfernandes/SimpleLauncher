@@ -45,6 +45,8 @@ public class SettingsManager
     public const float DefaultDeadZoneY = 0.02f;
     public bool EnableNotificationSound { get; set; }
     public string CustomNotificationSoundFile { get; set; }
+    public string RaUsername { get; set; }
+    public string RaApiKey { get; set; }
 
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
@@ -74,7 +76,19 @@ public class SettingsManager
 
         try
         {
-            var settings = XElement.Load(_filePath);
+            XElement settings;
+
+            // Use secure XML settings to prevent XXE attacks
+            var xmlSettings = new XmlReaderSettings
+            {
+                DtdProcessing = DtdProcessing.Prohibit,
+                XmlResolver = null
+            };
+
+            using (var reader = XmlReader.Create(_filePath, xmlSettings))
+            {
+                settings = XElement.Load(reader, LoadOptions.None);
+            }
 
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
@@ -92,6 +106,8 @@ public class SettingsManager
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
             ButtonAspectRatio = ValidateButtonAspectRatio(settings.Element("ButtonAspectRatio")?.Value);
+            RaUsername = settings.Element("RA_Username")?.Value ?? string.Empty;
+            RaApiKey = settings.Element("RA_ApiKey")?.Value ?? string.Empty;
 
             if (!float.TryParse(settings.Element("DeadZoneX")?.Value, NumberStyles.Any, CultureInfo.InvariantCulture, out var deadZoneX))
             {
@@ -236,6 +252,8 @@ public class SettingsManager
         FuzzyMatchingThreshold = 0.80;
         EnableNotificationSound = true;
         CustomNotificationSoundFile = DefaultNotificationSoundFileName;
+        RaUsername = string.Empty;
+        RaApiKey = string.Empty;
         SystemPlayTimes = [];
         Save();
     }
@@ -274,6 +292,8 @@ public class SettingsManager
             new XElement("FuzzyMatchingThreshold", FuzzyMatchingThreshold.ToString(CultureInfo.InvariantCulture)),
             new XElement("EnableNotificationSound", EnableNotificationSound),
             new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
+            new XElement("RA_Username", RaUsername),
+            new XElement("RA_ApiKey", RaApiKey),
             systemPlayTimesElement
         ).Save(_filePath);
     }

@@ -617,4 +617,11 @@
     <system:String x:Key="PotentiallyInvalidPathsDetected2">ممکنہ طور پر غلط راستے دریافت ہوئے۔</system:String>
     <system:String x:Key="ParameterPathsInvalidWarningFooter2">پیرامیٹر کی توثیق بعض اوقات راستوں کو غلط طور پر غیر درست شناخت کر سکتی ہے۔ اس بات کو یقینی بنانے کے لیے پیرامیٹر کے فیلڈز کو دوبارہ چیک کریں کہ وہ درست ہیں۔</system:String>
     <system:String x:Key="Youcansaveyourconfiguration2">پیرامیٹر کی توثیق کا منطق ناکام ہونے پر بھی آپ اپنی ترتیب کو محفوظ کر سکتے ہیں۔</system:String>
+    
+    <system:String x:Key="RetroAchievementsSettings">ریٹرو اچیومنٹس کی ترتیبات</system:String>
+    <system:String x:Key="Username">صارف نام</system:String>
+    <system:String x:Key="ApiKey">API کلید</system:String>
+    <system:String x:Key="FindYourApiKeyHere">اپنی API کلید یہاں تلاش کریں</system:String>
+    <system:String x:Key="CouldNotOpenAchievementsWindow">اچیومنٹس ونڈو نہیں کھولی جا سکی۔</system:String>
+    <system:String x:Key="ViewAchievements">اچیومنٹس دیکھیں</system:String>
 </ResourceDictionary>
