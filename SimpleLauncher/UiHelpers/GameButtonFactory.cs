@@ -5,6 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
+using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using SimpleLauncher.Managers;
@@ -196,6 +197,45 @@ public class GameButtonFactory(
         starImage.SetBinding(UIElement.VisibilityProperty, binding);
         grid.Children.Add(starImage); // Add the star overlay to the grid.
 
+        // Add the RetroAchievements trophy icon overlay
+        var trophyButton = new Button
+        {
+            Width = 22,
+            Height = 22,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(5),
+            Cursor = Cursors.Hand,
+            ToolTip = "View Achievements",
+            Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+        };
+
+        var trophyImage = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+            Stretch = Stretch.Uniform
+        };
+        trophyButton.Content = trophyImage;
+
+        // Bind visibility to HasAchievements
+        var trophyBinding = new Binding("HasAchievements")
+        {
+            Converter = new BooleanToVisibilityConverter()
+        };
+        trophyButton.SetBinding(UIElement.VisibilityProperty, trophyBinding);
+
+        // Add click event to open achievements window
+        trophyButton.Click += (s, e) =>
+        {
+            // Prevent the main button's click event from firing
+            e.Handled = true;
+
+            PlaySoundEffects.PlayNotificationSound();
+            ContextMenuFunctions.OpenAchievementsWindow(fileNameWithoutExtension, selectedSystemName);
+        };
+
+        grid.Children.Add(trophyButton);
+
         // Set the DataContext of the grid to the view model.
         grid.DataContext = viewModel;
 
@@ -215,7 +255,7 @@ public class GameButtonFactory(
             Content = grid,
             Width = baseSize,
             HorizontalContentAlignment = HorizontalAlignment.Center,
-            VerticalContentAlignment = VerticalAlignment.Center,
+            VerticalAlignment = VerticalAlignment.Center,
             Margin = new Thickness(5),
             Padding = new Thickness(0, 5, 0, 0)
         };

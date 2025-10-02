@@ -24,33 +24,140 @@
             </StackPanel>
         </Border>
 
-        <DataGrid Grid.Row="1" Name="AchievementsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" Margin="10,0,10,10" CanUserAddRows="False" d:DataContext="{d:DesignInstance }">
-            <DataGrid.Columns>
-                <DataGridTemplateColumn Header="Icon" Width="Auto">
-                    <DataGridTemplateColumn.CellTemplate>
-                        <DataTemplate>
-                            <Image Source="{Binding BadgeUri}" Width="48" Height="48" Margin="5" d:DataContext="{d:DesignInstance }" />
-                        </DataTemplate>
-                    </DataGridTemplateColumn.CellTemplate>
-                </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
-                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
-                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto"/>
-                <DataGridTextColumn Header="Unlocked" Binding="{Binding DateUnlockedDisplay}" Width="Auto"/>
-            </DataGrid.Columns>
-        </DataGrid>
+        <TabControl Grid.Row="1" Margin="10,0,10,10">
+            <TabItem Header="Achievements">
+                <Grid>
+                    <DataGrid Name="AchievementsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" d:DataContext="{d:DesignInstance }">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Icon" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding BadgeUri}" Width="48" Height="48" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*"/>
+                            <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*"/>
+                            <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto"/>
+                            <DataGridTextColumn Header="Unlocked" Binding="{Binding DateUnlockedDisplay}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="NoAchievementsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                        <TextBlock Text="No achievements found for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Game Info">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                    <StackPanel>
+                        <TextBlock x:Name="GameInfoTitle" FontWeight="Bold" FontSize="16" TextWrapping="Wrap"/>
+                        <TextBlock x:Name="GameInfoConsole" FontStyle="Italic" Margin="0,0,0,15"/>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="Auto"/>
+                                <ColumnDefinition Width="*"/>
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                                <RowDefinition Height="Auto"/>
+                            </Grid.RowDefinitions>
+                            <TextBlock Grid.Row="0" Grid.Column="0" Text="Genre:" FontWeight="Bold" Margin="0,0,10,5"/>
+                            <TextBlock Grid.Row="0" Grid.Column="1" x:Name="GameInfoGenre" Margin="0,0,0,5"/>
+                            <TextBlock Grid.Row="1" Grid.Column="0" Text="Developer:" FontWeight="Bold" Margin="0,0,10,5"/>
+                            <TextBlock Grid.Row="1" Grid.Column="1" x:Name="GameInfoDeveloper" Margin="0,0,0,5"/>
+                            <TextBlock Grid.Row="2" Grid.Column="0" Text="Publisher:" FontWeight="Bold" Margin="0,0,10,5"/>
+                            <TextBlock Grid.Row="2" Grid.Column="1" x:Name="GameInfoPublisher" Margin="0,0,0,5"/>
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Released:" FontWeight="Bold" Margin="0,0,10,5"/>
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="GameInfoReleased" Margin="0,0,0,5"/>
+                        </Grid>
+                        <TextBlock Text="Rich Presence Script:" FontWeight="Bold" Margin="0,15,0,5"/>
+                        <TextBox x:Name="GameInfoRichPresence" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" Height="100" FontFamily="Consolas"/>
+                        <Grid x:Name="NoGameInfoOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed" Margin="0,20,0,0">
+                            <TextBlock Text="Extended game information not available." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                        </Grid>
+                    </StackPanel>
+                </ScrollViewer>
+            </TabItem>
+            <TabItem Header="Rankings">
+                <Grid>
+                    <DataGrid Name="RankingsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" d:DataContext="{d:DesignInstance }">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto"/>
+                            <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*"/>
+                            <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto"/>
+                            <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio}" Width="Auto"/>
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <Grid x:Name="NoRankingsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                        <TextBlock Text="No rankings available for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16"/>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="My Profile">
+                <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+                    <Grid>
+                        <StackPanel x:Name="UserProfilePanel">
+                            <StackPanel Orientation="Horizontal">
+                                <Border BorderBrush="Gray" BorderThickness="1" Width="80" Height="80">
+                                    <Image x:Name="UserProfilePic" Stretch="Uniform"/>
+                                </Border>
+                                <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
+                                    <TextBlock x:Name="UserProfileUser" FontSize="20" FontWeight="Bold"/>
+                                    <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap"/>
+                                </StackPanel>
+                            </StackPanel>
+                            <Grid Margin="0,15,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="Auto"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                    <RowDefinition Height="Auto"/>
+                                </Grid.RowDefinitions>
+                                <TextBlock Grid.Row="0" Grid.Column="0" Text="Rank:" FontWeight="Bold" Margin="0,0,10,5"/>
+                                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="UserProfileRank" Margin="0,0,0,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="0" Text="Points:" FontWeight="Bold" Margin="0,0,10,5"/>
+                                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="UserProfilePoints" Margin="0,0,0,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="0" Text="True Points:" FontWeight="Bold" Margin="0,0,10,5"/>
+                                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="UserProfileTruePoints" Margin="0,0,0,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="0" Text="Member Since:" FontWeight="Bold" Margin="0,0,10,5"/>
+                                <TextBlock Grid.Row="3" Grid.Column="1" x:Name="UserProfileMemberSince" Margin="0,0,0,5"/>
+                            </Grid>
+                            <TextBlock Text="Recently Played:" FontWeight="Bold" Margin="0,15,0,5"/>
+                            <ListBox x:Name="UserProfileRecentlyPlayed" BorderThickness="0">
+                                <ListBox.ItemTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal" Margin="0,2">
+                                            <Image Source="{Binding GameIconUrl}" Width="32" Height="32" VerticalAlignment="Center" d:DataContext="{d:DesignInstance }" />
+                                            <StackPanel Margin="10,0,0,0" VerticalAlignment="Center">
+                                                <TextBlock Text="{Binding Title}" FontWeight="SemiBold" d:DataContext="{d:DesignInstance }" />
+                                                <TextBlock Text="{Binding LastPlayed}" FontSize="10" Foreground="Gray" d:DataContext="{d:DesignInstance }" />
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </ListBox.ItemTemplate>
+                            </ListBox>
+                        </StackPanel>
+                        <Grid x:Name="NoProfileOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                            <TextBlock Text="Could not load user profile. Check username and API key." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" TextAlignment="Center"/>
+                        </Grid>
+                    </Grid>
+                </ScrollViewer>
+            </TabItem>
+        </TabControl>
 
         <!-- Loading Overlay -->
         <Grid x:Name="LoadingOverlay" Grid.Row="0" Grid.RowSpan="2" Background="#7F000000" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <controls:ProgressRing IsActive="True" Width="60" Height="60" />
-                <TextBlock Text="Loading Achievements..." Foreground="White" Margin="0,10,0,0" FontSize="16"/>
+                <TextBlock Text="Loading..." Foreground="White" Margin="0,10,0,0" FontSize="16"/>
             </StackPanel>
-        </Grid>
-        
-        <!-- No Results Overlay -->
-        <Grid x:Name="NoResultsOverlay" Grid.Row="1" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-            <TextBlock Text="No achievements found for this game, or the game could not be identified on RetroAchievements." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" Margin="20"/>
         </Grid>
     </Grid>
 </controls:MetroWindow>

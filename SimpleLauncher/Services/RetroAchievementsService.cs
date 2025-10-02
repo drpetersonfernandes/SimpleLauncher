@@ -15,19 +15,14 @@ public static class RetroAchievementsService
     private const string SiteBaseUrl = "https://retroachievements.org";
     private static readonly IHttpClientFactory HttpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
 
-    // Cache for game lists per console to avoid repeated API calls
-    private static readonly Dictionary<int, List<ApiGameInfo>> ConsoleGameListCache = new();
-    private static readonly Dictionary<int, DateTime> CacheTimestamp = new();
-
     /// <summary>
-    /// Fetches the user's progress and achievement list for a specific game.
+    /// Fetches the user's progress and achievement list for a specific game ID.
     /// </summary>
-    /// <param name="gameTitle">The title of the game (usually the filename without extension).</param>
-    /// <param name="systemName">The name of the system/console.</param>
+    /// <param name="gameId">The RetroAchievements ID of the game.</param>
     /// <param name="username">The user's RetroAchievements username.</param>
     /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
     /// <returns>A tuple containing the user's game progress and a list of achievements, or null if an error occurs.</returns>
-    public static async Task<(UserGameProgress Progress, List<Achievement> Achievements)> GetUserGameProgressAsync(string gameTitle, string systemName, string username, string apiKey)
+    public static async Task<(UserGameProgress Progress, List<Achievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -37,17 +32,8 @@ public static class RetroAchievementsService
 
         try
         {
-            // Step 1: Find the Game ID for the given title and system.
-            var gameId = await FindGameIdAsync(gameTitle, systemName, username, apiKey);
-            if (gameId == null)
-            {
-                DebugLogger.Log($"[RA Service] Could not find a matching GameID for '{gameTitle}' on console '{systemName}'.");
-                return (null, null);
-            }
+            DebugLogger.Log($"[RA Service] Fetching user progress for GameID {gameId}...");
 
-            DebugLogger.Log($"[RA Service] Found GameID {gameId} for '{gameTitle}'. Fetching user progress...");
-
-            // Step 2: Fetch the game info and user progress using the found Game ID.
             var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetGameInfoAndUserProgress.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
 
@@ -55,7 +41,7 @@ public static class RetroAchievementsService
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode}: {error}");
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
                 return (null, null);
             }
 
@@ -64,7 +50,7 @@ public static class RetroAchievementsService
 
             if (apiResponse == null) return (null, null);
 
-            // Step 3: Map the API response to our local models.
+            // Map the API response to our local models.
             var progress = new UserGameProgress
             {
                 GameTitle = apiResponse.Title,
@@ -96,101 +82,80 @@ public static class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserGameProgressAsync for '{gameTitle}'.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserGameProgressByGameIdAsync for gameId {gameId}.");
             return (null, null);
         }
     }
 
     /// <summary>
-    /// Finds the RetroAchievements Game ID for a given game title and console.
+    /// Fetches extended information for a specific game.
     /// </summary>
-    private static async Task<int?> FindGameIdAsync(string gameTitle, string systemName, string username, string apiKey)
+    public static async Task<ApiGameExtended> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
     {
-        var consoleId = MapConsoleNameToId(systemName);
-        if (consoleId == null)
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
+
+        try
         {
-            DebugLogger.Log($"[RA Service] No ConsoleID mapping found for system: {systemName}");
+            var client = HttpClientFactory.CreateClient();
+            var url = $"{ApiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ApiGameExtended>(json);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtendedInfoAsync for gameId {gameId}.");
             return null;
         }
+    }
 
-        // Use cache if valid (less than 24 hours old)
-        if (CacheTimestamp.TryGetValue(consoleId.Value, out var timestamp) && (DateTime.UtcNow - timestamp).TotalHours < 24)
+    /// <summary>
+    /// Fetches the top 10 ranked players for a specific game.
+    /// </summary>
+    public static async Task<ApiGameRankAndScoreResponse> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
+
+        try
         {
-            if (ConsoleGameListCache.TryGetValue(consoleId.Value, out var cachedList))
-            {
-                DebugLogger.Log($"[RA Service] Using cached game list for ConsoleID {consoleId.Value}.");
-                return FindBestMatch(gameTitle, cachedList);
-            }
+            var client = HttpClientFactory.CreateClient();
+            var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ApiGameRankAndScoreResponse>(json);
         }
-
-        // Fetch fresh list from API
-        DebugLogger.Log($"[RA Service] Fetching fresh game list for ConsoleID {consoleId.Value}.");
-        var client = HttpClientFactory.CreateClient();
-        var url = $"{ApiBaseUrl}API_GetGameList.php?i={consoleId}&y={Uri.EscapeDataString(apiKey)}";
-
-        var response = await client.GetAsync(url);
-        if (!response.IsSuccessStatusCode)
+        catch (Exception ex)
         {
-            var error = await response.Content.ReadAsStringAsync();
-            _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetGameList failed with status {response.StatusCode}: {error}");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
-
-        var json = await response.Content.ReadAsStringAsync();
-        var gameList = JsonSerializer.Deserialize<List<ApiGameInfo>>(json);
-
-        if (gameList == null || gameList.Count == 0) return null;
-
-        // Update cache
-        ConsoleGameListCache[consoleId.Value] = gameList;
-        CacheTimestamp[consoleId.Value] = DateTime.UtcNow;
-
-        return FindBestMatch(gameTitle, gameList);
     }
 
-    private static int? FindBestMatch(string gameTitle, List<ApiGameInfo> gameList)
+    /// <summary>
+    /// Fetches the profile information for a specific user.
+    /// </summary>
+    public static async Task<ApiUserProfile> GetUserProfileAsync(string username, string apiKey)
     {
-        if (gameList == null || gameList.Count == 0) return null;
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
-        ApiGameInfo bestMatch = null;
-        var highestSimilarity = 0.0;
-
-        foreach (var game in gameList)
+        try
         {
-            var similarity = FindCoverImage.CalculateJaroWinklerSimilarity(gameTitle, game.Title);
-            if (similarity > highestSimilarity)
-            {
-                highestSimilarity = similarity;
-                bestMatch = game;
-            }
+            var client = HttpClientFactory.CreateClient();
+            var url = $"{ApiBaseUrl}API_GetUserProfile.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}";
+            var response = await client.GetAsync(url);
+            if (!response.IsSuccessStatusCode) return null;
+
+            var json = await response.Content.ReadAsStringAsync();
+            return JsonSerializer.Deserialize<ApiUserProfile>(json);
         }
-
-        // Require a reasonably high similarity score to avoid false positives
-        return highestSimilarity > 0.85 ? bestMatch?.Id : null;
-    }
-
-    private static int? MapConsoleNameToId(string systemName)
-    {
-        return systemName.ToLowerInvariant() switch
+        catch (Exception ex)
         {
-            // This mapping needs to be maintained. Add more systems as needed.
-            "sega genesis" or "mega drive" => 1,
-            "nintendo 64" or "n64" => 2,
-            "nintendo snes" or "snes" => 3,
-            "nintendo game boy" or "game boy" => 4,
-            "nintendo game boy advance" or "gba" => 5,
-            "nintendo game boy color" or "gbc" => 6,
-            "nintendo nes" or "nes" => 7,
-            "sony playstation 1" or "playstation" or "ps1" => 12,
-            "sega 32x" => 15,
-            "sega master system" => 16,
-            "sega dreamcast" => 17,
-            "sony playstation 2" or "ps2" => 21,
-            "nintendo wii" => 22,
-            "nintendo ds" => 24,
-            "arcade" => 27,
-            "sony psp" => 41,
-            _ => null
-        };
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
+            return null;
+        }
     }
 }

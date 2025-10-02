@@ -3167,4 +3167,17 @@ internal static class MessageBoxLibrary
             MessageBox.Show($"{couldNotOpenAchievementsWindow}\n\n{theErrorWasReported}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void GameNotSupportedByRetroAchievementsMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("GameNotSupportedByRA") ?? "This game is not currently supported by the RetroAchievements database.";
+            var title = (string)Application.Current.TryFindResource("RetroAchievements") ?? "RetroAchievements";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }

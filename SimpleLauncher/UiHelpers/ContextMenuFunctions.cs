@@ -1,5 +1,3 @@
-// Path: SimpleLauncher/UiHelpers/ContextMenuFunctions.cs
-
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +7,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows.Controls;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -237,12 +236,35 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static void OpenAchievementsWindow(string fileNameWithoutExtension, string systemName)
+    public static async void OpenAchievementsWindow(string filePath, string fileNameWithoutExtension)
     {
         try
         {
-            var achievementsWindow = new AchievementsWindow(fileNameWithoutExtension, systemName);
-            achievementsWindow.Show();
+            // 1. Calculate hash
+            var hash = await FileHasher.CalculateMd5Async(filePath);
+            if (string.IsNullOrEmpty(hash))
+            {
+                MessageBoxLibrary.ErrorMessageBox(); // Or a more specific one about hashing failure.
+                return;
+            }
+
+            // 2. Load RA data via DI
+            var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
+
+            // 3. Find game by hash
+            var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Hashes.Contains(hash, StringComparer.OrdinalIgnoreCase));
+
+            if (matchedGame != null)
+            {
+                // 4. Found a match, open AchievementsWindow with the Game ID.
+                var achievementsWindow = new AchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                achievementsWindow.Show();
+            }
+            else
+            {
+                // 5. No match found, show message.
+                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+            }
         }
         catch (Exception ex)
         {

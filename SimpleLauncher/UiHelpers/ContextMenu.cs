@@ -175,7 +175,7 @@ public static class ContextMenu
         viewAchievementsItem.Click += (s, e) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenAchievementsWindow(context.FileNameWithoutExtension, context.SelectedSystemName);
+            ContextMenuFunctions.OpenAchievementsWindow(context.FilePath, context.FileNameWithoutExtension);
         };
 
         // Open Cover Context Menu

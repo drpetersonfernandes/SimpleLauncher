@@ -143,20 +143,6 @@
                                       HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
                                       VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
                                       Margin="{TemplateBinding Padding}" />
-
-                    <!-- RetroAchievements Overlay -->
-                    <Border VerticalAlignment="Bottom" HorizontalAlignment="Stretch"
-                            Background="#A0000000" CornerRadius="0,0,4,4"
-                            Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}" d:DataContext="{d:DesignInstance }">
-                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="3">
-                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" VerticalAlignment="Center" />
-                            <TextBlock Foreground="White" Margin="5,0,0,0" VerticalAlignment="Center">
-                                <Run Text="{Binding AchievementsEarned}" />
-                                <Run Text="/" />
-                                <Run Text="{Binding AchievementsTotal}" />
-                            </TextBlock>
-                        </StackPanel>
-                    </Border>
                 </Grid>
             </Border>
             <ControlTemplate.Triggers>
@@ -199,6 +185,87 @@
         <!-- ReSharper disable once Xaml.RedundantResource -->
         <Style x:Key="GameButtonStyle" TargetType="Button">
             <Setter Property="Template" Value="{StaticResource GameButton3DTemplate}" />
+            <Setter Property="HorizontalContentAlignment" Value="Center" />
+            <Setter Property="VerticalContentAlignment" Value="Center" />
+            <Setter Property="Margin" Value="5" />
+            <Setter Property="Padding" Value="0,5,0,0" />
+            <!-- Set initial opacity to 0 for the fade-in effect -->
+            <Setter Property="Opacity" Value="0" />
+            <Style.Triggers>
+                <EventTrigger RoutedEvent="Loaded">
+                    <BeginStoryboard>
+                        <Storyboard>
+                            <DoubleAnimation
+                                Storyboard.TargetProperty="Opacity"
+                                From="0.0" To="1.0" Duration="0:0:0.5" />
+                        </Storyboard>
+                    </BeginStoryboard>
+                </EventTrigger>
+            </Style.Triggers>
+        </Style>
+
+        <!-- Reusable ControlTemplate for System Buttons with 3D Effect -->
+        <ControlTemplate x:Key="SystemButton3DTemplate" TargetType="Button">
+            <Border x:Name="ButtonBorder"
+                    Background="{DynamicResource MahApps.Brushes.Gray9}"
+                    BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
+                    BorderThickness="1"
+                    CornerRadius="5"
+                    RenderTransformOrigin="0.5,0.5">
+                <Border.RenderTransform>
+                    <ScaleTransform ScaleX="1.0" ScaleY="1.0" />
+                </Border.RenderTransform>
+                <Border.Effect>
+                    <DropShadowEffect Color="{DynamicResource MahApps.Colors.Gray5}" Direction="315" ShadowDepth="3"
+                                      Opacity="0.4" BlurRadius="5" />
+                </Border.Effect>
+                <Grid>
+                    <!-- ContentPresenter for the button's content (StackPanel with Image and Text) -->
+                    <ContentPresenter x:Name="ButtonContentPresenter"
+                                      HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}"
+                                      VerticalAlignment="{TemplateBinding VerticalContentAlignment}"
+                                      Margin="{TemplateBinding Padding}" />
+                </Grid>
+            </Border>
+            <ControlTemplate.Triggers>
+                <Trigger Property="IsMouseOver" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent4}" />
+                    <Setter TargetName="ButtonBorder" Property="BorderBrush"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="{DynamicResource MahApps.Colors.Accent}" Direction="315"
+                                              ShadowDepth="5" Opacity="0.6" BlurRadius="8" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="ButtonBorder" Property="RenderTransform">
+                        <Setter.Value>
+                            <ScaleTransform ScaleX="1.02" ScaleY="1.02" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+                <Trigger Property="IsPressed" Value="True">
+                    <Setter TargetName="ButtonBorder" Property="Background"
+                            Value="{DynamicResource MahApps.Brushes.Accent}" />
+                    <Setter TargetName="ButtonBorder" Property="Effect">
+                        <Setter.Value>
+                            <DropShadowEffect Color="Black" Direction="315" ShadowDepth="1" Opacity="0.7"
+                                              BlurRadius="2" />
+                        </Setter.Value>
+                    </Setter>
+                    <Setter TargetName="ButtonContentPresenter" Property="RenderTransform">
+                        <Setter.Value>
+                            <TranslateTransform X="1" Y="1" />
+                        </Setter.Value>
+                    </Setter>
+                </Trigger>
+            </ControlTemplate.Triggers>
+        </ControlTemplate>
+
+        <!-- Style for System Buttons -->
+        <Style x:Key="SystemButtonStyle" TargetType="Button">
+            <Setter Property="Template" Value="{StaticResource SystemButton3DTemplate}" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
             <Setter Property="Margin" Value="5" />
@@ -930,19 +997,25 @@
                             <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
                             <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                             <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                            <DataGridTextColumn Header="Achievements" Width="Auto">
-                                <DataGridTextColumn.Binding>
-                                    <MultiBinding StringFormat="{}{0}/{1}">
-                                        <Binding Path="AchievementsEarned" />
-                                        <Binding Path="AchievementsTotal" />
-                                    </MultiBinding>
-                                </DataGridTextColumn.Binding>
-                                <DataGridTextColumn.CellStyle>
+                            <DataGridTemplateColumn Header="Achievements" Width="Auto">
+                                <DataGridTemplateColumn.CellStyle>
                                     <Style TargetType="DataGridCell">
                                         <Setter Property="Visibility" Value="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                     </Style>
-                                </DataGridTextColumn.CellStyle>
-                            </DataGridTextColumn>
+                                </DataGridTemplateColumn.CellStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBlock d:DataContext="{d:DesignInstance }">
+                                            <TextBlock.Text>
+                                                <MultiBinding StringFormat="{}{0}/{1}">
+                                                    <Binding Path="AchievementsEarned" />
+                                                    <Binding Path="AchievementsTotal" />
+                                                </MultiBinding>
+                                            </TextBlock.Text>
+                                        </TextBlock>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                         </DataGrid.Columns>
@@ -1046,6 +1119,8 @@
                     <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0"/>
                     <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
                 </StackPanel>
+                <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
+                <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />
             </StackPanel>
 
         </Grid>
