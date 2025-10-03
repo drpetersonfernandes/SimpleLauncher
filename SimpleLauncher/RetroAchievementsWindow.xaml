@@ -1,4 +1,4 @@
-<controls:MetroWindow x:Class="SimpleLauncher.AchievementsWindow"
+<controls:MetroWindow x:Class="SimpleLauncher.RetroAchievementsWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -264,19 +264,31 @@
 
             <TabItem Header="Rankings">
                 <Grid>
-                    <DataGrid Name="RankingsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" d:DataContext="{d:DesignInstance }">
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,5">
+                        <Button Content="Refresh Rankings" Click="RefreshRankings_Click" Padding="10,5" />
+                    </StackPanel>
+                    <DataGrid Name="RankingsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" 
+                              d:DataContext="{d:DesignInstance }" Sorting="RankingsDataGrid_OnSorting">
                         <DataGrid.Columns>
-                            <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto" />
-                            <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" />
-                            <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" />
-                            <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio}" Width="Auto" />
+                            <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" />
+                            <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" SortMemberPath="User" />
+                            <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" SortMemberPath="Score" />
+                            <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" />
+                            <DataGridTextColumn Header="Achievements" Binding="{Binding NumAchievements}" Width="Auto" SortMemberPath="NumAchievements" />
+                            <DataGridTextColumn Header="Last Award" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
                         </DataGrid.Columns>
                     </DataGrid>
                     <Grid x:Name="NoRankingsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                        <TextBlock Text="No rankings available for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" />
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock Text="No rankings available for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" />
+                            <TextBlock Text="This could be because the game has no achievements or the API request failed." 
+                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" 
+                                       Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                        </StackPanel>
                     </Grid>
                 </Grid>
             </TabItem>
+            
             <TabItem Header="My Profile">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
                     <Grid>

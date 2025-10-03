@@ -998,11 +998,20 @@
                             <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                             <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
                             <DataGridTemplateColumn Header="Achievements" Width="Auto">
-                                <DataGridTemplateColumn.CellStyle>
-                                    <Style TargetType="DataGridCell">
-                                        <Setter Property="Visibility" Value="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"/>
-                                    </Style>
-                                </DataGridTemplateColumn.CellStyle>
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal"
+                                                    Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"
+                                                    HorizontalAlignment="Center" VerticalAlignment="Center" d:DataContext="{d:DesignInstance }">
+                                            <!-- Trophy Icon -->
+                                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" Margin="0,0,5,0" />
+                                            <!-- Achievements Earned / Total -->
+                                            <TextBlock Text="{Binding AchievementsEarned}" VerticalAlignment="Center" />
+                                            <TextBlock Text="/" VerticalAlignment="Center" />
+                                            <TextBlock Text="{Binding AchievementsTotal}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />

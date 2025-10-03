@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
@@ -10,13 +11,13 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class AchievementsWindow
+public partial class RetroAchievementsWindow
 {
     private readonly int _gameId;
     private readonly string _gameTitleForDisplay;
     private readonly SettingsManager _settings;
 
-    public AchievementsWindow(int gameId, string gameTitleForDisplay)
+    public RetroAchievementsWindow(int gameId, string gameTitleForDisplay)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
@@ -47,7 +48,7 @@ public partial class AchievementsWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to load data for AchievementsWindow.");
+            _ = LogErrors.LogErrorAsync(ex, "Failed to load data for RetroAchievementsWindow.");
         }
         finally
         {
@@ -280,18 +281,18 @@ public partial class AchievementsWindow
     {
         try
         {
-            // Call the updated service method
+            LoadingOverlay.Visibility = Visibility.Visible;
             var rankings = await RetroAchievementsService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (rankings != null && rankings.Count > 0)
             {
-                // Assign ranks (this logic remains the same, but now operates on the list directly)
+                // Assign ranks based on the order (which represents the actual ranking from the API)
                 for (var i = 0; i < rankings.Count; i++)
                 {
                     rankings[i].Rank = i + 1;
                 }
 
-                RankingsDataGrid.ItemsSource = rankings; // Bind the list directly
+                RankingsDataGrid.ItemsSource = rankings;
                 NoRankingsOverlay.Visibility = Visibility.Collapsed;
             }
             else
@@ -303,6 +304,10 @@ public partial class AchievementsWindow
         {
             NoRankingsOverlay.Visibility = Visibility.Visible;
             await LogErrors.LogErrorAsync(ex, $"Failed to load rankings for game ID: {_gameId}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -370,5 +375,36 @@ public partial class AchievementsWindow
             4 => "Admin",
             _ => $"Unknown ({permissions})"
         };
+    }
+
+    private void RankingsDataGrid_OnSorting(object sender, DataGridSortingEventArgs e)
+    {
+        // Prevent default sorting and handle it manually if needed
+        // This allows us to maintain our custom ranking while still allowing column sorting
+        if (e.Column.SortMemberPath == "Rank")
+        {
+            // Keep default sorting for rank
+            return;
+        }
+
+        // For other columns, let the default sorting work
+        // The rankings list will maintain its original order for rank display
+    }
+
+    private async void RefreshRankings_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            await LoadRankingsAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh rankings");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
     }
 }

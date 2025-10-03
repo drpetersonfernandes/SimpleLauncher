@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-public class RaApiGameRankAndScore
+public class RaGameRankAndScore
 {
     [JsonPropertyName("User")]
     public string User { get; set; } = "";
@@ -21,6 +21,14 @@ public class RaApiGameRankAndScore
 
     [JsonPropertyName("LastAward")]
     public string LastAward { get; set; } = "";
+
+    [JsonPropertyName("TotalTruePoints")]
+    public int? TotalTruePoints { get; set; }
+
+    [JsonIgnore]
+    public int TrueRatio => TotalTruePoints.HasValue && TotalScore > 0
+        ? (int)((double)TotalTruePoints.Value / TotalScore * 100)
+        : 0;
 
     [JsonIgnore]
     public int Rank { get; set; }

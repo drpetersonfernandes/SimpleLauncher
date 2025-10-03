@@ -326,8 +326,8 @@ public static class ContextMenuFunctions
 
                 if (matchedGame != null)
                 {
-                    // 4. Found a match, open AchievementsWindow with the Game ID.
-                    var achievementsWindow = new AchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                    // 4. Found a match, open RetroAchievementsWindow with the Game ID.
+                    var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
                     achievementsWindow.Show();
                 }
                 else

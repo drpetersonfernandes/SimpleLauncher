@@ -2,7 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-public class RaApiRecentlyPlayedGame
+public class RaRecentlyPlayedGame
 {
     [JsonPropertyName("GameID")]
     public int GameId { get; set; }

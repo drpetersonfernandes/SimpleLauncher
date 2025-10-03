@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-public class RaApiUserProfile
+public class RaProfile
 {
     [JsonPropertyName("User")]
     public string User { get; set; } = "";
@@ -57,5 +57,5 @@ public class RaApiUserProfile
     public string Rank { get; set; } = "";
 
     [JsonPropertyName("RecentlyPlayed")]
-    public List<RaApiRecentlyPlayedGame> RecentlyPlayed { get; set; } = [];
+    public List<RaRecentlyPlayedGame> RecentlyPlayed { get; set; } = [];
 }

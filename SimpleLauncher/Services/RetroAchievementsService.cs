@@ -46,7 +46,7 @@ public static class RetroAchievementsService
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            var apiResponse = JsonSerializer.Deserialize<RaApiGameProgressResponse>(json);
+            var apiResponse = JsonSerializer.Deserialize<RaGameProgressResponse>(json);
 
             if (apiResponse == null) return (null, null);
 
@@ -105,7 +105,7 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches extended information for a specific game.
     /// </summary>
-    public static async Task<RaApiGameExtended> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
+    public static async Task<RaGameExtendedDetails> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -117,7 +117,7 @@ public static class RetroAchievementsService
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<RaApiGameExtended>(json);
+            return JsonSerializer.Deserialize<RaGameExtendedDetails>(json);
         }
         catch (Exception ex)
         {
@@ -129,8 +129,8 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the top 10 ranked players for a specific game.
     /// </summary>
-    // Change the return type from ApiGameRankAndScoreResponse to List<RaApiGameRankAndScore>
-    public static async Task<List<RaApiGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    // Change the return type from ApiGameRankAndScoreResponse to List<RaGameRankAndScore>
+    public static async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -147,8 +147,8 @@ public static class RetroAchievementsService
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            // Deserialize directly into a List of RaApiGameRankAndScore
-            return JsonSerializer.Deserialize<List<RaApiGameRankAndScore>>(json);
+            // Deserialize directly into a List of RaGameRankAndScore
+            return JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
         }
         catch (Exception ex)
         {
@@ -160,7 +160,7 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the profile information for a specific user.
     /// </summary>
-    public static async Task<RaApiUserProfile> GetUserProfileAsync(string username, string apiKey)
+    public static async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -172,7 +172,7 @@ public static class RetroAchievementsService
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<RaApiUserProfile>(json);
+            return JsonSerializer.Deserialize<RaProfile>(json);
         }
         catch (Exception ex)
         {
