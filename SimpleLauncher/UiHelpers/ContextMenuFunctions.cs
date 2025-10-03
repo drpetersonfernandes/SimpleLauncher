@@ -308,8 +308,8 @@ public static class ContextMenuFunctions
                     DebugLogger.Log($"[RA Service] Hashing file directly (MAME or uncompressed): {fileToHash}");
                 }
 
-                // 1. Calculate hash
-                var hash = await FileHasher.CalculateMd5Async(fileToHash);
+                // 1. Calculate hash using the new system-aware hasher
+                var hash = await FileHasher.GetRetroAchievementsHashAsync(fileToHash, systemManager.SystemName);
                 DebugLogger.Log($"[RA Service] Hash calculated: {hash}");
 
                 if (string.IsNullOrEmpty(hash))
