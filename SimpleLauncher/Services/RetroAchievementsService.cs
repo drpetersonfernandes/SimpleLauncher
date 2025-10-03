@@ -68,7 +68,7 @@ public static class RetroAchievementsService
 
             var achievements = apiResponse.Achievements.Values
                 .OrderBy(static a => a.DisplayOrder)
-                .Select(a => new RaAchievement
+                .Select(static a => new RaAchievement
                 {
                     Id = a.Id,
                     Title = a.Title,
@@ -79,7 +79,6 @@ public static class RetroAchievementsService
                     DateUnlocked = a.DateEarnedHardcore ?? a.DateEarned,
                     UnlockedInHardcore = a.DateEarnedHardcore != null,
                     DisplayOrder = a.DisplayOrder,
-                    // Additional fields
                     NumAwarded = a.NumAwarded,
                     NumAwardedHardcore = a.NumAwardedHardcore,
                     Author = a.Author,

@@ -213,7 +213,7 @@ public class GameButtonFactory(
             e.Handled = true;
 
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager);
+            ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager);
         };
 
         grid.Children.Add(trophyButton);
