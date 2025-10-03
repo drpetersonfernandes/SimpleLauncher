@@ -1003,18 +1003,6 @@
                                         <Setter Property="Visibility" Value="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"/>
                                     </Style>
                                 </DataGridTemplateColumn.CellStyle>
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <TextBlock d:DataContext="{d:DesignInstance }">
-                                            <TextBlock.Text>
-                                                <MultiBinding StringFormat="{}{0}/{1}">
-                                                    <Binding Path="AchievementsEarned" />
-                                                    <Binding Path="AchievementsTotal" />
-                                                </MultiBinding>
-                                            </TextBlock.Text>
-                                        </TextBlock>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />

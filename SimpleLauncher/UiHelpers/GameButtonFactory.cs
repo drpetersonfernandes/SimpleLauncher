@@ -57,18 +57,7 @@ public class GameButtonFactory(
         };
 
         // Placeholder logic for achievements
-        if (fileNameWithoutExtension.Contains("mario", StringComparison.OrdinalIgnoreCase))
-        {
-            viewModel.HasAchievements = true;
-            viewModel.AchievementsEarned = 15;
-            viewModel.AchievementsTotal = 50;
-        }
-        else
-        {
-            viewModel.HasAchievements = false;
-            viewModel.AchievementsEarned = 0;
-            viewModel.AchievementsTotal = 0;
-        }
+        viewModel.HasAchievements = true;
 
         // Create a container for text that will hold two rows
         var textPanel = new StackPanel
@@ -217,13 +206,6 @@ public class GameButtonFactory(
         };
         trophyButton.Content = trophyImage;
 
-        // Bind visibility to HasAchievements
-        var trophyBinding = new Binding("HasAchievements")
-        {
-            Converter = new BooleanToVisibilityConverter()
-        };
-        trophyButton.SetBinding(UIElement.VisibilityProperty, trophyBinding);
-
         // Add click event to open achievements window
         trophyButton.Click += (s, e) =>
         {
@@ -231,7 +213,7 @@ public class GameButtonFactory(
             e.Handled = true;
 
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenAchievementsWindow(fileNameWithoutExtension, selectedSystemName);
+            ContextMenuFunctions.OpenAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager);
         };
 
         grid.Children.Add(trophyButton);

@@ -22,7 +22,7 @@ public static class RetroAchievementsService
     /// <param name="username">The user's RetroAchievements username.</param>
     /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
     /// <returns>A tuple containing the user's game progress and a list of achievements, or null if an error occurs.</returns>
-    public static async Task<(UserGameProgress Progress, List<Achievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
+    public static async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -46,12 +46,12 @@ public static class RetroAchievementsService
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            var apiResponse = JsonSerializer.Deserialize<ApiGameProgressResponse>(json);
+            var apiResponse = JsonSerializer.Deserialize<RaApiGameProgressResponse>(json);
 
             if (apiResponse == null) return (null, null);
 
             // Map the API response to our local models.
-            var progress = new UserGameProgress
+            var progress = new RaUserGameProgress
             {
                 GameTitle = apiResponse.Title,
                 GameIconUrl = $"{SiteBaseUrl}{apiResponse.ImageIcon}",
@@ -59,12 +59,16 @@ public static class RetroAchievementsService
                 AchievementsEarned = apiResponse.NumAwardedToUser,
                 TotalAchievements = apiResponse.NumAchievements,
                 PointsEarned = apiResponse.Achievements.Values.Where(static a => a.DateEarned != null).Sum(static a => a.Points),
-                TotalPoints = apiResponse.Achievements.Values.Sum(static a => a.Points)
+                TotalPoints = apiResponse.Achievements.Values.Sum(static a => a.Points),
+                UserCompletion = apiResponse.UserCompletion,
+                UserCompletionHardcore = apiResponse.UserCompletionHardcore,
+                HighestAwardKind = apiResponse.HighestAwardKind,
+                HighestAwardDate = apiResponse.HighestAwardDate
             };
 
             var achievements = apiResponse.Achievements.Values
                 .OrderBy(static a => a.DisplayOrder)
-                .Select(static a => new Achievement
+                .Select(a => new RaAchievement
                 {
                     Id = a.Id,
                     Title = a.Title,
@@ -74,7 +78,18 @@ public static class RetroAchievementsService
                     IsUnlocked = a.DateEarned != null || a.DateEarnedHardcore != null,
                     DateUnlocked = a.DateEarnedHardcore ?? a.DateEarned,
                     UnlockedInHardcore = a.DateEarnedHardcore != null,
-                    DisplayOrder = a.DisplayOrder
+                    DisplayOrder = a.DisplayOrder,
+                    // Additional fields
+                    NumAwarded = a.NumAwarded,
+                    NumAwardedHardcore = a.NumAwardedHardcore,
+                    Author = a.Author,
+                    AuthorUlid = a.AuthorUlid,
+                    DateModified = a.DateModified,
+                    DateCreated = a.DateCreated,
+                    BadgeName = a.BadgeName,
+                    Type = a.Type,
+                    DateEarnedHardcore = a.DateEarnedHardcore,
+                    DateEarned = a.DateEarned
                 }).ToList();
 
             DebugLogger.Log($"[RA Service] Successfully fetched {achievements.Count} achievements for GameID {gameId}.");
@@ -90,19 +105,19 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches extended information for a specific game.
     /// </summary>
-    public static async Task<ApiGameExtended> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
+    public static async Task<RaApiGameExtended> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
         try
         {
             var client = HttpClientFactory.CreateClient();
-            var url = $"{ApiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var url = $"{ApiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&i={gameId}&y={Uri.EscapeDataString(apiKey)}";
             var response = await client.GetAsync(url);
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ApiGameExtended>(json);
+            return JsonSerializer.Deserialize<RaApiGameExtended>(json);
         }
         catch (Exception ex)
         {
@@ -114,7 +129,8 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the top 10 ranked players for a specific game.
     /// </summary>
-    public static async Task<ApiGameRankAndScoreResponse> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    // Change the return type from ApiGameRankAndScoreResponse to List<RaApiGameRankAndScore>
+    public static async Task<List<RaApiGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -123,10 +139,16 @@ public static class RetroAchievementsService
             var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
             var response = await client.GetAsync(url);
-            if (!response.IsSuccessStatusCode) return null;
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                return null;
+            }
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ApiGameRankAndScoreResponse>(json);
+            // Deserialize directly into a List of RaApiGameRankAndScore
+            return JsonSerializer.Deserialize<List<RaApiGameRankAndScore>>(json);
         }
         catch (Exception ex)
         {
@@ -138,7 +160,7 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the profile information for a specific user.
     /// </summary>
-    public static async Task<ApiUserProfile> GetUserProfileAsync(string username, string apiKey)
+    public static async Task<RaApiUserProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -150,7 +172,7 @@ public static class RetroAchievementsService
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<ApiUserProfile>(json);
+            return JsonSerializer.Deserialize<RaApiUserProfile>(json);
         }
         catch (Exception ex)
         {

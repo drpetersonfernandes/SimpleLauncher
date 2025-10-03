@@ -236,39 +236,130 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async void OpenAchievementsWindow(string filePath, string fileNameWithoutExtension)
+    public static async void OpenAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager)
     {
         try
         {
-            // 1. Calculate hash
-            var hash = await FileHasher.CalculateMd5Async(filePath);
-            if (string.IsNullOrEmpty(hash))
+            var fileToHash = filePath; // Default to the provided file path
+            string tempExtractionPath = null;
+            var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
+
+            try
             {
-                MessageBoxLibrary.ErrorMessageBox(); // Or a more specific one about hashing failure.
-                return;
+                // If the file is a compressed archive AND the system is NOT MAME, we need to extract it to find the ROM.
+                if (fileExtension is ".zip" or ".7z" or ".rar" && !systemManager.SystemIsMame)
+                {
+                    DebugLogger.Log($"[RA Service] Compressed file detected for non-MAME system: {filePath}. Extracting to find ROM for hashing...");
+                    var extractor = new ExtractCompressedFile();
+                    tempExtractionPath = await extractor.ExtractWithSevenZipSharpToTempAsync(filePath);
+
+                    if (string.IsNullOrEmpty(tempExtractionPath))
+                    {
+                        _ = LogErrors.LogErrorAsync(null, $"[RA Service] Failed to extract archive for hashing: {filePath}");
+                        DebugLogger.Log($"[RA Service] Failed to extract archive for hashing: {filePath}");
+
+                        MessageBoxLibrary.ExtractionFailedMessageBox();
+
+                        return;
+                    }
+
+                    // Try to find the actual ROM file in the extracted folder using the system's launch formats
+                    string foundRomFile = null;
+                    if (systemManager.FileFormatsToLaunch is { Count: > 0 })
+                    {
+                        foreach (var format in systemManager.FileFormatsToLaunch)
+                        {
+                            var searchPattern = $"*.{format.TrimStart('.')}";
+                            var files = Directory.GetFiles(tempExtractionPath, searchPattern, SearchOption.AllDirectories);
+                            if (files.Length > 0)
+                            {
+                                foundRomFile = files[0];
+                                DebugLogger.Log($"[RA Service] Found file to hash after extraction using launch format '{format}': {foundRomFile}");
+                                break;
+                            }
+                        }
+                    }
+
+                    // If no specific launch format file was found, or if FileFormatsToLaunch was empty,
+                    // pick the first found file in the extracted directory.
+                    if (string.IsNullOrEmpty(foundRomFile))
+                    {
+                        var allExtractedFiles = Directory.GetFiles(tempExtractionPath, "*", SearchOption.AllDirectories);
+                        if (allExtractedFiles.Length > 0)
+                        {
+                            foundRomFile = allExtractedFiles[0];
+                            DebugLogger.Log($"[RA Service] No specific launch format file found. Picking first extracted file: {foundRomFile}");
+                        }
+                    }
+
+                    if (string.IsNullOrEmpty(foundRomFile))
+                    {
+                        DebugLogger.Log($"[RA Service] Could not find any suitable file to hash after extracting {filePath}.");
+
+                        MessageBoxLibrary.CouldNotFindAFileMessageBox();
+                        return;
+                    }
+
+                    fileToHash = foundRomFile;
+                }
+                else
+                {
+                    // For MAME systems (which use zips as ROMs) or uncompressed files, hash the file directly.
+                    DebugLogger.Log($"[RA Service] Hashing file directly (MAME or uncompressed): {fileToHash}");
+                }
+
+                // 1. Calculate hash
+                var hash = await FileHasher.CalculateMd5Async(fileToHash);
+                DebugLogger.Log($"[RA Service] Hash calculated: {hash}");
+
+                if (string.IsNullOrEmpty(hash))
+                {
+                    MessageBoxLibrary.ErrorMessageBox(); // Or a more specific one about hashing failure.
+                    return;
+                }
+
+                // 2. Load RA data via DI
+                var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
+
+                // 3. Find game by hash
+                var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Hashes.Contains(hash, StringComparer.OrdinalIgnoreCase));
+
+                if (matchedGame != null)
+                {
+                    // 4. Found a match, open AchievementsWindow with the Game ID.
+                    var achievementsWindow = new AchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                    achievementsWindow.Show();
+                }
+                else
+                {
+                    DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
+
+                    // 5. No match found, show message.
+                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                }
             }
-
-            // 2. Load RA data via DI
-            var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
-
-            // 3. Find game by hash
-            var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Hashes.Contains(hash, StringComparer.OrdinalIgnoreCase));
-
-            if (matchedGame != null)
+            catch (Exception ex)
             {
-                // 4. Found a match, open AchievementsWindow with the Game ID.
-                var achievementsWindow = new AchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
-                achievementsWindow.Show();
+                DebugLogger.Log($"[RA Service] Failed to open achievements window for {fileNameWithoutExtension}.");
+                _ = LogErrors.LogErrorAsync(ex, $"Failed to open achievements window for {fileNameWithoutExtension}.");
+
+                MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
             }
-            else
+            finally
             {
-                // 5. No match found, show message.
-                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                // Clean up the temporary directory if it was created
+                if (!string.IsNullOrEmpty(tempExtractionPath))
+                {
+                    CleanFolder.CleanupTempDirectory(tempExtractionPath);
+                    DebugLogger.Log($"[RA Service] Cleaned up temporary extraction folder: {tempExtractionPath}");
+                }
             }
         }
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, $"Failed to open achievements window for {fileNameWithoutExtension}.");
+            DebugLogger.Log($"[RA Service] Failed to open achievements window for {fileNameWithoutExtension}.");
+
             MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
         }
     }

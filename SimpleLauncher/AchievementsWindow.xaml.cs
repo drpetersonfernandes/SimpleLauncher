@@ -1,9 +1,11 @@
 using System;
+using System.Globalization;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -61,14 +63,19 @@ public partial class AchievementsWindow
 
             if (achievements != null && achievements.Count > 0 && progress != null)
             {
-                // This data is shared across the window, so update it here
-                GameTitleTextBlock.Text = progress.GameTitle;
-                ProgressTextBlock.Text = $"Progress: {progress.AchievementsEarned}/{progress.TotalAchievements} ({progress.PointsEarned}/{progress.TotalPoints} Points)";
+                // Update progress summary header
+                GameProgressTitle.Text = string.IsNullOrWhiteSpace(progress.GameTitle) ? "Unknown Game" : progress.GameTitle;
+                GameProgressConsole.Text = string.IsNullOrWhiteSpace(progress.ConsoleName) ? "" : $"({progress.ConsoleName})";
+
                 if (!string.IsNullOrEmpty(progress.GameIconUrl))
                 {
                     GameCoverImage.Source = new BitmapImage(new Uri(progress.GameIconUrl));
                 }
 
+                // Update progress bars and stats
+                UpdateProgressDisplay(progress);
+
+                // Bind achievements to DataGrid
                 AchievementsDataGrid.ItemsSource = achievements;
                 NoAchievementsOverlay.Visibility = Visibility.Collapsed;
             }
@@ -84,6 +91,76 @@ public partial class AchievementsWindow
         }
     }
 
+    private void UpdateProgressDisplay(RaUserGameProgress progress)
+    {
+        try
+        {
+            // Parse completion percentages
+            double casualCompletion = 0;
+            double hardcoreCompletion = 0;
+
+            if (!string.IsNullOrWhiteSpace(progress.UserCompletion))
+            {
+                var casualText = progress.UserCompletion.Trim('%');
+                _ = double.TryParse(casualText, out casualCompletion);
+            }
+
+            if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
+            {
+                var hardcoreText = progress.UserCompletionHardcore.Trim('%');
+                _ = double.TryParse(hardcoreText, out hardcoreCompletion);
+            }
+
+            // Update progress bars
+            CasualProgressbar.Value = casualCompletion;
+            HardcoreProgressbar.Value = hardcoreCompletion;
+
+            // Update progress text
+            CasualProgressText.Text = $"{casualCompletion:F1}%";
+            HardcoreProgressText.Text = $"{hardcoreCompletion:F1}%";
+
+            // Update achievement stats
+            EarnedAchievementsValue.Text = $"{progress.AchievementsEarned}";
+            TotalAchievementsValue.Text = $"{progress.TotalAchievements}";
+            PointsEarnedValue.Text = $"{progress.PointsEarned:N0}";
+
+            // Update highest award info
+            HighestAwardKindText.Text = string.IsNullOrWhiteSpace(progress.HighestAwardKind) ? "None" : CapitalizeFirstLetter(progress.HighestAwardKind);
+
+            if (DateTime.TryParse(progress.HighestAwardDate, out var awardDate))
+            {
+                HighestAwardDateText.Text = awardDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+            }
+            else
+            {
+                HighestAwardDateText.Text = "N/A";
+            }
+        }
+        catch (Exception ex)
+        {
+            // Fallback values if parsing fails
+            CasualProgressbar.Value = 0;
+            HardcoreProgressbar.Value = 0;
+            CasualProgressText.Text = "0%";
+            HardcoreProgressText.Text = "0%";
+            EarnedAchievementsValue.Text = "0";
+            TotalAchievementsValue.Text = "0";
+            PointsEarnedValue.Text = "0";
+            HighestAwardKindText.Text = "N/A";
+            HighestAwardDateText.Text = "N/A";
+
+            _ = LogErrors.LogErrorAsync(ex, "Failed to parse progress data for achievements display");
+        }
+    }
+
+    private string CapitalizeFirstLetter(string input)
+    {
+        if (string.IsNullOrWhiteSpace(input))
+            return input;
+
+        return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input.Substring(1);
+    }
+
     private async Task LoadGameInfoAsync()
     {
         try
@@ -91,13 +168,90 @@ public partial class AchievementsWindow
             var gameInfo = await RetroAchievementsService.GetGameExtendedInfoAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
-                GameInfoTitle.Text = gameInfo.Title;
-                GameInfoConsole.Text = gameInfo.ConsoleName;
-                GameInfoGenre.Text = gameInfo.Genre;
-                GameInfoDeveloper.Text = gameInfo.Developer;
-                GameInfoPublisher.Text = gameInfo.Publisher;
-                GameInfoReleased.Text = gameInfo.Released;
-                GameInfoRichPresence.Text = gameInfo.RichPresencePatch;
+                // Game header
+                GameInfoTitle.Text = string.IsNullOrWhiteSpace(gameInfo.Title) ? "Unknown Title" : gameInfo.Title;
+                GameInfoConsole.Text = string.IsNullOrWhiteSpace(gameInfo.ConsoleName) ? "Unknown Console" : gameInfo.ConsoleName;
+
+                // Load game icon
+                if (!string.IsNullOrEmpty(gameInfo.ImageIcon))
+                {
+                    try
+                    {
+                        GameInfoIcon.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageIcon}"));
+                    }
+                    catch
+                    {
+                        GameInfoIcon.Source = null;
+                    }
+                }
+
+                // Game images
+                if (!string.IsNullOrEmpty(gameInfo.ImageTitle))
+                {
+                    try
+                    {
+                        GameInfoTitleImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageTitle}"));
+                    }
+                    catch
+                    {
+                        GameInfoTitleImage.Source = null;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(gameInfo.ImageIngame))
+                {
+                    try
+                    {
+                        GameInfoIngameImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageIngame}"));
+                    }
+                    catch
+                    {
+                        GameInfoIngameImage.Source = null;
+                    }
+                }
+
+                if (!string.IsNullOrEmpty(gameInfo.ImageBoxArt))
+                {
+                    try
+                    {
+                        GameInfoBoxArtImage.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageBoxArt}"));
+                    }
+                    catch
+                    {
+                        GameInfoBoxArtImage.Source = null;
+                    }
+                }
+
+                // Basic details
+                GameInfoGenre.Text = string.IsNullOrWhiteSpace(gameInfo.Genre) ? "N/A" : gameInfo.Genre;
+                GameInfoDeveloper.Text = string.IsNullOrWhiteSpace(gameInfo.Developer) ? "N/A" : gameInfo.Developer;
+                GameInfoPublisher.Text = string.IsNullOrWhiteSpace(gameInfo.Publisher) ? "N/A" : gameInfo.Publisher;
+                GameInfoReleased.Text = string.IsNullOrWhiteSpace(gameInfo.Released) ? "N/A" : gameInfo.Released;
+
+                // Additional details
+                GameInfoPlayers.Text = gameInfo.NumDistinctPlayers.ToString("N0", CultureInfo.InvariantCulture);
+                GameInfoAchievementCount.Text = gameInfo.NumAchievements.ToString(CultureInfo.InvariantCulture);
+                GameInfoForumTopic.Text = gameInfo.ForumTopicId?.ToString(CultureInfo.InvariantCulture) ?? "N/A";
+                GameInfoUpdated.Text = string.IsNullOrWhiteSpace(gameInfo.Updated) ? "N/A" : FormatDateString(gameInfo.Updated);
+                GameInfoConsoleId.Text = gameInfo.ConsoleId.ToString(CultureInfo.InvariantCulture);
+                GameInfoId.Text = gameInfo.Id.ToString(CultureInfo.InvariantCulture);
+                GameInfoParentGame.Text = gameInfo.ParentGameId?.ToString(CultureInfo.InvariantCulture) ?? "None";
+                GameInfoReleaseGranularity.Text = string.IsNullOrWhiteSpace(gameInfo.ReleasedAtGranularity) ? "N/A" : gameInfo.ReleasedAtGranularity;
+                GameInfoGuideUrl.Text = string.IsNullOrWhiteSpace(gameInfo.GuideUrl) ? "N/A" : gameInfo.GuideUrl;
+
+                // Player statistics
+                DistinctPlayersValue.Text = gameInfo.NumDistinctPlayers.ToString("N0", CultureInfo.InvariantCulture);
+                CasualPlayersValue.Text = gameInfo.NumDistinctPlayersCasual.ToString("N0", CultureInfo.InvariantCulture);
+                HardcorePlayersValue.Text = gameInfo.NumDistinctPlayersHardcore.ToString("N0", CultureInfo.InvariantCulture);
+
+                // Rich Presence
+                GameInfoRichPresence.Text = string.IsNullOrWhiteSpace(gameInfo.RichPresencePatch) ? "Not available" : gameInfo.RichPresencePatch;
+
+                // Claims
+                GameInfoClaims.Text = gameInfo.Claims.Count == 0
+                    ? "No active development claims"
+                    : $"{gameInfo.Claims.Count} active development claim(s)";
+
                 NoGameInfoOverlay.Visibility = Visibility.Collapsed;
             }
             else
@@ -112,20 +266,32 @@ public partial class AchievementsWindow
         }
     }
 
+    private string FormatDateString(string dateString)
+    {
+        if (DateTime.TryParse(dateString, out var date))
+        {
+            return date.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+        }
+
+        return dateString;
+    }
+
     private async Task LoadRankingsAsync()
     {
         try
         {
-            var rankInfo = await RetroAchievementsService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (rankInfo?.Top10 != null && rankInfo.Top10.Count > 0)
+            // Call the updated service method
+            var rankings = await RetroAchievementsService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+
+            if (rankings != null && rankings.Count > 0)
             {
-                // Assign ranks
-                for (var i = 0; i < rankInfo.Top10.Count; i++)
+                // Assign ranks (this logic remains the same, but now operates on the list directly)
+                for (var i = 0; i < rankings.Count; i++)
                 {
-                    rankInfo.Top10[i].Rank = i + 1;
+                    rankings[i].Rank = i + 1;
                 }
 
-                RankingsDataGrid.ItemsSource = rankInfo.Top10;
+                RankingsDataGrid.ItemsSource = rankings; // Bind the list directly
                 NoRankingsOverlay.Visibility = Visibility.Collapsed;
             }
             else
@@ -147,14 +313,38 @@ public partial class AchievementsWindow
             var userProfile = await RetroAchievementsService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
             if (userProfile != null)
             {
-                UserProfilePic.Source = new BitmapImage(new Uri($"https://retroachievements.org{userProfile.UserPic}"));
+                // Basic profile info
+                if (!string.IsNullOrEmpty(userProfile.UserPic))
+                {
+                    UserProfilePic.Source = new BitmapImage(new Uri($"https://retroachievements.org{userProfile.UserPic}"));
+                }
+
                 UserProfileUser.Text = userProfile.User;
-                UserProfileMotto.Text = userProfile.Motto;
-                UserProfileRank.Text = $"#{userProfile.Rank}";
-                UserProfilePoints.Text = $"{userProfile.TotalPoints:N0}";
-                UserProfileTruePoints.Text = $"{userProfile.TotalTruePoints:N0}";
-                UserProfileMemberSince.Text = userProfile.MemberSince;
+                UserProfileMotto.Text = string.IsNullOrWhiteSpace(userProfile.Motto) ? "No motto set" : userProfile.Motto;
+
+                // Current activity
+                UserProfileRichPresence.Text = string.IsNullOrWhiteSpace(userProfile.RichPresenceMsg)
+                    ? "Not currently playing"
+                    : userProfile.RichPresenceMsg;
+
+                // Statistics
+                RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? "N/A" : $"#{userProfile.Rank}";
+                PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
+                TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
+                UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? "Unknown" : userProfile.MemberSince;
+
+                // Additional details
+                UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
+                UserProfileContributions.Text = $"{userProfile.ContribCount} contributions ({userProfile.ContribYield:N0} points)";
+                UserProfileSoftcorePoints.Text = userProfile.TotalSoftcorePoints.ToString("N0", CultureInfo.InvariantCulture);
+                UserProfilePermissions.Text = GetPermissionDescription(userProfile.Permissions);
+                UserProfileStatus.Text = userProfile.Untracked == 1 ? "Untracked" : "Tracked";
+                UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? "N/A" : userProfile.Uuid;
+                UserProfileWallActive.Text = userProfile.UserWallActive ? "Yes" : "No";
+
+                // Recently played
                 UserProfileRecentlyPlayed.ItemsSource = userProfile.RecentlyPlayed;
+
                 NoProfileOverlay.Visibility = Visibility.Collapsed;
             }
             else
@@ -167,5 +357,18 @@ public partial class AchievementsWindow
             NoProfileOverlay.Visibility = Visibility.Visible;
             await LogErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
+    }
+
+    private string GetPermissionDescription(int permissions)
+    {
+        return permissions switch
+        {
+            0 => "Unregistered",
+            1 => "Registered",
+            2 => "Junior Developer",
+            3 => "Developer",
+            4 => "Admin",
+            _ => $"Unknown ({permissions})"
+        };
     }
 }

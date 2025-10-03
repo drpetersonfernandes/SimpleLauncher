@@ -2,8 +2,7 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-// DTO for API_GetGameList.php
-public class ApiGameInfo
+public class RaApiGameInfo
 {
     [JsonPropertyName("ID")]
     public int Id { get; set; }
