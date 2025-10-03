@@ -324,17 +324,35 @@ public static class ContextMenuFunctions
                 // 3. Find game by hash
                 var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Hashes.Contains(hash, StringComparer.OrdinalIgnoreCase));
 
+                // 4. If no hash match and it's a MAME system, fallback to filename matching
+                if (matchedGame == null && systemManager.SystemIsMame)
+                {
+                    DebugLogger.Log($"[RA Service] No hash match for {hash}. Falling back to filename search for MAME game: {fileNameWithoutExtension}");
+
+                    matchedGame = raManager.AllGames.FirstOrDefault(game =>
+                        game.Title.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
+
+                    if (matchedGame != null)
+                    {
+                        DebugLogger.Log($"[RA Service] Found MAME game match by filename: {matchedGame.Title} (ID: {matchedGame.Id})");
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[RA Service] No filename match found for MAME game: {fileNameWithoutExtension}");
+                    }
+                }
+
                 if (matchedGame != null)
                 {
-                    // 4. Found a match, open RetroAchievementsWindow with the Game ID.
+                    // 5. Found a match, open RetroAchievementsWindow with the Game ID.
                     var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
                     achievementsWindow.Show();
                 }
                 else
                 {
-                    DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
+                    DebugLogger.Log($"[RA Service] No match found for hash: {hash} or filename: {fileNameWithoutExtension}");
 
-                    // 5. No match found, show message.
+                    // 6. No match found, show message.
                     MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                 }
             }
@@ -357,10 +375,8 @@ public static class ContextMenuFunctions
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to open achievements window for {fileNameWithoutExtension}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Failed to open achievements window for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] Failed to open achievements window for {fileNameWithoutExtension}.");
-
-            MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
         }
     }
 
