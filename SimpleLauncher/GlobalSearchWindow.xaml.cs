@@ -85,6 +85,7 @@ public partial class GlobalSearchWindow
                     // No results found, display the overlay message
                     NoResultsMessageOverlay.Visibility = Visibility.Visible;
 
+                    PreviewImage.Source = null;
                     LaunchButton.IsEnabled = false; // No results, so disable the launch button
                 }
             }

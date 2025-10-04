@@ -134,13 +134,13 @@ public partial class SystemManager
                 return new List<SystemManager>(); // Return an empty list
             }
 
-            var systemConfigs = new List<SystemManager>();
-            var invalidConfigs = new Dictionary<XElement, string>();
+            var systemManagers = new List<SystemManager>();
+            var invalidManagers = new Dictionary<XElement, string>();
 
             // If the root is null (e.g., empty file or invalid XML structure before root), return empty list
             if (doc.Root == null)
             {
-                return systemConfigs;
+                return systemManagers;
             }
 
             // Iterate through SystemConfig elements. This loop will be skipped if the file is empty (<SystemConfigs/>).
@@ -159,13 +159,12 @@ public partial class SystemManager
                     if (systemFoldersElement != null)
                     {
                         systemFolders = systemFoldersElement.Elements("SystemFolder")
-                            .Select(f => f.Value)
-                            .Where(f => !string.IsNullOrWhiteSpace(f))
+                            .Select(static f => f.Value)
+                            .Where(static f => !string.IsNullOrWhiteSpace(f))
                             .ToList();
                     }
                     else
                     {
-                        // Backward compatibility for the old <SystemFolder> tag
                         var singleFolder = sysConfigElement.Element("SystemFolder")?.Value;
                         systemFolders = !string.IsNullOrWhiteSpace(singleFolder) ? new List<string> { singleFolder } : new List<string>();
                     }
@@ -244,7 +243,7 @@ public partial class SystemManager
                         });
                     }
 
-                    systemConfigs.Add(new SystemManager
+                    systemManagers.Add(new SystemManager
                     {
                         SystemName = systemName,
                         SystemFolders = systemFolders, // Store the raw string
@@ -259,18 +258,18 @@ public partial class SystemManager
                 catch (Exception ex)
                 {
                     var systemName = sysConfigElement.Element("SystemName")?.Value ?? "Unnamed System";
-                    if (!invalidConfigs.ContainsKey(sysConfigElement))
+                    if (!invalidManagers.ContainsKey(sysConfigElement))
                     {
-                        invalidConfigs[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
+                        invalidManagers[sysConfigElement] = $"The system '{systemName}' was removed due to the following error(s):\n";
                     }
 
-                    invalidConfigs[sysConfigElement] += $"- {ex.Message}\n";
+                    invalidManagers[sysConfigElement] += $"- {ex.Message}\n";
                 }
             }
 
             // Rebuild the XML document from the valid, in-memory configurations
             var newRoot = new XElement("SystemConfigs");
-            foreach (var config in systemConfigs.OrderBy(c => c.SystemName, StringComparer.OrdinalIgnoreCase))
+            foreach (var config in systemManagers.OrderBy(c => c.SystemName, StringComparer.OrdinalIgnoreCase))
             {
                 newRoot.Add(new XElement("SystemConfig",
                     new XElement("SystemName", config.SystemName),
@@ -294,7 +293,7 @@ public partial class SystemManager
             doc.Root.ReplaceNodes(newRoot.Nodes());
 
             // Notify user about each invalid configuration that was removed
-            foreach (var error in invalidConfigs.Values)
+            foreach (var error in invalidManagers.Values)
             {
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigurationMessageBox(error);
@@ -319,7 +318,7 @@ public partial class SystemManager
             }
 
             // Return the list of valid system configurations (could be empty)
-            return systemConfigs;
+            return systemManagers;
         }
         catch (Exception ex)
         {
