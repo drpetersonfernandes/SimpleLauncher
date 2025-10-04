@@ -4,16 +4,27 @@ using System.Linq;
 using System.Net.Http;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Caching.Memory;
+using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services;
 
-public static class RetroAchievementsService
+public class RetroAchievementsService
 {
     private const string ApiBaseUrl = "https://retroachievements.org/API/";
     private const string SiteBaseUrl = "https://retroachievements.org";
-    private static readonly IHttpClientFactory HttpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+    private readonly HttpClient _httpClient;
+    private readonly IMemoryCache _cache;
+    public RetroAchievementsManager RaManager { get; }
+
+    // Constructor to inject dependencies
+    public RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager)
+    {
+        _httpClient = httpClientFactory.CreateClient("RetroAchievementsClient");
+        _cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+        RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
+    }
 
     /// <summary>
     /// Fetches the user's progress and achievement list for a specific game ID.
@@ -22,7 +33,7 @@ public static class RetroAchievementsService
     /// <param name="username">The user's RetroAchievements username.</param>
     /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
     /// <returns>A tuple containing the user's game progress and a list of achievements, or null if an error occurs.</returns>
-    public static async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
+    public async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -30,14 +41,20 @@ public static class RetroAchievementsService
             return (null, null);
         }
 
+        var cacheKey = $"UserGameProgress_{username}_{gameId}";
+        if (_cache.TryGetValue(cacheKey, out (RaUserGameProgress Progress, List<RaAchievement> Achievements) cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
         try
         {
             DebugLogger.Log($"[RA Service] Fetching user progress for GameID {gameId}...");
 
-            var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetGameInfoAndUserProgress.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
 
-            var response = await client.GetAsync(url);
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
@@ -91,8 +108,10 @@ public static class RetroAchievementsService
                     DateEarned = a.DateEarned
                 }).ToList();
 
-            DebugLogger.Log($"[RA Service] Successfully fetched {achievements.Count} achievements for GameID {gameId}.");
-            return (progress, achievements);
+            var result = (progress, achievements);
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(5)); // Cache for 5 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
         }
         catch (Exception ex)
         {
@@ -104,19 +123,28 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches extended information for a specific game.
     /// </summary>
-    public static async Task<RaGameExtendedDetails> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
+    public async Task<RaGameExtendedDetails> GetGameExtendedInfoAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
+        var cacheKey = $"GameExtendedInfo_{gameId}";
+        if (_cache.TryGetValue(cacheKey, out RaGameExtendedDetails cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
         try
         {
-            var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetGameExtended.php?u={Uri.EscapeDataString(username)}&i={gameId}&y={Uri.EscapeDataString(apiKey)}";
-            var response = await client.GetAsync(url);
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<RaGameExtendedDetails>(json);
+            var result = JsonSerializer.Deserialize<RaGameExtendedDetails>(json);
+            _cache.Set(cacheKey, result, TimeSpan.FromHours(1)); // Cache for 1 hour
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
         }
         catch (Exception ex)
         {
@@ -128,16 +156,21 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the top 10 ranked players for a specific game.
     /// </summary>
-    // Change the return type from ApiGameRankAndScoreResponse to List<RaGameRankAndScore>
-    public static async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    public async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
+        var cacheKey = $"GameRankAndScore_{gameId}";
+        if (_cache.TryGetValue(cacheKey, out List<RaGameRankAndScore> cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
         try
         {
-            var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
-            var response = await client.GetAsync(url);
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
@@ -146,8 +179,10 @@ public static class RetroAchievementsService
             }
 
             var json = await response.Content.ReadAsStringAsync();
-            // Deserialize directly into a List of RaGameRankAndScore
-            return JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
+            var result = JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
         }
         catch (Exception ex)
         {
@@ -159,19 +194,28 @@ public static class RetroAchievementsService
     /// <summary>
     /// Fetches the profile information for a specific user.
     /// </summary>
-    public static async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
+    public async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
+        var cacheKey = $"UserProfile_{username}";
+        if (_cache.TryGetValue(cacheKey, out RaProfile cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
         try
         {
-            var client = HttpClientFactory.CreateClient();
             var url = $"{ApiBaseUrl}API_GetUserProfile.php?u={Uri.EscapeDataString(username)}&y={Uri.EscapeDataString(apiKey)}";
-            var response = await client.GetAsync(url);
+            var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode) return null;
 
             var json = await response.Content.ReadAsStringAsync();
-            return JsonSerializer.Deserialize<RaProfile>(json);
+            var result = JsonSerializer.Deserialize<RaProfile>(json);
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(30)); // Cache for 30 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
         }
         catch (Exception ex)
         {

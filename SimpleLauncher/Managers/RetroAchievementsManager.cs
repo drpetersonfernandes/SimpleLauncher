@@ -20,6 +20,9 @@ public class RetroAchievementsManager
     [Key(0)]
     public List<RaGameInfo> AllGames { get; set; } = [];
 
+    // Dictionary for fast hash lookups
+    private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
+
     /// <summary>
     /// The path to the data file.
     /// </summary>
@@ -32,6 +35,8 @@ public class RetroAchievementsManager
     /// <returns>An instance of RetroAchievementsManager.</returns>
     public static RetroAchievementsManager Load()
     {
+        var manager = new RetroAchievementsManager(); // Create an instance first
+
         if (File.Exists(DatFilePath))
         {
             try
@@ -42,8 +47,7 @@ public class RetroAchievementsManager
                 {
                     // The root object in the .dat file is a List<RaGameInfo>,
                     // so we deserialize that directly and wrap it in our manager.
-                    var gameList = MessagePackSerializer.Deserialize<List<RaGameInfo>>(bytes);
-                    return new RetroAchievementsManager { AllGames = gameList };
+                    manager.AllGames = MessagePackSerializer.Deserialize<List<RaGameInfo>>(bytes);
                 }
             }
             catch (Exception ex)
@@ -55,10 +59,54 @@ public class RetroAchievementsManager
             }
         }
 
+        // Populate the hash lookup dictionary after loading AllGames
+        manager.PopulateHashLookup();
+
         // If the file doesn't exist, is empty, or fails to load, create a new instance.
-        var defaultManager = new RetroAchievementsManager();
-        defaultManager.Save(); // Create the initial (empty) file.
-        return defaultManager;
+        // And if AllGames is still empty, ensure the file is created (or overwritten if corrupted)
+        if (manager.AllGames.Count == 0)
+        {
+            manager.Save(); // Create the initial (empty) file.
+        }
+
+        return manager;
+    }
+
+    /// <summary>
+    /// Populates the internal dictionary for fast hash-to-gameinfo lookups.
+    /// </summary>
+    private void PopulateHashLookup()
+    {
+        _hashToGameInfoLookup = new Dictionary<string, RaGameInfo>(StringComparer.OrdinalIgnoreCase);
+        foreach (var game in AllGames)
+        {
+            foreach (var hash in game.Hashes)
+            {
+                // Add the hash to the dictionary. If a hash maps to multiple games,
+                // we'll just take the first one encountered. This is a simplification.
+                // RetroAchievements API usually handles this by returning the primary game.
+                _hashToGameInfoLookup.TryAdd(hash, game);
+            }
+        }
+
+        DebugLogger.Log($"[RA Manager] Populated hash lookup with {_hashToGameInfoLookup.Count} entries.");
+    }
+
+    /// <summary>
+    /// Retrieves RaGameInfo by a given hash from the in-memory lookup.
+    /// </summary>
+    /// <param name="hash">The hash to look up.</param>
+    /// <returns>The matching RaGameInfo, or null if not found.</returns>
+    public RaGameInfo GetGameInfoByHash(string hash)
+    {
+        if (string.IsNullOrEmpty(hash))
+        {
+            return null;
+        }
+
+        _hashToGameInfoLookup ??= new Dictionary<string, RaGameInfo>(StringComparer.OrdinalIgnoreCase); // Ensure initialized
+        _hashToGameInfoLookup.TryGetValue(hash, out var gameInfo);
+        return gameInfo;
     }
 
     /// <summary>

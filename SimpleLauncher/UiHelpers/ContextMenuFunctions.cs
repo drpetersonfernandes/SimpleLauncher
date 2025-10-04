@@ -241,6 +241,10 @@ public static class ContextMenuFunctions
     {
         string tempExtractionPath = null;
 
+        // Get services from the service provider
+        var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
+        App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
+
         try
         {
             DebugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
@@ -248,7 +252,6 @@ public static class ContextMenuFunctions
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
             var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
-            var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
             if (!File.Exists(filePath))
             {
@@ -281,7 +284,8 @@ public static class ContextMenuFunctions
                     return;
                 }
 
-                var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Hashes.Contains(hash, StringComparer.OrdinalIgnoreCase));
+                // Use the lookup method from RetroAchievementsManager
+                var matchedGame = raManager.GetGameInfoByHash(hash);
 
                 if (matchedGame != null)
                 {
@@ -416,6 +420,8 @@ public static class ContextMenuFunctions
 
                 case "Complex":
                 {
+                    // For complex systems, we might need to rely on title matching if hashes are not simple MD5s
+                    // or if the RA database has specific entries for these systems not based on file hashes.
                     var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Title.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
                     if (matchedGame != null)
                     {
@@ -495,6 +501,8 @@ public static class ContextMenuFunctions
                 }
 
                 default:
+                    // If no specific hashing logic is defined, assume it's not supported by RA.
+                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                     break;
             }
         }

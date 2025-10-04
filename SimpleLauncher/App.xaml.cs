@@ -39,12 +39,17 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("StatsClient");
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
+        serviceCollection.AddHttpClient("RetroAchievementsClient");
+
+        // Register IMemoryCache
+        serviceCollection.AddMemoryCache();
 
         // Register Managers as singletons
         serviceCollection.AddSingleton<SettingsManager>();
         serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.Load());
+        serviceCollection.AddSingleton<RetroAchievementsService>();
         serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
@@ -100,10 +105,6 @@ public partial class App : IDisposable
 
         Current.ShutdownMode = ShutdownMode.OnMainWindowClose;
 
-        // Settings = new SettingsManager(); // REMOVE: SettingsManager is now injected
-        // ApplyTheme(Settings.BaseTheme, Settings.AccentColor); // Will be done in MainWindow
-        // ApplyLanguage(Settings.Language); // Will be done in MainWindow
-
         // Get the singleton SettingsManager instance
         var settingsManager = ServiceProvider.GetRequiredService<SettingsManager>();
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
@@ -140,10 +141,6 @@ public partial class App : IDisposable
                 }
             }));
         }
-
-        // If we are restarting, the MainWindow will be shown by StartupUri="MainWindow.xaml"
-        // If we are the first instance, the MainWindow is also shown by StartupUri.
-        // No extra Show() call is needed here.
     }
 
     protected override void OnExit(ExitEventArgs e)

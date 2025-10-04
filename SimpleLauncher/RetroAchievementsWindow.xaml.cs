@@ -16,6 +16,7 @@ public partial class RetroAchievementsWindow
     private readonly int _gameId;
     private readonly string _gameTitleForDisplay;
     private readonly SettingsManager _settings;
+    private readonly RetroAchievementsService _raService;
 
     public RetroAchievementsWindow(int gameId, string gameTitleForDisplay)
     {
@@ -26,6 +27,7 @@ public partial class RetroAchievementsWindow
         _gameId = gameId;
         _gameTitleForDisplay = gameTitleForDisplay;
         _settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
+        _raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
 
         Loaded += AchievementsWindow_Loaded;
     }
@@ -74,7 +76,8 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
 
-            var (progress, achievements) = await RetroAchievementsService.GetUserGameProgressByGameIdAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            // Use the injected service
+            var (progress, achievements) = await _raService.GetUserGameProgressByGameIdAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (achievements is { Count: > 0 } && progress != null)
             {
@@ -203,7 +206,8 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
 
-            var gameInfo = await RetroAchievementsService.GetGameExtendedInfoAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            // Use the injected service
+            var gameInfo = await _raService.GetGameExtendedInfoAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
                 // Game header
@@ -324,7 +328,8 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
 
-            var rankings = await RetroAchievementsService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            // Use the injected service
+            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (rankings != null && rankings.Count > 0)
             {
@@ -359,7 +364,8 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
 
-            var userProfile = await RetroAchievementsService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
+            // Use the injected service
+            var userProfile = await _raService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
             if (userProfile != null)
             {
                 // Basic profile info
