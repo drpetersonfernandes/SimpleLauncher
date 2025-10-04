@@ -24,7 +24,7 @@
             </StackPanel>
         </Border>
 
-        <TabControl Grid.Row="1" Margin="10,0,10,10">
+        <TabControl Grid.Row="1" Margin="10,0,10,10" SelectionChanged="TabControl_SelectionChanged">
             <TabItem Header="Achievements">
                 <Grid>
                     <!-- Progress Summary Header -->

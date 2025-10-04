@@ -30,29 +30,41 @@ public partial class RetroAchievementsWindow
         Loaded += AchievementsWindow_Loaded;
     }
 
-    private async void AchievementsWindow_Loaded(object sender, RoutedEventArgs e)
+    private void AchievementsWindow_Loaded(object sender, RoutedEventArgs e)
     {
         try
         {
             GameTitleTextBlock.Text = _gameTitleForDisplay;
-            LoadingOverlay.Visibility = Visibility.Visible;
-
-            // Fire off all data loading tasks concurrently
-            var achievementsTask = LoadAchievementsAsync();
-            var gameInfoTask = LoadGameInfoAsync();
-            var rankingsTask = LoadRankingsAsync();
-            var userProfileTask = LoadUserProfileAsync();
-
-            // Wait for all tasks to complete
-            await Task.WhenAll(achievementsTask, gameInfoTask, rankingsTask, userProfileTask);
+            // Removed: Concurrent loading of all data.
+            // TabControl_SelectionChanged will handle loading on tab selection (including initial load for the default tab).
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to load data for RetroAchievementsWindow.");
+            _ = LogErrors.LogErrorAsync(ex, "Failed to initialize RetroAchievementsWindow.");
         }
-        finally
+    }
+
+    // New event handler for tab selection
+    private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
+    {
+        if (e.Source is TabControl { SelectedItem: TabItem selectedTab })
         {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
+            var header = selectedTab.Header.ToString();
+            switch (header)
+            {
+                case "Achievements":
+                    _ = LoadAchievementsAsync();
+                    break;
+                case "Game Info":
+                    _ = LoadGameInfoAsync();
+                    break;
+                case "Rankings":
+                    _ = LoadRankingsAsync();
+                    break;
+                case "My Profile":
+                    _ = LoadUserProfileAsync();
+                    break;
+            }
         }
     }
 
@@ -60,9 +72,11 @@ public partial class RetroAchievementsWindow
     {
         try
         {
+            LoadingOverlay.Visibility = Visibility.Visible;
+
             var (progress, achievements) = await RetroAchievementsService.GetUserGameProgressByGameIdAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
-            if (achievements != null && achievements.Count > 0 && progress != null)
+            if (achievements is { Count: > 0 } && progress != null)
             {
                 // Update progress summary header
                 GameProgressTitle.Text = string.IsNullOrWhiteSpace(progress.GameTitle) ? "Unknown Game" : progress.GameTitle;
@@ -73,22 +87,36 @@ public partial class RetroAchievementsWindow
                     GameCoverImage.Source = new BitmapImage(new Uri(progress.GameIconUrl));
                 }
 
-                // Update progress bars and stats
-                UpdateProgressDisplay(progress);
-
                 // Bind achievements to DataGrid
-                AchievementsDataGrid.ItemsSource = achievements;
-                NoAchievementsOverlay.Visibility = Visibility.Collapsed;
+                Dispatcher.Invoke(() =>
+                {
+                    // Update progress bars and stats
+                    UpdateProgressDisplay(progress);
+
+                    AchievementsDataGrid.ItemsSource = achievements;
+                    NoAchievementsOverlay.Visibility = Visibility.Collapsed;
+                });
             }
             else
             {
-                NoAchievementsOverlay.Visibility = Visibility.Visible;
+                Dispatcher.Invoke(() =>
+                {
+                    NoAchievementsOverlay.Visibility = Visibility.Visible;
+                });
             }
         }
         catch (Exception ex)
         {
-            NoAchievementsOverlay.Visibility = Visibility.Visible;
-            await LogErrors.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
+            Dispatcher.Invoke(() =>
+            {
+                NoAchievementsOverlay.Visibility = Visibility.Visible;
+            });
+
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -103,7 +131,14 @@ public partial class RetroAchievementsWindow
             if (!string.IsNullOrWhiteSpace(progress.UserCompletion))
             {
                 var casualText = progress.UserCompletion.Trim('%');
-                _ = double.TryParse(casualText, out casualCompletion);
+                try
+                {
+                    _ = double.TryParse(casualText, out casualCompletion);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, $"Failed to parse casual completion percentage: {casualText}");
+                }
             }
 
             if (!string.IsNullOrWhiteSpace(progress.UserCompletionHardcore))
@@ -166,6 +201,8 @@ public partial class RetroAchievementsWindow
     {
         try
         {
+            LoadingOverlay.Visibility = Visibility.Visible;
+
             var gameInfo = await RetroAchievementsService.GetGameExtendedInfoAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
@@ -265,6 +302,10 @@ public partial class RetroAchievementsWindow
             NoGameInfoOverlay.Visibility = Visibility.Visible;
             await LogErrors.LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
         }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
     }
 
     private string FormatDateString(string dateString)
@@ -282,6 +323,7 @@ public partial class RetroAchievementsWindow
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
+
             var rankings = await RetroAchievementsService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (rankings != null && rankings.Count > 0)
@@ -315,6 +357,8 @@ public partial class RetroAchievementsWindow
     {
         try
         {
+            LoadingOverlay.Visibility = Visibility.Visible;
+
             var userProfile = await RetroAchievementsService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
             if (userProfile != null)
             {
@@ -361,6 +405,10 @@ public partial class RetroAchievementsWindow
         {
             NoProfileOverlay.Visibility = Visibility.Visible;
             await LogErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
         }
     }
 

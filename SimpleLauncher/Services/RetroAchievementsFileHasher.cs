@@ -57,6 +57,12 @@ public static class RetroAchievementsFileHasher
         try
         {
             await using var stream = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+
+            if (stream.Length < magicBytes.Length + headerSize)
+            {
+                return null;
+            }
+
             if (stream.Length < magicBytes.Length)
             {
                 return await CalculateStandardMd5Async(filePath); // File is too small to have the header

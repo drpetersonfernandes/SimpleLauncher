@@ -513,7 +513,7 @@ public static class ContextMenuFunctions
             // Ensure loading indicator is hidden (redundant but safe)
             mainWindow.IsLoadingGames = false;
 
-            // --- Cleanup: Remove temporary extraction folder if it was created ---
+            // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
             {
                 CleanFolder.CleanupTempDirectory(tempExtractionPath);
