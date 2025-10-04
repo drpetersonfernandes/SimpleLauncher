@@ -817,8 +817,7 @@ public static class ContextMenuFunctions
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
-// Use fileNameWithoutExtension
-    public static async Task TakeScreenshotOfSelectedWindow(string fileNameWithoutExtension, SystemManager systemManager, Button button, MainWindow mainWindow)
+    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow)
     {
         try
         {
@@ -832,31 +831,72 @@ public static class ContextMenuFunctions
                 // ignore
             }
 
-            var systemName = systemManager.SystemName;
+            var systemImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.SystemImageFolder);
 
-            // Resolve the systemImageFolder using PathHelper
-            var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemManager.SystemImageFolder);
-
-            if (string.IsNullOrEmpty(resolvedSystemImageFolder))
+            if (string.IsNullOrEmpty(systemImageFolder))
             {
                 // Fallback to default if resolution fails or path is empty
-                resolvedSystemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemName);
+                systemImageFolder = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedSystemName);
             }
 
             try
             {
-                Directory.CreateDirectory(resolvedSystemImageFolder);
+                Directory.CreateDirectory(systemImageFolder);
             }
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Could not create the system image folder: {resolvedSystemImageFolder}");
+                _ = LogErrors.LogErrorAsync(ex, $"Could not create the system image folder: {systemImageFolder}");
             }
 
-            // Wait for the Game or Emulator to launch
-            await Task.Delay(4000);
+            // Capture initial window count before launch
+            var initialWindows = WindowManager.GetOpenWindows();
+            var initialCount = initialWindows.Count;
+            DebugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
 
-            // Get the list of open windows
+            // Launch game
+            _ = GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+
+            // Minimum wait time to process startup)
+            await Task.Delay(2000);
+
+            // Poll for new windows
+            var maxWaitTime = TimeSpan.FromSeconds(30); // Max 30 seconds
+            var pollInterval = TimeSpan.FromMilliseconds(500); // Poll every 500ms
+            var stopwatch = Stopwatch.StartNew();
+            var newWindowDetected = false;
+
+            while (stopwatch.Elapsed < maxWaitTime && !newWindowDetected)
+            {
+                await Task.Delay(pollInterval);
+
+                var currentWindows = WindowManager.GetOpenWindows();
+                if (currentWindows.Count > initialCount)
+                {
+                    // New window(s) appeared - assume game/emulator launched
+                    DebugLogger.Log($"[Screenshot] New window detected. Current count: {currentWindows.Count} (initial: {initialCount})");
+                    newWindowDetected = true;
+                    break;
+                }
+
+                // Optional: Log progress every few polls
+                if (stopwatch.Elapsed.TotalSeconds % 5 < pollInterval.TotalMilliseconds / 1000.0)
+                {
+                    DebugLogger.Log($"[Screenshot] Polling... Elapsed: {stopwatch.Elapsed.TotalSeconds:F1}s / {maxWaitTime.TotalSeconds}s");
+                }
+            }
+
+            stopwatch.Stop();
+
+            if (!newWindowDetected)
+            {
+                // Timeout - no new windows appeared
+                DebugLogger.Log($"[Screenshot] Timeout after {stopwatch.Elapsed.TotalSeconds:F1}s. No new windows detected.");
+                MessageBoxLibrary.GameLaunchTimeoutMessageBox();
+                return;
+            }
+
+            // Proceed with window selection (original logic)
             var openWindows = WindowManager.GetOpenWindows();
 
             // Show the selection dialog
@@ -898,7 +938,8 @@ public static class ContextMenuFunctions
                 return; // Exit the method gracefully
             }
 
-            var screenshotPath = Path.Combine(resolvedSystemImageFolder, $"{fileNameWithoutExtension}.png");
+            var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(filePath);
+            var screenshotPath = Path.Combine(systemImageFolder, $"{fileNameWithoutExtension}.png");
 
             // Capture the window into a bitmap
             using (var bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb))
@@ -974,7 +1015,6 @@ public static class ContextMenuFunctions
         }
     }
 
-// Use fileNameWithExtension
     public static async Task DeleteGame(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
         if (File.Exists(filePath))

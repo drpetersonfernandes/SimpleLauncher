@@ -3180,4 +3180,17 @@ internal static class MessageBoxLibrary
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    internal static void GameLaunchTimeoutMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted = (string)Application.Current.TryFindResource("GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted") ?? "Game launch timed out. Please try again or check if the emulator started.";
+            var gamelaunchtimedout = (string)Application.Current.TryFindResource("Gamelaunchtimedout") ?? "Game launch timed out";
+            MessageBox.Show(gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted, gamelaunchtimedout, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

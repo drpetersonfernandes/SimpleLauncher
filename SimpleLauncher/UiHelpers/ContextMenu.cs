@@ -398,7 +398,7 @@ public static class ContextMenu
             Icon = takeScreenshotIcon
         };
 
-        takeScreenshot.Click += async (_, _) =>
+        takeScreenshot.Click += (_, _) =>
         {
             try
             {
@@ -422,8 +422,7 @@ public static class ContextMenu
                     selectedEmulatorName = null;
                 }
 
-                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, context.MainWindow);
-                await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, null, context.MainWindow);
             }
             catch (Exception ex)
             {
