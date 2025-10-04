@@ -237,7 +237,7 @@ public static class ContextMenuFunctions
     }
 
     [SuppressMessage("ReSharper", "RedundantEmptySwitchSection")]
-    public static async void OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager)
+    public static async Task OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
     {
         string tempExtractionPath = null;
 
@@ -500,6 +500,9 @@ public static class ContextMenuFunctions
         }
         catch (Exception ex)
         {
+            // Ensure loading indicator is hidden (redundant but safe if caller fails)
+            mainWindow.IsLoadingGames = false;
+
             _ = LogErrors.LogErrorAsync(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
 
@@ -507,6 +510,9 @@ public static class ContextMenuFunctions
         }
         finally
         {
+            // Ensure loading indicator is hidden (redundant but safe)
+            mainWindow.IsLoadingGames = false;
+
             // --- Cleanup: Remove temporary extraction folder if it was created ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
             {

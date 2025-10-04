@@ -160,7 +160,7 @@ public static class ContextMenu
             ContextMenuFunctions.OpenRomHistoryWindow(context.SelectedSystemName, context.FileNameWithoutExtension, context.SelectedSystemManager, context.Machines);
         };
 
-        // View Achievements Context Menu ***
+        // View Achievements Context Menu
         var viewAchievementsIcon = new Image
         {
             Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
@@ -172,10 +172,10 @@ public static class ContextMenu
             Header = viewAchievementsText,
             Icon = viewAchievementsIcon
         };
-        viewAchievementsItem.Click += (s, e) =>
+        viewAchievementsItem.Click += async (s, e) =>
         {
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRetroAchievementsWindow(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager);
+            await ContextMenuFunctions.OpenRetroAchievementsWindow(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
         };
 
         // Open Cover Context Menu

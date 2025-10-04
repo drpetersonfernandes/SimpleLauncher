@@ -33,7 +33,7 @@ public class GameButtonFactory(
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly WrapPanel _gameFileGrid = gameFileGrid;
-    private readonly MainWindow _mainWindow = mainWindow;
+    private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow)); // Add null-check
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -44,7 +44,8 @@ public class GameButtonFactory(
         var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
         var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
         var selectedSystemName = systemName;
-        var selectedSystemManager = systemManager;
+        var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
+
         var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
 
@@ -206,14 +207,62 @@ public class GameButtonFactory(
         };
         trophyButton.Content = trophyImage;
 
-        // Add click event to open achievements window
-        trophyButton.Click += (s, e) =>
+        var context = new RightClickContext(
+            absoluteFilePath,
+            fileNameWithExtension,
+            fileNameWithoutExtension,
+            selectedSystemName,
+            selectedSystemManager,
+            _machines,
+            _favoritesManager,
+            _settings,
+            _emulatorComboBox,
+            null,
+            null,
+            _gameFileGrid,
+            null,
+            _mainWindow
+        );
+
+        trophyButton.Click += async (s, e) =>
         {
             // Prevent the main button's click event from firing
             e.Handled = true;
 
             PlaySoundEffects.PlayNotificationSound();
-            ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager);
+
+            // Show loading indicator immediately by setting the property (UI updates via binding)
+            if (context.MainWindow != null)
+            {
+                context.MainWindow.IsLoadingGames = true;
+            }
+
+            try
+            {
+                await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+            }
+            catch (Exception ex)
+            {
+                // Hide loading indicator on error
+                if (context.MainWindow != null)
+                {
+                    context.MainWindow.IsLoadingGames = false;
+                }
+
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+
+                // Notify user
+                MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+            }
+            finally
+            {
+                // Ensure loading indicator is hidden after async work (success or error)
+                if (context.MainWindow != null)
+                {
+                    context.MainWindow.IsLoadingGames = false;
+                }
+            }
         };
 
         grid.Children.Add(trophyButton);
@@ -258,6 +307,8 @@ public class GameButtonFactory(
         // Assign it to the button's Tag property
         _button.Tag = tag;
 
+        // *** FIX: Assign click handler AFTER context is created ***
+        // Now the lambda can safely capture 'context'.
         _button.Click += async (sender, e) =>
         {
             if (sender is not Button clickedButton) return;
@@ -291,22 +342,8 @@ public class GameButtonFactory(
             }
         };
 
-        var context = new RightClickContext(
-            absoluteFilePath,
-            fileNameWithExtension,
-            fileNameWithoutExtension,
-            selectedSystemName,
-            selectedSystemManager,
-            _machines,
-            _favoritesManager,
-            _settings,
-            _emulatorComboBox,
-            null,
-            null,
-            _gameFileGrid,
-            _button,
-            _mainWindow
-        );
+        // *** FIX: Update the context with the created button ***
+        context.Button = _button;
 
         return ContextMenu.AddRightClickReturnButton(context);
     }

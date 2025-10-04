@@ -34,7 +34,7 @@ public class RightClickContext(
     public Favorite Favorite { get; } = selectedFavorite;
     public SystemManager.Emulator Emulator { get; } = emulatorManager;
     public WrapPanel GameFileGrid { get; } = gameFileGrid;
-    public Button Button { get; } = button;
+    public Button Button { get; set; } = button;
     public MainWindow MainWindow { get; } = mainWindow;
     public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
 }
