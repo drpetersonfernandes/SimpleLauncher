@@ -34,7 +34,18 @@ public partial class RomHistoryWindow
         RomDescriptionTextBox.Visibility = Visibility.Collapsed;
 
         // Load history asynchronously after window initialization
-        Loaded += async (_, _) => await LoadRomHistoryAsync();
+        Loaded += async (_, _) =>
+        {
+            try
+            {
+                await LoadRomHistoryAsync();
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error loading ROM history.");
+                DebugLogger.Log($"Error loading ROM history: {ex.Message}");
+            }
+        };
     }
 
     private async Task LoadRomHistoryAsync()

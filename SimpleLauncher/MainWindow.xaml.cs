@@ -176,7 +176,18 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
         // Check for Updates
-        Loaded += async (_, _) => await UpdateChecker.SilentCheckForUpdatesAsync(this);
+        Loaded += async (_, _) =>
+        {
+            try
+            {
+                await UpdateChecker.SilentCheckForUpdatesAsync(this);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            }
+        };
 
         // Call Stats API
         Loaded += static (_, _) =>
@@ -190,7 +201,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         Loaded += async (_, _) =>
         {
-            await DisplaySystemSelectionScreenAsync();
+            try
+            {
+                await DisplaySystemSelectionScreenAsync();
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            }
         };
     }
 

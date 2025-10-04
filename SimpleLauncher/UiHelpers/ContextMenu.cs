@@ -40,26 +40,34 @@ public static class ContextMenu
         };
         launchMenuItem.Click += async (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound();
-
-            string selectedEmulatorName;
-
-            if (context.EmulatorComboBox is { SelectedItem: not null })
+            try
             {
-                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
-            }
-            else if (context.Emulator != null) // This branch is taken if EmulatorComboBox is null (e.g., from GlobalSearch)
-            {
-                selectedEmulatorName = context.Emulator.EmulatorName;
-            }
-            else
-            {
-                selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
-            }
+                PlaySoundEffects.PlayNotificationSound();
 
-            if (await CheckParametersForNullOrEmpty(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
+                string selectedEmulatorName;
 
-            await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+                if (context.EmulatorComboBox is { SelectedItem: not null })
+                {
+                    selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+                }
+                else if (context.Emulator != null) // This branch is taken if EmulatorComboBox is null (e.g., from GlobalSearch)
+                {
+                    selectedEmulatorName = context.Emulator.EmulatorName;
+                }
+                else
+                {
+                    selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
+                }
+
+                if (await CheckParametersForNullOrEmpty(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
+
+                await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error launching the game.");
+                DebugLogger.Log($"Error launching the game: {ex.Message}");
+            }
         };
 
         // Add To Favorites Context Menu
@@ -174,8 +182,16 @@ public static class ContextMenu
         };
         viewAchievementsItem.Click += async (s, e) =>
         {
-            PlaySoundEffects.PlayNotificationSound();
-            await ContextMenuFunctions.OpenRetroAchievementsWindow(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
+            try
+            {
+                PlaySoundEffects.PlayNotificationSound();
+                await ContextMenuFunctions.OpenRetroAchievementsWindow(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error opening the RetroAchievements window.");
+                DebugLogger.Log($"Error opening the RetroAchievements window: {ex.Message}");
+            }
         };
 
         // Open Cover Context Menu
@@ -384,29 +400,36 @@ public static class ContextMenu
 
         takeScreenshot.Click += async (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound();
-
-            // Notify user
-            MessageBoxLibrary.TakeScreenShotMessageBox();
-
-            string selectedEmulatorName;
-
-            if (context.EmulatorComboBox is { SelectedItem: not null })
+            try
             {
-                selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
-            }
-            else if (context.Emulator != null)
-            {
-                selectedEmulatorName = context.Emulator.EmulatorName;
-            }
-            else
-            {
-                selectedEmulatorName = null;
-            }
+                PlaySoundEffects.PlayNotificationSound();
 
-            _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, context.MainWindow);
+                // Notify user
+                MessageBoxLibrary.TakeScreenShotMessageBox();
 
-            await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+                string selectedEmulatorName;
+
+                if (context.EmulatorComboBox is { SelectedItem: not null })
+                {
+                    selectedEmulatorName = context.EmulatorComboBox.SelectedItem.ToString();
+                }
+                else if (context.Emulator != null)
+                {
+                    selectedEmulatorName = context.Emulator.EmulatorName;
+                }
+                else
+                {
+                    selectedEmulatorName = null;
+                }
+
+                _ = ContextMenuFunctions.TakeScreenshotOfSelectedWindow(context.FileNameWithoutExtension, context.SelectedSystemManager, null, context.MainWindow);
+                await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error taking the screenshot.");
+                DebugLogger.Log($"Error taking the screenshot: {ex.Message}");
+            }
         };
 
         // Delete Game Context Menu
@@ -425,30 +448,38 @@ public static class ContextMenu
 
         deleteGame.Click += async (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound();
-
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                try
-                {
-                    ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
-                    await Task.Delay(500);
-                    await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error deleting the game.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                PlaySoundEffects.PlayNotificationSound();
 
-                    // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheGameMessageBox(context.FileNameWithExtension);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
+                        await Task.Delay(500);
+                        await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        const string contextMessage = "Error deleting the game.";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                        // Notify user
+                        MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return;
+                _ = LogErrors.LogErrorAsync(ex, "Error deleting the game.");
+                DebugLogger.Log($"Error deleting the game: {ex.Message}");
             }
         };
 
@@ -468,32 +499,40 @@ public static class ContextMenu
 
         deleteCoverImage.Click += async (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound();
-
-            var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
-            if (result == MessageBoxResult.Yes)
+            try
             {
-                try
-                {
-                    await ContextMenuFunctions.DeleteCoverImage(
-                        context.FileNameWithoutExtension,
-                        context.SelectedSystemName,
-                        context.SelectedSystemManager,
-                        context.MainWindow);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                PlaySoundEffects.PlayNotificationSound();
 
-                    // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+                var result = MessageBoxLibrary.AreYouSureYouWantToDeleteTheCoverImageMessageBox(context.FileNameWithoutExtension);
+                if (result == MessageBoxResult.Yes)
+                {
+                    try
+                    {
+                        await ContextMenuFunctions.DeleteCoverImage(
+                            context.FileNameWithoutExtension,
+                            context.SelectedSystemName,
+                            context.SelectedSystemManager,
+                            context.MainWindow);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Notify developer
+                        var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
+                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                        // Notify user
+                        MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
+                    }
+                }
+                else
+                {
+                    return;
                 }
             }
-            else
+            catch (Exception ex)
             {
-                return;
+                _ = LogErrors.LogErrorAsync(ex, "Error deleting the cover image.");
+                DebugLogger.Log($"Error deleting the cover image: {ex.Message}");
             }
         };
 

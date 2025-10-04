@@ -226,42 +226,50 @@ public class GameButtonFactory(
 
         trophyButton.Click += async (s, e) =>
         {
-            // Prevent the main button's click event from firing
-            e.Handled = true;
-
-            PlaySoundEffects.PlayNotificationSound();
-
-            // Show loading indicator immediately by setting the property (UI updates via binding)
-            if (context.MainWindow != null)
-            {
-                context.MainWindow.IsLoadingGames = true;
-            }
-
             try
             {
-                await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                // Prevent the main button's click event from firing
+                e.Handled = true;
+
+                PlaySoundEffects.PlayNotificationSound();
+
+                // Show loading indicator immediately by setting the property (UI updates via binding)
+                if (context.MainWindow != null)
+                {
+                    context.MainWindow.IsLoadingGames = true;
+                }
+
+                try
+                {
+                    await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                }
+                catch (Exception ex)
+                {
+                    // Hide loading indicator on error
+                    if (context.MainWindow != null)
+                    {
+                        context.MainWindow.IsLoadingGames = false;
+                    }
+
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+                }
+                finally
+                {
+                    // Ensure loading indicator is hidden after async work (success or error)
+                    if (context.MainWindow != null)
+                    {
+                        context.MainWindow.IsLoadingGames = false;
+                    }
+                }
             }
             catch (Exception ex)
             {
-                // Hide loading indicator on error
-                if (context.MainWindow != null)
-                {
-                    context.MainWindow.IsLoadingGames = false;
-                }
-
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
-
-                // Notify user
-                MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
-            }
-            finally
-            {
-                // Ensure loading indicator is hidden after async work (success or error)
-                if (context.MainWindow != null)
-                {
-                    context.MainWindow.IsLoadingGames = false;
-                }
+                _ = LogErrors.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
+                DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
             }
         };
 
@@ -307,38 +315,46 @@ public class GameButtonFactory(
         // Assign it to the button's Tag property
         _button.Tag = tag;
 
-        // *** FIX: Assign click handler AFTER context is created ***
-        // Now the lambda can safely capture 'context'.
+        // Assign click handler AFTER context is created ***
+        // Lambda can safely capture 'context'.
         _button.Click += async (sender, e) =>
         {
-            if (sender is not Button clickedButton) return;
-
-            // Prevent multiple clicks while launching
-            if (!clickedButton.IsEnabled) return;
-
-            _mainWindow.SetGameButtonsEnabled(false); // Disable all game buttons
-
-            var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
-            if (string.IsNullOrEmpty(selectedEmulatorName))
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "selectedEmulatorName is null or empty.");
-
-                // Notify user
-                MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
-
-                _mainWindow.SetGameButtonsEnabled(true); // Re-enable buttons on error
-                return;
-            }
-
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
-                await GameLauncher.HandleButtonClick(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                if (sender is not Button clickedButton) return;
+
+                // Prevent multiple clicks while launching
+                if (!clickedButton.IsEnabled) return;
+
+                _mainWindow.SetGameButtonsEnabled(false); // Disable all game buttons
+
+                var selectedEmulatorName = _emulatorComboBox.SelectedItem as string; // Update value to get current selected emulator
+                if (string.IsNullOrEmpty(selectedEmulatorName))
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(null, "selectedEmulatorName is null or empty.");
+
+                    // Notify user
+                    MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
+
+                    _mainWindow.SetGameButtonsEnabled(true); // Re-enable buttons on error
+                    return;
+                }
+
+                try
+                {
+                    PlaySoundEffects.PlayNotificationSound();
+                    await GameLauncher.HandleButtonClick(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                }
+                finally
+                {
+                    _mainWindow.SetGameButtonsEnabled(true); // Re-enable all game buttons
+                }
             }
-            finally
+            catch (Exception ex)
             {
-                _mainWindow.SetGameButtonsEnabled(true); // Re-enable all game buttons
+                _ = LogErrors.LogErrorAsync(ex, "Error launching the game.");
+                DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };
 
