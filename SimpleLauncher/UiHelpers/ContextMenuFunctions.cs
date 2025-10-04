@@ -239,29 +239,35 @@ public static class ContextMenuFunctions
     [SuppressMessage("ReSharper", "RedundantEmptySwitchSection")]
     public static async void OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager)
     {
-        string tempExtractionPath = null; // To track the temp folder for cleanup
+        string tempExtractionPath = null;
 
         try
         {
+            DebugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
             var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
+            DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
+
             var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
             var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
             if (!File.Exists(filePath))
             {
-                _ = LogErrors.LogErrorAsync(null, $"OpenRetroAchievementsWindow: File not found at {filePath}");
+                DebugLogger.Log($"[RA Service] File not found at {filePath}");
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] File not found at {filePath}");
                 return;
             }
 
             if (string.IsNullOrEmpty(fileNameWithoutExtension))
             {
-                _ = LogErrors.LogErrorAsync(null, "OpenRetroAchievementsWindow: fileNameWithoutExtension is null or empty.");
+                DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
+                _ = LogErrors.LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 return;
             }
 
             if (string.IsNullOrWhiteSpace(systemName))
             {
-                _ = LogErrors.LogErrorAsync(null, "OpenRetroAchievementsWindow: System name is null or empty.");
+                DebugLogger.Log("[RA Service] SystemName is null or empty.");
+                _ = LogErrors.LogErrorAsync(null, "[RA Service] SystemName is null or empty.");
                 return;
             }
 
@@ -270,6 +276,7 @@ public static class ContextMenuFunctions
             {
                 if (string.IsNullOrEmpty(hash))
                 {
+                    DebugLogger.Log("[RA Service] Hash is null or empty.");
                     MessageBoxLibrary.ErrorMessageBox();
                     return;
                 }
@@ -292,16 +299,15 @@ public static class ContextMenuFunctions
             // --- Define System Categories ---
             List<string> systemWithSimpleHash =
             [
-                "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "wonderswan color",
-                "colecovision", "channel f", "vectrex", "odyssey2", "intellivision", "msx", "msx2",
-                "pc-8001", "pc-8801", "game boy", "game boy advance", "game boy color", "pokemon mini",
-                "virtual boy", "neo geo pocket", "neo geo pocket color", "32x", "game gear", "master system",
-                "mega drive", "genesis", "sg-1000", "wasm-4", "supervision", "mega duck"
+                "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "colecovision",
+                "vectrex", "magnavox odyssey 2", "intellivision", "msx", "game boy", "game boy advance", "game boy color",
+                "pokemon mini", "virtual boy", "neo geo pocket", "32x", "game gear", "master system", "genesis/mega drive",
+                "sg-1000", "wasm-4", "watara supervision", "mega duck"
             ];
 
             List<string> systemWithComplexHash =
             [
-                "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd", "turbografx-cd",
+                "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd/turbografx-cd",
                 "pc-fx", "gamecube", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
                 "playstation", "playstation 2", "playstation portable"
             ];
@@ -310,9 +316,8 @@ public static class ContextMenuFunctions
             List<string> systemWithByteSwappingHash = ["nintendo 64"];
             List<string> systemWithHeaderCheckHash =
             [
-                "atari 7800", "atari lynx", "famicom disk system", "nintendo entertainment system", "famicom",
-                "pc engine", "turbografx 16", "supergrafx", "super nintendo entertainment system",
-                "super nintendo", "super famicom", "satellaview", "sufami turbo"
+                "atari 7800", "atari lynx", "famicom disk system", "nintendo entertainment system", "pc engine/turbografx-16",
+                "supergrafx", "super nintendo entertainment system"
             ];
 
             // --- Determine Hashing Type ---
@@ -357,7 +362,9 @@ public static class ContextMenuFunctions
                 {
                     _ = LogErrors.LogErrorAsync(null, $"[RA Service] Failed to extract archive for hashing: {filePath}");
                     DebugLogger.Log($"[RA Service] Failed to extract archive for hashing: {filePath}");
+
                     MessageBoxLibrary.ExtractionFailedMessageBox();
+
                     return;
                 }
 
@@ -429,6 +436,7 @@ public static class ContextMenuFunctions
                 {
                     var hash = RetroAchievementsFileHasher.CalculateFilenameHash(fileToProcess);
                     FindAndOpenAchievementsWindowByHash(hash);
+                    DebugLogger.Log($"[RA Service] Calculated hash for filename: {hash}");
                     break;
                 }
 
@@ -436,6 +444,7 @@ public static class ContextMenuFunctions
                 {
                     var hash = await RetroAchievementsFileHasher.CalculateHashWithByteSwappingAsync(fileToProcess);
                     FindAndOpenAchievementsWindowByHash(hash);
+                    DebugLogger.Log($"[RA Service] Calculated hash for byte swapping: {hash}");
                     break;
                 }
 
@@ -447,37 +456,37 @@ public static class ContextMenuFunctions
                         case "atari 7800":
                             var header7800 = new byte[] { 0x01, 0x41, 0x54, 0x41, 0x52, 0x49, 0x37, 0x38, 0x30, 0x30 }; // \1ATARI7800
                             hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 128, header7800);
+                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Atari 7800: {hash}");
                             break;
                         case "atari lynx":
                             var headerLynx = "LYNX\0"u8.ToArray(); // LYNX\0
                             hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 64, headerLynx);
+                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Atari Lynx: {hash}");
                             break;
                         case "famicom disk system":
                             var headerFds = new byte[] { 0x46, 0x44, 0x53, 0x1a }; // FDS\1a
                             hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 16, headerFds);
+                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Famicom Disk System: {hash}");
                             break;
                         case "nintendo entertainment system":
-                        case "famicom":
                             var headerNes = new byte[] { 0x4E, 0x45, 0x53, 0x1a }; // NES\1a
                             hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 16, headerNes);
+                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Nintendo Entertainment System: {hash}");
                             break;
-                        case "pc engine":
-                        case "turbografx 16":
+                        case "pc engine/turbografx-16":
                         case "supergrafx":
                             var fileInfoPc = new FileInfo(fileToProcess);
                             hash = fileInfoPc.Length % 131072 == 512
                                 ? await RetroAchievementsFileHasher.CalculateMd5WithOffsetAsync(fileToProcess, 512)
                                 : await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess);
+                            DebugLogger.Log($"[RA Service] Calculated hash for PC Engine/TurboGrafx-16/SuperGrafx: {hash}");
                             break;
                         case "super nintendo entertainment system":
-                        case "super nintendo":
-                        case "super famicom":
-                        case "satellaview":
-                        case "sufami turbo":
                             var fileInfoSnes = new FileInfo(fileToProcess);
                             hash = fileInfoSnes.Length % 8192 == 512
                                 ? await RetroAchievementsFileHasher.CalculateMd5WithOffsetAsync(fileToProcess, 512)
                                 : await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess);
+                            DebugLogger.Log($"[RA Service] Calculated hash for Super Nintendo/Super Famicom/Satellaview/Sufami Turbo: {hash}");
                             break;
                     }
 
@@ -486,7 +495,6 @@ public static class ContextMenuFunctions
                 }
 
                 default:
-                    // No action for unsupported systems ("None")
                     break;
             }
         }
@@ -494,6 +502,7 @@ public static class ContextMenuFunctions
         {
             _ = LogErrors.LogErrorAsync(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
+
             MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
         }
         finally
