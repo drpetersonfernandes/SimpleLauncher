@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
-using System.Diagnostics.CodeAnalysis;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -144,7 +143,6 @@ public static class ContextMenuFunctions
         }
     }
 
-    // Use fileNameWithoutExtension
     public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
     {
         // Attempt to find a matching machine description
@@ -176,7 +174,6 @@ public static class ContextMenuFunctions
         }
     }
 
-    // Use fileNameWithoutExtension
     public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
     {
         // Attempt to find a matching machine description
@@ -236,14 +233,12 @@ public static class ContextMenuFunctions
         }
     }
 
-    [SuppressMessage("ReSharper", "RedundantEmptySwitchSection")]
     public static async Task OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
     {
-        string tempExtractionPath = null;
+        string tempExtractionPath = null; // This will be set by the hasher tool if extraction occurs
 
         // Get services from the service provider
         var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
-        App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
 
         try
         {
@@ -251,12 +246,11 @@ public static class ContextMenuFunctions
             var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
-            var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
-
             if (!File.Exists(filePath))
             {
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");
                 _ = LogErrors.LogErrorAsync(null, $"[RA Service] File not found at {filePath}");
+                MessageBoxLibrary.CouldNotFindAFileMessageBox();
                 return;
             }
 
@@ -264,6 +258,7 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
                 _ = LogErrors.LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
+                MessageBoxLibrary.ErrorMessageBox();
                 return;
             }
 
@@ -271,258 +266,48 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log("[RA Service] SystemName is null or empty.");
                 _ = LogErrors.LogErrorAsync(null, "[RA Service] SystemName is null or empty.");
+                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                 return;
             }
 
-            // Local function to handle finding a game by hash and opening the window
-            void FindAndOpenAchievementsWindowByHash(string hash)
+            // Set loading indicator
+            mainWindow.IsLoadingGames = true;
+
+            // --- Delegate hashing logic to RetroAchievementsHasherTool ---
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(
+                filePath,
+                systemName,
+                systemManager.FileFormatsToLaunch);
+
+            var hash = raHashResult.Hash;
+            tempExtractionPath = raHashResult.TempExtractionPath;
+
+            if (string.IsNullOrEmpty(hash))
             {
-                if (string.IsNullOrEmpty(hash))
-                {
-                    DebugLogger.Log("[RA Service] Hash is null or empty.");
-                    MessageBoxLibrary.ErrorMessageBox();
-                    return;
-                }
-
-                // Use the lookup method from RetroAchievementsManager
-                var matchedGame = raManager.GetGameInfoByHash(hash);
-
-                if (matchedGame != null)
-                {
-                    DebugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
-                    var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
-                    achievementsWindow.Show();
-                }
-                else
-                {
-                    DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
-                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                }
+                DebugLogger.Log($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).");
+                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                return;
             }
 
-            // --- Define System Categories ---
-            List<string> systemWithSimpleHash =
-            [
-                "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "colecovision",
-                "vectrex", "magnavox odyssey 2", "intellivision", "msx", "game boy", "game boy advance", "game boy color",
-                "pokemon mini", "virtual boy", "neo geo pocket", "32x", "game gear", "master system", "genesis/mega drive",
-                "sg-1000", "wasm-4", "watara supervision", "mega duck"
-            ];
+            DebugLogger.Log($"[RA Service] Successfully obtained hash: {hash}");
 
-            List<string> systemWithComplexHash =
-            [
-                "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd/turbografx-cd",
-                "pc-fx", "gamecube", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
-                "playstation", "playstation 2", "playstation portable"
-            ];
+            // Use the lookup method from RetroAchievementsManager
+            var matchedGame = raManager.GetGameInfoByHash(hash);
 
-            List<string> systemWithFileNameHash = ["arcade"];
-            List<string> systemWithByteSwappingHash = ["nintendo 64"];
-            List<string> systemWithHeaderCheckHash =
-            [
-                "atari 7800", "atari lynx", "famicom disk system", "nintendo entertainment system", "pc engine/turbografx-16",
-                "supergrafx", "super nintendo entertainment system"
-            ];
-
-            // --- Determine Hashing Type ---
-            string hashCalculationType;
-            if (systemWithSimpleHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+            if (matchedGame != null)
             {
-                hashCalculationType = "Simple";
-            }
-            else if (systemWithComplexHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
-            {
-                hashCalculationType = "Complex";
-            }
-            else if (systemWithFileNameHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
-            {
-                hashCalculationType = "HashFileName";
-            }
-            else if (systemWithByteSwappingHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
-            {
-                hashCalculationType = "HashWithByteSwapping";
-            }
-            else if (systemWithHeaderCheckHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
-            {
-                hashCalculationType = "HashWithHeaderCheck";
+                DebugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
+                var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                achievementsWindow.Show();
             }
             else
             {
-                hashCalculationType = "None";
-            }
-
-            // --- Pre-processing: Extract if necessary ---
-            var fileToProcess = filePath; // By default, process the original file
-            var isCompressed = fileExtension is ".zip" or ".7z" or ".rar";
-            var requiresExtraction = hashCalculationType is "Simple" or "HashWithByteSwapping" or "HashWithHeaderCheck";
-
-            if (isCompressed && requiresExtraction)
-            {
-                DebugLogger.Log($"[RA Service] Compressed file detected for hashing: {filePath}. Extracting...");
-                var extractor = new ExtractCompressedFile();
-                tempExtractionPath = await extractor.ExtractWithSevenZipSharpToTempAsync(filePath);
-
-                if (string.IsNullOrEmpty(tempExtractionPath))
-                {
-                    _ = LogErrors.LogErrorAsync(null, $"[RA Service] Failed to extract archive for hashing: {filePath}");
-                    DebugLogger.Log($"[RA Service] Failed to extract archive for hashing: {filePath}");
-
-                    MessageBoxLibrary.ExtractionFailedMessageBox();
-
-                    return;
-                }
-
-                string foundRomFile = null;
-                if (systemManager.FileFormatsToLaunch is { Count: > 0 })
-                {
-                    foreach (var format in systemManager.FileFormatsToLaunch)
-                    {
-                        var searchPattern = $"*.{format.TrimStart('.')}";
-                        var files = Directory.GetFiles(tempExtractionPath, searchPattern, SearchOption.AllDirectories);
-                        if (files.Length > 0)
-                        {
-                            foundRomFile = files[0];
-                            DebugLogger.Log($"[RA Service] Found file to hash after extraction: {foundRomFile}");
-                            break;
-                        }
-                    }
-                }
-
-                if (string.IsNullOrEmpty(foundRomFile))
-                {
-                    var allExtractedFiles = Directory.GetFiles(tempExtractionPath, "*", SearchOption.AllDirectories);
-                    if (allExtractedFiles.Length > 0)
-                    {
-                        foundRomFile = allExtractedFiles[0];
-                        DebugLogger.Log($"[RA Service] No specific launch format file found. Picking first extracted file: {foundRomFile}");
-                    }
-                }
-
-                if (string.IsNullOrEmpty(foundRomFile))
-                {
-                    DebugLogger.Log($"[RA Service] Could not find any suitable file to hash after extracting {filePath}.");
-                    MessageBoxLibrary.CouldNotFindAFileMessageBox();
-                    return;
-                }
-
-                fileToProcess = foundRomFile; // Update the path to the extracted file
-            }
-
-            // --- Perform Hashing ---
-            switch (hashCalculationType)
-            {
-                case "Simple":
-                {
-                    var hash = await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess);
-                    FindAndOpenAchievementsWindowByHash(hash);
-                    break;
-                }
-
-                case "Complex":
-                {
-                    // Use the external RAHasher.exe tool for better accuracy.
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
-                    if (systemId > 0)
-                    {
-                        DebugLogger.Log($"[RA Service] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
-                        // For complex/disc-based systems, the original file path (even if compressed) is passed to the tool.
-                        // The tool handles reading from archives/disc images internally.
-                        var hash = await RetroAchievementsHasherTool.GetHashAsync(filePath, systemId);
-                        FindAndOpenAchievementsWindowByHash(hash);
-                    }
-                    else
-                    {
-                        DebugLogger.Log($"[RA Service] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                        MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    }
-
-                    break;
-                }
-
-                case "HashFileName":
-                {
-                    var hash = RetroAchievementsFileHasher.CalculateFilenameHash(fileToProcess);
-                    FindAndOpenAchievementsWindowByHash(hash);
-                    DebugLogger.Log($"[RA Service] Calculated hash for filename: {hash}");
-                    break;
-                }
-
-                case "HashWithByteSwapping":
-                {
-                    // Use the external RAHasher.exe
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
-                    if (systemId > 0)
-                    {
-                        DebugLogger.Log($"[RA Service] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
-                        var hash = await RetroAchievementsHasherTool.GetHashAsync(fileToProcess, systemId);
-                        FindAndOpenAchievementsWindowByHash(hash);
-                    }
-                    else
-                    {
-                        DebugLogger.Log($"[RA Service] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                        MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    }
-
-                    break;
-                }
-
-                case "HashWithHeaderCheck":
-                {
-                    string hash = null;
-                    switch (systemName.ToLowerInvariant())
-                    {
-                        case "atari 7800":
-                            var header7800 = new byte[] { 0x01, 0x41, 0x54, 0x41, 0x52, 0x49, 0x37, 0x38, 0x30, 0x30 }; // \1ATARI7800
-                            hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 128, header7800);
-                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Atari 7800: {hash}");
-                            break;
-                        case "atari lynx":
-                            var headerLynx = "LYNX\0"u8.ToArray(); // LYNX\0
-                            hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 64, headerLynx);
-                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Atari Lynx: {hash}");
-                            break;
-                        case "famicom disk system":
-                            var headerFds = new byte[] { 0x46, 0x44, 0x53, 0x1a }; // FDS\1a
-                            hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 16, headerFds);
-                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Famicom Disk System: {hash}");
-                            break;
-                        case "nintendo entertainment system":
-                            var headerNes = new byte[] { 0x4E, 0x45, 0x53, 0x1a }; // NES\1a
-                            hash = await RetroAchievementsFileHasher.CalculateMd5WithHeaderCheckAsync(fileToProcess, 16, headerNes);
-                            DebugLogger.Log($"[RA Service] Calculated hash with header check for Nintendo Entertainment System: {hash}");
-                            break;
-                        case "pc engine/turbografx-16":
-                        case "supergrafx":
-                            var fileInfoPc = new FileInfo(fileToProcess);
-                            hash = fileInfoPc.Length % 131072 == 512
-                                ? await RetroAchievementsFileHasher.CalculateMd5WithOffsetAsync(fileToProcess, 512)
-                                : await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess);
-                            DebugLogger.Log($"[RA Service] Calculated hash for PC Engine/TurboGrafx-16/SuperGrafx: {hash}");
-                            break;
-                        case "super nintendo entertainment system":
-                            var fileInfoSnes = new FileInfo(fileToProcess);
-                            hash = fileInfoSnes.Length % 8192 == 512
-                                ? await RetroAchievementsFileHasher.CalculateMd5WithOffsetAsync(fileToProcess, 512)
-                                : await RetroAchievementsFileHasher.CalculateStandardMd5Async(fileToProcess);
-                            DebugLogger.Log($"[RA Service] Calculated hash for Super Nintendo/Super Famicom/Satellaview/Sufami Turbo: {hash}");
-                            break;
-                    }
-
-                    FindAndOpenAchievementsWindowByHash(hash);
-                    break;
-                }
-
-                default:
-                    // If no specific hashing logic is defined, assume it's not supported by RA.
-                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
-                    break;
+                DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
+                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
             }
         }
         catch (Exception ex)
         {
-            // Ensure loading indicator is hidden (redundant but safe if caller fails)
-            mainWindow.IsLoadingGames = false;
-
             _ = LogErrors.LogErrorAsync(ex, $"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
             DebugLogger.Log($"[RA Service] An unexpected error occurred while processing achievements for {fileNameWithoutExtension}.");
 
@@ -530,7 +315,7 @@ public static class ContextMenuFunctions
         }
         finally
         {
-            // Ensure loading indicator is hidden (redundant but safe)
+            // Ensure loading indicator is hidden
             mainWindow.IsLoadingGames = false;
 
             // --- Remove temporary extraction folder ---

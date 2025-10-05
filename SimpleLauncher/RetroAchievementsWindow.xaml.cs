@@ -77,7 +77,7 @@ public partial class RetroAchievementsWindow
             LoadingOverlay.Visibility = Visibility.Visible;
 
             // Use the injected service
-            var (progress, achievements) = await _raService.GetUserGameProgressByGameIdAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            var (progress, achievements) = await _raService.GetGameInfoAndUserProgress(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
             if (achievements is { Count: > 0 } && progress != null)
             {
@@ -161,10 +161,22 @@ public partial class RetroAchievementsWindow
             // Update achievement stats
             EarnedAchievementsValue.Text = $"{progress.AchievementsEarned}";
             TotalAchievementsValue.Text = $"{progress.TotalAchievements}";
-            PointsEarnedValue.Text = $"{progress.PointsEarned:N0}";
+            TotalPointsEarnedValue.Text = $"{progress.PointsEarned:N0}"; // RENAMED
+            TruePointsEarnedValue.Text = $"{progress.PointsEarnedHardcore:N0}"; // ADDED
 
             // Update highest award info
             HighestAwardKindText.Text = string.IsNullOrWhiteSpace(progress.HighestAwardKind) ? "None" : CapitalizeFirstLetter(progress.HighestAwardKind);
+
+            // Set Highest Award Icon (using existing trophy.png from ContextMenu.cs)
+            if (progress.HighestAwardKind?.Equals("mastered", StringComparison.OrdinalIgnoreCase) == true)
+            {
+                HighestAwardIcon.Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png"));
+                HighestAwardIcon.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HighestAwardIcon.Visibility = Visibility.Collapsed;
+            }
 
             if (DateTime.TryParse(progress.HighestAwardDate, out var awardDate))
             {
@@ -184,9 +196,11 @@ public partial class RetroAchievementsWindow
             HardcoreProgressText.Text = "0%";
             EarnedAchievementsValue.Text = "0";
             TotalAchievementsValue.Text = "0";
-            PointsEarnedValue.Text = "0";
+            TotalPointsEarnedValue.Text = "0"; // RENAMED
+            TruePointsEarnedValue.Text = "0"; // ADDED
             HighestAwardKindText.Text = "N/A";
             HighestAwardDateText.Text = "N/A";
+            HighestAwardIcon.Visibility = Visibility.Collapsed; // Ensure icon is hidden on error
 
             _ = LogErrors.LogErrorAsync(ex, "Failed to parse progress data for achievements display");
         }

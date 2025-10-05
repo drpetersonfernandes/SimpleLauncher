@@ -23,6 +23,8 @@ public class RaAchievement
     public string Type { get; set; } = "";
     public DateTime? DateEarnedHardcore { get; set; }
     public DateTime? DateEarned { get; set; }
+    public int? TrueRatio { get; set; } // ADDED: True Ratio for the achievement
+
     public string DateUnlockedDisplay => IsUnlocked ? (UnlockedInHardcore ? $"🏆 {DateUnlocked:yyyy-MM-dd}" : $"{DateUnlocked:yyyy-MM-dd}") : "Locked";
     public string ModeDisplay => UnlockedInHardcore ? "Hardcore" : (IsUnlocked ? "Casual" : "Not Earned");
     public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;

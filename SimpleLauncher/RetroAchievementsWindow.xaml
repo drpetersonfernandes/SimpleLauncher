@@ -29,8 +29,8 @@
                 <Grid>
                     <!-- Progress Summary Header -->
                     <Grid.RowDefinitions>
-                        <RowDefinition />
-                        <RowDefinition />
+                        <RowDefinition Height="Auto" /> <!-- Changed to Auto to fit content -->
+                        <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
                     <Grid Grid.Row="0" Margin="10,10,10,0">
                         <Border Padding="15" BorderBrush="Gray" BorderThickness="1" CornerRadius="5">
@@ -71,6 +71,7 @@
                                     <TextBlock Grid.Row="1" Grid.Column="1" x:Name="HardcoreProgressText" VerticalAlignment="Center" FontWeight="Bold" />
                                 </Grid>
 
+
                                 <!-- Achievement Stats -->
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,10,0,0">
                                     <Border BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="0,0,10,0">
@@ -85,10 +86,16 @@
                                             <TextBlock Text="Total Achievements" HorizontalAlignment="Center" Foreground="Gray" />
                                         </StackPanel>
                                     </Border>
+                                    <Border BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="10,0,10,0">
+                                        <StackPanel>
+                                            <TextBlock x:Name="TotalPointsEarnedValue" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" /> <!-- RENAMED -->
+                                            <TextBlock Text="Total Points Earned" HorizontalAlignment="Center" Foreground="Gray" /> <!-- RENAMED -->
+                                        </StackPanel>
+                                    </Border>
                                     <Border BorderBrush="Gray" BorderThickness="1" Padding="15" Margin="10,0,0,0">
                                         <StackPanel>
-                                            <TextBlock x:Name="PointsEarnedValue" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" />
-                                            <TextBlock Text="Points Earned" HorizontalAlignment="Center" Foreground="Gray" />
+                                            <TextBlock x:Name="TruePointsEarnedValue" FontSize="16" FontWeight="Bold" HorizontalAlignment="Center" /> <!-- ADDED -->
+                                            <TextBlock Text="True Points Earned" HorizontalAlignment="Center" Foreground="Gray" /> <!-- ADDED -->
                                         </StackPanel>
                                     </Border>
                                 </StackPanel>
@@ -96,6 +103,7 @@
                                 <!-- Highest Award Info -->
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,15,0,0">
                                     <TextBlock Text="Highest Award: " FontWeight="Bold" />
+                                    <Image x:Name="HighestAwardIcon" Width="16" Height="16" Margin="0,0,5,0" VerticalAlignment="Center" Visibility="Collapsed" /> <!-- ADDED -->
                                     <TextBlock x:Name="HighestAwardKindText" FontWeight="Bold" Foreground="Goldenrod" />
                                     <TextBlock Text=" on " FontWeight="Bold" Margin="5,0,0,0" />
                                     <TextBlock x:Name="HighestAwardDateText" FontWeight="Bold" />
@@ -105,7 +113,7 @@
                     </Grid>
 
                     <!-- Achievements DataGrid -->
-                    <Grid Grid.Row="1" Margin="10,10,10,10">
+                     <Grid Grid.Row="1" Margin="10,10,10,10">
                         <DataGrid Name="AchievementsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,10,0,0" d:DataContext="{d:DesignInstance }">
                             <DataGrid.Columns>
                                 <DataGridTemplateColumn Header="Icon" Width="Auto">
@@ -115,12 +123,14 @@
                                         </DataTemplate>
                                     </DataGridTemplateColumn.CellTemplate>
                                 </DataGridTemplateColumn>
-                                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" />
-                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*" />
-                                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto" />
-                                <DataGridTextColumn Header="Unlocked" Binding="{Binding DateUnlockedDisplay}" Width="Auto" />
-                                <DataGridTextColumn Header="Mode" Binding="{Binding ModeDisplay}" Width="Auto" />
-                                <DataGridTextColumn Header="Author" Binding="{Binding AuthorDisplay}" Width="Auto" />
+                                <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" SortMemberPath="Title" />
+                                <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*" SortMemberPath="Description" />
+                                <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto" SortMemberPath="Points" />
+                                <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" /> <!-- ADDED -->
+                                <DataGridTextColumn Header="Unlocked" Binding="{Binding DateUnlockedDisplay}" Width="Auto" SortMemberPath="DateUnlocked" />
+                                <DataGridTextColumn Header="Mode" Binding="{Binding ModeDisplay}" Width="Auto" SortMemberPath="UnlockedInHardcore" />
+                                <DataGridTextColumn Header="Rarity" Binding="{Binding RarityDisplay}" Width="Auto" SortMemberPath="NumAwardedHardcore" /> <!-- ADDED -->
+                                <DataGridTextColumn Header="Author" Binding="{Binding AuthorDisplay}" Width="Auto" SortMemberPath="Author" />
                             </DataGrid.Columns>
                         </DataGrid>
                         <Grid x:Name="NoAchievementsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">

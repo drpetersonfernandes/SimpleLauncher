@@ -33,7 +33,7 @@ public class RetroAchievementsService
     /// <param name="username">The user's RetroAchievements username.</param>
     /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
     /// <returns>A tuple containing the user's game progress and a list of achievements, or null if an error occurs.</returns>
-    public async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetUserGameProgressByGameIdAsync(int gameId, string username, string apiKey)
+    public async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetGameInfoAndUserProgress(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -67,6 +67,11 @@ public class RetroAchievementsService
 
             if (apiResponse == null) return (null, null);
 
+            // Calculate points earned hardcore
+            var pointsEarnedHardcore = apiResponse.Achievements.Values
+                .Where(static a => a.DateEarnedHardcore != null)
+                .Sum(static a => a.Points);
+
             // Map the API response to our local models.
             var progress = new RaUserGameProgress
             {
@@ -75,7 +80,8 @@ public class RetroAchievementsService
                 ConsoleName = apiResponse.ConsoleName,
                 AchievementsEarned = apiResponse.NumAwardedToUser,
                 TotalAchievements = apiResponse.NumAchievements,
-                PointsEarned = apiResponse.Achievements.Values.Where(static a => a.DateEarned != null).Sum(static a => a.Points),
+                PointsEarned = apiResponse.Achievements.Values.Where(static a => a.DateEarned != null).Sum(static a => a.Points), // Total points from any earned achievement
+                PointsEarnedHardcore = pointsEarnedHardcore, // ADDED: Points earned in hardcore mode
                 TotalPoints = apiResponse.Achievements.Values.Sum(static a => a.Points),
                 UserCompletion = apiResponse.UserCompletion,
                 UserCompletionHardcore = apiResponse.UserCompletionHardcore,
@@ -105,7 +111,8 @@ public class RetroAchievementsService
                     BadgeName = a.BadgeName,
                     Type = a.Type,
                     DateEarnedHardcore = a.DateEarnedHardcore,
-                    DateEarned = a.DateEarned
+                    DateEarned = a.DateEarned,
+                    TrueRatio = a.TrueRatio
                 }).ToList();
 
             var result = (progress, achievements);
@@ -115,7 +122,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserGameProgressByGameIdAsync for gameId {gameId}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgress for gameId {gameId}.");
             return (null, null);
         }
     }
