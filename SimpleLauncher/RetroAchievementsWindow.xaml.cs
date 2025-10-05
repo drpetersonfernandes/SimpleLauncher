@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -8,6 +9,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
+using System.Windows.Input; 
 
 namespace SimpleLauncher;
 
@@ -37,8 +39,7 @@ public partial class RetroAchievementsWindow
         try
         {
             GameTitleTextBlock.Text = _gameTitleForDisplay;
-            // Removed: Concurrent loading of all data.
-            // TabControl_SelectionChanged will handle loading on tab selection (including initial load for the default tab).
+            // The first tab ("Achievements") will be loaded by default via TabControl_SelectionChanged
         }
         catch (Exception ex)
         {
@@ -46,12 +47,17 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    // New event handler for tab selection
     private void TabControl_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         if (e.Source is TabControl { SelectedItem: TabItem selectedTab })
         {
+            // Ensure the event is not fired during initialization or when no tab is selected
+            if (selectedTab is not { IsSelected: true }) return;
+
             var header = selectedTab.Header.ToString();
+            // Remove the trailing " |" for matching, if present
+            header = header?.Replace(" |", "").Trim();
+
             switch (header)
             {
                 case "Achievements":
@@ -65,6 +71,12 @@ public partial class RetroAchievementsWindow
                     break;
                 case "My Profile":
                     _ = LoadUserProfileAsync();
+                    break;
+                case "Unlocks":
+                    _ = LoadUnlocksByDateAsync();
+                    break;
+                case "User Progress": // NEW CASE
+                    _ = LoadUserProgressAsync();
                     break;
             }
         }
@@ -161,8 +173,8 @@ public partial class RetroAchievementsWindow
             // Update achievement stats
             EarnedAchievementsValue.Text = $"{progress.AchievementsEarned}";
             TotalAchievementsValue.Text = $"{progress.TotalAchievements}";
-            TotalPointsEarnedValue.Text = $"{progress.PointsEarned:N0}"; // RENAMED
-            TruePointsEarnedValue.Text = $"{progress.PointsEarnedHardcore:N0}"; // ADDED
+            TotalPointsEarnedValue.Text = $"{progress.PointsEarned:N0}";
+            TruePointsEarnedValue.Text = $"{progress.PointsEarnedHardcore:N0}";
 
             // Update highest award info
             HighestAwardKindText.Text = string.IsNullOrWhiteSpace(progress.HighestAwardKind) ? "None" : CapitalizeFirstLetter(progress.HighestAwardKind);
@@ -196,8 +208,8 @@ public partial class RetroAchievementsWindow
             HardcoreProgressText.Text = "0%";
             EarnedAchievementsValue.Text = "0";
             TotalAchievementsValue.Text = "0";
-            TotalPointsEarnedValue.Text = "0"; // RENAMED
-            TruePointsEarnedValue.Text = "0"; // ADDED
+            TotalPointsEarnedValue.Text = "0";
+            TruePointsEarnedValue.Text = "0";
             HighestAwardKindText.Text = "N/A";
             HighestAwardDateText.Text = "N/A";
             HighestAwardIcon.Visibility = Visibility.Collapsed; // Ensure icon is hidden on error
@@ -206,7 +218,7 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private string CapitalizeFirstLetter(string input)
+    private static string CapitalizeFirstLetter(string input)
     {
         if (string.IsNullOrWhiteSpace(input))
             return input;
@@ -221,25 +233,34 @@ public partial class RetroAchievementsWindow
             LoadingOverlay.Visibility = Visibility.Visible;
 
             // Use the injected service
-            var gameInfo = await _raService.GetGameExtendedInfoAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            var gameInfo = await _raService.GetGameExtended(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
                 // Game header
                 GameInfoTitle.Text = string.IsNullOrWhiteSpace(gameInfo.Title) ? "Unknown Title" : gameInfo.Title;
                 GameInfoConsole.Text = string.IsNullOrWhiteSpace(gameInfo.ConsoleName) ? "Unknown Console" : gameInfo.ConsoleName;
 
-                // Load game icon
+                // Load game icon (for header and the new image section)
                 if (!string.IsNullOrEmpty(gameInfo.ImageIcon))
                 {
                     try
                     {
-                        GameInfoIcon.Source = new BitmapImage(new Uri($"https://retroachievements.org{gameInfo.ImageIcon}"));
+                        var uri = new Uri($"https://retroachievements.org{gameInfo.ImageIcon}");
+                        GameInfoIcon.Source = new BitmapImage(uri); // For the header
+                        GameInfoImageIcon.Source = new BitmapImage(uri); // For the image section
                     }
                     catch
                     {
                         GameInfoIcon.Source = null;
+                        GameInfoImageIcon.Source = null;
                     }
                 }
+                else
+                {
+                    GameInfoIcon.Source = null;
+                    GameInfoImageIcon.Source = null;
+                }
+
 
                 // Game images
                 if (!string.IsNullOrEmpty(gameInfo.ImageTitle))
@@ -253,6 +274,10 @@ public partial class RetroAchievementsWindow
                         GameInfoTitleImage.Source = null;
                     }
                 }
+                else
+                {
+                    GameInfoTitleImage.Source = null;
+                }
 
                 if (!string.IsNullOrEmpty(gameInfo.ImageIngame))
                 {
@@ -265,6 +290,10 @@ public partial class RetroAchievementsWindow
                         GameInfoIngameImage.Source = null;
                     }
                 }
+                else
+                {
+                    GameInfoIngameImage.Source = null;
+                }
 
                 if (!string.IsNullOrEmpty(gameInfo.ImageBoxArt))
                 {
@@ -276,6 +305,10 @@ public partial class RetroAchievementsWindow
                     {
                         GameInfoBoxArtImage.Source = null;
                     }
+                }
+                else
+                {
+                    GameInfoBoxArtImage.Source = null;
                 }
 
                 // Basic details
@@ -326,7 +359,41 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private string FormatDateString(string dateString)
+    // New event handler for clicking on game images
+    private void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is Image clickedImage)
+        {
+            if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
+            {
+                OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
+            }
+            else
+            {
+                // Log and potentially inform the user if the image source is not a valid URI
+                _ = LogErrors.LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
+                MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+            }
+        }
+    }
+
+    private void OpenRaImageViewer(Uri imageUri)
+    {
+        try
+        {
+            var raImageViewer = new RetroAchievementsImageViewerWindow(); // Instantiate the new window
+            raImageViewer.LoadImage(imageUri);
+            raImageViewer.Owner = this; // Set owner to this window
+            raImageViewer.Show();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            MessageBoxLibrary.ErrorMessageBox(); // Display a generic error message to the user
+        }
+    }
+
+    private static string FormatDateString(string dateString)
     {
         if (DateTime.TryParse(dateString, out var date))
         {
@@ -377,15 +444,36 @@ public partial class RetroAchievementsWindow
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
+            NoProfileOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
 
-            // Use the injected service
-            var userProfile = await _raService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
+            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    NoProfileOverlay.Visibility = Visibility.Visible;
+                    // Update messages to be more specific about missing credentials
+                    NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().First().Text = "RetroAchievements username or API key is not set.";
+                    NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().Skip(1).First().Text = "Please configure your credentials in the RetroAchievements settings.";
+                });
+                return;
+            }
+
+            // Fetch main user profile
+            var userProfile = await _raService.GetUserProfile(_settings.RaUsername, _settings.RaApiKey);
+
+            // Fetch detailed recently played games separately (max 50 games)
+            var recentlyPlayedGames = await _raService.GetUserRecentlyPlayedGamesAsync(_settings.RaUsername, _settings.RaApiKey, 50);
+
             if (userProfile != null)
             {
                 // Basic profile info
                 if (!string.IsNullOrEmpty(userProfile.UserPic))
                 {
                     UserProfilePic.Source = new BitmapImage(new Uri($"https://retroachievements.org{userProfile.UserPic}"));
+                }
+                else
+                {
+                    UserProfilePic.Source = null; // Clear image if not available
                 }
 
                 UserProfileUser.Text = userProfile.User;
@@ -400,7 +488,16 @@ public partial class RetroAchievementsWindow
                 RankValue.Text = string.IsNullOrWhiteSpace(userProfile.Rank) ? "N/A" : $"#{userProfile.Rank}";
                 PointsValue.Text = userProfile.TotalPoints.ToString("N0", CultureInfo.InvariantCulture);
                 TruePointsValue.Text = userProfile.TotalTruePoints.ToString("N0", CultureInfo.InvariantCulture);
-                UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? "Unknown" : userProfile.MemberSince;
+
+                // Format MemberSince date
+                if (DateTime.TryParse(userProfile.MemberSince, out var memberSinceDate))
+                {
+                    UserProfileMemberSince.Text = memberSinceDate.ToString("yyyy-MM-dd", CultureInfo.InvariantCulture);
+                }
+                else
+                {
+                    UserProfileMemberSince.Text = string.IsNullOrWhiteSpace(userProfile.MemberSince) ? "Unknown" : userProfile.MemberSince;
+                }
 
                 // Additional details
                 UserProfileId.Text = userProfile.Id.ToString(CultureInfo.InvariantCulture);
@@ -411,26 +508,43 @@ public partial class RetroAchievementsWindow
                 UserProfileProfileId.Text = string.IsNullOrWhiteSpace(userProfile.Uuid) ? "N/A" : userProfile.Uuid;
                 UserProfileWallActive.Text = userProfile.UserWallActive ? "Yes" : "No";
 
-                // Recently played
-                UserProfileRecentlyPlayed.ItemsSource = userProfile.RecentlyPlayed;
+                // Recently played - use the detailed list from GetUserRecentlyPlayedGamesAsync
+                if (recentlyPlayedGames is { Count: > 0 })
+                {
+                    // Ensure full URLs are used (handled in model)
+                    UserProfileRecentlyPlayed.ItemsSource = recentlyPlayedGames;
+                }
+                else
+                {
+                    UserProfileRecentlyPlayed.ItemsSource = null;
+                    // If no recently played games are found, the ListBox will simply be empty.
+                }
 
                 NoProfileOverlay.Visibility = Visibility.Collapsed;
             }
             else
             {
+                // If userProfile is null, something went wrong with the main profile fetch
                 NoProfileOverlay.Visibility = Visibility.Visible;
+                // Update messages for general API failure
+                NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().First().Text = "Could not load user profile.";
+                NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().Skip(1).First().Text = "Please check your username and API key in settings, or try again later.";
             }
         }
         catch (Exception ex)
         {
             NoProfileOverlay.Visibility = Visibility.Visible;
-            await LogErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
+            // Update messages for exception
+            NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().First().Text = "An error occurred while loading user profile.";
+            NoProfileOverlay.Children.OfType<StackPanel>().First().Children.OfType<TextBlock>().Skip(1).First().Text = "Please try again or check your internet connection.";
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
         }
         finally
         {
             LoadingOverlay.Visibility = Visibility.Collapsed;
         }
     }
+
 
     private string GetPermissionDescription(int permissions)
     {
@@ -469,6 +583,221 @@ public partial class RetroAchievementsWindow
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, "Failed to refresh rankings");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private async void RefreshProfile_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            await LoadUserProfileAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh user profile.");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
+    {
+        var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
+        settingsWindow.Owner = this; // Set owner to this window
+        settingsWindow.ShowDialog();
+        // After settings are saved, try reloading the profile
+        _ = LoadUserProfileAsync();
+    }
+
+    private async Task LoadUnlocksByDateAsync()
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            FetchUnlocksButton.IsEnabled = true;
+            NoUnlocksOverlay.Visibility = Visibility.Collapsed;
+
+            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    NoUnlocksOverlay.Visibility = Visibility.Visible;
+                    NoUnlocksMainMessage.Text = "RetroAchievements username or API key is not set.";
+                    NoUnlocksSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+                });
+                return;
+            }
+
+            // Set default dates if not already set
+            if (FromDatePicker.SelectedDate == null)
+            {
+                FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1); // Default to last month
+            }
+
+            if (ToDatePicker.SelectedDate == null)
+            {
+                ToDatePicker.SelectedDate = DateTime.Today; // Default to today
+            }
+
+            var fromDate = FromDatePicker.SelectedDate ?? DateTime.Today.AddMonths(-1);
+            var toDate = ToDatePicker.SelectedDate ?? DateTime.Today;
+
+            var unlocks = await _raService.GetAchievementsEarnedBetween(_settings.RaUsername, _settings.RaApiKey, fromDate, toDate);
+
+            Dispatcher.Invoke(() =>
+            {
+                if (unlocks is { Count: > 0 })
+                {
+                    UnlocksDataGrid.ItemsSource = unlocks;
+                    TotalUnlocksInRangeText.Text = unlocks.Count.ToString("N0", CultureInfo.InvariantCulture);
+                    TotalPointsEarnedInRangeText.Text = unlocks.Sum(static a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
+                    NoUnlocksOverlay.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    UnlocksDataGrid.ItemsSource = null;
+                    TotalUnlocksInRangeText.Text = "0";
+                    TotalPointsEarnedInRangeText.Text = "0";
+                    NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no unlocks
+                    NoUnlocksMainMessage.Text = "No unlocks found for the selected date range.";
+                    NoUnlocksSubMessage.Text = "Adjust the date range and click 'Fetch Unlocks'.";
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                NoUnlocksOverlay.Visibility = Visibility.Visible;
+                NoUnlocksMainMessage.Text = "An error occurred while loading unlocks.";
+                NoUnlocksSubMessage.Text = "Please try again or check your internet connection.";
+            });
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+            DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+            FetchUnlocksButton.IsEnabled = true;
+        }
+    }
+
+    private async void FetchUnlocks_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            // Validate dates before fetching
+            var fromDate = FromDatePicker.SelectedDate ?? DateTime.Today.AddMonths(-1);
+            var toDate = ToDatePicker.SelectedDate ?? DateTime.Today;
+
+            if (fromDate > toDate)
+            {
+                MessageBoxLibrary.ErrorMessageBox();
+                return; // Exit without fetching
+            }
+
+            // Proceed with loading
+            try
+            {
+                await LoadUnlocksByDateAsync();
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Failed to fetch unlocks by date");
+                DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Failed to fetch unlocks by date");
+            DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
+        }
+    }
+
+    private void ResetDates_Click(object sender, RoutedEventArgs e)
+    {
+        FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
+        ToDatePicker.SelectedDate = DateTime.Today;
+        // Optionally clear the grid and summary to reflect reset
+        UnlocksDataGrid.ItemsSource = null;
+        TotalUnlocksInRangeText.Text = "0";
+        TotalPointsEarnedInRangeText.Text = "0";
+        NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay on reset
+    }
+
+    /// <summary>
+    /// Loads the user's overall game completion progress.
+    /// </summary>
+    private async Task LoadUserProgressAsync()
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            NoUserProgressOverlay.Visibility = Visibility.Collapsed;
+
+            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    NoUserProgressOverlay.Visibility = Visibility.Visible;
+                    NoUserProgressMainMessage.Text = "RetroAchievements username or API key is not set.";
+                    NoUserProgressSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+                });
+                return;
+            }
+
+            var userProgressList = await _raService.GetUserCompletionProgressAsync(_settings.RaUsername, _settings.RaApiKey);
+
+            Dispatcher.Invoke(() =>
+            {
+                if (userProgressList is { Count: > 0 })
+                {
+                    UserProgressDataGrid.ItemsSource = userProgressList;
+                    NoUserProgressOverlay.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    UserProgressDataGrid.ItemsSource = null;
+                    NoUserProgressOverlay.Visibility = Visibility.Visible;
+                    NoUserProgressMainMessage.Text = "No user completion progress found.";
+                    NoUserProgressSubMessage.Text = "This could be because you haven't played any games or the API request failed.";
+                }
+            });
+        }
+        catch (Exception ex)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                NoUserProgressOverlay.Visibility = Visibility.Visible;
+                NoUserProgressMainMessage.Text = "An error occurred while loading user completion progress.";
+                NoUserProgressSubMessage.Text = "Please try again or check your internet connection.";
+            });
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+            DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
+    private async void RefreshUserProgress_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+            await LoadUserProgressAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh user progress.");
         }
         finally
         {
