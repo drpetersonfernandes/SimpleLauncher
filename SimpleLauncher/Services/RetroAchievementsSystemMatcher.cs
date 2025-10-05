@@ -9,101 +9,116 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public static class RetroAchievementsSystemMatcher
 {
-    // Define system name mappings with fuzzy matching patterns
-    private static readonly Dictionary<string, string[]> SystemNameMappings = new()
+    /// <summary>
+    /// Holds information about a RetroAchievements system, including its ID and name aliases.
+    /// </summary>
+    public class RaSystemInfo
+    {
+        public int Id { get; }
+        public string[] Aliases { get; }
+
+        public RaSystemInfo(int id, string[] aliases)
+        {
+            Id = id;
+            Aliases = aliases;
+        }
+    }
+
+    // Define system name mappings with their official RA Console ID and fuzzy matching patterns.
+    private static readonly Dictionary<string, RaSystemInfo> SystemMappings = new()
     {
         // Nintendo systems
-        ["nintendo 64"] = ["nintendo 64", "n64", "nintendo64"],
-        ["nintendo entertainment system"] = ["nintendo entertainment system", "nes", "famicom"],
-        ["famicom disk system"] = ["famicom disk system", "fds"],
-        ["super nintendo entertainment system"] = ["super nintendo entertainment system", "snes", "super nintendo", "super famicom"],
-        ["game boy"] = ["game boy", "gb", "gameboy"],
-        ["game boy color"] = ["game boy color", "gbc", "gameboy color"],
-        ["game boy advance"] = ["game boy advance", "gba", "gameboy advance"],
-        ["gamecube"] = ["gamecube", "gc"],
-        ["wii"] = ["wii"],
-        ["wii u"] = ["wii u", "wiiu"],
-        ["nintendo 3ds"] = ["nintendo 3ds", "3ds"],
-        ["nintendo dsi"] = ["nintendo dsi", "dsi"],
-        ["nintendo ds"] = ["nintendo ds", "nds", "ds"],
-        ["virtual boy"] = ["virtual boy", "vb"],
-        ["pokemon mini"] = ["pokemon mini", "pokémon mini"],
+        ["nintendo 64"] = new RaSystemInfo(2, ["nintendo 64", "n64", "nintendo64"]),
+        ["super nintendo entertainment system"] = new RaSystemInfo(3, ["super nintendo entertainment system", "snes", "super nintendo", "super famicom"]),
+        ["game boy"] = new RaSystemInfo(4, ["game boy", "gb", "gameboy"]),
+        ["game boy advance"] = new RaSystemInfo(5, ["game boy advance", "gba", "gameboy advance"]),
+        ["game boy color"] = new RaSystemInfo(6, ["game boy color", "gbc", "gameboy color"]),
+        ["nintendo entertainment system"] = new RaSystemInfo(7, ["nintendo entertainment system", "nes", "famicom"]),
+        ["gamecube"] = new RaSystemInfo(16, ["gamecube", "gc"]),
+        ["nintendo ds"] = new RaSystemInfo(18, ["nintendo ds", "nds", "ds"]),
+        ["virtual boy"] = new RaSystemInfo(28, ["virtual boy", "vb"]),
+        ["pokemon mini"] = new RaSystemInfo(24, ["pokemon mini", "pokémon mini"]),
+        ["nintendo dsi"] = new RaSystemInfo(78, ["nintendo dsi", "dsi"]),
+        ["famicom disk system"] = new RaSystemInfo(81, ["famicom disk system", "fds"]),
+        ["wii"] = new RaSystemInfo(19, ["wii"]),
+        ["wii u"] = new RaSystemInfo(20, ["wii u", "wiiu"]),
+        ["nintendo 3ds"] = new RaSystemInfo(62, ["nintendo 3ds", "3ds"]),
 
         // Sega systems
-        ["genesis/mega drive"] = ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis"],
-        ["master system"] = ["master system", "mastersystem"],
-        ["game gear"] = ["game gear", "gamegear"],
-        ["sega cd"] = ["sega cd", "segacd"],
-        ["32x"] = ["32x", "sega 32x"],
-        ["saturn"] = ["saturn", "sega saturn"],
-        ["dreamcast"] = ["dreamcast", "sega dreamcast"],
-        ["sega pico"] = ["sega pico", "pico"],
+        ["genesis/mega drive"] = new RaSystemInfo(1, ["genesis/mega drive", "genesis", "mega drive", "megadrive", "sega genesis", "sega megadrive", "sega mega drive"]),
+        ["sega cd"] = new RaSystemInfo(9, ["sega cd", "segacd", "sega genesis cd", "genesis cd", "sega megadrive cd", "megadrive cd", "sega mega drive cd", "mega drive cd"]),
+        ["32x"] = new RaSystemInfo(10, ["32x", "sega 32x", "sega genesis 32x", "genesis 32x", "megadrive 32x", "mega drive 32x", "sega megadrive 32x", "mega drive 32x", "sega mega drive 32x"]),
+        ["master system"] = new RaSystemInfo(11, ["master system", "mastersystem", "mark3"]),
+        ["game gear"] = new RaSystemInfo(15, ["game gear", "gamegear", "sega game gear", "sega gamegear"]),
+        ["saturn"] = new RaSystemInfo(39, ["saturn", "sega saturn"]),
+        ["dreamcast"] = new RaSystemInfo(40, ["dreamcast", "sega dreamcast"]),
+        ["sg-1000"] = new RaSystemInfo(33, ["sg-1000", "sg1000", "sega sg-1000", "sega sg1000"]),
+        ["sega pico"] = new RaSystemInfo(68, ["sega pico", "pico"]),
 
         // Sony systems
-        ["playstation"] = ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation"],
-        ["playstation 2"] = ["playstation 2", "ps2", "sony playstation 2"],
-        ["playstation portable"] = ["playstation portable", "psp"],
+        ["playstation"] = new RaSystemInfo(12, ["playstation", "ps1", "psx", "playstation 1", "sony playstation 1", "sony playstation"]),
+        ["playstation 2"] = new RaSystemInfo(21, ["playstation 2", "ps2", "sony playstation 2"]),
+        ["playstation portable"] = new RaSystemInfo(41, ["playstation portable", "psp"]),
 
         // NEC systems
-        ["pc engine/turbografx-16"] = ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16"],
-        ["pc engine cd/turbografx-cd"] = ["pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pc-engine cd", "turbografx-cd", "turbografx cd", "pce-cd"],
-        ["supergrafx"] = ["supergrafx", "sgx"],
+        ["pc engine/turbografx-16"] = new RaSystemInfo(8, ["pc engine/turbografx-16", "pc engine", "pcengine", "pc-engine", "turbografx-16", "turbografx 16", "turbografx", "turbografx16", "pce", "tg16"]),
+        ["pc engine cd/turbografx-cd"] = new RaSystemInfo(76, ["pc engine cd/turbografx-cd", "pc engine cd", "pcengine cd", "pc-engine cd", "turbografx-cd", "turbografx cd", "pce-cd"]),
+        ["supergrafx"] = new RaSystemInfo(8, ["supergrafx", "sgx"]), // SuperGrafx uses the same core as PC Engine
 
         // Atari systems
-        ["atari 2600"] = ["atari 2600", "atari2600", "atari vcs"],
-        ["atari 7800"] = ["atari 7800", "atari7800"],
-        ["atari lynx"] = ["atari lynx", "lynx"],
-        ["atari jaguar"] = ["atari jaguar", "jaguar"],
-        ["atari jaguar cd"] = ["atari jaguar cd", "jaguar cd", "jaguarcd"],
-        ["atari 5200"] = ["atari 5200", "atari5200"],
-        ["atari st"] = ["atari st", "atari ste", "atarist"],
+        ["atari lynx"] = new RaSystemInfo(13, ["atari lynx", "lynx"]),
+        ["atari jaguar"] = new RaSystemInfo(17, ["atari jaguar", "jaguar"]),
+        ["atari 2600"] = new RaSystemInfo(25, ["atari 2600", "atari2600", "atari vcs"]),
+        ["atari 7800"] = new RaSystemInfo(51, ["atari 7800", "atari7800"]),
+        ["atari jaguar cd"] = new RaSystemInfo(77, ["atari jaguar cd", "jaguar cd", "jaguarcd"]),
+        ["atari 5200"] = new RaSystemInfo(50, ["atari 5200", "atari5200"]),
+        ["atari st"] = new RaSystemInfo(36, ["atari st", "atari ste", "atarist"]),
 
         // Other systems
-        ["arcade"] = ["arcade", "mame", "m.a.m.e."],
-        ["amstrad cpc"] = ["amstrad cpc", "cpc", "amstrad"],
-        ["apple ii"] = ["apple ii", "apple //", "apple2"],
-        ["colecovision"] = ["colecovision", "colecovision"],
-        ["intellivision"] = ["intellivision", "intv"],
-        ["msx"] = ["msx", "msx1", "msx2"],
-        ["pc-8000/8800"] = ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"],
-        ["wonderswan"] = ["wonderswan", "wonderswan color"],
-        ["neo geo pocket"] = ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc"],
-        ["neo geo cd"] = ["neo geo cd", "neogeo cd", "neo geo compact disc"],
-        ["commodore 64"] = ["commodore 64", "c64"],
-        ["amiga"] = ["amiga", "commodore amiga"],
-        ["zx spectrum"] = ["zx spectrum", "zxspectrum", "spectrum"],
-        ["vectrex"] = ["vectrex"],
-        ["magnavox odyssey 2"] = ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"],
-        ["fairchild channel f"] = ["fairchild channel f", "channel f"],
-        ["3do interactive multiplayer"] = ["3do interactive multiplayer", "3do"],
-        ["philips cd-i"] = ["philips cd-i", "cd-i"],
-        ["pc-fx"] = ["pc-fx", "pcfx"],
-        ["sharp x68000"] = ["sharp x68000", "x68000"],
-        ["sharp x1"] = ["sharp x1", "x1"],
-        ["oric"] = ["oric"],
-        ["thomson to8"] = ["thomson to8", "to8"],
-        ["cassette vision"] = ["cassette vision"],
-        ["super cassette vision"] = ["super cassette vision"],
-        ["watara supervision"] = ["watara supervision", "supervision"],
-        ["arduboy"] = ["arduboy"],
-        ["uzebox"] = ["uzebox"],
-        ["tic-80"] = ["tic-80"],
-        ["ti-83"] = ["ti-83"],
-        ["nokia n-gage"] = ["nokia n-gage", "n-gage"],
-        ["wasm-4"] = ["wasm-4"],
-        ["mega duck"] = ["mega duck", "creativision"],
-        ["sg-1000"] = ["sg-1000", "sg1000", "sega sg-1000", "sega sg1000"],
-        ["vic-20"] = ["vic-20", "vic20"],
-        ["zx81"] = ["zx81"],
-        ["pc-6000"] = ["pc-6000", "pc6000"],
-        ["game & watch"] = ["game & watch", "game and watch"],
-        ["elektor tv games computer"] = ["elektor tv games computer"],
-        ["interton vc 4000"] = ["interton vc 4000"],
-        ["arcadia 2001"] = ["arcadia 2001"],
-        ["fm towns"] = ["fm towns"],
-        ["hubs"] = ["hubs"],
-        ["events"] = ["events"],
-        ["standalone"] = ["standalone"]
+        ["arcade"] = new RaSystemInfo(27, ["arcade", "mame", "m.a.m.e."]),
+        ["neo geo pocket"] = new RaSystemInfo(14, ["neo geo pocket", "neo geo pocket color", "neogeo pocket", "neogeo pocket color", "ngp", "ngpc"]),
+        ["magnavox odyssey 2"] = new RaSystemInfo(23, ["magnavox odyssey 2", "odyssey 2", "odyssey2", "videopac g7000"]),
+        ["msx"] = new RaSystemInfo(29, ["msx", "msx1", "msx2"]),
+        ["amstrad cpc"] = new RaSystemInfo(37, ["amstrad cpc", "cpc", "amstrad"]),
+        ["apple ii"] = new RaSystemInfo(38, ["apple ii", "apple //", "apple2"]),
+        ["3do interactive multiplayer"] = new RaSystemInfo(43, ["3do interactive multiplayer", "3do"]),
+        ["colecovision"] = new RaSystemInfo(44, ["colecovision"]),
+        ["intellivision"] = new RaSystemInfo(45, ["intellivision", "intv"]),
+        ["vectrex"] = new RaSystemInfo(46, ["vectrex"]),
+        ["pc-fx"] = new RaSystemInfo(49, ["pc-fx", "pcfx"]),
+        ["wonderswan"] = new RaSystemInfo(53, ["wonderswan", "wonderswan color"]),
+        ["neo geo cd"] = new RaSystemInfo(56, ["neo geo cd", "neogeo cd", "neo geo compact disc"]),
+        ["watara supervision"] = new RaSystemInfo(63, ["watara supervision", "supervision"]),
+        ["mega duck"] = new RaSystemInfo(69, ["mega duck", "creativision"]),
+        ["arduboy"] = new RaSystemInfo(71, ["arduboy"]),
+        ["wasm-4"] = new RaSystemInfo(72, ["wasm-4"]),
+        ["pc-8000/8800"] = new RaSystemInfo(47, ["pc-8000/8800", "pc-8000", "pc-8800", "pc8000", "pc8800"]),
+        ["commodore 64"] = new RaSystemInfo(30, ["commodore 64", "c64"]),
+        ["amiga"] = new RaSystemInfo(35, ["amiga", "commodore amiga"]),
+        ["zx spectrum"] = new RaSystemInfo(59, ["zx spectrum", "zxspectrum", "spectrum"]),
+        ["fairchild channel f"] = new RaSystemInfo(57, ["fairchild channel f", "channel f"]),
+        ["philips cd-i"] = new RaSystemInfo(42, ["philips cd-i", "cd-i"]),
+        ["sharp x68000"] = new RaSystemInfo(52, ["sharp x68000", "x68000"]),
+        ["sharp x1"] = new RaSystemInfo(64, ["sharp x1", "x1"]),
+        ["oric"] = new RaSystemInfo(32, ["oric"]),
+        ["thomson to8"] = new RaSystemInfo(66, ["thomson to8", "to8"]),
+        ["cassette vision"] = new RaSystemInfo(54, ["cassette vision"]),
+        ["super cassette vision"] = new RaSystemInfo(55, ["super cassette vision"]),
+        ["uzebox"] = new RaSystemInfo(80, ["uzebox"]),
+        ["tic-80"] = new RaSystemInfo(65, ["tic-80"]),
+        ["ti-83"] = new RaSystemInfo(79, ["ti-83"]),
+        ["nokia n-gage"] = new RaSystemInfo(61, ["nokia n-gage", "n-gage"]),
+        ["vic-20"] = new RaSystemInfo(34, ["vic-20", "vic20"]),
+        ["zx81"] = new RaSystemInfo(31, ["zx81"]),
+        ["pc-6000"] = new RaSystemInfo(67, ["pc-6000", "pc6000"]),
+        ["game & watch"] = new RaSystemInfo(60, ["game & watch", "game and watch"]),
+        ["elektor tv games computer"] = new RaSystemInfo(75, ["elektor tv games computer"]),
+        ["interton vc 4000"] = new RaSystemInfo(74, ["interton vc 4000"]),
+        ["arcadia 2001"] = new RaSystemInfo(73, ["arcadia 2001"]),
+        ["fm towns"] = new RaSystemInfo(58, ["fm towns"]),
+        ["hubs"] = new RaSystemInfo(100, ["hubs"]),
+        ["events"] = new RaSystemInfo(101, ["events"]),
+        ["standalone"] = new RaSystemInfo(102, ["standalone"])
     };
 
     /// <summary>
@@ -119,27 +134,27 @@ public static class RetroAchievementsSystemMatcher
         var normalizedInput = inputSystemName.Trim().ToLowerInvariant();
 
         // Direct exact match (faster for common cases)
-        foreach (var kvp in SystemNameMappings)
+        foreach (var kvp in SystemMappings)
         {
-            if (kvp.Value.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
+            if (kvp.Value.Aliases.Any(pattern => pattern.Equals(normalizedInput, StringComparison.OrdinalIgnoreCase)))
             {
                 return kvp.Key;
             }
         }
 
         // Fuzzy matching - check if any pattern is contained within the input
-        foreach (var kvp in SystemNameMappings)
+        foreach (var kvp in SystemMappings)
         {
-            if (kvp.Value.Any(pattern => normalizedInput.Contains(pattern) || pattern.Contains(normalizedInput)))
+            if (kvp.Value.Aliases.Any(pattern => normalizedInput.Contains(pattern) || pattern.Contains(normalizedInput)))
             {
                 return kvp.Key;
             }
         }
 
         // Check for partial matches with higher similarity
-        foreach (var kvp in SystemNameMappings)
+        foreach (var kvp in SystemMappings)
         {
-            foreach (var pattern in kvp.Value)
+            foreach (var pattern in kvp.Value.Aliases)
             {
                 if (IsFuzzyMatch(normalizedInput, pattern))
                 {
@@ -148,8 +163,22 @@ public static class RetroAchievementsSystemMatcher
             }
         }
 
-        // No match found, return original
+        // No match found, log it for future improvement and return original.
+        DebugLogger.Log($"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+        _ = LogErrors.LogErrorAsync(null, $"[RA System Matcher] No match found for system name: '{inputSystemName}'. Consider adding it as an alias.");
+
         return normalizedInput;
+    }
+
+    /// <summary>
+    /// Gets the RetroAchievements Console ID for a given system name.
+    /// </summary>
+    /// <param name="inputSystemName">The system name to look up.</param>
+    /// <returns>The console ID, or -1 if not found.</returns>
+    public static int GetSystemId(string inputSystemName)
+    {
+        var bestMatch = GetBestMatchSystemName(inputSystemName);
+        return SystemMappings.TryGetValue(bestMatch, out var systemInfo) ? systemInfo.Id : -1;
     }
 
     /// <summary>

@@ -420,18 +420,19 @@ public static class ContextMenuFunctions
 
                 case "Complex":
                 {
-                    // For complex systems, we might need to rely on title matching if hashes are not simple MD5s
-                    // or if the RA database has specific entries for these systems not based on file hashes.
-                    var matchedGame = raManager.AllGames.FirstOrDefault(game => game.Title.Equals(fileNameWithoutExtension, StringComparison.OrdinalIgnoreCase));
-                    if (matchedGame != null)
+                    // Use the external RAHasher.exe tool for better accuracy.
+                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
+                    if (systemId > 0)
                     {
-                        DebugLogger.Log($"[RA Service] Found game match by filename: {matchedGame.Title} (ID: {matchedGame.Id})");
-                        var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
-                        achievementsWindow.Show();
+                        DebugLogger.Log($"[RA Service] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
+                        // For complex/disc-based systems, the original file path (even if compressed) is passed to the tool.
+                        // The tool handles reading from archives/disc images internally.
+                        var hash = await RetroAchievementsHasherTool.GetHashAsync(filePath, systemId);
+                        FindAndOpenAchievementsWindowByHash(hash);
                     }
                     else
                     {
-                        DebugLogger.Log($"[RA Service] No filename match found for game: {fileNameWithoutExtension}");
+                        DebugLogger.Log($"[RA Service] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
                         MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
                     }
 
@@ -448,9 +449,20 @@ public static class ContextMenuFunctions
 
                 case "HashWithByteSwapping":
                 {
-                    var hash = await RetroAchievementsFileHasher.CalculateHashWithByteSwappingAsync(fileToProcess);
-                    FindAndOpenAchievementsWindowByHash(hash);
-                    DebugLogger.Log($"[RA Service] Calculated hash for byte swapping: {hash}");
+                    // Use the external RAHasher.exe
+                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
+                    if (systemId > 0)
+                    {
+                        DebugLogger.Log($"[RA Service] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
+                        var hash = await RetroAchievementsHasherTool.GetHashAsync(fileToProcess, systemId);
+                        FindAndOpenAchievementsWindowByHash(hash);
+                    }
+                    else
+                    {
+                        DebugLogger.Log($"[RA Service] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
+                        MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                    }
+
                     break;
                 }
 

@@ -147,15 +147,15 @@
                         <StackPanel Orientation="Horizontal" Margin="0,0,0,20">
                             <StackPanel Margin="0,0,15,0">
                                 <TextBlock Text="Title Screen" FontSize="12" HorizontalAlignment="Center" />
-                                <Image x:Name="GameInfoTitleImage" Width="120" Height="90" Stretch="Uniform" Margin="0,5,0,0" />
+                                <Image x:Name="GameInfoTitleImage" Width="180" Height="135" Stretch="Uniform" Margin="0,5,0,0" />
                             </StackPanel>
                             <StackPanel Margin="15,0,15,0">
                                 <TextBlock Text="In-Game" FontSize="12" HorizontalAlignment="Center" />
-                                <Image x:Name="GameInfoIngameImage" Width="120" Height="90" Stretch="Uniform" Margin="0,5,0,0" />
+                                <Image x:Name="GameInfoIngameImage" Width="180" Height="135" Stretch="Uniform" Margin="0,5,0,0" />
                             </StackPanel>
                             <StackPanel Margin="15,0,0,0">
                                 <TextBlock Text="Box Art" FontSize="12" HorizontalAlignment="Center" />
-                                <Image x:Name="GameInfoBoxArtImage" Width="90" Height="120" Stretch="Uniform" Margin="0,5,0,0" />
+                                <Image x:Name="GameInfoBoxArtImage" Width="180" Height="135" Stretch="Uniform" Margin="0,5,0,0" />
                             </StackPanel>
                         </StackPanel>
 

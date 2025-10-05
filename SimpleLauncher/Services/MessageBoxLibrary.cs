@@ -3193,4 +3193,17 @@ internal static class MessageBoxLibrary
             MessageBox.Show(gamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted, gamelaunchtimedout, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void RaHasherNotFoundMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var raHasherexetoolnotfound = (string)Application.Current.TryFindResource("RAHasherexetoolnotfound") ?? "RAHasher.exe tool not found";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(raHasherexetoolnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }
