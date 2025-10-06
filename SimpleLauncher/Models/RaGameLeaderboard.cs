@@ -9,16 +9,16 @@ namespace SimpleLauncher.Models;
 public class RaGameLeaderboardTopEntry
 {
     [JsonPropertyName("User")]
-    public string User { get; set; } = "";
+    public string User { get; set; } = string.Empty;
 
     [JsonPropertyName("ULID")]
-    public string Ulid { get; set; } = "";
+    public string Ulid { get; set; } = string.Empty;
 
     [JsonPropertyName("Score")]
-    public string Score { get; set; } = ""; // API returns as string
+    public string Score { get; set; } = string.Empty;
 
     [JsonPropertyName("FormattedScore")]
-    public string FormattedScore { get; set; } = "";
+    public string FormattedScore { get; set; } = string.Empty;
 }
 
 /// <summary>
@@ -33,22 +33,22 @@ public class RaGameLeaderboard
     public bool RankAsc { get; set; }
 
     [JsonPropertyName("Title")]
-    public string Title { get; set; } = "";
+    public string Title { get; set; } = string.Empty;
 
     [JsonPropertyName("Description")]
-    public string Description { get; set; } = "";
+    public string Description { get; set; } = string.Empty;
 
     [JsonPropertyName("Format")]
-    public string Format { get; set; } = "";
+    public string Format { get; set; } = string.Empty;
 
     [JsonPropertyName("Author")]
-    public string Author { get; set; } = "";
+    public string Author { get; set; } = string.Empty;
 
     [JsonPropertyName("AuthorULID")]
-    public string AuthorUlid { get; set; } = "";
+    public string AuthorUlid { get; set; } = string.Empty;
 
     [JsonPropertyName("TopEntry")]
-    public RaGameLeaderboardTopEntry TopEntry { get; set; } = new(); // Initialize to avoid null reference
+    public RaGameLeaderboardTopEntry TopEntry { get; set; } = new();
 }
 
 /// <summary>
@@ -63,5 +63,5 @@ public class RaGameLeaderboardResponse
     public int Total { get; set; }
 
     [JsonPropertyName("Results")]
-    public List<RaGameLeaderboard> Results { get; set; } = [];
+    public List<RaGameLeaderboard> Results { get; set; } = new();
 }

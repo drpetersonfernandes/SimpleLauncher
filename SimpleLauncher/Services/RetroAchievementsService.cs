@@ -27,6 +27,69 @@ public class RetroAchievementsService
     }
 
     /// <summary>
+    /// Fetches a list of games with the highest count of opened achievement tickets.
+    /// https://retroachievements.org/API/API_GetTicketData.php?f=1
+    /// </summary>
+    /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
+    /// <param name="count">Number of records to return (default: 10, max: 100).</param>
+    /// <param name="offset">Number of entries to skip (default: 0).</param>
+    /// <returns>A list of <see cref="RaMostReportedGame"/>, or null if an error occurs.</returns>
+    public async Task<List<RaMostReportedGame>> GetMostTicketedGamesAsync(string apiKey, int count = 10, int offset = 0)
+    {
+        if (string.IsNullOrWhiteSpace(apiKey))
+        {
+            DebugLogger.Log("[RA Service] API Key is missing for GetMostTicketedGamesAsync.");
+            return null;
+        }
+
+        var cacheKey = $"MostTicketedGames_{count}_{offset}";
+        if (_cache.TryGetValue(cacheKey, out List<RaMostReportedGame> cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
+        try
+        {
+            DebugLogger.Log($"[RA Service] Fetching most ticketed games (Count: {count}, Offset: {offset})...");
+
+            // 'f=1' is required for 'Most Ticketed Games'
+            var url = $"{ApiBaseUrl}API_GetTicketData.php?f=1&c={count}&o={offset}&y={Uri.EscapeDataString(apiKey)}";
+
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetTicketData failed with status {response.StatusCode}: {error}");
+                return null;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var apiResponse = JsonSerializer.Deserialize<RaMostReportedGamesResponse>(json);
+
+            if (apiResponse?.MostReportedGames == null) return null;
+
+            // The API returns GameIcon as "/Images/..." so we need to prepend the base URL
+            foreach (var game in apiResponse.MostReportedGames)
+            {
+                if (!string.IsNullOrEmpty(game.GameIcon) && !game.GameIcon.StartsWith(SiteBaseUrl, StringComparison.OrdinalIgnoreCase))
+                {
+                    game.GameIcon = $"{SiteBaseUrl}{game.GameIcon}";
+                }
+            }
+
+            _cache.Set(cacheKey, apiResponse.MostReportedGames, TimeSpan.FromMinutes(30)); // Cache for 30 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return apiResponse.MostReportedGames;
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "[RA Service] Unexpected error in GetMostTicketedGamesAsync.");
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Fetches the user's progress and achievement list for a specific game ID.
     /// https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameInfoAndUserProgress.php
     /// </summary>
@@ -158,6 +221,84 @@ public class RetroAchievementsService
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtended for gameId {gameId}.");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Fetches the user's rank and score for a specific game.
+    /// https://retroachievements.org/API/API_GetUserGameRankAndScore.php
+    /// </summary>
+    public async Task<List<RaUserGameRank>> GetUserGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
+
+        var cacheKey = $"UserGameRankAndScore_{username}_{gameId}";
+        if (_cache.TryGetValue(cacheKey, out List<RaUserGameRank> cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
+        try
+        {
+            var url = $"{ApiBaseUrl}API_GetUserGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetUserGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                return null;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<List<RaUserGameRank>>(json);
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Fetches the leaderboards for a specific game.
+    /// https://retroachievements.org/API/API_GetGameLeaderboards.php
+    /// </summary>
+    public async Task<RaGameLeaderboardResponse> GetGameLeaderboardsAsync(int gameId, string username, string apiKey, int count = 100, int offset = 0)
+    {
+        if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
+
+        var cacheKey = $"GameLeaderboards_{gameId}_{count}_{offset}";
+        if (_cache.TryGetValue(cacheKey, out RaGameLeaderboardResponse cachedResult))
+        {
+            DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
+            return cachedResult;
+        }
+
+        try
+        {
+            var url = $"{ApiBaseUrl}API_GetGameLeaderboards.php?i={gameId}&y={Uri.EscapeDataString(apiKey)}&c={count}&o={offset}";
+            var response = await _httpClient.GetAsync(url);
+            if (!response.IsSuccessStatusCode)
+            {
+                var error = await response.Content.ReadAsStringAsync();
+                _ = LogErrors.LogErrorAsync(null, $"[RA Service] API_GetGameLeaderboards failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                return null;
+            }
+
+            var json = await response.Content.ReadAsStringAsync();
+            var result = JsonSerializer.Deserialize<RaGameLeaderboardResponse>(json);
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+            DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+            return result;
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameLeaderboardsAsync for gameId {gameId}.");
             return null;
         }
     }

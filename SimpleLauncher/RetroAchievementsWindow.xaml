@@ -291,31 +291,71 @@
             </TabItem>
 
             <TabItem Header="Game Ranking |">
-                <Grid>
-                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,5">
-                        <Button Content="Refresh Rankings" Click="RefreshRankings_Click" Padding="10,5" />
-                    </StackPanel>
-                    <DataGrid Name="RankingsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" 
-                              d:DataContext="{d:DesignInstance }" Sorting="RankingsDataGrid_OnSorting">
-                        <DataGrid.Columns>
-                            <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" />
-                            <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" SortMemberPath="User" />
-                            <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" SortMemberPath="Score" />
-                            <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" />
-                            <DataGridTextColumn Header="Achievements" Binding="{Binding NumAchievements}" Width="Auto" SortMemberPath="NumAchievements" />
-                            <DataGridTextColumn Header="Last Award" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-                    <Grid x:Name="NoRankingsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock Text="No rankings available for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" />
-                            <TextBlock Text="This could be because the game has no achievements or the API request failed." 
-                                       VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" 
-                                       Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
+    <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+        <StackPanel>
+            <!-- High Scores Section -->
+            <TextBlock Text="High Scores" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+            <DataGrid Name="HighScoresDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,10" 
+                      Visibility="Visible" d:DataContext="{d:DesignInstance }">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" />
+                    <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" SortMemberPath="User" />
+                    <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" SortMemberPath="Score" />
+                    <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" />
+                    <DataGridTextColumn Header="Achievements" Binding="{Binding NumAchievements}" Width="Auto" SortMemberPath="NumAchievements" />
+                    <DataGridTextColumn Header="Last Award" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,20">
+                <Button Content="Refresh High Scores" Click="RefreshHighScores_Click" Padding="10,5" />
+            </StackPanel>
+
+            <!-- Game Rank and Score Section -->
+            <TextBlock Text="Your Rank and Score" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+            <Grid Margin="0,0,0,10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="*" />
+                </Grid.ColumnDefinitions>
+                <TextBlock Grid.Row="0" Grid.Column="0" Text="Rank:" FontWeight="Bold" Margin="0,0,10,5" />
+                <TextBlock Grid.Row="0" Grid.Column="1" x:Name="UserRankText" Margin="0,0,0,5" />
+                <TextBlock Grid.Row="1" Grid.Column="0" Text="Score:" FontWeight="Bold" Margin="0,0,10,5" />
+                <TextBlock Grid.Row="1" Grid.Column="1" x:Name="UserScoreText" Margin="0,0,0,5" />
+                <TextBlock Grid.Row="2" Grid.Column="0" Text="Last Award:" FontWeight="Bold" Margin="0,0,10,5" />
+                <TextBlock Grid.Row="2" Grid.Column="1" x:Name="UserLastAwardText" Margin="0,0,0,5" />
+                <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" x:Name="NoUserRankOverlay" 
+                           Text="No rank data available. Ensure your RetroAchievements credentials are set." 
+                           Visibility="Collapsed" Foreground="Gray" Margin="0,10,0,0" />
+            </Grid>
+
+            <!-- Game Leaderboards Section -->
+            <TextBlock Text="Game Leaderboards" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
+            <DataGrid Name="LeaderboardsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,10" d:DataContext="{d:DesignInstance }">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" SortMemberPath="Title" />
+                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*" SortMemberPath="Description" />
+                    <DataGridTextColumn Header="Format" Binding="{Binding Format}" Width="Auto" SortMemberPath="Format" />
+                    <DataGridTextColumn Header="Top User" Binding="{Binding TopEntry.User}" Width="Auto" SortMemberPath="TopEntry.User" />
+                    <DataGridTextColumn Header="Top Score" Binding="{Binding TopEntry.FormattedScore}" Width="Auto" SortMemberPath="TopEntry.Score" />
+                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto" SortMemberPath="Author" />
+                </DataGrid.Columns>
+            </DataGrid>
+            <!-- NEW: Overlay for no leaderboards message -->
+            <Grid x:Name="NoLeaderboardsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed" Margin="0,10,0,10">
+                <TextBlock x:Name="NoLeaderboardsMessageText" Text="No leaderboards found for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="Gray" />
+            </Grid>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,0,0,10">
+                <Button Content="Refresh Leaderboards" Click="RefreshLeaderboards_Click" Padding="10,5" />
+            </StackPanel>
+        </StackPanel>
+    </ScrollViewer>
+</TabItem>
             
             <TabItem Header="My Profile |">
                 <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
@@ -562,7 +602,7 @@
             </TabItem>
             
             <!-- User Progress -->
-            <TabItem Header="User Progress">
+            <TabItem Header="User Progress |">
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="Auto" />
@@ -596,6 +636,42 @@
                         <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                             <TextBlock x:Name="NoUserProgressMainMessage" Text="Could not load user completion progress." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" />
                             <TextBlock x:Name="NoUserProgressSubMessage" Text="Please check your username and API key in settings, or try again later." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
+                            <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" />
+                        </StackPanel>
+                    </Grid>
+                </Grid>
+            </TabItem>
+            
+            <TabItem Header="Top Games">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" Margin="0,5,10,5">
+                        <Button Content="Refresh Top Games" Click="RefreshTopGames_Click" Padding="10,5" />
+                    </StackPanel>
+
+                    <DataGrid Grid.Row="1" Name="TopGamesDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,0,10,10" d:DataContext="{d:DesignInstance }">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Icon" Width="Auto">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <Image Source="{Binding GameIcon}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Game Title" Binding="{Binding GameTitle}" Width="2*" SortMemberPath="GameTitle" />
+                            <DataGridTextColumn Header="Console" Binding="{Binding Console}" Width="*" SortMemberPath="Console" />
+                            <DataGridTextColumn Header="Open Tickets" Binding="{Binding OpenTickets}" Width="Auto" SortMemberPath="OpenTickets" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+
+                    <Grid x:Name="NoTopGamesOverlay" Grid.Row="0" Grid.RowSpan="2" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                            <TextBlock x:Name="NoTopGamesMainMessage" Text="Could not load top games." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" />
+                            <TextBlock x:Name="NoTopGamesSubMessage" Text="Please check your API key in settings, or try again later." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
                             <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" />
                         </StackPanel>
                     </Grid>
