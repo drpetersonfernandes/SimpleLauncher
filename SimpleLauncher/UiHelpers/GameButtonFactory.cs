@@ -187,181 +187,187 @@ public class GameButtonFactory(
         starImage.SetBinding(UIElement.VisibilityProperty, binding);
         grid.Children.Add(starImage); // Add the star overlay to the grid.
 
-        // Add the RetroAchievements trophy icon overlay
-        var trophyButton = new Button
+        if (_settings.OverlayRetroAchievementButton == true)
         {
-            Width = 22,
-            Height = 22,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(5),
-            Cursor = Cursors.Hand,
-            ToolTip = "View Achievements",
-            Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
-        };
-
-        var trophyImage = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
-            Stretch = Stretch.Uniform
-        };
-        trophyButton.Content = trophyImage;
-
-        var context = new RightClickContext(
-            absoluteFilePath,
-            fileNameWithExtension,
-            fileNameWithoutExtension,
-            selectedSystemName,
-            selectedSystemManager,
-            _machines,
-            _favoritesManager,
-            _settings,
-            _emulatorComboBox,
-            null,
-            null,
-            _gameFileGrid,
-            null,
-            _mainWindow
-        );
-
-        trophyButton.Click += async (s, e) =>
-        {
-            try
+            // Add the RetroAchievements trophy icon overlay
+            var trophyButton = new Button
             {
-                // Prevent the main button's click event from firing
-                e.Handled = true;
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5),
+                Cursor = Cursors.Hand,
+                ToolTip = "View Achievements",
+                Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+            };
 
-                PlaySoundEffects.PlayNotificationSound();
+            var trophyImage = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/trophy.png")),
+                Stretch = Stretch.Uniform
+            };
+            trophyButton.Content = trophyImage;
 
-                // Show loading indicator immediately by setting the property (UI updates via binding)
-                if (context.MainWindow != null)
-                {
-                    context.MainWindow.IsLoadingGames = true;
-                }
+            var context = new RightClickContext(
+                absoluteFilePath,
+                fileNameWithExtension,
+                fileNameWithoutExtension,
+                selectedSystemName,
+                selectedSystemManager,
+                _machines,
+                _favoritesManager,
+                _settings,
+                _emulatorComboBox,
+                null,
+                null,
+                _gameFileGrid,
+                null,
+                _mainWindow
+            );
 
+            trophyButton.Click += async (s, e) =>
+            {
                 try
                 {
-                    await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                    // Prevent the main button's click event from firing
+                    e.Handled = true;
+
+                    PlaySoundEffects.PlayNotificationSound();
+
+                    // Show loading indicator immediately by setting the property (UI updates via binding)
+                    if (context.MainWindow != null)
+                    {
+                        context.MainWindow.IsLoadingGames = true;
+                    }
+
+                    try
+                    {
+                        await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hide loading indicator on error
+                        if (context.MainWindow != null)
+                        {
+                            context.MainWindow.IsLoadingGames = false;
+                        }
+
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+
+                        // Notify user
+                        MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+                    }
+                    finally
+                    {
+                        // Ensure loading indicator is hidden after async work (success or error)
+                        if (context.MainWindow != null)
+                        {
+                            context.MainWindow.IsLoadingGames = false;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Hide loading indicator on error
-                    if (context.MainWindow != null)
-                    {
-                        context.MainWindow.IsLoadingGames = false;
-                    }
-
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
+                    _ = LogErrors.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
+                    DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
                 }
-                finally
-                {
-                    // Ensure loading indicator is hidden after async work (success or error)
-                    if (context.MainWindow != null)
-                    {
-                        context.MainWindow.IsLoadingGames = false;
-                    }
-                }
-            }
-            catch (Exception ex)
+            };
+
+            grid.Children.Add(trophyButton);
+        }
+
+        if (_settings.OverlayOpenVideoButton == true)
+        {
+            // Add the Video Link icon overlay
+            var videoLinkButton = new Button
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
-                DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
-            }
-        };
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5, 32, 5, 5),
+                Cursor = Cursors.Hand,
+                ToolTip = "View Video",
+                Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+            };
 
-        grid.Children.Add(trophyButton);
-
-        // Add the Video Link icon overlay
-        var videoLinkButton = new Button
-        {
-            Width = 22,
-            Height = 22,
-            HorizontalAlignment = HorizontalAlignment.Right,
-            VerticalAlignment = VerticalAlignment.Top,
-            Margin = new Thickness(5, 32, 5, 5),
-            Cursor = Cursors.Hand,
-            ToolTip = "View Video",
-            Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
-        };
-
-        var videoLinkImage = new Image
-        {
-            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
-            Stretch = Stretch.Uniform
-        };
-        videoLinkButton.Content = videoLinkImage;
-
-        var context2 = new RightClickContext(
-            absoluteFilePath,
-            fileNameWithExtension,
-            fileNameWithoutExtension,
-            selectedSystemName,
-            selectedSystemManager,
-            _machines,
-            _favoritesManager,
-            _settings,
-            _emulatorComboBox,
-            null,
-            null,
-            _gameFileGrid,
-            null,
-            _mainWindow
-        );
-
-        videoLinkButton.Click += (s, e) =>
-        {
-            try
+            var videoLinkImage = new Image
             {
-                // Prevent the main button's click event from firing
-                e.Handled = true;
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+                Stretch = Stretch.Uniform
+            };
+            videoLinkButton.Content = videoLinkImage;
 
-                PlaySoundEffects.PlayNotificationSound();
+            var context2 = new RightClickContext(
+                absoluteFilePath,
+                fileNameWithExtension,
+                fileNameWithoutExtension,
+                selectedSystemName,
+                selectedSystemManager,
+                _machines,
+                _favoritesManager,
+                _settings,
+                _emulatorComboBox,
+                null,
+                null,
+                _gameFileGrid,
+                null,
+                _mainWindow
+            );
 
-                // Show loading indicator immediately by setting the property (UI updates via binding)
-                if (context2.MainWindow != null)
-                {
-                    context2.MainWindow.IsLoadingGames = true;
-                }
-
+            videoLinkButton.Click += (s, e) =>
+            {
                 try
                 {
-                    ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                    // Prevent the main button's click event from firing
+                    e.Handled = true;
+
+                    PlaySoundEffects.PlayNotificationSound();
+
+                    // Show loading indicator immediately by setting the property (UI updates via binding)
+                    if (context2.MainWindow != null)
+                    {
+                        context2.MainWindow.IsLoadingGames = true;
+                    }
+
+                    try
+                    {
+                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hide loading indicator on error
+                        if (context2.MainWindow != null)
+                        {
+                            context2.MainWindow.IsLoadingGames = false;
+                        }
+
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
+
+                        // Notify user
+                        MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
+                    }
+                    finally
+                    {
+                        // Ensure loading indicator is hidden after async work (success or error)
+                        if (context2.MainWindow != null)
+                        {
+                            context2.MainWindow.IsLoadingGames = false;
+                        }
+                    }
                 }
                 catch (Exception ex)
                 {
-                    // Hide loading indicator on error
-                    if (context2.MainWindow != null)
-                    {
-                        context2.MainWindow.IsLoadingGames = false;
-                    }
-
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
-
-                    // Notify user
-                    MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
+                    _ = LogErrors.LogErrorAsync(ex, "Error opening the video Link.");
+                    DebugLogger.Log($"Error opening the video link: {ex.Message}");
                 }
-                finally
-                {
-                    // Ensure loading indicator is hidden after async work (success or error)
-                    if (context2.MainWindow != null)
-                    {
-                        context2.MainWindow.IsLoadingGames = false;
-                    }
-                }
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error opening the video Link.");
-                DebugLogger.Log($"Error opening the video link: {ex.Message}");
-            }
-        };
+            };
 
-        grid.Children.Add(videoLinkButton);
+            grid.Children.Add(videoLinkButton);
+        }
 
         // Set the DataContext of the grid to the view model.
         grid.DataContext = viewModel;
@@ -446,7 +452,6 @@ public class GameButtonFactory(
             }
         };
 
-        // *** FIX: Update the context with the created button ***
         context.Button = _button;
 
         return ContextMenu.AddRightClickReturnButton(context);
