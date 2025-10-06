@@ -88,19 +88,19 @@ public class GameListFactory(
             FileSizeBytes = -1 // Initialize to "Calculating..." state via the backing field
         };
 
-        // Placeholder logic for achievements
-        if (fileNameWithoutExtension.Contains("mario", StringComparison.OrdinalIgnoreCase))
-        {
-            gameListViewItem.HasAchievements = true;
-            gameListViewItem.AchievementsEarned = 15;
-            gameListViewItem.AchievementsTotal = 50;
-        }
-        else
-        {
-            gameListViewItem.HasAchievements = false;
-            gameListViewItem.AchievementsEarned = 0;
-            gameListViewItem.AchievementsTotal = 0;
-        }
+        // // Placeholder logic for achievements
+        // if (fileNameWithoutExtension.Contains("mario", StringComparison.OrdinalIgnoreCase))
+        // {
+        //     gameListViewItem.HasAchievements = true;
+        //     gameListViewItem.AchievementsEarned = 15;
+        //     gameListViewItem.AchievementsTotal = 50;
+        // }
+        // else
+        // {
+        //     gameListViewItem.HasAchievements = false;
+        //     gameListViewItem.AchievementsEarned = 0;
+        //     gameListViewItem.AchievementsTotal = 0;
+        // }
 
         // Asynchronously calculate and set the file size.
         // Capture the necessary variables for the closure.

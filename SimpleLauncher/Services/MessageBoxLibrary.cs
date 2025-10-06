@@ -3211,4 +3211,9 @@ internal static class MessageBoxLibrary
     {
         throw new NotImplementedException();
     }
+
+    public static void CouldNotOpenInfoLinkMessageBox()
+    {
+        throw new NotImplementedException();
+    }
 }

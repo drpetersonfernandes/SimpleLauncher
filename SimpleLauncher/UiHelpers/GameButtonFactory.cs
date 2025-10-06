@@ -187,6 +187,23 @@ public class GameButtonFactory(
         starImage.SetBinding(UIElement.VisibilityProperty, binding);
         grid.Children.Add(starImage); // Add the star overlay to the grid.
 
+        var context = new RightClickContext(
+            absoluteFilePath,
+            fileNameWithExtension,
+            fileNameWithoutExtension,
+            selectedSystemName,
+            selectedSystemManager,
+            _machines,
+            _favoritesManager,
+            _settings,
+            _emulatorComboBox,
+            null,
+            null,
+            _gameFileGrid,
+            null,
+            _mainWindow
+        );
+
         if (_settings.OverlayRetroAchievementButton == true)
         {
             // Add the RetroAchievements trophy icon overlay
@@ -196,7 +213,7 @@ public class GameButtonFactory(
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5),
+                Margin = new Thickness(5, 5, 5, 32),
                 Cursor = Cursors.Hand,
                 ToolTip = "View Achievements",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -208,23 +225,6 @@ public class GameButtonFactory(
                 Stretch = Stretch.Uniform
             };
             trophyButton.Content = trophyImage;
-
-            var context = new RightClickContext(
-                absoluteFilePath,
-                fileNameWithExtension,
-                fileNameWithoutExtension,
-                selectedSystemName,
-                selectedSystemManager,
-                _machines,
-                _favoritesManager,
-                _settings,
-                _emulatorComboBox,
-                null,
-                null,
-                _gameFileGrid,
-                null,
-                _mainWindow
-            );
 
             trophyButton.Click += async (s, e) =>
             {
@@ -287,7 +287,7 @@ public class GameButtonFactory(
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 32, 5, 5),
+                Margin = new Thickness(5, 5, 5, 54),
                 Cursor = Cursors.Hand,
                 ToolTip = "View Video",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -300,23 +300,6 @@ public class GameButtonFactory(
             };
             videoLinkButton.Content = videoLinkImage;
 
-            var context2 = new RightClickContext(
-                absoluteFilePath,
-                fileNameWithExtension,
-                fileNameWithoutExtension,
-                selectedSystemName,
-                selectedSystemManager,
-                _machines,
-                _favoritesManager,
-                _settings,
-                _emulatorComboBox,
-                null,
-                null,
-                _gameFileGrid,
-                null,
-                _mainWindow
-            );
-
             videoLinkButton.Click += (s, e) =>
             {
                 try
@@ -327,9 +310,9 @@ public class GameButtonFactory(
                     PlaySoundEffects.PlayNotificationSound();
 
                     // Show loading indicator immediately by setting the property (UI updates via binding)
-                    if (context2.MainWindow != null)
+                    if (context.MainWindow != null)
                     {
-                        context2.MainWindow.IsLoadingGames = true;
+                        context.MainWindow.IsLoadingGames = true;
                     }
 
                     try
@@ -339,9 +322,9 @@ public class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Hide loading indicator on error
-                        if (context2.MainWindow != null)
+                        if (context.MainWindow != null)
                         {
-                            context2.MainWindow.IsLoadingGames = false;
+                            context.MainWindow.IsLoadingGames = false;
                         }
 
                         // Notify developer
@@ -353,9 +336,9 @@ public class GameButtonFactory(
                     finally
                     {
                         // Ensure loading indicator is hidden after async work (success or error)
-                        if (context2.MainWindow != null)
+                        if (context.MainWindow != null)
                         {
-                            context2.MainWindow.IsLoadingGames = false;
+                            context.MainWindow.IsLoadingGames = false;
                         }
                     }
                 }
@@ -367,6 +350,80 @@ public class GameButtonFactory(
             };
 
             grid.Children.Add(videoLinkButton);
+        }
+
+        if (_settings.OverlayOpenInfoButton == true)
+        {
+            // Add the Info Link icon overlay
+            var infoLinkButton = new Button
+            {
+                Width = 22,
+                Height = 22,
+                HorizontalAlignment = HorizontalAlignment.Right,
+                VerticalAlignment = VerticalAlignment.Top,
+                Margin = new Thickness(5),
+                Cursor = Cursors.Hand,
+                ToolTip = "View Info",
+                Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+            };
+
+            var infoLinkImage = new Image
+            {
+                Source = new BitmapImage(new Uri("pack://application:,,,/images/info.png")),
+                Stretch = Stretch.Uniform
+            };
+            infoLinkButton.Content = infoLinkImage;
+
+            infoLinkButton.Click += (s, e) =>
+            {
+                try
+                {
+                    // Prevent the main button's click event from firing
+                    e.Handled = true;
+
+                    PlaySoundEffects.PlayNotificationSound();
+
+                    // Show loading indicator immediately by setting the property (UI updates via binding)
+                    if (context.MainWindow != null)
+                    {
+                        context.MainWindow.IsLoadingGames = true;
+                    }
+
+                    try
+                    {
+                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                    }
+                    catch (Exception ex)
+                    {
+                        // Hide loading indicator on error
+                        if (context.MainWindow != null)
+                        {
+                            context.MainWindow.IsLoadingGames = false;
+                        }
+
+                        // Notify developer
+                        _ = LogErrors.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
+
+                        // Notify user
+                        MessageBoxLibrary.CouldNotOpenInfoLinkMessageBox();
+                    }
+                    finally
+                    {
+                        // Ensure loading indicator is hidden after async work (success or error)
+                        if (context.MainWindow != null)
+                        {
+                            context.MainWindow.IsLoadingGames = false;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error opening the info Link.");
+                    DebugLogger.Log($"Error opening the info link: {ex.Message}");
+                }
+            };
+
+            grid.Children.Add(infoLinkButton);
         }
 
         // Set the DataContext of the grid to the view model.

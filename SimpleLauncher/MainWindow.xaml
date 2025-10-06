@@ -949,9 +949,7 @@
                             <Style TargetType="DataGridRow">
                                 <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
                                 <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                <!-- Text color from theme -->
                                 <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.ThemeBackground}" />
-                                <!-- Row background from theme -->
                                 <!-- Set initial opacity to 0 for the fade-in effect -->
                                 <Setter Property="Opacity" Value="0" />
 
@@ -968,17 +966,11 @@
                                     </EventTrigger>
                                     <Trigger Property="IsMouseOver" Value="True">
                                         <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                        <!-- Accent color for selected row -->
-                                        <Setter Property="Foreground"
-                                            Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
-                                        <!-- Keep text color from theme on hover -->
+                                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.ThemeForeground}" />
                                     </Trigger>
                                     <Trigger Property="IsSelected" Value="True">
                                         <Setter Property="Background" Value="{DynamicResource MahApps.Brushes.Accent}" />
-                                        <!-- Accent color for selected row -->
-                                        <Setter Property="Foreground"
-                                            Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
-                                        <!-- Ideal foreground color on selection -->
+                                        <Setter Property="Foreground" Value="{DynamicResource MahApps.Brushes.IdealForeground}" />
                                     </Trigger>
                                 </Style.Triggers>
                             </Style>
@@ -997,22 +989,22 @@
                             <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
                             <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                             <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                            <DataGridTemplateColumn Header="Achievements" Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <StackPanel Orientation="Horizontal"
-                                                    Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                                    HorizontalAlignment="Center" VerticalAlignment="Center" d:DataContext="{d:DesignInstance }">
-                                            <!-- Trophy Icon -->
-                                            <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" Margin="0,0,5,0" />
-                                            <!-- Achievements Earned / Total -->
-                                            <TextBlock Text="{Binding AchievementsEarned}" VerticalAlignment="Center" />
-                                            <TextBlock Text="/" VerticalAlignment="Center" />
-                                            <TextBlock Text="{Binding AchievementsTotal}" VerticalAlignment="Center" />
-                                        </StackPanel>
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
+                            <!-- <DataGridTemplateColumn Header="Achievements" Width="Auto"> -->
+                            <!--     <DataGridTemplateColumn.CellTemplate> -->
+                            <!--         <DataTemplate> -->
+                            <!--             <StackPanel Orientation="Horizontal" -->
+                            <!--                         Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}" -->
+                            <!--                         HorizontalAlignment="Center" VerticalAlignment="Center" d:DataContext="{d:DesignInstance }"> -->
+                            <!--                 ~1~ Trophy Icon @1@ -->
+                            <!--                 <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" Margin="0,0,5,0" /> -->
+                            <!--                 ~1~ Achievements Earned / Total @1@ -->
+                            <!--                 <TextBlock Text="{Binding AchievementsEarned}" VerticalAlignment="Center" /> -->
+                            <!--                 <TextBlock Text="/" VerticalAlignment="Center" /> -->
+                            <!--                 <TextBlock Text="{Binding AchievementsTotal}" VerticalAlignment="Center" /> -->
+                            <!--             </StackPanel> -->
+                            <!--         </DataTemplate> -->
+                            <!--     </DataGridTemplateColumn.CellTemplate> -->
+                            <!-- </DataGridTemplateColumn> -->
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                         </DataGrid.Columns>
