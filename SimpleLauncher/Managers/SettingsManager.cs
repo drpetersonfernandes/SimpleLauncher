@@ -47,6 +47,9 @@ public class SettingsManager
     public string CustomNotificationSoundFile { get; set; }
     public string RaUsername { get; set; }
     public string RaApiKey { get; set; }
+    public bool OverlayRetroAchievementButton { get; set; }
+    public bool OverlayOpenVideoButton { get; set; }
+    public bool OverlayOpenInfoButton { get; set; }
 
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
@@ -138,6 +141,9 @@ public class SettingsManager
                 CustomNotificationSoundFile = DefaultNotificationSoundFileName;
             }
 
+            OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", true);
+            OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
+            OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", true);
 
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
@@ -254,6 +260,9 @@ public class SettingsManager
         CustomNotificationSoundFile = DefaultNotificationSoundFileName;
         RaUsername = string.Empty;
         RaApiKey = string.Empty;
+        OverlayRetroAchievementButton = true;
+        OverlayOpenVideoButton = true;
+        OverlayOpenInfoButton = true;
         SystemPlayTimes = [];
         Save();
     }
@@ -294,6 +303,9 @@ public class SettingsManager
             new XElement("CustomNotificationSoundFile", CustomNotificationSoundFile),
             new XElement("RA_Username", RaUsername),
             new XElement("RA_ApiKey", RaApiKey),
+            new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
+            new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
+            new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
             systemPlayTimesElement
         ).Save(_filePath);
     }

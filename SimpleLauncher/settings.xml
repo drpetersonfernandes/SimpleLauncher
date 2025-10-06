@@ -1,18 +1,31 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
-  <ThumbnailSize>250</ThumbnailSize>
-  <GamesPerPage>200</GamesPerPage>
-  <ViewMode>GridView</ViewMode>
-  <ShowGames>ShowAll</ShowGames>
-  <EnableGamePadNavigation>false</EnableGamePadNavigation>
-  <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
-  <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
-  <MainWindowWidth>1500</MainWindowWidth>
-  <MainWindowHeight>800</MainWindowHeight>
-  <MainWindowTop>100</MainWindowTop>
-  <MainWindowLeft>100</MainWindowLeft>
-  <MainWindowState>Normal</MainWindowState>
-  <BaseTheme>Light</BaseTheme>
-  <AccentColor>Blue</AccentColor>
-  <Language>en</Language>
+    <ThumbnailSize>250</ThumbnailSize>
+    <GamesPerPage>200</GamesPerPage>
+    <ViewMode>GridView</ViewMode>
+    <ShowGames>ShowAll</ShowGames>
+    <EnableGamePadNavigation>false</EnableGamePadNavigation>
+    <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
+    <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
+    <MainWindowWidth>1500</MainWindowWidth>
+    <MainWindowHeight>800</MainWindowHeight>
+    <MainWindowTop>100</MainWindowTop>
+    <MainWindowLeft>100</MainWindowLeft>
+    <MainWindowState>Normal</MainWindowState>
+    <BaseTheme>Light</BaseTheme>
+    <AccentColor>Blue</AccentColor>
+    <Language>en</Language>
+    <DeadZoneX>0.05</DeadZoneX>
+    <DeadZoneY>0.02</DeadZoneY>
+    <ButtonAspectRatio>Square</ButtonAspectRatio>
+    <EnableFuzzyMatching>true</EnableFuzzyMatching>
+    <FuzzyMatchingThreshold>0.8</FuzzyMatchingThreshold>
+    <EnableNotificationSound>true</EnableNotificationSound>
+    <CustomNotificationSoundFile>click.mp3</CustomNotificationSoundFile>
+    <RA_Username/>
+    <RA_ApiKey/>
+    <OverlayRetroAchievementButton>true</OverlayRetroAchievementButton>
+    <OverlayOpenVideoButton>true</OverlayOpenVideoButton>
+    <OverlayOpenInfoButton>true</OverlayOpenInfoButton>
+    <SystemPlayTimes />
 </Settings>
