@@ -275,6 +275,94 @@ public class GameButtonFactory(
 
         grid.Children.Add(trophyButton);
 
+        // Add the Video Link icon overlay
+        var videoLinkButton = new Button
+        {
+            Width = 22,
+            Height = 22,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Top,
+            Margin = new Thickness(5, 32, 5, 5),
+            Cursor = Cursors.Hand,
+            ToolTip = "View Video",
+            Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+        };
+
+        var videoLinkImage = new Image
+        {
+            Source = new BitmapImage(new Uri("pack://application:,,,/images/video.png")),
+            Stretch = Stretch.Uniform
+        };
+        videoLinkButton.Content = videoLinkImage;
+
+        var context2 = new RightClickContext(
+            absoluteFilePath,
+            fileNameWithExtension,
+            fileNameWithoutExtension,
+            selectedSystemName,
+            selectedSystemManager,
+            _machines,
+            _favoritesManager,
+            _settings,
+            _emulatorComboBox,
+            null,
+            null,
+            _gameFileGrid,
+            null,
+            _mainWindow
+        );
+
+        videoLinkButton.Click += (s, e) =>
+        {
+            try
+            {
+                // Prevent the main button's click event from firing
+                e.Handled = true;
+
+                PlaySoundEffects.PlayNotificationSound();
+
+                // Show loading indicator immediately by setting the property (UI updates via binding)
+                if (context2.MainWindow != null)
+                {
+                    context2.MainWindow.IsLoadingGames = true;
+                }
+
+                try
+                {
+                    ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                }
+                catch (Exception ex)
+                {
+                    // Hide loading indicator on error
+                    if (context2.MainWindow != null)
+                    {
+                        context2.MainWindow.IsLoadingGames = false;
+                    }
+
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
+
+                    // Notify user
+                    MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
+                }
+                finally
+                {
+                    // Ensure loading indicator is hidden after async work (success or error)
+                    if (context2.MainWindow != null)
+                    {
+                        context2.MainWindow.IsLoadingGames = false;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error opening the video Link.");
+                DebugLogger.Log($"Error opening the video link: {ex.Message}");
+            }
+        };
+
+        grid.Children.Add(videoLinkButton);
+
         // Set the DataContext of the grid to the view model.
         grid.DataContext = viewModel;
 
