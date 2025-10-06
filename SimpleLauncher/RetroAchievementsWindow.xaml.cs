@@ -421,18 +421,18 @@ public partial class RetroAchievementsWindow
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
+            NoUserRankOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
 
             // Check credentials first
             if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
             {
-                // Hide all data grids and show appropriate messages
                 HighScoresDataGrid.ItemsSource = null;
+                HighScoresDataGrid.Visibility = Visibility.Collapsed; // Hide the DataGrid
                 UserRankText.Text = "N/A";
                 UserScoreText.Text = "N/A";
                 UserLastAwardText.Text = "N/A";
                 NoUserRankOverlay.Visibility = Visibility.Visible;
-                NoUserRankOverlay.Text = "RetroAchievements credentials not set. Configure in settings.";
-
+                NoUserRankMessage.Text = "RetroAchievements credentials not set. Configure in settings.";
                 return;
             }
 
@@ -460,9 +460,9 @@ public partial class RetroAchievementsWindow
             {
                 var userData = userRank.First(); // API returns a list, but typically one entry
                 UserRankText.Text = userData.UserRank?.ToString(CultureInfo.InvariantCulture) ?? "Unranked";
-                UserScoreText.Text = userData.TotalScore.ToString(CultureInfo.InvariantCulture);
+                UserScoreText.Text = userData.TotalScore.ToString("N0", CultureInfo.InvariantCulture); // Format score
                 UserLastAwardText.Text = string.IsNullOrWhiteSpace(userData.LastAward) ? "N/A" : userData.LastAward;
-                NoUserRankOverlay.Visibility = Visibility.Collapsed;
+                NoUserRankOverlay.Visibility = Visibility.Collapsed; // Ensure hidden if data is present
             }
             else
             {
@@ -470,7 +470,7 @@ public partial class RetroAchievementsWindow
                 UserScoreText.Text = "N/A";
                 UserLastAwardText.Text = "N/A";
                 NoUserRankOverlay.Visibility = Visibility.Visible;
-                NoUserRankOverlay.Text = "No rank data available for this game.";
+                NoUserRankMessage.Text = "No rank data available for this game.";
             }
         }
         catch (Exception ex)
@@ -478,11 +478,12 @@ public partial class RetroAchievementsWindow
             _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
             // Show error state
             HighScoresDataGrid.ItemsSource = null;
+            HighScoresDataGrid.Visibility = Visibility.Collapsed; // Hide the DataGrid
             UserRankText.Text = "Error";
             UserScoreText.Text = "Error";
             UserLastAwardText.Text = "Error";
             NoUserRankOverlay.Visibility = Visibility.Visible;
-            NoUserRankOverlay.Text = "Error loading ranking data.";
+            NoUserRankMessage.Text = "Error loading ranking data. Please try again.";
         }
         finally
         {
@@ -601,11 +602,17 @@ public partial class RetroAchievementsWindow
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
-            FetchUnlocksButton.IsEnabled = true;
+            FetchUnlocksButton.IsEnabled = false; // Disable button during fetch
+            NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
 
             if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
             {
-                MessageBoxLibrary.ErrorMessageBox();
+                // Display specific message for missing credentials
+                UnlocksDataGrid.ItemsSource = null;
+                TotalUnlocksInRangeText.Text = "0";
+                TotalPointsEarnedInRangeText.Text = "0";
+                NoUnlocksOverlay.Visibility = Visibility.Visible;
+                NoUnlocksMessage.Text = "RetroAchievements credentials not set. Configure in settings.";
                 return;
             }
 
@@ -632,12 +639,15 @@ public partial class RetroAchievementsWindow
                     UnlocksDataGrid.ItemsSource = unlocks;
                     TotalUnlocksInRangeText.Text = unlocks.Count.ToString("N0", CultureInfo.InvariantCulture);
                     TotalPointsEarnedInRangeText.Text = unlocks.Sum(static a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
+                    NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay if data is present
                 }
                 else
                 {
                     UnlocksDataGrid.ItemsSource = null;
                     TotalUnlocksInRangeText.Text = "0";
                     TotalPointsEarnedInRangeText.Text = "0";
+                    NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no data
+                    NoUnlocksMessage.Text = "No unlocks found for the selected date range.";
                 }
             });
         }
@@ -645,6 +655,11 @@ public partial class RetroAchievementsWindow
         {
             Dispatcher.Invoke(() =>
             {
+                UnlocksDataGrid.ItemsSource = null;
+                TotalUnlocksInRangeText.Text = "0";
+                TotalPointsEarnedInRangeText.Text = "0";
+                NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
+                NoUnlocksMessage.Text = "An error occurred while loading unlocks. Please try again.";
             });
             _ = LogErrors.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
@@ -652,7 +667,7 @@ public partial class RetroAchievementsWindow
         finally
         {
             LoadingOverlay.Visibility = Visibility.Collapsed;
-            FetchUnlocksButton.IsEnabled = true;
+            FetchUnlocksButton.IsEnabled = true; // Re-enable button
         }
     }
 
@@ -688,14 +703,26 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private void ResetDates_Click(object sender, RoutedEventArgs e)
+    private async void ResetDates_Click(object sender, RoutedEventArgs e)
     {
-        FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
-        ToDatePicker.SelectedDate = DateTime.Today;
-        // Optionally clear the grid and summary to reflect reset
-        UnlocksDataGrid.ItemsSource = null;
-        TotalUnlocksInRangeText.Text = "0";
-        TotalPointsEarnedInRangeText.Text = "0";
+        try
+        {
+            FromDatePicker.SelectedDate = DateTime.Today.AddMonths(-1);
+            ToDatePicker.SelectedDate = DateTime.Today;
+            // Optionally clear the grid and summary to reflect reset
+            UnlocksDataGrid.ItemsSource = null;
+            TotalUnlocksInRangeText.Text = "0";
+            TotalPointsEarnedInRangeText.Text = "0";
+            NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
+            NoUnlocksMessage.Text = "No unlocks found for the selected date range."; // Reset message
+            await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Failed to reset date range");
+            DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
+        }
     }
 
     private async Task LoadUserProgressAsync()
