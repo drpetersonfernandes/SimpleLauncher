@@ -39,7 +39,6 @@ public partial class RetroAchievementsWindow
         try
         {
             GameTitleTextBlock.Text = _gameTitleForDisplay;
-            // The first tab ("Achievements") will be loaded by default via TabControl_SelectionChanged
         }
         catch (Exception ex)
         {
@@ -61,13 +60,13 @@ public partial class RetroAchievementsWindow
             switch (header)
             {
                 case "Achievements":
-                    _ = LoadAchievementsAsync();
+                    _ = LoadGameAchievementsAsync();
                     break;
                 case "Game Info":
                     _ = LoadGameInfoAsync();
                     break;
                 case "Game Ranking":
-                    _ = LoadGameRankingTabAsync();
+                    _ = LoadGameRankingAsync();
                     break;
                 case "My Profile":
                     _ = LoadUserProfileAsync();
@@ -79,133 +78,6 @@ public partial class RetroAchievementsWindow
                     _ = LoadUserProgressAsync();
                     break;
             }
-        }
-    }
-
-    private async Task LoadGameRankingTabAsync()
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-
-            // Check credentials first
-            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-            {
-                // Hide all data grids and show appropriate messages
-                HighScoresDataGrid.ItemsSource = null;
-                UserRankText.Text = "N/A";
-                UserScoreText.Text = "N/A";
-                UserLastAwardText.Text = "N/A";
-                NoUserRankOverlay.Visibility = Visibility.Visible;
-                NoUserRankOverlay.Text = "RetroAchievements credentials not set. Configure in settings.";
-
-                return;
-            }
-
-            // Load High Scores
-            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (rankings != null && rankings.Count > 0)
-            {
-                for (var i = 0; i < rankings.Count; i++)
-                {
-                    rankings[i].Rank = i + 1;
-                }
-
-                HighScoresDataGrid.ItemsSource = rankings;
-                HighScoresDataGrid.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                HighScoresDataGrid.ItemsSource = null;
-                HighScoresDataGrid.Visibility = Visibility.Collapsed;
-            }
-
-            // Load User Rank and Score
-            var userRank = await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (userRank != null && userRank.Count > 0)
-            {
-                var userData = userRank.First(); // API returns a list, but typically one entry
-                UserRankText.Text = userData.UserRank?.ToString(CultureInfo.InvariantCulture) ?? "Unranked";
-                UserScoreText.Text = userData.TotalScore.ToString(CultureInfo.InvariantCulture);
-                UserLastAwardText.Text = string.IsNullOrWhiteSpace(userData.LastAward) ? "N/A" : userData.LastAward;
-                NoUserRankOverlay.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                UserRankText.Text = "N/A";
-                UserScoreText.Text = "N/A";
-                UserLastAwardText.Text = "N/A";
-                NoUserRankOverlay.Visibility = Visibility.Visible;
-                NoUserRankOverlay.Text = "No rank data available for this game.";
-            }
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
-            // Show error state
-            HighScoresDataGrid.ItemsSource = null;
-            UserRankText.Text = "Error";
-            UserScoreText.Text = "Error";
-            UserLastAwardText.Text = "Error";
-            NoUserRankOverlay.Visibility = Visibility.Visible;
-            NoUserRankOverlay.Text = "Error loading ranking data.";
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
-    private async Task LoadAchievementsAsync()
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-
-            // Use the injected service
-            var (progress, achievements) = await _raService.GetGameInfoAndUserProgress(_gameId, _settings.RaUsername, _settings.RaApiKey);
-
-            if (achievements is { Count: > 0 } && progress != null)
-            {
-                // Update progress summary header
-                GameProgressTitle.Text = string.IsNullOrWhiteSpace(progress.GameTitle) ? "Unknown Game" : progress.GameTitle;
-                GameProgressConsole.Text = string.IsNullOrWhiteSpace(progress.ConsoleName) ? "" : $"({progress.ConsoleName})";
-
-                if (!string.IsNullOrEmpty(progress.GameIconUrl))
-                {
-                    GameCoverImage.Source = new BitmapImage(new Uri(progress.GameIconUrl));
-                }
-
-                // Bind achievements to DataGrid
-                Dispatcher.Invoke(() =>
-                {
-                    // Update progress bars and stats
-                    UpdateProgressDisplay(progress);
-
-                    AchievementsDataGrid.ItemsSource = achievements;
-                    NoAchievementsOverlay.Visibility = Visibility.Collapsed;
-                });
-            }
-            else
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    NoAchievementsOverlay.Visibility = Visibility.Visible;
-                });
-            }
-        }
-        catch (Exception ex)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                NoAchievementsOverlay.Visibility = Visibility.Visible;
-            });
-
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
         }
     }
 
@@ -300,6 +172,124 @@ public partial class RetroAchievementsWindow
         return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input.Substring(1);
     }
 
+    private void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
+    {
+        if (sender is Image clickedImage)
+        {
+            if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
+            {
+                OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
+            }
+            else
+            {
+                // Log and potentially inform the user if the image source is not a valid URI
+                _ = LogErrors.LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
+                MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+            }
+        }
+    }
+
+    private void OpenRaImageViewer(Uri imageUri)
+    {
+        try
+        {
+            var raImageViewer = new RetroAchievementsImageViewerWindow(); // Instantiate the new window
+            raImageViewer.LoadImage(imageUri);
+            raImageViewer.Owner = this; // Set owner to this window
+            raImageViewer.Show();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            MessageBoxLibrary.ErrorMessageBox(); // Display a generic error message to the user
+        }
+    }
+
+    private static string FormatDateString(string dateString)
+    {
+        if (DateTime.TryParse(dateString, out var date))
+        {
+            return date.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+        }
+
+        return dateString;
+    }
+
+    private static string GetPermissionDescription(int permissions)
+    {
+        return permissions switch
+        {
+            0 => "Unregistered",
+            1 => "Registered",
+            2 => "Junior Developer",
+            3 => "Developer",
+            4 => "Admin",
+            _ => $"Unknown ({permissions})"
+        };
+    }
+
+    private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
+    {
+        var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
+        settingsWindow.Owner = this; // Set owner to this window
+        settingsWindow.ShowDialog();
+        // After settings are saved, try reloading the profile
+        _ = LoadUserProfileAsync();
+    }
+
+    private async Task LoadGameAchievementsAsync()
+    {
+        try
+        {
+            LoadingOverlay.Visibility = Visibility.Visible;
+
+            // Use the injected service
+            var (progress, achievements) = await _raService.GetGameInfoAndUserProgress(_gameId, _settings.RaUsername, _settings.RaApiKey);
+
+            if (achievements is { Count: > 0 } && progress != null)
+            {
+                // Update progress summary header
+                GameTitleTextBlock.Text = string.IsNullOrWhiteSpace(progress.GameTitle) ? "Unknown Game" : progress.GameTitle;
+                ConsoleNameTextBlock.Text = string.IsNullOrWhiteSpace(progress.ConsoleName) ? "Unknown Console" : progress.ConsoleName;
+
+                if (!string.IsNullOrEmpty(progress.GameIconUrl))
+                {
+                    GameCoverImage.Source = new BitmapImage(new Uri(progress.GameIconUrl));
+                }
+
+                // Bind achievements to DataGrid
+                Dispatcher.Invoke(() =>
+                {
+                    // Update progress bars and stats
+                    UpdateProgressDisplay(progress);
+
+                    AchievementsDataGrid.ItemsSource = achievements;
+                    NoAchievementsOverlay.Visibility = Visibility.Collapsed;
+                });
+            }
+            else
+            {
+                Dispatcher.Invoke(() =>
+                {
+                    NoAchievementsOverlay.Visibility = Visibility.Visible;
+                });
+            }
+        }
+        catch (Exception ex)
+        {
+            Dispatcher.Invoke(() =>
+            {
+                NoAchievementsOverlay.Visibility = Visibility.Visible;
+            });
+
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
+        }
+        finally
+        {
+            LoadingOverlay.Visibility = Visibility.Collapsed;
+        }
+    }
+
     private async Task LoadGameInfoAsync()
     {
         try
@@ -310,28 +300,21 @@ public partial class RetroAchievementsWindow
             var gameInfo = await _raService.GetGameExtended(_gameId, _settings.RaUsername, _settings.RaApiKey);
             if (gameInfo != null)
             {
-                // Game header
-                GameInfoTitle.Text = string.IsNullOrWhiteSpace(gameInfo.Title) ? "Unknown Title" : gameInfo.Title;
-                GameInfoConsole.Text = string.IsNullOrWhiteSpace(gameInfo.ConsoleName) ? "Unknown Console" : gameInfo.ConsoleName;
-
                 // Load game icon (for header and the new image section)
                 if (!string.IsNullOrEmpty(gameInfo.ImageIcon))
                 {
                     try
                     {
                         var uri = new Uri($"https://retroachievements.org{gameInfo.ImageIcon}");
-                        GameInfoIcon.Source = new BitmapImage(uri); // For the header
                         GameInfoImageIcon.Source = new BitmapImage(uri); // For the image section
                     }
                     catch
                     {
-                        GameInfoIcon.Source = null;
                         GameInfoImageIcon.Source = null;
                     }
                 }
                 else
                 {
-                    GameInfoIcon.Source = null;
                     GameInfoImageIcon.Source = null;
                 }
 
@@ -433,48 +416,78 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    // New event handler for clicking on game images
-    private void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-    {
-        if (sender is Image clickedImage)
-        {
-            if (clickedImage.Source is BitmapImage bitmapImage && bitmapImage.UriSource != null)
-            {
-                OpenRaImageViewer(bitmapImage.UriSource); // Use the new RetroAchievementsImageViewerWindow
-            }
-            else
-            {
-                // Log and potentially inform the user if the image source is not a valid URI
-                _ = LogErrors.LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
-                MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
-            }
-        }
-    }
-
-    private void OpenRaImageViewer(Uri imageUri)
+    private async Task LoadGameRankingAsync()
     {
         try
         {
-            var raImageViewer = new RetroAchievementsImageViewerWindow(); // Instantiate the new window
-            raImageViewer.LoadImage(imageUri);
-            raImageViewer.Owner = this; // Set owner to this window
-            raImageViewer.Show();
+            LoadingOverlay.Visibility = Visibility.Visible;
+
+            // Check credentials first
+            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
+            {
+                // Hide all data grids and show appropriate messages
+                HighScoresDataGrid.ItemsSource = null;
+                UserRankText.Text = "N/A";
+                UserScoreText.Text = "N/A";
+                UserLastAwardText.Text = "N/A";
+                NoUserRankOverlay.Visibility = Visibility.Visible;
+                NoUserRankOverlay.Text = "RetroAchievements credentials not set. Configure in settings.";
+
+                return;
+            }
+
+            // Load High Scores
+            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            if (rankings != null && rankings.Count > 0)
+            {
+                for (var i = 0; i < rankings.Count; i++)
+                {
+                    rankings[i].Rank = i + 1;
+                }
+
+                HighScoresDataGrid.ItemsSource = rankings;
+                HighScoresDataGrid.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                HighScoresDataGrid.ItemsSource = null;
+                HighScoresDataGrid.Visibility = Visibility.Collapsed;
+            }
+
+            // Load User Rank and Score
+            var userRank = await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+            if (userRank != null && userRank.Count > 0)
+            {
+                var userData = userRank.First(); // API returns a list, but typically one entry
+                UserRankText.Text = userData.UserRank?.ToString(CultureInfo.InvariantCulture) ?? "Unranked";
+                UserScoreText.Text = userData.TotalScore.ToString(CultureInfo.InvariantCulture);
+                UserLastAwardText.Text = string.IsNullOrWhiteSpace(userData.LastAward) ? "N/A" : userData.LastAward;
+                NoUserRankOverlay.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                UserRankText.Text = "N/A";
+                UserScoreText.Text = "N/A";
+                UserLastAwardText.Text = "N/A";
+                NoUserRankOverlay.Visibility = Visibility.Visible;
+                NoUserRankOverlay.Text = "No rank data available for this game.";
+            }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            MessageBoxLibrary.ErrorMessageBox(); // Display a generic error message to the user
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
+            // Show error state
+            HighScoresDataGrid.ItemsSource = null;
+            UserRankText.Text = "Error";
+            UserScoreText.Text = "Error";
+            UserLastAwardText.Text = "Error";
+            NoUserRankOverlay.Visibility = Visibility.Visible;
+            NoUserRankOverlay.Text = "Error loading ranking data.";
         }
-    }
-
-    private static string FormatDateString(string dateString)
-    {
-        if (DateTime.TryParse(dateString, out var date))
+        finally
         {
-            return date.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture);
+            LoadingOverlay.Visibility = Visibility.Collapsed;
         }
-
-        return dateString;
     }
 
     private async Task LoadUserProfileAsync()
@@ -583,44 +596,16 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private static string GetPermissionDescription(int permissions)
-    {
-        return permissions switch
-        {
-            0 => "Unregistered",
-            1 => "Registered",
-            2 => "Junior Developer",
-            3 => "Developer",
-            4 => "Admin",
-            _ => $"Unknown ({permissions})"
-        };
-    }
-
-    private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
-    {
-        var settingsWindow = new RetroAchievementsSettingsWindow(_settings);
-        settingsWindow.Owner = this; // Set owner to this window
-        settingsWindow.ShowDialog();
-        // After settings are saved, try reloading the profile
-        _ = LoadUserProfileAsync();
-    }
-
     private async Task LoadUnlocksByDateAsync()
     {
         try
         {
             LoadingOverlay.Visibility = Visibility.Visible;
             FetchUnlocksButton.IsEnabled = true;
-            NoUnlocksOverlay.Visibility = Visibility.Collapsed;
 
             if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
             {
-                Dispatcher.Invoke(() =>
-                {
-                    NoUnlocksOverlay.Visibility = Visibility.Visible;
-                    NoUnlocksMainMessage.Text = "RetroAchievements username or API key is not set.";
-                    NoUnlocksSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
-                });
+                MessageBoxLibrary.ErrorMessageBox();
                 return;
             }
 
@@ -647,16 +632,12 @@ public partial class RetroAchievementsWindow
                     UnlocksDataGrid.ItemsSource = unlocks;
                     TotalUnlocksInRangeText.Text = unlocks.Count.ToString("N0", CultureInfo.InvariantCulture);
                     TotalPointsEarnedInRangeText.Text = unlocks.Sum(static a => a.Points).ToString("N0", CultureInfo.InvariantCulture);
-                    NoUnlocksOverlay.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     UnlocksDataGrid.ItemsSource = null;
                     TotalUnlocksInRangeText.Text = "0";
                     TotalPointsEarnedInRangeText.Text = "0";
-                    NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no unlocks
-                    NoUnlocksMainMessage.Text = "No unlocks found for the selected date range.";
-                    NoUnlocksSubMessage.Text = "Adjust the date range and click 'Fetch Unlocks'.";
                 }
             });
         }
@@ -664,9 +645,6 @@ public partial class RetroAchievementsWindow
         {
             Dispatcher.Invoke(() =>
             {
-                NoUnlocksOverlay.Visibility = Visibility.Visible;
-                NoUnlocksMainMessage.Text = "An error occurred while loading unlocks.";
-                NoUnlocksSubMessage.Text = "Please try again or check your internet connection.";
             });
             _ = LogErrors.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
@@ -718,12 +696,8 @@ public partial class RetroAchievementsWindow
         UnlocksDataGrid.ItemsSource = null;
         TotalUnlocksInRangeText.Text = "0";
         TotalPointsEarnedInRangeText.Text = "0";
-        NoUnlocksOverlay.Visibility = Visibility.Collapsed; // Hide overlay on reset
     }
 
-    /// <summary>
-    /// Loads the user's overall game completion progress.
-    /// </summary>
     private async Task LoadUserProgressAsync()
     {
         try

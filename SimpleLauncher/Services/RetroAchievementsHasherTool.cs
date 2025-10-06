@@ -62,7 +62,7 @@ public static class RetroAchievementsHasherTool
     /// <param name="filePath">The full path to the game file to be hashed.</param>
     /// <param name="systemId">The RetroAchievements console ID.</param>
     /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
-    public static async Task<string> GetHashAsync(string filePath, int systemId)
+    private static async Task<string> GetHashAsync(string filePath, int systemId)
     {
         if (!File.Exists(HasherPath))
         {
