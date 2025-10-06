@@ -199,91 +199,6 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private async void RefreshHighScores_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (rankings != null && rankings.Count > 0)
-            {
-                for (var i = 0; i < rankings.Count; i++)
-                {
-                    rankings[i].Rank = i + 1;
-                }
-
-                HighScoresDataGrid.ItemsSource = rankings;
-                HighScoresDataGrid.Visibility = Visibility.Visible;
-            }
-            else
-            {
-                HighScoresDataGrid.ItemsSource = null;
-                HighScoresDataGrid.Visibility = Visibility.Collapsed;
-            }
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh high scores");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
-    private async void RefreshLeaderboards_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            // Ensure credentials are set before attempting to fetch
-            if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
-            {
-                LeaderboardsDataGrid.ItemsSource = null;
-                LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-                NoLeaderboardsOverlay.Visibility = Visibility.Visible;
-                NoLeaderboardsMessageText.Text = "RetroAchievements credentials not set. Configure in settings.";
-                return;
-            }
-
-            var leaderboards = await _raService.GetGameLeaderboardsAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (leaderboards?.Results != null && leaderboards.Results.Count > 0)
-            {
-                // Check if any leaderboard has a null TopEntry
-                foreach (var leaderboard in leaderboards.Results)
-                {
-                    if (leaderboard.TopEntry == null)
-                    {
-                        leaderboard.TopEntry = new RaGameLeaderboardTopEntry(); // Ensure TopEntry is never null
-                    }
-                }
-
-                LeaderboardsDataGrid.ItemsSource = leaderboards.Results;
-                LeaderboardsDataGrid.Visibility = Visibility.Visible;
-                NoLeaderboardsOverlay.Visibility = Visibility.Collapsed;
-            }
-            else
-            {
-                LeaderboardsDataGrid.ItemsSource = null;
-                LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-                NoLeaderboardsOverlay.Visibility = Visibility.Visible;
-                NoLeaderboardsMessageText.Text = "No leaderboards found for this game.";
-            }
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh leaderboards");
-            LeaderboardsDataGrid.ItemsSource = null;
-            LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-            NoLeaderboardsOverlay.Visibility = Visibility.Visible;
-            NoLeaderboardsMessageText.Text = "Error refreshing leaderboards. Please try again.";
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
     private async Task LoadAchievementsAsync()
     {
         try
@@ -711,8 +626,7 @@ public partial class RetroAchievementsWindow
         }
     }
 
-
-    private string GetPermissionDescription(int permissions)
+    private static string GetPermissionDescription(int permissions)
     {
         return permissions switch
         {
@@ -723,37 +637,6 @@ public partial class RetroAchievementsWindow
             4 => "Admin",
             _ => $"Unknown ({permissions})"
         };
-    }
-
-    private void RankingsDataGrid_OnSorting(object sender, DataGridSortingEventArgs e)
-    {
-        // Prevent default sorting and handle it manually if needed
-        // This allows us to maintain our custom ranking while still allowing column sorting
-        if (e.Column.SortMemberPath == "Rank")
-        {
-            // Keep default sorting for rank
-            return;
-        }
-
-        // For other columns, let the default sorting work
-        // The rankings list will maintain its original order for rank display
-    }
-
-    private async void RefreshProfile_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            await LoadUserProfileAsync();
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh user profile.");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
     }
 
     private void OpenRaSettings_Click(object sender, RoutedEventArgs e)
@@ -937,23 +820,6 @@ public partial class RetroAchievementsWindow
         }
     }
 
-    private async void RefreshUserProgress_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            await LoadUserProgressAsync();
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh user progress.");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
     /// <summary>
     /// Loads the list of most ticketed games.
     /// </summary>
@@ -1004,26 +870,6 @@ public partial class RetroAchievementsWindow
             });
             _ = LogErrors.LogErrorAsync(ex, "Failed to load top games tab.");
             DebugLogger.Log($"[RA Window] Failed to load top games: {ex.Message}");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
-    /// <summary>
-    /// Event handler for the "Refresh Top Games" button.
-    /// </summary>
-    private async void RefreshTopGames_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            await LoadTopGamesAsync();
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to refresh top games.");
         }
         finally
         {
