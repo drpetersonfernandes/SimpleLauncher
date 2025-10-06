@@ -332,22 +332,6 @@
                 </DataGrid.Columns>
             </DataGrid>
 
-            <!-- Game Leaderboards Section -->
-            <TextBlock Text="Game Leaderboards" FontWeight="Bold" FontSize="16" Margin="0,0,0,10" />
-            <DataGrid Name="LeaderboardsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,10" d:DataContext="{d:DesignInstance }">
-                <DataGrid.Columns>
-                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" SortMemberPath="Title" />
-                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*" SortMemberPath="Description" />
-                    <DataGridTextColumn Header="Format" Binding="{Binding Format}" Width="Auto" SortMemberPath="Format" />
-                    <DataGridTextColumn Header="Top User" Binding="{Binding TopEntry.User}" Width="Auto" SortMemberPath="TopEntry.User" />
-                    <DataGridTextColumn Header="Top Score" Binding="{Binding TopEntry.FormattedScore}" Width="Auto" SortMemberPath="TopEntry.Score" />
-                    <DataGridTextColumn Header="Author" Binding="{Binding Author}" Width="Auto" SortMemberPath="Author" />
-                </DataGrid.Columns>
-            </DataGrid>
-            <!-- NEW: Overlay for no leaderboards message -->
-            <Grid x:Name="NoLeaderboardsOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed" Margin="0,10,0,10">
-                <TextBlock x:Name="NoLeaderboardsMessageText" Text="No leaderboards found for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="14" Foreground="Gray" />
-            </Grid>
         </StackPanel>
     </ScrollViewer>
 </TabItem>
@@ -627,36 +611,6 @@
                 </Grid>
             </TabItem>
             
-            <TabItem Header="Top Games">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="Auto" />
-                    </Grid.RowDefinitions>
-
-                    <DataGrid Grid.Row="0" Name="TopGamesDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="10,0,10,10" d:DataContext="{d:DesignInstance }">
-                        <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Icon" Width="Auto">
-                                <DataGridTemplateColumn.CellTemplate>
-                                    <DataTemplate>
-                                        <Image Source="{Binding GameIcon}" Width="32" Height="32" Margin="5" d:DataContext="{d:DesignInstance }" />
-                                    </DataTemplate>
-                                </DataGridTemplateColumn.CellTemplate>
-                            </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="Game Title" Binding="{Binding GameTitle}" Width="2*" SortMemberPath="GameTitle" />
-                            <DataGridTextColumn Header="Console" Binding="{Binding Console}" Width="*" SortMemberPath="Console" />
-                            <DataGridTextColumn Header="Open Tickets" Binding="{Binding OpenTickets}" Width="Auto" SortMemberPath="OpenTickets" />
-                        </DataGrid.Columns>
-                    </DataGrid>
-
-                    <Grid x:Name="NoTopGamesOverlay" Grid.Row="0" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
-                        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-                            <TextBlock x:Name="NoTopGamesMainMessage" Text="Could not load top games." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="16" TextWrapping="Wrap" TextAlignment="Center" />
-                            <TextBlock x:Name="NoTopGamesSubMessage" Text="Please check your API key in settings, or try again later." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="12" Foreground="{DynamicResource MahApps.Brushes.Text}" Margin="0,10,0,0" TextWrapping="Wrap" TextAlignment="Center" />
-                            <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click" />
-                        </StackPanel>
-                    </Grid>
-                </Grid>
-            </TabItem>
         </TabControl>
         
         <!-- Loading Overlay -->

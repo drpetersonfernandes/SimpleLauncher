@@ -3,10 +3,6 @@ using MessagePack;
 
 namespace SimpleLauncher.Models;
 
-/// <summary>
-/// Represents a single game's information from the RetroAchievements database cache.
-/// This model matches the structure serialized by the DataFetcher tool.
-/// </summary>
 [MessagePackObject]
 public class RaGameInfo
 {

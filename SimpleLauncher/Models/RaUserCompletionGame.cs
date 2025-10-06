@@ -1,13 +1,9 @@
 using System;
-using System.Collections.Generic;
 using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-/// <summary>
-/// Represents a single game's completion progress for a user from the GetUserCompletionProgress API.
-/// </summary>
 public class RaUserCompletionGame
 {
     [JsonPropertyName("GameID")]
@@ -17,7 +13,7 @@ public class RaUserCompletionGame
     public string Title { get; set; } = "";
 
     [JsonPropertyName("ImageIcon")]
-    public string ImageIcon { get; set; } = ""; // This will be the full URL after processing in the service
+    public string ImageIcon { get; set; } = "";
 
     [JsonPropertyName("ConsoleID")]
     public int ConsoleId { get; set; }
@@ -43,7 +39,6 @@ public class RaUserCompletionGame
     [JsonPropertyName("HighestAwardDate")]
     public string HighestAwardDate { get; set; } = "";
 
-    // Helper properties for UI display
     public string CompletionDisplay => $"{NumAwarded}/{MaxPossible}";
     public string HardcoreCompletionDisplay => $"{NumAwardedHardcore}/{MaxPossible}";
 
@@ -66,19 +61,4 @@ public class RaUserCompletionGame
 
         return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input.Substring(1);
     }
-}
-
-/// <summary>
-/// Represents the full response from the GetUserCompletionProgress API.
-/// </summary>
-public class RaUserCompletionProgressResponse
-{
-    [JsonPropertyName("Count")]
-    public int Count { get; set; }
-
-    [JsonPropertyName("Total")]
-    public int Total { get; set; }
-
-    [JsonPropertyName("Results")]
-    public List<RaUserCompletionGame> Results { get; set; } = [];
 }

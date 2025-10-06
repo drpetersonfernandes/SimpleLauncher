@@ -60,7 +60,6 @@ public class RaEarnedAchievement
     [JsonPropertyName("GameURL")]
     public string GameUrl { get; set; } = "";
 
-    // Helper properties for display in UI
     private DateTime? UnlockedDate => DateTime.TryParse(Date, out var dt) ? dt : null;
     public string UnlockedDateDisplay => UnlockedDate?.ToString("yyyy-MM-dd HH:mm", CultureInfo.InvariantCulture) ?? "N/A";
     public string ModeDisplay => HardcoreMode == 1 ? "Hardcore" : "Casual";

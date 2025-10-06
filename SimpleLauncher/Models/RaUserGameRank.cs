@@ -2,10 +2,6 @@ using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
 
-/// <summary>
-/// Represents a specific user's rank and score for a single game.
-/// Corresponds to the response from API_GetUserGameRankAndScore.php.
-/// </summary>
 public class RaUserGameRank
 {
     [JsonPropertyName("User")]
@@ -15,7 +11,7 @@ public class RaUserGameRank
     public string Ulid { get; set; } = "";
 
     [JsonPropertyName("UserRank")]
-    public int? UserRank { get; set; } // Nullable as the user might not be ranked
+    public int? UserRank { get; set; }
 
     [JsonPropertyName("TotalScore")]
     public int TotalScore { get; set; }

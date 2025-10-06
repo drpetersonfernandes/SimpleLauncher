@@ -50,6 +50,6 @@ public class RaApiAchievement
     [JsonPropertyName("type")]
     public string Type { get; set; } = "";
 
-    [JsonPropertyName("TrueRatio")] // ADD THIS LINE
-    public int? TrueRatio { get; set; } // ADD THIS LINE
+    [JsonPropertyName("TrueRatio")]
+    public int? TrueRatio { get; set; }
 }

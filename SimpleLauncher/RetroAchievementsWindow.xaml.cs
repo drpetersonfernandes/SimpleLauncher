@@ -78,9 +78,6 @@ public partial class RetroAchievementsWindow
                 case "User Progress":
                     _ = LoadUserProgressAsync();
                     break;
-                case "Top Games": // NEW CASE
-                    _ = LoadTopGamesAsync();
-                    break;
             }
         }
     }
@@ -96,17 +93,12 @@ public partial class RetroAchievementsWindow
             {
                 // Hide all data grids and show appropriate messages
                 HighScoresDataGrid.ItemsSource = null;
-                LeaderboardsDataGrid.ItemsSource = null;
                 UserRankText.Text = "N/A";
                 UserScoreText.Text = "N/A";
                 UserLastAwardText.Text = "N/A";
                 NoUserRankOverlay.Visibility = Visibility.Visible;
                 NoUserRankOverlay.Text = "RetroAchievements credentials not set. Configure in settings.";
 
-                // Update for NoLeaderboardsOverlay
-                LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-                NoLeaderboardsOverlay.Visibility = Visibility.Visible;
-                NoLeaderboardsMessageText.Text = "RetroAchievements credentials not set. Configure in settings.";
                 return;
             }
 
@@ -146,52 +138,17 @@ public partial class RetroAchievementsWindow
                 NoUserRankOverlay.Visibility = Visibility.Visible;
                 NoUserRankOverlay.Text = "No rank data available for this game.";
             }
-
-            // Load Game Leaderboards
-            var leaderboards = await _raService.GetGameLeaderboardsAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-            if (leaderboards?.Results != null && leaderboards.Results.Count > 0)
-            {
-                // Debug logging
-                DebugLogger.Log($"[RA Window] Loaded {leaderboards.Results.Count} leaderboards for game ID {_gameId}");
-
-                // Check if any leaderboard has a null TopEntry
-                foreach (var leaderboard in leaderboards.Results)
-                {
-                    if (leaderboard.TopEntry == null)
-                    {
-                        leaderboard.TopEntry = new RaGameLeaderboardTopEntry(); // Ensure TopEntry is never null
-                    }
-                }
-
-                LeaderboardsDataGrid.ItemsSource = leaderboards.Results;
-                LeaderboardsDataGrid.Visibility = Visibility.Visible;
-                NoLeaderboardsOverlay.Visibility = Visibility.Collapsed; // Hide overlay if data is present
-            }
-            else
-            {
-                DebugLogger.Log($"[RA Window] No leaderboards found for game ID {_gameId}");
-                LeaderboardsDataGrid.ItemsSource = null;
-                LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-                NoLeaderboardsOverlay.Visibility = Visibility.Visible; // Show overlay if no data
-                NoLeaderboardsMessageText.Text = "No leaderboards found for this game."; // Set specific message
-            }
         }
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
             // Show error state
             HighScoresDataGrid.ItemsSource = null;
-            LeaderboardsDataGrid.ItemsSource = null;
             UserRankText.Text = "Error";
             UserScoreText.Text = "Error";
             UserLastAwardText.Text = "Error";
             NoUserRankOverlay.Visibility = Visibility.Visible;
             NoUserRankOverlay.Text = "Error loading ranking data.";
-
-            // Update for NoLeaderboardsOverlay
-            LeaderboardsDataGrid.Visibility = Visibility.Collapsed;
-            NoLeaderboardsOverlay.Visibility = Visibility.Visible; // Show overlay on error
-            NoLeaderboardsMessageText.Text = "Error loading leaderboards. Please try again.";
         }
         finally
         {
@@ -785,7 +742,7 @@ public partial class RetroAchievementsWindow
                 return;
             }
 
-            var userProgressList = await _raService.GetUserCompletionProgressAsync(_settings.RaUsername, _settings.RaApiKey);
+            var userProgressList = await _raService.GetUserCompletionProgress(_settings.RaUsername, _settings.RaApiKey);
 
             Dispatcher.Invoke(() =>
             {
@@ -813,63 +770,6 @@ public partial class RetroAchievementsWindow
             });
             _ = LogErrors.LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
             DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
-        }
-        finally
-        {
-            LoadingOverlay.Visibility = Visibility.Collapsed;
-        }
-    }
-
-    /// <summary>
-    /// Loads the list of most ticketed games.
-    /// </summary>
-    private async Task LoadTopGamesAsync()
-    {
-        try
-        {
-            LoadingOverlay.Visibility = Visibility.Visible;
-            NoTopGamesOverlay.Visibility = Visibility.Collapsed;
-
-            if (string.IsNullOrWhiteSpace(_settings.RaApiKey))
-            {
-                Dispatcher.Invoke(() =>
-                {
-                    NoTopGamesOverlay.Visibility = Visibility.Visible;
-                    NoTopGamesMainMessage.Text = "RetroAchievements API key is not set.";
-                    NoTopGamesSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
-                });
-                return;
-            }
-
-            // Fetch most ticketed games (e.g., top 50)
-            var topGames = await _raService.GetMostTicketedGamesAsync(_settings.RaApiKey, 50);
-
-            Dispatcher.Invoke(() =>
-            {
-                if (topGames is { Count: > 0 })
-                {
-                    TopGamesDataGrid.ItemsSource = topGames;
-                    NoTopGamesOverlay.Visibility = Visibility.Collapsed;
-                }
-                else
-                {
-                    TopGamesDataGrid.ItemsSource = null;
-                    NoTopGamesOverlay.Visibility = Visibility.Visible;
-                    NoTopGamesMainMessage.Text = "No top games with open tickets found.";
-                    NoTopGamesSubMessage.Text = "This could be due to no games having open tickets, or the API request failed.";
-                }
-            });
-        }
-        catch (Exception ex)
-        {
-            Dispatcher.Invoke(() =>
-            {
-                NoTopGamesOverlay.Visibility = Visibility.Visible;
-                NoTopGamesMainMessage.Text = "An error occurred while loading top games.";
-                NoTopGamesSubMessage.Text = "Please try again or check your internet connection.";
-            });
-            _ = LogErrors.LogErrorAsync(ex, "Failed to load top games tab.");
-            DebugLogger.Log($"[RA Window] Failed to load top games: {ex.Message}");
         }
         finally
         {
