@@ -558,7 +558,7 @@ public static class GameLauncher
         if (string.IsNullOrEmpty(resolvedFilePath))
         {
             // Notify developer
-            const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted XBE).";
+            const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted files).";
             await LogErrors.LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulator] Error: {contextMessage}");
 
