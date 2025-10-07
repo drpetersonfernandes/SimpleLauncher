@@ -327,21 +327,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-            if (selectedConfig == null)
+            var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+            if (selectedManager == null)
             {
                 return;
             }
 
             var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var folder in selectedConfig.SystemFolders)
+            foreach (var folder in selectedManager.SystemFolders)
             {
                 var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
                 if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
-                    selectedConfig.FileFormatsToSearch == null) continue;
+                    selectedManager.FileFormatsToSearch == null) continue;
 
-                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedConfig.FileFormatsToSearch);
+                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
                 foreach (var file in filesInFolder)
                 {
                     uniqueFiles.TryAdd(Path.GetFileName(file), file);
@@ -598,9 +597,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
                 var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-                var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-
-                if (selectedSystem == null || selectedConfig == null) // Combine null checks
+                var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                if (selectedSystem == null || selectedManager == null) // Combine null checks
                 {
                     // Notify developer
                     const string errorMessage = "Selected system or its configuration is null.";
@@ -616,9 +614,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                 _mameSortOrder = "FileName";
                 UpdateSortOrderButtonUi();
-                SortOrderToggleButton.Visibility = selectedConfig.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
+                SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
 
-                EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+                EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
                 if (EmulatorComboBox.Items.Count > 0)
                 {
                     EmulatorComboBox.SelectedIndex = 0;
@@ -630,7 +628,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
                 // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                var validationResult = await DisplaySystemInformation.DisplaySystemInfo(selectedConfig, _gameFileGrid);
+                var validationResult = await DisplaySystemInformation.DisplaySystemInfo(selectedManager, _gameFileGrid);
 
                 // If validation failed, show the message box with aggregated errors
                 if (!validationResult.IsValid)
@@ -645,11 +643,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
 
                 // Resolve the system image folder path using PathHelper
-                var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedConfig.SystemImageFolder);
+                var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
 
-                _selectedRomFolders = selectedConfig.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
+                _selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
                 _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedConfig.SystemName) // Use the default resolved path
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName) // Use the default resolved path
                     : resolvedSystemImageFolderPath; // Use resolved configured path
 
                 _topLetterNumberMenu.DeselectLetter();
@@ -734,7 +732,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             var selectedSystem = SystemComboBox.SelectedItem.ToString();
             var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-
             if (selectedManager == null)
             {
                 // Notify developer

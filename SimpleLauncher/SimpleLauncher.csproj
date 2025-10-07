@@ -877,12 +877,6 @@
   <ItemGroup>
     <Compile Remove="GlobalSuppressions.cs" />
     <Compile Remove="database\**" />
-    <Compile Remove="CheckEmulator.cs" />
-    <Compile Remove="CheckSystem.cs" />
-    <Compile Remove="EasyModePreset.cs" />
-    <Compile Remove="EditSystemEasyModeDeleteSystem.xaml.cs" />
-    <Compile Remove="EditSystemEasyModeEditSystem.xaml.cs" />
-    <Compile Remove="OpenPdfFiles.xaml.cs" />
     <Compile Remove="images\Amstrad CPC GX4000\**" />
     <Compile Remove="images\Arcade\**" />
     <Compile Remove="images\Atari Jaguar\**" />
@@ -1041,7 +1035,6 @@
       <XamlRuntime>Wpf</XamlRuntime>
       <SubType>Designer</SubType>
     </Page>
-    <Page Remove="EditSystemEasyModeDeleteSystem.xaml" />
     <Page Remove="EditSystemEasyModeEditSystem.xaml" />
     <Page Remove="OpenPdfFiles.xaml" />
     <Page Remove="images\Amstrad CPC GX4000\**" />

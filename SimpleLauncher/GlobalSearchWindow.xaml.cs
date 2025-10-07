@@ -161,7 +161,7 @@ public partial class GlobalSearchWindow
                         FileName = Path.GetFileNameWithoutExtension(filePath),
                         FileNameWithExtension = Path.GetFileName(filePath),
                         FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
-                        FilePath = filePath, // This is already the resolved absolute path
+                        FilePath = filePath,
                         FileSizeBytes = -1,
                         MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
                         SystemName = systemManager.SystemName,

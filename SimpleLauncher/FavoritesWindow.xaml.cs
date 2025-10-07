@@ -294,13 +294,16 @@ public partial class FavoritesWindow
             var emulatorManager = systemManager.Emulators.FirstOrDefault();
             if (emulatorManager == null)
             {
+                // Notify developer
                 const string contextMessage = "emulatorManager is null.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
                 return;
             }
 
-            // *** FIX: Create the callback action here ***
             void OnRemovedCallback()
             {
                 if (selectedFavorite != null)

@@ -274,10 +274,7 @@ public static class ContextMenuFunctions
             mainWindow.IsLoadingGames = true;
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
-            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(
-                filePath,
-                systemName,
-                systemManager.FileFormatsToLaunch);
+            var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
 
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;

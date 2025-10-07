@@ -190,7 +190,7 @@ public class RetroAchievementsService
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<List<RaUserGameRank>>(json);
-            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(2)); // Cache for 2 minutes
             DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return result;
         }
@@ -229,7 +229,7 @@ public class RetroAchievementsService
 
             var json = await response.Content.ReadAsStringAsync();
             var result = JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
-            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(10)); // Cache for 10 minutes
+            _cache.Set(cacheKey, result, TimeSpan.FromMinutes(2)); // Cache for 2 minutes
             DebugLogger.Log($"[RA Service] Cached {cacheKey}");
             return result;
         }
