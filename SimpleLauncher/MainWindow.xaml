@@ -836,12 +836,13 @@
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
                         <ColumnDefinition Width="Auto" />
+                        <ColumnDefinition Width="Auto" />
                     </Grid.ColumnDefinitions>
 
                     <StackPanel x:Name="LetterNumberMenu"
                                 Grid.Row="0"
                                 Grid.Column="0"
-                                Grid.ColumnSpan="5"
+                                Grid.ColumnSpan="6"
                                 Margin="0,5,0,0"
                                 Orientation="Horizontal">
                         <!-- Buttons for LetterNumberMenu will be added here programmatically -->
@@ -918,6 +919,18 @@
                         Click="NavRandomLuckGameButton_Click"
                         Margin="10,10,2,0">
                         <Image Source="pack://application:,,,/images/dice.png" Width="22" Height="22" />
+                    </Button>
+                    <Button
+                        x:Name="SortOrderToggleButton"
+                        Style="{StaticResource NavImageButton3DStyle}"
+                        Grid.Row="1"
+                        Grid.RowSpan="2"
+                        Grid.Column="5"
+                        ToolTip="Sort by File Name"
+                        Click="SortOrderToggleButton_Click"
+                        Margin="10,10,2,0"
+                        Visibility="Collapsed">
+                        <Image Source="pack://application:,,,/images/sort-az.png" Width="22" Height="22" />
                     </Button>
                 </Grid>
             </Border>
@@ -997,22 +1010,6 @@
                             <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
                             <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
                             <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                            <!-- <DataGridTemplateColumn Header="Achievements" Width="Auto"> -->
-                            <!--     <DataGridTemplateColumn.CellTemplate> -->
-                            <!--         <DataTemplate> -->
-                            <!--             <StackPanel Orientation="Horizontal" -->
-                            <!--                         Visibility="{Binding HasAchievements, Converter={StaticResource BooleanToVisibilityConverter}}" -->
-                            <!--                         HorizontalAlignment="Center" VerticalAlignment="Center" d:DataContext="{d:DesignInstance }"> -->
-                            <!--                 ~1~ Trophy Icon @1@ -->
-                            <!--                 <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" Margin="0,0,5,0" /> -->
-                            <!--                 ~1~ Achievements Earned / Total @1@ -->
-                            <!--                 <TextBlock Text="{Binding AchievementsEarned}" VerticalAlignment="Center" /> -->
-                            <!--                 <TextBlock Text="/" VerticalAlignment="Center" /> -->
-                            <!--                 <TextBlock Text="{Binding AchievementsTotal}" VerticalAlignment="Center" /> -->
-                            <!--             </StackPanel> -->
-                            <!--         </DataTemplate> -->
-                            <!--     </DataGridTemplateColumn.CellTemplate> -->
-                            <!-- </DataGridTemplateColumn> -->
                             <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
                             <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
                         </DataGrid.Columns>

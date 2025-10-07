@@ -109,6 +109,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly string _logPath = GetLogPath.Path();
 
     private string _activeSearchQueryOrMode;
+    private string _mameSortOrder = "FileName";
 
     public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager)
     {
@@ -607,10 +608,15 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                     // Notify user
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                    SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
                     await DisplaySystemSelectionScreenAsync();
                     return;
                 }
+
+                _mameSortOrder = "FileName";
+                UpdateSortOrderButtonUi();
+                SortOrderToggleButton.Visibility = selectedConfig.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
 
                 EmulatorComboBox.ItemsSource = selectedConfig.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
                 if (EmulatorComboBox.Items.Count > 0)
@@ -802,7 +808,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
             }
 
-            allFiles = allFiles.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
+            if (selectedManager.SystemIsMame && _mameSortOrder == "MachineDescription")
+            {
+                allFiles = allFiles.OrderBy(f =>
+                {
+                    var fileName = Path.GetFileNameWithoutExtension(f);
+                    return _mameLookup.TryGetValue(fileName, out var description) && !string.IsNullOrWhiteSpace(description)
+                        ? description
+                        : fileName;
+                }, StringComparer.OrdinalIgnoreCase).ToList();
+            }
+            else
+            {
+                allFiles = allFiles.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
+            }
 
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 
@@ -981,6 +1000,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         SearchButton.IsEnabled = !isLoading;
         SelectedSystemFavoriteButton.IsEnabled = !isLoading;
         RandomLuckGameButton.IsEnabled = !isLoading;
+        SortOrderToggleButton.IsEnabled = !isLoading;
         ToggleViewMode.IsEnabled = !isLoading;
         ToggleButtonAspectRatio.IsEnabled = !isLoading;
         ZoomInButton.IsEnabled = !isLoading;
@@ -1010,5 +1030,43 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             return files.Where(file => !string.IsNullOrEmpty(file) &&
                                        Path.GetFileName(file).StartsWith(startLetter, StringComparison.OrdinalIgnoreCase)).ToList();
         });
+    }
+
+    private async void SortOrderToggleButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (_isLoadingGames) return;
+
+            PlaySoundEffects.PlayNotificationSound();
+
+            _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
+
+            UpdateSortOrderButtonUi();
+
+            var (sl, sq) = GetLoadGameFilesParams();
+            await LoadGameFilesAsync(sl, sq);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
+            DebugLogger.Log("Error in SortOrderToggleButton_Click.");
+        }
+    }
+
+    private void UpdateSortOrderButtonUi()
+    {
+        if (SortOrderToggleButton == null) return;
+
+        if (_mameSortOrder == "FileName")
+        {
+            var tooltipText = (string)Application.Current.TryFindResource("SortByMachineDescriptionTooltip") ?? "Sort by Machine Description";
+            SortOrderToggleButton.ToolTip = tooltipText;
+        }
+        else
+        {
+            var tooltipText = (string)Application.Current.TryFindResource("SortByFileNameTooltip") ?? "Sort by File Name";
+            SortOrderToggleButton.ToolTip = tooltipText;
+        }
     }
 }

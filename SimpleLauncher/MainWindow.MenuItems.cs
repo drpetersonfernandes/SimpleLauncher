@@ -125,6 +125,8 @@ public partial class MainWindow
                 PreviewImage.Source = null;
                 SystemComboBox.SelectedItem = null;
                 EmulatorComboBox.SelectedItem = null;
+                SortOrderToggleButton.Visibility = Visibility.Collapsed;
+                _mameSortOrder = "FileName";
 
                 var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
                 SelectedSystem = nosystemselected;

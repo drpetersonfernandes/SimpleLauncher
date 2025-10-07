@@ -828,6 +828,8 @@
     <Resource Include="images\trophy.png" />
     <None Remove="images\overlaybutton.png" />
     <Resource Include="images\overlaybutton.png" />
+    <None Remove="images\sort-az.png" />
+    <Resource Include="images\sort-az.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />
