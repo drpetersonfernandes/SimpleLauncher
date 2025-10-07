@@ -118,7 +118,11 @@ public static class RetroAchievementsSystemMatcher
         ["fm towns"] = new RaSystemInfo(58, ["fm towns"]),
         ["hubs"] = new RaSystemInfo(100, ["hubs"]),
         ["events"] = new RaSystemInfo(101, ["events"]),
-        ["standalone"] = new RaSystemInfo(102, ["standalone"])
+        ["standalone"] = new RaSystemInfo(102, ["standalone"]),
+        ["Xbox"] = new RaSystemInfo(102, ["xbox", "x-box"]),
+        ["DOS"] = new RaSystemInfo(102, ["dos", "microsoft dos"]),
+        ["PC-9800"] = new RaSystemInfo(102, ["pc-9800", "pc-9800", "pc9800"]),
+        ["Zeebo"] = new RaSystemInfo(102, ["Zeebo"]),
     };
 
     /// <summary>
