@@ -204,16 +204,21 @@ public class GameButtonFactory(
             _mainWindow
         );
 
+        const double overlayButtonWidth = 22;
+        const double overlayButtonHeight = 22;
+        const double overlayButtonSpacing = 5; // Vertical spacing between buttons
+        double currentVerticalOffset = 5; // Initial top margin for the first button
+
         if (_settings.OverlayRetroAchievementButton == true)
         {
             // Add the RetroAchievements trophy icon overlay
             var trophyButton = new Button
             {
-                Width = 22,
-                Height = 22,
+                Width = overlayButtonWidth,
+                Height = overlayButtonHeight,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5),
+                Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = "View Achievements",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -276,6 +281,7 @@ public class GameButtonFactory(
             };
 
             grid.Children.Add(trophyButton);
+            currentVerticalOffset += overlayButtonHeight + overlayButtonSpacing; // Update offset for next button
         }
 
         if (_settings.OverlayOpenVideoButton == true)
@@ -283,11 +289,11 @@ public class GameButtonFactory(
             // Add the Video Link icon overlay
             var videoLinkButton = new Button
             {
-                Width = 22,
-                Height = 22,
+                Width = overlayButtonWidth,
+                Height = overlayButtonHeight,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 32, 5, 0),
+                Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = "View Video",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -350,6 +356,7 @@ public class GameButtonFactory(
             };
 
             grid.Children.Add(videoLinkButton);
+            currentVerticalOffset += overlayButtonHeight + overlayButtonSpacing; // Update offset for next button
         }
 
         if (_settings.OverlayOpenInfoButton == true)
@@ -357,11 +364,11 @@ public class GameButtonFactory(
             // Add the Info Link icon overlay
             var infoLinkButton = new Button
             {
-                Width = 22,
-                Height = 22,
+                Width = overlayButtonWidth,
+                Height = overlayButtonHeight,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 59, 5, 0),
+                Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
                 ToolTip = "View Info",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -424,6 +431,7 @@ public class GameButtonFactory(
             };
 
             grid.Children.Add(infoLinkButton);
+            // No need to update currentVerticalOffset here as it's the last button.
         }
 
         // Set the DataContext of the grid to the view model.
