@@ -32,7 +32,7 @@ public static class RetroAchievementsHasherTool
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
 
     // Define system categories for hashing logic
-    private static readonly List<string> SystemWithSimpleHash =
+    private static readonly List<string> SystemWithSimpleHashLogic =
     [
         "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "colecovision",
         "vectrex", "magnavox odyssey 2", "intellivision", "msx", "game boy", "game boy advance", "game boy color",
@@ -40,17 +40,22 @@ public static class RetroAchievementsHasherTool
         "sg-1000", "wasm-4", "watara supervision", "mega duck"
     ];
 
-    private static readonly List<string> SystemWithComplexHash =
+    private static readonly List<string> SystemWithComplexOrUnknowHashLogic =
     [
         "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd/turbografx-cd",
         "pc-fx", "gamecube", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
-        "playstation", "playstation 2", "playstation portable", "Arudboy"
+        "playstation", "playstation 2", "playstation portable", "Arudboy", "nintendo dsi", "atari 5200",
+        "wii", "wii u", "nintendo 3ds", "sega pico", "atari st", "pc-8000/8800", "commodore 64", "amiga",
+        "zx spectrum", "fairchild channel f", "philips cd-i", "sharp x68000", "sharp x1", "oric",
+        "thomson to8", "cassette vision", "super cassette vision", "uzebox", "tic-80", "ti-83",
+        "nokia n-gage", "vic-20", "zx81", "pc-6000", "game & watch", "elektor tv games computer",
+        "interton vc 4000", "arcadia 2001", "fm towns", "hubs", "events", "standalone"
     ];
 
-    private static readonly List<string> SystemWithFileNameHash = ["arcade"];
-    private static readonly List<string> SystemWithByteSwappingHash = ["nintendo 64"];
+    private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
+    private static readonly List<string> SystemWithByteSwappingHashLogic = ["nintendo 64"];
 
-    private static readonly List<string> SystemWithHeaderCheckHash =
+    private static readonly List<string> SystemWithHeaderCheckHashLogic =
     [
         "atari 7800", "atari lynx", "famicom disk system", "nintendo entertainment system", "pc engine/turbografx-16",
         "supergrafx", "super nintendo entertainment system"
@@ -172,23 +177,23 @@ public static class RetroAchievementsHasherTool
 
         // --- Determine Hashing Type ---
         string hashCalculationType;
-        if (SystemWithSimpleHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        if (SystemWithSimpleHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "Simple";
         }
-        else if (SystemWithComplexHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithComplexOrUnknowHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "Complex";
         }
-        else if (SystemWithFileNameHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithFileNameHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "HashFileName";
         }
-        else if (SystemWithByteSwappingHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithByteSwappingHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "HashWithByteSwapping";
         }
-        else if (SystemWithHeaderCheckHash.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithHeaderCheckHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "HashWithHeaderCheck";
         }
@@ -311,19 +316,9 @@ public static class RetroAchievementsHasherTool
 
                 case "HashWithHeaderCheck":
                 {
-                    // Delegate header check hashing to the external RAHasher.exe tool
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
-                    if (systemId > 0)
-                    {
-                        DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId}) for header check logic...");
-                        hash = await GetHashAsync(fileToProcess, systemId); // Call the existing GetHashAsync
-                    }
-                    else
-                    {
-                        DebugLogger.Log($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe for header check.");
-                        _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe for header check.");
-                    }
-
+                    DebugLogger.Log($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await RetroAchievementsFileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName);
+                    DebugLogger.Log($"[RA Hasher Tool] Calculated header-based hash: {hash}");
                     break;
                 }
             }

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
@@ -60,6 +61,119 @@ public static class RetroAchievementsFileHasher
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate Arcade hash for {filePath}");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Checks if a file starts with a specific byte sequence (header).
+    /// </summary>
+    private static async Task<bool> FileStartsWithAsync(string filePath, byte[] expectedHeader)
+    {
+        if (!File.Exists(filePath) || new FileInfo(filePath).Length < expectedHeader.Length)
+        {
+            return false;
+        }
+
+        var fileHeader = new byte[expectedHeader.Length];
+        await using var fs = new FileStream(filePath, FileMode.Open, FileAccess.Read, FileShare.Read);
+        var bytesRead = await fs.ReadAsync(fileHeader);
+
+        return bytesRead == expectedHeader.Length && fileHeader.SequenceEqual(expectedHeader);
+    }
+
+    /// <summary>
+    /// Calculates the MD5 hash for systems that may have a header that needs to be skipped.
+    /// The logic is based on the system name and either the file's magic number or its size.
+    /// </summary>
+    /// <param name="filePath">The full path to the game file.</param>
+    /// <param name="systemName">The normalized RetroAchievements system name.</param>
+    /// <returns>The calculated hash as a string, or null if an error occurs.</returns>
+    public static async Task<string> CalculateHeaderBasedMd5Async(string filePath, string systemName)
+    {
+        long offset = 0;
+        try
+        {
+            var fileInfo = new FileInfo(filePath);
+            if (!fileInfo.Exists)
+            {
+                _ = LogErrors.LogErrorAsync(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
+                return null;
+            }
+
+            switch (systemName.ToLowerInvariant())
+            {
+                case "atari 7800":
+                    // Header: \x01ATARI7800, Offset: 128 bytes
+                    byte[] atari7800Header = { 0x01, 0x41, 0x54, 0x41, 0x52, 0x49, 0x37, 0x38, 0x30, 0x30 };
+                    if (fileInfo.Length > 128 && await FileStartsWithAsync(filePath, atari7800Header))
+                    {
+                        offset = 128;
+                    }
+
+                    break;
+
+                case "atari lynx":
+                    // Header: LYNX\0, Offset: 64 bytes
+                    var lynxHeader = "LYNX\0"u8.ToArray();
+                    if (fileInfo.Length > 64 && await FileStartsWithAsync(filePath, lynxHeader))
+                    {
+                        offset = 64;
+                    }
+
+                    break;
+
+                case "famicom disk system":
+                    // Header: FDS\x1a, Offset: 16 bytes
+                    byte[] fdsHeader = { 0x46, 0x44, 0x53, 0x1a };
+                    if (fileInfo.Length > 16 && await FileStartsWithAsync(filePath, fdsHeader))
+                    {
+                        offset = 16;
+                    }
+
+                    break;
+
+                case "nintendo entertainment system":
+                    // Header: NES\x1a, Offset: 16 bytes
+                    byte[] nesHeader = { 0x4E, 0x45, 0x53, 0x1a };
+                    if (fileInfo.Length > 16 && await FileStartsWithAsync(filePath, nesHeader))
+                    {
+                        offset = 16;
+                    }
+
+                    break;
+
+                case "pc engine/turbografx-16":
+                case "supergrafx":
+                    // Size-based check: if size is 512 bytes more than a multiple of 128KB (131072), offset is 512
+                    if (fileInfo.Length > 512 && fileInfo.Length % 131072 == 512)
+                    {
+                        offset = 512;
+                    }
+
+                    break;
+
+                case "super nintendo entertainment system":
+                    // Size-based check: if size is 512 bytes more than a multiple of 8KB (8192), offset is 512
+                    if (fileInfo.Length > 512 && fileInfo.Length % 8192 == 512)
+                    {
+                        offset = 512;
+                    }
+
+                    break;
+
+                default:
+                    // Fallback for any unexpected system name, hash the whole file.
+                    offset = 0;
+                    _ = LogErrors.LogErrorAsync(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
+                    break;
+            }
+
+            return await CalculateMd5WithOffsetAsync(filePath, offset);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
             return null;
         }
     }
