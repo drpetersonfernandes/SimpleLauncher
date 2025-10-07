@@ -1,4 +1,5 @@
 using System;
+using System.Globalization;
 using System.Text.Json.Serialization;
 
 namespace SimpleLauncher.Models;
@@ -24,10 +25,27 @@ public class RaApiAchievement
     public int DisplayOrder { get; set; }
 
     [JsonPropertyName("DateEarned")]
-    public DateTime? DateEarned { get; set; }
+    public string DateEarnedString { get; set; } = "";
 
     [JsonPropertyName("DateEarnedHardcore")]
-    public DateTime? DateEarnedHardcore { get; set; }
+    public string DateEarnedHardcoreString { get; set; } = "";
+
+    [JsonIgnore]
+    public DateTime? DateEarned => ParseDate(DateEarnedString);
+
+    [JsonIgnore]
+    public DateTime? DateEarnedHardcore => ParseDate(DateEarnedHardcoreString);
+
+    private static DateTime? ParseDate(string dateString)
+    {
+        if (string.IsNullOrWhiteSpace(dateString))
+            return null;
+        if (DateTime.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var dt))
+            return dt;
+
+        _ = Services.LogErrors.LogErrorAsync(new FormatException($"Failed to parse RetroAchievements API date string: '{dateString}'"), "RetroAchievements API date parsing error in RaApiAchievement.");
+        return null;
+    }
 
     [JsonPropertyName("NumAwarded")]
     public int NumAwarded { get; set; }
