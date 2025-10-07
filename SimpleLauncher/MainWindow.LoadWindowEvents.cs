@@ -60,5 +60,10 @@ public partial class MainWindow
 
         // Check for required files
         CheckForRequiredFiles.CheckFiles();
+
+        // --- Set initial checked state for overlay buttons ---
+        RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
+        VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
+        InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
     }
 }

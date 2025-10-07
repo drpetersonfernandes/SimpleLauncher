@@ -3201,7 +3201,7 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var raHasherexetoolnotfound = (string)Application.Current.TryFindResource("RAHasherexetoolnotfound") ?? "RAHasher.exe tool not found";
+            var raHasherexetoolnotfound = (string)Application.Current.TryFindResource("RAHasherexetoolnotfound") ?? "RAHasher.exe tool not found.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(raHasherexetoolnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }

@@ -586,6 +586,14 @@
                         </MenuItem.Icon>
                     </MenuItem>
                 </MenuItem>
+                <MenuItem Header="{DynamicResource OverlayButtonSettings}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/overlaybutton.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                    <MenuItem x:Name="RetroAchievementButton" Header="{DynamicResource RetroAchievementOverlayButton}" Click="ToggleRetroAchievementButton_Click" IsCheckable="True" />
+                    <MenuItem x:Name="VideoLinkButton" Header="{DynamicResource VideoLinkOverlayButton}" Click="ToggleVideoLinkButton_Click" IsCheckable="True" />
+                    <MenuItem x:Name="InfoLinkButton" Header="{DynamicResource InfoLinkOverlayButton}" Click="ToggleInfoLinkButton_Click" IsCheckable="True" />
+                </MenuItem>
             </MenuItem>
             <MenuItem
                 Header="{DynamicResource EditSystem}">

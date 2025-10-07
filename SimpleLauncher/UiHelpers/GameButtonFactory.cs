@@ -213,7 +213,7 @@ public class GameButtonFactory(
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 5, 5, 32),
+                Margin = new Thickness(5),
                 Cursor = Cursors.Hand,
                 ToolTip = "View Achievements",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -287,7 +287,7 @@ public class GameButtonFactory(
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5, 5, 5, 54),
+                Margin = new Thickness(5, 32, 5, 0),
                 Cursor = Cursors.Hand,
                 ToolTip = "View Video",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
@@ -361,7 +361,7 @@ public class GameButtonFactory(
                 Height = 22,
                 HorizontalAlignment = HorizontalAlignment.Right,
                 VerticalAlignment = VerticalAlignment.Top,
-                Margin = new Thickness(5),
+                Margin = new Thickness(5, 59, 5, 0),
                 Cursor = Cursors.Hand,
                 ToolTip = "View Info",
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")

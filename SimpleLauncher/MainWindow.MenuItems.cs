@@ -961,4 +961,70 @@ public partial class MainWindow
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
+
+    private void ToggleRetroAchievementButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        try
+        {
+            PlaySoundEffects.PlayNotificationSound();
+
+            _settings.OverlayRetroAchievementButton = menuItem.IsChecked;
+            _settings.Save();
+
+            // Reload game files to reflect the change in overlay buttons
+            var (sl, sq) = GetLoadGameFilesParams();
+            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error toggling RetroAchievements overlay button.");
+            MessageBoxLibrary.ErrorMessageBox();
+        }
+    }
+
+    private void ToggleVideoLinkButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        try
+        {
+            PlaySoundEffects.PlayNotificationSound();
+
+            _settings.OverlayOpenVideoButton = menuItem.IsChecked;
+            _settings.Save();
+
+            // Reload game files to reflect the change in overlay buttons
+            var (sl, sq) = GetLoadGameFilesParams();
+            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error toggling video link overlay button.");
+            MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+        }
+    }
+
+    private void ToggleInfoLinkButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (sender is not MenuItem menuItem) return;
+
+        try
+        {
+            PlaySoundEffects.PlayNotificationSound();
+
+            _settings.OverlayOpenInfoButton = menuItem.IsChecked;
+            _settings.Save();
+
+            // Reload game files to reflect the change in overlay buttons
+            var (sl, sq) = GetLoadGameFilesParams();
+            _ = LoadGameFilesAsync(sl, sq); // Use _ = to avoid blocking UI
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error toggling info link overlay button.");
+            MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
+        }
+    }
 }

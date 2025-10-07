@@ -625,4 +625,14 @@
     <system:String x:Key="CouldNotOpenAchievementsWindow">Could not open the achievements window.</system:String>
     <system:String x:Key="ViewAchievements">View Achievements</system:String>
     
+    <system:String x:Key="OverlayButtonSettings">Overlay Button Settings</system:String>
+    <system:String x:Key="RetroAchievementOverlayButton">RetroAchievement Overlay Button</system:String>
+    <system:String x:Key="VideoLinkOverlayButton">Open Video Overlay Button</system:String>
+    <system:String x:Key="InfoLinkOverlayButton">Open Info Overlay Button</system:String>
+    <system:String x:Key="GameNotSupportedByRA">This game is not currently supported by the RetroAchievements database.</system:String>
+    <system:String x:Key="RetroAchievements">RetroAchievements</system:String>
+    <system:String x:Key="GamelaunchtimedoutPleasetryagainorcheckiftheemulatorstarted">Game launch timed out. Please try again or check if the emulator started.</system:String>
+    <system:String x:Key="Gamelaunchtimedout">Game launch timed out</system:String>
+    <system:String x:Key="RAHasherexetoolnotfound">RAHasher.exe tool not found.</system:String>
+    
 </ResourceDictionary>
