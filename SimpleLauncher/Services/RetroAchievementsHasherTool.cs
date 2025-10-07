@@ -44,7 +44,7 @@ public static class RetroAchievementsHasherTool
     [
         "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd/turbografx-cd",
         "pc-fx", "gamecube", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
-        "playstation", "playstation 2", "playstation portable"
+        "playstation", "playstation 2", "playstation portable", "Arudboy"
     ];
 
     private static readonly List<string> SystemWithFileNameHash = ["arcade"];
