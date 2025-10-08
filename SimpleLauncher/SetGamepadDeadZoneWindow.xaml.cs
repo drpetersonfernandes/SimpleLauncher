@@ -12,6 +12,7 @@ public partial class SetGamepadDeadZoneWindow
     public SetGamepadDeadZoneWindow(SettingsManager settings)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
         LoadDeadZones();

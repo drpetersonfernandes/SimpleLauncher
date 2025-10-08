@@ -20,12 +20,9 @@ public partial class SupportWindow
     public SupportWindow()
     {
         InitializeComponent();
-
-        _httpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
-
         App.ApplyThemeToWindow(this);
+        _httpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
         DataContext = this;
-
         LoadConfiguration();
     }
 

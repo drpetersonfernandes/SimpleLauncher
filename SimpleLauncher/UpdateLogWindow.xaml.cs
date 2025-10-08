@@ -5,6 +5,7 @@ public partial class UpdateLogWindow
     public UpdateLogWindow()
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
     }
 
     public void Log(string message)

@@ -12,6 +12,7 @@ public partial class SetLinksWindow
     public SetLinksWindow(SettingsManager settingsManager)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         // Load Config
         _settingsManager = settingsManager ?? throw new ArgumentNullException(nameof(settingsManager));

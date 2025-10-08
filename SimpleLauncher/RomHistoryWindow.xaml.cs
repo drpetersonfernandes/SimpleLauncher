@@ -23,6 +23,7 @@ public partial class RomHistoryWindow
     public RomHistoryWindow(string romName, string systemName, string searchTerm, SystemManager systemManager)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         _romName = romName;
         _systemName = systemName;

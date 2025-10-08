@@ -1,8 +1,6 @@
 using System;
 using System.Globalization;
 using System.Windows;
-using ControlzEx.Theming;
-using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -17,14 +15,7 @@ public partial class SetFuzzyMatchingWindow
         InitializeComponent();
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
-        // Apply Theme
-        // Get the singleton SettingsManager instance for theme application
-        App.ServiceProvider.GetRequiredService<SettingsManager>();
-        var detectedTheme = ThemeManager.Current.DetectTheme(this);
-        if (detectedTheme != null)
-        {
-            ThemeManager.Current.ChangeTheme(this, detectedTheme.BaseColorScheme, detectedTheme.ColorScheme);
-        }
+        App.ApplyThemeToWindow(this);
 
         // Display the current threshold as percentage
         CurrentThresholdLabel.Content = _settings.FuzzyMatchingThreshold.ToString("P0", CultureInfo.InvariantCulture);

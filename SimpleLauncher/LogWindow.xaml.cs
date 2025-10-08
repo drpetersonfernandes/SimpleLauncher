@@ -10,6 +10,7 @@ public partial class LogWindow
     private LogWindow()
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         // Prevent the log window from appearing in the taskbar
         ShowInTaskbar = false;

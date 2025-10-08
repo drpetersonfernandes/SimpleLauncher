@@ -26,12 +26,12 @@ public partial class EditSystemWindow
     public EditSystemWindow(SettingsManager settings)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
 
         _ = LoadXml();
 
-        App.ApplyThemeToWindow(this);
         Closing += EditSystem_Closing;
 
         SaveSystemButton.IsEnabled = false;

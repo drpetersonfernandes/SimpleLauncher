@@ -11,6 +11,7 @@ public partial class UpdateHistoryWindow
     public UpdateHistoryWindow()
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
         LoadWhatsNewContent();
     }
 

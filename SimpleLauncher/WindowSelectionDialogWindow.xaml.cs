@@ -13,6 +13,7 @@ public partial class WindowSelectionDialogWindow
     public WindowSelectionDialogWindow(List<(IntPtr Handle, string Title)> windows)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
 
         // Populate the ListBox with the window data
         foreach (var window in windows.Where(static window => !string.IsNullOrWhiteSpace(window.Title)))

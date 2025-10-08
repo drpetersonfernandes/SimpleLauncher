@@ -11,10 +11,8 @@ public partial class AboutWindow
     public AboutWindow()
     {
         InitializeComponent();
-
         App.ApplyThemeToWindow(this);
         DataContext = this;
-
         AppVersionTextBlock.Text = GetApplicationVersion.GetVersion;
     }
 

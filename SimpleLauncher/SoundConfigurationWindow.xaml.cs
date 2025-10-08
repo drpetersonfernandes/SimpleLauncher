@@ -17,6 +17,8 @@ public partial class SoundConfigurationWindow
     public SoundConfigurationWindow(SettingsManager settings)
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
+
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         Owner = Application.Current.MainWindow;
         LoadSettings();

@@ -167,8 +167,31 @@ public class DownloadManager : IDisposable
 
                     await Task.Delay(delay, _cancellationTokenSource.Token);
                 }
+                catch (TaskCanceledException tcEx) when (tcEx.InnerException is TimeoutException || (tcEx.InnerException is OperationCanceledException && !IsUserCancellation))
+                {
+                    // This is a timeout, not a user cancellation
+                    currentRetry++;
+                    if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
+                    {
+                        var delay = RetryBaseDelayMs * (int)Math.Pow(2, currentRetry - 1);
+
+                        OnProgressChanged(new DownloadProgressEventArgs
+                        {
+                            ProgressPercentage = 0,
+                            StatusMessage = GetResourceString("RetryingDownloadTimeout", $"Connection timeout, retrying ({currentRetry}/{RetryMaxAttempts})...")
+                        });
+
+                        await Task.Delay(delay, _cancellationTokenSource.Token);
+                    }
+                    else
+                    {
+                        // Re-throw to be caught by the general exception handler for proper user messaging
+                        throw;
+                    }
+                }
                 catch (TaskCanceledException)
                 {
+                    // User cancellation
                     if (IsUserCancellation)
                         break;
 
