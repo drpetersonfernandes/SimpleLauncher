@@ -111,7 +111,7 @@ public static class PathHelper
     /// <param name="path1">The first path segment (can contain %BASEFOLDER%).</param>
     /// <param name="path2">The second path segment.</param>
     /// <returns>The canonical absolute path resulting from combining path1 and path2, resolved relative to the application base directory if needed.</returns>
-    public static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
+    private static string CombineAndResolveRelativeToAppDirectory(string path1, string path2)
     {
          // Resolve path1 first, which handles %BASEFOLDER% and relative-to-app resolution
          var resolvedPath1 = ResolveRelativeToAppDirectory(path1);

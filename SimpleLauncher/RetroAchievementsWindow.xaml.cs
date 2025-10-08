@@ -310,7 +310,16 @@ public partial class RetroAchievementsWindow
                 else
                 {
                     NoAchievementsOverlay.Visibility = Visibility.Visible;
-                    NoAchievementsMessage.Text = "No achievements found for this game.";
+                    // If progress is null, it indicates an API failure (since credentials were provided)
+                    // If progress is not null but achievements is empty, it means no achievements for the game.
+                    if (progress == null)
+                    {
+                        NoAchievementsMessage.Text = "Failed to load achievements. Please check your RetroAchievements credentials or try again later.";
+                    }
+                    else // progress is not null, but achievements is empty
+                    {
+                        NoAchievementsMessage.Text = "No achievements found for this game.";
+                    }
                 }
             }
             catch (Exception ex)
@@ -450,7 +459,8 @@ public partial class RetroAchievementsWindow
                 else
                 {
                     NoGameInfoOverlay.Visibility = Visibility.Visible;
-                    NoGameInfoMessage.Text = "Extended game information not available.";
+                    // If gameInfo is null, it indicates an API failure (since credentials were provided)
+                    NoGameInfoMessage.Text = "Failed to load extended game information. Please check your RetroAchievements credentials or try again later.";
                 }
             }
             catch (Exception ex)
@@ -511,7 +521,10 @@ public partial class RetroAchievementsWindow
                     HighScoresDataGrid.ItemsSource = null;
                     HighScoresDataGrid.Visibility = Visibility.Collapsed;
                     NoHighScoresOverlay.Visibility = Visibility.Visible;
-                    NoHighScoresMessage.Text = "No high scores found for this game.";
+                    // If rankings is null, it indicates an API failure (since credentials were provided)
+                    NoHighScoresMessage.Text = rankings == null
+                        ? "Failed to load high scores. Please check your RetroAchievements credentials or try again later."
+                        : "No high scores found for this game.";
                 }
 
                 // Load User Rank and Score
@@ -530,7 +543,10 @@ public partial class RetroAchievementsWindow
                     UserScoreText.Text = "N/A";
                     UserLastAwardText.Text = "N/A";
                     NoUserRankOverlay.Visibility = Visibility.Visible;
-                    NoUserRankMessage.Text = "No rank data available for this game.";
+                    // If userRank is null, it indicates an API failure (since credentials were provided)
+                    NoUserRankMessage.Text = userRank == null
+                        ? "Failed to load your rank data. Please check your RetroAchievements credentials or try again later."
+                        : "No rank data available for this game.";
                 }
             }
             catch (Exception ex)
@@ -629,10 +645,17 @@ public partial class RetroAchievementsWindow
                         // Ensure full URLs are used (handled in model)
                         UserProfileRecentlyPlayed.ItemsSource = recentlyPlayedGames;
                     }
-                    else
+                    else if (recentlyPlayedGames == null)
                     {
-                        UserProfileRecentlyPlayed.ItemsSource = null;
-                        // If no recently played games are found, the ListBox will simply be empty.
+                        // If recentlyPlayedGames is null, it indicates an API failure for this specific call
+                        DebugLogger.Log($"[RA Window] Failed to load recently played games for user {_settings.RaUsername}. API returned null.");
+                        UserProfileRecentlyPlayed.ItemsSource = null; // Ensure it's cleared
+                        // Optionally, add a message to the ListBox itself or a small text below it.
+                        // For now, just clear it and log.
+                    }
+                    else // recentlyPlayedGames is not null but empty
+                    {
+                        UserProfileRecentlyPlayed.ItemsSource = null; // No recently played games
                     }
 
                     NoProfileOverlay.Visibility = Visibility.Collapsed;
@@ -642,8 +665,8 @@ public partial class RetroAchievementsWindow
                     // If userProfile is null, something went wrong with the main profile fetch
                     NoProfileOverlay.Visibility = Visibility.Visible;
                     // Update messages for general API failure
-                    NoProfileMainMessage.Text = "Could not load user profile.";
-                    NoProfileSubMessage.Text = "Please check your username and API key in settings, or try again later.";
+                    NoProfileMainMessage.Text = "Failed to load user profile.";
+                    NoProfileSubMessage.Text = "Please check your RetroAchievements credentials or try again later.";
                 }
             }
             catch (Exception ex)
@@ -712,7 +735,10 @@ public partial class RetroAchievementsWindow
                     TotalUnlocksInRangeText.Text = "0";
                     TotalPointsEarnedInRangeText.Text = "0";
                     NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay if no data
-                    NoUnlocksMessage.Text = "No unlocks found for the selected date range.";
+                    // If unlocks is null, it indicates an API failure (since credentials were provided)
+                    NoUnlocksMessage.Text = unlocks == null
+                        ? "Failed to load unlocks. Please check your RetroAchievements credentials or try again later."
+                        : "No unlocks found for the selected date range.";
                 }
             }
             catch (Exception ex)
@@ -828,8 +854,17 @@ public partial class RetroAchievementsWindow
                 {
                     UserProgressDataGrid.ItemsSource = null;
                     NoUserProgressOverlay.Visibility = Visibility.Visible;
-                    NoUserProgressMainMessage.Text = "No user completion progress found.";
-                    NoUserProgressSubMessage.Text = "This could be because you haven't played any games or the API request failed.";
+                    // If userProgressList is null, it indicates an API failure (since credentials were provided)
+                    if (userProgressList == null)
+                    {
+                        NoUserProgressMainMessage.Text = "Failed to load user completion progress.";
+                        NoUserProgressSubMessage.Text = "Please check your RetroAchievements credentials or try again later.";
+                    }
+                    else // userProgressList is not null but empty
+                    {
+                        NoUserProgressMainMessage.Text = "No user completion progress found.";
+                        NoUserProgressSubMessage.Text = "This could be because you haven't played any games yet.";
+                    }
                 }
             }
             catch (Exception ex)
