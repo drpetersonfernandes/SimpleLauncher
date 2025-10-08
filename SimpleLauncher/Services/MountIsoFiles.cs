@@ -4,7 +4,7 @@ using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
-using SimpleLauncher.Managers; // For SystemManager, DebugLogger, LogErrors, MessageBoxLibrary, MainWindow
+using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
 
@@ -53,10 +53,8 @@ public static class MountIsoFiles
             mountPath = $"{mountedDriveLetter}:\\";
             DebugLogger.Log($"[MountIsoFiles] ISO reportedly mounted to drive: {mountedDriveLetter}. Mount path: {mountPath}");
 
-            // Brief delay for the system to recognize the drive fully
-            await Task.Delay(2000); // 2 seconds, adjust if necessary
-
-            if (!Directory.Exists(mountPath))
+            // Poll for the drive to become available with a timeout
+            if (!await WaitForDirectoryToExistAsync(mountPath, 10000, 200))
             {
                 var errorMessage = $"Mount path {mountPath} does not exist after mounting ISO {resolvedIsoFilePath}. PowerShell might have failed silently or the drive is not accessible.";
                 DebugLogger.Log($"[MountIsoFiles] Error: {errorMessage}");
@@ -132,6 +130,27 @@ public static class MountIsoFiles
                 }
             }
         }
+    }
+
+    private static async Task<bool> WaitForDirectoryToExistAsync(string directoryPath, int maxWaitTimeMs, int pollIntervalMs)
+    {
+        DebugLogger.Log($"[MountIsoFiles] Waiting for directory to exist: {directoryPath} (max wait: {maxWaitTimeMs}ms, poll interval: {pollIntervalMs}ms)");
+
+        var stopwatch = Stopwatch.StartNew();
+
+        while (stopwatch.ElapsedMilliseconds < maxWaitTimeMs)
+        {
+            if (Directory.Exists(directoryPath))
+            {
+                DebugLogger.Log($"[MountIsoFiles] Directory confirmed to exist after {stopwatch.ElapsedMilliseconds}ms: {directoryPath}");
+                return true;
+            }
+
+            await Task.Delay(pollIntervalMs);
+        }
+
+        DebugLogger.Log($"[MountIsoFiles] Timeout waiting for directory to exist after {stopwatch.ElapsedMilliseconds}ms: {directoryPath}");
+        return false;
     }
 
     private static async Task<string> ExecutePowerShellMountCommandAsync(string isoPath, string logPath)

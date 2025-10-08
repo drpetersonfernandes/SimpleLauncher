@@ -337,7 +337,7 @@ public class GameButtonFactory(
                         _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        MessageBoxLibrary.CouldNotOpenVideoLinkMessageBox();
+                        MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
                     }
                     finally
                     {
@@ -412,7 +412,7 @@ public class GameButtonFactory(
                         _ = LogErrors.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
-                        MessageBoxLibrary.CouldNotOpenInfoLinkMessageBox();
+                        MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
                     }
                     finally
                     {

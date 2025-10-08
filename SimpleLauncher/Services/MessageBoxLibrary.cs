@@ -3206,14 +3206,4 @@ internal static class MessageBoxLibrary
             MessageBox.Show(raHasherexetoolnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
-
-    public static void CouldNotOpenVideoLinkMessageBox()
-    {
-        throw new NotImplementedException();
-    }
-
-    public static void CouldNotOpenInfoLinkMessageBox()
-    {
-        throw new NotImplementedException();
-    }
 }

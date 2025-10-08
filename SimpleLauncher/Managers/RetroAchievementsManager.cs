@@ -45,17 +45,14 @@ public class RetroAchievementsManager
         // Populate the hash lookup dictionary after loading AllGames
         manager.PopulateHashLookup();
 
-        // If the file doesn't exist, is empty, or fails to load, create a new instance.
-        // And if AllGames is still empty, ensure the file is created (or overwritten if corrupted)
+        // If the file doesn't exist, is empty, or fails to load, log it for debugging
         if (manager.AllGames.Count == 0)
         {
             // Notify developer
-            const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
+            const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-            DebugLogger.Log("[RA Manager] Failed to load RetroAchievements.dat");
-
-            return null;
+            DebugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
         }
 
         return manager;
