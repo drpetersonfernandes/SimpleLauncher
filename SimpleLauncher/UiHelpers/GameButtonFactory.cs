@@ -8,6 +8,7 @@ using System.Windows.Data;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
+using System.Windows.Automation;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -82,6 +83,9 @@ public class GameButtonFactory(
         };
         textPanel.Children.Add(filenameTextBlock);
 
+        // Determine accessible name for the main game button
+        var accessibleGameName = fileNameWithoutExtension;
+
         // For MAME systems, add a second row for the description if available.
         if (selectedSystemManager.SystemIsMame)
         {
@@ -101,6 +105,7 @@ public class GameButtonFactory(
                     TextWrapping = TextWrapping.Wrap
                 };
                 textPanel.Children.Add(descriptionTextBlock);
+                accessibleGameName = machine.Description; // Use description for accessible name if available
             }
         }
 
@@ -220,9 +225,11 @@ public class GameButtonFactory(
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
-                ToolTip = "View Achievements",
+                ToolTip = (string)Application.Current.TryFindResource("ViewAchievements") ?? "View Achievements", // Localized ToolTip
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
+            // Set AutomationProperties.Name for screen readers
+            AutomationProperties.SetName(trophyButton, (string)trophyButton.ToolTip);
 
             var trophyImage = new Image
             {
@@ -295,9 +302,11 @@ public class GameButtonFactory(
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
-                ToolTip = "View Video",
+                ToolTip = (string)Application.Current.TryFindResource("ViewVideo") ?? "View Video", // Localized ToolTip
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
+            // Set AutomationProperties.Name for screen readers
+            AutomationProperties.SetName(videoLinkButton, (string)videoLinkButton.ToolTip);
 
             var videoLinkImage = new Image
             {
@@ -370,9 +379,11 @@ public class GameButtonFactory(
                 VerticalAlignment = VerticalAlignment.Top,
                 Margin = new Thickness(5, currentVerticalOffset, 5, 0), // Use dynamic offset
                 Cursor = Cursors.Hand,
-                ToolTip = "View Info",
+                ToolTip = (string)Application.Current.TryFindResource("ViewInfo") ?? "View Info", // Localized ToolTip
                 Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
             };
+            // Set AutomationProperties.Name for screen readers
+            AutomationProperties.SetName(infoLinkButton, (string)infoLinkButton.ToolTip);
 
             var infoLinkImage = new Image
             {
@@ -457,6 +468,10 @@ public class GameButtonFactory(
             Margin = new Thickness(5),
             Padding = new Thickness(0, 5, 0, 0)
         };
+
+        // Set AutomationProperties.Name for the main game button for screen readers
+        AutomationProperties.SetName(_button, accessibleGameName);
+        AutomationProperties.SetHelpText(_button, (string)Application.Current.TryFindResource("LaunchGame") ?? "Launch Game");
 
         // Apply the 3D style from MainWindow's resources
         _button.SetResourceReference(FrameworkElement.StyleProperty, "GameButtonStyle");

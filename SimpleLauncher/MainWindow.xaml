@@ -8,9 +8,11 @@
                       MinWidth="1050"
                       MinHeight="600"
                       Closing="MainWindow_Closing"
-                      MouseWheel="MainWindow_MouseWheel">
+                      MouseWheel="MainWindow_MouseWheel"
+                      xmlns:converters="clr-namespace:SimpleLauncher.Converters">
     <Window.Resources>
         <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+        <converters:BooleanToFavoriteStatusConverter x:Key="FavoriteStatusConverter" />
         <Style x:Key="EnhancedGridSplitterStyle" TargetType="GridSplitter">
             <Setter Property="Width" Value="8" />
             <Setter Property="Template">
@@ -761,56 +763,65 @@
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Restart}"
                             Click="NavRestartButton_Click"
-                            Margin="0,10,2,5">
+                            Margin="0,10,2,5"
+                            AutomationProperties.Name="{DynamicResource Restart}">
                         <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource GlobalSearch}"
-                            Click="NavGlobalSearchButton_Click">
+                            Click="NavGlobalSearchButton_Click"
+                            AutomationProperties.Name="{DynamicResource GlobalSearch}">
                         <Image Source="pack://application:,,,/images/search2.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavFavoritesButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Favorites}"
-                            Click="NavFavoritesButton_Click">
+                            Click="NavFavoritesButton_Click"
+                            AutomationProperties.Name="{DynamicResource Favorites}">
                         <Image Source="pack://application:,,,/images/heart.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavHistoryButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource PlayHistory}"
-                            Click="NavHistoryButton_Click">
+                            Click="NavHistoryButton_Click"
+                            AutomationProperties.Name="{DynamicResource PlayHistory}">
                         <Image Source="pack://application:,,,/images/playhistory.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavExpertModeButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource EditSystem}"
-                            Click="NavExpertModeButton_Click">
+                            Click="NavExpertModeButton_Click"
+                            AutomationProperties.Name="{DynamicResource EditSystem}">
                         <Image Source="pack://application:,,,/images/settings.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ToggleViewMode"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleViewMode}"
-                            Click="NavToggleViewMode_Click">
+                            Click="NavToggleViewMode_Click"
+                            AutomationProperties.Name="{DynamicResource ToggleViewMode}">
                         <Image Source="pack://application:,,,/images/show.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ToggleButtonAspectRatio"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleButtonAspectRatio}"
-                            Click="NavToggleButtonAspectRatio_Click">
+                            Click="NavToggleButtonAspectRatio_Click"
+                            AutomationProperties.Name="{DynamicResource ToggleButtonAspectRatio}">
                         <Image Source="pack://application:,,,/images/aspectratio.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ZoomInButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomIn}"
-                            Click="NavZoomInButton_Click">
+                            Click="NavZoomInButton_Click"
+                            AutomationProperties.Name="{DynamicResource ZoomIn}">
                         <Image Source="pack://application:,,,/images/zoom-in.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="ZoomOutButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomOut}"
                             Click="NavZoomOutButton_Click"
-                            Margin="0,5,2,10"> <!-- Overriding the default margin for the last button -->
+                            Margin="0,5,2,10"
+                            AutomationProperties.Name="{DynamicResource ZoomOut}">
                         <Image Source="pack://application:,,,/images/zoom-out.png" Width="22" Height="22" />
                     </Button>
                 </StackPanel>
@@ -860,7 +871,8 @@
                         Name="SystemComboBox"
                         HorizontalAlignment="Stretch"
                         VerticalAlignment="Center"
-                        SelectionChanged="SystemComboBox_SelectionChanged" />
+                        SelectionChanged="SystemComboBox_SelectionChanged"
+                        AutomationProperties.Name="{DynamicResource SelectSystemComboBox}" />
 
                     <StackPanel x:Name="SearchSystem"
                                 Grid.Row="1"
@@ -872,12 +884,15 @@
                                  Width="200"
                                  HorizontalAlignment="Center"
                                  VerticalAlignment="Center"
-                                 KeyDown="SearchTextBox_KeyDown" />
+                                 KeyDown="SearchTextBox_KeyDown"
+                                 AutomationProperties.Name="{DynamicResource SearchTextBoxLabel}"
+                                 AutomationProperties.HelpText="{DynamicResource SearchTextBoxHelpText}" />
                         <Button x:Name="SearchButton"
                                 Style="{StaticResource NavImageButton3DStyle}"
                                 Click="SearchButton_Click"
                                 Margin="10,0,0,0"
-                                ToolTip="{DynamicResource Search}">
+                                ToolTip="{DynamicResource Search}"
+                                AutomationProperties.Name="{DynamicResource Search}">
                             <Image Source="pack://application:,,,/images/search3.png"
                                    Width="22"
                                    Height="22" />
@@ -896,7 +911,8 @@
                         Margin="5,5,0,0"
                         Name="EmulatorComboBox"
                         HorizontalAlignment="Stretch"
-                        VerticalAlignment="Center" />
+                        VerticalAlignment="Center"
+                        AutomationProperties.Name="{DynamicResource SelectEmulatorComboBox}" />
 
                     <Button
                         x:Name="SelectedSystemFavoriteButton"
@@ -906,7 +922,8 @@
                         Grid.Column="3"
                         ToolTip="{DynamicResource SelectedSystemFavoriteButton}"
                         Click="NavSelectedSystemFavoriteButton_Click"
-                        Margin="10,10,0,0">
+                        Margin="10,10,0,0"
+                        AutomationProperties.Name="{DynamicResource SelectedSystemFavoriteButton}">
                         <Image Source="pack://application:,,,/images/star.png" Width="22" Height="22" />
                     </Button>
                     <Button
@@ -917,7 +934,8 @@
                         Style="{StaticResource NavImageButton3DStyle}"
                         ToolTip="{DynamicResource FeelingLucky}"
                         Click="NavRandomLuckGameButton_Click"
-                        Margin="10,10,2,0">
+                        Margin="10,10,2,0"
+                        AutomationProperties.Name="{DynamicResource FeelingLucky}">
                         <Image Source="pack://application:,,,/images/dice.png" Width="22" Height="22" />
                     </Button>
                     <Button
@@ -929,7 +947,8 @@
                         ToolTip="Sort by File Name"
                         Click="SortOrderToggleButton_Click"
                         Margin="10,10,2,0"
-                        Visibility="Collapsed">
+                        Visibility="Collapsed"
+                        AutomationProperties.Name="{Binding RelativeSource={RelativeSource Self}, Path=ToolTip}"> <!-- Dynamic AutomationProperties.Name -->
                         <Image Source="pack://application:,,,/images/sort-az.png" Width="22" Height="22" />
                     </Button>
                 </Grid>
@@ -965,7 +984,9 @@
                               CanUserAddRows="False"
                               IsReadOnly="True"
                               GridLinesVisibility="All"
-                              SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }">
+                              SelectionChanged="GameListSelectionChanged" d:DataContext="{d:DesignInstance }"
+                              AutomationProperties.Name="{DynamicResource GameListGrid}"
+                              AutomationProperties.HelpText="{DynamicResource GameListGridHelpText}">
                         <DataGrid.RowStyle>
                             <Style TargetType="DataGridRow">
                                 <Setter Property="ContextMenu" Value="{Binding ContextMenu}" />
@@ -980,8 +1001,8 @@
                                         <BeginStoryboard>
                                             <Storyboard>
                                                 <DoubleAnimation
-                                                Storyboard.TargetProperty="Opacity"
-                                                From="0.0" To="1.0" Duration="0:0:0.5" />
+                                                    Storyboard.TargetProperty="Opacity"
+                                                    From="0.0" To="1.0" Duration="0:0:0.5" />
                                             </Storyboard>
                                         </BeginStoryboard>
                                     </EventTrigger>
@@ -997,21 +1018,29 @@
                             </Style>
                         </DataGrid.RowStyle>
                         <DataGrid.Columns>
-                            <DataGridTemplateColumn Header="Favorite" Width="Auto">
+                            <DataGridTemplateColumn Header="{DynamicResource FavoriteColumnHeader}" Width="Auto"
+                                                    AutomationProperties.Name="{DynamicResource FavoriteColumnHeader}">
                                 <DataGridTemplateColumn.CellTemplate>
                                     <DataTemplate>
                                         <Image Source="pack://application:,,,/images/star.png" Width="16" Height="16"
                                                Visibility="{Binding IsFavorite, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                               d:DataContext="{d:DesignInstance }" />
+                                               d:DataContext="{d:DesignInstance }"
+                                               AutomationProperties.Name="{Binding IsFavorite, Converter={StaticResource FavoriteStatusConverter}}" /> <!-- Dynamic AutomationProperties.Name via converter -->
                                     </DataTemplate>
                                 </DataGridTemplateColumn.CellTemplate>
                             </DataGridTemplateColumn>
-                            <DataGridTextColumn Header="File Name" Binding="{Binding FileName}" Width="*" />
-                            <DataGridTextColumn Header="Machine Description for MAME files" Binding="{Binding MachineDescription}" Width="*" />
-                            <DataGridTextColumn Header="Folder Path" Binding="{Binding FolderPath}" Width="*" />
-                            <DataGridTextColumn Header="File Size" Binding="{Binding FileSize}" Width="Auto" />
-                            <DataGridTextColumn Header="Times Played" Binding="{Binding TimesPlayed}" Width="Auto" />
-                            <DataGridTextColumn Header="Play Time" Binding="{Binding PlayTime}" Width="Auto" />
+                            <DataGridTextColumn Header="{DynamicResource FileNameColumnHeader}" Binding="{Binding FileName}" Width="*"
+                                                AutomationProperties.Name="{DynamicResource FileNameColumnHeader}" />
+                            <DataGridTextColumn Header="{DynamicResource MachineDescriptionColumnHeader}" Binding="{Binding MachineDescription}" Width="*"
+                                                AutomationProperties.Name="{DynamicResource MachineDescriptionColumnHeader}" />
+                            <DataGridTextColumn Header="{DynamicResource FolderPathColumnHeader}" Binding="{Binding FolderPath}" Width="*"
+                                                AutomationProperties.Name="{DynamicResource FolderPathColumnHeader}" />
+                            <DataGridTextColumn Header="{DynamicResource FileSizeColumnHeader}" Binding="{Binding FileSize}" Width="Auto"
+                                                AutomationProperties.Name="{DynamicResource FileSizeColumnHeader}" />
+                            <DataGridTextColumn Header="{DynamicResource TimesPlayedColumnHeader}" Binding="{Binding TimesPlayed}" Width="Auto"
+                                                AutomationProperties.Name="{DynamicResource TimesPlayedColumnHeader}" />
+                            <DataGridTextColumn Header="{DynamicResource PlayTimeColumnHeader}" Binding="{Binding PlayTime}" Width="Auto"
+                                                AutomationProperties.Name="{DynamicResource PlayTimeColumnHeader}" />
                         </DataGrid.Columns>
                     </DataGrid>
 
@@ -1043,17 +1072,19 @@
                             <Image Name="PreviewImage"
                                    Stretch="Uniform"
                                    HorizontalAlignment="Center"
-                                   VerticalAlignment="Center" />
+                                   VerticalAlignment="Center"
+                                   AutomationProperties.Name="{DynamicResource PreviewImageLabel}" />
                         </Border>
                     </Grid>
                 </Grid>
-                
+
                 <controls:ProgressRing x:Name="LoadingIndicator"
                                        IsActive="{Binding IsLoadingGames}"
                                        HorizontalAlignment="Center"
                                        VerticalAlignment="Center"
                                        Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Width="100" Height="100" d:DataContext="{d:DesignInstance }" />
+                                       Width="100" Height="100" d:DataContext="{d:DesignInstance }"
+                                       AutomationProperties.Name="{DynamicResource LoadingGamesIndicator}" />
             </Grid>
         </Grid>
 
@@ -1077,7 +1108,8 @@
                         Margin="0"
                         ToolTip="{DynamicResource PreviousPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
-                        Click="PrevPageButton_Click">
+                        Click="PrevPageButton_Click"
+                        AutomationProperties.Name="{DynamicResource PreviousPage}">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
                            Height="22"
                            Width="22" />
@@ -1086,7 +1118,8 @@
                         Margin="10,0,0,0"
                         ToolTip="{DynamicResource NextPage}"
                         Style="{StaticResource NavImageButton3DStyle}"
-                        Click="NextPageButton_Click">
+                        Click="NextPageButton_Click"
+                        AutomationProperties.Name="{DynamicResource NextPage}">
                     <Image Source="pack://application:,,,/images/arrowright.png"
                            Height="22"
                            Width="22" />
@@ -1096,29 +1129,31 @@
                     Margin="10,0,0,0"
                     Content=""
                     VerticalAlignment="Center"
-                    VerticalContentAlignment="Center" />
+                    VerticalContentAlignment="Center"
+                    AutomationProperties.Name="{DynamicResource TotalFilesLabel}" />
             </StackPanel>
             <StackPanel Grid.Column="2" HorizontalAlignment="Right" VerticalAlignment="Center"
                         Margin="10,0,0,0"
                         Orientation="Horizontal">
                 <!-- System Info -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,15,0">
-                    <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0"/>
-                    <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,15,0"
+                            AutomationProperties.Name="{DynamicResource CurrentSystemInfo}">
+                    <Image Source="pack://application:,,,/images/gamepad.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <Label Content="{DynamicResource System}" VerticalAlignment="Center" Padding="0" />
+                    <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
                 </StackPanel>
                 <!-- Playtime Info -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0">
-                    <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0"/>
-                    <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0"/>
-                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0"
+                            AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}">
+                    <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
+                    <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
+                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
                 </StackPanel>
                 <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
                 <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />
             </StackPanel>
 
         </Grid>
-
 
     </Grid>
 </controls:MetroWindow>
