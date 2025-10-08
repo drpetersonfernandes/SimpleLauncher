@@ -15,11 +15,15 @@ public struct RaHashResult
 {
     public string Hash { get; }
     public string TempExtractionPath { get; }
+    public bool IsExtractionSuccessful { get; } // New property
+    public string ExtractionErrorMessage { get; } // New property
 
-    public RaHashResult(string hash, string tempExtractionPath)
+    public RaHashResult(string hash, string tempExtractionPath, bool isExtractionSuccessful = true, string extractionErrorMessage = null)
     {
         Hash = hash;
         TempExtractionPath = tempExtractionPath;
+        IsExtractionSuccessful = isExtractionSuccessful;
+        ExtractionErrorMessage = extractionErrorMessage;
     }
 }
 
@@ -164,19 +168,21 @@ public static class RetroAchievementsHasherTool
     {
         string tempExtractionPath = null;
         string hash = null;
+        var isExtractionSuccessful = true; // Assume success initially
+        string extractionErrorMessage = null;
 
         if (!File.Exists(filePath))
         {
             DebugLogger.Log($"[RA Hasher Tool] File not found at {filePath}");
             _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] File not found at {filePath}");
-            return new RaHashResult(null, null); // Return null hash
+            return new RaHashResult(null, null, false, "Game file not found.");
         }
 
         if (string.IsNullOrWhiteSpace(systemName))
         {
             DebugLogger.Log("[RA Hasher Tool] SystemName is null or empty.");
             _ = LogErrors.LogErrorAsync(null, "[RA Hasher Tool] SystemName is null or empty.");
-            return new RaHashResult(null, null); // Return null hash
+            return new RaHashResult(null, null, false, "System name is missing.");
         }
 
         var fileExtension = Path.GetExtension(filePath).ToLowerInvariant();
@@ -211,7 +217,7 @@ public static class RetroAchievementsHasherTool
         {
             DebugLogger.Log($"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
             _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing. This is expected for systems in the 'UnknowHashLogic' list.");
-            return new RaHashResult(null, null); // Return null hash
+            return new RaHashResult(null, null, false, $"System '{systemName}' is not supported for RetroAchievements hashing.");
         }
 
         // --- Pre-processing: Extract if necessary ---
@@ -227,9 +233,11 @@ public static class RetroAchievementsHasherTool
 
             if (string.IsNullOrEmpty(tempExtractionPath))
             {
-                _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] Failed to extract archive for hashing: {filePath}");
-                DebugLogger.Log($"[RA Hasher Tool] Failed to extract archive for hashing: {filePath}");
-                return new RaHashResult(null, null); // Return null hash
+                isExtractionSuccessful = false;
+                extractionErrorMessage = $"Failed to extract archive for hashing: {filePath}. The file might be corrupted or inaccessible.";
+                _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] {extractionErrorMessage}");
+                DebugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
+                return new RaHashResult(null, null, isExtractionSuccessful, extractionErrorMessage); // Return null hash, but keep temp path for cleanup
             }
 
             string foundRomFile = null;
@@ -260,9 +268,11 @@ public static class RetroAchievementsHasherTool
 
             if (string.IsNullOrEmpty(foundRomFile))
             {
-                DebugLogger.Log($"[RA Hasher Tool] Could not find any suitable file to hash after extracting {filePath}.");
-                _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] Could not find any suitable file to hash after extracting {filePath}.");
-                return new RaHashResult(null, tempExtractionPath); // Return null hash, but keep temp path for cleanup
+                isExtractionSuccessful = false;
+                extractionErrorMessage = $"Could not find any suitable file to hash after extracting {filePath}. No matching launch format found.";
+                DebugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
+                _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] {extractionErrorMessage}");
+                return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage); // Return null hash, but keep temp path for cleanup
             }
 
             fileToProcess = foundRomFile; // Update the path to the extracted file
@@ -294,6 +304,8 @@ public static class RetroAchievementsHasherTool
                     {
                         DebugLogger.Log($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
                         _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
+                        isExtractionSuccessful = false; // Treat as a hashing failure
+                        extractionErrorMessage = $"Could not find RetroAchievements System ID for '{systemName}'.";
                     }
 
                     break;
@@ -334,9 +346,9 @@ public static class RetroAchievementsHasherTool
         {
             _ = LogErrors.LogErrorAsync(ex, $"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
             DebugLogger.Log($"[RA Hasher Tool] An error occurred during hash calculation for {filePath} (System: {systemName}).");
-            return new RaHashResult(null, tempExtractionPath); // Return null hash, but keep temp path for cleanup
+            return new RaHashResult(null, tempExtractionPath, false, $"Error during hash calculation: {ex.Message}"); // Return null hash, but keep temp path for cleanup
         }
 
-        return new RaHashResult(hash, tempExtractionPath);
+        return new RaHashResult(hash, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
     }
 }

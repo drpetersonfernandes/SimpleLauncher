@@ -25,7 +25,18 @@ public class RaAchievement
     public DateTime? DateEarned { get; set; }
     public int? TrueRatio { get; set; } // ADDED: True Ratio for the achievement
 
-    public string DateUnlockedDisplay => IsUnlocked ? (UnlockedInHardcore ? $"🏆 {DateUnlocked:yyyy-MM-dd}" : $"{DateUnlocked:yyyy-MM-dd}") : "Locked";
+    // Refined DateUnlockedDisplay to handle null DateUnlocked more explicitly
+    public string DateUnlockedDisplay
+    {
+        get
+        {
+            if (!IsUnlocked) return "Locked";
+            if (DateUnlocked == null) return "N/A"; // Explicitly handle null DateUnlocked if IsUnlocked is true
+
+            return UnlockedInHardcore ? $"🏆 {DateUnlocked.Value:yyyy-MM-dd}" : $"{DateUnlocked.Value:yyyy-MM-dd}";
+        }
+    }
+
     public string ModeDisplay => UnlockedInHardcore ? "Hardcore" : (IsUnlocked ? "Casual" : "Not Earned");
     public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
 

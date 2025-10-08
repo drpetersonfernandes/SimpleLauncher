@@ -235,26 +235,30 @@ public static class ContextMenuFunctions
 
     public static async Task OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
     {
-        string tempExtractionPath = null; // This will be set by the hasher tool if extraction occurs
-
-        // Get services from the service provider
-        var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
-
-        if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
-        {
-            MessageBoxLibrary.AddRaLogin();
-
-            // Open RetroAchievements Settings Window
-            var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
-            raSettingsWindow.ShowDialog();
-
-            return;
-        }
-
-        var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
-
+        string tempExtractionPath = null;
         try
         {
+            // Get services from the service provider
+            var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
+
+            if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
+            {
+                MessageBoxLibrary.AddRaLogin();
+
+                // Open RetroAchievements Settings Window
+                var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
+                raSettingsWindow.Owner = mainWindow; // Set owner to main window
+                raSettingsWindow.ShowDialog();
+
+                // If user didn't save credentials, or saved empty ones, return
+                if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
+                {
+                    return;
+                }
+            }
+
+            var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
+
             DebugLogger.Log($"[RA Service] Original system name: {systemManager.SystemName}");
             var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
@@ -284,13 +288,21 @@ public static class ContextMenuFunctions
             }
 
             // Set loading indicator
-            mainWindow.IsLoadingGames = true;
+            mainWindow.IsLoadingGames = true; // This is a DependencyProperty, safe to set from any thread.
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
 
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;
+
+            // Check for extraction failure
+            if (!raHashResult.IsExtractionSuccessful)
+            {
+                DebugLogger.Log($"[RA Service] Extraction failed for '{fileNameWithoutExtension}': {raHashResult.ExtractionErrorMessage}");
+                MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
+                return; // Exit as we cannot proceed without a valid extracted file or hash
+            }
 
             if (string.IsNullOrEmpty(hash))
             {
@@ -307,8 +319,13 @@ public static class ContextMenuFunctions
             if (matchedGame != null)
             {
                 DebugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
-                var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
-                achievementsWindow.Show();
+                // Ensure this is run on the UI thread as it creates a new window
+                await mainWindow.Dispatcher.InvokeAsync(() =>
+                {
+                    var achievementsWindow = new RetroAchievementsWindow(matchedGame.Id, fileNameWithoutExtension);
+                    achievementsWindow.Owner = mainWindow; // Set owner
+                    achievementsWindow.Show();
+                });
             }
             else
             {
@@ -326,7 +343,7 @@ public static class ContextMenuFunctions
         finally
         {
             // Ensure loading indicator is hidden
-            mainWindow.IsLoadingGames = false;
+            mainWindow.IsLoadingGames = false; // This is a DependencyProperty, safe to set from any thread.
 
             // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
