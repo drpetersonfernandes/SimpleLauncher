@@ -890,10 +890,18 @@ public static class GameLauncher
         }
 
         // Check if the output contains "File open/read error" and ignore it,
-        // This is a common RetroArch error that should be ignored
+        // Common RetroArch error that should be ignored
         if (output.ToString().Contains("File open/read error", StringComparison.OrdinalIgnoreCase))
         {
             DebugLogger.Log($"[CheckForExitCodeWithErrorAny] Ignored exit code {process.ExitCode} due to 'File open/read error' in output.");
+            return Task.CompletedTask;
+        }
+
+        // Check if the output contains "Packed pixels extension used" and ignore it,
+        // Common Project64 error that should be ignored
+        if (output.ToString().Contains("Packed pixels extension used", StringComparison.OrdinalIgnoreCase))
+        {
+            DebugLogger.Log($"[CheckForExitCodeWithErrorAny] Ignored exit code {process.ExitCode} due to 'Packed pixels extension used' in output.");
             return Task.CompletedTask;
         }
 
