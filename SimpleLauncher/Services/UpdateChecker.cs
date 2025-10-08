@@ -37,7 +37,7 @@ public static partial class UpdateChecker
 
     static UpdateChecker()
     {
-        HttpClientFactory = App.ServiceProvider?.GetService<IHttpClientFactory>();
+        HttpClientFactory = App.ServiceProvider?.GetRequiredService<IHttpClientFactory>();
     }
 
     private static string CurrentVersion
@@ -70,31 +70,34 @@ public static partial class UpdateChecker
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-            if (response.IsSuccessStatusCode)
+            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            if (httpClient != null)
             {
-                DebugLogger.Log("Check for Updates Success");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-
-                if (latestVersion == null) return;
-
-                if (IsNewVersionAvailable(CurrentVersion, latestVersion))
+                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (response.IsSuccessStatusCode)
                 {
-                    if (updaterZipAssetUrl != null)
+                    DebugLogger.Log("Check for Updates Success");
+
+                    var content = await response.Content.ReadAsStringAsync();
+                    var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+
+                    if (latestVersion == null) return;
+
+                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
                     {
-                        var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
-                        await ShowUpdateWindow(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
-                    }
-                    else
-                    {
-                        // Notify developer
-                        var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                        _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
+                        if (updaterZipAssetUrl != null)
+                        {
+                            var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
+                            await ShowUpdateWindow(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
+                        }
+                        else
+                        {
+                            // Notify developer
+                            var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
+                            _ = LogErrors.LogErrorAsync(new FileNotFoundException($"'{expectedUpdaterFileName}' not found for version {latestVersion}. Automatic update of updater not possible.", expectedUpdaterFileName), "Update Check Info");
+                        }
                     }
                 }
             }
@@ -116,58 +119,61 @@ public static partial class UpdateChecker
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-            if (response.IsSuccessStatusCode)
+            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            if (httpClient != null)
             {
-                DebugLogger.Log("Check for Updates Success");
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var content = await response.Content.ReadAsStringAsync();
-                var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-
-                if (latestVersion == null)
+                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (response.IsSuccessStatusCode)
                 {
-                    _ = LogErrors.LogErrorAsync(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
-                    MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
-                    return;
-                }
+                    DebugLogger.Log("Check for Updates Success");
 
-                if (IsNewVersionAvailable(CurrentVersion, latestVersion))
-                {
-                    if (updaterZipAssetUrl != null)
+                    var content = await response.Content.ReadAsStringAsync();
+                    var (latestVersion, releasePackageAssetUrl, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+
+                    if (latestVersion == null)
                     {
-                        await ShowUpdateWindow(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
+                        _ = LogErrors.LogErrorAsync(new InvalidDataException("Could not determine latest version from API response."), "Update Check Error");
+                        MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
+                        return;
+                    }
+
+                    if (IsNewVersionAvailable(CurrentVersion, latestVersion))
+                    {
+                        if (updaterZipAssetUrl != null)
+                        {
+                            await ShowUpdateWindow(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
+                        }
+                        else
+                        {
+                            var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
+                            var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
+                            message += releasePackageAssetUrl != null
+                                ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
+                                : "The main release package was also not found. Please check the GitHub releases page.";
+
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
+
+                            // Notify user
+                            MessageBoxLibrary.InstallUpdateManuallyMessageBox();
+                        }
                     }
                     else
                     {
-                        var expectedUpdaterFileName = $"updater_{CurrentRuntimeIdentifier}.zip";
-                        var message = $"A new version ({latestVersion}) is available, but the required '{expectedUpdaterFileName}' for automatic updater update was not found. ";
-                        message += releasePackageAssetUrl != null
-                            ? $"You can try to download the main package '{Path.GetFileName(releasePackageAssetUrl)}' manually from the releases page."
-                            : "The main release package was also not found. Please check the GitHub releases page.";
-
-                        // Notify developer
-                        _ = LogErrors.LogErrorAsync(new FileNotFoundException(message, expectedUpdaterFileName), "Update Process Info");
-
                         // Notify user
-                        MessageBoxLibrary.InstallUpdateManuallyMessageBox();
+                        MessageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(mainWindow, CurrentVersion);
                     }
                 }
                 else
                 {
-                    // Notify user
-                    MessageBoxLibrary.ThereIsNoUpdateAvailableMessageBox(mainWindow, CurrentVersion);
-                }
-            }
-            else
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
 
-                // Notify user
-                MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
+                    // Notify user
+                    MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox(mainWindow);
+                }
             }
         }
         catch (Exception ex)
@@ -190,20 +196,25 @@ public static partial class UpdateChecker
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
-            httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
-
-            var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
-            if (!response.IsSuccessStatusCode)
+            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            if (httpClient != null)
             {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
-                return (null, null);
+                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+
+                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                if (!response.IsSuccessStatusCode)
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(new HttpRequestException($"GitHub API request failed with status code {response.StatusCode}."), "Update Check Error");
+                    return (null, null);
+                }
+
+                var content = await response.Content.ReadAsStringAsync();
+                var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
+                return (updaterZipAssetUrl, latestVersion);
             }
 
-            var content = await response.Content.ReadAsStringAsync();
-            var (latestVersion, _, updaterZipAssetUrl) = ParseVersionAndAssetUrlsFromResponse(content);
-            return (updaterZipAssetUrl, latestVersion);
+            return (null, null);
         }
         catch (Exception ex)
         {
@@ -313,11 +324,15 @@ public static partial class UpdateChecker
             throw new InvalidOperationException("HttpClientFactory is not initialized. Cannot download update file.");
         }
 
-        var httpClient = HttpClientFactory.CreateClient("UpdateCheckerClient");
-        using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
-        response.EnsureSuccessStatusCode();
-        await using var stream = await response.Content.ReadAsStreamAsync();
-        await stream.CopyToAsync(memoryStream);
+        var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+        if (httpClient != null)
+        {
+            using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            response.EnsureSuccessStatusCode();
+            await using var stream = await response.Content.ReadAsStreamAsync();
+            await stream.CopyToAsync(memoryStream);
+        }
+
         memoryStream.Position = 0;
     }
 

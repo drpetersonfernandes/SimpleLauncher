@@ -20,7 +20,7 @@ public static class LogErrors
     static LogErrors()
     {
         LoadConfiguration();
-        HttpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
+        HttpClientFactory = App.ServiceProvider?.GetRequiredService<IHttpClientFactory>();
     }
 
     private static void LoadConfiguration()
@@ -171,21 +171,27 @@ public static class LogErrors
 
         try
         {
-            var httpClient = HttpClientFactory.CreateClient("LogErrorsClient");
-            httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
-
-            var payload = new
+            var httpClient = HttpClientFactory?.CreateClient("LogErrorsClient");
+            if (httpClient != null)
             {
-                message = logContent,
-                applicationName = "SimpleLauncher"
-            };
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
 
-            var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-            using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
+                var payload = new
+                {
+                    message = logContent,
+                    applicationName = "SimpleLauncher"
+                };
 
-            DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
+                var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
+                using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
 
-            return response.IsSuccessStatusCode;
+                DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
+
+                return response.IsSuccessStatusCode;
+            }
+
+            // If httpClient is null, return false
+            return false;
         }
         catch (Exception ex)
         {

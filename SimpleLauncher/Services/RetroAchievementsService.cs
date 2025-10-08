@@ -21,7 +21,7 @@ public class RetroAchievementsService
     // Constructor to inject dependencies
     public RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager)
     {
-        _httpClient = httpClientFactory.CreateClient("RetroAchievementsClient");
+        _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient");
         _cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
         RaManager = raManager ?? throw new ArgumentNullException(nameof(raManager));
     }

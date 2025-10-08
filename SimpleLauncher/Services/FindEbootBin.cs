@@ -7,6 +7,11 @@ public static class FindEbootBin
 {
     public static string FindEbootBinRecursive(string directoryPath)
     {
+        if (string.IsNullOrEmpty(directoryPath))
+        {
+            return null;
+        }
+
         const string targetFileName = "EBOOT.BIN";
         DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] Searching for {targetFileName} in {directoryPath}");
 

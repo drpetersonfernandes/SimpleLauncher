@@ -19,7 +19,7 @@ public static class Stats
 
     static Stats()
     {
-        HttpClientFactory = App.ServiceProvider?.GetService<IHttpClientFactory>();
+        HttpClientFactory = App.ServiceProvider?.GetRequiredService<IHttpClientFactory>();
         LoadConfiguration();
     }
 
@@ -132,42 +132,45 @@ public static class Stats
 
         try
         {
-            var httpClient = HttpClientFactory.CreateClient("StatsClient");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
-
-            HttpContent jsonContent;
-            if (callType == "emulator")
+            var httpClient = HttpClientFactory?.CreateClient("StatsClient");
+            if (httpClient != null)
             {
-                // For emulator calls, send ONLY the emulatorName
-                var requestData = new { emulatorName };
-                var json = JsonSerializer.Serialize(requestData);
-                jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+                httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", _apiKey);
+
+                HttpContent jsonContent;
+                if (callType == "emulator")
+                {
+                    // For emulator calls, send ONLY the emulatorName
+                    var requestData = new { emulatorName };
+                    var json = JsonSerializer.Serialize(requestData);
+                    jsonContent = new StringContent(json, Encoding.UTF8, "application/json");
+                }
+                else
+                {
+                    // For general usage calls, send an empty body.
+                    jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
+                }
+
+                // Send the POST request.
+                using var response = await httpClient.PostAsync(apiUrl, jsonContent);
+
+                if (response.IsSuccessStatusCode)
+                {
+                    DebugLogger.Log("The Stats was successfully sent. API response: OK");
+
+                    return true; // Success.
+                }
+
+                // Notify developer
+                // Log API response error
+                var errorContent = await response.Content.ReadAsStringAsync();
+                var contextMessage = $"Stats API responded with an error.\n" +
+                                     $"Status Code: '{response.StatusCode}'.\n" +
+                                     $"Response Body: '{errorContent}'\n" +
+                                     $"CallType: {callType}" +
+                                     (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
+                _ = LogErrors.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
             }
-            else
-            {
-                // For general usage calls, send an empty body.
-                jsonContent = new StringContent(string.Empty, Encoding.UTF8, "application/json");
-            }
-
-            // Send the POST request.
-            using var response = await httpClient.PostAsync(apiUrl, jsonContent);
-
-            if (response.IsSuccessStatusCode)
-            {
-                DebugLogger.Log("The Stats was successfully sent. API response: OK");
-
-                return true; // Success.
-            }
-
-            // Notify developer
-            // Log API response error
-            var errorContent = await response.Content.ReadAsStringAsync();
-            var contextMessage = $"Stats API responded with an error.\n" +
-                                 $"Status Code: '{response.StatusCode}'.\n" +
-                                 $"Response Body: '{errorContent}'\n" +
-                                 $"CallType: {callType}" +
-                                 (callType == "emulator" ? $", EmulatorName: {emulatorName}" : string.Empty);
-            _ = LogErrors.LogErrorAsync(new HttpRequestException($"Stats API error: {response.StatusCode}"), contextMessage);
 
             return false;
         }

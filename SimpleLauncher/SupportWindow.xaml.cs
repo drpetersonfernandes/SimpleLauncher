@@ -21,7 +21,7 @@ public partial class SupportWindow
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
-        _httpClientFactory = App.ServiceProvider.GetService<IHttpClientFactory>();
+        _httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
         DataContext = this;
         LoadConfiguration();
     }
@@ -145,34 +145,37 @@ public partial class SupportWindow
 
         try
         {
-            var httpClient = _httpClientFactory.CreateClient("SupportWindowClient");
-            httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
-
-            // Construct the full API URL
-            var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}";
-
-            using var response = await httpClient.PostAsync(apiUrl, jsonContent);
-
-            if (response.IsSuccessStatusCode)
+            var httpClient = _httpClientFactory?.CreateClient("SupportWindowClient");
+            if (httpClient != null)
             {
-                NameTextBox.Clear();
-                EmailTextBox.Clear();
-                SupportTextBox.Clear();
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
 
-                // Notify user
-                MessageBoxLibrary.SupportRequestSuccessMessageBox();
-            }
-            else
-            {
-                // Get error details from the response
-                var errorContent = await response.Content.ReadAsStringAsync();
+                // Construct the full API URL
+                var apiUrl = $"{ApiBaseUrl.TrimEnd('/')}";
 
-                // Notify developer
-                var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                using var response = await httpClient.PostAsync(apiUrl, jsonContent);
 
-                // Notify user
-                MessageBoxLibrary.SupportRequestSendErrorMessageBox();
+                if (response.IsSuccessStatusCode)
+                {
+                    NameTextBox.Clear();
+                    EmailTextBox.Clear();
+                    SupportTextBox.Clear();
+
+                    // Notify user
+                    MessageBoxLibrary.SupportRequestSuccessMessageBox();
+                }
+                else
+                {
+                    // Get error details from the response
+                    var errorContent = await response.Content.ReadAsStringAsync();
+
+                    // Notify developer
+                    var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
+                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                    // Notify user
+                    MessageBoxLibrary.SupportRequestSendErrorMessageBox();
+                }
             }
         }
         catch (Exception ex)

@@ -225,18 +225,18 @@ public partial class EasyModeWindow : IDisposable
         switch (downloadType)
         {
             case DownloadType.Emulator:
-                downloadUrl = selectedSystem.Emulators.Emulator.EmulatorDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.EmulatorDownloadExtractPath);
+                downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
+                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath);
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
-                downloadUrl = selectedSystem.Emulators.Emulator.CoreDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.CoreDownloadExtractPath);
+                downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
+                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath);
                 componentName = "Core";
                 break;
             case DownloadType.ImagePack:
-                downloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
+                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath);
                 componentName = "Image Pack";
                 break;
             default:
