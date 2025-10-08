@@ -955,7 +955,7 @@ public partial class MainWindow
         }
     }
 
-    private void RetroAchievementsSettings_Click(object sender, RoutedEventArgs e)
+    public void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
     {
         try
         {

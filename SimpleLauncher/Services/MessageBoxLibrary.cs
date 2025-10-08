@@ -3128,7 +3128,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void UpdaterIsMissingAttemptingDownload()
+    internal static void UpdaterIsMissingAttemptingDownload()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3141,7 +3141,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void CouldNotFindUpdaterOnGitHub()
+    internal static void CouldNotFindUpdaterOnGitHub()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3204,6 +3204,19 @@ internal static class MessageBoxLibrary
             var raHasherexetoolnotfound = (string)Application.Current.TryFindResource("RAHasherexetoolnotfound") ?? "RAHasher.exe tool not found.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(raHasherexetoolnotfound, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void AddRaLogin()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var youneedtoaddRetroAchievementlogin = (string)Application.Current.TryFindResource("YouneedtoaddRetroAchievementlogin") ?? "You need to add RetroAchievement login information to use this feature.";
+            var attention = (string)Application.Current.TryFindResource("Attention") ?? "Attention";
+            MessageBox.Show(youneedtoaddRetroAchievementlogin, attention, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 }

@@ -238,6 +238,19 @@ public static class ContextMenuFunctions
         string tempExtractionPath = null; // This will be set by the hasher tool if extraction occurs
 
         // Get services from the service provider
+        var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
+
+        if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
+        {
+            MessageBoxLibrary.AddRaLogin();
+
+            // Open RetroAchievements Settings Window
+            var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
+            raSettingsWindow.ShowDialog();
+
+            return;
+        }
+
         var raManager = App.ServiceProvider.GetRequiredService<RetroAchievementsManager>();
 
         try

@@ -580,7 +580,7 @@
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
                     </MenuItem.Icon>
-                    <MenuItem Header="{DynamicResource RetroAchievementsSettings}" Click="RetroAchievementsSettings_Click">
+                    <MenuItem Header="{DynamicResource RetroAchievementsSettings}" Click="ShowRetroAchievementsSettingsWindow_Click">
                         <MenuItem.Icon>
                             <Image Source="pack://application:,,,/images/trophy.png" Width="16" Height="16" />
                         </MenuItem.Icon>
