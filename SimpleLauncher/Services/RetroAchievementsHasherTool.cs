@@ -31,7 +31,6 @@ public static class RetroAchievementsHasherTool
 {
     private static readonly string HasherPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RAHasher", "RAHasher.exe");
 
-    // Define system categories for hashing logic
     private static readonly List<string> SystemWithSimpleHashLogic =
     [
         "amstrad cpc", "apple ii", "atari 2600", "atari jaguar", "wonderswan", "colecovision",
@@ -40,16 +39,21 @@ public static class RetroAchievementsHasherTool
         "sg-1000", "wasm-4", "watara supervision", "mega duck"
     ];
 
-    private static readonly List<string> SystemWithComplexOrUnknowHashLogic =
+    private static readonly List<string> SystemWithComplexHashLogic =
     [
-        "3do interactive multiplayer", "arduboy", "atari jaguar cd", "pc engine cd/turbografx-cd",
+        "3do interactive multiplayer", "atari jaguar cd", "pc engine cd/turbografx-cd",
         "pc-fx", "gamecube", "nintendo ds", "neo geo cd", "dreamcast", "saturn", "sega cd",
-        "playstation", "playstation 2", "playstation portable", "Arudboy", "nintendo dsi", "atari 5200",
-        "wii", "wii u", "nintendo 3ds", "sega pico", "atari st", "pc-8000/8800", "commodore 64", "amiga",
-        "zx spectrum", "fairchild channel f", "philips cd-i", "sharp x68000", "sharp x1", "oric",
-        "thomson to8", "cassette vision", "super cassette vision", "uzebox", "tic-80", "ti-83",
-        "nokia n-gage", "vic-20", "zx81", "pc-6000", "game & watch", "elektor tv games computer",
-        "interton vc 4000", "arcadia 2001", "fm towns", "hubs", "events", "standalone"
+        "playstation", "playstation 2", "playstation portable"
+    ];
+
+    private static readonly List<string> SystemWithUnknowHashLogic =
+    [
+        "atari 5200", "Arudboy", "nintendo dsi", "wii", "wii u", "nintendo 3ds", "sega pico",
+        "atari st", "pc-8000/8800", "commodore 64", "amiga", "zx spectrum", "fairchild channel f",
+        "philips cd-i", "sharp x68000", "sharp x1", "oric", "thomson to8", "cassette vision",
+        "super cassette vision", "uzebox", "tic-80", "ti-83", "nokia n-gage", "vic-20", "zx81",
+        "pc-6000", "game & watch", "elektor tv games computer", "interton vc 4000",
+        "arcadia 2001", "fm towns", "hubs", "events", "standalone"
     ];
 
     private static readonly List<string> SystemWithFileNameHashLogic = ["arcade"];
@@ -60,6 +64,8 @@ public static class RetroAchievementsHasherTool
         "atari 7800", "atari lynx", "famicom disk system", "nintendo entertainment system", "pc engine/turbografx-16",
         "supergrafx", "super nintendo entertainment system"
     ];
+
+    private static readonly List<string> SystemWithLineEndingNormalizationLogic = ["arduboy"];
 
     /// <summary>
     /// Gets the hash for a given file using the external RAHasher.exe tool.
@@ -181,7 +187,7 @@ public static class RetroAchievementsHasherTool
         {
             hashCalculationType = "Simple";
         }
-        else if (SystemWithComplexOrUnknowHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        else if (SystemWithComplexHashLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
         {
             hashCalculationType = "Complex";
         }
@@ -197,6 +203,10 @@ public static class RetroAchievementsHasherTool
         {
             hashCalculationType = "HashWithHeaderCheck";
         }
+        else if (SystemWithLineEndingNormalizationLogic.Contains(systemName, StringComparer.OrdinalIgnoreCase))
+        {
+            hashCalculationType = "HashWithLineEndingNormalization";
+        }
         else
         {
             DebugLogger.Log($"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
@@ -207,7 +217,7 @@ public static class RetroAchievementsHasherTool
         // --- Pre-processing: Extract if necessary ---
         var fileToProcess = filePath; // By default, process the original file
         var isCompressed = fileExtension is ".zip" or ".7z" or ".rar";
-        var requiresExtraction = hashCalculationType is "Simple" or "HashWithByteSwapping" or "HashWithHeaderCheck";
+        var requiresExtraction = hashCalculationType is "Simple" or "Complex" or "HashWithByteSwapping" or "HashWithHeaderCheck" or "HashWithLineEndingNormalization";
 
         if (isCompressed && requiresExtraction)
         {
@@ -319,6 +329,13 @@ public static class RetroAchievementsHasherTool
                     DebugLogger.Log($"[RA Hasher Tool] Calculating header-based hash for system '{systemName}' on file '{Path.GetFileName(fileToProcess)}'...");
                     hash = await RetroAchievementsFileHasher.CalculateHeaderBasedMd5Async(fileToProcess, systemName);
                     DebugLogger.Log($"[RA Hasher Tool] Calculated header-based hash: {hash}");
+                    break;
+                }
+                case "HashWithLineEndingNormalization":
+                {
+                    DebugLogger.Log($"[RA Hasher Tool] Calculating Arduboy hash for '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await RetroAchievementsFileHasher.CalculateArduboyHashAsync(fileToProcess);
+                    DebugLogger.Log($"[RA Hasher Tool] Calculated Arduboy hash: {hash}");
                     break;
                 }
             }

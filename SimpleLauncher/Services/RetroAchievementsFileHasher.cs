@@ -179,6 +179,26 @@ public static class RetroAchievementsFileHasher
     }
 
     /// <summary>
+    /// Calculates the hash for Arduboy files by normalizing line endings.
+    /// </summary>
+    public static async Task<string> CalculateArduboyHashAsync(string filePath)
+    {
+        try
+        {
+            var content = await File.ReadAllTextAsync(filePath, Encoding.ASCII);
+            var normalizedContent = content.Replace("\r\n", "\n");
+            var inputBytes = Encoding.UTF8.GetBytes(normalizedContent);
+            var hashBytes = MD5.HashData(inputBytes);
+            return ToHexString(hashBytes);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate Arduboy hash for {filePath}");
+            return null;
+        }
+    }
+
+    /// <summary>
     /// Converts a byte array to its lowercase hexadecimal string representation.
     /// </summary>
     private static string ToHexString(byte[] bytes)
