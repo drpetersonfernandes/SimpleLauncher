@@ -112,6 +112,12 @@ public partial class MainWindow
             if (_isUiUpdating) return;
 
             _isUiUpdating = true;
+
+            if (_isLoadingGames)
+            {
+                _isLoadingGames = false;
+            }
+
             try
             {
                 ResetPaginationButtons();

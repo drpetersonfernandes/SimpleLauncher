@@ -761,7 +761,7 @@
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Restart}"
                             Click="NavRestartButton_Click"
-                            Margin="0,10,2,5"> <!-- Overriding the default margin for the first button -->
+                            Margin="0,10,2,5">
                         <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
