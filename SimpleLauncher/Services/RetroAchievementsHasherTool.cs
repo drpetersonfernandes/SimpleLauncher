@@ -210,7 +210,7 @@ public static class RetroAchievementsHasherTool
         else
         {
             DebugLogger.Log($"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
-            _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing.");
+            _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] System '{systemName}' is not explicitly supported for RetroAchievements hashing. This is expected for systems in the 'UnknowHashLogic' list.");
             return new RaHashResult(null, null); // Return null hash
         }
 
@@ -308,19 +308,9 @@ public static class RetroAchievementsHasherTool
 
                 case "HashWithByteSwapping":
                 {
-                    // Use the external RAHasher.exe
-                    var systemId = RetroAchievementsSystemMatcher.GetSystemId(systemName);
-                    if (systemId > 0)
-                    {
-                        DebugLogger.Log($"[RA Hasher Tool] Using RAHasher.exe for system '{systemName}' (ID: {systemId})...");
-                        hash = await GetHashAsync(fileToProcess, systemId); // Call the existing GetHashAsync
-                    }
-                    else
-                    {
-                        DebugLogger.Log($"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                        _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] Could not find system ID for '{systemName}'. Cannot use RAHasher.exe.");
-                    }
-
+                    DebugLogger.Log($"[RA Hasher Tool] Calculating N64 hash for '{Path.GetFileName(fileToProcess)}'...");
+                    hash = await RetroAchievementsFileHasher.CalculateN64HashAsync(fileToProcess);
+                    DebugLogger.Log($"[RA Hasher Tool] Calculated N64 hash: {hash}");
                     break;
                 }
 

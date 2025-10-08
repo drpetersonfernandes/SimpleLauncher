@@ -199,6 +199,65 @@ public static class RetroAchievementsFileHasher
     }
 
     /// <summary>
+    /// Calculates the hash for Nintendo 64 ROMs, handling different byte orders based on file extension.
+    /// .z64 (Big Endian) is hashed directly.
+    /// .v64 (Byte Swapped) and .n64 (Little Endian) are byte-swapped to Big Endian before hashing.
+    /// </summary>
+    public static async Task<string> CalculateN64HashAsync(string filePath)
+    {
+        var extension = Path.GetExtension(filePath).ToLowerInvariant();
+        try
+        {
+            switch (extension)
+            {
+                case ".z64": // Big Endian (standard)
+                    return await CalculateStandardMd5Async(filePath);
+
+                case ".v64": // Byte-swapped
+                case ".n64": // Little-endian
+                {
+                    var fileBytes = await File.ReadAllBytesAsync(filePath);
+                    var swappedBytes = SwapBytes(fileBytes);
+                    var hashBytes = MD5.HashData(swappedBytes);
+                    return ToHexString(hashBytes);
+                }
+
+                default:
+                    // Fallback for unknown extensions like .rom, treat as standard.
+                    return await CalculateStandardMd5Async(filePath);
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate N64 hash for {filePath}");
+            return null;
+        }
+    }
+
+    /// <summary>
+    /// Swaps every pair of bytes in a byte array. (e.g., 01 02 03 04 -> 02 01 04 03).
+    /// </summary>
+    private static byte[] SwapBytes(byte[] bytes)
+    {
+        var swapped = new byte[bytes.Length];
+        for (var i = 0; i < bytes.Length; i += 2)
+        {
+            if (i + 1 < bytes.Length)
+            {
+                swapped[i] = bytes[i + 1];
+                swapped[i + 1] = bytes[i];
+            }
+            else
+            {
+                // Handle odd length, just copy the last byte
+                swapped[i] = bytes[i];
+            }
+        }
+
+        return swapped;
+    }
+
+    /// <summary>
     /// Converts a byte array to its lowercase hexadecimal string representation.
     /// </summary>
     private static string ToHexString(byte[] bytes)
