@@ -46,20 +46,7 @@ public static class QuitApplication
         Application.Current.Shutdown();
     }
 
-    public static void ForcefullyQuitApplication()
-    {
-        foreach (Window window in Application.Current.Windows)
-        {
-            window.Close(); // Close each window
-        }
-
-        GC.Collect(); // Force garbage collection
-        GC.WaitForPendingFinalizers(); // Wait for finalizers to complete
-
-        Application.Current.Shutdown(); // Shutdown the application
-    }
-
-    // NEW METHOD: A robust way to launch the updater and exit immediately.
+    // A robust way to launch the updater and exit immediately.
     public static void ShutdownForUpdate(string updaterPath)
     {
         try

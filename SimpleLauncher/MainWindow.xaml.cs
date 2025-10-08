@@ -458,12 +458,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         GamePadController.Instance2.CheckAndReconnectControllers();
     }
 
-    private static void OpenUpdateHistory()
-    {
-        var updateHistoryWindow = new UpdateHistoryWindow();
-        updateHistoryWindow.Show();
-    }
-
     private void SaveApplicationSettings()
     {
         // Save application's window state
