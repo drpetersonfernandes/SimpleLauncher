@@ -4,13 +4,23 @@ public static class UpdateStatusBar
 {
     public static void UpdateContent(string content, MainWindow mainWindow)
     {
-        if (mainWindow.Dispatcher.CheckAccess())
+        if (mainWindow == null)
+        {
+            // Handle null MainWindow (edge case)
+            return;
+        }
+
+        // Update the status bar text
+        mainWindow.Dispatcher.Invoke(() =>
         {
             mainWindow.StatusBarText.Content = content;
-        }
-        else
+        });
+
+        // Start or restart the 20-second timer to clear the status
+        if (mainWindow.StatusBarTimer != null)
         {
-            mainWindow.Dispatcher.Invoke(() => { mainWindow.StatusBarText.Content = content; });
+            mainWindow.StatusBarTimer.Stop(); // Stop any existing timer
+            mainWindow.StatusBarTimer.Start(); // Start a new one
         }
     }
 }

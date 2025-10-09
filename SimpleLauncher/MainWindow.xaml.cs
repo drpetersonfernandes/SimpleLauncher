@@ -24,8 +24,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
     private bool _isUiUpdating;
 
-    // Declare Controller Detection
+    // DispatcherTimer for Controller Detection
     private DispatcherTimer _controllerCheckTimer;
+
+    // DispatcherTimer for the status bar timer
+#pragma warning disable CA1051
+    public DispatcherTimer StatusBarTimer;
+#pragma warning restore CA1051
 
     // Declare GameListItems
     // Used in ListView Mode

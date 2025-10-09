@@ -236,6 +236,7 @@ public static class ContextMenuFunctions
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))
             {
                 MessageBoxLibrary.AddRaLogin();
+                UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
 
                 // Open RetroAchievements Settings Window
                 var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
@@ -260,6 +261,9 @@ public static class ContextMenuFunctions
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");
                 _ = LogErrors.LogErrorAsync(null, $"[RA Service] File not found at {filePath}");
                 MessageBoxLibrary.CouldNotFindAFileMessageBox();
+
+                UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+
                 return;
             }
 
@@ -268,6 +272,9 @@ public static class ContextMenuFunctions
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
                 _ = LogErrors.LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 MessageBoxLibrary.ErrorMessageBox();
+
+                UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+
                 return;
             }
 
@@ -276,6 +283,9 @@ public static class ContextMenuFunctions
                 DebugLogger.Log("[RA Service] SystemName is null or empty.");
                 _ = LogErrors.LogErrorAsync(null, "[RA Service] SystemName is null or empty.");
                 MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+
+                UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
+
                 return;
             }
 
@@ -285,6 +295,8 @@ public static class ContextMenuFunctions
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
 
+            UpdateStatusBar.UpdateContent("Calculating the hash of the selected game", mainWindow);
+
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;
 
@@ -293,6 +305,9 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log($"[RA Service] Extraction failed for '{fileNameWithoutExtension}': {raHashResult.ExtractionErrorMessage}");
                 MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
+
+                UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
+
                 return; // Exit as we cannot proceed without a valid extracted file or hash
             }
 
@@ -300,10 +315,14 @@ public static class ContextMenuFunctions
             {
                 DebugLogger.Log($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).");
                 MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+
+                UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+
                 return;
             }
 
             DebugLogger.Log($"[RA Service] Successfully obtained hash: {hash}");
+            UpdateStatusBar.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
 
             // Use the lookup method from RetroAchievementsManager
             var matchedGame = raManager.GetGameInfoByHash(hash);
@@ -311,6 +330,8 @@ public static class ContextMenuFunctions
             if (matchedGame != null)
             {
                 DebugLogger.Log($"[RA Service] Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})");
+                UpdateStatusBar.UpdateContent($"Found match for hash: {hash} -> {matchedGame.Title} (ID: {matchedGame.Id})", mainWindow);
+
                 // Ensure this is run on the UI thread as it creates a new window
                 await mainWindow.Dispatcher.InvokeAsync(() =>
                 {
@@ -322,6 +343,7 @@ public static class ContextMenuFunctions
             else
             {
                 DebugLogger.Log($"[RA Service] No match found for hash: {hash}");
+                UpdateStatusBar.UpdateContent($"No match found for hash: {hash}", mainWindow);
                 MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
             }
         }

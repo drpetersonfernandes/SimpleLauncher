@@ -13,10 +13,17 @@ public partial class MainWindow
         // Delete temp folders and files before close
         CleanSimpleLauncherFolder.CleanupTrash();
 
-        Dispose();
-
         // Stop Controller Timer
         StopControllerTimer();
+
+        // Stop the status bar timer before closing
+        if (StatusBarTimer != null)
+        {
+            StatusBarTimer.Stop();
+            StatusBarTimer = null;
+        }
+
+        Dispose();
     }
 
     private void StopControllerTimer()

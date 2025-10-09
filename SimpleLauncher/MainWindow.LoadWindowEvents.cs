@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using System.Windows.Threading;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -90,6 +91,17 @@ public partial class MainWindow
 
         InitializeControllerDetection();
         DebugLogger.Log("Controller detection was initialized.");
+
+        // Initialize the status bar timer
+        StatusBarTimer = new DispatcherTimer
+        {
+            Interval = TimeSpan.FromSeconds(20) // 20 seconds timeout
+        };
+        StatusBarTimer.Tick += (s, eventArgs) =>
+        {
+            StatusBarText.Content = ""; // Clear the status bar
+            StatusBarTimer.Stop(); // Stop the timer after clearing
+        };
 
         Loaded += async (_, _) =>
         {
