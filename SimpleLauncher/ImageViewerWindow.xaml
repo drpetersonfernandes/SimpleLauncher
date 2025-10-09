@@ -3,10 +3,18 @@
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       Title="Image Viewer"
-                      Width="700"
+                      Width="800"
                       Height="600"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <Image Name="ImageViewer" Stretch="Uniform" HorizontalAlignment="Center" VerticalAlignment="Center" />
     </Grid>
+    
+    
+    <!-- <Grid> -->
+    <!--     ~1~ ScrollViewer with ZoomMode for basic zoom/pan functionality @1@ -->
+    <!--     <ScrollViewer HorizontalScrollBarVisibility="Auto" VerticalScrollBarVisibility="Auto"> -->
+    <!--         <Image x:Name="ImageViewerImage" Stretch="Uniform" /> -->
+    <!--     </ScrollViewer> -->
+    <!-- </Grid> -->
 </controls:MetroWindow>

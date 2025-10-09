@@ -511,6 +511,7 @@ public static class ContextMenu
                             context.FileNameWithoutExtension,
                             context.SelectedSystemName,
                             context.SelectedSystemManager,
+                            context.Settings,
                             context.MainWindow);
                     }
                     catch (Exception ex)

@@ -943,15 +943,6 @@ internal static class MessageBoxLibrary
             {
                 ReinstallSimpleLauncher.StartUpdaterAndShutdown();
             }
-            else
-            {
-                var pleasereinstallSimpleLaunchermanually = (string)Application.Current.TryFindResource("PleasereinstallSimpleLaunchermanually") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
-                var theapplicationwillshutdown = (string)Application.Current.TryFindResource("Theapplicationwillshutdown") ?? "The application will shutdown.";
-                MessageBox.Show($"{pleasereinstallSimpleLaunchermanually}\n\n" +
-                                $"{theapplicationwillshutdown}", error, MessageBoxButton.OK, MessageBoxImage.Error);
-
-                QuitApplication.SimpleQuitApplication();
-            }
         }
     }
 

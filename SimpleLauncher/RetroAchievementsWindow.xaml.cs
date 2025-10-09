@@ -199,15 +199,16 @@ public partial class RetroAchievementsWindow
     {
         try
         {
-            var raImageViewer = new RetroAchievementsImageViewerWindow(); // Instantiate the new window
-            raImageViewer.LoadImage(imageUri);
+            var raImageViewer = new ImageViewerWindow(); // Instantiate the new window
+            raImageViewer.LoadImageUrl(imageUri);
             raImageViewer.Owner = this; // Set owner to this window
             raImageViewer.Show();
         }
         catch (Exception ex)
         {
             _ = LogErrors.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
-            MessageBoxLibrary.ErrorMessageBox(); // Display a generic error message to the user
+            DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            MessageBoxLibrary.ErrorMessageBox();
         }
     }
 

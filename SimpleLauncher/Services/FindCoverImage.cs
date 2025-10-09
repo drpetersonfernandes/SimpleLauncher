@@ -26,7 +26,7 @@ public static class FindCoverImage
     /// <returns>
     /// A string representing the file path of the cover image if found, or a global default image path when no matches are available.
     /// </returns>
-    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager, SettingsManager settings) // UPDATED METHOD SIGNATURE
+    public static string FindCoverImagePath(string fileNameWithoutExtension, string systemName, SystemManager systemManager, SettingsManager settings)
     {
         var applicationPath = AppDomain.CurrentDomain.BaseDirectory;
         var imageExtensions = GetImageExtensions.GetExtensions();
@@ -52,7 +52,7 @@ public static class FindCoverImage
                     return imagePath; // Return the found path (which is already resolved)
             }
 
-            // var settings = App.Settings; // REMOVED: settings is now a parameter
+            // var settings = App.Settings;
             var enableFuzzyMatching = false;
             var similarityThreshold = 0.8;
 

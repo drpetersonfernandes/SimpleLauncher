@@ -13,7 +13,7 @@ public partial class ImageViewerWindow
         App.ApplyThemeToWindow(this);
     }
 
-    public void LoadImage(string imagePath)
+    public void LoadImagePath(string imagePath)
     {
         try
         {
@@ -36,6 +36,30 @@ public partial class ImageViewerWindow
 
             // Notify user
             MessageBoxLibrary.ImageViewerErrorMessageBox();
+        }
+    }
+
+    /// <summary>
+    /// Loads an image from a URI (local or web) into the viewer.
+    /// </summary>
+    /// <param name="imageUri">The URI of the image.</param>
+    public void LoadImageUrl(Uri imageUri)
+    {
+        try
+        {
+            if (imageUri != null)
+            {
+                ImageViewer.Source = new BitmapImage(imageUri);
+            }
+            else
+            {
+                ImageViewer.Source = null;
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Failed to load image from URI in RetroAchievementsImageViewerWindow: {imageUri}");
+            ImageViewer.Source = null;
         }
     }
 }

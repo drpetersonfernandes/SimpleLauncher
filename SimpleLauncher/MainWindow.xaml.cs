@@ -167,6 +167,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
+
+        Loaded += async (_, _) =>
+        {
+            try
+            {
+                await DisplaySystemSelectionScreenAsync();
+                DebugLogger.Log("DisplaySystemSelectionScreenAsync called.");
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+                DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
+            }
+        };
     }
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()

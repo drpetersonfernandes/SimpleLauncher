@@ -9,27 +9,14 @@ public partial class MainWindow
 {
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
-        Loaded += async (_, _) =>
-        {
-            try
-            {
-                await DisplaySystemSelectionScreenAsync();
-                await UpdateChecker.SilentCheckForUpdatesAsync(this);
-                await Stats.CallApiAsync();
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
-            }
-        };
-
         // Apply language
         SetLanguageAndCheckMenu(_settings.Language);
+        DebugLogger.Log("Language and menu was set.");
 
         // Apply Theme
         App.ChangeTheme(_settings.BaseTheme, _settings.AccentColor);
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
+        DebugLogger.Log("Theme was set.");
 
         // Load previous windows state
         Width = _settings.MainWindowWidth;
@@ -43,19 +30,23 @@ public partial class MainWindow
         }
 
         WindowState = windowState;
+        DebugLogger.Log("Window state was set.");
 
         // Set the initial SelectedSystem and PlayTime
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         SelectedSystem = nosystemselected;
         PlayTime = "00:00:00";
+        DebugLogger.Log("SelectedSystem and PlayTime was set.");
 
         // Set the initial ViewMode based on the _settings
         SetViewMode(_settings.ViewMode);
+        DebugLogger.Log("ViewMode was set.");
 
         // Check if the application has write access
         if (!CheckIfDirectoryIsWritable.IsWritableDirectory(AppDomain.CurrentDomain.BaseDirectory))
         {
             MessageBoxLibrary.MoveToWritableFolderMessageBox();
+            DebugLogger.Log("Application does not have write access.");
         }
 
         // Set initial pagination state
@@ -63,17 +54,21 @@ public partial class MainWindow
         NextPageButton.IsEnabled = false;
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
+        DebugLogger.Log("Pagination was set.");
 
         // Initialize TrayIconManager
         _trayIconManager = new TrayIconManager(this, _settings);
+        DebugLogger.Log("TrayIconManager was initialized.");
 
         // Check for required files
         CheckForRequiredFiles.CheckFiles();
+        DebugLogger.Log("Required files were checked.");
 
         // --- Set initial checked state for overlay buttons ---
         RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
         VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
         InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
+        DebugLogger.Log("Overlay buttons were set.");
 
         // Initialize the GamePadController
         GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
@@ -86,10 +81,30 @@ public partial class MainWindow
             GamePadController.Instance2.Stop();
         }
 
+        DebugLogger.Log("GamePadController was initialized.");
+
         // Update the GamePadController dead zone settings from SettingsManager
         GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
         GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
+        DebugLogger.Log("GamePadController dead zone settings were updated.");
 
         InitializeControllerDetection();
+        DebugLogger.Log("Controller detection was initialized.");
+
+        Loaded += async (_, _) =>
+        {
+            try
+            {
+                await UpdateChecker.SilentCheckForUpdatesAsync(this);
+                DebugLogger.Log("Silent check for updates was done.");
+                await Stats.CallApiAsync();
+                DebugLogger.Log("Stats API call was done.");
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            }
+        };
     }
 }

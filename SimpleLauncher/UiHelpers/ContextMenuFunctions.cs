@@ -373,7 +373,7 @@ public static class ContextMenuFunctions
         if (TryFindImage(resolvedSystemImageFolder, out var foundImagePath) || TryFindImage(globalImageDirectory, out foundImagePath))
         {
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(foundImagePath);
+            imageViewerWindow.LoadImagePath(foundImagePath);
             imageViewerWindow.Show();
         }
         else
@@ -419,7 +419,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(titleSnapshotPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(titleSnapshotPath);
+            imageViewerWindow.LoadImagePath(titleSnapshotPath);
             imageViewerWindow.Show();
             return;
         }
@@ -441,7 +441,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(gameplaySnapshotPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(gameplaySnapshotPath);
+            imageViewerWindow.LoadImagePath(gameplaySnapshotPath);
             imageViewerWindow.Show();
             return;
         }
@@ -463,7 +463,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(cartPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(cartPath);
+            imageViewerWindow.LoadImagePath(cartPath);
             imageViewerWindow.Show();
             return;
         }
@@ -588,7 +588,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(cabinetPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(cabinetPath);
+            imageViewerWindow.LoadImagePath(cabinetPath);
             imageViewerWindow.Show();
             return;
         }
@@ -610,7 +610,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(flyerPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(flyerPath);
+            imageViewerWindow.LoadImagePath(flyerPath);
             imageViewerWindow.Show();
             return;
         }
@@ -632,7 +632,7 @@ public static class ContextMenuFunctions
             if (!File.Exists(pcbPath)) continue;
 
             var imageViewerWindow = new ImageViewerWindow();
-            imageViewerWindow.LoadImage(pcbPath);
+            imageViewerWindow.LoadImagePath(pcbPath);
             imageViewerWindow.Show();
             return;
         }
@@ -885,20 +885,23 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteCoverImage(
-        string fileNameWithoutExtension,
+    public static async Task DeleteCoverImage(string fileNameWithoutExtension,
         string selectedSystemName,
         SystemManager selectedSystemManager,
+        SettingsManager contextSettings,
         MainWindow mainWindow)
     {
-        var coverPath = FindCoverImageForDeletion.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager);
+        var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
 
         try
         {
             PlaySoundEffects.PlayTrashSound();
-            DeleteFiles.TryDeleteFile(coverPath);
+            if ((Path.GetFileNameWithoutExtension(coverPath) == fileNameWithoutExtension) & (Path.GetFileNameWithoutExtension(coverPath) != "default"))
+            {
+                DeleteFiles.TryDeleteFile(coverPath);
+            }
 
-            await Task.Delay(500);
+            await Task.Delay(400);
 
             if (!File.Exists(coverPath))
             {

@@ -111,9 +111,6 @@ public partial class DownloadImagePackWindow : IDisposable
 
                 // Determine the extraction folder
                 var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-                // var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-                // var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
-
                 var finalImagePackDownloadExtractPath = PathHelper.ResolveRelativeToAppDirectory(imagePackDownloadExtractPath);
 
                 // Update UI elements
@@ -246,9 +243,6 @@ public partial class DownloadImagePackWindow : IDisposable
         if (selectedSystem.Emulators is { Emulator: not null })
         {
             var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-            // var fixedImagePackDownloadExtractPath = imagePackDownloadExtractPath.Replace("%BASEFOLDER%", _basePath);
-            // var finalImagePackDownloadExtractPath = Path.GetFullPath(fixedImagePackDownloadExtractPath);
-
             var finalImagePackDownloadExtractPath = PathHelper.ResolveRelativeToAppDirectory(imagePackDownloadExtractPath);
 
             // Verify the extraction folder exists or can be created
