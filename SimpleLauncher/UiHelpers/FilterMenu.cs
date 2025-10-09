@@ -47,11 +47,14 @@ public class FilterMenu
 
     private void InitializeLetterButtons()
     {
+        // Cache the resource lookup to avoid repeated calls
+        var filterByLetterText = (string)Application.Current.TryFindResource("FilterByLetter") ?? "Filter by";
+
         foreach (var c in Enumerable.Range('A', 26).Select(static x => (char)x))
         {
             Button button = new() { Content = c.ToString(), Width = 32, Height = 32 };
             // Set AutomationProperties.Name for screen readers
-            AutomationProperties.SetName(button, $"{(string)Application.Current.TryFindResource("FilterByLetter") ?? "Filter by"} {c}");
+            AutomationProperties.SetName(button, $"{filterByLetterText} {c}");
             button.Click += (_, _) =>
             {
                 PlaySoundEffects.PlayNotificationSound(); // Added sound effect
