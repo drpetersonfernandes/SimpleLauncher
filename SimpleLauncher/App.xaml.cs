@@ -48,7 +48,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<SettingsManager>();
         serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
-        serviceCollection.AddSingleton(static _ => RetroAchievementsManager.Load());
+        serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<RetroAchievementsService>();
         serviceCollection.AddTransient<MainWindow>();
 

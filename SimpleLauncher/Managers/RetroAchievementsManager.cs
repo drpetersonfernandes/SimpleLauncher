@@ -16,7 +16,7 @@ public class RetroAchievementsManager
     private Dictionary<string, RaGameInfo> _hashToGameInfoLookup;
     private static string DatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "RetroAchievements.dat");
 
-    public static RetroAchievementsManager Load()
+    public static RetroAchievementsManager LoadRetroAchievement()
     {
         var manager = new RetroAchievementsManager();
 

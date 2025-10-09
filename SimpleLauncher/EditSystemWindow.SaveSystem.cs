@@ -146,7 +146,7 @@ public partial class EditSystemWindow
 
             // Validate paths (now using potentially prefixed paths)
             // The ValidatePaths method itself doesn't need to understand %BASEFOLDER%
-            // because CheckPath.IsValidPath will be updated to handle it.
+            // because CheckPath.IsValidPath can handle it.
             ValidatePaths(systemNameText, allSystemFolders.FirstOrDefault(), systemImageFolderText, emulator1LocationText,
                 emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText,
                 out var isSystemFolderValid, out var isSystemImageFolderValid, out var isEmulator1LocationValid,
