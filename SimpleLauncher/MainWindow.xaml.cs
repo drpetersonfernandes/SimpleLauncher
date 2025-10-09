@@ -715,6 +715,62 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 return;
             }
 
+            var allFiles = await BuildListOfAllFilesToLoad(selectedManager);
+
+            allFiles = ProcessListOfAllFilesWithMachineDescription(selectedManager, allFiles);
+
+            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
+
+            allFiles = SetPaginationOfListOfFiles(allFiles);
+
+            // _favoritesManager = FavoritesManager.LoadFavorites();
+
+            // GameButtonFactory and GameListFactory now use the resolved file paths directly
+            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
+
+            foreach (var filePath in allFiles) // 'filePath' is already resolved here
+            {
+                if (_settings.ViewMode == "GridView") // GridView
+                {
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
+                }
+                else // ListView
+                {
+                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
+                    await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
+                }
+            }
+
+            switch (_settings.ViewMode)
+            {
+                case "GridView":
+                    Scroller.Focus();
+                    break;
+                case "ListView":
+                    GameDataGrid.Focus();
+                    break;
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "Error in the method LoadGameFilesAsync.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
+        }
+        finally
+        {
+            Dispatcher.Invoke(() => SetUiLoadingState(false));
+        }
+
+        return;
+
+        async Task<List<string>> BuildListOfAllFilesToLoad(SystemManager selectedManager)
+        {
             List<string> allFiles;
 
             switch (searchQuery)
@@ -774,6 +830,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 }
             }
 
+            return allFiles;
+        }
+
+        List<string> ProcessListOfAllFilesWithMachineDescription(SystemManager selectedManager, List<string> allFiles)
+        {
             if (selectedManager.SystemIsMame && _mameSortOrder == "MachineDescription")
             {
                 allFiles = allFiles.OrderBy(f =>
@@ -789,52 +850,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 allFiles = allFiles.OrderBy(static f => Path.GetFileName(f), StringComparer.OrdinalIgnoreCase).ToList();
             }
 
-            allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
-
-            allFiles = SetPaginationOfListOfFiles(allFiles);
-
-            // _favoritesManager = FavoritesManager.LoadFavorites();
-
-            // GameButtonFactory and GameListFactory now use the resolved file paths directly
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
-
-            foreach (var filePath in allFiles) // 'filePath' is already resolved here
-            {
-                if (_settings.ViewMode == "GridView") // GridView
-                {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
-                    GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
-                }
-                else // ListView
-                {
-                    var gameListViewItem = await _gameListFactory.CreateGameListViewItemAsync(filePath, selectedSystem, selectedManager);
-                    await Dispatcher.InvokeAsync(() => GameListItems.Add(gameListViewItem));
-                }
-            }
-
-            switch (_settings.ViewMode)
-            {
-                case "GridView":
-                    Scroller.Focus();
-                    break;
-                case "ListView":
-                    GameDataGrid.Focus();
-                    break;
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
-        }
-        finally
-        {
-            Dispatcher.Invoke(() => SetUiLoadingState(false));
+            return allFiles;
         }
     }
 
