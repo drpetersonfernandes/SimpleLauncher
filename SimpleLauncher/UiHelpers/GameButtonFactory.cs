@@ -255,7 +255,7 @@ public class GameButtonFactory(
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindow(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -518,7 +518,7 @@ public class GameButtonFactory(
                 try
                 {
                     PlaySoundEffects.PlayNotificationSound();
-                    await GameLauncher.HandleButtonClick(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                    await GameLauncher.HandleButtonClickAsync(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
                 }
                 finally
                 {

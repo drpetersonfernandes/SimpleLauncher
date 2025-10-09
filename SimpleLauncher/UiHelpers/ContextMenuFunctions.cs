@@ -233,7 +233,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task OpenRetroAchievementsWindow(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
+    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
     {
         string tempExtractionPath = null;
         try
@@ -679,7 +679,7 @@ public static class ContextMenuFunctions
             DebugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
 
             // Launch game
-            _ = GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
+            _ = GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow);
 
             // Minimum wait time to process startup)
             await Task.Delay(2000);
@@ -839,7 +839,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteGame(string filePath, string fileNameWithExtension, MainWindow mainWindow)
+    public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
         if (File.Exists(filePath))
         {
@@ -885,7 +885,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteCoverImage(string fileNameWithoutExtension,
+    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension,
         string selectedSystemName,
         SystemManager selectedSystemManager,
         SettingsManager contextSettings,

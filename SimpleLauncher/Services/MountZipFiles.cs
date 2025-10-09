@@ -69,7 +69,7 @@ public static class MountZipFiles
         };
     }
 
-    public static async Task MountZipFileAndLoadEbootBin(
+    public static async Task MountZipFileAndLoadEbootBinAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -186,7 +186,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulator(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)
@@ -280,7 +280,7 @@ public static class MountZipFiles
         }
     }
 
-    public static async Task MountZipFileAndSearchForFileToLoad(
+    public static async Task MountZipFileAndSearchForFileToLoadAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -390,7 +390,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulator(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
             DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }
         catch (Exception ex)
@@ -521,7 +521,7 @@ public static class MountZipFiles
         }
     }
 
-    public static async Task MountZipFileAndLoadWithScummVm(
+    public static async Task MountZipFileAndLoadWithScummVmAsync(
         string resolvedZipFilePath,
         string selectedSystemName,
         string selectedEmulatorName,

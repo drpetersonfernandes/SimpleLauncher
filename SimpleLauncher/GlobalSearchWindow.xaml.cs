@@ -322,7 +322,7 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
         {

@@ -59,9 +59,9 @@ public static class ContextMenu
                     selectedEmulatorName = null; // <-- selectedEmulatorName could be null here
                 }
 
-                if (await CheckParametersForNullOrEmpty(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
+                if (await CheckParametersForNullOrEmptyAsync(selectedEmulatorName)) return; // Will check Parameters for Null or Empty values. If true, will return the call and will not launch the game.
 
-                await GameLauncher.HandleButtonClick(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
+                await GameLauncher.HandleButtonClickAsync(context.FilePath, selectedEmulatorName, context.SelectedSystemName, context.SelectedSystemManager, context.Settings, context.MainWindow);
             }
             catch (Exception ex)
             {
@@ -185,7 +185,7 @@ public static class ContextMenu
             try
             {
                 PlaySoundEffects.PlayNotificationSound();
-                await ContextMenuFunctions.OpenRetroAchievementsWindow(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
+                await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(context.FilePath, context.FileNameWithoutExtension, context.SelectedSystemManager, context.MainWindow);
             }
             catch (Exception ex)
             {
@@ -458,7 +458,7 @@ public static class ContextMenu
                     {
                         ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
                         await Task.Delay(500);
-                        await ContextMenuFunctions.DeleteGame(context.FilePath, context.FileNameWithExtension, context.MainWindow);
+                        await ContextMenuFunctions.DeleteGameAsync(context.FilePath, context.FileNameWithExtension, context.MainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -507,7 +507,7 @@ public static class ContextMenu
                 {
                     try
                     {
-                        await ContextMenuFunctions.DeleteCoverImage(
+                        await ContextMenuFunctions.DeleteCoverImageAsync(
                             context.FileNameWithoutExtension,
                             context.SelectedSystemName,
                             context.SelectedSystemManager,
@@ -563,7 +563,7 @@ public static class ContextMenu
 
         return contextMenu;
 
-        async Task<bool> CheckParametersForNullOrEmpty(string selectedEmulatorName)
+        async Task<bool> CheckParametersForNullOrEmptyAsync(string selectedEmulatorName)
         {
             if (string.IsNullOrEmpty(context.FilePath))
             {

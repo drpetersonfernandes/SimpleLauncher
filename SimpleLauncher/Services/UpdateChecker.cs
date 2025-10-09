@@ -90,7 +90,7 @@ public static partial class UpdateChecker
                         if (updaterZipAssetUrl != null)
                         {
                             var (_, releasePackageUrlForFallback, _) = ParseVersionAndAssetUrlsFromResponse(content);
-                            await ShowUpdateWindow(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageUrlForFallback, CurrentVersion, latestVersion, mainWindow);
                         }
                         else
                         {
@@ -143,7 +143,7 @@ public static partial class UpdateChecker
                     {
                         if (updaterZipAssetUrl != null)
                         {
-                            await ShowUpdateWindow(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
+                            await ShowUpdateWindowAsync(updaterZipAssetUrl, releasePackageAssetUrl, CurrentVersion, latestVersion, mainWindow);
                         }
                         else
                         {
@@ -224,7 +224,7 @@ public static partial class UpdateChecker
         }
     }
 
-    private static async Task ShowUpdateWindow(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
+    private static async Task ShowUpdateWindowAsync(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
         UpdateLogWindow logWindow = null;
 
@@ -250,7 +250,7 @@ public static partial class UpdateChecker
             try
             {
                 using var memoryStream = new MemoryStream();
-                await DownloadUpdateFileToMemory(updaterZipUrl, memoryStream);
+                await DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                 logWindow.Log($"Extracting updater to '{appDirectory}'...");
                 if (ExtractAllFromZip(memoryStream, appDirectory, logWindow))
@@ -317,7 +317,7 @@ public static partial class UpdateChecker
         }
     }
 
-    internal static async Task DownloadUpdateFileToMemory(string url, MemoryStream memoryStream)
+    internal static async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
     {
         if (HttpClientFactory == null)
         {

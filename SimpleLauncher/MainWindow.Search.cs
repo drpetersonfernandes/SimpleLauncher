@@ -13,7 +13,7 @@ public partial class MainWindow
         try
         {
             PlaySoundEffects.PlayNotificationSound();
-            await ExecuteSearch();
+            await ExecuteSearchAsync();
         }
         catch (Exception ex)
         {
@@ -33,7 +33,7 @@ public partial class MainWindow
             if (e.Key != Key.Enter) return;
 
             PlaySoundEffects.PlayNotificationSound(); // Play sound immediately
-            await ExecuteSearch();
+            await ExecuteSearchAsync();
         }
         catch (Exception ex)
         {
@@ -46,7 +46,7 @@ public partial class MainWindow
         }
     }
 
-    private async Task ExecuteSearch()
+    private async Task ExecuteSearchAsync()
     {
         if (_isLoadingGames) return;
 

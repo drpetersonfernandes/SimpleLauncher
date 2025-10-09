@@ -34,7 +34,7 @@ public class RetroAchievementsService
     /// <param name="username">The user's RetroAchievements username.</param>
     /// <param name="apiKey">The user's RetroAchievements Web API Key.</param>
     /// <returns>A tuple containing the user's game progress and a list of achievements, or null if an error occurs.</returns>
-    public async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetGameInfoAndUserProgress(int gameId, string username, string apiKey)
+    public async Task<(RaUserGameProgress Progress, List<RaAchievement> Achievements)> GetGameInfoAndUserProgressAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
@@ -123,7 +123,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgress for gameId {gameId}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
             return (null, null);
         }
     }
@@ -132,7 +132,7 @@ public class RetroAchievementsService
     /// Fetches extended information for a specific game.
     /// https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameExtended.php
     /// </summary>
-    public async Task<RaGameExtendedDetails> GetGameExtended(int gameId, string username, string apiKey)
+    public async Task<RaGameExtendedDetails> GetGameExtendedAsync(int gameId, string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -157,7 +157,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtended for gameId {gameId}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -244,7 +244,7 @@ public class RetroAchievementsService
     /// Fetches the profile information for a specific user.
     /// https://retroachievements.org/API/API_GetUserProfile.php
     /// </summary>
-    public async Task<RaProfile> GetUserProfile(string username, string apiKey)
+    public async Task<RaProfile> GetUserProfileAsync(string username, string apiKey)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
@@ -269,7 +269,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfile for user {username}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
             return null;
         }
     }
@@ -337,11 +337,11 @@ public class RetroAchievementsService
     /// <param name="fromDate">The start date for the range.</param>
     /// <param name="toDate">The end date for the range (inclusive).</param>
     /// <returns>A list of <see cref="RaEarnedAchievement"/>, or null if an error occurs.</returns>
-    public async Task<List<RaEarnedAchievement>> GetAchievementsEarnedBetween(string username, string apiKey, DateTime fromDate, DateTime toDate)
+    public async Task<List<RaEarnedAchievement>> GetAchievementsEarnedBetweenAsync(string username, string apiKey, DateTime fromDate, DateTime toDate)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
-            DebugLogger.Log("[RA Service] Username or API Key is missing for GetAchievementsEarnedBetween.");
+            DebugLogger.Log("[RA Service] Username or API Key is missing for GetAchievementsEarnedBetweenAsync.");
             return null;
         }
 
@@ -382,7 +382,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetAchievementsEarnedBetween for user {username}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetAchievementsEarnedBetweenAsync for user {username}.");
             return null;
         }
     }
@@ -396,11 +396,11 @@ public class RetroAchievementsService
     /// <param name="count">Number of records to return (default: 100, max: 500).</param>
     /// <param name="offset">Number of entries to skip (default: 0).</param>
     /// <returns>A list of <see cref="RaUserCompletionGame"/>, or null if an error occurs.</returns>
-    public async Task<List<RaUserCompletionGame>> GetUserCompletionProgress(string username, string apiKey, int count = 100, int offset = 0)
+    public async Task<List<RaUserCompletionGame>> GetUserCompletionProgressAsync(string username, string apiKey, int count = 100, int offset = 0)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey))
         {
-            DebugLogger.Log("[RA Service] Username or API Key is missing for GetUserCompletionProgress.");
+            DebugLogger.Log("[RA Service] Username or API Key is missing for GetUserCompletionProgressAsync.");
             return null;
         }
 
@@ -445,7 +445,7 @@ public class RetroAchievementsService
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserCompletionProgress for user {username}.");
+            _ = LogErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserCompletionProgressAsync for user {username}.");
             return null;
         }
     }

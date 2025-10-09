@@ -15,7 +15,7 @@ namespace SimpleLauncher.Services;
 
 public static class DisplaySystemInformation
 {
-    public static async Task<SystemValidationResult> DisplaySystemInfo(SystemManager selectedManager, WrapPanel gameFileGrid)
+    public static async Task<SystemValidationResult> DisplaySystemInfoAsync(SystemManager selectedManager, WrapPanel gameFileGrid)
     {
         gameFileGrid.Children.Clear();
 

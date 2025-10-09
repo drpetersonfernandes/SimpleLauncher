@@ -365,7 +365,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private async Task LaunchGameFromHistory(string fileName, string selectedSystemName)
+    private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName)
     {
         var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
         if (selectedSystemManager == null)
@@ -419,7 +419,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }
@@ -505,7 +505,7 @@ public partial class PlayHistoryWindow
             }
 
             PlaySoundEffects.PlayNotificationSound();
-            await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
+            await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
         }
         catch (Exception ex)
         {
@@ -663,7 +663,7 @@ public partial class PlayHistoryWindow
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
                 PlaySoundEffects.PlayNotificationSound();
-                await LaunchGameFromHistory(selectedItem.FileName, selectedItem.SystemName);
+                await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
             }
             else
             {

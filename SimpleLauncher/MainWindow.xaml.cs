@@ -148,7 +148,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Create and integrate FilterMenu
         _topLetterNumberMenu.OnLetterSelected += async selectedLetter =>
         {
-            await TopLetterNumberMenu_Click(selectedLetter);
+            await TopLetterNumberMenuClickAsync(selectedLetter);
         };
 
         // Initialize _gameFileGrid
@@ -211,7 +211,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         e.Handled = true;
     }
 
-    private async Task TopLetterNumberMenu_Click(string selectedLetter)
+    private async Task TopLetterNumberMenuClickAsync(string selectedLetter)
     {
         if (_isLoadingGames) return;
 
@@ -229,11 +229,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenu_Click.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
-    private async Task ShowSystemFavoriteGames_Click()
+    private async Task ShowSystemFavoriteGamesClickAsync()
     {
         if (_isLoadingGames) return;
 
@@ -269,11 +269,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGames_Click.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
         }
     }
 
-    private async Task ShowSystemFeelingLucky_Click(object sender, RoutedEventArgs e)
+    private async Task ShowSystemFeelingLuckyClickAsync(object sender, RoutedEventArgs e)
     {
         if (_isLoadingGames) return;
 
@@ -519,7 +519,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             // Delegate the double-click handling to GameListFactory
-            await _gameListFactory.HandleDoubleClick(selectedItem);
+            await _gameListFactory.HandleDoubleClickAsync(selectedItem);
         }
         catch (Exception ex)
         {
@@ -591,7 +591,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
 
                 // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                var validationResult = await DisplaySystemInformation.DisplaySystemInfo(selectedManager, _gameFileGrid);
+                var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
 
                 // If validation failed, show the message box with aggregated errors
                 if (!validationResult.IsValid)

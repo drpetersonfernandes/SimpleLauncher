@@ -778,7 +778,7 @@ public partial class MainWindow
     {
         try
         {
-            await ShowSystemFavoriteGames_Click();
+            await ShowSystemFavoriteGamesClickAsync();
         }
         catch (Exception ex)
         {
@@ -791,7 +791,7 @@ public partial class MainWindow
     {
         try
         {
-            await ShowSystemFeelingLucky_Click(sender, e);
+            await ShowSystemFeelingLuckyClickAsync(sender, e);
         }
         catch (Exception ex)
         {

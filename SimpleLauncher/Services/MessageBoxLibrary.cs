@@ -1522,7 +1522,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static Task ShowEmulatorDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
+    internal static Task ShowEmulatorDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return Task.CompletedTask;
@@ -1558,7 +1558,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static Task ShowCoreDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
+    internal static Task ShowCoreDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return Task.CompletedTask;
@@ -1622,7 +1622,7 @@ internal static class MessageBoxLibrary
         });
     }
 
-    internal static Task ShowImagePackDownloadErrorMessageBox(EasyModeSystemConfig selectedSystem)
+    internal static Task ShowImagePackDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
         if (selectedSystem?.Emulators?.Emulator?.ImagePackDownloadLink == null)
         {

@@ -353,7 +353,7 @@ public partial class FavoritesWindow
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
                 PlaySoundEffects.PlayNotificationSound();
-                await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+                await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
             {
@@ -372,7 +372,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private async Task LaunchGameFromFavorite(string fileName, string selectedSystemName)
+    private async Task LaunchGameFromFavoriteAsync(string fileName, string selectedSystemName)
     {
         try
         {
@@ -424,7 +424,7 @@ public partial class FavoritesWindow
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-            await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
         }
         catch (Exception ex)
         {
@@ -455,7 +455,7 @@ public partial class FavoritesWindow
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
             PlaySoundEffects.PlayNotificationSound();
-            await LaunchGameFromFavorite(selectedFavorite.FileName, selectedFavorite.SystemName);
+            await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
         }
         catch (Exception ex)
         {

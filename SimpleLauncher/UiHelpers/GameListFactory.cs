@@ -242,7 +242,7 @@ public class GameListFactory(
         return machine?.Description ?? string.Empty;
     }
 
-    public async Task HandleDoubleClick(GameListViewItem selectedItem)
+    public async Task HandleDoubleClickAsync(GameListViewItem selectedItem)
     {
         if (selectedItem == null)
         {
@@ -304,6 +304,6 @@ public class GameListFactory(
             return;
         }
 
-        await GameLauncher.HandleButtonClick(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
     }
 }

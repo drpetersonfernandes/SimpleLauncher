@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using System.Xml.Serialization;
+using System.ComponentModel; // Required for DefaultValueAttribute
 
 namespace SimpleLauncher.Models;
 
@@ -10,20 +11,16 @@ public class EasyModeSystemConfig
     public string SystemImageFolder { get; set; }
 
     [XmlElement("SystemIsMAME")]
-    public bool? SystemIsMameNullable { get; set; }
-
-    [XmlIgnore]
-    public bool SystemIsMame => SystemIsMameNullable ?? false;
+    [DefaultValue(false)] // When SystemIsMAME is false, it won't be serialized to XML
+    public bool SystemIsMame { get; set; } // Changed to non-nullable bool
 
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
     public List<string> FileFormatsToSearch { get; set; }
 
     [XmlElement("ExtractFileBeforeLaunch")]
-    public bool? ExtractFileBeforeLaunchNullable { get; set; }
-
-    [XmlIgnore]
-    public bool ExtractFileBeforeLaunch => ExtractFileBeforeLaunchNullable ?? false;
+    [DefaultValue(false)] // When ExtractFileBeforeLaunch is false, it won't be serialized to XML
+    public bool ExtractFileBeforeLaunch { get; set; } // Changed to non-nullable bool
 
     [XmlArray("FileFormatsToLaunch")]
     [XmlArrayItem("FormatToLaunch")]

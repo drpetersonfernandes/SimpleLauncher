@@ -289,7 +289,7 @@ public partial class RetroAchievementsWindow
             try
             {
                 // Use the injected service
-                var (progress, achievements) = await _raService.GetGameInfoAndUserProgress(_gameId, _settings.RaUsername, _settings.RaApiKey);
+                var (progress, achievements) = await _raService.GetGameInfoAndUserProgressAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
 
                 if (progress != null && achievements is { Count: > 0 })
                 {
@@ -354,7 +354,7 @@ public partial class RetroAchievementsWindow
             try
             {
                 // Use the injected service
-                var gameInfo = await _raService.GetGameExtended(_gameId, _settings.RaUsername, _settings.RaApiKey);
+                var gameInfo = await _raService.GetGameExtendedAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
                 if (gameInfo != null)
                 {
                     // Load game icon (for header and the new image section)
@@ -591,7 +591,7 @@ public partial class RetroAchievementsWindow
             try
             {
                 // Fetch main user profile
-                var userProfile = await _raService.GetUserProfile(_settings.RaUsername, _settings.RaApiKey);
+                var userProfile = await _raService.GetUserProfileAsync(_settings.RaUsername, _settings.RaApiKey);
 
                 // Fetch detailed recently played games separately (max 50 games)
                 var recentlyPlayedGames = await _raService.GetUserRecentlyPlayedGamesAsync(_settings.RaUsername, _settings.RaApiKey, 50);
@@ -721,7 +721,7 @@ public partial class RetroAchievementsWindow
 
             try
             {
-                var unlocks = await _raService.GetAchievementsEarnedBetween(_settings.RaUsername, _settings.RaApiKey, fromDate, toDate);
+                var unlocks = await _raService.GetAchievementsEarnedBetweenAsync(_settings.RaUsername, _settings.RaApiKey, fromDate, toDate);
 
                 if (unlocks is { Count: > 0 })
                 {
@@ -844,7 +844,7 @@ public partial class RetroAchievementsWindow
 
             try
             {
-                var userProgressList = await _raService.GetUserCompletionProgress(_settings.RaUsername, _settings.RaApiKey);
+                var userProgressList = await _raService.GetUserCompletionProgressAsync(_settings.RaUsername, _settings.RaApiKey);
 
                 if (userProgressList is { Count: > 0 })
                 {

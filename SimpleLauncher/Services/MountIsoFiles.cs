@@ -10,7 +10,7 @@ namespace SimpleLauncher.Services;
 
 public static class MountIsoFiles
 {
-    public static async Task MountIsoFile(
+    public static async Task MountIsoFileAsync(
         string resolvedIsoFilePath,
         string selectedSystemName,
         string selectedEmulatorName,
@@ -94,7 +94,7 @@ public static class MountIsoFiles
             DebugLogger.Log($"[MountIsoFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch.");
 
             // 3. Launch the game/emulator with EBOOT.BIN
-            await GameLauncher.LaunchRegularEmulator(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
             DebugLogger.Log($"[MountIsoFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)

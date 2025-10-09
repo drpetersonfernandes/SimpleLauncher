@@ -318,13 +318,13 @@ public partial class EasyModeWindow : IDisposable
                     switch (downloadType)
                     {
                         case DownloadType.Emulator:
-                            await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBox(selectedSystem);
+                            await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
                             break;
                         case DownloadType.Core:
-                            await MessageBoxLibrary.ShowCoreDownloadErrorMessageBox(selectedSystem);
+                            await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
                             break;
                         case DownloadType.ImagePack:
-                            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBox(selectedSystem);
+                            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                             break;
                         default:
                             MessageBoxLibrary.DownloadExtractionFailedMessageBox();
@@ -350,13 +350,13 @@ public partial class EasyModeWindow : IDisposable
             switch (downloadType)
             {
                 case DownloadType.Emulator:
-                    await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBox(selectedSystem);
+                    await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
                     break;
                 case DownloadType.Core:
-                    await MessageBoxLibrary.ShowCoreDownloadErrorMessageBox(selectedSystem);
+                    await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
                     break;
                 case DownloadType.ImagePack:
-                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBox(selectedSystem);
+                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                     break;
                 default:
                     MessageBoxLibrary.DownloadExtractionFailedMessageBox();
