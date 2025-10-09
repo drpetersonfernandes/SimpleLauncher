@@ -3213,11 +3213,27 @@ internal static class MessageBoxLibrary
 
     internal static void SettingsXmlFileIsCorruptMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var settingsxmlfileiscorruptItCouldnotbeloaded = (string)Application.Current.TryFindResource("settingsxmlfileiscorruptItCouldnotbeloaded") ?? "'settings.xml' file is corrupt. It could not be loaded.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(settingsxmlfileiscorruptItCouldnotbeloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     internal static void SettingsXmlFileCouldNotBeLoadedMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var settingsxmlfilecouldnotbeloaded = (string)Application.Current.TryFindResource("settingsxmlfilecouldnotbeloaded") ?? "'settings.xml' file could not be loaded.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(settingsxmlfilecouldnotbeloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
