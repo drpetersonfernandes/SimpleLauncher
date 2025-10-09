@@ -219,7 +219,6 @@ public partial class EditSystemWindow
                 emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText
             ];
 
-
             // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
             // This will now use the updated ParameterValidator which understands %BASEFOLDER% etc.
             ValidateAndWarnAboutParameters(parameterTexts, allEmulatorLocationTexts); // Pass all emulator locations
@@ -246,21 +245,11 @@ public partial class EditSystemWindow
                 // and the user was warned they might not resolve correctly at launch without %BASEFOLDER% or other structural prefix)
             }
 
-            var receiveNotification1 =
-                ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 ||
-                item1.Content.ToString() == "true";
-            var receiveNotification2 =
-                ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 ||
-                item2.Content.ToString() == "true";
-            var receiveNotification3 =
-                ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 ||
-                item3.Content.ToString() == "true";
-            var receiveNotification4 =
-                ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 ||
-                item4.Content.ToString() == "true";
-            var receiveNotification5 =
-                ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 ||
-                item5.Content.ToString() == "true";
+            var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 || item1.Content.ToString() == "true";
+            var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 || item2.Content.ToString() == "true";
+            var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 || item3.Content.ToString() == "true";
+            var receiveNotification4 = ReceiveANotificationOnEmulatorError4.SelectedItem is not ComboBoxItem { Content: not null } item4 || item4.Content.ToString() == "true";
+            var receiveNotification5 = ReceiveANotificationOnEmulatorError5.SelectedItem is not ComboBoxItem { Content: not null } item5 || item5.Content.ToString() == "true";
 
             var emulatorsElement = new XElement("Emulators");
             var emulatorNames = new HashSet<string>();

@@ -73,6 +73,7 @@ public partial class SystemManager
 
             try
             {
+                // Load the XML document
                 var settings = new XmlReaderSettings
                 {
                     DtdProcessing = DtdProcessing.Prohibit,
@@ -157,6 +158,7 @@ public partial class SystemManager
             // Save the cleaned, sorted, and reformatted document back to disk.
             try
             {
+                // Save the XML document with indentation and new lines on attributes
                 var settings = new XmlWriterSettings
                 {
                     Indent = true,
