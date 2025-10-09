@@ -234,7 +234,10 @@ public static class GameLauncher
 
             try
             {
-                var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+                // // Load PlayHistoryManager
+                // var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+
+                var playHistoryManager = mainWindow.PlayHistoryManager;
                 playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
                 mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
             }

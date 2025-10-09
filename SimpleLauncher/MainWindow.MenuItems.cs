@@ -603,7 +603,7 @@ public partial class MainWindow
         ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager,
-            _playHistoryManager, this);
+            PlayHistoryManager, this);
         playHistoryWindow.Show();
     }
 

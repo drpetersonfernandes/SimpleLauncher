@@ -22,21 +22,17 @@ public static class ContextMenuFunctions
     {
         try
         {
-            // Load existing favorites
-            var favorites = FavoritesManager.LoadFavorites();
-
             // Add the new favorite if it doesn't already exist
-            if (!favorites.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                 && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
+            if (!favoritesManager.FavoriteList.Any(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                        && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase)))
             {
-                favorites.FavoriteList.Add(new Favorite
+                favoritesManager.FavoriteList.Add(new Favorite
                 {
                     FileName = fileNameWithExtension,
                     SystemName = systemName
                 });
 
-                // Save the updated favorites list
-                favoritesManager.FavoriteList = favorites.FavoriteList;
+                // Save the updated favorites list using the injected instance
                 favoritesManager.SaveFavorites();
 
                 // Dynamic UI Update for both Grid and List views
@@ -87,22 +83,18 @@ public static class ContextMenuFunctions
     {
         try
         {
-            // Load existing favorites
-            var favorites = FavoritesManager.LoadFavorites();
-
             // Find the favorite to remove
-            var favoriteToRemove = favorites.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
-                                                                              && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+            var favoriteToRemove = favoritesManager.FavoriteList.FirstOrDefault(f => f.FileName.Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase)
+                                                                                     && f.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
             if (favoriteToRemove == null)
             {
                 return;
             }
 
-            favorites.FavoriteList.Remove(favoriteToRemove);
+            favoritesManager.FavoriteList.Remove(favoriteToRemove);
 
-            // Save the updated favorites list
-            favoritesManager.FavoriteList = favorites.FavoriteList;
+            // Save the updated favorites list using the injected instance
             favoritesManager.SaveFavorites();
 
             // Dynamic UI Update Logic for both Grid and List views

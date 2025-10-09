@@ -78,7 +78,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private TrayIconManager _trayIconManager;
 
     // Define PlayHistory
-    private PlayHistoryManager _playHistoryManager;
+    // ReSharper disable once FieldCanBeMadeReadOnly.Global
+#pragma warning disable CA1051
+    public PlayHistoryManager PlayHistoryManager;
+#pragma warning restore CA1051
 
     // Define Pagination Related Variables
     private int _currentPage = 1;
@@ -99,7 +102,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
-    private FavoritesManager _favoritesManager;
+    private readonly FavoritesManager _favoritesManager;
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private string _selectedImageFolder;
@@ -118,7 +121,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Inject settings from DI
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
-        _playHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
+        PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -163,7 +166,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
@@ -252,7 +255,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             _activeSearchQueryOrMode = "FAVORITES"; // Set special search mode
 
             // Filter favorites for the selected system and store them in _currentSearchResults
-            var favoriteGames = GetFavoriteGamesForSelectedSystem();
+            var favoriteGames = GetFavoriteGamesForSelectedSystem(_favoritesManager);
             if (favoriteGames.Count != 0)
             {
                 _currentSearchResults = favoriteGames.ToList(); // Store only favorite games in _currentSearchResults
@@ -367,11 +370,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             if (_settings.ViewMode != "ListView" || GameListItems.Count == 0)
                 return;
 
-            // Re-load the latest play history data
-            _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+            // // Re-load the latest play history data
+            // _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
 
             // Get the current playtime from history
-            var historyItem = _playHistoryManager.PlayHistoryList
+            var historyItem = PlayHistoryManager.PlayHistoryList
                 .FirstOrDefault(h => h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) &&
                                      h.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
 
@@ -454,10 +457,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings.Save();
     }
 
-    private List<string> GetFavoriteGamesForSelectedSystem()
+    private List<string> GetFavoriteGamesForSelectedSystem(FavoritesManager favoritesManager)
     {
-        // Reload favorites to ensure we have the latest data
-        _favoritesManager = FavoritesManager.LoadFavorites();
+        // // Reload favorites to ensure we have the latest data
+        // _favoritesManager = FavoritesManager.LoadFavorites();
+
+        // Use the injected favoritesManager instance directly (no need to load again)
+        var favorites = favoritesManager.FavoriteList;
 
         var selectedSystem = SystemComboBox.SelectedItem?.ToString();
         if (string.IsNullOrEmpty(selectedSystem))
@@ -465,17 +471,17 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             return []; // Return an empty list if there is no favorite for that system
         }
 
-        // Retrieve the system configuration for the selected system
-        var selectedConfig = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
-        if (selectedConfig == null)
+        // Retrieve the system manager for the selected system
+        var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase));
+        if (selectedManager == null)
         {
             return []; // Return an empty list if there is no favorite for that system
         }
 
         // Filter the favorites and build the full file path for each favorite game
-        var favoriteGamePaths = _favoritesManager.FavoriteList
+        var favoriteGamePaths = favorites
             .Where(fav => fav.SystemName.Equals(selectedSystem, StringComparison.OrdinalIgnoreCase))
-            .Select(fav => PathHelper.FindFileInSystemFolders(selectedConfig, fav.FileName))
+            .Select(fav => PathHelper.FindFileInSystemFolders(selectedManager, fav.FileName))
             .Where(static path => !string.IsNullOrEmpty(path))
             .ToList();
 
@@ -499,7 +505,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
@@ -787,11 +793,11 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             allFiles = SetPaginationOfListOfFiles(allFiles);
 
-            _favoritesManager = FavoritesManager.LoadFavorites();
+            // _favoritesManager = FavoritesManager.LoadFavorites();
 
             // GameButtonFactory and GameListFactory now use the resolved file paths directly
             _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
+            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
 
             foreach (var filePath in allFiles) // 'filePath' is already resolved here
             {
