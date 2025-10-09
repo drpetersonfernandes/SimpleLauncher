@@ -9,6 +9,21 @@ public partial class MainWindow
 {
     private void MainWindow_Loaded(object sender, RoutedEventArgs e)
     {
+        Loaded += async (_, _) =>
+        {
+            try
+            {
+                await DisplaySystemSelectionScreenAsync();
+                await UpdateChecker.SilentCheckForUpdatesAsync(this);
+                await Stats.CallApiAsync();
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            }
+        };
+
         // Apply language
         SetLanguageAndCheckMenu(_settings.Language);
 
@@ -49,12 +64,6 @@ public partial class MainWindow
         _prevPageButton = PrevPageButton;
         _nextPageButton = NextPageButton;
 
-        // Update the GamePadController dead zone settings from SettingsManager
-        GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
-        GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
-
-        InitializeControllerDetection();
-
         // Initialize TrayIconManager
         _trayIconManager = new TrayIconManager(this, _settings);
 
@@ -65,5 +74,22 @@ public partial class MainWindow
         RetroAchievementButton.IsChecked = _settings.OverlayRetroAchievementButton;
         VideoLinkButton.IsChecked = _settings.OverlayOpenVideoButton;
         InfoLinkButton.IsChecked = _settings.OverlayOpenInfoButton;
+
+        // Initialize the GamePadController
+        GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
+        if (_settings.EnableGamePadNavigation)
+        {
+            GamePadController.Instance2.Start();
+        }
+        else
+        {
+            GamePadController.Instance2.Stop();
+        }
+
+        // Update the GamePadController dead zone settings from SettingsManager
+        GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
+        GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
+
+        InitializeControllerDetection();
     }
 }

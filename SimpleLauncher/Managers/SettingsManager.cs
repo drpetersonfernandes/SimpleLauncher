@@ -167,7 +167,7 @@ public class SettingsManager
             _ = LogErrors.LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'.");
 
             // Notify user
-            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+            MessageBoxLibrary.SettingsXmlFileIsCorruptMessageBox();
 
             SetDefaultsAndSave();
         }
@@ -177,7 +177,7 @@ public class SettingsManager
             _ = LogErrors.LogErrorAsync(ex, "There was an IOException while loading the file 'setting.xml'.");
 
             // Notify user
-            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+            MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
 
             SetDefaultsAndSave();
         }
@@ -187,7 +187,7 @@ public class SettingsManager
             _ = LogErrors.LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
 
             // Notify user
-            MessageBoxLibrary.SimpleLauncherNeedMorePrivilegesMessageBox();
+            MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
 
             SetDefaultsAndSave();
         }

@@ -141,17 +141,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         LoadOrReloadSystemManager();
 
-        // Initialize the GamePadController
-        GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
-        if (_settings.EnableGamePadNavigation)
-        {
-            GamePadController.Instance2.Start();
-        }
-        else
-        {
-            GamePadController.Instance2.Stop();
-        }
-
         // Add _topLetterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
         LetterNumberMenu.Children.Add(_topLetterNumberMenu.LetterPanel);
@@ -176,42 +165,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         // Initialize _gameListFactory
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _playHistoryManager, this);
 
-        // Check for Updates
-        Loaded += async (_, _) =>
-        {
-            try
-            {
-                await UpdateChecker.SilentCheckForUpdatesAsync(this);
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
-            }
-        };
-
-        // Call Stats API
-        Loaded += static (_, _) =>
-        {
-            _ = Stats.CallApiAsync();
-        };
-
-        // Attach the Load and Close events
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
-
-        Loaded += async (_, _) =>
-        {
-            try
-            {
-                await DisplaySystemSelectionScreenAsync();
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
-            }
-        };
     }
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()

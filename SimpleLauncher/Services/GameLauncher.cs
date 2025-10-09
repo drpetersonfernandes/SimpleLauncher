@@ -546,7 +546,7 @@ public static class GameLauncher
         // is by its characteristic filename. This avoids hardcoding drive letters.
         var isMountedXbe = Path.GetFileName(resolvedFilePath).Equals("default.xbe", StringComparison.OrdinalIgnoreCase);
 
-        // Check if the file to launch a mounted ZIP file, which will not be extracted
+        // Check if the file to launch is a mounted ZIP file, which will not be extracted
         var isMountedZip = resolvedFilePath.StartsWith(MountZipFiles.ConfiguredMountDriveRoot, StringComparison.OrdinalIgnoreCase);
 
         if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe && !isMountedZip)
@@ -769,8 +769,11 @@ public static class GameLauncher
         {
             try
             {
-                // Delete the temporary file if it exists
-                Directory.Delete(Path.Combine(Path.GetTempPath(), "SimpleLauncher"), true);
+                var extractFolder = Path.GetDirectoryName(resolvedFilePath);
+                if (!string.IsNullOrEmpty(extractFolder))
+                {
+                    File.Delete(extractFolder);
+                }
             }
             catch (Exception)
             {

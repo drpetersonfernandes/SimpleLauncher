@@ -3219,4 +3219,14 @@ internal static class MessageBoxLibrary
             MessageBox.Show(youneedtoaddRetroAchievementlogin, attention, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    internal static void SettingsXmlFileIsCorruptMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    internal static void SettingsXmlFileCouldNotBeLoadedMessageBox()
+    {
+        throw new NotImplementedException();
+    }
 }
