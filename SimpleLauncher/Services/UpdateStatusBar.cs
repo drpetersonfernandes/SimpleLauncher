@@ -19,8 +19,8 @@ public static class UpdateStatusBar
         // Start or restart the 20-second timer to clear the status
         if (mainWindow.StatusBarTimer != null)
         {
-            mainWindow.StatusBarTimer.Stop(); // Stop any existing timer
-            mainWindow.StatusBarTimer.Start(); // Start a new one
+            mainWindow.StatusBarTimer?.Stop(); // Stop any existing timer
+            mainWindow.StatusBarTimer?.Start(); // Start a new one
         }
     }
 }

@@ -236,8 +236,13 @@ public partial class SystemManager
             if (!bool.TryParse(sysConfigElement.Element("ExtractFileBeforeLaunch")?.Value,
                     out var extractFileBeforeLaunch))
                 throw new InvalidOperationException($"System '{systemName}': Invalid or missing value for 'Extract File Before Launch'.");
-            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(static f => f is "zip" or "7z" or "rar"))) // Check if any compressed format is included
+
+            if (extractFileBeforeLaunch && (formatsToSearch == null || !formatsToSearch.Any(static f => f.Equals("zip", StringComparison.OrdinalIgnoreCase) ||
+                                                                                                        f.Equals("7z", StringComparison.OrdinalIgnoreCase) ||
+                                                                                                        f.Equals("rar", StringComparison.OrdinalIgnoreCase))))
+            {
                 throw new InvalidOperationException($"System '{systemName}': When 'Extract File Before Launch' is set to true, 'Extension to Search in the System Folder' must include 'zip', '7z', or 'rar'.");
+            }
 
             // Validate FileFormatsToLaunch
             var formatsToLaunch = sysConfigElement.Element("FileFormatsToLaunch")
