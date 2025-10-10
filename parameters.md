@@ -48,7 +48,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 ## Arcade
 
@@ -71,7 +71,7 @@ This emulator is available for Windows-x64.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 **Emulator Name:** Retroarch mame<br>
 **Emulator Path (Example):** C:\emulators\retroarch\retroarch.exe<br>
@@ -436,7 +436,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" pv1000 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 ## Colecovision
 
@@ -514,7 +514,7 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 **Emulator Name:** Vice<br>
 **Emulator Path (Example):** <br>
@@ -545,7 +545,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -cart<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 ## Commodore Amiga
 
@@ -694,7 +694,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" aquarius<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 'Simple Launcher' has a special logic to launch Mattel Aquarius games; that is required by MAME.<br>
 For the logic to work, you need to add the word 'Aquarius' into the System Name.<br>
 The logic will only send the filename of the file (without the filepath and without the file extension) to the launching call.
@@ -2715,7 +2715,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" x68000 -flop1<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 ## Sinclair ZX Spectrum
 
@@ -2779,7 +2779,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%\bios"<br>
 **Fullscreen Parameter:** -window<br>
 
-This emulator is available for Windows-x64.
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 **Emulator Name:** Ares<br>
 **Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
