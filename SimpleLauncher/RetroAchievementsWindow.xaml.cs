@@ -1,15 +1,16 @@
 using System;
+using System.Diagnostics;
 using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
-using System.Windows.Input;
 
 namespace SimpleLauncher;
 
@@ -178,6 +179,34 @@ public partial class RetroAchievementsWindow
         return char.ToUpper(input[0], CultureInfo.InvariantCulture) + input.Substring(1);
     }
 
+    private void OpenUrlInBrowser(string url)
+    {
+        try
+        {
+            Process.Start(new ProcessStartInfo(url) { UseShellExecute = true });
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, $"Error opening URL: {url}");
+            MessageBoxLibrary.UnableToOpenLinkMessageBox();
+        }
+    }
+
+    private void ViewProfileOnRaButton_Click(object sender, RoutedEventArgs e)
+    {
+        if (!string.IsNullOrWhiteSpace(_settings.RaUsername))
+        {
+            var url = $"https://retroachievements.org/user/{Uri.EscapeDataString(_settings.RaUsername)}";
+            OpenUrlInBrowser(url);
+        }
+    }
+
+    private void ViewGameOnRaButton_Click(object sender, RoutedEventArgs e)
+    {
+        var url = $"https://retroachievements.org/game/{_gameId}";
+        OpenUrlInBrowser(url);
+    }
+
     private void GameImage_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
     {
         if (sender is Image clickedImage)
@@ -342,6 +371,7 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
             NoGameInfoOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
+            GameInfoAchievementsSection.Visibility = Visibility.Collapsed;
 
             if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
             {
@@ -432,6 +462,7 @@ public partial class RetroAchievementsWindow
                     GameInfoReleased.Text = string.IsNullOrWhiteSpace(gameInfo.Released) ? "N/A" : gameInfo.Released;
 
                     // Additional details
+                    GameInfoConsoleName.Text = string.IsNullOrWhiteSpace(gameInfo.ConsoleName) ? "N/A" : gameInfo.ConsoleName;
                     GameInfoPlayers.Text = gameInfo.NumDistinctPlayers.ToString("N0", CultureInfo.InvariantCulture);
                     GameInfoAchievementCount.Text = gameInfo.NumAchievements.ToString(CultureInfo.InvariantCulture);
                     GameInfoForumTopic.Text = gameInfo.ForumTopicId?.ToString(CultureInfo.InvariantCulture) ?? "N/A";
@@ -447,20 +478,41 @@ public partial class RetroAchievementsWindow
                     CasualPlayersValue.Text = gameInfo.NumDistinctPlayersCasual.ToString("N0", CultureInfo.InvariantCulture);
                     HardcorePlayersValue.Text = gameInfo.NumDistinctPlayersHardcore.ToString("N0", CultureInfo.InvariantCulture);
 
-                    // Rich Presence
-                    GameInfoRichPresence.Text = string.IsNullOrWhiteSpace(gameInfo.RichPresencePatch) ? "Not available" : gameInfo.RichPresencePatch;
-
                     // Claims
                     GameInfoClaims.Text = gameInfo.Claims.Count == 0
                         ? "No active development claims"
                         : $"{gameInfo.Claims.Count} active development claim(s)";
+
+                    // Achievements list
+                    if (gameInfo.Achievements is { Count: > 0 })
+                    {
+                        var achievementsList = gameInfo.Achievements.Values
+                            .OrderBy(static a => a.DisplayOrder)
+                            .Select(static a => new RaAchievement
+                            {
+                                Id = a.Id,
+                                Title = a.Title,
+                                Description = a.Description,
+                                Points = a.Points,
+                                BadgeUri = a.BadgeUri,
+                                TrueRatio = a.TrueRatio,
+                                Author = a.Author,
+                                DateCreated = a.DateCreated
+                            })
+                            .ToList();
+                        GameInfoAchievementsDataGrid.ItemsSource = achievementsList;
+                        GameInfoAchievementsSection.Visibility = Visibility.Visible;
+                    }
+                    else
+                    {
+                        GameInfoAchievementsSection.Visibility = Visibility.Collapsed;
+                    }
 
                     NoGameInfoOverlay.Visibility = Visibility.Collapsed;
                 }
                 else
                 {
                     NoGameInfoOverlay.Visibility = Visibility.Visible;
-                    // If gameInfo is null, it indicates an API failure (since credentials were provided)
                     NoGameInfoMessage.Text = "Failed to load extended game information. Please check your RetroAchievements credentials or try again later.";
                 }
             }
@@ -483,8 +535,14 @@ public partial class RetroAchievementsWindow
         {
             LoadingOverlay.Visibility = Visibility.Visible;
             NoUserRankOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
+            NoLatestMastersOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
             NoHighScoresOverlay.Visibility = Visibility.Collapsed; // Hide overlay initially
-            HighScoresDataGrid.ItemsSource = null; // Clear previous data
+
+            // Clear previous data
+            LatestMastersDataGrid.ItemsSource = null;
+            HighScoresDataGrid.ItemsSource = null;
+
+            // Reset user info
             UserRankText.Text = "N/A";
             UserScoreText.Text = "N/A";
             UserLastAwardText.Text = "N/A";
@@ -492,20 +550,49 @@ public partial class RetroAchievementsWindow
             // Check credentials first
             if (string.IsNullOrWhiteSpace(_settings.RaUsername) || string.IsNullOrWhiteSpace(_settings.RaApiKey))
             {
+                LatestMastersDataGrid.ItemsSource = null;
+                LatestMastersDataGrid.Visibility = Visibility.Collapsed;
                 HighScoresDataGrid.ItemsSource = null;
-                HighScoresDataGrid.Visibility = Visibility.Collapsed; // Hide the DataGrid
+                HighScoresDataGrid.Visibility = Visibility.Collapsed;
+
                 NoUserRankOverlay.Visibility = Visibility.Visible;
                 NoUserRankMessage.Text = "RetroAchievements username or API key is not set. Configure in settings.";
+                NoLatestMastersOverlay.Visibility = Visibility.Visible;
+                NoLatestMastersMessage.Text = "RetroAchievements username or API key is not set. Configure in settings.";
                 NoHighScoresOverlay.Visibility = Visibility.Visible;
                 NoHighScoresMessage.Text = "RetroAchievements username or API key is not set. Configure in settings.";
+
                 LoadingOverlay.Visibility = Visibility.Collapsed;
                 return;
             }
 
             try
             {
-                // Load High Scores (top 10 for the game)
-                var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+                // Load Latest Masters (t=1)
+                var latestMasters = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey, true);
+                if (latestMasters is { Count: > 0 })
+                {
+                    for (var i = 0; i < latestMasters.Count; i++)
+                    {
+                        latestMasters[i].Rank = i + 1; // Assign display rank
+                    }
+
+                    LatestMastersDataGrid.ItemsSource = latestMasters;
+                    LatestMastersDataGrid.Visibility = Visibility.Visible;
+                    NoLatestMastersOverlay.Visibility = Visibility.Collapsed;
+                }
+                else
+                {
+                    LatestMastersDataGrid.ItemsSource = null;
+                    LatestMastersDataGrid.Visibility = Visibility.Collapsed;
+                    NoLatestMastersOverlay.Visibility = Visibility.Visible;
+                    NoLatestMastersMessage.Text = latestMasters == null
+                        ? "Failed to load latest masters. Please check your RetroAchievements credentials or try again later."
+                        : "No latest masters found for this game.";
+                }
+
+                // Load High Scores (t=0, default)
+                var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey, false);
                 if (rankings is { Count: > 0 })
                 {
                     for (var i = 0; i < rankings.Count; i++)
@@ -563,13 +650,19 @@ public partial class RetroAchievementsWindow
             {
                 _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
                 // Show error state
+                LatestMastersDataGrid.ItemsSource = null;
+                LatestMastersDataGrid.Visibility = Visibility.Collapsed;
                 HighScoresDataGrid.ItemsSource = null;
-                HighScoresDataGrid.Visibility = Visibility.Collapsed; // Hide the DataGrid
+                HighScoresDataGrid.Visibility = Visibility.Collapsed;
+
                 UserRankText.Text = "Error"; // Set to error state on exception
                 UserScoreText.Text = "Error";
                 UserLastAwardText.Text = "Error";
+
                 NoUserRankOverlay.Visibility = Visibility.Visible;
                 NoUserRankMessage.Text = "Error loading ranking data. Please try again.";
+                NoLatestMastersOverlay.Visibility = Visibility.Visible;
+                NoLatestMastersMessage.Text = "Error loading latest masters. Please try again.";
                 NoHighScoresOverlay.Visibility = Visibility.Visible;
                 NoHighScoresMessage.Text = "Error loading high scores. Please try again.";
             }

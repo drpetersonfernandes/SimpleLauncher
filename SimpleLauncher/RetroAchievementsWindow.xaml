@@ -212,7 +212,10 @@
                         </Grid>
 
                         <!-- Game Details Grid -->
-                        <TextBlock Text="Game Details" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,15">
+                            <TextBlock Text="Game Details" FontWeight="Bold" FontSize="18" VerticalAlignment="Center" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <Button x:Name="ViewGameOnRaButton" Content="View on RetroAchievements.org" Click="ViewGameOnRaButton_Click" Margin="15,0,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                        </StackPanel>
                         <Grid Margin="0,0,0,25">
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="Auto" />
@@ -221,6 +224,7 @@
                                 <ColumnDefinition Width="*" />
                             </Grid.ColumnDefinitions>
                             <Grid.RowDefinitions>
+                                <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
                                 <RowDefinition Height="Auto" />
@@ -248,8 +252,8 @@
                             <TextBlock Grid.Row="2" Grid.Column="2" Text="Achievements:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                             <TextBlock Grid.Row="2" Grid.Column="3" x:Name="GameInfoAchievementCount" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
 
-                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Forum Topic:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="GameInfoForumTopic" Margin="0,0,20,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="3" Grid.Column="0" Text="Console:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="3" Grid.Column="1" x:Name="GameInfoConsoleName" Margin="0,0,20,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
 
                             <TextBlock Grid.Row="3" Grid.Column="2" Text="Updated:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                             <TextBlock Grid.Row="3" Grid.Column="3" x:Name="GameInfoUpdated" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
@@ -263,11 +267,14 @@
                             <TextBlock Grid.Row="5" Grid.Column="0" Text="Parent Game:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                             <TextBlock Grid.Row="5" Grid.Column="1" x:Name="GameInfoParentGame" Margin="0,0,20,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
 
-                            <TextBlock Grid.Row="5" Grid.Column="2" Text="Release Granularity:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                            <TextBlock Grid.Row="5" Grid.Column="3" x:Name="GameInfoReleaseGranularity" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="5" Grid.Column="2" Text="Forum Topic:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="5" Grid.Column="3" x:Name="GameInfoForumTopic" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
 
-                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Guide URL:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
-                            <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" x:Name="GameInfoGuideUrl" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="6" Grid.Column="0" Text="Release Granularity:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="3" x:Name="GameInfoReleaseGranularity" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+
+                            <TextBlock Grid.Row="7" Grid.Column="0" Text="Guide URL:" FontWeight="Bold" Margin="0,0,10,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <TextBlock Grid.Row="7" Grid.Column="1" Grid.ColumnSpan="3" x:Name="GameInfoGuideUrl" Margin="0,0,0,8" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                         </Grid>
 
                         <!-- Statistics Section -->
@@ -298,14 +305,38 @@
                             </Border>
                         </Grid>
 
-                        <!-- Rich Presence Script -->
-                        <TextBlock Text="Rich Presence Script:" FontWeight="Bold" Margin="0,0,0,5" Foreground="{DynamicResource MahApps.Brushes.Text}" FontSize="16" />
-                        <TextBox x:Name="GameInfoRichPresence" IsReadOnly="True" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" MinHeight="60" FontFamily="Consolas" Margin="0,0,0,20"
-                                 Style="{DynamicResource MahApps.Styles.TextBox}" />
-
                         <!-- Claims Section -->
                         <TextBlock Text="Development Claims" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                         <TextBlock x:Name="GameInfoClaims" TextWrapping="Wrap" Margin="0,0,0,20" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+
+                        <!-- Achievements List Section -->
+                        <StackPanel x:Name="GameInfoAchievementsSection" Visibility="Collapsed">
+                            <TextBlock Text="Achievements List" FontWeight="Bold" FontSize="18" Margin="0,25,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                            <DataGrid Name="GameInfoAchievementsDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,20"
+                                      Style="{DynamicResource MahApps.Styles.DataGrid}"
+                                      HeadersVisibility="Column"
+                                      GridLinesVisibility="Horizontal"
+                                      RowDetailsVisibilityMode="Collapsed"
+                                      Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                                      BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1"
+                                      MaxHeight="400" d:DataContext="{d:DesignInstance }">
+                                <DataGrid.Columns>
+                                    <DataGridTemplateColumn Header="Icon" Width="Auto">
+                                        <DataGridTemplateColumn.CellTemplate>
+                                            <DataTemplate>
+                                                <Image Source="{Binding BadgeUri}" Width="40" Height="40" Margin="5" d:DataContext="{d:DesignInstance }" />
+                                            </DataTemplate>
+                                        </DataGridTemplateColumn.CellTemplate>
+                                    </DataGridTemplateColumn>
+                                    <DataGridTextColumn Header="Title" Binding="{Binding Title}" Width="*" SortMemberPath="Title" />
+                                    <DataGridTextColumn Header="Description" Binding="{Binding Description}" Width="2*" SortMemberPath="Description" />
+                                    <DataGridTextColumn Header="Points" Binding="{Binding Points}" Width="Auto" SortMemberPath="Points" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                    <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                    <DataGridTextColumn Header="Author" Binding="{Binding AuthorDisplay}" Width="Auto" SortMemberPath="Author" />
+                                    <DataGridTextColumn Header="Created" Binding="{Binding DateCreated}" Width="Auto" SortMemberPath="DateCreated" />
+                                </DataGrid.Columns>
+                            </DataGrid>
+                        </StackPanel>
 
                         <!-- No Data Overlay -->
                         <Grid x:Name="NoGameInfoOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
@@ -358,8 +389,35 @@
                             </Grid>
                         </Grid>
 
+                        <!-- Latest Masters Section -->
+                        <TextBlock Text="Latest Masters" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                        <DataGrid Name="LatestMastersDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,20"
+                                  Style="{DynamicResource MahApps.Styles.DataGrid}"
+                                  HeadersVisibility="Column"
+                                  GridLinesVisibility="Horizontal"
+                                  RowDetailsVisibilityMode="Collapsed"
+                                  Background="{DynamicResource MahApps.Brushes.Control.Background}"
+                                  BorderBrush="{DynamicResource MahApps.Brushes.AccentBase}" BorderThickness="1" d:DataContext="{d:DesignInstance }">
+                            <DataGrid.Columns>
+                                <DataGridTextColumn Header="Rank" Binding="{Binding Rank}" Width="Auto" SortMemberPath="Rank" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                <DataGridTextColumn Header="User" Binding="{Binding User}" Width="*" SortMemberPath="User" />
+                                <DataGridTextColumn Header="Score" Binding="{Binding Score}" Width="Auto" SortMemberPath="Score" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                <DataGridTextColumn Header="True Ratio" Binding="{Binding TrueRatio, StringFormat='{}{0}%'}" Width="Auto" SortMemberPath="TrueRatio" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                <DataGridTextColumn Header="Achievements" Binding="{Binding NumAchievements}" Width="Auto" SortMemberPath="NumAchievements" ElementStyle="{DynamicResource MahApps.Styles.DataGrid.Column.TextBlock.RightAligned}" />
+                                <DataGridTextColumn Header="Last Award" Binding="{Binding LastAward}" Width="Auto" SortMemberPath="LastAward" />
+                            </DataGrid.Columns>
+                        </DataGrid>
+                        <Grid x:Name="NoLatestMastersOverlay" Background="{DynamicResource MahApps.Brushes.Control.Background}" Visibility="Collapsed">
+                            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                                <TextBlock x:Name="NoLatestMastersMessage" Text="No latest masters found for this game." VerticalAlignment="Center" HorizontalAlignment="Center" FontSize="18" Foreground="{DynamicResource MahApps.Brushes.Text}" TextWrapping="Wrap"
+                                           TextAlignment="Center" />
+                                <Button Content="Open RetroAchievements Settings" Margin="0,15,0,0" Click="OpenRaSettings_Click"
+                                        Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
+                            </StackPanel>
+                        </Grid>
+
                         <!-- High Scores Section -->
-                        <TextBlock Text="High Scores" FontWeight="Bold" FontSize="18" Margin="0,0,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                        <TextBlock Text="High Scores" FontWeight="Bold" FontSize="18" Margin="0,20,0,15" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                         <DataGrid Name="HighScoresDataGrid" AutoGenerateColumns="False" IsReadOnly="True" CanUserAddRows="False" Margin="0,0,0,10"
                                   Style="{DynamicResource MahApps.Styles.DataGrid}"
                                   HeadersVisibility="Column"
@@ -400,6 +458,7 @@
                                 <StackPanel VerticalAlignment="Center" Margin="15,0,0,0">
                                     <TextBlock x:Name="UserProfileUser" FontSize="22" FontWeight="Bold" Foreground="{DynamicResource MahApps.Brushes.Text}" />
                                     <TextBlock x:Name="UserProfileMotto" FontStyle="Italic" TextWrapping="Wrap" Margin="0,5,0,0" FontSize="14" Foreground="{DynamicResource MahApps.Brushes.Text}" />
+                                    <Button x:Name="ViewProfileOnRaButton" Content="View Profile on RetroAchievements.org" Click="ViewProfileOnRaButton_Click" Margin="0,10,0,0" Style="{DynamicResource MahApps.Styles.Button.Square.Accent}" />
                                 </StackPanel>
                             </StackPanel>
 

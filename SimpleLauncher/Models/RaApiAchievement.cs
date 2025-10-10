@@ -36,6 +36,12 @@ public class RaApiAchievement
     [JsonIgnore]
     public DateTime? DateEarnedHardcore => ParseDate(DateEarnedHardcoreString);
 
+    [JsonIgnore]
+    public string BadgeUri => $"https://retroachievements.org/Badge/{BadgeName}.png";
+
+    [JsonIgnore]
+    public string AuthorDisplay => string.IsNullOrWhiteSpace(Author) ? "Unknown" : Author;
+
     private static DateTime? ParseDate(string dateString)
     {
         if (string.IsNullOrWhiteSpace(dateString))

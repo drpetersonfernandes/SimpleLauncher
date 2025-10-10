@@ -205,11 +205,12 @@ public class RetroAchievementsService
     /// Fetches the top 10 ranked players for a specific game.
     /// https://github.com/RetroAchievements/RAWeb/blob/master/public/API/API_GetGameRankAndScore.php
     /// </summary>
-    public async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey)
+    public async Task<List<RaGameRankAndScore>> GetGameRankAndScoreAsync(int gameId, string username, string apiKey, bool latestMasters = false)
     {
         if (string.IsNullOrWhiteSpace(username) || string.IsNullOrWhiteSpace(apiKey)) return null;
 
-        var cacheKey = $"GameRankAndScore_{gameId}";
+        var typeParam = latestMasters ? "1" : "0";
+        var cacheKey = $"GameRankAndScore_{gameId}_{typeParam}";
         if (_cache.TryGetValue(cacheKey, out List<RaGameRankAndScore> cachedResult))
         {
             DebugLogger.Log($"[RA Service] Cache hit for {cacheKey}");
@@ -218,7 +219,7 @@ public class RetroAchievementsService
 
         try
         {
-            var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}";
+            var url = $"{ApiBaseUrl}API_GetGameRankAndScore.php?u={Uri.EscapeDataString(username)}&g={gameId}&y={Uri.EscapeDataString(apiKey)}&t={typeParam}";
             var response = await _httpClient.GetAsync(url);
             if (!response.IsSuccessStatusCode)
             {
@@ -228,9 +229,12 @@ public class RetroAchievementsService
             }
 
             var json = await response.Content.ReadAsStringAsync();
+            DebugLogger.Log($"[RA Service] API_GetGameRankAndScore response: {json}");
+
             var result = JsonSerializer.Deserialize<List<RaGameRankAndScore>>(json);
             _cache.Set(cacheKey, result, TimeSpan.FromMinutes(2)); // Cache for 2 minutes
             DebugLogger.Log($"[RA Service] Cached {cacheKey}");
+
             return result;
         }
         catch (Exception ex)
