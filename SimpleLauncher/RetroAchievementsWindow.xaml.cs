@@ -530,7 +530,7 @@ public partial class RetroAchievementsWindow
 
                 // Load User Rank and Score
                 var userRank = await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-                if (userRank is { Count: >= 0 })
+                if (userRank is { Count: > 0 })
                 {
                     var userData = userRank.First(); // API returns a list, but typically one entry
                     UserRankText.Text = userData.UserRank?.ToString(CultureInfo.InvariantCulture) ?? "Unranked";
