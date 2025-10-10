@@ -135,9 +135,6 @@ public class TrayIconManager : IDisposable
     {
         try
         {
-            // Initialize debug mode if it wasn't already enabled,
-            DebugLogger.Initialize(true);
-
             // Initialize LogWindow if it doesn't exist yet
             LogWindow.Initialize();
 

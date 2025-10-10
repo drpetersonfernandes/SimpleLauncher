@@ -107,7 +107,7 @@ public static class ContextMenu
             PlaySoundEffects.PlayTrashSound();
             ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
 
-            // *** FIX: Invoke the callback if it exists ***
+            // Invoke the callback if it exists
             context.OnFavoriteRemoved?.Invoke();
         };
 
@@ -457,6 +457,10 @@ public static class ContextMenu
                     try
                     {
                         ContextMenuFunctions.RemoveFromFavorites(context.SelectedSystemName, context.FileNameWithExtension, context.GameFileGrid, context.FavoritesManager, context.MainWindow);
+
+                        // Invoke the callback if it exists
+                        context.OnFavoriteRemoved?.Invoke();
+
                         await Task.Delay(500);
                         await ContextMenuFunctions.DeleteGameAsync(context.FilePath, context.FileNameWithExtension, context.MainWindow);
                     }

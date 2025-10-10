@@ -375,9 +375,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             if (_settings.ViewMode != "ListView" || GameListItems.Count == 0)
                 return;
 
-            // // Re-load the latest play history data
-            // _playHistoryManager = PlayHistoryManager.LoadPlayHistory();
-
             // Get the current playtime from history
             var historyItem = PlayHistoryManager.PlayHistoryList
                 .FirstOrDefault(h => h.FileName.Equals(fileName, StringComparison.OrdinalIgnoreCase) &&

@@ -29,237 +29,241 @@ public static class GameLauncher
 
     public static async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
     {
-        var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-
-        if (string.IsNullOrWhiteSpace(resolvedFilePath) || !File.Exists(resolvedFilePath))
-        {
-            // Notify developer
-            var contextMessage = $"Invalid resolvedFilePath or file does not exist.\n\n" +
-                                 $"Original filePath: {filePath}\n" +
-                                 $"Resolved filePath: {resolvedFilePath}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.FilePathIsInvalid(LogPath);
-
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(selectedEmulatorName))
-        {
-            // Notify developer
-            const string contextMessage = "selectedEmulatorName is null or empty.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        if (selectedSystemName == null)
-        {
-            // Notify developer
-            const string contextMessage = "selectedSystemName is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        if (selectedSystemManager == null)
-        {
-            // Notify developer
-            const string contextMessage = "selectedSystemManager is null";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
-        if (_selectedEmulatorManager == null)
-        {
-            // Notify developer
-            const string contextMessage = "_selectedEmulatorManager is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
-
-            return;
-        }
-
-        if (string.IsNullOrWhiteSpace(_selectedEmulatorManager.EmulatorName))
-        {
-            // Notify developer
-            const string contextMessage = "_selectedEmulatorManager.EmulatorName is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-
-            return;
-        }
-
-        _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
-
-        var wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
-        if (wasGamePadControllerRunning)
-        {
-            GamePadController.Instance2.Stop();
-        }
-
-        var startTime = DateTime.Now;
-        mainWindow.IsLoadingGames = true;
-
         try
         {
-            // Specific handling for Cxbx-Reloaded
-            if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
-                Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
-            {
-                // Check if the system architecture is ARM64
-                if (IsArm64System())
-                {
-                    // Notify the user that XISO mounting is not available on ARM64
-                    MessageBoxLibrary.XisoMountNotSupportedOnArm64();
-                    DebugLogger.Log("XISO mounting is not supported on ARM64 systems.");
-                    mainWindow.IsLoadingGames = false;
-                    return;
-                }
+            var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
 
-                DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
-                await using var mountedDrive = await MountXisoFiles.MountAsync(resolvedFilePath, LogPath);
-                if (mountedDrive.IsMounted)
-                {
-                    DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
-                    // Launch default.xbe
-                    await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
-                    DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
-                }
-                else
-                {
-                    DebugLogger.Log("ISO mounting failed. The user has been notified. Aborting launch.");
-                    // User is already notified by MountAsync on failure.
-                }
-            }
-            // Specific handling for ScummVM games with ZIP files
-            else if ((selectedSystemName.Contains("ScummVM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm-VM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase))
-                     && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+            if (string.IsNullOrWhiteSpace(resolvedFilePath) || !File.Exists(resolvedFilePath))
             {
-                DebugLogger.Log($"ScummVM game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, LogPath);
-            }
-            // Specific handling for RPCS3 with ZIP files
-            else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
-            {
-                DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
-            }
-            // Specific handling for RPCS3 with ISO files
-            else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
-                     Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
-            {
-                DebugLogger.Log($"RPCS3 with ISO call detected. Attempting to mount ISO and launch: {resolvedFilePath}");
-                await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
-            }
-            // Specific handling for XBLA games with ZIP files
-            else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
-                     && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
-            {
-                DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
-            }
-            else
-            {
-                var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
-                switch (fileExtension)
-                {
-                    case ".BAT":
-                        await RunBatchFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
-                        break;
-                    case ".LNK":
-                        await LaunchShortcutFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
-                        break;
-                    case ".EXE":
-                        await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
-                        break;
-                    default:
-                        await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
-                        break;
-                }
-            }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            var contextMessage = $"Unhandled error in GameLauncher's main launch block.\n" +
-                                 $"FilePath: {resolvedFilePath}\n" +
-                                 $"SelectedSystem: {selectedSystemName}\n" +
-                                 $"SelectedEmulator: {selectedEmulatorName}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                // Notify developer
+                var contextMessage = $"Invalid resolvedFilePath or file does not exist.\n\n" +
+                                     $"Original filePath: {filePath}\n" +
+                                     $"Resolved filePath: {resolvedFilePath}";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-            // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-        }
-        finally
-        {
-            mainWindow.IsLoadingGames = false;
+                // Notify user
+                MessageBoxLibrary.FilePathIsInvalid(LogPath);
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(selectedEmulatorName))
+            {
+                // Notify developer
+                const string contextMessage = "selectedEmulatorName is null or empty.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (selectedSystemName == null)
+            {
+                // Notify developer
+                const string contextMessage = "selectedSystemName is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (selectedSystemManager == null)
+            {
+                // Notify developer
+                const string contextMessage = "selectedSystemManager is null";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return;
+            }
+
+            _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+            if (_selectedEmulatorManager == null)
+            {
+                // Notify developer
+                const string contextMessage = "_selectedEmulatorManager is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+
+                return;
+            }
+
+            if (string.IsNullOrWhiteSpace(_selectedEmulatorManager.EmulatorName))
+            {
+                // Notify developer
+                const string contextMessage = "_selectedEmulatorManager.EmulatorName is null.";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+
+                return;
+            }
+
+            _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
+
+            var wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
             if (wasGamePadControllerRunning)
             {
-                GamePadController.Instance2.Start();
+                GamePadController.Instance2.Stop();
             }
 
-            var endTime = DateTime.Now;
-            var playTime = endTime - startTime;
-
-            // Always use the original file path for history, not the resolved/extracted path.
-            // The 'filePath' parameter passed into HandleButtonClickAsync is the original path from the game list.
-            var fileNameForHistory = Path.GetFileName(filePath);
-
-            settings.UpdateSystemPlayTime(selectedSystemName, playTime);
-            settings.Save();
-            var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-            DebugLogger.Log($"PlayTime saved: {playTimeFormatted}");
-
-            var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
-            TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
-
-            UpdateStatusBar.UpdateContent("", mainWindow);
+            var startTime = DateTime.Now;
+            mainWindow.IsLoadingGames = true;
 
             try
             {
-                // // Load PlayHistoryManager
-                // var playHistoryManager = PlayHistoryManager.LoadPlayHistory();
+                // Specific handling for Cxbx-Reloaded
+                if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
+                    Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
+                {
+                    // Check if the system architecture is ARM64
+                    if (IsArm64System())
+                    {
+                        // Notify the user that XISO mounting is not available on ARM64
+                        MessageBoxLibrary.XisoMountNotSupportedOnArm64();
+                        DebugLogger.Log("XISO mounting is not supported on ARM64 systems.");
+                        mainWindow.IsLoadingGames = false;
+                        return;
+                    }
 
-                var playHistoryManager = mainWindow.PlayHistoryManager;
-                playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
-                mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
+                    DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
+                    await using var mountedDrive = await MountXisoFiles.MountAsync(resolvedFilePath, LogPath);
+                    if (mountedDrive.IsMounted)
+                    {
+                        DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
+                        // Launch default.xbe
+                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                        DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
+                    }
+                    else
+                    {
+                        DebugLogger.Log("ISO mounting failed. The user has been notified. Aborting launch.");
+                        // User is already notified by MountAsync on failure.
+                    }
+                }
+                // Specific handling for ScummVM games with ZIP files
+                else if ((selectedSystemName.Contains("ScummVM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm-VM", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("Scumm", StringComparison.OrdinalIgnoreCase))
+                         && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log($"ScummVM game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                    await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, LogPath);
+                }
+                // Specific handling for RPCS3 with ZIP files
+                else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                }
+                // Specific handling for RPCS3 with ISO files
+                else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
+                         Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log($"RPCS3 with ISO call detected. Attempting to mount ISO and launch: {resolvedFilePath}");
+                    await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                }
+                // Specific handling for XBLA games with ZIP files
+                else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
+                         && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
+                {
+                    DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
+                    await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                }
+                else
+                {
+                    var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
+                    switch (fileExtension)
+                    {
+                        case ".BAT":
+                            await RunBatchFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
+                            break;
+                        case ".LNK":
+                            await LaunchShortcutFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
+                            break;
+                        case ".EXE":
+                            await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
+                            break;
+                        default:
+                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                            break;
+                    }
+                }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Error updating play history";
+                var contextMessage = $"Unhandled error in GameLauncher's main launch block.\n" +
+                                     $"FilePath: {resolvedFilePath}\n" +
+                                     $"SelectedSystem: {selectedSystemName}\n" +
+                                     $"SelectedEmulator: {selectedEmulatorName}";
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
-            }
 
-            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
-            if (systemPlayTime != null)
-            {
-                mainWindow.PlayTime = systemPlayTime.PlayTime;
-                DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
+                // Notify user
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
             }
+            finally
+            {
+                mainWindow.IsLoadingGames = false;
+                if (wasGamePadControllerRunning)
+                {
+                    GamePadController.Instance2.Start();
+                }
 
-            if (selectedEmulatorName is not null)
-            {
-                // Update stats
-                _ = Stats.CallApiAsync(selectedEmulatorName);
+                var endTime = DateTime.Now;
+                var playTime = endTime - startTime;
+
+                // Always use the original file path for history, not the resolved/extracted path.
+                // The 'filePath' parameter passed into HandleButtonClickAsync is the original path from the game list.
+                var fileNameForHistory = Path.GetFileName(filePath);
+
+                settings.UpdateSystemPlayTime(selectedSystemName, playTime);
+                settings.Save();
+                var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+                DebugLogger.Log($"PlayTime saved: {playTimeFormatted}");
+
+                var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
+                TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
+
+                UpdateStatusBar.UpdateContent("", mainWindow);
+
+                try
+                {
+                    var playHistoryManager = mainWindow.PlayHistoryManager;
+                    playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
+                    mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
+                }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string contextMessage = "Error updating play history";
+                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                }
+
+                var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
+                if (systemPlayTime != null)
+                {
+                    mainWindow.PlayTime = systemPlayTime.PlayTime;
+                    DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
+                }
+
+                if (selectedEmulatorName is not null)
+                {
+                    // Update stats
+                    _ = Stats.CallApiAsync(selectedEmulatorName);
+                }
             }
+        }
+        catch (Exception e)
+        {
+            _ = LogErrors.LogErrorAsync(e, "Unhandled error in GameLauncher's main launch block.");
         }
     }
 

@@ -50,10 +50,15 @@ public class FavoritesManager
     public void SaveFavorites()
     {
         // Order the favorites by FileName
-        var orderedFavorites = new ObservableCollection<Favorite>(
-            FavoriteList.OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
-        );
-        FavoriteList = orderedFavorites;
+        var orderedFavorites = FavoriteList
+            .OrderBy(static fav => fav.FileName, StringComparer.OrdinalIgnoreCase)
+            .ToList();
+
+        FavoriteList.Clear();
+        foreach (var fav in orderedFavorites)
+        {
+            FavoriteList.Add(fav);
+        }
 
         try
         {
