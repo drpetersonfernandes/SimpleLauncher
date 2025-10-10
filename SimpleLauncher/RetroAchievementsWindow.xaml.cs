@@ -504,13 +504,13 @@ public partial class RetroAchievementsWindow
 
             try
             {
-                // Load High Scores
+                // Load High Scores (top 10 for the game)
                 var rankings = await _raService.GetGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-                if (rankings != null && rankings.Count > 0)
+                if (rankings is { Count: > 0 })
                 {
                     for (var i = 0; i < rankings.Count; i++)
                     {
-                        rankings[i].Rank = i + 1;
+                        rankings[i].Rank = i + 1; // Assign display rank
                     }
 
                     HighScoresDataGrid.ItemsSource = rankings;
@@ -522,30 +522,39 @@ public partial class RetroAchievementsWindow
                     HighScoresDataGrid.ItemsSource = null;
                     HighScoresDataGrid.Visibility = Visibility.Collapsed;
                     NoHighScoresOverlay.Visibility = Visibility.Visible;
-                    // If rankings is null, it indicates an API failure (since credentials were provided)
                     NoHighScoresMessage.Text = rankings == null
                         ? "Failed to load high scores. Please check your RetroAchievements credentials or try again later."
                         : "No high scores found for this game.";
                 }
 
-                // Load User Rank and Score
-                var userRank = await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
-                if (userRank is { Count: > 0 })
+                // Load User Rank and Score (for the current user)
+                var userGameRankAndScoreList = await _raService.GetUserGameRankAndScoreAsync(_gameId, _settings.RaUsername, _settings.RaApiKey);
+                if (userGameRankAndScoreList is { Count: > 0 })
                 {
-                    var userData = userRank.First(); // API returns a list, but typically one entry
-                    UserRankText.Text = userData.UserRank?.ToString(CultureInfo.InvariantCulture) ?? "Unranked";
+                    var userData = userGameRankAndScoreList.First();
+
+                    // Apply the requested logic: if UserRank is null or 0, display "Unranked"
+                    if (userData.UserRank is null or 0)
+                    {
+                        UserRankText.Text = "Unranked";
+                    }
+                    else
+                    {
+                        UserRankText.Text = userData.UserRank.Value.ToString(CultureInfo.InvariantCulture);
+                    }
+
                     UserScoreText.Text = userData.TotalScore.ToString("N0", CultureInfo.InvariantCulture); // Format score
                     UserLastAwardText.Text = string.IsNullOrWhiteSpace(userData.LastAward) ? "N/A" : userData.LastAward;
                     NoUserRankOverlay.Visibility = Visibility.Collapsed; // Ensure hidden if data is present
                 }
-                else
+                else // userGameRankAndScoreList is null or empty
                 {
-                    UserRankText.Text = "N/A";
-                    UserScoreText.Text = "N/A";
+                    // If the list is empty, it means the user has no rank for this game.
+                    UserRankText.Text = "Unranked"; // As per request
+                    UserScoreText.Text = "0"; // Assuming 0 score if unranked
                     UserLastAwardText.Text = "N/A";
                     NoUserRankOverlay.Visibility = Visibility.Visible;
-                    // If userRank is null, it indicates an API failure (since credentials were provided)
-                    NoUserRankMessage.Text = userRank == null
+                    NoUserRankMessage.Text = userGameRankAndScoreList == null
                         ? "Failed to load your rank data. Please check your RetroAchievements credentials or try again later."
                         : "No rank data available for this game.";
                 }
@@ -556,7 +565,7 @@ public partial class RetroAchievementsWindow
                 // Show error state
                 HighScoresDataGrid.ItemsSource = null;
                 HighScoresDataGrid.Visibility = Visibility.Collapsed; // Hide the DataGrid
-                UserRankText.Text = "Error";
+                UserRankText.Text = "Error"; // Set to error state on exception
                 UserScoreText.Text = "Error";
                 UserLastAwardText.Text = "Error";
                 NoUserRankOverlay.Visibility = Visibility.Visible;
