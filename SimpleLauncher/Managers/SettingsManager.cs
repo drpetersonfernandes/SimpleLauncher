@@ -143,7 +143,7 @@ public class SettingsManager
 
             OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", true);
             OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
-            OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", true);
+            OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", false);
 
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
@@ -262,7 +262,7 @@ public class SettingsManager
         RaApiKey = string.Empty;
         OverlayRetroAchievementButton = true;
         OverlayOpenVideoButton = true;
-        OverlayOpenInfoButton = true;
+        OverlayOpenInfoButton = false;
         SystemPlayTimes = [];
         Save();
     }
