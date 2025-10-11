@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--160925-->
+<!--101025-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
 <!--OK        DuckStation - Add a .txt file named "portable"-->
@@ -209,18 +209,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Retroarch prosystem</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll" -f</EmulatorParameters>-->
-<!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-<!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-<!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME a7800</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" a7800</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
-<!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\prosystem_libretro.dll</CoreLocation>-->
-<!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-<!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-<!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -823,8 +823,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\DOSBox-X\dosbox-x.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://github.com/joncampbell123/dosbox-x/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.20250503</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dosbox-x-vsbuild-arm64-20250503164337.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>1.20251007</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/joncampbell123/dosbox-x/releases/download/dosbox-x-v2025.10.07/dosbox-x-vsbuild-arm64-20251007154914.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DOSBox-X\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1500,8 +1500,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2509</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2509-ARM64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1688,8 +1688,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2509</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2509-ARM64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -1757,8 +1757,8 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\Dolphin\Dolphin.exe</EmulatorLocation>
                 <EmulatorParameters/>
                 <EmulatorDownloadPage>https://dolphin-emu.org/download/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>2506a</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2506a-ARM64.zip</EmulatorDownloadLink>
+                <EmulatorLatestVersion>2509</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/dolphin-2509-ARM64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Dolphin\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -2495,7 +2495,7 @@
                 <EmulatorLocation>%BASEFOLDER%\emulators\DuckStation\duckstation-qt-ARM64-ReleaseLTCG.exe</EmulatorLocation>
                 <EmulatorParameters>-fullscreen</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/stenzek/duckstation/releases</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.20250909</EmulatorLatestVersion>
+                <EmulatorLatestVersion>0.20250923</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/stenzek/duckstation/releases/download/latest/duckstation-windows-arm64-release.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\DuckStation\</EmulatorDownloadExtractPath>
 

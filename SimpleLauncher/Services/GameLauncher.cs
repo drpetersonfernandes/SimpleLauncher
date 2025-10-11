@@ -645,12 +645,28 @@ public static class GameLauncher
 
         string arguments;
 
-        // Handling Mattel Aquarius Games
-        if ((selectedSystemManager.SystemName.Contains("aquarius", StringComparison.OrdinalIgnoreCase) || selectedSystemManager.SystemName.Contains("mattel", StringComparison.OrdinalIgnoreCase)))
+        // Handling Mattel Aquarius
+        if ((selectedSystemManager.SystemName.Contains("aquarius", StringComparison.OrdinalIgnoreCase) ||
+             selectedSystemManager.SystemName.Contains("mattel", StringComparison.OrdinalIgnoreCase) ||
+             selectedSystemManager.SystemName.Contains("mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
+             selectedSystemManager.SystemName.Contains("MAME mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
+             selectedSystemManager.SystemName.Contains("MAME aquarius", StringComparison.OrdinalIgnoreCase)))
         {
-            // Provide only the filename without extension and without the path
+            // Provide only the filename
             var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
             DebugLogger.Log($"Mattel Aquarius game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+
+        // Handling Atari 7800
+        else if ((selectedSystemManager.SystemName.Contains("MAME a7800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedSystemManager.SystemName.Contains("MAME atari 7800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedSystemManager.SystemName.Contains("MAME atari7800", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME a7800 game call detected. Attempting to launch: {resolvedFileName}");
 
             arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
         }
