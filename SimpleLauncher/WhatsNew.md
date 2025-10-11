@@ -2,7 +2,23 @@
 *10/11/25*
 ---
 
-- 
+🏆 **RetroAchievements Integration**
+*   Full support for viewing RetroAchievements profiles, game achievements, latest masters, and user rankings within a new dedicated window.
+*   Advanced hashing logic for accurate game matching.
+*   System-aware matching for RetroAchievements console IDs and aliases.
+
+✨ **UI/UX Enhancements**
+*   New overlay buttons on game items for quick access to RetroAchievements, video links, and info links (user-configurable).
+*   Introduced MAME sort order toggle (by filename or machine description).
+
+🎮 **Emulator & System Support**
+*   Added MAME a7800 emulator configuration and documentation.
+*   Updated `easymode.xml` and `easymode_arm64.xml` with the latest emulator versions and new system configurations.
+
+🏗️ **Infrastructure**
+*   Updated RomValidator and SimpleZipDrive executables for x86 and ARM64 platforms.
+
+🔧 **Codebase Refinements & Bug Fixes**
 
 # Release 4.4.2
 *09/29/25*
