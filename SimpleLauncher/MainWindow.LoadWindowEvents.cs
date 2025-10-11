@@ -102,21 +102,5 @@ public partial class MainWindow
             StatusBarText.Content = ""; // Clear the status bar
             StatusBarTimer.Stop(); // Stop the timer after clearing
         };
-
-        Loaded += async (_, _) =>
-        {
-            try
-            {
-                await UpdateChecker.SilentCheckForUpdatesAsync(this);
-                DebugLogger.Log("Silent check for updates was done.");
-                await Stats.CallApiAsync();
-                DebugLogger.Log("Stats API call was done.");
-            }
-            catch (Exception ex)
-            {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
-                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
-            }
-        };
     }
 }
