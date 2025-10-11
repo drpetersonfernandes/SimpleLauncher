@@ -300,7 +300,7 @@ Simple Launcher includes a suite of tools accessible from the **Tools** menu to 
     - Check that the application is in a writable folder (e.g., not `C:\Program Files`).
 - **Games won't launch:**
     - **Check paths:** Use **Expert Mode** to verify that the `SystemFolder(s)` and `EmulatorLocation` are correct. Use absolute paths if you are unsure.
-    - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using. Refer to the `helpuser.xml` guide in the Expert Mode window or the emulator's official documentation. A list of common emulator parameters can be found on our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters)..
+    - **Check parameters:** Ensure the `EmulatorParameters` are correct for the emulator you are using. Refer to the `helpuser.xml` guide in the Expert Mode window or the emulator's official documentation. A list of common emulator parameters can be found on our [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters).
     - **Check for BIOS files:** Many emulators require BIOS files to be placed in a specific folder.
 - **Mounting features don't work:**
     - **Install Dokan:** This is a mandatory dependency for mounting `.zip` and `.xiso` files.
