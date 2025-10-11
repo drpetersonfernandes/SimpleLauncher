@@ -542,13 +542,27 @@ public static class GameLauncher
         }
     }
 
-    public static async Task LaunchRegularEmulatorAsync(string resolvedFilePath,
+    public static async Task LaunchRegularEmulatorAsync(
+        string resolvedFilePath,
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow) // This is the raw parameter string from config
     {
+        if (string.IsNullOrEmpty(selectedEmulatorName))
+        {
+            // Notify developer
+            const string contextMessage = "selectedEmulatorName is null or empty.";
+            await LogErrors.LogErrorAsync(null, contextMessage);
+            DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+            // Notify user
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+
+            return;
+        }
+
         // A simple and effective way to identify a mounted XBE path from our tool
         // is by its characteristic filename. This avoids hardcoding drive letters.
         var isMountedXbe = Path.GetFileName(resolvedFilePath).Equals("default.xbe", StringComparison.OrdinalIgnoreCase);
@@ -649,8 +663,8 @@ public static class GameLauncher
         if ((selectedSystemManager.SystemName.Contains("aquarius", StringComparison.OrdinalIgnoreCase) ||
              selectedSystemManager.SystemName.Contains("mattel", StringComparison.OrdinalIgnoreCase) ||
              selectedSystemManager.SystemName.Contains("mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
-             selectedSystemManager.SystemName.Contains("MAME mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
-             selectedSystemManager.SystemName.Contains("MAME aquarius", StringComparison.OrdinalIgnoreCase)))
+             selectedEmulatorName.Contains("MAME mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
+             selectedEmulatorName.Contains("MAME aquarius", StringComparison.OrdinalIgnoreCase)))
         {
             // Provide only the filename
             var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
@@ -660,9 +674,9 @@ public static class GameLauncher
         }
 
         // Handling Atari 7800
-        else if ((selectedSystemManager.SystemName.Contains("MAME a7800", StringComparison.OrdinalIgnoreCase) ||
-                  selectedSystemManager.SystemName.Contains("MAME atari 7800", StringComparison.OrdinalIgnoreCase) ||
-                  selectedSystemManager.SystemName.Contains("MAME atari7800", StringComparison.OrdinalIgnoreCase)))
+        else if ((selectedEmulatorName.Contains("MAME a7800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari 7800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari7800", StringComparison.OrdinalIgnoreCase)))
         {
             // Provide only the filename
             var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
