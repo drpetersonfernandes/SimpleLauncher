@@ -2,7 +2,7 @@
 *10/11/25*
 ---
 
-🏆 **RetroAchievements Integration**
+🏆 **Introduced RetroAchievements Integration**
 *   Full support for viewing RetroAchievements profiles, game achievements, latest masters, and user rankings within a new dedicated window.
 *   Advanced hashing logic for accurate game matching.
 *   System-aware matching for RetroAchievements console IDs and aliases.
