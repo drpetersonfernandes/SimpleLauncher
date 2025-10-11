@@ -170,7 +170,7 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 7800<br>
-**System Is MAME?** false<br>
+**System Is MAME?** true or false<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -185,6 +185,14 @@ This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/prosystem/).<br>
 Core may require BIOS files or system files to work properly.
+
+**Emulator Name:** MAME a7800<br>
+**Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\roms\Atari 7800" a7800<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a7800<br>
+**Fullscreen Parameter:** -window<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>.
 
 ## Atari 8-Bit
 
