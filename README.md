@@ -1,5 +1,5 @@
 # Simple Launcher
-Simple Launcher, a powerful and flexible open-source frontend for emulators
+Simple Launcher, a powerful and flexible open-source frontend for emulators.
 
 **Main Window**
 ![Screenshot](screenshot.png)
