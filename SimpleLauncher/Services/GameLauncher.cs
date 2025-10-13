@@ -660,19 +660,49 @@ public static class GameLauncher
         string arguments;
 
         // Handling Mattel Aquarius
-        if ((selectedSystemManager.SystemName.Contains("aquarius", StringComparison.OrdinalIgnoreCase) ||
-             selectedSystemManager.SystemName.Contains("mattel", StringComparison.OrdinalIgnoreCase) ||
-             selectedSystemManager.SystemName.Contains("mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
-             selectedEmulatorName.Contains("MAME mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
-             selectedEmulatorName.Contains("MAME aquarius", StringComparison.OrdinalIgnoreCase)))
+        if (selectedEmulatorName.Contains("MAME aquarius", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("MAME mattel aquarius", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("MAME mattelaquarius", StringComparison.OrdinalIgnoreCase))
         {
             // Provide only the filename
             var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
-            DebugLogger.Log($"Mattel Aquarius game call detected. Attempting to launch: {resolvedFileName}");
+            DebugLogger.Log($"MAME aquarius game call detected. Attempting to launch: {resolvedFileName}");
 
             arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
         }
+        // Handling Atari 800
+        else if ((selectedEmulatorName.Contains("MAME a800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari 800", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari800", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME a800 game call detected. Attempting to launch: {resolvedFileName}");
 
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Atari 2600
+        else if ((selectedEmulatorName.Contains("MAME a2600", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari 2600", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari2600", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME a2600 game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Atari 5200
+        else if ((selectedEmulatorName.Contains("MAME a5200", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari 5200", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari5200", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME a5200 game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
         // Handling Atari 7800
         else if ((selectedEmulatorName.Contains("MAME a7800", StringComparison.OrdinalIgnoreCase) ||
                   selectedEmulatorName.Contains("MAME atari 7800", StringComparison.OrdinalIgnoreCase) ||
@@ -681,6 +711,70 @@ public static class GameLauncher
             // Provide only the filename
             var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
             DebugLogger.Log($"MAME a7800 game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Atari Lynx
+        else if ((selectedEmulatorName.Contains("MAME lynx", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari lynx", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atarilynx", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME lynx game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Atari Jaguar
+        else if ((selectedEmulatorName.Contains("MAME jaguar", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atari jaguar", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME atarijaguar", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME jaguar game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling WonderSwan
+        else if ((selectedEmulatorName.Contains("MAME wswan", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME WonderSwan", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME wswan game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling WonderSwan Color
+        else if ((selectedEmulatorName.Contains("MAME wscolor", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME WonderSwan Color", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME WonderSwanColor", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME wscolor game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Casio PV1000
+        else if ((selectedEmulatorName.Contains("MAME pv1000", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME Casio PV1000", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME Casio PV-1000", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME pv1000 game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
+        // Handling Colecovision
+        else if ((selectedEmulatorName.Contains("MAME coleco", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME Colecovision", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME coleco game call detected. Attempting to launch: {resolvedFileName}");
 
             arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
         }

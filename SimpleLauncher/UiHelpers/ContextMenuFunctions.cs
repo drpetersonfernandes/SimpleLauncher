@@ -300,27 +300,33 @@ public static class ContextMenuFunctions
             var hash = raHashResult.Hash;
             tempExtractionPath = raHashResult.TempExtractionPath;
 
-            // Check for extraction failure
-            if (!raHashResult.IsExtractionSuccessful)
-            {
-                DebugLogger.Log($"[RA Service] Extraction failed for '{fileNameWithoutExtension}': {raHashResult.ExtractionErrorMessage}");
-                MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
-
-                UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
-
-                return; // Exit as we cannot proceed without a valid extracted file or hash
-            }
-
+            // Prioritize checking if a hash was successfully obtained.
             if (string.IsNullOrEmpty(hash))
             {
-                DebugLogger.Log($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).");
-                MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                DebugLogger.Log($"[RA Service] Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}). Reason: {raHashResult.ExtractionErrorMessage}");
 
-                UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+                // Check if the failure was due to "system not supported"
+                if (raHashResult.ExtractionErrorMessage?.Contains("not supported for RetroAchievements hashing", StringComparison.OrdinalIgnoreCase) == true)
+                {
+                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox();
+                    UpdateStatusBar.UpdateContent($"System '{systemName}' is not supported by RetroAchievements.", mainWindow);
+                }
+                // Check if the failure was due to an actual extraction issue (and not just "system not supported")
+                else if (!raHashResult.IsExtractionSuccessful)
+                {
+                    MessageBoxLibrary.ExtractionFailedMessageBox(); // Inform user about extraction failure
+                    UpdateStatusBar.UpdateContent("Error extracting the file for hashing", mainWindow);
+                }
+                else // A generic hashing failure not covered by the above
+                {
+                    MessageBoxLibrary.GameNotSupportedByRetroAchievementsMessageBox(); // Fallback to generic "not supported" if no specific error message
+                    UpdateStatusBar.UpdateContent($"Failed to get hash for '{fileNameWithoutExtension}' (System: {systemName}).", mainWindow);
+                }
 
-                return;
+                return; // Exit as we cannot proceed without a valid hash
             }
 
+            // If we reach here, a hash was successfully obtained. Proceed with lookup.
             DebugLogger.Log($"[RA Service] Successfully obtained hash: {hash}");
             UpdateStatusBar.UpdateContent($"Successfully obtained hash for {fileNameWithoutExtension}", mainWindow);
 

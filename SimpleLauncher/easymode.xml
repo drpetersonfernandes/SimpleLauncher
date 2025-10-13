@@ -368,7 +368,7 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <EmulatorName>MAME</EmulatorName>
+                <EmulatorName>MAME lynx</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" lynx</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
