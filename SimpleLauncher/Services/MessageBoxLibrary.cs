@@ -3236,4 +3236,17 @@ internal static class MessageBoxLibrary
             MessageBox.Show(settingsxmlfilecouldnotbeloaded, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void NoDefaultBrowserConfiguredMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var noDefaultBrowserConfiguredMessage = (string)Application.Current.TryFindResource("NoDefaultBrowserConfiguredMessage") ?? "Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(noDefaultBrowserConfiguredMessage, error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
 }

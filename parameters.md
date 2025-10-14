@@ -1231,7 +1231,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 .
 
 **Emulator Name:** Xenia<br>
-**Emulator Path (Example):** c:\emulators\xenia\xenia_canary.exe<br>
+**Emulator Path (Example):** C:\Emulators\Xenia\xenia.exe<br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
 

@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.Drawing;
 using System.Drawing.Imaging;
@@ -155,6 +156,12 @@ public static class ContextMenuFunctions
                 UseShellExecute = true
             });
         }
+        // Catch Win32Exception specifically for "No application associated" error
+        catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Win32Exception: No default application configured for opening web links (Video Link).");
+            MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
+        }
         catch (Exception ex)
         {
             // Notify developer
@@ -185,6 +192,12 @@ public static class ContextMenuFunctions
                 FileName = searchUrl,
                 UseShellExecute = true
             });
+        }
+        // Catch Win32Exception specifically for "No application associated" error
+        catch (Win32Exception ex) when (ex.Message.Contains("No hay ninguna aplicación asociada", StringComparison.OrdinalIgnoreCase) || ex.Message.Contains("No application is associated", StringComparison.OrdinalIgnoreCase))
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Win32Exception: No default application configured for opening web links (Info Link).");
+            MessageBoxLibrary.NoDefaultBrowserConfiguredMessageBox();
         }
         catch (Exception ex)
         {
