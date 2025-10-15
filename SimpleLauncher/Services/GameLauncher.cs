@@ -670,6 +670,20 @@ public static class GameLauncher
 
             arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
         }
+        // Handling Genesis 32x
+        else if ((selectedEmulatorName.Contains("MAME 32x", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME genesis 32x", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME genesis32x", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME mega drive 32x", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME megadrive 32x", StringComparison.OrdinalIgnoreCase) ||
+                  selectedEmulatorName.Contains("MAME megadrive32x", StringComparison.OrdinalIgnoreCase)))
+        {
+            // Provide only the filename
+            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            DebugLogger.Log($"MAME genesis 32x game call detected. Attempting to launch: {resolvedFileName}");
+
+            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+        }
         // Handling Atari 800
         else if ((selectedEmulatorName.Contains("MAME a800", StringComparison.OrdinalIgnoreCase) ||
                   selectedEmulatorName.Contains("MAME atari 800", StringComparison.OrdinalIgnoreCase) ||
@@ -859,6 +873,8 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
+                if (DoNotCheckErrorsForKegaFusion(selectedEmulatorName, process, psi, output, error)) return;
+
                 await CheckForMemoryAccessViolationAsync(process, psi, output, error, selectedEmulatorManager);
                 await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
                 await CheckForExitCodeWithErrorAnyAsync(process, psi, output, error, selectedEmulatorManager);
@@ -928,6 +944,26 @@ public static class GameLauncher
                 }
             }
         }
+    }
+
+    private static bool DoNotCheckErrorsForKegaFusion(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    {
+        if (selectedEmulatorName is "Kega Fusion" or "KegaFusion" or "Kega" or "Fusion")
+        {
+            // Notify developer
+            var contextMessage = $"User just ran Kega Fusion.\n" +
+                                 $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Calling parameters: {psi.Arguments}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n";
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            return true;
+        }
+
+        return false;
     }
 
     // Return both the game file path and the temporary directory path

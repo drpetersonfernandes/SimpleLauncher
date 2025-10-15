@@ -2817,6 +2817,19 @@ This emulator is available for Windows-x64.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
+.
+
+**Emulator Name:** MAME 32x<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis 32x" 32x<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" 32x<br>
+**Fullscreen Parameter:** -window<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
 ## Sega Genesis CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
