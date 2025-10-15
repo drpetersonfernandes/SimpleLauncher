@@ -285,6 +285,19 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Retroarch atari800_libretro<br>
+**Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
+**Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\atari800_libretro.dll" -f<br>
+**Emulator Parameters (Example using relative paths):** -L "%EMULATORFOLDER%\cores\atari800_libretro.dll" -f<br>
+**Fullscreen Parameter:** -f<br>
+
+This emulator is available for Windows-x64.<br>
+It supports RetroAchievements.<br>
+Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/atari800/).<br>
+Core may require BIOS files or system files to work properly.
+
 ## Atari Jaguar
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
