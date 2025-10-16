@@ -703,7 +703,7 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 
 .
 
-**Emulator Name:** MAME<br>
+**Emulator Name:** MAME c64<br>
 **Emulator Path (Example):** c:\emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -flop<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cass<br>
@@ -910,9 +910,9 @@ This emulator is available for Windows-x64.<br>
 
 .
 
-**Emulator Name:** MAME Mattel Aquarius<br>
-**Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Mattel Aquarius" aquarius<br>
+**Emulator Name:** MAME aquarius<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Mattel Aquarius" aquarius<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" aquarius<br>
 **Fullscreen Parameter:** -window<br>
 
@@ -1878,6 +1878,19 @@ This emulator is available for Windows-x64.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator requires a BIOS file to work properly.
 
+.
+
+**Emulator Name:** MAME gbcolor<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Game Boy Color" gbcolor<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" gbcolor<br>
+**Fullscreen Parameter:** -window<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2692,7 +2705,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
-## Sega Genesis
+## Sega Genesis / Mega Drive
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -2773,6 +2786,21 @@ This emulator is available for Windows-x64.
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
+
+.
+
+.
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis" megadriv<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" megadriv<br>
+**Fullscreen Parameter:** -window<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 ## Sega Genesis 32X
 
