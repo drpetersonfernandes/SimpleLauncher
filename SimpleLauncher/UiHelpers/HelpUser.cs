@@ -196,6 +196,12 @@ public static partial class HelpUser
             { "WiiU", NintendoWiiUDetails },
             { "Nintendo WiiWare", NintendoWiiWareDetails },
             { "WiiWare", NintendoWiiWareDetails },
+
+            { "Nintendo Virtual Boy", NintendoVirtualBoyDetails },
+            { "Nintendo VirtualBoy", NintendoVirtualBoyDetails },
+            { "Virtual Boy", NintendoVirtualBoyDetails },
+            { "VirtualBoy", NintendoVirtualBoyDetails },
+
             { "Panasonic 3DO", Panasonic3DoDetails },
             { "Panasonic3DO", Panasonic3DoDetails },
             { "3DO", Panasonic3DoDetails },
@@ -566,6 +572,11 @@ public static partial class HelpUser
     private static string NintendoWiiWareDetails()
     {
         return GetSystemDetails("Nintendo WiiWare");
+    }
+
+    private static string NintendoVirtualBoyDetails()
+    {
+        return GetSystemDetails("Nintendo Virtual Boy");
     }
 
     private static string Panasonic3DoDetails()
