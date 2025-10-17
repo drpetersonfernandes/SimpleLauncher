@@ -75,7 +75,7 @@ Simple Launcher comes with a suite of utilities accessible via the "Tools" menu 
 
 ## Where to Find ROMs or ISOs
 
-We do **NOT** provide ROMs or ISOs.
+We do **NOT** provide ROMs or ISOs.<br>
 If you are looking for MAME Sets, look it up on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 ## Where to Find Game Cover Images
