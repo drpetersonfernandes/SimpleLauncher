@@ -750,7 +750,7 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
-                if (DoNotCheckErrorsForKegaFusion(selectedEmulatorName, process, psi, output, error)) return;
+                if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, process, psi, output, error)) return;
 
                 await CheckForMemoryAccessViolationAsync(process, psi, output, error, selectedEmulatorManager);
                 await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
@@ -823,12 +823,17 @@ public static class GameLauncher
         }
     }
 
-    private static bool DoNotCheckErrorsForKegaFusion(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
-        if (selectedEmulatorName is "Kega Fusion" or "KegaFusion" or "Kega" or "Fusion")
+        if (selectedEmulatorName.Equals("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Kega", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Project64", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Project 64", StringComparison.OrdinalIgnoreCase))
         {
             // Notify developer
-            var contextMessage = $"User just ran Kega Fusion.\n" +
+            var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
                                  $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
                                  $"Exit code: {process.ExitCode}\n" +
                                  $"Emulator: {psi.FileName}\n" +
