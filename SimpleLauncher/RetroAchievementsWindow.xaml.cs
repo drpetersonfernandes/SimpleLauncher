@@ -21,6 +21,9 @@ public partial class RetroAchievementsWindow
     private readonly SettingsManager _settings;
     private readonly RetroAchievementsService _raService;
 
+    // Define a constant for the unauthorized message to avoid repetition
+    private const string UnauthorizedMessage = "RetroAchievements credentials invalid. Please check your username and API key in settings.";
+
     public RetroAchievementsWindow(int gameId, string gameTitleForDisplay)
     {
         InitializeComponent();
@@ -352,6 +355,11 @@ public partial class RetroAchievementsWindow
                     }
                 }
             }
+            catch (RaUnauthorizedException)
+            {
+                NoAchievementsOverlay.Visibility = Visibility.Visible;
+                NoAchievementsMessage.Text = UnauthorizedMessage;
+            }
             catch (Exception ex)
             {
                 NoAchievementsOverlay.Visibility = Visibility.Visible;
@@ -516,6 +524,11 @@ public partial class RetroAchievementsWindow
                     NoGameInfoMessage.Text = "Failed to load extended game information. Please check your RetroAchievements credentials or try again later.";
                 }
             }
+            catch (RaUnauthorizedException)
+            {
+                NoGameInfoOverlay.Visibility = Visibility.Visible;
+                NoGameInfoMessage.Text = UnauthorizedMessage;
+            }
             catch (Exception ex)
             {
                 NoGameInfoOverlay.Visibility = Visibility.Visible;
@@ -646,6 +659,16 @@ public partial class RetroAchievementsWindow
                         : "No rank data available for this game.";
                 }
             }
+            catch (RaUnauthorizedException)
+            {
+                // Apply unauthorized message to all relevant overlays
+                NoUserRankOverlay.Visibility = Visibility.Visible;
+                NoUserRankMessage.Text = UnauthorizedMessage;
+                NoLatestMastersOverlay.Visibility = Visibility.Visible;
+                NoLatestMastersMessage.Text = UnauthorizedMessage;
+                NoHighScoresOverlay.Visibility = Visibility.Visible;
+                NoHighScoresMessage.Text = UnauthorizedMessage;
+            }
             catch (Exception ex)
             {
                 _ = LogErrors.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
@@ -772,6 +795,12 @@ public partial class RetroAchievementsWindow
                     NoProfileSubMessage.Text = "Please check your RetroAchievements credentials or try again later.";
                 }
             }
+            catch (RaUnauthorizedException)
+            {
+                NoProfileOverlay.Visibility = Visibility.Visible;
+                NoProfileMainMessage.Text = UnauthorizedMessage;
+                NoProfileSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
+            }
             catch (Exception ex)
             {
                 NoProfileOverlay.Visibility = Visibility.Visible;
@@ -844,6 +873,11 @@ public partial class RetroAchievementsWindow
                         : "No unlocks found for the selected date range.";
                 }
             }
+            catch (RaUnauthorizedException)
+            {
+                NoUnlocksOverlay.Visibility = Visibility.Visible;
+                NoUnlocksMessage.Text = UnauthorizedMessage;
+            }
             catch (Exception ex)
             {
                 UnlocksDataGrid.ItemsSource = null;
@@ -881,6 +915,10 @@ public partial class RetroAchievementsWindow
             {
                 await LoadUnlocksByDateAsync();
             }
+            catch (RaUnauthorizedException)
+            {
+                // Handled by LoadUnlocksByDateAsync
+            }
             catch (Exception ex)
             {
                 _ = LogErrors.LogErrorAsync(ex, "Failed to fetch unlocks by date");
@@ -911,6 +949,10 @@ public partial class RetroAchievementsWindow
                     NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
                     NoUnlocksMessage.Text = "No unlocks found for the selected date range."; // Reset message
                     await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
+                }
+                catch (RaUnauthorizedException)
+                {
+                    // Handled by LoadUnlocksByDateAsync
                 }
                 catch (Exception ex)
                 {
@@ -969,6 +1011,12 @@ public partial class RetroAchievementsWindow
                         NoUserProgressSubMessage.Text = "This could be because you haven't played any games yet.";
                     }
                 }
+            }
+            catch (RaUnauthorizedException)
+            {
+                NoUserProgressOverlay.Visibility = Visibility.Visible;
+                NoUserProgressMainMessage.Text = UnauthorizedMessage;
+                NoUserProgressSubMessage.Text = "Please configure your credentials in the RetroAchievements settings.";
             }
             catch (Exception ex)
             {
