@@ -46,7 +46,7 @@ public partial class EditSystemWindow
             DisableAllEditableFields();
             SaveSystemButton.IsEnabled = false;
             DeleteSystemButton.IsEnabled = false;
-            HelpUserTextBlock.Text = string.Empty;
+            HelpUserTextBlock.Document.Blocks.Clear();
         }
         else
         {
@@ -160,7 +160,7 @@ public partial class EditSystemWindow
             // Validate parameter fields. This uses ParameterValidator which is updated to handle %BASEFOLDER% etc.
             ValidateParameterFields();
 
-            HelpUserTextBlock.Text = string.Empty;
+            HelpUserTextBlock.Document.Blocks.Clear();
             UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
         }
         else

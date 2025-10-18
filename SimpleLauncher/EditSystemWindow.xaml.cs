@@ -139,7 +139,7 @@ public partial class EditSystemWindow
         }
 
         // Update the HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
@@ -162,7 +162,7 @@ public partial class EditSystemWindow
         }
 
         // Update the HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
@@ -185,7 +185,7 @@ public partial class EditSystemWindow
         }
 
         // Update the HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
@@ -208,7 +208,7 @@ public partial class EditSystemWindow
         }
 
         // Update the HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
@@ -230,7 +230,7 @@ public partial class EditSystemWindow
         }
 
         // Update the HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 
@@ -244,7 +244,7 @@ public partial class EditSystemWindow
         ClearFieldsForNoSelection();
         EnableFields();
 
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
 
         SaveSystemButton.IsEnabled = true;
         DeleteSystemButton.IsEnabled = false;
@@ -476,7 +476,7 @@ public partial class EditSystemWindow
 
     private void DeleteSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
 
         if (SystemNameDropdown.SelectedItem == null)
         {
@@ -568,7 +568,7 @@ public partial class EditSystemWindow
     private void SystemNameTextBox_LostFocus(object sender, RoutedEventArgs e)
     {
         // Update HelpUserTextBlock
-        HelpUserTextBlock.Text = string.Empty;
+        HelpUserTextBlock.Document.Blocks.Clear();
         UiHelpers.HelpUser.UpdateHelpUserTextBlock(HelpUserTextBlock, SystemNameTextBox);
     }
 

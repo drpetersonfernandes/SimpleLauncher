@@ -50,7 +50,7 @@
 
     <Grid>
         <Grid.ColumnDefinitions>
-            <ColumnDefinition Width="2.5*" />
+            <ColumnDefinition Width="1.5*" />
             <ColumnDefinition Width="5" />
             <ColumnDefinition Width="*" />
         </Grid.ColumnDefinitions>
@@ -195,7 +195,7 @@
                         HorizontalAlignment="Stretch"
                         IsReadOnly="True"
                         IsEnabled="False"
-                        LostFocus="SystemNameTextBox_LostFocus"/>
+                        LostFocus="SystemNameTextBox_LostFocus" />
 
                     <!-- System Folder -->
                     <Label
@@ -437,7 +437,7 @@
                             </ComboBox>
 
                         </Grid>
-                        </GroupBox>
+                    </GroupBox>
 
                     <!-- Emulator 2 -->
                     <GroupBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}">
@@ -828,7 +828,7 @@
                       VerticalAlignment="Stretch"
                       ShowsPreview="True"
                       ResizeBehavior="PreviousAndNext"
-                      Cursor="SizeWE"/>
+                      Cursor="SizeWE" />
 
         <!-- Right column -->
         <Grid Grid.Column="2" Margin="10">
@@ -844,13 +844,22 @@
                 FontWeight="Bold"
                 Content="{DynamicResource DeveloperSuggestion}" />
             <ScrollViewer Grid.Row="1" VerticalScrollBarVisibility="Auto">
-                <TextBlock
+                <RichTextBox
                     x:Name="HelpUserTextBlock"
                     Margin="0,0,10,10"
-                    TextWrapping="Wrap"
                     VerticalAlignment="Stretch"
-                    HorizontalAlignment="Stretch">
-                </TextBlock>
+                    HorizontalAlignment="Stretch"
+                    IsReadOnly="True"
+                    IsDocumentEnabled="True"
+                    VerticalScrollBarVisibility="Auto"
+                    Background="Transparent"
+                    BorderThickness="0"
+                    Padding="0"
+                    Focusable="True">
+                    <FlowDocument>
+                        <Paragraph />
+                    </FlowDocument>
+                </RichTextBox>
             </ScrollViewer>
         </Grid>
 

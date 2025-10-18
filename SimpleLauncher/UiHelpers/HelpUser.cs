@@ -29,17 +29,41 @@ public static partial class HelpUser
         }
     }
 
-    public static void UpdateHelpUserTextBlock(TextBlock helpUserTextBlock, TextBox systemNameTextBox)
+    // Renamed for clarity: Matches **bold text**
+    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled)]
+    private static partial Regex BoldRegex();
+
+    // Renamed for clarity: Matches ## headings
+    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline)]
+    private static partial Regex HeadingRegex();
+
+    // New regex for Markdown links: [text](url)
+    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Compiled)]
+    private static partial Regex MarkdownLinkRegex();
+
+    // Renamed for clarity: Matches raw URLs like http://example.com or www.example.com
+    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
+    private static partial Regex RawUrlRegex();
+
+    /// <summary>
+    /// Updates the content of a RichTextBox with formatted text, including bold, headings,
+    /// Markdown links ([text](url)), and raw URLs.
+    /// </summary>
+    /// <param name="helpUserRichTextBox">The RichTextBox to update.</param>
+    /// <param name="systemNameTextBox">The TextBox containing the system name.</param>
+    public static void UpdateHelpUserTextBlock(RichTextBox helpUserRichTextBox, TextBox systemNameTextBox)
     {
         var systemName = systemNameTextBox?.Text.Trim() ?? string.Empty;
+
+        // Clear the RichTextBox's content
+        helpUserRichTextBox.Document.Blocks.Clear();
 
         if (string.IsNullOrEmpty(systemName))
         {
             var nosystemnameprovided2 = (string)Application.Current.TryFindResource("Nosystemnameprovided") ?? "No system name provided.";
 
-            // Clear the TextBlock and display a default message if no system name is provided
-            helpUserTextBlock.Inlines.Clear();
-            helpUserTextBlock.Inlines.Add(new Run(nosystemnameprovided2));
+            // Add a default message to the RichTextBox
+            helpUserRichTextBox.Document.Blocks.Add(new Paragraph(new Run(nosystemnameprovided2)));
 
             return;
         }
@@ -298,19 +322,17 @@ public static partial class HelpUser
             { "PSP", SonyPspDetails }
         };
 
-        helpUserTextBlock.Inlines.Clear();
-
         // Check if a response exists for the given system name
         if (responses.TryGetValue(systemName, out var responseGenerator))
         {
             var text = responseGenerator();
-            SetTextWithMarkdown(helpUserTextBlock, text);
+            SetTextWithMarkdownInternal(helpUserRichTextBox, text); // Call the internal parsing method
         }
         else
         {
             // Display a message if the system name is not recognized
             var noinformationavailableforsystem2 = (string)Application.Current.TryFindResource("Noinformationavailableforsystem") ?? "No information available for system:";
-            helpUserTextBlock.Inlines.Add(new Run($"{noinformationavailableforsystem2} {systemName}"));
+            helpUserRichTextBox.Document.Blocks.Add(new Paragraph(new Run($"{noinformationavailableforsystem2} {systemName}")));
         }
     }
 
@@ -713,91 +735,132 @@ public static partial class HelpUser
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
     }
 
-    private static void SetTextWithMarkdown(TextBlock textBlock, string text)
+    /// <summary>
+    /// Helper method to add plain text to a paragraph, processing raw URLs within it.
+    /// </summary>
+    /// <param name="paragraph">The paragraph to add inlines to.</param>
+    /// <param name="text">The plain text segment to process.</param>
+    private static void AddRawUrlsToParagraph(Paragraph paragraph, string text)
     {
-        textBlock.Inlines.Clear();
+        if (string.IsNullOrEmpty(text)) return;
+
+        var parts = RawUrlRegex().Split(text);
+        var matches = RawUrlRegex().Matches(text);
+
+        var matchIndex = 0;
+        foreach (var part in parts)
+        {
+            if (!string.IsNullOrEmpty(part))
+            {
+                paragraph.Inlines.Add(new Run(part));
+            }
+
+            if (matchIndex < matches.Count)
+            {
+                var rawUrl = matches[matchIndex].Value;
+                var rawHyperlink = new Hyperlink(new Run(rawUrl))
+                {
+                    NavigateUri = new Uri(rawUrl.StartsWith("http", StringComparison.OrdinalIgnoreCase)
+                        ? rawUrl
+                        : "http://" + rawUrl)
+                };
+                rawHyperlink.RequestNavigate += static (_, e) =>
+                {
+                    Process.Start(new ProcessStartInfo
+                    {
+                        FileName = e.Uri.AbsoluteUri,
+                        UseShellExecute = true
+                    });
+                };
+                paragraph.Inlines.Add(rawHyperlink);
+                matchIndex++;
+            }
+        }
+    }
+
+    /// <summary>
+    /// Parses the input text for Markdown formatting (bold, headings, Markdown links, raw URLs)
+    /// and displays it in the provided RichTextBox.
+    /// </summary>
+    /// <param name="richTextBox">The RichTextBox to display the formatted text in.</param>
+    /// <param name="text">The text containing Markdown to parse.</param>
+    private static void SetTextWithMarkdownInternal(RichTextBox richTextBox, string text)
+    {
+        var flowDocument = new FlowDocument();
+        var paragraph = new Paragraph();
 
         // Remove <br> tags
         text = text.Replace("<br>", "");
 
-        // Regular expressions for bold and headings (excluding underscore italics)
-        var markdownRegex = MyRegex(); // Match bold (**text**)
-        var headingRegex = MyRegex1(); // Match lines starting with ##
-        var linkRegex = MyRegex2(); // Match URLs
+        // 1. Process headings first, converting them to bold syntax for subsequent bold processing
+        text = HeadingRegex().Replace(text, static match => $"**{match.Groups[1].Value.Trim()}**");
 
-        // Process lines for headings (##)
-        text = headingRegex.Replace(text, static match =>
+        var matches = new List<(Match Match, string Type)>();
+
+        // Find all bold matches
+        foreach (Match match in BoldRegex().Matches(text))
         {
-            var boldText = match.Groups[1].Value.Trim();
-            return $"**{boldText}**"; // Convert headings to bold syntax
-        });
+            matches.Add((match, "bold"));
+        }
+
+        // Find all markdown link matches
+        foreach (Match match in MarkdownLinkRegex().Matches(text))
+        {
+            matches.Add((match, "markdownLink"));
+        }
+
+        // Sort matches by their starting index
+        // This is crucial for correct processing order and handling overlaps (e.g., a markdown link
+        // will take precedence over a raw URL that might be part of its URL component).
+        matches.Sort((a, b) => a.Match.Index.CompareTo(b.Match.Index));
 
         var lastIndex = 0;
 
-        foreach (Match match in markdownRegex.Matches(text))
+        foreach (var (match, type) in matches)
         {
-            // Add plain text before the match
+            // Add plain text (and any raw URLs within it) before the current match
             if (match.Index > lastIndex)
             {
-                var plainText = text.Substring(lastIndex, match.Index - lastIndex);
-                AddTextWithLinks(textBlock, plainText, linkRegex);
+                var plainTextSegment = text.Substring(lastIndex, match.Index - lastIndex);
+                AddRawUrlsToParagraph(paragraph, plainTextSegment);
             }
 
-            // Add formatted text (bold only)
-            if (match.Groups[1].Success) // Bold
+            // Add the formatted text based on type
+            switch (type)
             {
-                textBlock.Inlines.Add(new Bold(new Run(match.Groups[1].Value)));
+                case "bold":
+                    paragraph.Inlines.Add(new Bold(new Run(match.Groups[1].Value)));
+                    break;
+                case "markdownLink":
+                    var linkText = match.Groups["text"].Value;
+                    var url = match.Groups["url"].Value;
+                    var hyperlink = new Hyperlink(new Run(linkText))
+                    {
+                        NavigateUri = new Uri(url)
+                    };
+                    hyperlink.RequestNavigate += static (_, e) =>
+                    {
+                        Process.Start(new ProcessStartInfo
+                        {
+                            FileName = e.Uri.AbsoluteUri,
+                            UseShellExecute = true
+                        });
+                    };
+                    paragraph.Inlines.Add(hyperlink);
+                    break;
             }
 
             lastIndex = match.Index + match.Length;
         }
 
-        // Add the remaining text after the last match
-        if (lastIndex >= text.Length) return;
-
-        var remainingText = text.Substring(lastIndex);
-        AddTextWithLinks(textBlock, remainingText, linkRegex);
-    }
-
-    private static void AddTextWithLinks(TextBlock textBlock, string text, Regex linkRegex)
-    {
-        var parts = linkRegex.Split(text);
-        var matches = linkRegex.Matches(text);
-
-        var index = 0;
-        foreach (var part in parts)
+        // Add any remaining plain text (and raw URLs within it) after the last match
+        if (lastIndex < text.Length)
         {
-            // Add plain text
-            textBlock.Inlines.Add(new Run(part));
-
-            // Add hyperlink in bold
-            if (index >= matches.Count) continue;
-
-            var hyperlink = new Hyperlink(new Bold(new Run(matches[index].Value)))
-            {
-                NavigateUri = new Uri(matches[index].Value.StartsWith("http", StringComparison.OrdinalIgnoreCase)
-                    ? matches[index].Value
-                    : "http://" + matches[index].Value)
-            };
-            hyperlink.RequestNavigate += static (_, e) =>
-            {
-                Process.Start(new ProcessStartInfo
-                {
-                    FileName = e.Uri.AbsoluteUri,
-                    UseShellExecute = true
-                });
-            };
-            textBlock.Inlines.Add(hyperlink);
-            index++;
+            var remainingText = text.Substring(lastIndex);
+            AddRawUrlsToParagraph(paragraph, remainingText);
         }
+
+        flowDocument.Blocks.Add(paragraph);
+        richTextBox.Document = flowDocument;
     }
-
-    [GeneratedRegex(@"\*\*(.*?)\*\*", RegexOptions.Compiled)]
-    private static partial Regex MyRegex();
-
-    [GeneratedRegex(@"^##\s*(.*?)$", RegexOptions.Multiline)]
-    private static partial Regex MyRegex1();
-
-    [GeneratedRegex(@"\b(?:https?://|www\.)\S+\b", RegexOptions.Compiled)]
-    private static partial Regex MyRegex2();
 }
