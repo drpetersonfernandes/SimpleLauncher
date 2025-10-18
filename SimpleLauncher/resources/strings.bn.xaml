@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">দান করুন</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' ফাইলটি ডিবাগ করার জন্য কি আপনি এটি খুলতে চান?</system:String>
     <system:String x:Key="Downloadcanceled">ডাউনলোড বাতিল করা হয়েছে</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">ডাউনলোড সম্পন্ন। এখানে এক্সট্র্যাকশন শুরু হচ্ছে</system:String>
     <system:String x:Key="DownloadCore">কোর ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloadedfileislocked">ডাউনলোড করা ফাইলটি লক করা হয়েছে।</system:String>
     <system:String x:Key="Downloadedfileismissing">ডাউনলোড করা ফাইলটি অনুপস্থিত।</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে</system:String>
     <system:String x:Key="downloadprocess">ডাউনলোড প্রসেস.</system:String>
     <system:String x:Key="DownloadProgress">ডাউনলোডের অগ্রগতি</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">ডাউনলোড সফলভাবে সম্পন্ন হয়নি।</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher' সমস্যা সমাধানের জন্য স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">চালুর আগে ফাইল এক্সট্রাক্ট করতে হবে?</system:String>
     <system:String x:Key="Extracting">আনাচ্ছে</system:String>
     <system:String x:Key="Extractionfailed">উত্তোলন ব্যর্থ হয়েছে।</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">এক্সট্র্যাকশন ব্যর্থ হয়েছে। বিস্তারিত জানতে ত্রুটি বার্তা দেখুন।</system:String>
     <system:String x:Key="Failedtocopylogcontent">লগ বিষয়বস্তু কপি করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">ভাষা সংস্থান লোড করতে ব্যর্থ হয়েছে।</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">চিত্র দর্শক উইন্ডোতে চিত্র লোড করতে ব্যর্থ হয়েছে।</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">আপনি যদি এটি মুছার সিদ্ধান্ত নেন, 'Simple Launcher' আপনার জন্য একটি নতুন তৈরি করবে।</system:String>
     <system:String x:Key="Ifyouleaveitempty">আপনি এটি ফাঁকা রাখলে, অ্যাপ্লিকেশনটি এই সিস্টেমের জন্য 'roms' ফোল্ডারের ভিতরে একটি নতুন ফোল্ডার তৈরি করবে।</system:String>
     <system:String x:Key="ImageFolderNotExist">সিস্টেম ইমেজ ফোল্ডারটি বিদ্যমান নয় বা নির্ধারিত হয়নি</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">ইমেজ প্যাক ডাউনলোড এবং এক্সট্র্যাক্ট সফলভাবে সম্পন্ন হয়েছে।</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">ইমেজ প্যাক ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">যদি ইমেজ প্যাক উপলব্ধ না হয়, আপনি নিম্নলিখিত ওয়েবসাইট থেকে এই সিস্টেমের জন্য ইমেজ ডাউনলোড করতে পারেন:</system:String>
     <system:String x:Key="Indigo">নীলের ঘন</system:String>

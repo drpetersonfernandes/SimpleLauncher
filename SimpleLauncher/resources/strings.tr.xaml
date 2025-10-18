@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Bağış Yap</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">İndirme tamamlandı. Çıkartma işlemi başlıyor</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
     <system:String x:Key="Downloadedfileislocked">İndirilen dosya kilitli.</system:String>
     <system:String x:Key="Downloadedfileismissing">İndirilen dosya eksik.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">İndirme başarıyla tamamlanamadı.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Başlatmadan önce dosya çıkartılsın mı?</system:String>
     <system:String x:Key="Extracting">Çıkartılıyor</system:String>
     <system:String x:Key="Extractionfailed">Arşivden çıkarma başarısız oldu.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Çıkartma başarısız. Detaylar için hata mesajına bakın.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Günlük içeriği kopyalanamadı.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Dil kaynakları yüklenemedi.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Resim görüntüleyici penceresinde resim yüklenemedi.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Silme işlemini seçerseniz, 'Simple Launcher' yeni bir dosya oluşturacaktır.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Boş bırakırsanız, uygulama bu sistem için 'roms' klasörünün içine bir klasör oluşturacaktır.</system:String>
     <system:String x:Key="ImageFolderNotExist">Sistem görselleri klasörü mevcut değil veya belirtilmemiş.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Görüntü paketi başarıyla indirildi ve çıkartıldı.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Görsel paketi indirme veya ayıklama işlemi başarısız oldu!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Görüntü paketi mevcut değilse, bu sistem için görüntüleri şu web sitelerinden indirebilirsiniz:</system:String>
     <system:String x:Key="Indigo">Çivit Mavisi</system:String>

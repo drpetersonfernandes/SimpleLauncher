@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Quyên góp</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Tải xuống hoàn tất. Bắt đầu giải nén vào</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
     <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
     <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>
     <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Tải xuống không hoàn tất thành công.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Giải nén tệp trước khi khởi chạy?</system:String>
     <system:String x:Key="Extracting">Đang giải nén</system:String>
     <system:String x:Key="Extractionfailed">Giải nén thất bại.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Giải nén thất bại. Xem thông báo lỗi để biết chi tiết.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Sao chép nội dung nhật ký không thành công.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Không thể tải tài nguyên ngôn ngữ.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Không thể tải hình ảnh trong trình xem hình ảnh.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Thư mục ảnh của hệ thống không tồn tại hoặc chưa được chỉ định.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Gói hình ảnh đã được tải xuống và giải nén thành công.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Không thể tải xuống hoặc giải nén gói hình ảnh!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Trong trường hợp gói hình ảnh không khả dụng, bạn có thể tải xuống hình ảnh cho hệ thống này tại các trang web sau:</system:String>
     <system:String x:Key="Indigo">Chàm</system:String>

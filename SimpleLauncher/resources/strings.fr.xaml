@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Faire un don</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
     <system:String x:Key="Downloadcanceled">Téléchargement annulé</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Téléchargement terminé. Début de l'extraction vers</system:String>
     <system:String x:Key="DownloadCore">Télécharger le noyau</system:String>
     <system:String x:Key="Downloadedfileislocked">Le fichier téléchargé est verrouillé.</system:String>
     <system:String x:Key="Downloadedfileismissing">Le fichier téléchargé est introuvable.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Échec du téléchargement ou de l'extraction</system:String>
     <system:String x:Key="downloadprocess">processus de téléchargement.</system:String>
     <system:String x:Key="DownloadProgress">Progression du téléchargement</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Le téléchargement n'a pas été complété avec succès.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Voulez-vous réinstaller automatiquement 'Simple Launcher' pour résoudre le problème ?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Extraire le fichier avant le lancement ?</system:String>
     <system:String x:Key="Extracting">Extraction</system:String>
     <system:String x:Key="Extractionfailed">Échec de l'extraction.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Échec de l'extraction. Voir le message d'erreur pour plus de détails.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Échec de la copie du contenu du journal.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Échec du chargement des ressources linguistiques.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Impossible de charger l'image dans la fenêtre du visualiseur d'images.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Si vous choisissez de le supprimer, 'Simple Launcher' en créera un nouveau.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Le dossier d'images du système n'existe pas ou n'est pas spécifié.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Pack d'images téléchargé et extrait avec succès.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Échec du téléchargement ou de l'extraction du pack d'images !</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Dans le cas où le pack d'images n'est pas disponible, vous pouvez télécharger les images pour ce système sur les sites suivants :</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>

@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">दान करें</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">क्या आप 'error_user.log' फ़ाइल को त्रुटि डिबग करने के लिए खोलना चाहते हैं?</system:String>
     <system:String x:Key="Downloadcanceled">डाउनलोड रद्द किया गया</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">डाउनलोड पूरा हुआ। निकालने की प्रक्रिया शुरू कर रहा है</system:String>
     <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
     <system:String x:Key="Downloadedfileislocked">डाउनलोड की गई फ़ाइल लॉक है।</system:String>
     <system:String x:Key="Downloadedfileismissing">डाउनलोड की गई फ़ाइल गुम है।</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
     <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>
     <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">डाउनलोड सफलतापूर्वक पूरा नहीं हुआ।</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः इंस्टॉल करना चाहेंगे समस्या को ठीक करने हेतु?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">क्या आप इसे ठीक करने के लिए 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">लॉन्च से पहले फ़ाइल को अनज़िप करें?</system:String>
     <system:String x:Key="Extracting">निकालना</system:String>
     <system:String x:Key="Extractionfailed">निष्कर्षण विफल हुआ।</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">निकालने की प्रक्रिया विफल। विवरण के लिए त्रुटि संदेश देखें।</system:String>
     <system:String x:Key="Failedtocopylogcontent">लॉग सामग्री कॉपी करने में विफल रहा।</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">भाषा संसाधन लोड करने में विफल।</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">इमेज व्यूअर विंडो में इमेज लोड करने में विफल।</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">यदि आप इसे हटाना चुनते हैं, तो 'Simple Launcher' एक नई फाइल बनाएगा।</system:String>
     <system:String x:Key="Ifyouleaveitempty">यदि आप इसे खाली छोड़ देते हैं, तो एप्लिकेशन इस सिस्टम के लिए 'roms' फोल्डर के अंदर एक फोल्डर बनाएगी।</system:String>
     <system:String x:Key="ImageFolderNotExist">सिस्टम छवि फ़ोल्डर मौजूद नहीं है या निर्दिष्ट नहीं किया गया है।</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">छवि पैक सफलतापूर्वक डाउनलोड और निकाला गया।</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">छवि पैक डाउनलोड या निष्कर्षण में विफलता!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">यदि इमेज पैक उपलब्ध नहीं है तो आप इस सिस्टम के लिए इमेज निम्नलिखित वेबसाइटों से डाउनलोड कर सकते हैं:</system:String>
     <system:String x:Key="Indigo">इंडिगो</system:String>

@@ -64,9 +64,14 @@ public partial class DownloadImagePackWindow : IDisposable
                 return;
             }
 
-            // Filter systems that have a valid ImagePackDownloadLink
+            // Filter systems that have at least one valid ImagePackDownloadLink
             var systemsWithImagePacks = _manager.Systems
-                .Where(static system => !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink))
+                .Where(static system =>
+                    !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink) ||
+                    !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink2) ||
+                    !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink3) ||
+                    !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink4) ||
+                    !string.IsNullOrEmpty(system.Emulators?.Emulator?.ImagePackDownloadLink5))
                 .Select(static system => system.SystemName)
                 .OrderBy(static name => name) // Order by system name
                 .ToList();
@@ -88,125 +93,272 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         if (SystemNameDropdown.SelectedItem == null) return;
 
-        var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        var selectedSystem = GetSelectedSystem(); // Using the new helper method
         if (selectedSystem == null) return;
 
-        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        // Enable/disable Image Pack buttons based on their respective links
+        DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+        DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+        DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+        DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
     }
 
-    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
+    // Renamed existing button to DownloadImagePackButton1_Click
+    private async void DownloadImagePackButton1_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            // Enable the Stop Button
+            DownloadImagePackButton1.IsEnabled = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack1, DownloadImagePackButton1);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
+            DownloadImagePackButton1.IsEnabled = true;
+        }
+    }
+
+    // ADDED: New click handlers for Image Pack 2-5
+    private async void DownloadImagePackButton2_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton2.IsEnabled = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack2, DownloadImagePackButton2);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
+            DownloadImagePackButton2.IsEnabled = true;
+        }
+    }
+
+    private async void DownloadImagePackButton3_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton3.IsEnabled = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack3, DownloadImagePackButton3);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
+            DownloadImagePackButton3.IsEnabled = true;
+        }
+    }
+
+    private async void DownloadImagePackButton4_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton4.IsEnabled = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack4, DownloadImagePackButton4);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
+            DownloadImagePackButton4.IsEnabled = true;
+        }
+    }
+
+    private async void DownloadImagePackButton5_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton5.IsEnabled = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack5, DownloadImagePackButton5);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
+            DownloadImagePackButton5.IsEnabled = true;
+        }
+    }
+
+    // MODIFIED: Changed return type from Task<bool> to Task
+    private async Task HandleDownloadAndExtractComponent(DownloadType type, Button buttonToDisable)
+    {
+        var selectedSystem = GetSelectedSystem();
+        if (selectedSystem == null) return; // No return value needed
+
+        string downloadUrl;
+        string componentName;
+        string easyModeExtractPath;
+
+        switch (type)
+        {
+            case DownloadType.Emulator: // Not used in this window, but kept for completeness
+                downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath;
+                componentName = "Emulator";
+                break;
+            case DownloadType.Core: // Not used in this window, but kept for completeness
+                downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath;
+                componentName = "Core";
+                break;
+            case DownloadType.ImagePack1:
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
+                componentName = "Image Pack 1";
+                break;
+            case DownloadType.ImagePack2: // ADDED
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2;
+                componentName = "Image Pack 2";
+                break;
+            case DownloadType.ImagePack3: // ADDED
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3;
+                componentName = "Image Pack 3";
+                break;
+            case DownloadType.ImagePack4: // ADDED
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4;
+                componentName = "Image Pack 4";
+                break;
+            case DownloadType.ImagePack5: // ADDED
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5;
+                componentName = "Image Pack 5";
+                break;
+            default:
+                return; // No return value needed
+        }
+
+        var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
+
+        // Ensure valid URL and destination path
+        if (string.IsNullOrEmpty(downloadUrl))
+        {
+            var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            UpdateStatus($"{errorNodownloadUrLfor} {componentName}");
+            return; // No return value needed
+        }
+
+        if (string.IsNullOrEmpty(destinationPath))
+        {
+            var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+            UpdateStatus($"{errorInvalidDestinationPath} {componentName}");
+
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+
+            return; // No return value needed
+        }
+
+        try
+        {
+            // Initial state for the specific button
+            buttonToDisable.IsEnabled = false;
+
+            var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+            UpdateStatus($"{preparingtodownload} {componentName}...");
+
+            DownloadProgressBar.Visibility = Visibility.Visible;
+            DownloadProgressBar.Value = 0;
             StopDownloadButton.IsEnabled = true;
 
-            // Input validation
-            if (!ValidateInputsAndCreateExtractionFolder(out var selectedSystem)) return;
+            var success = false;
 
-            try
+            var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            UpdateStatus($"{downloading} {componentName}...");
+
+            var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+            if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
-                // Get the download URL
-                var imagePackDownloadUrl = selectedSystem.Emulators.Emulator.ImagePackDownloadLink;
+                var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                UpdateStatus($"{extracting} {componentName}...");
+                LoadingMessage.Text = $"{extracting} {componentName}...";
+                LoadingOverlay.Visibility = Visibility.Visible;
+                success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
+                LoadingOverlay.Visibility = Visibility.Collapsed;
+            }
 
-                // Determine the extraction folder
-                var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-                var finalImagePackDownloadExtractPath = PathHelper.ResolveRelativeToAppDirectory(imagePackDownloadExtractPath);
+            if (success)
+            {
+                var hasbeensuccessfullydownloadedandinstalled = (string)Application.Current.TryFindResource("hasbeensuccessfullydownloadedandinstalled") ?? "has been successfully downloaded and installed.";
+                UpdateStatus($"{componentName} {hasbeensuccessfullydownloadedandinstalled}");
 
-                // Update UI elements
-                DownloadProgressBar.Visibility = Visibility.Visible;
-                DownloadProgressBar.Value = 0;
-                StopDownloadButton.IsEnabled = true;
-                DownloadImagePackButton.IsEnabled = false;
+                // Notify user
+                MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
-                // We'll use the DownloadManager to handle the download and extraction
-                var downloadSuccess = await _downloadManager.DownloadFileAsync(imagePackDownloadUrl);
-
-                if (downloadSuccess != null && _downloadManager.IsDownloadCompleted)
+                StopDownloadButton.IsEnabled = false;
+                buttonToDisable.IsEnabled = false; // Keep disabled on success
+                return; // No return value needed
+            }
+            else
+            {
+                if (_downloadManager.IsUserCancellation)
                 {
-                    var downloadcompleteStartingextractionto2 = (string)Application.Current.TryFindResource("DownloadcompleteStartingextractionto") ?? "Download complete. Starting extraction to";
-                    UpdateStatus($"{downloadcompleteStartingextractionto2} {finalImagePackDownloadExtractPath}...");
-
-                    var extracting2 = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
-                    LoadingMessage.Text = $"{extracting2}...";
-                    LoadingOverlay.Visibility = Visibility.Visible;
-
-                    var extractionSuccess = await _downloadManager.ExtractFileAsync(downloadSuccess, finalImagePackDownloadExtractPath);
-
-                    LoadingOverlay.Visibility = Visibility.Collapsed;
-
-                    if (extractionSuccess)
-                    {
-                        // Notify user
-                        MessageBoxLibrary.DownloadExtractionSuccessfullyMessageBox(finalImagePackDownloadExtractPath);
-
-                        var imagepackdownloadedandextractedsuccessfully2 = (string)Application.Current.TryFindResource("Imagepackdownloadedandextractedsuccessfully") ?? "Image pack downloaded and extracted successfully.";
-                        UpdateStatus(imagepackdownloadedandextractedsuccessfully2);
-
-                        // Mark as downloaded and disable button
-                        DownloadImagePackButton.IsEnabled = false;
-                    }
-                    else // Extraction fail
-                    {
-                        // Notify developer
-                        var contextMessage = $"Image Pack extraction failed.\n" +
-                                             $"File: {imagePackDownloadUrl}";
-                        _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-                        // Notify user
-                        MessageBoxLibrary.ExtractionFailedMessageBox();
-
-                        var extractionfailedSeeerrormessagefordetails2 = (string)Application.Current.TryFindResource("ExtractionfailedSeeerrormessagefordetails") ?? "Extraction failed. See error message for details.";
-                        UpdateStatus(extractionfailedSeeerrormessagefordetails2);
-
-                        // Re-enable download button
-                        DownloadImagePackButton.IsEnabled = true;
-                    }
-                }
-                else if (_downloadManager.IsUserCancellation)
-                {
-                    var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
-                    UpdateStatus(downloadcanceled2);
-
-                    // Re-enable download button
-                    DownloadImagePackButton.IsEnabled = true;
+                    var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
+                    var wascanceled = (string)Application.Current.TryFindResource("wascanceled") ?? "was canceled.";
+                    UpdateStatus($"{downloadof} {componentName} {wascanceled}");
                 }
                 else
                 {
-                    var downloadwasnotcompletedsuccessfully2 = (string)Application.Current.TryFindResource("Downloadwasnotcompletedsuccessfully") ?? "Download was not completed successfully.";
-                    UpdateStatus(downloadwasnotcompletedsuccessfully2);
+                    var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
+                    UpdateStatus($"{errorFailedtoextract} {componentName}.");
 
-                    // Notify user
-                    MessageBoxLibrary.ImagePackDownloadErrorOfferRedirectMessageBox(selectedSystem);
-
-                    // Re-enable download button
-                    DownloadImagePackButton.IsEnabled = true;
+                    switch (type)
+                    {
+                        case DownloadType.ImagePack1:
+                        case DownloadType.ImagePack2:
+                        case DownloadType.ImagePack3:
+                        case DownloadType.ImagePack4:
+                        case DownloadType.ImagePack5:
+                            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                            break;
+                        default:
+                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                            break;
+                    }
                 }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                const string contextMessage = "Error downloading the Image Pack.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-                // Notify user
-                MessageBoxLibrary.ImagePackDownloadExtractionFailedMessageBox();
-
-                var error2 = (string)Application.Current.TryFindResource("Error") ?? "Error";
-                UpdateStatus($"{error2}: {ex.Message}");
-                DownloadImagePackButton.IsEnabled = true;
-            }
-            finally
-            {
                 StopDownloadButton.IsEnabled = false;
+                buttonToDisable.IsEnabled = true; // Re-enable on failure/cancellation
+                return; // No return value needed
             }
         }
         catch (Exception ex)
         {
+            var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
+            var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
+            UpdateStatus($"{errorduring2} {componentName} {downloadprocess2}");
+
             // Notify developer
-            const string contextMessage = "Error downloading the Image Pack.";
+            var contextMessage = $"Error downloading {componentName}.\n" +
+                                 $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            switch (type)
+            {
+                case DownloadType.ImagePack1:
+                case DownloadType.ImagePack2:
+                case DownloadType.ImagePack3:
+                case DownloadType.ImagePack4:
+                case DownloadType.ImagePack5:
+                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                    break;
+                default:
+                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
+                    break;
+            }
+
+            StopDownloadButton.IsEnabled = false;
+            buttonToDisable.IsEnabled = true; // Re-enable on exception
+            return; // No return value needed
         }
+    }
+
+    // ADDED: GetSelectedSystem() helper method
+    private EasyModeSystemConfig GetSelectedSystem()
+    {
+        return SystemNameDropdown.SelectedItem != null
+            ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
+            : null;
     }
 
     private bool ValidateInputsAndCreateExtractionFolder(out EasyModeSystemConfig selectedSystem)
@@ -222,7 +374,7 @@ public partial class DownloadImagePackWindow : IDisposable
         }
 
         // Get the selected system
-        selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
+        selectedSystem = GetSelectedSystem(); // Using the new helper method
 
         if (selectedSystem == null)
         {
@@ -231,22 +383,40 @@ public partial class DownloadImagePackWindow : IDisposable
             return false;
         }
 
-        // Validate download URL
-        var downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
-        if (string.IsNullOrEmpty(downloadUrl))
+        // Validate download URL for at least one image pack (or the one being downloaded)
+        // This method is called before HandleDownloadAndExtractComponent, so it should check generally.
+        // The specific download button's click handler will check its own URL.
+        var hasAnyDownloadLink = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) ||
+                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) ||
+                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) ||
+                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) ||
+                                 !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+
+        if (!hasAnyDownloadLink)
         {
             // Notify user
             MessageBoxLibrary.DownloadUrlIsNullMessageBox();
             return false;
         }
 
-        if (selectedSystem.Emulators is { Emulator: not null })
-        {
-            var imagePackDownloadExtractPath = selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath;
-            var finalImagePackDownloadExtractPath = PathHelper.ResolveRelativeToAppDirectory(imagePackDownloadExtractPath);
+        // Validate all potential extraction paths
+        // This is a more robust check, ensuring all possible paths are valid or can be created.
+        var pathsToValidate = new List<string>();
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath))
+            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2))
+            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2);
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3))
+            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3);
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4))
+            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4);
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5))
+            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5);
 
-            // Verify the extraction folder exists or can be created
-            if (!CreateExtractionFolder(finalImagePackDownloadExtractPath)) return false;
+        foreach (var path in pathsToValidate)
+        {
+            var finalPath = PathHelper.ResolveRelativeToAppDirectory(path);
+            if (!CreateExtractionFolder(finalPath)) return false;
         }
 
         return true;
@@ -309,7 +479,16 @@ public partial class DownloadImagePackWindow : IDisposable
         var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
         UpdateStatus(downloadcanceled2);
 
-        DownloadImagePackButton.IsEnabled = true;
+        // Re-enable all image pack download buttons that were active
+        var selectedSystem = GetSelectedSystem();
+        if (selectedSystem != null)
+        {
+            DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+            DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+            DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+            DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+            DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+        }
     }
 
     private void Hyperlink_RequestNavigate(object sender, RequestNavigateEventArgs e)
@@ -372,3 +551,4 @@ public partial class DownloadImagePackWindow : IDisposable
         Dispose(false);
     }
 }
+

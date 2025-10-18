@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Doar</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Deseja abrir o arquivo 'error_user.log' para depurar o erro?</system:String>
     <system:String x:Key="Downloadcanceled">Download cancelado</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Download concluído. Iniciando extração para</system:String>
     <system:String x:Key="DownloadCore">Baixar núcleo</system:String>
     <system:String x:Key="Downloadedfileislocked">Arquivo baixado está bloqueado.</system:String>
     <system:String x:Key="Downloadedfileismissing">Arquivo baixado está faltando.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Falha ao baixar ou extrair</system:String>
     <system:String x:Key="downloadprocess">processo de download.</system:String>
     <system:String x:Key="DownloadProgress">Progresso do download</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">O download não foi concluído com sucesso.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Você deseja reinstalar automaticamente o 'Simple Launcher' para resolver o problema?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Extrair o arquivo antes de iniciar?</system:String>
     <system:String x:Key="Extracting">Extraindo</system:String>
     <system:String x:Key="Extractionfailed">Falha na extração.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Falha na extração. Veja a mensagem de erro para detalhes.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Falha ao copiar o conteúdo do log.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Falha ao carregar os recursos de idioma.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Falha ao carregar a imagem no visualizador de imagens.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Se você optar por excluí-lo, o 'Simple Launcher' criará um novo arquivo.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Se deixado em branco, o aplicativo criará uma pasta para este sistema dentro da pasta 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">A Pasta de Imagens do Sistema não existe ou não foi especificada.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Pacote de imagens baixado e extraído com sucesso.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Falha ao baixar ou extrair o pacote de imagens!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Caso o pacote de imagens não esteja disponível, você pode baixar imagens para este sistema nos sites a seguir:</system:String>
     <system:String x:Key="Indigo">Índigo</system:String>

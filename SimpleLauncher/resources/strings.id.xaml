@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Donasi</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Unduhan selesai. Memulai ekstraksi ke</system:String>
     <system:String x:Key="DownloadCore">Unduh Core</system:String>
     <system:String x:Key="Downloadedfileislocked">File yang diunduh terkunci.</system:String>
     <system:String x:Key="Downloadedfileismissing">File yang diunduh hilang.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
     <system:String x:Key="downloadprocess">proses unduhan.</system:String>
     <system:String x:Key="DownloadProgress">Progres Unduhan</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Unduhan tidak berhasil diselesaikan.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Ekstrak Berkas Sebelum Diluncurkan?</system:String>
     <system:String x:Key="Extracting">Sedang mengekstrak</system:String>
     <system:String x:Key="Extractionfailed">Ekstraksi gagal.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ekstraksi gagal. Lihat pesan kesalahan untuk detail.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Gagal menyalin konten log.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Gagal memuat sumber bahasa.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Gambar gagal dimuat di jendela penampil gambar.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Jika Anda membiarkan kosong, aplikasi akan membuat folder untuk sistem ini di dalam folder 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Folder Gambar Sistem tidak ada atau tidak ditentukan.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Paket gambar berhasil diunduh dan diekstrak.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Gagal memuat turun atau mengekstrak pek gambar!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Jika Paket Gambar tidak tersedia, Anda dapat mengunduh gambar untuk sistem ini di situs berikut:</system:String>
     <system:String x:Key="Indigo">Nila</system:String>

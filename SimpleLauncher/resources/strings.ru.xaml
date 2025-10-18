@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Пожертвовать</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Загрузка завершена. Начинается распаковка в</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
     <system:String x:Key="Downloadedfileislocked">Загруженный файл заблокирован.</system:String>
     <system:String x:Key="Downloadedfileismissing">Загруженный файл отсутствует.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Загрузка не была успешно завершена.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Извлечь файл перед запуском?</system:String>
     <system:String x:Key="Extracting">Извлечение</system:String>
     <system:String x:Key="Extractionfailed">Распаковка не удалась.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Ошибка распаковки. Подробности см. в сообщении об ошибке.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Не удалось скопировать содержимое журнала.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Не удалось загрузить языковые ресурсы.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Не удалось загрузить изображение в окне просмотра изображений.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Если вы выберете удаление, 'Simple Launcher' создаст новый файл.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Если оставить поле пустым, приложение создаст папку для этой системы внутри папки 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Папка изображений системы не существует или не указана.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Пакет изображений успешно загружен и распакован.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Ошибка при загрузке или извлечении пакета изображений!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Если пакет изображений недоступен, вы можете скачать изображения для этой системы с следующих веб-сайтов:</system:String>
     <system:String x:Key="Indigo">Индиго</system:String>

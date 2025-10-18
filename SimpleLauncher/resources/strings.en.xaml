@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Donate</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Download complete. Starting extraction to</system:String>
     <system:String x:Key="DownloadCore">Download Core</system:String>
     <system:String x:Key="Downloadedfileislocked">Downloaded file is locked.</system:String>
     <system:String x:Key="Downloadedfileismissing">Downloaded file is missing.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="downloadprocess">download process.</system:String>
     <system:String x:Key="DownloadProgress">Download Progress</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download was not completed successfully.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Do you want to automatically reinstall 'Simple Launcher' to fix the problem?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Do you want to automatic reinstall 'Simple Launcher' to fix it.</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Extract File Before Launch?</system:String>
     <system:String x:Key="Extracting">Extracting</system:String>
     <system:String x:Key="Extractionfailed">Extraction failed.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Extraction failed. See error message for details.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Failed to copy log content.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Failed to load language resources.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">Failed to load the image in the Image Viewer window.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">If you choose to delete it, 'Simple Launcher' will create a new one for you.</system:String>
     <system:String x:Key="Ifyouleaveitempty">If you leave it empty, the application will create a folder for this system inside the 'roms' folder.</system:String>
     <system:String x:Key="ImageFolderNotExist">System Image Folder does not exist or is not specified.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Image pack downloaded and extracted successfully.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Image Pack download or extraction failed!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">In case the Image Pack is not available you can download Images for this system in the following websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
@@ -665,4 +661,23 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="InstallImagePack1">Install Image Pack 1</system:String>
+    <system:String x:Key="DownloadImagePack1">Download Image Pack 1</system:String>
+    <system:String x:Key="InstallImagePack2">Install Image Pack 2</system:String>
+    <system:String x:Key="DownloadImagePack2">Download Image Pack 2</system:String>
+    <system:String x:Key="InstallImagePack3">Install Image Pack 3</system:String>
+    <system:String x:Key="DownloadImagePack3">Download Image Pack 3</system:String>
+    <system:String x:Key="InstallImagePack4">Install Image Pack 4</system:String>
+    <system:String x:Key="DownloadImagePack4">Download Image Pack 4</system:String>
+    <system:String x:Key="InstallImagePack5">Install Image Pack 5</system:String>
+    <system:String x:Key="DownloadImagePack5">Download Image Pack 5</system:String>
+    <system:String x:Key="5thstep">5th step</system:String>
+    <system:String x:Key="6thstep">6th step</system:String>
+    <system:String x:Key="7thstep">7th step</system:String>
+    <system:String x:Key="8thstep">8th step</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Do you want to receive support from the developer?</system:String>
+    <system:String x:Key="Doyouwantsupport">Do you want support?</system:String>
+
 </ResourceDictionary>

@@ -24,6 +24,10 @@
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="Auto" />
                 </Grid.RowDefinitions>
 
                 <GroupBox Grid.Row="0" Header="{DynamicResource PleaseselectanImagePack}" Margin="10" Padding="0">
@@ -33,18 +37,66 @@
                               SelectionChanged="SystemNameDropdown_SelectionChanged" />
                 </GroupBox>
 
-                <GroupBox Grid.Row="2" Header="{DynamicResource Install}" Margin="10" Padding="0">
-                    <Button x:Name="DownloadImagePackButton"
-                            Content="{DynamicResource DownloadImagePack}"
+                <GroupBox Grid.Row="2" Header="{DynamicResource InstallImagePack1}" Margin="10" Padding="0">
+                    <Button x:Name="DownloadImagePackButton1"
+                            Content="{DynamicResource DownloadImagePack1}"
                             HorizontalAlignment="Center"
                             VerticalAlignment="Center"
                             Padding="5"
-                            Click="DownloadImagePackButton_Click"
+                            Click="DownloadImagePackButton1_Click"
                             IsEnabled="False"
                             Margin="10" />
                 </GroupBox>
 
-                <GroupBox Grid.Row="3" Header="{DynamicResource ProgressBar}" Margin="10" Padding="0">
+                <GroupBox Grid.Row="3" Header="{DynamicResource InstallImagePack2}" Margin="10" Padding="0">
+                    <Button x:Name="DownloadImagePackButton2"
+                            Content="{DynamicResource DownloadImagePack2}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="5"
+                            Click="DownloadImagePackButton2_Click"
+                            IsEnabled="False"
+                            Margin="10" />
+                </GroupBox>
+
+                <!-- ADDED: GroupBox for Image Pack 3 -->
+                <GroupBox Grid.Row="4" Header="{DynamicResource InstallImagePack3}" Margin="10" Padding="0">
+                    <Button x:Name="DownloadImagePackButton3"
+                            Content="{DynamicResource DownloadImagePack3}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="5"
+                            Click="DownloadImagePackButton3_Click"
+                            IsEnabled="False"
+                            Margin="10" />
+                </GroupBox>
+
+                <!-- ADDED: GroupBox for Image Pack 4 -->
+                <GroupBox Grid.Row="5" Header="{DynamicResource InstallImagePack4}" Margin="10" Padding="0">
+                    <Button x:Name="DownloadImagePackButton4"
+                            Content="{DynamicResource DownloadImagePack4}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="5"
+                            Click="DownloadImagePackButton4_Click"
+                            IsEnabled="False"
+                            Margin="10" />
+                </GroupBox>
+
+                <!-- ADDED: GroupBox for Image Pack 5 -->
+                <GroupBox Grid.Row="6" Header="{DynamicResource InstallImagePack5}" Margin="10" Padding="0">
+                    <Button x:Name="DownloadImagePackButton5"
+                            Content="{DynamicResource DownloadImagePack5}"
+                            HorizontalAlignment="Center"
+                            VerticalAlignment="Center"
+                            Padding="5"
+                            Click="DownloadImagePackButton5_Click"
+                            IsEnabled="False"
+                            Margin="10" />
+                </GroupBox>
+
+                <!-- Adjusted Grid.Row for ProgressBar and subsequent elements -->
+                <GroupBox Grid.Row="7" Header="{DynamicResource ProgressBar}" Margin="10" Padding="0">
                     <StackPanel>
                         <Grid Margin="10" HorizontalAlignment="Stretch">
                             <ProgressBar x:Name="DownloadProgressBar"
@@ -71,14 +123,14 @@
                     </StackPanel>
                 </GroupBox>
 
-                <TextBlock Grid.Row="4"
+                <TextBlock Grid.Row="8"
                            Margin="10,10,10,0"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
                            TextWrapping="Wrap"
                            Text="{DynamicResource IncasetheImagePackisnotavailable}" />
 
-                <TextBlock Grid.Row="5"
+                <TextBlock Grid.Row="9"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
                            Margin="10,10,10,0">
@@ -88,7 +140,7 @@
                     </Hyperlink>
                 </TextBlock>
 
-                <TextBlock Grid.Row="6"
+                <TextBlock Grid.Row="10"
                            VerticalAlignment="Center"
                            HorizontalAlignment="Left"
                            Margin="10,10,10,20">

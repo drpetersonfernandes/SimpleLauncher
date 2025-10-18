@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">捐贈</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打開檔案“error_user.log”以進行錯誤調試？</system:String>
     <system:String x:Key="Downloadcanceled">下載已取消</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">下載完成。開始解壓到</system:String>
     <system:String x:Key="DownloadCore">下載核心</system:String>
     <system:String x:Key="Downloadedfileislocked">下載的文件被鎖定。</system:String>
     <system:String x:Key="Downloadedfileismissing">下載的文件丟失。</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
     <system:String x:Key="downloadprocess">下載過程。</system:String>
     <system:String x:Key="DownloadProgress">下載進度</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">下載未成功完成。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自動重新安裝 'Simple Launcher' 以解決問題？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">啟動前解壓文件？</system:String>
     <system:String x:Key="Extracting">正在提取</system:String>
     <system:String x:Key="Extractionfailed">解壓縮失敗。</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">解壓失敗。請查看錯誤訊息了解詳情。</system:String>
     <system:String x:Key="Failedtocopylogcontent">複製日誌內容失敗。</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">無法加載語言資源。</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">無法在圖像檢視器視窗中載入圖像。</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">如果選擇刪除，「Simple Launcher」將生成新檔案。</system:String>
     <system:String x:Key="Ifyouleaveitempty">如果您留空，應用程式將在「roms」資料夾中為此系統創建一個資料夾。</system:String>
     <system:String x:Key="ImageFolderNotExist">系統圖片資料夾不存在或未指定。</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">圖像包已成功下載並解壓。</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">圖像包下載或解壓失敗！</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">如果影像包不可用，您可以通過以下網站下載該系統的影像：</system:String>
     <system:String x:Key="Indigo">靛藍色</system:String>

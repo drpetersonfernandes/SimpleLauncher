@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">تبرع</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">اكتمل التنزيل. بدء الاستخراج إلى</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
     <system:String x:Key="Downloadedfileislocked">الملف الذي تم تنزيله مقفل.</system:String>
     <system:String x:Key="Downloadedfileismissing">الملف الذي تم تنزيله مفقود.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
     <system:String x:Key="downloadprocess">عملية التحميل.</system:String>
     <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">لم يكتمل التنزيل بنجاح.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">استخراج الملف قبل التشغيل؟</system:String>
     <system:String x:Key="Extracting">جارٍ الاستخراج</system:String>
     <system:String x:Key="Extractionfailed">فشل الاستخراج.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">فشل الاستخراج. راجع رسالة الخطأ للتفاصيل.</system:String>
     <system:String x:Key="Failedtocopylogcontent">فشل نسخ محتوى السجل.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">فشل في تحميل موارد اللغة.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">فشل في تحميل الصورة في نافذة عارض الصور.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">إذا اخترت حذفها، سيقوم 'Simple Launcher' بإنشاء واحدة جديدة لك.</system:String>
     <system:String x:Key="Ifyouleaveitempty">إذا تركته فارغًا، سيقوم التطبيق بإنشاء مجلد لهذا النظام داخل مجلد 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">مجلد الصور للنظام غير موجود أو لم يتم تحديده.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">تم تنزيل حزمة الصور واستخراجها بنجاح.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">فشل تحميل أو استخراج حزمة الصور!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">في حال عدم توفر حزمة الصور، يمكنك تنزيل الصور لهذا النظام من المواقع الإلكترونية التالية:</system:String>
     <system:String x:Key="Indigo">نيلي</system:String>

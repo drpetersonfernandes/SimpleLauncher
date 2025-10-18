@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">기부</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">다운로드 완료. 압축 해제 시작:</system:String>
     <system:String x:Key="DownloadCore">코어 다운로드</system:String>
     <system:String x:Key="Downloadedfileislocked">다운로드된 파일이 잠겨 있습니다.</system:String>
     <system:String x:Key="Downloadedfileismissing">다운로드된 파일이 없습니다.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">다운로드가 성공적으로 완료되지 않았습니다.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">실행 전에 파일을 추출하시겠습니까?</system:String>
     <system:String x:Key="Extracting">추출 중</system:String>
     <system:String x:Key="Extractionfailed">압축 해제에 실패했습니다.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">압축 해제 실패. 자세한 내용은 오류 메시지를 확인하세요.</system:String>
     <system:String x:Key="Failedtocopylogcontent">로그 콘텐츠를 복사하지 못했습니다.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">언어 리소스를 불러오는 데 실패했습니다.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">이미지 뷰어 창에서 이미지를 로드할 수 없습니다.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">삭제를 선택하시면, 'Simple Launcher'가 새 파일을 생성합니다.</system:String>
     <system:String x:Key="Ifyouleaveitempty">비워 두면 애플리케이션이 'roms' 폴더 내에 이 시스템용 폴더를 생성합니다.</system:String>
     <system:String x:Key="ImageFolderNotExist">시스템 이미지 폴더가 존재하지 않거나 지정되지 않았습니다.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">이미지 팩 다운로드 및 압축 해제 완료.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">이미지 팩 다운로드 또는 추출에 실패했습니다!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">이미지 팩을 사용할 수 없는 경우, 아래 웹사이트에서 해당 시스템의 이미지를 다운로드할 수 있습니다:</system:String>
     <system:String x:Key="Indigo">남색</system:String>

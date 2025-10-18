@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">寄付</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">ダウンロード完了。展開を開始：</system:String>
     <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
     <system:String x:Key="Downloadedfileislocked">ダウンロードしたファイルがロックされています。</system:String>
     <system:String x:Key="Downloadedfileismissing">ダウンロードしたファイルが存在しません。</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
     <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>
     <system:String x:Key="DownloadProgress">ダウンロード進行状況</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">ダウンロードが正常に完了しませんでした。</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">起動前にファイルを抽出しますか？</system:String>
     <system:String x:Key="Extracting">抽出中</system:String>
     <system:String x:Key="Extractionfailed">展開に失敗しました。</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">展開に失敗しました。詳細はエラーメッセージをご確認ください。</system:String>
     <system:String x:Key="Failedtocopylogcontent">ログコンテンツのコピーに失敗しました。</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">言語リソースの読み込みに失敗しました。</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">画像ビューアウィンドウ内の画像を読み込めませんでした。</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">削除を選択した場合、'Simple Launcher' が新しいファイルを作成します。</system:String>
     <system:String x:Key="Ifyouleaveitempty">空のままにすると、アプリケーションがこのシステム用のフォルダーを「roms」フォルダー内に作成します。</system:String>
     <system:String x:Key="ImageFolderNotExist">システム画像フォルダが存在しないか、指定されていません。</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">画像パックのダウンロードと展開が正常に完了しました。</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">イメージパックのダウンロードまたは抽出に失敗しました！</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">イメージパックが利用できない場合は、以下のウェブサイトからこのシステム用のイメージをダウンロードできます：</system:String>
     <system:String x:Key="Indigo">インディゴ</system:String>

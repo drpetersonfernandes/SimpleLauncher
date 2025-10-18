@@ -129,7 +129,6 @@
     <system:String x:Key="Donate">Doneren</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
-    <system:String x:Key="DownloadcompleteStartingextractionto">Download voltooid. Begin met uitpakken naar</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
     <system:String x:Key="Downloadedfileislocked">Gedownload bestand is vergrendeld.</system:String>
     <system:String x:Key="Downloadedfileismissing">Gedownload bestand ontbreekt.</system:String>
@@ -142,7 +141,6 @@
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="downloadprocess">downloadproces.</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
-    <system:String x:Key="Downloadwasnotcompletedsuccessfully">Download is niet succesvol voltooid.</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
@@ -214,7 +212,6 @@
     <system:String x:Key="ExtractFileBeforeLaunch">Bestand uitpakken voor het starten?</system:String>
     <system:String x:Key="Extracting">Extractie</system:String>
     <system:String x:Key="Extractionfailed">Uitpakken mislukt.</system:String>
-    <system:String x:Key="ExtractionfailedSeeerrormessagefordetails">Uitpakken mislukt. Zie foutmelding voor details.</system:String>
     <system:String x:Key="Failedtocopylogcontent">Kopiëren van loginhoud mislukt.</system:String>
     <system:String x:Key="Failedtoloadlanguageresources">Het laden van taalbronnen is mislukt.</system:String>
     <system:String x:Key="FailedtoloadtheimageintheImage">De afbeelding kon niet worden geladen in het afbeeldingsvenster.</system:String>
@@ -271,7 +268,6 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Als u ervoor kiest het te verwijderen, zal 'Simple Launcher' voor u een nieuw bestand aanmaken.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Als je dit leeg laat, maakt de applicatie een map aan voor dit systeem in de map 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">De systeemafbeeldingenmap bestaat niet of is niet opgegeven.</system:String>
-    <system:String x:Key="Imagepackdownloadedandextractedsuccessfully">Afbeeldingenpakket succesvol gedownload en uitgepakt.</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">De download of extractie van het afbeeldingspakket is mislukt!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Als het afbeeldingspakket niet beschikbaar is, kun je afbeeldingen voor dit systeem downloaden via de volgende websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
