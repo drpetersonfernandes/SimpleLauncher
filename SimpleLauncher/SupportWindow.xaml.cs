@@ -17,8 +17,8 @@ public partial class SupportWindow
     private static IHttpClientFactory _httpClientFactory;
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
-    private Exception OriginalException { get; set; }
-    private string OriginalContextMessage { get; set; }
+    public Exception OriginalException { get; set; }
+    public string OriginalContextMessage { get; set; }
 
     public SupportWindow()
     {
@@ -32,8 +32,51 @@ public partial class SupportWindow
     // Constructor overload to receive exception and context message
     public SupportWindow(Exception ex, string contextMessage) : this() // Call the default constructor first
     {
-        OriginalException = ex;
-        OriginalContextMessage = contextMessage;
+        OriginalException = ex; // Store the exception object
+        OriginalContextMessage = contextMessage; // Store the context message
+
+        // Populate SupportTextBox with exception details and context message
+        var messageBuilder = new StringBuilder();
+
+        // Add a header to indicate this is an automatically generated report
+        messageBuilder.AppendLine("--- Automatically Generated Error Report ---");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Date: {DateTime.Now}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Application Version: {ApplicationVersion}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"OS: {Environment.OSVersion.VersionString}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Architecture: {System.Runtime.InteropServices.RuntimeInformation.OSArchitecture}");
+        messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Bitness: {(Environment.Is64BitOperatingSystem ? "64-bit" : "32-bit")}");
+        messageBuilder.AppendLine("------------------------------------------\n");
+
+
+        if (!string.IsNullOrEmpty(contextMessage))
+        {
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {contextMessage}");
+            messageBuilder.AppendLine(); // Add a blank line for readability
+        }
+
+        if (ex != null)
+        {
+            messageBuilder.AppendLine("--- Exception Details ---");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {ex.GetType().FullName}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {ex.Message}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {ex.Source}");
+            messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{ex.StackTrace}");
+
+            if (ex.InnerException != null)
+            {
+                messageBuilder.AppendLine("\n--- Inner Exception ---");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Type: {ex.InnerException.GetType().FullName}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Message: {ex.InnerException.Message}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Source: {ex.InnerException.Source}");
+                messageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{ex.InnerException.StackTrace}");
+                messageBuilder.AppendLine("-----------------------");
+            }
+
+            messageBuilder.AppendLine("-----------------------");
+        }
+
+        // Set the text of the SupportTextBox
+        SupportTextBox.Text = messageBuilder.ToString();
     }
 
     private static void LoadConfiguration()
@@ -104,39 +147,18 @@ public partial class SupportWindow
         {
             var nameText = NameTextBox.Text;
             var emailText = EmailTextBox.Text;
-            var supportRequestText = SupportTextBox.Text;
-            var applicationVersion = ApplicationVersion;
+            var supportRequestText = SupportTextBox.Text; // This now includes the pre-filled error report
 
             if (CheckIfNameIsNullOrEmpty(nameText)) return;
             if (CheckIfEmailIsNullOrEmpty(emailText)) return;
-            if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return;
+            if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return; // Check if it's still empty after pre-filling
 
             // Build the full message, including original error details if available
+            // The SupportTextBox.Text already contains the formatted error details if provided
             var fullMessageBuilder = new StringBuilder();
-            // Apply CultureInfo.InvariantCulture to all interpolated AppendLine calls
-            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"\n\n{applicationVersion}");
             fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Name: {nameText}");
             fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
-            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}");
-
-            if (OriginalException != null)
-            {
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"\n--- Original Error Details ---");
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception Type: {OriginalException.GetType().FullName}");
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception Message: {OriginalException.Message}");
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{OriginalException.StackTrace}");
-                if (OriginalException.InnerException != null)
-                {
-                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Type: {OriginalException.InnerException.GetType().FullName}");
-                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Message: {OriginalException.InnerException.Message}");
-                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Stack Trace:\n{OriginalException.InnerException.StackTrace}");
-                }
-            }
-
-            if (!string.IsNullOrEmpty(OriginalContextMessage))
-            {
-                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {OriginalContextMessage}");
-            }
+            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
 
             await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
         }
