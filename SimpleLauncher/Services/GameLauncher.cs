@@ -768,6 +768,7 @@ public static class GameLauncher
             {
                 // Notify user
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox(LogPath);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage);
             }
         }
         catch (Exception ex)
@@ -800,6 +801,7 @@ public static class GameLauncher
             {
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage);
             }
         }
         finally
@@ -964,6 +966,8 @@ public static class GameLauncher
 
     private static Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
+        string contextMessage;
+
         // Ignore MemoryAccessViolation and DepViolation
         if (!process.HasExited || process.ExitCode == 0 || process.ExitCode == MemoryAccessViolation || process.ExitCode == DepViolation)
         {
@@ -989,25 +993,25 @@ public static class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                 $"User was notified.\n\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Calling parameters: {psi.Arguments}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n";
+            contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                             $"User was notified.\n\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Calling parameters: {psi.Arguments}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
         else
         {
             // Notify developer
-            var contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
-                                 $"User was not notified.\n\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Calling parameters: {psi.Arguments}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n";
+            contextMessage = $"The emulator could not open the game with the provided parameters.\n" +
+                             $"User was not notified.\n\n" +
+                             $"Exit code: {process.ExitCode}\n" +
+                             $"Emulator: {psi.FileName}\n" +
+                             $"Calling parameters: {psi.Arguments}\n" +
+                             $"Emulator output: {output}\n" +
+                             $"Emulator error: {error}\n";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
         }
 
@@ -1015,6 +1019,7 @@ public static class GameLauncher
         {
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage);
         }
 
         return Task.CompletedTask;

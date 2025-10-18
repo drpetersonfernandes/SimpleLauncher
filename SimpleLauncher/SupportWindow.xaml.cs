@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Globalization;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -16,6 +17,8 @@ public partial class SupportWindow
     private static IHttpClientFactory _httpClientFactory;
     private static string ApiKey { get; set; }
     private static string ApiBaseUrl { get; set; }
+    private Exception OriginalException { get; set; }
+    private string OriginalContextMessage { get; set; }
 
     public SupportWindow()
     {
@@ -24,6 +27,13 @@ public partial class SupportWindow
         _httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
         DataContext = this;
         LoadConfiguration();
+    }
+
+    // Constructor overload to receive exception and context message
+    public SupportWindow(Exception ex, string contextMessage) : this() // Call the default constructor first
+    {
+        OriginalException = ex;
+        OriginalContextMessage = contextMessage;
     }
 
     private static void LoadConfiguration()
@@ -101,11 +111,34 @@ public partial class SupportWindow
             if (CheckIfEmailIsNullOrEmpty(emailText)) return;
             if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return;
 
-            var fullMessage = $"\n\n{applicationVersion}\n" +
-                              $"Name: {nameText}\n" +
-                              $"Email: {emailText}\n" +
-                              $"Support Request:\n\n{supportRequestText}";
-            await SendSupportRequestToApiAsync(fullMessage);
+            // Build the full message, including original error details if available
+            var fullMessageBuilder = new StringBuilder();
+            // Apply CultureInfo.InvariantCulture to all interpolated AppendLine calls
+            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"\n\n{applicationVersion}");
+            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Name: {nameText}");
+            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
+            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}");
+
+            if (OriginalException != null)
+            {
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"\n--- Original Error Details ---");
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception Type: {OriginalException.GetType().FullName}");
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Exception Message: {OriginalException.Message}");
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Stack Trace:\n{OriginalException.StackTrace}");
+                if (OriginalException.InnerException != null)
+                {
+                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Type: {OriginalException.InnerException.GetType().FullName}");
+                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Message: {OriginalException.InnerException.Message}");
+                    fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Inner Exception Stack Trace:\n{OriginalException.InnerException.StackTrace}");
+                }
+            }
+
+            if (!string.IsNullOrEmpty(OriginalContextMessage))
+            {
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Context Message: {OriginalContextMessage}");
+            }
+
+            await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
         }
         catch (Exception ex)
         {

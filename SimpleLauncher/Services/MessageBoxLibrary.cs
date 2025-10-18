@@ -3249,4 +3249,27 @@ internal static class MessageBoxLibrary
             MessageBox.Show(noDefaultBrowserConfiguredMessage, error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    public static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null)
+    {
+        // Pass the parameters to the ShowMessage local function
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage));
+        return;
+
+        // Modify ShowMessage to accept the parameters
+        static void ShowMessage(Exception exParam, string contextMessageParam)
+        {
+            var doyouwanttoreceivesupportfromthedeveloper = (string)Application.Current.TryFindResource("Doyouwanttoreceivesupportfromthedeveloper") ?? "Do you want to receive support from the developer?.";
+            var doyouwantsupport = (string)Application.Current.TryFindResource("Doyouwantsupport") ?? "Do you want support?";
+            var result = MessageBox.Show(doyouwanttoreceivesupportfromthedeveloper, doyouwantsupport, MessageBoxButton.YesNo, MessageBoxImage.Question);
+            if (result == MessageBoxResult.Yes)
+            {
+                PlaySoundEffects.PlayNotificationSound();
+
+                // Pass the received parameters to the SupportWindow constructor
+                var supportRequestWindow = new SupportWindow(exParam, contextMessageParam);
+                supportRequestWindow.ShowDialog();
+            }
+        }
+    }
 }
