@@ -17,4 +17,12 @@ public class EmulatorConfig
     public string ImagePackLatestVersion { get; set; }
     public string ImagePackDownloadLink { get; set; }
     public string ImagePackDownloadExtractPath { get; set; }
+    public string ImagePackDownloadLink2 { get; set; }
+    public string ImagePackDownloadExtractPath2 { get; set; }
+    public string ImagePackDownloadLink3 { get; set; }
+    public string ImagePackDownloadExtractPath3 { get; set; }
+    public string ImagePackDownloadLink4 { get; set; }
+    public string ImagePackDownloadExtractPath4 { get; set; }
+    public string ImagePackDownloadLink5 { get; set; }
+    public string ImagePackDownloadExtractPath5 { get; set; }
 }

@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <!--101025-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
@@ -48,7 +48,16 @@
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath/>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadExtractPath2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadExtractPath3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadExtractPath4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath5/>
+                
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>

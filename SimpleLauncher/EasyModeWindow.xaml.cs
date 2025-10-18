@@ -24,17 +24,16 @@ public partial class EasyModeWindow : IDisposable
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
     private bool _isCoreDownloaded;
+    private bool _isImagePackDownloaded1;
+    private bool _isImagePackDownloaded2;
+    private bool _isImagePackDownloaded3;
+    private bool _isImagePackDownloaded4;
+    private bool _isImagePackDownloaded5;
+
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
 
     private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
-
-    private enum DownloadType
-    {
-        Emulator,
-        Core,
-        ImagePack
-    }
 
     private string _downloadStatus = string.Empty;
 
@@ -124,10 +123,21 @@ public partial class EasyModeWindow : IDisposable
 
         DownloadEmulatorButton.IsEnabled = true;
         DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
-        DownloadImagePackButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+
+        // Enable/disable Image Pack buttons based on their respective links
+        DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+        DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+        DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+        DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
         _isEmulatorDownloaded = false;
-        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
+        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink); // If no core link, consider it "downloaded"
+        _isImagePackDownloaded1 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        _isImagePackDownloaded2 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+        _isImagePackDownloaded3 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+        _isImagePackDownloaded4 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+        _isImagePackDownloaded5 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
         UpdateAddSystemButtonState();
 
@@ -140,26 +150,18 @@ public partial class EasyModeWindow : IDisposable
         {
             DownloadEmulatorButton.IsEnabled = false;
             _isEmulatorDownloaded = false;
-            UpdateAddSystemButtonState();
+            UpdateAddSystemButtonState(); // Reflects that download is starting/not yet complete
 
-            var success = await DownloadAndExtractAsync(DownloadType.Emulator);
-
-            if (success)
-            {
-                _isEmulatorDownloaded = true;
-            }
-            else
-            {
-                // Re-enable the button unless it was a successful download
-                DownloadEmulatorButton.IsEnabled = true;
-            }
-
-            UpdateAddSystemButtonState();
+            _isEmulatorDownloaded = await HandleDownloadAndExtractComponent(DownloadType.Emulator, DownloadEmulatorButton);
+            // HandleDownloadAndExtractComponent already updates the button.IsEnabled and calls UpdateAddSystemButtonState.
+            // So, no further calls needed here.
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error downloading emulator.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
+            DownloadEmulatorButton.IsEnabled = true;
+            _isEmulatorDownloaded = false;
+            UpdateAddSystemButtonState();
         }
     }
 
@@ -169,81 +171,169 @@ public partial class EasyModeWindow : IDisposable
         {
             DownloadCoreButton.IsEnabled = false;
             _isCoreDownloaded = false;
-            UpdateAddSystemButtonState();
+            UpdateAddSystemButtonState(); // Reflects that download is starting/not yet complete
 
-            var success = await DownloadAndExtractAsync(DownloadType.Core);
-
-            if (success)
-            {
-                _isCoreDownloaded = true;
-            }
-            else
-            {
-                // Re-enable the button unless it was a successful download
-                DownloadCoreButton.IsEnabled = true;
-            }
-
-            UpdateAddSystemButtonState();
+            _isCoreDownloaded = await HandleDownloadAndExtractComponent(DownloadType.Core, DownloadCoreButton);
+            // HandleDownloadAndExtractComponent already updates the button.IsEnabled and calls UpdateAddSystemButtonState.
+            // So, no further calls needed here.
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error downloading core.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadCoreButton_Click.");
+            DownloadCoreButton.IsEnabled = true;
+            _isCoreDownloaded = false;
+            UpdateAddSystemButtonState();
         }
     }
 
-    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
+    // New click handlers for each image pack button
+    private async void DownloadImagePackButton1_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            DownloadImagePackButton.IsEnabled = false;
+            DownloadImagePackButton1.IsEnabled = false;
+            _isImagePackDownloaded1 = false;
+            UpdateAddSystemButtonState();
 
-            var success = await DownloadAndExtractAsync(DownloadType.ImagePack);
-
-            // Re-enable the button if not successful
-            if (!success)
-            {
-                DownloadImagePackButton.IsEnabled = true;
-            }
+            _isImagePackDownloaded1 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack1, DownloadImagePackButton1);
         }
         catch (Exception ex)
         {
-            // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error downloading image pack.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
+            DownloadImagePackButton1.IsEnabled = true;
+            _isImagePackDownloaded1 = false;
+            UpdateAddSystemButtonState();
         }
     }
 
-    private async Task<bool> DownloadAndExtractAsync(DownloadType downloadType)
+    private async void DownloadImagePackButton2_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton2.IsEnabled = false;
+            _isImagePackDownloaded2 = false;
+            UpdateAddSystemButtonState();
+
+            _isImagePackDownloaded2 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack2, DownloadImagePackButton2);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
+            DownloadImagePackButton2.IsEnabled = true;
+            _isImagePackDownloaded2 = false;
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    private async void DownloadImagePackButton3_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton3.IsEnabled = false;
+            _isImagePackDownloaded3 = false;
+            UpdateAddSystemButtonState();
+
+            _isImagePackDownloaded3 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack3, DownloadImagePackButton3);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
+            DownloadImagePackButton3.IsEnabled = true;
+            _isImagePackDownloaded3 = false;
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    private async void DownloadImagePackButton4_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton4.IsEnabled = false;
+            _isImagePackDownloaded4 = false;
+            UpdateAddSystemButtonState();
+
+            _isImagePackDownloaded4 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack4, DownloadImagePackButton4);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
+            DownloadImagePackButton4.IsEnabled = true;
+            _isImagePackDownloaded4 = false;
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    private async void DownloadImagePackButton5_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            DownloadImagePackButton5.IsEnabled = false;
+            _isImagePackDownloaded5 = false;
+            UpdateAddSystemButtonState();
+
+            _isImagePackDownloaded5 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack5, DownloadImagePackButton5);
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
+            DownloadImagePackButton5.IsEnabled = true;
+            _isImagePackDownloaded5 = false;
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    // Helper method to reduce code duplication for downloads and extractions
+    private async Task<bool> HandleDownloadAndExtractComponent(DownloadType type, Button buttonToDisable)
     {
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return false;
 
         string downloadUrl;
         string componentName;
-        string easyModeExtractPath; // Use a variable for the path from EasyMode config
+        string easyModeExtractPath;
 
-        switch (downloadType)
+        switch (type)
         {
             case DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath);
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath;
                 componentName = "Emulator";
                 break;
             case DownloadType.Core:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath);
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath;
                 componentName = "Core";
                 break;
-            case DownloadType.ImagePack:
+            case DownloadType.ImagePack1:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
-                easyModeExtractPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath);
-                componentName = "Image Pack";
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
+                componentName = "Image Pack 1";
+                break;
+            case DownloadType.ImagePack2:
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2;
+                componentName = "Image Pack 2";
+                break;
+            case DownloadType.ImagePack3:
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3;
+                componentName = "Image Pack 3";
+                break;
+            case DownloadType.ImagePack4:
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4;
+                componentName = "Image Pack 4";
+                break;
+            case DownloadType.ImagePack5:
+                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5;
+                componentName = "Image Pack 5";
                 break;
             default:
                 return false;
         }
 
-        var destinationPath = easyModeExtractPath;
+        var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
 
         // Ensure valid URL and destination path
         if (string.IsNullOrEmpty(downloadUrl))
@@ -266,6 +356,10 @@ public partial class EasyModeWindow : IDisposable
 
         try
         {
+            // Initial state for the specific button
+            buttonToDisable.IsEnabled = false;
+            UpdateAddSystemButtonState(); // Update overall Add System button state based on this component's initial state
+
             var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
             DownloadStatus = $"{preparingtodownload} {componentName}...";
 
@@ -299,7 +393,8 @@ public partial class EasyModeWindow : IDisposable
                 MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                 StopDownloadButton.IsEnabled = false;
-
+                buttonToDisable.IsEnabled = false; // Keep disabled on success
+                UpdateAddSystemButtonState(); // Update overall Add System button state
                 return true;
             }
             else
@@ -315,7 +410,7 @@ public partial class EasyModeWindow : IDisposable
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     DownloadStatus = $"{errorFailedtoextract} {componentName}.";
 
-                    switch (downloadType)
+                    switch (type)
                     {
                         case DownloadType.Emulator:
                             await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
@@ -323,7 +418,11 @@ public partial class EasyModeWindow : IDisposable
                         case DownloadType.Core:
                             await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
                             break;
-                        case DownloadType.ImagePack:
+                        case DownloadType.ImagePack1:
+                        case DownloadType.ImagePack2:
+                        case DownloadType.ImagePack3:
+                        case DownloadType.ImagePack4:
+                        case DownloadType.ImagePack5:
                             await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                             break;
                         default:
@@ -333,6 +432,8 @@ public partial class EasyModeWindow : IDisposable
                 }
 
                 StopDownloadButton.IsEnabled = false;
+                buttonToDisable.IsEnabled = true; // Re-enable on failure/cancellation
+                UpdateAddSystemButtonState(); // Update overall Add System button state
                 return false;
             }
         }
@@ -347,7 +448,7 @@ public partial class EasyModeWindow : IDisposable
                                  $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            switch (downloadType)
+            switch (type)
             {
                 case DownloadType.Emulator:
                     await MessageBoxLibrary.ShowEmulatorDownloadErrorMessageBoxAsync(selectedSystem);
@@ -355,7 +456,11 @@ public partial class EasyModeWindow : IDisposable
                 case DownloadType.Core:
                     await MessageBoxLibrary.ShowCoreDownloadErrorMessageBoxAsync(selectedSystem);
                     break;
-                case DownloadType.ImagePack:
+                case DownloadType.ImagePack1:
+                case DownloadType.ImagePack2:
+                case DownloadType.ImagePack3:
+                case DownloadType.ImagePack4:
+                case DownloadType.ImagePack5:
                     await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                     break;
                 default:
@@ -364,6 +469,8 @@ public partial class EasyModeWindow : IDisposable
             }
 
             StopDownloadButton.IsEnabled = false;
+            buttonToDisable.IsEnabled = true; // Re-enable on exception
+            UpdateAddSystemButtonState(); // Update overall Add System button state
             return false;
         }
     }
@@ -394,112 +501,9 @@ public partial class EasyModeWindow : IDisposable
         DownloadStatus = cancelingdownload2;
     }
 
-    private static async Task UpdateSystemXmlAsync(
-        string xmlPath,
-        EasyModeSystemConfig selectedSystem,
-        string systemFolder,
-        string systemImageFolder)
-    {
-        XDocument xmlDoc = null; // Initialize to null
-        try
-        {
-            // Attempt to load existing XML content asynchronously
-            if (File.Exists(xmlPath))
-            {
-                try
-                {
-                    var xmlContent = await File.ReadAllTextAsync(xmlPath);
-                    // Only parse if content is not empty to avoid errors with empty files
-                    if (!string.IsNullOrWhiteSpace(xmlContent))
-                    {
-                        xmlDoc = XDocument.Parse(xmlContent);
-                        // Check if the root element is valid
-                        if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
-                        {
-                            // If root is null or incorrect, treat as invalid and create new
-                            xmlDoc = null; // Reset xmlDoc to trigger creation below
-
-                            // Notify developer
-                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
-                        }
-                    }
-                }
-                catch (XmlException ex) // Catch specific XML parsing errors
-                {
-                    // Notify developer
-                    // Log the parsing error but proceed to create a new document
-                    _ = LogErrors.LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
-
-                    xmlDoc = null; // Ensure we create a new one
-                }
-                catch (Exception ex) // Catch other file reading errors
-                {
-                    // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
-
-                    throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
-                }
-            }
-
-            // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
-            xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
-
-            // --- Proceed with modification logic ---
-            if (xmlDoc.Root != null)
-            {
-                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
-                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
-                if (existingSystem != null)
-                {
-                    // Overwrite existing system (in memory)
-                    OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolder);
-                }
-                else
-                {
-                    // Create new system element (in memory)
-                    var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolder);
-                    xmlDoc.Root.Add(newSystemElement);
-                }
-            }
-
-            // Sort the elements (in memory)
-            if (xmlDoc.Root != null)
-            {
-                var sortedElements = xmlDoc.Root.Elements("SystemConfig")
-                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value)
-                    .ToList(); // Create a list of sorted elements
-                // Replace the nodes in the original document's root
-                xmlDoc.Root.ReplaceNodes(sortedElements);
-            }
-
-            // Save the updated and sorted XML document asynchronously with formatting
-            // Use SaveOptions.None for default indentation
-            await Task.Run(() =>
-            {
-                if (xmlPath != null) xmlDoc.Save(xmlPath, SaveOptions.None);
-            });
-        }
-        catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
-        {
-            // Notify developer
-            const string contextMessage = "Error saving system.xml.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            throw new InvalidOperationException("Could not save system configuration.", ex);
-        }
-        catch (Exception ex) // Catch other potential errors
-        {
-            // Notify developer
-            const string contextMessage = "Unexpected error updating system.xml.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
-        }
-    }
-
     private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        try
+        try // Top-level catch for async void method
         {
             var selectedSystem = GetSelectedSystem();
             if (selectedSystem == null) return;
@@ -580,15 +584,130 @@ public partial class EasyModeWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error adding system.");
+            _ = LogErrors.LogErrorAsync(ex, "Error in AddSystemButton_Click.");
         }
     }
 
+    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
+    private async Task UpdateSystemXmlAsync(
+        string xmlPath,
+        EasyModeSystemConfig selectedSystem,
+        string systemFolder,
+        string systemImageFolder)
+    {
+        XDocument xmlDoc = null; // Initialize to null
+        try
+        {
+            // Attempt to load existing XML content asynchronously
+            if (File.Exists(xmlPath))
+            {
+                try
+                {
+                    var xmlContent = await File.ReadAllTextAsync(xmlPath);
+                    // Only parse if content is not empty to avoid errors with empty files
+                    if (!string.IsNullOrWhiteSpace(xmlContent))
+                    {
+                        xmlDoc = XDocument.Parse(xmlContent);
+                        // Check if the root element is valid
+                        if (xmlDoc.Root == null || xmlDoc.Root.Name != "SystemConfigs")
+                        {
+                            // If root is null or incorrect, treat as invalid and create new
+                            xmlDoc = null; // Reset xmlDoc to trigger creation below
+
+                            // Notify developer
+                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
+                        }
+                    }
+                }
+                catch (XmlException ex) // Catch specific XML parsing errors
+                {
+                    // Notify developer
+                    // Log the parsing error but proceed to create a new document
+                    _ = LogErrors.LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
+
+                    xmlDoc = null; // Ensure we create a new one
+                }
+                catch (Exception ex) // Catch other file reading errors
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
+
+                    throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
+                }
+            }
+
+            // If xmlDoc is still null (file didn't exist, was empty, or had invalid root), create a new one
+            xmlDoc ??= new XDocument(new XElement("SystemConfigs"));
+
+            // --- Proceed with modification logic ---
+            if (xmlDoc.Root != null)
+            {
+                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
+                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
+                if (existingSystem != null)
+                {
+                    // Overwrite existing system (in memory)
+                    OverwriteExistingSystem(existingSystem, selectedSystem, systemFolder, systemImageFolder);
+                }
+                else
+                {
+                    // Create new system element (in memory)
+                    var newSystemElement = SaveNewSystem(selectedSystem, systemFolder, systemImageFolder);
+                    xmlDoc.Root.Add(newSystemElement);
+                }
+            }
+
+            // Sort the elements (in memory)
+            if (xmlDoc.Root != null)
+            {
+                var sortedElements = xmlDoc.Root.Elements("SystemConfig")
+                    .OrderBy(static systemElement => systemElement.Element("SystemName")?.Value)
+                    .ToList(); // Create a list of sorted elements
+                // Replace the nodes in the original document's root
+                xmlDoc.Root.ReplaceNodes(sortedElements);
+            }
+
+            // Save the updated and sorted XML document asynchronously with proper formatting
+            // Use SaveOptions.None for default indentation
+            await Task.Run(() =>
+            {
+                var settings = new XmlWriterSettings
+                {
+                    Indent = true,
+                    IndentChars = "  ", // Use 2 spaces for indentation
+                    NewLineHandling = NewLineHandling.Replace,
+                    Encoding = System.Text.Encoding.UTF8
+                };
+
+                using var writer = XmlWriter.Create(xmlPath, settings);
+                xmlDoc.Declaration ??= new XDeclaration("1.0", "utf-8", null);
+                xmlDoc.Save(writer);
+            });
+        }
+        catch (IOException ex) // Handle file saving errors (permissions, disk full, etc.)
+        {
+            // Notify developer
+            const string contextMessage = "Error saving system.xml.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            throw new InvalidOperationException("Could not save system configuration.", ex);
+        }
+        catch (Exception ex) // Catch other potential errors
+        {
+            // Notify developer
+            const string contextMessage = "Unexpected error updating system.xml.";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
+        }
+    }
+
+    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
     private static XElement SaveNewSystem(EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
     {
         var newSystemElement = new XElement("SystemConfig",
             new XElement("SystemName", selectedSystem.SystemName),
-            new XElement("SystemFolder", systemFolder),
+            new XElement("SystemFolders", new XElement("SystemFolder", systemFolder)), // Only one folder from EasyMode
             new XElement("SystemImageFolder", systemImageFolder),
             new XElement("SystemIsMAME", selectedSystem.SystemIsMame.ToString()),
             new XElement("FileFormatsToSearch", selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
@@ -599,16 +718,38 @@ public partial class EasyModeWindow : IDisposable
                     new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                     new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
                     new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+                    // Add new image pack download links and paths
+                    , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
+                    , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
+                    , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
+                    , new XElement("ImagePackDownloadExtractPath2", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2)
+                    , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
+                    , new XElement("ImagePackDownloadExtractPath3", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3)
+                    , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
+                    , new XElement("ImagePackDownloadExtractPath4", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4)
+                    , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
+                    , new XElement("ImagePackDownloadExtractPath5", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5)
                 )
             )
         );
         return newSystemElement;
     }
 
+    // Moved from EditSystemWindow.SaveSystem.cs and adapted for EasyModeWindow
     private static void OverwriteExistingSystem(XElement existingSystem, EasyModeSystemConfig selectedSystem, string systemFolder, string systemImageFolder)
     {
         existingSystem.SetElementValue("SystemName", selectedSystem.SystemName);
-        existingSystem.SetElementValue("SystemFolder", systemFolder);
+        // Update SystemFolders
+        var foldersElement = existingSystem.Element("SystemFolders");
+        if (foldersElement == null)
+        {
+            foldersElement = new XElement("SystemFolders");
+            // Add it after SystemName to maintain order
+            existingSystem.Element("SystemName")?.AddAfterSelf(foldersElement);
+        }
+
+        foldersElement.ReplaceNodes(new XElement("SystemFolder", systemFolder)); // Only one folder from EasyMode
+
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolder);
         existingSystem.SetElementValue("SystemIsMAME", selectedSystem.SystemIsMame.ToString());
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(selectedSystem.FileFormatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
@@ -620,18 +761,65 @@ public partial class EasyModeWindow : IDisposable
                 new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                 new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
                 new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
+                // Add new image pack download links and paths
+                , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
+                , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
+                , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
+                , new XElement("ImagePackDownloadExtractPath2", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2)
+                , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
+                , new XElement("ImagePackDownloadExtractPath3", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3)
+                , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
+                , new XElement("ImagePackDownloadExtractPath4", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4)
+                , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
+                , new XElement("ImagePackDownloadExtractPath5", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5)
             )
         ));
     }
 
     private void UpdateAddSystemButtonState()
     {
-        AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded;
+        // Add System button is enabled only if emulator and core are downloaded, AND all *available* image packs are downloaded.
+        var selectedSystem = GetSelectedSystem();
+        if (selectedSystem == null)
+        {
+            AddSystemButton.IsEnabled = false;
+            return;
+        }
+
+        var allRequiredImagePacksDownloaded = !(!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) && !_isImagePackDownloaded1);
+
+        // Check ImagePack1 if its link exists
+
+        // Check ImagePack2 if its link exists
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) && !_isImagePackDownloaded2)
+        {
+            allRequiredImagePacksDownloaded = false;
+        }
+
+        // Check ImagePack3 if its link exists
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) && !_isImagePackDownloaded3)
+        {
+            allRequiredImagePacksDownloaded = false;
+        }
+
+        // Check ImagePack4 if its link exists
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) && !_isImagePackDownloaded4)
+        {
+            allRequiredImagePacksDownloaded = false;
+        }
+
+        // Check ImagePack5 if its link exists
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) && !_isImagePackDownloaded5)
+        {
+            allRequiredImagePacksDownloaded = false;
+        }
+
+        AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded && allRequiredImagePacksDownloaded;
     }
 
     private async void CloseWindowRoutine(object sender, EventArgs e)
     {
-        try
+        try // Top-level catch for async void method
         {
             if (StopDownloadButton.IsEnabled)
             {
