@@ -220,50 +220,59 @@ public static class GameLauncher
                 var endTime = DateTime.Now;
                 var playTime = endTime - startTime;
 
-                // Always use the original file path for history, not the resolved/extracted path.
-                // The 'filePath' parameter passed into HandleButtonClickAsync is the original path from the game list.
-                var fileNameForHistory = Path.GetFileName(filePath);
-
-                settings.UpdateSystemPlayTime(selectedSystemName, playTime);
-                settings.Save();
-                var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
-                DebugLogger.Log($"PlayTime saved: {playTimeFormatted}");
-
-                var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
-                TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
-
-                UpdateStatusBar.UpdateContent("", mainWindow);
-
-                try
+                if (playTime.TotalSeconds > 5)
                 {
-                    var playHistoryManager = mainWindow.PlayHistoryManager;
-                    playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
-                    mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error updating play history";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
-                }
-
-                var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
-                if (systemPlayTime != null)
-                {
-                    mainWindow.PlayTime = systemPlayTime.PlayTime;
-                    DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
-                }
-
-                if (selectedEmulatorName is not null)
-                {
-                    // Update stats
-                    _ = Stats.CallApiAsync(selectedEmulatorName);
+                    UpdateStatsAndPlayCountAsync(playTime);
                 }
             }
         }
         catch (Exception e)
         {
             _ = LogErrors.LogErrorAsync(e, "Unhandled error in GameLauncher's main launch block.");
+        }
+
+        return;
+
+        void UpdateStatsAndPlayCountAsync(TimeSpan playTime)
+        {
+            // Always use the original file path for history, not the resolved/extracted path.
+            // The 'filePath' parameter passed into HandleButtonClickAsync is the original path from the game list.
+            var fileNameForHistory = Path.GetFileName(filePath);
+
+            settings.UpdateSystemPlayTime(selectedSystemName, playTime);
+            settings.Save();
+            var playTimeFormatted = playTime.ToString(@"h\:mm\:ss", CultureInfo.InvariantCulture);
+            DebugLogger.Log($"PlayTime saved: {playTimeFormatted}");
+
+            var playTime2 = (string)Application.Current.TryFindResource("Playtime") ?? "Playtime";
+            TrayIconManager.ShowTrayMessage($"{playTime2}: {playTimeFormatted}");
+            UpdateStatusBar.UpdateContent("", mainWindow);
+
+            try
+            {
+                var playHistoryManager = mainWindow.PlayHistoryManager;
+                playHistoryManager.AddOrUpdatePlayHistoryItem(fileNameForHistory, selectedSystemName, playTime);
+                mainWindow.RefreshGameListAfterPlay(fileNameForHistory, selectedSystemName);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error updating play history";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            }
+
+            var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
+            if (systemPlayTime != null)
+            {
+                mainWindow.PlayTime = systemPlayTime.PlayTime;
+                DebugLogger.Log($"System PlayTime updated: {systemPlayTime.PlayTime}");
+            }
+
+            if (selectedEmulatorName is not null)
+            {
+                // Update stats
+                _ = Stats.CallApiAsync(selectedEmulatorName);
+            }
         }
     }
 
