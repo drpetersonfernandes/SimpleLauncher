@@ -52,7 +52,6 @@ public static class FindCoverImage
                     return imagePath; // Return the found path (which is already resolved)
             }
 
-            // var settings = App.Settings;
             var enableFuzzyMatching = false;
             var similarityThreshold = 0.8;
 
