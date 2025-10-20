@@ -126,6 +126,10 @@ public class GameButtonFactory(
                 aspectWidth = 2.0;
                 aspectHeight = 1.0;
                 break;
+            case "SuperWider2":
+                aspectWidth = 2.5;
+                aspectHeight = 1.0;
+                break;
             case "Taller":
                 aspectWidth = 1.0;
                 aspectHeight = 1.3;
@@ -133,6 +137,10 @@ public class GameButtonFactory(
             case "SuperTaller":
                 aspectWidth = 1.0;
                 aspectHeight = 1.6;
+                break;
+            case "SuperTaller2":
+                aspectWidth = 1.0;
+                aspectHeight = 1.9;
                 break;
             default: // "Square" or any unrecognized value
                 aspectWidth = 1.1;

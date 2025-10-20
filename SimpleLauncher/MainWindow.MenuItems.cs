@@ -649,8 +649,10 @@ public partial class MainWindow
         Square.IsChecked = selectedValue == "Square";
         Wider.IsChecked = selectedValue == "Wider";
         SuperWider.IsChecked = selectedValue == "SuperWider";
+        SuperWider2.IsChecked = selectedValue == "SuperWider2";
         Taller.IsChecked = selectedValue == "Taller";
         SuperTaller.IsChecked = selectedValue == "SuperTaller";
+        SuperTaller2.IsChecked = selectedValue == "SuperTaller2";
     }
 
     private void ChangeViewMode_Click(object sender, RoutedEventArgs e)

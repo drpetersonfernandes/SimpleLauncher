@@ -679,5 +679,8 @@
     <system:String x:Key="NoDefaultBrowserConfiguredMessage">Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.</system:String>
     <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Do you want to receive support from the developer?</system:String>
     <system:String x:Key="Doyouwantsupport">Do you want support?</system:String>
+    
+    <system:String x:Key="SuperWider2">Super Wider 2</system:String>
+    <system:String x:Key="SuperTaller2">Super Taller 2</system:String>
 
 </ResourceDictionary>

@@ -206,7 +206,7 @@ public partial class MainWindow
             PlaySoundEffects.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
-            string[] aspectRatios = { "Square", "Wider", "SuperWider", "Taller", "SuperTaller" };
+            string[] aspectRatios = { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
 
             // Get the current index of the aspect ratio
             var currentIndex = Array.IndexOf(aspectRatios, _settings.ButtonAspectRatio);
