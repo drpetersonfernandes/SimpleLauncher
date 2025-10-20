@@ -662,15 +662,11 @@
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     
-    <system:String x:Key="InstallImagePack1">Install Image Pack 1</system:String>
+    <system:String x:Key="InstallImagePack">Install Image Pack</system:String>
     <system:String x:Key="DownloadImagePack1">Download Image Pack 1</system:String>
-    <system:String x:Key="InstallImagePack2">Install Image Pack 2</system:String>
     <system:String x:Key="DownloadImagePack2">Download Image Pack 2</system:String>
-    <system:String x:Key="InstallImagePack3">Install Image Pack 3</system:String>
     <system:String x:Key="DownloadImagePack3">Download Image Pack 3</system:String>
-    <system:String x:Key="InstallImagePack4">Install Image Pack 4</system:String>
     <system:String x:Key="DownloadImagePack4">Download Image Pack 4</system:String>
-    <system:String x:Key="InstallImagePack5">Install Image Pack 5</system:String>
     <system:String x:Key="DownloadImagePack5">Download Image Pack 5</system:String>
     <system:String x:Key="5thstep">5th step</system:String>
     <system:String x:Key="6thstep">6th step</system:String>
@@ -679,7 +675,6 @@
     <system:String x:Key="NoDefaultBrowserConfiguredMessage">Your operating system does not have a default web browser configured. Please set one in Windows Settings (Apps > Default apps) to open web links.</system:String>
     <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Do you want to receive support from the developer?</system:String>
     <system:String x:Key="Doyouwantsupport">Do you want support?</system:String>
-    
     <system:String x:Key="SuperWider2">Super Wider 2</system:String>
     <system:String x:Key="SuperTaller2">Super Taller 2</system:String>
 
