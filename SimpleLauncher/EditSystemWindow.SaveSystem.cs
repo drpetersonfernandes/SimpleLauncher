@@ -221,7 +221,7 @@ public partial class EditSystemWindow
 
             // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
             // This will now use the updated ParameterValidator which understands %BASEFOLDER% etc.
-            ValidateAndWarnAboutParameters(parameterTexts, allEmulatorLocationTexts); // Pass all emulator locations
+            // ValidateAndWarnAboutParameters(parameterTexts, allEmulatorLocationTexts); // Pass all emulator locations
             // Note: ValidateAndWarnAboutParameters shows a warning but *does not* return, allowing the user to proceed.
 
             // --- Check for *relative* paths *in parameters* that *don't* have %BASEFOLDER% (or other known structural prefixes) ---
