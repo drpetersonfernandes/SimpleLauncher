@@ -50,6 +50,7 @@ public partial class MainWindow
         GameListItems?.Clear();
         _currentSearchResults?.Clear();
         _systemManagers?.Clear();
+        _allGamesForCurrentSystem?.Clear();
 
         // Tell GC not to call the finalizer since we've already cleaned up
         GC.SuppressFinalize(this);

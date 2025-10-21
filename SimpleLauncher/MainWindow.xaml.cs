@@ -119,6 +119,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private string _activeSearchQueryOrMode;
     private string _mameSortOrder = "FileName";
 
+    // All Games for Current System
+    // Will be used by feeling lucky feature
+    private List<string> _allGamesForCurrentSystem = [];
+
     public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager)
     {
         InitializeComponent();
@@ -299,87 +303,108 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private async Task ShowSystemFeelingLuckyClickAsync(object sender, RoutedEventArgs e)
     {
-        if (_isLoadingGames) return;
-
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            if (_isLoadingGames) return;
 
-            // Change the filter to ShowAll (as random might not have covers)
-            _settings.ShowGames = "ShowAll";
-            _settings.Save();
-            ApplyShowGamesSetting(); // Update menu check marks
-
-            // Check if a system is selected
-            if (SystemComboBox.SelectedItem == null)
+            try
             {
-                // Notify user
-                MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
+                PlaySoundEffects.PlayNotificationSound();
 
-                return;
-            }
+                // Change the filter to ShowAll (as random might not have covers)
+                _settings.ShowGames = "ShowAll";
+                _settings.Save();
+                ApplyShowGamesSetting(); // Update menu check marks
 
-            var selectedSystem = SystemComboBox.SelectedItem.ToString();
-            var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-            if (selectedManager == null)
-            {
-                return;
-            }
-
-            var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-            foreach (var folder in selectedManager.SystemFolders)
-            {
-                var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
-                    selectedManager.FileFormatsToSearch == null) continue;
-
-                var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
-                foreach (var file in filesInFolder)
+                // Check if a system is selected
+                if (SystemComboBox.SelectedItem == null)
                 {
-                    uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                    // Notify user
+                    MessageBoxLibrary.PleaseSelectASystemBeforeMessageBox();
+                    return;
                 }
+
+                var selectedSystem = SystemComboBox.SelectedItem.ToString();
+                var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                if (selectedManager == null)
+                {
+                    return;
+                }
+
+                List<string> gameFilesToPickFrom;
+
+                // Use _allGamesForCurrentSystem if it's already populated for the current system
+                if (_allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 && _selectedSystem == selectedSystem)
+                {
+                    gameFilesToPickFrom = _allGamesForCurrentSystem;
+                    DebugLogger.Log($"[Feeling Lucky] Reusing cached _allGamesForCurrentSystem for '{selectedSystem}'. Count: {gameFilesToPickFrom.Count}");
+                }
+                else
+                {
+                    // If not, perform the disk scan to get all files for the current system
+                    // This scenario should be rare if SystemComboBox_SelectionChanged always populates it.
+                    // It acts as a fallback.
+                    DebugLogger.Log($"[Feeling Lucky] _allGamesForCurrentSystem not suitable, performing disk scan for '{selectedSystem}'.");
+                    var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                    foreach (var folder in selectedManager.SystemFolders)
+                    {
+                        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath) ||
+                            selectedManager.FileFormatsToSearch == null) continue;
+
+                        var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                        foreach (var file in filesInFolder)
+                        {
+                            uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                        }
+                    }
+
+                    gameFilesToPickFrom = uniqueFiles.Values.ToList();
+                    _allGamesForCurrentSystem = gameFilesToPickFrom; // Cache this for future "Feeling Lucky" calls
+                }
+
+                // Check if we have any games after filtering
+                if (gameFilesToPickFrom.Count == 0)
+                {
+                    // Notify user
+                    MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
+                    return;
+                }
+
+                // Randomly select a game
+                var random = new Random();
+                var randomIndex = random.Next(0, gameFilesToPickFrom.Count);
+                var selectedGame = gameFilesToPickFrom[randomIndex];
+
+                // Reset letter selection in the UI and current search
+                _topLetterNumberMenu.DeselectLetter();
+                SearchTextBox.Text = "";
+                _currentFilter = null; // Clear any active letter filter
+                _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
+                _currentSearchResults = [selectedGame]; // Store only the selected game
+
+                await LoadGameFilesAsync(null, "RANDOM_SELECTION");
+
+                // If in list view, select the game in the DataGrid
+                if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
+
+                GameDataGrid.SelectedIndex = 0;
+                GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
+                GameDataGrid.Focus();
             }
-
-            var gameFiles = uniqueFiles.Values.ToList();
-
-            // Check if we have any games after filtering
-            if (gameFiles.Count == 0)
+            catch (Exception ex)
             {
+                // Notify developer
+                const string contextMessage = "Error in the Feeling Lucky feature.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
                 // Notify user
-                MessageBoxLibrary.NoGameFoundInTheRandomSelectionMessageBox();
-
-                return;
+                MessageBoxLibrary.ErrorMessageBox();
             }
-
-            // Randomly select a game
-            var random = new Random();
-            var randomIndex = random.Next(0, gameFiles.Count);
-            var selectedGame = gameFiles[randomIndex];
-
-            // Reset letter selection in the UI and current search
-            _topLetterNumberMenu.DeselectLetter();
-            SearchTextBox.Text = "";
-            _currentFilter = null; // Clear any active letter filter
-            _activeSearchQueryOrMode = "RANDOM_SELECTION"; // Set special search mode
-            _currentSearchResults = [selectedGame]; // Store only the selected game
-
-            await LoadGameFilesAsync(null, "RANDOM_SELECTION");
-
-            // If in list view, select the game in the DataGrid
-            if (_settings.ViewMode != "ListView" || GameDataGrid.Items.Count <= 0) return;
-
-            GameDataGrid.SelectedIndex = 0;
-            GameDataGrid.ScrollIntoView(GameDataGrid.SelectedItem);
-            GameDataGrid.Focus();
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in the Feeling Lucky feature.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-            // Notify user
-            MessageBoxLibrary.ErrorMessageBox();
+            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
         }
     }
 
@@ -557,102 +582,141 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     {
         try
         {
-            if (_isUiUpdating)
-            {
-                return; // Prevent re-entrance
-            }
-
-            if (SystemComboBox.SelectedItem == null)
-            {
-                return;
-            }
-
-            _isUiUpdating = true;
-            SetUiLoadingState(true);
             try
             {
-                SearchTextBox.Text = "";
-                EmulatorComboBox.ItemsSource = null;
-                EmulatorComboBox.SelectedIndex = -1;
-                PreviewImage.Source = null;
-
-                _currentSearchResults.Clear();
-                _currentFilter = null;
-                _activeSearchQueryOrMode = null;
-
-                GameFileGrid.Visibility = Visibility.Visible;
-                ListViewPreviewArea.Visibility = Visibility.Collapsed;
-
-                var selectedSystem = SystemComboBox.SelectedItem?.ToString();
-                var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-                if (selectedSystem == null || selectedManager == null) // Combine null checks
+                if (_isUiUpdating)
                 {
-                    // Notify developer
-                    const string errorMessage = "Selected system or its configuration is null.";
-                    _ = LogErrors.LogErrorAsync(null, errorMessage);
+                    return; // Prevent re-entrance
+                }
 
-                    // Notify user
-                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
-                    SortOrderToggleButton.Visibility = Visibility.Collapsed;
+                if (SystemComboBox.SelectedItem == null)
+                {
+                    // Clear the cached list when no system is selected
+                    _allGamesForCurrentSystem.Clear();
 
-                    await DisplaySystemSelectionScreenAsync();
                     return;
                 }
 
-                _mameSortOrder = "FileName";
-                UpdateSortOrderButtonUi();
-                SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
-
-                EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
-                if (EmulatorComboBox.Items.Count > 0)
+                _isUiUpdating = true;
+                SetUiLoadingState(true);
+                try
                 {
-                    EmulatorComboBox.SelectedIndex = 0;
-                }
+                    SearchTextBox.Text = "";
+                    EmulatorComboBox.ItemsSource = null;
+                    EmulatorComboBox.SelectedIndex = -1;
+                    PreviewImage.Source = null;
 
-                SelectedSystem = selectedSystem;
+                    _currentSearchResults.Clear();
+                    _currentFilter = null;
+                    _activeSearchQueryOrMode = null;
 
-                var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
-                PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+                    GameFileGrid.Visibility = Visibility.Visible;
+                    ListViewPreviewArea.Visibility = Visibility.Collapsed;
 
-                // Display SystemInfo and get the validation result. Game count is now handled inside this method.
-                var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
-
-                // If validation failed, show the message box with aggregated errors
-                if (!validationResult.IsValid)
-                {
-                    var errorMessages = new System.Text.StringBuilder();
-                    foreach (var msg in validationResult.ErrorMessages)
+                    var selectedSystem = SystemComboBox.SelectedItem?.ToString();
+                    var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
+                    if (selectedSystem == null || selectedManager == null) // Combine null checks
                     {
-                        errorMessages.Append(msg);
+                        // Notify developer
+                        const string errorMessage = "Selected system or its configuration is null.";
+                        _ = LogErrors.LogErrorAsync(null, errorMessage);
+
+                        // Notify user
+                        MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                        SortOrderToggleButton.Visibility = Visibility.Collapsed;
+
+                        await DisplaySystemSelectionScreenAsync();
+
+                        // Clear the cached list on error
+                        _allGamesForCurrentSystem.Clear();
+
+                        return;
                     }
 
-                    MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
+                    _mameSortOrder = "FileName";
+                    UpdateSortOrderButtonUi();
+                    SortOrderToggleButton.Visibility = selectedManager.SystemIsMame ? Visibility.Visible : Visibility.Collapsed;
+
+                    EmulatorComboBox.ItemsSource = selectedManager.Emulators.Select(static emulator => emulator.EmulatorName).ToList();
+                    if (EmulatorComboBox.Items.Count > 0)
+                    {
+                        EmulatorComboBox.SelectedIndex = 0;
+                    }
+
+                    SelectedSystem = selectedSystem;
+
+                    var systemPlayTime = _settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystem);
+                    PlayTime = systemPlayTime != null ? systemPlayTime.PlayTime : "00:00:00";
+
+                    // Display SystemInfo and get the validation result. Game count is now handled inside this method.
+                    var validationResult = await DisplaySystemInformation.DisplaySystemInfoAsync(selectedManager, _gameFileGrid);
+
+                    // If validation failed, show the message box with aggregated errors
+                    if (!validationResult.IsValid)
+                    {
+                        var errorMessages = new System.Text.StringBuilder();
+                        foreach (var msg in validationResult.ErrorMessages)
+                        {
+                            errorMessages.Append(msg);
+                        }
+
+                        MessageBoxLibrary.ListOfErrorsMessageBox(errorMessages);
+                    }
+
+                    // Resolve the system image folder path using PathHelper
+                    var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+
+                    _selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
+                    _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
+                        ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName) // Use the default resolved path
+                        : resolvedSystemImageFolderPath; // Use resolved configured path
+
+                    await PopulateAllGamesForCurrentSystem(selectedManager, selectedSystem);
+
+                    _topLetterNumberMenu.DeselectLetter();
+                    ResetPaginationButtons();
                 }
+                catch (Exception ex)
+                {
+                    // Notify developer
+                    const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
+                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
 
-                // Resolve the system image folder path using PathHelper
-                var resolvedSystemImageFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedManager.SystemImageFolder);
+                    // Notify user
+                    MessageBoxLibrary.InvalidSystemConfigMessageBox();
 
-                _selectedRomFolders = selectedManager.SystemFolders.Select(PathHelper.ResolveRelativeToAppDirectory).ToList();
-                _selectedImageFolder = string.IsNullOrWhiteSpace(resolvedSystemImageFolderPath)
-                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", selectedManager.SystemName) // Use the default resolved path
-                    : resolvedSystemImageFolderPath; // Use resolved configured path
-
-                _topLetterNumberMenu.DeselectLetter();
-                ResetPaginationButtons();
+                    // Clear cached list on error
+                    _allGamesForCurrentSystem.Clear();
+                }
+                finally
+                {
+                    SetUiLoadingState(false);
+                    _isUiUpdating = false;
+                }
             }
             catch (Exception ex)
             {
-                // Notify developer
-                const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
-
-                // Notify user
-                MessageBoxLibrary.InvalidSystemConfigMessageBox();
+                _ = LogErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
             }
-            finally
+
+            return;
+
+            async Task PopulateAllGamesForCurrentSystem(SystemManager selectedManager, string selectedSystem)
             {
-                SetUiLoadingState(false);
-                _isUiUpdating = false;
+                var uniqueFilesForSystem = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                foreach (var folder in _selectedRomFolders)
+                {
+                    if (string.IsNullOrEmpty(folder) || !Directory.Exists(folder) || selectedManager.FileFormatsToSearch == null) continue;
+
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(folder, selectedManager.FileFormatsToSearch);
+                    foreach (var file in filesInFolder)
+                    {
+                        uniqueFilesForSystem.TryAdd(Path.GetFileName(file), file);
+                    }
+                }
+
+                _allGamesForCurrentSystem = uniqueFilesForSystem.Values.ToList();
+                DebugLogger.Log($"[SystemComboBox_SelectionChanged] Populated _allGamesForCurrentSystem for '{selectedSystem}'. Count: {_allGamesForCurrentSystem.Count}");
             }
         }
         catch (Exception ex)
@@ -791,35 +855,58 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 case "RANDOM_SELECTION" when _currentSearchResults != null && _currentSearchResults.Count != 0:
                     allFiles = new List<string>(_currentSearchResults);
                     break;
-                default:
+                default: // This branch handles initial load, letter filter, and text search
                 {
-                    var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
-                    foreach (var folder in selectedManager.SystemFolders)
+                    // If no specific filter (letter or search query), and _allGamesForCurrentSystem is already populated for this system,
+                    // use it directly. Otherwise, perform a full disk scan.
+                    // The _selectedSystem field ensures _allGamesForCurrentSystem is for the *currently active* system.
+                    if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery) &&
+                        _allGamesForCurrentSystem != null && _allGamesForCurrentSystem.Count != 0 &&
+                        _selectedSystem == selectedManager.SystemName)
                     {
-                        var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
-                        if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
-
-                        var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
-                        foreach (var file in filesInFolder)
+                        allFiles = new List<string>(_allGamesForCurrentSystem);
+                        DebugLogger.Log($"[BuildListOfAllFilesToLoad] Reusing cached _allGamesForCurrentSystem for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
+                    }
+                    else
+                    {
+                        // Perform disk scan if _allGamesForCurrentSystem is not suitable or not yet populated
+                        var uniqueFiles = new Dictionary<string, string>(StringComparer.OrdinalIgnoreCase);
+                        foreach (var folder in selectedManager.SystemFolders)
                         {
-                            uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                            var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(folder);
+                            if (string.IsNullOrEmpty(resolvedSystemFolderPath) || !Directory.Exists(resolvedSystemFolderPath)) continue;
+
+                            var filesInFolder = await GetListOfFiles.GetFilesAsync(resolvedSystemFolderPath, selectedManager.FileFormatsToSearch);
+                            foreach (var file in filesInFolder)
+                            {
+                                uniqueFiles.TryAdd(Path.GetFileName(file), file);
+                            }
+                        }
+
+                        allFiles = uniqueFiles.Values.ToList(); // This is the full list from disk for the system
+
+                        // If no specific filter (letter or search query), this is the "all games" list.
+                        // Cache it for future "Feeling Lucky" calls and direct "All" view loads.
+                        if (string.IsNullOrWhiteSpace(startLetter) && string.IsNullOrWhiteSpace(searchQuery))
+                        {
+                            _allGamesForCurrentSystem = new List<string>(allFiles); // Store the full list
+                            DebugLogger.Log($"[BuildListOfAllFilesToLoad] Populated _allGamesForCurrentSystem for '{selectedManager.SystemName}'. Count: {allFiles.Count}");
                         }
                     }
 
-                    allFiles = uniqueFiles.Values.ToList();
-
+                    // ... filtering by startLetter ...
                     if (!string.IsNullOrWhiteSpace(startLetter))
                     {
-                        // Filter the list of resolved paths
                         allFiles = await FilterFilesAsync(allFiles, startLetter);
                     }
 
+                    // ... filtering by searchQuery ...
                     if (!string.IsNullOrWhiteSpace(searchQuery) && searchQuery != "RANDOM_SELECTION" && searchQuery != "FAVORITES")
                     {
                         var systemIsMame = selectedManager.SystemIsMame;
                         var lowerQuery = searchQuery.ToLowerInvariant();
                         allFiles = await Task.Run(() =>
-                            allFiles.FindAll(file => // 'file' here is already a resolved absolute path
+                            allFiles.FindAll(file =>
                             {
                                 var fileName = Path.GetFileNameWithoutExtension(file);
                                 var filenameMatch = fileName.Contains(lowerQuery, StringComparison.OrdinalIgnoreCase);
@@ -833,10 +920,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                                 return false;
                             }));
 
-                        _currentSearchResults = new List<string>(allFiles);
+                        _currentSearchResults = new List<string>(allFiles); // Store search results
                     }
-                    // If no search query and no start letter, allFiles is already the full cached list for the system.
-                    // _currentSearchResults remain empty in this case.
 
                     break;
                 }

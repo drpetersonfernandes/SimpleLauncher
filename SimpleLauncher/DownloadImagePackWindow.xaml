@@ -1,7 +1,7 @@
 <controls:MetroWindow x:Class="SimpleLauncher.DownloadImagePackWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls" xmlns:d="http://schemas.microsoft.com/expression/blend/2008" xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                       Title="{DynamicResource DownloadImagePack}"
                       Width="650"
                       MinWidth="550"
@@ -38,49 +38,20 @@
                 </GroupBox>
 
                 <GroupBox Grid.Row="2" Header="{DynamicResource InstallImagePack}" Margin="10" Padding="0">
-                      <StackPanel>
-                          <Button x:Name="DownloadImagePackButton1"
-                                  Content="{DynamicResource DownloadImagePack1}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Padding="5"
-                                  Click="DownloadImagePackButton1_Click"
-                                  IsEnabled="False"
-                                  Margin="10" />
-                          <Button x:Name="DownloadImagePackButton2"
-                                  Content="{DynamicResource DownloadImagePack2}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Padding="5"
-                                  Click="DownloadImagePackButton2_Click"
-                                  IsEnabled="False"
-                                  Margin="10" />
-                          <Button x:Name="DownloadImagePackButton3"
-                                  Content="{DynamicResource DownloadImagePack3}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Padding="5"
-                                  Click="DownloadImagePackButton3_Click"
-                                  IsEnabled="False"
-                                  Margin="10" />
-                          <Button x:Name="DownloadImagePackButton4"
-                                  Content="{DynamicResource DownloadImagePack4}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Padding="5"
-                                  Click="DownloadImagePackButton4_Click"
-                                  IsEnabled="False"
-                                  Margin="10" />
-                          <Button x:Name="DownloadImagePackButton5"
-                                  Content="{DynamicResource DownloadImagePack5}"
-                                  HorizontalAlignment="Center"
-                                  VerticalAlignment="Center"
-                                  Padding="5"
-                                  Click="DownloadImagePackButton5_Click"
-                                  IsEnabled="False"
-                                  Margin="10" />
-                      </StackPanel>
-                  </GroupBox>
+                    <ItemsControl x:Name="ImagePacksItemsControl" Margin="10">
+                        <ItemsControl.ItemTemplate>
+                            <DataTemplate>
+                                <Button Content="{Binding DisplayName}"
+                                        HorizontalAlignment="Center"
+                                        VerticalAlignment="Center"
+                                        Padding="5"
+                                        Click="DownloadImagePackButton_Click"
+                                        IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                        Margin="10" d:DataContext="{d:DesignInstance }" />
+                            </DataTemplate>
+                        </ItemsControl.ItemTemplate>
+                    </ItemsControl>
+                </GroupBox>
 
                 <!-- Adjusted Grid.Row for ProgressBar and subsequent elements -->
                 <GroupBox Grid.Row="7" Header="{DynamicResource ProgressBar}" Margin="10" Padding="0">

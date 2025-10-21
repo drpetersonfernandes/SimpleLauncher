@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.IO;
 using System.Linq;
 using System.Windows;
@@ -23,6 +24,9 @@ public partial class DownloadImagePackWindow : IDisposable
     private bool _disposed;
     private readonly string _logPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "error_user.log");
 
+    // hold dynamic image pack buttons
+    public ObservableCollection<ImagePackDownloadItem> ImagePacksToDisplay { get; set; }
+
     public DownloadImagePackWindow()
     {
         InitializeComponent();
@@ -34,6 +38,10 @@ public partial class DownloadImagePackWindow : IDisposable
         // Initialize the DownloadManager, passing the factory
         _downloadManager = new DownloadManager(httpClientFactory);
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
+
+        // Initialize the new collection
+        ImagePacksToDisplay = new ObservableCollection<ImagePackDownloadItem>();
+        ImagePacksItemsControl.ItemsSource = ImagePacksToDisplay; // Bind ItemsControl to the collection
 
         // Load Config
         _manager = EasyModeManager.Load();
@@ -91,141 +99,71 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void SystemNameDropdown_SelectionChanged(object sender, SelectionChangedEventArgs e)
     {
+        ImagePacksToDisplay.Clear(); // Clear previous buttons
+
         if (SystemNameDropdown.SelectedItem == null) return;
 
         var selectedSystem = GetSelectedSystem(); // Using the new helper method
         if (selectedSystem == null) return;
 
-        // Enable/disable Image Pack buttons based on their respective links
-        DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-        DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-        DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-        DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-        DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+        // Dynamically add image pack items to the ObservableCollection
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 1");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2, "Image Pack 2");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3, "Image Pack 3");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4, "Image Pack 4");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5, "Image Pack 5");
     }
 
-    // Renamed existing button to DownloadImagePackButton1_Click
-    private async void DownloadImagePackButton1_Click(object sender, RoutedEventArgs e)
+    private void AddImagePackItemIfValid(string downloadLink, string extractPath, string displayName)
+    {
+        if (!string.IsNullOrEmpty(downloadLink) && !string.IsNullOrEmpty(extractPath))
+        {
+            ImagePacksToDisplay.Add(new ImagePackDownloadItem
+            {
+                DisplayName = displayName,
+                DownloadUrl = downloadLink,
+                ExtractPath = extractPath,
+                IsDownloaded = false // Initially not downloaded
+            });
+        }
+    }
+
+    // Single click handler for all dynamic image pack buttons
+    private async void DownloadImagePackButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
-            DownloadImagePackButton1.IsEnabled = false;
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack1, DownloadImagePackButton1);
+            if (sender is not Button { DataContext: ImagePackDownloadItem item } clickedButton) return;
+
+            try
+            {
+                clickedButton.IsEnabled = false; // Disable this specific button
+                item.IsDownloaded = false; // Mark as not downloaded while in progress
+
+                await HandleDownloadAndExtractComponent(item);
+            }
+            catch (Exception ex)
+            {
+                _ = LogErrors.LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
+                clickedButton.IsEnabled = true; // Re-enable on error
+                item.IsDownloaded = false;
+            }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
-            DownloadImagePackButton1.IsEnabled = true;
+            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
         }
     }
 
-    // ADDED: New click handlers for Image Pack 2-5
-    private async void DownloadImagePackButton2_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            DownloadImagePackButton2.IsEnabled = false;
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack2, DownloadImagePackButton2);
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
-            DownloadImagePackButton2.IsEnabled = true;
-        }
-    }
-
-    private async void DownloadImagePackButton3_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            DownloadImagePackButton3.IsEnabled = false;
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack3, DownloadImagePackButton3);
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
-            DownloadImagePackButton3.IsEnabled = true;
-        }
-    }
-
-    private async void DownloadImagePackButton4_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            DownloadImagePackButton4.IsEnabled = false;
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack4, DownloadImagePackButton4);
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
-            DownloadImagePackButton4.IsEnabled = true;
-        }
-    }
-
-    private async void DownloadImagePackButton5_Click(object sender, RoutedEventArgs e)
-    {
-        try
-        {
-            DownloadImagePackButton5.IsEnabled = false;
-            await HandleDownloadAndExtractComponent(DownloadType.ImagePack5, DownloadImagePackButton5);
-        }
-        catch (Exception ex)
-        {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
-            DownloadImagePackButton5.IsEnabled = true;
-        }
-    }
-
-    // MODIFIED: Changed return type from Task<bool> to Task
-    private async Task HandleDownloadAndExtractComponent(DownloadType type, Button buttonToDisable)
+    // Changed signature to accept ImagePackDownloadItem
+    private async Task HandleDownloadAndExtractComponent(ImagePackDownloadItem item)
     {
         var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null) return; // No return value needed
+        if (selectedSystem == null) return;
 
-        string downloadUrl;
-        string componentName;
-        string easyModeExtractPath;
-
-        switch (type)
-        {
-            case DownloadType.Emulator: // Not used in this window, but kept for completeness
-                downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath;
-                componentName = "Emulator";
-                break;
-            case DownloadType.Core: // Not used in this window, but kept for completeness
-                downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath;
-                componentName = "Core";
-                break;
-            case DownloadType.ImagePack1:
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 1";
-                break;
-            case DownloadType.ImagePack2: // ADDED
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2;
-                componentName = "Image Pack 2";
-                break;
-            case DownloadType.ImagePack3: // ADDED
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3;
-                componentName = "Image Pack 3";
-                break;
-            case DownloadType.ImagePack4: // ADDED
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4;
-                componentName = "Image Pack 4";
-                break;
-            case DownloadType.ImagePack5: // ADDED
-                downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5;
-                componentName = "Image Pack 5";
-                break;
-            default:
-                return; // No return value needed
-        }
+        var downloadUrl = item.DownloadUrl;
+        var componentName = item.DisplayName;
+        var easyModeExtractPath = item.ExtractPath;
 
         var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
 
@@ -234,7 +172,7 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
             UpdateStatus($"{errorNodownloadUrLfor} {componentName}");
-            return; // No return value needed
+            return;
         }
 
         if (string.IsNullOrEmpty(destinationPath))
@@ -245,14 +183,11 @@ public partial class DownloadImagePackWindow : IDisposable
             // Notify developer
             _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
 
-            return; // No return value needed
+            return;
         }
 
         try
         {
-            // Initial state for the specific button
-            buttonToDisable.IsEnabled = false;
-
             var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
             UpdateStatus($"{preparingtodownload} {componentName}...");
 
@@ -286,8 +221,8 @@ public partial class DownloadImagePackWindow : IDisposable
                 MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                 StopDownloadButton.IsEnabled = false;
-                buttonToDisable.IsEnabled = false; // Keep disabled on success
-                return; // No return value needed
+                item.IsDownloaded = true; // Mark as downloaded
+                return;
             }
             else
             {
@@ -302,24 +237,13 @@ public partial class DownloadImagePackWindow : IDisposable
                     var errorFailedtoextract = (string)Application.Current.TryFindResource("ErrorFailedtoextract") ?? "Error: Failed to extract";
                     UpdateStatus($"{errorFailedtoextract} {componentName}.");
 
-                    switch (type)
-                    {
-                        case DownloadType.ImagePack1:
-                        case DownloadType.ImagePack2:
-                        case DownloadType.ImagePack3:
-                        case DownloadType.ImagePack4:
-                        case DownloadType.ImagePack5:
-                            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                            break;
-                        default:
-                            MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                            break;
-                    }
+                    // Since this is an image pack, use the specific message box
+                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
                 }
 
                 StopDownloadButton.IsEnabled = false;
-                buttonToDisable.IsEnabled = true; // Re-enable on failure/cancellation
-                return; // No return value needed
+                item.IsDownloaded = false; // Ensure not marked as downloaded on failure/cancellation
+                return;
             }
         }
         catch (Exception ex)
@@ -333,23 +257,12 @@ public partial class DownloadImagePackWindow : IDisposable
                                  $"URL: {downloadUrl}";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
-            switch (type)
-            {
-                case DownloadType.ImagePack1:
-                case DownloadType.ImagePack2:
-                case DownloadType.ImagePack3:
-                case DownloadType.ImagePack4:
-                case DownloadType.ImagePack5:
-                    await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
-                    break;
-                default:
-                    MessageBoxLibrary.DownloadExtractionFailedMessageBox();
-                    break;
-            }
+            // Since this is an image pack, use the specific message box
+            await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
 
             StopDownloadButton.IsEnabled = false;
-            buttonToDisable.IsEnabled = true; // Re-enable on exception
-            return; // No return value needed
+            item.IsDownloaded = false; // Ensure not marked as downloaded on exception
+            return;
         }
     }
 
@@ -479,15 +392,10 @@ public partial class DownloadImagePackWindow : IDisposable
         var downloadcanceled2 = (string)Application.Current.TryFindResource("Downloadcanceled") ?? "Download canceled";
         UpdateStatus(downloadcanceled2);
 
-        // Re-enable all image pack download buttons that were active
-        var selectedSystem = GetSelectedSystem();
-        if (selectedSystem != null)
+        // Re-enable all image pack download buttons
+        foreach (var item in ImagePacksToDisplay)
         {
-            DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-            DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-            DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-            DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-            DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
+            item.IsDownloaded = false; // Mark as not downloaded to re-enable button
         }
     }
 
@@ -551,4 +459,3 @@ public partial class DownloadImagePackWindow : IDisposable
         Dispose(false);
     }
 }
-
