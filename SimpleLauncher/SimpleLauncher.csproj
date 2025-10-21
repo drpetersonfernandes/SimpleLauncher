@@ -694,6 +694,33 @@
     <None Update="tools\GameCoverScraper\x64\audio\click.mp3">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\GameCoverScraper\arm64\audio\click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\GameCoverScraper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -1142,19 +1169,5 @@
     <Page Remove="title_snapshots\**" />
     <Page Remove="videos\**" />
     <Page Remove="walkthrough\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Remove="tools\GameCoverScraper\arm64\audio\click.mp3" />
-    <None Remove="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll" />
-    <None Remove="tools\GameCoverScraper\arm64\GameCoverScraper.exe" />
-    <None Remove="tools\GameCoverScraper\arm64\mame.dat" />
-    <None Remove="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml" />
-    <None Remove="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml" />
-    <None Remove="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml" />
-    <None Remove="tools\GameCoverScraper\arm64\settings.xml" />
-    <None Remove="tools\GameCoverScraper\arm64\WebView2Loader.dll" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tools\GameCoverScraper\" />
   </ItemGroup>
 </Project>
