@@ -255,80 +255,10 @@ public partial class EditSystemWindow
             Emulator3ParametersTextBox, Emulator4ParametersTextBox,
             Emulator5ParametersTextBox
         ];
-        TextBox[] emulatorLocationTextBoxes =
-        [
-            Emulator1PathTextBox, Emulator2PathTextBox,
-            Emulator3PathTextBox, Emulator4PathTextBox,
-            Emulator5PathTextBox
-        ];
 
-        var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
-                           ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-        var systemFolder = SystemFolderTextBox.Text;
-
-        for (var i = 0; i < parameterTextBoxes.Length; i++)
+        foreach (var paramTextBox in parameterTextBoxes)
         {
-            var paramTextBox = parameterTextBoxes[i];
-            var emulatorLocation = emulatorLocationTextBoxes[i].Text;
-
-            if (string.IsNullOrWhiteSpace(paramTextBox.Text))
-            {
-                MarkValid(paramTextBox);
-                continue;
-            }
-
-            var (areParametersValid, _) = ParameterValidator.ValidateParameterPaths(
-                paramTextBox.Text,
-                systemFolder,
-                emulatorLocation,
-                isMameSystem);
-            MarkInvalid(paramTextBox, areParametersValid);
+            MarkValid(paramTextBox);
         }
-    }
-
-    // Validate and warn about parameters before saving
-    private void ValidateAndWarnAboutParameters(string[] parameterTexts, string[] emulatorLocationTexts)
-    {
-        var hasInvalidParameters = false;
-        var allInvalidPaths = new List<string>();
-        string[] emulatorNames =
-        [
-            Emulator1NameTextBox.Text, Emulator2NameTextBox.Text,
-            Emulator3NameTextBox.Text, Emulator4NameTextBox.Text,
-            Emulator5NameTextBox.Text
-        ];
-
-        TextBox[] parameterTextBoxes =
-        [
-            Emulator1ParametersTextBox, Emulator2ParametersTextBox,
-            Emulator3ParametersTextBox, Emulator4ParametersTextBox,
-            Emulator5ParametersTextBox
-        ];
-
-        var isMameSystem = SystemIsMameComboBox.SelectedItem != null &&
-                           ((ComboBoxItem)SystemIsMameComboBox.SelectedItem).Content.ToString() == "true";
-        var systemFolder = SystemFolderTextBox.Text;
-
-        for (var i = 0; i < parameterTextBoxes.Length; i++)
-        {
-            if (string.IsNullOrEmpty(emulatorNames[i]) || string.IsNullOrWhiteSpace(parameterTexts[i])) continue;
-
-            var currentEmulatorLocation = emulatorLocationTexts[i];
-            var (areParametersValid, invalidPaths) = ParameterValidator.ValidateParameterPaths(
-                parameterTexts[i],
-                systemFolder,
-                currentEmulatorLocation,
-                isMameSystem);
-
-            MarkInvalid(parameterTextBoxes[i], areParametersValid);
-            if (areParametersValid) continue;
-
-            hasInvalidParameters = true;
-            allInvalidPaths.AddRange(invalidPaths.Select(path => $"{emulatorNames[i]}: {path}"));
-        }
-
-        if (!hasInvalidParameters) return;
-
-        MessageBoxLibrary.ParameterPathsInvalidWarningMessageBox(allInvalidPaths);
     }
 }

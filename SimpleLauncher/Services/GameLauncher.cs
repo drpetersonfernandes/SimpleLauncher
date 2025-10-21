@@ -659,8 +659,8 @@ public static class GameLauncher
         // Note: SystemFolder might not be strictly required to exist for all emulators/parameters,
         // but if %SYSTEMFOLDER% is used in parameters, this path needs to be valid.
 
-        // Resolve Emulator Parameters using the ParameterValidator.ResolveParameterString
-        var resolvedParameters = ParameterValidator.ResolveParameterString(
+        // Resolve Emulator Parameters using the PathHelper.ResolveParameterString
+        var resolvedParameters = PathHelper.ResolveParameterString(
             rawEmulatorParameters, // The raw parameter string from config
             resolvedSystemFolderPath, // The fully resolved system folder path
             resolvedEmulatorFolderPath // The fully resolved emulator directory path

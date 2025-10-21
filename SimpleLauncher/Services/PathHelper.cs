@@ -1,5 +1,7 @@
 using System;
 using System.IO;
+using System.Linq;
+using System.Text.RegularExpressions;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -7,6 +9,159 @@ namespace SimpleLauncher.Services;
 public static class PathHelper
 {
     private const string BaseFolderPlaceholder = "%BASEFOLDER%";
+
+    // --- Parameter Resolution Logic ---
+
+    private static readonly string[] GameSpecificPlaceholders =
+    [
+        "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
+        "{rom}", "{game}", "{romname}", "{romfile}"
+    ];
+
+    private static readonly string[] KnownParameterFlags =
+    [
+        "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
+        "-L", "-g", "-rompath"
+    ];
+
+    private static readonly char[] Separator = ['\\', '/'];
+
+    private static bool LooksLikePath(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return false;
+
+        return text.Contains('\\') || text.Contains('/') ||
+               (text.Length >= 2 && text[1] == ':') ||
+               text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
+               text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
+               text.Contains(".dll") ||
+               text.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+               text.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+               text.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) ||
+               IsDirectoryPath(text);
+    }
+
+    private static bool IsDirectoryPath(string text)
+    {
+        var hasDrivePrefix = text.Length >= 2 && text[1] == ':';
+        var hasMultipleSegments = text.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Length > 1;
+
+        return (hasDrivePrefix && hasMultipleSegments) ||
+               (text.Contains('\\') && hasMultipleSegments) ||
+               (text.Contains('/') && hasMultipleSegments);
+    }
+
+    private static bool IsKnownFlag(string text)
+    {
+        return KnownParameterFlags.Any(flag =>
+            string.Equals(text, flag, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static bool ContainsGameSpecificPlaceholder(string text)
+    {
+        if (string.IsNullOrWhiteSpace(text)) return false;
+
+        return GameSpecificPlaceholders.Any(placeholder =>
+            text.Contains(placeholder, StringComparison.OrdinalIgnoreCase));
+    }
+
+    private static bool IsQuoted(string token)
+    {
+        return (token.StartsWith('"') && token.EndsWith('"')) ||
+               (token.StartsWith('\'') && token.EndsWith('\''));
+    }
+
+    public static string ResolveParameterString(
+        string parameters,
+        string resolvedSystemFolderPath = null,
+        string resolvedEmulatorFolderPath = null)
+    {
+        if (string.IsNullOrWhiteSpace(parameters))
+        {
+            return string.Empty;
+        }
+
+        var pathTokenRegex = new Regex("""
+                                       "[^"]*"|'[^']*'|\S+
+                                       """);
+
+        var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
+        {
+            var originalToken = match.Value;
+            var tokenForLogic = originalToken.Trim('"', '\'');
+
+            if (ContainsGameSpecificPlaceholder(tokenForLogic) || IsKnownFlag(tokenForLogic) || (!LooksLikePath(tokenForLogic) &&
+                                                                                                 !tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                                                                                                 !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                                                                                                 !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)))
+            {
+                return originalToken;
+            }
+
+            var processedToken = tokenForLogic;
+
+            if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%BASEFOLDER%", SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (!string.IsNullOrEmpty(resolvedSystemFolderPath) && processedToken.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%SYSTEMFOLDER%", SanitizePathToken(resolvedSystemFolderPath), StringComparison.OrdinalIgnoreCase);
+            }
+
+            if (!string.IsNullOrEmpty(resolvedEmulatorFolderPath) && processedToken.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase))
+            {
+                processedToken = processedToken.Replace("%EMULATORFOLDER%", SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
+            }
+
+            processedToken = Environment.ExpandEnvironmentVariables(processedToken);
+
+            var finalTokenValue = processedToken;
+
+            if (!processedToken.Contains(';'))
+            {
+                try
+                {
+                    if (Path.IsPathRooted(processedToken))
+                    {
+                        finalTokenValue = Path.GetFullPath(processedToken);
+                    }
+                    else
+                    {
+                        var tempResolved = ResolveRelativeToAppDirectory(processedToken);
+                        if (!string.IsNullOrEmpty(tempResolved))
+                        {
+                            finalTokenValue = tempResolved;
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, $"Error during path canonicalization for token '{processedToken}'. Using as-is after placeholder/env var replacement: '{finalTokenValue}'.");
+                }
+            }
+
+            if (originalToken.StartsWith('"') && originalToken.EndsWith('"'))
+            {
+                return $"\"{finalTokenValue}\"";
+            }
+
+            if (originalToken.StartsWith('\'') && originalToken.EndsWith('\''))
+            {
+                return $"'{finalTokenValue}'";
+            }
+
+            if (finalTokenValue.Contains(' ') && !IsQuoted(originalToken))
+            {
+                return $"\"{finalTokenValue}\"";
+            }
+
+            return finalTokenValue;
+        });
+
+        return resolvedParameters;
+    }
 
     /// <summary>
     /// Converts a path to its absolute form, resolving relative paths against the current working directory.

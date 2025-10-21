@@ -226,7 +226,7 @@ public static class MountZipFiles
 
                     if (mountProcess.HasExited)
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
@@ -258,7 +258,8 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {(mountProcess != null && mountProcess.HasExited ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A")}.");
+                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {
@@ -429,7 +430,7 @@ public static class MountZipFiles
 
                     if (mountProcess.HasExited)
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
@@ -446,7 +447,8 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted.");
+                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {
@@ -604,7 +606,7 @@ public static class MountZipFiles
 
                 if (mountProcess.HasExited)
                 {
-                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
+                    DebugLogger.Log($"[MountZipFiles] Mount process {_zipMountExecutableName} (ID: {mountProcessId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     break;
                 }
 
@@ -640,7 +642,7 @@ public static class MountZipFiles
             var resolvedSystemFolderPath = PathHelper.ResolveRelativeToAppDirectory(selectedSystemManager.PrimarySystemFolder);
 
             // 2. Resolve Parameters
-            var resolvedParameters = ParameterValidator.ResolveParameterString(
+            var resolvedParameters = PathHelper.ResolveParameterString(
                 selectedEmulatorParameters,
                 resolvedSystemFolderPath,
                 resolvedEmulatorFolderPath
@@ -712,7 +714,7 @@ public static class MountZipFiles
 
                     if (mountProcess.HasExited)
                     {
-                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode}.");
+                        DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) terminated. Exit code: {mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture)}.");
                     }
                     else
                     {
@@ -729,7 +731,8 @@ public static class MountZipFiles
             }
             else if (mountProcessId != -1)
             {
-                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted.");
+                var exitCodeStr = (mountProcess != null && mountProcess.HasExited) ? mountProcess.ExitCode.ToString(CultureInfo.InvariantCulture) : "N/A";
+                DebugLogger.Log($"[MountZipFiles] {_zipMountExecutableName} (ID: {mountProcessId}) had already exited or was not running when finally cleanup was attempted. Exit code likely {exitCodeStr}.");
             }
             else
             {

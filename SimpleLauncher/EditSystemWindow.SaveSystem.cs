@@ -219,32 +219,6 @@ public partial class EditSystemWindow
                 emulator1LocationText, emulator2LocationText, emulator3LocationText, emulator4LocationText, emulator5LocationText
             ];
 
-            // --- Existing validation and warning for *invalid* paths (paths that don't exist) ---
-            // This will now use the updated ParameterValidator which understands %BASEFOLDER% etc.
-            // ValidateAndWarnAboutParameters(parameterTexts, allEmulatorLocationTexts); // Pass all emulator locations
-            // Note: ValidateAndWarnAboutParameters shows a warning but *does not* return, allowing the user to proceed.
-
-            // --- Check for *relative* paths *in parameters* that *don't* have %BASEFOLDER% (or other known structural prefixes) ---
-            var relativePathsWithoutPrefixInParameters = new List<string>();
-            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator1ParametersText));
-            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator2ParametersText));
-            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator3ParametersText));
-            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator4ParametersText));
-            relativePathsWithoutPrefixInParameters.AddRange(ParameterValidator.GetRelativePathsInParameters(emulator5ParametersText));
-
-            if (relativePathsWithoutPrefixInParameters.Count != 0)
-            {
-                // Update the message box to inform the user about manual %BASEFOLDER% for parameters
-                var result = MessageBoxLibrary.RelativePathsWarningMessageBox(relativePathsWithoutPrefixInParameters.Distinct().ToList());
-                if (result == MessageBoxResult.No)
-                {
-                    // User chose not to save because of relative paths without prefix in parameters
-                    return;
-                }
-                // If result is Yes, continue with the save process (paths will be saved as entered,
-                // and the user was warned they might not resolve correctly at launch without %BASEFOLDER% or other structural prefix)
-            }
-
             var receiveNotification1 = ReceiveANotificationOnEmulatorError1.SelectedItem is not ComboBoxItem { Content: not null } item1 || item1.Content.ToString() == "true";
             var receiveNotification2 = ReceiveANotificationOnEmulatorError2.SelectedItem is not ComboBoxItem { Content: not null } item2 || item2.Content.ToString() == "true";
             var receiveNotification3 = ReceiveANotificationOnEmulatorError3.SelectedItem is not ComboBoxItem { Content: not null } item3 || item3.Content.ToString() == "true";
