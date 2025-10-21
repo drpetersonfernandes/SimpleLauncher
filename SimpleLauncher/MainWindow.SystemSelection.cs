@@ -115,7 +115,7 @@ public partial class MainWindow
     {
         try
         {
-            if (sender is Button button && button.Tag is string systemName)
+            if (sender is Button { Tag: string systemName })
             {
                 if (_isUiUpdating)
                 {
