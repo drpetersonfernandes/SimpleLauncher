@@ -673,6 +673,54 @@
     <None Update="tools\GameCoverScraper\x64\runtimes\win-x64\native\WebView2Loader.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\GameCoverScraper\x64\GameCoverScraper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.WinForms.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Wpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\audio\click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\GameCoverScraper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -1121,9 +1169,5 @@
     <Page Remove="title_snapshots\**" />
     <Page Remove="videos\**" />
     <Page Remove="walkthrough\**" />
-  </ItemGroup>
-  <ItemGroup>
-    <Folder Include="tools\GameCoverScraper\arm64\" />
-    <Folder Include="tools\GameCoverScraper\x64\" />
   </ItemGroup>
 </Project>
