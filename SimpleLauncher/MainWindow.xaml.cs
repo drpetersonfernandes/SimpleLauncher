@@ -103,9 +103,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Define and Instantiate variables
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu = new();
-    private GameListFactory _gameListFactory;
+    private readonly GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
-    private GameButtonFactory _gameButtonFactory;
+    private readonly GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly List<MameManager> _machines;
@@ -740,12 +740,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             allFiles = await FilterFilesByShowGamesSettingAsync(allFiles, selectedSystem, selectedManager);
 
             allFiles = SetPaginationOfListOfFiles(allFiles);
-
-            // _favoritesManager = FavoritesManager.LoadFavorites();
-
-            // GameButtonFactory and GameListFactory now use the resolved file paths directly
-            _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-            _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
 
             foreach (var filePath in allFiles) // 'filePath' is already resolved here
             {
