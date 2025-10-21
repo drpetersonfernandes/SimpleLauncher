@@ -1,0 +1,43 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Settings>
+	<ThumbnailSize>300</ThumbnailSize>
+	<SearchEngine>GoogleWeb</SearchEngine>
+    <BaseTheme>Light</BaseTheme>
+    <AccentColor>Blue</AccentColor>
+    <UseMameDescriptions>false</UseMameDescriptions>
+    <BugReportApiKey>hjh7yu6t56tyr540o9u8767676r5674534453235264c75b6t7ggghgg76trf564e</BugReportApiKey>
+    <BugReportApiUrl>https://www.purelogiccode.com/bugreport/api/send-bug-report</BugReportApiUrl>
+	<SupportedExtensions>
+		<Extension>zip</Extension>
+		<Extension>7z</Extension>
+		<Extension>cdi</Extension>
+		<Extension>chd</Extension>
+		<Extension>iso</Extension>
+		<Extension>3ds</Extension>
+		<Extension>rvz</Extension>
+		<Extension>nsp</Extension>
+		<Extension>xci</Extension>
+		<Extension>wua</Extension>
+		<Extension>wad</Extension>
+		<Extension>cso</Extension>
+		<Extension>nds</Extension>
+		<Extension>lnk</Extension>
+		<Extension>bat</Extension>
+		<Extension>exe</Extension>
+		<Extension>arc</Extension>
+		<Extension>d64</Extension>
+		<Extension>d71</Extension>
+		<Extension>d81</Extension>
+		<Extension>g64</Extension>
+		<Extension>lnx</Extension>
+		<Extension>nbz</Extension>
+		<Extension>nib</Extension>
+		<Extension>prg</Extension>
+		<Extension>sda</Extension>
+		<Extension>sfx</Extension>
+		<Extension>t64</Extension>
+		<Extension>tap</Extension>
+	</SupportedExtensions>
+    <GoogleKey/>
+    <GoogleSearchEngineId>d30e97188f5914611</GoogleSearchEngineId>
+</Settings>
