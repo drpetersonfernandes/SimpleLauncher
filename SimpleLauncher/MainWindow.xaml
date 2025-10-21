@@ -706,14 +706,19 @@
                         <Image Source="pack://application:,,,/images/findromcover.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
-                <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}">
+                <MenuItem Click="GameCoverScraper_Click" Header="GameCoverScraper">
                     <MenuItem.Icon>
-                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
+                        <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
                 <MenuItem Click="RomValidator_Click" Header="RomValidator">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
+                <MenuItem Click="ShowGlobalStatsWindow_Click" Header="{DynamicResource GlobalStats}">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/stats.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
             </MenuItem>

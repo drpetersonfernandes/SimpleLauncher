@@ -667,6 +667,66 @@
     <None Update="images\systems\Nintendo Virtual Boy.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\GameCoverScraper\arm64\GameCoverScraper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Magick.Native-Q8-arm64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.WinForms.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\Microsoft.Web.WebView2.Wpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\audio\click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\arm64\runtimes\win-arm64\native\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\GameCoverScraper.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Magick.Native-Q8-x64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\mame.dat">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Core.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.WinForms.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\Microsoft.Web.WebView2.Wpf.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\settings.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\runtimes\win-x64\native\WebView2Loader.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\GameCoverScraper\x64\audio\click.mp3">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -833,6 +893,8 @@
     <Resource Include="images\overlaybutton.png" />
     <None Remove="images\sort-az.png" />
     <Resource Include="images\sort-az.png" />
+    <None Remove="images\gamecoverscraper.png" />
+    <Resource Include="images\gamecoverscraper.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

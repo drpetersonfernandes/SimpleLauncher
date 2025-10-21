@@ -62,4 +62,10 @@ public partial class MainWindow
         ResetUi();
         LaunchTools.RomValidator_Click();
     }
+
+    private void GameCoverScraper_Click(object sender, RoutedEventArgs e)
+    {
+        ResetUi();
+        LaunchTools.GameCoverScraper_Click(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+    }
 }

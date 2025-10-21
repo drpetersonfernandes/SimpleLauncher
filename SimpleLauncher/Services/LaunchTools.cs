@@ -366,10 +366,10 @@ public static class LaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCHD");
+            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCompressedFile");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCompressedFile", LogPath);
         }
     }
 
@@ -514,6 +514,96 @@ public static class LaunchTools
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RomValidator", LogPath);
+        }
+    }
+
+    public static void GameCoverScraper_Click(string selectedImageFolder, string selectedRomFolder)
+    {
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executablePath; // Renamed from executableName to executablePath for clarity as it's a full path
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "GameCoverScraper", "x64", "GameCoverScraper.exe");
+                    break;
+                case Architecture.Arm64:
+                    executablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "GameCoverScraper", "arm64", "GameCoverScraper.exe");
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var arguments = string.Empty;
+            string workingDirectory = null;
+
+            // Resolve the selected image and rom folders
+            string absoluteImageFolder = null;
+            if (!string.IsNullOrEmpty(selectedImageFolder))
+            {
+                absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
+            }
+
+            string absoluteRomFolder = null;
+            if (!string.IsNullOrEmpty(selectedRomFolder))
+            {
+                absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
+            }
+
+            // Check if both resolved paths are valid
+            if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
+            {
+                arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+                workingDirectory = Path.GetDirectoryName(executablePath); // Set working directory to the tool's directory
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(null, $"GameCoverScraper: Could not resolve image folder path: '{selectedImageFolder}'");
+                }
+
+                if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
+                {
+                    // Notify developer
+                    _ = LogErrors.LogErrorAsync(null, $"GameCoverScraper: Could not resolve ROM folder path: '{selectedRomFolder}'");
+                }
+            }
+
+            try
+            {
+                LaunchExternalTool(executablePath, arguments, workingDirectory);
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+            {
+                // Notify developer
+                const string contextMessage = "The operation was canceled by the user while trying to launch GameCoverScraper.";
+                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                // Reusing FindRomCoverLaunchWasCanceledByUserMessageBox for now, consider creating a specific one if needed.
+                MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", LogPath);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", LogPath);
         }
     }
 }
