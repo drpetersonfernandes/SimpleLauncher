@@ -13,15 +13,15 @@ namespace SimpleLauncher;
 
 public partial class GlobalStatsWindow
 {
-    private readonly List<SystemManager> _systemConfigs;
+    private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
     private List<SystemStatsData> _systemStats;
 
-    public GlobalStatsWindow(List<SystemManager> systemConfigs)
+    public GlobalStatsWindow(List<SystemManager> systemManagers)
     {
         InitializeComponent();
 
-        _systemConfigs = systemConfigs;
+        _systemManagers = systemManagers;
         App.ApplyThemeToWindow(this);
         Loaded += GlobalStats_Loaded;
     }
@@ -107,25 +107,25 @@ public partial class GlobalStatsWindow
         _systemStats = [];
         var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
 
-        foreach (var config in _systemConfigs)
+        foreach (var systemManager in _systemManagers)
         {
             var allRomFiles = new List<string>();
 
-            foreach (var systemFolderPathRaw in config.SystemFolders)
+            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
             {
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
 
-                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || config.FileFormatsToSearch == null)
+                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
                 {
                     if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
                     {
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{config.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
+                        _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
                     }
                 }
                 else
                 {
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(systemFolderPath, config.FileFormatsToSearch);
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch);
                     allRomFiles.AddRange(filesInFolder);
                 }
             }
@@ -136,10 +136,10 @@ public partial class GlobalStatsWindow
 
             var totalDiskSize = allRomFiles.Sum(static file => new FileInfo(file).Length);
 
-            var systemImageFolder = config.SystemImageFolder;
+            var systemImageFolder = systemManager.SystemImageFolder;
             // Resolve the system image path using PathHelper
             var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", config.SystemName) // Default path
+                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName) // Default path
                 : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder); // Resolve configured path
 
 
@@ -156,16 +156,16 @@ public partial class GlobalStatsWindow
 
                 numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
             }
-            else if (!string.IsNullOrEmpty(config.SystemImageFolder)) // Only log if a path was actually configured
+            else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{config.SystemName}': '{config.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+                _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
             }
 
 
             _systemStats.Add(new SystemStatsData
             {
-                SystemName = config.SystemName,
+                SystemName = systemManager.SystemName,
                 NumberOfFiles = allRomFiles.Count,
                 NumberOfImages = numberOfImages,
                 TotalDiskSize = totalDiskSize
@@ -185,7 +185,7 @@ public partial class GlobalStatsWindow
         try
         {
             var totalSystems = systemStats.Count;
-            var totalEmulators = _systemConfigs.Sum(static config => config.Emulators.Count);
+            var totalEmulators = _systemManagers.Sum(static config => config.Emulators.Count);
             var totalGames = systemStats.Sum(static stats => stats.NumberOfFiles);
             var totalImages = systemStats.Sum(static stats => stats.NumberOfImages);
             var totalDiskSize = systemStats.Sum(static stats => stats.TotalDiskSize);
