@@ -17,11 +17,9 @@ public static class GameLauncher
     private static readonly string LogPath = GetLogPath.Path();
     private static SystemManager.Emulator _selectedEmulatorManager;
     private static string _selectedEmulatorParameters;
-
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
 
-    // Load Config to Mount Zip Drive
     public static void Initialize(IConfiguration configuration)
     {
         MountZipFiles.Configure(configuration);
