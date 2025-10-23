@@ -297,7 +297,9 @@ public static class GameLauncher
             UseShellExecute = false, // UseShellExecute=false is required for redirecting output/error
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            CreateNoWindow = true // Hide the console window
+            CreateNoWindow = true, // Hide the console window
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8
         };
 
         // Set the working directory to the directory of the batch file
@@ -474,7 +476,9 @@ public static class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = resolvedFilePath,
-            UseShellExecute = false
+            UseShellExecute = false,
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8
         };
 
         try
@@ -705,7 +709,9 @@ public static class GameLauncher
             UseShellExecute = false,
             RedirectStandardOutput = true,
             RedirectStandardError = true,
-            CreateNoWindow = true
+            CreateNoWindow = true,
+            StandardOutputEncoding = Encoding.UTF8,
+            StandardErrorEncoding = Encoding.UTF8
         };
 
         DebugLogger.Log($"LaunchRegularEmulatorAsync:\n\n" +
