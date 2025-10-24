@@ -410,10 +410,10 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari ST<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, msa, st, stx, dim, ipf<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
-**Format To Launch After Extraction:** <br>
+**Format To Launch After Extraction:** msa, st, stx, dim, ipf<br>
 
 .
 
@@ -433,10 +433,11 @@ Core may require BIOS files or system files to work properly.
 **Emulator Name:** Hatari<br>
 **Emulator Path (Example):** C:\emulators\hatari\hatari.exe<br>
 **Emulator Parameters:** <br>
-**Fullscreen Parameter:** <br>
+**Fullscreen Mode:** -f or --fullscreen<br>
+**Windowed Mode:** -w or --window<br>
 
 This emulator is available for Windows-x64.<br>
-Emulator documentation can be found on [GitHub Website](https://github.com/hatari/hatari).<br>
+You can find a list of command-line args on the [Hatari Website](https://www.hatari-emu.org/doc/manual.html#Command_line_options_and_arguments).<br>
 Emulator may require BIOS or system files to work properly.
 
 .
@@ -732,11 +733,13 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 .
 
 **Emulator Name:** Vice<br>
-**Emulator Path (Example):** <br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
+**Emulator Path (Example):** C:\Emulators\Vice\bin\x64sc.exe<br>
+**Emulator Parameters (Autostart):** -autostart<br>
+**Emulator Parameters (Attach and autoload tape/disk image):** -autoload<br>
+**Fullscreen Parameter:** -fullscreen<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).
 
 ## Commodore 128
 
@@ -767,6 +770,17 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
+.
+
+**Emulator Name:** Vice<br>
+**Emulator Path (Example):** C:\Emulators\Vice\bin\x128.exe<br>
+**Emulator Parameters (Autostart):** -autostart<br>
+**Emulator Parameters (Attach and autoload tape/disk image):** -autoload<br>
+**Fullscreen Parameter:** -fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can find the list of command-line args on the [Vice Website](https://vice-emu.sourceforge.io/vice_toc.html).
 
 ## Commodore Amiga
 

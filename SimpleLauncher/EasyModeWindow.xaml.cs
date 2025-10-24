@@ -642,8 +642,8 @@ public partial class EasyModeWindow : IDisposable
             // --- Proceed with modification logic ---
             if (xmlDoc.Root != null)
             {
-                var systemConfigs = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
-                var existingSystem = systemConfigs.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
+                var systemManagers = xmlDoc.Root.Descendants("SystemConfig").ToList(); // Safe now because Root is guaranteed
+                var existingSystem = systemManagers.FirstOrDefault(config => config.Element("SystemName")?.Value == selectedSystem.SystemName);
                 if (existingSystem != null)
                 {
                     // Overwrite existing system (in memory)

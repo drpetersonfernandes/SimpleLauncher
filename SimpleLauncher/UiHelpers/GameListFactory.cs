@@ -14,7 +14,7 @@ namespace SimpleLauncher.UiHelpers;
 public class GameListFactory(
     ComboBox emulatorComboBox,
     ComboBox systemComboBox,
-    List<SystemManager> systemConfigs,
+    List<SystemManager> systemManagers,
     List<MameManager> machines,
     SettingsManager settings,
     FavoritesManager favoritesManager,
@@ -23,7 +23,7 @@ public class GameListFactory(
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
-    private readonly List<SystemManager> _systemConfigs = systemConfigs;
+    private readonly List<SystemManager> _systemManagers = systemManagers;
     private readonly List<MameManager> _machines = machines;
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
@@ -176,8 +176,8 @@ public class GameListFactory(
                     return;
                 }
 
-                var systemConfig = _systemConfigs?.FirstOrDefault(c => c.SystemName == selectedSystem); // Added ?. for robustness
-                if (systemConfig == null)
+                var systemManager = _systemManagers?.FirstOrDefault(c => c.SystemName == selectedSystem);
+                if (systemManager == null)
                 {
                     // Notify developer
                     _ = LogErrors.LogErrorAsync(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
@@ -189,7 +189,7 @@ public class GameListFactory(
                     return;
                 }
 
-                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemConfig, _settings);
+                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 
@@ -258,7 +258,7 @@ public class GameListFactory(
         var filePath = selectedItem.FilePath;
         var selectedEmulatorName = _emulatorComboBox.SelectedItem as string;
         var selectedSystemName = _systemComboBox.SelectedItem as string;
-        var selectedSystemManager = _systemConfigs.FirstOrDefault(c => c.SystemName == selectedSystemName);
+        var selectedSystemManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystemName);
 
         if (string.IsNullOrEmpty(filePath))
         {

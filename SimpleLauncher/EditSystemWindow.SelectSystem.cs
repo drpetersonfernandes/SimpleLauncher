@@ -79,8 +79,7 @@ public partial class EditSystemWindow
             return;
         }
 
-        var selectedSystem = _xmlDoc.Descendants("SystemConfig")
-            .FirstOrDefault(x => x.Element("SystemName")?.Value == systemNameToLoad);
+        var selectedSystem = _xmlDoc.Descendants("SystemConfig").FirstOrDefault(x => x.Element("SystemName")?.Value == systemNameToLoad);
 
         if (selectedSystem != null)
         {
@@ -113,8 +112,7 @@ public partial class EditSystemWindow
             SystemImageFolderTextBox.Text = selectedSystem.Element("SystemImageFolder")?.Value ?? string.Empty;
 
             var systemIsMameValue = selectedSystem.Element("SystemIsMAME")?.Value == "true" ? "true" : "false";
-            SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>()
-                .FirstOrDefault(item => item.Content.ToString() == systemIsMameValue);
+            SystemIsMameComboBox.SelectedItem = SystemIsMameComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == systemIsMameValue);
 
             var formatToSearchValues = selectedSystem.Element("FileFormatsToSearch")?.Elements("FormatToSearch")
                 .Select(static x => x.Value).ToArray();

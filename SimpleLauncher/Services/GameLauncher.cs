@@ -81,7 +81,7 @@ public static class GameLauncher
                 return;
             }
 
-            _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName == selectedEmulatorName);
+            _selectedEmulatorManager = selectedSystemManager.Emulators.FirstOrDefault(e => e.EmulatorName.Equals(selectedEmulatorName, StringComparison.OrdinalIgnoreCase));
             if (_selectedEmulatorManager == null)
             {
                 // Notify developer

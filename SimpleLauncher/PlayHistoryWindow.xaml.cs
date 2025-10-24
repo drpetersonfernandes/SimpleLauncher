@@ -129,7 +129,7 @@ public partial class PlayHistoryWindow
             var currentHistory = _playHistoryList.ToList();
             foreach (var item in currentHistory)
             {
-                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
                 if (systemManager == null) continue;
 
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
@@ -176,7 +176,7 @@ public partial class PlayHistoryWindow
     {
         await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
         {
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager != null)
             {
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
@@ -252,18 +252,18 @@ public partial class PlayHistoryWindow
     private string GetCoverImagePath(string systemName, string fileName)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        var systemConfig = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
         var defaultCoverImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
-        if (systemConfig == null)
+        if (systemManager == null)
         {
             return defaultCoverImagePath;
         }
         else
         {
             // Use FindCoverImage which already handles system-specific paths and fuzzy matching
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig, _settings);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
         }
     }
 
@@ -288,7 +288,7 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedItem.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager == null)
             {
                 // Notify developer
@@ -367,7 +367,7 @@ public partial class PlayHistoryWindow
 
     private async Task LaunchGameFromHistoryAsync(string fileName, string selectedSystemName)
     {
-        var selectedSystemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
+        var selectedSystemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedSystemName, StringComparison.OrdinalIgnoreCase));
         if (selectedSystemManager == null)
         {
             // Notify developer
@@ -438,11 +438,10 @@ public partial class PlayHistoryWindow
 
             foreach (var historyItemConfig in _playHistoryManager.PlayHistoryList)
             {
-                var machine = _machines.FirstOrDefault(m =>
-                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(historyItemConfig.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
 
-                var systemManager = _systemManagers.FirstOrDefault(config => config.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(historyItemConfig.SystemName, StringComparison.OrdinalIgnoreCase));
 
                 var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
                 var coverImagePath = GetCoverImagePath(historyItemConfig.SystemName, historyItemConfig.FileName);

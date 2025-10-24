@@ -41,8 +41,7 @@ public static class ContextMenuFunctions
                 {
                     var key = $"{systemName}|{fileNameWithExtension}";
                     var button = gameFileGrid.Children.OfType<Button>()
-                        .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                             string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+                        .FirstOrDefault(b => b.Tag is GameButtonTag tag && string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
                     if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                     {
@@ -51,8 +50,7 @@ public static class ContextMenuFunctions
                 }
                 else // ListView is active (or called from another window)
                 {
-                    var gameItem = mainWindow.GameListItems
-                        .FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
+                    var gameItem = mainWindow.GameListItems.FirstOrDefault(g => Path.GetFileName(g.FilePath).Equals(fileNameWithExtension, StringComparison.OrdinalIgnoreCase));
 
                     if (gameItem != null)
                     {
@@ -103,8 +101,7 @@ public static class ContextMenuFunctions
             {
                 var key = $"{systemName}|{fileNameWithExtension}";
                 var button = gameFileGrid.Children.OfType<Button>()
-                    .FirstOrDefault(b => b.Tag is GameButtonTag tag &&
-                                         string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
+                    .FirstOrDefault(b => b.Tag is GameButtonTag tag && string.Equals(tag.Key, key, StringComparison.OrdinalIgnoreCase));
 
                 if (button is { Content: Grid { DataContext: GameButtonViewModel viewModel } })
                 {
@@ -830,8 +827,7 @@ public static class ContextMenuFunctions
                     if (button?.Content is Grid grid)
                     {
                         // Find the Image control within the button's template
-                        if (grid.Children.OfType<Border>()
-                                .FirstOrDefault()?.Child is Image imageControl)
+                        if (grid.Children.OfType<Border>().FirstOrDefault()?.Child is Image imageControl)
                         {
                             // Load the new screenshot image
                             var (loadedImage, _) = await ImageLoader.LoadImageAsync(screenshotPath);

@@ -216,8 +216,7 @@ public class PlayHistoryManager
             var timeStr = now.ToString(IsoTimeFormat, CultureInfo.InvariantCulture);
 
             // Check if the game already exists in play history
-            var existingItem = PlayHistoryList.FirstOrDefault(item =>
-                item.FileName == fileName && item.SystemName == systemName);
+            var existingItem = PlayHistoryList.FirstOrDefault(item => item.FileName == fileName && item.SystemName == systemName);
 
             if (existingItem != null)
             {

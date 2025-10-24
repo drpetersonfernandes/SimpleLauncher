@@ -101,14 +101,11 @@ public partial class FavoritesWindow
             foreach (var favoriteConfigItem in _favoritesManager.FavoriteList)
             {
                 // Find machine description if available
-                var machine = _machines.FirstOrDefault(m =>
-                    m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName),
-                        StringComparison.OrdinalIgnoreCase));
+                var machine = _machines.FirstOrDefault(m => m.MachineName.Equals(Path.GetFileNameWithoutExtension(favoriteConfigItem.FileName), StringComparison.OrdinalIgnoreCase));
                 var machineDescription = machine?.Description ?? string.Empty;
 
                 // Retrieve the system manager for the favorite
-                var systemManager = _systemManagers.FirstOrDefault(config =>
-                    config.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(favoriteConfigItem.SystemName, StringComparison.OrdinalIgnoreCase));
 
                 // Get the default emulator (the first one in the list)
                 var defaultEmulator = systemManager?.Emulators.FirstOrDefault()?.EmulatorName ?? "Unknown";
@@ -141,8 +138,7 @@ public partial class FavoritesWindow
             foreach (var item in currentFavorites)
             {
                 // Get System Manager for Favorite
-                var systemManager = _systemManagers.FirstOrDefault(manager =>
-                    manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
+                var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
 
                 if (systemManager == null) continue;
 
@@ -230,17 +226,16 @@ public partial class FavoritesWindow
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(fileName);
-        var systemConfig = _systemManagers.FirstOrDefault(config =>
-            config.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
         var defaultImagePath = Path.Combine(baseDirectory, "images", "default.png");
 
-        if (systemConfig == null)
+        if (systemManager == null)
         {
             return defaultImagePath;
         }
         else
         {
-            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemConfig, _settings);
+            return FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, systemName, systemManager, _settings);
         }
     }
 
@@ -266,8 +261,7 @@ public partial class FavoritesWindow
                 return;
             }
 
-            var systemManager = _systemManagers.FirstOrDefault(config =>
-                config.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
+            var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(selectedFavorite.SystemName, StringComparison.OrdinalIgnoreCase));
 
             if (systemManager == null)
             {
@@ -280,8 +274,7 @@ public partial class FavoritesWindow
             var filePath = PathHelper.FindFileInSystemFolders(systemManager, selectedFavorite.FileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav =>
-                    fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == selectedFavorite.FileName && fav.SystemName == systemManager.SystemName);
 
                 if (favoriteToRemove != null)
                 {
@@ -392,8 +385,7 @@ public partial class FavoritesWindow
             var filePath = PathHelper.FindFileInSystemFolders(selectedSystemManager, fileName);
             if (string.IsNullOrEmpty(filePath) || !File.Exists(filePath))
             {
-                var favoriteToRemove = _favoriteList.FirstOrDefault(fav =>
-                    fav.FileName == fileName && fav.SystemName == selectedSystemName);
+                var favoriteToRemove = _favoriteList.FirstOrDefault(fav => fav.FileName == fileName && fav.SystemName == selectedSystemName);
 
                 if (favoriteToRemove != null)
                 {

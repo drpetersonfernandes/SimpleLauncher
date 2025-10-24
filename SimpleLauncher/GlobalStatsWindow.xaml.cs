@@ -292,8 +292,7 @@ public partial class GlobalStatsWindow
         foreach (var imageFile in imageFiles)
         {
             var imageFileName = Path.GetFileNameWithoutExtension(imageFile);
-            var matchedRomName = romFileBaseNames.FirstOrDefault(rom =>
-                string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
+            var matchedRomName = romFileBaseNames.FirstOrDefault(rom => string.Equals(rom, imageFileName, StringComparison.OrdinalIgnoreCase));
 
             if (matchedRomName == null || matchedRomName.Equals(imageFileName, StringComparison.Ordinal)) continue;
 
