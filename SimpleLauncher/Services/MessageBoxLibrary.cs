@@ -3272,4 +3272,18 @@ internal static class MessageBoxLibrary
             }
         }
     }
+
+    public static void WarnUserAboutMemoryConsumption()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var warningMessage = (string)Application.Current.TryFindResource("WarningSettingupaveryhighnumberofgamesperpage")
+                                 ?? "Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.";
+            var warningTitle = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(warningMessage, warningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
 }

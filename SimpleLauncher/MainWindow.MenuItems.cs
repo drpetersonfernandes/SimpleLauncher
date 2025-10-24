@@ -545,6 +545,11 @@ public partial class MainWindow
 
             try
             {
+                if (clickedItem.Name == "Page1000" || clickedItem.Name == "Page10000" || clickedItem.Name == "Page1000000")
+                {
+                    MessageBoxLibrary.WarnUserAboutMemoryConsumption();
+                }
+
                 PlaySoundEffects.PlayNotificationSound();
 
                 var pageText = clickedItem.Name.Replace("Page", "");
@@ -640,6 +645,9 @@ public partial class MainWindow
         Page300.IsChecked = selectedSize == 300;
         Page400.IsChecked = selectedSize == 400;
         Page500.IsChecked = selectedSize == 500;
+        Page1000.IsChecked = selectedSize == 1000;
+        Page10000.IsChecked = selectedSize == 10000;
+        Page1000000.IsChecked = selectedSize == 1000000;
     }
 
     private void UpdateShowGamesCheckMarks(string selectedValue)
