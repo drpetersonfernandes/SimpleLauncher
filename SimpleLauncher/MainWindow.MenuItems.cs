@@ -5,6 +5,7 @@ using System.Windows;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
+using SimpleLauncher.UiHelpers;
 
 namespace SimpleLauncher;
 
@@ -163,6 +164,10 @@ public partial class MainWindow
         var sortedSystemNames = _systemManagers.Select(static manager => manager.SystemName).OrderBy(static name => name)
             .ToList();
         SystemComboBox.ItemsSource = sortedSystemNames;
+
+        // Re-instantiate factories with the updated _systemManagers list
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)

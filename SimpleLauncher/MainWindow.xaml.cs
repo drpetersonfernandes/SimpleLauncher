@@ -103,9 +103,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Define and Instantiate variables
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu = new();
-    private readonly GameListFactory _gameListFactory;
+    private GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
-    private readonly GameButtonFactory _gameButtonFactory;
+    private GameButtonFactory _gameButtonFactory;
     private readonly SettingsManager _settings;
     private readonly FavoritesManager _favoritesManager;
     private readonly List<MameManager> _machines;
