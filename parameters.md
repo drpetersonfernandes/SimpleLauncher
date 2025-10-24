@@ -393,7 +393,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\MAME\roms;C:\MAME\bios;C:\Atari Lynx" lynx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" lynx<br>
-**Fullscreen Parameter:** -f<br>
+**Fullscreen Parameter:** -window (will load in Window mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -433,8 +433,8 @@ Core may require BIOS files or system files to work properly.
 **Emulator Name:** Hatari<br>
 **Emulator Path (Example):** C:\emulators\hatari\hatari.exe<br>
 **Emulator Parameters:** <br>
-**Fullscreen Mode:** -f or --fullscreen<br>
-**Windowed Mode:** -w or --window<br>
+**Fullscreen Parameter:** -f or --fullscreen<br>
+**Windowed Parameter:** -w or --window<br>
 
 This emulator is available for Windows-x64.<br>
 You can find a list of command-line args on the [Hatari Website](https://www.hatari-emu.org/doc/manual.html#Command_line_options_and_arguments).<br>
@@ -446,7 +446,7 @@ Emulator may require BIOS or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\MAME\roms;C:\MAME\bios;C:\Atari ST" st<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" st<br>
-**Fullscreen Parameter:** -f<br>
+**Fullscreen Parameter:** -window (will load in Window mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>

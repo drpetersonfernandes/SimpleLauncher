@@ -838,31 +838,6 @@ public static class GameLauncher
         }
     }
 
-    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
-    {
-        if (selectedEmulatorName.Equals("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Kega", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Fusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Project64", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Project 64", StringComparison.OrdinalIgnoreCase))
-        {
-            // Notify developer
-            var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
-                                 $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
-                                 $"Exit code: {process.ExitCode}\n" +
-                                 $"Emulator: {psi.FileName}\n" +
-                                 $"Calling parameters: {psi.Arguments}\n" +
-                                 $"Emulator output: {output}\n" +
-                                 $"Emulator error: {error}\n";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-
-            return true;
-        }
-
-        return false;
-    }
-
     // Return both the game file path and the temporary directory path
     private static async Task<(string gameFilePath, string tempDirectoryPath)> ExtractFilesBeforeLaunchAsync(string resolvedFilePath, SystemManager systemManager)
     {
@@ -1073,5 +1048,31 @@ public static class GameLauncher
         _ = LogErrors.LogErrorAsync(null, contextMessage);
 
         return Task.CompletedTask;
+    }
+
+    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    {
+        if (selectedEmulatorName.Equals("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Kega", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Project64", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Project 64", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Equals("Emulicious", StringComparison.OrdinalIgnoreCase))
+        {
+            // Notify developer
+            var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
+                                 $"'Simple Launcher' do not track error codes for this emulator.\n\n" +
+                                 $"Exit code: {process.ExitCode}\n" +
+                                 $"Emulator: {psi.FileName}\n" +
+                                 $"Calling parameters: {psi.Arguments}\n" +
+                                 $"Emulator output: {output}\n" +
+                                 $"Emulator error: {error}\n";
+            _ = LogErrors.LogErrorAsync(null, contextMessage);
+
+            return true;
+        }
+
+        return false;
     }
 }
