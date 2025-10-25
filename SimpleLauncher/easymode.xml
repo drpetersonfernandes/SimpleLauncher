@@ -63,9 +63,9 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Amstrad CPC GX4000</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Amstrad CPC GX4000</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Amstrad CPC GX4000</SystemImageFolder>
+        <SystemName>Amstrad GX4000</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Amstrad GX4000</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Amstrad GX4000</SystemImageFolder>
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
@@ -287,7 +287,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -428,20 +427,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch mednafen_lynx</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <EmulatorName>MAME lynx</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" lynx</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
@@ -484,18 +470,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch hatari</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" st</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -616,7 +602,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME pv1000</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
@@ -699,7 +685,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -707,18 +692,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>Retroarch vice_x64</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>
-                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>
-                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>
+                <EmulatorName>Vice</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64-r45800\bin\x64sc.exe</EmulatorLocation>
+                <EmulatorParameters>-autostart</EmulatorParameters>
+                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/index.html#download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>3.9</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/r45800/GTK3VICE-3.9-win64-r45800.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
 
-                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll</CoreLocation>
-                <CoreLatestVersion>1.21.0</CoreLatestVersion>
-                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
-                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -750,26 +735,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch vice_x64</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\vice_x64_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <EmulatorName>MAME</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128</EmulatorParameters>
-                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
+                <EmulatorName>Vice</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64-r45800\bin\x128.exe</EmulatorLocation>
+                <EmulatorParameters>-autostart</EmulatorParameters>
+                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/index.html#download</EmulatorDownloadPage>
+                <EmulatorLatestVersion>3.9</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/r45800/GTK3VICE-3.9-win64-r45800.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -846,11 +818,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-            <FormatToSearch>ccd</FormatToSearch>
-            <FormatToSearch>nrg</FormatToSearch>
-            <FormatToSearch>mds</FormatToSearch>
-            <FormatToSearch>iso</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -858,19 +825,6 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch puae</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cd32</EmulatorParameters>
@@ -896,6 +850,49 @@
                 <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
                 <ImagePackDownloadExtractPath5/>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>LaserDisk</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\LaserDisk</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\LaserDisk</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>bat</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+<!--                <EmulatorName>Hypseus Singe</EmulatorName>-->
+<!--                <EmulatorLocation/>-->
+<!--                <EmulatorParameters/>-->
+<!--                <EmulatorDownloadPage/>-->
+<!--                <EmulatorLatestVersion/>-->
+<!--                <EmulatorDownloadLink/>-->
+<!--                <EmulatorDownloadExtractPath/>-->
+
+<!--                <CoreLocation/>-->
+<!--                <CoreLatestVersion/>-->
+<!--                <CoreDownloadLink/>-->
+<!--                <CoreDownloadExtractPath/>-->
+
+<!--                <ImagePackLocation/>-->
+<!--                <ImagePackLatestVersion/>-->
+<!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/laserdisk.zip</ImagePackDownloadLink>-->
+<!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\LaserDisk</ImagePackDownloadExtractPath>-->
+<!--                <ImagePackDownloadLink2/>-->
+<!--                <ImagePackDownloadExtractPath2/>-->
+<!--                <ImagePackDownloadLink3/>-->
+<!--                <ImagePackDownloadExtractPath3/>-->
+<!--                <ImagePackDownloadLink4/>-->
+<!--                <ImagePackDownloadExtractPath4/>-->
+<!--                <ImagePackDownloadLink5/>-->
+<!--                <ImagePackDownloadExtractPath5/>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -927,19 +924,6 @@
                 <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <EmulatorName>MAME</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" odyssey2</EmulatorParameters>
-                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
-                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
-                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
-
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -973,7 +957,7 @@
             <Emulator>
                 <EmulatorName>MAME aquarius</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
@@ -1004,32 +988,16 @@
         <SystemName>Mattel Intellivision</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Mattel Intellivision</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Mattel Intellivision</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
+        <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>int</FormatToLaunch>
-            <FormatToLaunch>rom</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch freeintv</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" intv</EmulatorParameters>
@@ -1066,7 +1034,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1448,19 +1415,6 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch mednafen_pcfx</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pcfx</EmulatorParameters>
@@ -1584,17 +1538,10 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>n64</FormatToLaunch>
-            <FormatToLaunch>v64</FormatToLaunch>
-            <FormatToLaunch>z64</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
-            <FormatToLaunch>u1</FormatToLaunch>
-            <FormatToLaunch>ndd</FormatToLaunch>
-            <FormatToLaunch>gb</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1634,7 +1581,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1684,7 +1630,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>

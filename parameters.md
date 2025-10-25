@@ -10,7 +10,7 @@
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Amstrad CPC<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -29,7 +29,21 @@ Core documentation can be found on [Libretro Website](https://docs.libretro.com/
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/caprice32/).<br>
 Core may require BIOS files or system files to work properly.
 
-## Amstrad CPC GX4000
+.
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cpc6128 -flop1<br>
+**Emulator Parameters (Example for floppy disk images - .dsk):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cpc464 -flop1<br>
+**Emulator Parameters (Example for tape images - .cdt, .wav):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cpc464 -cass<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
+## Amstrad GX4000
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -48,9 +62,9 @@ Core may require BIOS files or system files to work properly.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Amstrad CPC GX4000" gx4000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000<br>
-**Fullscreen Parameter:** -window<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Amstrad CPC GX4000" gx4000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -78,7 +92,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios"<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 
@@ -105,7 +119,7 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 2600<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -150,7 +164,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 2600" a2600<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a2600<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -167,7 +181,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 5200<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
@@ -200,7 +214,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 5200" a5200<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a5200<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -217,7 +231,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 7800<br>
-**System Is MAME?** true or false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -241,7 +255,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 7800" a7800<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a7800<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -258,7 +272,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari 8-Bit<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
@@ -278,7 +292,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari 800" a800<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a800<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -308,7 +322,7 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari Jaguar<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -328,7 +342,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Atari Jaguar" jaguar<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" jaguar<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -369,8 +383,8 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Atari Lynx<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** lnx, o<br>
 
@@ -385,7 +399,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/beetle_lynx/).<br>
-Core may require BIOS files or system files to work properly.
+Core requires lynxboot.img BIOS file to work.
 
 .
 
@@ -393,7 +407,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\MAME\roms;C:\MAME\bios;C:\Atari Lynx" lynx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" lynx<br>
-**Fullscreen Parameter:** -window (will load in Window mode)<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -426,7 +440,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/hatari/).<br>
-Core may require BIOS files or system files to work properly.
+Core requires tos.img BIOS file to work.
 
 .
 
@@ -446,7 +460,7 @@ Emulator may require BIOS or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\MAME\roms;C:\MAME\bios;C:\Atari ST" st<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" st<br>
-**Fullscreen Parameter:** -window (will load in Window mode)<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -463,7 +477,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Bandai WonderSwan<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -518,7 +532,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\WonderSwan" wswan<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" wswan<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -535,7 +549,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Bandai WonderSwan Color<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -590,7 +604,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\WonderSwan Color" wscolor<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" wscolor<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -616,9 +630,9 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **Emulator Name:** MAME pv1000<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Casio PV-1000" pv1000<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" pv1000<br>
-**Fullscreen Parameter:** -window<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Casio PV-1000" pv1000 -cart<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" pv1000 -cart<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -635,7 +649,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Colecovision<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** col, cv, bin, rom<br>
@@ -651,7 +665,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/gearcoleco/).<br>
-Core may require BIOS files or system files to work properly.
+Core requires colecovision.rom BIOS file to work.
 
 .
 
@@ -670,7 +684,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Colecovision" coleco<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" coleco<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -687,7 +701,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore 64<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
@@ -723,7 +737,7 @@ Emulator documentation can be found on [CCS64 Website](https://www.ccs64.com/ccs
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -flop<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cass<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cart<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -751,7 +765,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore 128<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
@@ -764,7 +778,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -flop<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -cass<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c128 -cart<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -792,7 +806,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore Amiga<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** adf, adz, dms, fdi, ipf, raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
@@ -838,7 +852,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Commodore Amiga" amiga<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" amiga<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -855,7 +869,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Commodore Amiga CD32<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, cue, ccd, nrg, mds, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -872,6 +886,19 @@ This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/puae/) or [GitHub Repository](https://github.com/libretro/libretro-uae).<br>
 Core may require BIOS files or system files to work properly.
+
+.
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Commodore Amiga CD32" cd32<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cd32<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 ## LaserDisk
 
@@ -891,6 +918,16 @@ Core may require BIOS files or system files to work properly.
 .
 
 **Emulator Name:** Daphne<br>
+**Emulator Path:** <br>
+**Emulator Parameters:** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+You need to create BAT files to launch the games.
+
+.
+
+**Emulator Name:** Hypseus Singe<br>
 **Emulator Path:** <br>
 **Emulator Parameters:** <br>
 **Fullscreen Parameter:** <br>
@@ -924,7 +961,7 @@ You need to create BAT files to launch the games.
 This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/o2em/).<br>
-Core may require BIOS files or system files to work properly.
+Core require BIOS files to work.
 
 .
 
@@ -956,7 +993,7 @@ This emulator is available for Windows-x64.<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\Mattel Aquarius" aquarius<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" aquarius<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -973,7 +1010,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Mattel Intellivision<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** int, rom, bin<br>
@@ -989,7 +1026,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/freeintv/).<br>
-Core may require BIOS files or system files to work properly.
+Core requires BIOS files to work.
 
 .
 
@@ -997,7 +1034,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Intellivision" intv<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" intv<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1080,8 +1117,8 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Microsoft MSX<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
 
@@ -1147,7 +1184,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Microsoft MSX" msx1<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" msx1<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1164,7 +1201,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder:** [ROM Folder]<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
@@ -1231,7 +1268,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Microsoft MSX2" msx2<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" msx2<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1391,7 +1428,7 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\NEC PC Engine<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -1438,7 +1475,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pce<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC TurboGrafx 16" tg16<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" tg16<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1455,7 +1492,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder:** c:\NEC PC Engine CD<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -1490,7 +1527,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine CD" pcecd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pcecd<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1507,7 +1544,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\NEC PC-FX<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, cue, ccd, toc<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -1531,7 +1568,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\NEC PC Engine CD" pcfx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pcfx<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1674,9 +1711,9 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo 64<br>
-**System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
 
 .
@@ -1763,7 +1800,7 @@ This emulator is available for Windows-x64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo 64" n64<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" n64<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1780,7 +1817,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo 64DD<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
@@ -1813,7 +1850,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;C:\ROMs\Nintendo 64DD" n64dd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" n64dd<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1889,7 +1926,7 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** nes, fds, unf, unif<br>
@@ -1946,7 +1983,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo Family Computer Disk System" famicom<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" famicom<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -1963,7 +2000,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2045,7 +2082,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Game Boy" gameboy<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" gameboy<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2062,7 +2099,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy Advance<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2116,7 +2153,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo Game Boy Advance" gba<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gba<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2133,7 +2170,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Game Boy Color<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2215,7 +2252,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Game Boy Color" gbcolor<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" gbcolor<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2270,7 +2307,7 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo NES<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2343,7 +2380,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo NES" nes<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" nes<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2385,7 +2422,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo SNES<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
@@ -2450,7 +2487,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo SNES" snes<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" snes<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2592,7 +2629,7 @@ This emulator is available for Windows-x64.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Nintendo Virtual Boy<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2603,7 +2640,7 @@ This emulator is available for Windows-x64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo Virtual Boy" vboy<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" vboy<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2748,7 +2785,7 @@ Core may require BIOS files or system files to work properly.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Philips CD-i<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2772,7 +2809,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Philips CD-i" cdi<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cdi<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2838,7 +2875,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Dreamcast<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, gdi, cue, bin, cdi<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2881,7 +2918,7 @@ It supports RetroAchievements.<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Dreamcast" dc<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" dc<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2898,7 +2935,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Game Gear<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -2978,7 +3015,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Game Gear" gamegear<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gamegear<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -2995,7 +3032,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3073,7 +3110,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis" megadriv<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" megadriv<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3090,7 +3127,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis 32X<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3142,7 +3179,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis 32x" 32x<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" 32x<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3159,7 +3196,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Genesis CD<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, bin, cue, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3215,7 +3252,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Genesis CD" megacd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" megacd<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3232,7 +3269,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Master System<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3303,7 +3340,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Master System" sms<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" sms<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3345,7 +3382,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega Saturn<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, cue, toc, m3u, ccd<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3437,7 +3474,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Saturn" saturn<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturn<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3454,7 +3491,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega SC-3000<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
@@ -3504,7 +3541,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega SC-3000" sc3000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" sc3000<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3521,7 +3558,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sega SG-1000<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
@@ -3580,7 +3617,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega SG-1000" sg1000<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" sg1000<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3621,7 +3658,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios;c:\Sharp X68000" x68000 -flop1<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" x68000 -flop1<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3638,7 +3675,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sinclair ZX Spectrum<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
@@ -3675,6 +3712,19 @@ This emulator is available for Windows-x64.
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 The list of command-line arguments available for this emulator can be found on [ares Repository](https://github.com/ares-emulator/ares/blob/master/README.md#command-line-options).
 
+.
+
+**Emulator Name:** MAME<br>
+**Emulator Path (Example):** c:\emulators\mame\mame.exe<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\emulators\mame\roms;C:\emulators\mame\bios;C:\ZX Spectrum" spectrum<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" spectrum<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Please use the exact Emulator Name provided above.<br>
+To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
+You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
 ## SNK Neo Geo
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -3696,7 +3746,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\Roms;C:\Emulators\MAME\Bios;c:\ROMs\NeoGeo\"<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%"<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3723,7 +3773,7 @@ The list of command-line arguments available for this emulator can be found on [
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo CD<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3747,7 +3797,7 @@ Core may require BIOS files or system files to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo CD" neocd<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" neocd<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3764,7 +3814,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3822,7 +3872,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo Pocket" ngp<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" ngp<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3839,7 +3889,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\SNK Neo Geo Pocket Color<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3897,7 +3947,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\SNK Neo Geo Pocket Color" ngpc<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" ngpc<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
@@ -3914,7 +3964,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **%EMULATORFOLDER%** - Represents the Emulator Folder (where the emulator .exe is)
 
 **System Folder (Example):** c:\Sony PlayStation 1<br>
-**System Is MAME?** false<br>
+**System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
@@ -3974,7 +4024,7 @@ This emulator requires a BIOS file to work properly.
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sony PlayStation 1" psx<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psx<br>
-**Fullscreen Parameter:** -window<br>
+**Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
