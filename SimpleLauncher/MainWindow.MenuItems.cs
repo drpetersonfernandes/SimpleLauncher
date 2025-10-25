@@ -545,7 +545,7 @@ public partial class MainWindow
 
             try
             {
-                if (clickedItem.Name == "Page1000" || clickedItem.Name == "Page10000" || clickedItem.Name == "Page1000000")
+                if (clickedItem.Name is "Page1000" or "Page10000" or "Page1000000")
                 {
                     MessageBoxLibrary.WarnUserAboutMemoryConsumption();
                 }
