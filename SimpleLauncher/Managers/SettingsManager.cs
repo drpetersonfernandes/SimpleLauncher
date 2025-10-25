@@ -141,7 +141,7 @@ public class SettingsManager
                 CustomNotificationSoundFile = DefaultNotificationSoundFileName;
             }
 
-            OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", true);
+            OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", false);
             OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
             OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", false);
 
@@ -260,7 +260,7 @@ public class SettingsManager
         CustomNotificationSoundFile = DefaultNotificationSoundFileName;
         RaUsername = string.Empty;
         RaApiKey = string.Empty;
-        OverlayRetroAchievementButton = true;
+        OverlayRetroAchievementButton = false;
         OverlayOpenVideoButton = true;
         OverlayOpenInfoButton = false;
         SystemPlayTimes = [];
