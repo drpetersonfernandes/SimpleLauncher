@@ -1,3 +1,23 @@
+# Release 4.6.0
+*10/26/25*
+---
+
+- Introduced tool `GameCoverScraper` to allow users to scrape cover images online.
+- Updated tool `BatchConvertToRVZ` with bug fixes.
+- Updated tool `RomValidator` to allow users to generate No-Intro compatible dat files.
+- Updated emulator configurations for multiple systems.
+- Added options to increase the number of games per page, as requested by users.
+- Added new aspect ratios for button generation.
+- Added caching for the "Feeling Lucky" feature for improved performance.
+- Enhanced `SupportWindow` with detailed error report generation and improved support request handling.
+- Replaced `HelpUserTextBlock` with `RichTextBox` for enhanced formatting and interaction.
+- Enhanced RetroAchievements integration with improved error handling for unauthorized API responses.
+- Updated MAME emulator setup and streamlined argument handling.
+- Updated documentation for multiple systems.
+- Refactored the parameters and paths validation logic.
+- Added multi-image pack download support.
+- Bug fixes.
+
 # Release 4.5.0
 *10/11/25*
 ---
