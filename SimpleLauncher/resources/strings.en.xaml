@@ -677,5 +677,9 @@
     <system:String x:Key="Doyouwantsupport">Do you want support?</system:String>
     <system:String x:Key="SuperWider2">Super Wider 2</system:String>
     <system:String x:Key="SuperTaller2">Super Taller 2</system:String>
-
+    <system:String x:Key="1000games">1000 games</system:String>
+    <system:String x:Key="10000games">10000 games</system:String>
+    <system:String x:Key="1000000games">All games</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Warning! Setting a very high number of games per page will significantly increase system memory usage when in Grid mode. If the number is too high, this may cause the application to crash. Please proceed with caution.</system:String>
+    
 </ResourceDictionary>

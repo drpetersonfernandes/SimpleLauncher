@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">تم اكتشاف ثغرة أمنية تسمى 'زيب سليب' في ملف الأرشيف. هذه ثغرة تجاوز المسار التي يمكن أن تسمح للمهاجم بكتابة ملفات خارج دليل الاستخراج المقصود.</system:String>
     <system:String x:Key="ZoomIn">تكبير</system:String>
     <system:String x:Key="ZoomOut">تصغير</system:String>
+    
+    <system:String x:Key="InstallImagePack">تثبيت حزمة الصور</system:String>
+    <system:String x:Key="DownloadImagePack1">تنزيل حزمة الصور 1</system:String>
+    <system:String x:Key="DownloadImagePack2">تنزيل حزمة الصور 2</system:String>
+    <system:String x:Key="DownloadImagePack3">تنزيل حزمة الصور 3</system:String>
+    <system:String x:Key="DownloadImagePack4">تنزيل حزمة الصور 4</system:String>
+    <system:String x:Key="DownloadImagePack5">تنزيل حزمة الصور 5</system:String>
+    <system:String x:Key="5thstep">الخطوة الخامسة</system:String>
+    <system:String x:Key="6thstep">الخطوة السادسة</system:String>
+    <system:String x:Key="7thstep">الخطوة السابعة</system:String>
+    <system:String x:Key="8thstep">الخطوة الثامنة</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">نظام التشغيل الخاص بك لا يحتوي على متصفح ويب افتراضي مُعد. يرجى تعيين واحد في إعدادات Windows (التطبيقات > التطبيقات الافتراضية) لفتح روابط الويب.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">هل ترغب في تلقي الدعم من المطور؟</system:String>
+    <system:String x:Key="Doyouwantsupport">هل تريد الدعم؟</system:String>
+    <system:String x:Key="SuperWider2">أعرض جدًا 2</system:String>
+    <system:String x:Key="SuperTaller2">أطول جدًا 2</system:String>
+    <system:String x:Key="1000games">1000 لعبة</system:String>
+    <system:String x:Key="10000games">10000 لعبة</system:String>
+    <system:String x:Key="1000000games">كل الألعاب</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">تحذير! تعيين عدد كبير جدًا من الألعاب لكل صفحة سيزيد بشكل كبير من استخدام ذاكرة النظام عند وضع الشبكة. إذا كان العدد مرتفعًا جدًا، فقد يتسبب ذلك في تعطل التطبيق. يرجى المتابعة بحذر.</system:String>
+
 </ResourceDictionary>

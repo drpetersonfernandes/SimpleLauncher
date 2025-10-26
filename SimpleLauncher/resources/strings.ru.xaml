@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
+    
+    <system:String x:Key="InstallImagePack">Установить пакет изображений</system:String>
+    <system:String x:Key="DownloadImagePack1">Скачать пакет изображений 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Скачать пакет изображений 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Скачать пакет изображений 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Скачать пакет изображений 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Скачать пакет изображений 5</system:String>
+    <system:String x:Key="5thstep">5-й шаг</system:String>
+    <system:String x:Key="6thstep">6-й шаг</system:String>
+    <system:String x:Key="7thstep">7-й шаг</system:String>
+    <system:String x:Key="8thstep">8-й шаг</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения > Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Хотите получать поддержку от разработчика?</system:String>
+    <system:String x:Key="Doyouwantsupport">Хотите поддержку?</system:String>
+    <system:String x:Key="SuperWider2">Супер Шире 2</system:String>
+    <system:String x:Key="SuperTaller2">Супер Выше 2</system:String>
+    <system:String x:Key="1000games">1000 игр</system:String>
+    <system:String x:Key="10000games">10000 игр</system:String>
+    <system:String x:Key="1000000games">Все игры</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Предупреждение! Установка очень большого количества игр на страницу значительно увеличит использование системной памяти в режиме сетки. Если число будет слишком высоким, это может привести к сбою приложения. Пожалуйста, действуйте с осторожностью.</system:String>
+
 </ResourceDictionary>

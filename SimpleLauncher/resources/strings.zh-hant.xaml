@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
+    
+    <system:String x:Key="InstallImagePack">安裝圖像套件</system:String>
+    <system:String x:Key="DownloadImagePack1">下載圖像套件 1</system:String>
+    <system:String x:Key="DownloadImagePack2">下載圖像套件 2</system:String>
+    <system:String x:Key="DownloadImagePack3">下載圖像套件 3</system:String>
+    <system:String x:Key="DownloadImagePack4">下載圖像套件 4</system:String>
+    <system:String x:Key="DownloadImagePack5">下載圖像套件 5</system:String>
+    <system:String x:Key="5thstep">第 5 步</system:String>
+    <system:String x:Key="6thstep">第 6 步</system:String>
+    <system:String x:Key="7thstep">第 7 步</system:String>
+    <system:String x:Key="8thstep">第 8 步</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">您的作業系統未設定預設網頁瀏覽器。請在 Windows 設定 (應用程式 > 預設應用程式) 中設定一個以開啟網頁連結。</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">您想從開發者那裡獲得支援嗎？</system:String>
+    <system:String x:Key="Doyouwantsupport">您想要支援嗎？</system:String>
+    <system:String x:Key="SuperWider2">超寬 2</system:String>
+    <system:String x:Key="SuperTaller2">超高 2</system:String>
+    <system:String x:Key="1000games">1000 個遊戲</system:String>
+    <system:String x:Key="10000games">10000 個遊戲</system:String>
+    <system:String x:Key="1000000games">所有遊戲</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">警告！在網格模式下設定每頁非常多的遊戲數量將顯著增加系統記憶體使用量。如果數量過高，可能會導致應用程式崩潰。請謹慎操作。</system:String>
+
 </ResourceDictionary>

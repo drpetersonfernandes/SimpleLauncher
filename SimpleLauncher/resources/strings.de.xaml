@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
+    
+    <system:String x:Key="InstallImagePack">Image Pack installieren</system:String>
+    <system:String x:Key="DownloadImagePack1">Image Pack 1 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack2">Image Pack 2 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack3">Image Pack 3 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack4">Image Pack 4 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack5">Image Pack 5 herunterladen</system:String>
+    <system:String x:Key="5thstep">5. Schritt</system:String>
+    <system:String x:Key="6thstep">6. Schritt</system:String>
+    <system:String x:Key="7thstep">7. Schritt</system:String>
+    <system:String x:Key="8thstep">8. Schritt</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Ihr Betriebssystem hat keinen Standard-Webbrowser konfiguriert. Bitte legen Sie einen in den Windows-Einstellungen (Apps > Standard-Apps) fest, um Weblinks zu öffnen.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Möchten Sie Unterstützung vom Entwickler erhalten?</system:String>
+    <system:String x:Key="Doyouwantsupport">Möchten Sie Unterstützung?</system:String>
+    <system:String x:Key="SuperWider2">Super breiter 2</system:String>
+    <system:String x:Key="SuperTaller2">Super höher 2</system:String>
+    <system:String x:Key="1000games">1000 Spiele</system:String>
+    <system:String x:Key="10000games">10000 Spiele</system:String>
+    <system:String x:Key="1000000games">Alle Spiele</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Warnung! Das Festlegen einer sehr hohen Anzahl von Spielen pro Seite erhöht den Systemspeicherverbrauch im Rastermodus erheblich. Wenn die Zahl zu hoch ist, kann dies zum Absturz der Anwendung führen. Bitte fahren Sie mit Vorsicht fort.</system:String>
+
 </ResourceDictionary>

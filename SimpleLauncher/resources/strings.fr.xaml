@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Une vulnérabilité de sécurité appelée 'Zip Slip' a été détectée dans le fichier d'archive. Il s'agit d'une vulnérabilité de traversée de chemin qui pourrait permettre à un attaquant d'écrire des fichiers en dehors du répertoire d'extraction prévu.</system:String>
     <system:String x:Key="ZoomIn">Zoomer</system:String>
     <system:String x:Key="ZoomOut">Dézoomer</system:String>
+    
+    <system:String x:Key="InstallImagePack">Installer le pack d'images</system:String>
+    <system:String x:Key="DownloadImagePack1">Télécharger le pack d'images 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Télécharger le pack d'images 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Télécharger le pack d'images 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Télécharger le pack d'images 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Télécharger le pack d'images 5</system:String>
+    <system:String x:Key="5thstep">5ème étape</system:String>
+    <system:String x:Key="6thstep">6ème étape</system:String>
+    <system:String x:Key="7thstep">7ème étape</system:String>
+    <system:String x:Key="8thstep">8ème étape</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Votre système d'exploitation n'a pas de navigateur web par défaut configuré. Veuillez en définir un dans les Paramètres Windows (Applications > Applications par défaut) pour ouvrir les liens web.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Souhaitez-vous recevoir le support du développeur ?</system:String>
+    <system:String x:Key="Doyouwantsupport">Voulez-vous du support ?</system:String>
+    <system:String x:Key="SuperWider2">Super Plus Large 2</system:String>
+    <system:String x:Key="SuperTaller2">Super Plus Haut 2</system:String>
+    <system:String x:Key="1000games">1000 jeux</system:String>
+    <system:String x:Key="10000games">10000 jeux</system:String>
+    <system:String x:Key="1000000games">Tous les jeux</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Attention ! Définir un nombre très élevé de jeux par page augmentera considérablement l'utilisation de la mémoire système en mode Grille. Si le nombre est trop élevé, cela pourrait entraîner un plantage de l'application. Veuillez procéder avec prudence.</system:String>
+
 </ResourceDictionary>

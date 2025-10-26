@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
+    
+    <system:String x:Key="InstallImagePack">امیج پیک انسٹال کریں</system:String>
+    <system:String x:Key="DownloadImagePack1">امیج پیک 1 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack2">امیج پیک 2 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack3">امیج پیک 3 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack4">امیج پیک 4 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack5">امیج پیک 5 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="5thstep">5واں قدم</system:String>
+    <system:String x:Key="6thstep">6واں قدم</system:String>
+    <system:String x:Key="7thstep">7واں قدم</system:String>
+    <system:String x:Key="8thstep">8واں قدم</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">آپ کے آپریٹنگ سسٹم میں کوئی ڈیفالٹ ویب براؤزر کنفیگر نہیں ہے۔ ویب لنکس کھولنے کے لیے براہ کرم ونڈوز سیٹنگز (ایپس > ڈیفالٹ ایپس) میں ایک سیٹ کریں۔</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">کیا آپ ڈویلپر سے مدد حاصل کرنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Doyouwantsupport">کیا آپ مدد چاہتے ہیں؟</system:String>
+    <system:String x:Key="SuperWider2">سپر وائیڈر 2</system:String>
+    <system:String x:Key="SuperTaller2">سپر ٹالر 2</system:String>
+    <system:String x:Key="1000games">1000 گیمز</system:String>
+    <system:String x:Key="10000games">10000 گیمز</system:String>
+    <system:String x:Key="1000000games">تمام گیمز</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">انتباہ! فی صفحہ بہت زیادہ گیمز کی تعداد مقرر کرنے سے گرڈ موڈ میں سسٹم میموری کا استعمال نمایاں طور پر بڑھ جائے گا۔ اگر تعداد بہت زیادہ ہے، تو یہ ایپلیکیشن کے کریش ہونے کا سبب بن سکتا ہے۔ براہ کرم احتیاط سے آگے بڑھیں۔</system:String>
+
 </ResourceDictionary>

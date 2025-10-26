@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
+    
+    <system:String x:Key="InstallImagePack">Instal Paket Gambar</system:String>
+    <system:String x:Key="DownloadImagePack1">Unduh Paket Gambar 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Unduh Paket Gambar 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Unduh Paket Gambar 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Unduh Paket Gambar 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Unduh Paket Gambar 5</system:String>
+    <system:String x:Key="5thstep">Langkah ke-5</system:String>
+    <system:String x:Key="6thstep">Langkah ke-6</system:String>
+    <system:String x:Key="7thstep">Langkah ke-7</system:String>
+    <system:String x:Key="8thstep">Langkah ke-8</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Sistem operasi Anda tidak memiliki peramban web default yang dikonfigurasi. Harap atur salah satu di Pengaturan Windows (Aplikasi > Aplikasi default) untuk membuka tautan web.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Apakah Anda ingin menerima dukungan dari pengembang?</system:String>
+    <system:String x:Key="Doyouwantsupport">Apakah Anda ingin dukungan?</system:String>
+    <system:String x:Key="SuperWider2">Super Lebih Lebar 2</system:String>
+    <system:String x:Key="SuperTaller2">Super Lebih Tinggi 2</system:String>
+    <system:String x:Key="1000games">1000 game</system:String>
+    <system:String x:Key="10000games">10000 game</system:String>
+    <system:String x:Key="1000000games">Semua game</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Peringatan! Mengatur jumlah game yang sangat tinggi per halaman akan secara signifikan meningkatkan penggunaan memori sistem saat dalam mode Grid. Jika jumlahnya terlalu tinggi, ini dapat menyebabkan aplikasi mogok. Silakan lanjutkan dengan hati-hati.</system:String>
+
 </ResourceDictionary>

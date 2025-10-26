@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">アーカイブファイルで「Zip Slip」と呼ばれるセキュリティ脆弱性が検出されました。これはパストラバーサルの脆弱性で、攻撃者が意図された展開ディレクトリの外部にファイルを書き込むことを可能にする可能性があります。</system:String>
     <system:String x:Key="ZoomIn">ズームイン</system:String>
     <system:String x:Key="ZoomOut">ズームアウト</system:String>
+    
+    <system:String x:Key="InstallImagePack">画像パックをインストール</system:String>
+    <system:String x:Key="DownloadImagePack1">画像パック1をダウンロード</system:String>
+    <system:String x:Key="DownloadImagePack2">画像パック2をダウンロード</system:String>
+    <system:String x:Key="DownloadImagePack3">画像パック3をダウンロード</system:String>
+    <system:String x:Key="DownloadImagePack4">画像パック4をダウンロード</system:String>
+    <system:String x:Key="DownloadImagePack5">画像パック5をダウンロード</system:String>
+    <system:String x:Key="5thstep">5番目のステップ</system:String>
+    <system:String x:Key="6thstep">6番目のステップ</system:String>
+    <system:String x:Key="7thstep">7番目のステップ</system:String>
+    <system:String x:Key="8thstep">8番目のステップ</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">オペレーティングシステムにデフォルトのWebブラウザーが構成されていません。Webリンクを開くには、Windowsの設定（アプリ > デフォルトのアプリ）で設定してください。</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">開発者からのサポートを受け取りますか？</system:String>
+    <system:String x:Key="Doyouwantsupport">サポートが必要ですか？</system:String>
+    <system:String x:Key="SuperWider2">スーパーワイド 2</system:String>
+    <system:String x:Key="SuperTaller2">スーパーハイト 2</system:String>
+    <system:String x:Key="1000games">1000ゲーム</system:String>
+    <system:String x:Key="10000games">10000ゲーム</system:String>
+    <system:String x:Key="1000000games">全ゲーム</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">警告！ 1ページあたりのゲーム数を非常に多く設定すると、グリッドモードでのシステムメモリ使用量が大幅に増加します。数が多すぎると、アプリケーションがクラッシュする可能性があります。注意して進めてください。</system:String>
+
 </ResourceDictionary>

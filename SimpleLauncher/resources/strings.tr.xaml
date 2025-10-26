@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
+    
+    <system:String x:Key="InstallImagePack">Resim Paketi Yükle</system:String>
+    <system:String x:Key="DownloadImagePack1">Resim Paketi 1'i İndir</system:String>
+    <system:String x:Key="DownloadImagePack2">Resim Paketi 2'yi İndir</system:String>
+    <system:String x:Key="DownloadImagePack3">Resim Paketi 3'ü İndir</system:String>
+    <system:String x:Key="DownloadImagePack4">Resim Paketi 4'ü İndir</system:String>
+    <system:String x:Key="DownloadImagePack5">Resim Paketi 5'i İndir</system:String>
+    <system:String x:Key="5thstep">5. adım</system:String>
+    <system:String x:Key="6thstep">6. adım</system:String>
+    <system:String x:Key="7thstep">7. adım</system:String>
+    <system:String x:Key="8thstep">8. adım</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">İşletim sisteminizde yapılandırılmış varsayılan bir web tarayıcısı yok. Web bağlantılarını açmak için lütfen Windows Ayarları'nda (Uygulamalar > Varsayılan uygulamalar) bir tane ayarlayın.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Geliştiriciden destek almak ister misiniz?</system:String>
+    <system:String x:Key="Doyouwantsupport">Destek ister misiniz?</system:String>
+    <system:String x:Key="SuperWider2">Süper Daha Geniş 2</system:String>
+    <system:String x:Key="SuperTaller2">Süper Daha Uzun 2</system:String>
+    <system:String x:Key="1000games">1000 oyun</system:String>
+    <system:String x:Key="10000games">10000 oyun</system:String>
+    <system:String x:Key="1000000games">Tüm oyunlar</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Uyarı! Sayfa başına çok yüksek sayıda oyun ayarlamak, Izgara modundayken sistem bellek kullanımını önemli ölçüde artıracaktır. Sayı çok yüksekse, bu uygulamanın çökmesine neden olabilir. Lütfen dikkatli ilerleyin.</system:String>
+
 </ResourceDictionary>

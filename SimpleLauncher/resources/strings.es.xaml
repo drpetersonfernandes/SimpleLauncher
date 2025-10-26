@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Se detectó una vulnerabilidad de seguridad llamada 'Zip Slip' en el archivo comprimido. Esta es una vulnerabilidad de recorrido de ruta que podría permitir a un atacante escribir archivos fuera del directorio de extracción previsto.</system:String>
     <system:String x:Key="ZoomIn">Acercar zoom</system:String>
     <system:String x:Key="ZoomOut">Alejar zoom</system:String>
+    
+    <system:String x:Key="InstallImagePack">Instalar paquete de imágenes</system:String>
+    <system:String x:Key="DownloadImagePack1">Descargar paquete de imágenes 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Descargar paquete de imágenes 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Descargar paquete de imágenes 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Descargar paquete de imágenes 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Descargar paquete de imágenes 5</system:String>
+    <system:String x:Key="5thstep">5º paso</system:String>
+    <system:String x:Key="6thstep">6º paso</system:String>
+    <system:String x:Key="7thstep">7º paso</system:String>
+    <system:String x:Key="8thstep">8º paso</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Su sistema operativo no tiene configurado un navegador web predeterminado. Configure uno en la Configuración de Windows (Aplicaciones > Aplicaciones predeterminadas) para abrir enlaces web.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">¿Desea recibir soporte del desarrollador?</system:String>
+    <system:String x:Key="Doyouwantsupport">¿Desea soporte?</system:String>
+    <system:String x:Key="SuperWider2">Súper Más Ancho 2</system:String>
+    <system:String x:Key="SuperTaller2">Súper Más Alto 2</system:String>
+    <system:String x:Key="1000games">1000 juegos</system:String>
+    <system:String x:Key="10000games">10000 juegos</system:String>
+    <system:String x:Key="1000000games">Todos los juegos</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">¡Advertencia! Establecer un número muy alto de juegos por página aumentará significativamente el uso de memoria del sistema en modo Cuadrícula. Si el número es demasiado alto, esto puede provocar que la aplicación se bloquee. Proceda con precaución.</system:String>
+
 </ResourceDictionary>

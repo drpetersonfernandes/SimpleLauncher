@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
+    
+    <system:String x:Key="InstallImagePack">Installatiepakket installeren</system:String>
+    <system:String x:Key="DownloadImagePack1">Afbeeldingspakket 1 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack2">Afbeeldingspakket 2 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack3">Afbeeldingspakket 3 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack4">Afbeeldingspakket 4 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack5">Afbeeldingspakket 5 downloaden</system:String>
+    <system:String x:Key="5thstep">5e stap</system:String>
+    <system:String x:Key="6thstep">6e stap</system:String>
+    <system:String x:Key="7thstep">7e stap</system:String>
+    <system:String x:Key="8thstep">8e stap</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Uw besturingssysteem heeft geen standaard webbrowser geconfigureerd. Stel er een in via Windows Instellingen (Apps > Standaard-apps) om weblinks te openen.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Wilt u ondersteuning ontvangen van de ontwikkelaar?</system:String>
+    <system:String x:Key="Doyouwantsupport">Wilt u ondersteuning?</system:String>
+    <system:String x:Key="SuperWider2">Super Breder 2</system:String>
+    <system:String x:Key="SuperTaller2">Super Hoger 2</system:String>
+    <system:String x:Key="1000games">1000 spellen</system:String>
+    <system:String x:Key="10000games">10000 spellen</system:String>
+    <system:String x:Key="1000000games">Alle spellen</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Waarschuwing! Het instellen van een zeer hoog aantal spellen per pagina zal het systeemgeheugengebruik in Rastermodus aanzienlijk verhogen. Als het aantal te hoog is, kan dit leiden tot het vastlopen van de applicatie. Ga voorzichtig te werk.</system:String>
+
 </ResourceDictionary>

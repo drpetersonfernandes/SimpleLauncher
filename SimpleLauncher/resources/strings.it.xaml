@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Nel file di archivio è stata rilevata una vulnerabilità di sicurezza chiamata 'Zip Slip'. Si tratta di una vulnerabilità di attraversamento del percorso che potrebbe consentire a un attaccante di scrivere file al di fuori della directory di estrazione prevista.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="InstallImagePack">Installa Pacchetto Immagini</system:String>
+    <system:String x:Key="DownloadImagePack1">Scarica Pacchetto Immagini 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Scarica Pacchetto Immagini 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Scarica Pacchetto Immagini 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Scarica Pacchetto Immagini 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Scarica Pacchetto Immagini 5</system:String>
+    <system:String x:Key="5thstep">5° passo</system:String>
+    <system:String x:Key="6thstep">6° passo</system:String>
+    <system:String x:Key="7thstep">7° passo</system:String>
+    <system:String x:Key="8thstep">8° passo</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Il tuo sistema operativo non ha un browser web predefinito configurato. Imposta uno nelle Impostazioni di Windows (App > App predefinite) per aprire i collegamenti web.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Vuoi ricevere supporto dallo sviluppatore?</system:String>
+    <system:String x:Key="Doyouwantsupport">Vuoi supporto?</system:String>
+    <system:String x:Key="SuperWider2">Super Più Largo 2</system:String>
+    <system:String x:Key="SuperTaller2">Super Più Alto 2</system:String>
+    <system:String x:Key="1000games">1000 giochi</system:String>
+    <system:String x:Key="10000games">10000 giochi</system:String>
+    <system:String x:Key="1000000games">Tutti i giochi</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Attenzione! Impostare un numero molto elevato di giochi per pagina aumenterà in modo significativo l'utilizzo della memoria di sistema in modalità Griglia. Se il numero è troppo alto, questo potrebbe causare il crash dell'applicazione. Si prega di procedere con cautela.</system:String>
+
 </ResourceDictionary>

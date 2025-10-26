@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
+    
+    <system:String x:Key="InstallImagePack">इमेज पैक इंस्टॉल करें</system:String>
+    <system:String x:Key="DownloadImagePack1">इमेज पैक 1 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack2">इमेज पैक 2 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack3">इमेज पैक 3 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack4">इमेज पैक 4 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack5">इमेज पैक 5 डाउनलोड करें</system:String>
+    <system:String x:Key="5thstep">5वां चरण</system:String>
+    <system:String x:Key="6thstep">6वां चरण</system:String>
+    <system:String x:Key="7thstep">7वां चरण</system:String>
+    <system:String x:Key="8thstep">8वां चरण</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">आपके ऑपरेटिंग सिस्टम में कोई डिफ़ॉल्ट वेब ब्राउज़र कॉन्फ़िगर नहीं है। वेब लिंक खोलने के लिए कृपया विंडोज सेटिंग्स (ऐप्स > डिफ़ॉल्ट ऐप्स) में एक सेट करें।</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">क्या आप डेवलपर से सहायता प्राप्त करना चाहते हैं?</system:String>
+    <system:String x:Key="Doyouwantsupport">क्या आप सहायता चाहते हैं?</system:String>
+    <system:String x:Key="SuperWider2">सुपर वाइडर 2</system:String>
+    <system:String x:Key="SuperTaller2">सुपर टॉलर 2</system:String>
+    <system:String x:Key="1000games">1000 गेम</system:String>
+    <system:String x:Key="10000games">10000 गेम</system:String>
+    <system:String x:Key="1000000games">सभी गेम</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">चेतावनी! प्रति पृष्ठ बहुत अधिक संख्या में गेम सेट करने से ग्रिड मोड में सिस्टम मेमोरी का उपयोग काफी बढ़ जाएगा। यदि संख्या बहुत अधिक है, तो यह एप्लिकेशन क्रैश हो सकता है। कृपया सावधानी से आगे बढ़ें।</system:String>
+
 </ResourceDictionary>

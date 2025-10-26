@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">আর্কাইভ ফাইলে 'জিপ স্লিপ' নামক একটি নিরাপত্তা দুর্বলতা সনাক্ত করা হয়েছে। এটি একটি পাথ ট্রাভার্সাল দুর্বলতা যা আক্রমণকারীকে উদ্দিষ্ট এক্সট্রাকশন ডিরেক্টরির বাইরে ফাইল লিখতে অনুমতি দিতে পারে।</system:String>
     <system:String x:Key="ZoomIn">জুম ইন</system:String>
     <system:String x:Key="ZoomOut">জুম আউট</system:String>
+    
+    <system:String x:Key="InstallImagePack">ইমেজ প্যাক ইনস্টল করুন</system:String>
+    <system:String x:Key="DownloadImagePack1">ইমেজ প্যাক 1 ডাউনলোড করুন</system:String>
+    <system:String x:Key="DownloadImagePack2">ইমেজ প্যাক 2 ডাউনলোড করুন</system:String>
+    <system:String x:Key="DownloadImagePack3">ইমেজ প্যাক 3 ডাউনলোড করুন</system:String>
+    <system:String x:Key="DownloadImagePack4">ইমেজ প্যাক 4 ডাউনলোড করুন</system:String>
+    <system:String x:Key="DownloadImagePack5">ইমেজ প্যাক 5 ডাউনলোড করুন</system:String>
+    <system:String x:Key="5thstep">৫ম ধাপ</system:String>
+    <system:String x:Key="6thstep">৬ষ্ঠ ধাপ</system:String>
+    <system:String x:Key="7thstep">৭ম ধাপ</system:String>
+    <system:String x:Key="8thstep">৮ম ধাপ</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">আপনার অপারেটিং সিস্টেমে কোনো ডিফল্ট ওয়েব ব্রাউজার কনফিগার করা নেই। ওয়েব লিঙ্ক খোলার জন্য অনুগ্রহ করে Windows Settings (Apps > Default apps) এ একটি সেট করুন।</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">আপনি কি ডেভেলপারের কাছ থেকে সহায়তা পেতে চান?</system:String>
+    <system:String x:Key="Doyouwantsupport">আপনি কি সহায়তা চান?</system:String>
+    <system:String x:Key="SuperWider2">সুপার ওয়াইডার 2</system:String>
+    <system:String x:Key="SuperTaller2">সুপার টলার 2</system:String>
+    <system:String x:Key="1000games">1000 গেম</system:String>
+    <system:String x:Key="10000games">10000 গেম</system:String>
+    <system:String x:Key="1000000games">সমস্ত গেম</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">সতর্কতা! প্রতি পৃষ্ঠায় খুব বেশি সংখ্যক গেম সেট করলে গ্রিড মোডে থাকাকালীন সিস্টেম মেমরি ব্যবহার উল্লেখযোগ্যভাবে বৃদ্ধি পাবে। সংখ্যাটি খুব বেশি হলে, এটি অ্যাপ্লিকেশন ক্র্যাশ করতে পারে। অনুগ্রহ করে সতর্কতার সাথে এগিয়ে যান।</system:String>
+
 </ResourceDictionary>

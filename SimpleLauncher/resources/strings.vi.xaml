@@ -661,4 +661,25 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
+    
+    <system:String x:Key="InstallImagePack">Cài đặt Gói Hình ảnh</system:String>
+    <system:String x:Key="DownloadImagePack1">Tải xuống Gói Hình ảnh 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Tải xuống GóiHình ảnh 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Tải xuống GóiHình ảnh 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Tải xuống GóiHình ảnh 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Tải xuống GóiHình ảnh 5</system:String>
+    <system:String x:Key="5thstep">Bước thứ 5</system:String>
+    <system:String x:Key="6thstep">Bước thứ 6</system:String>
+    <system:String x:Key="7thstep">Bước thứ 7</system:String>
+    <system:String x:Key="8thstep">Bước thứ 8</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Hệ điều hành của bạn không có trình duyệt web mặc định nào được cấu hình. Vui lòng đặt một trình duyệt trong Cài đặt Windows (Ứng dụng > Ứng dụng mặc định) để mở các liên kết web.</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Bạn có muốn nhận hỗ trợ từ nhà phát triển không?</system:String>
+    <system:String x:Key="Doyouwantsupport">Bạn có muốn hỗ trợ không?</system:String>
+    <system:String x:Key="SuperWider2">Siêu Rộng Hơn 2</system:String>
+    <system:String x:Key="SuperTaller2">Siêu Cao Hơn 2</system:String>
+    <system:String x:Key="1000games">1000 trò chơi</system:String>
+    <system:String x:Key="10000games">10000 trò chơi</system:String>
+    <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Cảnh báo! Đặt số lượng trò chơi rất cao cho mỗi trang sẽ làm tăng đáng kể việc sử dụng bộ nhớ hệ thống ở chế độ Lưới. Nếu số lượng quá cao, điều này có thể khiến ứng dụng bị treo. Vui lòng tiếp tục cẩn thận.</system:String>
+
 </ResourceDictionary>
