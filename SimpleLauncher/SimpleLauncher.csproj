@@ -26,8 +26,8 @@
     <PackageIcon>icon2.png</PackageIcon>
     <RepositoryUrl>https://github.com/drpetersonfernandes/SimpleLauncher</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
-    <AssemblyVersion>4.5.1</AssemblyVersion>
-    <FileVersion>4.5.1</FileVersion>
+    <AssemblyVersion>4.6</AssemblyVersion>
+    <FileVersion>4.6</FileVersion>
     <PlatformTarget>AnyCPU</PlatformTarget>
     <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
     <Version>$(VersionPrefix)</Version>
