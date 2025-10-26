@@ -522,7 +522,7 @@ public static class LaunchTools
         try
         {
             var architecture = RuntimeInformation.ProcessArchitecture;
-            string executablePath; // Renamed from executableName to executablePath for clarity as it's a full path
+            string executablePath;
 
             switch (architecture)
             {
