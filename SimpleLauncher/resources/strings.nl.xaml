@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Alle spellen</system:String>
+    <system:String x:Key="10000games">10000 spellen</system:String>
+    <system:String x:Key="1000games">1000 spellen</system:String>
     <system:String x:Key="100games">100 spellen</system:String>
     <system:String x:Key="100pixels">100 pixels</system:String>
     <system:String x:Key="150pixels">150 pixels</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 pixels</system:String>
     <system:String x:Key="50pixels">50 pixels</system:String>
     <system:String x:Key="550pixels">550 pixels</system:String>
+    <system:String x:Key="5thstep">5e stap</system:String>
     <system:String x:Key="600pixels">600 pixels</system:String>
     <system:String x:Key="650pixels">650 pixels</system:String>
+    <system:String x:Key="6thstep">6e stap</system:String>
     <system:String x:Key="700pixels">700 pixels</system:String>
     <system:String x:Key="750pixels">750 pixels</system:String>
+    <system:String x:Key="7thstep">7e stap</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
+    <system:String x:Key="8thstep">8e stap</system:String>
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
     <system:String x:Key="ActionTaken">Voor uw veiligheid is het extractieproces correct afgehandeld en is het probleem geregistreerd.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Download emulator</system:String>
     <system:String x:Key="Downloaderror">Downloadfout.</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
+    <system:String x:Key="DownloadImagePack1">Afbeeldingspakket 1 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack2">Afbeeldingspakket 2 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack3">Afbeeldingspakket 3 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack4">Afbeeldingspakket 4 downloaden</system:String>
+    <system:String x:Key="DownloadImagePack5">Afbeeldingspakket 5 downloaden</system:String>
     <system:String x:Key="Downloading">Downloaden</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Downloaden en uitpakken was succesvol.</system:String>
     <system:String x:Key="Downloadof">Download van</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="downloadprocess">downloadproces.</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
+    <system:String x:Key="Doyouwantsupport">Wilt u ondersteuning?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Wil je de laatste versie automatisch downloaden en installeren?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Wil je het bestand 'error_user.log' openen om de fout op te sporen?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Wilt u het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Wilt u ondersteuning ontvangen van de ontwikkelaar?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Wil je online zoeken naar de ROM-geschiedenis?</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Informatiekoppelingsknop</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Info-overlayknop openen</system:String>
     <system:String x:Key="Install">Installeren</system:String>
+    <system:String x:Key="InstallImagePack">Installatiepakket installeren</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In dit venster kun je emulators downloaden en installeren die geen BIOS of andere systeembestanden nodig hebben.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ongeldige Downloadlink</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">is vereist omdat gerelateerde gegevens zijn verstrekt.</system:String>
     <system:String x:Key="NewThresholdLabel">Nieuwe drempel:</system:String>
     <system:String x:Key="NextPage">Volgende pagina</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Uw besturingssysteem heeft geen standaard webbrowser geconfigureerd. Stel er een in via Windows Instellingen (Apps > Standaard-apps) om weblinks te openen.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Geen details beschikbaar voor</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Geen games gevonden om willekeurig uit te selecteren. Controleer uw systeemkeuze.</system:String>
     <system:String x:Key="nogamesmatched">Helaas, er zijn geen spellen die overeenkomen met uw zoekopdracht of geselecteerde knop.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">Stop download</system:String>
     <system:String x:Key="Success">Succes</system:String>
     <system:String x:Key="SuperTaller">Super hoger</system:String>
+    <system:String x:Key="SuperTaller2">Super Hoger 2</system:String>
     <system:String x:Key="SuperWider">Super breder</system:String>
+    <system:String x:Key="SuperWider2">Super Breder 2</system:String>
     <system:String x:Key="Support">Ondersteuning</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Ondersteuningsverzoek succesvol verzonden.</system:String>
     <system:String x:Key="System">Systeem:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Walkthrough</system:String>
     <system:String x:Key="Walkthroughnotfound">Walkthrough niet gevonden</system:String>
     <system:String x:Key="Warning">Waarschuwing</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Waarschuwing! Het instellen van een zeer hoog aantal spellen per pagina zal het systeemgeheugengebruik in Rastermodus aanzienlijk verhogen. Als het aantal te hoog is, kan dit leiden tot het vastlopen van de applicatie. Ga voorzichtig te werk.</system:String>
     <system:String x:Key="wascanceled">is geannuleerd.</system:String>
     <system:String x:Key="wasremovedfromfavorites">is verwijderd uit favorieten.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">We ondersteunen ook systemen die deze bestanden vereisen; hiervoor moet je echter overschakelen naar “Expertmodus” en ze handmatig installeren.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">Een beveiligingslek genaamd 'Zip Slip' is gedetecteerd in het archiefbestand. Dit is een padtraversie-kwetsbaarheid die een aanvaller de mogelijkheid zou kunnen geven om bestanden buiten de bedoelde extractiemap te schrijven.</system:String>
     <system:String x:Key="ZoomIn">Inzoomen</system:String>
     <system:String x:Key="ZoomOut">Uitzoomen</system:String>
-    
-    <system:String x:Key="InstallImagePack">Installatiepakket installeren</system:String>
-    <system:String x:Key="DownloadImagePack1">Afbeeldingspakket 1 downloaden</system:String>
-    <system:String x:Key="DownloadImagePack2">Afbeeldingspakket 2 downloaden</system:String>
-    <system:String x:Key="DownloadImagePack3">Afbeeldingspakket 3 downloaden</system:String>
-    <system:String x:Key="DownloadImagePack4">Afbeeldingspakket 4 downloaden</system:String>
-    <system:String x:Key="DownloadImagePack5">Afbeeldingspakket 5 downloaden</system:String>
-    <system:String x:Key="5thstep">5e stap</system:String>
-    <system:String x:Key="6thstep">6e stap</system:String>
-    <system:String x:Key="7thstep">7e stap</system:String>
-    <system:String x:Key="8thstep">8e stap</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Uw besturingssysteem heeft geen standaard webbrowser geconfigureerd. Stel er een in via Windows Instellingen (Apps > Standaard-apps) om weblinks te openen.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Wilt u ondersteuning ontvangen van de ontwikkelaar?</system:String>
-    <system:String x:Key="Doyouwantsupport">Wilt u ondersteuning?</system:String>
-    <system:String x:Key="SuperWider2">Super Breder 2</system:String>
-    <system:String x:Key="SuperTaller2">Super Hoger 2</system:String>
-    <system:String x:Key="1000games">1000 spellen</system:String>
-    <system:String x:Key="10000games">10000 spellen</system:String>
-    <system:String x:Key="1000000games">Alle spellen</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Waarschuwing! Het instellen van een zeer hoog aantal spellen per pagina zal het systeemgeheugengebruik in Rastermodus aanzienlijk verhogen. Als het aantal te hoog is, kan dit leiden tot het vastlopen van de applicatie. Ga voorzichtig te werk.</system:String>
-
 </ResourceDictionary>

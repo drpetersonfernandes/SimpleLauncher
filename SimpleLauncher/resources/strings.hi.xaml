@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">सभी गेम</system:String>
+    <system:String x:Key="10000games">10000 गेम</system:String>
+    <system:String x:Key="1000games">1000 गेम</system:String>
     <system:String x:Key="100games">100 खेल</system:String>
     <system:String x:Key="100pixels">100 पिक्सल</system:String>
     <system:String x:Key="150pixels">150 पिक्सल</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 पिक्सल</system:String>
     <system:String x:Key="50pixels">50 पिक्सल</system:String>
     <system:String x:Key="550pixels">550 पिक्सल</system:String>
+    <system:String x:Key="5thstep">5वां चरण</system:String>
     <system:String x:Key="600pixels">600 पिक्सल</system:String>
     <system:String x:Key="650pixels">650 पिक्सेल</system:String>
+    <system:String x:Key="6thstep">6वां चरण</system:String>
     <system:String x:Key="700pixels">700 पिक्सेल</system:String>
     <system:String x:Key="750pixels">750 पिक्सेल</system:String>
+    <system:String x:Key="7thstep">7वां चरण</system:String>
     <system:String x:Key="800pixels">800 पिक्सेल</system:String>
+    <system:String x:Key="8thstep">8वां चरण</system:String>
     <system:String x:Key="About">के बारे में</system:String>
     <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
     <system:String x:Key="ActionTaken">आपकी सुरक्षा के लिए, निष्कर्षण प्रक्रिया को उचित रूप से संभाला गया है और समस्या को लॉग किया गया है।</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">एमुलेटर डाउनलोड करें</system:String>
     <system:String x:Key="Downloaderror">डाउनलोड में त्रुटि।</system:String>
     <system:String x:Key="DownloadImagePack">इमेज पैक डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack1">इमेज पैक 1 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack2">इमेज पैक 2 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack3">इमेज पैक 3 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack4">इमेज पैक 4 डाउनलोड करें</system:String>
+    <system:String x:Key="DownloadImagePack5">इमेज पैक 5 डाउनलोड करें</system:String>
     <system:String x:Key="Downloading">डाउनलोड हो रहा है</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
     <system:String x:Key="Downloadof">का डाउनलोड</system:String>
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
     <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>
     <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
+    <system:String x:Key="Doyouwantsupport">क्या आप सहायता चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः इंस्टॉल करना चाहेंगे समस्या को ठीक करने हेतु?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">क्या आप इसे ठीक करने के लिए 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">क्या आप नवीनतम संस्करण को स्वचालित रूप से डाउनलोड और इंस्टॉल करना चाहेंगे?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">क्या आप 'error_user.log' फ़ाइल को त्रुटि को डिबग करने के लिए खोलना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">क्या आप त्रुटि का निवारण करने के लिए 'error_user.log' फ़ाइल खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">क्या आप डेवलपर से सहायता प्राप्त करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">क्या आप रोम इतिहास को ऑनलाइन खोजने का प्रयास करना चाहेंगे?</system:String>
     <system:String x:Key="EasyMode">आसान मोड</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">जानकारी लिंक बटन</system:String>
     <system:String x:Key="InfoLinkOverlayButton">जानकारी ओवरले बटन खोलें</system:String>
     <system:String x:Key="Install">इंस्टॉल करें</system:String>
+    <system:String x:Key="InstallImagePack">इमेज पैक इंस्टॉल करें</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">इस विंडो में, आप ऐसे एमुलेटर डाउनलोड और इंस्टॉल कर सकते हैं जिन्हें BIOS या अन्य सिस्टम फाइलों की आवश्यकता नहीं है।</system:String>
     <system:String x:Key="InvalidDownloadLink">अमान्य डाउनलोड लिंक</system:String>
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">आवश्यक है क्योंकि संबंधित डेटा प्रदान किया गया है।</system:String>
     <system:String x:Key="NewThresholdLabel">नई सीमा:</system:String>
     <system:String x:Key="NextPage">अगला पृष्ठ</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">आपके ऑपरेटिंग सिस्टम में कोई डिफ़ॉल्ट वेब ब्राउज़र कॉन्फ़िगर नहीं है। वेब लिंक खोलने के लिए कृपया विंडोज सेटिंग्स (ऐप्स > डिफ़ॉल्ट ऐप्स) में एक सेट करें।</system:String>
     <system:String x:Key="Nodetailsavailablefor">इसके लिए कोई विवरण उपलब्ध नहीं है</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">कोई गेम नहीं मिला जिसे यादृच्छिक रूप से चुना जा सके। कृपया अपनी सिस्टम चयन की जाँच करें।</system:String>
     <system:String x:Key="nogamesmatched">दुर्भाग्यवश, आपका खोज क्वेरी या चयनित बटन किसी भी गेम से मेल नहीं खाता।</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">डाउनलोड रोकें</system:String>
     <system:String x:Key="Success">सफलता</system:String>
     <system:String x:Key="SuperTaller">सुपर ऊँचा</system:String>
+    <system:String x:Key="SuperTaller2">सुपर टॉलर 2</system:String>
     <system:String x:Key="SuperWider">सुपर चौड़ा</system:String>
+    <system:String x:Key="SuperWider2">सुपर वाइडर 2</system:String>
     <system:String x:Key="Support">समर्थन</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">समर्थन अनुरोध सफलतापूर्वक भेजा गया।</system:String>
     <system:String x:Key="System">सिस्टम:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">मार्गदर्शिका</system:String>
     <system:String x:Key="Walkthroughnotfound">मार्गदर्शिका नहीं मिली</system:String>
     <system:String x:Key="Warning">चेतावनी</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">चेतावनी! प्रति पृष्ठ बहुत अधिक संख्या में गेम सेट करने से ग्रिड मोड में सिस्टम मेमोरी का उपयोग काफी बढ़ जाएगा। यदि संख्या बहुत अधिक है, तो यह एप्लिकेशन क्रैश हो सकता है। कृपया सावधानी से आगे बढ़ें।</system:String>
     <system:String x:Key="wascanceled">रद्द कर दिया गया था।</system:String>
     <system:String x:Key="wasremovedfromfavorites">पसंदीदा से हटा दिया गया।</system:String>
     <system:String x:Key="WeAlsoSupportSystems">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फाइलों की आवश्यकता होती है; हालांकि, इसके लिए आपको "एक्सपर्ट मोड" पर स्विच करना होगा और उन्हें मैन्युअल रूप से इंस्टॉल करना होगा।</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">संग्रह फ़ाइल में 'ज़िप स्लिप' नामक एक सुरक्षा कमजोरी का पता चला है। यह एक पथ ट्रैवर्सल कमजोरी है जो एक हमलावर को इच्छित निष्कर्षण निर्देशिका के बाहर फ़ाइलें लिखने की अनुमति दे सकती है।</system:String>
     <system:String x:Key="ZoomIn">ज़ूम इन</system:String>
     <system:String x:Key="ZoomOut">ज़ूम आउट</system:String>
-    
-    <system:String x:Key="InstallImagePack">इमेज पैक इंस्टॉल करें</system:String>
-    <system:String x:Key="DownloadImagePack1">इमेज पैक 1 डाउनलोड करें</system:String>
-    <system:String x:Key="DownloadImagePack2">इमेज पैक 2 डाउनलोड करें</system:String>
-    <system:String x:Key="DownloadImagePack3">इमेज पैक 3 डाउनलोड करें</system:String>
-    <system:String x:Key="DownloadImagePack4">इमेज पैक 4 डाउनलोड करें</system:String>
-    <system:String x:Key="DownloadImagePack5">इमेज पैक 5 डाउनलोड करें</system:String>
-    <system:String x:Key="5thstep">5वां चरण</system:String>
-    <system:String x:Key="6thstep">6वां चरण</system:String>
-    <system:String x:Key="7thstep">7वां चरण</system:String>
-    <system:String x:Key="8thstep">8वां चरण</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">आपके ऑपरेटिंग सिस्टम में कोई डिफ़ॉल्ट वेब ब्राउज़र कॉन्फ़िगर नहीं है। वेब लिंक खोलने के लिए कृपया विंडोज सेटिंग्स (ऐप्स > डिफ़ॉल्ट ऐप्स) में एक सेट करें।</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">क्या आप डेवलपर से सहायता प्राप्त करना चाहते हैं?</system:String>
-    <system:String x:Key="Doyouwantsupport">क्या आप सहायता चाहते हैं?</system:String>
-    <system:String x:Key="SuperWider2">सुपर वाइडर 2</system:String>
-    <system:String x:Key="SuperTaller2">सुपर टॉलर 2</system:String>
-    <system:String x:Key="1000games">1000 गेम</system:String>
-    <system:String x:Key="10000games">10000 गेम</system:String>
-    <system:String x:Key="1000000games">सभी गेम</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">चेतावनी! प्रति पृष्ठ बहुत अधिक संख्या में गेम सेट करने से ग्रिड मोड में सिस्टम मेमोरी का उपयोग काफी बढ़ जाएगा। यदि संख्या बहुत अधिक है, तो यह एप्लिकेशन क्रैश हो सकता है। कृपया सावधानी से आगे बढ़ें।</system:String>
-
 </ResourceDictionary>

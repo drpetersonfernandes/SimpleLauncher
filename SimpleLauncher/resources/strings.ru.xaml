@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Все игры</system:String>
+    <system:String x:Key="10000games">10000 игр</system:String>
+    <system:String x:Key="1000games">1000 игр</system:String>
     <system:String x:Key="100games">100 игр</system:String>
     <system:String x:Key="100pixels">100 пикселей</system:String>
     <system:String x:Key="150pixels">150 пикселей</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 пикселей</system:String>
     <system:String x:Key="50pixels">50 пикселей</system:String>
     <system:String x:Key="550pixels">550 пикселей</system:String>
+    <system:String x:Key="5thstep">5-й шаг</system:String>
     <system:String x:Key="600pixels">600 пикселей</system:String>
     <system:String x:Key="650pixels">650 пикселей</system:String>
+    <system:String x:Key="6thstep">6-й шаг</system:String>
     <system:String x:Key="700pixels">700 пикселей</system:String>
     <system:String x:Key="750pixels">750 пикселей</system:String>
+    <system:String x:Key="7thstep">7-й шаг</system:String>
     <system:String x:Key="800pixels">800 пикселей</system:String>
+    <system:String x:Key="8thstep">8-й шаг</system:String>
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
     <system:String x:Key="ActionTaken">Для вашей безопасности процесс извлечения был корректно обработан, и проблема была зарегистрирована.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
     <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
+    <system:String x:Key="DownloadImagePack1">Скачать пакет изображений 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Скачать пакет изображений 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Скачать пакет изображений 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Скачать пакет изображений 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Скачать пакет изображений 5</system:String>
     <system:String x:Key="Downloading">Загрузка</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Загрузка и распаковка успешно завершены.</system:String>
     <system:String x:Key="Downloadof">Загрузка</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
+    <system:String x:Key="Doyouwantsupport">Хотите поддержку?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Хотите автоматически скачать и установить последнюю версию?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Вы хотите открыть файл 'error_user.log', чтобы отладить ошибку?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Хотите получать поддержку от разработчика?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Вы хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Хотите выполнить поиск истории ROM в интернете?</system:String>
     <system:String x:Key="EasyMode">Простой режим</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Кнопка информации</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Открыть кнопку наложения информации</system:String>
     <system:String x:Key="Install">Установить</system:String>
+    <system:String x:Key="InstallImagePack">Установить пакет изображений</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">В этом окне вы можете скачать и установить эмуляторы, не требующие BIOS или других системных файлов.</system:String>
     <system:String x:Key="InvalidDownloadLink">Недействительная Ссылка</system:String>
     <system:String x:Key="InvalidExtractionFolder">Недействительная Папка Распаковки</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">требуется, так как предоставлены связанные данные.</system:String>
     <system:String x:Key="NewThresholdLabel">Новый порог:</system:String>
     <system:String x:Key="NextPage">Следующая страница</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения > Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Нет доступной информации для</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Игры для случайного выбора не найдены. Пожалуйста, проверьте выбор системы.</system:String>
     <system:String x:Key="nogamesmatched">К сожалению, ни одна игра не соответствует вашему запросу или выбранной кнопке.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">Остановить загрузку</system:String>
     <system:String x:Key="Success">Успех</system:String>
     <system:String x:Key="SuperTaller">Супер выше</system:String>
+    <system:String x:Key="SuperTaller2">Супер Выше 2</system:String>
     <system:String x:Key="SuperWider">Супер шире</system:String>
+    <system:String x:Key="SuperWider2">Супер Шире 2</system:String>
     <system:String x:Key="Support">Поддержка</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Запрос на поддержку успешно отправлен.</system:String>
     <system:String x:Key="System">Система:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Прохождение</system:String>
     <system:String x:Key="Walkthroughnotfound">Прохождение не найдено</system:String>
     <system:String x:Key="Warning">Предупреждение</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Предупреждение! Установка очень большого количества игр на страницу значительно увеличит использование системной памяти в режиме сетки. Если число будет слишком высоким, это может привести к сбою приложения. Пожалуйста, действуйте с осторожностью.</system:String>
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Мы также поддерживаем системы, которым требуются эти файлы; однако вам нужно будет переключиться в "Экспертный режим" и установить их вручную.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">В архивном файле обнаружена уязвимость безопасности, называемая 'Zip Slip'. Это уязвимость обхода пути, которая может позволить злоумышленнику записывать файлы за пределами предназначенного каталога извлечения.</system:String>
     <system:String x:Key="ZoomIn">Увеличить масштаб</system:String>
     <system:String x:Key="ZoomOut">Уменьшить масштаб</system:String>
-    
-    <system:String x:Key="InstallImagePack">Установить пакет изображений</system:String>
-    <system:String x:Key="DownloadImagePack1">Скачать пакет изображений 1</system:String>
-    <system:String x:Key="DownloadImagePack2">Скачать пакет изображений 2</system:String>
-    <system:String x:Key="DownloadImagePack3">Скачать пакет изображений 3</system:String>
-    <system:String x:Key="DownloadImagePack4">Скачать пакет изображений 4</system:String>
-    <system:String x:Key="DownloadImagePack5">Скачать пакет изображений 5</system:String>
-    <system:String x:Key="5thstep">5-й шаг</system:String>
-    <system:String x:Key="6thstep">6-й шаг</system:String>
-    <system:String x:Key="7thstep">7-й шаг</system:String>
-    <system:String x:Key="8thstep">8-й шаг</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">В вашей операционной системе не настроен браузер веб по умолчанию. Пожалуйста, настройте его в Параметрах Windows (Приложения > Приложения по умолчанию), чтобы открывать веб-ссылки.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Хотите получать поддержку от разработчика?</system:String>
-    <system:String x:Key="Doyouwantsupport">Хотите поддержку?</system:String>
-    <system:String x:Key="SuperWider2">Супер Шире 2</system:String>
-    <system:String x:Key="SuperTaller2">Супер Выше 2</system:String>
-    <system:String x:Key="1000games">1000 игр</system:String>
-    <system:String x:Key="10000games">10000 игр</system:String>
-    <system:String x:Key="1000000games">Все игры</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Предупреждение! Установка очень большого количества игр на страницу значительно увеличит использование системной памяти в режиме сетки. Если число будет слишком высоким, это может привести к сбою приложения. Пожалуйста, действуйте с осторожностью.</system:String>
-
 </ResourceDictionary>

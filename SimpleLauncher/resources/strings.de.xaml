@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Alle Spiele</system:String>
+    <system:String x:Key="10000games">10000 Spiele</system:String>
+    <system:String x:Key="1000games">1000 Spiele</system:String>
     <system:String x:Key="100games">100 Spiele</system:String>
     <system:String x:Key="100pixels">100 Pixel</system:String>
     <system:String x:Key="150pixels">150 Pixel</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 Pixel</system:String>
     <system:String x:Key="50pixels">50 Pixel</system:String>
     <system:String x:Key="550pixels">550 Pixel</system:String>
+    <system:String x:Key="5thstep">5. Schritt</system:String>
     <system:String x:Key="600pixels">600 Pixel</system:String>
     <system:String x:Key="650pixels">650 Pixel</system:String>
+    <system:String x:Key="6thstep">6. Schritt</system:String>
     <system:String x:Key="700pixels">700 Pixel</system:String>
     <system:String x:Key="750pixels">750 Pixel</system:String>
+    <system:String x:Key="7thstep">7. Schritt</system:String>
     <system:String x:Key="800pixels">800 Pixel</system:String>
+    <system:String x:Key="8thstep">8. Schritt</system:String>
     <system:String x:Key="About">Über</system:String>
     <system:String x:Key="AccentColors">Akzentfarben</system:String>
     <system:String x:Key="ActionTaken">Zu Ihrer Sicherheit wurde der Extraktionsprozess ordnungsgemäß durchgeführt und das Problem protokolliert.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Emulator herunterladen</system:String>
     <system:String x:Key="Downloaderror">Download-Fehler.</system:String>
     <system:String x:Key="DownloadImagePack">Bildpaket herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack1">Image Pack 1 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack2">Image Pack 2 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack3">Image Pack 3 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack4">Image Pack 4 herunterladen</system:String>
+    <system:String x:Key="DownloadImagePack5">Image Pack 5 herunterladen</system:String>
     <system:String x:Key="Downloading">Wird heruntergeladen</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Herunterladen und Extrahieren waren erfolgreich.</system:String>
     <system:String x:Key="Downloadof">Download von</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Herunterladen oder Extrahieren fehlgeschlagen</system:String>
     <system:String x:Key="downloadprocess">Downloadprozess.</system:String>
     <system:String x:Key="DownloadProgress">Download-Fortschritt</system:String>
+    <system:String x:Key="Doyouwantsupport">Möchten Sie Unterstützung?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu lösen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu beheben?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Möchten Sie 'Simple Launcher' automatisch neu installieren, um das Problem zu beheben?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Möchten Sie die neueste Version automatisch herunterladen und installieren?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu beheben?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Möchten Sie Unterstützung vom Entwickler erhalten?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Möchten Sie 'Simple Launcher' neu installieren, um das Problem zu beheben?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Möchten Sie online nach dem ROM-Verlauf suchen?</system:String>
     <system:String x:Key="EasyMode">Einfacher Modus</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Info-Link-Schaltfläche</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Info-Overlay-Schaltfläche öffnen</system:String>
     <system:String x:Key="Install">Installieren</system:String>
+    <system:String x:Key="InstallImagePack">Image Pack installieren</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">In diesem Fenster können Sie Emulatoren herunterladen und installieren, die kein BIOS oder andere Systemdateien benötigen.</system:String>
     <system:String x:Key="InvalidDownloadLink">Ungültiger Download-Link</system:String>
     <system:String x:Key="InvalidExtractionFolder">Ungültiger Extraktionsordner</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">ist erforderlich, da zugehörige Daten bereitgestellt wurden.</system:String>
     <system:String x:Key="NewThresholdLabel">Neuer Schwellenwert:</system:String>
     <system:String x:Key="NextPage">Nächste Seite</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Ihr Betriebssystem hat keinen Standard-Webbrowser konfiguriert. Bitte legen Sie einen in den Windows-Einstellungen (Apps > Standard-Apps) fest, um Weblinks zu öffnen.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Keine Details verfügbar für</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Keine Spiele zum zufälligen Auswählen gefunden. Bitte überprüfen Sie Ihre Systemauswahl.</system:String>
     <system:String x:Key="nogamesmatched">Leider entsprechen keine Spiele Ihrer Suchanfrage oder der ausgewählten Schaltfläche.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">Download stoppen</system:String>
     <system:String x:Key="Success">Erfolg</system:String>
     <system:String x:Key="SuperTaller">Super höher</system:String>
+    <system:String x:Key="SuperTaller2">Super höher 2</system:String>
     <system:String x:Key="SuperWider">Super breiter</system:String>
+    <system:String x:Key="SuperWider2">Super breiter 2</system:String>
     <system:String x:Key="Support">Support</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Support-Anfrage erfolgreich gesendet.</system:String>
     <system:String x:Key="System">System:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Komplettlösung</system:String>
     <system:String x:Key="Walkthroughnotfound">Komplettlösung nicht gefunden</system:String>
     <system:String x:Key="Warning">Warnung</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Warnung! Das Festlegen einer sehr hohen Anzahl von Spielen pro Seite erhöht den Systemspeicherverbrauch im Rastermodus erheblich. Wenn die Zahl zu hoch ist, kann dies zum Absturz der Anwendung führen. Bitte fahren Sie mit Vorsicht fort.</system:String>
     <system:String x:Key="wascanceled">wurde abgebrochen.</system:String>
     <system:String x:Key="wasremovedfromfavorites">wurde aus den Favoriten entfernt.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Wir unterstützen auch Systeme, die diese Dateien benötigen; dafür müssen Sie allerdings in den „Expertenmodus“ wechseln und sie manuell installieren.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">In der Archivdatei wurde eine Sicherheitslücke namens 'Zip Slip' erkannt. Dies ist eine Pfadtraversierungs-Sicherheitslücke, die einem Angreifer ermöglichen könnte, Dateien außerhalb des vorgesehenen Extraktionsverzeichnisses zu schreiben.</system:String>
     <system:String x:Key="ZoomIn">Vergrößern</system:String>
     <system:String x:Key="ZoomOut">Verkleinern</system:String>
-    
-    <system:String x:Key="InstallImagePack">Image Pack installieren</system:String>
-    <system:String x:Key="DownloadImagePack1">Image Pack 1 herunterladen</system:String>
-    <system:String x:Key="DownloadImagePack2">Image Pack 2 herunterladen</system:String>
-    <system:String x:Key="DownloadImagePack3">Image Pack 3 herunterladen</system:String>
-    <system:String x:Key="DownloadImagePack4">Image Pack 4 herunterladen</system:String>
-    <system:String x:Key="DownloadImagePack5">Image Pack 5 herunterladen</system:String>
-    <system:String x:Key="5thstep">5. Schritt</system:String>
-    <system:String x:Key="6thstep">6. Schritt</system:String>
-    <system:String x:Key="7thstep">7. Schritt</system:String>
-    <system:String x:Key="8thstep">8. Schritt</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Ihr Betriebssystem hat keinen Standard-Webbrowser konfiguriert. Bitte legen Sie einen in den Windows-Einstellungen (Apps > Standard-Apps) fest, um Weblinks zu öffnen.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Möchten Sie Unterstützung vom Entwickler erhalten?</system:String>
-    <system:String x:Key="Doyouwantsupport">Möchten Sie Unterstützung?</system:String>
-    <system:String x:Key="SuperWider2">Super breiter 2</system:String>
-    <system:String x:Key="SuperTaller2">Super höher 2</system:String>
-    <system:String x:Key="1000games">1000 Spiele</system:String>
-    <system:String x:Key="10000games">10000 Spiele</system:String>
-    <system:String x:Key="1000000games">Alle Spiele</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Warnung! Das Festlegen einer sehr hohen Anzahl von Spielen pro Seite erhöht den Systemspeicherverbrauch im Rastermodus erheblich. Wenn die Zahl zu hoch ist, kann dies zum Absturz der Anwendung führen. Bitte fahren Sie mit Vorsicht fort.</system:String>
-
 </ResourceDictionary>

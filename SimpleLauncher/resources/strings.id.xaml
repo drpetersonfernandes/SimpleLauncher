@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Semua game</system:String>
+    <system:String x:Key="10000games">10000 game</system:String>
+    <system:String x:Key="1000games">1000 game</system:String>
     <system:String x:Key="100games">100 permainan</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 piksel</system:String>
     <system:String x:Key="50pixels">50 piksel</system:String>
     <system:String x:Key="550pixels">550 piksel</system:String>
+    <system:String x:Key="5thstep">Langkah ke-5</system:String>
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="650pixels">650 piksel</system:String>
+    <system:String x:Key="6thstep">Langkah ke-6</system:String>
     <system:String x:Key="700pixels">700 piksel</system:String>
     <system:String x:Key="750pixels">750 piksel</system:String>
+    <system:String x:Key="7thstep">Langkah ke-7</system:String>
     <system:String x:Key="800pixels">800 piksel</system:String>
+    <system:String x:Key="8thstep">Langkah ke-8</system:String>
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
     <system:String x:Key="ActionTaken">Untuk keamanan Anda, proses ekstraksi telah ditangani dengan benar dan masalah telah dicatat.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Unduh Emulator</system:String>
     <system:String x:Key="Downloaderror">Kesalahan unduhan.</system:String>
     <system:String x:Key="DownloadImagePack">Unduh Paket Gambar</system:String>
+    <system:String x:Key="DownloadImagePack1">Unduh Paket Gambar 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Unduh Paket Gambar 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Unduh Paket Gambar 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Unduh Paket Gambar 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Unduh Paket Gambar 5</system:String>
     <system:String x:Key="Downloading">Mengunduh</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Pengunduhan dan ekstraksi berhasil.</system:String>
     <system:String x:Key="Downloadof">Unduhan dari</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
     <system:String x:Key="downloadprocess">proses unduhan.</system:String>
     <system:String x:Key="DownloadProgress">Progres Unduhan</system:String>
+    <system:String x:Key="Doyouwantsupport">Apakah Anda ingin dukungan?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Apakah Anda ingin mengunduh dan menginstal versi terbaru secara otomatis?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Apakah Anda ingin membuka file 'error_user.log' untuk memeriksa kesalahan?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk memperbaiki kesalahan?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Apakah Anda ingin menerima dukungan dari pengembang?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Apakah Anda ingin mencari riwayat ROM secara online?</system:String>
     <system:String x:Key="EasyMode">Mode Mudah</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Tombol Tautan Info</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Buka Tombol Overlay Info</system:String>
     <system:String x:Key="Install">Instal</system:String>
+    <system:String x:Key="InstallImagePack">Instal Paket Gambar</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Di jendela ini, Anda dapat mengunduh dan menginstal emulator yang tidak memerlukan BIOS atau file sistem lainnya.</system:String>
     <system:String x:Key="InvalidDownloadLink">Tautan Unduhan Tidak Valid</system:String>
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">nama diperlukan karena data terkait telah disediakan.</system:String>
     <system:String x:Key="NewThresholdLabel">Ambang Batas Baru:</system:String>
     <system:String x:Key="NextPage">Halaman Berikutnya</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Sistem operasi Anda tidak memiliki peramban web default yang dikonfigurasi. Harap atur salah satu di Pengaturan Windows (Aplikasi > Aplikasi default) untuk membuka tautan web.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Tidak ada detail yang tersedia untuk</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Tidak ada game yang ditemukan untuk dipilih secara acak. Silakan periksa pilihan sistem Anda.</system:String>
     <system:String x:Key="nogamesmatched">Sayangnya, tidak ada game yang cocok dengan kueri pencarian Anda atau tombol yang dipilih.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">Hentikan Unduhan</system:String>
     <system:String x:Key="Success">Berhasil</system:String>
     <system:String x:Key="SuperTaller">Super lebih tinggi</system:String>
+    <system:String x:Key="SuperTaller2">Super Lebih Tinggi 2</system:String>
     <system:String x:Key="SuperWider">Super lebih lebar</system:String>
+    <system:String x:Key="SuperWider2">Super Lebih Lebar 2</system:String>
     <system:String x:Key="Support">Dukungan</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Permintaan dukungan berhasil dikirim.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Panduan</system:String>
     <system:String x:Key="Walkthroughnotfound">Panduan tidak ditemukan</system:String>
     <system:String x:Key="Warning">Peringatan</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Peringatan! Mengatur jumlah game yang sangat tinggi per halaman akan secara signifikan meningkatkan penggunaan memori sistem saat dalam mode Grid. Jika jumlahnya terlalu tinggi, ini dapat menyebabkan aplikasi mogok. Silakan lanjutkan dengan hati-hati.</system:String>
     <system:String x:Key="wascanceled">dibatalkan.</system:String>
     <system:String x:Key="wasremovedfromfavorites">telah dihapus dari favorit.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Kami juga mendukung sistem yang memerlukan file tersebut; namun, Anda perlu beralih ke "Mode Ahli" dan menginstalnya secara manual.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">Kerentanan keamanan yang disebut 'Zip Slip' terdeteksi dalam file arsip. Ini adalah kerentanan traversal jalur yang dapat memungkinkan penyerang menulis file di luar direktori ekstraksi yang dimaksud.</system:String>
     <system:String x:Key="ZoomIn">Perbesar</system:String>
     <system:String x:Key="ZoomOut">Perkecil</system:String>
-    
-    <system:String x:Key="InstallImagePack">Instal Paket Gambar</system:String>
-    <system:String x:Key="DownloadImagePack1">Unduh Paket Gambar 1</system:String>
-    <system:String x:Key="DownloadImagePack2">Unduh Paket Gambar 2</system:String>
-    <system:String x:Key="DownloadImagePack3">Unduh Paket Gambar 3</system:String>
-    <system:String x:Key="DownloadImagePack4">Unduh Paket Gambar 4</system:String>
-    <system:String x:Key="DownloadImagePack5">Unduh Paket Gambar 5</system:String>
-    <system:String x:Key="5thstep">Langkah ke-5</system:String>
-    <system:String x:Key="6thstep">Langkah ke-6</system:String>
-    <system:String x:Key="7thstep">Langkah ke-7</system:String>
-    <system:String x:Key="8thstep">Langkah ke-8</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Sistem operasi Anda tidak memiliki peramban web default yang dikonfigurasi. Harap atur salah satu di Pengaturan Windows (Aplikasi > Aplikasi default) untuk membuka tautan web.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Apakah Anda ingin menerima dukungan dari pengembang?</system:String>
-    <system:String x:Key="Doyouwantsupport">Apakah Anda ingin dukungan?</system:String>
-    <system:String x:Key="SuperWider2">Super Lebih Lebar 2</system:String>
-    <system:String x:Key="SuperTaller2">Super Lebih Tinggi 2</system:String>
-    <system:String x:Key="1000games">1000 game</system:String>
-    <system:String x:Key="10000games">10000 game</system:String>
-    <system:String x:Key="1000000games">Semua game</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Peringatan! Mengatur jumlah game yang sangat tinggi per halaman akan secara signifikan meningkatkan penggunaan memori sistem saat dalam mode Grid. Jika jumlahnya terlalu tinggi, ini dapat menyebabkan aplikasi mogok. Silakan lanjutkan dengan hati-hati.</system:String>
-
 </ResourceDictionary>

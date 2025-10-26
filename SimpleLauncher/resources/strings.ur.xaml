@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">تمام گیمز</system:String>
+    <system:String x:Key="10000games">10000 گیمز</system:String>
+    <system:String x:Key="1000games">1000 گیمز</system:String>
     <system:String x:Key="100games">100 کھیل</system:String>
     <system:String x:Key="100pixels">100 پکسلز</system:String>
     <system:String x:Key="150pixels">150 پکسلز</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 پکسلز</system:String>
     <system:String x:Key="50pixels">50 پکسلز</system:String>
     <system:String x:Key="550pixels">550 پکسلز</system:String>
+    <system:String x:Key="5thstep">5واں قدم</system:String>
     <system:String x:Key="600pixels">600 پکسلز</system:String>
     <system:String x:Key="650pixels">650 پکسلز</system:String>
+    <system:String x:Key="6thstep">6واں قدم</system:String>
     <system:String x:Key="700pixels">700 پکسلز</system:String>
     <system:String x:Key="750pixels">750 پکسلز</system:String>
+    <system:String x:Key="7thstep">7واں قدم</system:String>
     <system:String x:Key="800pixels">800 پکسلز</system:String>
+    <system:String x:Key="8thstep">8واں قدم</system:String>
     <system:String x:Key="About">کے بارے میں</system:String>
     <system:String x:Key="AccentColors">نمایاں رنگ</system:String>
     <system:String x:Key="ActionTaken">آپ کی سیکیورٹی کے لیے، نکالنے کے عمل کو صحیح طریقے سے نمٹا لیا گیا ہے اور مسئلہ کو لاگ کر دیا گیا ہے۔</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">ایمولیٹر ڈاؤنلوڈ کریں</system:String>
     <system:String x:Key="Downloaderror">ڈاؤن لوڈ کی خرابی۔</system:String>
     <system:String x:Key="DownloadImagePack">امیج پیک ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack1">امیج پیک 1 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack2">امیج پیک 2 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack3">امیج پیک 3 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack4">امیج پیک 4 ڈاؤن لوڈ کریں</system:String>
+    <system:String x:Key="DownloadImagePack5">امیج پیک 5 ڈاؤن لوڈ کریں</system:String>
     <system:String x:Key="Downloading">ڈاؤن لوڈ ہو رہا ہے</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">ڈاؤن لوڈ اور اخراج کامیابی کے ساتھ مکمل ہو گیا۔</system:String>
     <system:String x:Key="Downloadof">کی ڈاؤن لوڈ</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ڈاؤن لوڈ یا نکالنے میں ناکامی</system:String>
     <system:String x:Key="downloadprocess">ڈاؤن لوڈ کا عمل۔</system:String>
     <system:String x:Key="DownloadProgress">ڈاؤنلوڈ کی پیشرفت</system:String>
+    <system:String x:Key="Doyouwantsupport">کیا آپ مدد چاہتے ہیں؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">کیا آپ 'Simple Launcher' کو خود بخود دوبارہ انسٹال کرنا چاہتے ہیں تاکہ مسئلہ حل ہو سکے؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">کیا آپ مسئلہ حل کرنے کے لئے 'Simple Launcher' کو از خود دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">کیا آپ تازہ ترین ورژن کو خودکار طور پر ڈاؤن لوڈ اور انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">کیا آپ 'error_user.log' فائل کو کھولنا چاہتے ہیں تاکہ خرابی کو ٹھیک کیا جا سکے؟</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">کیا آپ ایرر کو ڈی بگ کرنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">کیا آپ ڈویلپر سے مدد حاصل کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">کیا آپ مسئلہ کو حل کرنے کے لیے 'سمپل لانچر' کو دوبارہ انسٹال کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="Doyouwanttosearchonline">کیا آپ ROM کی تاریخ آن لائن تلاش کرنا چاہتے ہیں؟</system:String>
     <system:String x:Key="EasyMode">آسان موڈ</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">معلومات لنک بٹن</system:String>
     <system:String x:Key="InfoLinkOverlayButton">معلومات اوورلے بٹن کھولیں</system:String>
     <system:String x:Key="Install">انسٹال کریں</system:String>
+    <system:String x:Key="InstallImagePack">امیج پیک انسٹال کریں</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">اس ونڈو میں، آپ وہ ایمولیٹر ڈاؤن لوڈ اور انسٹال کر سکتے ہیں جنہیں BIOS یا دیگر سسٹم فائلوں کی ضرورت نہیں ہوتی۔</system:String>
     <system:String x:Key="InvalidDownloadLink">غلط ڈاؤن لوڈ لنک</system:String>
     <system:String x:Key="InvalidExtractionFolder">غلط نکالنے والا فولڈر</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">نام ضروری ہے کیونکہ متعلقہ ڈیٹا فراہم کیا گیا ہے۔</system:String>
     <system:String x:Key="NewThresholdLabel">نئی حد:</system:String>
     <system:String x:Key="NextPage">اگلا صفحہ</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">آپ کے آپریٹنگ سسٹم میں کوئی ڈیفالٹ ویب براؤزر کنفیگر نہیں ہے۔ ویب لنکس کھولنے کے لیے براہ کرم ونڈوز سیٹنگز (ایپس > ڈیفالٹ ایپس) میں ایک سیٹ کریں۔</system:String>
     <system:String x:Key="Nodetailsavailablefor">کے لئے تفصیلات دستیاب نہیں ہیں</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">تصادفی انتخاب کے لیے کوئی کھیل نہیں ملا۔ براہ کرم اپنے نظام کے انتخاب کی جانچ کریں۔</system:String>
     <system:String x:Key="nogamesmatched">بدقسمتی سے، آپکی تلاش یا منتخب کردہ بٹن سے کوئی گیمز مطابقت نہیں رکھتی۔</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">ڈاؤنلوڈ روکیں</system:String>
     <system:String x:Key="Success">کامیابی</system:String>
     <system:String x:Key="SuperTaller">سپر اونچا</system:String>
+    <system:String x:Key="SuperTaller2">سپر ٹالر 2</system:String>
     <system:String x:Key="SuperWider">سپر چوڑا</system:String>
+    <system:String x:Key="SuperWider2">سپر وائیڈر 2</system:String>
     <system:String x:Key="Support">سپورٹ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">سپورٹ کی درخواست کامیابی سے بھیجی گئی۔</system:String>
     <system:String x:Key="System">سسٹم:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">رہنمائی</system:String>
     <system:String x:Key="Walkthroughnotfound">رہنمائی نہیں ملی</system:String>
     <system:String x:Key="Warning">انتباہ</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">انتباہ! فی صفحہ بہت زیادہ گیمز کی تعداد مقرر کرنے سے گرڈ موڈ میں سسٹم میموری کا استعمال نمایاں طور پر بڑھ جائے گا۔ اگر تعداد بہت زیادہ ہے، تو یہ ایپلیکیشن کے کریش ہونے کا سبب بن سکتا ہے۔ براہ کرم احتیاط سے آگے بڑھیں۔</system:String>
     <system:String x:Key="wascanceled">منسوخ کر دیا گیا تھا۔</system:String>
     <system:String x:Key="wasremovedfromfavorites">پسندیدہ سے ہٹا دیا گیا۔</system:String>
     <system:String x:Key="WeAlsoSupportSystems">ہم ان سسٹمز کو بھی سپورٹ کرتے ہیں جنہیں ان فائلوں کی ضرورت ہے؛ اس کے لیے آپ کو "ایکسپرٹ موڈ" پر جانا ہوگا اور دستی طور پر انسٹال کرنا ہوگا۔</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">آرکائیو فائل میں 'زپ سلپ' نامی سیکیورٹی کمزوری کا پتہ چلا ہے۔ یہ ایک راستہ ٹریورسل کمزوری ہے جو حملہ آور کو مطلوبہ نکالنے کی ڈائریکٹری سے باہر فائلیں لکھنے کی اجازت دے سکتی ہے۔</system:String>
     <system:String x:Key="ZoomIn">زوم ان</system:String>
     <system:String x:Key="ZoomOut">زوم آؤٹ</system:String>
-    
-    <system:String x:Key="InstallImagePack">امیج پیک انسٹال کریں</system:String>
-    <system:String x:Key="DownloadImagePack1">امیج پیک 1 ڈاؤن لوڈ کریں</system:String>
-    <system:String x:Key="DownloadImagePack2">امیج پیک 2 ڈاؤن لوڈ کریں</system:String>
-    <system:String x:Key="DownloadImagePack3">امیج پیک 3 ڈاؤن لوڈ کریں</system:String>
-    <system:String x:Key="DownloadImagePack4">امیج پیک 4 ڈاؤن لوڈ کریں</system:String>
-    <system:String x:Key="DownloadImagePack5">امیج پیک 5 ڈاؤن لوڈ کریں</system:String>
-    <system:String x:Key="5thstep">5واں قدم</system:String>
-    <system:String x:Key="6thstep">6واں قدم</system:String>
-    <system:String x:Key="7thstep">7واں قدم</system:String>
-    <system:String x:Key="8thstep">8واں قدم</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">آپ کے آپریٹنگ سسٹم میں کوئی ڈیفالٹ ویب براؤزر کنفیگر نہیں ہے۔ ویب لنکس کھولنے کے لیے براہ کرم ونڈوز سیٹنگز (ایپس > ڈیفالٹ ایپس) میں ایک سیٹ کریں۔</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">کیا آپ ڈویلپر سے مدد حاصل کرنا چاہتے ہیں؟</system:String>
-    <system:String x:Key="Doyouwantsupport">کیا آپ مدد چاہتے ہیں؟</system:String>
-    <system:String x:Key="SuperWider2">سپر وائیڈر 2</system:String>
-    <system:String x:Key="SuperTaller2">سپر ٹالر 2</system:String>
-    <system:String x:Key="1000games">1000 گیمز</system:String>
-    <system:String x:Key="10000games">10000 گیمز</system:String>
-    <system:String x:Key="1000000games">تمام گیمز</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">انتباہ! فی صفحہ بہت زیادہ گیمز کی تعداد مقرر کرنے سے گرڈ موڈ میں سسٹم میموری کا استعمال نمایاں طور پر بڑھ جائے گا۔ اگر تعداد بہت زیادہ ہے، تو یہ ایپلیکیشن کے کریش ہونے کا سبب بن سکتا ہے۔ براہ کرم احتیاط سے آگے بڑھیں۔</system:String>
-
 </ResourceDictionary>

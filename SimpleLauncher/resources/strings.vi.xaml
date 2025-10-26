@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
+    <system:String x:Key="10000games">10000 trò chơi</system:String>
+    <system:String x:Key="1000games">1000 trò chơi</system:String>
     <system:String x:Key="100games">100 trò chơi</system:String>
     <system:String x:Key="100pixels">100 pixel</system:String>
     <system:String x:Key="150pixels">150 pixel</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 pixel</system:String>
     <system:String x:Key="50pixels">50 pixel</system:String>
     <system:String x:Key="550pixels">550 pixel</system:String>
+    <system:String x:Key="5thstep">Bước thứ 5</system:String>
     <system:String x:Key="600pixels">600 pixel</system:String>
     <system:String x:Key="650pixels">650 pixel</system:String>
+    <system:String x:Key="6thstep">Bước thứ 6</system:String>
     <system:String x:Key="700pixels">700 pixel</system:String>
     <system:String x:Key="750pixels">750 pixel</system:String>
+    <system:String x:Key="7thstep">Bước thứ 7</system:String>
     <system:String x:Key="800pixels">800 pixel</system:String>
+    <system:String x:Key="8thstep">Bước thứ 8</system:String>
     <system:String x:Key="About">Giới thiệu</system:String>
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
     <system:String x:Key="ActionTaken">Vì sự an toàn của bạn, quá trình giải nén đã được xử lý đúng cách và vấn đề đã được ghi lại.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
+    <system:String x:Key="DownloadImagePack1">Tải xuống Gói Hình ảnh 1</system:String>
+    <system:String x:Key="DownloadImagePack2">Tải xuống GóiHình ảnh 2</system:String>
+    <system:String x:Key="DownloadImagePack3">Tải xuống GóiHình ảnh 3</system:String>
+    <system:String x:Key="DownloadImagePack4">Tải xuống GóiHình ảnh 4</system:String>
+    <system:String x:Key="DownloadImagePack5">Tải xuống GóiHình ảnh 5</system:String>
     <system:String x:Key="Downloading">Đang tải xuống</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">Tải xuống và giải nén đã hoàn tất thành công.</system:String>
     <system:String x:Key="Downloadof">Tải xuống của</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>
     <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
+    <system:String x:Key="Doyouwantsupport">Bạn có muốn hỗ trợ không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Bạn có muốn tự động tải xuống và cài đặt phiên bản mới nhất không?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Bạn có muốn nhận hỗ trợ từ nhà phát triển không?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để sửa chữa vấn đề không?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Bạn có muốn tìm kiếm lịch sử ROM trực tuyến không?</system:String>
     <system:String x:Key="EasyMode">Chế độ dễ</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Nút liên kết thông tin</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Mở Nút Lớp phủ Thông tin</system:String>
     <system:String x:Key="Install">Cài đặt</system:String>
+    <system:String x:Key="InstallImagePack">Cài đặt Gói Hình ảnh</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Trong cửa sổ này, bạn có thể tải xuống và cài đặt trình giả lập không yêu cầu BIOS hoặc các tệp hệ thống khác.</system:String>
     <system:String x:Key="InvalidDownloadLink">Liên Kết Tải Xuống Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">là bắt buộc vì có liên quan đến dữ liệu được cung cấp.</system:String>
     <system:String x:Key="NewThresholdLabel">Ngưỡng mới:</system:String>
     <system:String x:Key="NextPage">Trang tiếp theo</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Hệ điều hành của bạn không có trình duyệt web mặc định nào được cấu hình. Vui lòng đặt một trình duyệt trong Cài đặt Windows (Ứng dụng > Ứng dụng mặc định) để mở các liên kết web.</system:String>
     <system:String x:Key="Nodetailsavailablefor">Không có chi tiết nào khả dụng cho</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Không tìm thấy trò chơi để chọn ngẫu nhiên. Vui lòng kiểm tra lựa chọn hệ thống của bạn.</system:String>
     <system:String x:Key="nogamesmatched">Rất tiếc, không có trò chơi nào phù hợp với tìm kiếm của bạn hoặc nút đã chọn.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">Dừng tải xuống</system:String>
     <system:String x:Key="Success">Thành công</system:String>
     <system:String x:Key="SuperTaller">Siêu cao hơn</system:String>
+    <system:String x:Key="SuperTaller2">Siêu Cao Hơn 2</system:String>
     <system:String x:Key="SuperWider">Siêu rộng hơn</system:String>
+    <system:String x:Key="SuperWider2">Siêu Rộng Hơn 2</system:String>
     <system:String x:Key="Support">Hỗ Trợ</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Yêu cầu hỗ trợ đã được gửi thành công.</system:String>
     <system:String x:Key="System">Hệ Thống:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Hướng dẫn chi tiết</system:String>
     <system:String x:Key="Walkthroughnotfound">Không tìm thấy hướng dẫn chi tiết</system:String>
     <system:String x:Key="Warning">Cảnh báo</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Cảnh báo! Đặt số lượng trò chơi rất cao cho mỗi trang sẽ làm tăng đáng kể việc sử dụng bộ nhớ hệ thống ở chế độ Lưới. Nếu số lượng quá cao, điều này có thể khiến ứng dụng bị treo. Vui lòng tiếp tục cẩn thận.</system:String>
     <system:String x:Key="wascanceled">đã bị hủy.</system:String>
     <system:String x:Key="wasremovedfromfavorites">đã bị xóa khỏi mục yêu thích.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu những tệp này; tuy nhiên, bạn cần chuyển sang "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">Một lỗ hổng bảo mật được gọi là 'Zip Slip' đã được phát hiện trong tệp lưu trữ. Đây là một lỗ hổng duyệt đường dẫn có thể cho phép kẻ tấn công ghi tệp bên ngoài thư mục giải nén dự định.</system:String>
     <system:String x:Key="ZoomIn">Phóng to</system:String>
     <system:String x:Key="ZoomOut">Thu nhỏ</system:String>
-    
-    <system:String x:Key="InstallImagePack">Cài đặt Gói Hình ảnh</system:String>
-    <system:String x:Key="DownloadImagePack1">Tải xuống Gói Hình ảnh 1</system:String>
-    <system:String x:Key="DownloadImagePack2">Tải xuống GóiHình ảnh 2</system:String>
-    <system:String x:Key="DownloadImagePack3">Tải xuống GóiHình ảnh 3</system:String>
-    <system:String x:Key="DownloadImagePack4">Tải xuống GóiHình ảnh 4</system:String>
-    <system:String x:Key="DownloadImagePack5">Tải xuống GóiHình ảnh 5</system:String>
-    <system:String x:Key="5thstep">Bước thứ 5</system:String>
-    <system:String x:Key="6thstep">Bước thứ 6</system:String>
-    <system:String x:Key="7thstep">Bước thứ 7</system:String>
-    <system:String x:Key="8thstep">Bước thứ 8</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">Hệ điều hành của bạn không có trình duyệt web mặc định nào được cấu hình. Vui lòng đặt một trình duyệt trong Cài đặt Windows (Ứng dụng > Ứng dụng mặc định) để mở các liên kết web.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Bạn có muốn nhận hỗ trợ từ nhà phát triển không?</system:String>
-    <system:String x:Key="Doyouwantsupport">Bạn có muốn hỗ trợ không?</system:String>
-    <system:String x:Key="SuperWider2">Siêu Rộng Hơn 2</system:String>
-    <system:String x:Key="SuperTaller2">Siêu Cao Hơn 2</system:String>
-    <system:String x:Key="1000games">1000 trò chơi</system:String>
-    <system:String x:Key="10000games">10000 trò chơi</system:String>
-    <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Cảnh báo! Đặt số lượng trò chơi rất cao cho mỗi trang sẽ làm tăng đáng kể việc sử dụng bộ nhớ hệ thống ở chế độ Lưới. Nếu số lượng quá cao, điều này có thể khiến ứng dụng bị treo. Vui lòng tiếp tục cẩn thận.</system:String>
-
 </ResourceDictionary>

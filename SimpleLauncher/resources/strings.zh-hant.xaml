@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">所有遊戲</system:String>
+    <system:String x:Key="10000games">10000 個遊戲</system:String>
+    <system:String x:Key="1000games">1000 個遊戲</system:String>
     <system:String x:Key="100games">100 個遊戲</system:String>
     <system:String x:Key="100pixels">100 像素</system:String>
     <system:String x:Key="150pixels">150 像素</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 像素</system:String>
     <system:String x:Key="50pixels">50 像素</system:String>
     <system:String x:Key="550pixels">550 像素</system:String>
+    <system:String x:Key="5thstep">第 5 步</system:String>
     <system:String x:Key="600pixels">600 像素</system:String>
     <system:String x:Key="650pixels">650 像素</system:String>
+    <system:String x:Key="6thstep">第 6 步</system:String>
     <system:String x:Key="700pixels">700 像素</system:String>
     <system:String x:Key="750pixels">750 像素</system:String>
+    <system:String x:Key="7thstep">第 7 步</system:String>
     <system:String x:Key="800pixels">800 像素</system:String>
+    <system:String x:Key="8thstep">第 8 步</system:String>
     <system:String x:Key="About">關於</system:String>
     <system:String x:Key="AccentColors">強調色</system:String>
     <system:String x:Key="ActionTaken">為了您的安全，解壓過程已被正確處理，問題已被記錄。</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">下載模擬器</system:String>
     <system:String x:Key="Downloaderror">下載錯誤。</system:String>
     <system:String x:Key="DownloadImagePack">下載圖像包</system:String>
+    <system:String x:Key="DownloadImagePack1">下載圖像套件 1</system:String>
+    <system:String x:Key="DownloadImagePack2">下載圖像套件 2</system:String>
+    <system:String x:Key="DownloadImagePack3">下載圖像套件 3</system:String>
+    <system:String x:Key="DownloadImagePack4">下載圖像套件 4</system:String>
+    <system:String x:Key="DownloadImagePack5">下載圖像套件 5</system:String>
     <system:String x:Key="Downloading">正在下載</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">下載和解壓縮成功完成。</system:String>
     <system:String x:Key="Downloadof">的下載</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
     <system:String x:Key="downloadprocess">下載過程。</system:String>
     <system:String x:Key="DownloadProgress">下載進度</system:String>
+    <system:String x:Key="Doyouwantsupport">您想要支援嗎？</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自動重新安裝 'Simple Launcher' 以解決問題？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">您是否希望自動下載並安裝最新版本？</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">是否要開啟檔案 'error_user.log' 來進行錯誤排查？</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">您是否想打開文件 'error_user.log' 來除錯？</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">您想從開發者那裡獲得支援嗎？</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否希望重新安裝 'Simple Launcher' 以修復問題？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">您想在線搜尋 ROM 歷史記錄嗎？</system:String>
     <system:String x:Key="EasyMode">簡易模式</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">信息連結按鈕</system:String>
     <system:String x:Key="InfoLinkOverlayButton">開啟資訊疊加按鈕</system:String>
     <system:String x:Key="Install">安裝</system:String>
+    <system:String x:Key="InstallImagePack">安裝圖像套件</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">在此視窗中，您可以下載並安裝不需 BIOS 或其他系統檔案的模擬器。</system:String>
     <system:String x:Key="InvalidDownloadLink">無效的下載連結</system:String>
     <system:String x:Key="InvalidExtractionFolder">無效的解壓資料夾</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">是必需的，因為已提供相關資料。</system:String>
     <system:String x:Key="NewThresholdLabel">新閾值：</system:String>
     <system:String x:Key="NextPage">下一頁</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">您的作業系統未設定預設網頁瀏覽器。請在 Windows 設定 (應用程式 > 預設應用程式) 中設定一個以開啟網頁連結。</system:String>
     <system:String x:Key="Nodetailsavailablefor">暫無可用詳細資訊</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">未找到可隨機選擇的遊戲。請檢查您的系統選擇。</system:String>
     <system:String x:Key="nogamesmatched">很抱歉，沒有符合您的搜尋或所選按鈕的遊戲。</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">停止下載</system:String>
     <system:String x:Key="Success">成功</system:String>
     <system:String x:Key="SuperTaller">超高</system:String>
+    <system:String x:Key="SuperTaller2">超高 2</system:String>
     <system:String x:Key="SuperWider">超寬</system:String>
+    <system:String x:Key="SuperWider2">超寬 2</system:String>
     <system:String x:Key="Support">支援</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">支援請求已成功發送。</system:String>
     <system:String x:Key="System">系統：</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">攻略</system:String>
     <system:String x:Key="Walkthroughnotfound">找不到攻略</system:String>
     <system:String x:Key="Warning">警告</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">警告！在網格模式下設定每頁非常多的遊戲數量將顯著增加系統記憶體使用量。如果數量過高，可能會導致應用程式崩潰。請謹慎操作。</system:String>
     <system:String x:Key="wascanceled">已取消。</system:String>
     <system:String x:Key="wasremovedfromfavorites">已從收藏夾中移除。</system:String>
     <system:String x:Key="WeAlsoSupportSystems">我們也支援需要這些檔案的系統；但您需要切換到「專家模式」並手動安裝。</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">在存檔文件中檢測到名為「Zip Slip」的安全漏洞。這是一種路徑遍歷漏洞，可能允許攻擊者在預期解壓目錄之外寫入文件。</system:String>
     <system:String x:Key="ZoomIn">放大</system:String>
     <system:String x:Key="ZoomOut">縮小</system:String>
-    
-    <system:String x:Key="InstallImagePack">安裝圖像套件</system:String>
-    <system:String x:Key="DownloadImagePack1">下載圖像套件 1</system:String>
-    <system:String x:Key="DownloadImagePack2">下載圖像套件 2</system:String>
-    <system:String x:Key="DownloadImagePack3">下載圖像套件 3</system:String>
-    <system:String x:Key="DownloadImagePack4">下載圖像套件 4</system:String>
-    <system:String x:Key="DownloadImagePack5">下載圖像套件 5</system:String>
-    <system:String x:Key="5thstep">第 5 步</system:String>
-    <system:String x:Key="6thstep">第 6 步</system:String>
-    <system:String x:Key="7thstep">第 7 步</system:String>
-    <system:String x:Key="8thstep">第 8 步</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">您的作業系統未設定預設網頁瀏覽器。請在 Windows 設定 (應用程式 > 預設應用程式) 中設定一個以開啟網頁連結。</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">您想從開發者那裡獲得支援嗎？</system:String>
-    <system:String x:Key="Doyouwantsupport">您想要支援嗎？</system:String>
-    <system:String x:Key="SuperWider2">超寬 2</system:String>
-    <system:String x:Key="SuperTaller2">超高 2</system:String>
-    <system:String x:Key="1000games">1000 個遊戲</system:String>
-    <system:String x:Key="10000games">10000 個遊戲</system:String>
-    <system:String x:Key="1000000games">所有遊戲</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">警告！在網格模式下設定每頁非常多的遊戲數量將顯著增加系統記憶體使用量。如果數量過高，可能會導致應用程式崩潰。請謹慎操作。</system:String>
-
 </ResourceDictionary>

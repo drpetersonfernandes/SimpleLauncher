@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">모든 게임</system:String>
+    <system:String x:Key="10000games">10000 게임</system:String>
+    <system:String x:Key="1000games">1000 게임</system:String>
     <system:String x:Key="100games">100 게임</system:String>
     <system:String x:Key="100pixels">100 픽셀</system:String>
     <system:String x:Key="150pixels">150 픽셀</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 픽셀</system:String>
     <system:String x:Key="50pixels">50픽셀</system:String>
     <system:String x:Key="550pixels">550 픽셀</system:String>
+    <system:String x:Key="5thstep">5단계</system:String>
     <system:String x:Key="600pixels">600 픽셀</system:String>
     <system:String x:Key="650pixels">650픽셀</system:String>
+    <system:String x:Key="6thstep">6단계</system:String>
     <system:String x:Key="700pixels">700픽셀</system:String>
     <system:String x:Key="750pixels">750픽셀</system:String>
+    <system:String x:Key="7thstep">7단계</system:String>
     <system:String x:Key="800pixels">800픽셀</system:String>
+    <system:String x:Key="8thstep">8단계</system:String>
     <system:String x:Key="About">정보</system:String>
     <system:String x:Key="AccentColors">포인트 색상</system:String>
     <system:String x:Key="ActionTaken">귀하의 보안을 위해 추출 프로세스가 적절히 처리되었으며 문제가 기록되었습니다.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">에뮬레이터 다운로드</system:String>
     <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
     <system:String x:Key="DownloadImagePack">이미지 팩 다운로드</system:String>
+    <system:String x:Key="DownloadImagePack1">이미지 팩 1 다운로드</system:String>
+    <system:String x:Key="DownloadImagePack2">이미지 팩 2 다운로드</system:String>
+    <system:String x:Key="DownloadImagePack3">이미지 팩 3 다운로드</system:String>
+    <system:String x:Key="DownloadImagePack4">이미지 팩 4 다운로드</system:String>
+    <system:String x:Key="DownloadImagePack5">이미지 팩 5 다운로드</system:String>
     <system:String x:Key="Downloading">다운로드 중</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">다운로드와 압축 해제가 성공적으로 완료되었습니다.</system:String>
     <system:String x:Key="Downloadof">의 다운로드</system:String>
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
+    <system:String x:Key="Doyouwantsupport">지원을 원하십니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">최신 버전을 자동으로 다운로드하고 설치하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">오류를 디버깅하기 위해 'error_user.log' 파일을 열겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">오류를 디버그하기 위해 'error_user.log' 파일을 여시겠습니까?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">개발자로부터 지원을 받으시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">문제를 해결하려면 'Simple Launcher'를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM 히스토리를 온라인에서 검색하시겠습니까?</system:String>
     <system:String x:Key="EasyMode">간단 모드</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">정보 링크 버튼</system:String>
     <system:String x:Key="InfoLinkOverlayButton">정보 오버레이 버튼 열기</system:String>
     <system:String x:Key="Install">설치</system:String>
+    <system:String x:Key="InstallImagePack">이미지 팩 설치</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">이 창에서는 BIOS나 기타 시스템 파일이 필요 없는 에뮬레이터를 다운로드 및 설치할 수 있습니다.</system:String>
     <system:String x:Key="InvalidDownloadLink">잘못된 다운로드 링크</system:String>
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">관련 데이터가 제공되었기 때문에 이름이 필요합니다.</system:String>
     <system:String x:Key="NewThresholdLabel">새 임계값:</system:String>
     <system:String x:Key="NextPage">다음 페이지</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">운영 체제에 기본 웹 브라우저가 구성되어 있지 않습니다. 웹 링크를 열려면 Windows 설정(앱 > 기본 앱)에서 하나를 설정하십시오.</system:String>
     <system:String x:Key="Nodetailsavailablefor">세부 정보가 없습니다:</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">무작위로 선택할 게임을 찾을 수 없습니다. 시스템 선택을 확인하십시오.</system:String>
     <system:String x:Key="nogamesmatched">안타깝게도 검색 또는 선택한 버튼과 일치하는 게임이 없습니다.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">다운로드 중지</system:String>
     <system:String x:Key="Success">성공</system:String>
     <system:String x:Key="SuperTaller">슈퍼 톨러</system:String>
+    <system:String x:Key="SuperTaller2">슈퍼 톨러 2</system:String>
     <system:String x:Key="SuperWider">슈퍼 와이더</system:String>
+    <system:String x:Key="SuperWider2">슈퍼 와이드 2</system:String>
     <system:String x:Key="Support">지원</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">지원 요청이 성공적으로 전송되었습니다.</system:String>
     <system:String x:Key="System">시스템:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">공략</system:String>
     <system:String x:Key="Walkthroughnotfound">공략을 찾을 수 없습니다</system:String>
     <system:String x:Key="Warning">경고</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">경고! 그리드 모드에서 페이지당 매우 많은 수의 게임을 설정하면 시스템 메모리 사용량이 크게 증가합니다. 수가 너무 많으면 애플리케이션이 충돌할 수 있습니다. 주의하여 진행하십시오.</system:String>
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 "전문가 모드"로 전환하여 수동으로 설치해야 합니다.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">아카이브 파일에서 'Zip Slip'이라는 보안 취약점이 감지되었습니다. 이는 공격자가 의도된 추출 디렉토리 외부에 파일을 쓸 수 있게 하는 경로 순회 취약점입니다.</system:String>
     <system:String x:Key="ZoomIn">확대</system:String>
     <system:String x:Key="ZoomOut">확대 축소</system:String>
-    
-    <system:String x:Key="InstallImagePack">이미지 팩 설치</system:String>
-    <system:String x:Key="DownloadImagePack1">이미지 팩 1 다운로드</system:String>
-    <system:String x:Key="DownloadImagePack2">이미지 팩 2 다운로드</system:String>
-    <system:String x:Key="DownloadImagePack3">이미지 팩 3 다운로드</system:String>
-    <system:String x:Key="DownloadImagePack4">이미지 팩 4 다운로드</system:String>
-    <system:String x:Key="DownloadImagePack5">이미지 팩 5 다운로드</system:String>
-    <system:String x:Key="5thstep">5단계</system:String>
-    <system:String x:Key="6thstep">6단계</system:String>
-    <system:String x:Key="7thstep">7단계</system:String>
-    <system:String x:Key="8thstep">8단계</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">운영 체제에 기본 웹 브라우저가 구성되어 있지 않습니다. 웹 링크를 열려면 Windows 설정(앱 > 기본 앱)에서 하나를 설정하십시오.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">개발자로부터 지원을 받으시겠습니까?</system:String>
-    <system:String x:Key="Doyouwantsupport">지원을 원하십니까?</system:String>
-    <system:String x:Key="SuperWider2">슈퍼 와이드 2</system:String>
-    <system:String x:Key="SuperTaller2">슈퍼 톨러 2</system:String>
-    <system:String x:Key="1000games">1000 게임</system:String>
-    <system:String x:Key="10000games">10000 게임</system:String>
-    <system:String x:Key="1000000games">모든 게임</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">경고! 그리드 모드에서 페이지당 매우 많은 수의 게임을 설정하면 시스템 메모리 사용량이 크게 증가합니다. 수가 너무 많으면 애플리케이션이 충돌할 수 있습니다. 주의하여 진행하십시오.</system:String>
-
 </ResourceDictionary>

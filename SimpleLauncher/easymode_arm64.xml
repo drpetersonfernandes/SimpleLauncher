@@ -19,50 +19,6 @@
 <EasyMode>
 
     <EasyModeSystemConfig>
-        <SystemName>Amstrad CPC</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Amstrad CPC</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Amstrad CPC</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch caprice32</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\cap32_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>Amstrad CPC GX4000</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Amstrad CPC GX4000</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Amstrad CPC GX4000</SystemImageFolder>
@@ -76,9 +32,9 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME gx4000</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -119,9 +75,9 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME gx4000</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%"</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -241,7 +197,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -249,9 +204,9 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME a7800</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" a7800</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a7800</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -415,7 +370,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -423,18 +377,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch mednafen_lynx</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" lynx</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_lynx_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -466,18 +420,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch hatari</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" st</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\hatari_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -588,7 +542,6 @@
         <SystemIsMAME>true</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -633,12 +586,9 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>col</FormatToLaunch>
-            <FormatToLaunch>cv</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
-            <FormatToLaunch>rom</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -685,13 +635,13 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Vice</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" c64 -cart</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -702,188 +652,6 @@
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ImagePackDownloadLink>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 64</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Commodore 128</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Commodore 128</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Commodore 128</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Vice</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\x64.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/windows.html</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>3.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/WinVICE-3.0-ARM.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <!--                <ImagePackLocation/>-->
-                <!--                <ImagePackLatestVersion/>-->
-                <!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore128.zip</ImagePackDownloadLink>-->
-                <!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 128</ImagePackDownloadExtractPath>-->
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink/>
-                <ImagePackDownloadExtractPath/>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Commodore Amiga</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>WinFellow</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\WinFellow\.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage/>-->
-                <!--                <EmulatorLatestVersion/>-->
-                <!--                <EmulatorDownloadLink/>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\WinFellow\</EmulatorDownloadExtractPath>-->
-
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Commodore Amiga CD32</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga CD32</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga CD32</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-            <FormatToSearch>ccd</FormatToSearch>
-            <FormatToSearch>nrg</FormatToSearch>
-            <FormatToSearch>mds</FormatToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch puae</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\puae_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamigacd32.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga CD32</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Magnavox Odyssey 2</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Magnavox Odyssey 2</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Magnavox Odyssey 2</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch o2em</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\o2em_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/magnavoxodyssey2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Magnavox Odyssey 2</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
                 <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
@@ -910,9 +678,9 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME aquarius</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -946,28 +714,25 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>int</FormatToLaunch>
-            <FormatToLaunch>rom</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch freeintv</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" intv</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\freeintv_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackLocation/>
                 <ImagePackLatestVersion/>
@@ -1036,18 +801,9 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>rom</FormatToLaunch>
-            <FormatToLaunch>r1</FormatToLaunch>
-            <FormatToLaunch>mx1</FormatToLaunch>
-            <FormatToLaunch>mx2</FormatToLaunch>
-            <FormatToLaunch>col</FormatToLaunch>
-            <FormatToLaunch>dsk</FormatToLaunch>
-            <FormatToLaunch>cas</FormatToLaunch>
-            <FormatToLaunch>sg</FormatToLaunch>
-            <FormatToLaunch>sc</FormatToLaunch>
-            <FormatToLaunch>m3u</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1088,18 +844,9 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>rom</FormatToLaunch>
-            <FormatToLaunch>r1</FormatToLaunch>
-            <FormatToLaunch>mx1</FormatToLaunch>
-            <FormatToLaunch>mx2</FormatToLaunch>
-            <FormatToLaunch>col</FormatToLaunch>
-            <FormatToLaunch>dsk</FormatToLaunch>
-            <FormatToLaunch>cas</FormatToLaunch>
-            <FormatToLaunch>sg</FormatToLaunch>
-            <FormatToLaunch>sc</FormatToLaunch>
-            <FormatToLaunch>m3u</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1120,135 +867,6 @@
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx2.zip</ImagePackDownloadLink>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX2</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Microsoft Xbox</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Microsoft Xbox</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Microsoft Xbox</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Xemu</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xemu\xemu.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-full-screen -dvd_path</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage/>-->
-                <!--                <EmulatorLatestVersion/>-->
-                <!--                <EmulatorDownloadLink/>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xemu\</EmulatorDownloadExtractPath>-->
-
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Microsoft Xbox 360</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Microsoft Xbox360</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Microsoft Xbox360</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Xenia</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://github.com/xenia-project/release-builds-windows</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.0.2825-master</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/download/v1.0.2825-master/xenia_master.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox 360</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Microsoft Xbox 360 XBLA</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Microsoft Xbox360 XBLA</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Microsoft Xbox360 XBLA</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>bat</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Xenia</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Xenia\xenia.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://github.com/xenia-project/release-builds-windows</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.0.2825-master</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/xenia-project/release-builds-windows/releases/download/v1.0.2825-master/xenia_master.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Xenia\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360xbla.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox360 XBLA</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
                 <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
@@ -1354,52 +972,6 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>NEC PC-FX</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\NEC PC-FX</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\NEC PC-FX</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-            <FormatToSearch>ccd</FormatToSearch>
-            <FormatToSearch>toc</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch mednafen_pcfx</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_pcfx_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcfx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC-FX</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>NEC SuperGrafx</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\NEC SuperGrafx</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\NEC SuperGrafx</SystemImageFolder>
@@ -1443,66 +1015,16 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Nintendo 3DS</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Nintendo 3DS</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Nintendo 3DS</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>3ds, cci, 3dsx, elf, axf, cxi, app</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Azahar</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Azahar\azahar-2123.3-windows-msys2\azahar.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://github.com/azahar-emu/azahar</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>2123.3</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/azahar-emu/azahar/releases/download/2123.3/azahar-2123.3-windows-msys2.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Azahar\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo3ds.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 3DS</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>Nintendo 64</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Nintendo 64</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Nintendo 64</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>n64</FormatToLaunch>
-            <FormatToLaunch>v64</FormatToLaunch>
-            <FormatToLaunch>z64</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
-            <FormatToLaunch>u1</FormatToLaunch>
-            <FormatToLaunch>ndd</FormatToLaunch>
-            <FormatToLaunch>gb</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1542,17 +1064,10 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>n64</FormatToLaunch>
-            <FormatToLaunch>v64</FormatToLaunch>
-            <FormatToLaunch>z64</FormatToLaunch>
-            <FormatToLaunch>bin</FormatToLaunch>
-            <FormatToLaunch>u1</FormatToLaunch>
-            <FormatToLaunch>ndd</FormatToLaunch>
-            <FormatToLaunch>gb</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1637,14 +1152,10 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>nes</FormatToLaunch>
-            <FormatToLaunch>fds</FormatToLaunch>
-            <FormatToLaunch>unf</FormatToLaunch>
-            <FormatToLaunch>unif</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1770,7 +1281,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1899,7 +1409,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -1943,16 +1452,10 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>smc</FormatToLaunch>
-            <FormatToLaunch>sfc</FormatToLaunch>
-            <FormatToLaunch>swc</FormatToLaunch>
-            <FormatToLaunch>fig</FormatToLaunch>
-            <FormatToLaunch>bs</FormatToLaunch>
-            <FormatToLaunch>st</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -1992,7 +1495,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2012,6 +1514,49 @@
                 <EmulatorLatestVersion>146</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://github.com/ares-emulator/ares/releases/download/v146/ares-windows-clang-cl-arm64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\ares\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackLocation/>
+                <ImagePackLatestVersion/>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ImagePackDownloadLink>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadExtractPath2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadExtractPath3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadExtractPath4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath5/>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
+        <SystemName>Nintendo Virtual Boy</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Nintendo Virtual Boy</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Nintendo Virtual Boy</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" vboy</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
@@ -2078,49 +1623,6 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Nintendo WiiU</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Nintendo WiiU</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Nintendo WiiU</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>wua</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Cemu</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Cemu\Cemu_2.6\Cemu.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-f -g</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://github.com/cemu-project/Cemu/releases</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>2.6</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/cemu-2.6-windows-x64.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Cemu\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiU</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>Nintendo WiiWare</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Nintendo WiiWare</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Nintendo WiiWare</SystemImageFolder>
@@ -2150,94 +1652,6 @@
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ImagePackDownloadLink>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Panasonic 3DO</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Panasonic 3DO</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Panasonic 3DO</SystemImageFolder>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-            <FormatToSearch>bin</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch opera</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\opera_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/panasonic3do.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Panasonic 3DO</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Philips CD-i</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Philips CD-i</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Philips CD-i</SystemImageFolder>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch same_cdi</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\same_cdi_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\snes9x_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/philipscdi.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Philips CD-i</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
                 <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
@@ -2294,60 +1708,12 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sega Dreamcast</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sega Dreamcast</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sega Dreamcast</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>gdi</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-            <FormatToSearch>bin</FormatToSearch>
-            <FormatToSearch>cdi</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Redream</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Redream\redream.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://redream.io/download</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.5.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://redream.io/download/redream.x86_64-windows-v1.5.0.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Redream\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segadreamcast.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Dreamcast</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>Sega Game Gear</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Sega Game Gear</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Sega Game Gear</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2391,7 +1757,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2435,7 +1800,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2525,7 +1889,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2563,96 +1926,6 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>Sega Model 3</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sega Model 3</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sega Model 3</SystemImageFolder>
-        <SystemIsMAME>true</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>bat</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Supermodel</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Supermodel\Supermodel.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://github.com/trzy/Supermodel</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>0.3.20250924</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/trzy/Supermodel/releases/download/v0.3a-git-4e5905f/supermodel-0.3a-git-4e5905f-windows.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Supermodel\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamodel3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Model 3</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Sega Saturn</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sega Saturn</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sega Saturn</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-            <FormatToSearch>toc</FormatToSearch>
-            <FormatToSearch>m3u</FormatToSearch>
-            <FormatToSearch>ccd</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Ymir</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>0.1.8</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.1.8/ymir-windows-ARM64-v0.1.8.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>-->
-
-                <CoreLocation/>
-                <CoreLatestVersion/>
-                <CoreDownloadLink/>
-                <CoreDownloadExtractPath/>
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>Sega SC-3000</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Sega SC-3000</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Sega SC-3000</SystemImageFolder>
@@ -2660,15 +1933,9 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>sms</FormatToLaunch>
-            <FormatToLaunch>gg</FormatToLaunch>
-            <FormatToLaunch>sg</FormatToLaunch>
-            <FormatToLaunch>sc</FormatToLaunch>
-            <FormatToLaunch>sf</FormatToLaunch>
-            <FormatToLaunch>dsk</FormatToLaunch>
-            <FormatToLaunch>cht</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -2709,15 +1976,9 @@
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
         </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
-            <FormatToLaunch>sms</FormatToLaunch>
-            <FormatToLaunch>gg</FormatToLaunch>
-            <FormatToLaunch>sg</FormatToLaunch>
-            <FormatToLaunch>sc</FormatToLaunch>
-            <FormatToLaunch>sf</FormatToLaunch>
-            <FormatToLaunch>dsk</FormatToLaunch>
-            <FormatToLaunch>cht</FormatToLaunch>
+            <FormatToLaunch/>
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
@@ -2764,7 +2025,7 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <EmulatorName>MAME x68000</EmulatorName>
+                <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
                 <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" X68000 -flop1</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
@@ -2800,7 +2061,6 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -2881,57 +2141,12 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
-        <SystemName>SNK Neo Geo CD</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo CD</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo CD</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>cue</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>Retroarch neocd</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\neocd_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeocd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo CD</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
         <SystemName>SNK Neo Geo Pocket</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\SNK Neo Geo Pocket</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\SNK Neo Geo Pocket</SystemImageFolder>
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            <FormatToSearch>7z</FormatToSearch>
         </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
@@ -3048,141 +2263,6 @@
                 <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ImagePackDownloadLink>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Sony PlayStation 2</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sony PlayStation 2</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sony PlayStation 2</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>chd</FormatToSearch>
-            <FormatToSearch>bin</FormatToSearch>
-            <FormatToSearch>iso</FormatToSearch>
-            <FormatToSearch>mdf</FormatToSearch>
-            <FormatToSearch>cso</FormatToSearch>
-            <FormatToSearch>zso</FormatToSearch>
-            <FormatToSearch>gz</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>PCSX2</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\PCSX2\pcsx2-qt.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-fullscreen</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://pcsx2.net/downloads</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>2.4.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/pcsx2-v2.4.0-windows-x64-Qt.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\PCSX2\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 2</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Sony PlayStation 3</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sony PlayStation 3</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sony PlayStation 3</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>bat</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>RPCS3</EmulatorName>-->
-                <!--                <EmulatorLocation/>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://rpcs3.net/download</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>0.0.37</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/rpcs3-v0.0.37-17994-d15b7a99_win64.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RPCS3\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 3</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
-            </Emulator>
-        </Emulators>
-    </EasyModeSystemConfig>
-
-    <EasyModeSystemConfig>
-        <SystemName>Sony PlayStation 4</SystemName>
-        <SystemFolder>%BASEFOLDER%\roms\Sony PlayStation 4</SystemFolder>
-        <SystemImageFolder>%BASEFOLDER%\images\Sony PlayStation 4</SystemImageFolder>
-        <SystemIsMAME>false</SystemIsMAME>
-        <FileFormatsToSearch>
-            <FormatToSearch>bin, elf, oelf</FormatToSearch>
-        </FileFormatsToSearch>
-        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
-        <FileFormatsToLaunch>
-            <FormatToLaunch/>
-        </FileFormatsToLaunch>
-        <Emulators>
-            <Emulator>
-                <!--                <EmulatorName>shadPS4</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\shadPS4\shadPS4.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters/>-->
-                <!--                <EmulatorDownloadPage>https://github.com/shadps4-emu/shadPS4</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>0.11</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://github.com/shadps4-emu/shadPS4/releases/download/v.0.11.0/shadps4-win64-qt-0.11.0.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\shadPS4\</EmulatorDownloadExtractPath>-->
-
-                <!--                <CoreLocation/>-->
-                <!--                <CoreLatestVersion/>-->
-                <!--                <CoreDownloadLink/>-->
-                <!--                <CoreDownloadExtractPath/>-->
-
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink/>
-                <ImagePackDownloadExtractPath/>
                 <ImagePackDownloadLink2/>
                 <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>

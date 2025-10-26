@@ -1,6 +1,9 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="1000000games">Tüm oyunlar</system:String>
+    <system:String x:Key="10000games">10000 oyun</system:String>
+    <system:String x:Key="1000games">1000 oyun</system:String>
     <system:String x:Key="100games">100 oyun</system:String>
     <system:String x:Key="100pixels">100 piksel</system:String>
     <system:String x:Key="150pixels">150 piksel</system:String>
@@ -21,11 +24,15 @@
     <system:String x:Key="500pixels">500 piksel</system:String>
     <system:String x:Key="50pixels">50 piksel</system:String>
     <system:String x:Key="550pixels">550 piksel</system:String>
+    <system:String x:Key="5thstep">5. adım</system:String>
     <system:String x:Key="600pixels">600 piksel</system:String>
     <system:String x:Key="650pixels">650 piksel</system:String>
+    <system:String x:Key="6thstep">6. adım</system:String>
     <system:String x:Key="700pixels">700 piksel</system:String>
     <system:String x:Key="750pixels">750 piksel</system:String>
+    <system:String x:Key="7thstep">7. adım</system:String>
     <system:String x:Key="800pixels">800 piksel</system:String>
+    <system:String x:Key="8thstep">8. adım</system:String>
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
     <system:String x:Key="ActionTaken">Güvenliğiniz için, çıkarma işlemi düzgün bir şekilde ele alındı ve sorun kaydedildi.</system:String>
@@ -135,18 +142,25 @@
     <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
     <system:String x:Key="Downloaderror">İndirme hatası.</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
+    <system:String x:Key="DownloadImagePack1">Resim Paketi 1'i İndir</system:String>
+    <system:String x:Key="DownloadImagePack2">Resim Paketi 2'yi İndir</system:String>
+    <system:String x:Key="DownloadImagePack3">Resim Paketi 3'ü İndir</system:String>
+    <system:String x:Key="DownloadImagePack4">Resim Paketi 4'ü İndir</system:String>
+    <system:String x:Key="DownloadImagePack5">Resim Paketi 5'i İndir</system:String>
     <system:String x:Key="Downloading">İndiriliyor</system:String>
     <system:String x:Key="Downloadingandextractionweresuccessful">İndirme ve arşivden çıkarma işlemleri başarıyla tamamlandı.</system:String>
     <system:String x:Key="Downloadof">in indirimi</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
+    <system:String x:Key="Doyouwantsupport">Destek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttodownloadandinstall">Son sürümü otomatik indirmek ve yüklemek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefile">Hata ayıklamak için 'error_user.log' dosyasını açmak istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttoopenthefileerroruserlog">'error_user.log' dosyasını açarak hatayı ayıklamak istiyor musunuz?</system:String>
+    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Geliştiriciden destek almak ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' uygulamasını yeniden kurarak sorunu çözmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM geçmişini çevrimiçi aramak ister misiniz?</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
@@ -275,6 +289,7 @@
     <system:String x:Key="InfoLinkButton">Bilgi Bağlantı Düğmesi</system:String>
     <system:String x:Key="InfoLinkOverlayButton">Bilgi Katman Düğmesini Aç</system:String>
     <system:String x:Key="Install">Yükle</system:String>
+    <system:String x:Key="InstallImagePack">Resim Paketi Yükle</system:String>
     <system:String x:Key="InThisWindowYouCanDownload">Bu pencerede, BIOS veya diğer sistem dosyalarını gerektirmeyen emülatörleri indirebilir ve kurabilirsiniz.</system:String>
     <system:String x:Key="InvalidDownloadLink">Geçersiz İndirme Bağlantısı</system:String>
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
@@ -314,6 +329,7 @@
     <system:String x:Key="nameisrequiredbecauserelateddata">ilgili veriler sağlandığı için gereklidir.</system:String>
     <system:String x:Key="NewThresholdLabel">Yeni Eşik:</system:String>
     <system:String x:Key="NextPage">Sonraki Sayfa</system:String>
+    <system:String x:Key="NoDefaultBrowserConfiguredMessage">İşletim sisteminizde yapılandırılmış varsayılan bir web tarayıcısı yok. Web bağlantılarını açmak için lütfen Windows Ayarları'nda (Uygulamalar > Varsayılan uygulamalar) bir tane ayarlayın.</system:String>
     <system:String x:Key="Nodetailsavailablefor">İçin detay bulunamadı</system:String>
     <system:String x:Key="Nogamesfoundtorandomlyselectfrom">Rastgele seçim yapmak için oyun bulunamadı. Lütfen sistem seçiminizi kontrol edin.</system:String>
     <system:String x:Key="nogamesmatched">Maalesef, aramanız veya seçtiğiniz buton ile eşleşen bir oyun bulunamadı.</system:String>
@@ -495,7 +511,9 @@
     <system:String x:Key="StopDownload">İndirmeyi durdur</system:String>
     <system:String x:Key="Success">Başarılı</system:String>
     <system:String x:Key="SuperTaller">Süper daha yüksek</system:String>
+    <system:String x:Key="SuperTaller2">Süper Daha Uzun 2</system:String>
     <system:String x:Key="SuperWider">Süper daha geniş</system:String>
+    <system:String x:Key="SuperWider2">Süper Daha Geniş 2</system:String>
     <system:String x:Key="Support">Destek</system:String>
     <system:String x:Key="Supportrequestsentsuccessfully">Destek talebi başarıyla gönderildi.</system:String>
     <system:String x:Key="System">Sistem:</system:String>
@@ -633,6 +651,7 @@
     <system:String x:Key="Walkthrough">Yol Gösterici</system:String>
     <system:String x:Key="Walkthroughnotfound">Yol Gösterici Bulunamadı</system:String>
     <system:String x:Key="Warning">Uyarı</system:String>
+    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Uyarı! Sayfa başına çok yüksek sayıda oyun ayarlamak, Izgara modundayken sistem bellek kullanımını önemli ölçüde artıracaktır. Sayı çok yüksekse, bu uygulamanın çökmesine neden olabilir. Lütfen dikkatli ilerleyin.</system:String>
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Bu dosyaları gerektiren sistemleri de destekliyoruz; ancak, "Uzman Modu"na geçip bunları manuel olarak kurmanız gerekir.</system:String>
@@ -661,25 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">Arşiv dosyasında 'Zip Slip' adlı bir güvenlik açığı tespit edildi. Bu, bir saldırganın hedeflenen çıkarma dizininin dışına dosya yazmasına izin verebilecek bir yol geçişi güvenlik açığıdır.</system:String>
     <system:String x:Key="ZoomIn">Yakınlaştır</system:String>
     <system:String x:Key="ZoomOut">Uzaklaştır</system:String>
-    
-    <system:String x:Key="InstallImagePack">Resim Paketi Yükle</system:String>
-    <system:String x:Key="DownloadImagePack1">Resim Paketi 1'i İndir</system:String>
-    <system:String x:Key="DownloadImagePack2">Resim Paketi 2'yi İndir</system:String>
-    <system:String x:Key="DownloadImagePack3">Resim Paketi 3'ü İndir</system:String>
-    <system:String x:Key="DownloadImagePack4">Resim Paketi 4'ü İndir</system:String>
-    <system:String x:Key="DownloadImagePack5">Resim Paketi 5'i İndir</system:String>
-    <system:String x:Key="5thstep">5. adım</system:String>
-    <system:String x:Key="6thstep">6. adım</system:String>
-    <system:String x:Key="7thstep">7. adım</system:String>
-    <system:String x:Key="8thstep">8. adım</system:String>
-    <system:String x:Key="NoDefaultBrowserConfiguredMessage">İşletim sisteminizde yapılandırılmış varsayılan bir web tarayıcısı yok. Web bağlantılarını açmak için lütfen Windows Ayarları'nda (Uygulamalar > Varsayılan uygulamalar) bir tane ayarlayın.</system:String>
-    <system:String x:Key="Doyouwanttoreceivesupportfromthedeveloper">Geliştiriciden destek almak ister misiniz?</system:String>
-    <system:String x:Key="Doyouwantsupport">Destek ister misiniz?</system:String>
-    <system:String x:Key="SuperWider2">Süper Daha Geniş 2</system:String>
-    <system:String x:Key="SuperTaller2">Süper Daha Uzun 2</system:String>
-    <system:String x:Key="1000games">1000 oyun</system:String>
-    <system:String x:Key="10000games">10000 oyun</system:String>
-    <system:String x:Key="1000000games">Tüm oyunlar</system:String>
-    <system:String x:Key="WarningSettingupaveryhighnumberofgamesperpage">Uyarı! Sayfa başına çok yüksek sayıda oyun ayarlamak, Izgara modundayken sistem bellek kullanımını önemli ölçüde artıracaktır. Sayı çok yüksekse, bu uygulamanın çökmesine neden olabilir. Lütfen dikkatli ilerleyin.</system:String>
-
 </ResourceDictionary>
