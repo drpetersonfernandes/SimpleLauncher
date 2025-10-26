@@ -1927,9 +1927,19 @@ Emulator repository available on [GitHub](https://github.com/TASEmulators/desmum
 
 **System Folder (Example):** c:\Nintendo Family Computer Disk System<br>
 **System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
-**Format To Launch After Extraction:** nes, fds, unf, unif<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
+**Format To Launch After Extraction:** nes, fds, unf, unif, qd<br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Famicom Disk System"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
 
 .
 
@@ -1967,29 +1977,6 @@ Core may require BIOS files or system files to work properly.
 This emulator is available for Windows-x64.<br>
 This emulator requires a BIOS file to run this system.
 
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** C:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Famicom Disk System"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
-
-.
-
-**Emulator Name:** MAME<br>
-**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Nintendo Family Computer Disk System" famicom<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" famicom<br>
-**Fullscreen Parameter:** -window (will load in windowed mode)<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
-
 ## Nintendo Game Boy
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2004,6 +1991,16 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+
+.
+
+**Emulator Name:** Ares<br>
+**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
+**Emulator Parameters (Example):** --fullscreen --system "Game Boy"<br>
+**Fullscreen Parameter:** --fullscreen<br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to work properly.
 
 .
 
@@ -2065,16 +2062,6 @@ Core may require BIOS files or system files to work properly.
 **Fullscreen Parameter:** --fullscreen<br>
 
 This emulator is available for Windows-x64.
-
-.
-
-**Emulator Name:** Ares<br>
-**Emulator Path (Example):** c:\emulators\ares\ares-v146\ares.exe<br>
-**Emulator Parameters (Example):** --fullscreen --system "Game Boy"<br>
-**Fullscreen Parameter:** --fullscreen<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-This emulator requires a BIOS file to work properly.
 
 .
 
@@ -2423,8 +2410,8 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 **System Folder (Example):** c:\Nintendo SNES<br>
 **System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 
 .
@@ -2505,7 +2492,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **System Folder:** c:\Nintendo SNES MSU1<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** zip, 7z<br>
+**Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
 
@@ -2802,19 +2789,6 @@ This emulator is available for Windows-x64.<br>
 It supports RetroAchievements.<br>
 Core documentation can be found on [Libretro Website](https://docs.libretro.com/library/same_cdi/).<br>
 Core may require BIOS files or system files to work properly.
-
-.
-
-**Emulator Name:** MAME<br>
-**Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Philips CD-i" cdi<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" cdi<br>
-**Fullscreen Parameter:** -window (will load in windowed mode)<br>
-
-This emulator is available for Windows-x64 and Windows-arm64.<br>
-Please use the exact Emulator Name provided above.<br>
-To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
-You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 ## ScummVM
 
@@ -3186,7 +3160,7 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
-## Sega Genesis CD
+## Sega Genesis CD / Mega Drive CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -3493,7 +3467,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **System Folder (Example):** c:\Sega SC-3000<br>
 **System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
 **Format To Search In System Folder:** zip<br>
-**Extract File Before Launch?** true<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
 
 .
@@ -4145,14 +4119,14 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 
 **System Folder (Example):** c:\Sony PlayStation 4<br>
 **System Is MAME?** false<br>
-**Format To Search In System Folder:** iso<br>
+**Format To Search In System Folder:** bin, elf, oelf<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
 
 .
 
 **Emulator Name:** shadPS4<br>
-**Emulator Path (Example):** c:\emulators\shadPS4\shadPS4.exe.exe<br>
+**Emulator Path (Example):** c:\emulators\shadPS4\shadPS4.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
