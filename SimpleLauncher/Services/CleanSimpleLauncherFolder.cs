@@ -188,7 +188,7 @@ public static class CleanSimpleLauncherFolder
 
     private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsX64 =
     [
-        Path.Combine(AppDirectory, "GameCoverScraper", "arm64")
+        Path.Combine(AppDirectory, "tools", "GameCoverScraper", "arm64")
     ];
 
     private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsArm64 =
@@ -196,7 +196,7 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "BatchConvertIsoToXiso"),
         Path.Combine(AppDirectory, "tools", "BatchConvertToCHD"),
         Path.Combine(AppDirectory, "tools", "xbox-iso-vfs"),
-        Path.Combine(AppDirectory, "GameCoverScraper", "x64"),
+        Path.Combine(AppDirectory, "tools", "GameCoverScraper", "x64"),
     ];
 
     public static void CleanupTrash()
