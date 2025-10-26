@@ -702,8 +702,8 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 **System Folder (Example):** c:\Commodore 64<br>
 **System Is MAME?** false (may be true if you are using a MAME compatible ROM set)<br>
-**Format To Search In System Folder:** zip, 7z<br>
-**Extract File Before Launch?** true<br>
+**Format To Search In System Folder:** zip<br>
+**Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
 
 .
