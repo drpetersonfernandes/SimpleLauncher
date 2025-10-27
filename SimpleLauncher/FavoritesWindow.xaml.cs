@@ -163,7 +163,6 @@ public partial class FavoritesWindow
         }
 
         // // Update the injected manager with the current collection and save
-        // _favoritesManager.FavoriteList = _favoriteList;
         _favoritesManager.SaveFavorites();
 
         // Explicitly refresh the data grid binding to ensure UI updates
@@ -434,7 +433,6 @@ public partial class FavoritesWindow
     private void RemoveFavoriteFromXmlAndEmptyPreviewImage(Favorite selectedFavorite)
     {
         _favoriteList.Remove(selectedFavorite);
-        // _favoritesManager.FavoriteList = _favoriteList;
         _favoritesManager.SaveFavorites();
 
         PreviewImage.Source = null;

@@ -1052,13 +1052,13 @@ public static class GameLauncher
 
     private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
-        if (selectedEmulatorName.Equals("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Kega", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Fusion", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Project64", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Project 64", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Equals("Emulicious", StringComparison.OrdinalIgnoreCase))
+        if (selectedEmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Kega", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Project64", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Project 64", StringComparison.OrdinalIgnoreCase) ||
+            selectedEmulatorName.Contains("Emulicious", StringComparison.OrdinalIgnoreCase))
         {
             // Notify developer
             var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
