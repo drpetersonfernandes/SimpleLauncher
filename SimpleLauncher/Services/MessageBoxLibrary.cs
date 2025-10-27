@@ -1516,9 +1516,9 @@ internal static class MessageBoxLibrary
 
         static void ShowMessage()
         {
-            var downloadingandextractionweresuccessful = (string)Application.Current.TryFindResource("Downloadingandextractionweresuccessful") ?? "Downloading and extraction were successful.";
+            var downloadandextractioncompletedsuccessfully = (string)Application.Current.TryFindResource("Downloadandextractioncompletedsuccessfully") ?? "Download and extraction completed successfully.";
             var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(downloadingandextractionweresuccessful, info, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(downloadandextractioncompletedsuccessfully, info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 

@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">৭৫০ পিক্সেল</system:String>
     <system:String x:Key="7thstep">৭ম ধাপ</system:String>
     <system:String x:Key="800pixels">৮০০ পিক্সেল</system:String>
-    <system:String x:Key="8thstep">৮ম ধাপ</system:String>
     <system:String x:Key="About">সম্পর্কিত</system:String>
     <system:String x:Key="AccentColors">অ্যাকসেন্ট রঙ</system:String>
     <system:String x:Key="ActionTaken">আপনার নিরাপত্তার জন্য, এক্সট্রাকশন প্রক্রিয়াটি সঠিকভাবে পরিচালনা করা হয়েছে এবং সমস্যাটি লগ করা হয়েছে।</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">ইমেজ প্যাক 4 ডাউনলোড করুন</system:String>
     <system:String x:Key="DownloadImagePack5">ইমেজ প্যাক 5 ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloading">ডাউনলোড হচ্ছে</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">ডাউনলোড এবং উত্তোলন সফল হয়েছে।</system:String>
     <system:String x:Key="Downloadof">এর ডাউনলোড</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ডাউনলোড বা এক্সট্র্যাকশন ব্যর্থ হয়েছে</system:String>
     <system:String x:Key="downloadprocess">ডাউনলোড প্রসেস.</system:String>

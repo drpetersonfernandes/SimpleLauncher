@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 pixels</system:String>
     <system:String x:Key="7thstep">7th step</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
-    <system:String x:Key="8thstep">8th step</system:String>
     <system:String x:Key="About">About</system:String>
     <system:String x:Key="AccentColors">Accent Colors</system:String>
     <system:String x:Key="ActionTaken">For your security, the extraction process has been properly handle and the issue has been logged.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Download Image Pack 4</system:String>
     <system:String x:Key="DownloadImagePack5">Download Image Pack 5</system:String>
     <system:String x:Key="Downloading">Downloading</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Downloading and extraction were successful.</system:String>
     <system:String x:Key="Downloadof">Download of</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download or extraction failed.</system:String>
     <system:String x:Key="downloadprocess">download process.</system:String>
@@ -680,4 +678,7 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="FinalStep">Final step</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download and extraction completed successfully.</system:String>
 </ResourceDictionary>

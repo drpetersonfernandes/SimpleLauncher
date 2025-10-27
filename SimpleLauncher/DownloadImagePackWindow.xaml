@@ -39,6 +39,11 @@
 
                 <GroupBox Grid.Row="2" Header="{DynamicResource InstallImagePack}" Margin="10" Padding="0">
                     <ItemsControl x:Name="ImagePacksItemsControl" Margin="10">
+                        <ItemsControl.ItemsPanel>
+                            <ItemsPanelTemplate>
+                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" />
+                            </ItemsPanelTemplate>
+                        </ItemsControl.ItemsPanel>
                         <ItemsControl.ItemTemplate>
                             <DataTemplate>
                                 <Button Content="{Binding DisplayName}"
@@ -47,7 +52,7 @@
                                         Padding="5"
                                         Click="DownloadImagePackButton_Click"
                                         IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
-                                        Margin="10" d:DataContext="{d:DesignInstance }" />
+                                        Margin="5" d:DataContext="{d:DesignInstance }" />
                             </DataTemplate>
                         </ItemsControl.ItemTemplate>
                     </ItemsControl>

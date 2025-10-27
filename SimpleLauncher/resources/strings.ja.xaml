@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750ピクセル</system:String>
     <system:String x:Key="7thstep">7番目のステップ</system:String>
     <system:String x:Key="800pixels">800ピクセル</system:String>
-    <system:String x:Key="8thstep">8番目のステップ</system:String>
     <system:String x:Key="About">情報</system:String>
     <system:String x:Key="AccentColors">アクセントカラー</system:String>
     <system:String x:Key="ActionTaken">セキュリティのために、展開プロセスは適切に処理され、問題は記録されました。</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">画像パック4をダウンロード</system:String>
     <system:String x:Key="DownloadImagePack5">画像パック5をダウンロード</system:String>
     <system:String x:Key="Downloading">ダウンロード中</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">ダウンロードと展開が成功しました。</system:String>
     <system:String x:Key="Downloadof">のダウンロード</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ダウンロードまたは抽出に失敗しました</system:String>
     <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>

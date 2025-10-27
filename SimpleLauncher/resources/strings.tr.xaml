@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 piksel</system:String>
     <system:String x:Key="7thstep">7. adım</system:String>
     <system:String x:Key="800pixels">800 piksel</system:String>
-    <system:String x:Key="8thstep">8. adım</system:String>
     <system:String x:Key="About">Hakkında</system:String>
     <system:String x:Key="AccentColors">Vurgu Renkleri</system:String>
     <system:String x:Key="ActionTaken">Güvenliğiniz için, çıkarma işlemi düzgün bir şekilde ele alındı ve sorun kaydedildi.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Resim Paketi 4'ü İndir</system:String>
     <system:String x:Key="DownloadImagePack5">Resim Paketi 5'i İndir</system:String>
     <system:String x:Key="Downloading">İndiriliyor</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">İndirme ve arşivden çıkarma işlemleri başarıyla tamamlandı.</system:String>
     <system:String x:Key="Downloadof">in indirimi</system:String>
     <system:String x:Key="DownloadorExtractionFailed">İndirme veya Ayıklama Başarısız</system:String>
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>

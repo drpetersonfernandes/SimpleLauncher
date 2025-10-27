@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 pixels</system:String>
     <system:String x:Key="7thstep">7e stap</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
-    <system:String x:Key="8thstep">8e stap</system:String>
     <system:String x:Key="About">Over</system:String>
     <system:String x:Key="AccentColors">Accentkleuren</system:String>
     <system:String x:Key="ActionTaken">Voor uw veiligheid is het extractieproces correct afgehandeld en is het probleem geregistreerd.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Afbeeldingspakket 4 downloaden</system:String>
     <system:String x:Key="DownloadImagePack5">Afbeeldingspakket 5 downloaden</system:String>
     <system:String x:Key="Downloading">Downloaden</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Downloaden en uitpakken was succesvol.</system:String>
     <system:String x:Key="Downloadof">Download van</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Download- of extractiefout</system:String>
     <system:String x:Key="downloadprocess">downloadproces.</system:String>

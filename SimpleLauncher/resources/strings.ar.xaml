@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 بكسل</system:String>
     <system:String x:Key="7thstep">الخطوة السابعة</system:String>
     <system:String x:Key="800pixels">800 بكسل</system:String>
-    <system:String x:Key="8thstep">الخطوة الثامنة</system:String>
     <system:String x:Key="About">حول</system:String>
     <system:String x:Key="AccentColors">ألوان التمييز</system:String>
     <system:String x:Key="ActionTaken">من أجل أمانك، تمت معالجة عملية الاستخراج بشكل صحيح وتم تسجيل المشكلة.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">تنزيل حزمة الصور 4</system:String>
     <system:String x:Key="DownloadImagePack5">تنزيل حزمة الصور 5</system:String>
     <system:String x:Key="Downloading">جارٍ التنزيل</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">تم التنزيل والاستخراج بنجاح.</system:String>
     <system:String x:Key="Downloadof">تحميل لـ</system:String>
     <system:String x:Key="DownloadorExtractionFailed">فشل التحميل أو الاستخراج</system:String>
     <system:String x:Key="downloadprocess">عملية التحميل.</system:String>

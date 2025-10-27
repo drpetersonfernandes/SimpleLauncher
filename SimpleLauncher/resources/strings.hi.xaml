@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 पिक्सेल</system:String>
     <system:String x:Key="7thstep">7वां चरण</system:String>
     <system:String x:Key="800pixels">800 पिक्सेल</system:String>
-    <system:String x:Key="8thstep">8वां चरण</system:String>
     <system:String x:Key="About">के बारे में</system:String>
     <system:String x:Key="AccentColors">एक्सेंट रंग</system:String>
     <system:String x:Key="ActionTaken">आपकी सुरक्षा के लिए, निष्कर्षण प्रक्रिया को उचित रूप से संभाला गया है और समस्या को लॉग किया गया है।</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">इमेज पैक 4 डाउनलोड करें</system:String>
     <system:String x:Key="DownloadImagePack5">इमेज पैक 5 डाउनलोड करें</system:String>
     <system:String x:Key="Downloading">डाउनलोड हो रहा है</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">डाउनलोड और निष्कर्षण सफल रहे।</system:String>
     <system:String x:Key="Downloadof">का डाउनलोड</system:String>
     <system:String x:Key="DownloadorExtractionFailed">डाउनलोड या निष्कर्षण में विफल</system:String>
     <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>

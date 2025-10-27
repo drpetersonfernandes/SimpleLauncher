@@ -2,24 +2,26 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+                      xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+                      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+                      mc:Ignorable="d"
                       Title="{DynamicResource AddNewSystem}"
                       Width="1000"
                       MinWidth="700"
                       Height="800"
                       MinHeight="550"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen"
+                      DataContext="{Binding RelativeSource={RelativeSource Self}}"> <!-- Add this line for bindings to work -->
+
+    <controls:MetroWindow.Resources>
+        <!-- Define a BooleanToVisibilityConverter if not already in App.xaml -->
+        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
+    </controls:MetroWindow.Resources>
+
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
             <Grid Margin="10">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
                     <RowDefinition Height="Auto" />
@@ -99,52 +101,47 @@
                                 Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5"
                                 MinWidth="150" />
 
-                        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center"
-                               Margin="5" />
-                        <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadImagePackButton1"
-                                Content="{DynamicResource DownloadImagePack1}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton1_Click"
-                                IsEnabled="False" Margin="5"
-                                MinWidth="150" />
+                        <!-- Image Pack 1 - Fixed Alignment -->
+                        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center" Margin="5"
+                               Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton1_Click"
+                                IsEnabled="False" Margin="5" MinWidth="150"
+                                Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource 4thstep}" VerticalAlignment="Center"
-                               Margin="5" />
-                        <Button Grid.Row="3" Grid.Column="1" x:Name="DownloadImagePackButton2"
-                                Content="{DynamicResource DownloadImagePack2}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton2_Click"
-                                IsEnabled="False" Margin="5"
-                                MinWidth="150" />
+                        <!-- Image Pack 2 - Fixed Alignment -->
+                        <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource 4thstep}" VerticalAlignment="Center" Margin="5"
+                               Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button Grid.Row="3" Grid.Column="1" x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton2_Click"
+                                IsEnabled="False" Margin="5" MinWidth="150"
+                                Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 5thstep}" VerticalAlignment="Center"
-                               Margin="5" />
-                        <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadImagePackButton3"
-                                Content="{DynamicResource DownloadImagePack3}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton3_Click"
-                                IsEnabled="False" Margin="5"
-                                MinWidth="150" />
+                        <!-- Image Pack 3 - Fixed Alignment -->
+                        <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 5thstep}" VerticalAlignment="Center" Margin="5"
+                               Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton3_Click"
+                                IsEnabled="False" Margin="5" MinWidth="150"
+                                Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource 6thstep}" VerticalAlignment="Center"
-                               Margin="5" />
-                        <Button Grid.Row="5" Grid.Column="1" x:Name="DownloadImagePackButton4"
-                                Content="{DynamicResource DownloadImagePack4}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton4_Click"
-                                IsEnabled="False" Margin="5"
-                                MinWidth="150" />
+                        <!-- Image Pack 4 - Fixed Alignment -->
+                        <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource 6thstep}" VerticalAlignment="Center" Margin="5"
+                               Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button Grid.Row="5" Grid.Column="1" x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton4_Click"
+                                IsEnabled="False" Margin="5" MinWidth="150"
+                                Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource 7thstep}" VerticalAlignment="Center"
-                               Margin="5" />
-                        <Button Grid.Row="6" Grid.Column="1" x:Name="DownloadImagePackButton5"
-                                Content="{DynamicResource DownloadImagePack5}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton5_Click"
-                                IsEnabled="False" Margin="5"
-                                MinWidth="150" />
+                        <!-- Image Pack 5 - Fixed Alignment -->
+                        <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource 7thstep}" VerticalAlignment="Center" Margin="5"
+                               Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
+                        <Button Grid.Row="6" Grid.Column="1" x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
+                                HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton5_Click"
+                                IsEnabled="False" Margin="5" MinWidth="150"
+                                Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource 8thstep}" VerticalAlignment="Center"
+                        <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource FinalStep}" VerticalAlignment="Center"
                                Margin="5,5,5,10" />
                         <Button Grid.Row="7" Grid.Column="1" x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"

@@ -16,10 +16,12 @@ using System.Xml;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
+using System.ComponentModel; // Required for INotifyPropertyChanged
+using System.Runtime.CompilerServices; // Required for CallerMemberName
 
 namespace SimpleLauncher;
 
-public partial class EasyModeWindow : IDisposable
+public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Implement INotifyPropertyChanged
 {
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
@@ -29,6 +31,77 @@ public partial class EasyModeWindow : IDisposable
     private bool _isImagePackDownloaded3;
     private bool _isImagePackDownloaded4;
     private bool _isImagePackDownloaded5;
+
+    // New properties for Image Pack button visibility
+    private bool _isImagePack1Available;
+
+    public bool IsImagePack1Available
+    {
+        get => _isImagePack1Available;
+        set
+        {
+            if (_isImagePack1Available == value) return;
+
+            _isImagePack1Available = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _isImagePack2Available;
+
+    public bool IsImagePack2Available
+    {
+        get => _isImagePack2Available;
+        set
+        {
+            if (_isImagePack2Available == value) return;
+
+            _isImagePack2Available = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _isImagePack3Available;
+
+    public bool IsImagePack3Available
+    {
+        get => _isImagePack3Available;
+        set
+        {
+            if (_isImagePack3Available == value) return;
+
+            _isImagePack3Available = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _isImagePack4Available;
+
+    public bool IsImagePack4Available
+    {
+        get => _isImagePack4Available;
+        set
+        {
+            if (_isImagePack4Available == value) return;
+
+            _isImagePack4Available = value;
+            OnPropertyChanged();
+        }
+    }
+
+    private bool _isImagePack5Available;
+
+    public bool IsImagePack5Available
+    {
+        get => _isImagePack5Available;
+        set
+        {
+            if (_isImagePack5Available == value) return;
+
+            _isImagePack5Available = value;
+            OnPropertyChanged();
+        }
+    }
 
     private readonly DownloadManager _downloadManager;
     private bool _disposed;
@@ -47,10 +120,20 @@ public partial class EasyModeWindow : IDisposable
         }
     }
 
+    public event PropertyChangedEventHandler PropertyChanged; // INotifyPropertyChanged implementation
+
+    protected virtual void OnPropertyChanged([CallerMemberName] string propertyName = null)
+    {
+        PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(propertyName));
+    }
+
     public EasyModeWindow()
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
+
+        // Set DataContext for XAML bindings to work
+        DataContext = this;
 
         // Get the factory from the service provider
         var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
@@ -112,36 +195,67 @@ public partial class EasyModeWindow : IDisposable
     {
         if (SystemNameDropdown.SelectedItem == null)
         {
+            // Reset all states if no system is selected
+            DownloadEmulatorButton.IsEnabled = false;
+            DownloadCoreButton.IsEnabled = false;
+
+            IsImagePack1Available = false;
+            IsImagePack2Available = false;
+            IsImagePack3Available = false;
+            IsImagePack4Available = false;
+            IsImagePack5Available = false;
+
+            _isEmulatorDownloaded = false;
+            _isCoreDownloaded = false;
+            _isImagePackDownloaded1 = false;
+            _isImagePackDownloaded2 = false;
+            _isImagePackDownloaded3 = false;
+            _isImagePackDownloaded4 = false;
+            _isImagePackDownloaded5 = false;
+
+            UpdateAddSystemButtonState();
+            SystemFolderTextBox.Text = string.Empty;
             return;
         }
 
         var selectedSystem = _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString());
         if (selectedSystem == null)
         {
+            // This should ideally not happen if PopulateSystemDropdown is correct, but handle defensively
             return;
         }
 
-        DownloadEmulatorButton.IsEnabled = true;
-        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
+        // Determine if download links exist for image packs (for visibility)
+        IsImagePack1Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        IsImagePack2Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+        IsImagePack3Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+        IsImagePack4Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+        IsImagePack5Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
-        // Enable/disable Image Pack buttons based on their respective links
-        DownloadImagePackButton1.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-        DownloadImagePackButton2.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-        DownloadImagePackButton3.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-        DownloadImagePackButton4.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-        DownloadImagePackButton5.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
-
-        _isEmulatorDownloaded = false;
-        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink); // If no core link, consider it "downloaded"
+        // Reset download status for all components when a new system is selected.
+        // If a component has no download link, consider it "downloaded" for the purpose of enabling the "Add System" button
+        // AND for disabling its own download button.
+        _isEmulatorDownloaded = false; // Always assume emulator needs to be downloaded for a new selection
+        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
         _isImagePackDownloaded1 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
         _isImagePackDownloaded2 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
         _isImagePackDownloaded3 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
         _isImagePackDownloaded4 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
         _isImagePackDownloaded5 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
+        // Enable/disable download buttons based on availability AND whether they are already downloaded
+        DownloadEmulatorButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink) && !_isEmulatorDownloaded;
+        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink) && !_isCoreDownloaded;
+        DownloadImagePackButton1.IsEnabled = IsImagePack1Available && !_isImagePackDownloaded1;
+        DownloadImagePackButton2.IsEnabled = IsImagePack2Available && !_isImagePackDownloaded2;
+        DownloadImagePackButton3.IsEnabled = IsImagePack3Available && !_isImagePackDownloaded3;
+        DownloadImagePackButton4.IsEnabled = IsImagePack4Available && !_isImagePackDownloaded4;
+        DownloadImagePackButton5.IsEnabled = IsImagePack5Available && !_isImagePackDownloaded5;
+
         UpdateAddSystemButtonState();
 
-        SystemFolderTextBox.Text = selectedSystem.SystemFolder;
+        // Resolve path for display in the textbox
+        SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
     }
 
     private async void DownloadEmulatorButton_Click(object sender, RoutedEventArgs e)
@@ -393,7 +507,39 @@ public partial class EasyModeWindow : IDisposable
                 MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                 StopDownloadButton.IsEnabled = false;
-                buttonToDisable.IsEnabled = false; // Keep disabled on success
+                // Update the internal flag for the specific component and disable its button
+                switch (type)
+                {
+                    case DownloadType.Emulator:
+                        _isEmulatorDownloaded = true;
+                        DownloadEmulatorButton.IsEnabled = false;
+                        break;
+                    case DownloadType.Core:
+                        _isCoreDownloaded = true;
+                        DownloadCoreButton.IsEnabled = false;
+                        break;
+                    case DownloadType.ImagePack1:
+                        _isImagePackDownloaded1 = true;
+                        DownloadImagePackButton1.IsEnabled = false;
+                        break;
+                    case DownloadType.ImagePack2:
+                        _isImagePackDownloaded2 = true;
+                        DownloadImagePackButton2.IsEnabled = false;
+                        break;
+                    case DownloadType.ImagePack3:
+                        _isImagePackDownloaded3 = true;
+                        DownloadImagePackButton3.IsEnabled = false;
+                        break;
+                    case DownloadType.ImagePack4:
+                        _isImagePackDownloaded4 = true;
+                        DownloadImagePackButton4.IsEnabled = false;
+                        break;
+                    case DownloadType.ImagePack5:
+                        _isImagePackDownloaded5 = true;
+                        DownloadImagePackButton5.IsEnabled = false;
+                        break;
+                }
+
                 UpdateAddSystemButtonState(); // Update overall Add System button state
                 return true;
             }
@@ -508,18 +654,18 @@ public partial class EasyModeWindow : IDisposable
             var selectedSystem = GetSelectedSystem();
             if (selectedSystem == null) return;
 
-            string systemFolder;
-            if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) || !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
+            string systemFolderRaw;
+            if (!string.IsNullOrEmpty(SystemFolderTextBox.Text) && !string.IsNullOrWhiteSpace(SystemFolderTextBox.Text))
             {
-                systemFolder = SystemFolderTextBox.Text;
+                systemFolderRaw = SystemFolderTextBox.Text;
             }
             else
             {
-                systemFolder = $"%BASEFOLDER%\\roms\\{selectedSystem.SystemName}";
-                SystemFolderTextBox.Text = systemFolder;
+                systemFolderRaw = $"%BASEFOLDER%\\roms\\{selectedSystem.SystemName}";
+                // No need to update SystemFolderTextBox.Text here, it's already updated in SelectionChanged or will be updated by the user
             }
 
-            var systemImageFolder = selectedSystem.SystemImageFolder;
+            var systemImageFolderRaw = selectedSystem.SystemImageFolder;
 
             var addingsystemtoconfiguration = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
             DownloadStatus = addingsystemtoconfiguration;
@@ -532,21 +678,24 @@ public partial class EasyModeWindow : IDisposable
                 // Disable button during operation
                 AddSystemButton.IsEnabled = false;
 
-                await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolder, systemImageFolder);
+                // Update System.xml with the *unresolved* paths, as system.xml expects them.
+                await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
 
                 // --- If XML update succeeds, continue with folder creation and UI updates ---
                 var creatingsystemfolders = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
                 DownloadStatus = creatingsystemfolders;
 
-                // Create System Folders
-                CreateSystemFolders.CreateFolders(selectedSystem.SystemName, systemFolder, systemImageFolder);
+                // Resolve paths before passing to folder creation
+                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
+                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolderRaw);
+
+                // Create System Folders using *resolved* paths
+                CreateSystemFolders.CreateFolders(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                 var systemhasbeensuccessfullyadded = (string)Application.Current.TryFindResource("Systemhasbeensuccessfullyadded") ?? "System has been successfully added!";
                 DownloadStatus = systemhasbeensuccessfullyadded;
 
                 // Notify user
-                var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolder);
-                var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
                 MessageBoxLibrary.SystemAddedMessageBox(selectedSystem.SystemName, resolvedSystemFolder, resolvedSystemImageFolder);
 
                 // Close the window after successful addition
@@ -592,8 +741,8 @@ public partial class EasyModeWindow : IDisposable
     private async Task UpdateSystemXmlAsync(
         string xmlPath,
         EasyModeSystemConfig selectedSystem,
-        string systemFolder,
-        string systemImageFolder)
+        string systemFolder, // This should be the raw path with %BASEFOLDER%
+        string systemImageFolder) // This should be the raw path with %BASEFOLDER%
     {
         XDocument xmlDoc = null; // Initialize to null
         try
@@ -778,44 +927,28 @@ public partial class EasyModeWindow : IDisposable
 
     private void UpdateAddSystemButtonState()
     {
-        // Add System button is enabled only if emulator and core are downloaded, AND all *available* image packs are downloaded.
         var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null)
+        if (selectedSystem?.Emulators?.Emulator == null)
         {
             AddSystemButton.IsEnabled = false;
             return;
         }
 
-        var allRequiredImagePacksDownloaded = !(!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink) && !_isImagePackDownloaded1);
+        var emulatorConfig = selectedSystem.Emulators.Emulator;
 
-        // Check ImagePack1 if its link exists
+        // The emulator is always required if a download link exists.
+        var isEmulatorDownloadRequired = !string.IsNullOrEmpty(emulatorConfig.EmulatorDownloadLink);
+        var isEmulatorReady = !isEmulatorDownloadRequired || _isEmulatorDownloaded;
 
-        // Check ImagePack2 if its link exists
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2) && !_isImagePackDownloaded2)
-        {
-            allRequiredImagePacksDownloaded = false;
-        }
+        // The core is only required if a download link for it exists.
+        var isCoreDownloadRequired = !string.IsNullOrEmpty(emulatorConfig.CoreDownloadLink);
+        var isCoreReady = !isCoreDownloadRequired || _isCoreDownloaded;
 
-        // Check ImagePack3 if its link exists
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3) && !_isImagePackDownloaded3)
-        {
-            allRequiredImagePacksDownloaded = false;
-        }
-
-        // Check ImagePack4 if its link exists
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4) && !_isImagePackDownloaded4)
-        {
-            allRequiredImagePacksDownloaded = false;
-        }
-
-        // Check ImagePack5 if its link exists
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5) && !_isImagePackDownloaded5)
-        {
-            allRequiredImagePacksDownloaded = false;
-        }
-
-        AddSystemButton.IsEnabled = _isEmulatorDownloaded && _isCoreDownloaded && allRequiredImagePacksDownloaded;
+        // The "Add System" button is enabled if all *required* components (emulator and core) are ready.
+        // Image packs are optional and do not affect this logic.
+        AddSystemButton.IsEnabled = isEmulatorReady && isCoreReady;
     }
+
 
     private async void CloseWindowRoutine(object sender, EventArgs e)
     {

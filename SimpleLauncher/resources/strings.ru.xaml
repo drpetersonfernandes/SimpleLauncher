@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 пикселей</system:String>
     <system:String x:Key="7thstep">7-й шаг</system:String>
     <system:String x:Key="800pixels">800 пикселей</system:String>
-    <system:String x:Key="8thstep">8-й шаг</system:String>
     <system:String x:Key="About">О программе</system:String>
     <system:String x:Key="AccentColors">Акцентные цвета</system:String>
     <system:String x:Key="ActionTaken">Для вашей безопасности процесс извлечения был корректно обработан, и проблема была зарегистрирована.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Скачать пакет изображений 4</system:String>
     <system:String x:Key="DownloadImagePack5">Скачать пакет изображений 5</system:String>
     <system:String x:Key="Downloading">Загрузка</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Загрузка и распаковка успешно завершены.</system:String>
     <system:String x:Key="Downloadof">Загрузка</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Ошибка загрузки или извлечения</system:String>
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>

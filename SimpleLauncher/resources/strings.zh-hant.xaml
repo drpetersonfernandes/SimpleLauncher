@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 像素</system:String>
     <system:String x:Key="7thstep">第 7 步</system:String>
     <system:String x:Key="800pixels">800 像素</system:String>
-    <system:String x:Key="8thstep">第 8 步</system:String>
     <system:String x:Key="About">關於</system:String>
     <system:String x:Key="AccentColors">強調色</system:String>
     <system:String x:Key="ActionTaken">為了您的安全，解壓過程已被正確處理，問題已被記錄。</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">下載圖像套件 4</system:String>
     <system:String x:Key="DownloadImagePack5">下載圖像套件 5</system:String>
     <system:String x:Key="Downloading">正在下載</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">下載和解壓縮成功完成。</system:String>
     <system:String x:Key="Downloadof">的下載</system:String>
     <system:String x:Key="DownloadorExtractionFailed">下載或解壓失敗</system:String>
     <system:String x:Key="downloadprocess">下載過程。</system:String>

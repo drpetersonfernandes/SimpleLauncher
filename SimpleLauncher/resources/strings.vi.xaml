@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 pixel</system:String>
     <system:String x:Key="7thstep">Bước thứ 7</system:String>
     <system:String x:Key="800pixels">800 pixel</system:String>
-    <system:String x:Key="8thstep">Bước thứ 8</system:String>
     <system:String x:Key="About">Giới thiệu</system:String>
     <system:String x:Key="AccentColors">Màu nhấn</system:String>
     <system:String x:Key="ActionTaken">Vì sự an toàn của bạn, quá trình giải nén đã được xử lý đúng cách và vấn đề đã được ghi lại.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Tải xuống GóiHình ảnh 4</system:String>
     <system:String x:Key="DownloadImagePack5">Tải xuống GóiHình ảnh 5</system:String>
     <system:String x:Key="Downloading">Đang tải xuống</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Tải xuống và giải nén đã hoàn tất thành công.</system:String>
     <system:String x:Key="Downloadof">Tải xuống của</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Tải xuống hoặc giải nén thất bại</system:String>
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>

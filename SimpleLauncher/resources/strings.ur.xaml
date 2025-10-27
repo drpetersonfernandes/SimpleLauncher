@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 پکسلز</system:String>
     <system:String x:Key="7thstep">7واں قدم</system:String>
     <system:String x:Key="800pixels">800 پکسلز</system:String>
-    <system:String x:Key="8thstep">8واں قدم</system:String>
     <system:String x:Key="About">کے بارے میں</system:String>
     <system:String x:Key="AccentColors">نمایاں رنگ</system:String>
     <system:String x:Key="ActionTaken">آپ کی سیکیورٹی کے لیے، نکالنے کے عمل کو صحیح طریقے سے نمٹا لیا گیا ہے اور مسئلہ کو لاگ کر دیا گیا ہے۔</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">امیج پیک 4 ڈاؤن لوڈ کریں</system:String>
     <system:String x:Key="DownloadImagePack5">امیج پیک 5 ڈاؤن لوڈ کریں</system:String>
     <system:String x:Key="Downloading">ڈاؤن لوڈ ہو رہا ہے</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">ڈاؤن لوڈ اور اخراج کامیابی کے ساتھ مکمل ہو گیا۔</system:String>
     <system:String x:Key="Downloadof">کی ڈاؤن لوڈ</system:String>
     <system:String x:Key="DownloadorExtractionFailed">ڈاؤن لوڈ یا نکالنے میں ناکامی</system:String>
     <system:String x:Key="downloadprocess">ڈاؤن لوڈ کا عمل۔</system:String>

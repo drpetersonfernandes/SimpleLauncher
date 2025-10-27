@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 pixels</system:String>
     <system:String x:Key="7thstep">7ème étape</system:String>
     <system:String x:Key="800pixels">800 pixels</system:String>
-    <system:String x:Key="8thstep">8ème étape</system:String>
     <system:String x:Key="About">À propos</system:String>
     <system:String x:Key="AccentColors">Couleurs d'accentuation</system:String>
     <system:String x:Key="ActionTaken">Pour votre sécurité, le processus d'extraction a été correctement géré et le problème a été enregistré.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Télécharger le pack d'images 4</system:String>
     <system:String x:Key="DownloadImagePack5">Télécharger le pack d'images 5</system:String>
     <system:String x:Key="Downloading">Téléchargement en cours</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Le téléchargement et l'extraction ont réussi.</system:String>
     <system:String x:Key="Downloadof">Téléchargement de</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Échec du téléchargement ou de l'extraction</system:String>
     <system:String x:Key="downloadprocess">processus de téléchargement.</system:String>

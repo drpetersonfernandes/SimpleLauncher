@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750 piksel</system:String>
     <system:String x:Key="7thstep">Langkah ke-7</system:String>
     <system:String x:Key="800pixels">800 piksel</system:String>
-    <system:String x:Key="8thstep">Langkah ke-8</system:String>
     <system:String x:Key="About">Tentang</system:String>
     <system:String x:Key="AccentColors">Warna Aksen</system:String>
     <system:String x:Key="ActionTaken">Untuk keamanan Anda, proses ekstraksi telah ditangani dengan benar dan masalah telah dicatat.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">Unduh Paket Gambar 4</system:String>
     <system:String x:Key="DownloadImagePack5">Unduh Paket Gambar 5</system:String>
     <system:String x:Key="Downloading">Mengunduh</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">Pengunduhan dan ekstraksi berhasil.</system:String>
     <system:String x:Key="Downloadof">Unduhan dari</system:String>
     <system:String x:Key="DownloadorExtractionFailed">Kegagalan Muat Turun atau Ekstraksi</system:String>
     <system:String x:Key="downloadprocess">proses unduhan.</system:String>

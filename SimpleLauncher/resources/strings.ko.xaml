@@ -32,7 +32,6 @@
     <system:String x:Key="750pixels">750픽셀</system:String>
     <system:String x:Key="7thstep">7단계</system:String>
     <system:String x:Key="800pixels">800픽셀</system:String>
-    <system:String x:Key="8thstep">8단계</system:String>
     <system:String x:Key="About">정보</system:String>
     <system:String x:Key="AccentColors">포인트 색상</system:String>
     <system:String x:Key="ActionTaken">귀하의 보안을 위해 추출 프로세스가 적절히 처리되었으며 문제가 기록되었습니다.</system:String>
@@ -148,7 +147,6 @@
     <system:String x:Key="DownloadImagePack4">이미지 팩 4 다운로드</system:String>
     <system:String x:Key="DownloadImagePack5">이미지 팩 5 다운로드</system:String>
     <system:String x:Key="Downloading">다운로드 중</system:String>
-    <system:String x:Key="Downloadingandextractionweresuccessful">다운로드와 압축 해제가 성공적으로 완료되었습니다.</system:String>
     <system:String x:Key="Downloadof">의 다운로드</system:String>
     <system:String x:Key="DownloadorExtractionFailed">다운로드 또는 추출 실패</system:String>
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
