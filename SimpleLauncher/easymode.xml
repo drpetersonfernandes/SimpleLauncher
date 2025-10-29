@@ -45,18 +45,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpc.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC</ImagePackDownloadExtractPath>
 
             </Emulator>
         </Emulators>
@@ -89,18 +83,13 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/amstradcpcgx4000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC GX4000</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Amstrad CPC GX4000</ImagePackDownloadExtractPath>
+
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -132,18 +121,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/arcade.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Arcade</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Arcade</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -176,18 +159,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari2600.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 2600</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 2600</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -220,18 +197,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari5200.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 5200</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 5200</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -264,18 +235,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari7800.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 7800</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 7800</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -307,18 +272,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atari8bit.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 8-Bit</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari 8-Bit</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -351,18 +310,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguar.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -396,18 +349,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarijaguarcd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar CD</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Jaguar CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -440,18 +387,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarilynx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Lynx</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari Lynx</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -483,18 +424,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/atarist.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari ST</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Atari ST</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -527,18 +462,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswan.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -571,18 +500,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/bandaiwonderswancolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan Color</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Bandai WonderSwan Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -615,18 +538,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/casiopv1000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Casio PV-1000</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Casio PV-1000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -662,18 +579,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/colecovision.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Colecovision</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Colecovision</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -705,18 +616,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink2>https://www.purelogiccode.com/simplelauncher/extras/commodore64_2.zip</ImagePackDownloadLink2>
+                <ImagePackDownloadLink3>https://www.purelogiccode.com/simplelauncher/extras/commodore64_3.zip</ImagePackDownloadLink3>
+                <ImagePackDownloadLink4>https://www.purelogiccode.com/simplelauncher/extras/commodore64_4.zip</ImagePackDownloadLink4>
+                <ImagePackDownloadLink5>https://www.purelogiccode.com/simplelauncher/extras/commodore64_5.zip</ImagePackDownloadLink5>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 64</ImagePackDownloadExtractPath>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -748,22 +653,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ImagePackLocation/>-->
-                <!--                <ImagePackLatestVersion/>-->
                 <!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore128.zip</ImagePackDownloadLink>-->
-                <!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 128</ImagePackDownloadExtractPath>-->
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink/>
-                <ImagePackDownloadExtractPath/>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <!--                <ImagePackDownloadLink2/>-->
+                <!--                <ImagePackDownloadLink3/>-->
+                <!--                <ImagePackDownloadLink4/>-->
+                <!--                <ImagePackDownloadLink5/>-->
+                <!--                <ImagePackDownloadExtractPath/>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -795,18 +690,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -838,18 +727,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamigacd32.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga CD32</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga CD32</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -868,31 +751,25 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Hypseus Singe</EmulatorName>-->
-<!--                <EmulatorLocation/>-->
-<!--                <EmulatorParameters/>-->
-<!--                <EmulatorDownloadPage/>-->
-<!--                <EmulatorLatestVersion/>-->
-<!--                <EmulatorDownloadLink/>-->
-<!--                <EmulatorDownloadExtractPath/>-->
+                <!--                <EmulatorName>Hypseus Singe</EmulatorName>-->
+                <!--                <EmulatorLocation/>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage/>-->
+                <!--                <EmulatorLatestVersion/>-->
+                <!--                <EmulatorDownloadLink/>-->
+                <!--                <EmulatorDownloadExtractPath/>-->
 
-<!--                <CoreLocation/>-->
-<!--                <CoreLatestVersion/>-->
-<!--                <CoreDownloadLink/>-->
-<!--                <CoreDownloadExtractPath/>-->
+                <!--                <CoreLocation/>-->
+                <!--                <CoreLatestVersion/>-->
+                <!--                <CoreDownloadLink/>-->
+                <!--                <CoreDownloadExtractPath/>-->
 
-<!--                <ImagePackLocation/>-->
-<!--                <ImagePackLatestVersion/>-->
-<!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/laserdisk.zip</ImagePackDownloadLink>-->
-<!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\LaserDisk</ImagePackDownloadExtractPath>-->
-<!--                <ImagePackDownloadLink2/>-->
-<!--                <ImagePackDownloadExtractPath2/>-->
-<!--                <ImagePackDownloadLink3/>-->
-<!--                <ImagePackDownloadExtractPath3/>-->
-<!--                <ImagePackDownloadLink4/>-->
-<!--                <ImagePackDownloadExtractPath4/>-->
-<!--                <ImagePackDownloadLink5/>-->
-<!--                <ImagePackDownloadExtractPath5/>-->
+                <!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/laserdisk.zip</ImagePackDownloadLink>-->
+                <!--                <ImagePackDownloadLink2/>-->
+                <!--                <ImagePackDownloadLink3/>-->
+                <!--                <ImagePackDownloadLink4/>-->
+                <!--                <ImagePackDownloadLink5/>-->
+                <!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\LaserDisk</ImagePackDownloadExtractPath>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -925,18 +802,12 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/magnavoxodyssey2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Magnavox Odyssey 2</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Magnavox Odyssey 2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -968,18 +839,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mattelaquarius.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Mattel Aquarius</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Mattel Aquarius</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1011,18 +876,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mattelintellivision.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Mattel Intellivision</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Mattel Intellivision</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1054,18 +913,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftdos.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft DOS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1107,18 +960,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1160,18 +1007,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftmsx2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX2</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft MSX2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1203,18 +1044,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1246,18 +1081,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox 360</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox 360</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1289,18 +1118,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/microsoftxbox360xbla.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox360 XBLA</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Microsoft Xbox360 XBLA</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1333,18 +1156,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcengine.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1382,18 +1199,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcenginecd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine CD</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC Engine CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1428,18 +1239,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necpcfx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC-FX</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC PC-FX</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1472,18 +1277,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/necsupergrafx.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC SuperGrafx</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\NEC SuperGrafx</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1515,18 +1314,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo3ds.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 3DS</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 3DS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1558,18 +1351,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1607,18 +1394,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendo64dd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64DD</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo 64DD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1651,18 +1432,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendods.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo DS</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo DS</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1694,18 +1469,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendofamilycomputerdisksystem.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Family Computer Disk System</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Family Computer Disk System</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1737,18 +1506,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboy.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1780,18 +1543,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboyadvance.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Advance</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Advance</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1824,18 +1581,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogameboycolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Color</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Game Boy Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1866,18 +1617,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendogamecube.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo GameCube</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo GameCube</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1909,18 +1654,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendones.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo NES</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo NES</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -1953,18 +1692,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosatellaview.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Satellaview</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Satellaview</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2001,18 +1734,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnes.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2024,7 +1751,7 @@
         <SystemIsMAME>false</SystemIsMAME>
         <FileFormatsToSearch>
             <FormatToSearch>zip</FormatToSearch>
-            </FileFormatsToSearch>
+        </FileFormatsToSearch>
         <ExtractFileBeforeLaunch>true</ExtractFileBeforeLaunch>
         <FileFormatsToLaunch>
             <FormatToLaunch>smc</FormatToLaunch>
@@ -2049,18 +1776,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2092,18 +1813,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-<!--                <ImagePackLocation/>-->
-<!--                <ImagePackLatestVersion/>-->
-<!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendovirtualboy.zip</ImagePackDownloadLink>-->
-<!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>-->
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendovirtualboy.zip</ImagePackDownloadLink>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2135,18 +1850,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowii.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2178,18 +1887,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiu.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiU</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiU</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2220,18 +1923,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendowiiware.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo WiiWare</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2265,18 +1962,12 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/panasonic3do.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Panasonic 3DO</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Panasonic 3DO</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2308,18 +1999,12 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/philipscdi.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Philips CD-i</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Philips CD-i</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2351,18 +2036,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/scummvm.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\ScummVM</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\ScummVM</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2398,18 +2077,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segadreamcast.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Dreamcast</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Dreamcast</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2442,18 +2115,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagamegear.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Game Gear</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Game Gear</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2485,18 +2152,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2528,18 +2189,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesis32x.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis 32X</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis 32X</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2574,18 +2229,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segagenesiscd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis CD</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Genesis CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2618,18 +2267,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamastersystem.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Master System</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Master System</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2661,18 +2304,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segamodel3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Model 3</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Model 3</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2708,18 +2345,12 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2751,18 +2382,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasc3000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SC-3000</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SC-3000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2794,18 +2419,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasg1000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SG-1000</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega SG-1000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2837,18 +2456,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sharpx68000.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sharp x68000</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sharp x68000</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2880,18 +2493,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sinclairzxspectrum.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sinclair ZX Spectrum</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sinclair ZX Spectrum</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2923,18 +2530,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeo.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -2967,18 +2568,12 @@
                 <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
                 <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeocd.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo CD</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo CD</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3010,18 +2605,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocket.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3053,18 +2642,12 @@
                 <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/snkneogeopocketcolor.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket Color</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\SNK Neo Geo Pocket Color</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3102,18 +2685,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation1.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 1</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3151,18 +2728,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation2.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 2</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 2</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3194,18 +2765,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystation3.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 3</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PlayStation 3</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3239,18 +2804,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
-                <ImagePackDownloadLink/>
-                <ImagePackDownloadExtractPath/>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
-                <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <!--                <ImagePackDownloadLink/>-->
+                <!--                <ImagePackDownloadLink2/>-->
+                <!--                <ImagePackDownloadLink3/>-->
+                <!--                <ImagePackDownloadLink4/>-->
+                <!--                <ImagePackDownloadLink5/>-->
+                <!--                <ImagePackDownloadExtractPath/>-->
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3269,31 +2828,25 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-<!--                <EmulatorName>Vita3K</EmulatorName>-->
-<!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vita3K\Vita3K.exe</EmulatorLocation>-->
-<!--                <EmulatorParameters/>-->
-<!--                <EmulatorDownloadPage>https://github.com/Vita3K/Vita3K/releases</EmulatorDownloadPage>-->
-<!--                <EmulatorLatestVersion>3820</EmulatorLatestVersion>-->
-<!--                <EmulatorDownloadLink>https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip</EmulatorDownloadLink>-->
-<!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vita3K\</EmulatorDownloadExtractPath>-->
+                <!--                <EmulatorName>Vita3K</EmulatorName>-->
+                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\Vita3K\Vita3K.exe</EmulatorLocation>-->
+                <!--                <EmulatorParameters/>-->
+                <!--                <EmulatorDownloadPage>https://github.com/Vita3K/Vita3K/releases</EmulatorDownloadPage>-->
+                <!--                <EmulatorLatestVersion>3820</EmulatorLatestVersion>-->
+                <!--                <EmulatorDownloadLink>https://github.com/Vita3K/Vita3K/releases/download/continuous/windows-latest.zip</EmulatorDownloadLink>-->
+                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vita3K\</EmulatorDownloadExtractPath>-->
 
                 <CoreLocation/>
                 <CoreLatestVersion/>
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-<!--                <ImagePackLocation/>-->
-<!--                <ImagePackLatestVersion/>-->
-<!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystationvita.zip</ImagePackDownloadLink>-->
-<!--                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>-->
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonyplaystationvita.zip</ImagePackDownloadLink>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
@@ -3330,18 +2883,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackLocation/>
-                <ImagePackLatestVersion/>
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/sonypsp.zip</ImagePackDownloadLink>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>
                 <ImagePackDownloadLink2/>
-                <ImagePackDownloadExtractPath2/>
                 <ImagePackDownloadLink3/>
-                <ImagePackDownloadExtractPath3/>
                 <ImagePackDownloadLink4/>
-                <ImagePackDownloadExtractPath4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sony PSP</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>

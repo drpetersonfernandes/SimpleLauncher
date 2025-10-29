@@ -12,7 +12,7 @@ public class EasyModeSystemConfig
 
     [XmlElement("SystemIsMAME")]
     [DefaultValue(false)] // When SystemIsMAME is false, it won't be serialized to XML
-    public bool SystemIsMame { get; set; } // Changed to non-nullable bool
+    public bool SystemIsMame { get; set; }
 
     [XmlArray("FileFormatsToSearch")]
     [XmlArrayItem("FormatToSearch")]
@@ -20,7 +20,7 @@ public class EasyModeSystemConfig
 
     [XmlElement("ExtractFileBeforeLaunch")]
     [DefaultValue(false)] // When ExtractFileBeforeLaunch is false, it won't be serialized to XML
-    public bool ExtractFileBeforeLaunch { get; set; } // Changed to non-nullable bool
+    public bool ExtractFileBeforeLaunch { get; set; }
 
     [XmlArray("FileFormatsToLaunch")]
     [XmlArrayItem("FormatToLaunch")]
