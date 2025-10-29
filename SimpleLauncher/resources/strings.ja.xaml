@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">ファイルを0から</system:String>
     <system:String x:Key="Donate">寄付</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">エラーデバッグのために 'error_user.log' ファイルを開きますか？</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">ダウンロードと抽出が正常に完了しました。</system:String>
     <system:String x:Key="Downloadcanceled">ダウンロードがキャンセルされました</system:String>
     <system:String x:Key="DownloadCore">コアをダウンロード</system:String>
     <system:String x:Key="Downloadedfileislocked">ダウンロードしたファイルがロックされています。</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">すべてでフィルター</system:String>
 <system:String x:Key="FilterByLetter">文字でフィルター</system:String>
 <system:String x:Key="FilterByNumber">数字でフィルター</system:String>
+    <system:String x:Key="FinalStep">最後のステップ</system:String>
     <system:String x:Key="FindYourApiKeyHere">こちらでAPIキーを見つけてください</system:String>
     <system:String x:Key="Flyer">フライヤー</system:String>
     <system:String x:Key="Flyernotfound">フライヤーが見つかりません</system:String>

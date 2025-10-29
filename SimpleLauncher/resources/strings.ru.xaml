@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Отображение файлов с 0 до</system:String>
     <system:String x:Key="Donate">Пожертвовать</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Вы хотите открыть файл 'error_user.log' для отладки ошибки?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Загрузка и извлечение завершены успешно.</system:String>
     <system:String x:Key="Downloadcanceled">Загрузка отменена</system:String>
     <system:String x:Key="DownloadCore">Скачать ядро</system:String>
     <system:String x:Key="Downloadedfileislocked">Загруженный файл заблокирован.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Фильтровать по всем</system:String>
 <system:String x:Key="FilterByLetter">Фильтровать по букве</system:String>
 <system:String x:Key="FilterByNumber">Фильтровать по номеру</system:String>
+    <system:String x:Key="FinalStep">Последний шаг</system:String>
     <system:String x:Key="FindYourApiKeyHere">Найдите свой ключ API здесь</system:String>
     <system:String x:Key="Flyer">Флаер</system:String>
     <system:String x:Key="Flyernotfound">Флаер не найден</system:String>

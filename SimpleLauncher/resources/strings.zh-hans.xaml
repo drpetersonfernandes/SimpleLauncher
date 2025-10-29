@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">显示文件从 0 到</system:String>
     <system:String x:Key="Donate">捐赠</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">您是否想打开文件“error_user.log”以调试错误？</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">下载和提取已成功完成。</system:String>
     <system:String x:Key="Downloadcanceled">下载已取消</system:String>
     <system:String x:Key="DownloadCore">下载核心</system:String>
     <system:String x:Key="Downloadedfileislocked">下载的文件被锁定。</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">按全部筛选</system:String>
 <system:String x:Key="FilterByLetter">按字母筛选</system:String>
 <system:String x:Key="FilterByNumber">按数字筛选</system:String>
+    <system:String x:Key="FinalStep">最后一步</system:String>
     <system:String x:Key="FindYourApiKeyHere">在此处查找您的API密钥</system:String>
     <system:String x:Key="Flyer">宣传单</system:String>
     <system:String x:Key="Flyernotfound">未找到宣传单</system:String>

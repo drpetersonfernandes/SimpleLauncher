@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Hiển thị các tệp từ 0 đến</system:String>
     <system:String x:Key="Donate">Quyên góp</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Bạn có muốn mở tệp 'error_user.log' để gỡ lỗi không?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Tải xuống và trích xuất đã hoàn thành thành công.</system:String>
     <system:String x:Key="Downloadcanceled">Đã hủy tải xuống</system:String>
     <system:String x:Key="DownloadCore">Tải xuống lõi</system:String>
     <system:String x:Key="Downloadedfileislocked">Tệp đã tải xuống bị khóa.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Lọc theo Tất cả</system:String>
 <system:String x:Key="FilterByLetter">Lọc theo Chữ cái</system:String>
 <system:String x:Key="FilterByNumber">Lọc theo Số</system:String>
+    <system:String x:Key="FinalStep">Bước cuối cùng</system:String>
     <system:String x:Key="FindYourApiKeyHere">Tìm Khóa API của bạn tại đây</system:String>
     <system:String x:Key="Flyer">Tờ rơi</system:String>
     <system:String x:Key="Flyernotfound">Không tìm thấy tờ rơi</system:String>

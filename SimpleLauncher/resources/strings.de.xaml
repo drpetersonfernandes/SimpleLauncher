@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Dateien anzeigen von 0 bis</system:String>
     <system:String x:Key="Donate">Spenden</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Möchten Sie die Datei 'error_user.log' öffnen, um den Fehler zu debuggen?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download und Extraktion erfolgreich abgeschlossen.</system:String>
     <system:String x:Key="Downloadcanceled">Download abgebrochen</system:String>
     <system:String x:Key="DownloadCore">Core herunterladen</system:String>
     <system:String x:Key="Downloadedfileislocked">Die heruntergeladene Datei ist gesperrt.</system:String>
@@ -247,6 +248,7 @@
     <system:String x:Key="FilterByAll">Nach allem filtern</system:String>
     <system:String x:Key="FilterByLetter">Nach Buchstabe filtern</system:String>
     <system:String x:Key="FilterByNumber">Nach Zahl filtern</system:String>
+    <system:String x:Key="FinalStep">Letzter Schritt</system:String>
     <system:String x:Key="FindYourApiKeyHere">Finden Sie Ihren API-Schlüssel hier</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer nicht gefunden</system:String>

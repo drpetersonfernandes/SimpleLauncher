@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Affichage des fichiers de 0 à</system:String>
     <system:String x:Key="Donate">Faire un don</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Souhaitez-vous ouvrir le fichier 'error_user.log' pour déboguer l'erreur ?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Téléchargement et extraction terminés avec succès.</system:String>
     <system:String x:Key="Downloadcanceled">Téléchargement annulé</system:String>
     <system:String x:Key="DownloadCore">Télécharger le noyau</system:String>
     <system:String x:Key="Downloadedfileislocked">Le fichier téléchargé est verrouillé.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Filtrer par tout</system:String>
 <system:String x:Key="FilterByLetter">Filtrer par lettre</system:String>
 <system:String x:Key="FilterByNumber">Filtrer par nombre</system:String>
+    <system:String x:Key="FinalStep">Étape finale</system:String>
     <system:String x:Key="FindYourApiKeyHere">Trouvez votre clé API ici</system:String>
     <system:String x:Key="Flyer">Prospectus</system:String>
     <system:String x:Key="Flyernotfound">Prospectus introuvable</system:String>

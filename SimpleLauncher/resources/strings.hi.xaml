@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">फ़ाइलें 0 से</system:String>
     <system:String x:Key="Donate">दान करें</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">क्या आप 'error_user.log' फ़ाइल को त्रुटि डिबग करने के लिए खोलना चाहते हैं?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">डाउनलोड और निष्कर्षण सफलतापूर्वक पूरा हुआ।</system:String>
     <system:String x:Key="Downloadcanceled">डाउनलोड रद्द किया गया</system:String>
     <system:String x:Key="DownloadCore">कोर डाउनलोड करें</system:String>
     <system:String x:Key="Downloadedfileislocked">डाउनलोड की गई फ़ाइल लॉक है।</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">सभी द्वारा फ़िल्टर करें</system:String>
 <system:String x:Key="FilterByLetter">अक्षर द्वारा फ़िल्टर करें</system:String>
 <system:String x:Key="FilterByNumber">संख्या द्वारा फ़िल्टर करें</system:String>
+    <system:String x:Key="FinalStep">अंतिम कदम</system:String>
     <system:String x:Key="FindYourApiKeyHere">अपनी एपीआई कुंजी यहाँ पाएँ</system:String>
     <system:String x:Key="Flyer">फ्लायर</system:String>
     <system:String x:Key="Flyernotfound">फ्लायर नहीं मिला</system:String>

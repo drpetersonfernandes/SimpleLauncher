@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">ফাইলগুলো ০ থেকে প্রদর্শন করছে</system:String>
     <system:String x:Key="Donate">দান করুন</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' ফাইলটি ডিবাগ করার জন্য কি আপনি এটি খুলতে চান?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">ডাউনলোড এবং নিষ্কাশন সফলভাবে সম্পন্ন হয়েছে।</system:String>
     <system:String x:Key="Downloadcanceled">ডাউনলোড বাতিল করা হয়েছে</system:String>
     <system:String x:Key="DownloadCore">কোর ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloadedfileislocked">ডাউনলোড করা ফাইলটি লক করা হয়েছে।</system:String>
@@ -247,6 +248,7 @@
     <system:String x:Key="FilterByAll">সবকিছু অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByLetter">অক্ষর অনুসারে ফিল্টার করুন</system:String>
     <system:String x:Key="FilterByNumber">সংখ্যা অনুসারে ফিল্টার করুন</system:String>
+    <system:String x:Key="FinalStep">চূড়ান্ত ধাপ</system:String>
     <system:String x:Key="FindYourApiKeyHere">আপনার API কী এখানে খুঁজুন</system:String>
     <system:String x:Key="Flyer">ফ্লায়ার</system:String>
     <system:String x:Key="Flyernotfound">ফ্লায়ার পাওয়া যায়নি</system:String>

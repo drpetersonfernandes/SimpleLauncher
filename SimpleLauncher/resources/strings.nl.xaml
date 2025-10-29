@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Bestanden weergeven van 0 tot</system:String>
     <system:String x:Key="Donate">Doneren</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Wil je het bestand 'error_user.log' openen om de fout te debuggen?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download en extractie succesvol voltooid.</system:String>
     <system:String x:Key="Downloadcanceled">Download geannuleerd</system:String>
     <system:String x:Key="DownloadCore">Download kern</system:String>
     <system:String x:Key="Downloadedfileislocked">Gedownload bestand is vergrendeld.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Filteren op alles</system:String>
 <system:String x:Key="FilterByLetter">Filteren op letter</system:String>
 <system:String x:Key="FilterByNumber">Filteren op nummer</system:String>
+    <system:String x:Key="FinalStep">Laatste stap</system:String>
     <system:String x:Key="FindYourApiKeyHere">Vind hier uw API-sleutel</system:String>
     <system:String x:Key="Flyer">Folder</system:String>
     <system:String x:Key="Flyernotfound">Folder niet gevonden</system:String>

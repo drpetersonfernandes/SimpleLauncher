@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">فائلیں دکھائی جا رہی ہیں 0 سے لے کر</system:String>
     <system:String x:Key="Donate">عطیہ کریں</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">کیا آپ خرابی کو ڈیبگ کرنے کے لیے 'error_user.log' فائل کھولنا چاہتے ہیں؟</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">ڈاؤن لوڈ اور نکالنے کا کام کامیابی سے مکمل ہو گیا۔</system:String>
     <system:String x:Key="Downloadcanceled">ڈاؤن لوڈ منسوخ ہو گیا</system:String>
     <system:String x:Key="DownloadCore">کور ڈاؤنلوڈ کریں</system:String>
     <system:String x:Key="Downloadedfileislocked">ڈاؤن لوڈ کیا گیا فائل بند ہے۔</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">سب کے لحاظ سے فلٹر کریں</system:String>
 <system:String x:Key="FilterByLetter">حرف کے لحاظ سے فلٹر کریں</system:String>
 <system:String x:Key="FilterByNumber">نمبر کے لحاظ سے فلٹر کریں</system:String>
+    <system:String x:Key="FinalStep">آخری قدم</system:String>
     <system:String x:Key="FindYourApiKeyHere">اپنی API کلید یہاں تلاش کریں</system:String>
     <system:String x:Key="Flyer">فلائر</system:String>
     <system:String x:Key="Flyernotfound">فلائر نہیں ملی</system:String>

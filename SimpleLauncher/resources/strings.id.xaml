@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Menampilkan berkas 0 hingga</system:String>
     <system:String x:Key="Donate">Donasi</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Apakah Anda ingin membuka file 'error_user.log' untuk mendebug kesalahan?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Unduhan dan ekstraksi selesai dengan sukses.</system:String>
     <system:String x:Key="Downloadcanceled">Unduhan dibatalkan</system:String>
     <system:String x:Key="DownloadCore">Unduh Core</system:String>
     <system:String x:Key="Downloadedfileislocked">File yang diunduh terkunci.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Filter berdasarkan Semua</system:String>
 <system:String x:Key="FilterByLetter">Filter berdasarkan Huruf</system:String>
 <system:String x:Key="FilterByNumber">Filter berdasarkan Nomor</system:String>
+    <system:String x:Key="FinalStep">Langkah akhir</system:String>
     <system:String x:Key="FindYourApiKeyHere">Temukan Kunci API Anda di Sini</system:String>
     <system:String x:Key="Flyer">Selebaran</system:String>
     <system:String x:Key="Flyernotfound">Selebaran tidak ditemukan</system:String>

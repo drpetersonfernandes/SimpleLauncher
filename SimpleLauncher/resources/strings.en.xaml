@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Displaying files 0 to</system:String>
     <system:String x:Key="Donate">Donate</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Do want to open the file 'error_user.log' to debug the error?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download and extraction completed successfully.</system:String>
     <system:String x:Key="Downloadcanceled">Download canceled</system:String>
     <system:String x:Key="DownloadCore">Download Core</system:String>
     <system:String x:Key="Downloadedfileislocked">Downloaded file is locked.</system:String>
@@ -247,6 +248,7 @@
     <system:String x:Key="FilterByAll">Filter by All</system:String>
     <system:String x:Key="FilterByLetter">Filter by</system:String>
     <system:String x:Key="FilterByNumber">Filter by Number</system:String>
+    <system:String x:Key="FinalStep">Final step</system:String>
     <system:String x:Key="FindYourApiKeyHere">Find Your Api Key Here</system:String>
     <system:String x:Key="Flyer">Flyer</system:String>
     <system:String x:Key="Flyernotfound">Flyer not found</system:String>
@@ -678,7 +680,4 @@
     <system:String x:Key="ZipSlipExplanation">A security vulnerability called 'Zip Slip' was detected in the archive file. This is a path traversal vulnerability that could allow an attacker to write files outside of the intended extraction directory.</system:String>
     <system:String x:Key="ZoomIn">Zoom In</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
-    <system:String x:Key="FinalStep">Final step</system:String>
-    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download and extraction completed successfully.</system:String>
 </ResourceDictionary>

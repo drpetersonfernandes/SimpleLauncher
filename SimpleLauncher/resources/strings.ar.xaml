@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">عرض الملفات من 0 إلى</system:String>
     <system:String x:Key="Donate">تبرع</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">هل تريد فتح ملف 'error_user.log' لتصحيح الخطأ؟</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">تم تنزيل التحميل والاستخراج بنجاح.</system:String>
     <system:String x:Key="Downloadcanceled">تم إلغاء التنزيل</system:String>
     <system:String x:Key="DownloadCore">تنزيل النواة</system:String>
     <system:String x:Key="Downloadedfileislocked">الملف الذي تم تنزيله مقفل.</system:String>
@@ -247,6 +248,7 @@
     <system:String x:Key="FilterByAll">تصفية حسب الكل</system:String>
     <system:String x:Key="FilterByLetter">تصفية حسب الحرف</system:String>
     <system:String x:Key="FilterByNumber">تصفية حسب الرقم</system:String>
+    <system:String x:Key="FinalStep">الخطوة الأخيرة</system:String>
     <system:String x:Key="FindYourApiKeyHere">ابحث عن مفتاح API الخاص بك هنا</system:String>
     <system:String x:Key="Flyer">النشرة</system:String>
     <system:String x:Key="Flyernotfound">النشرة غير موجودة</system:String>

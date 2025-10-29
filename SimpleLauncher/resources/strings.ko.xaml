@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">0에서</system:String>
     <system:String x:Key="Donate">기부</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' 파일을 열어 오류를 디버깅하시겠습니까?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">다운로드 및 추출이 성공적으로 완료되었습니다.</system:String>
     <system:String x:Key="Downloadcanceled">다운로드 취소됨</system:String>
     <system:String x:Key="DownloadCore">코어 다운로드</system:String>
     <system:String x:Key="Downloadedfileislocked">다운로드된 파일이 잠겨 있습니다.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">모두로 필터링</system:String>
 <system:String x:Key="FilterByLetter">문자로 필터링</system:String>
 <system:String x:Key="FilterByNumber">숫자로 필터링</system:String>
+    <system:String x:Key="FinalStep">마지막 단계</system:String>
     <system:String x:Key="FindYourApiKeyHere">여기에서 API 키를 찾으세요</system:String>
     <system:String x:Key="Flyer">전단지</system:String>
     <system:String x:Key="Flyernotfound">전단지를 찾을 수 없습니다</system:String>

@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">Exibindo arquivos de 0 a</system:String>
     <system:String x:Key="Donate">Doar</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">Deseja abrir o arquivo 'error_user.log' para depurar o erro?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">Download e extração concluídos com sucesso.</system:String>
     <system:String x:Key="Downloadcanceled">Download cancelado</system:String>
     <system:String x:Key="DownloadCore">Baixar núcleo</system:String>
     <system:String x:Key="Downloadedfileislocked">Arquivo baixado está bloqueado.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Filtrar por Todos</system:String>
 <system:String x:Key="FilterByLetter">Filtrar por Letra</system:String>
 <system:String x:Key="FilterByNumber">Filtrar por Número</system:String>
+    <system:String x:Key="FinalStep">Etapa final</system:String>
     <system:String x:Key="FindYourApiKeyHere">Encontre sua Chave de API aqui</system:String>
     <system:String x:Key="Flyer">Panfleto</system:String>
     <system:String x:Key="Flyernotfound">Panfleto não encontrado</system:String>

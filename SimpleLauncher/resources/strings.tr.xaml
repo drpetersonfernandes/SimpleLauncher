@@ -134,6 +134,7 @@
     <system:String x:Key="Displayingfiles0to">0'dan itibaren dosyalar görüntüleniyor:</system:String>
     <system:String x:Key="Donate">Bağış Yap</system:String>
     <system:String x:Key="Dowanttoopenthefileerroruserlog">'error_user.log' dosyasını hatayı çözümlemek için açmak ister misiniz?</system:String>
+    <system:String x:Key="Downloadandextractioncompletedsuccessfully">İndirme ve çıkarma başarıyla tamamlandı.</system:String>
     <system:String x:Key="Downloadcanceled">İndirme iptal edildi</system:String>
     <system:String x:Key="DownloadCore">Çekirdeği indir</system:String>
     <system:String x:Key="Downloadedfileislocked">İndirilen dosya kilitli.</system:String>
@@ -247,6 +248,7 @@
 <system:String x:Key="FilterByAll">Tümüne Göre Filtrele</system:String>
 <system:String x:Key="FilterByLetter">Harfe Göre Filtrele</system:String>
 <system:String x:Key="FilterByNumber">Numaraya Göre Filtrele</system:String>
+    <system:String x:Key="FinalStep">Son adım</system:String>
     <system:String x:Key="FindYourApiKeyHere">API Anahtarınızı Buradan Bulun</system:String>
     <system:String x:Key="Flyer">Broşür</system:String>
     <system:String x:Key="Flyernotfound">Broşür bulunamadı</system:String>
