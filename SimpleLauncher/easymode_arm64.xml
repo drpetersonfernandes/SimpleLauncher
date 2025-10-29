@@ -83,10 +83,10 @@
                 <CoreDownloadExtractPath/>
 
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/arcade.zip</ImagePackDownloadLink>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadLink5/>
+                <ImagePackDownloadLink2>https://www.purelogiccode.com/simplelauncher/extras/arcade_2.zip</ImagePackDownloadLink2>
+                <ImagePackDownloadLink3>https://www.purelogiccode.com/simplelauncher/extras/arcade_3.zip</ImagePackDownloadLink3>
+                <ImagePackDownloadLink4>https://www.purelogiccode.com/simplelauncher/extras/arcade_4.zip</ImagePackDownloadLink4>
+                <ImagePackDownloadLink5>https://www.purelogiccode.com/simplelauncher/extras/arcade_5.zip</ImagePackDownloadLink5>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Arcade</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
@@ -565,10 +565,10 @@
                 <CoreDownloadExtractPath/>
 
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore64.zip</ImagePackDownloadLink>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadLink5/>
+                <ImagePackDownloadLink2>https://www.purelogiccode.com/simplelauncher/extras/commodore64_2.zip</ImagePackDownloadLink2>
+                <ImagePackDownloadLink3>https://www.purelogiccode.com/simplelauncher/extras/commodore64_3.zip</ImagePackDownloadLink3>
+                <ImagePackDownloadLink4>https://www.purelogiccode.com/simplelauncher/extras/commodore64_4.zip</ImagePackDownloadLink4>
+                <ImagePackDownloadLink5>https://www.purelogiccode.com/simplelauncher/extras/commodore64_5.zip</ImagePackDownloadLink5>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore 64</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
