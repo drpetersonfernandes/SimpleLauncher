@@ -108,10 +108,10 @@ public partial class DownloadImagePackWindow : IDisposable
 
         // Dynamically add image pack items to the ObservableCollection
         AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 1");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2, "Image Pack 2");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3, "Image Pack 3");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4, "Image Pack 4");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5, "Image Pack 5");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 2");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 3");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 4");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 5");
     }
 
     private void AddImagePackItemIfValid(string downloadLink, string extractPath, string displayName)
@@ -312,19 +312,9 @@ public partial class DownloadImagePackWindow : IDisposable
             return false;
         }
 
-        // Validate all potential extraction paths
-        // This is a more robust check, ensuring all possible paths are valid or can be created.
+        // Validate extraction path
         var pathsToValidate = new List<string>();
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath))
-            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2))
-            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2);
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3))
-            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3);
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4))
-            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4);
-        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5))
-            pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5);
+        if (!string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath)) pathsToValidate.Add(selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath);
 
         foreach (var path in pathsToValidate)
         {

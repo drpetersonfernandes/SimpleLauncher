@@ -32,7 +32,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
     private bool _isImagePackDownloaded4;
     private bool _isImagePackDownloaded5;
 
-    // New properties for Image Pack button visibility
+    // Properties for Image Pack button visibility
     private bool _isImagePack1Available;
 
     public bool IsImagePack1Available
@@ -300,7 +300,6 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
         }
     }
 
-    // New click handlers for each image pack button
     private async void DownloadImagePackButton1_Click(object sender, RoutedEventArgs e)
     {
         try
@@ -425,22 +424,22 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
                 break;
             case DownloadType.ImagePack2:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath2;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = "Image Pack 2";
                 break;
             case DownloadType.ImagePack3:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath3;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = "Image Pack 3";
                 break;
             case DownloadType.ImagePack4:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath4;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = "Image Pack 4";
                 break;
             case DownloadType.ImagePack5:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
-                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath5;
+                easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
                 componentName = "Image Pack 5";
                 break;
             default:
@@ -867,17 +866,12 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
                     new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                     new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
                     new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                    // Add new image pack download links and paths
                     , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
-                    , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
                     , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
-                    , new XElement("ImagePackDownloadExtractPath2", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2)
                     , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
-                    , new XElement("ImagePackDownloadExtractPath3", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3)
                     , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
-                    , new XElement("ImagePackDownloadExtractPath4", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4)
                     , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
-                    , new XElement("ImagePackDownloadExtractPath5", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5)
+                    , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
                 )
             )
         );
@@ -910,17 +904,12 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
                 new XElement("EmulatorName", selectedSystem.Emulators.Emulator.EmulatorName),
                 new XElement("EmulatorLocation", selectedSystem.Emulators.Emulator.EmulatorLocation),
                 new XElement("EmulatorParameters", selectedSystem.Emulators.Emulator.EmulatorParameters)
-                // Add new image pack download links and paths
                 , new XElement("ImagePackDownloadLink", selectedSystem.Emulators.Emulator.ImagePackDownloadLink)
-                , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
                 , new XElement("ImagePackDownloadLink2", selectedSystem.Emulators.Emulator.ImagePackDownloadLink2)
-                , new XElement("ImagePackDownloadExtractPath2", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath2)
                 , new XElement("ImagePackDownloadLink3", selectedSystem.Emulators.Emulator.ImagePackDownloadLink3)
-                , new XElement("ImagePackDownloadExtractPath3", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath3)
                 , new XElement("ImagePackDownloadLink4", selectedSystem.Emulators.Emulator.ImagePackDownloadLink4)
-                , new XElement("ImagePackDownloadExtractPath4", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath4)
                 , new XElement("ImagePackDownloadLink5", selectedSystem.Emulators.Emulator.ImagePackDownloadLink5)
-                , new XElement("ImagePackDownloadExtractPath5", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath5)
+                , new XElement("ImagePackDownloadExtractPath", selectedSystem.Emulators.Emulator.ImagePackDownloadExtractPath)
             )
         ));
     }
