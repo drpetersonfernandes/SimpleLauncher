@@ -382,7 +382,6 @@ public class GamePadController : IDisposable
                         CheckAndReconnectControllers();
                     }
                 }
-                // *** FIX END ***
             }
             catch (Exception ex)
             {

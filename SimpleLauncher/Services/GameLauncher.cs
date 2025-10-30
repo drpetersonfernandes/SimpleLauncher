@@ -970,14 +970,6 @@ public static class GameLauncher
             return Task.CompletedTask;
         }
 
-        // Check if the output contains "Packed pixels extension used" and ignore it,
-        // Common Project64 error that should be ignored
-        if (output.ToString().Contains("Packed pixels extension used", StringComparison.OrdinalIgnoreCase))
-        {
-            DebugLogger.Log($"[CheckForExitCodeWithErrorAnyAsync] Ignored exit code {process.ExitCode} due to 'Packed pixels extension used' in output.");
-            return Task.CompletedTask;
-        }
-
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify developer

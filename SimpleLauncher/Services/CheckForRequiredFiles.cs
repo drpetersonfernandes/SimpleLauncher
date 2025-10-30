@@ -13,6 +13,8 @@ public static class CheckForRequiredFiles
     private static readonly string ShutterSoundFile = Path.Combine(BaseDirectory, "audio", "shutter.mp3");
     private static readonly string TrashSoundFile = Path.Combine(BaseDirectory, "audio", "trash.mp3");
     private static readonly string AppSettings = Path.Combine(BaseDirectory, "appsettings.json");
+    private static readonly string ZipDllX64 = Path.Combine(BaseDirectory, "7z_x64.dll");
+    private static readonly string ZipDllArm64 = Path.Combine(BaseDirectory, "7z_arm64.dll");
 
     public static void CheckFiles()
     {
@@ -29,6 +31,32 @@ public static class CheckForRequiredFiles
         try
         {
             var missingFiles = requiredFiles.Where(static f => !File.Exists(f)).ToList();
+
+            // Check for architecture-specific ZIP DLL
+            var architecture = System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture;
+            // ReSharper disable once SwitchStatementMissingSomeEnumCasesNoDefault
+            switch (architecture)
+            {
+                case System.Runtime.InteropServices.Architecture.X64:
+                {
+                    if (!File.Exists(ZipDllX64))
+                    {
+                        missingFiles.Add(ZipDllX64);
+                    }
+
+                    break;
+                }
+                case System.Runtime.InteropServices.Architecture.Arm64:
+                {
+                    if (!File.Exists(ZipDllArm64))
+                    {
+                        missingFiles.Add(ZipDllArm64);
+                    }
+
+                    break;
+                }
+            }
+
             if (missingFiles.Count == 0) return;
 
             var fileList = string.Join(Environment.NewLine, missingFiles);

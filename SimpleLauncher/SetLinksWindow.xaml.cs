@@ -29,11 +29,11 @@ public partial class SetLinksWindow
     {
         _settingsManager.VideoUrl = string.IsNullOrWhiteSpace(VideoLinkTextBox.Text)
             ? "https://www.youtube.com/results?search_query="
-            : EncodeForXml(VideoLinkTextBox.Text);
+            : VideoLinkTextBox.Text;
 
         _settingsManager.InfoUrl = string.IsNullOrWhiteSpace(InfoLinkTextBox.Text)
             ? "https://www.igdb.com/search?q="
-            : EncodeForXml(InfoLinkTextBox.Text);
+            : InfoLinkTextBox.Text;
 
         _settingsManager.Save();
 

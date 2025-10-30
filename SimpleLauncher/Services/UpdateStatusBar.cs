@@ -10,17 +10,14 @@ public static class UpdateStatusBar
             return;
         }
 
-        // Update the status bar text
         mainWindow.Dispatcher.Invoke(() =>
         {
+            // Update the status bar text
             mainWindow.StatusBarText.Content = content;
-        });
 
-        // Start or restart the 20-second timer to clear the status
-        if (mainWindow.StatusBarTimer != null)
-        {
+            // Start or restart the 20-second timer to clear the status
             mainWindow.StatusBarTimer?.Stop(); // Stop any existing timer
             mainWindow.StatusBarTimer?.Start(); // Start a new one
-        }
+        });
     }
 }
