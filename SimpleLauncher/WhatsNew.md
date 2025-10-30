@@ -1,5 +1,5 @@
 # Release 4.6.0
-*10/26/25*
+*10/30/25*
 ---
 
 - Introduced tool `GameCoverScraper` to allow users to scrape cover images online.
