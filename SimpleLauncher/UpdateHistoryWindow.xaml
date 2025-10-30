@@ -2,18 +2,22 @@
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-                      xmlns:markdig="clr-namespace:Markdig.Wpf;assembly=Markdig.Wpf"
                       Title="{DynamicResource UpdateHistory}"
                       Width="800"
                       Height="700"
                       MinWidth="700"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
-    <Window.CommandBindings>
-        <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="Hyperlink_Executed" />
-    </Window.CommandBindings>
     <Grid>
-        <markdig:MarkdownViewer x:Name="MarkdownViewer" Margin="10"
-                                Foreground="{DynamicResource MahApps.Brushes.Text}" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
+            <RichTextBox x:Name="HistoryTextBlock"
+                         IsReadOnly="True"
+                         Foreground="{DynamicResource MahApps.Brushes.Text}"
+                         FontFamily="Segoe UI"
+                         FontSize="14"
+                         Padding="10"
+                         BorderThickness="1"
+                         BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" />
+        </ScrollViewer>
     </Grid>
 </controls:MetroWindow>

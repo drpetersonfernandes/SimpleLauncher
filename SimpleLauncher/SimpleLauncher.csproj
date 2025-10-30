@@ -913,7 +913,6 @@
     <PackageReference Include="Hardcodet.NotifyIcon.Wpf" Version="2.0.1" />
     <PackageReference Include="InputSimulatorCore" Version="1.0.5" />
     <PackageReference Include="MahApps.Metro" Version="2.4.11" />
-    <PackageReference Include="Markdig.Wpf" Version="0.5.0.1" />
     <PackageReference Include="MessagePack" Version="3.1.4" />
     <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0">
       <PrivateAssets>all</PrivateAssets>
