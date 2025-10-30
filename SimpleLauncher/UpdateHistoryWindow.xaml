@@ -10,11 +10,10 @@
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
     <Window.CommandBindings>
-        <!-- This CommandBinding captures the click event from hyperlinks within the MarkdownViewer -->
         <CommandBinding Command="{x:Static markdig:Commands.Hyperlink}" Executed="Hyperlink_Executed" />
     </Window.CommandBindings>
     <Grid>
-        <!-- The outer ScrollViewer is removed. The MarkdownViewer is itself a scrollable control. -->
-        <markdig:MarkdownViewer x:Name="MarkdownViewer" Margin="10" />
+        <markdig:MarkdownViewer x:Name="MarkdownViewer" Margin="10"
+                                Foreground="{DynamicResource MahApps.Brushes.Text}" />
     </Grid>
 </controls:MetroWindow>
