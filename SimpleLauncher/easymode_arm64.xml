@@ -479,7 +479,7 @@
             <Emulator>
                 <EmulatorName>MAME pv1000</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -553,7 +553,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" c64 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" c64 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -575,6 +575,43 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Commodore Amiga</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Commodore Amiga</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Commodore Amiga</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>zip</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>MAME</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a1200n</EmulatorParameters>
+                <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\mame\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Mattel Aquarius</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Mattel Aquarius</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Mattel Aquarius</SystemImageFolder>
@@ -590,7 +627,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -627,7 +664,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" intv</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" intv</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>
@@ -1342,7 +1379,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" vboy</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" vboy</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_arm64.zip</EmulatorDownloadLink>

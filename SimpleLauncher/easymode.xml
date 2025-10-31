@@ -72,7 +72,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;;%SYSTEMFOLDER%" gx4000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
@@ -527,7 +527,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;;%SYSTEMFOLDER%" pv1000 -cart</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
@@ -828,7 +828,7 @@
             <Emulator>
                 <EmulatorName>MAME aquarius</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;;%SYSTEMFOLDER%" aquarius</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>
@@ -1802,7 +1802,7 @@
             <Emulator>
                 <EmulatorName>MAME</EmulatorName>
                 <EmulatorLocation>%BASEFOLDER%\emulators\mame\mame.exe</EmulatorLocation>
-                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%SYSTEMFOLDER%" vboy</EmulatorParameters>
+                <EmulatorParameters>-rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;;%SYSTEMFOLDER%" vboy</EmulatorParameters>
                 <EmulatorDownloadPage>https://github.com/mamedev/mame/releases/</EmulatorDownloadPage>
                 <EmulatorLatestVersion>0.281</EmulatorLatestVersion>
                 <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/mame0281b_x64.zip</EmulatorDownloadLink>

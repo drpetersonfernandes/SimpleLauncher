@@ -763,7 +763,7 @@ public static class GameLauncher
 
             if (process.HasExited)
             {
-                if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, process, psi, output, error)) return;
+                if (DoNotCheckErrorsOnSpecificEmulators(selectedEmulatorName, resolvedEmulatorExePath, process, psi, output, error)) return;
 
                 await CheckForMemoryAccessViolationAsync(process, psi, output, error, selectedEmulatorManager);
                 await CheckForDepViolationAsync(process, psi, output, error, selectedEmulatorManager);
@@ -1042,7 +1042,7 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (selectedEmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||
@@ -1050,7 +1050,8 @@ public static class GameLauncher
             selectedEmulatorName.Contains("Fusion", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Project64", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("Project 64", StringComparison.OrdinalIgnoreCase) ||
-            selectedEmulatorName.Contains("Emulicious", StringComparison.OrdinalIgnoreCase))
+            selectedEmulatorName.Contains("Emulicious", StringComparison.OrdinalIgnoreCase) ||
+            resolvedEmulatorExePath.Contains("Project64.exe", StringComparison.OrdinalIgnoreCase))
         {
             // Notify developer
             var contextMessage = $"User just ran {selectedEmulatorName}.\n" +
