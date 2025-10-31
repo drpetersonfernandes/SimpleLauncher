@@ -108,10 +108,11 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\emulators\mame\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "c:\emulators\mame\roms;c:\emulators\mame\bios"<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios"<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%"<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
+You can find an updated set of MAME ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
 .
 
