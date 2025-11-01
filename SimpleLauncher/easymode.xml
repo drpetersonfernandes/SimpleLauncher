@@ -691,10 +691,10 @@
                 <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>
 
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga.zip</ImagePackDownloadLink>
-                <ImagePackDownloadLink2/>
-                <ImagePackDownloadLink3/>
-                <ImagePackDownloadLink4/>
-                <ImagePackDownloadLink5/>
+                <ImagePackDownloadLink2>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga2.zip</ImagePackDownloadLink2>
+                <ImagePackDownloadLink3>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga3.zip</ImagePackDownloadLink3>
+                <ImagePackDownloadLink4>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga4.zip</ImagePackDownloadLink4>
+                <ImagePackDownloadLink5>https://www.purelogiccode.com/simplelauncher/extras/commodoreamiga5.zip</ImagePackDownloadLink5>
                 <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Commodore Amiga</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
