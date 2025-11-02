@@ -653,12 +653,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <!--                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore128.zip</ImagePackDownloadLink>-->
-                <!--                <ImagePackDownloadLink2/>-->
-                <!--                <ImagePackDownloadLink3/>-->
-                <!--                <ImagePackDownloadLink4/>-->
-                <!--                <ImagePackDownloadLink5/>-->
-                <!--                <ImagePackDownloadExtractPath/>-->
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/commodore128.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath/>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
