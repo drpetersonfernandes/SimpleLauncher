@@ -1818,7 +1818,7 @@
                 <ImagePackDownloadLink3/>
                 <ImagePackDownloadLink4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Wii</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Virtual Boy</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>

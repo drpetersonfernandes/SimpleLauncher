@@ -1389,12 +1389,12 @@
                 <CoreDownloadLink/>
                 <CoreDownloadExtractPath/>
 
-                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendosnesmsu1.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/nintendovirtualboy.zip</ImagePackDownloadLink>
                 <ImagePackDownloadLink2/>
                 <ImagePackDownloadLink3/>
                 <ImagePackDownloadLink4/>
                 <ImagePackDownloadLink5/>
-                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo SNES MSU1</ImagePackDownloadExtractPath>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Nintendo Virtual Boy</ImagePackDownloadExtractPath>
             </Emulator>
         </Emulators>
     </EasyModeSystemConfig>
