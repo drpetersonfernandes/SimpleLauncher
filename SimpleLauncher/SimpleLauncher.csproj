@@ -721,6 +721,9 @@
     <None Update="tools\GameCoverScraper\arm64\WebView2Loader.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\BatchConvertIsoToXiso\bchunk.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
