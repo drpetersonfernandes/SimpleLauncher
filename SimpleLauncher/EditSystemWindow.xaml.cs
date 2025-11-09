@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
@@ -274,6 +274,8 @@ public partial class EditSystemWindow
 
         ExtractFileBeforeLaunchComboBox.IsEnabled = true;
 
+        GroupByFolderComboBox.IsEnabled = true;
+
         FormatToLaunchTextBox.IsReadOnly = false;
         FormatToLaunchTextBox.IsEnabled = true;
 
@@ -346,6 +348,8 @@ public partial class EditSystemWindow
         FormatToSearchTextBox.IsEnabled = false;
 
         ExtractFileBeforeLaunchComboBox.IsEnabled = false;
+
+        GroupByFolderComboBox.IsEnabled = false;
 
         FormatToLaunchTextBox.IsReadOnly = true;
         FormatToLaunchTextBox.IsEnabled = false;
@@ -424,6 +428,8 @@ public partial class EditSystemWindow
         MarkValid(FormatToSearchTextBox);
 
         ExtractFileBeforeLaunchComboBox.SelectedItem = null;
+
+        GroupByFolderComboBox.SelectedItem = null;
 
         FormatToLaunchTextBox.Text = string.Empty;
         MarkValid(FormatToLaunchTextBox);
