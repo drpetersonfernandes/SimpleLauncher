@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -146,16 +146,30 @@ public class ExtractCompressedFile
             return false;
         }
 
-        if (CheckForFileLock.IsFileLocked(filePath))
+        // Add a retry loop to handle transient file locks (e.g., from antivirus)
+        const int maxRetries = 5;
+        const int retryDelayMs = 200;
+        for (var i = 0; i < maxRetries; i++)
         {
-            // Notify developer
-            var contextMessage = $"The downloaded file appears to be locked: {filePath}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            if (!CheckForFileLock.IsFileLocked(filePath))
+            {
+                break; // File is not locked, proceed
+            }
 
-            // Notify user
-            MessageBoxLibrary.FileIsLockedMessageBox();
+            if (i == maxRetries - 1)
+            {
+                // Last attempt failed
+                // Notify developer
+                var contextMessage = $"The downloaded file appears to be locked after {maxRetries} retries: {filePath}";
+                _ = LogErrors.LogErrorAsync(null, contextMessage);
 
-            return false;
+                // Notify user
+                MessageBoxLibrary.FileIsLockedMessageBox();
+
+                return false;
+            }
+
+            await Task.Delay(retryDelayMs); // Wait before retrying
         }
 
         var extension = Path.GetExtension(filePath).ToLowerInvariant();

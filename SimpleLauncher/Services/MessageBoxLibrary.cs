@@ -3273,7 +3273,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void WarnUserAboutMemoryConsumption()
+    internal static void WarnUserAboutMemoryConsumption()
     {
         Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
@@ -3285,5 +3285,28 @@ internal static class MessageBoxLibrary
             var warningTitle = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
             MessageBox.Show(warningMessage, warningTitle, MessageBoxButton.OK, MessageBoxImage.Warning);
         }
+    }
+
+    internal static void GroupByFolderOnlyForMameMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("GroupByFolderOnlyForMameMessage") ?? "The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option.";
+            var title = (string)Application.Current.TryFindResource("CompatibilityWarning") ?? "Compatibility Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
+    }
+
+    internal static MessageBoxResult GroupByFolderMameWarningMessageBox()
+    {
+        return Application.Current.Dispatcher.Invoke(static () =>
+        {
+            var message = (string)Application.Current.TryFindResource("GroupByFolderMameWarningMessage") ?? "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?";
+            var title = (string)Application.Current.TryFindResource("ConfigurationWarning") ?? "Configuration Warning";
+            return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
+        });
     }
 }
