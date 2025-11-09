@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -22,6 +22,7 @@ public partial class SystemManager
     public bool ExtractFileBeforeLaunch { get; private set; }
     public List<string> FileFormatsToLaunch { get; private init; }
     public List<Emulator> Emulators { get; private init; }
+    public bool GroupByFolder { get; private init; }
 
     private static readonly string XmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
@@ -133,6 +134,7 @@ public partial class SystemManager
                     new XElement("SystemImageFolder", config.SystemImageFolder),
                     new XElement("SystemIsMAME", config.SystemIsMame),
                     new XElement("FileFormatsToSearch", config.FileFormatsToSearch.Select(static f => new XElement("FormatToSearch", f))),
+                    new XElement("GroupByFolder", config.GroupByFolder),
                     new XElement("ExtractFileBeforeLaunch", config.ExtractFileBeforeLaunch),
                     new XElement("FileFormatsToLaunch", config.FileFormatsToLaunch.Select(static f => new XElement("FormatToLaunch", f))),
                     new XElement("Emulators", config.Emulators.Select(static e =>
@@ -255,6 +257,12 @@ public partial class SystemManager
             if (extractFileBeforeLaunch && (formatsToLaunch == null || formatsToLaunch.Count == 0))
                 throw new InvalidOperationException($"System '{systemName}': 'File Extension To Launch' should have at least one value when 'Extract File Before Launch' is set to true.");
 
+            // Parse GroupByFolder
+            if (!bool.TryParse(sysConfigElement.Element("GroupByFolder")?.Value, out var groupByFolder))
+            {
+                groupByFolder = false;
+            }
+
             // Validate emulator configurations
             var emulators = new List<Emulator>();
             var emulatorElements = sysConfigElement.Element("Emulators")?.Elements("Emulator").ToList();
@@ -300,7 +308,8 @@ public partial class SystemManager
                 ExtractFileBeforeLaunch = extractFileBeforeLaunch,
                 FileFormatsToSearch = formatsToSearch,
                 FileFormatsToLaunch = formatsToLaunch,
-                Emulators = emulators
+                Emulators = emulators,
+                GroupByFolder = groupByFolder
             });
         }
 

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.ComponentModel;
@@ -797,6 +797,32 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
 
             var allFiles = await BuildListOfAllFilesToLoad(selectedManager);
+
+            if (selectedManager.GroupByFolder)
+            {
+                var rootFolders = selectedManager.SystemFolders
+                    .Select(PathHelper.ResolveRelativeToAppDirectory)
+                    .Where(static p => !string.IsNullOrEmpty(p))
+                    .ToHashSet(StringComparer.OrdinalIgnoreCase);
+
+                var groupedFiles = allFiles
+                    .GroupBy(f =>
+                    {
+                        var fileDir = Path.GetDirectoryName(f);
+                        // If the file's directory is one of the main system folders, it's a "root" file.
+                        // Its group key will be its own full path.
+                        if (rootFolders.Contains(fileDir))
+                        {
+                            return f;
+                        }
+
+                        // Otherwise, its group key is its parent directory.
+                        return fileDir;
+                    })
+                    .Select(static g => g.Key) // This gives us a list of unique file paths (for root files) and directory paths (for subfolders)
+                    .ToList();
+                allFiles = groupedFiles;
+            }
 
             allFiles = ProcessListOfAllFilesWithMachineDescription(selectedManager, allFiles);
 
