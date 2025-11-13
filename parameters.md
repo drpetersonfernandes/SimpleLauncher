@@ -416,6 +416,17 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Gearlynx<br>
+**Emulator Path (Example):** C:\Emulators\Retroarch\Gearlynx.exe<br>
+**Emulator Parameters (Example using absolute paths):** <br>
+**Emulator Parameters (Example using relative paths):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This emulator requires a BIOS file to run.
+
 ## Atari ST
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -630,7 +641,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 
 .
 
-**Emulator Name:** MAME pv1000<br>
+**Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
 **Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios\;C:\Casio PV-1000" pv1000 -cart<br>
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios\;%SYSTEMFOLDER%" pv1000 -cart<br>
@@ -2099,6 +2110,16 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
+.
+
+**Emulator Name:** Gearboy<br>
+**Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
+
 ## Nintendo Game Boy Advance
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
@@ -2268,6 +2289,16 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
+
+.
+
+**Emulator Name:** Gearboy<br>
+**Emulator Path (Example):** C:\emulators\Gearboy\Gearboy.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 
 ## Nintendo GameCube
 
@@ -2568,7 +2599,34 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 
 .
 
-**Emulator Name:** Yuzu Original<br>
+**Emulator Name:** Eden<br>
+**Emulator Path (Example):** c:\emulators\Eden\eden.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Citron<br>
+**Emulator Path (Example):** c:\emulators\Citron\citron.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Sudachi<br>
+**Emulator Path (Example):** c:\emulators\Sudachi\sudachi.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+
+.
+
+**Emulator Name:** Yuzu<br>
 **Emulator Path (Example):** C:\Users\HomePC\AppData\Local\yuzu\yuzu-windows-msvc\yuzu.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
@@ -2577,8 +2635,8 @@ This emulator is available for Windows-x64.<br>
 
 .
 
-**Emulator Name:** Yuzu Fork Citron<br>
-**Emulator Path (Example):** c:\emulators\Yuzu Fork Citron\citron.exe<br>
+**Emulator Name:** Ryubing<br>
+**Emulator Path (Example):** c:\emulators\Ryubing\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
@@ -2586,48 +2644,21 @@ This emulator is available for Windows-x64.<br>
 
 .
 
-**Emulator Name:** Yuzu Fork Eden<br>
-**Emulator Path (Example):** c:\emulators\Yuzu Fork Eden\eden.exe<br>
+**Emulator Name:** Kenji-NX<br>
+**Emulator Path (Example):** c:\emulators\Kenji-Nx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
-This emulator is available for Windows-x64.<br>
+This emulator is available for Windows-x64.
 
 .
 
-**Emulator Name:** Yuzu Fork Sudachi<br>
-**Emulator Path (Example):** c:\emulators\Yuzu Fork Sudachi\sudachi.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.<br>
-
-.
-
-**Emulator Name:** Ryujinx Original<br>
+**Emulator Name:** Ryujinx<br>
 **Emulator Path (Example):** c:\emulators\Ryujinx\Ryujinx.exe<br>
 **Emulator Parameters (Example):** <br>
 **Fullscreen Parameter:** <br>
 
 This emulator is available for Windows-x64.<br>
-
-.
-
-**Emulator Name:** Ryujinx Fork Ryubing<br>
-**Emulator Path (Example):** c:\emulators\Ryujinx Fork Ryubing\Ryujinx.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.<br>
-
-.
-
-**Emulator Name:** Ryujinx Fork Kenji-NX<br>
-**Emulator Path (Example):** c:\emulators\Ryujinx Fork Kenji-Nx\Ryujinx.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64.
 
 ## Nintendo Virtual Boy
 
