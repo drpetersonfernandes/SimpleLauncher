@@ -131,7 +131,7 @@ public partial class GlobalSearchWindow
                     continue;
                 }
 
-                var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.TopDirectoryOnly)
+                var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
                     .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
                 if (systemManager.SystemIsMame && _mameLookup != null)
