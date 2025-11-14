@@ -117,10 +117,11 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var therewasaproblemopeningtheVideo = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheVideo") ?? "There was a problem opening the Video Link.";
-            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var ensureyouhaveadefaultbrowserinstalled = (string)Application.Current.TryFindResource("Ensureyouhaveadefaultbrowserinstalled") ?? "Ensure you have a default browser installed and configured correctly on your system.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            MessageBox.Show($"{therewasaproblemopeningtheVideo}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasaproblemopeningtheVideo}\n\n" +
+                            $"{ensureyouhaveadefaultbrowserinstalled}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 
@@ -132,10 +133,27 @@ internal static class MessageBoxLibrary
         static void ShowMessage()
         {
             var therewasaproblemopeningthe = (string)Application.Current.TryFindResource("Therewasaproblemopeningthe") ?? "There was a problem opening the Info Link.";
-            var theerrorwasreportedtothedeveloper = (string)Application.Current.TryFindResource("Theerrorwasreportedtothedeveloper") ?? "The error was reported to the developer who will try to fix the issue.";
+            var ensureyouhaveadefaultbrowserinstalled = (string)Application.Current.TryFindResource("Ensureyouhaveadefaultbrowserinstalled") ?? "Ensure you have a default browser installed and configured correctly on your system.";
             var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
 
-            MessageBox.Show($"{therewasaproblemopeningthe}\n\n" + $"{theerrorwasreportedtothedeveloper}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+            MessageBox.Show($"{therewasaproblemopeningthe}\n\n" +
+                            $"{ensureyouhaveadefaultbrowserinstalled}", error, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void ErrorOpeningUrlMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var therewasaproblemopeningtheUrl = (string)Application.Current.TryFindResource("TherewasaproblemopeningtheUrl") ?? "There was a problem opening the Url.";
+            var ensureyouhaveadefaultbrowserinstalled = (string)Application.Current.TryFindResource("Ensureyouhaveadefaultbrowserinstalled") ?? "Ensure you have a default browser installed and configured correctly on your system.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            MessageBox.Show($"{therewasaproblemopeningtheUrl}\n\n" +
+                            $"{ensureyouhaveadefaultbrowserinstalled}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 

@@ -122,6 +122,9 @@ public partial class EditSystemWindow
             ExtractFileBeforeLaunchComboBox.SelectedItem = ExtractFileBeforeLaunchComboBox.Items.Cast<ComboBoxItem>()
                 .FirstOrDefault(item => item.Content.ToString() == extractFileBeforeLaunchValue);
 
+            var groupByFolderValue = selectedSystem.Element("GroupByFolder")?.Value == "true" ? "true" : "false";
+            GroupByFolderComboBox.SelectedItem = GroupByFolderComboBox.Items.Cast<ComboBoxItem>().FirstOrDefault(item => item.Content.ToString() == groupByFolderValue);
+
             var formatToLaunchValues = selectedSystem.Element("FileFormatsToLaunch")?.Elements("FormatToLaunch")
                 .Select(static x => x.Value).ToArray();
             FormatToLaunchTextBox.Text = formatToLaunchValues != null ? string.Join(", ", formatToLaunchValues) : string.Empty;
