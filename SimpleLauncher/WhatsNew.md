@@ -1,5 +1,5 @@
 # Release 4.6.0
-*10/30/25*
+*2025-10-30*
 ---
 
 - Introduced tool `GameCoverScraper` to allow users to scrape cover images online.
@@ -19,7 +19,7 @@
 - Bug fixes.
 
 # Release 4.5.0
-*10/11/25*
+*2025-10-11*
 ---
 
 🏆 **Introduced RetroAchievements Integration**
@@ -41,7 +41,7 @@
 🔧 **Codebase Refinements & Bug Fixes**
 
 # Release 4.4.2
-*09/29/25*
+*2025-09-29*
 ---
 
 - Improvements to error handling, parameter validation, and user experience.
@@ -51,7 +51,7 @@
 - Fixed double-click handling in game list mode to prevent errors on placeholder items.
 
 # Release 4.4.1
-*09/19/25*
+*2025-09-19*
 ---
 
 ### 🔧 Bug Fixes
@@ -59,7 +59,7 @@
 - Fix the Supermodel emulator link.
 
 # Release 4.4
-*09/17/25*
+*2025-09-17*
 ---
 
 ### 🖥️ Platform Support
@@ -79,7 +79,7 @@
 - Improved localization resource management
 
 # Release 4.3
-*07/26/25*
+*2025-07-26*
 ---
 
 ### Major Feature: Multi-Folder Support
@@ -101,7 +101,7 @@
 - **History Database Update:** The history.xml file has been updated to the latest version.
 
 # Release 4.2.0
-*07/10/25*
+*2025-07-10*
 ---
 ### Core Feature Enhancements: On-the-Fly File Mounting
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
@@ -129,7 +129,7 @@ The project's core dependencies and internal logic for handling files have been 
 *   **UI Consistency:** The system selection screen now limits the maximum size of system thumbnails to 100 px to prevent oversized images from distorting the layout and to ensure a consistent look.
 
 # Release 4.1.0
-*06/08/25*
+*2025-06-08*
 ---
 *   Added a Sound Configuration feature allowing customizable notification sounds.
 *   Implement a Debug Logger with a dedicated UI window for enhanced logging.
@@ -142,7 +142,7 @@ The project's core dependencies and internal logic for handling files have been 
 *   Refactored Edit System Window logic and validation for better user feedback on paths.
 
 # Release 4.0.1
-*05/26/25*
+*2025-05-26*
 ---
 ### Bug Fix Version
 -   **Parameter Handling Overhaul (`ParameterValidator.cs`, `GameLauncher.cs`):** Paths within parameters are converted to absolute paths.
@@ -152,7 +152,7 @@ The project's core dependencies and internal logic for handling files have been 
 -   **Configuration Change (`SystemManager.cs`):** The default value for `ReceiveANotificationOnEmulatorError` in system configurations has been changed from `false` to `true`, meaning users will now receive error notifications by default.
 
 # Release 4.0
-*05/24/2025*
+*2025-05-24*
 ---
 This release brings significant user-interface improvements, new features for game browsing and management, enhanced stability, and various under-the-hood technical refinements.
 
@@ -189,7 +189,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Integrated `IHttpClientFactory` for HTTP client management.
 
 # Release 3.13
-*04/27/2025*
+*2025-04-27*
 ---
 -   Updated the **Batch Convert To Compressed File** tool to skip files that are already compressed.
 -   Improved the UI in the **Easy Mode** and **Download Image Pack** windows.
@@ -199,7 +199,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated `history.xml` (available at arcade-history.com) to the latest version.
 
 # Release 3.12
-*03/31/2025*
+*2025-03-31*
 ---
 -   Added an option to turn off emulator error notifications from 'Simple Launcher'. Users can configure this per emulator in the **Edit System - Expert Mode**.
 -   Updated the **Batch Convert to CHD** tool application to accept new input formats, including ZIP files.
@@ -212,7 +212,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated `history.xml`, available at arcade-history.com, to the latest version.
 
 # Release 3.11.1
-*03/22/2025*
+*2025-03-22*
 ---
 -   Added logic to check file and folder paths in the parameter field. Users will be notified if the check returns invalid.
 -   Updated the `LogError` class to use a new, more flexible API.
@@ -221,7 +221,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed some bugs.
 
 # Release 3.11
-*03/12/2025*
+*2025-03-12*
 ---
 -   Added **Play History Window** and all the logic to implement it. Users can now see which games have been played and for how long.
 -   Implemented the **Feeling Lucky Button** in the Main Window UI. This button will pick a random game for the selected system.
@@ -233,18 +233,18 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated the logic behind the tray icon to a more modern approach.
 
 # Release 3.10.2
-*03/03/2025*
+*2025-03-03*
 ---
 -   Fixed an issue in List View mode where preview images failed to load.
 
 # Release 3.10.1
-*03/02/2025*
+*2025-03-02*
 ---
 -   Fixed some bugs.
 -   Enhanced methods and functions to improve efficiency and reduce errors.
 
 # Release 3.10
-*02/23/2025*
+*2025-02-23*
 ---
 -   Exposed the GamePad DeadZone variable to the user.
 -   Improved the Game Button generation for the Grid View option. Now users can customize the aspect ratio of the buttons.
@@ -254,14 +254,14 @@ This release brings significant user-interface improvements, new features for ga
 -   Enhanced methods and functions to improve efficiency and reduce errors.
 
 # Release 3.9.1
-*02/08/2025*
+*2025-02-08*
 ---
 -   Significantly improved the speed of the search engine in the Main Window and in the Global Search Window.
 -   Fixed some bugs.
 -   Enhanced methods and functions to improve efficiency and reduce errors.
 
 # Release 3.9
-*02/07/2025*
+*2025-02-07*
 ---
 -   Enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: Xbox 360, Xbox One, Xbox Series X/S, PlayStation 4 DualShock, and PlayStation 5 DualSense.
 -   Improved the text formatting of developer suggestions in the Edit Window.
@@ -276,13 +276,13 @@ This release brings significant user-interface improvements, new features for ga
 -   Improved several methods and functions to enhance efficiency and reduce errors.
 
 # Release 3.8.1
-*01/16/2025*
+*2025-01-16*
 ---
 -   Bug fixes.
 -   Improved some methods and functions to enhance efficiency and reduce errors.
 
 # Release 3.8
-*01/15/2025*
+*2025-01-15*
 ---
 ### Multilingual Version – A Major Update!
 -   **Experience the Application in Your Language!** We've added translations for 17 languages, making the application accessible to users worldwide. Supported languages now include: Arabic, Bengali, German, Spanish, French, Hindi, Indonesian (Malay), Italian, Japanese, Korean, Dutch, Portuguese, Russian, Turkish, Urdu, Vietnamese, Simplified Chinese, and Traditional Chinese.
@@ -294,13 +294,13 @@ This release brings significant user-interface improvements, new features for ga
 -   Added more emulators to `system_model.xml`.
 
 # Release 3.7.1
-*12/12/2024*
+*2024-12-12*
 ---
 -   Fixed bugs and improved exception handling in certain methods.
 -   Added image packs for specific systems.
 
 # Release 3.7
-*12/08/2024*
+*2024-12-08*
 ---
 -   Added a tool to generate BAT files for Xbox 360 XBLA games.
 -   Added a Helper class to help users during system edits.
@@ -318,25 +318,25 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed bugs and improved exception handling in some methods.
 
 # Release 3.6.3
-*11/26/2024*
+*2024-11-26*
 ---
 -   Changed the temp folder from within the application folder to the Windows temp folder to prevent access issues.
 -   Implemented methods to handle the cleanup of temp files and folders.
 
 # Release 3.6.2
-*11/25/2024*
+*2024-11-25*
 ---
 -   Improved error handling in some methods.
 
 # Release 3.6.1
-*11/24/2024*
+*2024-11-24*
 ---
 -   Fixed a bug in several methods that attempt to load a preview image or open a cover image when the `UserImagePath` is a relative path. These methods now convert all relative paths to absolute paths before execution.
 -   Moved the `DownloadAndExtractInMemory` method to a separate class.
 -   Improved error handling in some methods.
 
 # Release 3.6.0
-*11/23/2024*
+*2024-11-23*
 ---
 -   Performed a major refactoring of the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window.
 -   Improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads.
@@ -351,7 +351,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Bug fixes.
 
 # Release 3.5.0
-*11/09/2024*
+*2024-11-09*
 ---
 -   Added a tool to generate BAT files for Sega Model 3.
 -   Added a local ROM history database using `history.xml` from [arcade-history.com](https://www.arcade-history.com/).
@@ -364,7 +364,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated emulator download links to the latest version.
 
 # Release 3.4.1
-*11/03/2024*
+*2024-11-03*
 ---
 -   Automatically set the `SystemImageFolder` if the user does not specify it. It will be set to `.\images\SystemName`.
 -   Implemented a way to retry extraction of the downloaded file in case it is locked by antivirus software.
@@ -373,7 +373,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated `mame.xml` to the latest version.
 
 # Release 3.4
-*11/03/2024*
+*2024-11-03*
 ---
 -   Added a new menu item called **Tools**. In it, you will find tools related to emulation.
 -   Added a tool to Create Batch Files for PS3 Games.
@@ -387,7 +387,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed the UpdateHistory window to wrap the text. It is better for the user.
 
 # Release 3.3.2
-*10/27/2024*
+*2024-10-27*
 ---
 -   Improved the field validation in the "Edit System" window to trim input values and prevent the input of empty spaces.
 -   Enhanced support for Xbox 360 XBLA games in the Launcher.
@@ -397,12 +397,12 @@ This release brings significant user-interface improvements, new features for ga
 -   Added Xbox 360 XBLA into `easymode.xml` and `system_model.xml`.
 
 # Release 3.3.1
-*10/24/2024*
+*2024-10-24*
 ---
 -   Fixed a minor issue in the `GameLauncher` class that was triggered when MAME output warning messages about the ROM. It will now only consider error messages if the emulator outputs an error code.
 
 # Release 3.3.0
-*10/24/2024*
+*2024-10-24*
 ---
 -   Added Image Packs for Amstrad CPC, Amstrad CPC GX4000, Arcade (MAME), Commodore 64, Microsoft MSX1, Microsoft MSX2, Sony PlayStation 1, Sony PlayStation 2, and Sony PSP.
 -   Added a new **UpdateHistory** window that can be launched from the **About** window.
@@ -413,7 +413,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Added new functionality to `Updater.exe`.
 
 # Release 3.2.0
-*10/22/2024*
+*2024-10-22*
 ---
 -   Enabled download of ImagePacks for some systems.
 -   Implemented a Tray Icon for the application.
@@ -428,7 +428,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Improved code in the `GameLauncher` and `ExtractCompressedFile` classes.
 
 # Release 3.1.0
-*07/18/2024*
+*2024-07-18*
 ---
 -   Implemented a file check before launching a favorite game.
 -   Fixed the freezing issue of the **Please Wait** window during a search in the **Main** window.
@@ -439,7 +439,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed some random code issues.
 
 # Release 3.0.0
-*07/17/2024*
+*2024-07-17*
 ---
 -   Implemented a theme functionality that enables users to personalize the application's appearance.
 -   The user interface of the main window has been enhanced.
@@ -450,7 +450,7 @@ This release brings significant user-interface improvements, new features for ga
 -   The management of `mame.xml` and `system.xml` has been improved.
 
 # Release 2.15.1
-*07/14/2024*
+*2024-07-14*
 ---
 -   Added a star icon to each game in the favorites' list.
 -   Implemented a preview window that appears when users hover over a list item.
@@ -458,7 +458,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Removed Video and Info links from the generated buttons (still accessible via right-click).
 
 # Release 2.15
-*07/04/2024*
+*2024-07-04*
 ---
 -   Updated emulator versions in EasyMode.
 -   Added Amstrad CPC to EasyMode.
@@ -474,7 +474,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Added icons to the Right-Click Context Menu items.
 
 # Release 2.14.4
-*06/06/2024*
+*2024-06-06*
 ---
 -   Improved the Global Search algorithm to accept logical operators `AND` and `OR`.
 -   Fixed a hidden bug in the Main Window search engine.
@@ -485,22 +485,22 @@ This release brings significant user-interface improvements, new features for ga
 -   Developed a mechanism to detect the version of installed emulators in the **Easy Mode - Add System** Class.
 
 # Release 2.14.3
-*06/04/2024*
+*2024-06-04*
 ---
 -   Improved the automatic update mechanism and fixed a pagination bug.
 
 # Release 2.14.2
-*06/02/2024*
+*2024-06-02*
 ---
 -   Fixed the automatic update process.
 
 # Release 2.14.1
-*06/02/2024*
+*2024-06-02*
 ---
 -   Fixed a small bug in the About window.
 
 # Release 2.14.0
-*06/02/2024*
+*2024-06-02*
 ---
 ### Big Update Today!
 -   Added **Easy Mode** to Add a System.
@@ -514,14 +514,14 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed all bugs found.
 
 # Release 2.13.0
-*05/17/2024*
+*2024-05-17*
 ---
 -   Implemented an experimental algorithm to check the emulator parameters.
 -   Improved the extraction method that extracts files to a temporary folder.
 -   Made minor bug fixes.
 
 # Release 2.12.1
-*03/31/2024*
+*2024-03-31*
 ---
 -   Improved the error notification system.
 -   Fixed a bug with the emulator location check.
@@ -529,19 +529,19 @@ This release brings significant user-interface improvements, new features for ga
 -   Implemented code to handle missing `mame.xml` and `system_model.xml` files.
 
 # Release 2.12.0
-*03/25/2024*
+*2024-03-25*
 ---
 -   Implemented basic checks for the System Folder, System Image Folder, and Emulator Location.
 -   Made the exception notifications more user-friendly.
 -   Devised a smart method for generating the `system.xml` file.
 
 # Release 2.11.2.23
-*03/20/2024*
+*2024-03-20*
 ---
 -   Fixed a bug in the 'Show Games' option.
 
 # Release 2.11.1.15
-*03/19/2024*
+*2024-03-19*
 ---
 -   Improved mechanism to handle games without cover.
 -   Enhanced error logging mechanism.
@@ -549,14 +549,14 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed some bugs and corrected variable names.
 
 # Release 2.11.0.5
-*03/17/2024*
+*2024-03-17*
 ---
 -   Added a Search Engine to the application.
 -   Updated `mame.xml` to the latest version.
 -   Improved the launch error message.
 
 # Release 2.10.0.10
-*03/12/2024*
+*2024-03-12*
 ---
 -   Fixed the vertical scroll.
 -   The app now retains the window size and state between instances.
@@ -566,7 +566,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Fixed some bugs.
 
 # Release 2.9.0.90
-*03/10/2024*
+*2024-03-10*
 ---
 -   Added the option to display all games for the selected system.
 -   Implemented pagination in the main UI.
@@ -575,27 +575,27 @@ This release brings significant user-interface improvements, new features for ga
 -   Added the option to use a custom System Image Folder.
 
 # Release 2.8.2.10
-*03/06/2024*
+*2024-03-06*
 ---
 -   Bug fix.
 -   Limit Edit System Window size.
 -   Update values in `system.xml`.
 
 # Release 2.8.1.6
-*03/03/2024*
+*2024-03-03*
 ---
 -   Bug fix.
 -   Removed the `RefreshGameButtons` method.
 
 # Release 2.8.0.5
-*03/03/2024*
+*2024-03-03*
 ---
 -   Added a new menu item called 'Edit System.'
 -   Updated the method for counting files within the System Folder.
 -   Optimized the current code.
 
 # Release 2.7.0.1
-*02/07/2024*
+*2024-02-07*
 ---
 -   Added intelligent toggling of the GamePadController state.
 -   Fixed the implementation of GamePadController in the MainWindow.
@@ -604,24 +604,24 @@ This release brings significant user-interface improvements, new features for ga
 -   Other bug fixes.
 
 # Release 2.6.3.4
-*01/28/2024*
+*2024-01-28*
 ---
 -   Bug fix.
 
 # Release 2.6.2.3
-*01/28/2024*
+*2024-01-28*
 ---
 -   Adds support for loading BAT files or treating them as games in the Emulator Frontend.
 
 # Release 2.6.0.1
-*01/24/2024*
+*2024-01-24*
 ---
 -   Fixed some code.
 -   Improved error checking for `mame.xml`, `settings.xml`, and `system.xml`.
 -   Added a BugReport window.
 
 # Release 2.5.0.0
-*01/21/2024*
+*2024-01-21*
 ---
 -   Fixed code and updated libraries.
 -   Added support for JPG and JPEG image formats.
@@ -630,7 +630,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated some systems in `system.xml`.
 
 # Release 2.4
-*12/30/2023*
+*2023-12-30*
 ---
 -   Updated `system.xml` to include the field `SystemIsMAME`.
 -   Added a `mame.xml` database.
@@ -638,7 +638,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated the parameters within the `system.xml`.
 
 # Release 2.3
-*12/26/2023*
+*2023-12-26*
 ---
 -   Added menu items for Thumbnail Size, game visibility, and GamePad support.
 -   Added a `settings.xml` file to save user preferences.
@@ -646,18 +646,18 @@ This release brings significant user-interface improvements, new features for ga
 -   Updated libraries and fixed some code.
 
 # Release 2.2
-*11/25/2023*
+*2023-11-25*
 ---
 -   Updated to .NET 8.0.
 -   Fixed some code and updated libraries.
 
 # Release 2.1
-*11/02/2023*
+*2023-11-02*
 ---
 -   Fixed some code and `system.xml`.
 
 # Release 2.0
-*10/29/2023*
+*2023-10-29*
 ---
 -   Major UI improvements.
 -   Revised the method for loading game files.
@@ -671,14 +671,14 @@ This release brings significant user-interface improvements, new features for ga
 -   Separated functions into distinct classes.
 
 # Release 1.3
-*10/19/2023*
+*2023-10-19*
 ---
 -   Added Xbox controller support.
 -   Added support for CSO files.
 -   Improved and fixed code.
 
 # Release 1.2
-*09/24/2023*
+*2023-09-24*
 ---
 -   Fixed a lot of code.
 -   Added Utilities and Show menus.
@@ -686,6 +686,6 @@ This release brings significant user-interface improvements, new features for ga
 -   Added support for CHD files.
 
 # Release 1.1
-*08/29/2023*
+*2023-08-29*
 ---
 -   Initial release.
