@@ -562,13 +562,20 @@ public partial class EditSystemWindow
     private void HelpLink_Click(object sender, RoutedEventArgs e)
     {
         const string searchUrl = "https://github.com/drpetersonfernandes/SimpleLauncher/wiki/parameters";
-        Process.Start(new ProcessStartInfo
+        try
         {
-            FileName = searchUrl,
-            UseShellExecute = true
-        });
-
-        PlaySoundEffects.PlayNotificationSound();
+            Process.Start(new ProcessStartInfo
+            {
+                FileName = searchUrl,
+                UseShellExecute = true
+            });
+            PlaySoundEffects.PlayNotificationSound();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error in method HelpLink_Click");
+            MessageBoxLibrary.ErrorOpeningUrlMessageBox();
+        }
     }
 
     private void SystemNameTextBox_LostFocus(object sender, RoutedEventArgs e)
