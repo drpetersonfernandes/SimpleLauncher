@@ -61,6 +61,7 @@ For full functionality, especially on-the-fly file mounting, you must install **
 -   **Multilingual:** Translated into 17 languages.
 -   **Single Instance Enforcement:** Prevents multiple copies of the application from running simultaneously.
 -   **On-the-Fly File Mounting:** Allows users to launch games directly from compressed or disk image files without needing to manually extract them first (requires Dokan). This includes support for RPCS3 (`.iso`, `.zip`), Cxbx-Reloaded (`.xiso`), ScummVM (`.zip`), and XBLA (`.zip`).
+-   **Group Files by Folder:** Organizes multi-file MAME games into single entries, simplifying your game list. (Requires MAME emulator configuration. See [Wiki](https://github.com/drpetersonfernandes/SimpleLauncher/wiki#group-files-by-folder) for details.)
 
 ## Bundled Tools
 

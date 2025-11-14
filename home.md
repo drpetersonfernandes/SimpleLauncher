@@ -25,6 +25,7 @@ Welcome to the official documentation for Simple Launcher, a powerful and flexib
 *   [Context Menu](#context-menu)
 6.  [Key Features](#6-key-features)
 *   [Game Launching & File Mounting](#game-launching--file-mounting)
+*   [Group Files by Folder](#group-files-by-folder)
 *   [Favorites Manager](#favorites-manager)
 *   [Play History](#play-history)
 *   [Global Search](#global-search)
@@ -148,7 +149,7 @@ Here's a breakdown of the `system.xml` structure and fields:
 | **SystemName**                          | The display name of the system (e.g., "Nintendo SNES"). This must be unique.                                                                                            | `Nintendo SNES`                       |
 | **SystemFolders**                       | A list of paths to folders containing game files for this system. Can be absolute or relative. Multiple folders can be specified.                                       | `.\roms\SNES` or `D:\Games\SNES`      |
 | **SystemImageFolder**                   | The path to the folder containing the cover art for this system.                                                                                                        | `.\images\Nintendo SNES`              |
-| **SystemIsMAME**                        | `true` or `false`. If `true`, the launcher will use the MAME description for display and search instead of just the filename.                                           | `true`                                |
+| **SystemIsMAME**                        | `true` or `false`. If `true`, the launcher will use the MAME description for display and search instead of just the filename. This also enables MAME-specific features, such as 'Group Files by Folder'. | `true`                                |
 | **FileFormatsToSearch**                 | A comma-separated list of file extensions to look for in the `SystemFolder(s)`. Do not include the dot.                                                                 | `zip, 7z, smc, sfc`                   |
 | **ExtractFileBeforeLaunch**             | `true` or `false`. If `true`, the launcher will extract compressed files (`.zip`, `.7z`, `.rar`) to a temporary folder before launching.                                | `true`                                |
 | **FileFormatsToLaunch**                 | Required if `ExtractFileBeforeLaunch` is `true`. A comma-separated list of extensions to look for *inside* the extracted archive. The first one found will be launched. | `smc, sfc`                            |
@@ -220,6 +221,35 @@ Simple Launcher's most powerful feature is its ability to handle different file 
     - **Cxbx-Reloaded (Xbox):** Mounts `.xiso` files and launches `default.xbe`.
     - **ScummVM:** Mounts `.zip` files and launches the game via ScummVM's auto-detect feature.
     - **XBLA (Xbox 360):** Mounts `.zip` files and finds the game executable within the required nested folder structure.
+
+### Group Files by Folder
+The "Group Files by Folder" feature in Simple Launcher is designed to change how games are displayed and launched, particularly useful for certain types of emulators and ROM organizations.
+
+Here's a breakdown:
+
+**What it does:**
+When "Group Files by Folder" is enabled for a system, Simple Launcher will:
+*   Treat each subfolder within your designated system ROMs directory as a single "game" entry in the UI.
+*   If a game file is directly in one of the root system folders, it will be displayed as a single file.
+*   When you launch a "grouped" game (i.e., a folder), the emulator will be passed the path to that folder, rather than a specific file within it.
+
+**When it should be used:**
+This feature is primarily intended for **MAME emulators** where games often consist of multiple files (ROMs, CHD, etc.) organized within a single subfolder. By enabling this, Simple Launcher can present these multi-file games as single, manageable entries in your game list.
+
+**When it should NOT be used:**
+*   **With any non-MAME emulator:** The application explicitly warns that this feature is **only compatible with MAME emulators**. If you enable it for a system configured with a non-MAME emulator, the game launch will fail, and you will receive an error message.
+*   If your MAME ROMs are single `.zip` files directly in the system folder and you prefer them to be listed individually without grouping by their parent folder.
+
+**Requirements:**
+The absolute requirement to use "Group Files by Folder" is that the **emulator configured for that system MUST be a MAME emulator**.
+
+If you attempt to save a system configuration with "Group Files by Folder" enabled for a non-MAME emulator, Simple Launcher will display a warning message:
+> "You have enabled 'Group Files by Folder' but have configured a non-MAME emulator. This combination is not supported and will fail at launch. Are you sure you want to save these settings?"
+
+If you proceed to launch a game with this incompatible configuration, you will encounter an error:
+> "The 'Group Files by Folder' option is only compatible with MAME emulators. To use a different emulator, please edit the system settings and disable this option."
+
+In summary, use "Group Files by Folder" exclusively for your MAME systems to streamline the display and launch of multi-file arcade ROMs.
 
 ### Favorites Manager
 - Access via **Favorites -> Favorites** or the heart icon in the navigation panel.
