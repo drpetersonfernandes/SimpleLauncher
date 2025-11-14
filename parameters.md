@@ -14,6 +14,7 @@
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -57,6 +58,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -85,6 +87,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -125,6 +128,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -187,6 +191,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -237,6 +242,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -278,6 +284,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** ATR, ATX, ATZ, DCM, XFD, PRO, ARC, BAS, ROM, BIN, A52, CAS, SAP<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -328,6 +335,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -365,6 +373,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** cue, cdi<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -389,6 +398,7 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** lnx, o<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -441,6 +451,7 @@ This emulator requires a BIOS file to run.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** msa, st, stx, dim, ipf<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -494,6 +505,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -566,6 +578,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -638,6 +651,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -666,6 +680,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** col, cv, bin, rom<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -718,6 +733,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -782,6 +798,7 @@ You can find the list of command-line args on the [Vice Website](https://vice-em
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** arc, d64, d71, d81, g64, lnx, nbz, nib, prg, sda, sfx, t64, tap, 80, bin, crt<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -836,6 +853,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** adf, adz, dms, fdi, ipf, raw, hdf, hdz, directory, lha, slave, info, cur, ccd, chd, nrg, mds, iso, uae, m3u<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -917,6 +935,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, cue, ccd, nrg, mds, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -958,6 +977,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -993,6 +1013,7 @@ You need to create BAT files to launch the games.
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bin<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1030,6 +1051,7 @@ This emulator is available for Windows-x64.<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1058,6 +1080,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** int, rom, bin<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1098,6 +1121,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z, rar<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** bat<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1164,6 +1188,7 @@ This emulator is available for Windows-x64 and Windows-arm64.<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1248,6 +1273,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** rom, ri, mx1, mx2, col, dsk, cas, sg, sc, m3u<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1332,6 +1358,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** lnk, bat, exe<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1357,6 +1384,7 @@ If you prefer to use BAT files, use the tool available in the 'Simple Launcher' 
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1401,6 +1429,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can convert ISO to 
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1435,6 +1464,7 @@ There are multiple ways to use this emulator. You can use [Game Folders] or ZIP 
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** Xenia<br>
 **Emulator Path (Example):** <br>
@@ -1451,6 +1481,7 @@ This tool will generate BAT files for you.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** Xenia<br>
 **Emulator Path (Example):** c:\emulators\Xenia\xenia_canary.exe<br>
@@ -1475,6 +1506,7 @@ For the logic to work you need to add the word 'xbla' or 'xbox live' or 'live ar
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1539,6 +1571,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, pce, cue, ccd, iso, img, bin<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -1591,6 +1624,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, cue, ccd, toc<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -1632,6 +1666,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1681,6 +1716,7 @@ This emulator requires a BIOS file to work properly.
 **Format To Search In System Folder:** 3ds, cci, 3dsx, elf, axf, cxi, app<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1758,6 +1794,7 @@ Documentation can be found on [GitHub](https://github.com/jonian/libretro-panda3
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1864,6 +1901,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip, 7z<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** n64, v64, z64, bin, u1, ndd, gb<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1914,6 +1952,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** nds<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -1983,6 +2022,7 @@ Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** nes, fds, unf, unif, qd<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2044,6 +2084,7 @@ This emulator requires a BIOS file to run this system.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2153,6 +2194,7 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2224,6 +2266,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2333,6 +2376,7 @@ Emulator repository available on [GitHub](https://github.com/drhelius/Gearboy).
 **Format To Search In System Folder:** rvz<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2371,6 +2415,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2461,6 +2506,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2486,6 +2532,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2568,6 +2615,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** smc, sfc, swc, fig, bs, st<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2615,6 +2663,7 @@ Command-line options can be found on [ares Repository](https://github.com/ares-e
 **Format To Search In System Folder:** nsp, xci, nca, nro, nso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2693,6 +2742,7 @@ This emulator is available for Windows-x64.<br>
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2720,6 +2770,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** rvz, elf, iso, gcm, dol, tgc, wbfs, ciso, gcz, wad<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2758,6 +2809,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** wua<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2782,6 +2834,7 @@ This emulator is available for Windows-x64.
 **Format To Search In System Folder:** wad<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2820,6 +2873,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** iso, bin, chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -2848,6 +2902,7 @@ Core may require BIOS files or system files to work properly.
 **Format To Search In System Folder:** chd, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -2884,6 +2939,7 @@ There are multiple ways to use this program. You can use [Game Folders] or ZIP f
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** ScummVM<br>
 **Emulator Path:** <br>
@@ -2899,6 +2955,7 @@ Use the tool available in the 'Simple Launcher' tools menu to generate BAT files
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** ScummVM<br>
 **Emulator Path:** c:\Emulators\ScummVM\scummvm.exe<br>
@@ -2925,6 +2982,7 @@ Command line parameters can be found on [ScummVM Website](https://scumm-thedocs.
 **Format To Search In System Folder:** chd, gdi, cue, bin, cdi<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -2985,6 +3043,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3082,6 +3141,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3177,6 +3237,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3246,6 +3307,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, bin, cue, iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -3319,6 +3381,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3407,6 +3470,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3432,6 +3496,7 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 **Format To Search In System Folder:** chd, cue, toc, m3u, ccd<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -3550,6 +3615,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3617,6 +3683,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** sms, gg, sg, sc, sf, dsk, cht<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3693,6 +3760,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3734,6 +3802,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** true<br>
 **Format To Launch After Extraction:** tzx, tap, z80, rzx, scl, trd, ipf<br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3794,6 +3863,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3831,6 +3901,7 @@ The list of command-line arguments available for this emulator can be found on [
 **Format To Search In System Folder:** chd, cue<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -3872,6 +3943,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -3947,6 +4019,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -4022,6 +4095,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, cue, bin, img, mds, mdf, pbp<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** true (if you are using the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) set of files for MAME Software List CHDs and using the MAME emulator)<br>
 
 .
 
@@ -4102,6 +4176,7 @@ You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.gi
 **Format To Search In System Folder:** chd, bin, iso, mdf, cso, zso, gz<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -4150,6 +4225,7 @@ There are multiple ways to use this emulator. You can use [Game Folders], ZIP fi
 **Format To Search In System Folder:** bat<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** <br>
@@ -4165,6 +4241,7 @@ Use the tool available in the 'Simple Launcher' Tools menu to generate BAT files
 **Format To Search In System Folder:** zip<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
@@ -4182,6 +4259,7 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 **Emulator Name:** RPCS3<br>
 **Emulator Path (Example):** C:\Emulators\RPCS3\rpcs3.exe<br>
@@ -4205,6 +4283,7 @@ For the logic to work, you need to add the word 'RPCS3' into the 'Emulator Name'
 **Format To Search In System Folder:** bin, elf, oelf<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -4229,6 +4308,7 @@ This emulator is available for Windows-x64.
 **Format To Search In System Folder:** iso<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
@@ -4253,6 +4333,7 @@ This emulator is available for Windows-x64.
 **Format To Search In System Folder:** cso, chd, iso, pbp, elf, prx<br>
 **Extract File Before Launch?** false<br>
 **Format To Launch After Extraction:** <br>
+**Group Files by Folder:** false<br>
 
 .
 
