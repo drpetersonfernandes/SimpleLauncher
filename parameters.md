@@ -1812,7 +1812,7 @@ It may support RetroAchievements. Please check on the [RetroAchievements Website
 
 .
 
-**Emulator Name:** Rosalie Mupen GUI<br>
+**Emulator Name:** Rosalie Mupen GUI - RMG<br>
 **Emulator Path (Example):** c:\emulators\Rosalie Mupen GUI\RMG.exe<br>
 **Emulator Parameters (Example):** --fullscreen<br>
 **Fullscreen Parameter:** --fullscreen<br>
@@ -1949,6 +1949,16 @@ Emulator repository available on [GitHub](https://github.com/melonDS-emu/melonDS
 
 This emulator is available for Windows-x64.<br>
 Emulator repository available on [GitHub](https://github.com/TASEmulators/desmume).
+
+.
+
+**Emulator Name:** NooDs<br>
+**Emulator Path (Example):** C:\Emulators\NooDs\noods.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64.<br>
+Emulator repository available on [GitHub](https://github.com/Hydr8gon/NooDS).
 
 ## Nintendo Family Computer Disk System
 
@@ -3416,6 +3426,16 @@ You can find a tool in the 'Simple Launcher' tools menu that can generate BAT fi
 
 .
 
+**Emulator Name:** Ymir<br>
+**Emulator Path (Example):** c:\emulators\Ymir\ymir-sdl3.exe<br>
+**Emulator Parameters (Example):** <br>
+**Fullscreen Parameter:** <br>
+
+This emulator is available for Windows-x64 and Windows-arm64.<br>
+This program requires a BIOS file to work.
+
+.
+
 **Emulator Name:** Retroarch mednafen_saturn<br>
 **Emulator Path (Example):** c:\emulators\retroarch\retroarch.exe<br>
 **Emulator Parameters (Example using absolute paths):** -L "c:\emulators\retroarch\cores\mednafen_saturn_libretro.dll" -f<br>
@@ -3488,20 +3508,19 @@ Emulator documentation can be found on [Emulation General Wiki](https://emulatio
 
 .
 
-**Emulator Name:** Ymir<br>
-**Emulator Path (Example):** c:\emulators\Ymir\ymir-sdl3.exe<br>
-**Emulator Parameters (Example):** <br>
-**Fullscreen Parameter:** <br>
-
-This emulator is available for Windows-x64 and Windows-arm64.
-
-.
-
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Saturn" saturn<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturn<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sega Saturn" saturn -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturn -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturnjp -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturnus -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" saturneu -cdrom<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+saturn: Sega Saturn (World, BIOS 2.xx)<br>
+saturnjp: Sega Saturn (Japan, BIOS 1.xx/2.xx)<br>
+saturnus: Sega Saturn (USA, BIOS 2.xx)<br>
+saturneu: Sega Saturn (Europe, BIOS 2.xx)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>

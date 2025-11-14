@@ -1698,6 +1698,47 @@
     </EasyModeSystemConfig>
 
     <EasyModeSystemConfig>
+        <SystemName>Sega Saturn</SystemName>
+        <SystemFolder>%BASEFOLDER%\roms\Sega Saturn</SystemFolder>
+        <SystemImageFolder>%BASEFOLDER%\images\Sega Saturn</SystemImageFolder>
+        <SystemIsMAME>false</SystemIsMAME>
+        <FileFormatsToSearch>
+            <FormatToSearch>chd</FormatToSearch>
+            <FormatToSearch>cue</FormatToSearch>
+            <FormatToSearch>toc</FormatToSearch>
+            <FormatToSearch>m3u</FormatToSearch>
+            <FormatToSearch>ccd</FormatToSearch>
+        </FileFormatsToSearch>
+        <ExtractFileBeforeLaunch>false</ExtractFileBeforeLaunch>
+        <FileFormatsToLaunch>
+            <FormatToLaunch/>
+        </FileFormatsToLaunch>
+        <Emulators>
+            <Emulator>
+                <EmulatorName>Ymir</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.2.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.2.0/ymir-windows-ARM64-v0.2.0.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>
+
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
+
+                <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
+                <ImagePackDownloadLink2/>
+                <ImagePackDownloadLink3/>
+                <ImagePackDownloadLink4/>
+                <ImagePackDownloadLink5/>
+                <ImagePackDownloadExtractPath>%BASEFOLDER%\images\Sega Saturn</ImagePackDownloadExtractPath>
+            </Emulator>
+        </Emulators>
+    </EasyModeSystemConfig>
+
+    <EasyModeSystemConfig>
         <SystemName>Sega SC-3000</SystemName>
         <SystemFolder>%BASEFOLDER%\roms\Sega SC-3000</SystemFolder>
         <SystemImageFolder>%BASEFOLDER%\images\Sega SC-3000</SystemImageFolder>

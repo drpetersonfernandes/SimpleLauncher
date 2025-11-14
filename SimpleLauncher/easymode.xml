@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!--101025-->
+<!--141125-->
 <!--OK        Dolphin - Add a .txt file named "portable"-->
 <!--OK        Xenia - Add a .txt file named "portable"-->
 <!--OK        DuckStation - Add a .txt file named "portable"-->
@@ -2332,18 +2332,18 @@
         </FileFormatsToLaunch>
         <Emulators>
             <Emulator>
-                <!--                <EmulatorName>Retroarch mednafen_saturn</EmulatorName>-->
-                <!--                <EmulatorLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\retroarch.exe</EmulatorLocation>-->
-                <!--                <EmulatorParameters>-L "%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll" -f</EmulatorParameters>-->
-                <!--                <EmulatorDownloadPage>https://buildbot.libretro.com/stable/</EmulatorDownloadPage>-->
-                <!--                <EmulatorLatestVersion>1.21.0</EmulatorLatestVersion>-->
-                <!--                <EmulatorDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch.zip</EmulatorDownloadLink>-->
-                <!--                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</EmulatorDownloadExtractPath>-->
+                <EmulatorName>Ymir</EmulatorName>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Ymir\ymir-sdl3.exe</EmulatorLocation>
+                <EmulatorParameters/>
+                <EmulatorDownloadPage>https://github.com/StrikerX3/Ymir</EmulatorDownloadPage>
+                <EmulatorLatestVersion>0.2.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/StrikerX3/Ymir/releases/download/v0.2.0/ymir-windows-x86_64-AVX2-v0.2.0.zip</EmulatorDownloadLink>
+                <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Ymir\</EmulatorDownloadExtractPath>
 
-                <!--                <CoreLocation>%BASEFOLDER%\emulators\RetroArch\RetroArch-Win64\cores\mednafen_saturn_libretro.dll</CoreLocation>-->
-                <!--                <CoreLatestVersion>1.21.0</CoreLatestVersion>-->
-                <!--                <CoreDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/RetroArch_cores.zip</CoreDownloadLink>-->
-                <!--                <CoreDownloadExtractPath>%BASEFOLDER%\emulators\RetroArch\</CoreDownloadExtractPath>-->
+                <CoreLocation/>
+                <CoreLatestVersion/>
+                <CoreDownloadLink/>
+                <CoreDownloadExtractPath/>
 
                 <ImagePackDownloadLink>https://www.purelogiccode.com/simplelauncher/extras/segasaturn.zip</ImagePackDownloadLink>
                 <ImagePackDownloadLink2/>
