@@ -889,6 +889,15 @@ This emulator is available for Windows-x64 and Windows-arm64.
 **Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" a500<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
 
+a3000: Amiga 3000<br>
+a2000: Amiga 2000<br>
+a1200: Amiga 1200<br>
+a1000: Amiga 1000<br>
+a600: Amiga 600<br>
+a500: Amiga 500<br>
+aXXXX: Represents a specific Amiga model with its default MAME configuration (often including hard drive support)<br>
+aXXXXn: Represents a specific Amiga model configured specifically to not include a hard drive, ideal for floppy-only operations or network booting<br>
+
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
@@ -3223,7 +3232,7 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
-## Sega Genesis CD / Mega Drive CD
+## Sega Genesis CD / Mega Drive CD / Sega CD
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
