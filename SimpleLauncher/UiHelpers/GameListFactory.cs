@@ -30,11 +30,26 @@ public class GameListFactory(
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
 
-    public Task<GameListViewItem> CreateGameListViewItemAsync(string filePath, string systemName, SystemManager systemManager)
+    public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager systemManager)
     {
-        var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-        var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
-        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
+        var isDirectory = Directory.Exists(entityPath);
+        string fileNameWithExtension;
+        string fileNameWithoutExtension;
+        string folderPath;
+
+        if (isDirectory)
+        {
+            fileNameWithExtension = Path.GetFileName(entityPath);
+            fileNameWithoutExtension = fileNameWithExtension;
+            folderPath = entityPath;
+        }
+        else
+        {
+            fileNameWithExtension = Path.GetFileName(entityPath);
+            fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
+            folderPath = Path.GetDirectoryName(entityPath);
+        }
+
         var machineDescription = systemManager.SystemIsMame ? GetMachineDescription(fileNameWithoutExtension) : string.Empty;
 
         var isFavorite = _favoritesManager.FavoriteList
@@ -62,11 +77,11 @@ public class GameListFactory(
         {
             FileName = fileNameWithoutExtension,
             MachineDescription = machineDescription,
-            FilePath = absoluteFilePath,
-            FolderPath = Path.GetDirectoryName(absoluteFilePath),
+            FilePath = entityPath,
+            FolderPath = folderPath,
             ContextMenu = ContextMenu.AddRightClickReturnContextMenu(
                 new RightClickContext(
-                    absoluteFilePath,
+                    entityPath,
                     fileNameWithExtension,
                     fileNameWithoutExtension,
                     systemName,
@@ -93,21 +108,26 @@ public class GameListFactory(
             long sizeToSet;
             try
             {
-                if (File.Exists(absoluteFilePath))
+                if (isDirectory)
                 {
-                    sizeToSet = new FileInfo(absoluteFilePath).Length;
+                    // Sum up the size of all files in the directory and its subdirectories
+                    sizeToSet = new DirectoryInfo(entityPath).EnumerateFiles("*", SearchOption.AllDirectories).Sum(static fi => fi.Length);
+                }
+                else if (File.Exists(entityPath))
+                {
+                    sizeToSet = new FileInfo(entityPath).Length;
                 }
                 else
                 {
-                    sizeToSet = -2; // Indicate N/A or Error
+                    sizeToSet = -2; // "N/A"
                 }
             }
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {absoluteFilePath}");
+                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {entityPath}");
 
-                sizeToSet = -2; // Indicate Error
+                sizeToSet = -2; // Indicate N/A or Error
             }
 
             // This assignment will trigger OnPropertyChanged in GameListViewItem, updating the UI.
@@ -189,7 +209,17 @@ public class GameListFactory(
                     return;
                 }
 
-                var previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
+                var coverSearchName = fileNameWithoutExtension;
+                if (Directory.Exists(filePath)) // Check if the entityPath is a directory
+                {
+                    var filesInFolder = await GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch);
+                    if (filesInFolder.Count != 0)
+                    {
+                        coverSearchName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                    }
+                }
+
+                var previewImagePath = FindCoverImage.FindCoverImagePath(coverSearchName, selectedSystem, systemManager, _settings);
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 

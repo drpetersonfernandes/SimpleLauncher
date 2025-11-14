@@ -20,6 +20,7 @@ public partial class EditSystemWindow
         bool systemIsMame,
         List<string> formatsToSearch,
         bool extractFileBeforeLaunch,
+        bool groupByFolder,
         List<string> formatsToLaunch,
         XElement emulatorsElement,
         bool isUpdate,
@@ -48,13 +49,13 @@ public partial class EditSystemWindow
 
                 // Update all other fields
                 // Pass the potentially modified strings from SaveSystemButton_Click
-                UpdateXml(existingSystem, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+                UpdateXml(existingSystem, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
             }
             else
             {
                 // Create and add a new system element
                 // Pass the potentially modified strings from SaveSystemButton_Click
-                var newSystem = AddToXml(systemNameText, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, formatsToLaunch, emulatorsElement);
+                var newSystem = AddToXml(systemNameText, systemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch, groupByFolder, formatsToLaunch, emulatorsElement);
                 _xmlDoc.Root?.Add(newSystem); // Add to the root
             }
 
@@ -184,6 +185,9 @@ public partial class EditSystemWindow
                                           bool.Parse((ExtractFileBeforeLaunchComboBox.SelectedItem as ComboBoxItem)
                                               ?.Content.ToString() ?? "false");
 
+            var groupByFolder = ((GroupByFolderComboBox.SelectedItem as ComboBoxItem)?.Content?.ToString())
+                ?.Equals("true", StringComparison.OrdinalIgnoreCase) ?? false;
+
             if (ValidateFormatToSearch(formatToSearchText, extractFileBeforeLaunch, out var formatsToSearch))
             {
                 MarkInvalid(FormatToSearchTextBox, false); // Invalid state
@@ -208,6 +212,34 @@ public partial class EditSystemWindow
             if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,
                     isEmulator5LocationValid)) return;
+
+            // Warn user if GroupByFolder is true with a non-MAME emulator
+            if (groupByFolder)
+            {
+                var emulatorsToCheck = new[]
+                {
+                    (Name: emulator1NameText, Location: emulator1LocationText),
+                    (Name: emulator2NameText, Location: emulator2LocationText),
+                    (Name: emulator3NameText, Location: emulator3LocationText),
+                    (Name: emulator4NameText, Location: emulator4LocationText),
+                    (Name: emulator5NameText, Location: emulator5LocationText)
+                };
+
+                var hasMameEmulator = emulatorsToCheck.Any(static emu =>
+                    !string.IsNullOrEmpty(emu.Name) && (emu.Name.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                                                        (emu.Location != null && (emu.Location.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                                                                                  emu.Location.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase))))
+                );
+
+                if (!hasMameEmulator)
+                {
+                    var result = MessageBoxLibrary.GroupByFolderMameWarningMessageBox();
+                    if (result == MessageBoxResult.No)
+                    {
+                        return; // User chose not to save, so abort.
+                    }
+                }
+            }
 
             string[] parameterTexts =
             [
@@ -279,9 +311,8 @@ public partial class EditSystemWindow
             {
                 SaveSystemButton.IsEnabled = false;
 
-                await SaveSystemConfigurationAsync(
-                    systemNameText, allSystemFolders, systemImageFolderText, // Pass potentially prefixed paths
-                    systemIsMame, formatsToSearch, extractFileBeforeLaunch,
+                await SaveSystemConfigurationAsync(systemNameText, allSystemFolders, systemImageFolderText, systemIsMame, formatsToSearch, extractFileBeforeLaunch,
+                    groupByFolder, // Pass potentially prefixed paths
                     formatsToLaunch, emulatorsElement, isUpdate,
                     _originalSystemName ?? systemNameText); // Pass systemNameText if _originalSystemName is null (new system)
 
@@ -363,7 +394,7 @@ public partial class EditSystemWindow
     }
 
     private static XElement AddToXml(string systemNameText, List<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
+        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
         var newSystem = new XElement("SystemConfig",
@@ -372,6 +403,7 @@ public partial class EditSystemWindow
             new XElement("SystemImageFolder", systemImageFolderText),
             new XElement("SystemIsMAME", systemIsMame),
             new XElement("FileFormatsToSearch", formatsToSearch.Select(static format => new XElement("FormatToSearch", format))),
+            new XElement("GroupByFolder", groupByFolder),
             new XElement("ExtractFileBeforeLaunch", extractFileBeforeLaunch),
             new XElement("FileFormatsToLaunch", formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format))),
             emulatorsElement);
@@ -379,7 +411,7 @@ public partial class EditSystemWindow
     }
 
     private static void UpdateXml(XElement existingSystem, List<string> systemFolders, string systemImageFolderText,
-        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, List<string> formatsToLaunch,
+        bool systemIsMame, List<string> formatsToSearch, bool extractFileBeforeLaunch, bool groupByFolder, List<string> formatsToLaunch,
         XElement emulatorsElement)
     {
         // Remove the old single SystemFolder tag for backward compatibility
@@ -399,6 +431,7 @@ public partial class EditSystemWindow
         existingSystem.SetElementValue("SystemImageFolder", systemImageFolderText);
         existingSystem.SetElementValue("SystemIsMAME", systemIsMame);
         existingSystem.Element("FileFormatsToSearch")?.ReplaceNodes(formatsToSearch.Select(static format => new XElement("FormatToSearch", format)));
+        existingSystem.SetElementValue("GroupByFolder", groupByFolder);
         existingSystem.SetElementValue("ExtractFileBeforeLaunch", extractFileBeforeLaunch);
         existingSystem.Element("FileFormatsToLaunch")?.ReplaceNodes(formatsToLaunch.Select(static format => new XElement("FormatToLaunch", format)));
         existingSystem.Element("Emulators")?.Remove();

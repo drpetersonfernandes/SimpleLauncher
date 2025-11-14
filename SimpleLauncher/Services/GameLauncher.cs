@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
@@ -31,10 +31,10 @@ public static class GameLauncher
         {
             var resolvedFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
 
-            if (string.IsNullOrWhiteSpace(resolvedFilePath) || !File.Exists(resolvedFilePath))
+            if (string.IsNullOrWhiteSpace(resolvedFilePath) || (!File.Exists(resolvedFilePath) && !Directory.Exists(resolvedFilePath)))
             {
                 // Notify developer
-                var contextMessage = $"Invalid resolvedFilePath or file does not exist.\n\n" +
+                var contextMessage = $"Invalid resolvedFilePath or file/directory does not exist.\n\n" +
                                      $"Original filePath: {filePath}\n" +
                                      $"Resolved filePath: {resolvedFilePath}";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
@@ -119,6 +119,23 @@ public static class GameLauncher
 
             try
             {
+                // Check for GroupByFolder compatibility before proceeding with any launch logic
+                if (selectedSystemManager.GroupByFolder)
+                {
+                    var emulatorName = _selectedEmulatorManager.EmulatorName ?? string.Empty;
+                    var emulatorLocation = _selectedEmulatorManager.EmulatorLocation ?? string.Empty;
+
+                    var isMame = emulatorName.Contains("MAME", StringComparison.OrdinalIgnoreCase) ||
+                                 emulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase) ||
+                                 emulatorLocation.Contains("mame64.exe", StringComparison.OrdinalIgnoreCase);
+
+                    if (!isMame)
+                    {
+                        MessageBoxLibrary.GroupByFolderOnlyForMameMessageBox();
+                        return; // Abort launch. The 'finally' block will handle cleanup.
+                    }
+                }
+
                 // Specific handling for Cxbx-Reloaded
                 if (selectedEmulatorName.Contains("Cxbx", StringComparison.OrdinalIgnoreCase) &&
                     Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
@@ -465,9 +482,16 @@ public static class GameLauncher
             // Notify developer
             var errorDetail = $"Exception launching the shortcut file.\n" +
                               $"Shortcut file: {psi.FileName}\n" +
-                              $"Exception: {ex.Message}\n\n" +
-                              $"User was not notified.";
-            _ = LogErrors.LogErrorAsync(ex, errorDetail);
+                              $"Exception: {ex.Message}";
+            var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
+            var contextMessage = $"{errorDetail}\n{userNotified}";
+            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
+            {
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+            }
         }
     }
 
@@ -561,6 +585,8 @@ public static class GameLauncher
         string rawEmulatorParameters,
         MainWindow mainWindow)
     {
+        var isDirectory = Directory.Exists(resolvedFilePath);
+
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             // Notify developer
@@ -584,7 +610,7 @@ public static class GameLauncher
         // Declare tempExtractionPath here to be accessible in the finally block
         string tempExtractionPath = null;
 
-        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isMountedXbe && !isMountedZip)
+        if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isDirectory && !isMountedXbe && !isMountedZip)
         {
             // Call the modified ExtractFilesBeforeLaunchAsync to get both the game file path and the temp directory path
             var (extractedGameFilePath, extractedTempDirPath) = await ExtractFilesBeforeLaunchAsync(resolvedFilePath, selectedSystemManager);
@@ -675,10 +701,19 @@ public static class GameLauncher
         if ((selectedEmulatorName.Equals("MAME", StringComparison.OrdinalIgnoreCase) ||
              selectedEmulatorManager.EmulatorLocation.Contains("mame.exe", StringComparison.OrdinalIgnoreCase)))
         {
-            var resolvedFileName = Path.GetFileNameWithoutExtension(resolvedFilePath);
-            DebugLogger.Log($"MAME call detected. Attempting to launch: {resolvedFileName}");
+            string mameRomName;
+            if (isDirectory)
+            {
+                mameRomName = Path.GetFileName(resolvedFilePath);
+            }
+            else
+            {
+                mameRomName = Path.GetFileNameWithoutExtension(resolvedFilePath);
+            }
 
-            arguments = $"{resolvedParameters} \"{resolvedFileName}\"";
+            DebugLogger.Log($"MAME call detected. Attempting to launch: {mameRomName}");
+
+            arguments = $"{resolvedParameters} \"{mameRomName}\"";
         }
         else // General call - Provide full filepath
         {

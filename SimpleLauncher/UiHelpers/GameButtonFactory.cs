@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -14,6 +14,7 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
+using System.IO;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -34,20 +35,45 @@ public class GameButtonFactory(
     private readonly SettingsManager _settings = settings;
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly WrapPanel _gameFileGrid = gameFileGrid;
-    private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow)); // Add null-check
+    private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    public async Task<Button> CreateGameButtonAsync(string filePath, string systemName, SystemManager systemManager)
+    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager systemManager)
     {
-        var absoluteFilePath = PathHelper.ResolveRelativeToAppDirectory(filePath);
-        var fileNameWithExtension = PathHelper.GetFileName(absoluteFilePath);
-        var fileNameWithoutExtension = PathHelper.GetFileNameWithoutExtension(absoluteFilePath);
+        var isDirectory = Directory.Exists(entityPath);
+
+        string fileNameWithExtension;
+        string fileNameWithoutExtension;
+
+        if (isDirectory)
+        {
+            fileNameWithExtension = Path.GetFileName(entityPath); // Folder name
+            fileNameWithoutExtension = fileNameWithExtension;
+        }
+        else
+        {
+            fileNameWithExtension = Path.GetFileName(entityPath);
+            fileNameWithoutExtension = Path.GetFileNameWithoutExtension(entityPath);
+        }
+
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
 
-        var imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+        var coverSearchName = fileNameWithoutExtension;
+        if (isDirectory)
+        {
+            // It's a folder, try to find a representative file inside to use for the cover search.
+            var filesInFolder = await GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch);
+            if (filesInFolder.Count != 0)
+            {
+                // Use the first file's name to search for the cover.
+                coverSearchName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+            }
+        }
+
+        var imagePath = FindCoverImage.FindCoverImagePath(coverSearchName, selectedSystemName, selectedSystemManager, _settings);
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
 
         // Create the view model and determine the initial favorite state:
@@ -201,7 +227,7 @@ public class GameButtonFactory(
         grid.Children.Add(starImage); // Add the star overlay to the grid.
 
         var context = new RightClickContext(
-            absoluteFilePath,
+            entityPath,
             fileNameWithExtension,
             fileNameWithoutExtension,
             selectedSystemName,
@@ -263,7 +289,7 @@ public class GameButtonFactory(
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(absoluteFilePath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -526,7 +552,7 @@ public class GameButtonFactory(
                 try
                 {
                     PlaySoundEffects.PlayNotificationSound();
-                    await GameLauncher.HandleButtonClickAsync(absoluteFilePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                    await GameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
                 }
                 finally
                 {
