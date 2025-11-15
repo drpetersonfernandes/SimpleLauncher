@@ -32,16 +32,14 @@ public class SearchResult : INotifyPropertyChanged
     public string SystemName { get; init; }
     public SystemManager.Emulator EmulatorManager { get; init; }
 
-    private int _score;
-
     public int Score // If the Score can be updated after display and is bound, it should also notify.
     {
-        get => _score;
+        get;
         set
         {
-            if (_score == value) return;
+            if (field == value) return;
 
-            _score = value;
+            field = value;
             OnPropertyChanged();
         }
     }

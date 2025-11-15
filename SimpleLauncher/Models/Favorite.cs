@@ -12,7 +12,6 @@ namespace SimpleLauncher.Models;
 public class Favorite : INotifyPropertyChanged
 {
     private long _fileSizeBytes = -1; // Backing field, initialized to -1 (e.g., "Calculating...")
-    private string? _defaultEmulator; // Backing field for DefaultEmulator
 
     [Key(0)]
     public required string FileName { get; init; }
@@ -29,12 +28,12 @@ public class Favorite : INotifyPropertyChanged
     [IgnoreMember]
     public string? DefaultEmulator
     {
-        get => _defaultEmulator;
+        get;
         set
         {
-            if (_defaultEmulator == value) return;
+            if (field == value) return;
 
-            _defaultEmulator = value;
+            field = value;
             OnPropertyChanged();
         }
     }

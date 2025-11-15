@@ -1,20 +1,4 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<!--101025-->
-<!--OK        Dolphin - Add a .txt file named "portable"-->
-<!--OK        Xenia - Add a .txt file named "portable"-->
-<!--OK        DuckStation - Add a .txt file named "portable"-->
-<!--OK        Citra - Add a folder named "user"-->
-<!--OK        Azahar - Add a folder named "user"-->
-<!--OK        Cemu - Add a folder named "portable"-->
-<!--OK        Xemu - Add a .toml file named "xemu"-->
-<!--OK        PCSX2 - Add an .ini file named "portable"-->
-<!--OK        puNES - Rename punes64.exe to punes64_p.exe-->
-<!--OK        Project64 - Download the Zip version-->
-<!--OK        mGBA - Download the portable .7z archive version-->
-<!--OK        RMG - Download the portable zip version-->
-<!--OK        PPSSPP - Download the Zip (portable) version-->
-<!--OK        Vita3K - Set to portable mode on startup-->
-
 <EasyMode>
 
     <EasyModeSystemConfig>

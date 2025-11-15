@@ -7,30 +7,21 @@ namespace SimpleLauncher.Models;
 
 public class GameListViewItem : INotifyPropertyChanged
 {
-    private string _machineDescription;
-    private string _timesPlayed = "0";
-
-    private string _playTime = "0m 0s";
-
     public string FilePath { get; init; }
     public string FolderPath { get; init; }
     public System.Windows.Controls.ContextMenu ContextMenu { get; set; }
-    private bool _isFavorite;
 
     // Backing field for the actual size in bytes, initialized to -1 ("Calculating...")
     private long _internalFileSizeBytes = -1;
-    private bool _hasAchievements;
-    private int _achievementsEarned;
-    private int _achievementsTotal;
 
     public bool IsFavorite
     {
-        get => _isFavorite;
+        get;
         set
         {
-            if (_isFavorite == value) return;
+            if (field == value) return;
 
-            _isFavorite = value;
+            field = value;
             OnPropertyChanged();
         }
     }
@@ -44,39 +35,39 @@ public class GameListViewItem : INotifyPropertyChanged
 
     public string MachineDescription
     {
-        get => _machineDescription;
+        get;
         set
         {
-            if (_machineDescription == value) return;
+            if (field == value) return;
 
-            _machineDescription = value;
+            field = value;
             OnPropertyChanged();
         }
     }
 
     public string TimesPlayed
     {
-        get => _timesPlayed;
+        get;
         set
         {
-            if (_timesPlayed == value) return;
+            if (field == value) return;
 
-            _timesPlayed = value;
+            field = value;
             OnPropertyChanged();
         }
-    }
+    } = "0";
 
     public string PlayTime
     {
-        get => _playTime;
+        get;
         set
         {
-            if (_playTime == value) return;
+            if (field == value) return;
 
-            _playTime = value;
+            field = value;
             OnPropertyChanged();
         }
-    }
+    } = "0m 0s";
 
     // Not directly bound in XAML, but triggers update for the formatted FileSize
     public long FileSizeBytes
@@ -99,36 +90,36 @@ public class GameListViewItem : INotifyPropertyChanged
 
     public bool HasAchievements
     {
-        get => _hasAchievements;
+        get;
         set
         {
-            if (_hasAchievements == value) return;
+            if (field == value) return;
 
-            _hasAchievements = value;
+            field = value;
             OnPropertyChanged();
         }
     }
 
     public int AchievementsEarned
     {
-        get => _achievementsEarned;
+        get;
         set
         {
-            if (_achievementsEarned == value) return;
+            if (field == value) return;
 
-            _achievementsEarned = value;
+            field = value;
             OnPropertyChanged();
         }
     }
 
     public int AchievementsTotal
     {
-        get => _achievementsTotal;
+        get;
         set
         {
-            if (_achievementsTotal == value) return;
+            if (field == value) return;
 
-            _achievementsTotal = value;
+            field = value;
             OnPropertyChanged();
         }
     }

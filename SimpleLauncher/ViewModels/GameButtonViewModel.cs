@@ -5,29 +5,26 @@ namespace SimpleLauncher.ViewModels;
 
 public class GameButtonViewModel : INotifyPropertyChanged
 {
-    private bool _isFavorite;
-    private bool _hasAchievements;
-
     public bool IsFavorite
     {
-        get => _isFavorite;
+        get;
         set
         {
-            if (_isFavorite == value) return;
+            if (field == value) return;
 
-            _isFavorite = value;
+            field = value;
             OnPropertyChanged(nameof(IsFavorite));
         }
     }
 
     public bool HasAchievements
     {
-        get => _hasAchievements;
+        get;
         set
         {
-            if (_hasAchievements == value) return;
+            if (field == value) return;
 
-            _hasAchievements = value;
+            field = value;
             OnPropertyChanged(nameof(HasAchievements));
         }
     }

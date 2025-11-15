@@ -61,19 +61,31 @@ public class GameButtonFactory(
         var selectedSystemName = systemName;
         var selectedSystemManager = systemManager ?? throw new ArgumentNullException(nameof(systemManager));
 
-        var coverSearchName = fileNameWithoutExtension;
-        if (isDirectory)
+        string imagePath;
+        if (isDirectory) // GroupByFolder is true
         {
-            // It's a folder, try to find a representative file inside to use for the cover search.
-            var filesInFolder = await GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch);
-            if (filesInFolder.Count != 0)
+            // First, try to find an image with the same name as the folder name.
+            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+
+            // If the found path is a default image, try the fallback logic.
+            if (imagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
             {
-                // Use the first file's name to search for the cover.
-                coverSearchName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                // Fallback to current logic: look inside the folder for a file to use as a name.
+                var filesInFolder = await GetListOfFiles.GetFilesAsync(entityPath, selectedSystemManager.FileFormatsToSearch);
+                if (filesInFolder.Count != 0)
+                {
+                    var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                    // Now search again with the new name. This will become the final imagePath.
+                    imagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystemName, selectedSystemManager, _settings);
+                }
             }
         }
+        else
+        {
+            // This is the logic for non-grouped files, which remains the same.
+            imagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, _settings);
+        }
 
-        var imagePath = FindCoverImage.FindCoverImagePath(coverSearchName, selectedSystemName, selectedSystemManager, _settings);
         var (loadedImage, isDefaultImage) = await ImageLoader.LoadImageAsync(imagePath);
 
         // Create the view model and determine the initial favorite state:

@@ -5,20 +5,18 @@ namespace SimpleLauncher.Models;
 
 public class ImagePackDownloadItem : INotifyPropertyChanged
 {
-    private bool _isDownloaded;
-
     public string DisplayName { get; set; }
     public string DownloadUrl { get; set; }
     public string ExtractPath { get; set; }
 
     public bool IsDownloaded
     {
-        get => _isDownloaded;
+        get;
         set
         {
-            if (_isDownloaded == value) return;
+            if (field == value) return;
 
-            _isDownloaded = value;
+            field = value;
             OnPropertyChanged();
         }
     }

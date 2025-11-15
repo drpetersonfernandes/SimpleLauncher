@@ -209,17 +209,32 @@ public class GameListFactory(
                     return;
                 }
 
-                var coverSearchName = fileNameWithoutExtension;
-                if (Directory.Exists(filePath)) // Check if the entityPath is a directory
+                string previewImagePath;
+                var isDirectory = Directory.Exists(filePath);
+
+                if (isDirectory) // GroupByFolder is true
                 {
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch);
-                    if (filesInFolder.Count != 0)
+                    // First, try to find an image with the same name as the folder name.
+                    previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
+
+                    // If the found path is a default image, try the fallback logic.
+                    if (previewImagePath.EndsWith("default.png", StringComparison.OrdinalIgnoreCase))
                     {
-                        coverSearchName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                        // Fallback to current logic: look inside the folder for a file to use as a name.
+                        var filesInFolder = await GetListOfFiles.GetFilesAsync(filePath, systemManager.FileFormatsToSearch);
+                        if (filesInFolder.Count != 0)
+                        {
+                            var representativeFileName = Path.GetFileNameWithoutExtension(filesInFolder.First());
+                            // Now search again with the new name.
+                            previewImagePath = FindCoverImage.FindCoverImagePath(representativeFileName, selectedSystem, systemManager, _settings);
+                        }
                     }
                 }
-
-                var previewImagePath = FindCoverImage.FindCoverImagePath(coverSearchName, selectedSystem, systemManager, _settings);
+                else
+                {
+                    // This is the logic for non-grouped files, which remains the same.
+                    previewImagePath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystem, systemManager, _settings);
+                }
 
                 _mainWindow.PreviewImage.Source = null; // Clear existing image before loading new one
 

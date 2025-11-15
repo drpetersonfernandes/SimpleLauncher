@@ -33,72 +33,63 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
     private bool _isImagePackDownloaded5;
 
     // Properties for Image Pack button visibility
-    private bool _isImagePack1Available;
 
     public bool IsImagePack1Available
     {
-        get => _isImagePack1Available;
+        get;
         set
         {
-            if (_isImagePack1Available == value) return;
+            if (field == value) return;
 
-            _isImagePack1Available = value;
+            field = value;
             OnPropertyChanged();
         }
     }
-
-    private bool _isImagePack2Available;
 
     public bool IsImagePack2Available
     {
-        get => _isImagePack2Available;
+        get;
         set
         {
-            if (_isImagePack2Available == value) return;
+            if (field == value) return;
 
-            _isImagePack2Available = value;
+            field = value;
             OnPropertyChanged();
         }
     }
-
-    private bool _isImagePack3Available;
 
     public bool IsImagePack3Available
     {
-        get => _isImagePack3Available;
+        get;
         set
         {
-            if (_isImagePack3Available == value) return;
+            if (field == value) return;
 
-            _isImagePack3Available = value;
+            field = value;
             OnPropertyChanged();
         }
     }
-
-    private bool _isImagePack4Available;
 
     public bool IsImagePack4Available
     {
-        get => _isImagePack4Available;
+        get;
         set
         {
-            if (_isImagePack4Available == value) return;
+            if (field == value) return;
 
-            _isImagePack4Available = value;
+            field = value;
             OnPropertyChanged();
         }
     }
 
-    private bool _isImagePack5Available;
-
     public bool IsImagePack5Available
     {
-        get => _isImagePack5Available;
+        get;
         set
         {
-            if (_isImagePack5Available == value) return;
+            if (field == value) return;
 
-            _isImagePack5Available = value;
+            field = value;
             OnPropertyChanged();
         }
     }
@@ -108,17 +99,15 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
 
     private readonly string _basePath = AppDomain.CurrentDomain.BaseDirectory;
 
-    private string _downloadStatus = string.Empty;
-
     private string DownloadStatus
     {
-        get => _downloadStatus;
+        get;
         set
         {
-            _downloadStatus = value;
+            field = value;
             DownloadStatusTextBlock.Text = value;
         }
-    }
+    } = string.Empty;
 
     public event PropertyChangedEventHandler PropertyChanged; // INotifyPropertyChanged implementation
 

@@ -40,7 +40,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // _selectedSystem is the selected system from ComboBox
     public event PropertyChangedEventHandler PropertyChanged;
     private string _selectedSystem;
-    private string _playTime;
 
     public string SelectedSystem
     {
@@ -54,10 +53,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public string PlayTime
     {
-        get => _playTime;
+        get;
         set
         {
-            _playTime = value;
+            field = value;
             OnPropertyChanged(nameof(PlayTime));
         }
     }
