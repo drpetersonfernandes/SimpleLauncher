@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Linq;
@@ -50,6 +50,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<RetroAchievementsService>();
+        serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();

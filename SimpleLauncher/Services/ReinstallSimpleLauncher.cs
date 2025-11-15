@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -32,8 +33,10 @@ public static class ReinstallSimpleLauncher
 
                 try
                 {
-                    // 1. Get the URL for updater.zip from GitHub
-                    var (updaterZipUrl, _) = await UpdateChecker.GetLatestUpdaterInfoAsync();
+                    var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();
+
+                    // 1. Get the URL from GitHub
+                    var (updaterZipUrl, _) = await updateChecker.GetLatestUpdaterInfoAsync();
 
                     if (string.IsNullOrEmpty(updaterZipUrl))
                     {
@@ -41,12 +44,12 @@ public static class ReinstallSimpleLauncher
                         return;
                     }
 
-                    // 2. Download the updater.zip file into memory
+                    // 2. Download the updater file into memory
                     using var memoryStream = new MemoryStream();
-                    await UpdateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
+                    await updateChecker.DownloadUpdateFileToMemoryAsync(updaterZipUrl, memoryStream);
 
                     // 3. Extract the contents to the application directory
-                    var extractionSuccess = UpdateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null);
+                    var extractionSuccess = updateChecker.ExtractAllFromZip(memoryStream, AppDomain.CurrentDomain.BaseDirectory, null);
 
                     if (!extractionSuccess)
                     {

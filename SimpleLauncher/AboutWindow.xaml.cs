@@ -1,8 +1,9 @@
-﻿using System;
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
 using SimpleLauncher.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher;
 
@@ -50,7 +51,8 @@ public partial class AboutWindow
     {
         try
         {
-            await UpdateChecker.ManualCheckForUpdatesAsync(this);
+            var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();
+            await updateChecker.ManualCheckForUpdatesAsync(this);
         }
         catch (Exception ex)
         {

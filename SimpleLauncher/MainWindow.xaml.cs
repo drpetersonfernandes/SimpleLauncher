@@ -122,11 +122,14 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     // Will be used by feeling lucky feature
     private List<string> _allGamesForCurrentSystem = [];
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager)
+    private readonly UpdateChecker _updateChecker;
+
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker)
     {
         InitializeComponent();
 
         // Inject settings from DI
+        _updateChecker = updateChecker ?? throw new ArgumentNullException(nameof(updateChecker));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
@@ -197,7 +200,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             try
             {
-                await UpdateChecker.SilentCheckForUpdatesAsync(this);
+                await _updateChecker.SilentCheckForUpdatesAsync(this);
                 DebugLogger.Log("Silent check for updates was done.");
                 await Stats.CallApiAsync();
                 DebugLogger.Log("Stats API call was done.");

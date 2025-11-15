@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Net.Http;
@@ -10,18 +10,16 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows;
 using ICSharpCode.SharpZipLib.Zip;
-using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
-public static partial class UpdateChecker
+public partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
+    private readonly IHttpClientFactory _httpClientFactory;
 
-    private static readonly IHttpClientFactory HttpClientFactory;
-
-    private static string CurrentRuntimeIdentifier
+    private string CurrentRuntimeIdentifier
     {
         get
         {
@@ -35,12 +33,12 @@ public static partial class UpdateChecker
         }
     }
 
-    static UpdateChecker()
+    public UpdateChecker(IHttpClientFactory httpClientFactory)
     {
-        HttpClientFactory = App.ServiceProvider?.GetRequiredService<IHttpClientFactory>();
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
     }
 
-    private static string CurrentVersion
+    private string CurrentVersion
     {
         get
         {
@@ -59,18 +57,18 @@ public static partial class UpdateChecker
         }
     }
 
-    private static readonly char[] Separator = new[] { '.' };
+    private static readonly char[] Separator = { '.' };
 
-    public static async Task SilentCheckForUpdatesAsync(Window mainWindow)
+    public async Task SilentCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
-            if (HttpClientFactory == null)
+            if (_httpClientFactory == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
             if (httpClient != null)
             {
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
@@ -110,16 +108,16 @@ public static partial class UpdateChecker
         }
     }
 
-    public static async Task ManualCheckForUpdatesAsync(Window mainWindow)
+    public async Task ManualCheckForUpdatesAsync(Window mainWindow)
     {
         try
         {
-            if (HttpClientFactory == null)
+            if (_httpClientFactory == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
             if (httpClient != null)
             {
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
@@ -187,16 +185,16 @@ public static partial class UpdateChecker
         }
     }
 
-    public static async Task<(string UpdaterZipUrl, string LatestVersion)> GetLatestUpdaterInfoAsync()
+    public async Task<(string UpdaterZipUrl, string LatestVersion)> GetLatestUpdaterInfoAsync()
     {
         try
         {
-            if (HttpClientFactory == null)
+            if (_httpClientFactory == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
             if (httpClient != null)
             {
                 httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
@@ -224,7 +222,7 @@ public static partial class UpdateChecker
         }
     }
 
-    private static async Task ShowUpdateWindowAsync(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
+    private async Task ShowUpdateWindowAsync(string updaterZipUrl, string releasePackageUrl, string currentVersion, string latestVersion, Window owner)
     {
         UpdateLogWindow logWindow = null;
 
@@ -317,14 +315,14 @@ public static partial class UpdateChecker
         }
     }
 
-    internal static async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
+    internal async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
     {
-        if (HttpClientFactory == null)
+        if (_httpClientFactory == null)
         {
             throw new InvalidOperationException("HttpClientFactory is not initialized. Cannot download update file.");
         }
 
-        var httpClient = HttpClientFactory?.CreateClient("UpdateCheckerClient");
+        var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
         if (httpClient != null)
         {
             using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
@@ -336,7 +334,7 @@ public static partial class UpdateChecker
         memoryStream.Position = 0;
     }
 
-    internal static bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
+    internal bool ExtractAllFromZip(MemoryStream zipStream, string destinationPath, UpdateLogWindow logWindow)
     {
         try
         {
@@ -386,7 +384,7 @@ public static partial class UpdateChecker
         }
     }
 
-    private static bool IsNewVersionAvailable(string currentVersion, string latestVersion)
+    private bool IsNewVersionAvailable(string currentVersion, string latestVersion)
     {
         try
         {
@@ -431,7 +429,7 @@ public static partial class UpdateChecker
         }
     }
 
-    private static (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
+    private (string version, string releasePackageUrl, string updaterZipUrl) ParseVersionAndAssetUrlsFromResponse(string jsonResponse)
     {
         try
         {
@@ -539,7 +537,7 @@ public static partial class UpdateChecker
         return (null, null, null);
     }
 
-    private static string NormalizeVersion(string version)
+    private string NormalizeVersion(string version)
     {
         if (string.IsNullOrEmpty(version)) return "0.0.0.0";
 
