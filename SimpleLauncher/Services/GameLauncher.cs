@@ -7,6 +7,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Managers;
 
@@ -612,8 +613,9 @@ public static class GameLauncher
 
         if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isDirectory && !isMountedXbe && !isMountedZip)
         {
-            // Call the modified ExtractFilesBeforeLaunchAsync to get both the game file path and the temp directory path
-            var (extractedGameFilePath, extractedTempDirPath) = await ExtractFilesBeforeLaunchAsync(resolvedFilePath, selectedSystemManager);
+            // Use the extraction service from the DI container
+            var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
+            var (extractedGameFilePath, extractedTempDirPath) = await extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 
             if (!string.IsNullOrEmpty(extractedGameFilePath))
             {
@@ -871,120 +873,6 @@ public static class GameLauncher
                 }
             }
         }
-    }
-
-    // Return both the game file path and the temporary directory path
-    private static async Task<(string gameFilePath, string tempDirectoryPath)> ExtractFilesBeforeLaunchAsync(string resolvedFilePath, SystemManager systemManager)
-    {
-        var fileExtension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
-        DebugLogger.Log($"[ExtractFilesBeforeLaunchAsync] Attempting to extract: {resolvedFilePath}, Extension: {fileExtension}");
-
-        switch (fileExtension)
-        {
-            case ".ZIP" or ".7Z" or ".RAR":
-            {
-                var extractCompressedFile = new ExtractCompressedFile();
-                var pathToExtractionDirectory = await extractCompressedFile.ExtractWithSevenZipSharpToTempAsync(resolvedFilePath);
-
-                if (string.IsNullOrEmpty(pathToExtractionDirectory) || !Directory.Exists(pathToExtractionDirectory))
-                {
-                    // Extraction itself failed or returned an invalid path
-                    DebugLogger.Log($"[ExtractFilesBeforeLaunchAsync] Extraction failed for {resolvedFilePath}. No temp directory created or invalid path returned.");
-                    return (null, null);
-                }
-
-                var extractedFileToLaunch = await ValidateAndFindGameFileAsync(pathToExtractionDirectory, systemManager);
-                if (!string.IsNullOrEmpty(extractedFileToLaunch))
-                {
-                    return (extractedFileToLaunch, pathToExtractionDirectory); // Return both
-                }
-                else
-                {
-                    // File not found in extracted directory, but extraction directory exists.
-                    // We still return the temp directory path so it can be cleaned up.
-                    DebugLogger.Log($"[ExtractFilesBeforeLaunchAsync] No suitable game file found in extracted directory {pathToExtractionDirectory}.");
-                    return (null, pathToExtractionDirectory);
-                }
-            }
-            default:
-            {
-                // Notify developer
-                var contextMessage = $"Can not extract file: {resolvedFilePath}";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
-                DebugLogger.Log($"[ExtractFilesBeforeLaunchAsync] Error: {contextMessage}");
-
-                // Notify user
-                MessageBoxLibrary.CannotExtractThisFileMessageBox(resolvedFilePath);
-
-                return (null, null); // No extraction, no temp path
-            }
-        }
-    }
-
-    private static Task<string> ValidateAndFindGameFileAsync(string tempExtractLocation, SystemManager sysManager)
-    {
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Validating extracted path: {tempExtractLocation}");
-        if (string.IsNullOrEmpty(tempExtractLocation) || !Directory.Exists(tempExtractLocation))
-        {
-            // Notify developer
-            var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
-
-            // Notify user
-            MessageBoxLibrary.ExtractionFailedMessageBox();
-
-            return Task.FromResult<string>(null);
-        }
-
-        if (sysManager.FileFormatsToLaunch == null || sysManager.FileFormatsToLaunch.Count == 0)
-        {
-            // Notify developer
-            const string contextMessage = "FileFormatsToLaunch is null or empty.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
-
-            // Notify user
-            MessageBoxLibrary.NullFileExtensionMessageBox();
-
-            return Task.FromResult<string>(null);
-        }
-
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", sysManager.FileFormatsToLaunch)} in {tempExtractLocation}");
-        foreach (var formatToLaunch in sysManager.FileFormatsToLaunch)
-        {
-            try
-            {
-                // Ensure formatToLaunch is just the extension like ".cue", not "*.cue"
-                var searchPattern = $"*{formatToLaunch}";
-                if (!formatToLaunch.StartsWith('.'))
-                {
-                    searchPattern = $"*.{formatToLaunch}"; // Normalize if needed
-                }
-
-                var files = Directory.GetFiles(tempExtractLocation, searchPattern, SearchOption.AllDirectories);
-                if (files.Length <= 0) continue;
-
-                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Found file to launch: {files[0]}");
-                return Task.FromResult(files[0]);
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
-                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
-            }
-        }
-
-        // Notify developer
-        const string notFoundContext = "Could not find a file with any of the extensions defined in 'FileFormatsToLaunch' after extraction.";
-        _ = LogErrors.LogErrorAsync(new FileNotFoundException(notFoundContext), notFoundContext);
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
-
-        // Notify user
-        MessageBoxLibrary.CouldNotFindAFileMessageBox();
-
-        return Task.FromResult<string>(null);
     }
 
     private static Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)

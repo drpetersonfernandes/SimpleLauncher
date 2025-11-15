@@ -50,6 +50,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<RetroAchievementsService>();
+        serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddTransient<MainWindow>();
 

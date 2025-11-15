@@ -126,9 +126,10 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
 
         // Get the factory from the service provider
         var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
+        var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
 
         // Initialize the DownloadManager, passing the factory
-        _downloadManager = new DownloadManager(httpClientFactory);
+        _downloadManager = new DownloadManager(httpClientFactory, extractionService);
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Load Config

@@ -30,15 +30,17 @@ public class DownloadManager : IDisposable
     // Private fields
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
+    private readonly IExtractionService _extractionService;
     private CancellationTokenSource _cancellationTokenSource;
     private bool _disposed;
 
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager(IHttpClientFactory httpClientFactory)
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService)
     {
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory)); // Assign factory
+        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
 
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
@@ -355,7 +357,7 @@ public class DownloadManager : IDisposable
                     $"Extracting to {destinationPath}...")
             });
 
-            var result = await ExtractCompressedFile.ExtractDownloadFilesToBaseFolderAsync(filePath, destinationPath);
+            var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
 
             if (result)
             {

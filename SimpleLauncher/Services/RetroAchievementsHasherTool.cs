@@ -5,6 +5,7 @@ using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -228,54 +229,20 @@ public static class RetroAchievementsHasherTool
         if (isCompressed && requiresExtraction)
         {
             DebugLogger.Log($"[RA Hasher Tool] Compressed file detected for hashing: {filePath}. Extracting...");
-            var extractor = new ExtractCompressedFile();
-            tempExtractionPath = await extractor.ExtractWithSevenZipSharpToTempAsync(filePath);
+            var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
+            var (extractedGameFilePath, extractedTempDirPath) = await extractionService.ExtractToTempAndGetLaunchFileAsync(filePath, fileFormatsToLaunch);
+            tempExtractionPath = extractedTempDirPath;
 
-            if (string.IsNullOrEmpty(tempExtractionPath))
+            if (string.IsNullOrEmpty(extractedGameFilePath))
             {
                 isExtractionSuccessful = false;
-                extractionErrorMessage = $"Failed to extract archive for hashing: {filePath}. The file might be corrupted or inaccessible.";
+                extractionErrorMessage = $"Failed to extract or find a suitable file in archive for hashing: {filePath}.";
                 _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] {extractionErrorMessage}");
                 DebugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
-                return new RaHashResult(null, null, isExtractionSuccessful, extractionErrorMessage); // Return null hash, but keep temp path for cleanup
+                return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage);
             }
 
-            string foundRomFile = null;
-            if (fileFormatsToLaunch is { Count: > 0 })
-            {
-                foreach (var format in fileFormatsToLaunch)
-                {
-                    var searchPattern = $"*.{format.TrimStart('.')}";
-                    var files = Directory.GetFiles(tempExtractionPath, searchPattern, SearchOption.AllDirectories);
-                    if (files.Length > 0)
-                    {
-                        foundRomFile = files[0];
-                        DebugLogger.Log($"[RA Hasher Tool] Found file to hash after extraction: {foundRomFile}");
-                        break;
-                    }
-                }
-            }
-
-            if (string.IsNullOrEmpty(foundRomFile))
-            {
-                var allExtractedFiles = Directory.GetFiles(tempExtractionPath, "*", SearchOption.AllDirectories);
-                if (allExtractedFiles.Length > 0)
-                {
-                    foundRomFile = allExtractedFiles[0];
-                    DebugLogger.Log($"[RA Hasher Tool] No specific launch format file found. Picking first extracted file: {foundRomFile}");
-                }
-            }
-
-            if (string.IsNullOrEmpty(foundRomFile))
-            {
-                isExtractionSuccessful = false;
-                extractionErrorMessage = $"Could not find any suitable file to hash after extracting {filePath}. No matching launch format found.";
-                DebugLogger.Log($"[RA Hasher Tool] {extractionErrorMessage}");
-                _ = LogErrors.LogErrorAsync(null, $"[RA Hasher Tool] {extractionErrorMessage}");
-                return new RaHashResult(null, tempExtractionPath, isExtractionSuccessful, extractionErrorMessage); // Return null hash, but keep temp path for cleanup
-            }
-
-            fileToProcess = foundRomFile; // Update the path to the extracted file
+            fileToProcess = extractedGameFilePath;
         }
 
         // --- Perform Hashing ---
