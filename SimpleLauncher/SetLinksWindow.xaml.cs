@@ -37,6 +37,8 @@ public partial class SetLinksWindow
 
         _settingsManager.Save();
 
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingLinkSettings") ?? "Saving link settings...", Application.Current.MainWindow as MainWindow);
+
         // Notify user
         MessageBoxLibrary.LinksSavedMessageBox();
 
@@ -52,6 +54,8 @@ public partial class SetLinksWindow
         InfoLinkTextBox.Text = _settingsManager.InfoUrl;
 
         _settingsManager.Save();
+
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RevertingLinkSettings") ?? "Reverting link settings...", Application.Current.MainWindow as MainWindow);
 
         // Notify user
         MessageBoxLibrary.LinksRevertedMessageBox();

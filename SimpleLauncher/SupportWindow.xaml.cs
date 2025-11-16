@@ -163,6 +163,8 @@ public partial class SupportWindow
             fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
 
             await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
+
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...", Application.Current.MainWindow as MainWindow);
         }
         catch (Exception ex)
         {

@@ -111,6 +111,9 @@ public partial class SoundConfigurationWindow
         _settings.EnableNotificationSound = EnableNotificationSoundCheckBox.IsChecked == true;
         _settings.CustomNotificationSoundFile = NotificationSoundFileTextBox.Text;
         _settings.Save();
+
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...", Application.Current.MainWindow as MainWindow);
+
         MessageBoxLibrary.SettingsSavedSuccessfully();
         DialogResult = true;
         Close();
