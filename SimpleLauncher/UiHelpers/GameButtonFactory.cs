@@ -298,12 +298,7 @@ public class GameButtonFactory(
                     e.Handled = true;
 
                     PlaySoundEffects.PlayNotificationSound();
-
-                    // Show loading indicator immediately by setting the property (UI updates via binding)
-                    if (context.MainWindow != null)
-                    {
-                        context.MainWindow.IsLoadingGames = true;
-                    }
+                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
@@ -311,12 +306,6 @@ public class GameButtonFactory(
                     }
                     catch (Exception ex)
                     {
-                        // Hide loading indicator on error
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
-
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
@@ -325,11 +314,7 @@ public class GameButtonFactory(
                     }
                     finally
                     {
-                        // Ensure loading indicator is hidden after async work (success or error)
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
+                        context.MainWindow?.SetUiLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -376,24 +361,13 @@ public class GameButtonFactory(
 
                     PlaySoundEffects.PlayNotificationSound();
 
-                    // Show loading indicator immediately by setting the property (UI updates via binding)
-                    if (context.MainWindow != null)
-                    {
-                        context.MainWindow.IsLoadingGames = true;
-                    }
-
+                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
                         ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
                     }
                     catch (Exception ex)
                     {
-                        // Hide loading indicator on error
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
-
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
@@ -402,11 +376,7 @@ public class GameButtonFactory(
                     }
                     finally
                     {
-                        // Ensure loading indicator is hidden after async work (success or error)
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
+                        context.MainWindow?.SetUiLoadingState(false);
                     }
                 }
                 catch (Exception ex)
@@ -453,24 +423,13 @@ public class GameButtonFactory(
 
                     PlaySoundEffects.PlayNotificationSound();
 
-                    // Show loading indicator immediately by setting the property (UI updates via binding)
-                    if (context.MainWindow != null)
-                    {
-                        context.MainWindow.IsLoadingGames = true;
-                    }
-
+                    context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
                         ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
                     }
                     catch (Exception ex)
                     {
-                        // Hide loading indicator on error
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
-
                         // Notify developer
                         _ = LogErrors.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
@@ -479,11 +438,7 @@ public class GameButtonFactory(
                     }
                     finally
                     {
-                        // Ensure loading indicator is hidden after async work (success or error)
-                        if (context.MainWindow != null)
-                        {
-                            context.MainWindow.IsLoadingGames = false;
-                        }
+                        context.MainWindow?.SetUiLoadingState(false);
                     }
                 }
                 catch (Exception ex)

@@ -656,9 +656,6 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
 
             var systemImageFolderRaw = selectedSystem.SystemImageFolder;
 
-            var addingsystemtoconfiguration = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
-            DownloadStatus = addingsystemtoconfiguration;
-
             var systemXmlPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "system.xml");
 
             // --- Start Async Operation ---
@@ -667,12 +664,15 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
                 // Disable button during operation
                 AddSystemButton.IsEnabled = false;
 
+                // Show overlay
+                LoadingMessage.Text = (string)Application.Current.TryFindResource("Addingsystemtoconfiguration") ?? "Adding system to configuration...";
+                LoadingOverlay.Visibility = Visibility.Visible;
+
                 // Update System.xml with the *unresolved* paths, as system.xml expects them.
                 await UpdateSystemXmlAsync(systemXmlPath, selectedSystem, systemFolderRaw, systemImageFolderRaw);
 
                 // --- If XML update succeeds, continue with folder creation and UI updates ---
-                var creatingsystemfolders = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
-                DownloadStatus = creatingsystemfolders;
+                LoadingMessage.Text = (string)Application.Current.TryFindResource("Creatingsystemfolders") ?? "Creating system folders...";
 
                 // Resolve paths before passing to folder creation
                 var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(systemFolderRaw);
@@ -713,6 +713,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
             }
             finally
             {
+                LoadingOverlay.Visibility = Visibility.Collapsed; // Hide overlay
                 if (IsLoaded) // Check if the window is still loaded
                 {
                     AddSystemButton.IsEnabled = true;

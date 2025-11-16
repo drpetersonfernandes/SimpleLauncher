@@ -463,6 +463,37 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
     }
 
+    public void SetUiLoadingState(bool isLoading, string message = null)
+    {
+        _isLoadingGames = isLoading;
+        IsLoadingGames = isLoading;
+
+        // Disable/Enable main interaction controls
+        SystemComboBox.IsEnabled = !isLoading;
+        EmulatorComboBox.IsEnabled = !isLoading;
+        SearchTextBox.IsEnabled = !isLoading;
+        SearchButton.IsEnabled = !isLoading;
+        SelectedSystemFavoriteButton.IsEnabled = !isLoading;
+        RandomLuckGameButton.IsEnabled = !isLoading;
+        SortOrderToggleButton.IsEnabled = !isLoading;
+        ToggleViewMode.IsEnabled = !isLoading;
+        ToggleButtonAspectRatio.IsEnabled = !isLoading;
+        ZoomInButton.IsEnabled = !isLoading;
+        ZoomOutButton.IsEnabled = !isLoading;
+
+        // Disable/Enable Letter/Number/Favorites/Lucky buttons via FilterMenu helper
+        _topLetterNumberMenu.SetButtonsEnabled(!isLoading);
+
+        // Disable/Enable pagination buttons (UpdatePaginationButtons already checks _isGameListLoading)
+        UpdatePaginationButtons();
+
+        // Update loading message
+        if (isLoading)
+        {
+            LoadingMessage.Text = message ?? ((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
+        }
+    }
+
     private void InitializeControllerDetection()
     {
         _controllerCheckTimer = new DispatcherTimer
@@ -602,8 +633,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     return;
                 }
 
-                _isUiUpdating = true;
-                SetUiLoadingState(true);
+                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading System...");
+                _isUiUpdating = true; // Set after UI is frozen
                 try
                 {
                     SearchTextBox.Text = "";
@@ -775,7 +806,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
-        Dispatcher.Invoke(() => SetUiLoadingState(true));
+        Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
         await SetUiBeforeLoadGameFilesAsync();
 
         try
@@ -1096,31 +1127,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         return Task.FromResult(filteredFiles);
-    }
-
-    private void SetUiLoadingState(bool isLoading)
-    {
-        _isLoadingGames = isLoading;
-        IsLoadingGames = isLoading;
-
-        // Disable/Enable main interaction controls
-        SystemComboBox.IsEnabled = !isLoading;
-        EmulatorComboBox.IsEnabled = !isLoading;
-        SearchTextBox.IsEnabled = !isLoading;
-        SearchButton.IsEnabled = !isLoading;
-        SelectedSystemFavoriteButton.IsEnabled = !isLoading;
-        RandomLuckGameButton.IsEnabled = !isLoading;
-        SortOrderToggleButton.IsEnabled = !isLoading;
-        ToggleViewMode.IsEnabled = !isLoading;
-        ToggleButtonAspectRatio.IsEnabled = !isLoading;
-        ZoomInButton.IsEnabled = !isLoading;
-        ZoomOutButton.IsEnabled = !isLoading;
-
-        // Disable/Enable Letter/Number/Favorites/Lucky buttons via FilterMenu helper
-        _topLetterNumberMenu.SetButtonsEnabled(!isLoading);
-
-        // Disable/Enable pagination buttons (UpdatePaginationButtons already checks _isGameListLoading)
-        UpdatePaginationButtons();
     }
 
     private static Task<List<string>> FilterFilesAsync(List<string> files, string startLetter)

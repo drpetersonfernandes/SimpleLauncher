@@ -117,7 +117,7 @@ public partial class MainWindow
             if (_isLoadingGames)
             {
                 _isLoadingGames = false;
-                LoadingIndicator.Visibility = Visibility.Collapsed;
+                LoadingOverlay.Visibility = Visibility.Collapsed;
             }
 
             try

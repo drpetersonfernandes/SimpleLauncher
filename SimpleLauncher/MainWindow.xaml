@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="SimpleLauncher.MainWindow"
+<controls:MetroWindow x:Class="SimpleLauncher.MainWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -1104,13 +1104,13 @@
                     </Grid>
                 </Grid>
 
-                <controls:ProgressRing x:Name="LoadingIndicator"
-                                       IsActive="{Binding IsLoadingGames}"
-                                       HorizontalAlignment="Center"
-                                       VerticalAlignment="Center"
-                                       Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}"
-                                       Width="100" Height="100" d:DataContext="{d:DesignInstance }"
-                                       AutomationProperties.Name="{DynamicResource LoadingGamesIndicator}" />
+                <!-- Loading Overlay -->
+                <Grid x:Name="LoadingOverlay" Visibility="{Binding IsLoadingGames, Converter={StaticResource BooleanToVisibilityConverter}}" d:DataContext="{d:DesignInstance }">
+                    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <controls:ProgressRing IsActive="True" Width="100" Height="100" />
+                        <TextBlock x:Name="LoadingMessage" Text="{DynamicResource LoadingGames}" Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}" Margin="0,10,0,0" FontSize="16" HorizontalAlignment="Center"/>
+                    </StackPanel>
+                </Grid>
             </Grid>
         </Grid>
 

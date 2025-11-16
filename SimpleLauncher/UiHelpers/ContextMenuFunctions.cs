@@ -14,6 +14,9 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
+using System.Windows;
+using Point = System.Drawing.Point;
+using Size = System.Drawing.Size;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -300,7 +303,7 @@ public static class ContextMenuFunctions
             }
 
             // Set loading indicator
-            mainWindow.IsLoadingGames = true; // This is a DependencyProperty, safe to set from any thread.
+            mainWindow.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
             // --- Delegate hashing logic to RetroAchievementsHasherTool ---
             var raHashResult = await RetroAchievementsHasherTool.GetGameHashForRetroAchievementsAsync(filePath, systemName, systemManager.FileFormatsToLaunch);
@@ -373,7 +376,7 @@ public static class ContextMenuFunctions
         finally
         {
             // Ensure loading indicator is hidden
-            mainWindow.IsLoadingGames = false; // This is a DependencyProperty, safe to set from any thread.
+            mainWindow.SetUiLoadingState(false);
 
             // --- Remove temporary extraction folder ---
             if (!string.IsNullOrEmpty(tempExtractionPath))
