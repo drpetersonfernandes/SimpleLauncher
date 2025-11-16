@@ -497,6 +497,38 @@ public class GameButtonFactory(
             // No need to update currentVerticalOffset here as it's the last button.
         }
 
+        var contextMenu = ContextMenu.AddRightClickReturnContextMenu(context);
+
+        // Create the kebab menu button
+        var kebabButton = new Button
+        {
+            Content = "...",
+            FontWeight = FontWeights.Bold,
+            Width = 25,
+            Height = 25,
+            HorizontalAlignment = HorizontalAlignment.Right,
+            VerticalAlignment = VerticalAlignment.Bottom,
+            Margin = new Thickness(5),
+            Cursor = Cursors.Hand,
+            ToolTip = (string)Application.Current.TryFindResource("MoreOptions") ?? "More Options",
+            Style = (Style)Application.Current.FindResource("MahApps.Styles.Button.Chromeless")
+        };
+        // Set AutomationProperties.Name for screen readers
+        AutomationProperties.SetName(kebabButton, (string)kebabButton.ToolTip);
+
+        kebabButton.Click += (s, e) =>
+        {
+            e.Handled = true; // Stop the main button's click event
+            PlaySoundEffects.PlayClickSound();
+            if (contextMenu != null)
+            {
+                contextMenu.PlacementTarget = kebabButton;
+                contextMenu.IsOpen = true;
+            }
+        };
+
+        grid.Children.Add(kebabButton);
+
         // Set the DataContext of the grid to the view model.
         grid.DataContext = viewModel;
 
@@ -586,6 +618,8 @@ public class GameButtonFactory(
 
         context.Button = _button;
 
-        return ContextMenu.AddRightClickReturnButton(context);
+        _button.ContextMenu = contextMenu;
+
+        return _button;
     }
 }
