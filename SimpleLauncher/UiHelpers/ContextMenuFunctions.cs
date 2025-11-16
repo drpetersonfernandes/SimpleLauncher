@@ -22,7 +22,7 @@ namespace SimpleLauncher.UiHelpers;
 
 public static class ContextMenuFunctions
 {
-    public static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public static void AddToFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         try
         {
@@ -82,7 +82,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow)
+    public static void RemoveFromFavorites(string systemName, string fileNameWithExtension, WrapPanel gameFileGrid, FavoritesManager favoritesManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         try
         {
@@ -243,7 +243,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
+    public static async Task OpenRetroAchievementsWindowAsync(string filePath, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         string tempExtractionPath = null;
         try
@@ -690,7 +690,7 @@ public static class ContextMenuFunctions
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher)
+    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
         try
@@ -830,7 +830,7 @@ public static class ContextMenuFunctions
                 bitmap.Save(screenshotPath, ImageFormat.Png);
             }
 
-            PlaySoundEffects.PlayShutterSound();
+            playSoundEffects.PlayShutterSound();
 
             // Wait
             await Task.Delay(1000);
@@ -888,7 +888,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow)
+    public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", mainWindow);
         if (File.Exists(filePath))
@@ -897,7 +897,7 @@ public static class ContextMenuFunctions
             {
                 DeleteFiles.TryDeleteFile(filePath);
 
-                PlaySoundEffects.PlayTrashSound();
+                playSoundEffects.PlayTrashSound();
 
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
@@ -935,18 +935,15 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension,
-        string selectedSystemName,
-        SystemManager selectedSystemManager,
-        SettingsManager contextSettings,
-        MainWindow mainWindow)
+    public static async Task DeleteCoverImageAsync(string fileNameWithoutExtension, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager contextSettings, MainWindow mainWindow, PlaySoundEffects playSoundEffects)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image.", mainWindow);
         var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
 
         try
         {
-            PlaySoundEffects.PlayTrashSound();
+            playSoundEffects.PlayTrashSound();
+
             if ((Path.GetFileNameWithoutExtension(coverPath) == fileNameWithoutExtension) & (Path.GetFileNameWithoutExtension(coverPath) != "default"))
             {
                 DeleteFiles.TryDeleteFile(coverPath);
