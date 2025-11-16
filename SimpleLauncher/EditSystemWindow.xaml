@@ -224,7 +224,7 @@
                         HorizontalAlignment="Left" />
 
                     <!-- Additional System Folders -->
-                    <GroupBox Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10">
+                    <Expander Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -236,7 +236,7 @@
                                 <Button x:Name="RemoveFolderButton" Content="{DynamicResource Remove}" Margin="5" Click="RemoveFolderButton_Click" IsEnabled="False" />
                             </StackPanel>
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                     <!-- System Image Folder -->
                     <Label
@@ -322,29 +322,10 @@
                         <ComboBoxItem>false</ComboBoxItem>
                     </ComboBox>
 
-                    <!-- Group Files by Folder -->
-                    <Label
-                        Margin="10,0,10,10"
-                        Grid.Row="7"
-                        Grid.Column="0"
-                        VerticalAlignment="Center"
-                        Content="Group Files by Folder">
-                    </Label>
-                    <ComboBox
-                        Margin="0,0,10,10"
-                        x:Name="GroupByFolderComboBox"
-                        Grid.Row="7"
-                        Grid.Column="1"
-                        IsReadOnly="True"
-                        IsEnabled="False">
-                        <ComboBoxItem>false</ComboBoxItem>
-                        <ComboBoxItem>true</ComboBoxItem>
-                    </ComboBox>
-
                     <!-- Format To Launch After Extraction -->
                     <Label
                         Margin="10,0,10,10"
-                        Grid.Row="8"
+                        Grid.Row="7"
                         Grid.Column="0"
                         VerticalAlignment="Center"
                         Content="{DynamicResource ExtensiontoLaunchAfterExtractionMaybeRequired}">
@@ -352,20 +333,39 @@
                     <TextBox
                         Margin="0,0,10,10"
                         x:Name="FormatToLaunchTextBox"
-                        Grid.Row="8"
+                        Grid.Row="7"
                         Grid.Column="1"
                         IsReadOnly="True"
                         IsEnabled="False" />
                     <Label
                         Margin="0,0,10,10"
-                        Grid.Row="8"
+                        Grid.Row="7"
                         Grid.Column="2"
                         VerticalAlignment="Center"
                         Content="{DynamicResource Useacommatoaddmultipleextensions}">
                     </Label>
+                    
+                    <!-- Group Files by Folder -->
+                    <Label
+                        Margin="10,0,10,10"
+                        Grid.Row="8"
+                        Grid.Column="0"
+                        VerticalAlignment="Center"
+                        Content="{DynamicResource GroupFilesbyFolder}">
+                    </Label>
+                    <ComboBox
+                        Margin="0,0,10,10"
+                        x:Name="GroupByFolderComboBox"
+                        Grid.Row="8"
+                        Grid.Column="1"
+                        IsReadOnly="True"
+                        IsEnabled="False">
+                        <ComboBoxItem>false</ComboBoxItem>
+                        <ComboBoxItem>true</ComboBoxItem>
+                    </ComboBox>
 
                     <!-- Emulator 1 -->
-                    <GroupBox Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}">
+                    <Expander Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -457,10 +457,10 @@
                             </ComboBox>
 
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                     <!-- Emulator 2 -->
-                    <GroupBox Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}">
+                    <Expander Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -551,10 +551,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                     <!-- Emulator 3 -->
-                    <GroupBox Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}">
+                    <Expander Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -645,10 +645,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                     <!-- Emulator 4 -->
-                    <GroupBox Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}">
+                    <Expander Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -739,10 +739,10 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                     <!-- Emulator 5 -->
-                    <GroupBox Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}">
+                    <Expander Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -833,7 +833,7 @@
                                 <ComboBoxItem>false</ComboBoxItem>
                             </ComboBox>
                         </Grid>
-                    </GroupBox>
+                    </Expander>
 
                 </Grid>
             </ScrollViewer>
