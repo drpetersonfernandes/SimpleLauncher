@@ -84,8 +84,6 @@
                             <ColumnDefinition Width="Auto" />
                         </Grid.ColumnDefinitions>
 
-                        <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource 1ststep}" VerticalAlignment="Center"
-                               Margin="5,10,5,5" />
                         <Button Grid.Row="0" Grid.Column="1" x:Name="DownloadEmulatorButton"
                                 Content="{DynamicResource DownloadEmulator}" HorizontalAlignment="Center"
                                 VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click"
@@ -93,56 +91,37 @@
                                 Margin="5,10,5,5"
                                 MinWidth="150" />
 
-                        <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource 2ndstep}" VerticalAlignment="Center"
-                               Margin="5" />
                         <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadCoreButton"
                                 Content="{DynamicResource DownloadCore}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"
                                 Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5"
                                 MinWidth="150" />
 
-                        <!-- Image Pack 1 - Fixed Alignment -->
-                        <Label Grid.Row="2" Grid.Column="0" Content="{DynamicResource 3rdstep}" VerticalAlignment="Center" Margin="5"
-                               Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton1_Click"
                                 IsEnabled="False" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!-- Image Pack 2 - Fixed Alignment -->
-                        <Label Grid.Row="3" Grid.Column="0" Content="{DynamicResource 4thstep}" VerticalAlignment="Center" Margin="5"
-                               Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Button Grid.Row="3" Grid.Column="1" x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton2_Click"
                                 IsEnabled="False" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!-- Image Pack 3 - Fixed Alignment -->
-                        <Label Grid.Row="4" Grid.Column="0" Content="{DynamicResource 5thstep}" VerticalAlignment="Center" Margin="5"
-                               Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton3_Click"
                                 IsEnabled="False" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!-- Image Pack 4 - Fixed Alignment -->
-                        <Label Grid.Row="5" Grid.Column="0" Content="{DynamicResource 6thstep}" VerticalAlignment="Center" Margin="5"
-                               Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Button Grid.Row="5" Grid.Column="1" x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton4_Click"
                                 IsEnabled="False" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <!-- Image Pack 5 - Fixed Alignment -->
-                        <Label Grid.Row="6" Grid.Column="0" Content="{DynamicResource 7thstep}" VerticalAlignment="Center" Margin="5"
-                               Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
                         <Button Grid.Row="6" Grid.Column="1" x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton5_Click"
                                 IsEnabled="False" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
-                        <Label Grid.Row="7" Grid.Column="0" Content="{DynamicResource FinalStep}" VerticalAlignment="Center"
-                               Margin="5,5,5,10" />
                         <Button Grid.Row="7" Grid.Column="1" x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"
                                 Margin="5,5,5,10" Click="AddSystemButton_Click" IsEnabled="False"
