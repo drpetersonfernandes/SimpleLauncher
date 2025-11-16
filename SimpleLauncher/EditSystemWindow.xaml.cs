@@ -21,14 +21,16 @@ public partial class EditSystemWindow
     private const string XmlFilePath = "system.xml";
     private static readonly char[] SplitSeparators = [',', '|', ';'];
     private readonly SettingsManager _settings;
+    private readonly PlaySoundEffects _playSoundEffects;
     private string _originalSystemName;
 
-    public EditSystemWindow(SettingsManager settings)
+    public EditSystemWindow(SettingsManager settings, PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
 
         _ = LoadXml();
 
@@ -569,7 +571,7 @@ public partial class EditSystemWindow
                 FileName = searchUrl,
                 UseShellExecute = true
             });
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
         }
         catch (Exception ex)
         {

@@ -11,15 +11,17 @@ namespace SimpleLauncher;
 public partial class SoundConfigurationWindow
 {
     private readonly SettingsManager _settings;
+    private readonly PlaySoundEffects _playSoundEffects;
     private const string DefaultNotificationSound = "click.mp3";
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 
-    public SoundConfigurationWindow(SettingsManager settings)
+    public SoundConfigurationWindow(SettingsManager settings, PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         Owner = Application.Current.MainWindow;
         LoadSettings();
     }
@@ -85,17 +87,17 @@ public partial class SoundConfigurationWindow
 
     private void PlayCurrentSoundButton_Click(object sender, RoutedEventArgs e)
     {
-        if (EnableNotificationSoundCheckBox.IsChecked == true && !string.IsNullOrWhiteSpace(NotificationSoundFileTextBox.Text))
+        switch (EnableNotificationSoundCheckBox.IsChecked)
         {
-            PlaySoundEffects.PlayConfiguredSound(NotificationSoundFileTextBox.Text);
-        }
-        else if (EnableNotificationSoundCheckBox.IsChecked == false)
-        {
-            MessageBoxLibrary.NotificationSoundIsDisable();
-        }
-        else
-        {
-            MessageBoxLibrary.NoSoundFileIsSelected();
+            case true when !string.IsNullOrWhiteSpace(NotificationSoundFileTextBox.Text):
+                _playSoundEffects.PlayConfiguredSound(NotificationSoundFileTextBox.Text);
+                break;
+            case false:
+                MessageBoxLibrary.NotificationSoundIsDisable();
+                break;
+            default:
+                MessageBoxLibrary.NoSoundFileIsSelected();
+                break;
         }
     }
 

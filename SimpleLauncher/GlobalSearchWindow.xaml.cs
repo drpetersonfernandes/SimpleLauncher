@@ -26,6 +26,7 @@ public partial class GlobalSearchWindow
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
+    private readonly PlaySoundEffects _playSoundEffects;
 
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
@@ -38,7 +39,8 @@ public partial class GlobalSearchWindow
         SettingsManager settings,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        GameLauncher gameLauncher
+        GameLauncher gameLauncher,
+        PlaySoundEffects playSoundEffects
     )
     {
         InitializeComponent();
@@ -54,6 +56,7 @@ public partial class GlobalSearchWindow
         _mainWindow = mainWindow;
         _gamePadController = gamePadController;
         _gameLauncher = gameLauncher;
+        _playSoundEffects = playSoundEffects;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
@@ -362,7 +365,7 @@ public partial class GlobalSearchWindow
         {
             if (ResultsDataGrid.SelectedItem is SearchResult selectedResult && !string.IsNullOrEmpty(selectedResult.FilePath))
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
                 LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
             }
             else
@@ -452,7 +455,9 @@ public partial class GlobalSearchWindow
                 null,
                 _mainWindow,
                 _gamePadController,
-                null, _gameLauncher
+                null,
+                _gameLauncher,
+                _playSoundEffects
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -480,7 +485,7 @@ public partial class GlobalSearchWindow
             // This check correctly handles cases where no item is selected or the selected item is not a valid game.
             if (ResultsDataGrid.SelectedItem is not SearchResult selectedResult || string.IsNullOrEmpty(selectedResult.FilePath)) return;
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             LaunchGameFromSearchResult(selectedResult.FilePath, selectedResult.SystemName, selectedResult.EmulatorManager);
         }
         catch (Exception ex)

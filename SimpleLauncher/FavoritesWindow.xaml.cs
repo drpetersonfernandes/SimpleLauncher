@@ -24,6 +24,7 @@ public partial class FavoritesWindow
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
+    private readonly PlaySoundEffects _playSoundEffects;
 
     public FavoritesWindow(
         SettingsManager settings,
@@ -32,7 +33,8 @@ public partial class FavoritesWindow
         FavoritesManager favoritesManager,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        GameLauncher gameLauncher
+        GameLauncher gameLauncher,
+        PlaySoundEffects playSoundEffects
     )
     {
         InitializeComponent();
@@ -44,6 +46,7 @@ public partial class FavoritesWindow
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
 
         App.ApplyThemeToWindow(this);
 
@@ -327,8 +330,9 @@ public partial class FavoritesWindow
                 null,
                 _mainWindow,
                 _gamePadController,
-                OnRemovedCallback, // *** FIX: Pass the callback to the context ***
-                _gameLauncher
+                OnRemovedCallback,
+                _gameLauncher,
+                _playSoundEffects
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -352,7 +356,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
                 await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
             }
             else
@@ -452,7 +456,7 @@ public partial class FavoritesWindow
         {
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite) return;
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             await LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
         }
         catch (Exception ex)
@@ -492,7 +496,7 @@ public partial class FavoritesWindow
     {
         if (e.Key != Key.Delete) return;
 
-        PlaySoundEffects.PlayTrashSound();
+        _playSoundEffects.PlayTrashSound();
 
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
