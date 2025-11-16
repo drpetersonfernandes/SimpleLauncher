@@ -638,7 +638,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
 
     private async void AddSystemButton_Click(object sender, RoutedEventArgs e)
     {
-        try // Top-level catch for async void method
+        try // Top-level catch for async Task method
         {
             var selectedSystem = GetSelectedSystem();
             if (selectedSystem == null) return;
@@ -932,7 +932,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
 
     private async void CloseWindowRoutine(object sender, EventArgs e)
     {
-        try // Top-level catch for async void method
+        try // Top-level catch for async Task method
         {
             if (StopDownloadButton.IsEnabled)
             {
