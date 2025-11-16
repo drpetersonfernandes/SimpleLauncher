@@ -15,6 +15,8 @@ public partial class MainWindow
 {
     private async Task DisplaySystemSelectionScreenAsync()
     {
+        TopSystemSelection.Visibility = Visibility.Collapsed;
+
         GameFileGrid.Children.Clear();
         GameListItems.Clear();
 
@@ -124,6 +126,8 @@ public partial class MainWindow
 
                 SetUiLoadingState(true);
                 await Task.Yield(); // Allow UI to update and show spinner
+
+                TopSystemSelection.Visibility = Visibility.Visible;
                 SystemComboBox.SelectedItem = systemName;
             }
 

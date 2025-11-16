@@ -854,6 +854,7 @@
 
             <!-- Main Panel -->
             <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"
+                    x:Name="TopSystemSelection"
                     BorderThickness="1"
                     Margin="10,5,0,0"
                     Padding="5"
