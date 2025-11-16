@@ -26,7 +26,8 @@ public class GameButtonFactory(
     SettingsManager settings,
     FavoritesManager favoritesManager,
     WrapPanel gameFileGrid,
-    MainWindow mainWindow)
+    MainWindow mainWindow,
+    GamePadController gamePadController)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -36,6 +37,7 @@ public class GameButtonFactory(
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly WrapPanel _gameFileGrid = gameFileGrid;
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
+    private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -252,7 +254,8 @@ public class GameButtonFactory(
             null,
             _gameFileGrid,
             null,
-            _mainWindow
+            _mainWindow,
+            _gamePadController
         );
 
         const double overlayButtonWidth = 22;
@@ -564,7 +567,7 @@ public class GameButtonFactory(
                 try
                 {
                     PlaySoundEffects.PlayNotificationSound();
-                    await GameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+                    await GameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
                 }
                 finally
                 {

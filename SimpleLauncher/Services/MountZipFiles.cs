@@ -77,6 +77,7 @@ public static class MountZipFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
+        GamePadController gamePadController,
         string logPath)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
@@ -186,7 +187,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController);
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)
@@ -289,6 +290,7 @@ public static class MountZipFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
+        GamePadController gamePadController,
         string logPath)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
@@ -391,7 +393,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController);
             DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }
         catch (Exception ex)

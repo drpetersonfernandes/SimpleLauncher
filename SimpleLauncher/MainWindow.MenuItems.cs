@@ -166,8 +166,8 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -214,11 +214,11 @@ public partial class MainWindow
             // Start or stop the GamePadController
             if (menuItem.IsChecked)
             {
-                GamePadController.Instance2.Start();
+                _gamePadController.Start();
             }
             else
             {
-                GamePadController.Instance2.Stop();
+                _gamePadController.Stop();
             }
         }
         catch (Exception ex)
@@ -240,17 +240,17 @@ public partial class MainWindow
         setGamepadDeadZoneWindow.ShowDialog();
 
         // Update the GamePadController dead zone settings from SettingsManager
-        GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
-        GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
+        _gamePadController.DeadZoneX = _settings.DeadZoneX;
+        _gamePadController.DeadZoneY = _settings.DeadZoneY;
 
         if (_settings.EnableGamePadNavigation)
         {
-            GamePadController.Instance2.Stop();
-            GamePadController.Instance2.Start();
+            _gamePadController.Stop();
+            _gamePadController.Start();
         }
         else
         {
-            GamePadController.Instance2.Stop();
+            _gamePadController.Stop();
         }
     }
 
@@ -585,7 +585,7 @@ public partial class MainWindow
         ResetUi();
 
         var globalSearchWindow =
-            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this);
+            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController);
         globalSearchWindow.Show();
     }
 
@@ -603,7 +603,7 @@ public partial class MainWindow
 
         ResetUi();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController);
         favoritesWindow.Show();
     }
 
@@ -614,7 +614,7 @@ public partial class MainWindow
         ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager,
-            PlayHistoryManager, this);
+            PlayHistoryManager, this, _gamePadController);
         playHistoryWindow.Show();
     }
 

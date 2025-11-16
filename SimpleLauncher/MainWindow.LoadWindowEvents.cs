@@ -58,7 +58,7 @@ public partial class MainWindow
         DebugLogger.Log("Pagination was set.");
 
         // Initialize TrayIconManager
-        _trayIconManager = new TrayIconManager(this, _settings);
+        _trayIconManager = new TrayIconManager(this, _settings, _gamePadController);
         DebugLogger.Log("TrayIconManager was initialized.");
 
         // Check for required files
@@ -72,21 +72,21 @@ public partial class MainWindow
         DebugLogger.Log("Overlay buttons were set.");
 
         // Initialize the GamePadController
-        GamePadController.Instance2.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
+        _gamePadController.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
-            GamePadController.Instance2.Start();
+            _gamePadController.Start();
         }
         else
         {
-            GamePadController.Instance2.Stop();
+            _gamePadController.Stop();
         }
 
         DebugLogger.Log("GamePadController was initialized.");
 
         // Update the GamePadController dead zone settings from SettingsManager
-        GamePadController.Instance2.DeadZoneX = _settings.DeadZoneX;
-        GamePadController.Instance2.DeadZoneY = _settings.DeadZoneY;
+        _gamePadController.DeadZoneX = _settings.DeadZoneX;
+        _gamePadController.DeadZoneY = _settings.DeadZoneY;
         DebugLogger.Log("GamePadController dead zone settings were updated.");
 
         InitializeControllerDetection();

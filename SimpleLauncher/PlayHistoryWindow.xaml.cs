@@ -26,8 +26,9 @@ public partial class PlayHistoryWindow
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
+    private readonly GamePadController _gamePadController;
 
-    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow)
+    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController)
     {
         InitializeComponent();
 
@@ -37,6 +38,7 @@ public partial class PlayHistoryWindow
         _favoritesManager = favoritesManager;
         _playHistoryManager = playHistoryManager;
         _mainWindow = mainWindow;
+        _gamePadController = gamePadController;
 
         App.ApplyThemeToWindow(this);
 
@@ -344,7 +346,8 @@ public partial class PlayHistoryWindow
                 emulatorManager,
                 null,
                 null,
-                _mainWindow
+                _mainWindow,
+                _gamePadController
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -419,7 +422,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }

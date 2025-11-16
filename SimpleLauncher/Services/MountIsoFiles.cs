@@ -18,6 +18,7 @@ public static class MountIsoFiles
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters,
         MainWindow mainWindow,
+        GamePadController gamePadController,
         string logPath)
     {
         DebugLogger.Log($"[MountIsoFiles] Starting to mount ISO using PowerShell: {resolvedIsoFilePath}");
@@ -94,7 +95,7 @@ public static class MountIsoFiles
             DebugLogger.Log($"[MountIsoFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch.");
 
             // 3. Launch the game/emulator with EBOOT.BIN
-            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow);
+            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedEmulatorName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController);
             DebugLogger.Log($"[MountIsoFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)

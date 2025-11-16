@@ -50,6 +50,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<RetroAchievementsService>();
+        serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddTransient<MainWindow>();
@@ -149,9 +150,10 @@ public partial class App : IDisposable
     {
         try
         {
+            var gamePadController = ServiceProvider.GetRequiredService<GamePadController>();
             // Dispose gamepad resources
-            GamePadController.Instance2?.Stop();
-            GamePadController.Instance2?.Dispose();
+            gamePadController?.Stop();
+            gamePadController?.Dispose();
         }
         catch (Exception ex)
         {

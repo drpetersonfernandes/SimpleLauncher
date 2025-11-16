@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Threading;
 using System.Windows;
 using SharpDX;
@@ -11,11 +11,6 @@ namespace SimpleLauncher.Services;
 
 public class GamePadController : IDisposable
 {
-    private static readonly string LogPath = GetLogPath.Path();
-
-    private static readonly Lazy<GamePadController> Instance = new(static () => new GamePadController());
-    public static GamePadController Instance2 => Instance.Value;
-
     private readonly SemaphoreSlim _updateLock = new(1, 1);
 
     // Add a lock object for synchronizing Start/Stop/Dispose operations
@@ -63,7 +58,7 @@ public class GamePadController : IDisposable
     private const int DirectInputLeftThumbStickScalingFactor = 7;
     private const int DirectInputRightThumbStickScalingFactor = 1;
 
-    private GamePadController()
+    public GamePadController()
     {
         // Initialize Xbox Controller using XInput
         _xinputController = new Controller(UserIndex.One);
@@ -162,7 +157,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
         }
     }
 
@@ -185,7 +180,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
         }
     }
 
@@ -243,7 +238,7 @@ public class GamePadController : IDisposable
                                     $"Exception details: {ex.Message}");
 
             // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
+            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
         }
     }
 
@@ -376,7 +371,7 @@ public class GamePadController : IDisposable
                                                 $"Exception details: {ex.Message}");
 
                         // Notify user
-                        Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(LogPath));
+                        Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
 
                         // Attempt reconnection as a recovery step
                         CheckAndReconnectControllers();

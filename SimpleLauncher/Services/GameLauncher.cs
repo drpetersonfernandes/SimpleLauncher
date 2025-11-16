@@ -26,7 +26,7 @@ public static class GameLauncher
         MountZipFiles.Configure(configuration);
     }
 
-    public static async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow)
+    public static async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
     {
         try
         {
@@ -109,10 +109,10 @@ public static class GameLauncher
 
             _selectedEmulatorParameters = _selectedEmulatorManager.EmulatorParameters;
 
-            var wasGamePadControllerRunning = GamePadController.Instance2.IsRunning;
+            var wasGamePadControllerRunning = gamePadController.IsRunning;
             if (wasGamePadControllerRunning)
             {
-                GamePadController.Instance2.Stop();
+                gamePadController.Stop();
             }
 
             var startTime = DateTime.Now;
@@ -157,7 +157,7 @@ public static class GameLauncher
                     {
                         DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
                         // Launch default.xbe
-                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController);
                         DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
                     }
                     else
@@ -177,21 +177,21 @@ public static class GameLauncher
                 else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
                 }
                 // Specific handling for RPCS3 with ISO files
                 else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
                          Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"RPCS3 with ISO call detected. Attempting to mount ISO and launch: {resolvedFilePath}");
-                    await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                    await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
                 }
                 // Specific handling for XBLA games with ZIP files
                 else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, LogPath);
+                    await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
                 }
                 else
                 {
@@ -208,7 +208,7 @@ public static class GameLauncher
                             await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         default:
-                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow);
+                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController);
                             break;
                     }
                 }
@@ -230,7 +230,7 @@ public static class GameLauncher
                 mainWindow.IsLoadingGames = false;
                 if (wasGamePadControllerRunning)
                 {
-                    GamePadController.Instance2.Start();
+                    gamePadController.Start();
                 }
 
                 var endTime = DateTime.Now;
@@ -583,8 +583,8 @@ public static class GameLauncher
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
-        string rawEmulatorParameters,
-        MainWindow mainWindow)
+        string rawEmulatorParameters, MainWindow mainWindow,
+        GamePadController gamePadController)
     {
         var isDirectory = Directory.Exists(resolvedFilePath);
 

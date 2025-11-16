@@ -13,6 +13,7 @@ public class TrayIconManager : IDisposable
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
     private readonly SettingsManager _settings;
+    private readonly GamePadController _gamePadController;
 
     // Updated delegate types
     private readonly RoutedEventHandler _onOpenHandler;
@@ -21,10 +22,11 @@ public class TrayIconManager : IDisposable
     private readonly EventHandler _mainWindowStateChangedHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
-    public TrayIconManager(Window mainWindow, SettingsManager settings)
+    public TrayIconManager(Window mainWindow, SettingsManager settings, GamePadController gamePadController)
     {
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
+        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
@@ -113,9 +115,9 @@ public class TrayIconManager : IDisposable
         }
 
         // Gamepad navigation will stop when the window is minimized to the taskbar.
-        if (GamePadController.Instance2.IsRunning)
+        if (_gamePadController.IsRunning)
         {
-            GamePadController.Instance2.Stop();
+            _gamePadController.Stop();
         }
     }
 
@@ -125,9 +127,9 @@ public class TrayIconManager : IDisposable
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
 
-        if (_settings.EnableGamePadNavigation && !GamePadController.Instance2.IsRunning)
+        if (_settings.EnableGamePadNavigation && !_gamePadController.IsRunning)
         {
-            GamePadController.Instance2.Start();
+            _gamePadController.Start();
         }
     }
 

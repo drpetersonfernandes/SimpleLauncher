@@ -123,11 +123,13 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private List<string> _allGamesForCurrentSystem = [];
 
     private readonly UpdateChecker _updateChecker;
+    private readonly GamePadController _gamePadController;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController)
     {
         InitializeComponent();
 
+        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
         // Inject settings from DI
         _updateChecker = updateChecker ?? throw new ArgumentNullException(nameof(updateChecker));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
@@ -174,10 +176,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Initialize _gameButtonFactory
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
@@ -471,7 +473,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
     {
-        GamePadController.Instance2.CheckAndReconnectControllers();
+        (Application.Current.MainWindow as MainWindow)?._gamePadController.CheckAndReconnectControllers();
     }
 
     private void SaveApplicationSettings()
@@ -549,7 +551,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 

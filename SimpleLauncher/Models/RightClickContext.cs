@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Windows.Controls;
 using SimpleLauncher.Managers;
+using SimpleLauncher.Services;
 using System;
 
 namespace SimpleLauncher.Models;
@@ -20,6 +21,7 @@ public class RightClickContext(
     WrapPanel gameFileGrid,
     Button button,
     MainWindow mainWindow,
+    GamePadController gamePadController,
     Action onFavoriteRemoved = null)
 {
     public string FilePath { get; } = filePath;
@@ -36,5 +38,6 @@ public class RightClickContext(
     public WrapPanel GameFileGrid { get; } = gameFileGrid;
     public Button Button { get; set; } = button;
     public MainWindow MainWindow { get; } = mainWindow;
+    public GamePadController GamePadController { get; } = gamePadController;
     public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
 }

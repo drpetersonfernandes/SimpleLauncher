@@ -22,13 +22,15 @@ public partial class FavoritesWindow
     private readonly List<SystemManager> _systemManagers;
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
+    private readonly GamePadController _gamePadController;
 
     public FavoritesWindow(
         SettingsManager settings,
         List<SystemManager> systemManagers,
         List<MameManager> machines,
         FavoritesManager favoritesManager,
-        MainWindow mainWindow
+        MainWindow mainWindow,
+        GamePadController gamePadController
     )
     {
         InitializeComponent();
@@ -38,6 +40,7 @@ public partial class FavoritesWindow
         _machines = machines ?? throw new ArgumentNullException(nameof(machines));
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
+        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
 
         App.ApplyThemeToWindow(this);
 
@@ -320,6 +323,7 @@ public partial class FavoritesWindow
                 null,
                 null,
                 _mainWindow,
+                _gamePadController,
                 OnRemovedCallback // *** FIX: Pass the callback to the context ***
             );
 
@@ -415,7 +419,7 @@ public partial class FavoritesWindow
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
         }
         catch (Exception ex)
         {

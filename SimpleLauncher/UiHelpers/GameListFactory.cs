@@ -19,7 +19,8 @@ public class GameListFactory(
     SettingsManager settings,
     FavoritesManager favoritesManager,
     PlayHistoryManager playHistoryManager,
-    MainWindow mainWindow)
+    MainWindow mainWindow,
+    GamePadController gamePadController)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -29,6 +30,7 @@ public class GameListFactory(
     private readonly FavoritesManager _favoritesManager = favoritesManager;
     private readonly PlayHistoryManager _playHistoryManager = playHistoryManager;
     private readonly MainWindow _mainWindow = mainWindow;
+    private readonly GamePadController _gamePadController = gamePadController;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager systemManager)
     {
@@ -94,7 +96,9 @@ public class GameListFactory(
                     null,
                     null,
                     null,
-                    _mainWindow
+                    _mainWindow,
+                    _gamePadController,
+                    null
                 )
             ),
             IsFavorite = isFavorite,
@@ -349,6 +353,6 @@ public class GameListFactory(
             return;
         }
 
-        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow);
+        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
     }
 }
