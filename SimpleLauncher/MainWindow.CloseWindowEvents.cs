@@ -1,6 +1,5 @@
 using System;
 using System.ComponentModel;
-using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
