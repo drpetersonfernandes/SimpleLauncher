@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Globalization;
 using System.IO;
 using System.Net.Http;
@@ -19,18 +19,20 @@ public partial class SupportWindow
     private static string ApiBaseUrl { get; set; }
     public Exception OriginalException { get; set; }
     public string OriginalContextMessage { get; set; }
+    public GameLauncher GameLauncher { get; }
 
-    public SupportWindow()
+    public SupportWindow(GameLauncher gameLauncher = null)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         _httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
         DataContext = this;
+        GameLauncher = gameLauncher;
         LoadConfiguration();
     }
 
     // Constructor overload to receive exception and context message
-    public SupportWindow(Exception ex, string contextMessage) : this() // Call the default constructor first
+    public SupportWindow(Exception ex, string contextMessage, GameLauncher gameLauncher) : this(gameLauncher) // Call the default constructor first
     {
         OriginalException = ex; // Store the exception object
         OriginalContextMessage = contextMessage; // Store the context message

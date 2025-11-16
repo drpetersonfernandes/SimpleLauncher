@@ -27,8 +27,9 @@ public partial class PlayHistoryWindow
     private readonly MainWindow _mainWindow;
     private readonly FavoritesManager _favoritesManager;
     private readonly GamePadController _gamePadController;
+    private readonly GameLauncher _gameLauncher;
 
-    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController)
+    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher)
     {
         InitializeComponent();
 
@@ -39,6 +40,7 @@ public partial class PlayHistoryWindow
         _playHistoryManager = playHistoryManager;
         _mainWindow = mainWindow;
         _gamePadController = gamePadController;
+        _gameLauncher = gameLauncher;
 
         App.ApplyThemeToWindow(this);
 
@@ -347,7 +349,8 @@ public partial class PlayHistoryWindow
                 null,
                 null,
                 _mainWindow,
-                _gamePadController
+                _gamePadController,
+                null, _gameLauncher
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -422,7 +425,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null); // Use null elements if nothing is selected
 
-        await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+        await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
 
         RefreshPlayHistoryData(selectedItemIdentifier); // Restore selection after refresh
     }

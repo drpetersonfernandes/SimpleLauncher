@@ -3268,14 +3268,14 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null)
+    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null)
     {
         // Pass the parameters to the ShowMessage local function
-        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage));
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage, gameLauncher));
         return;
 
         // Modify ShowMessage to accept the parameters
-        static void ShowMessage(Exception exParam, string contextMessageParam)
+        static void ShowMessage(Exception exParam, string contextMessageParam, GameLauncher gameLauncherParam)
         {
             var doyouwanttoreceivesupportfromthedeveloper = (string)Application.Current.TryFindResource("Doyouwanttoreceivesupportfromthedeveloper") ?? "Do you want to receive support from the developer?";
             var doyouwantsupport = (string)Application.Current.TryFindResource("Doyouwantsupport") ?? "Do you want support?";
@@ -3285,7 +3285,7 @@ internal static class MessageBoxLibrary
                 PlaySoundEffects.PlayNotificationSound();
 
                 // Pass the received parameters to the SupportWindow constructor
-                var supportRequestWindow = new SupportWindow(exParam, contextMessageParam);
+                var supportRequestWindow = new SupportWindow(exParam, contextMessageParam, gameLauncherParam);
                 supportRequestWindow.ShowDialog();
             }
         }

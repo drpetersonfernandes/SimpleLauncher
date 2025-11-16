@@ -50,6 +50,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
         serviceCollection.AddSingleton<RetroAchievementsService>();
+        serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<UpdateChecker>();
@@ -117,7 +118,7 @@ public partial class App : IDisposable
         PlaySoundEffects.Initialize(settingsManager);
 
         // --- Initialize services that need configuration ---
-        GameLauncher.Initialize(Configuration); // This will call MountZipFiles.Configure
+        MountZipFiles.Configure(Configuration);
 
         // Manually create and show the MainWindow using DI
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();

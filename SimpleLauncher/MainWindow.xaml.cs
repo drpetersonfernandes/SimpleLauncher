@@ -124,8 +124,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
+    private readonly GameLauncher _gameLauncher;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher)
     {
         InitializeComponent();
 
@@ -135,6 +136,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
+        _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -176,10 +178,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Initialize _gameButtonFactory
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
@@ -551,7 +553,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 

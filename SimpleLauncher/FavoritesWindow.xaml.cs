@@ -23,6 +23,7 @@ public partial class FavoritesWindow
     private readonly List<MameManager> _machines;
     private readonly MainWindow _mainWindow;
     private readonly GamePadController _gamePadController;
+    private readonly GameLauncher _gameLauncher;
 
     public FavoritesWindow(
         SettingsManager settings,
@@ -30,7 +31,8 @@ public partial class FavoritesWindow
         List<MameManager> machines,
         FavoritesManager favoritesManager,
         MainWindow mainWindow,
-        GamePadController gamePadController
+        GamePadController gamePadController,
+        GameLauncher gameLauncher
     )
     {
         InitializeComponent();
@@ -41,6 +43,7 @@ public partial class FavoritesWindow
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
+        _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
 
         App.ApplyThemeToWindow(this);
 
@@ -324,7 +327,8 @@ public partial class FavoritesWindow
                 null,
                 _mainWindow,
                 _gamePadController,
-                OnRemovedCallback // *** FIX: Pass the callback to the context ***
+                OnRemovedCallback, // *** FIX: Pass the callback to the context ***
+                _gameLauncher
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -419,7 +423,7 @@ public partial class FavoritesWindow
             }
 
             var selectedEmulatorName = emulatorManager.EmulatorName;
-            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
         }
         catch (Exception ex)
         {

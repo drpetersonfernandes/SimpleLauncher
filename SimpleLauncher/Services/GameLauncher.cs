@@ -3,30 +3,28 @@ using System.Diagnostics;
 using System.Globalization;
 using System.IO;
 using System.Linq;
-using System.Runtime.InteropServices;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Configuration;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
 
-public static class GameLauncher
+public class GameLauncher
 {
-    private static readonly string LogPath = GetLogPath.Path();
-    private static SystemManager.Emulator _selectedEmulatorManager;
-    private static string _selectedEmulatorParameters;
+    private readonly string _logPath = GetLogPath.Path();
+    private SystemManager.Emulator _selectedEmulatorManager;
+    private string _selectedEmulatorParameters;
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
+    private readonly IExtractionService _extractionService;
 
-    public static void Initialize(IConfiguration configuration)
+    public GameLauncher(IExtractionService extractionService)
     {
-        MountZipFiles.Configure(configuration);
+        _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
     }
 
-    public static async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
+    public async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
     {
         try
         {
@@ -41,7 +39,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FilePathIsInvalid(LogPath);
+                MessageBoxLibrary.FilePathIsInvalid(_logPath);
 
                 return;
             }
@@ -53,7 +51,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -65,7 +63,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -77,7 +75,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -90,7 +88,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
 
                 return;
             }
@@ -102,7 +100,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
 
                 return;
             }
@@ -152,12 +150,12 @@ public static class GameLauncher
                     }
 
                     DebugLogger.Log($"Cxbx-Reloaded call detected. Attempting to mount and launch: {resolvedFilePath}");
-                    await using var mountedDrive = await MountXisoFiles.MountAsync(resolvedFilePath, LogPath);
+                    await using var mountedDrive = await MountXisoFiles.MountAsync(resolvedFilePath, _logPath);
                     if (mountedDrive.IsMounted)
                     {
                         DebugLogger.Log($"ISO mounted successfully. Proceeding to launch {mountedDrive.MountedPath} with {selectedEmulatorName}.");
                         // Launch default.xbe
-                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController);
+                        await LaunchRegularEmulatorAsync(mountedDrive.MountedPath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, this);
                         DebugLogger.Log($"Emulator for {mountedDrive.MountedPath} has exited. Unmounting will occur automatically.");
                     }
                     else
@@ -171,27 +169,27 @@ public static class GameLauncher
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"ScummVM game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, LogPath);
+                    await MountZipFiles.MountZipFileAndLoadWithScummVmAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, _logPath, this);
                 }
                 // Specific handling for RPCS3 with ZIP files
                 else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"RPCS3 with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
+                    await MountZipFiles.MountZipFileAndLoadEbootBinAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, _logPath, this);
                 }
                 // Specific handling for RPCS3 with ISO files
                 else if (selectedEmulatorName.Contains("RPCS3", StringComparison.OrdinalIgnoreCase) &&
                          Path.GetExtension(resolvedFilePath).Equals(".iso", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"RPCS3 with ISO call detected. Attempting to mount ISO and launch: {resolvedFilePath}");
-                    await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
+                    await MountIsoFiles.MountIsoFileAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, _logPath, this);
                 }
                 // Specific handling for XBLA games with ZIP files
                 else if ((selectedSystemName.Contains("xbla", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("xbox live", StringComparison.OrdinalIgnoreCase) || selectedSystemName.Contains("live arcade", StringComparison.OrdinalIgnoreCase) || resolvedFilePath.Contains("xbla", StringComparison.OrdinalIgnoreCase))
                          && Path.GetExtension(resolvedFilePath).Equals(".zip", StringComparison.OrdinalIgnoreCase))
                 {
                     DebugLogger.Log($"XBLA game with ZIP call detected. Attempting to mount ZIP and launch: {resolvedFilePath}");
-                    await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, LogPath);
+                    await MountZipFiles.MountZipFileAndSearchForFileToLoadAsync(resolvedFilePath, selectedSystemName, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, _logPath, this);
                 }
                 else
                 {
@@ -208,7 +206,7 @@ public static class GameLauncher
                             await LaunchExecutableAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         default:
-                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController);
+                            await LaunchRegularEmulatorAsync(resolvedFilePath, selectedEmulatorName, selectedSystemManager, _selectedEmulatorManager, _selectedEmulatorParameters, mainWindow, gamePadController, this);
                             break;
                     }
                 }
@@ -223,7 +221,7 @@ public static class GameLauncher
                 _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
             }
             finally
             {
@@ -292,12 +290,12 @@ public static class GameLauncher
         }
     }
 
-    private static bool IsArm64System()
+    private bool IsArm64System()
     {
         try
         {
-            var architecture = RuntimeInformation.OSArchitecture;
-            return architecture == Architecture.Arm64;
+            var architecture = Environment.OSVersion.VersionString.Contains("ARM64", StringComparison.OrdinalIgnoreCase) ? System.Runtime.InteropServices.Architecture.Arm64 : System.Runtime.InteropServices.Architecture.X64; // Fallback for simplicity, actual check might be more complex
+            return architecture == System.Runtime.InteropServices.Architecture.Arm64;
         }
         catch (Exception ex)
         {
@@ -307,7 +305,7 @@ public static class GameLauncher
         }
     }
 
-    private static async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task RunBatchFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -393,7 +391,7 @@ public static class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
                 }
             }
         }
@@ -413,12 +411,12 @@ public static class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
     }
 
-    private static async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -491,12 +489,12 @@ public static class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
     }
 
-    private static async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -555,7 +553,7 @@ public static class GameLauncher
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
                     // Notify user
-                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                    MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
                 }
             }
         }
@@ -573,18 +571,19 @@ public static class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
     }
 
-    public static async Task LaunchRegularEmulatorAsync(
+    public async Task LaunchRegularEmulatorAsync(
         string resolvedFilePath,
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
         string rawEmulatorParameters, MainWindow mainWindow,
-        GamePadController gamePadController)
+        GamePadController gamePadController,
+        GameLauncher gameLauncher)
     {
         var isDirectory = Directory.Exists(resolvedFilePath);
 
@@ -596,7 +595,7 @@ public static class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
 
             return;
         }
@@ -614,8 +613,7 @@ public static class GameLauncher
         if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isDirectory && !isMountedXbe && !isMountedZip)
         {
             // Use the extraction service from the DI container
-            var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
-            var (extractedGameFilePath, extractedTempDirPath) = await extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
+            var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 
             if (!string.IsNullOrEmpty(extractedGameFilePath))
             {
@@ -634,7 +632,7 @@ public static class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
 
             // The finally block will handle cleanup of tempExtractionPath if it was set.
             return;
@@ -649,7 +647,7 @@ public static class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
 
             return;
         }
@@ -664,7 +662,7 @@ public static class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
 
             return;
         }
@@ -679,7 +677,7 @@ public static class GameLauncher
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
+            MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(_logPath);
 
             return;
         }
@@ -817,8 +815,8 @@ public static class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.InvalidOperationExceptionMessageBox(LogPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage);
+                MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher);
             }
         }
         catch (Exception ex)
@@ -850,8 +848,8 @@ public static class GameLauncher
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
                 // Notify user
-                MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage);
+                MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher);
             }
         }
         finally
@@ -875,7 +873,7 @@ public static class GameLauncher
         }
     }
 
-    private static Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private Task CheckForExitCodeWithErrorAnyAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         string contextMessage;
 
@@ -921,14 +919,14 @@ public static class GameLauncher
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
         {
             // Notify user
-            MessageBoxLibrary.CouldNotLaunchGameMessageBox(LogPath);
-            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage);
+            MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
+            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this);
         }
 
         return Task.CompletedTask;
     }
 
-    private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         if (process.HasExited && process.ExitCode != MemoryAccessViolation)
         {
@@ -948,7 +946,7 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private Task CheckForDepViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         if (process.HasExited && process.ExitCode != DepViolation) return Task.CompletedTask;
 
@@ -965,7 +963,7 @@ public static class GameLauncher
         return Task.CompletedTask;
     }
 
-    private static bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
+    private bool DoNotCheckErrorsOnSpecificEmulators(string selectedEmulatorName, string resolvedEmulatorExePath, Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error)
     {
         if (selectedEmulatorName.Contains("Kega Fusion", StringComparison.OrdinalIgnoreCase) ||
             selectedEmulatorName.Contains("KegaFusion", StringComparison.OrdinalIgnoreCase) ||

@@ -26,6 +26,7 @@ public partial class GlobalSearchWindow
     private readonly FavoritesManager _favoritesManager;
 
     private readonly GamePadController _gamePadController;
+    private readonly GameLauncher _gameLauncher;
 
     public GlobalSearchWindow(
         List<SystemManager> systemManagers,
@@ -34,7 +35,8 @@ public partial class GlobalSearchWindow
         FavoritesManager favoritesManager,
         SettingsManager settings,
         MainWindow mainWindow,
-        GamePadController gamePadController
+        GamePadController gamePadController,
+        GameLauncher gameLauncher
     )
     {
         InitializeComponent();
@@ -48,6 +50,7 @@ public partial class GlobalSearchWindow
         _settings = settings;
         _mainWindow = mainWindow;
         _gamePadController = gamePadController;
+        _gameLauncher = gameLauncher;
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
@@ -326,7 +329,7 @@ public partial class GlobalSearchWindow
                 return;
             }
 
-            await GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
+            await _gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorManager.EmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
         }
         catch (Exception ex)
         {
@@ -434,7 +437,8 @@ public partial class GlobalSearchWindow
                 null,
                 null,
                 _mainWindow,
-                _gamePadController
+                _gamePadController,
+                null, _gameLauncher
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);

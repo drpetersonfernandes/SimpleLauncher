@@ -671,7 +671,7 @@ public static class ContextMenuFunctions
         MessageBoxLibrary.ThereIsNoPcbMessageBox();
     }
 
-    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController)
+    public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher)
     {
         try
         {
@@ -709,7 +709,7 @@ public static class ContextMenuFunctions
             DebugLogger.Log($"[Screenshot] Initial window count: {initialCount}");
 
             // Launch game
-            _ = GameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController);
+            _ = gameLauncher.HandleButtonClickAsync(filePath, selectedEmulatorName, selectedSystemName, selectedSystemManager, settings, mainWindow, gamePadController);
 
             // Minimum wait time to process startup)
             await Task.Delay(2000);

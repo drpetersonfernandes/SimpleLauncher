@@ -78,7 +78,8 @@ public static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        string logPath)
+        string logPath,
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for EBOOT.BIN: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -187,7 +188,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] EBOOT.BIN found at: {ebootBinPath}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController);
+            await gameLauncher.LaunchRegularEmulatorAsync(ebootBinPath, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController, gameLauncher);
             DebugLogger.Log($"[MountZipFiles] Emulator for {ebootBinPath} has exited.");
         }
         catch (Exception ex)
@@ -291,7 +292,8 @@ public static class MountZipFiles
         string rawEmulatorParameters,
         MainWindow mainWindow,
         GamePadController gamePadController,
-        string logPath)
+        string logPath,
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for nested file search: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");
@@ -393,7 +395,7 @@ public static class MountZipFiles
             }
 
             DebugLogger.Log($"[MountZipFiles] Nested file found at: {fileToLoad}. Proceeding to launch with {selectedEmulatorName}.");
-            await GameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController);
+            await gameLauncher.LaunchRegularEmulatorAsync(fileToLoad, selectedSystemName, selectedSystemManager, selectedEmulatorManager, rawEmulatorParameters, mainWindow, gamePadController, gameLauncher);
             DebugLogger.Log($"[MountZipFiles] Emulator for {fileToLoad} has exited.");
         }
         catch (Exception ex)
@@ -532,7 +534,8 @@ public static class MountZipFiles
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
         string selectedEmulatorParameters,
-        string logPath)
+        string logPath,
+        GameLauncher gameLauncher)
     {
         DebugLogger.Log($"[MountZipFiles] Starting to mount ZIP for ScummVM: {resolvedZipFilePath}");
         DebugLogger.Log($"[MountZipFiles] System: {selectedSystemName}, Emulator: {selectedEmulatorName}");

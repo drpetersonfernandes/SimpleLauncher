@@ -166,8 +166,8 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -585,7 +585,7 @@ public partial class MainWindow
         ResetUi();
 
         var globalSearchWindow =
-            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController);
+            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher);
         globalSearchWindow.Show();
     }
 
@@ -603,7 +603,7 @@ public partial class MainWindow
 
         ResetUi();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher);
         favoritesWindow.Show();
     }
 
@@ -614,7 +614,7 @@ public partial class MainWindow
         ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager,
-            PlayHistoryManager, this, _gamePadController);
+            PlayHistoryManager, this, _gamePadController, _gameLauncher);
         playHistoryWindow.Show();
     }
 
