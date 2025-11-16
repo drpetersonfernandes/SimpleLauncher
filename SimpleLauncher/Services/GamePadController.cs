@@ -188,44 +188,35 @@ public class GamePadController : IDisposable
     {
         try
         {
-            // First, signal the running update loop to stop.
-            // We do this in a preliminary lock to ensure atomicity of the check-and-set.
             lock (_stateLock)
             {
                 if (_isDisposed) return;
-
-                Stop(); // Sets IsRunning = false and stops new timer invocations.
+                // Signal that we are stopping and disposing.
+                IsRunning = false;
+                _isDisposed = true;
             }
 
-            // Now, dispose the timer and wait for any in-flight callback to complete.
-            // This is done OUTSIDE the lock to prevent a deadlock, as the Update method
-            // also acquires _stateLock.
+            // Stop the timer and wait for any running callback to complete.
+            // This is done outside the lock to prevent deadlocks.
+            // The Update method will see IsRunning = false or _isDisposed = true and exit quickly.
             using (var waitHandle = new ManualResetEvent(false))
             {
                 if (_timer?.Dispose(waitHandle) ?? false)
                 {
                     // Wait for the timer to signal that the final callback has completed.
                     // A timeout is a safeguard against unforeseen issues.
-                    waitHandle.WaitOne(5000);
+                    waitHandle.WaitOne(1000);
                 }
             }
 
-            // At this point, we are guaranteed that the Update() method is no longer running.
-            // We can now safely dispose of the remaining shared resources.
-            lock (_stateLock)
-            {
-                // Check again in case Dispose was called concurrently.
-                if (_isDisposed) return;
+            // At this point, the Update() method is guaranteed to no longer be running.
+            // We can safely dispose of the remaining resources without a lock.
+            _directInputController?.Unacquire();
+            _directInputController?.Dispose();
+            _directInputController = null;
 
-                _directInputController?.Unacquire();
-                _directInputController?.Dispose(); // Dispose the joystick
-                _directInputController = null;
-
-                _directInput?.Dispose(); // Dispose the DirectInput object
-                _directInput = null;
-
-                _isDisposed = true;
-            }
+            _directInput?.Dispose();
+            _directInput = null;
 
             // Tell GC not to call the finalizer since we've already cleaned up
             GC.SuppressFinalize(this);
@@ -257,8 +248,6 @@ public class GamePadController : IDisposable
                     // Check if disposed or not running before processing
                     if (_isDisposed || !IsRunning)
                     {
-                        // Ensure timer is stopped if somehow Update is called while not running/disposed
-                        _timer?.Change(Timeout.Infinite, Timeout.Infinite);
                         return;
                     }
 
@@ -535,22 +524,22 @@ public class GamePadController : IDisposable
         }
         catch (Exception ex)
         {
-            // This catch block handles exceptions from the DirectInput object itself (e.g., GetDevices)
-            // or other unexpected errors within the reconnection logic.
-            // This is the catch block that generated the log message in the bug report.
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error reconnecting controllers. User was not notified.\n\n" +
+            ErrorLogger?.Invoke(ex, $"Error during controller reconnection. The service will continue to retry.\n\n" +
                                     $"Exception type: {ex.GetType().Name}\n" +
                                     $"Exception details: {ex.Message}");
 
-            // // Clean up potentially invalid state
-            // _directInputController?.Unacquire();
-            // _directInputController?.Dispose();
-            // _directInputController = null;
-            // _playStationControllerGuid = Guid.Empty;
-            // // Do NOT dispose _directInput here, let the next attempt recreate it if needed.
+            // Clean up potentially invalid state to ensure a clean slate for the next attempt.
+            _directInputController?.Unacquire();
+            _directInputController?.Dispose();
+            _directInputController = null;
+            _playStationControllerGuid = Guid.Empty;
 
-            Stop();
+            // If the DirectInput object itself might be corrupted, dispose of it.
+            // It will be recreated on the next reconnection attempt.
+            _directInput?.Dispose();
+            _directInput = null;
+
+            // DO NOT call Stop(). Let the timer continue to run so we can try reconnecting again.
         }
     }
 
