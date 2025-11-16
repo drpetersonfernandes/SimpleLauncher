@@ -1,6 +1,7 @@
 using System;
 using System.Collections.ObjectModel;
 using System.IO;
+using System.Windows;
 using System.Linq;
 using MessagePack;
 using SimpleLauncher.Models;
@@ -27,6 +28,10 @@ public class FavoritesManager
             try
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
+
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...", Application.Current.MainWindow as MainWindow));
+
                 return MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
             }
             catch (Exception ex)
@@ -62,6 +67,9 @@ public class FavoritesManager
 
         try
         {
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFavorites") ?? "Saving favorites...", Application.Current.MainWindow as MainWindow));
+
             // Serialize using MessagePack
             var bytes = MessagePackSerializer.Serialize(this);
             File.WriteAllBytes(DatFilePath, bytes);

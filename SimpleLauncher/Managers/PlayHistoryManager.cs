@@ -3,6 +3,7 @@ using System.Collections.ObjectModel;
 using System.Globalization;
 using System.IO;
 using System.Linq;
+using System.Windows;
 using MessagePack;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -39,6 +40,9 @@ public class PlayHistoryManager
         {
             var bytes = File.ReadAllBytes(FilePath);
             var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
+
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingPlayHistory") ?? "Loading play history...", Application.Current.MainWindow as MainWindow));
 
             // Migrate old date formats to new ISO format if needed
             manager.MigrateOldDateFormats();
@@ -194,6 +198,9 @@ public class PlayHistoryManager
     /// </summary>
     public void SavePlayHistory()
     {
+        // Notify user
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingPlayHistory") ?? "Saving play history...", Application.Current.MainWindow as MainWindow));
+
         var bytes = MessagePackSerializer.Serialize(this);
         File.WriteAllBytes(FilePath, bytes);
     }
@@ -208,6 +215,9 @@ public class PlayHistoryManager
             // Skip if playtime is less than 5 seconds (likely just a quick launch/close)
             if (playTime.TotalSeconds < 5)
                 return;
+
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingPlayHistory") ?? "Updating play history...", Application.Current.MainWindow as MainWindow));
 
             // Get the current date and time in a culture-invariant format
             // This ensures it can be parsed regardless of the UI language

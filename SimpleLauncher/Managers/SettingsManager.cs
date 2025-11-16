@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Xml;
+using System.Windows;
 using System.Xml.Linq;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -73,6 +74,9 @@ public class SettingsManager
 
         if (!File.Exists(_filePath))
         {
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SettingsFileNotFoundCreatingDefault") ?? "Settings file not found, creating default...", Application.Current.MainWindow as MainWindow));
+
             SetDefaultsAndSave();
             return;
         }
@@ -92,6 +96,9 @@ public class SettingsManager
             {
                 settings = XElement.Load(reader, LoadOptions.None);
             }
+
+            // Notify user
+            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSettings") ?? "Loading settings...", Application.Current.MainWindow as MainWindow));
 
             ThumbnailSize = ValidateThumbnailSize(settings.Element("ThumbnailSize")?.Value);
             GamesPerPage = ValidateGamesPerPage(settings.Element("GamesPerPage")?.Value);
@@ -265,6 +272,9 @@ public class SettingsManager
         OverlayOpenInfoButton = false;
         SystemPlayTimes = [];
         Save();
+
+        // Notify user
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
     }
 
     public void Save()
@@ -308,6 +318,9 @@ public class SettingsManager
             new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
             systemPlayTimesElement
         ).Save(_filePath);
+
+        // Notify user
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
     }
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
@@ -327,6 +340,9 @@ public class SettingsManager
 
             return;
         }
+
+        // Notify user
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("UpdatingSystemPlayTime") ?? "Updating system play time...", Application.Current.MainWindow as MainWindow));
 
         var systemPlayTime = SystemPlayTimes.FirstOrDefault(s => s.SystemName == systemName);
         if (systemPlayTime == null)

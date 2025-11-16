@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using MessagePack;
+using System.Windows;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -24,6 +25,9 @@ public class RetroAchievementsManager
         {
             try
             {
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingRetroAchievementsDatabase") ?? "Loading RetroAchievements database...", Application.Current.MainWindow as MainWindow));
+
                 var bytes = File.ReadAllBytes(DatFilePath);
                 if (bytes.Length > 0)
                 {
