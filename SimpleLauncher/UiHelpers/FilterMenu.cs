@@ -123,6 +123,7 @@ public class FilterMenu
         }
 
         button.Background = (Brush)Application.Current.Resources["AccentColorBrush"];
+        PlaySoundEffects.PlayNotificationSound();
         _selectedButton = button;
     }
 

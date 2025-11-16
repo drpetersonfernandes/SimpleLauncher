@@ -62,6 +62,7 @@ public static class ContextMenuFunctions
                 }
 
                 // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FileAddedToFavorites") ?? "File added to favorites.", mainWindow);
                 MessageBoxLibrary.FileAddedToFavoritesMessageBox(fileNameWithExtension);
             }
             else
@@ -123,6 +124,7 @@ public static class ContextMenuFunctions
             }
 
             // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FileRemovedFromFavorites") ?? "File removed from favorites.", mainWindow);
             MessageBoxLibrary.FileRemovedFromFavoritesMessageBox(fileNameWithExtension);
         }
         catch (Exception ex)
@@ -136,7 +138,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
+    public static void OpenVideoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -169,11 +171,12 @@ public static class ContextMenuFunctions
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningVideoLink") ?? "Error opening video link.", mainWindow);
             MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
         }
     }
 
-    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings)
+    public static void OpenInfoLink(string systemName, string fileNameWithoutExtension, List<MameManager> machines, SettingsManager settings, MainWindow mainWindow)
     {
         // Attempt to find a matching machine description
         var searchTerm = fileNameWithoutExtension;
@@ -206,11 +209,12 @@ public static class ContextMenuFunctions
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningInfoLink") ?? "Error opening info link.", mainWindow);
             MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
         }
     }
 
-    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager systemManager, List<MameManager> machines)
+    public static void OpenRomHistoryWindow(string systemName, string fileNameWithoutExtension, SystemManager systemManager, List<MameManager> machines, MainWindow mainWindow)
     {
         var romName = fileNameWithoutExtension.ToLowerInvariant();
 
@@ -234,6 +238,7 @@ public static class ContextMenuFunctions
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ErrorOpeningROMHistory") ?? "Error opening ROM history.", mainWindow);
             MessageBoxLibrary.CouldNotOpenHistoryWindowMessageBox();
         }
     }
@@ -387,7 +392,7 @@ public static class ContextMenuFunctions
         }
     }
 
-    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemManager systemManager)
+    public static void OpenCover(string systemName, string fileNameWithoutExtension, SystemManager systemManager, MainWindow mainWindow)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
         var systemImageFolder = systemManager.SystemImageFolder;
@@ -397,6 +402,8 @@ public static class ContextMenuFunctions
         var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
 
         var globalImageDirectory = Path.Combine(baseDirectory, "images", systemName);
+
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCoverImage") ?? "Opening cover image.", mainWindow);
 
         // Image extensions to look for
         var imageExtensions = GetImageExtensions.GetExtensions();
@@ -443,6 +450,7 @@ public static class ContextMenuFunctions
     public static void OpenTitleSnapshot(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningTitleSnapshot") ?? "Opening title snapshot.", Application.Current.MainWindow as MainWindow);
         var titleSnapshotDirectory = Path.Combine(baseDirectory, "title_snapshots", systemName);
         string[] titleSnapshotExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -465,6 +473,7 @@ public static class ContextMenuFunctions
     public static void OpenGameplaySnapshot(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGameplaySnapshot") ?? "Opening gameplay snapshot.", Application.Current.MainWindow as MainWindow);
         var gameplaySnapshotDirectory = Path.Combine(baseDirectory, "gameplay_snapshots", systemName);
         var gameplaySnapshotExtensions = GetImageExtensions.GetExtensions();
 
@@ -487,6 +496,7 @@ public static class ContextMenuFunctions
     public static void OpenCart(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCartImage") ?? "Opening cart image.", Application.Current.MainWindow as MainWindow);
         var cartDirectory = Path.Combine(baseDirectory, "carts", systemName);
         string[] cartExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -509,6 +519,7 @@ public static class ContextMenuFunctions
     public static void PlayVideo(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PlayingVideo") ?? "Playing video...", Application.Current.MainWindow as MainWindow);
         var videoDirectory = Path.Combine(baseDirectory, "videos", systemName);
         string[] videoExtensions = [".mp4", ".avi", ".mkv"];
 
@@ -533,6 +544,7 @@ public static class ContextMenuFunctions
     public static void OpenManual(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningManual") ?? "Opening manual...", Application.Current.MainWindow as MainWindow);
         var manualDirectory = Path.Combine(baseDirectory, "manuals", systemName);
         string[] manualExtensions = [".pdf"];
 
@@ -572,6 +584,7 @@ public static class ContextMenuFunctions
     public static void OpenWalkthrough(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningWalkthrough") ?? "Opening walkthrough...", Application.Current.MainWindow as MainWindow);
         var walkthroughDirectory = Path.Combine(baseDirectory, "walkthrough", systemName);
         string[] walkthroughExtensions = [".pdf"];
 
@@ -612,6 +625,7 @@ public static class ContextMenuFunctions
     public static void OpenCabinet(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningCabinetImage") ?? "Opening cabinet image.", Application.Current.MainWindow as MainWindow);
         var cabinetDirectory = Path.Combine(baseDirectory, "cabinets", systemName);
         var cabinetExtensions = GetImageExtensions.GetExtensions();
 
@@ -634,6 +648,7 @@ public static class ContextMenuFunctions
     public static void OpenFlyer(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFlyerImage") ?? "Opening flyer image.", Application.Current.MainWindow as MainWindow);
         var flyerDirectory = Path.Combine(baseDirectory, "flyers", systemName);
         string[] flyerExtensions = [".png", ".jpg", ".jpeg"];
 
@@ -656,6 +671,7 @@ public static class ContextMenuFunctions
     public static void OpenPcb(string systemName, string fileNameWithoutExtension)
     {
         var baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPCBImage") ?? "Opening PCB image.", Application.Current.MainWindow as MainWindow);
         var pcbDirectory = Path.Combine(baseDirectory, "pcbs", systemName);
         var pcbExtensions = GetImageExtensions.GetExtensions();
 
@@ -676,6 +692,7 @@ public static class ContextMenuFunctions
 
     public static async Task TakeScreenshotOfSelectedWindow(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, Button button, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TakingScreenshot") ?? "Taking screenshot...", mainWindow);
         try
         {
             // Clear the preview image
@@ -873,6 +890,7 @@ public static class ContextMenuFunctions
 
     public static async Task DeleteGameAsync(string filePath, string fileNameWithExtension, MainWindow mainWindow)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingGame") ?? "Deleting game...", mainWindow);
         if (File.Exists(filePath))
         {
             try
@@ -923,6 +941,7 @@ public static class ContextMenuFunctions
         SettingsManager contextSettings,
         MainWindow mainWindow)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("DeletingCoverImage") ?? "Deleting cover image.", mainWindow);
         var coverPath = FindCoverImage.FindCoverImagePath(fileNameWithoutExtension, selectedSystemName, selectedSystemManager, contextSettings);
 
         try

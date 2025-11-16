@@ -44,7 +44,7 @@ public class GameButtonFactory(
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
 
-    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager systemManager)
+    public async Task<Button> CreateGameButtonAsync(string entityPath, string systemName, SystemManager systemManager, MainWindow mainWindow)
     {
         var isDirectory = Directory.Exists(entityPath);
 
@@ -364,7 +364,7 @@ public class GameButtonFactory(
                     context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                        ContextMenuFunctions.OpenVideoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
                     }
                     catch (Exception ex)
                     {
@@ -426,7 +426,7 @@ public class GameButtonFactory(
                     context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
                     {
-                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings);
+                        ContextMenuFunctions.OpenInfoLink(selectedSystemName, fileNameWithoutExtension, _machines, _settings, mainWindow);
                     }
                     catch (Exception ex)
                     {

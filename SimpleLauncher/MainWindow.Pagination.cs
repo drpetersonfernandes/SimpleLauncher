@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using SimpleLauncher.Services;
+using Application = System.Windows.Application;
 
 namespace SimpleLauncher;
 
@@ -35,7 +36,10 @@ public partial class MainWindow
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingPreviousPage") ?? "Loading previous page...", this);
             }
+
             catch (Exception ex)
             {
                 // Notify developer
@@ -75,7 +79,10 @@ public partial class MainWindow
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingNextPage") ?? "Loading next page...", this);
             }
+
             catch (Exception ex)
             {
                 // Notify developer

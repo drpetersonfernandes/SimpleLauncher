@@ -59,6 +59,8 @@ public partial class MainWindow
 
             LoadOrReloadSystemManager();
 
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
+
             ResetUi(); // To load new or edited systems into UI
         }
         catch (Exception ex)
@@ -79,6 +81,8 @@ public partial class MainWindow
 
             LoadOrReloadSystemManager();
 
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
+
             ResetUi(); // To load new or edited systems into UI
         }
         catch (Exception ex)
@@ -98,6 +102,8 @@ public partial class MainWindow
 
             DownloadImagePackWindow downloadImagePack = new();
             downloadImagePack.ShowDialog();
+
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", this);
         }
         catch (Exception ex)
         {
@@ -113,6 +119,8 @@ public partial class MainWindow
             if (_isUiUpdating) return;
 
             _isUiUpdating = true;
+            // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingUI") ?? "Resetting UI...", this);
 
             if (_isLoadingGames)
             {
@@ -178,6 +186,7 @@ public partial class MainWindow
 
             try
             {
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkEditor") ?? "Opening Link Editor...", this);
                 PlaySoundEffects.PlayNotificationSound();
 
                 SetLinksWindow editLinksWindow = new(_settings);
@@ -220,6 +229,9 @@ public partial class MainWindow
             {
                 _gamePadController.Stop();
             }
+
+            // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingGamepadNavigation") ?? "Toggling gamepad navigation...", this);
         }
         catch (Exception ex)
         {
@@ -235,12 +247,14 @@ public partial class MainWindow
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGamepadDeadZoneSettings") ?? "Opening Gamepad Dead Zone settings...", this);
 
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
         setGamepadDeadZoneWindow.ShowDialog();
 
         // Update the GamePadController dead zone settings from SettingsManager
         _gamePadController.DeadZoneX = _settings.DeadZoneX;
+
         _gamePadController.DeadZoneY = _settings.DeadZoneY;
 
         if (_settings.EnableGamePadNavigation)
@@ -271,6 +285,8 @@ public partial class MainWindow
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingFuzzyMatching") ?? "Toggling fuzzy matching...", this);
             }
             catch (Exception ex)
             {
@@ -302,6 +318,8 @@ public partial class MainWindow
             if (!_settings.EnableFuzzyMatching) return;
 
             var (sl, sq) = GetLoadGameFilesParams();
+            // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFuzzyMatchingSettings") ?? "Opening fuzzy matching settings...", this);
             await LoadGameFilesAsync(sl, sq);
         }
         catch (Exception ex)
@@ -314,8 +332,10 @@ public partial class MainWindow
     private void Support_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
 
         SupportWindow supportRequestWindow = new();
+
         supportRequestWindow.ShowDialog();
     }
 
@@ -330,6 +350,8 @@ public partial class MainWindow
                 FileName = "https://www.purelogiccode.com/Donate",
                 UseShellExecute = true
             };
+            // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...", this);
             Process.Start(psi);
         }
         catch (Exception ex)
@@ -346,6 +368,7 @@ public partial class MainWindow
     private void About_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
 
         AboutWindow aboutWindow = new();
         aboutWindow.ShowDialog();
@@ -360,6 +383,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
             try
@@ -388,6 +412,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
             try
@@ -417,6 +442,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilityFilter") ?? "Applying game visibility filter...", this);
             if (_isLoadingGames) return;
 
             try
@@ -476,6 +502,8 @@ public partial class MainWindow
                 _settings.Save();
 
                 UpdateThumbnailSizeCheckMarks(newSize);
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonSize") ?? "Adjusting button size...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
@@ -501,6 +529,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingButtonAspectRatio") ?? "Adjusting button aspect ratio...", this);
             if (_isLoadingGames) return;
 
             if (sender is not MenuItem clickedItem) return;
@@ -561,6 +590,8 @@ public partial class MainWindow
 
                 _settings.Save();
                 UpdateNumberOfGamesPerPageCheckMarks(newPage);
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("AdjustingGamesPerPage") ?? "Adjusting games per page...", this);
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
@@ -581,6 +612,7 @@ public partial class MainWindow
     private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
 
         ResetUi();
 
@@ -592,6 +624,7 @@ public partial class MainWindow
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
 
         var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
         globalStatsWindow.Show();
@@ -599,6 +632,7 @@ public partial class MainWindow
 
     private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
@@ -610,6 +644,7 @@ public partial class MainWindow
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
     {
         PlaySoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
 
         ResetUi();
 
@@ -682,6 +717,8 @@ public partial class MainWindow
 
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
 
                 ResetUi();
             }
@@ -693,6 +730,8 @@ public partial class MainWindow
 
                 GameFileGrid.Visibility = Visibility.Collapsed;
                 ListViewPreviewArea.Visibility = Visibility.Visible;
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
 
                 ResetUi();
             }
@@ -713,6 +752,7 @@ public partial class MainWindow
     private void ApplyShowGamesSetting()
     {
         UpdateMenuCheckMarks(_settings.ShowGames);
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ApplyingGameVisibilitySettings") ?? "Applying game visibility settings...", this);
     }
 
     private void ChangeLanguage_Click(object sender, RoutedEventArgs e)
@@ -750,6 +790,8 @@ public partial class MainWindow
 
         SetLanguageAndCheckMenu(selectedLanguage);
 
+        // Notify user
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingLanguage") ?? "Changing language...", this);
         SaveApplicationSettings();
 
         QuitApplication.RestartApplication();
@@ -757,6 +799,7 @@ public partial class MainWindow
 
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RestartingUI") ?? "Restarting UI...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ResetUi();
@@ -764,6 +807,7 @@ public partial class MainWindow
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ShowGlobalSearchWindow_Click(sender, e);
@@ -771,6 +815,7 @@ public partial class MainWindow
 
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ShowFavoritesWindow_Click(sender, e);
@@ -778,6 +823,7 @@ public partial class MainWindow
 
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ShowPlayHistoryWindow_Click(sender, e);
@@ -785,6 +831,7 @@ public partial class MainWindow
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
         PlaySoundEffects.PlayNotificationSound();
 
         ExpertMode_Click(sender, e);
@@ -794,6 +841,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...", this);
             await ShowSystemFavoriteGamesClickAsync();
         }
         catch (Exception ex)
@@ -807,6 +855,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...", this);
             await ShowSystemFeelingLuckyClickAsync(sender, e);
         }
         catch (Exception ex)
@@ -840,6 +889,8 @@ public partial class MainWindow
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
 
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingIn") ?? "Zooming in...", this);
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
             }
@@ -881,6 +932,8 @@ public partial class MainWindow
                 _settings.Save();
                 UpdateThumbnailSizeCheckMarks(newSize);
 
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ZoomingOut") ?? "Zooming out...", this);
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
             }
@@ -902,6 +955,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingViewMode") ?? "Toggling view mode...", this);
             if (_isLoadingGames) return;
 
             try
@@ -978,6 +1032,7 @@ public partial class MainWindow
             PlaySoundEffects.PlayNotificationSound();
             var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
             raSettingsWindow.ShowDialog();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
         }
         catch (Exception ex)
         {
@@ -990,6 +1045,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...", this);
         try
         {
             PlaySoundEffects.PlayNotificationSound();
@@ -1012,6 +1068,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...", this);
         try
         {
             PlaySoundEffects.PlayNotificationSound();
@@ -1034,6 +1091,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...", this);
         try
         {
             PlaySoundEffects.PlayNotificationSound();
