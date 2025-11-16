@@ -1,5 +1,6 @@
 using System;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using SharpDX;
 using SharpDX.DirectInput;
@@ -242,7 +243,7 @@ public class GamePadController : IDisposable
         }
     }
 
-    private async void Update()
+    private async Task Update()
     {
         try
         {

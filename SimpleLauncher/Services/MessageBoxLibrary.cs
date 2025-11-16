@@ -14,7 +14,7 @@ internal static class MessageBoxLibrary
 {
     internal static void TakeScreenShotMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -36,7 +36,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotSaveScreenshotMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -52,7 +52,7 @@ internal static class MessageBoxLibrary
 
     internal static void GameIsAlreadyInFavoritesMessageBox(string fileNameWithExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -66,7 +66,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorWhileAddingFavoritesMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -81,7 +81,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorWhileRemovingGameFromFavoriteMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -96,7 +96,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorOpeningTheUpdateHistoryWindowMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -111,7 +111,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorOpeningVideoLinkMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -127,7 +127,7 @@ internal static class MessageBoxLibrary
 
     internal static void ProblemOpeningInfoLinkMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -143,7 +143,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorOpeningUrlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -159,7 +159,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoCoverMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -173,7 +173,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoTitleSnapshotMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -187,7 +187,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoGameplaySnapshotMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -201,7 +201,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoCartMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -215,7 +215,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoVideoFileMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -229,7 +229,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenManualMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -244,7 +244,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoManualMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -258,7 +258,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoWalkthroughMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -272,7 +272,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoCabinetMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -286,7 +286,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoFlyerMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -300,7 +300,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoPcbMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -314,7 +314,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileSuccessfullyDeletedMessageBox(string fileNameWithExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -329,7 +329,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileCouldNotBeDeletedMessageBox(string fileNameWithExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -344,7 +344,7 @@ internal static class MessageBoxLibrary
 
     internal static void DefaultImageNotFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -370,7 +370,7 @@ internal static class MessageBoxLibrary
 
     internal static void GlobalSearchErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -385,7 +385,7 @@ internal static class MessageBoxLibrary
 
     internal static void PleaseEnterSearchTermMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -399,7 +399,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorLaunchingGameMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -432,7 +432,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectAGameToLaunchMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -445,7 +445,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileAddedToFavoritesMessageBox(string fileNameWithoutExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -458,7 +458,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileRemovedFromFavoritesMessageBox(string fileNameWithoutExtension)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -471,7 +471,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotLaunchThisGameMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -503,7 +503,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorCalculatingStatsMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -519,7 +519,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedSaveReportMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -535,7 +535,7 @@ internal static class MessageBoxLibrary
 
     internal static void ReportSavedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -549,7 +549,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoStatsToSaveMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -563,7 +563,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorLaunchingToolMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -599,7 +599,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectedToolNotFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -625,7 +625,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -640,7 +640,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoFavoriteFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -653,7 +653,7 @@ internal static class MessageBoxLibrary
 
     internal static void MoveToWritableFolderMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -672,7 +672,7 @@ internal static class MessageBoxLibrary
 
     internal static void InvalidSystemConfigMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -687,7 +687,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorMethodLoadGameFilesAsyncMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -702,7 +702,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorOpeningDonationLinkMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -717,7 +717,7 @@ internal static class MessageBoxLibrary
 
     internal static void ToggleGamepadFailureMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -732,7 +732,7 @@ internal static class MessageBoxLibrary
 
     internal static void FindRomCoverLaunchWasCanceledByUserMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -745,7 +745,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorChangingViewModeMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -760,7 +760,7 @@ internal static class MessageBoxLibrary
 
     internal static void NavigationButtonErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -775,7 +775,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectSystemBeforeSearchMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -788,7 +788,7 @@ internal static class MessageBoxLibrary
 
     internal static void EnterSearchQueryMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -801,7 +801,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorWhileLoadingHelpUserXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -822,7 +822,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoSystemInHelpUserXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -856,7 +856,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedToLoadHelpUserXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -877,7 +877,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileHelpUserXmlIsMissingMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -898,7 +898,7 @@ internal static class MessageBoxLibrary
 
     internal static void ImageViewerErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -915,7 +915,7 @@ internal static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileCorruptedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -945,7 +945,7 @@ internal static class MessageBoxLibrary
 
     internal static void ReinstallSimpleLauncherFileMissingMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -966,7 +966,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorCheckingForUpdatesMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -981,7 +981,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorLoadingRomHistoryMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -997,7 +997,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoHistoryXmlFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1018,7 +1018,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorOpeningBrowserMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1034,7 +1034,7 @@ internal static class MessageBoxLibrary
 
     internal static void SimpleLauncherNeedMorePrivilegesMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1056,7 +1056,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemXmlIsCorruptedMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1096,7 +1096,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileSystemXmlIsCorruptedMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1129,7 +1129,7 @@ internal static class MessageBoxLibrary
 
     internal static void InstallUpdateManuallyMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1169,7 +1169,7 @@ internal static class MessageBoxLibrary
 
     internal static void RequiredFileMissingMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1197,7 +1197,7 @@ internal static class MessageBoxLibrary
 
     internal static void EnterSupportRequestMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1210,7 +1210,7 @@ internal static class MessageBoxLibrary
 
     internal static void EnterNameMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1223,7 +1223,7 @@ internal static class MessageBoxLibrary
 
     internal static void EnterEmailMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1236,7 +1236,7 @@ internal static class MessageBoxLibrary
 
     internal static void ApiKeyErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1251,7 +1251,7 @@ internal static class MessageBoxLibrary
 
     internal static void SupportRequestSuccessMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1264,7 +1264,7 @@ internal static class MessageBoxLibrary
 
     internal static void SupportRequestSendErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1279,7 +1279,7 @@ internal static class MessageBoxLibrary
 
     internal static void ExtractionFailedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1302,7 +1302,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileNeedToBeCompressedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1319,7 +1319,7 @@ internal static class MessageBoxLibrary
 
     internal static void DownloadedFileIsMissingMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1334,7 +1334,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileIsLockedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1353,7 +1353,7 @@ internal static class MessageBoxLibrary
 
     internal static void ImagePackDownloadExtractionFailedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1372,7 +1372,7 @@ internal static class MessageBoxLibrary
 
     internal static void DownloadExtractionSuccessfullyMessageBox(string extractionFolder)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1385,7 +1385,7 @@ internal static class MessageBoxLibrary
 
     internal static void ImagePackDownloadErrorOfferRedirectMessageBox(EasyModeSystemConfig selectedSystem)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1428,7 +1428,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorLoadingEasyModeXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1456,7 +1456,7 @@ internal static class MessageBoxLibrary
 
     internal static void LinksSavedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1469,7 +1469,7 @@ internal static class MessageBoxLibrary
 
     internal static void DeadZonesSavedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1482,7 +1482,7 @@ internal static class MessageBoxLibrary
 
     internal static void LinksRevertedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1495,7 +1495,7 @@ internal static class MessageBoxLibrary
 
     internal static void MainWindowSearchEngineErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1510,7 +1510,7 @@ internal static class MessageBoxLibrary
 
     internal static void DownloadExtractionFailedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1529,7 +1529,7 @@ internal static class MessageBoxLibrary
 
     internal static void DownloadAndExtrationWereSuccessfulMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1542,7 +1542,7 @@ internal static class MessageBoxLibrary
 
     internal static Task ShowEmulatorDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return Task.CompletedTask;
 
         void ShowMessage()
@@ -1578,7 +1578,7 @@ internal static class MessageBoxLibrary
 
     internal static Task ShowCoreDownloadErrorMessageBoxAsync(EasyModeSystemConfig selectedSystem)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return Task.CompletedTask;
 
         void ShowMessage()
@@ -1619,7 +1619,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectAHistoryItemToRemoveMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1647,7 +1647,7 @@ internal static class MessageBoxLibrary
             return Task.CompletedTask;
         }
 
-        Application.Current.Dispatcher.Invoke((Action)ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync((Action)ShowMessage);
         return Task.CompletedTask;
 
         void ShowMessage()
@@ -1682,7 +1682,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemAddedMessageBox(string systemName, string resolvedSystemFolder, string resolvedSystemImageFolder)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1700,7 +1700,7 @@ internal static class MessageBoxLibrary
 
     internal static void AddSystemFailedMessageBox(string details = null)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1724,7 +1724,7 @@ internal static class MessageBoxLibrary
 
     internal static void RightClickContextMenuErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1739,7 +1739,7 @@ internal static class MessageBoxLibrary
 
     internal static void GameFileDoesNotExistMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1754,7 +1754,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenHistoryWindowMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1769,7 +1769,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenWalkthroughMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1784,7 +1784,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectAFavoriteToRemoveMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1797,7 +1797,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemXmlNotFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1814,7 +1814,7 @@ internal static class MessageBoxLibrary
 
     internal static void YouCanAddANewSystemMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1827,7 +1827,7 @@ internal static class MessageBoxLibrary
 
     internal static void EmulatorNameRequiredMessageBox(int i)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1843,7 +1843,7 @@ internal static class MessageBoxLibrary
 
     internal static void EmulatorNameIsRequiredMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1858,7 +1858,7 @@ internal static class MessageBoxLibrary
 
     internal static void EmulatorNameMustBeUniqueMessageBox(string emulatorName)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -1872,7 +1872,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemSavedSuccessfullyMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1885,7 +1885,7 @@ internal static class MessageBoxLibrary
 
     internal static void PathOrParameterInvalidMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1900,7 +1900,7 @@ internal static class MessageBoxLibrary
 
     internal static void Emulator1RequiredMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1915,7 +1915,7 @@ internal static class MessageBoxLibrary
 
     internal static void ExtensionToLaunchIsRequiredMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1930,7 +1930,7 @@ internal static class MessageBoxLibrary
 
     internal static void ExtensionToSearchIsRequiredMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1945,7 +1945,7 @@ internal static class MessageBoxLibrary
 
     internal static void FileMustBeCompressedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1960,7 +1960,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemImageFolderCanNotBeEmptyMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1975,7 +1975,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemFolderCanNotBeEmptyMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -1990,7 +1990,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemNameCanNotBeEmptyMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2005,7 +2005,7 @@ internal static class MessageBoxLibrary
 
     internal static void FolderCreatedMessageBox(string systemNameText)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2020,7 +2020,7 @@ internal static class MessageBoxLibrary
 
     internal static void FolderCreationFailedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2039,7 +2039,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectASystemToDeleteMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2052,7 +2052,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemNotFoundInTheXmlMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2065,7 +2065,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorFindingGameFilesMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2099,7 +2099,7 @@ internal static class MessageBoxLibrary
 
     internal static void GamePadErrorMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2138,7 +2138,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotLaunchGameMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2179,7 +2179,7 @@ internal static class MessageBoxLibrary
 
     internal static void InvalidOperationExceptionMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2217,7 +2217,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorLaunchingThisGameMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2252,7 +2252,7 @@ internal static class MessageBoxLibrary
 
     internal static void CannotExtractThisFileMessageBox(string filePath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2270,7 +2270,7 @@ internal static class MessageBoxLibrary
 
     internal static void NullFileExtensionMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2285,7 +2285,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotFindAFileMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2312,7 +2312,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemHasBeenDeletedMessageBox(string selectedSystemName)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2336,7 +2336,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorDeletingTheGameMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2351,7 +2351,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorDeletingTheCoverImageMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2400,7 +2400,7 @@ internal static class MessageBoxLibrary
 
     internal static void SimpleLauncherWasUnableToRestoreBackupMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2427,7 +2427,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedToLoadLanguageResourceMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2443,7 +2443,7 @@ internal static class MessageBoxLibrary
 
     internal static void InvalidSystemConfigurationMessageBox(string error)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2455,7 +2455,7 @@ internal static class MessageBoxLibrary
 
     internal static void ExtractionFolderCannotBeCreatedMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2489,7 +2489,7 @@ internal static class MessageBoxLibrary
 
     internal static void DownloadUrlIsNullMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2502,7 +2502,7 @@ internal static class MessageBoxLibrary
 
     internal static void UnableToOpenLinkMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2517,7 +2517,7 @@ internal static class MessageBoxLibrary
 
     internal static void SelectedSystemIsNullMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2530,7 +2530,7 @@ internal static class MessageBoxLibrary
 
     internal static void SystemNameIsNullMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2543,7 +2543,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoGameFoundInTheRandomSelectionMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2556,7 +2556,7 @@ internal static class MessageBoxLibrary
 
     internal static void PleaseSelectASystemBeforeMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2569,7 +2569,7 @@ internal static class MessageBoxLibrary
 
     internal static void ParameterPathsInvalidWarningMessageBox(List<string> invalidPaths)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2599,7 +2599,7 @@ internal static class MessageBoxLibrary
 
     internal static void ToggleFuzzyMatchingFailureMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2612,7 +2612,7 @@ internal static class MessageBoxLibrary
 
     internal static void FuzzyMatchingErrorValueOutsideValidRangeMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2625,7 +2625,7 @@ internal static class MessageBoxLibrary
 
     internal static void FuzzyMatchingErrorFailToSetThresholdMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2638,7 +2638,7 @@ internal static class MessageBoxLibrary
 
     internal static void ListOfErrorsMessageBox(StringBuilder errorMessages)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2652,7 +2652,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereIsNoUpdateAvailableMessageBox(Window mainWindow, string currentVersion)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2667,7 +2667,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorCheckingForUpdatesMessageBox(Window mainWindow)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2682,7 +2682,7 @@ internal static class MessageBoxLibrary
 
     internal static void AnotherInstanceIsRunningMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2694,7 +2694,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedToStartSimpleLauncherMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2707,7 +2707,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedToRestartMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2736,7 +2736,7 @@ internal static class MessageBoxLibrary
 
     internal static void HandleMissingRequiredFilesMessageBox(string fileList)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2765,7 +2765,7 @@ internal static class MessageBoxLibrary
 
     internal static void HandleApiConfigErrorMessageBox(string reason)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2798,7 +2798,7 @@ internal static class MessageBoxLibrary
 
     internal static void DiskSpaceErrorMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2811,7 +2811,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotCheckForDiskSpaceMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2824,7 +2824,7 @@ internal static class MessageBoxLibrary
 
     internal static void SaveSystemFailedMessageBox(string details = null)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2848,7 +2848,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenTheDownloadLink()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2861,7 +2861,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorLoadingAppSettingsMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2876,7 +2876,7 @@ internal static class MessageBoxLibrary
 
     internal static void PotentialPathManipulationDetectedMessageBox(string archivePath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -2914,7 +2914,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenSoundConfigurationWindow()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2927,7 +2927,7 @@ internal static class MessageBoxLibrary
 
     internal static void ErrorSettingSoundFile()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2940,7 +2940,7 @@ internal static class MessageBoxLibrary
 
     internal static void NotificationSoundIsDisable()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2953,7 +2953,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoSoundFileIsSelected()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2966,7 +2966,7 @@ internal static class MessageBoxLibrary
 
     internal static void SettingsSavedSuccessfully()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -2979,7 +2979,7 @@ internal static class MessageBoxLibrary
 
     internal static void FilePathIsInvalid(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3018,7 +3018,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorMountingTheFile(string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3055,7 +3055,7 @@ internal static class MessageBoxLibrary
 
     internal static void LaunchToolInformation(string info)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3067,7 +3067,7 @@ internal static class MessageBoxLibrary
 
     internal static void ThereWasAnErrorLaunchingTheToolMessageBox(string toolName, string logPath)
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3100,7 +3100,7 @@ internal static class MessageBoxLibrary
 
     internal static void XisoMountNotSupportedOnArm64()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3113,7 +3113,7 @@ internal static class MessageBoxLibrary
 
     internal static void CannotScreenshotMinimizedWindowMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3126,7 +3126,7 @@ internal static class MessageBoxLibrary
 
     internal static void FailedToCopyLogContent()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3139,7 +3139,7 @@ internal static class MessageBoxLibrary
 
     internal static void UpdaterIsMissingAttemptingDownload()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3152,7 +3152,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotFindUpdaterOnGitHub()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3165,7 +3165,7 @@ internal static class MessageBoxLibrary
 
     internal static void CouldNotOpenAchievementsWindowMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3179,7 +3179,7 @@ internal static class MessageBoxLibrary
 
     internal static void GameNotSupportedByRetroAchievementsMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3192,7 +3192,7 @@ internal static class MessageBoxLibrary
 
     internal static void GameLaunchTimeoutMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3205,7 +3205,7 @@ internal static class MessageBoxLibrary
 
     internal static void RaHasherNotFoundMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3218,7 +3218,7 @@ internal static class MessageBoxLibrary
 
     internal static void AddRaLogin()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3231,7 +3231,7 @@ internal static class MessageBoxLibrary
 
     internal static void SettingsXmlFileIsCorruptMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3244,7 +3244,7 @@ internal static class MessageBoxLibrary
 
     internal static void SettingsXmlFileCouldNotBeLoadedMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3257,7 +3257,7 @@ internal static class MessageBoxLibrary
 
     internal static void NoDefaultBrowserConfiguredMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3271,7 +3271,7 @@ internal static class MessageBoxLibrary
     internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null)
     {
         // Pass the parameters to the ShowMessage local function
-        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage, gameLauncher));
+        Application.Current.Dispatcher.InvokeAsync(() => ShowMessage(ex, contextMessage, gameLauncher));
         return;
 
         // Modify ShowMessage to accept the parameters
@@ -3293,7 +3293,7 @@ internal static class MessageBoxLibrary
 
     internal static void WarnUserAboutMemoryConsumption()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
@@ -3307,7 +3307,7 @@ internal static class MessageBoxLibrary
 
     internal static void GroupByFolderOnlyForMameMessageBox()
     {
-        Application.Current.Dispatcher.Invoke(ShowMessage);
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()

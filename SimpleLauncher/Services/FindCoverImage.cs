@@ -69,7 +69,7 @@ public static class FindCoverImage
             // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
             if (enableFuzzyMatching)
             {
-                var filesInImageFolder = Directory.GetFiles(systemImageFolder)
+                var filesInImageFolder = Directory.EnumerateFiles(systemImageFolder)
                     .Where(f => imageExtensions.Any(ext => f.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
                     .ToList();
 
