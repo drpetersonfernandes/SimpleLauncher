@@ -12,6 +12,7 @@ public partial class MainWindow
     {
         try
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("StartingGlobalSearch") ?? "Starting global search...", this);
             PlaySoundEffects.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
@@ -48,6 +49,7 @@ public partial class MainWindow
 
     private async Task ExecuteSearchAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ExecutingSearch") ?? "Executing search...", this);
         if (_isLoadingGames) return;
 
         ResetPaginationButtons();

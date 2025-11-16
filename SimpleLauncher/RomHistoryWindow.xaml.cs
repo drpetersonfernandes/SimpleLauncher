@@ -51,6 +51,7 @@ public partial class RomHistoryWindow
 
     private async Task LoadRomHistoryAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingROMHistory") ?? "Loading ROM history...", Application.Current.MainWindow as MainWindow);
         try
         {
             var historyFilePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "history.xml");

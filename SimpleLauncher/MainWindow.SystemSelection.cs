@@ -5,7 +5,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media;
-using System.Windows.Automation; // Added for AutomationProperties
+using System.Windows.Automation;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -53,6 +53,7 @@ public partial class MainWindow
 
     private async Task PopulateSystemSelectionGridAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PopulatingSystemSelectionGrid") ?? "Populating system selection grid...", this);
         foreach (var config in _systemManagers.OrderBy(static s => s.SystemName))
         {
             // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
@@ -132,6 +133,7 @@ public partial class MainWindow
             }
 
             PlaySoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
         }
         catch (Exception ex)
         {
@@ -226,6 +228,8 @@ public partial class MainWindow
             _settings.Save();
 
             UpdateButtonAspectRatioCheckMarks(newAspectRatio);
+            // Notify user
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingButtonAspectRatio") ?? "Toggling button aspect ratio...", this);
 
             var (sl, sq) = GetLoadGameFilesParams();
             await LoadGameFilesAsync(sl, sq);

@@ -28,9 +28,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private DispatcherTimer _controllerCheckTimer;
 
     // DispatcherTimer for the status bar timer
-#pragma warning disable CA1051
-    public DispatcherTimer StatusBarTimer;
-#pragma warning restore CA1051
+    public DispatcherTimer StatusBarTimer { get; set; }
 
     // Declare GameListItems
     // Used in ListView Mode
@@ -82,10 +80,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private TrayIconManager _trayIconManager;
 
     // Define PlayHistory
-    // ReSharper disable once FieldCanBeMadeReadOnly.Global
-#pragma warning disable CA1051
-    public PlayHistoryManager PlayHistoryManager;
-#pragma warning restore CA1051
+    public PlayHistoryManager PlayHistoryManager { get; }
 
     // Define Pagination Related Variables
     private int _currentPage = 1;
@@ -131,7 +126,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         InitializeComponent();
 
         _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
-        // Inject settings from DI
         _updateChecker = updateChecker ?? throw new ArgumentNullException(nameof(updateChecker));
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
@@ -416,6 +410,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public void RefreshGameListAfterPlay(string fileName, string systemName)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RefreshingGameList") ?? "Refreshing game list...", this);
         try
         {
             // Only update if in ListView mode
@@ -806,6 +801,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     public async Task LoadGameFilesAsync(string startLetter = null, string searchQuery = null)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingGameFiles") ?? "Loading game files...", this);
         Dispatcher.Invoke(() => SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingGames") ?? "Loading Games..."));
         await SetUiBeforeLoadGameFilesAsync();
 
@@ -871,7 +867,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 if (_settings.ViewMode == "GridView") // GridView
                 {
-                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager);
+                    var gameButton = await _gameButtonFactory.CreateGameButtonAsync(filePath, selectedSystem, selectedManager, this);
                     GameFileGrid.Dispatcher.Invoke(() => GameFileGrid.Children.Add(gameButton));
                 }
                 else // ListView

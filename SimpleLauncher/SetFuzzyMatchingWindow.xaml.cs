@@ -41,6 +41,7 @@ public partial class SetFuzzyMatchingWindow
                 // Update the setting
                 _settings.FuzzyMatchingThreshold = newThreshold;
                 _settings.Save();
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...", Application.Current.MainWindow as MainWindow);
 
                 // Set DialogResult to true and close the window
                 DialogResult = true;

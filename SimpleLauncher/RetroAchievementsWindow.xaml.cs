@@ -68,21 +68,27 @@ public partial class RetroAchievementsWindow
             switch (header)
             {
                 case "Achievements":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingAchievements") ?? "Loading achievements...", Owner as MainWindow);
                     _ = LoadGameAchievementsAsync();
                     break;
                 case "Game Info":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingExtendedGameInfo") ?? "Loading extended game info...", Owner as MainWindow);
                     _ = LoadGameInfoAsync();
                     break;
                 case "Game Ranking":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingGameRankings") ?? "Loading game rankings...", Owner as MainWindow);
                     _ = LoadGameRankingAsync();
                     break;
                 case "My Profile":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserProfile") ?? "Loading user profile...", Owner as MainWindow);
                     _ = LoadUserProfileAsync();
                     break;
                 case "Unlocks":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserUnlocks") ?? "Loading user unlocks...", Owner as MainWindow);
                     _ = LoadUnlocksByDateAsync();
                     break;
                 case "User Progress":
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingUserCompletionProgress") ?? "Loading user completion progress...", Owner as MainWindow);
                     _ = LoadUserProgressAsync();
                     break;
             }
@@ -304,6 +310,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadGameAchievementsAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingGameAchievements") ?? "Fetching game achievements...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -375,6 +382,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadGameInfoAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingExtendedGameInfo") ?? "Fetching extended game info...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -544,6 +552,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadGameRankingAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingGameRankings") ?? "Fetching game rankings...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -698,6 +707,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadUserProfileAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingUserProfile") ?? "Fetching user profile...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -818,6 +828,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadUnlocksByDateAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingEarnedAchievementsByDate") ?? "Fetching earned achievements by date...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;
@@ -907,6 +918,10 @@ public partial class RetroAchievementsWindow
             if (fromDate > toDate)
             {
                 MessageBoxLibrary.ErrorMessageBox(); // This message box is already on UI thread.
+
+                // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingUnlocks") ?? "Fetching unlocks...", Owner as MainWindow);
+
                 return; // Exit without fetching
             }
 
@@ -948,6 +963,8 @@ public partial class RetroAchievementsWindow
                     TotalPointsEarnedInRangeText.Text = "0";
                     NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay when cleared
                     NoUnlocksMessage.Text = "No unlocks found for the selected date range."; // Reset message
+                    // Notify user
+                    UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingDatesAndFetchingUnlocks") ?? "Resetting dates and fetching unlocks...", Owner as MainWindow);
                     await LoadUnlocksByDateAsync(); // Automatically fetch for the new date range
                 }
                 catch (RaUnauthorizedException)
@@ -971,6 +988,7 @@ public partial class RetroAchievementsWindow
 
     private async Task LoadUserProgressAsync()
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("FetchingUserCompletionProgress") ?? "Fetching user completion progress...", Owner as MainWindow);
         await Dispatcher.InvokeAsync(async () => // Ensure UI updates are on the UI thread
         {
             LoadingOverlay.Visibility = Visibility.Visible;

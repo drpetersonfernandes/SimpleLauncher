@@ -30,6 +30,7 @@ public partial class RetroAchievementsSettingsWindow
 
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...", Application.Current.MainWindow as MainWindow);
         _settings.RaUsername = UsernameTextBox.Text.Trim();
         _settings.RaApiKey = ApiKeyPasswordBox.Password; // No trim for password
         _settings.Save();

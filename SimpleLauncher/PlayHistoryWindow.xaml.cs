@@ -66,6 +66,7 @@ public partial class PlayHistoryWindow
             try
             {
                 // Step 1: Load and process all history data in a background thread
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ProcessingPlayHistoryData") ?? "Processing play history data...", _mainWindow);
                 var processedHistory = await LoadAndProcessHistoryAsync();
 
                 // Step 2: Populate the UI collection on the UI thread
@@ -73,9 +74,11 @@ public partial class PlayHistoryWindow
 
                 // Step 3: Check for and remove entries with missing files in the background
                 await DeleteMissingEntriesAsync();
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("CleaningUpMissingHistoryEntries") ?? "Cleaning up missing history entries...", _mainWindow);
 
                 // Step 4: Sort the data now that it's in the collection and bind to DataGrid
                 SortByDate();
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
 
                 // Step 5: Asynchronously calculate file sizes for the visible items
                 _ = LoadFileSizesAsync(_playHistoryList.ToList(), token);
@@ -586,6 +589,7 @@ public partial class PlayHistoryWindow
     private void SortByDate_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -609,6 +613,7 @@ public partial class PlayHistoryWindow
     private void SortByTotalPlayTime_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)
@@ -639,6 +644,7 @@ public partial class PlayHistoryWindow
     {
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...", _mainWindow);
             _playHistoryList.Remove(selectedItem);
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
@@ -656,6 +662,7 @@ public partial class PlayHistoryWindow
     private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
         var result = MessageBoxLibrary.ReallyWantToRemoveAllPlayHistoryMessageBox();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingAllHistoryItems") ?? "Removing all history items...", _mainWindow);
 
         if (result == MessageBoxResult.Yes)
         {
@@ -686,6 +693,8 @@ public partial class PlayHistoryWindow
             else
             {
                 // Notify user
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...", _mainWindow);
+                // Notify user
                 MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
@@ -703,6 +712,7 @@ public partial class PlayHistoryWindow
     private void SortByTimesPlayed_Click(object sender, RoutedEventArgs e)
     {
         // Capture current selection identifier before sorting
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SortingPlayHistory") ?? "Sorting play history...", _mainWindow);
         // Use a non-nullable tuple with nullable elements
         var selectedItemIdentifier = PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem
             ? (selectedItem.FileName, selectedItem.SystemName)

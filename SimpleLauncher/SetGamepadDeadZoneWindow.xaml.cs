@@ -32,6 +32,7 @@ public partial class SetGamepadDeadZoneWindow
         _settingsManager.DeadZoneY = (float)DeadZoneYSlider.Value;
         _settingsManager.Save();
 
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingGamepadDeadZoneSettings") ?? "Saving gamepad dead zone settings...", Application.Current.MainWindow as MainWindow);
         MessageBoxLibrary.DeadZonesSavedMessageBox();
     }
 
@@ -46,5 +47,7 @@ public partial class SetGamepadDeadZoneWindow
         DeadZoneYSlider.Value = SettingsManager.DefaultDeadZoneY;
 
         _settingsManager.Save();
+
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RevertingGamepadDeadZoneSettings") ?? "Reverting gamepad dead zone settings...", Application.Current.MainWindow as MainWindow);
     }
 }
