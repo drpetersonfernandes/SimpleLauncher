@@ -18,10 +18,12 @@ public class GameLauncher
     private const int MemoryAccessViolation = -1073741819;
     private const int DepViolation = -1073740791;
     private readonly IExtractionService _extractionService;
+    private readonly PlaySoundEffects _playSoundEffects;
 
-    public GameLauncher(IExtractionService extractionService)
+    public GameLauncher(IExtractionService extractionService, PlaySoundEffects playSoundEffects)
     {
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
     }
 
     public async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
@@ -816,7 +818,7 @@ public class GameLauncher
             {
                 // Notify user
                 MessageBoxLibrary.InvalidOperationExceptionMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         catch (Exception ex)
@@ -849,7 +851,7 @@ public class GameLauncher
             {
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher);
+                MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(ex, contextMessage, gameLauncher, _playSoundEffects);
             }
         }
         finally
@@ -920,7 +922,7 @@ public class GameLauncher
         {
             // Notify user
             MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
-            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this);
+            MessageBoxLibrary.DoYouWantToReceiveSupportFromTheDeveloper(null, contextMessage, this, _playSoundEffects);
         }
 
         return Task.CompletedTask;

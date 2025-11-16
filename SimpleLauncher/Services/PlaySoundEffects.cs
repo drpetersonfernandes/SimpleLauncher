@@ -1,4 +1,3 @@
-#nullable enable
 using System;
 using System.IO;
 using System.Windows.Media;
@@ -6,33 +5,32 @@ using SimpleLauncher.Managers;
  
 namespace SimpleLauncher.Services;
 
-public static class PlaySoundEffects
+public class PlaySoundEffects
 {
-    private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
+    private readonly string _baseDirectory = AppDomain.CurrentDomain.BaseDirectory;
 
     private const string ClickSoundFile = "click.mp3";
     private const string ShutterSoundFile = "shutter.mp3";
     private const string TrashSoundFile = "trash.mp3";
 
-    private static MediaPlayer? _currentMediaPlayer;
-    private static SettingsManager? _settingsManager;
+    private static MediaPlayer _currentMediaPlayer;
+    private readonly SettingsManager _settingsManager;
 
     /// <summary>
     /// Initializes the PlaySoundEffects service with the necessary dependencies.
-    /// This method should be called once during application startup.
     /// </summary>
     /// <param name="settings">The application's settings manager.</param>
-    public static void Initialize(SettingsManager settings)
+    public PlaySoundEffects(SettingsManager settings)
     {
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
     }
 
-    public static void PlayClickSound()
+    public void PlayClickSound()
     {
         PlaySound(ClickSoundFile);
     }
 
-    public static void PlayNotificationSound()
+    public void PlayNotificationSound()
     {
         if (_settingsManager == null)
         {
@@ -54,17 +52,17 @@ public static class PlaySoundEffects
         PlaySound(_settingsManager.CustomNotificationSoundFile);
     }
 
-    public static void PlayShutterSound()
+    public void PlayShutterSound()
     {
         PlaySound(ShutterSoundFile);
     }
 
-    public static void PlayTrashSound()
+    public void PlayTrashSound()
     {
         PlaySound(TrashSoundFile);
     }
 
-    public static void PlayConfiguredSound(string soundFileName)
+    public void PlayConfiguredSound(string soundFileName)
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
@@ -77,7 +75,7 @@ public static class PlaySoundEffects
         PlaySound(soundFileName);
     }
 
-    private static void PlaySound(string soundFileName)
+    private void PlaySound(string soundFileName)
     {
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
@@ -89,7 +87,7 @@ public static class PlaySoundEffects
             return;
         }
 
-        var soundPath = Path.Combine(BaseDirectory, "audio", soundFileName);
+        var soundPath = Path.Combine(_baseDirectory, "audio", soundFileName);
         if (!File.Exists(soundPath))
         {
             // Notify developer
@@ -108,7 +106,7 @@ public static class PlaySoundEffects
             }
 
             var playerInstance = new MediaPlayer();
-            playerInstance.MediaEnded += (sender, e) =>
+            playerInstance.MediaEnded += static (sender, e) =>
             {
                 if (sender is not MediaPlayer endedPlayer) return;
 

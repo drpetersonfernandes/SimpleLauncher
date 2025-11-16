@@ -3268,21 +3268,21 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null)
+    internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
     {
         // Pass the parameters to the ShowMessage local function
-        Application.Current.Dispatcher.InvokeAsync(() => ShowMessage(ex, contextMessage, gameLauncher));
+        Application.Current.Dispatcher.InvokeAsync(() => ShowMessage(ex, contextMessage, gameLauncher, playSoundEffects));
         return;
 
         // Modify ShowMessage to accept the parameters
-        static void ShowMessage(Exception exParam, string contextMessageParam, GameLauncher gameLauncherParam)
+        static void ShowMessage(Exception exParam, string contextMessageParam, GameLauncher gameLauncherParam, PlaySoundEffects playSoundEffectsParam)
         {
             var doyouwanttoreceivesupportfromthedeveloper = (string)Application.Current.TryFindResource("Doyouwanttoreceivesupportfromthedeveloper") ?? "Do you want to receive support from the developer?";
             var doyouwantsupport = (string)Application.Current.TryFindResource("Doyouwantsupport") ?? "Do you want support?";
             var result = MessageBox.Show(doyouwanttoreceivesupportfromthedeveloper, doyouwantsupport, MessageBoxButton.YesNo, MessageBoxImage.Question);
             if (result == MessageBoxResult.Yes)
             {
-                PlaySoundEffects.PlayNotificationSound();
+                playSoundEffectsParam?.PlayNotificationSound();
 
                 // Pass the received parameters to the SupportWindow constructor
                 var supportRequestWindow = new SupportWindow(exParam, contextMessageParam, gameLauncherParam);
