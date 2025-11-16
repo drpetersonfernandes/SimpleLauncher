@@ -1,12 +1,12 @@
-﻿using System;
+using System;
 using System.Diagnostics.CodeAnalysis;
 using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Input; // Added for KeyEventArgs
+using System.Windows.Input;
 using System.Windows.Media;
-using System.Windows.Automation; // Added for AutomationProperties
-using SimpleLauncher.Services; // Added for PlaySoundEffects
+using System.Windows.Automation;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.UiHelpers;
 
@@ -16,9 +16,11 @@ public class FilterMenu
     private Button _selectedButton;
 
     public event Action<string> OnLetterSelected;
+    private readonly PlaySoundEffects _playSoundEffects;
 
-    public FilterMenu()
+    public FilterMenu(PlaySoundEffects playSoundEffects)
     {
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         InitializeAllButton();
         InitializeNumberButton();
         InitializeLetterButtons();
@@ -37,11 +39,11 @@ public class FilterMenu
         AutomationProperties.SetName(numButton, (string)Application.Current.TryFindResource("FilterByNumber") ?? "Filter by Number");
         numButton.Click += (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound(); // Added sound effect
+            _playSoundEffects.PlayNotificationSound();
             UpdateSelectedButton(numButton);
             OnLetterSelected?.Invoke("#");
         };
-        numButton.KeyDown += FilterButton_KeyDown; // Added KeyDown handler for keyboard navigation
+        numButton.KeyDown += FilterButton_KeyDown;
         LetterPanel.Children.Add(numButton);
     }
 
@@ -57,11 +59,11 @@ public class FilterMenu
             AutomationProperties.SetName(button, $"{filterByLetterText} {c}");
             button.Click += (_, _) =>
             {
-                PlaySoundEffects.PlayNotificationSound(); // Added sound effect
+                _playSoundEffects.PlayNotificationSound();
                 UpdateSelectedButton(button);
                 OnLetterSelected?.Invoke(c.ToString());
             };
-            button.KeyDown += FilterButton_KeyDown; // Added KeyDown handler for keyboard navigation
+            button.KeyDown += FilterButton_KeyDown;
             LetterPanel.Children.Add(button);
         }
     }
@@ -73,11 +75,11 @@ public class FilterMenu
         AutomationProperties.SetName(allButton, (string)Application.Current.TryFindResource("FilterByAll") ?? "Filter by All");
         allButton.Click += (_, _) =>
         {
-            PlaySoundEffects.PlayNotificationSound(); // Added sound effect
+            _playSoundEffects.PlayNotificationSound();
             UpdateSelectedButton(allButton);
             OnLetterSelected?.Invoke(null);
         };
-        allButton.KeyDown += FilterButton_KeyDown; // Added KeyDown handler for keyboard navigation
+        allButton.KeyDown += FilterButton_KeyDown;
         LetterPanel.Children.Add(allButton);
     }
 
@@ -123,7 +125,7 @@ public class FilterMenu
         }
 
         button.Background = (Brush)Application.Current.Resources["AccentColorBrush"];
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         _selectedButton = button;
     }
 

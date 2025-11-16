@@ -28,7 +28,8 @@ public class GameButtonFactory(
     WrapPanel gameFileGrid,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher gameLauncher)
+    GameLauncher gameLauncher,
+    PlaySoundEffects playSoundEffects)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -40,6 +41,7 @@ public class GameButtonFactory(
     private readonly MainWindow _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
     private readonly GamePadController _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
     private readonly GameLauncher _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
 
     private Button _button;
     public int ImageHeight { get; set; } = settings.ThumbnailSize;
@@ -258,7 +260,9 @@ public class GameButtonFactory(
             null,
             _mainWindow,
             _gamePadController,
-            null, _gameLauncher
+            null,
+            _gameLauncher,
+            _playSoundEffects
         );
 
         const double overlayButtonWidth = 22;
@@ -297,12 +301,12 @@ public class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    PlaySoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
                     context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("PreparingRetroAchievements") ?? "Preparing RetroAchievements...");
 
                     try
                     {
-                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow);
+                        await ContextMenuFunctions.OpenRetroAchievementsWindowAsync(entityPath, fileNameWithoutExtension, selectedSystemManager, _mainWindow, _playSoundEffects);
                     }
                     catch (Exception ex)
                     {
@@ -359,7 +363,7 @@ public class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    PlaySoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
 
                     context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
@@ -421,7 +425,7 @@ public class GameButtonFactory(
                     // Prevent the main button's click event from firing
                     e.Handled = true;
 
-                    PlaySoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
 
                     context.MainWindow?.SetUiLoadingState(true, (string)Application.Current.TryFindResource("OpeningLink") ?? "Opening Link...");
                     try
@@ -474,7 +478,7 @@ public class GameButtonFactory(
         kebabButton.Click += (s, e) =>
         {
             e.Handled = true; // Stop the main button's click event
-            PlaySoundEffects.PlayClickSound();
+            _playSoundEffects.PlayClickSound();
             if (contextMenu != null)
             {
                 contextMenu.PlacementTarget = kebabButton;
@@ -556,7 +560,7 @@ public class GameButtonFactory(
 
                 try
                 {
-                    PlaySoundEffects.PlayNotificationSound();
+                    _playSoundEffects.PlayNotificationSound();
                     await _gameLauncher.HandleButtonClickAsync(entityPath, selectedEmulatorName, selectedSystemName, selectedSystemManager, _settings, _mainWindow, _gamePadController);
                 }
                 finally

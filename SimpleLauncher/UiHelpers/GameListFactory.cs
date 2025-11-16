@@ -21,7 +21,8 @@ public class GameListFactory(
     PlayHistoryManager playHistoryManager,
     MainWindow mainWindow,
     GamePadController gamePadController,
-    GameLauncher gameLauncher)
+    GameLauncher gameLauncher,
+    PlaySoundEffects playSoundEffects)
 {
     private readonly ComboBox _emulatorComboBox = emulatorComboBox;
     private readonly ComboBox _systemComboBox = systemComboBox;
@@ -33,6 +34,7 @@ public class GameListFactory(
     private readonly MainWindow _mainWindow = mainWindow;
     private readonly GamePadController _gamePadController = gamePadController;
     private readonly GameLauncher _gameLauncher = gameLauncher;
+    private readonly PlaySoundEffects _playSoundEffects = playSoundEffects;
 
     public Task<GameListViewItem> CreateGameListViewItemAsync(string entityPath, string systemName, SystemManager systemManager)
     {
@@ -100,7 +102,9 @@ public class GameListFactory(
                     null,
                     _mainWindow,
                     _gamePadController,
-                    null, _gameLauncher
+                    null,
+                    _gameLauncher,
+                    _playSoundEffects
                 )
             ),
             IsFavorite = isFavorite,

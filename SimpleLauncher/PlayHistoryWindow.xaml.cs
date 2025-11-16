@@ -30,8 +30,9 @@ public partial class PlayHistoryWindow
     private readonly FavoritesManager _favoritesManager;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
+    private readonly PlaySoundEffects _playSoundEffects;
 
-    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher)
+    public PlayHistoryWindow(List<SystemManager> systemManagers, List<MameManager> machines, SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, MainWindow mainWindow, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
 
@@ -43,6 +44,7 @@ public partial class PlayHistoryWindow
         _mainWindow = mainWindow;
         _gamePadController = gamePadController;
         _gameLauncher = gameLauncher;
+        _playSoundEffects = playSoundEffects;
 
         App.ApplyThemeToWindow(this);
         Closed += PlayHistoryWindow_Closed;
@@ -365,7 +367,9 @@ public partial class PlayHistoryWindow
                 null,
                 _mainWindow,
                 _gamePadController,
-                null, _gameLauncher
+                null,
+                _gameLauncher,
+                _playSoundEffects
             );
 
             var contextMenu = UiHelpers.ContextMenu.AddRightClickReturnContextMenu(context);
@@ -525,7 +529,7 @@ public partial class PlayHistoryWindow
                 return;
             }
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
         }
         catch (Exception ex)
@@ -539,7 +543,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
     {
         try
         {
@@ -550,7 +554,7 @@ public partial class PlayHistoryWindow
             }
 
             var imagePath = selectedItem.CoverImage;
-            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath);
+            var (loadedImage, _) = ImageLoader.LoadImageAsync(imagePath).Result;
 
             PreviewImage.Source = loadedImage;
         }
@@ -574,7 +578,7 @@ public partial class PlayHistoryWindow
 
         if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
         {
-            PlaySoundEffects.PlayTrashSound();
+            _playSoundEffects.PlayTrashSound();
 
             _playHistoryList.Remove(selectedItem);
             _playHistoryManager.PlayHistoryList = _playHistoryList;
@@ -649,7 +653,7 @@ public partial class PlayHistoryWindow
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
 
-            PlaySoundEffects.PlayTrashSound();
+            _playSoundEffects.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else
@@ -670,7 +674,7 @@ public partial class PlayHistoryWindow
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
 
-            PlaySoundEffects.PlayTrashSound();
+            _playSoundEffects.PlayTrashSound();
 
             // Clear preview image
             PreviewImage.Source = null;
@@ -687,7 +691,7 @@ public partial class PlayHistoryWindow
         {
             if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
                 await LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
             }
             else
