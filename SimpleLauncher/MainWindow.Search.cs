@@ -13,7 +13,7 @@ public partial class MainWindow
         try
         {
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("StartingGlobalSearch") ?? "Starting global search...", this);
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             await ExecuteSearchAsync();
         }
         catch (Exception ex)
@@ -33,7 +33,7 @@ public partial class MainWindow
         {
             if (e.Key != Key.Enter) return;
 
-            PlaySoundEffects.PlayNotificationSound(); // Play sound immediately
+            _playSoundEffects.PlayNotificationSound(); // Play sound immediately
             await ExecuteSearchAsync();
         }
         catch (Exception ex)

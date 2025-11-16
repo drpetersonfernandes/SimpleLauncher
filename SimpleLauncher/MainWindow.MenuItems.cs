@@ -52,7 +52,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
             editSystemEasyModeAddSystemWindow.ShowDialog();
@@ -74,9 +74,9 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
-            EditSystemWindow editSystemWindow = new(_settings);
+            EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects);
             editSystemWindow.ShowDialog();
 
             LoadOrReloadSystemManager();
@@ -96,7 +96,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             ResetUi();
 
@@ -174,8 +174,8 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher);
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
     }
 
     private async void EditLinks_Click(object sender, RoutedEventArgs e)
@@ -187,7 +187,7 @@ public partial class MainWindow
             try
             {
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningLinkEditor") ?? "Opening Link Editor...", this);
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 SetLinksWindow editLinksWindow = new(_settings);
                 editLinksWindow.ShowDialog();
@@ -214,7 +214,7 @@ public partial class MainWindow
 
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             // Update the settings
             _settings.EnableGamePadNavigation = menuItem.IsChecked;
@@ -246,7 +246,7 @@ public partial class MainWindow
 
     private void SetGamepadDeadZone_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGamepadDeadZoneSettings") ?? "Opening Gamepad Dead Zone settings...", this);
 
         SetGamepadDeadZoneWindow setGamepadDeadZoneWindow = new(_settings);
@@ -278,7 +278,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 _settings.EnableFuzzyMatching = menuItem.IsChecked;
                 _settings.Save();
@@ -309,7 +309,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             var setThresholdWindow = new SetFuzzyMatchingWindow(_settings);
             setThresholdWindow.ShowDialog();
@@ -331,7 +331,7 @@ public partial class MainWindow
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
 
         SupportWindow supportRequestWindow = new();
@@ -343,7 +343,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             var psi = new ProcessStartInfo
             {
@@ -367,7 +367,7 @@ public partial class MainWindow
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
 
         AboutWindow aboutWindow = new();
@@ -388,7 +388,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowAll");
                 UpdateMenuCheckMarks("ShowAll");
@@ -417,7 +417,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithCover");
                 UpdateMenuCheckMarks("ShowWithCover");
@@ -447,7 +447,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 UpdateShowGamesSetting("ShowWithoutCover");
                 UpdateMenuCheckMarks("ShowWithoutCover");
@@ -491,7 +491,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 var sizeText = clickedItem.Name.Replace("Size", "");
 
@@ -536,7 +536,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 var aspectRatio = clickedItem.Name;
                 _settings.ButtonAspectRatio = aspectRatio;
@@ -579,7 +579,7 @@ public partial class MainWindow
                     MessageBoxLibrary.WarnUserAboutMemoryConsumption();
                 }
 
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 var pageText = clickedItem.Name.Replace("Page", "");
                 if (!int.TryParse(new string(pageText.Where(char.IsDigit).ToArray()), out var newPage)) return;
@@ -611,19 +611,18 @@ public partial class MainWindow
 
     private void ShowGlobalSearchWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
 
         ResetUi();
 
-        var globalSearchWindow =
-            new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher);
+        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects);
         globalSearchWindow.Show();
     }
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
 
         var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
@@ -633,23 +632,22 @@ public partial class MainWindow
     private void ShowFavoritesWindow_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ResetUi();
 
-        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher);
+        var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
         favoritesWindow.Show();
     }
 
     private void ShowPlayHistoryWindow_Click(object sender, RoutedEventArgs e)
     {
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
 
         ResetUi();
 
-        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager,
-            PlayHistoryManager, this, _gamePadController, _gameLauncher);
+        var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
         playHistoryWindow.Show();
     }
 
@@ -707,7 +705,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             if (Equals(sender, GridView))
             {
@@ -759,7 +757,7 @@ public partial class MainWindow
     {
         if (sender is not MenuItem menuItem) return;
 
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         var selectedLanguage = menuItem.Name switch
         {
@@ -800,7 +798,7 @@ public partial class MainWindow
     private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RestartingUI") ?? "Restarting UI...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ResetUi();
     }
@@ -808,7 +806,7 @@ public partial class MainWindow
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ShowGlobalSearchWindow_Click(sender, e);
     }
@@ -816,7 +814,7 @@ public partial class MainWindow
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ShowFavoritesWindow_Click(sender, e);
     }
@@ -824,7 +822,7 @@ public partial class MainWindow
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ShowPlayHistoryWindow_Click(sender, e);
     }
@@ -832,7 +830,7 @@ public partial class MainWindow
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
-        PlaySoundEffects.PlayNotificationSound();
+        _playSoundEffects.PlayNotificationSound();
 
         ExpertMode_Click(sender, e);
     }
@@ -873,7 +871,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 const int zoomStep = 50;
                 const int maxSize = 800;
@@ -916,7 +914,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 const int zoomStep = 50;
                 const int minSize = 50;
@@ -960,7 +958,7 @@ public partial class MainWindow
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 if (_settings.ViewMode == "GridView")
                 {
@@ -1009,8 +1007,8 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayClickSound(); // Or a more general UI click sound if available
-            var soundConfigWindow = new SoundConfigurationWindow(_settings);
+            _playSoundEffects.PlayClickSound();
+            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects);
             soundConfigWindow.ShowDialog();
             // Settings are saved within the SoundConfigurationWindow, no need to explicitly save here.
             // PlaySoundEffects will automatically use the new settings on its next call
@@ -1029,7 +1027,7 @@ public partial class MainWindow
     {
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
             raSettingsWindow.ShowDialog();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
@@ -1048,7 +1046,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingRetroAchievementsOverlayButton") ?? "Toggling RetroAchievements overlay button...", this);
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayRetroAchievementButton = menuItem.IsChecked;
             _settings.Save();
@@ -1071,7 +1069,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingVideoLinkOverlayButton") ?? "Toggling video link overlay button...", this);
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenVideoButton = menuItem.IsChecked;
             _settings.Save();
@@ -1094,7 +1092,7 @@ public partial class MainWindow
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("TogglingInfoLinkOverlayButton") ?? "Toggling info link overlay button...", this);
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             _settings.OverlayOpenInfoButton = menuItem.IsChecked;
             _settings.Save();

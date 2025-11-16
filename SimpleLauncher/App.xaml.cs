@@ -54,6 +54,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<GameLauncher>();
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
+        serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddTransient<MainWindow>();
 
@@ -117,9 +118,6 @@ public partial class App : IDisposable
         var settingsManager = ServiceProvider.GetRequiredService<SettingsManager>();
         ApplyTheme(settingsManager.BaseTheme, settingsManager.AccentColor);
         ApplyLanguage(settingsManager.Language);
-
-        // --- Initialize PlaySoundEffects with the SettingsManager ---
-        PlaySoundEffects.Initialize(settingsManager);
 
         // --- Initialize services that need configuration ---
         MountZipFiles.Configure(Configuration);

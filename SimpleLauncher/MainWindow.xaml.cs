@@ -96,7 +96,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     // Define and Instantiate variables
     private List<SystemManager> _systemManagers;
-    private readonly FilterMenu _topLetterNumberMenu = new();
+    private readonly FilterMenu _topLetterNumberMenu;
     private GameListFactory _gameListFactory;
     private readonly WrapPanel _gameFileGrid;
     private GameButtonFactory _gameButtonFactory;
@@ -120,8 +120,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
+    private readonly PlaySoundEffects _playSoundEffects;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
     {
         InitializeComponent();
 
@@ -131,6 +132,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _favoritesManager = favoritesManager ?? throw new ArgumentNullException(nameof(favoritesManager));
         PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
+        _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -153,6 +155,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         LoadOrReloadSystemManager();
 
+        _topLetterNumberMenu = new FilterMenu(_playSoundEffects);
+
         // Add _topLetterNumberMenu to the UI
         LetterNumberMenu.Children.Clear();
         LetterNumberMenu.Children.Add(_topLetterNumberMenu.LetterPanel);
@@ -172,10 +176,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // Initialize _gameButtonFactory
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects);
 
         // Initialize _gameListFactory
-        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
+        _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
@@ -245,7 +249,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             ResetPaginationButtons(); // Ensure pagination is reset at the beginning
             SearchTextBox.Text = ""; // Clear SearchTextBox
@@ -267,7 +271,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         try
         {
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             // Change the filter to ShowAll (as favorites might not have covers)
             _settings.ShowGames = "ShowAll";
@@ -309,7 +313,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             try
             {
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 // Change the filter to ShowAll (as random might not have covers)
                 _settings.ShowGames = "ShowAll";
@@ -579,7 +583,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
 
         // If it's a real game item, proceed with loading the preview.
-        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher);
+        var gameListViewFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
         gameListViewFactory.HandleSelectionChanged(selectedItem);
     }
 
@@ -1150,7 +1154,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             if (_isLoadingGames) return;
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
 

@@ -32,7 +32,7 @@ public partial class MainWindow
             {
                 _currentPage--;
 
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);
@@ -75,7 +75,7 @@ public partial class MainWindow
             {
                 _currentPage++;
 
-                PlaySoundEffects.PlayNotificationSound();
+                _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
                 await LoadGameFilesAsync(sl, sq);

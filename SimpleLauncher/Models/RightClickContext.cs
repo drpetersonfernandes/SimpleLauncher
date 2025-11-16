@@ -23,7 +23,8 @@ public class RightClickContext(
     MainWindow mainWindow,
     GamePadController gamePadController,
     Action onFavoriteRemoved = null,
-    GameLauncher gameLauncher = null)
+    GameLauncher gameLauncher = null,
+    PlaySoundEffects playSoundEffects = null)
 {
     public string FilePath { get; } = filePath;
     public string FileNameWithExtension { get; } = fileNameWithExtension;
@@ -42,4 +43,5 @@ public class RightClickContext(
     public GamePadController GamePadController { get; } = gamePadController;
     public Action OnFavoriteRemoved { get; } = onFavoriteRemoved;
     public GameLauncher GameLauncher { get; } = gameLauncher;
+    public PlaySoundEffects PlaySoundEffects { get; } = playSoundEffects;
 }

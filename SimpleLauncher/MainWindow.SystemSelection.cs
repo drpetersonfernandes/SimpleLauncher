@@ -132,7 +132,7 @@ public partial class MainWindow
                 SystemComboBox.SelectedItem = systemName;
             }
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...", this);
         }
         catch (Exception ex)
@@ -209,7 +209,7 @@ public partial class MainWindow
         {
             if (_isLoadingGames) return;
 
-            PlaySoundEffects.PlayNotificationSound();
+            _playSoundEffects.PlayNotificationSound();
 
             // Define the array of aspect ratios in the desired order
             string[] aspectRatios = { "Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2" };
