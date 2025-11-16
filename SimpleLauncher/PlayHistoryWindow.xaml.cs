@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Globalization;
@@ -16,6 +17,7 @@ namespace SimpleLauncher;
 
 public partial class PlayHistoryWindow
 {
+    private CancellationTokenSource _cancellationTokenSource;
     private const string TimeFormat = "HH:mm:ss";
     private static readonly CultureInfo InvariantCulture = CultureInfo.InvariantCulture;
     private static readonly string LogPath = GetLogPath.Path();
@@ -43,6 +45,7 @@ public partial class PlayHistoryWindow
         _gameLauncher = gameLauncher;
 
         App.ApplyThemeToWindow(this);
+        Closed += PlayHistoryWindow_Closed;
 
         Loaded += PlayHistoryWindow_Loaded;
     }
@@ -51,6 +54,11 @@ public partial class PlayHistoryWindow
     {
         try
         {
+            // Create a new token source for this load operation
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
+            var token = _cancellationTokenSource.Token;
+
             LoadingOverlay.Visibility = Visibility.Visible;
             LoadingMessage.Text = (string)Application.Current.TryFindResource("LoadingHistory") ?? "Loading history...";
             await Task.Yield(); // Allow the UI to render the loading overlay
@@ -70,7 +78,7 @@ public partial class PlayHistoryWindow
                 SortByDate();
 
                 // Step 5: Asynchronously calculate file sizes for the visible items
-                _ = LoadFileSizesAsync(_playHistoryList.ToList());
+                _ = LoadFileSizesAsync(_playHistoryList.ToList(), token);
             }
             catch (Exception ex)
             {
@@ -176,9 +184,9 @@ public partial class PlayHistoryWindow
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
     }
 
-    private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess)
+    private async Task LoadFileSizesAsync(List<PlayHistoryItem> itemsToProcess, CancellationToken cancellationToken)
     {
-        await Parallel.ForEachAsync(itemsToProcess, async (item, cancellationToken) =>
+        await Parallel.ForEachAsync(itemsToProcess, new ParallelOptions { CancellationToken = cancellationToken }, async (item, token) =>
         {
             var systemManager = _systemManagers.FirstOrDefault(manager => manager.SystemName.Equals(item.SystemName, StringComparison.OrdinalIgnoreCase));
             if (systemManager != null)
@@ -186,7 +194,11 @@ public partial class PlayHistoryWindow
                 var filePath = PathHelper.FindFileInSystemFolders(systemManager, item.FileName);
                 if (File.Exists(filePath))
                 {
-                    var sizeToSet = new FileInfo(filePath).Length;
+                    // Check for cancellation before file operation
+                    token.ThrowIfCancellationRequested();
+
+                    var fileInfo = new FileInfo(filePath);
+                    var sizeToSet = fileInfo.Length;
                     await Dispatcher.InvokeAsync(() => { item.FileSizeBytes = sizeToSet; });
                 }
                 else
@@ -472,7 +484,8 @@ public partial class PlayHistoryWindow
 
             SortByDate();
 
-            _ = LoadFileSizesAsync(_playHistoryList.ToList());
+            // Recalculate file sizes for the new list
+            _ = LoadFileSizesAsync(_playHistoryList.ToList(), _cancellationTokenSource.Token);
 
             if (previousSelectedItemIdentifier.FileName == null || previousSelectedItemIdentifier.SystemName == null)
             {
@@ -716,5 +729,13 @@ public partial class PlayHistoryWindow
             PlayHistoryDataGrid.SelectedItem = updatedItem;
             PlayHistoryDataGrid.ScrollIntoView(updatedItem);
         }
+    }
+
+    private void PlayHistoryWindow_Closed(object sender, EventArgs e)
+    {
+        // Cancel any pending background tasks
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
     }
 }

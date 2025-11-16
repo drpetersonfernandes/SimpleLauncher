@@ -1,4 +1,5 @@
 using System;
+using System.Threading;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.IO;
@@ -16,6 +17,7 @@ namespace SimpleLauncher;
 
 public partial class GlobalSearchWindow
 {
+    private CancellationTokenSource _cancellationTokenSource;
     private static readonly string LogPath = GetLogPath.Path();
     private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
@@ -42,6 +44,7 @@ public partial class GlobalSearchWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Closed += GlobalSearch_Closed;
+        _cancellationTokenSource = new CancellationTokenSource();
 
         _systemManagers = systemManagers;
         _machines = machines;
@@ -60,6 +63,8 @@ public partial class GlobalSearchWindow
     {
         try
         {
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = new CancellationTokenSource();
             var searchTerm = SearchTextBox.Text;
             if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
@@ -126,6 +131,7 @@ public partial class GlobalSearchWindow
     {
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
+        var token = _cancellationTokenSource.Token;
 
         foreach (var systemManager in _systemManagers)
         {
@@ -181,10 +187,12 @@ public partial class GlobalSearchWindow
                     {
                         try
                         {
-                            // FilePath is already resolved here
+                            token.ThrowIfCancellationRequested();
+
                             if (File.Exists(searchResultItem.FilePath))
                             {
-                                searchResultItem.FileSizeBytes = new FileInfo(searchResultItem.FilePath).Length;
+                                var fileInfo = new FileInfo(searchResultItem.FilePath);
+                                searchResultItem.FileSizeBytes = fileInfo.Length;
                             }
                             else
                             {
@@ -195,6 +203,10 @@ public partial class GlobalSearchWindow
                                 searchResultItem.FileSizeBytes = -2;
                             }
                         }
+                        catch (OperationCanceledException)
+                        {
+                            searchResultItem.FileSizeBytes = -2;
+                        }
                         catch (Exception ex)
                         {
                             // Notify developer
@@ -203,7 +215,9 @@ public partial class GlobalSearchWindow
 
                             searchResultItem.FileSizeBytes = -2;
                         }
-                    });
+
+                        return Task.CompletedTask;
+                    }, token);
                 }
             }
         }
@@ -516,8 +530,12 @@ public partial class GlobalSearchWindow
 
     private void GlobalSearch_Closed(object sender, EventArgs e)
     {
-        _searchResults?.Clear(); // Clear the collection
-        _searchResults = null; // Allow GC
+        _cancellationTokenSource?.Cancel();
+        _cancellationTokenSource?.Dispose();
+        _cancellationTokenSource = null;
+
+        _searchResults?.Clear();
+        _searchResults = null;
     }
 
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)
