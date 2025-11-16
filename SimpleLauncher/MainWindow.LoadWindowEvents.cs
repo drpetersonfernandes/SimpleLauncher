@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Threading;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
+using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher;
 
@@ -93,10 +94,11 @@ public partial class MainWindow
         DebugLogger.Log("Controller detection was initialized.");
 
         // Initialize the status bar timer
-        StatusBarTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(20) // 20 seconds timeout
-        };
+        StatusBarTimer = new DispatcherTimer();
+
+        var statusBarTimeoutSeconds = App.Configuration.GetValue("StatusBarTimeoutSeconds", 5);
+        StatusBarTimer.Interval = TimeSpan.FromSeconds(statusBarTimeoutSeconds);
+
         StatusBarTimer.Tick += (s, eventArgs) =>
         {
             StatusBarText.Content = ""; // Clear the status bar

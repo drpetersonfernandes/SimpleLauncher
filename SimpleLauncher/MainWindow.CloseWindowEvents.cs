@@ -10,9 +10,6 @@ public partial class MainWindow
     {
         SaveApplicationSettings();
 
-        // Delete temp folders and files before close
-        CleanSimpleLauncherFolder.CleanupTrash();
-
         // Stop Controller Timer
         StopControllerTimer();
 

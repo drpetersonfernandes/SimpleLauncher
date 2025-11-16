@@ -3,6 +3,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Markup;
 using ControlzEx.Theming;
@@ -17,7 +18,7 @@ namespace SimpleLauncher;
 public partial class App : IDisposable
 {
     public static IServiceProvider ServiceProvider { get; private set; }
-    private static IConfiguration Configuration { get; set; }
+    public static IConfiguration Configuration { get; set; }
 
     private Mutex _singleInstanceMutex;
     private bool _isFirstInstance;
@@ -69,6 +70,9 @@ public partial class App : IDisposable
 
         // Initialize SevenZipSharp library path
         InitializeSevenZipSharp();
+
+        // Delete temp folders and unneeded files
+        _ = Task.Run(CleanSimpleLauncherFolder.CleanupTrash);
 
         if (!isRestarting) // Only perform the mutex check if NOT restarting
         {
