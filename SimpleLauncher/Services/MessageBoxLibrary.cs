@@ -3327,4 +3327,22 @@ internal static class MessageBoxLibrary
             return MessageBox.Show(message, title, MessageBoxButton.YesNo, MessageBoxImage.Warning);
         });
     }
+
+    internal static void FirstRunWelcomeMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var welcomeToSimpleLauncher = (string)Application.Current.TryFindResource("WelcomeToSimpleLauncher") ?? "Welcome to 'Simple Launcher'!";
+            var noSystemsFound = (string)Application.Current.TryFindResource("NoSystemsFound") ?? "No systems were found in your configuration.";
+            var easyModeGuide = (string)Application.Current.TryFindResource("EasyModeGuide") ?? "Let's get started by adding your first system using the Easy Mode. Select a system from the dropdown and click 'Add System'.";
+            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
+
+            MessageBox.Show($"{welcomeToSimpleLauncher}\n\n" +
+                            $"{noSystemsFound}\n\n" +
+                            $"{easyModeGuide}", info, MessageBoxButton.OK, MessageBoxImage.Information);
+        }
+    }
 }

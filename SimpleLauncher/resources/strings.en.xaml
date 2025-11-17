@@ -682,4 +682,7 @@
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
     
     <system:String x:Key="GroupFilesbyFolder">Group Files by Folder</system:String>
+    <system:String x:Key="WelcomeToSimpleLauncher">Welcome to 'Simple Launcher'!</system:String>
+    <system:String x:Key="NoSystemsFound">No systems were found in your configuration.</system:String>
+    <system:String x:Key="EasyModeGuide">Let's get started by adding your first system using the Easy Mode. Select a system from the dropdown and click 'Add System'.</system:String>
 </ResourceDictionary>
