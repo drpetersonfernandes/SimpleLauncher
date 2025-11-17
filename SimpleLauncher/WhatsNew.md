@@ -1,3 +1,36 @@
+# Release 4.7.0
+*2025-11-16*
+---
+
+1.  **New Features:**
+    *   **Group Files by Folder:** A new option to group multi-file MAME games into single UI entries, simplifying game lists. This is to be used with the MAME emulator when you have the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) sets of ROMs for [MAME Software List CHDs] or [MAME Software List ROMs].
+    *   **Advanced Global Search:** Enhanced global search with filtering by system, filename, MAME description, folder name, and recursive search.
+    *   **First-Run Welcome & Easy Mode Flow:** A new user experience that guides first-time users through adding their initial system via Easy Mode.
+    *   **Kebab Menu for Game Buttons:** Added a context menu button to game entries for more options.
+    *   **Configurable Status Bar:** The status bar now has a configurable timeout and provides more detailed user feedback for various operations (loading, saving, actions, etc.).
+2.  **Core Refactoring & Dependency Injection:**
+    *   Extensive refactoring to use **Dependency Injection (DI)** for services like `PlaySoundEffects`, `GameLauncher`, `GamePadController`, `UpdateChecker`, and `IExtractionService`.
+    *   `ExtractCompressedFile` was renamed to `ExtractionService`, and an `IExtractionService` interface was introduced.
+    *   `GamePadController` and `UpdateChecker` were refactored from static singletons to instance-based services.
+    *   `Dispatcher.Invoke` calls were largely replaced with `Dispatcher.InvokeAsync` for improved asynchronous UI updates.
+    *   Property backing fields in several models were updated to use the C# `field` keyword for conciseness.
+3.  **UI/UX Improvements:**
+    *   `UpdateHistoryWindow` now uses a `RichTextBox` to render basic Markdown directly, removing an external dependency.
+    *   `GroupBox` elements in `EditSystemWindow.xaml` were replaced with `Expander` controls for a more modern, collapsible UI.
+4.  **Emulator & System Updates:**
+    *   MAME, DuckStation, and shadPS4 emulator versions were updated in Easy Mode configurations.
+    *   New Ymir and NooDs emulators, as well as Gearlynx and Gearboy, were added.
+    *   Amiga model parameters and expanded MAME `rompath` examples were added to documentation.
+    *   RetroAchievements documentation was clarified.
+5.  **Robustness & Performance:**
+    *   Upgraded codebase to the recently released .NET 10.
+    *   Added cancellation token support to `PlayHistoryWindow` and `GlobalSearchWindow` background tasks.
+    *   Improved file path validation and added retry logic for transient file locks during extraction.
+    *   Updated various tool binaries (`bchunk.exe`, `GameCoverScraper.exe`, `FindRomCover.exe`, `BatchConvertIsoToXiso.exe`).
+    *   Cleanup of temporary files and folders is now handled on application startup.
+6.  **Localization:**
+    *   Many new localized strings were added to support the new UI feedback messages, actions, and features across all supported languages.
+
 # Release 4.6.0
 *2025-10-30*
 ---
