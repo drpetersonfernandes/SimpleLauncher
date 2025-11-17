@@ -543,7 +543,7 @@ public partial class PlayHistoryWindow
         }
     }
 
-    private void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e)
+    private async void SetPreviewImageOnSelectionChanged(object sender, SelectionChangedEventArgs e) // Changed to async void
     {
         try
         {
@@ -554,7 +554,7 @@ public partial class PlayHistoryWindow
             }
 
             var imagePath = selectedItem.CoverImage;
-            var (loadedImage, _) = ImageLoader.LoadImageAsync(imagePath).Result;
+            var (loadedImage, _) = await ImageLoader.LoadImageAsync(imagePath); // <--- Changed to await
 
             PreviewImage.Source = loadedImage;
         }
