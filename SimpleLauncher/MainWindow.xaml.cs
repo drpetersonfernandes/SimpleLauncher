@@ -632,7 +632,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     return;
                 }
 
-                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading System...");
+                SetUiLoadingState(true, (string)Application.Current.TryFindResource("LoadingSystem") ?? "Loading system...");
                 _isUiUpdating = true; // Set after UI is frozen
                 try
                 {
