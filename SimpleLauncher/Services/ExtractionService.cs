@@ -403,52 +403,69 @@ public class ExtractionService : IExtractionService
             return Task.FromResult<string?>(null);
         }
 
-        if (fileFormatsToLaunch == null || fileFormatsToLaunch.Count == 0)
+        string? foundFile = null;
+
+        // First, try to find a file matching the specified formats, if any are provided.
+        if (fileFormatsToLaunch != null && fileFormatsToLaunch.Count > 0)
         {
-            // Notify developer
-            const string contextMessage = "FileFormatsToLaunch is null or empty.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
-            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
+            DebugLogger.Log($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
+            foreach (var formatToLaunch in fileFormatsToLaunch)
+            {
+                try
+                {
+                    var searchPattern = $"*{formatToLaunch}";
+                    if (!formatToLaunch.StartsWith('.'))
+                    {
+                        searchPattern = $"*.{formatToLaunch}";
+                    }
 
-            // Notify user
-            MessageBoxLibrary.NullFileExtensionMessageBox();
-
-            return Task.FromResult<string?>(null);
+                    var files = Directory.GetFiles(tempExtractLocation, searchPattern, SearchOption.AllDirectories);
+                    if (files.Length > 0)
+                    {
+                        foundFile = files[0]; // Take the first match
+                        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Found file matching format '{formatToLaunch}': {foundFile}");
+                        return Task.FromResult<string?>(foundFile);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
+                    DebugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
+                    // Continue to next format or fallback if this one fails
+                }
+            }
+        }
+        else
+        {
+            DebugLogger.Log($"[ValidateAndFindGameFileAsync] fileFormatsToLaunch is null or empty. Attempting to find any file in {tempExtractLocation}.");
         }
 
-        DebugLogger.Log($"[ValidateAndFindGameFileAsync] Searching for formats: {string.Join(", ", fileFormatsToLaunch)} in {tempExtractLocation}");
-        foreach (var formatToLaunch in fileFormatsToLaunch)
+        // If no specific format was found, or no formats were specified, try to find any file.
+        if (string.IsNullOrEmpty(foundFile))
         {
             try
             {
-                // Ensure formatToLaunch is just the extension like ".cue", not "*.cue"
-                var searchPattern = $"*{formatToLaunch}";
-                if (!formatToLaunch.StartsWith('.'))
+                var allFiles = Directory.EnumerateFiles(tempExtractLocation, "*", SearchOption.AllDirectories).OrderBy(static f => f).ToList();
+                if (allFiles.Count > 0)
                 {
-                    searchPattern = $"*.{formatToLaunch}"; // Normalize if needed
+                    foundFile = allFiles.First();
+                    DebugLogger.Log($"[ValidateAndFindGameFileAsync] No specific format found/specified, picked first file: {foundFile}");
+                    return Task.FromResult<string?>(foundFile);
                 }
-
-                var files = Directory.GetFiles(tempExtractLocation, searchPattern, SearchOption.AllDirectories);
-                if (files.Length <= 0) continue;
-
-                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Found file to launch: {files[0]}");
-                return Task.FromResult<string?>(files[0]);
             }
             catch (Exception ex)
             {
-                // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
-                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
+                _ = LogErrors.LogErrorAsync(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
+                DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
             }
         }
 
-        // Notify developer
-        const string notFoundContext = "Could not find a file with any of the extensions defined in 'FileFormatsToLaunch' after extraction.";
+        // If still no file found after all attempts
+        const string notFoundContext = "Could not find a file with any of the specified extensions (or any file at all) after extraction.";
         _ = LogErrors.LogErrorAsync(new FileNotFoundException(notFoundContext), notFoundContext);
         DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 
-        // Notify user
-        MessageBoxLibrary.CouldNotFindAFileMessageBox();
+        MessageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
 
         return Task.FromResult<string?>(null);
     }

@@ -614,6 +614,18 @@ public class GameLauncher
 
         if (selectedSystemManager.ExtractFileBeforeLaunch == true && !isDirectory && !isMountedXbe && !isMountedZip)
         {
+            if (selectedSystemManager.FileFormatsToLaunch == null || selectedSystemManager.FileFormatsToLaunch.Count == 0)
+            {
+                // Notify developer
+                const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
+                await LogErrors.LogErrorAsync(null, contextMessage);
+                DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
+
+                // Notify user specifically for launching context
+                MessageBoxLibrary.NullFileExtensionMessageBox(); // This is the correct place for this warning.
+                return; // Abort launch due to incomplete configuration for launching
+            }
+
             // Use the extraction service from the DI container
             var (extractedGameFilePath, extractedTempDirPath) = await _extractionService.ExtractToTempAndGetLaunchFileAsync(resolvedFilePath, selectedSystemManager.FileFormatsToLaunch);
 

@@ -91,9 +91,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private Button _prevPageButton;
     private string _currentFilter;
 
-    // Define _currentSearchResults
-    private List<string> _currentSearchResults = [];
-
     // Define and Instantiate variables
     private List<SystemManager> _systemManagers;
     private readonly FilterMenu _topLetterNumberMenu;
@@ -113,9 +110,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private string _activeSearchQueryOrMode;
     private string _mameSortOrder = "FileName";
 
-    // All Games for Current System
-    // Will be used by feeling lucky feature
+    // All Games for Current System and Current Search
     private List<string> _allGamesForCurrentSystem = [];
+    private List<string> _currentSearchResults = [];
 
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
@@ -1184,5 +1181,21 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             var tooltipText = (string)Application.Current.TryFindResource("SortByFileNameTooltip") ?? "Sort by File Name";
             SortOrderToggleButton.ToolTip = tooltipText;
         }
+    }
+
+    /// <summary>
+    /// Invalidates the in-memory caches of game file paths, forcing a reload from disk
+    /// or re-evaluation of search results on the next LoadGameFilesAsync call.
+    /// </summary>
+    public void InvalidateGameFileCaches()
+    {
+        // Ensure cache clearing happens on the UI thread for thread safety,
+        // although LoadGameFilesAsync will also be invoked on the dispatcher.
+        Dispatcher.Invoke(() =>
+        {
+            _allGamesForCurrentSystem.Clear();
+            _currentSearchResults.Clear();
+            DebugLogger.Log("[MainWindow.InvalidateGameFileCaches] All game file caches invalidated.");
+        });
     }
 }

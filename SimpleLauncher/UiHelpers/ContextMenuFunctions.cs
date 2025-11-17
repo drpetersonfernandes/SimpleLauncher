@@ -36,6 +36,8 @@ public static class ContextMenuFunctions
                     SystemName = systemName
                 });
 
+                playSoundEffects.PlayClickSound();
+
                 // Save the updated favorites list using the injected instance
                 favoritesManager.SaveFavorites();
 
@@ -96,6 +98,8 @@ public static class ContextMenuFunctions
             }
 
             favoritesManager.FavoriteList.Remove(favoriteToRemove);
+
+            playSoundEffects.PlayTrashSound();
 
             // Save the updated favorites list using the injected instance
             favoritesManager.SaveFavorites();
@@ -256,6 +260,8 @@ public static class ContextMenuFunctions
                 MessageBoxLibrary.AddRaLogin();
                 UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
 
+                playSoundEffects.PlayClickSound();
+
                 // Open RetroAchievements Settings Window
                 var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);
                 raSettingsWindow.Owner = mainWindow; // Set owner to main window
@@ -290,7 +296,6 @@ public static class ContextMenuFunctions
                 DebugLogger.Log("[RA Service] FileNameWithoutExtension is null or empty.");
                 _ = LogErrors.LogErrorAsync(null, "[RA Service] FileNameWithoutExtension is null or empty.");
                 MessageBoxLibrary.ErrorMessageBox();
-
                 UpdateStatusBar.UpdateContent("Error launching the RetroAchievement for this game.", mainWindow);
 
                 return;
@@ -898,10 +903,13 @@ public static class ContextMenuFunctions
 
                 playSoundEffects.PlayTrashSound();
 
+                // Invalidate the game file caches in the main window
+                mainWindow.InvalidateGameFileCaches();
+
                 // Notify user
                 MessageBoxLibrary.FileSuccessfullyDeletedMessageBox(fileNameWithExtension);
 
-                // Reload the current Game List
+                // Reload the current Game List to reflect the deletion
                 try
                 {
                     await mainWindow.LoadGameFilesAsync();
@@ -909,7 +917,7 @@ public static class ContextMenuFunctions
                 catch (Exception ex)
                 {
                     // Notify developer
-                    const string contextMessage = "There was a problem loading the Game Files.";
+                    const string contextMessage = "There was a problem loading the Game Files after deletion.";
                     _ = LogErrors.LogErrorAsync(ex, contextMessage);
                 }
             }
@@ -926,7 +934,7 @@ public static class ContextMenuFunctions
         else
         {
             // Notify developer
-            var contextMessage = $"The file '{fileNameWithExtension}' could not be found.";
+            var contextMessage = $"The file '{fileNameWithExtension}' could not be found for deletion.";
             _ = LogErrors.LogErrorAsync(null, contextMessage);
 
             // Notify user
