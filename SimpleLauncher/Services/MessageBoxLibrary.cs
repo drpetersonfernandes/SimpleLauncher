@@ -14,7 +14,7 @@ internal static class MessageBoxLibrary
 {
     internal static void TakeScreenShotMessageBox()
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         static void ShowMessage()

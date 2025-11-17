@@ -49,7 +49,7 @@ public class GameLauncher
             if (string.IsNullOrWhiteSpace(selectedEmulatorName))
             {
                 // Notify developer
-                const string contextMessage = "selectedEmulatorName is null or empty.";
+                const string contextMessage = "[HandleButtonClickAsync] selectedEmulatorName is null or empty.";
                 _ = LogErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
@@ -592,7 +592,7 @@ public class GameLauncher
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             // Notify developer
-            const string contextMessage = "selectedEmulatorName is null or empty.";
+            const string contextMessage = "[LaunchRegularEmulatorAsync] selectedEmulatorName is null or empty.";
             await LogErrors.LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 

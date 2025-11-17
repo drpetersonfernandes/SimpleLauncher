@@ -549,7 +549,7 @@ public class GameButtonFactory(
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, "selectedEmulatorName is null or empty.");
+                    _ = LogErrors.LogErrorAsync(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
                     MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();

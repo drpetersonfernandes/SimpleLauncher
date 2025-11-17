@@ -329,7 +329,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "selectedEmulatorName is null or empty.");
+            await LogErrors.LogErrorAsync(null, "[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());

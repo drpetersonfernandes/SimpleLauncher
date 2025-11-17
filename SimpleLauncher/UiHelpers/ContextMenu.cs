@@ -599,7 +599,7 @@ public static class ContextMenu
             if (string.IsNullOrEmpty(selectedEmulatorName))
             {
                 // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+                await LogErrors.LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
