@@ -60,6 +60,13 @@ public partial class GlobalSearchWindow
         _searchResults = [];
         ResultsDataGrid.ItemsSource = _searchResults;
         NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
+
+        // Populate the System ComboBox
+        var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
+        var systemNames = new List<string> { allSystemsString };
+        systemNames.AddRange(_systemManagers.Select(sm => sm.SystemName).OrderBy(name => name));
+        SystemComboBox.ItemsSource = systemNames;
+        SystemComboBox.SelectedIndex = 0;
     }
 
     private async void SearchButton_Click(object sender, RoutedEventArgs e)
@@ -80,9 +87,16 @@ public partial class GlobalSearchWindow
 
             try
             {
+                // Get search parameters from the new UI controls
+                var selectedSystem = SystemComboBox.SelectedItem as string;
+                var searchFilename = SearchFilenameCheckBox.IsChecked == true;
+                var searchMameDescription = SearchMameDescriptionCheckBox.IsChecked == true;
+                var searchFolderName = SearchFolderNameCheckBox.IsChecked == true;
+                var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
+
                 // PerformSearch itself runs on a background thread.
                 // It will now also spawn subtasks for file sizes.
-                var results = await Task.Run(() => PerformSearch(searchTerm));
+                var results = await Task.Run(() => PerformSearch(searchTerm, selectedSystem, searchFilename, searchMameDescription, searchFolderName, searchRecursively));
 
                 if (results != null && results.Count != 0)
                 {
@@ -130,16 +144,29 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private List<SearchResult> PerformSearch(string searchTerm)
+    private List<SearchResult> PerformSearch(string searchTerm, string selectedSystem, bool searchFilename, bool searchMameDescription, bool searchFolderName, bool searchRecursively)
     {
         var results = new List<SearchResult>();
         var searchTerms = ParseSearchTerms(searchTerm);
         var token = _cancellationTokenSource.Token;
 
-        foreach (var systemManager in _systemManagers)
+        var allSystemsString = (string)Application.Current.TryFindResource("AllSystems") ?? "All Systems";
+        IEnumerable<SystemManager> systemsToSearch = _systemManagers;
+        if (selectedSystem != allSystemsString)
         {
+            systemsToSearch = _systemManagers.Where(sm => sm.SystemName == selectedSystem);
+        }
+
+        var searchOption = searchRecursively ? SearchOption.AllDirectories : SearchOption.TopDirectoryOnly;
+
+        foreach (var systemManager in systemsToSearch)
+        {
+            token.ThrowIfCancellationRequested();
+
             foreach (var systemFolderPathRaw in systemManager.SystemFolders)
             {
+                token.ThrowIfCancellationRequested();
+
                 var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
 
                 if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
@@ -147,26 +174,34 @@ public partial class GlobalSearchWindow
                     continue;
                 }
 
-                var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", SearchOption.AllDirectories)
+                var filesInSystemFolder = Directory.EnumerateFiles(systemFolderPath, "*.*", searchOption)
                     .Where(file => systemManager.FileFormatsToSearch.Contains(Path.GetExtension(file).TrimStart('.').ToLowerInvariant()));
 
-                if (systemManager.SystemIsMame && _mameLookup != null)
+                filesInSystemFolder = filesInSystemFolder.Where(file =>
                 {
-                    filesInSystemFolder = filesInSystemFolder.Where(file =>
-                    {
-                        var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
-                        if (MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms))
-                            return true;
-                        if (_mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
-                            return MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
+                    var fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);
 
-                        return false;
-                    });
-                }
-                else
-                {
-                    filesInSystemFolder = filesInSystemFolder.Where(file => MatchesSearchQuery(Path.GetFileName(file).ToLowerInvariant(), searchTerms));
-                }
+                    var filenameMatch = false;
+                    if (searchFilename)
+                    {
+                        filenameMatch = MatchesSearchQuery(fileNameWithoutExtension.ToLowerInvariant(), searchTerms);
+                    }
+
+                    var mameDescriptionMatch = false;
+                    if (searchMameDescription && systemManager.SystemIsMame && _mameLookup != null && _mameLookup.TryGetValue(fileNameWithoutExtension, out var description))
+                    {
+                        mameDescriptionMatch = MatchesSearchQuery(description.ToLowerInvariant(), searchTerms);
+                    }
+
+                    var folderNameMatch = false;
+                    if (searchFolderName)
+                    {
+                        var directoryName = new DirectoryInfo(Path.GetDirectoryName(file)!).Name;
+                        folderNameMatch = MatchesSearchQuery(directoryName.ToLowerInvariant(), searchTerms);
+                    }
+
+                    return filenameMatch || mameDescriptionMatch || folderNameMatch;
+                });
 
                 var matchedFilePaths = filesInSystemFolder.ToList();
 
