@@ -1,7 +1,7 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Settings>
 	<ThumbnailSize>300</ThumbnailSize>
-	<SearchEngine>GoogleWeb</SearchEngine>
+	<SearchEngine>BingWeb</SearchEngine>
     <BaseTheme>Light</BaseTheme>
     <AccentColor>Blue</AccentColor>
     <UseMameDescriptions>false</UseMameDescriptions>
