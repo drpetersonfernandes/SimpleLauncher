@@ -143,9 +143,9 @@ public class SettingsManager
 
             FuzzyMatchingThreshold = fuzzyThreshold;
 
-            EnableNotificationSound = ParseBoolSetting(settings, "EnableNotificationSound", true); // Default to true if not found
+            EnableNotificationSound = ParseBoolSetting(settings, "EnableNotificationSound", true);
             CustomNotificationSoundFile = settings.Element("CustomNotificationSoundFile")?.Value ?? DefaultNotificationSoundFileName;
-            if (string.IsNullOrWhiteSpace(CustomNotificationSoundFile)) // Ensure it's not empty
+            if (string.IsNullOrWhiteSpace(CustomNotificationSoundFile))
             {
                 CustomNotificationSoundFile = DefaultNotificationSoundFileName;
             }
@@ -167,8 +167,6 @@ public class SettingsManager
                     SystemPlayTimes.Add(systemPlayTime);
                 }
             }
-
-            Save();
         }
         catch (XmlException ex)
         {

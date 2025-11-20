@@ -98,9 +98,9 @@ public class GamePadController : IDisposable
 
     public void Start()
     {
-        try
+        lock (_stateLock)
         {
-            lock (_stateLock)
+            try
             {
                 if (_isDisposed)
                 {
@@ -150,88 +150,88 @@ public class GamePadController : IDisposable
                 _timer.Change(0, 1000 / RefreshRate);
                 IsRunning = true;
             }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error in GamePadController Start method.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
+            catch (Exception ex)
+            {
+                // Notify developer
+                ErrorLogger?.Invoke(ex, $"Error in GamePadController Start method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}");
 
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+            }
         }
     }
 
     public void Stop()
     {
-        try
+        lock (_stateLock)
         {
-            lock (_stateLock)
+            try
             {
                 IsRunning = false;
                 // Change timer to stop, but don't dispose it here
                 _timer?.Change(Timeout.Infinite, Timeout.Infinite);
             }
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error in GamePadController Stop method.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
+            catch (Exception ex)
+            {
+                // Notify developer
+                ErrorLogger?.Invoke(ex, $"Error in GamePadController Stop method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}");
 
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+            }
         }
     }
 
     public void Dispose()
     {
-        try
+        lock (_stateLock)
         {
-            lock (_stateLock)
+            try
             {
                 if (_isDisposed) return;
                 // Signal that we are stopping and disposing.
                 IsRunning = false;
                 _isDisposed = true;
-            }
 
-            // Stop the timer and wait for any running callback to complete.
-            // This is done outside the lock to prevent deadlocks.
-            // The Update method will see IsRunning = false or _isDisposed = true and exit quickly.
-            using (var waitHandle = new ManualResetEvent(false))
-            {
-                if (_timer?.Dispose(waitHandle) ?? false)
+                // Stop the timer and wait for any running callback to complete.
+                // This is done outside the lock to prevent deadlocks.
+                // The Update method will see IsRunning = false or _isDisposed = true and exit quickly.
+                using (var waitHandle = new ManualResetEvent(false))
                 {
-                    // Wait for the timer to signal that the final callback has completed.
-                    // A timeout is a safeguard against unforeseen issues.
-                    waitHandle.WaitOne(1000);
+                    if (_timer?.Dispose(waitHandle) ?? false)
+                    {
+                        // Wait for the timer to signal that the final callback has completed.
+                        // A timeout is a safeguard against unforeseen issues.
+                        waitHandle.WaitOne(1000);
+                    }
                 }
+
+                // At this point, the Update() method is guaranteed to no longer be running.
+                // We can safely dispose of the remaining resources without a lock.
+                _directInputController?.Unacquire();
+                _directInputController?.Dispose();
+                _directInputController = null;
+
+                _directInput?.Dispose();
+                _directInput = null;
+
+                // Tell GC not to call the finalizer since we've already cleaned up
+                GC.SuppressFinalize(this);
             }
+            catch (Exception ex)
+            {
+                // Notify developer
+                ErrorLogger?.Invoke(ex, $"Error in GamePadController Dispose method.\n\n" +
+                                        $"Exception type: {ex.GetType().Name}\n" +
+                                        $"Exception details: {ex.Message}");
 
-            // At this point, the Update() method is guaranteed to no longer be running.
-            // We can safely dispose of the remaining resources without a lock.
-            _directInputController?.Unacquire();
-            _directInputController?.Dispose();
-            _directInputController = null;
-
-            _directInput?.Dispose();
-            _directInput = null;
-
-            // Tell GC not to call the finalizer since we've already cleaned up
-            GC.SuppressFinalize(this);
-        }
-        catch (Exception ex)
-        {
-            // Notify developer
-            ErrorLogger?.Invoke(ex, $"Error in GamePadController Dispose method.\n\n" +
-                                    $"Exception type: {ex.GetType().Name}\n" +
-                                    $"Exception details: {ex.Message}");
-
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+                // Notify user
+                Application.Current.Dispatcher.Invoke(static () => MessageBoxLibrary.GamePadErrorMessageBox(GetLogPath.Path()));
+            }
         }
     }
 

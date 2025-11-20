@@ -300,8 +300,7 @@ public class GameLauncher
     {
         try
         {
-            var architecture = Environment.OSVersion.VersionString.Contains("ARM64", StringComparison.OrdinalIgnoreCase) ? System.Runtime.InteropServices.Architecture.Arm64 : System.Runtime.InteropServices.Architecture.X64; // Fallback for simplicity, actual check might be more complex
-            return architecture == System.Runtime.InteropServices.Architecture.Arm64;
+            return System.Runtime.InteropServices.RuntimeInformation.OSArchitecture == System.Runtime.InteropServices.Architecture.Arm64;
         }
         catch (Exception ex)
         {
