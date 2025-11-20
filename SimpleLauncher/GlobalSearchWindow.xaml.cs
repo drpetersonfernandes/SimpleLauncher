@@ -76,61 +76,68 @@ public partial class GlobalSearchWindow
         {
             _cancellationTokenSource?.Dispose();
             _cancellationTokenSource = new CancellationTokenSource();
+
             var searchTerm = SearchTextBox.Text;
+
+            // Validate search terms
+            var parsedTerms = ParseSearchTerms(searchTerm);
+            var hasMeaningfulKeywords = parsedTerms
+                .Any(static t => !t.Equals("and", StringComparison.OrdinalIgnoreCase) &&
+                                 !t.Equals("or", StringComparison.OrdinalIgnoreCase));
+
+            if (!hasMeaningfulKeywords)
+            {
+                MessageBox.Show(
+                    (string)Application.Current.TryFindResource("EnterValidSearchTerms") ?? "Please enter valid search terms.",
+                    (string)Application.Current.TryFindResource("InvalidSearch") ?? "Invalid Search",
+                    MessageBoxButton.OK, MessageBoxImage.Warning);
+                return;
+            }
+
             if (CheckIfSearchTermIsEmpty(searchTerm)) return;
 
             LaunchButton.IsEnabled = false;
             PreviewImage.Source = null;
-            _searchResults.Clear();
-            NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
             LoadingOverlay.Visibility = Visibility.Visible;
+            NoResultsMessageOverlay.Visibility = Visibility.Collapsed;
 
             try
             {
-                // Get search parameters from the new UI controls
                 var selectedSystem = SystemComboBox.SelectedItem as string;
                 var searchFilename = SearchFilenameCheckBox.IsChecked == true;
                 var searchMameDescription = SearchMameDescriptionCheckBox.IsChecked == true;
                 var searchFolderName = SearchFolderNameCheckBox.IsChecked == true;
                 var searchRecursively = SearchRecursivelyCheckBox.IsChecked == true;
+                var results = await Task.Run(() => PerformSearch(
+                    searchTerm, selectedSystem, searchFilename, searchMameDescription,
+                    searchFolderName, searchRecursively), _cancellationTokenSource.Token);
 
-                // PerformSearch itself runs on a background thread.
-                // It will now also spawn subtasks for file sizes.
-                var results = await Task.Run(() => PerformSearch(searchTerm, selectedSystem, searchFilename, searchMameDescription, searchFolderName, searchRecursively));
-
-                if (results != null && results.Count != 0)
+                // Bulk update instead of per-item addition
+                _searchResults.Clear();
+                if (results?.Count > 0)
                 {
-                    foreach (var result in results)
-                    {
-                        // Adding to ObservableCollection will make items appear in the UI.
-                        // FileSizeBytes will initially show "Calculating..."
-                        _searchResults.Add(result);
-                    }
-                    // LaunchButton.IsEnabled will be handled by ActionsWhenUserSelectAResultItem when an item is selected.
-                    // If no item is selected, it remains false.
+                    _searchResults = new ObservableCollection<SearchResult>(results);
+                    ResultsDataGrid.ItemsSource = _searchResults;
+                    LaunchButton.IsEnabled = false; // Will be enabled when item is selected
                 }
                 else
                 {
-                    // No results found, display the overlay message
                     NoResultsMessageOverlay.Visibility = Visibility.Visible;
-
                     PreviewImage.Source = null;
-                    LaunchButton.IsEnabled = false; // No results, so disable the launch button
+                    LaunchButton.IsEnabled = false;
                 }
+            }
+            catch (OperationCanceledException)
+            {
+                // Search was canceled - ignore
             }
             catch (Exception ex)
             {
-                // Notify developer
-                const string contextMessage = "Error during search operation.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
-
-                // Notify user
+                await LogErrors.LogErrorAsync(ex, "Error during search operation.");
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
-
-                // In case of error, also show the "No results found" message or a specific error message.
                 NoResultsMessageOverlay.Visibility = Visibility.Visible;
-                LaunchButton.IsEnabled = false; // Disable launch button on error
+                LaunchButton.IsEnabled = false;
             }
             finally
             {
@@ -139,9 +146,7 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in SearchButton_Click.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            await LogErrors.LogErrorAsync(ex, "Error in SearchButton_Click.");
         }
     }
 
