@@ -42,6 +42,9 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("SupportWindowClient");
         serviceCollection.AddHttpClient("RetroAchievementsClient");
 
+        // Register IConfiguration
+        serviceCollection.AddSingleton<IConfiguration>(Configuration);
+
         // Register IMemoryCache
         serviceCollection.AddMemoryCache();
 
