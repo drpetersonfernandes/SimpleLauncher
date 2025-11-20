@@ -56,6 +56,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<UpdateChecker>();
+        serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();

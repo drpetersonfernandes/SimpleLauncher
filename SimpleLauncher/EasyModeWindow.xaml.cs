@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Diagnostics;
-using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
@@ -21,7 +20,7 @@ using System.Runtime.CompilerServices; // Required for CallerMemberName
 
 namespace SimpleLauncher;
 
-public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Implement INotifyPropertyChanged
+public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 {
     private EasyModeManager _manager;
     private bool _isEmulatorDownloaded;
@@ -31,8 +30,6 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
     private bool _isImagePackDownloaded3;
     private bool _isImagePackDownloaded4;
     private bool _isImagePackDownloaded5;
-
-    // Properties for Image Pack button visibility
 
     public bool IsImagePack1Available
     {
@@ -124,12 +121,9 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged // Imp
         // Set DataContext for XAML bindings to work
         DataContext = this;
 
-        // Get the factory from the service provider
-        var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
-        var extractionService = App.ServiceProvider.GetRequiredService<IExtractionService>();
+        // Get the DownloadManager from the service provider
+        _downloadManager = App.ServiceProvider.GetRequiredService<DownloadManager>();
 
-        // Initialize the DownloadManager, passing the factory
-        _downloadManager = new DownloadManager(httpClientFactory, extractionService);
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
         // Load Config
