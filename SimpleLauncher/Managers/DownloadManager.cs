@@ -130,7 +130,8 @@ public class DownloadManager : IDisposable
         var downloadFilePath = Path.Combine(TempFolder, fileName);
 
         // Check disk space
-        if (!CheckAvailableDiskSpace(TempFolder))
+        var diskSpaceCheckResult = CheckAvailableDiskSpace(TempFolder);
+        if (diskSpaceCheckResult == false)
         {
             OnProgressChanged(new DownloadProgressEventArgs
             {
@@ -138,7 +139,17 @@ public class DownloadManager : IDisposable
                 StatusMessage = GetResourceString("InsufficientdiskspaceinSimpleLauncherHDD", "Insufficient disk space in 'Simple Launcher' HDD.")
             });
 
-            throw new IOException("Insufficient disk space in 'Simple Launcher' HDD or disk space *cannot* be checked.");
+            throw new IOException("Insufficient disk space in 'Simple Launcher' HDD.");
+        }
+        else if (diskSpaceCheckResult == null)
+        {
+            OnProgressChanged(new DownloadProgressEventArgs
+            {
+                ProgressPercentage = 0,
+                StatusMessage = GetResourceString("CannotCheckDiskSpace", "Cannot check available disk space. The path may be inaccessible or you may lack permissions.")
+            });
+
+            throw new IOException("Cannot check disk space for 'Simple Launcher' HDD. The path may be inaccessible or you may lack permissions.");
         }
 
         try
@@ -640,8 +651,8 @@ public class DownloadManager : IDisposable
     /// </summary>
     /// <param name="folderPath">The folder path to check.</param>
     /// <param name="requiredSpace">The required space in bytes (default is 5GB).</param>
-    /// <returns>True if enough space is available, otherwise false.</returns>
-    private static bool CheckAvailableDiskSpace(string folderPath, long requiredSpace = 5368709120)
+    /// <returns>True if enough space is available, false if insufficient, null if cannot be checked.</returns>
+    private static bool? CheckAvailableDiskSpace(string folderPath, long requiredSpace = 5368709120)
     {
         try
         {
@@ -651,9 +662,9 @@ public class DownloadManager : IDisposable
         }
         catch
         {
-            // If we can't check disk space, assume it's false
-            // If disk space *cannot* be checked (e.g., network drive issues, permissions), assumes there's not enough space.
-            return false;
+            // If we can't check disk space (e.g., network drive issues, permissions),
+            // return null to indicate inability to check rather than insufficient space.
+            return null;
         }
     }
 
