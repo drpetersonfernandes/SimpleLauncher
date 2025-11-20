@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
@@ -88,7 +89,7 @@ public partial class PlayHistoryWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -101,7 +102,7 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
         }
     }
 
@@ -223,7 +224,7 @@ public partial class PlayHistoryWindow
 
                 // Notify developer
                 var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
-                _ = LogErrorsService.LogErrorAsync(new Exception(contextMessage), contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new Exception(contextMessage), contextMessage);
             }
         });
     }
@@ -261,9 +262,9 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error parsing date and time.\n" +
-                                                   $"dateStr: {dateStr}\n" +
-                                                   $"timeStr: {timeStr}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error parsing date and time.\n" +
+                                                                                       $"dateStr: {dateStr}\n" +
+                                                                                       $"timeStr: {timeStr}");
 
             // In case of any exception, return a reasonable default
             return DateTime.MinValue;
@@ -301,7 +302,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "History item filename is null";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -314,7 +315,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -343,7 +344,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -383,7 +384,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -397,7 +398,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "systemManager is null.";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -428,7 +429,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "emulatorManager is null.";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -516,7 +517,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error refreshing play history data.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -536,7 +537,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -565,7 +566,7 @@ public partial class PlayHistoryWindow
             PreviewImage.Source = null; // Ensure image is cleared on error
 
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
         }
     }
 
@@ -706,7 +707,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGame_Click method.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);

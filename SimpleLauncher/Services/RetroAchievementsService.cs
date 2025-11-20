@@ -13,12 +13,13 @@ using System.Net;
 
 namespace SimpleLauncher.Services;
 
-public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager) : IDisposable
+public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMemoryCache memoryCache, RetroAchievementsManager raManager, ILogErrors logErrors) : IDisposable
 {
     private const string ApiBaseUrl = "https://retroachievements.org/API/";
     private const string SiteBaseUrl = "https://retroachievements.org";
     private readonly HttpClient _httpClient = httpClientFactory?.CreateClient("RetroAchievementsClient");
     private readonly IMemoryCache _cache = memoryCache ?? throw new ArgumentNullException(nameof(memoryCache));
+    private readonly ILogErrors _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
     private CancellationTokenSource _cacheResetTokenSource = new();
     public RetroAchievementsManager RaManager { get; } = raManager ?? throw new ArgumentNullException(nameof(raManager));
 
@@ -73,7 +74,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetGameInfoAndUserProgress failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -150,7 +151,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetGameInfoAndUserProgressAsync for gameId {gameId}.");
             return (null, null);
         }
     }
@@ -178,7 +179,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetGameExtended failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetGameExtended failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -203,7 +204,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameExtendedAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -231,7 +232,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetUserGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetUserGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -256,7 +257,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -285,7 +286,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetGameRankAndScore failed with status {response.StatusCode} for gameId {gameId}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -313,7 +314,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetGameRankAndScoreAsync for gameId {gameId}.");
             return null;
         }
     }
@@ -341,7 +342,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetUserProfile failed with status {response.StatusCode} for user {username}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetUserProfile failed with status {response.StatusCode} for user {username}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -366,7 +367,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Error in GetUserProfileAsync for user {username}.");
             return null;
         }
     }
@@ -406,7 +407,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetUserRecentlyPlayedGames failed with status {response.StatusCode} for user {username}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetUserRecentlyPlayedGames failed with status {response.StatusCode} for user {username}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -434,7 +435,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserRecentlyPlayedGamesAsync for user {username}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserRecentlyPlayedGamesAsync for user {username}.");
             return null;
         }
     }
@@ -479,7 +480,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetAchievementsEarnedBetween failed with status {response.StatusCode} for user {username}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetAchievementsEarnedBetween failed with status {response.StatusCode} for user {username}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -507,7 +508,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetAchievementsEarnedBetweenAsync for user {username}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetAchievementsEarnedBetweenAsync for user {username}.");
             return null;
         }
     }
@@ -547,7 +548,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
             if (!response.IsSuccessStatusCode)
             {
                 var error = await response.Content.ReadAsStringAsync();
-                _ = LogErrorsService.LogErrorAsync(null, $"[RA Service] API_GetUserCompletionProgress failed with status {response.StatusCode} for user {username}: {error}");
+                _ = _logErrors.LogErrorAsync(null, $"[RA Service] API_GetUserCompletionProgress failed with status {response.StatusCode} for user {username}: {error}");
 
                 if (response.StatusCode == HttpStatusCode.Unauthorized)
                 {
@@ -584,7 +585,7 @@ public class RetroAchievementsService(IHttpClientFactory httpClientFactory, IMem
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserCompletionProgressAsync for user {username}.");
+            _ = _logErrors.LogErrorAsync(ex, $"[RA Service] Unexpected error in GetUserCompletionProgressAsync for user {username}.");
             return null;
         }
     }

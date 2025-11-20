@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Windows.Media;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -175,7 +176,7 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrorsService.LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
                 }
             }
         }
@@ -207,7 +208,7 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrorsService.LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
                 }
             }
         }

@@ -120,8 +120,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly ILaunchTools _launchTools;
     private readonly PlaySoundEffects _playSoundEffects;
     private readonly Stats _stats;
+    private readonly ILogErrors _logErrors;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats, ILogErrors logErrors)
     {
         InitializeComponent();
 
@@ -134,6 +135,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _launchTools = launchTools ?? throw new ArgumentNullException(nameof(launchTools));
         _stats = stats ?? throw new ArgumentNullException(nameof(stats));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -173,7 +175,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         if (_gameFileGrid == null)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
+            _ = _logErrors.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
         }
 
         // Initialize _gameButtonFactory
@@ -194,7 +196,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
                 DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
             }
         };
@@ -210,7 +212,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the Loaded event.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
                 DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
             }
         };
@@ -262,7 +264,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
@@ -302,7 +304,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
         }
     }
 
@@ -401,7 +403,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string contextMessage = "Error in the Feeling Lucky feature.";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
@@ -409,7 +411,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
         }
     }
 
@@ -459,7 +461,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error refreshing game list play time";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -610,7 +612,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItem.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -655,7 +657,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     {
                         // Notify developer
                         const string errorMessage = "Selected system or its configuration is null.";
-                        _ = LogErrorsService.LogErrorAsync(null, errorMessage);
+                        _ = _logErrors.LogErrorAsync(null, errorMessage);
 
                         // Notify user
                         MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -716,7 +718,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 {
                     // Notify developer
                     const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-                    _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+                    _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                     // Notify user
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -732,7 +734,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
             }
 
             return;
@@ -757,7 +759,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
         }
     }
 
@@ -824,7 +826,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string contextMessage = "selectedConfig is null.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = _logErrors.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -907,7 +909,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
@@ -1177,7 +1179,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
             DebugLogger.Log("Error in SortOrderToggleButton_Click.");
         }
     }

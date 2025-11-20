@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
@@ -61,7 +62,7 @@ public partial class GlobalStatsWindow
                 {
                     // Notify developer
                     const string contextMessage = "An error occurred while calculating Global Statistics.";
-                    _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -76,7 +77,7 @@ public partial class GlobalStatsWindow
             {
                 // Notify developer
                 const string contextMessage = "Error in the GlobalStats_Loaded method.";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
 
             return;
@@ -98,7 +99,7 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             const string contextMessage = "Error in the GlobalStats_Loaded method.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -120,7 +121,7 @@ public partial class GlobalStatsWindow
                     if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
                     {
                         // Notify developer
-                        _ = LogErrorsService.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
                     }
                 }
                 else
@@ -159,7 +160,7 @@ public partial class GlobalStatsWindow
             else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
             }
 
 
@@ -202,7 +203,7 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the CalculateGlobalStats method.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in the CalculateGlobalStats method.");
 
             // Notify user
             MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -240,7 +241,7 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             const string contextMessage = "Failed to save the report in the Global Stats window.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedSaveReportMessageBox();
@@ -307,7 +308,7 @@ public partial class GlobalStatsWindow
                 // Notify developer
                 var contextMessage = $"Error renaming image file: {imageFile}\n" +
                                      $"New file name: {newImagePath}";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
         }
 

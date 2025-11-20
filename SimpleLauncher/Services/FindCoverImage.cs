@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -63,7 +64,7 @@ public static class FindCoverImage
             else
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
             }
 
             // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
@@ -100,7 +101,7 @@ public static class FindCoverImage
         // else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
         // {
         //     // Notify developer
-        //     _ = LogErrorsService.LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
+        //     _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
         // }
 
         // 3. Fallback to default images

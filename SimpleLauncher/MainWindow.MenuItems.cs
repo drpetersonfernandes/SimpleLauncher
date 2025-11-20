@@ -66,7 +66,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method EasyMode_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method EasyMode_Click.");
         }
     }
 
@@ -88,7 +88,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ExpertMode_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ExpertMode_Click.");
         }
     }
 
@@ -108,7 +108,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method DownloadImagePack_Click.");
         }
     }
 
@@ -153,7 +153,7 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ResetUi.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
             }
             finally
             {
@@ -162,7 +162,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ResetUi.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ResetUi.");
         }
     }
 
@@ -198,13 +198,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method EditLinks_Click.");
         }
     }
 
@@ -237,7 +237,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Failed to toggle gamepad.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ToggleGamepadFailureMessageBox();
@@ -292,7 +292,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string contextMessage = "Failed to toggle fuzzy matching.";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ToggleFuzzyMatchingFailureMessageBox();
@@ -301,7 +301,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatching_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ToggleFuzzyMatching_Click.");
         }
     }
 
@@ -325,7 +325,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThreshold_Click");
+            _ = _logErrors.LogErrorAsync(ex, "Error in method SetFuzzyMatchingThreshold_Click");
         }
     }
 
@@ -358,7 +358,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Unable to open the Donation Link from the menu.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningDonationLinkMessageBox();
@@ -398,13 +398,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowAllGames_Click.");
         }
     }
 
@@ -428,13 +428,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithCover_Click.");
         }
     }
 
@@ -458,13 +458,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ShowGamesWithoutCover_Click.");
         }
     }
 
@@ -512,7 +512,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Error in method ButtonSize_Click.";
-                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
@@ -521,7 +521,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ButtonSize_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonSize_Click.");
         }
     }
 
@@ -551,7 +551,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string contextMessage = "Error in method ButtonAspectRatio_Click";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
@@ -560,7 +560,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method ButtonAspectRatio_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method ButtonAspectRatio_Click.");
         }
     }
 
@@ -599,13 +599,13 @@ public partial class MainWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+                _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method GamesPerPage_Click.");
         }
     }
 
@@ -740,7 +740,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error while using the method ChangeViewMode_Click.";
-            _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+            _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorChangingViewModeMessageBox();
@@ -845,7 +845,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in method NavSelectedSystemFavoriteButton_Click.");
         }
     }
 
@@ -859,7 +859,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavRandomLuckGameButton_Click.");
         }
     }
 
@@ -896,13 +896,13 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Error in method NavZoomInButton_Click.";
-                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method NavZoomInButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomInButton_Click.");
         }
     }
 
@@ -939,13 +939,13 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Error in method NavZoomOutButton_Click.";
-                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, errorMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method NavZoomOutButton_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavZoomOutButton_Click.");
         }
     }
 
@@ -990,7 +990,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Error while using the method NavToggleViewMode_Click.";
-                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
+                _ = _logErrors.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorChangingViewModeMessageBox();
@@ -999,7 +999,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in the method NavToggleViewMode_Click.");
+            _ = _logErrors.LogErrorAsync(ex, "Error in the method NavToggleViewMode_Click.");
         }
     }
 
@@ -1016,7 +1016,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error opening Sound Configuration window.");
+            _ = _logErrors.LogErrorAsync(ex, "Error opening Sound Configuration window.");
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenSoundConfigurationWindow();
@@ -1034,7 +1034,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error opening RetroAchievements settings window.");
+            _ = _logErrors.LogErrorAsync(ex, "Error opening RetroAchievements settings window.");
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
@@ -1057,7 +1057,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error toggling RetroAchievements overlay button.");
+            _ = _logErrors.LogErrorAsync(ex, "Error toggling RetroAchievements overlay button.");
             MessageBoxLibrary.ErrorMessageBox();
         }
     }
@@ -1080,7 +1080,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error toggling video link overlay button.");
+            _ = _logErrors.LogErrorAsync(ex, "Error toggling video link overlay button.");
             MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
         }
     }
@@ -1103,7 +1103,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error toggling info link overlay button.");
+            _ = _logErrors.LogErrorAsync(ex, "Error toggling info link overlay button.");
             MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
         }
     }

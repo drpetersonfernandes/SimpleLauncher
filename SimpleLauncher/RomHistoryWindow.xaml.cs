@@ -8,6 +8,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -43,7 +44,7 @@ public partial class RomHistoryWindow
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, "Error loading ROM history.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading ROM history.");
                 DebugLogger.Log($"Error loading ROM history: {ex.Message}");
             }
         };
@@ -61,7 +62,7 @@ public partial class RomHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Update UI on the UI thread
                 await Dispatcher.InvokeAsync(() =>
@@ -128,7 +129,7 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             const string contextMessage = "An error occurred while loading ROM history.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -185,7 +186,7 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             const string contextMessage = "An error occurred while opening the browser.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();
