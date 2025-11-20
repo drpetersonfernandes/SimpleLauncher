@@ -174,7 +174,7 @@ public partial class MainWindow
         SystemComboBox.ItemsSource = sortedSystemNames;
 
         // Re-instantiate factories with the updated _systemManagers list
-        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        _gameButtonFactory = new GameButtonFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, _gameFileGrid, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
         _gameListFactory = new GameListFactory(EmulatorComboBox, SystemComboBox, _systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
     }
 
@@ -1008,7 +1008,7 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayClickSound();
-            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects);
+            var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors);
             soundConfigWindow.ShowDialog();
             // Settings are saved within the SoundConfigurationWindow, no need to explicitly save here.
             // PlaySoundEffects will automatically use the new settings on its next call

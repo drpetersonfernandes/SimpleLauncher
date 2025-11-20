@@ -27,11 +27,8 @@ public class LogErrorsService : ILogErrors
     {
         try
         {
-            string apiKey = null;
-            string bugReportApiUrl = null;
-
             // Read ApiKey
-            apiKey = configuration.GetValue<string>(nameof(ApiKey));
+            var apiKey = configuration.GetValue<string>("ApiKey");
 
             if (string.IsNullOrEmpty(apiKey))
             {
@@ -42,7 +39,7 @@ public class LogErrorsService : ILogErrors
             }
 
             // Read BugReportApiUrl
-            bugReportApiUrl = configuration.GetValue<string>(nameof(BugReportApiUrl));
+            var bugReportApiUrl = configuration.GetValue<string>("BugReportApiUrl");
 
             // BugReportApiUrl is missing or empty, disable API logging and notify the user
             if (string.IsNullOrEmpty(bugReportApiUrl))

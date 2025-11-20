@@ -12,17 +12,21 @@ public partial class SoundConfigurationWindow
 {
     private readonly SettingsManager _settings;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly ILogErrors _logErrors;
     private const string DefaultNotificationSound = "click.mp3";
     private static readonly string AudioFolderPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "audio");
 
-    public SoundConfigurationWindow(SettingsManager settings, PlaySoundEffects playSoundEffects)
+    public SoundConfigurationWindow(SettingsManager settings, PlaySoundEffects playSoundEffects, ILogErrors logErrors)
     {
         InitializeComponent();
         App.ApplyThemeToWindow(this);
 
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
+
         Owner = Application.Current.MainWindow;
+
         LoadSettings();
     }
 
@@ -78,7 +82,7 @@ public partial class SoundConfigurationWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error choosing or copying sound file.");
+            _ = _logErrors.LogErrorAsync(ex, "Error choosing or copying sound file.");
 
             // Notify user
             MessageBoxLibrary.ErrorSettingSoundFile();

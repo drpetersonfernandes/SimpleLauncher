@@ -8,19 +8,14 @@ using System.Security;
 using System.Text;
 using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
+using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
 
 namespace SimpleLauncher.Services;
 
 public class ExtractionService : IExtractionService
 {
-    private readonly ILogErrors _logErrors;
     private readonly string _tempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
-
-    public ExtractionService(ILogErrors logErrors)
-    {
-        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
-    }
 
     public async Task<(string? gameFilePath, string? tempDirectoryPath)> ExtractToTempAndGetLaunchFileAsync(string archivePath, List<string> fileFormatsToLaunch)
     {
@@ -50,7 +45,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "File path is invalid.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.DownloadedFileIsMissingMessageBox();
@@ -65,7 +60,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "Destination folder path resolution failed.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -88,7 +83,7 @@ public class ExtractionService : IExtractionService
                 // Last attempt failed
                 // Notify developer
                 var contextMessage = $"The downloaded file appears to be locked after {maxRetries} retries: {archivePath}";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileIsLockedMessageBox();
@@ -104,7 +99,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             var contextMessage = $"Only ZIP files are supported by this extraction method.\n" + $"File type: {extension}";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FileNeedToBeCompressedMessageBox();
@@ -122,7 +117,7 @@ public class ExtractionService : IExtractionService
             catch (Exception ex)
             {
                 // Notify developer
-                _ = _logErrors.LogErrorAsync(ex, $"Failed to create directory: {resolvedDestinationFolder}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to create directory: {resolvedDestinationFolder}");
             }
 
             // Create a tracking file in the resolved destination folder
@@ -153,7 +148,7 @@ public class ExtractionService : IExtractionService
                                 {
                                     // Notify developer
                                     var contextMessage = $"Not enough disk space for extraction. Required: {estimatedSize / (1024 * 1024)} MB, Available: {drive.AvailableFreeSpace / (1024 * 1024)} MB";
-                                    _ = _logErrors.LogErrorAsync(null, contextMessage);
+                                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                                     // Notify user
                                     MessageBoxLibrary.DiskSpaceErrorMessageBox();
@@ -164,7 +159,7 @@ public class ExtractionService : IExtractionService
                             catch (ArgumentException ex)
                             {
                                 // Notify developer
-                                _ = _logErrors.LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
+                                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unable to check disk space for path {resolvedDestinationFolder}: {ex.Message}");
 
                                 // Notify user
                                 MessageBoxLibrary.CouldNotCheckForDiskSpaceMessageBox();
@@ -223,13 +218,13 @@ public class ExtractionService : IExtractionService
                 {
                     // Notify developer
                     var contextMessage = $"Failed to clean up partial extraction in: {resolvedDestinationFolder}";
-                    _ = _logErrors.LogErrorAsync(cleanupEx, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, contextMessage);
                 }
             }
 
             // Notify developer
             var exceptionDetails = GetDetailedExceptionInfo(ex);
-            _ = _logErrors.LogErrorAsync(ex, $"Error extracting the file: {archivePath}\n{exceptionDetails}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error extracting the file: {archivePath}\n{exceptionDetails}");
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -244,7 +239,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             const string contextMessage = "Archive path cannot be null, empty, or file not found.";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -269,7 +264,7 @@ public class ExtractionService : IExtractionService
             {
                 // Notify developer
                 const string contextMessage = "Temp folder resolution failed.";
-                _ = _logErrors.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -317,7 +312,7 @@ public class ExtractionService : IExtractionService
 
             // Notify developer
             const string contextMessage = "Extraction of the compressed file failed. The file may be corrupted or a security issue was detected.";
-            _ = _logErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ExtractionFailedMessageBox();
@@ -397,7 +392,7 @@ public class ExtractionService : IExtractionService
         {
             // Notify developer
             var contextMessage = $"Extracted path is invalid: {tempExtractLocation}";
-            _ = _logErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {contextMessage}");
 
             // Notify user
@@ -432,7 +427,7 @@ public class ExtractionService : IExtractionService
                 }
                 catch (Exception ex)
                 {
-                    _ = _logErrors.LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error searching for file format '{formatToLaunch}' in '{tempExtractLocation}'.");
                     DebugLogger.Log($"[ValidateAndFindGameFileAsync] Exception searching for {formatToLaunch}: {ex.Message}");
                     // Continue to next format or fallback if this one fails
                 }
@@ -458,14 +453,14 @@ public class ExtractionService : IExtractionService
             }
             catch (Exception ex)
             {
-                _ = _logErrors.LogErrorAsync(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error enumerating all files in {tempExtractLocation} as a fallback.");
                 DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error enumerating all files: {ex.Message}");
             }
         }
 
         // If still no file found after all attempts
         const string notFoundContext = "Could not find a file with any of the specified extensions (or any file at all) after extraction.";
-        _ = _logErrors.LogErrorAsync(new FileNotFoundException(notFoundContext), notFoundContext);
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(notFoundContext), notFoundContext);
         DebugLogger.Log($"[ValidateAndFindGameFileAsync] Error: {notFoundContext}");
 
         MessageBoxLibrary.CouldNotFindAFileMessageBox(); // This message is now more general.
