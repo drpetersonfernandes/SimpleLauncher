@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -31,9 +32,23 @@ public partial class RetroAchievementsSettingsWindow
     private void SaveButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingRetroAchievementsSettings") ?? "Saving RetroAchievements settings...", Application.Current.MainWindow as MainWindow);
-        _settings.RaUsername = UsernameTextBox.Text.Trim();
-        _settings.RaApiKey = ApiKeyPasswordBox.Password; // No trim for password
+
+        var oldUsername = _settings.RaUsername;
+        var oldApiKey = _settings.RaApiKey;
+
+        var newUsername = UsernameTextBox.Text.Trim();
+        var newApiKey = ApiKeyPasswordBox.Password;
+
+        _settings.RaUsername = newUsername;
+        _settings.RaApiKey = newApiKey;
         _settings.Save();
+
+        // If credentials changed, clear the RetroAchievements cache
+        if (!string.Equals(oldUsername, newUsername, StringComparison.Ordinal) || !string.Equals(oldApiKey, newApiKey, StringComparison.Ordinal))
+        {
+            var raService = App.ServiceProvider.GetRequiredService<RetroAchievementsService>();
+            raService.ClearCache();
+        }
 
         DialogResult = true;
         Close();
