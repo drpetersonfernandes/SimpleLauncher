@@ -21,13 +21,14 @@ public partial class GlobalSearchWindow
     private static readonly string LogPath = GetLogPath.Path();
     private readonly List<SystemManager> _systemManagers;
     private readonly SettingsManager _settings;
+    private readonly List<Task> _pendingFileSizeTasks = new();
+    private readonly object _fileSizeTasksLock = new();
     private ObservableCollection<SearchResult> _searchResults;
     private readonly MainWindow _mainWindow;
     private readonly List<MameManager> _machines;
     private readonly Dictionary<string, string> _mameLookup;
     private readonly FavoritesManager _favoritesManager;
     private readonly PlaySoundEffects _playSoundEffects;
-
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
 
@@ -46,8 +47,8 @@ public partial class GlobalSearchWindow
         InitializeComponent();
         App.ApplyThemeToWindow(this);
         Closed += GlobalSearch_Closed;
-        _cancellationTokenSource = new CancellationTokenSource();
 
+        _cancellationTokenSource = new CancellationTokenSource();
         _systemManagers = systemManagers;
         _machines = machines;
         _mameLookup = mameLookup;
@@ -207,6 +208,8 @@ public partial class GlobalSearchWindow
 
                 foreach (var filePath in matchedFilePaths)
                 {
+                    token.ThrowIfCancellationRequested();
+
                     var searchResultItem = new SearchResult
                     {
                         FileName = Path.GetFileNameWithoutExtension(filePath),
@@ -221,7 +224,8 @@ public partial class GlobalSearchWindow
                     };
                     results.Add(searchResultItem);
 
-                    _ = Task.Run(() =>
+                    // Track the file size calculation task
+                    var fileSizeTask = Task.Run(() =>
                     {
                         try
                         {
@@ -230,6 +234,9 @@ public partial class GlobalSearchWindow
                             if (File.Exists(searchResultItem.FilePath))
                             {
                                 var fileInfo = new FileInfo(searchResultItem.FilePath);
+
+                                // Final cancellation check before UI update
+                                token.ThrowIfCancellationRequested();
                                 searchResultItem.FileSizeBytes = fileInfo.Length;
                             }
                             else
@@ -255,6 +262,20 @@ public partial class GlobalSearchWindow
                         }
 
                         return Task.CompletedTask;
+                    }, token);
+
+                    // Add to tracking list and setup self-cleanup
+                    lock (_fileSizeTasksLock)
+                    {
+                        _pendingFileSizeTasks.Add(fileSizeTask);
+                    }
+
+                    _ = fileSizeTask.ContinueWith(t =>
+                    {
+                        lock (_fileSizeTasksLock)
+                        {
+                            _pendingFileSizeTasks.Remove(fileSizeTask);
+                        }
                     }, token);
                 }
             }
@@ -568,14 +589,44 @@ public partial class GlobalSearchWindow
         }
     }
 
-    private void GlobalSearch_Closed(object sender, EventArgs e)
+    private async void GlobalSearch_Closed(object sender, EventArgs e)
     {
-        _cancellationTokenSource?.Cancel();
-        _cancellationTokenSource?.Dispose();
-        _cancellationTokenSource = null;
+        try
+        {
+            // Cancel all operations first
+            _cancellationTokenSource?.Cancel();
 
-        _searchResults?.Clear();
-        _searchResults = null;
+            // Wait for pending file size tasks to complete
+            Task[] tasksToAwait;
+            lock (_fileSizeTasksLock)
+            {
+                tasksToAwait = _pendingFileSizeTasks.ToArray();
+            }
+
+            if (tasksToAwait.Length > 0)
+            {
+                try
+                {
+                    await Task.WhenAll(tasksToAwait);
+                }
+                catch (Exception ex)
+                {
+                    _ = LogErrors.LogErrorAsync(ex, "Error awaiting file size tasks on window close.");
+                }
+            }
+
+            // Cleanup resources
+            _cancellationTokenSource?.Dispose();
+            _cancellationTokenSource = null;
+
+            _searchResults?.Clear();
+            _searchResults = null;
+            _pendingFileSizeTasks.Clear();
+        }
+        catch (Exception ex)
+        {
+            _ = LogErrors.LogErrorAsync(ex, "Error cleaning up resources on window close.");
+        }
     }
 
     private static bool CheckIfSearchTermIsEmpty(string searchTerm)
