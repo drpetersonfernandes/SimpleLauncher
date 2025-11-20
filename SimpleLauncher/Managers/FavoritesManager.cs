@@ -17,6 +17,7 @@ public class FavoritesManager
     public ObservableCollection<Favorite> FavoriteList { get; set; } = [];
 
     private static string DatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat");
+    private static string TempDatFilePath { get; } = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "favorites.dat.tmp");
 
     /// <summary>
     /// Loads favorites from the DAT file. If the DAT file doesn't exist, will create a new instance.
@@ -72,13 +73,31 @@ public class FavoritesManager
 
             // Serialize using MessagePack
             var bytes = MessagePackSerializer.Serialize(this);
-            File.WriteAllBytes(DatFilePath, bytes);
+
+            // Write to temporary file first to prevent corruption on crash
+            File.WriteAllBytes(TempDatFilePath, bytes);
+
+            // Atomically replace the main file with the temp file
+            File.Move(TempDatFilePath, DatFilePath, true);
         }
         catch (Exception ex)
         {
             // Notify developer
             const string contextMessage = "Error saving favorites.dat";
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
+
+            // Attempt to clean up temp file if it exists
+            try
+            {
+                if (File.Exists(TempDatFilePath))
+                {
+                    File.Delete(TempDatFilePath);
+                }
+            }
+            catch (Exception cleanupEx)
+            {
+                _ = LogErrors.LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+            }
 
             throw; // Re-throw to notify caller
         }
