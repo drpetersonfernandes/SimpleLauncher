@@ -119,8 +119,9 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly GameLauncher _gameLauncher;
     private readonly ILaunchTools _launchTools;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly Stats _stats;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools, Stats stats)
     {
         InitializeComponent();
 
@@ -132,6 +133,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
         _launchTools = launchTools ?? throw new ArgumentNullException(nameof(launchTools));
+        _stats = stats ?? throw new ArgumentNullException(nameof(stats));
 
         // DataContext set to the MainWindow instance
         DataContext = this;
@@ -203,7 +205,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 await _updateChecker.SilentCheckForUpdatesAsync(this);
                 DebugLogger.Log("Silent check for updates was done.");
-                await Stats.CallApiAsync();
+                await _stats.CallApiAsync();
                 DebugLogger.Log("Stats API call was done.");
             }
             catch (Exception ex)

@@ -19,11 +19,13 @@ public class GameLauncher
     private const int DepViolation = -1073740791;
     private readonly IExtractionService _extractionService;
     private readonly PlaySoundEffects _playSoundEffects;
+    private readonly Stats _stats;
 
-    public GameLauncher(IExtractionService extractionService, PlaySoundEffects playSoundEffects)
+    public GameLauncher(IExtractionService extractionService, PlaySoundEffects playSoundEffects, Stats stats)
     {
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+        _stats = stats ?? throw new ArgumentNullException(nameof(stats));
     }
 
     public async Task HandleButtonClickAsync(string filePath, string selectedEmulatorName, string selectedSystemName, SystemManager selectedSystemManager, SettingsManager settings, MainWindow mainWindow, GamePadController gamePadController)
@@ -287,7 +289,7 @@ public class GameLauncher
             if (selectedEmulatorName is not null)
             {
                 // Update stats
-                _ = Stats.CallApiAsync(selectedEmulatorName);
+                _ = _stats.CallApiAsync(selectedEmulatorName);
             }
         }
     }
