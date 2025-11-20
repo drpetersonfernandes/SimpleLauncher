@@ -7,6 +7,7 @@ using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Managers;
 

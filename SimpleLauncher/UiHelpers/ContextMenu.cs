@@ -4,6 +4,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 

@@ -7,6 +7,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;

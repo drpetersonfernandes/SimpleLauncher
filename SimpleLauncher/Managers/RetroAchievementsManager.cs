@@ -4,6 +4,7 @@ using System.IO;
 using MessagePack;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 

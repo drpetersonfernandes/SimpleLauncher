@@ -6,6 +6,7 @@ using System.Security.Authentication;
 using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 

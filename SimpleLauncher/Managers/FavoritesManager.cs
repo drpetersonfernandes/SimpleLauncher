@@ -5,6 +5,7 @@ using System.Windows;
 using System.Linq;
 using MessagePack;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 

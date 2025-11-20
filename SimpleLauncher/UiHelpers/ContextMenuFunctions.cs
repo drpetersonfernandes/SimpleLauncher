@@ -15,6 +15,7 @@ using SimpleLauncher.Services;
 using SimpleLauncher.ViewModels;
 using Image = System.Windows.Controls.Image;
 using System.Windows;
+using SimpleLauncher.Interfaces;
 using Point = System.Drawing.Point;
 using Size = System.Drawing.Size;
 

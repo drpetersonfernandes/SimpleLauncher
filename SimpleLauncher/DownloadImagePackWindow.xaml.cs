@@ -13,6 +13,7 @@ using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 

@@ -10,6 +10,7 @@ using Microsoft.Extensions.Primitives;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using System.Net;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

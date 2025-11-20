@@ -5,6 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using SharpDX;
 using SharpDX.DirectInput;
 using SharpDX.XInput;
+using SimpleLauncher.Interfaces;
 using WindowsInput;
 using DeviceType = SharpDX.DirectInput.DeviceType;
 

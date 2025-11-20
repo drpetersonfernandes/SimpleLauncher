@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;

@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Serialization;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

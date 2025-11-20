@@ -1,4 +1,4 @@
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Interfaces;
 
 public interface ILaunchTools
 {

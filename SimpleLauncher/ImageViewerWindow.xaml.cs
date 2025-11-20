@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Windows.Media.Imaging;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;

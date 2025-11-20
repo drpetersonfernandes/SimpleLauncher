@@ -1,6 +1,7 @@
 using System;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;

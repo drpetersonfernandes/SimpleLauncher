@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

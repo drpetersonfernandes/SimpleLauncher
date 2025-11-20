@@ -5,6 +5,7 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

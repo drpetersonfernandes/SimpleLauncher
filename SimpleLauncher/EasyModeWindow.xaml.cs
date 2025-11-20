@@ -17,6 +17,7 @@ using SimpleLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
 using System.ComponentModel;
 using System.Runtime.CompilerServices;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 

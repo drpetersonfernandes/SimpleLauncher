@@ -11,6 +11,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Threading;
 using ControlzEx.Theming;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;

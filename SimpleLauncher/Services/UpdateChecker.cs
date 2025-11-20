@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

@@ -9,6 +9,7 @@ using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 using Application = System.Windows.Application;

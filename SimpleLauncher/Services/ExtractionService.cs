@@ -10,6 +10,7 @@ using System.Threading.Tasks;
 using ICSharpCode.SharpZipLib.Zip;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

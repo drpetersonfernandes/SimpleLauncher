@@ -7,8 +7,8 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
-using SimpleLauncher.Services;
 
 namespace SimpleLauncher.UiHelpers;
 

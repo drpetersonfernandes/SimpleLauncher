@@ -6,7 +6,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher;
 

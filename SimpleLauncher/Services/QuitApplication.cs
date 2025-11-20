@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.Globalization; // Add this using directive
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Services;
 

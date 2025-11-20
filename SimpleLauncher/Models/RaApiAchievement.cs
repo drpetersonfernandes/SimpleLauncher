@@ -2,7 +2,7 @@ using System;
 using System.Globalization;
 using System.Text.Json.Serialization;
 using Microsoft.Extensions.DependencyInjection;
-using SimpleLauncher.Services;
+using SimpleLauncher.Interfaces;
 
 namespace SimpleLauncher.Models;
 

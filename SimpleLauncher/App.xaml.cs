@@ -10,6 +10,7 @@ using ControlzEx.Theming;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SevenZip;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 

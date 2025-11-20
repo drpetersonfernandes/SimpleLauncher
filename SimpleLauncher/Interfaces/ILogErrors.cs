@@ -1,7 +1,7 @@
 using System;
 using System.Threading.Tasks;
 
-namespace SimpleLauncher.Services;
+namespace SimpleLauncher.Interfaces;
 
 public interface ILogErrors
 {

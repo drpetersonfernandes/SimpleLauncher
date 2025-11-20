@@ -2,6 +2,7 @@ using System;
 using System.Globalization;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
