@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Windows.Media;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
  
 namespace SimpleLauncher.Services;
@@ -36,7 +37,7 @@ public class PlaySoundEffects
         {
             // This indicates a setup issue: Initialize was not called or settingsManager was null.
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(new InvalidOperationException("PlaySoundEffects not initialized with SettingsManager."), "Attempted to play notification sound before PlaySoundEffects was initialized.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new InvalidOperationException("PlaySoundEffects not initialized with SettingsManager."), "Attempted to play notification sound before PlaySoundEffects was initialized.");
 
             return;
         }
@@ -67,7 +68,7 @@ public class PlaySoundEffects
         if (string.IsNullOrWhiteSpace(soundFileName))
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."), "Attempted to play sound with an empty filename.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentNullException(nameof(soundFileName), @"PlayConfiguredSound called with null or empty soundFileName."), "Attempted to play sound with an empty filename.");
 
             return;
         }
@@ -82,7 +83,7 @@ public class PlaySoundEffects
             const string contextMessageEmpty = "Attempted to play sound with an empty filename.";
 
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(new ArgumentNullException(nameof(soundFileName), contextMessageEmpty), contextMessageEmpty);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new ArgumentNullException(nameof(soundFileName), contextMessageEmpty), contextMessageEmpty);
 
             return;
         }
@@ -92,7 +93,7 @@ public class PlaySoundEffects
         {
             // Notify developer
             var contextMessageMissing = $"Sound file not found: {soundPath}";
-            _ = LogErrorsService.LogErrorAsync(new FileNotFoundException(contextMessageMissing, soundPath), contextMessageMissing);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FileNotFoundException(contextMessageMissing, soundPath), contextMessageMissing);
 
             return;
         }
@@ -125,7 +126,7 @@ public class PlaySoundEffects
         {
             // Notify developer
             var contextMessageError = $"Error playing '{soundFileName}' sound from path '{soundPath}'.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessageError);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessageError);
         }
     }
 }

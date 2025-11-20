@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Win32;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
@@ -80,7 +81,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error loading XML file");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading XML file");
         }
     }
 
@@ -557,7 +558,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in method EditSystem_Closing");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method EditSystem_Closing");
         }
     }
 
@@ -575,7 +576,7 @@ public partial class EditSystemWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error in method HelpLink_Click");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method HelpLink_Click");
             MessageBoxLibrary.ErrorOpeningUrlMessageBox();
         }
     }

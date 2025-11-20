@@ -3,6 +3,7 @@ using System.IO;
 using System.Linq;
 using System.Windows.Controls;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -70,7 +71,7 @@ public partial class EditSystemWindow
         if (_xmlDoc == null)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(new NullReferenceException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new NullReferenceException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
 
             DisableAllEditableFields();
             SaveSystemButton.IsEnabled = false;
@@ -230,7 +231,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }

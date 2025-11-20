@@ -90,7 +90,7 @@ public partial class SupportWindow
             {
                 // Notify developer
                 const string contextMessage = "File 'appsettings.json' is missing.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RequiredFileMissingMessageBox();
@@ -120,7 +120,7 @@ public partial class SupportWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was an error loading 'appsettings.json'.");
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingAppSettingsMessageBox();
@@ -170,7 +170,7 @@ public partial class SupportWindow
         {
             // Notify developer
             const string contextMessage = "Error in the SendSupportRequest_Click method.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -181,7 +181,7 @@ public partial class SupportWindow
         {
             // Notify developer
             const string contextMessage = "Email API base URL is not properly configured in 'appsettings.json'.";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ApiKeyErrorMessageBox();
@@ -230,7 +230,7 @@ public partial class SupportWindow
 
                     // Notify developer
                     var contextMessage = $"An error occurred while sending the Support Request. Status: {response.StatusCode}, Details: {errorContent}";
-                    _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.SupportRequestSendErrorMessageBox();
@@ -241,7 +241,7 @@ public partial class SupportWindow
         {
             // Notify developer
             const string contextMessage = "Error sending the Support Request.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SupportRequestSendErrorMessageBox();

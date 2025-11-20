@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Services;
 
@@ -59,7 +60,7 @@ public partial class SetFuzzyMatchingWindow
         {
             // Notify developer
             const string contextMessage = "Error setting fuzzy matching threshold from slider.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify the user
             MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();

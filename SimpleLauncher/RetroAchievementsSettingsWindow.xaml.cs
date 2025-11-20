@@ -63,7 +63,7 @@ public partial class RetroAchievementsSettingsWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Error opening RetroAchievements control panel link.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening RetroAchievements control panel link.");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }

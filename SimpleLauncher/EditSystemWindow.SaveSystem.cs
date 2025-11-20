@@ -7,6 +7,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -92,7 +93,7 @@ public partial class EditSystemWindow
         {
             // Notify developer
             const string contextMessage = "Error saving system configuration to XML.";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Rethrow the exception so the calling method can handle UI feedback
             throw new InvalidOperationException("Failed to save system configuration.", ex);
@@ -338,7 +339,7 @@ public partial class EditSystemWindow
             {
                 // Notify developer
                 const string contextMessage = "Unexpected error during system save process.";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.SaveSystemFailedMessageBox("An unexpected error occurred.");
@@ -351,7 +352,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Error saving system configuration.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error saving system configuration.");
         }
     }
 
@@ -458,7 +459,7 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrorsService.LogErrorAsync(ex, $"Error creating parent directory: {parentDirectory}");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating parent directory: {parentDirectory}");
                 }
             }
 
@@ -479,7 +480,7 @@ public partial class EditSystemWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrorsService.LogErrorAsync(ex, $"Error creating system specific folder: {newFolderPath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating system specific folder: {newFolderPath}");
                 if (folderName == "images") // Only show failure for images as per original logic
                 {
                     // Notify user

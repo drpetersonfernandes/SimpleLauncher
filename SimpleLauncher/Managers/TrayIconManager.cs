@@ -3,6 +3,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
 using Hardcodet.Wpf.TaskbarNotification;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
@@ -156,7 +157,7 @@ public class TrayIconManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, "Failed to open debug window from tray menu");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to open debug window from tray menu");
 
             ShowTrayMessage("Failed to open debug window");
         }

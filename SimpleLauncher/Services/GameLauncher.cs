@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -40,7 +41,7 @@ public class GameLauncher
                 var contextMessage = $"Invalid resolvedFilePath or file/directory does not exist.\n\n" +
                                      $"Original filePath: {filePath}\n" +
                                      $"Resolved filePath: {resolvedFilePath}";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FilePathIsInvalid(_logPath);
@@ -52,7 +53,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "[HandleButtonClickAsync] selectedEmulatorName is null or empty.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -64,7 +65,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "selectedSystemName is null.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -76,7 +77,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "selectedSystemManager is null";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -89,7 +90,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "_selectedEmulatorManager is null.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
@@ -101,7 +102,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "_selectedEmulatorManager.EmulatorName is null.";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -222,7 +223,7 @@ public class GameLauncher
                                      $"FilePath: {resolvedFilePath}\n" +
                                      $"SelectedSystem: {selectedSystemName}\n" +
                                      $"SelectedEmulator: {selectedEmulatorName}";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchGameMessageBox(_logPath);
@@ -246,7 +247,7 @@ public class GameLauncher
         }
         catch (Exception e)
         {
-            _ = LogErrorsService.LogErrorAsync(e, "Unhandled error in GameLauncher's main launch block.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(e, "Unhandled error in GameLauncher's main launch block.");
         }
 
         return;
@@ -276,7 +277,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "Error updating play history";
-                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
 
             var systemPlayTime = settings.SystemPlayTimes.FirstOrDefault(s => s.SystemName == selectedSystemName);
@@ -334,7 +335,7 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, $"Could not get workingDirectory for batch file: '{resolvedFilePath}'. Using default.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for batch file: '{resolvedFilePath}'. Using default.");
 
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
@@ -390,7 +391,7 @@ public class GameLauncher
                                   $"Error: {error}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
@@ -410,7 +411,7 @@ public class GameLauncher
                               $"Error: {error}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -439,7 +440,7 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
 
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
         }
@@ -477,7 +478,7 @@ public class GameLauncher
                                   $"Shortcut file: {psi.FileName}\n" +
                                   $"Exit code {process.ExitCode}\n\n" +
                                   $"User was not notified.";
-                _ = LogErrorsService.LogErrorAsync(null, errorDetail);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorDetail);
             }
         }
         catch (Exception ex)
@@ -488,7 +489,7 @@ public class GameLauncher
                               $"Exception: {ex.Message}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -519,7 +520,7 @@ public class GameLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrorsService.LogErrorAsync(ex, $"Could not get workingDirectory for executable file: '{resolvedFilePath}'. Using default.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for executable file: '{resolvedFilePath}'. Using default.");
 
             psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory; // Fallback
         }
@@ -552,7 +553,7 @@ public class GameLauncher
                                   $"Exit code {process.ExitCode}";
                 var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
                 var contextMessage = $"{errorDetail}\n{userNotified}";
-                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
                 {
@@ -570,7 +571,7 @@ public class GameLauncher
                               $"Exception: {ex.Message}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -595,7 +596,7 @@ public class GameLauncher
         {
             // Notify developer
             const string contextMessage = "[LaunchRegularEmulatorAsync] selectedEmulatorName is null or empty.";
-            await LogErrorsService.LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -620,7 +621,7 @@ public class GameLauncher
             {
                 // Notify developer
                 const string contextMessage = "FileFormatsToLaunch is null or empty, but ExtractFileBeforeLaunch is true for game launching. Cannot determine which file to launch after extraction.";
-                await LogErrorsService.LogErrorAsync(null, contextMessage);
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
                 DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
                 // Notify user specifically for launching context
@@ -644,7 +645,7 @@ public class GameLauncher
         {
             // Notify developer
             const string contextMessage = "resolvedFilePath is null or empty after extraction attempt (or for mounted files).";
-            await LogErrorsService.LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -659,7 +660,7 @@ public class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Mounted file {resolvedFilePath} not found when trying to launch with emulator.";
-            await LogErrorsService.LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -674,7 +675,7 @@ public class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Emulator executable path is null, empty, or does not exist after resolving: '{selectedEmulatorManager.EmulatorLocation}' -> '{resolvedEmulatorExePath}'";
-            await LogErrorsService.LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -689,7 +690,7 @@ public class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Could not determine emulator folder path from executable path: '{resolvedEmulatorExePath}'";
-            await LogErrorsService.LogErrorAsync(null, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             // Notify user
@@ -746,7 +747,7 @@ public class GameLauncher
         {
             // Notify developer
             var contextMessage = $"Could not get workingDirectory for emulator: '{resolvedEmulatorFolderPath}'";
-            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             workingDirectory = AppDomain.CurrentDomain.BaseDirectory; // fallback
@@ -825,7 +826,7 @@ public class GameLauncher
         {
             // Notify developer
             const string contextMessage = "InvalidOperationException while launching emulator.";
-            await LogErrorsService.LogErrorAsync(ex, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error: {contextMessage}");
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
@@ -859,7 +860,7 @@ public class GameLauncher
                               $"Emulator error: {error}\n";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"The emulator could not open the game with the provided parameters. {userNotified}\n\n{errorDetail}";
-            await LogErrorsService.LogErrorAsync(ex, contextMessage);
+            await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (selectedEmulatorManager.ReceiveANotificationOnEmulatorError)
             {
@@ -882,7 +883,7 @@ public class GameLauncher
                 catch (Exception ex)
                 {
                     // Log the error but don't prevent other finally block actions
-                    _ = LogErrorsService.LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete temporary extraction directory: {tempExtractionPath}");
                     DebugLogger.Log($"[LaunchRegularEmulatorAsync] Error deleting temporary extraction directory {tempExtractionPath}: {ex.Message}");
                 }
             }
@@ -917,7 +918,7 @@ public class GameLauncher
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
         }
         else
         {
@@ -929,7 +930,7 @@ public class GameLauncher
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
         }
 
         if (emulatorManager.ReceiveANotificationOnEmulatorError == true)
@@ -957,7 +958,7 @@ public class GameLauncher
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-        _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
         return Task.CompletedTask;
     }
@@ -974,7 +975,7 @@ public class GameLauncher
                              $"Calling parameters: {psi.Arguments}\n" +
                              $"Emulator output: {output}\n" +
                              $"Emulator error: {error}\n";
-        _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
         return Task.CompletedTask;
     }
@@ -998,7 +999,7 @@ public class GameLauncher
                                  $"Calling parameters: {psi.Arguments}\n" +
                                  $"Emulator output: {output}\n" +
                                  $"Emulator error: {error}\n";
-            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             return true;
         }
