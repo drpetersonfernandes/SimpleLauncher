@@ -834,18 +834,29 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
             if (selectedManager.GroupByFolder)
             {
+                static string EnsureTrailingSlash(string path)
+                {
+                    if (string.IsNullOrEmpty(path))
+                        return path;
+
+                    return path.TrimEnd(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar) + Path.DirectorySeparatorChar;
+                }
+
                 var rootFolders = selectedManager.SystemFolders
                     .Select(PathHelper.ResolveRelativeToAppDirectory)
                     .Where(static p => !string.IsNullOrEmpty(p))
+                    .Select(EnsureTrailingSlash)
                     .ToHashSet(StringComparer.OrdinalIgnoreCase);
 
                 var groupedFiles = allFiles
                     .GroupBy(f =>
                     {
                         var fileDir = Path.GetDirectoryName(f);
+                        var normalizedFileDir = EnsureTrailingSlash(fileDir);
+
                         // If the file's directory is one of the main system folders, it's a "root" file.
                         // Its group key will be its own full path.
-                        if (rootFolders.Contains(fileDir))
+                        if (rootFolders.Contains(normalizedFileDir))
                         {
                             return f;
                         }
