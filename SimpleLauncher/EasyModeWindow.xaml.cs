@@ -15,8 +15,8 @@ using System.Xml;
 using SimpleLauncher.Managers;
 using SimpleLauncher.Models;
 using Microsoft.Extensions.DependencyInjection;
-using System.ComponentModel; // Required for INotifyPropertyChanged
-using System.Runtime.CompilerServices; // Required for CallerMemberName
+using System.ComponentModel;
+using System.Runtime.CompilerServices;
 
 namespace SimpleLauncher;
 
@@ -169,7 +169,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         {
             // Notify developer
             const string contextMessage = "Error populating system dropdown.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             SystemNameDropdown.ItemsSource = new List<string>(); // Assign an empty list if there's any error
         }
@@ -256,7 +256,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
             DownloadEmulatorButton.IsEnabled = true;
             _isEmulatorDownloaded = false;
             UpdateAddSystemButtonState();
@@ -277,7 +277,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadCoreButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButton_Click.");
             DownloadCoreButton.IsEnabled = true;
             _isCoreDownloaded = false;
             UpdateAddSystemButtonState();
@@ -296,7 +296,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
             DownloadImagePackButton1.IsEnabled = true;
             _isImagePackDownloaded1 = false;
             UpdateAddSystemButtonState();
@@ -315,7 +315,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
             DownloadImagePackButton2.IsEnabled = true;
             _isImagePackDownloaded2 = false;
             UpdateAddSystemButtonState();
@@ -334,7 +334,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
             DownloadImagePackButton3.IsEnabled = true;
             _isImagePackDownloaded3 = false;
             UpdateAddSystemButtonState();
@@ -353,7 +353,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
             DownloadImagePackButton4.IsEnabled = true;
             _isImagePackDownloaded4 = false;
             UpdateAddSystemButtonState();
@@ -372,7 +372,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
             DownloadImagePackButton5.IsEnabled = true;
             _isImagePackDownloaded5 = false;
             UpdateAddSystemButtonState();
@@ -446,7 +446,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             DownloadStatus = $"{errorInvalidDestinationPath} {componentName}";
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
 
             return false;
         }
@@ -575,7 +575,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             // Notify developer
             var contextMessage = $"Error downloading {componentName}.\n" +
                                  $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             switch (type)
             {
@@ -700,7 +700,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
                 // Notify developer
                 const string contextMessage = "Unexpected error adding system.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.AddSystemFailedMessageBox();
@@ -717,7 +717,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in AddSystemButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in AddSystemButton_Click.");
         }
     }
 
@@ -748,7 +748,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                             xmlDoc = null; // Reset xmlDoc to trigger creation below
 
                             // Notify developer
-                            _ = LogErrors.LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
+                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new XmlException("Loaded system.xml has missing or invalid root element."), "Invalid root in system.xml, creating new.");
                         }
                     }
                 }
@@ -756,14 +756,14 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 {
                     // Notify developer
                     // Log the parsing error but proceed to create a new document
-                    _ = LogErrors.LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error parsing existing system.xml, creating new.");
 
                     xmlDoc = null; // Ensure we create a new one
                 }
                 catch (Exception ex) // Catch other file reading errors
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error reading existing system.xml.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error reading existing system.xml.");
 
                     throw new IOException("Could not read the existing system configuration file.", ex); // Rethrow as IO
                 }
@@ -821,7 +821,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         {
             // Notify developer
             const string contextMessage = "Error saving system.xml.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             throw new InvalidOperationException("Could not save system configuration.", ex);
         }
@@ -829,7 +829,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         {
             // Notify developer
             const string contextMessage = "Unexpected error updating system.xml.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             throw new InvalidOperationException("An unexpected error occurred while updating system configuration.", ex);
         }
@@ -940,7 +940,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error closing the Add System window.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error closing the Add System window.");
         }
     }
 
@@ -974,7 +974,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error opening the download link.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the download link.");
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenTheDownloadLink();

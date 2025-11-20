@@ -85,7 +85,7 @@ public partial class FavoritesWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error loading favorites data in FavoritesWindow_Loaded.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorWhileAddingFavoritesMessageBox();
@@ -98,7 +98,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the FavoritesWindow_Loaded method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the FavoritesWindow_Loaded method.");
         }
     }
 
@@ -225,7 +225,7 @@ public partial class FavoritesWindow
 
                     // Notify developer
                     var contextMessage = $"Error getting file size for favorite: {filePath}";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
                 }
             });
     }
@@ -274,7 +274,7 @@ public partial class FavoritesWindow
             if (systemManager == null)
             {
                 const string contextMessage = "systemManager is null for the selected favorite";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
                 return;
             }
@@ -297,7 +297,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -345,7 +345,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             const string contextMessage = "There was an error in the right-click context menu.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
         }
     }
@@ -369,7 +369,7 @@ public partial class FavoritesWindow
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGame_Click method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -385,7 +385,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "selectedSystemManager is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -405,7 +405,7 @@ public partial class FavoritesWindow
 
                 // Notify developer
                 var contextMessage = $"Favorite file does not exist or path resolution failed: {filePath}";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.GameFileDoesNotExistMessageBox();
@@ -418,7 +418,7 @@ public partial class FavoritesWindow
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -435,7 +435,7 @@ public partial class FavoritesWindow
             var contextMessage = $"There was an error launching the game from Favorites.\n" +
                                  $"File Path: {fileName}\n" +
                                  $"System Name: {selectedSystemName}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -463,7 +463,7 @@ public partial class FavoritesWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -488,7 +488,7 @@ public partial class FavoritesWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
         }
     }
 

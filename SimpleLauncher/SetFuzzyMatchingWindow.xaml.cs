@@ -59,7 +59,7 @@ public partial class SetFuzzyMatchingWindow
         {
             // Notify developer
             const string contextMessage = "Error setting fuzzy matching threshold from slider.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify the user
             MessageBoxLibrary.FuzzyMatchingErrorFailToSetThresholdMessageBox();

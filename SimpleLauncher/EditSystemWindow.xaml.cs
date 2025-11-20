@@ -80,7 +80,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error loading XML file");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error loading XML file");
         }
     }
 
@@ -557,7 +557,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in method EditSystem_Closing");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in method EditSystem_Closing");
         }
     }
 
@@ -575,7 +575,7 @@ public partial class EditSystemWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in method HelpLink_Click");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in method HelpLink_Click");
             MessageBoxLibrary.ErrorOpeningUrlMessageBox();
         }
     }

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Xml;
 using System.Windows;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -171,7 +172,7 @@ public class SettingsManager
         catch (XmlException ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'.");
 
             // Notify user
             MessageBoxLibrary.SettingsXmlFileIsCorruptMessageBox();
@@ -181,7 +182,7 @@ public class SettingsManager
         catch (IOException ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "There was an IOException while loading the file 'setting.xml'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was an IOException while loading the file 'setting.xml'.");
 
             // Notify user
             MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
@@ -191,7 +192,7 @@ public class SettingsManager
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading or parsing 'setting.xml'.");
 
             // Notify user
             MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
@@ -328,7 +329,7 @@ public class SettingsManager
         if (string.IsNullOrWhiteSpace(systemName))
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, "The systemName is null or empty.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The systemName is null or empty.");
 
             return;
         }
@@ -336,7 +337,7 @@ public class SettingsManager
         if (playTime == TimeSpan.Zero)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, "The playTime is equal to 0 in the method UpdateSystemPlayTime.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "The playTime is equal to 0 in the method UpdateSystemPlayTime.");
 
             return;
         }
@@ -362,7 +363,7 @@ public class SettingsManager
         catch (FormatException ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Invalid playtime format '{systemPlayTime.PlayTime}' for system '{systemName}'. Resetting to 00:00:00.");
 
             existingPlayTime = TimeSpan.Zero;
             systemPlayTime.PlayTime = "00:00:00";

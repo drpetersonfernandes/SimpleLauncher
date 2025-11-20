@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.InteropServices;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -35,7 +36,7 @@ public class EasyModeManager
         {
             // Notify developer
             var contextMessage = $"The file '{xmlFile}' was not found in the application folder.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify the user.
             MessageBoxLibrary.ErrorLoadingEasyModeXmlMessageBox();
@@ -74,7 +75,7 @@ public class EasyModeManager
         {
             // Notify developer
             var contextMessage = $"The file '{xmlFile}' is corrupted or invalid.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             return new EasyModeManager { Systems = [] }; // Return an empty config
         }
@@ -82,7 +83,7 @@ public class EasyModeManager
         {
             // Notify developer
             var contextMessage = $"An unexpected error occurred while loading the file '{xmlFile}'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             return new EasyModeManager { Systems = [] }; // Return an empty config
         }

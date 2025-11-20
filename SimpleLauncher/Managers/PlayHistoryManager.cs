@@ -5,6 +5,7 @@ using System.IO;
 using System.Linq;
 using System.Windows;
 using MessagePack;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -52,7 +53,7 @@ public class PlayHistoryManager
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error loading play history");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error loading play history");
 
             return new PlayHistoryManager(); // Return default instance if error occurs
         }
@@ -179,7 +180,7 @@ public class PlayHistoryManager
 
             // Notify developer
             const string contextMessage = "Failed to parse date/time, using current time as fallback";
-            _ = LogErrors.LogErrorAsync(new Exception($"{contextMessage}: {dateStr} {timeStr}"), contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new Exception($"{contextMessage}: {dateStr} {timeStr}"), contextMessage);
 
             return true;
         }
@@ -187,7 +188,7 @@ public class PlayHistoryManager
         {
             // Notify developer
             const string contextMessage = "Error in date format migration";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             return false;
         }
@@ -257,7 +258,7 @@ public class PlayHistoryManager
         {
             // Notify developer
             const string contextMessage = "Error in AddOrUpdatePlayHistoryItem method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 }

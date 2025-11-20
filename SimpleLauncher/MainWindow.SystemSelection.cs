@@ -137,7 +137,7 @@ public partial class MainWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in SystemButton_Click.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in SystemButton_Click.");
         }
     }
 
@@ -238,7 +238,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error in the method NavToggleButtonAspectRatio_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMessageBox();

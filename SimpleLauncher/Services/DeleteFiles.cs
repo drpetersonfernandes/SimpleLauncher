@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Threading;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -25,7 +26,7 @@ public static class DeleteFiles
         catch (Exception ex)
         {
             // If we can't even read/modify the attributes, log and exit
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to access or modify file attributes for '{filePath}'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to access or modify file attributes for '{filePath}'.");
             return;
         }
 
@@ -44,7 +45,7 @@ public static class DeleteFiles
                 {
                     // Log final failure after retries
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries.");
 
                     return; // Exit after logging final failure
                 }
@@ -58,7 +59,7 @@ public static class DeleteFiles
                 if (i == MaxDeleteRetries - 1)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries (permissions).");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to delete file '{filePath}' after {MaxDeleteRetries} retries (permissions).");
 
                     return;
                 }
@@ -69,7 +70,7 @@ public static class DeleteFiles
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{filePath}'. Stopping retries.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Attempt {i + 1}/{MaxDeleteRetries}: Unexpected error deleting file '{filePath}'. Stopping retries.");
 
                 return;
             }

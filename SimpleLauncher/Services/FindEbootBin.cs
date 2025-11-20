@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -57,14 +58,14 @@ public static class FindEbootBin
             DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] UnauthorizedAccessException searching for {targetFileName} in {directoryPath}: {uaEx.Message}");
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(uaEx, $"Unauthorized access while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
         catch (Exception ex)
         {
             DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] Error searching for {targetFileName} in {directoryPath}: {ex.Message}");
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error while searching for EBOOT.BIN in directory at {directoryPath}.");
         }
 
         DebugLogger.Log($"[FindEbootBin.FindEbootBinRecursive] {targetFileName} not found in {directoryPath}.");

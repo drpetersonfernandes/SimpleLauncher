@@ -2,6 +2,7 @@ using System;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -138,7 +139,7 @@ public static class PathHelper
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, $"Error during path canonicalization for token '{processedToken}'. Using as-is after placeholder/env var replacement: '{finalTokenValue}'.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error during path canonicalization for token '{processedToken}'. Using as-is after placeholder/env var replacement: '{finalTokenValue}'.");
                 }
             }
 
@@ -236,7 +237,7 @@ public static class PathHelper
             // The calling code should handle the empty string.
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error resolving path '{path}' relative to app directory.");
 
             return string.Empty;
         }

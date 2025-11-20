@@ -3,6 +3,7 @@ using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Runtime.InteropServices;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -23,7 +24,7 @@ public class LaunchTools : ILaunchTools
         {
             // Notify developer
             const string contextMessage = "Tool path cannot be null or empty.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user (using a generic message for tool not found)
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -36,7 +37,7 @@ public class LaunchTools : ILaunchTools
         {
             // Notify developer
             var contextMessage = $"External tool not found: {toolPath}";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
@@ -66,7 +67,7 @@ public class LaunchTools : ILaunchTools
                 {
                     // Notify developer
                     var warningMessage = $"Specified working directory not found: {workingDirectory}. Launching with default working directory.";
-                    _ = LogErrors.LogErrorAsync(new DirectoryNotFoundException(warningMessage), warningMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new DirectoryNotFoundException(warningMessage), warningMessage);
                 }
             }
 
@@ -78,7 +79,7 @@ public class LaunchTools : ILaunchTools
             var contextMessage = $"An error occurred while launching external tool: {toolPath}.\n" +
                                  $"Arguments: {arguments ?? "None"}\n" +
                                  $"Working Directory: {workingDirectory ?? "Default"}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
@@ -111,7 +112,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForXbox360XBLAGames");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching CreateBatchFilesForXbox360XBLAGames");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForXbox360XBLAGames", _logPath);
@@ -144,7 +145,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForWindowsGames");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching CreateBatchFilesForWindowsGames");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForWindowsGames", _logPath);
@@ -199,13 +200,13 @@ public class LaunchTools : ILaunchTools
                 if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"FindRomCover: Could not resolve image folder path: '{selectedImageFolder}'");
                 }
 
                 if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"FindRomCover: Could not resolve ROM folder path: '{selectedRomFolder}'");
                 }
             }
 
@@ -217,7 +218,7 @@ public class LaunchTools : ILaunchTools
             {
                 // Notify developer
                 const string contextMessage = "The operation was canceled by the user while trying to launch FindRomCover.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
@@ -225,7 +226,7 @@ public class LaunchTools : ILaunchTools
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching FindRomCover");
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", _logPath);
@@ -234,7 +235,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching FindRomCover");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", _logPath);
@@ -267,7 +268,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForPS3Games");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching CreateBatchFilesForPS3Games");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForPS3Games", _logPath);
@@ -300,7 +301,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertIsoToXiso");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching BatchConvertIsoToXiso");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertIsoToXiso", _logPath);
@@ -333,7 +334,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCHD");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching BatchConvertToCHD");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", _logPath);
@@ -366,7 +367,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCompressedFile");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching BatchConvertToCompressedFile");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCompressedFile", _logPath);
@@ -399,7 +400,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToRVZ");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching BatchConvertToRVZ");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToRVZ", _logPath);
@@ -444,7 +445,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForScummVMGames");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching CreateBatchFilesForScummVMGames");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForScummVMGames", _logPath);
@@ -477,7 +478,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForSegaModel3Games");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching CreateBatchFilesForSegaModel3Games");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForSegaModel3Games", _logPath);
@@ -510,7 +511,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching RomValidator");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching RomValidator");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RomValidator", _logPath);
@@ -564,13 +565,13 @@ public class LaunchTools : ILaunchTools
                 if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"GameCoverScraper: Could not resolve image folder path: '{selectedImageFolder}'");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GameCoverScraper: Could not resolve image folder path: '{selectedImageFolder}'");
                 }
 
                 if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, $"GameCoverScraper: Could not resolve ROM folder path: '{selectedRomFolder}'");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GameCoverScraper: Could not resolve ROM folder path: '{selectedRomFolder}'");
                 }
             }
 
@@ -582,7 +583,7 @@ public class LaunchTools : ILaunchTools
             {
                 // Notify developer
                 const string contextMessage = "The operation was canceled by the user while trying to launch GameCoverScraper.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 // Reusing FindRomCoverLaunchWasCanceledByUserMessageBox for now, consider creating a specific one if needed.
@@ -591,7 +592,7 @@ public class LaunchTools : ILaunchTools
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching GameCoverScraper");
 
                 // Notify user
                 MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", _logPath);
@@ -600,7 +601,7 @@ public class LaunchTools : ILaunchTools
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching GameCoverScraper");
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", _logPath);

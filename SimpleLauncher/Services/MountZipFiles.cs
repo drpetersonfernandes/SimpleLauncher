@@ -6,6 +6,7 @@ using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Managers;
 
 namespace SimpleLauncher.Services;
@@ -93,7 +94,7 @@ public static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -199,7 +200,7 @@ public static class MountZipFiles
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -247,7 +248,7 @@ public static class MountZipFiles
                         DebugLogger.Log($"[MountZipFiles] InvalidOperationException while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {ioEx}");
 
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ioEx, $"Unexpected InvalidOperationException during {_zipMountExecutableName} termination.");
                     }
                 }
                 catch (Exception termEx)
@@ -255,7 +256,7 @@ public static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -307,7 +308,7 @@ public static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -407,7 +408,7 @@ public static class MountZipFiles
             var contextMessage = $"Error during ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -446,7 +447,7 @@ public static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)
@@ -521,7 +522,7 @@ public static class MountZipFiles
             DebugLogger.Log($"[FindNestedFile] Error searching for nested file in {directoryPath}: {ex.Message}");
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in FindNestedFile searching {directoryPath}");
 
             return null;
         }
@@ -549,7 +550,7 @@ public static class MountZipFiles
             // Notify developer
             var errorMessage = $"{_zipMountExecutableName} not found at {_zipMountExecutableRelativePath}. Cannot mount ZIP.";
             DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -692,7 +693,7 @@ public static class MountZipFiles
             var contextMessage = $"Error during ScummVM ZIP mount/launch process for {resolvedZipFilePath}.\n" +
                                  $"Exception: {ex.Message}\n" +
                                  $"The tool's output was not redirected. {exitCodeInfoInCatch}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
@@ -731,7 +732,7 @@ public static class MountZipFiles
                     DebugLogger.Log($"[MountZipFiles] Exception while terminating {_zipMountExecutableName} (ID: {mountProcessId}): {termEx}");
 
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx, $"Failed to terminate {_zipMountExecutableName} (ID: {mountProcessId}) for unmounting.");
                 }
             }
             else if (mountProcessId != -1)

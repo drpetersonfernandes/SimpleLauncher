@@ -6,6 +6,7 @@ using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
 using SimpleLauncher.Services;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Managers;
 
@@ -62,7 +63,7 @@ public partial class SystemManager
                     {
                         // Notify developer
                         const string contextMessage = "Error creating empty 'system.xml'.";
-                        _ = LogErrors.LogErrorAsync(createEx, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(createEx, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
@@ -91,7 +92,7 @@ public partial class SystemManager
             {
                 // Notify developer
                 var contextMessage = $"The file 'system.xml' is badly corrupt at line {ex.LineNumber}, position {ex.LinePosition}.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileSystemXmlIsCorruptedMessageBox(LogPath);
@@ -176,7 +177,7 @@ public partial class SystemManager
             {
                 // Notify developer
                 const string contextMessage = "Error saving 'system.xml' after loading, cleaning, and sorting.";
-                _ = LogErrors.LogErrorAsync(saveEx, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(saveEx, contextMessage);
             }
 
             // Return the list of valid system configurations (could be empty)
@@ -186,7 +187,7 @@ public partial class SystemManager
         {
             // Notify developer
             const string contextMessage = "Error loading system configurations from 'system.xml'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.SystemXmlIsCorruptedMessageBox(LogPath);
@@ -342,7 +343,7 @@ public partial class SystemManager
                         {
                             // Notify developer
                             const string contextMessage = "'Simple Launcher' was unable to restore the last backup.";
-                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                             // Notify user
                             MessageBoxLibrary.SimpleLauncherWasUnableToRestoreBackupMessageBox();
@@ -356,7 +357,7 @@ public partial class SystemManager
                 // Notify developer
                 // Error during backup search/restore attempt (e.g., directory access issues)
                 const string contextMessage = "Error during backup file handling.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
                 // Proceed to create empty file as backup handling failed
             }
 

@@ -70,7 +70,7 @@ public partial class EditSystemWindow
         if (_xmlDoc == null)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(new NullReferenceException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
+            _ = LogErrorsService.LogErrorAsync(new NullReferenceException("_xmlDoc is null in LoadSystemDetails."), "Critical error loading system details.");
 
             DisableAllEditableFields();
             SaveSystemButton.IsEnabled = false;
@@ -230,7 +230,7 @@ public partial class EditSystemWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
+            _ = LogErrorsService.LogErrorAsync(ex, $"Unable to create default {folderTypeForLog}: {resolvedCurrentPath}");
         }
     }
 }

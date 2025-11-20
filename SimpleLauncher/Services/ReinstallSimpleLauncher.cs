@@ -80,7 +80,7 @@ public static class ReinstallSimpleLauncher
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Failed to download and reinstall the updater.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to download and reinstall the updater.");
 
                     // Notify user
                     MessageBoxLibrary.InstallUpdateManuallyMessageBox();
@@ -90,7 +90,7 @@ public static class ReinstallSimpleLauncher
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Failed to reinstall SimpleLauncher.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reinstall SimpleLauncher.");
 
             // Notify user
             MessageBoxLibrary.InstallUpdateManuallyMessageBox();

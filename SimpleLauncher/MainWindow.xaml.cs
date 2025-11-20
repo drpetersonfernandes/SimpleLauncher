@@ -173,7 +173,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         if (_gameFileGrid == null)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
+            _ = LogErrorsService.LogErrorAsync(new Exception("GameFileGrid not found"), "GameFileGrid not found");
         }
 
         // Initialize _gameButtonFactory
@@ -194,7 +194,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
                 DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
             }
         };
@@ -210,7 +210,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error in the Loaded event.");
                 DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
             }
         };
@@ -262,7 +262,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in TopLetterNumberMenuClickAsync.");
         }
     }
 
@@ -302,7 +302,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in ShowSystemFavoriteGamesClickAsync.");
         }
     }
 
@@ -401,7 +401,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string contextMessage = "Error in the Feeling Lucky feature.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorMessageBox();
@@ -409,7 +409,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in ShowSystemFeelingLuckyClickAsync.");
         }
     }
 
@@ -459,7 +459,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error refreshing game list play time";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -610,7 +610,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error while using the method GameListDoubleClickOnSelectedItem.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -655,7 +655,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     {
                         // Notify developer
                         const string errorMessage = "Selected system or its configuration is null.";
-                        _ = LogErrors.LogErrorAsync(null, errorMessage);
+                        _ = LogErrorsService.LogErrorAsync(null, errorMessage);
 
                         // Notify user
                         MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -716,7 +716,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 {
                     // Notify developer
                     const string errorMessage = "Error in the method SystemComboBox_SelectionChanged.";
-                    _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                    _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
 
                     // Notify user
                     MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -732,7 +732,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
             }
 
             return;
@@ -757,7 +757,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in SystemComboBox_SelectionChanged.");
         }
     }
 
@@ -824,7 +824,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             {
                 // Notify developer
                 const string contextMessage = "selectedConfig is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.InvalidSystemConfigMessageBox();
@@ -907,7 +907,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         {
             // Notify developer
             const string contextMessage = "Error in the method LoadGameFilesAsync.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorMethodLoadGameFilesAsyncMessageBox();
@@ -1177,7 +1177,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in SortOrderToggleButton_Click.");
             DebugLogger.Log("Error in SortOrderToggleButton_Click.");
         }
     }

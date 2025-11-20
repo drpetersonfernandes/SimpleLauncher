@@ -156,7 +156,7 @@ public class TrayIconManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Failed to open debug window from tray menu");
+            _ = LogErrorsService.LogErrorAsync(ex, "Failed to open debug window from tray menu");
 
             ShowTrayMessage("Failed to open debug window");
         }

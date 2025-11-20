@@ -20,7 +20,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string errorMessage = "Error in the method SearchButton_Click.";
-            _ = LogErrors.LogErrorAsync(ex, errorMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
@@ -40,7 +40,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method SearchTextBox_KeyDown.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();
@@ -91,7 +91,7 @@ public partial class MainWindow
         {
             // Notify developer
             const string contextMessage = "Error during search execution.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.MainWindowSearchEngineErrorMessageBox();

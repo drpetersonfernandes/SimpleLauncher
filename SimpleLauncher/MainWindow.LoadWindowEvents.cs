@@ -73,7 +73,7 @@ public partial class MainWindow
         DebugLogger.Log("Overlay buttons were set.");
 
         // Initialize the GamePadController
-        _gamePadController.ErrorLogger = (ex, msg) => { _ = LogErrors.LogErrorAsync(ex, msg); };
+        _gamePadController.ErrorLogger = (ex, msg) => { _ = LogErrorsService.LogErrorAsync(ex, msg); };
         if (_settings.EnableGamePadNavigation)
         {
             _gamePadController.Start();

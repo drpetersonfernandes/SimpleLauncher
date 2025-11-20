@@ -5,6 +5,7 @@ using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -35,7 +36,7 @@ public partial class UpdateHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Failed to load 'whatsnew.md'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             HistoryTextBlock.Document.Blocks.Clear();
             var errorParagraph = new Paragraph { Foreground = (Brush)FindResource("MahApps.Brushes.Text") };
@@ -191,7 +192,7 @@ public partial class UpdateHistoryWindow
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, $"Failed to open link: {url}");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open link: {url}");
                 }
 
                 args.Handled = true;

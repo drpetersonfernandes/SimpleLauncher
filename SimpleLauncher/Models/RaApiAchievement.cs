@@ -1,6 +1,8 @@
 using System;
 using System.Globalization;
 using System.Text.Json.Serialization;
+using Microsoft.Extensions.DependencyInjection;
+using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Models;
 
@@ -49,7 +51,7 @@ public class RaApiAchievement
         if (DateTime.TryParse(dateString, CultureInfo.InvariantCulture, DateTimeStyles.AdjustToUniversal, out var dt))
             return dt;
 
-        _ = Services.LogErrors.LogErrorAsync(new FormatException($"Failed to parse RetroAchievements API date string: '{dateString}'"), "RetroAchievements API date parsing error in RaApiAchievement.");
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new FormatException($"Failed to parse RetroAchievements API date string: '{dateString}'"), "RetroAchievements API date parsing error in RaApiAchievement.");
         return null;
     }
 

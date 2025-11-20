@@ -78,7 +78,7 @@ public partial class SoundConfigurationWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error choosing or copying sound file.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error choosing or copying sound file.");
 
             // Notify user
             MessageBoxLibrary.ErrorSettingSoundFile();

@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.IO;
 using System.Net.Http;
 using System.Reflection;
@@ -6,95 +6,69 @@ using System.Runtime.InteropServices;
 using System.Text;
 using System.Text.Json;
 using System.Threading.Tasks;
-using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Configuration;
 
 namespace SimpleLauncher.Services;
 
-public static class LogErrors
+public class LogErrorsService : ILogErrors
 {
-    private static readonly IHttpClientFactory HttpClientFactory;
-    private static string ApiKey { get; set; }
-    private static string BugReportApiUrl { get; set; }
-    private static bool _isApiLoggingEnabled;
+    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly string _apiKey;
+    private readonly string _bugReportApiUrl;
+    private readonly bool _isApiLoggingEnabled;
 
-    static LogErrors()
+    public LogErrorsService(IHttpClientFactory httpClientFactory, IConfiguration configuration)
     {
-        LoadConfiguration();
-        HttpClientFactory = App.ServiceProvider?.GetRequiredService<IHttpClientFactory>();
+        _httpClientFactory = httpClientFactory;
+        (_apiKey, _bugReportApiUrl, _isApiLoggingEnabled) = LoadConfiguration(configuration);
     }
 
-    private static void LoadConfiguration()
+    private (string ApiKey, string BugReportApiUrl, bool IsApiLoggingEnabled) LoadConfiguration(IConfiguration configuration)
     {
-        var configFile = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "appsettings.json");
         try
         {
-            if (!File.Exists(configFile))
-            {
-                // File is missing, disable API logging and notify the user
-                _isApiLoggingEnabled = false;
-
-                // Notify user
-                MessageBoxLibrary.HandleApiConfigErrorMessageBox("File 'appsettings.json' is missing.");
-
-                return;
-            }
-
-            var jsonString = File.ReadAllText(configFile);
-            using var document = JsonDocument.Parse(jsonString);
-            var root = document.RootElement;
+            string apiKey = null;
+            string bugReportApiUrl = null;
 
             // Read ApiKey
-            if (root.TryGetProperty(nameof(ApiKey), out var apiKeyElement) && apiKeyElement.ValueKind == JsonValueKind.String)
-            {
-                ApiKey = apiKeyElement.GetString();
-            }
+            apiKey = configuration.GetValue<string>(nameof(ApiKey));
 
-            if (string.IsNullOrEmpty(ApiKey))
+            if (string.IsNullOrEmpty(apiKey))
             {
                 // ApiKey is missing or empty, disable API logging and notify the user
-                _isApiLoggingEnabled = false;
-
                 // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("API Key is missing or empty in 'appsettings.json'.");
-
-                return;
+                return (null, null, false);
             }
 
             // Read BugReportApiUrl
-            if (root.TryGetProperty(nameof(BugReportApiUrl), out var urlElement) && urlElement.ValueKind == JsonValueKind.String)
-            {
-                BugReportApiUrl = urlElement.GetString();
-            }
+            bugReportApiUrl = configuration.GetValue<string>(nameof(BugReportApiUrl));
 
             // BugReportApiUrl is missing or empty, disable API logging and notify the user
-            if (string.IsNullOrEmpty(BugReportApiUrl))
+            if (string.IsNullOrEmpty(bugReportApiUrl))
             {
-                _isApiLoggingEnabled = false;
-
                 // Notify user
                 MessageBoxLibrary.HandleApiConfigErrorMessageBox("Bug Report API URL is missing or empty in 'appsettings.json'.");
-
-                return;
+                return (apiKey, null, false);
             }
 
             // If we reached here, the configuration is valid
-            _isApiLoggingEnabled = true;
+            return (apiKey, bugReportApiUrl, true);
         }
         catch (Exception ex)
         {
             // Catch any other errors during loading (e.g., invalid JSON format)
-            _isApiLoggingEnabled = false;
-
             // Log this critical error locally, as API logging is disabled
             WriteLocalErrorLog(ex, "Error loading API configuration from appsettings.json.");
             DebugLogger.LogException(ex, "Error loading API configuration from appsettings.json.");
 
             // Notify user
             MessageBoxLibrary.HandleApiConfigErrorMessageBox($"Error loading API configuration: {ex.Message}");
+            return (null, null, false);
         }
     }
 
-    public static async Task LogErrorAsync(Exception ex, string contextMessage = null)
+    public async Task LogErrorAsync(Exception ex, string contextMessage = null)
     {
         if (ex == null)
         {
@@ -161,7 +135,7 @@ public static class LogErrors
         }
     }
 
-    private static async Task<bool> SendLogToApiAsync(string logContent)
+    private async Task<bool> SendLogToApiAsync(string logContent)
     {
         // Check the flag again, just in case
         if (!_isApiLoggingEnabled)
@@ -171,10 +145,10 @@ public static class LogErrors
 
         try
         {
-            var httpClient = HttpClientFactory?.CreateClient("LogErrorsClient");
+            var httpClient = _httpClientFactory?.CreateClient("LogErrorsClient");
             if (httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("X-API-KEY", ApiKey);
+                httpClient.DefaultRequestHeaders.Add("X-API-KEY", _apiKey);
 
                 var payload = new
                 {
@@ -183,7 +157,7 @@ public static class LogErrors
                 };
 
                 var jsonContent = new StringContent(JsonSerializer.Serialize(payload), Encoding.UTF8, "application/json");
-                using var response = await httpClient.PostAsync(BugReportApiUrl, jsonContent);
+                using var response = await httpClient.PostAsync(_bugReportApiUrl, jsonContent);
 
                 DebugLogger.Log(@"The ErrorLog was successfully sent. API response: " + response.StatusCode);
 

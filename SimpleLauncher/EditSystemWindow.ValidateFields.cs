@@ -175,7 +175,7 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
+                    _ = LogErrorsService.LogErrorAsync(ex, $"Error creating system image folder: {resolvedPath}");
                 }
             }
         }
@@ -207,7 +207,7 @@ public partial class EditSystemWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
+                    _ = LogErrorsService.LogErrorAsync(ex, $"Error creating system folder: {resolvedPath}");
                 }
             }
         }

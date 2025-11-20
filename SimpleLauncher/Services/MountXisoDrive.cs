@@ -3,6 +3,7 @@ using System.Diagnostics;
 using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -93,7 +94,7 @@ public class MountXisoDrive : IAsyncDisposable
         {
             DebugLogger.Log(
                 $"[MountXisoDrive.DisposeAsync] Exception while terminating xbox-iso-vfs.exe (ID: {_mountProcessId}): {termEx}");
-            _ = LogErrors.LogErrorAsync(termEx,
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(termEx,
                 $"Failed to terminate xbox-iso-vfs.exe (ID: {_mountProcessId}) for unmounting.");
         }
         finally

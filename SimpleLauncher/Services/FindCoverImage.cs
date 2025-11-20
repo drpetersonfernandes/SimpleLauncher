@@ -63,7 +63,7 @@ public static class FindCoverImage
             else
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
+                _ = LogErrorsService.LogErrorAsync(null, "SettingsManager was null in FindCoverImage. Using default fuzzy matching settings.");
             }
 
             // 2. If no exact match and fuzzy matching is enabled, check for similar filenames
@@ -100,7 +100,7 @@ public static class FindCoverImage
         // else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
         // {
         //     // Notify developer
-        //     _ = LogErrors.LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
+        //     _ = LogErrorsService.LogErrorAsync(null, $"FindCoverImagePath: System image folder path invalid or not found for system '{systemName}': '{systemManager.SystemImageFolder}' -> '{systemImageFolder}'. Cannot search for images.");
         // }
 
         // 3. Fallback to default images

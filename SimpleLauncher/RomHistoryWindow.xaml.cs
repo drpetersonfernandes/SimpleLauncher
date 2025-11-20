@@ -43,7 +43,7 @@ public partial class RomHistoryWindow
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error loading ROM history.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error loading ROM history.");
                 DebugLogger.Log($"Error loading ROM history: {ex.Message}");
             }
         };
@@ -61,7 +61,7 @@ public partial class RomHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "'history.xml' is missing.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Update UI on the UI thread
                 await Dispatcher.InvokeAsync(() =>
@@ -128,7 +128,7 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             const string contextMessage = "An error occurred while loading ROM history.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -185,7 +185,7 @@ public partial class RomHistoryWindow
         {
             // Notify developer
             const string contextMessage = "An error occurred while opening the browser.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningBrowserMessageBox();

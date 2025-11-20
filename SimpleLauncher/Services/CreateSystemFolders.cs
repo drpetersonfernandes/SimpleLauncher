@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -23,7 +24,7 @@ public static class CreateSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary system folder.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary system folder.");
                 }
             }
 
@@ -36,7 +37,7 @@ public static class CreateSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating the primary image folder.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the primary image folder.");
                 }
             }
 
@@ -52,7 +53,7 @@ public static class CreateSystemFolders
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"Error creating the {folder} folder.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error creating the {folder} folder.");
                 }
             }
         }
@@ -60,7 +61,7 @@ public static class CreateSystemFolders
         {
             // Notify developer
             const string contextMessage = "The application failed to create the necessary folders for the newly added system.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FolderCreationFailedMessageBox();

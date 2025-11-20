@@ -135,7 +135,7 @@ public class GameListFactory(
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error getting file size for {entityPath}");
+                _ = LogErrorsService.LogErrorAsync(ex, $"Error getting file size for {entityPath}");
 
                 sizeToSet = -2; // Indicate N/A or Error
             }
@@ -156,7 +156,7 @@ public class GameListFactory(
             if (_mainWindow == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
+                _ = LogErrorsService.LogErrorAsync(new InvalidOperationException("_mainWindow is null in GameListFactory.HandleSelectionChanged."), "MainWindow instance is null. Cannot update preview.");
 
                 return;
             }
@@ -164,7 +164,7 @@ public class GameListFactory(
             if (_mainWindow.PreviewImage == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChanged."), "PreviewImage control in MainWindow is null. Cannot update preview.");
+                _ = LogErrorsService.LogErrorAsync(new InvalidOperationException("_mainWindow.PreviewImage is null in GameListFactory.HandleSelectionChanged."), "PreviewImage control in MainWindow is null. Cannot update preview.");
 
                 return;
             }
@@ -182,7 +182,7 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(filePath))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
+                    _ = LogErrorsService.LogErrorAsync(new ArgumentException("selectedItem.FilePath is null or empty."), "Selected item has an invalid file path. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
@@ -197,7 +197,7 @@ public class GameListFactory(
                 if (string.IsNullOrEmpty(selectedSystem))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
+                    _ = LogErrorsService.LogErrorAsync(new InvalidOperationException("Selected system name is null or empty from ComboBox."), "No system selected or system name is invalid. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
@@ -210,7 +210,7 @@ public class GameListFactory(
                 if (systemManager == null)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
+                    _ = LogErrorsService.LogErrorAsync(new InvalidOperationException($"System configuration not found for '{selectedSystem}'."), $"No system configuration for {selectedSystem}. Cannot load preview.");
 
                     _mainWindow.PreviewImage.Source = null; // Clear preview
                     var (defaultImg, _) = await ImageLoader.LoadImageAsync(null); // Load global default
@@ -263,7 +263,7 @@ public class GameListFactory(
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error loading preview image.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error loading preview image.");
 
                 // Attempt to set a default image in case of any error during the process
                 try
@@ -280,14 +280,14 @@ public class GameListFactory(
                 catch (Exception fallbackEx)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(fallbackEx, "Error loading fallback preview image after an initial error.");
+                    _ = LogErrorsService.LogErrorAsync(fallbackEx, "Error loading fallback preview image after an initial error.");
                 }
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChanged.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in method GameListFactory.HandleSelectionChanged.");
         }
     }
 
@@ -302,7 +302,7 @@ public class GameListFactory(
         if (selectedItem == null)
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "selectedItem is null.");
+            await LogErrorsService.LogErrorAsync(null, "selectedItem is null.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -318,7 +318,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(filePath))
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "filepath is null or empty.");
+            await LogErrorsService.LogErrorAsync(null, "filepath is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -329,7 +329,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(selectedEmulatorName))
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
+            await LogErrorsService.LogErrorAsync(null, "[HandleDoubleClickAsync] selectedEmulatorName is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -340,7 +340,7 @@ public class GameListFactory(
         if (string.IsNullOrEmpty(selectedSystemName))
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "selectedSystemName is null or empty.");
+            await LogErrorsService.LogErrorAsync(null, "selectedSystemName is null or empty.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -351,7 +351,7 @@ public class GameListFactory(
         if (selectedSystemManager == null)
         {
             // Notify developer
-            await LogErrors.LogErrorAsync(null, "selectedSystemManager is null.");
+            await LogErrorsService.LogErrorAsync(null, "selectedSystemManager is null.");
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());

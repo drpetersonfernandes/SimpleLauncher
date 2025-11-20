@@ -311,7 +311,7 @@ public class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
+                        _ = LogErrorsService.LogErrorAsync(ex, $"Error opening achievements for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.CouldNotOpenAchievementsWindowMessageBox();
@@ -323,7 +323,7 @@ public class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
+                    _ = LogErrorsService.LogErrorAsync(ex, "Error opening Retro Achievements Window.");
                     DebugLogger.Log($"Error opening Retro Achievements Window: {ex.Message}");
                 }
             };
@@ -373,7 +373,7 @@ public class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
+                        _ = LogErrorsService.LogErrorAsync(ex, $"Error opening video link for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.ErrorOpeningVideoLinkMessageBox();
@@ -385,7 +385,7 @@ public class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, "Error opening the video Link.");
+                    _ = LogErrorsService.LogErrorAsync(ex, "Error opening the video Link.");
                     DebugLogger.Log($"Error opening the video link: {ex.Message}");
                 }
             };
@@ -435,7 +435,7 @@ public class GameButtonFactory(
                     catch (Exception ex)
                     {
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
+                        _ = LogErrorsService.LogErrorAsync(ex, $"Error opening info link for {fileNameWithoutExtension}");
 
                         // Notify user
                         MessageBoxLibrary.ProblemOpeningInfoLinkMessageBox();
@@ -447,7 +447,7 @@ public class GameButtonFactory(
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, "Error opening the info Link.");
+                    _ = LogErrorsService.LogErrorAsync(ex, "Error opening the info Link.");
                     DebugLogger.Log($"Error opening the info link: {ex.Message}");
                 }
             };
@@ -549,7 +549,7 @@ public class GameButtonFactory(
                 if (string.IsNullOrEmpty(selectedEmulatorName))
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
+                    _ = LogErrorsService.LogErrorAsync(null, "[CreateGameButtonAsync] selectedEmulatorName is null or empty.");
 
                     // Notify user
                     MessageBoxLibrary.EmulatorNameIsRequiredMessageBox();
@@ -570,7 +570,7 @@ public class GameButtonFactory(
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error launching the game.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error launching the game.");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };

@@ -3,6 +3,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -68,7 +69,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error launching the game.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching the game.");
                 DebugLogger.Log($"Error launching the game: {ex.Message}");
             }
         };
@@ -197,7 +198,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error opening the RetroAchievements window.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the RetroAchievements window.");
                 DebugLogger.Log($"Error opening the RetroAchievements window: {ex.Message}");
             }
         };
@@ -445,7 +446,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error taking the screenshot.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error taking the screenshot.");
                 DebugLogger.Log($"Error taking the screenshot: {ex.Message}");
             }
         };
@@ -488,7 +489,7 @@ public static class ContextMenu
                     {
                         // Notify developer
                         const string contextMessage = "Error deleting the game.";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheGameMessageBox();
@@ -501,7 +502,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error deleting the game.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error deleting the game.");
                 DebugLogger.Log($"Error deleting the game: {ex.Message}");
             }
         };
@@ -538,7 +539,7 @@ public static class ContextMenu
                     {
                         // Notify developer
                         var contextMessage = $"Error deleting the cover image of {context.FileNameWithoutExtension}.";
-                        _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                         // Notify user
                         MessageBoxLibrary.ThereWasAnErrorDeletingTheCoverImageMessageBox();
@@ -551,7 +552,7 @@ public static class ContextMenu
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, "Error deleting the cover image.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error deleting the cover image.");
                 DebugLogger.Log($"Error deleting the cover image: {ex.Message}");
             }
         };
@@ -588,7 +589,7 @@ public static class ContextMenu
             if (string.IsNullOrEmpty(context.FilePath))
             {
                 // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Right click context menu was invoked, but the FilePath is null or empty.");
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -599,7 +600,7 @@ public static class ContextMenu
             if (string.IsNullOrEmpty(selectedEmulatorName))
             {
                 // Notify developer
-                await LogErrors.LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "[CheckParametersForNullOrEmptyAsync] Right click context menu was invoked, but the SelectedEmulatorName is null or empty.");
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -610,7 +611,7 @@ public static class ContextMenu
             if (string.IsNullOrEmpty(context.SelectedSystemName))
             {
                 // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemName is null or empty.");
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());
@@ -621,7 +622,7 @@ public static class ContextMenu
             if (context.SelectedSystemManager == null)
             {
                 // Notify developer
-                await LogErrors.LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Right click context menu was invoked, but the SelectedSystemManager is null.");
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(GetLogPath.Path());

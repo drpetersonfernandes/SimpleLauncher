@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using MessagePack;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher.Managers;
@@ -25,7 +26,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file 'mame.dat' could not be found in the application folder.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileMissingMessageBox();
@@ -45,7 +46,7 @@ public class MameManager
         {
             // Notify developer
             const string contextMessage = "The file mame.dat could not be loaded or is corrupted.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ReinstallSimpleLauncherFileCorruptedMessageBox();

@@ -35,7 +35,7 @@ public partial class AboutWindow
         {
             // Notify developer
             const string contextMessage = "Error in the Hyperlink_RequestNavigate method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
@@ -58,7 +58,7 @@ public partial class AboutWindow
         {
             // Notify developer
             const string contextMessage = "Error in the CheckForUpdateAsync_Click method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorCheckingForUpdatesMessageBox();
@@ -76,7 +76,7 @@ public partial class AboutWindow
         {
             // Notify developer
             const string contextMessage = "Error in the UpdateHistory_Click method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorOpeningTheUpdateHistoryWindowMessageBox();

@@ -134,7 +134,7 @@ public partial class GlobalSearchWindow
             }
             catch (Exception ex)
             {
-                await LogErrors.LogErrorAsync(ex, "Error during search operation.");
+                await LogErrorsService.LogErrorAsync(ex, "Error during search operation.");
                 MessageBoxLibrary.GlobalSearchErrorMessageBox();
                 NoResultsMessageOverlay.Visibility = Visibility.Visible;
                 LaunchButton.IsEnabled = false;
@@ -146,7 +146,7 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
-            await LogErrors.LogErrorAsync(ex, "Error in SearchButton_Click.");
+            await LogErrorsService.LogErrorAsync(ex, "Error in SearchButton_Click.");
         }
     }
 
@@ -248,7 +248,7 @@ public partial class GlobalSearchWindow
                             {
                                 // Notify developer
                                 var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
-                                _ = LogErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
+                                _ = LogErrorsService.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
 
                                 searchResultItem.FileSizeBytes = -2;
                             }
@@ -261,7 +261,7 @@ public partial class GlobalSearchWindow
                         {
                             // Notify developer
                             var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
-                            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
                             searchResultItem.FileSizeBytes = -2;
                         }
@@ -387,7 +387,7 @@ public partial class GlobalSearchWindow
             if (string.IsNullOrEmpty(filePath) || string.IsNullOrEmpty(selectedSystemName) || selectedEmulatorManager == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "filePath or selectedSystemName or selectedEmulatorManager is null.");
+                _ = LogErrorsService.LogErrorAsync(null, "filePath or selectedSystemName or selectedEmulatorManager is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -399,7 +399,7 @@ public partial class GlobalSearchWindow
             if (selectedSystemManager == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
+                _ = LogErrorsService.LogErrorAsync(new Exception("selectedSystemManager is null."), "System manager not found for launching game from search.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -413,7 +413,7 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             var contextMessage = $"Error launching game from search: {filePath}, System: {selectedSystemName}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -438,7 +438,7 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             const string contextMessage = "Error in LaunchButton_Click (GlobalSearch).";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -459,7 +459,7 @@ public partial class GlobalSearchWindow
             if (systemManager == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(new Exception("SystemManager is null"), "SystemManager is null");
+                _ = LogErrorsService.LogErrorAsync(new Exception("SystemManager is null"), "SystemManager is null");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -470,7 +470,7 @@ public partial class GlobalSearchWindow
             if (string.IsNullOrEmpty(selectedResult.FilePath))
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "FilePath is null.");
+                _ = LogErrorsService.LogErrorAsync(null, "FilePath is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -481,7 +481,7 @@ public partial class GlobalSearchWindow
             if (string.IsNullOrEmpty(selectedResult.SystemName))
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "SystemName is null.");
+                _ = LogErrorsService.LogErrorAsync(null, "SystemName is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -492,7 +492,7 @@ public partial class GlobalSearchWindow
             if (selectedResult.EmulatorManager == null)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "EmulatorManager is null.");
+                _ = LogErrorsService.LogErrorAsync(null, "EmulatorManager is null.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLaunchingGameMessageBox(LogPath);
@@ -532,7 +532,7 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             const string contextMessage = "Error in GlobalSearch right-click context menu.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -553,7 +553,7 @@ public partial class GlobalSearchWindow
         {
             // Notify developer
             const string contextMessage = "Error in ResultsDataGrid_MouseDoubleClick (GlobalSearch).";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -588,7 +588,7 @@ public partial class GlobalSearchWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItem (GlobalSearch).");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error loading image in ActionsWhenUserSelectAResultItem (GlobalSearch).");
 
             PreviewImage.Source = null; // Ensure preview is cleared on error
         }
@@ -616,7 +616,7 @@ public partial class GlobalSearchWindow
                 }
                 catch (Exception ex)
                 {
-                    _ = LogErrors.LogErrorAsync(ex, "Error awaiting file size tasks on window close.");
+                    _ = LogErrorsService.LogErrorAsync(ex, "Error awaiting file size tasks on window close.");
                 }
             }
 
@@ -630,7 +630,7 @@ public partial class GlobalSearchWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error cleaning up resources on window close.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error cleaning up resources on window close.");
         }
     }
 

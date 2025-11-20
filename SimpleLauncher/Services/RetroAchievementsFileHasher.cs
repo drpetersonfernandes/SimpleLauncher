@@ -4,6 +4,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -40,7 +41,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate MD5 for {filePath} with offset {offset}");
             return null;
         }
     }
@@ -59,7 +60,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate Arcade hash for {filePath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate Arcade hash for {filePath}");
             return null;
         }
     }
@@ -96,7 +97,7 @@ public static class RetroAchievementsFileHasher
             var fileInfo = new FileInfo(filePath);
             if (!fileInfo.Exists)
             {
-                _ = LogErrors.LogErrorAsync(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA File Hasher] File not found for header-based hashing: {filePath}");
                 return null;
             }
 
@@ -164,7 +165,7 @@ public static class RetroAchievementsFileHasher
                 default:
                     // Fallback for any unexpected system name, hash the whole file.
                     offset = 0;
-                    _ = LogErrors.LogErrorAsync(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RA File Hasher] CalculateHeaderBasedMd5Async called with an unsupported or unexpected system: {systemName}. Hashing entire file.");
                     break;
             }
 
@@ -172,7 +173,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate header-based MD5 for {filePath} (System: {systemName})");
             return null;
         }
     }
@@ -192,7 +193,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate Arduboy hash for {filePath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate Arduboy hash for {filePath}");
             return null;
         }
     }
@@ -228,7 +229,7 @@ public static class RetroAchievementsFileHasher
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to calculate N64 hash for {filePath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to calculate N64 hash for {filePath}");
             return null;
         }
     }

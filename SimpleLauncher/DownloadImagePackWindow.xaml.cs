@@ -87,7 +87,7 @@ public partial class DownloadImagePackWindow : IDisposable
         {
             // Notify developer
             const string contextMessage = "Error populating system dropdown.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Assign an empty list if there's any error
             SystemNameDropdown.ItemsSource = new List<string>();
@@ -141,14 +141,14 @@ public partial class DownloadImagePackWindow : IDisposable
             }
             catch (Exception ex)
             {
-                _ = LogErrors.LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
                 clickedButton.IsEnabled = true; // Re-enable on error
                 item.IsDownloaded = false;
             }
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
         }
     }
 
@@ -178,7 +178,7 @@ public partial class DownloadImagePackWindow : IDisposable
             UpdateStatus($"{errorInvalidDestinationPath} {componentName}");
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
 
             return;
         }
@@ -252,7 +252,7 @@ public partial class DownloadImagePackWindow : IDisposable
             // Notify developer
             var contextMessage = $"Error downloading {componentName}.\n" +
                                  $"URL: {downloadUrl}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Since this is an image pack, use the specific message box
             await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
@@ -335,7 +335,7 @@ public partial class DownloadImagePackWindow : IDisposable
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error creating the extraction folder.");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the extraction folder.");
                 }
             }
         }
@@ -345,7 +345,7 @@ public partial class DownloadImagePackWindow : IDisposable
             MessageBoxLibrary.ExtractionFolderCannotBeCreatedMessageBox(_logPath);
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error creating the extraction folder.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error creating the extraction folder.");
 
             return false;
         }
@@ -396,7 +396,7 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error opening the download link.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error opening the download link.");
 
             // Notify user
             MessageBoxLibrary.CouldNotOpenTheDownloadLink();
@@ -425,7 +425,7 @@ public partial class DownloadImagePackWindow : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error closing the Add System window.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error closing the Add System window.");
         }
     }
 

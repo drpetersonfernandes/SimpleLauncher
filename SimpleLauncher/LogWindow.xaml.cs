@@ -1,5 +1,6 @@
 using System;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -75,7 +76,7 @@ public partial class LogWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error copying log");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error copying log");
 
             // Notify user
             MessageBoxLibrary.FailedToCopyLogContent();

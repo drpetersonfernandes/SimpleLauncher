@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -25,7 +26,7 @@ public abstract class GetListOfFiles
                 {
                     // Notify developer
                     var contextMessage = $"Directory does not exist: '{directoryPath}'.";
-                    _ = LogErrors.LogErrorAsync(null, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                     return new List<string>(); // Return an empty list
                 }
@@ -44,7 +45,7 @@ public abstract class GetListOfFiles
                     {
                         // Notify developer
                         var contextMessage = $"Directory not found while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = LogErrors.LogErrorAsync(dirEx, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(dirEx, contextMessage);
 
                         break; // Exit the loop since the directory is gone
                     }
@@ -52,7 +53,7 @@ public abstract class GetListOfFiles
                     {
                         // Notify developer
                         var contextMessage = $"Access denied while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = LogErrors.LogErrorAsync(authEx, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(authEx, contextMessage);
 
                         // Continue with the next extension
                     }
@@ -60,7 +61,7 @@ public abstract class GetListOfFiles
                     {
                         // Notify developer
                         var contextMessage = $"Path too long while processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = LogErrors.LogErrorAsync(pathEx, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(pathEx, contextMessage);
 
                         // Continue with the next extension
                     }
@@ -68,7 +69,7 @@ public abstract class GetListOfFiles
                     {
                         // Notify developer
                         var contextMessage = $"Error processing extension '{ext}' in directory '{directoryPath}'.";
-                        _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, contextMessage);
 
                         // Continue with the next extension
                     }
@@ -81,7 +82,7 @@ public abstract class GetListOfFiles
                 // Notify developer
                 var contextMessage = $"There was an error using the method GetFilesAsync.\n" +
                                      $"Directory path: {directoryPath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.ErrorFindingGameFilesMessageBox(LogPath);

@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Windows.Media.Imaging;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
@@ -32,7 +33,7 @@ public partial class ImageViewerWindow
         {
             // Notify developer
             const string contextMessage = "Failed to load the image in the Image Viewer window.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ImageViewerErrorMessageBox();
@@ -58,7 +59,7 @@ public partial class ImageViewerWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to load image from URI in RetroAchievementsImageViewerWindow: {imageUri}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load image from URI in RetroAchievementsImageViewerWindow: {imageUri}");
             ImageViewer.Source = null;
         }
     }

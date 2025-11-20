@@ -61,6 +61,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<PlaySoundEffects>();
         serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<UpdateChecker>();
+        serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
         serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddTransient<MainWindow>();
 
@@ -104,7 +105,7 @@ public partial class App : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
                 // Notify user
                 MessageBoxLibrary.FailedToStartSimpleLauncherMessageBox();
@@ -149,7 +150,7 @@ public partial class App : IDisposable
                 {
                     // Notify developer
                     const string contextMessage = "Error showing UpdateHistoryWindow with -whatsnew argument.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
                 }
             }));
         }
@@ -167,7 +168,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Failed to dispose gamepad resources.");
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to dispose gamepad resources.");
         }
 
         // Release the mutex if this was the first instance and the mutex was successfully created
@@ -182,7 +183,7 @@ public partial class App : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to release single instance mutex on exit.");
             }
             finally
             {
@@ -210,7 +211,7 @@ public partial class App : IDisposable
                 default:
                     // Notify developer
                     var errorMessage = $"Unsupported architecture for SevenZipSharp: {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
-                    _ = LogErrors.LogErrorAsync(null, errorMessage);
+                    _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
                     return;
             }
@@ -226,13 +227,13 @@ public partial class App : IDisposable
             {
                 // Notify developer
                 var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {BaseDirectory}";
-                _ = LogErrors.LogErrorAsync(null, errorMessage);
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
             }
         }
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
         }
     }
 
@@ -287,7 +288,7 @@ public partial class App : IDisposable
             {
                 // Notify developer
                 var contextMessage = $"Failed to load language resources for {culture.Name} (requested {cultureCode}).";
-                _ = LogErrors.LogErrorAsync(innerEx, contextMessage);
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(innerEx, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -311,7 +312,7 @@ public partial class App : IDisposable
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
 
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources.");
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources.");
             }
         }
         catch (Exception ex)
@@ -320,7 +321,7 @@ public partial class App : IDisposable
             // This outer catch handles errors *before* attempting to load the new dictionary
             // (e.g., invalid cultureCode format).
             var contextMessage = $"Failed to determine or set culture for {cultureCode}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedToLoadLanguageResourceMessageBox();
@@ -344,7 +345,7 @@ public partial class App : IDisposable
                     new FrameworkPropertyMetadata(XmlLanguage.GetLanguage(englishCulture.IetfLanguageTag)));
 
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");
+                _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Fallback to English language resources due to initial culture error.");
             }
         }
     }
@@ -359,7 +360,7 @@ public partial class App : IDisposable
         {
             // Notify developer
             const string contextMessage = "Failed to Apply Theme.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -376,7 +377,7 @@ public partial class App : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}.");
+            _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to apply theme to window {window.GetType().Name}.");
         }
     }
 

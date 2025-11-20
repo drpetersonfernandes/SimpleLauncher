@@ -4,6 +4,7 @@ using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -49,7 +50,7 @@ public static class MountXisoFiles
         {
             const string errorMessage = "xbox-iso-vfs.exe not found. Cannot mount ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
             return new MountXisoDrive(); // Return failed state
         }
@@ -59,7 +60,7 @@ public static class MountXisoFiles
         {
             const string errorMessage = "No available drive letters found to mount the ISO.";
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Error: {errorMessage}");
-            _ = LogErrors.LogErrorAsync(null, errorMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
             MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
             return new MountXisoDrive(); // Return failed state
         }
@@ -114,7 +115,7 @@ public static class MountXisoFiles
         {
             DebugLogger.Log($"[MountXisoFiles.MountAsync] Exception during mounting: {ex}");
             var contextMessage = $"Error during ISO mount process for {resolvedIsoFilePath}.\nException: {ex.Message}";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             if (mountProcess != null && !mountProcess.HasExited)
             {
@@ -153,7 +154,7 @@ public static class MountXisoFiles
             {
                 DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Mount process {toolName} (ID: {processId}) exited prematurely during polling. Exit Code: {mountProcess.ExitCode}.");
                 var contextMessage = $"Failed to mount ISO. The mounting tool '{toolName}' exited prematurely with code {mountProcess.ExitCode}.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
                 return false;
             }
 
@@ -163,7 +164,7 @@ public static class MountXisoFiles
 
         DebugLogger.Log($"[MountXisoFiles.WaitForDriveMountAsync] Timed out waiting for '{defaultXbePath}' after {maxRetries * pollIntervalMs / 1000} seconds.");
         var timeoutContextMessage = $"Timed out waiting for the ISO to mount to '{driveRoot}'.";
-        _ = LogErrors.LogErrorAsync(null, timeoutContextMessage);
+        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, timeoutContextMessage);
         return false;
     }
 }

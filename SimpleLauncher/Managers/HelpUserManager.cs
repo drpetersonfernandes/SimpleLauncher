@@ -5,6 +5,7 @@ using System.Linq;
 using System.Windows;
 using System.Xml;
 using System.Xml.Linq;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -24,7 +25,7 @@ public class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "The file 'helpuser.xml' is missing.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FileHelpUserXmlIsMissingMessageBox();
@@ -47,7 +48,7 @@ public class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "Unable to load 'helpuser.xml'. The file may be corrupted.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.FailedToLoadHelpUserXmlMessageBox();
@@ -83,7 +84,7 @@ public class HelpUserManager
                         var problematicEntry = system.ToString(SaveOptions.DisableFormatting);
                         problematicEntry = problematicEntry.Substring(0, Math.Min(200, problematicEntry.Length)); // Truncate for log
                         const string contextMessage = "Failed to parse an entry in 'helpuser.xml'.";
-                        _ = LogErrors.LogErrorAsync(ex, $"{contextMessage} Entry: {problematicEntry}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"{contextMessage} Entry: {problematicEntry}");
 
                         entryParseErrorOccurred = true; // Mark that at least one error occurred
                         return null; // Do not show a message box here; return null to filter out later
@@ -117,7 +118,7 @@ public class HelpUserManager
             {
                 // Notify developer
                 const string contextMessage = "No valid systems found in 'helpuser.xml' after processing.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.NoSystemInHelpUserXmlMessageBox();
@@ -128,7 +129,7 @@ public class HelpUserManager
         {
             // Notify developer
             const string contextMessage = "Unexpected error while loading 'helpuser.xml'.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.ErrorWhileLoadingHelpUserXmlMessageBox();

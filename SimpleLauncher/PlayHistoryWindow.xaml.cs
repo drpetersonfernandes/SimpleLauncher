@@ -88,7 +88,7 @@ public partial class PlayHistoryWindow
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
+                _ = LogErrorsService.LogErrorAsync(ex, "Error loading play history data in PlayHistoryWindow_Loaded.");
 
                 // Notify user
                 MessageBoxLibrary.ErrorLoadingRomHistoryMessageBox();
@@ -101,7 +101,7 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the PlayHistoryWindow_Loaded method.");
         }
     }
 
@@ -223,7 +223,7 @@ public partial class PlayHistoryWindow
 
                 // Notify developer
                 var contextMessage = $"System manager not found for history item: {item.SystemName} - {item.FileName}. The item will be removed from history.";
-                _ = LogErrors.LogErrorAsync(new Exception(contextMessage), contextMessage);
+                _ = LogErrorsService.LogErrorAsync(new Exception(contextMessage), contextMessage);
             }
         });
     }
@@ -261,9 +261,9 @@ public partial class PlayHistoryWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error parsing date and time.\n" +
-                                            $"dateStr: {dateStr}\n" +
-                                            $"timeStr: {timeStr}");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error parsing date and time.\n" +
+                                                   $"dateStr: {dateStr}\n" +
+                                                   $"timeStr: {timeStr}");
 
             // In case of any exception, return a reasonable default
             return DateTime.MinValue;
@@ -301,7 +301,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "History item filename is null";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -314,7 +314,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "systemManager is null";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -343,7 +343,7 @@ public partial class PlayHistoryWindow
             {
                 // Notify developer
                 const string contextMessage = "emulatorManager is null.";
-                _ = LogErrors.LogErrorAsync(null, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
                 // Notify user
                 MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -383,7 +383,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "There was an error in the method PlayHistoryPrepareForRightClickContext.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.RightClickContextMenuErrorMessageBox();
@@ -397,7 +397,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "systemManager is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -428,7 +428,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "emulatorManager is null.";
-            _ = LogErrors.LogErrorAsync(null, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(null, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -516,7 +516,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error refreshing play history data.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -536,7 +536,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error in the method MouseDoubleClick.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);
@@ -565,7 +565,7 @@ public partial class PlayHistoryWindow
             PreviewImage.Source = null; // Ensure image is cleared on error
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the SetPreviewImageOnSelectionChanged method.");
         }
     }
 
@@ -706,7 +706,7 @@ public partial class PlayHistoryWindow
         {
             // Notify developer
             const string contextMessage = "Error in the LaunchGame_Click method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.CouldNotLaunchThisGameMessageBox(LogPath);

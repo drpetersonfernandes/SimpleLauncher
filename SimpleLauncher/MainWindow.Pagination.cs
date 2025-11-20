@@ -44,7 +44,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Previous page button error.";
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
@@ -53,7 +53,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the PrevPageButton_Click method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the PrevPageButton_Click method.");
         }
     }
 
@@ -87,7 +87,7 @@ public partial class MainWindow
             {
                 // Notify developer
                 const string errorMessage = "Next page button error.";
-                _ = LogErrors.LogErrorAsync(ex, errorMessage);
+                _ = LogErrorsService.LogErrorAsync(ex, errorMessage);
 
                 // Notify user
                 MessageBoxLibrary.NavigationButtonErrorMessageBox();
@@ -96,7 +96,7 @@ public partial class MainWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the NextPageButton_Click method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the NextPageButton_Click method.");
         }
     }
 

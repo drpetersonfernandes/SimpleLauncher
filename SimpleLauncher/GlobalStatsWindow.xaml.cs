@@ -61,7 +61,7 @@ public partial class GlobalStatsWindow
                 {
                     // Notify developer
                     const string contextMessage = "An error occurred while calculating Global Statistics.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -76,7 +76,7 @@ public partial class GlobalStatsWindow
             {
                 // Notify developer
                 const string contextMessage = "Error in the GlobalStats_Loaded method.";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
             }
 
             return;
@@ -98,7 +98,7 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             const string contextMessage = "Error in the GlobalStats_Loaded method.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
         }
     }
 
@@ -120,7 +120,7 @@ public partial class GlobalStatsWindow
                     if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
                     {
                         // Notify developer
-                        _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
+                        _ = LogErrorsService.LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
                     }
                 }
                 else
@@ -159,7 +159,7 @@ public partial class GlobalStatsWindow
             else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+                _ = LogErrorsService.LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
             }
 
 
@@ -202,7 +202,7 @@ public partial class GlobalStatsWindow
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Error in the CalculateGlobalStats method.");
+            _ = LogErrorsService.LogErrorAsync(ex, "Error in the CalculateGlobalStats method.");
 
             // Notify user
             MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
@@ -240,7 +240,7 @@ public partial class GlobalStatsWindow
         {
             // Notify developer
             const string contextMessage = "Failed to save the report in the Global Stats window.";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
 
             // Notify user
             MessageBoxLibrary.FailedSaveReportMessageBox();
@@ -307,7 +307,7 @@ public partial class GlobalStatsWindow
                 // Notify developer
                 var contextMessage = $"Error renaming image file: {imageFile}\n" +
                                      $"New file name: {newImagePath}";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = LogErrorsService.LogErrorAsync(ex, contextMessage);
             }
         }
 

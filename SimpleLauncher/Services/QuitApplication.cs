@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization; // Add this using directive
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace SimpleLauncher.Services;
 
@@ -27,7 +28,7 @@ public static class QuitApplication
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, "Failed to start new process during application restart.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start new process during application restart.");
 
             // Notify user
             MessageBoxLibrary.FailedToRestartMessageBox();
@@ -69,7 +70,7 @@ public static class QuitApplication
         }
         catch (Exception ex)
         {
-            _ = LogErrors.LogErrorAsync(ex, "Failed to start updater and shut down.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to start updater and shut down.");
 
             // // If the updater fails to launch, we should inform the user and NOT shut down.
             // MessageBoxLibrary.UpdaterLaunchFailedMessageBox();

@@ -4,6 +4,7 @@ using System.IO;
 using System.Windows;
 using System.Linq;
 using MessagePack;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 using SimpleLauncher.Services;
 
@@ -39,7 +40,7 @@ public class FavoritesManager
             {
                 // Notify developer
                 const string contextMessage = "Error loading favorites.dat";
-                _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
             }
         }
 
@@ -84,7 +85,7 @@ public class FavoritesManager
         {
             // Notify developer
             const string contextMessage = "Error saving favorites.dat";
-            _ = LogErrors.LogErrorAsync(ex, contextMessage);
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
             // Attempt to clean up temp file if it exists
             try
@@ -96,7 +97,7 @@ public class FavoritesManager
             }
             catch (Exception cleanupEx)
             {
-                _ = LogErrors.LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(cleanupEx, "Error cleaning up temporary favorites file after failed save");
             }
 
             throw; // Re-throw to notify caller

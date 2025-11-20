@@ -6,6 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
+using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Models;
 
 namespace SimpleLauncher.Services;
@@ -1155,7 +1156,7 @@ internal static class MessageBoxLibrary
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in method InstallUpdateManuallyMessageBox");
 
                     // Notify user
                     var anerroroccurredwhileopeningthebrowser = (string)Application.Current.TryFindResource("Anerroroccurredwhileopeningthebrowser") ?? "An error occurred while opening the browser.";
@@ -1416,7 +1417,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the Browser.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     var simpleLaunchercouldnotopentheImage = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotopentheImage") ?? "'Simple Launcher' could not open the Image Pack download link.";
@@ -1564,7 +1565,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1605,7 +1606,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     var erroropeningthedownloadlink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";
@@ -1669,7 +1670,7 @@ internal static class MessageBoxLibrary
                 {
                     // Notify developer
                     const string contextMessage = "Error opening the download link.";
-                    _ = LogErrors.LogErrorAsync(ex, contextMessage);
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                     // Notify user
                     var errorOpeningDownloadLink = (string)Application.Current.TryFindResource("Erroropeningthedownloadlink") ?? "Error opening the download link.";

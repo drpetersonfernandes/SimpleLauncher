@@ -31,16 +31,18 @@ public class DownloadManager : IDisposable
     private readonly HttpClient _httpClient;
     private readonly IHttpClientFactory _httpClientFactory;
     private readonly IExtractionService _extractionService;
+    private readonly ILogErrors _logErrors;
     private CancellationTokenSource _cancellationTokenSource;
     private bool _disposed;
 
     /// <summary>
     /// Initializes a new instance of the DownloadManager.
     /// </summary>
-    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService)
+    public DownloadManager(IHttpClientFactory httpClientFactory, IExtractionService extractionService, ILogErrors logErrors)
     {
         _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
         _extractionService = extractionService ?? throw new ArgumentNullException(nameof(extractionService));
+        _logErrors = logErrors ?? throw new ArgumentNullException(nameof(logErrors));
 
         // Initialize temp folder
         TempFolder = Path.Combine(Path.GetTempPath(), "SimpleLauncher");
@@ -52,7 +54,7 @@ public class DownloadManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error creating temp folder: {TempFolder}");
         }
 
         // Get HttpClient from the factory
@@ -230,7 +232,7 @@ public class DownloadManager : IDisposable
                 catch (HttpRequestException ex)
                 {
                     // Notify developer
-                    _ = LogErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
+                    _ = _logErrors.LogErrorAsync(ex, $"HTTP error during download attempt {currentRetry + 1}: {ex.Message}");
 
                     currentRetry++;
                     if (currentRetry < RetryMaxAttempts && !IsUserCancellation)
@@ -345,7 +347,7 @@ public class DownloadManager : IDisposable
             }
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error downloading file: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error downloading file: {downloadUrl}");
 
             throw;
         }
@@ -398,7 +400,7 @@ public class DownloadManager : IDisposable
             });
 
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error extracting file: {filePath} to {destinationPath}");
 
             return false;
         }
@@ -440,7 +442,7 @@ public class DownloadManager : IDisposable
             catch (Exception ex)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
+                _ = _logErrors.LogErrorAsync(ex, $"Error during extraction: {downloadedFilePath} to {extractionPath}");
 
                 // Clean up downloaded file
                 DeleteFiles.TryDeleteFile(downloadedFilePath);
@@ -451,7 +453,7 @@ public class DownloadManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Error during download and extract: {downloadUrl} to {extractionPath}");
+            _ = _logErrors.LogErrorAsync(ex, $"Error during download and extract: {downloadUrl} to {extractionPath}");
 
             return false;
         }
@@ -563,7 +565,7 @@ public class DownloadManager : IDisposable
         catch (HttpRequestException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"The requested file was not available on the server.\nURL: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"The requested file was not available on the server.\nURL: {downloadUrl}");
 
             // Notify user
             OnProgressChanged(new DownloadProgressEventArgs
@@ -577,7 +579,7 @@ public class DownloadManager : IDisposable
         catch (HttpRequestException ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Network error during file download.\nURL: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"Network error during file download.\nURL: {downloadUrl}");
 
             // Notify user
             OnProgressChanged(new DownloadProgressEventArgs
@@ -591,7 +593,7 @@ public class DownloadManager : IDisposable
         catch (IOException ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"File read/write error after file download.\nURL: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"File read/write error after file download.\nURL: {downloadUrl}");
 
             // Notify user
             OnProgressChanged(new DownloadProgressEventArgs
@@ -607,7 +609,7 @@ public class DownloadManager : IDisposable
             if (cancellationToken.IsCancellationRequested)
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Download was canceled by the user.\nURL: {downloadUrl}");
+                _ = _logErrors.LogErrorAsync(ex, $"Download was canceled by the user.\nURL: {downloadUrl}");
 
                 OnProgressChanged(new DownloadProgressEventArgs
                 {
@@ -618,7 +620,7 @@ public class DownloadManager : IDisposable
             else
             {
                 // Notify developer
-                _ = LogErrors.LogErrorAsync(ex, $"Download timed out or was canceled unexpectedly.\nURL: {downloadUrl}");
+                _ = _logErrors.LogErrorAsync(ex, $"Download timed out or was canceled unexpectedly.\nURL: {downloadUrl}");
 
                 // Notify user
                 OnProgressChanged(new DownloadProgressEventArgs
@@ -633,7 +635,7 @@ public class DownloadManager : IDisposable
         catch (Exception ex)
         {
             // Notify developer
-            _ = LogErrors.LogErrorAsync(ex, $"Generic download error.\nURL: {downloadUrl}");
+            _ = _logErrors.LogErrorAsync(ex, $"Generic download error.\nURL: {downloadUrl}");
 
             // Notify user
             OnProgressChanged(new DownloadProgressEventArgs
