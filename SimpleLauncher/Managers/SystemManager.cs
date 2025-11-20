@@ -34,7 +34,7 @@ public partial class SystemManager
         }
 
         // Notify user
-        Application.Current.Dispatcher.Invoke(() => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystemConfigurations") ?? "Loading system configurations...", Application.Current.MainWindow as MainWindow));
+        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSystemConfigurations") ?? "Loading system configurations...", Application.Current.MainWindow as MainWindow));
 
         try
         {
