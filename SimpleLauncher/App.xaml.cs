@@ -55,6 +55,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton<GamePadController>();
         serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
         serviceCollection.AddSingleton<PlaySoundEffects>();
+        serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
         serviceCollection.AddSingleton<UpdateChecker>();
         serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddTransient<MainWindow>();

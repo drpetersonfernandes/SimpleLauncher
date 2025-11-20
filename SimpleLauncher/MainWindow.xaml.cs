@@ -117,9 +117,10 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private readonly UpdateChecker _updateChecker;
     private readonly GamePadController _gamePadController;
     private readonly GameLauncher _gameLauncher;
+    private readonly ILaunchTools _launchTools;
     private readonly PlaySoundEffects _playSoundEffects;
 
-    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects)
+    public MainWindow(SettingsManager settings, FavoritesManager favoritesManager, PlayHistoryManager playHistoryManager, UpdateChecker updateChecker, GamePadController gamePadController, GameLauncher gameLauncher, PlaySoundEffects playSoundEffects, ILaunchTools launchTools)
     {
         InitializeComponent();
 
@@ -130,6 +131,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         PlayHistoryManager = playHistoryManager ?? throw new ArgumentNullException(nameof(playHistoryManager));
         _gameLauncher = gameLauncher ?? throw new ArgumentNullException(nameof(gameLauncher));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
+        _launchTools = launchTools ?? throw new ArgumentNullException(nameof(launchTools));
 
         // DataContext set to the MainWindow instance
         DataContext = this;

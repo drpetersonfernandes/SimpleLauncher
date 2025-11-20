@@ -6,9 +6,9 @@ using System.Runtime.InteropServices;
 
 namespace SimpleLauncher.Services;
 
-public static class LaunchTools
+public class LaunchTools : ILaunchTools
 {
-    private static readonly string LogPath = GetLogPath.Path();
+    private readonly string _logPath = GetLogPath.Path();
 
     /// <summary>
     /// Launches an external executable with optional arguments and working directory.
@@ -17,7 +17,7 @@ public static class LaunchTools
     /// <param name="toolPath">The full path to the executable file.</param>
     /// <param name="arguments">Optional command-line arguments for the executable.</param>
     /// <param name="workingDirectory">Optional working directory for the process. If null or empty, the executable's directory is used.</param>
-    private static void LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
+    private void LaunchExternalTool(string toolPath, string arguments = null, string workingDirectory = null)
     {
         if (string.IsNullOrEmpty(toolPath))
         {
@@ -81,11 +81,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, contextMessage);
 
             // Notify user
-            MessageBoxLibrary.ErrorLaunchingToolMessageBox(LogPath);
+            MessageBoxLibrary.ErrorLaunchingToolMessageBox(_logPath);
         }
     }
 
-    internal static void CreateBatchFilesForXbox360XBLAGames_Click()
+    public void CreateBatchFilesForXbox360XblaGames()
     {
         try
         {
@@ -114,11 +114,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForXbox360XBLAGames");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForXbox360XBLAGames", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForXbox360XBLAGames", _logPath);
         }
     }
 
-    internal static void CreateBatchFilesForWindowsGames_Click()
+    public void CreateBatchFilesForWindowsGames()
     {
         try
         {
@@ -147,11 +147,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForWindowsGames");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForWindowsGames", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForWindowsGames", _logPath);
         }
     }
 
-    internal static void FindRomCoverLaunch_Click(string selectedImageFolder, string selectedRomFolder)
+    public void FindRomCoverLaunch(string selectedImageFolder, string selectedRomFolder)
     {
         try
         {
@@ -228,7 +228,7 @@ public static class LaunchTools
                 _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", _logPath);
             }
         }
         catch (Exception ex)
@@ -237,11 +237,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching FindRomCover");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("FindRomCover", _logPath);
         }
     }
 
-    internal static void CreateBatchFilesForPS3Games_Click()
+    public void CreateBatchFilesForPs3Games()
     {
         try
         {
@@ -270,11 +270,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForPS3Games");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForPS3Games", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForPS3Games", _logPath);
         }
     }
 
-    internal static void BatchConvertIsoToXiso_Click()
+    public void BatchConvertIsoToXiso()
     {
         try
         {
@@ -303,11 +303,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertIsoToXiso");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertIsoToXiso", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertIsoToXiso", _logPath);
         }
     }
 
-    internal static void BatchConvertToCHD_Click()
+    public void BatchConvertToChd()
     {
         try
         {
@@ -336,11 +336,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCHD");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCHD", _logPath);
         }
     }
 
-    internal static void BatchConvertToCompressedFile_Click()
+    public void BatchConvertToCompressedFile()
     {
         try
         {
@@ -369,11 +369,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToCompressedFile");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCompressedFile", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToCompressedFile", _logPath);
         }
     }
 
-    internal static void BatchConvertToRVZ_Click()
+    public void BatchConvertToRvz()
     {
         try
         {
@@ -402,23 +402,23 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching BatchConvertToRVZ");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToRVZ", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("BatchConvertToRVZ", _logPath);
         }
     }
 
-    internal static void BatchVerifyCHDFiles_Click()
+    public void BatchVerifyChdFiles()
     {
         var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");
         LaunchExternalTool(toolPath);
     }
 
-    internal static void BatchVerifyCompressedFiles_Click()
+    public void BatchVerifyCompressedFiles()
     {
         var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles.exe");
         LaunchExternalTool(toolPath);
     }
 
-    internal static void CreateBatchFilesForScummVMGames_Click()
+    public void CreateBatchFilesForScummVmGames()
     {
         try
         {
@@ -447,11 +447,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForScummVMGames");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForScummVMGames", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForScummVMGames", _logPath);
         }
     }
 
-    internal static void CreateBatchFilesForSegaModel3Games_Click()
+    public void CreateBatchFilesForSegaModel3Games()
     {
         try
         {
@@ -480,11 +480,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching CreateBatchFilesForSegaModel3Games");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForSegaModel3Games", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("CreateBatchFilesForSegaModel3Games", _logPath);
         }
     }
 
-    public static void RomValidator_Click()
+    public void RomValidator()
     {
         try
         {
@@ -513,11 +513,11 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching RomValidator");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RomValidator", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RomValidator", _logPath);
         }
     }
 
-    public static void GameCoverScraper_Click(string selectedImageFolder, string selectedRomFolder)
+    public void GameCoverScraper(string selectedImageFolder, string selectedRomFolder)
     {
         try
         {
@@ -594,7 +594,7 @@ public static class LaunchTools
                 _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
 
                 // Notify user
-                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", LogPath);
+                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", _logPath);
             }
         }
         catch (Exception ex)
@@ -603,7 +603,7 @@ public static class LaunchTools
             _ = LogErrors.LogErrorAsync(ex, "Error launching GameCoverScraper");
 
             // Notify user
-            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", LogPath);
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", _logPath);
         }
     }
 }

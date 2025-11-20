@@ -10,75 +10,75 @@ public partial class MainWindow
     private void CreateBatchFilesForXbox360XBLAGames_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.CreateBatchFilesForXbox360XBLAGames_Click();
+        _launchTools.CreateBatchFilesForXbox360XblaGames();
     }
 
     private void BatchConvertIsoToXiso_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.BatchConvertIsoToXiso_Click();
+        _launchTools.BatchConvertIsoToXiso();
     }
 
     private void BatchConvertToCHD_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.BatchConvertToCHD_Click();
+        _launchTools.BatchConvertToChd();
     }
 
     private void BatchConvertToCompressedFile_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.BatchConvertToCompressedFile_Click();
+        _launchTools.BatchConvertToCompressedFile();
     }
 
     private void BatchConvertToRVZ_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.BatchConvertToRVZ_Click();
+        _launchTools.BatchConvertToRvz();
     }
 
     private void CreateBatchFilesForPS3Games_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.CreateBatchFilesForPS3Games_Click();
+        _launchTools.CreateBatchFilesForPs3Games();
     }
 
     private void CreateBatchFilesForScummVMGames_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.CreateBatchFilesForScummVMGames_Click();
+        _launchTools.CreateBatchFilesForScummVmGames();
     }
 
     private void CreateBatchFilesForSegaModel3Games_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.CreateBatchFilesForSegaModel3Games_Click();
+        _launchTools.CreateBatchFilesForSegaModel3Games();
     }
 
     private void CreateBatchFilesForWindowsGames_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
-        LaunchTools.CreateBatchFilesForWindowsGames_Click();
+        _launchTools.CreateBatchFilesForWindowsGames();
     }
 
     private void FindRomCover_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         ResetUi();
-        LaunchTools.FindRomCoverLaunch_Click(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+        _launchTools.FindRomCoverLaunch(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 
     private void RomValidator_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         ResetUi();
-        LaunchTools.RomValidator_Click();
+        _launchTools.RomValidator();
     }
 
     private void GameCoverScraper_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
         ResetUi();
-        LaunchTools.GameCoverScraper_Click(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+        _launchTools.GameCoverScraper(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
 }
