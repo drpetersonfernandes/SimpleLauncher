@@ -616,7 +616,7 @@ public partial class MainWindow
 
         ResetUi();
 
-        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
         globalSearchWindow.Show();
     }
 

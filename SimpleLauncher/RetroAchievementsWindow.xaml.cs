@@ -48,7 +48,7 @@ public partial class RetroAchievementsWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Failed to initialize RetroAchievementsWindow.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to initialize RetroAchievementsWindow.");
         }
     }
 
@@ -110,7 +110,7 @@ public partial class RetroAchievementsWindow
                     var casualText = progress.UserCompletion.Trim('%');
                     if (!double.TryParse(casualText, NumberStyles.Float, CultureInfo.InvariantCulture, out casualCompletion))
                     {
-                        _ = LogErrorsService.LogErrorAsync(null, $"Failed to parse casual completion percentage: {casualText}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse casual completion percentage: {casualText}");
                     }
                 }
 
@@ -119,7 +119,7 @@ public partial class RetroAchievementsWindow
                     var hardcoreText = progress.UserCompletionHardcore.Trim('%');
                     if (!double.TryParse(hardcoreText, NumberStyles.Float, CultureInfo.InvariantCulture, out hardcoreCompletion))
                     {
-                        _ = LogErrorsService.LogErrorAsync(null, $"Failed to parse hardcore completion percentage: {hardcoreText}");
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Failed to parse hardcore completion percentage: {hardcoreText}");
                     }
                 }
 
@@ -175,7 +175,7 @@ public partial class RetroAchievementsWindow
                 HighestAwardDateText.Text = "N/A";
                 HighestAwardIcon.Visibility = Visibility.Collapsed; // Ensure icon is hidden on error
 
-                _ = LogErrorsService.LogErrorAsync(ex, "Failed to parse progress data for achievements display");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to parse progress data for achievements display");
             }
         });
     }
@@ -196,7 +196,7 @@ public partial class RetroAchievementsWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"Error opening URL: {url}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error opening URL: {url}");
             MessageBoxLibrary.UnableToOpenLinkMessageBox();
         }
     }
@@ -227,7 +227,7 @@ public partial class RetroAchievementsWindow
             else
             {
                 // Log and potentially inform the user if the image source is not a valid URI
-                _ = LogErrorsService.LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, "Clicked image has no valid URI source to display in viewer.");
                 MessageBoxLibrary.ErrorMessageBox(); // Generic error for the user
             }
         }
@@ -244,7 +244,7 @@ public partial class RetroAchievementsWindow
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             DebugLogger.Log($"Failed to open RetroAchievements image viewer for URI: {imageUri}");
             MessageBoxLibrary.ErrorMessageBox();
         }
@@ -371,7 +371,7 @@ public partial class RetroAchievementsWindow
             {
                 NoAchievementsOverlay.Visibility = Visibility.Visible;
                 NoAchievementsMessage.Text = "An error occurred while loading achievements. Please try again.";
-                _ = LogErrorsService.LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load achievements for game ID: {_gameId}");
             }
             finally
             {
@@ -541,7 +541,7 @@ public partial class RetroAchievementsWindow
             {
                 NoGameInfoOverlay.Visibility = Visibility.Visible;
                 NoGameInfoMessage.Text = "An error occurred while loading game info. Please try again.";
-                await LogErrorsService.LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
+                await App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load extended game info for game ID: {_gameId}");
             }
             finally
             {
@@ -680,7 +680,7 @@ public partial class RetroAchievementsWindow
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load game ranking tab for game ID: {_gameId}");
                 // Show error state
                 LatestMastersDataGrid.ItemsSource = null;
                 LatestMastersDataGrid.Visibility = Visibility.Collapsed;
@@ -817,7 +817,7 @@ public partial class RetroAchievementsWindow
                 // Update messages for exception
                 NoProfileMainMessage.Text = "An error occurred while loading user profile.";
                 NoProfileSubMessage.Text = "Please try again or check your internet connection.";
-                _ = LogErrorsService.LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user profile for {_settings.RaUsername}");
             }
             finally
             {
@@ -896,7 +896,7 @@ public partial class RetroAchievementsWindow
                 TotalPointsEarnedInRangeText.Text = "0";
                 NoUnlocksOverlay.Visibility = Visibility.Visible; // Show overlay on error
                 NoUnlocksMessage.Text = "An error occurred while loading unlocks. Please try again.";
-                _ = LogErrorsService.LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load unlocks by date for user {_settings.RaUsername}");
                 DebugLogger.Log($"[RA Window] Failed to load unlocks by date for user {_settings.RaUsername}: {ex.Message}");
             }
             finally
@@ -936,13 +936,13 @@ public partial class RetroAchievementsWindow
             }
             catch (Exception ex)
             {
-                _ = LogErrorsService.LogErrorAsync(ex, "Failed to fetch unlocks by date");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to fetch unlocks by date");
                 DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
             }
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Failed to fetch unlocks by date");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to fetch unlocks by date");
             DebugLogger.Log($"[RA Window] Failed to fetch unlocks by date for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -974,14 +974,14 @@ public partial class RetroAchievementsWindow
                 catch (Exception ex)
                 {
                     // Notify developer
-                    _ = LogErrorsService.LogErrorAsync(ex, "Failed to reset date range");
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reset date range");
                     DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
                 }
             });
         }
         catch (Exception ex)
         {
-            _ = LogErrorsService.LogErrorAsync(ex, "Failed to reset date range");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to reset date range");
             DebugLogger.Log($"[RA Window] Failed to reset date range for user {_settings.RaUsername}: {ex.Message}");
         }
     }
@@ -1041,7 +1041,7 @@ public partial class RetroAchievementsWindow
                 NoUserProgressOverlay.Visibility = Visibility.Visible;
                 NoUserProgressMainMessage.Text = "An error occurred while loading user completion progress.";
                 NoUserProgressSubMessage.Text = "Please try again or check your internet connection.";
-                _ = LogErrorsService.LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to load user completion progress for user {_settings.RaUsername}");
                 DebugLogger.Log($"[RA Window] Failed to load user completion progress for user {_settings.RaUsername}: {ex.Message}");
             }
             finally
