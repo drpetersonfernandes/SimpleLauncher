@@ -16,7 +16,7 @@ using SimpleLauncher.Services;
 
 namespace SimpleLauncher;
 
-public partial class GlobalSearchWindow
+public partial class GlobalSearchWindow : IDisposable
 {
     private CancellationTokenSource _cancellationTokenSource;
     private static readonly string LogPath = GetLogPath.Path();
@@ -653,4 +653,10 @@ public partial class GlobalSearchWindow
 
     [GeneratedRegex("""[\"](.+?)[\"]|([^ ]+)""", RegexOptions.Compiled)]
     private static partial Regex MyRegex();
+
+    public void Dispose()
+    {
+        _cancellationTokenSource?.Dispose();
+        GC.SuppressFinalize(this);
+    }
 }
