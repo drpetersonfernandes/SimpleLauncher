@@ -364,29 +364,38 @@ public class DownloadManager : IDisposable
     {
         try
         {
-            OnProgressChanged(new DownloadProgressEventArgs
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                ProgressPercentage = 0,
-                StatusMessage = GetResourceString("Extracting",
-                    $"Extracting to {destinationPath}...")
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("Extracting",
+                        $"Extracting to {destinationPath}...")
+                });
             });
 
             var result = await _extractionService.ExtractToFolderAsync(filePath, destinationPath);
 
             if (result)
             {
-                OnProgressChanged(new DownloadProgressEventArgs
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ProgressPercentage = 100,
-                    StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 100,
+                        StatusMessage = GetResourceString("ExtractionCompleted", "Extraction completed successfully.")
+                    });
                 });
             }
             else
             {
-                OnProgressChanged(new DownloadProgressEventArgs
+                Application.Current.Dispatcher.Invoke(() =>
                 {
-                    ProgressPercentage = 0,
-                    StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
+                    OnProgressChanged(new DownloadProgressEventArgs
+                    {
+                        ProgressPercentage = 0,
+                        StatusMessage = GetResourceString("ExtractionFailed", "Extraction failed.")
+                    });
                 });
             }
 
@@ -394,10 +403,13 @@ public class DownloadManager : IDisposable
         }
         catch (Exception ex)
         {
-            OnProgressChanged(new DownloadProgressEventArgs
+            Application.Current.Dispatcher.Invoke(() =>
             {
-                ProgressPercentage = 0,
-                StatusMessage = GetResourceString("ExtractionError", $"Extraction error: {ex.Message}")
+                OnProgressChanged(new DownloadProgressEventArgs
+                {
+                    ProgressPercentage = 0,
+                    StatusMessage = GetResourceString("ExtractionError", $"Extraction error: {ex.Message}")
+                });
             });
 
             // Notify developer

@@ -856,7 +856,7 @@
             <Border Grid.Row="0" Grid.Column="1" VerticalAlignment="Top" HorizontalAlignment="Left"
                     x:Name="TopSystemSelection"
                     BorderThickness="1"
-                    Margin="10,5,0,0"
+                    Margin="10,5,0,5"
                     Padding="5"
                     BorderBrush="{DynamicResource MahApps.Brushes.Gray7}"
                     Background="{DynamicResource MahApps.Brushes.Gray9}"
@@ -981,7 +981,7 @@
             </Border>
 
             <Grid Grid.Row="1" Grid.Column="1">
-                <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="5,5,5,0">
+                <ScrollViewer x:Name="Scroller" VerticalScrollBarVisibility="Auto" Margin="5,0,5,0">
                     <WrapPanel x:Name="GameFileGrid" Orientation="Horizontal" Margin="0">
                         <!-- Game buttons will be added here programmatically -->
                     </WrapPanel>
@@ -1000,7 +1000,7 @@
                               Name="GameDataGrid"
                               MouseDoubleClick="GameListDoubleClickOnSelectedItem"
                               ItemsSource="{Binding GameListItems}"
-                              Margin="10,10,5,0"
+                              Margin="10,5,5,0"
                               BorderThickness="1"
                               BorderBrush="{DynamicResource MahApps.Brushes.ThemeForeground}"
                               Background="{DynamicResource MahApps.Brushes.ThemeBackground}"
