@@ -50,20 +50,20 @@ public partial class App : IDisposable
         serviceCollection.AddMemoryCache();
 
         // Register Managers as singletons
+        serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
         serviceCollection.AddSingleton<SettingsManager>();
+        serviceCollection.AddSingleton<UpdateChecker>();
+        serviceCollection.AddSingleton<Stats>();
+        serviceCollection.AddSingleton<PlaySoundEffects>();
+        serviceCollection.AddSingleton<GamePadController>();
+        serviceCollection.AddTransient<DownloadManager>();
+        serviceCollection.AddSingleton<GameLauncher>();
+        serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
+        serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
+        serviceCollection.AddSingleton<RetroAchievementsService>();
         serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
-        serviceCollection.AddSingleton<Stats>();
-        serviceCollection.AddSingleton<RetroAchievementsService>();
-        serviceCollection.AddSingleton<GameLauncher>();
-        serviceCollection.AddSingleton<GamePadController>();
-        serviceCollection.AddSingleton<IExtractionService, ExtractionService>();
-        serviceCollection.AddSingleton<PlaySoundEffects>();
-        serviceCollection.AddSingleton<ILaunchTools, LaunchTools>();
-        serviceCollection.AddSingleton<UpdateChecker>();
-        serviceCollection.AddSingleton<ILogErrors, LogErrorsService>();
-        serviceCollection.AddTransient<DownloadManager>();
         serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
@@ -91,21 +91,22 @@ public partial class App : IDisposable
                 // The 'out _isFirstInstance' parameter will be true if the mutex was created (first instance)
                 // and false if it already existed (another instance is running).
                 _singleInstanceMutex = new Mutex(true, MutexName, out _isFirstInstance);
-
-                if (!_isFirstInstance)
-                {
-                    // Another instance is running. Inform the user and exit this instance.
-                    // Notify user
-                    MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
-
-                    Shutdown();
-
-                    return; // Stop further startup logic
-                }
+            }
+            catch (AbandonedMutexException)
+            {
+                // The mutex was abandoned by a previous instance (e.g., due to a crash).
+                // This means we successfully acquired it, and we are now the first instance.
+                // The 'out _isFirstInstance' parameter would already be true in this case,
+                // but we explicitly set it for clarity and to ensure the flow continues as a first instance.
+                _isFirstInstance = true;
+                DebugLogger.Log("Mutex was abandoned by a previous instance, but successfully acquired by this instance. Proceeding as first instance.");
+                // No need to call ILogErrors.LogErrorAsync here, as it's not a critical error preventing startup,
+                // but rather an informational event about a previous abnormal shutdown.
             }
             catch (Exception ex)
             {
-                // Notify developer
+                // Handle other general exceptions during mutex creation/acquisition (e.g., access denied, out of memory).
+                // Notify developer about the failure.
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to create or acquire single instance mutex.");
 
                 // Notify user
@@ -114,6 +115,18 @@ public partial class App : IDisposable
                 Shutdown();
 
                 return;
+            }
+
+            // After attempting to acquire the mutex (and handling AbandonedMutexException),
+            // check if this is truly the first instance.
+            if (!_isFirstInstance)
+            {
+                // Another instance is running. Inform the user and exit this instance.
+                MessageBoxLibrary.AnotherInstanceIsRunningMessageBox();
+
+                Shutdown();
+
+                return; // Stop further startup logic
             }
         }
         // --- End Single Instance Check ---

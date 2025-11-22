@@ -4,6 +4,7 @@ using System.Diagnostics;
 using System.Diagnostics.CodeAnalysis;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
@@ -88,19 +89,21 @@ public static class RetroAchievementsHasherTool
             CreateNoWindow = true,
             WorkingDirectory = Path.GetDirectoryName(HasherPath) ?? string.Empty
         };
+        using var process = new Process();
 
         try
         {
-            using var process = new Process();
             process.StartInfo = processStartInfo;
             process.Start();
 
             // Read output and error streams asynchronously
-            var outputTask = process.StandardOutput.ReadToEndAsync();
-            var errorTask = process.StandardError.ReadToEndAsync();
+            using var cts = new CancellationTokenSource(TimeSpan.FromSeconds(10)); // 10-second timeout
+            var outputTask = process.StandardOutput.ReadToEndAsync(cts.Token);
+            var errorTask = process.StandardError.ReadToEndAsync(cts.Token);
 
             // Wait for the process to exit and for streams to be read
-            await process.WaitForExitAsync();
+            await process.WaitForExitAsync(cts.Token);
+
             var output = await outputTask;
             var error = await errorTask;
 
@@ -130,6 +133,25 @@ public static class RetroAchievementsHasherTool
             // This case handles when exit code is 0 but output is empty or unparseable.
             DebugLogger.Log($"[RAHasher] Could not parse a valid hash from RAHasher output, despite exit code 0: {output}");
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RAHasher] Could not parse hash from RAHasher output for {filePath}. Output: {output}");
+            return null;
+        }
+        catch (OperationCanceledException)
+        {
+            // This means the WaitForExitAsync or ReadToEndAsync timed out
+            DebugLogger.Log($"[RAHasher] RAHasher.exe timed out (10s) for '{Path.GetFileName(filePath)}'.");
+            if (!process.HasExited)
+            {
+                try
+                {
+                    process.Kill(true); // Attempt to kill the hanging process
+                }
+                catch (Exception killEx)
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(killEx, $"[RAHasher] Failed to kill hanging RAHasher.exe process for '{filePath}'.");
+                }
+            }
+
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"[RAHasher] RAHasher.exe timed out (10s) for {filePath}.");
             return null;
         }
         catch (Exception ex)
