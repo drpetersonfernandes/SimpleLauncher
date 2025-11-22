@@ -335,7 +335,7 @@
                     </MenuItem.Icon>
                     <MenuItem Header="{DynamicResource BaseTheme}">
                         <MenuItem.Icon>
-                            <Image Source="pack://application:,,,/images/theme.png" Width="16" Height="16" />
+                            <Image Source="pack://application:,,,/images/darkmode.png" Width="16" Height="16" />
                         </MenuItem.Icon>
                         <MenuItem x:Name="Light" Header="{DynamicResource Light}" Click="ChangeBaseTheme_Click"
                                   IsCheckable="True" />
@@ -791,6 +791,13 @@
                             Margin="0,10,2,5"
                             AutomationProperties.Name="{DynamicResource Restart}">
                         <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
+                    </Button>
+                    <Button x:Name="ToggleLightDarkMode"
+                            Style="{StaticResource NavImageButton3DStyle}"
+                            ToolTip="{DynamicResource ToggleLightDarkMode}"
+                            Click="NavToggleLightDarkMode_Click"
+                            AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
+                        <Image Source="pack://application:,,,/images/darkmode.png" Width="22" Height="22" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
                             Style="{StaticResource NavImageButton3DStyle}"

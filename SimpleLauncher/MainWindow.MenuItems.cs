@@ -25,7 +25,7 @@ public partial class MainWindow
         }
     }
 
-    public void SetLanguageAndCheckMenu(string languageCode)
+    private void SetLanguageAndCheckMenu(string languageCode)
     {
         LanguageArabic.IsChecked = languageCode == "ar";
         LanguageBengali.IsChecked = languageCode == "bn";
@@ -801,6 +801,28 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
 
         ResetUi();
+    }
+
+    private void NavToggleLightDarkMode_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingBaseTheme") ?? "Changing Base Theme...", this);
+        _playSoundEffects.PlayNotificationSound();
+
+        var baseTheme = _settings.BaseTheme;
+        var currentAccent = _settings.AccentColor;
+
+        if (baseTheme == "Light")
+        {
+            baseTheme = "Dark";
+        }
+        else
+        {
+            baseTheme = "Light";
+        }
+
+        App.ChangeTheme(baseTheme, currentAccent);
+        UncheckBaseThemes();
+        SetCheckedTheme(baseTheme, currentAccent);
     }
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)

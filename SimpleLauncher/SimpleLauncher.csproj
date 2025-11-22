@@ -892,6 +892,8 @@
     <Resource Include="images\sort-az.png" />
     <None Remove="images\gamecoverscraper.png" />
     <Resource Include="images\gamecoverscraper.png" />
+    <None Remove="images\darkmode.png" />
+    <Resource Include="images\darkmode.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />
