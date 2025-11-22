@@ -19,9 +19,9 @@ public partial class UpdateChecker
 {
     private const string RepoOwner = "drpetersonfernandes";
     private const string RepoName = "SimpleLauncher";
-    private readonly IHttpClientFactory _httpClientFactory;
+    private readonly HttpClient _httpClient;
 
-    private string CurrentRuntimeIdentifier
+    private static string CurrentRuntimeIdentifier
     {
         get
         {
@@ -37,7 +37,8 @@ public partial class UpdateChecker
 
     public UpdateChecker(IHttpClientFactory httpClientFactory)
     {
-        _httpClientFactory = httpClientFactory ?? throw new ArgumentNullException(nameof(httpClientFactory));
+        ArgumentNullException.ThrowIfNull(httpClientFactory);
+        _httpClient = httpClientFactory.CreateClient("UpdateCheckerClient");
     }
 
     private string CurrentVersion
@@ -65,17 +66,17 @@ public partial class UpdateChecker
     {
         try
         {
-            if (_httpClientFactory == null)
+            if (_httpClient == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
-            if (httpClient != null)
+            // Use the pre-initialized HttpClient instance
+            if (_httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
@@ -114,17 +115,17 @@ public partial class UpdateChecker
     {
         try
         {
-            if (_httpClientFactory == null)
+            if (_httpClient == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
-            if (httpClient != null)
+            // Use the pre-initialized HttpClient instance
+            if (_httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (response.IsSuccessStatusCode)
                 {
                     DebugLogger.Log("Check for Updates Success");
@@ -191,17 +192,17 @@ public partial class UpdateChecker
     {
         try
         {
-            if (_httpClientFactory == null)
+            if (_httpClient == null)
             {
                 throw new InvalidOperationException("HttpClientFactory is not initialized. Update check cannot proceed.");
             }
 
-            var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
-            if (httpClient != null)
+            // Use the pre-initialized HttpClient instance
+            if (_httpClient != null)
             {
-                httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
+                _httpClient.DefaultRequestHeaders.Add("User-Agent", "request");
 
-                var response = await httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
+                var response = await _httpClient.GetAsync($"https://api.github.com/repos/{RepoOwner}/{RepoName}/releases/latest");
                 if (!response.IsSuccessStatusCode)
                 {
                     // Notify developer
@@ -319,15 +320,15 @@ public partial class UpdateChecker
 
     internal async Task DownloadUpdateFileToMemoryAsync(string url, MemoryStream memoryStream)
     {
-        if (_httpClientFactory == null)
+        if (_httpClient == null)
         {
             throw new InvalidOperationException("HttpClientFactory is not initialized. Cannot download update file.");
         }
 
-        var httpClient = _httpClientFactory?.CreateClient("UpdateCheckerClient");
-        if (httpClient != null)
+        // Use the pre-initialized HttpClient instance
+        if (_httpClient != null)
         {
-            using var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
+            using var response = await _httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead);
             response.EnsureSuccessStatusCode();
             await using var stream = await response.Content.ReadAsStreamAsync();
             await stream.CopyToAsync(memoryStream);
