@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Tidak dapat mengambil tangkapan layar dari jendela yang diminimalkan.</system:String>
     <system:String x:Key="Cart">Kartrid</system:String>
     <system:String x:Key="Cartnotfound">Kartrid tidak ditemukan</system:String>
+    <system:String x:Key="ChangingBaseTheme">Mengubah Tema Dasar...</system:String>
 <system:String x:Key="ChangingLanguage">Mengubah bahasa...</system:String>
 <system:String x:Key="ChangingViewMode">Mengubah mode tampilan...</system:String>
     <system:String x:Key="CheckFilePermissions">Harap periksa izin file dan pastikan file tidak terkunci.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">Konfirmasi</system:String>
     <system:String x:Key="ConfirmDeletion">Konfirmasi Penghapusan</system:String>
     <system:String x:Key="CopyError">Kesalahan Salin</system:String>
+    <system:String x:Key="Core">Inti</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Tidak dapat menemukan file dengan ekstensi yang telah ditentukan di 'Ekstensi untuk Meluncurkan Setelah Ekstraksi' dalam folder hasil ekstraksi.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Tidak dapat menemukan sistem yang dipilih dalam konfigurasi.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Tidak dapat membuka jendela pencapaian.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Pastikan folder 'Simple Launcher' berada di direktori yang dapat ditulis.</system:String>
 <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Pastikan Anda memiliki browser default yang terinstal dan dikonfigurasi dengan benar di sistem Anda.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Pastikan Anda memiliki cukup ruang di HDD untuk mengekstrak file.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">Harap masukkan istilah pencarian yang valid.</system:String>
     <system:String x:Key="error">Kesalahan</system:String>
     <system:String x:Key="Error">Kesalahan</system:String>
     <system:String x:Key="ErrorDetails">Detail:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Jika Anda memilih untuk menghapusnya, 'Simple Launcher' akan membuat file baru untuk Anda.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Jika Anda membiarkan kosong, aplikasi akan membuat folder untuk sistem ini di dalam folder 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Folder Gambar Sistem tidak ada atau tidak ditentukan.</system:String>
+    <system:String x:Key="ImagePack1">Paket Gambar 1</system:String>
+    <system:String x:Key="ImagePack2">Paket Gambar 2</system:String>
+    <system:String x:Key="ImagePack3">Paket Gambar 3</system:String>
+    <system:String x:Key="ImagePack4">Paket Gambar 4</system:String>
+    <system:String x:Key="ImagePack5">Paket Gambar 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Gagal memuat turun atau mengekstrak pek gambar!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Jika Paket Gambar tidak tersedia, Anda dapat mengunduh gambar untuk sistem ini di situs berikut:</system:String>
     <system:String x:Key="Indigo">Nila</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">Folder Ekstraksi Tidak Valid</system:String>
     <system:String x:Key="InvalidInputMessageText">Harap masukkan angka yang valid antara 0,0 dan 1,0 untuk ambang batas.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Input Tidak Valid</system:String>
+    <system:String x:Key="InvalidSearch">Pencarian Tidak Valid</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Konfigurasi sistem tidak valid</system:String>
     <system:String x:Key="isalreadyinfavorites">sudah ada di favorit.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Apakah sistem berbasis MAME?</system:String>
@@ -354,9 +363,7 @@
 <system:String x:Key="LoadingGames">Memuat Game...</system:String>
     <system:String x:Key="LoadingHistory">Memuat riwayat...</system:String>
 <system:String x:Key="LoadingNextPage">Memuat halaman berikutnya...</system:String>
-<system:String x:Key="LoadingPlayHistory">Memuat riwayat putar...</system:String>
 <system:String x:Key="LoadingPreviousPage">Memuat halaman sebelumnya...</system:String>
-<system:String x:Key="LoadingRetroAchievementsDatabase">Memuat database RetroAchievements...</system:String>
 <system:String x:Key="LoadingROMHistory">Memuat Riwayat ROM...</system:String>
 <system:String x:Key="LoadingSettings">Memuat pengaturan...</system:String>
 <system:String x:Key="LoadingSystem">Memuat sistem...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">hingga</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Untuk mengekstrak file, file tersebut harus berupa file 7z, zip, atau rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Ubah Rasio Aspek Tombol</system:String>
+    <system:String x:Key="ToggleLightDarkMode">Alihkan Mode Terang/Gelap</system:String>
     <system:String x:Key="ToggleViewMode">Ganti Mode Tampilan</system:String>
 <system:String x:Key="TogglingButtonAspectRatio">Mengaktifkan/menonaktifkan rasio aspek tombol...</system:String>
 <system:String x:Key="TogglingFuzzyMatching">Mengaktifkan/menonaktifkan fuzzy matching...</system:String>

@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Kan geen schermafbeelding maken van een geminimaliseerd venster.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Cartridge niet gevonden</system:String>
+    <system:String x:Key="ChangingBaseTheme">Basisthema wijzigen...</system:String>
 <system:String x:Key="ChangingLanguage">Taal wijzigen...</system:String>
 <system:String x:Key="ChangingViewMode">Weergavemodus wijzigen...</system:String>
     <system:String x:Key="CheckFilePermissions">Controleer de bestandsmachtigingen en zorg ervoor dat het bestand niet vergrendeld is.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">Bevestiging</system:String>
     <system:String x:Key="ConfirmDeletion">Verwijdering bevestigen</system:String>
     <system:String x:Key="CopyError">Kopieerfout</system:String>
+    <system:String x:Key="Core">Kern</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Kan geen bestand vinden met de opgegeven extensie in 'Uit te voeren extensie na uitpakken' binnen de uitgepakte map.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Kon het geselecteerde systeem niet vinden in de configuratie.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Kon het prestatievenster niet openen.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Zorg ervoor dat de map 'Simple Launcher' zich in een beschrijfbare directory bevindt.</system:String>
 <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Zorg ervoor dat u een standaardbrowser hebt geïnstalleerd en correct geconfigureerd op uw systeem.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Zorg ervoor dat u voldoende ruimte op de harde schijf heeft om het bestand uit te pakken.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">Voer geldige zoektermen in.</system:String>
     <system:String x:Key="error">Fout</system:String>
     <system:String x:Key="Error">Fout</system:String>
     <system:String x:Key="ErrorDetails">Details:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Als u ervoor kiest het te verwijderen, zal 'Simple Launcher' voor u een nieuw bestand aanmaken.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Als je dit leeg laat, maakt de applicatie een map aan voor dit systeem in de map 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">De systeemafbeeldingenmap bestaat niet of is niet opgegeven.</system:String>
+    <system:String x:Key="ImagePack1">Afbeeldingenpakket 1</system:String>
+    <system:String x:Key="ImagePack2">Afbeeldingenpakket 2</system:String>
+    <system:String x:Key="ImagePack3">Afbeeldingenpakket 3</system:String>
+    <system:String x:Key="ImagePack4">Afbeeldingenpakket 4</system:String>
+    <system:String x:Key="ImagePack5">Afbeeldingenpakket 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">De download of extractie van het afbeeldingspakket is mislukt!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Als het afbeeldingspakket niet beschikbaar is, kun je afbeeldingen voor dit systeem downloaden via de volgende websites:</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">Ongeldige Uitpakmap</system:String>
     <system:String x:Key="InvalidInputMessageText">Voer een geldig getal in tussen 0,0 en 1,0 voor de drempel.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Ongeldige invoer</system:String>
+    <system:String x:Key="InvalidSearch">Ongeldige zoekopdracht</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Ongeldige systeemconfiguratie</system:String>
     <system:String x:Key="isalreadyinfavorites">staat al in de favorieten.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Is het systeem MAME-gebaseerd?</system:String>
@@ -354,9 +363,7 @@
 <system:String x:Key="LoadingGames">Spellen laden...</system:String>
     <system:String x:Key="LoadingHistory">Geschiedenis laden...</system:String>
 <system:String x:Key="LoadingNextPage">Volgende pagina laden...</system:String>
-<system:String x:Key="LoadingPlayHistory">Speelgeschiedenis laden...</system:String>
 <system:String x:Key="LoadingPreviousPage">Vorige pagina laden...</system:String>
-<system:String x:Key="LoadingRetroAchievementsDatabase">RetroAchievements-database laden...</system:String>
 <system:String x:Key="LoadingROMHistory">ROM-geschiedenis laden...</system:String>
 <system:String x:Key="LoadingSettings">Instellingen laden...</system:String>
 <system:String x:Key="LoadingSystem">Systeem laden...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">tot</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Om een bestand uit te pakken, moet het een 7z-, zip- of rar-bestand zijn.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Beeldverhouding knop wisselen</system:String>
+    <system:String x:Key="ToggleLightDarkMode">Lichte/donkere modus wisselen</system:String>
     <system:String x:Key="ToggleViewMode">Weergavemodus wisselen</system:String>
 <system:String x:Key="TogglingButtonAspectRatio">Knopverhouding wisselen...</system:String>
 <system:String x:Key="TogglingFuzzyMatching">Fuzzy matching wisselen...</system:String>

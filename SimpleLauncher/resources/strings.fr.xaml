@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Impossible de prendre une capture d'écran d'une fenêtre minimisée.</system:String>
     <system:String x:Key="Cart">Cartouche</system:String>
     <system:String x:Key="Cartnotfound">Cartouche introuvable</system:String>
+    <system:String x:Key="ChangingBaseTheme">Changement du thème de base...</system:String>
 <system:String x:Key="ChangingLanguage">Changement de langue...</system:String>
 <system:String x:Key="ChangingViewMode">Changement du mode d'affichage...</system:String>
     <system:String x:Key="CheckFilePermissions">Veuillez vérifier les permissions du fichier et assurez-vous que le fichier n'est pas verrouillé.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">Confirmation</system:String>
     <system:String x:Key="ConfirmDeletion">Confirmer la suppression</system:String>
     <system:String x:Key="CopyError">Erreur de copie</system:String>
+    <system:String x:Key="Core">Principal</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Impossible de trouver un fichier avec l'extension définie dans 'Extension à lancer après extraction' dans le dossier extrait.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Impossible de trouver le système sélectionné dans la configuration.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Impossible d'ouvrir la fenêtre des succès.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Assurez-vous que le dossier 'Simple Launcher' est un répertoire accessible en écriture.</system:String>
 <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Assurez-vous qu'un navigateur par défaut est installé et configuré correctement sur votre système.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Assurez-vous d'avoir assez d'espace sur le disque dur pour extraire le fichier.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">Veuillez saisir des termes de recherche valides.</system:String>
     <system:String x:Key="error">Erreur</system:String>
     <system:String x:Key="Error">Erreur</system:String>
     <system:String x:Key="ErrorDetails">Détails :</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Si vous choisissez de le supprimer, 'Simple Launcher' en créera un nouveau.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Si vous le laissez vide, l'application créera un dossier pour ce système dans le dossier 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Le dossier d'images du système n'existe pas ou n'est pas spécifié.</system:String>
+    <system:String x:Key="ImagePack1">Pack d'images 1</system:String>
+    <system:String x:Key="ImagePack2">Pack d'images 2</system:String>
+    <system:String x:Key="ImagePack3">Pack d'images 3</system:String>
+    <system:String x:Key="ImagePack4">Pack d'images 4</system:String>
+    <system:String x:Key="ImagePack5">Pack d'images 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Échec du téléchargement ou de l'extraction du pack d'images !</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Dans le cas où le pack d'images n'est pas disponible, vous pouvez télécharger les images pour ce système sur les sites suivants :</system:String>
     <system:String x:Key="Indigo">Indigo</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">Dossier d'Extraction Invalide</system:String>
     <system:String x:Key="InvalidInputMessageText">Veuillez entrer un nombre valide entre 0,0 et 1,0 pour le seuil.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Entrée invalide</system:String>
+    <system:String x:Key="InvalidSearch">Recherche invalide</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Configuration système invalide</system:String>
     <system:String x:Key="isalreadyinfavorites">est déjà dans les favoris.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Le système est-il basé sur MAME ?</system:String>
@@ -354,9 +363,7 @@
 <system:String x:Key="LoadingGames">Chargement des jeux...</system:String>
     <system:String x:Key="LoadingHistory">Chargement de l'historique...</system:String>
 <system:String x:Key="LoadingNextPage">Chargement de la page suivante...</system:String>
-<system:String x:Key="LoadingPlayHistory">Chargement de l'historique de jeu...</system:String>
 <system:String x:Key="LoadingPreviousPage">Chargement de la page précédente...</system:String>
-<system:String x:Key="LoadingRetroAchievementsDatabase">Chargement de la base de données RetroAchievements...</system:String>
 <system:String x:Key="LoadingROMHistory">Chargement de l'historique des ROMs...</system:String>
 <system:String x:Key="LoadingSettings">Chargement des paramètres...</system:String>
 <system:String x:Key="LoadingSystem">Chargement du système...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">à</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Pour extraire un fichier, il doit s'agir d'un fichier 7z, zip ou rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Basculer le format du bouton</system:String>
+    <system:String x:Key="ToggleLightDarkMode">Basculer le mode clair/sombre</system:String>
     <system:String x:Key="ToggleViewMode">Basculer le mode d’affichage</system:String>
 <system:String x:Key="TogglingButtonAspectRatio">Activation/désactivation du rapport d'aspect du bouton...</system:String>
 <system:String x:Key="TogglingFuzzyMatching">Activation/désactivation de la correspondance floue...</system:String>

@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">최소화된 창의 스크린샷을 찍을 수 없습니다.</system:String>
     <system:String x:Key="Cart">카트리지</system:String>
     <system:String x:Key="Cartnotfound">카트리지를 찾을 수 없습니다</system:String>
+    <system:String x:Key="ChangingBaseTheme">기본 테마 변경 중...</system:String>
 <system:String x:Key="ChangingLanguage">언어 변경 중...</system:String>
 <system:String x:Key="ChangingViewMode">보기 모드 변경 중...</system:String>
     <system:String x:Key="CheckFilePermissions">파일 권한을 확인하고 파일이 잠겨 있지 않은지 확인하세요.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">확인</system:String>
     <system:String x:Key="ConfirmDeletion">삭제 확인</system:String>
     <system:String x:Key="CopyError">복사 오류</system:String>
+    <system:String x:Key="Core">코어</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'추출 후 실행할 확장자'로 정의된 확장자를 가진 파일을 추출 폴더 내에서 찾을 수 없습니다.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">구성에서 선택한 시스템을 찾을 수 없습니다.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">도전과제 창을 열 수 없습니다.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' 폴더가 쓰기 가능한 디렉토리에 있는지 확인하세요.</system:String>
 <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">시스템에 기본 브라우저가 설치되어 있고 올바르게 구성되었는지 확인하세요.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">파일을 추출하기 위한 하드 디스크의 여유 공간이 충분한지 확인하세요.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">유효한 검색어를 입력하세요.</system:String>
     <system:String x:Key="error">오류</system:String>
     <system:String x:Key="Error">오류</system:String>
     <system:String x:Key="ErrorDetails">세부 정보:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">삭제를 선택하시면, 'Simple Launcher'가 새 파일을 생성합니다.</system:String>
     <system:String x:Key="Ifyouleaveitempty">비워 두면 애플리케이션이 'roms' 폴더 내에 이 시스템용 폴더를 생성합니다.</system:String>
     <system:String x:Key="ImageFolderNotExist">시스템 이미지 폴더가 존재하지 않거나 지정되지 않았습니다.</system:String>
+    <system:String x:Key="ImagePack1">이미지 팩 1</system:String>
+    <system:String x:Key="ImagePack2">이미지 팩 2</system:String>
+    <system:String x:Key="ImagePack3">이미지 팩 3</system:String>
+    <system:String x:Key="ImagePack4">이미지 팩 4</system:String>
+    <system:String x:Key="ImagePack5">이미지 팩 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">이미지 팩 다운로드 또는 추출에 실패했습니다!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">이미지 팩을 사용할 수 없는 경우, 아래 웹사이트에서 해당 시스템의 이미지를 다운로드할 수 있습니다:</system:String>
     <system:String x:Key="Indigo">남색</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">잘못된 압축 해제 폴더</system:String>
     <system:String x:Key="InvalidInputMessageText">임계값에 대해 0.0에서 1.0 사이의 유효한 숫자를 입력하세요.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">잘못된 입력</system:String>
+    <system:String x:Key="InvalidSearch">잘못된 검색</system:String>
     <system:String x:Key="InvalidSystemConfiguration">잘못된 시스템 구성</system:String>
     <system:String x:Key="isalreadyinfavorites">즐겨찾기에 이미 추가되어 있습니다.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">시스템이 MAME 기반인가요?</system:String>
@@ -354,9 +363,7 @@
 <system:String x:Key="LoadingGames">게임 불러오는 중...</system:String>
     <system:String x:Key="LoadingHistory">기록 로드 중...</system:String>
 <system:String x:Key="LoadingNextPage">다음 페이지 불러오는 중...</system:String>
-<system:String x:Key="LoadingPlayHistory">플레이 기록 불러오는 중...</system:String>
 <system:String x:Key="LoadingPreviousPage">이전 페이지 불러오는 중...</system:String>
-<system:String x:Key="LoadingRetroAchievementsDatabase">RetroAchievements 데이터베이스 불러오는 중...</system:String>
 <system:String x:Key="LoadingROMHistory">ROM 기록 불러오는 중...</system:String>
 <system:String x:Key="LoadingSettings">설정 불러오는 중...</system:String>
 <system:String x:Key="LoadingSystem">시스템 불러오는 중...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">부터</system:String>
     <system:String x:Key="Toextractafileitneedstobe">파일을 추출하려면 해당 파일이 7z, zip, 또는 rar 형식이어야 합니다.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">버튼 종횡비 전환</system:String>
+    <system:String x:Key="ToggleLightDarkMode">라이트/다크 모드 전환</system:String>
     <system:String x:Key="ToggleViewMode">보기 모드 전환</system:String>
 <system:String x:Key="TogglingButtonAspectRatio">버튼 종횡비 전환 중...</system:String>
 <system:String x:Key="TogglingFuzzyMatching">퍼지 매칭 전환 중...</system:String>

@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Küçültülmüş bir pencerenin ekran görüntüsü alınamıyor.</system:String>
     <system:String x:Key="Cart">Kartuş</system:String>
     <system:String x:Key="Cartnotfound">Kartuş bulunamadı</system:String>
+    <system:String x:Key="ChangingBaseTheme">Temel Tema Değiştiriliyor...</system:String>
     <system:String x:Key="ChangingLanguage">Dil değiştiriliyor...</system:String>
     <system:String x:Key="ChangingViewMode">Görünüm modu değiştiriliyor...</system:String>
     <system:String x:Key="CheckFilePermissions">Lütfen dosya izinlerini kontrol edin ve dosyanın kilitli olmadığından emin olun.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">Onay</system:String>
     <system:String x:Key="ConfirmDeletion">Silme İşlemini Onayla</system:String>
     <system:String x:Key="CopyError">Kopyalama Hatası</system:String>
+    <system:String x:Key="Core">Çekirdek</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'Çıkarmadan Sonra Çalıştırılacak Uzantılar' altında tanımlı uzantıya sahip bir dosya çıkarılan klasör içinde bulunamadı.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Seçilen sistem yapılandırmada bulunamadı.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Başarımlar penceresi açılamadı.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">'Simple Launcher' klasörünün yazılabilir bir dizinde olduğundan emin olun.</system:String>
     <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Sisteminizde varsayılan bir tarayıcının yüklü ve doğru yapılandırılmış olduğundan emin olun.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Dosyayı çıkarmak için sabit diskte yeterli alan olduğundan emin olun.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">Lütfen geçerli arama terimleri girin.</system:String>
     <system:String x:Key="error">Hata</system:String>
     <system:String x:Key="Error">Hata</system:String>
     <system:String x:Key="ErrorDetails">Detaylar:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Silme işlemini seçerseniz, 'Simple Launcher' yeni bir dosya oluşturacaktır.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Boş bırakırsanız, uygulama bu sistem için 'roms' klasörünün içine bir klasör oluşturacaktır.</system:String>
     <system:String x:Key="ImageFolderNotExist">Sistem görselleri klasörü mevcut değil veya belirtilmemiş.</system:String>
+    <system:String x:Key="ImagePack1">Görüntü Paketi 1</system:String>
+    <system:String x:Key="ImagePack2">Görüntü Paketi 2</system:String>
+    <system:String x:Key="ImagePack3">Görüntü Paketi 3</system:String>
+    <system:String x:Key="ImagePack4">Görüntü Paketi 4</system:String>
+    <system:String x:Key="ImagePack5">Görüntü Paketi 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Görsel paketi indirme veya ayıklama işlemi başarısız oldu!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Görüntü paketi mevcut değilse, bu sistem için görüntüleri şu web sitelerinden indirebilirsiniz:</system:String>
     <system:String x:Key="Indigo">Çivit Mavisi</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">Geçersiz Çıkartma Klasörü</system:String>
     <system:String x:Key="InvalidInputMessageText">Lütfen eşik için 0.0 ile 1.0 arasında geçerli bir sayı girin.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Geçersiz Girdi</system:String>
+    <system:String x:Key="InvalidSearch">Geçersiz Arama</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Geçersiz sistem yapılandırması</system:String>
     <system:String x:Key="isalreadyinfavorites">zaten favorilerde.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Sistem MAME tabanlı mı?</system:String>
@@ -354,9 +363,7 @@
     <system:String x:Key="LoadingGames">Oyunlar yükleniyor...</system:String>
     <system:String x:Key="LoadingHistory">Geçmiş yükleniyor...</system:String>
     <system:String x:Key="LoadingNextPage">Sonraki sayfa yükleniyor...</system:String>
-    <system:String x:Key="LoadingPlayHistory">Oynatma geçmişi yükleniyor...</system:String>
     <system:String x:Key="LoadingPreviousPage">Önceki sayfa yükleniyor...</system:String>
-    <system:String x:Key="LoadingRetroAchievementsDatabase">RetroBaşarılar veritabanı yükleniyor...</system:String>
     <system:String x:Key="LoadingROMHistory">ROM geçmişi yükleniyor...</system:String>
     <system:String x:Key="LoadingSettings">Ayarlar yükleniyor...</system:String>
     <system:String x:Key="LoadingSystem">Sistem yükleniyor...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">sonuna kadar</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Bir dosyanın çıkarılabilmesi için 7z, zip veya rar formatında olması gerekir.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Buton en-boy oranını değiştir</system:String>
+    <system:String x:Key="ToggleLightDarkMode">Açık/Koyu Modu Değiştir</system:String>
     <system:String x:Key="ToggleViewMode">Görünüm modunu değiştir</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Düğme en boy oranı değiştiriliyor...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Bulanık eşleştirme değiştiriliyor...</system:String>

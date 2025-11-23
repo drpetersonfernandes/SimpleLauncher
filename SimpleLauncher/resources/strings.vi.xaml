@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">Không thể chụp ảnh màn hình của cửa sổ đã thu nhỏ.</system:String>
     <system:String x:Key="Cart">Cartridge</system:String>
     <system:String x:Key="Cartnotfound">Không tìm thấy cartridge</system:String>
+    <system:String x:Key="ChangingBaseTheme">Đang thay đổi chủ đề cơ bản...</system:String>
     <system:String x:Key="ChangingLanguage">Đang thay đổi ngôn ngữ...</system:String>
     <system:String x:Key="ChangingViewMode">Đang thay đổi chế độ xem...</system:String>
     <system:String x:Key="CheckFilePermissions">Vui lòng kiểm tra quyền truy cập tệp và đảm bảo tệp không bị khóa.</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">Xác nhận</system:String>
     <system:String x:Key="ConfirmDeletion">Xác nhận việc xóa</system:String>
     <system:String x:Key="CopyError">Lỗi sao chép</system:String>
+    <system:String x:Key="Core">Cốt lõi</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">Không thể tìm thấy tệp với phần mở rộng được chỉ định trong 'Phần mở rộng để thực thi sau khi trích xuất' trong thư mục đã trích xuất.</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">Không tìm thấy hệ thống đã chọn trong cấu hình.</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">Không thể mở cửa sổ thành tích.</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">Hãy đảm bảo rằng thư mục 'Simple Launcher' nằm trong một thư mục có quyền ghi.</system:String>
     <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">Đảm bảo bạn đã cài đặt và cấu hình trình duyệt mặc định trên hệ thống của mình.</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">Đảm bảo bạn có đủ dung lượng ổ cứng để giải nén tập tin.</system:String>
+    <system:String x:Key="EnterValidSearchTerms">Vui lòng nhập các từ khóa tìm kiếm hợp lệ.</system:String>
     <system:String x:Key="error">Lỗi</system:String>
     <system:String x:Key="Error">Lỗi</system:String>
     <system:String x:Key="ErrorDetails">Chi tiết:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">Nếu bạn chọn xóa, 'Simple Launcher' sẽ tạo một tệp mới.</system:String>
     <system:String x:Key="Ifyouleaveitempty">Nếu để trống, ứng dụng sẽ tạo một thư mục cho hệ thống này trong thư mục 'roms'.</system:String>
     <system:String x:Key="ImageFolderNotExist">Thư mục ảnh của hệ thống không tồn tại hoặc chưa được chỉ định.</system:String>
+    <system:String x:Key="ImagePack1">Gói Hình Ảnh 1</system:String>
+    <system:String x:Key="ImagePack2">Gói Hình Ảnh 2</system:String>
+    <system:String x:Key="ImagePack3">Gói Hình Ảnh 3</system:String>
+    <system:String x:Key="ImagePack4">Gói Hình Ảnh 4</system:String>
+    <system:String x:Key="ImagePack5">Gói Hình Ảnh 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">Không thể tải xuống hoặc giải nén gói hình ảnh!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">Trong trường hợp gói hình ảnh không khả dụng, bạn có thể tải xuống hình ảnh cho hệ thống này tại các trang web sau:</system:String>
     <system:String x:Key="Indigo">Chàm</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">Thư Mục Giải Nén Không Hợp Lệ</system:String>
     <system:String x:Key="InvalidInputMessageText">Vui lòng nhập một số hợp lệ từ 0.0 đến 1.0 cho ngưỡng.</system:String>
     <system:String x:Key="InvalidInputMessageTitle">Thông tin không hợp lệ</system:String>
+    <system:String x:Key="InvalidSearch">Tìm kiếm không hợp lệ</system:String>
     <system:String x:Key="InvalidSystemConfiguration">Cấu hình hệ thống không hợp lệ</system:String>
     <system:String x:Key="isalreadyinfavorites">đã có trong mục yêu thích.</system:String>
     <system:String x:Key="IsthesystemMAMEbased">Hệ thống có dựa trên MAME không?</system:String>
@@ -354,9 +363,7 @@
     <system:String x:Key="LoadingGames">Đang tải trò chơi...</system:String>
     <system:String x:Key="LoadingHistory">Đang tải lịch sử...</system:String>
     <system:String x:Key="LoadingNextPage">Đang tải trang tiếp theo...</system:String>
-    <system:String x:Key="LoadingPlayHistory">Đang tải lịch sử chơi...</system:String>
     <system:String x:Key="LoadingPreviousPage">Đang tải trang trước...</system:String>
-    <system:String x:Key="LoadingRetroAchievementsDatabase">Đang tải cơ sở dữ liệu RetroAchievements...</system:String>
     <system:String x:Key="LoadingROMHistory">Đang tải lịch sử ROM...</system:String>
     <system:String x:Key="LoadingSettings">Đang tải cài đặt...</system:String>
     <system:String x:Key="LoadingSystem">Đang tải hệ thống...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">đến</system:String>
     <system:String x:Key="Toextractafileitneedstobe">Để trích xuất tệp, tệp phải là 7z, zip hoặc rar.</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">Chuyển đổi tỷ lệ nút</system:String>
+    <system:String x:Key="ToggleLightDarkMode">Chuyển đổi chế độ sáng/tối</system:String>
     <system:String x:Key="ToggleViewMode">Chuyển chế độ xem</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">Đang bật/tắt tỷ lệ khung hình nút...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">Đang bật/tắt khớp mờ...</system:String>

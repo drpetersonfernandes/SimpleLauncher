@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">无法截取最小化窗口的屏幕截图。</system:String>
     <system:String x:Key="Cart">卡带</system:String>
     <system:String x:Key="Cartnotfound">未找到卡带</system:String>
+    <system:String x:Key="ChangingBaseTheme">正在更改基础主题...</system:String>
     <system:String x:Key="ChangingLanguage">正在更改语言...</system:String>
     <system:String x:Key="ChangingViewMode">正在更改视图模式...</system:String>
     <system:String x:Key="CheckFilePermissions">请检查文件权限，并确保文件未被锁定。</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">确认</system:String>
     <system:String x:Key="ConfirmDeletion">确认删除</system:String>
     <system:String x:Key="CopyError">复制错误</system:String>
+    <system:String x:Key="Core">核心</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">无法在提取文件夹中找到具有 '提取后执行的扩展名' 的文件。</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">在配置中找不到所选系统。</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">无法打开成就窗口。</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">请确保 'Simple Launcher' 文件夹位于一个具有写入权限的目录中。</system:String>
     <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">请确保您的系统已安装并正确配置了默认浏览器。</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">请确保硬盘有足够的空间来解压文件。</system:String>
+    <system:String x:Key="EnterValidSearchTerms">请输入有效的搜索词。</system:String>
     <system:String x:Key="error">错误</system:String>
     <system:String x:Key="Error">错误</system:String>
     <system:String x:Key="ErrorDetails">详情：</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">如果选择删除，“Simple Launcher”将生成一个新的文件。</system:String>
     <system:String x:Key="Ifyouleaveitempty">如果您留空，应用程序将在“roms”文件夹内为该系统创建一个文件夹。</system:String>
     <system:String x:Key="ImageFolderNotExist">系统图片文件夹不存在或未指定。</system:String>
+    <system:String x:Key="ImagePack1">图像包 1</system:String>
+    <system:String x:Key="ImagePack2">图像包 2</system:String>
+    <system:String x:Key="ImagePack3">图像包 3</system:String>
+    <system:String x:Key="ImagePack4">图像包 4</system:String>
+    <system:String x:Key="ImagePack5">图像包 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">图像包下载或解压失败！</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">如果图像包不可用，您可以通过以下网站下载该系统的图像：</system:String>
     <system:String x:Key="Indigo">靛蓝色</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">无效的解压文件夹</system:String>
     <system:String x:Key="InvalidInputMessageText">请输入0.0到1.0之间的有效数字作为阈值。</system:String>
     <system:String x:Key="InvalidInputMessageTitle">无效输入</system:String>
+    <system:String x:Key="InvalidSearch">无效搜索</system:String>
     <system:String x:Key="InvalidSystemConfiguration">系统配置无效</system:String>
     <system:String x:Key="isalreadyinfavorites">已在收藏夹中。</system:String>
     <system:String x:Key="IsthesystemMAMEbased">系统是基于MAME的吗？</system:String>
@@ -354,9 +363,7 @@
     <system:String x:Key="LoadingGames">正在加载游戏...</system:String>
     <system:String x:Key="LoadingHistory">正在加载历史记录...</system:String>
     <system:String x:Key="LoadingNextPage">正在加载下一页...</system:String>
-    <system:String x:Key="LoadingPlayHistory">正在加载播放历史...</system:String>
     <system:String x:Key="LoadingPreviousPage">正在加载上一页...</system:String>
-    <system:String x:Key="LoadingRetroAchievementsDatabase">正在加载RetroAchievements数据库...</system:String>
     <system:String x:Key="LoadingROMHistory">正在加载ROM历史记录...</system:String>
     <system:String x:Key="LoadingSettings">正在加载设置...</system:String>
     <system:String x:Key="LoadingSystem">正在加载系统...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">到</system:String>
     <system:String x:Key="Toextractafileitneedstobe">要提取文件，它必须是 7z、zip 或 rar 格式。</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">切换按钮纵横比</system:String>
+    <system:String x:Key="ToggleLightDarkMode">切换浅色/深色模式</system:String>
     <system:String x:Key="ToggleViewMode">切换视图模式</system:String>
     <system:String x:Key="TogglingButtonAspectRatio">正在切换按钮宽高比...</system:String>
     <system:String x:Key="TogglingFuzzyMatching">正在切换模糊匹配...</system:String>

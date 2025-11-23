@@ -88,6 +88,7 @@
     <system:String x:Key="Cannottakeascreenshotofaminimizedwindow">मिनिमाइज्ड विंडो का स्क्रीनशॉट नहीं लिया जा सकता।</system:String>
     <system:String x:Key="Cart">कार्ट</system:String>
     <system:String x:Key="Cartnotfound">कार्ट नहीं मिला</system:String>
+    <system:String x:Key="ChangingBaseTheme">बेस थीम बदली जा रही है...</system:String>
 <system:String x:Key="ChangingLanguage">भाषा बदल रहा है...</system:String>
 <system:String x:Key="ChangingViewMode">व्यू मोड बदल रहा है...</system:String>
     <system:String x:Key="CheckFilePermissions">कृपया फ़ाइल अनुमतियाँ जांचें और सुनिश्चित करें कि फ़ाइल लॉक नहीं है।</system:String>
@@ -108,6 +109,7 @@
     <system:String x:Key="Confirmation">पुष्टि</system:String>
     <system:String x:Key="ConfirmDeletion">हटाने की पुष्टि करें</system:String>
     <system:String x:Key="CopyError">कॉपी त्रुटि</system:String>
+    <system:String x:Key="Core">कोर</system:String>
     <system:String x:Key="Couldnotfindafilewiththeextensiondefined">'एक्सट्रैक्शन के बाद लॉन्च करने के लिए एक्सटेंशन' में परिभाषित एक्सटेंशन वाली फ़ाइल एक्सट्रैक्टेड फ़ोल्डर के अंदर नहीं मिली।</system:String>
     <system:String x:Key="Couldnotfindtheselectedsystemintheconfiguration">कॉन्फ़िगरेशन में चयनित सिस्टम नहीं मिला।</system:String>
     <system:String x:Key="CouldNotOpenAchievementsWindow">उपलब्धियां विंडो नहीं खोली जा सकी।</system:String>
@@ -211,6 +213,7 @@
     <system:String x:Key="EnsuretheSimpleLauncherfolder">सुनिश्चित करें कि 'Simple Launcher' फ़ोल्डर किसी लेखनीय डायरेक्टरी में है।</system:String>
 <system:String x:Key="Ensureyouhaveadefaultbrowserinstalled">सुनिश्चित करें कि आपके सिस्टम पर एक डिफ़ॉल्ट ब्राउज़र स्थापित और सही ढंग से कॉन्फ़िगर किया गया है।</system:String>
     <system:String x:Key="EnsureyouhaveenoughspaceintheHDD">फ़ाइल को निकालने के लिए हार्ड डिस्क में पर्याप्त जगह सुनिश्चित करें।</system:String>
+    <system:String x:Key="EnterValidSearchTerms">कृपया वैध खोज शब्द दर्ज करें।</system:String>
     <system:String x:Key="error">त्रुटि</system:String>
     <system:String x:Key="Error">त्रुटि</system:String>
     <system:String x:Key="ErrorDetails">विवरण:</system:String>
@@ -309,6 +312,11 @@
     <system:String x:Key="Ifyouchoosetodeleteit">यदि आप इसे हटाना चुनते हैं, तो 'Simple Launcher' एक नई फाइल बनाएगा।</system:String>
     <system:String x:Key="Ifyouleaveitempty">यदि आप इसे खाली छोड़ देते हैं, तो एप्लिकेशन इस सिस्टम के लिए 'roms' फोल्डर के अंदर एक फोल्डर बनाएगी।</system:String>
     <system:String x:Key="ImageFolderNotExist">सिस्टम छवि फ़ोल्डर मौजूद नहीं है या निर्दिष्ट नहीं किया गया है।</system:String>
+    <system:String x:Key="ImagePack1">इमेज पैक 1</system:String>
+    <system:String x:Key="ImagePack2">इमेज पैक 2</system:String>
+    <system:String x:Key="ImagePack3">इमेज पैक 3</system:String>
+    <system:String x:Key="ImagePack4">इमेज पैक 4</system:String>
+    <system:String x:Key="ImagePack5">इमेज पैक 5</system:String>
     <system:String x:Key="ImagePackdownloadorextraction">छवि पैक डाउनलोड या निष्कर्षण में विफलता!</system:String>
     <system:String x:Key="IncasetheImagePackisnotavailable">यदि इमेज पैक उपलब्ध नहीं है तो आप इस सिस्टम के लिए इमेज निम्नलिखित वेबसाइटों से डाउनलोड कर सकते हैं:</system:String>
     <system:String x:Key="Indigo">इंडिगो</system:String>
@@ -323,6 +331,7 @@
     <system:String x:Key="InvalidExtractionFolder">अमान्य निकालने का फ़ोल्डर</system:String>
     <system:String x:Key="InvalidInputMessageText">कृपया सीमा के लिए 0.0 और 1.0 के बीच एक मान्य संख्या दर्ज करें।</system:String>
     <system:String x:Key="InvalidInputMessageTitle">अमान्य इनपुट</system:String>
+    <system:String x:Key="InvalidSearch">अमान्य खोज</system:String>
     <system:String x:Key="InvalidSystemConfiguration">अवैध सिस्टम कॉन्फ़िगरेशन</system:String>
     <system:String x:Key="isalreadyinfavorites">पहले से ही पसंदीदा में है।</system:String>
     <system:String x:Key="IsthesystemMAMEbased">सिस्टम MAME-आधारित है?</system:String>
@@ -354,9 +363,7 @@
 <system:String x:Key="LoadingGames">गेम लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingHistory">इतिहास लोड हो रहा है...</system:String>
 <system:String x:Key="LoadingNextPage">अगला पृष्ठ लोड कर रहा है...</system:String>
-<system:String x:Key="LoadingPlayHistory">प्ले हिस्ट्री लोड कर रहा है...</system:String>
 <system:String x:Key="LoadingPreviousPage">पिछला पृष्ठ लोड कर रहा है...</system:String>
-<system:String x:Key="LoadingRetroAchievementsDatabase">रेट्रोअचीवमेंट्स डेटाबेस लोड कर रहा है...</system:String>
 <system:String x:Key="LoadingROMHistory">ROM हिस्ट्री लोड कर रहा है...</system:String>
 <system:String x:Key="LoadingSettings">सेटिंग्स लोड कर रहा है...</system:String>
 <system:String x:Key="LoadingSystem">सिस्टम लोड कर रहा है...</system:String>
@@ -723,6 +730,7 @@
     <system:String x:Key="to">तक</system:String>
     <system:String x:Key="Toextractafileitneedstobe">फ़ाइल को एक्सट्रैक्ट करने के लिए, इसे 7जेड, ज़िप, या रार फ़ाइल होना चाहिए।</system:String>
     <system:String x:Key="ToggleButtonAspectRatio">बटन का अनुपात बदलें</system:String>
+    <system:String x:Key="ToggleLightDarkMode">लाइट/डार्क मोड टॉगल करें</system:String>
     <system:String x:Key="ToggleViewMode">दृश्य मोड बदलें</system:String>
 <system:String x:Key="TogglingButtonAspectRatio">बटन पहलू अनुपात टॉगल कर रहा है...</system:String>
 <system:String x:Key="TogglingFuzzyMatching">फ़ज़ी मिलान टॉगल कर रहा है...</system:String>
