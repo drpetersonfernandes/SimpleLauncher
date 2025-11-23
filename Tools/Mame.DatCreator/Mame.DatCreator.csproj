@@ -1,0 +1,23 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <OutputType>WinExe</OutputType>
+        <TargetFramework>net10.0-windows</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <SupportedOSPlatformVersion>7.0</SupportedOSPlatformVersion>
+        <UseWPF>true</UseWPF>
+        <ApplicationIcon>icon\icon.ico</ApplicationIcon>
+        <IsPackable>false</IsPackable>
+        <AssemblyVersion>1.0</AssemblyVersion>
+        <FileVersion>1.0</FileVersion>
+        <NeutralLanguage>en</NeutralLanguage>
+        <DebugType>embedded</DebugType>
+        <DebugSymbols>true</DebugSymbols>
+    </PropertyGroup>
+
+    <ItemGroup>
+        <PackageReference Include="MessagePack" Version="3.1.4" />
+    </ItemGroup>
+
+</Project>
