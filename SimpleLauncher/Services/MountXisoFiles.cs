@@ -11,6 +11,8 @@ namespace SimpleLauncher.Services;
 
 public static class MountXisoFiles
 {
+    private static readonly string XboxIsoVfsExe = Path.Combine("tools", "xbox-iso-vfs", "xbox-iso-vfs.exe");
+
     /// <summary>
     /// Finds an available drive letter from Z: down to D:.
     /// </summary>
@@ -42,10 +44,9 @@ public static class MountXisoFiles
     {
         DebugLogger.Log($"[MountXisoFiles.MountAsync] Starting to mount ISO: {resolvedIsoFilePath}");
 
-        const string xboxIsoVfsExe = @"tools\xbox-iso-vfs\xbox-iso-vfs.exe";
-        var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(xboxIsoVfsExe);
+        var resolvedXboxIsoVfsPath = PathHelper.ResolveRelativeToAppDirectory(XboxIsoVfsExe);
 
-        DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to {xboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
+        DebugLogger.Log($"[MountXisoFiles.MountAsync] Path to {XboxIsoVfsExe}: {resolvedXboxIsoVfsPath}");
 
         if (string.IsNullOrWhiteSpace(resolvedXboxIsoVfsPath) || !File.Exists(resolvedXboxIsoVfsPath))
         {
@@ -89,12 +90,12 @@ public static class MountXisoFiles
         {
             if (!mountProcess.Start())
             {
-                throw new InvalidOperationException($"Failed to start the {xboxIsoVfsExe} process.");
+                throw new InvalidOperationException($"Failed to start the {XboxIsoVfsExe} process.");
             }
 
-            DebugLogger.Log($"[MountXisoFiles.MountAsync] {xboxIsoVfsExe} process started (ID: {mountProcess.Id}).");
+            DebugLogger.Log($"[MountXisoFiles.MountAsync] {XboxIsoVfsExe} process started (ID: {mountProcess.Id}).");
 
-            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, xboxIsoVfsExe, mountProcess.Id);
+            var mountSuccessful = await WaitForDriveMountAsync(defaultXbePath, driveRoot, mountProcess, XboxIsoVfsExe, mountProcess.Id);
 
             if (!mountSuccessful)
             {

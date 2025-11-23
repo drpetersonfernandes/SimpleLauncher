@@ -158,8 +158,8 @@ public partial class EditSystemWindow
 
     private bool ValidateSystemImageFolder(string systemNameText, ref string systemImageFolderText)
     {
-        var defaultPattern = $".\\images\\{systemNameText}";
-        var prefixedDefaultPattern = $"%BASEFOLDER%\\images\\{systemNameText}";
+        var defaultPattern = Path.Combine(".", "images", systemNameText);
+        var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "images", systemNameText);
 
         if (string.IsNullOrEmpty(systemImageFolderText) || systemImageFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemImageFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
         {
@@ -190,8 +190,8 @@ public partial class EditSystemWindow
 
     private bool ValidateSystemFolder(string systemNameText, ref string systemFolderText)
     {
-        var defaultPattern = $".\\roms\\{systemNameText}";
-        var prefixedDefaultPattern = $"%BASEFOLDER%\\roms\\{systemNameText}";
+        var defaultPattern = Path.Combine(".", "roms", systemNameText);
+        var prefixedDefaultPattern = Path.Combine("%BASEFOLDER%", "roms", systemNameText);
 
         if (string.IsNullOrEmpty(systemFolderText) || systemFolderText.Equals(defaultPattern, StringComparison.OrdinalIgnoreCase) || systemFolderText.Equals(prefixedDefaultPattern, StringComparison.OrdinalIgnoreCase))
         {

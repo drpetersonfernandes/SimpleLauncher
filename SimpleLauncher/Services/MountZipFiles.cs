@@ -30,7 +30,7 @@ public static class MountZipFiles
 
         // Determine the correct executable based on architecture
         _zipMountExecutableName = GetArchitectureSpecificExecutableName();
-        _zipMountExecutableRelativePath = $@"tools\SimpleZipDrive\{_zipMountExecutableName}";
+        _zipMountExecutableRelativePath = Path.Combine("tools", "SimpleZipDrive", _zipMountExecutableName);
 
         if (string.IsNullOrEmpty(mountPathFromConfig))
         {

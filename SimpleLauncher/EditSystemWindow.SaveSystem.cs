@@ -380,7 +380,7 @@ public partial class EditSystemWindow
         // It's a relative path without the placeholder, add it
         // Handle cases like ".\roms" or "../images"
         var trimmedPath = path.TrimStart('.', '\\', '/');
-        return $"%BASEFOLDER%\\{trimmedPath}";
+        return Path.Combine("%BASEFOLDER%", trimmedPath);
     }
 
     private static void AddEmulatorToXml(XElement emulatorsElement, string name, string location, string parameters, bool receiveNotification = false)

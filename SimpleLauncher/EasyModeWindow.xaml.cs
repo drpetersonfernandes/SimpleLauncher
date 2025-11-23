@@ -658,7 +658,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             }
             else
             {
-                systemFolderRaw = $"%BASEFOLDER%\\roms\\{selectedSystem.SystemName}";
+                systemFolderRaw = Path.Combine("%BASEFOLDER%", "roms", selectedSystem.SystemName);
                 // No need to update SystemFolderTextBox.Text here, it's already updated in SelectionChanged or will be updated by the user
             }
 

@@ -145,10 +145,10 @@ public partial class EditSystemWindow
 
             // Try creating default folders based on the *current UI text*, which might contain %BASEFOLDER%
             var resolvedSystemFolder = PathHelper.ResolveRelativeToAppDirectory(SystemFolderTextBox.Text);
-            TryCreateDefaultFolder(resolvedSystemFolder, $".\\roms\\{SystemNameTextBox.Text}", "SystemFolder"); // Pass resolved path
+            TryCreateDefaultFolder(resolvedSystemFolder, Path.Combine(".", "roms", SystemNameTextBox.Text), "SystemFolder"); // Pass resolved path
 
             var resolvedSystemImageFolder = PathHelper.ResolveRelativeToAppDirectory(SystemImageFolderTextBox.Text);
-            TryCreateDefaultFolder(resolvedSystemImageFolder, $".\\images\\{SystemNameTextBox.Text}", "SystemImageFolder"); // Pass resolved path
+            TryCreateDefaultFolder(resolvedSystemImageFolder, Path.Combine(".", "images", SystemNameTextBox.Text), "SystemImageFolder"); // Pass resolved path
 
 
             // Mark validity. CheckPath.IsValidPath will now handle %BASEFOLDER% internally.
