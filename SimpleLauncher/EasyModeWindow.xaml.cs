@@ -424,37 +424,37 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             case DownloadType.Emulator:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.EmulatorDownloadExtractPath;
-                componentName = "Emulator";
+                componentName = (string)Application.Current.TryFindResource("Emulator") ?? "Emulator";
                 break;
             case DownloadType.Core:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.CoreDownloadExtractPath;
-                componentName = "Core";
+                componentName = (string)Application.Current.TryFindResource("Core") ?? "Core";
                 break;
             case DownloadType.ImagePack1:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 1";
+                componentName = (string)Application.Current.TryFindResource("ImagePack1") ?? "Image Pack 1";
                 break;
             case DownloadType.ImagePack2:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 2";
+                componentName = (string)Application.Current.TryFindResource("ImagePack2") ?? "Image Pack 2";
                 break;
             case DownloadType.ImagePack3:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 3";
+                componentName = (string)Application.Current.TryFindResource("ImagePack3") ?? "Image Pack 3";
                 break;
             case DownloadType.ImagePack4:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 4";
+                componentName = (string)Application.Current.TryFindResource("ImagePack4") ?? "Image Pack 4";
                 break;
             case DownloadType.ImagePack5:
                 downloadUrl = selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5;
                 easyModeExtractPath = selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath;
-                componentName = "Image Pack 5";
+                componentName = (string)Application.Current.TryFindResource("ImagePack5") ?? "Image Pack 5";
                 break;
             default:
                 return;

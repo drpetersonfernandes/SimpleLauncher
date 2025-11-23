@@ -105,11 +105,16 @@ public partial class DownloadImagePackWindow : IDisposable
         if (selectedSystem == null) return;
 
         // Dynamically add image pack items to the ObservableCollection
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 1");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 2");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 3");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 4");
-        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath, "Image Pack 5");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+            (string)Application.Current.TryFindResource("ImagePack1") ?? "Image Pack 1");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+            (string)Application.Current.TryFindResource("ImagePack2") ?? "Image Pack 2");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+            (string)Application.Current.TryFindResource("ImagePack3") ?? "Image Pack 3");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+            (string)Application.Current.TryFindResource("ImagePack4") ?? "Image Pack 4");
+        AddImagePackItemIfValid(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5, selectedSystem.Emulators?.Emulator?.ImagePackDownloadExtractPath,
+            (string)Application.Current.TryFindResource("ImagePack5") ?? "Image Pack 5");
     }
 
     private void AddImagePackItemIfValid(string downloadLink, string extractPath, string displayName)
