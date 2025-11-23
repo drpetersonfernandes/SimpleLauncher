@@ -10,8 +10,8 @@ file static class Program
 {
     private const string SettingsFilePath = "settings.xml";
     private const string ConsoleListFilePath = "consoles.txt";
-    private const string OutputFileNameJson = "all_ra_games.json";
-    private const string OutputFileNameMsgPack = "all_ra_games.dat";
+    private const string OutputFileNameJson = "RetroAchievements.json";
+    private const string OutputFileNameMsgPack = "RetroAchievements.dat";
     private const string BaseApiUrl = "https://retroachievements.org/API";
 
     private static async Task Main(string[] args)
