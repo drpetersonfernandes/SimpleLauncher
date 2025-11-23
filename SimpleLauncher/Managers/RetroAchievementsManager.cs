@@ -1,9 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Threading.Tasks;
 using MessagePack;
-using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -22,50 +20,43 @@ public class RetroAchievementsManager
 
     public static RetroAchievementsManager LoadRetroAchievement()
     {
-        Task.Run(() =>
+        var manager = new RetroAchievementsManager();
+        if (File.Exists(DatFilePath))
         {
-            var manager = new RetroAchievementsManager();
-            if (File.Exists(DatFilePath))
+            try
             {
-                try
+                var bytes = File.ReadAllBytes(DatFilePath);
+                if (bytes.Length > 0)
                 {
-                    // Notify user
-                    Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingRetroAchievementsDatabase") ?? "Loading RetroAchievements database...", Application.Current.MainWindow as MainWindow));
-
-                    var bytes = File.ReadAllBytes(DatFilePath);
-                    if (bytes.Length > 0)
-                    {
-                        // The root object in the .dat file is a List<RaGameInfo>,
-                        // so we deserialize that directly and wrap it in our manager.
-                        manager.AllGames = MessagePackSerializer.Deserialize<List<RaGameInfo>>(bytes);
-                    }
-                }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
-
-                    DebugLogger.Log($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
+                    // The root object in the .dat file is a List<RaGameInfo>,
+                    // so we deserialize that directly and wrap it in our manager.
+                    manager.AllGames = MessagePackSerializer.Deserialize<List<RaGameInfo>>(bytes);
                 }
             }
-
-            // Populate the hash lookup dictionary after loading AllGames
-            manager.PopulateHashLookup();
-
-            // If the file doesn't exist, is empty, or fails to load, log it for debugging
-            if (manager.AllGames.Count == 0)
+            catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+                const string contextMessage = "Error loading RetroAchievements.dat. The file might be corrupted or invalid. A new empty file will be created.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-                DebugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
+                DebugLogger.Log($"[RA Manager] Failed to load RetroAchievements.dat: {ex.Message}");
             }
+        }
 
-            return manager;
-        });
-        return null;
+        // Populate the hash lookup dictionary after loading AllGames
+        manager.PopulateHashLookup();
+
+        // If the file doesn't exist, is empty, or fails to load, log it for debugging
+        if (manager.AllGames.Count == 0)
+        {
+            // Notify developer
+            const string contextMessage = "RetroAchievements.dat is missing or empty. Starting with an empty database.";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
+
+            DebugLogger.Log("[RA Manager] Starting with empty RetroAchievements database");
+        }
+
+        return manager;
     }
 
     /// <summary>
