@@ -17,6 +17,10 @@ public static partial class WindowScreenshot
     [return: MarshalAs(UnmanagedType.Bool)]
     private static partial bool ClientToScreen(IntPtr hWnd, ref Point lpPoint);
 
+    [LibraryImport("user32.dll", SetLastError = true)]
+    [return: MarshalAs(UnmanagedType.Bool)]
+    private static partial bool IsIconic(IntPtr hWnd);
+
     /// <summary>
     /// Gets the rectangle of the client area (excluding borders and menu).
     /// </summary>
@@ -26,6 +30,13 @@ public static partial class WindowScreenshot
     public static bool GetClientAreaRect(IntPtr hWnd, out Rectangle clientRectangle)
     {
         clientRectangle = new Rectangle();
+
+        // Check if the window is minimized (iconic)
+        if (IsIconic(hWnd))
+        {
+            DebugLogger.Log($"[WindowScreenshot] Window {hWnd} is iconic (minimized). Cannot get client area.");
+            return false; // Indicate failure for minimized windows
+        }
 
         // Get the client area dimensions
         if (!GetClientRect(hWnd, out var localClientRect))
@@ -37,6 +48,7 @@ public static partial class WindowScreenshot
         var clientTopLeft = new Point { X = localClientRect.Left, Y = localClientRect.Top };
         if (!ClientToScreen(hWnd, ref clientTopLeft))
         {
+            DebugLogger.Log($"[WindowScreenshot] ClientToScreen failed for window {hWnd}.");
             return false;
         }
 
