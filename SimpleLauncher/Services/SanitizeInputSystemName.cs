@@ -1,10 +1,15 @@
+using System;
 using System.IO;
 using System.Text;
+using System.Linq;
 
 namespace SimpleLauncher.Services;
 
 public static class SanitizeInputSystemName
 {
+    // Windows reserved device names (case-insensitive)
+    private static readonly string[] ReservedNames = ["CON", "PRN", "AUX", "NUL", "COM1", "COM2", "COM3", "COM4", "COM5", "COM6", "COM7", "COM8", "COM9", "LPT1", "LPT2", "LPT3", "LPT4", "LPT5", "LPT6", "LPT7", "LPT8", "LPT9"];
+
     /// <summary>
     /// Sanitizes a string to be safe for use as a folder name.
     /// Removes invalid path characters and directory traversal sequences.
@@ -42,6 +47,12 @@ public static class SanitizeInputSystemName
             // If sanitization resulted in an empty string (e.g., input was just "."),
             // return a placeholder.
             return "_invalid_sanitized_name_";
+        }
+
+        // Check for Windows reserved device names
+        if (Enumerable.Contains(ReservedNames, sanitizedName, StringComparer.OrdinalIgnoreCase))
+        {
+            sanitizedName = $"_{sanitizedName}_"; // Prepend and append underscore to make it safe
         }
 
         return sanitizedName;
