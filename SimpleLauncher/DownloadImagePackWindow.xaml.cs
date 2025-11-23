@@ -131,20 +131,33 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         try
         {
-            if (sender is not Button { DataContext: ImagePackDownloadItem item } clickedButton) return;
+            if (_disposed) return; // Early exit if window is already disposed
 
             try
             {
-                clickedButton.IsEnabled = false; // Disable this specific button
-                item.IsDownloaded = false; // Mark as not downloaded while in progress
+                if (sender is not Button { DataContext: ImagePackDownloadItem item } clickedButton) return;
 
-                await HandleDownloadAndExtractComponent(item);
+                try
+                {
+                    clickedButton.IsEnabled = false; // Disable this specific button
+                    item.IsDownloaded = false; // Mark as not downloaded while in progress
+
+                    await HandleDownloadAndExtractComponent(item);
+                }
+                catch (Exception ex)
+                {
+                    if (_disposed) return; // Check again after catch
+
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
+                    clickedButton.IsEnabled = true; // Re-enable on error
+                    item.IsDownloaded = false;
+                }
             }
             catch (Exception ex)
             {
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error in DownloadImagePackButton_Click for {item.DisplayName}.");
-                clickedButton.IsEnabled = true; // Re-enable on error
-                item.IsDownloaded = false;
+                if (_disposed) return; // Check again after catch
+
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton_Click.");
             }
         }
         catch (Exception ex)
@@ -156,6 +169,8 @@ public partial class DownloadImagePackWindow : IDisposable
     // Changed signature to accept ImagePackDownloadItem
     private async Task HandleDownloadAndExtractComponent(ImagePackDownloadItem item)
     {
+        if (_disposed) return; // Early exit if window is already disposed
+
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return;
 
@@ -169,6 +184,8 @@ public partial class DownloadImagePackWindow : IDisposable
         if (string.IsNullOrEmpty(downloadUrl))
         {
             var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
+            if (_disposed) return; // Check before UI update
+
             UpdateStatus($"{errorNodownloadUrLfor} {componentName}");
             return;
         }
@@ -176,6 +193,8 @@ public partial class DownloadImagePackWindow : IDisposable
         if (string.IsNullOrEmpty(destinationPath))
         {
             var errorInvalidDestinationPath = (string)Application.Current.TryFindResource("ErrorInvalidDestinationPath") ?? "Error: Invalid destination path for";
+            if (_disposed) return; // Check before UI update
+
             UpdateStatus($"{errorInvalidDestinationPath} {componentName}");
 
             // Notify developer
@@ -187,7 +206,11 @@ public partial class DownloadImagePackWindow : IDisposable
         try
         {
             var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
+            if (_disposed) return; // Check before UI update
+
             UpdateStatus($"{preparingtodownload} {componentName}...");
+
+            if (_disposed) return; // Check before UI update
 
             DownloadProgressBar.Visibility = Visibility.Visible;
             DownloadProgressBar.Value = 0;
@@ -196,19 +219,27 @@ public partial class DownloadImagePackWindow : IDisposable
             var success = false;
 
             var downloading = (string)Application.Current.TryFindResource("Downloading") ?? "Downloading";
+            if (_disposed) return; // Check before UI update
+
             UpdateStatus($"{downloading} {componentName}...");
 
             var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
 
+            if (_disposed) return; // Crucial check after first await
+
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
                 var extracting = (string)Application.Current.TryFindResource("Extracting") ?? "Extracting";
+                if (_disposed) return; // Check before UI update
+
                 UpdateStatus($"{extracting} {componentName}...");
                 LoadingMessage.Text = $"{extracting} {componentName}...";
                 LoadingOverlay.Visibility = Visibility.Visible;
                 success = await _downloadManager.ExtractFileAsync(downloadedFile, destinationPath);
                 LoadingOverlay.Visibility = Visibility.Collapsed;
             }
+
+            if (_disposed) return; // Check before final UI updates
 
             if (success)
             {
@@ -224,6 +255,8 @@ public partial class DownloadImagePackWindow : IDisposable
             }
             else
             {
+                if (_disposed) return; // Check before UI updates in else branch
+
                 if (_downloadManager.IsUserCancellation)
                 {
                     var downloadof = (string)Application.Current.TryFindResource("Downloadof") ?? "Download of";
@@ -237,6 +270,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
                     // Since this is an image pack, use the specific message box
                     await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+                    if (_disposed) return; // Check after await in MessageBox
                 }
 
                 StopDownloadButton.IsEnabled = false;
@@ -246,6 +280,8 @@ public partial class DownloadImagePackWindow : IDisposable
         }
         catch (Exception ex)
         {
+            if (_disposed) return; // Check after catch
+
             var errorduring2 = (string)Application.Current.TryFindResource("Errorduring") ?? "Error during";
             var downloadprocess2 = (string)Application.Current.TryFindResource("downloadprocess") ?? "download process.";
             UpdateStatus($"{errorduring2} {componentName} {downloadprocess2}");
@@ -257,6 +293,7 @@ public partial class DownloadImagePackWindow : IDisposable
 
             // Since this is an image pack, use the specific message box
             await MessageBoxLibrary.ShowImagePackDownloadErrorMessageBoxAsync(selectedSystem);
+            if (_disposed) return; // Check after await in MessageBox
 
             StopDownloadButton.IsEnabled = false;
             item.IsDownloaded = false; // Ensure not marked as downloaded on exception
@@ -358,6 +395,8 @@ public partial class DownloadImagePackWindow : IDisposable
     {
         Dispatcher.InvokeAsync(() =>
             {
+                if (_disposed) return; // Added for explicit safety, though InvokeAsync usually handles this.
+
                 DownloadProgressBar.Value = e.ProgressPercentage;
                 UpdateStatus(e.StatusMessage);
             }
@@ -367,12 +406,15 @@ public partial class DownloadImagePackWindow : IDisposable
 
     private void UpdateStatus(string message)
     {
+        if (_disposed) return; // Check before UI update
         // Update the status text block
         StatusTextBlock.Text = message;
     }
 
     private void StopDownloadButton_Click(object sender, RoutedEventArgs e)
     {
+        if (_disposed) return; // Early exit if window is already disposed
+
         _downloadManager.CancelDownload();
         StopDownloadButton.IsEnabled = false;
         DownloadProgressBar.Value = 0;
@@ -383,6 +425,8 @@ public partial class DownloadImagePackWindow : IDisposable
         // Re-enable all image pack download buttons
         foreach (var item in ImagePacksToDisplay)
         {
+            if (_disposed) break; // If disposed during loop, stop updating
+
             item.IsDownloaded = false; // Mark as not downloaded to re-enable button
         }
     }
@@ -417,7 +461,7 @@ public partial class DownloadImagePackWindow : IDisposable
             if (StopDownloadButton.IsEnabled)
             {
                 StopDownloadButton_Click(null, null);
-                await Task.Delay(200);
+                await Task.Delay(200); // A small delay to allow cancellation to start
             }
 
             _manager = null;
@@ -437,6 +481,7 @@ public partial class DownloadImagePackWindow : IDisposable
         if (disposing)
         {
             _downloadManager?.Dispose();
+            _downloadManager?.DownloadProgressChanged -= DownloadManager_ProgressChanged; // Unsubscribe from event
         }
 
         _disposed = true;
