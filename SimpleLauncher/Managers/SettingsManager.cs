@@ -58,6 +58,7 @@ public class SettingsManager
 
     private const string DefaultSettingsFilePath = "settings.xml";
     private const string DefaultNotificationSoundFileName = "click.mp3";
+    private static readonly string[] Separator = new[] { "<SystemPlayTime>" };
 
     public SettingsManager() : this(DefaultSettingsFilePath)
     {
@@ -72,8 +73,6 @@ public class SettingsManager
 
     private void Load()
     {
-        SystemPlayTimes.Clear();
-
         if (!File.Exists(_filePath))
         {
             // Notify user
@@ -154,6 +153,7 @@ public class SettingsManager
             OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
             OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", false);
 
+            SystemPlayTimes.Clear(); // Clear existing times only after a successful load
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
             if (systemPlayTimesElement != null)
             {
@@ -171,11 +171,12 @@ public class SettingsManager
         catch (XmlException ex)
         {
             // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'.");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "There was a XmlException while loading the file 'setting.xml'. Attempting to salvage play time data.");
 
             // Notify user
             MessageBoxLibrary.SettingsXmlFileIsCorruptMessageBox();
 
+            TrySalvageSystemPlayTimes(_filePath);
             SetDefaultsAndSave();
         }
         catch (IOException ex)
@@ -197,6 +198,54 @@ public class SettingsManager
             MessageBoxLibrary.SettingsXmlFileCouldNotBeLoadedMessageBox();
 
             SetDefaultsAndSave();
+        }
+    }
+
+    private void TrySalvageSystemPlayTimes(string filePath)
+    {
+        try
+        {
+            if (!File.Exists(filePath)) return;
+
+            var salvagedPlayTimes = new List<SystemPlayTime>();
+            var fileContent = File.ReadAllText(filePath);
+
+            // A simple, non-XML-parser way to find the data, robust against malformed XML
+            var playTimesBlockStartIndex = fileContent.IndexOf("<SystemPlayTimes>", StringComparison.Ordinal);
+            if (playTimesBlockStartIndex == -1) return;
+
+            var playTimesBlockEndIndex = fileContent.IndexOf("</SystemPlayTimes>", playTimesBlockStartIndex, StringComparison.Ordinal);
+            if (playTimesBlockEndIndex == -1) return;
+
+            var playTimesBlock = fileContent.Substring(playTimesBlockStartIndex, playTimesBlockEndIndex - playTimesBlockStartIndex);
+
+            var systemPlayTimeElements = playTimesBlock.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
+
+            foreach (var element in systemPlayTimeElements.Skip(1)) // Skip the part before the first element
+            {
+                var systemNameMatch = System.Text.RegularExpressions.Regex.Match(element, @"<SystemName>(.*?)</SystemName>");
+                var playTimeMatch = System.Text.RegularExpressions.Regex.Match(element, @"<PlayTime>(.*?)</PlayTime>");
+
+                if (systemNameMatch.Success && playTimeMatch.Success)
+                {
+                    salvagedPlayTimes.Add(new SystemPlayTime
+                    {
+                        SystemName = systemNameMatch.Groups[1].Value,
+                        PlayTime = playTimeMatch.Groups[1].Value
+                    });
+                }
+            }
+
+            if (salvagedPlayTimes.Count > 0)
+            {
+                SystemPlayTimes = salvagedPlayTimes;
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Successfully salvaged {salvagedPlayTimes.Count} SystemPlayTime entries from corrupt settings.xml.");
+            }
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "An unexpected error occurred while trying to salvage SystemPlayTime data.");
+            SystemPlayTimes.Clear(); // Ensure list is empty if salvage fails
         }
     }
 
@@ -270,7 +319,7 @@ public class SettingsManager
         OverlayRetroAchievementButton = false;
         OverlayOpenVideoButton = true;
         OverlayOpenInfoButton = false;
-        SystemPlayTimes = [];
+        // Do not reset SystemPlayTimes here to allow salvaging from a corrupt file
         Save();
 
         // Notify user
