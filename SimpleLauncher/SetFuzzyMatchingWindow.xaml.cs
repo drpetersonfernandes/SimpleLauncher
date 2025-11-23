@@ -31,31 +31,19 @@ public partial class SetFuzzyMatchingWindow
     {
         try
         {
-            // Get the value directly from the slider
-            var newThreshold = ThresholdSlider.Value;
+            // Get the value directly from the slider.
+            // The slider's Minimum and Maximum properties, combined with IsSnapToTickEnabled,
+            // are designed to constrain the value within the desired range.
+            // Math.Clamp is used here for explicit robustness against any potential
+            // floating-point precision issues that might cause the slider's internal
+            // value to slightly exceed its declared maximum/minimum.
+            var newThreshold = Math.Clamp(ThresholdSlider.Value, ThresholdSlider.Minimum, ThresholdSlider.Maximum);
 
-            // The slider already constrains the value between 0.7 and 0.95,
-            // so explicit range validation here is mostly for robustness,
-            // though technically redundant if the slider min/max are correct.
-            // We'll keep a simple check.
-            if (newThreshold is >= 0.7 and <= 0.95)
-            {
-                // Update the setting
-                _settings.FuzzyMatchingThreshold = newThreshold;
-                _settings.Save();
-                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...", Application.Current.MainWindow as MainWindow);
-
-                // Set DialogResult to true and close the window
-                DialogResult = true;
-                Close();
-            }
-            else
-            {
-                // This case should ideally not be hit with the slider configuration.
-                // If it is, something is wrong with the slider setup or binding.
-                MessageBoxLibrary.FuzzyMatchingErrorValueOutsideValidRangeMessageBox();
-                // Do not close the window
-            }
+            _settings.FuzzyMatchingThreshold = newThreshold;
+            _settings.Save();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingFuzzyMatchingSettings") ?? "Saving fuzzy matching settings...", Application.Current.MainWindow as MainWindow);
+            DialogResult = true;
+            Close();
         }
         catch (Exception ex)
         {
