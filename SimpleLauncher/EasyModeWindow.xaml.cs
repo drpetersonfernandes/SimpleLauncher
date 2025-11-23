@@ -24,13 +24,92 @@ namespace SimpleLauncher;
 public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 {
     private EasyModeManager _manager;
-    private bool _isEmulatorDownloaded;
-    private bool _isCoreDownloaded;
-    private bool _isImagePackDownloaded1;
-    private bool _isImagePackDownloaded2;
-    private bool _isImagePackDownloaded3;
-    private bool _isImagePackDownloaded4;
-    private bool _isImagePackDownloaded5;
+
+    public bool IsEmulatorDownloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    public bool IsCoreDownloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+            UpdateAddSystemButtonState();
+        }
+    }
+
+    public bool IsImagePack1Downloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsImagePack2Downloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsImagePack3Downloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsImagePack4Downloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
+
+    public bool IsImagePack5Downloaded
+    {
+        get;
+        set
+        {
+            if (field == value) return;
+
+            field = value;
+            OnPropertyChanged();
+        }
+    }
 
     public bool IsImagePack1Available
     {
@@ -190,13 +269,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             IsImagePack4Available = false;
             IsImagePack5Available = false;
 
-            _isEmulatorDownloaded = false;
-            _isCoreDownloaded = false;
-            _isImagePackDownloaded1 = false;
-            _isImagePackDownloaded2 = false;
-            _isImagePackDownloaded3 = false;
-            _isImagePackDownloaded4 = false;
-            _isImagePackDownloaded5 = false;
+            IsEmulatorDownloaded = false;
+            IsCoreDownloaded = false;
+            IsImagePack1Downloaded = false;
+            IsImagePack2Downloaded = false;
+            IsImagePack3Downloaded = false;
+            IsImagePack4Downloaded = false;
+            IsImagePack5Downloaded = false;
 
             UpdateAddSystemButtonState();
             SystemFolderTextBox.Text = string.Empty;
@@ -219,25 +298,14 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         // Reset download status for all components when a new system is selected.
         // If a component has no download link, consider it "downloaded" for the purpose of enabling the "Add System" button
-        // AND for disabling its own download button.
-        _isEmulatorDownloaded = false; // Always assume emulator needs to be downloaded for a new selection
-        _isCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
-        _isImagePackDownloaded1 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
-        _isImagePackDownloaded2 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
-        _isImagePackDownloaded3 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
-        _isImagePackDownloaded4 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
-        _isImagePackDownloaded5 = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
-
-        // Enable/disable download buttons based on availability AND whether they are already downloaded
-        DownloadEmulatorButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.EmulatorDownloadLink) && !_isEmulatorDownloaded;
-        DownloadCoreButton.IsEnabled = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink) && !_isCoreDownloaded;
-        DownloadImagePackButton1.IsEnabled = IsImagePack1Available && !_isImagePackDownloaded1;
-        DownloadImagePackButton2.IsEnabled = IsImagePack2Available && !_isImagePackDownloaded2;
-        DownloadImagePackButton3.IsEnabled = IsImagePack3Available && !_isImagePackDownloaded3;
-        DownloadImagePackButton4.IsEnabled = IsImagePack4Available && !_isImagePackDownloaded4;
-        DownloadImagePackButton5.IsEnabled = IsImagePack5Available && !_isImagePackDownloaded5;
-
-        UpdateAddSystemButtonState();
+        // and for disabling its own download button via binding.
+        IsEmulatorDownloaded = false; // Always assume emulator needs to be downloaded for a new selection
+        IsCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
+        IsImagePack1Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
+        IsImagePack2Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
+        IsImagePack3Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);
+        IsImagePack4Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
+        IsImagePack5Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
         // Resolve path for display in the textbox
         SystemFolderTextBox.Text = PathHelper.ResolveRelativeToAppDirectory(selectedSystem.SystemFolder);
@@ -247,20 +315,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadEmulatorButton.IsEnabled = false;
-            _isEmulatorDownloaded = false;
-            UpdateAddSystemButtonState(); // Reflects that download is starting/not yet complete
-
-            _isEmulatorDownloaded = await HandleDownloadAndExtractComponent(DownloadType.Emulator, DownloadEmulatorButton);
-            // HandleDownloadAndExtractComponent already updates the button.IsEnabled and calls UpdateAddSystemButtonState.
-            // So, no further calls needed here.
+            IsEmulatorDownloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.Emulator);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
-            DownloadEmulatorButton.IsEnabled = true;
-            _isEmulatorDownloaded = false;
-            UpdateAddSystemButtonState();
+            IsEmulatorDownloaded = false;
         }
     }
 
@@ -268,20 +329,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadCoreButton.IsEnabled = false;
-            _isCoreDownloaded = false;
-            UpdateAddSystemButtonState(); // Reflects that download is starting/not yet complete
-
-            _isCoreDownloaded = await HandleDownloadAndExtractComponent(DownloadType.Core, DownloadCoreButton);
-            // HandleDownloadAndExtractComponent already updates the button.IsEnabled and calls UpdateAddSystemButtonState.
-            // So, no further calls needed here.
+            IsCoreDownloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.Core);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadCoreButton_Click.");
-            DownloadCoreButton.IsEnabled = true;
-            _isCoreDownloaded = false;
-            UpdateAddSystemButtonState();
+            IsCoreDownloaded = false;
         }
     }
 
@@ -289,18 +343,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadImagePackButton1.IsEnabled = false;
-            _isImagePackDownloaded1 = false;
-            UpdateAddSystemButtonState();
-
-            _isImagePackDownloaded1 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack1, DownloadImagePackButton1);
+            IsImagePack1Downloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack1);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton1_Click.");
-            DownloadImagePackButton1.IsEnabled = true;
-            _isImagePackDownloaded1 = false;
-            UpdateAddSystemButtonState();
+            IsImagePack1Downloaded = false;
         }
     }
 
@@ -308,18 +357,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadImagePackButton2.IsEnabled = false;
-            _isImagePackDownloaded2 = false;
-            UpdateAddSystemButtonState();
-
-            _isImagePackDownloaded2 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack2, DownloadImagePackButton2);
+            IsImagePack2Downloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack2);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton2_Click.");
-            DownloadImagePackButton2.IsEnabled = true;
-            _isImagePackDownloaded2 = false;
-            UpdateAddSystemButtonState();
+            IsImagePack2Downloaded = false;
         }
     }
 
@@ -327,18 +371,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadImagePackButton3.IsEnabled = false;
-            _isImagePackDownloaded3 = false;
-            UpdateAddSystemButtonState();
-
-            _isImagePackDownloaded3 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack3, DownloadImagePackButton3);
+            IsImagePack3Downloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack3);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton3_Click.");
-            DownloadImagePackButton3.IsEnabled = true;
-            _isImagePackDownloaded3 = false;
-            UpdateAddSystemButtonState();
+            IsImagePack3Downloaded = false;
         }
     }
 
@@ -346,18 +385,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadImagePackButton4.IsEnabled = false;
-            _isImagePackDownloaded4 = false;
-            UpdateAddSystemButtonState();
-
-            _isImagePackDownloaded4 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack4, DownloadImagePackButton4);
+            IsImagePack4Downloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack4);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton4_Click.");
-            DownloadImagePackButton4.IsEnabled = true;
-            _isImagePackDownloaded4 = false;
-            UpdateAddSystemButtonState();
+            IsImagePack4Downloaded = false;
         }
     }
 
@@ -365,26 +399,21 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     {
         try
         {
-            DownloadImagePackButton5.IsEnabled = false;
-            _isImagePackDownloaded5 = false;
-            UpdateAddSystemButtonState();
-
-            _isImagePackDownloaded5 = await HandleDownloadAndExtractComponent(DownloadType.ImagePack5, DownloadImagePackButton5);
+            IsImagePack5Downloaded = false;
+            await HandleDownloadAndExtractComponent(DownloadType.ImagePack5);
         }
         catch (Exception ex)
         {
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadImagePackButton5_Click.");
-            DownloadImagePackButton5.IsEnabled = true;
-            _isImagePackDownloaded5 = false;
-            UpdateAddSystemButtonState();
+            IsImagePack5Downloaded = false;
         }
     }
 
     // Helper method to reduce code duplication for downloads and extractions
-    private async Task<bool> HandleDownloadAndExtractComponent(DownloadType type, Button buttonToDisable)
+    private async Task HandleDownloadAndExtractComponent(DownloadType type)
     {
         var selectedSystem = GetSelectedSystem();
-        if (selectedSystem == null) return false;
+        if (selectedSystem == null) return;
 
         string downloadUrl;
         string componentName;
@@ -428,7 +457,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 componentName = "Image Pack 5";
                 break;
             default:
-                return false;
+                return;
         }
 
         var destinationPath = PathHelper.ResolveRelativeToAppDirectory(easyModeExtractPath);
@@ -438,7 +467,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         {
             var errorNodownloadUrLfor = (string)Application.Current.TryFindResource("ErrorNodownloadURLfor") ?? "Error: No download URL for";
             DownloadStatus = $"{errorNodownloadUrLfor} {componentName}";
-            return false;
+            return;
         }
 
         if (string.IsNullOrEmpty(destinationPath))
@@ -449,15 +478,11 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             // Notify developer
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Invalid destination path for {componentName}: {easyModeExtractPath}");
 
-            return false;
+            return;
         }
 
         try
         {
-            // Initial state for the specific button
-            buttonToDisable.IsEnabled = false;
-            UpdateAddSystemButtonState(); // Update overall Add System button state based on this component's initial state
-
             var preparingtodownload = (string)Application.Current.TryFindResource("Preparingtodownload") ?? "Preparing to download";
             DownloadStatus = $"{preparingtodownload} {componentName}...";
 
@@ -491,41 +516,33 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 MessageBoxLibrary.DownloadAndExtrationWereSuccessfulMessageBox();
 
                 StopDownloadButton.IsEnabled = false;
-                // Update the internal flag for the specific component and disable its button
+                // Update the internal flag for the specific component
                 switch (type)
                 {
                     case DownloadType.Emulator:
-                        _isEmulatorDownloaded = true;
-                        DownloadEmulatorButton.IsEnabled = false;
+                        IsEmulatorDownloaded = true;
                         break;
                     case DownloadType.Core:
-                        _isCoreDownloaded = true;
-                        DownloadCoreButton.IsEnabled = false;
+                        IsCoreDownloaded = true;
                         break;
                     case DownloadType.ImagePack1:
-                        _isImagePackDownloaded1 = true;
-                        DownloadImagePackButton1.IsEnabled = false;
+                        IsImagePack1Downloaded = true;
                         break;
                     case DownloadType.ImagePack2:
-                        _isImagePackDownloaded2 = true;
-                        DownloadImagePackButton2.IsEnabled = false;
+                        IsImagePack2Downloaded = true;
                         break;
                     case DownloadType.ImagePack3:
-                        _isImagePackDownloaded3 = true;
-                        DownloadImagePackButton3.IsEnabled = false;
+                        IsImagePack3Downloaded = true;
                         break;
                     case DownloadType.ImagePack4:
-                        _isImagePackDownloaded4 = true;
-                        DownloadImagePackButton4.IsEnabled = false;
+                        IsImagePack4Downloaded = true;
                         break;
                     case DownloadType.ImagePack5:
-                        _isImagePackDownloaded5 = true;
-                        DownloadImagePackButton5.IsEnabled = false;
+                        IsImagePack5Downloaded = true;
                         break;
                 }
 
-                UpdateAddSystemButtonState(); // Update overall Add System button state
-                return true;
+                return;
             }
             else
             {
@@ -562,9 +579,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
                 }
 
                 StopDownloadButton.IsEnabled = false;
-                buttonToDisable.IsEnabled = true; // Re-enable on failure/cancellation
-                UpdateAddSystemButtonState(); // Update overall Add System button state
-                return false;
+                return;
             }
         }
         catch (Exception ex)
@@ -599,9 +614,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             }
 
             StopDownloadButton.IsEnabled = false;
-            buttonToDisable.IsEnabled = true; // Re-enable on exception
-            UpdateAddSystemButtonState(); // Update overall Add System button state
-            return false;
+            return;
         }
     }
 
@@ -913,11 +926,11 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         // The emulator is always required if a download link exists.
         var isEmulatorDownloadRequired = !string.IsNullOrEmpty(emulatorConfig.EmulatorDownloadLink);
-        var isEmulatorReady = !isEmulatorDownloadRequired || _isEmulatorDownloaded;
+        var isEmulatorReady = !isEmulatorDownloadRequired || IsEmulatorDownloaded;
 
         // The core is only required if a download link for it exists.
         var isCoreDownloadRequired = !string.IsNullOrEmpty(emulatorConfig.CoreDownloadLink);
-        var isCoreReady = !isCoreDownloadRequired || _isCoreDownloaded;
+        var isCoreReady = !isCoreDownloadRequired || IsCoreDownloaded;
 
         // The "Add System" button is enabled if all *required* components (emulator and core) are ready.
         // Image packs are optional and do not affect this logic.

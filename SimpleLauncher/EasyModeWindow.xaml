@@ -1,4 +1,4 @@
-﻿<controls:MetroWindow x:Class="SimpleLauncher.EasyModeWindow"
+<controls:MetroWindow x:Class="SimpleLauncher.EasyModeWindow"
                       xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
@@ -11,12 +11,7 @@
                       Height="800"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen"
-                      DataContext="{Binding RelativeSource={RelativeSource Self}}"> <!-- Add this line for bindings to work -->
-
-    <controls:MetroWindow.Resources>
-        <!-- Define a BooleanToVisibilityConverter if not already in App.xaml -->
-        <BooleanToVisibilityConverter x:Key="BooleanToVisibilityConverter" />
-    </controls:MetroWindow.Resources>
+                      DataContext="{Binding RelativeSource={RelativeSource Self}}">
 
     <Grid>
         <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
@@ -86,40 +81,40 @@
 
                         <Button Grid.Row="0" Grid.Column="1" x:Name="DownloadEmulatorButton"
                                 Content="{DynamicResource DownloadEmulator}" HorizontalAlignment="Center"
-                                VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click"
-                                IsEnabled="False"
+                                VerticalAlignment="Center" Padding="7" Click="DownloadEmulatorButton_Click" 
+                                IsEnabled="{Binding IsEmulatorDownloaded, Converter={StaticResource InverseBooleanConverter}}"
                                 Margin="5,10,5,5"
                                 MinWidth="150" />
 
                         <Button Grid.Row="1" Grid.Column="1" x:Name="DownloadCoreButton"
                                 Content="{DynamicResource DownloadCore}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7"
-                                Click="DownloadCoreButton_Click" IsEnabled="False" Margin="5"
+                                Click="DownloadCoreButton_Click" IsEnabled="{Binding IsCoreDownloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5"
                                 MinWidth="150" />
 
                         <Button Grid.Row="2" Grid.Column="1" x:Name="DownloadImagePackButton1" Content="{DynamicResource DownloadImagePack1}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton1_Click"
-                                IsEnabled="False" Margin="5" MinWidth="150"
+                                IsEnabled="{Binding IsImagePack1Downloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack1Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button Grid.Row="3" Grid.Column="1" x:Name="DownloadImagePackButton2" Content="{DynamicResource DownloadImagePack2}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton2_Click"
-                                IsEnabled="False" Margin="5" MinWidth="150"
+                                IsEnabled="{Binding IsImagePack2Downloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack2Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button Grid.Row="4" Grid.Column="1" x:Name="DownloadImagePackButton3" Content="{DynamicResource DownloadImagePack3}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton3_Click"
-                                IsEnabled="False" Margin="5" MinWidth="150"
+                                IsEnabled="{Binding IsImagePack3Downloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack3Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button Grid.Row="5" Grid.Column="1" x:Name="DownloadImagePackButton4" Content="{DynamicResource DownloadImagePack4}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton4_Click"
-                                IsEnabled="False" Margin="5" MinWidth="150"
+                                IsEnabled="{Binding IsImagePack4Downloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack4Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button Grid.Row="6" Grid.Column="1" x:Name="DownloadImagePackButton5" Content="{DynamicResource DownloadImagePack5}"
                                 HorizontalAlignment="Center" VerticalAlignment="Center" Padding="7" Click="DownloadImagePackButton5_Click"
-                                IsEnabled="False" Margin="5" MinWidth="150"
+                                IsEnabled="{Binding IsImagePack5Downloaded, Converter={StaticResource InverseBooleanConverter}}" Margin="5" MinWidth="150"
                                 Visibility="{Binding IsImagePack5Available, Converter={StaticResource BooleanToVisibilityConverter}}" />
 
                         <Button Grid.Row="7" Grid.Column="1" x:Name="AddSystemButton" Content="{DynamicResource AddSystem}"
