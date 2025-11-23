@@ -32,9 +32,6 @@ public class FavoritesManager
             {
                 var bytes = File.ReadAllBytes(DatFilePath);
 
-                // Notify user
-                Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingFavorites") ?? "Loading favorites...", Application.Current.MainWindow as MainWindow));
-
                 return MessagePackSerializer.Deserialize<FavoritesManager>(bytes);
             }
             catch (Exception ex)

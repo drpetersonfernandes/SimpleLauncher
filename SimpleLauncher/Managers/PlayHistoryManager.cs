@@ -43,9 +43,6 @@ public class PlayHistoryManager
             var bytes = File.ReadAllBytes(FilePath);
             var manager = MessagePackSerializer.Deserialize<PlayHistoryManager>(bytes);
 
-            // Notify user
-            Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingPlayHistory") ?? "Loading play history...", Application.Current.MainWindow as MainWindow));
-
             // Migrate old date formats to new ISO format if needed
             manager.MigrateOldDateFormats();
 
