@@ -111,6 +111,101 @@ public partial class EditSystemWindow
         return true;
     }
 
+    private static bool ValidateEmulator1Location(string emulator1LocationText, List<string> formatsToSearch)
+    {
+        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
+            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+        // If an emulator path is required but not provided, show an error.
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
+        {
+            // Notify user
+            MessageBoxLibrary.Emulator1LocationRequiredMessageBox();
+            return true; // Validation failed
+        }
+
+        return false; // Validation passed
+    }
+
+    private static bool ValidateEmulator2Location(string emulator1LocationText, List<string> formatsToSearch)
+    {
+        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
+            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+        // If an emulator path is required but not provided, show an error.
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
+        {
+            // Notify user
+            MessageBoxLibrary.Emulator2LocationRequiredMessageBox();
+            return true; // Validation failed
+        }
+
+        return false; // Validation passed
+    }
+
+    private static bool ValidateEmulator3Location(string emulator1LocationText, List<string> formatsToSearch)
+    {
+        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
+            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+        // If an emulator path is required but not provided, show an error.
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
+        {
+            // Notify user
+            MessageBoxLibrary.Emulator3LocationRequiredMessageBox();
+            return true; // Validation failed
+        }
+
+        return false; // Validation passed
+    }
+
+    private static bool ValidateEmulator4Location(string emulator1LocationText, List<string> formatsToSearch)
+    {
+        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
+            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+        // If an emulator path is required but not provided, show an error.
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
+        {
+            // Notify user
+            MessageBoxLibrary.Emulator4LocationRequiredMessageBox();
+            return true; // Validation failed
+        }
+
+        return false; // Validation passed
+    }
+
+    private static bool ValidateEmulator5Location(string emulator1LocationText, List<string> formatsToSearch)
+    {
+        // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
+        var requiresEmulatorPath = !formatsToSearch.Any(static f =>
+            f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("exe", StringComparison.OrdinalIgnoreCase) ||
+            f.Equals("lnk", StringComparison.OrdinalIgnoreCase));
+
+        // If an emulator path is required but not provided, show an error.
+        if (requiresEmulatorPath && string.IsNullOrWhiteSpace(emulator1LocationText))
+        {
+            // Notify user
+            MessageBoxLibrary.Emulator5LocationRequiredMessageBox();
+            return true; // Validation failed
+        }
+
+        return false; // Validation passed
+    }
+
     private static bool ValidateFormatToLaunch(string formatToLaunchText, bool extractFileBeforeLaunch, out List<string> formatsToLaunch)
     {
         formatsToLaunch = formatToLaunchText.Split(SplitSeparators, StringSplitOptions.RemoveEmptyEntries)

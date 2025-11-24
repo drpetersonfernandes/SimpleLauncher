@@ -210,6 +210,36 @@ public partial class EditSystemWindow
                 return;
             }
 
+            if (!string.IsNullOrEmpty(emulator1NameText) & ValidateEmulator1Location(emulator1LocationText, formatsToSearch))
+            {
+                MarkInvalid(Emulator1PathTextBox, false);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(emulator2NameText) & ValidateEmulator2Location(emulator2LocationText, formatsToSearch))
+            {
+                MarkInvalid(Emulator2PathTextBox, false);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(emulator3NameText) & ValidateEmulator3Location(emulator3LocationText, formatsToSearch))
+            {
+                MarkInvalid(Emulator3PathTextBox, false);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(emulator4NameText) & ValidateEmulator4Location(emulator4LocationText, formatsToSearch))
+            {
+                MarkInvalid(Emulator4PathTextBox, false);
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(emulator5NameText) & ValidateEmulator5Location(emulator5LocationText, formatsToSearch))
+            {
+                MarkInvalid(Emulator5PathTextBox, false);
+                return;
+            }
+
             // Check if any of the *location* paths are invalid after prefixing/validation
             if (CheckPaths(isSystemFolderValid, isSystemImageFolderValid, isEmulator1LocationValid,
                     isEmulator2LocationValid, isEmulator3LocationValid, isEmulator4LocationValid,

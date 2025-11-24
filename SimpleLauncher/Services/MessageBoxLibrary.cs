@@ -3347,4 +3347,29 @@ internal static class MessageBoxLibrary
                             $"{easyModeGuide}", info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
+
+    public static void Emulator1LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void Emulator2LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void Emulator3LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void Emulator4LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void Emulator5LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
 }
