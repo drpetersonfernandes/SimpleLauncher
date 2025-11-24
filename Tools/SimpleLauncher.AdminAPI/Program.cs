@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
+using SimpleLauncher.AdminAPI;
 using SimpleLauncher.AdminAPI.Data;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -54,13 +55,3 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
-
-// High-performance logging using LoggerMessage
-internal static partial class Log
-{
-    [LoggerMessage(
-        EventId = 1,
-        Level = LogLevel.Error,
-        Message = "An error occurred while seeding the database")]
-    public static partial void DatabaseSeedingError(ILogger logger, Exception ex);
-}
