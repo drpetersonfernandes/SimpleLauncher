@@ -320,6 +320,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         }
         catch (Exception ex)
         {
+            if (_disposed) return;
+
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error in DownloadEmulatorButton_Click.");
             IsEmulatorDownloaded = false;
         }
@@ -412,6 +414,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
     // Helper method to reduce code duplication for downloads and extractions
     private async Task HandleDownloadAndExtractComponent(DownloadType type)
     {
+        if (_disposed) return;
+
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem == null) return;
 
@@ -496,6 +500,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             DownloadStatus = $"{downloading} {componentName}...";
 
             var downloadedFile = await _downloadManager.DownloadFileAsync(downloadUrl);
+
+            if (_disposed) return;
 
             if (downloadedFile != null && _downloadManager.IsDownloadCompleted)
             {
@@ -629,6 +635,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     private EasyModeSystemConfig GetSelectedSystem()
     {
+        if (_disposed || _manager == null) return null;
+
         return SystemNameDropdown.SelectedItem != null
             ? _manager.Systems.FirstOrDefault(system => system.SystemName == SystemNameDropdown.SelectedItem.ToString())
             : null;
@@ -915,6 +923,8 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
     private void UpdateAddSystemButtonState()
     {
+        if (_disposed) return;
+
         var selectedSystem = GetSelectedSystem();
         if (selectedSystem?.Emulators?.Emulator == null)
         {
