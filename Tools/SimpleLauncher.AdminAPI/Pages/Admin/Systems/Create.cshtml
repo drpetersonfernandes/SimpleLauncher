@@ -1,0 +1,87 @@
+@page
+@model SimpleLauncher.AdminAPI.Pages.Admin.Systems.CreateModel
+
+@{
+    ViewData["Title"] = "Create System Configuration";
+    Layout = "/Pages/Admin/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+<hr />
+<div class="row">
+    <div class="col-md-8">
+        <form method="post">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            
+            <h4>System Details</h4>
+            <div class="form-group mb-2">
+                <label asp-for="SystemConfiguration.SystemName" class="control-label"></label>
+                <input asp-for="SystemConfiguration.SystemName" class="form-control" />
+                <span asp-validation-for="SystemConfiguration.SystemName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="SystemConfiguration.Architecture" class="control-label"></label>
+                <select asp-for="SystemConfiguration.Architecture" class="form-control">
+                    <option value="x64">x64</option>
+                    <option value="arm64">arm64</option>
+                </select>
+                <span asp-validation-for="SystemConfiguration.Architecture" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="SystemConfiguration.SystemFolder" class="control-label"></label>
+                <input asp-for="SystemConfiguration.SystemFolder" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="SystemConfiguration.SystemImageFolder" class="control-label"></label>
+                <input asp-for="SystemConfiguration.SystemImageFolder" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="FileFormatsToSearchString" class="control-label">File Formats to Search (comma-separated)</label>
+                <input asp-for="FileFormatsToSearchString" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="FileFormatsToLaunchString" class="control-label">File Formats to Launch (comma-separated)</label>
+                <input asp-for="FileFormatsToLaunchString" class="form-control" />
+            </div>
+            <div class="form-group form-check mb-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SystemConfiguration.SystemIsMame" /> @Html.DisplayNameFor(model => model.SystemConfiguration.SystemIsMame)
+                </label>
+            </div>
+            <div class="form-group form-check mb-2">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="SystemConfiguration.ExtractFileBeforeLaunch" /> @Html.DisplayNameFor(model => model.SystemConfiguration.ExtractFileBeforeLaunch)
+                </label>
+            </div>
+
+            <hr />
+            <h4>Emulator Details</h4>
+            <div class="form-group mb-2">
+                <label asp-for="EmulatorConfiguration.EmulatorName" class="control-label"></label>
+                <input asp-for="EmulatorConfiguration.EmulatorName" class="form-control" />
+                <span asp-validation-for="EmulatorConfiguration.EmulatorName" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="EmulatorConfiguration.EmulatorLocation" class="control-label"></label>
+                <input asp-for="EmulatorConfiguration.EmulatorLocation" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="EmulatorConfiguration.EmulatorParameters" class="control-label"></label>
+                <input asp-for="EmulatorConfiguration.EmulatorParameters" class="form-control" />
+            </div>
+            <div class="form-group mb-2">
+                <label asp-for="EmulatorConfiguration.EmulatorDownloadLink" class="control-label"></label>
+                <input asp-for="EmulatorConfiguration.EmulatorDownloadLink" class="form-control" />
+            </div>
+
+            <div class="form-group mt-3">
+                <input type="submit" value="Create" class="btn btn-primary" />
+                <a asp-page="Index" class="btn btn-secondary">Back to List</a>
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <partial name="/Pages/Admin/Shared/_ValidationScriptsPartial.cshtml" />
+}

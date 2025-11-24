@@ -1,0 +1,37 @@
+@page
+@model SimpleLauncher.AdminAPI.Pages.Admin.Systems.IndexModel
+
+@{
+    ViewData["Title"] = "System Configurations";
+    Layout = "/Pages/Admin/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<p>
+    <a asp-page="Create" class="btn btn-primary">Create New</a>
+</p>
+<table class="table">
+    <thead>
+    <tr>
+        <th>System Name</th>
+        <th>Architecture</th>
+        <th>Emulator Name</th>
+        <th></th>
+    </tr>
+    </thead>
+    <tbody>
+    @foreach (var item in Model.SystemConfiguration) {
+        <tr>
+            <td>@Html.DisplayFor(modelItem => item.SystemName)</td>
+            <td>@Html.DisplayFor(modelItem => item.Architecture)</td>
+            <td>@Html.DisplayFor(modelItem => item.Emulator.EmulatorName)</td>
+            <td>
+                <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
+                <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |
+                <a asp-page="./Delete" asp-route-id="@item.Id">Delete</a>
+            </td>
+        </tr>
+    }
+    </tbody>
+</table>

@@ -25,6 +25,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "RetroAchievements.DataFetch
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Mame.DatCreator", "Tools\Mame.DatCreator\Mame.DatCreator.csproj", "{3BC8772A-4DAB-4BD9-90D7-91293165F37A}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "SimpleLauncher.AdminAPI", "Tools\SimpleLauncher.AdminAPI\SimpleLauncher.AdminAPI.csproj", "{D052AF47-9536-4099-A52F-5204AF43A9CA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -47,6 +49,10 @@ Global
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{3BC8772A-4DAB-4BD9-90D7-91293165F37A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D052AF47-9536-4099-A52F-5204AF43A9CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D052AF47-9536-4099-A52F-5204AF43A9CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D052AF47-9536-4099-A52F-5204AF43A9CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D052AF47-9536-4099-A52F-5204AF43A9CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
