@@ -10,6 +10,7 @@
 
 <p>
     <a asp-page="Create" class="btn btn-primary">Create New</a>
+    <a asp-page="Import" class="btn btn-success">Import XML</a>
 </p>
 <table class="table">
     <thead>
@@ -25,7 +26,7 @@
         <tr>
             <td>@Html.DisplayFor(modelItem => item.SystemName)</td>
             <td>@Html.DisplayFor(modelItem => item.Architecture)</td>
-            <td>@Html.DisplayFor(modelItem => item.Emulator.EmulatorName)</td>
+            <td>@(item.Emulator?.EmulatorName ?? "None")</td> @* Safely access EmulatorName, display "None" if Emulator is null *@
             <td>
                 <a asp-page="./Edit" asp-route-id="@item.Id">Edit</a> |
                 <a asp-page="./Details" asp-route-id="@item.Id">Details</a> |

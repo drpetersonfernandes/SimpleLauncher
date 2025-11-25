@@ -20,7 +20,7 @@ public class IndexModel : PageModel
     {
         SystemConfiguration = await _context.SystemConfigurations
             .Include(s => s.Emulator)
-            .OrderBy(s => s.SystemName)
+            .OrderBy(static s => s.SystemName)
             .ToListAsync();
     }
 }

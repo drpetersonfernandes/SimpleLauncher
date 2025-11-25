@@ -45,5 +45,5 @@ public class SystemConfiguration
     }
 
     // Navigation property for the one-to-one relationship
-    public EmulatorConfiguration Emulator { get; set; } = null!;
+    public EmulatorConfiguration? Emulator { get; set; } = null!;
 }

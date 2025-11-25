@@ -1,0 +1,195 @@
+@page
+@model SimpleLauncher.AdminAPI.Pages.Admin.Systems.DeleteModel
+
+@{
+    ViewData["Title"] = "Delete System Configuration";
+    Layout = "/Pages/Admin/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<h3>Are you sure you want to delete this?</h3>
+<div>
+@if (Model.SystemConfiguration is { } systemConfiguration)
+{
+    <div>
+    <h4>System Configuration</h4> 
+    <hr />
+    <dl class="row">
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.SystemName)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.SystemName
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.Architecture)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.Architecture
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.SystemFolder)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.SystemFolder
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.SystemImageFolder)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.SystemImageFolder
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.SystemIsMame)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.SystemIsMame
+        </dd>
+        <dt class="col-sm-3">
+            @Html.DisplayNameFor(model => model.SystemConfiguration!.ExtractFileBeforeLaunch)
+        </dt>
+        <dd class="col-sm-9">
+            @systemConfiguration.ExtractFileBeforeLaunch
+        </dd>
+        <dt class="col-sm-3">
+            File Formats to Search
+        </dt>
+        <dd class="col-sm-9">
+            @(string.Join(", ", systemConfiguration.FileFormatsToSearch))
+        </dd>
+        <dt class="col-sm-3">
+            File Formats to Launch
+        </dt>
+        <dd class="col-sm-9">
+            @(string.Join(", ", systemConfiguration.FileFormatsToLaunch))
+        </dd>
+ 
+        @if (systemConfiguration.Emulator is { } emulator)
+        {
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorName)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorName
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorLocation)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorLocation
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorParameters)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorParameters
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorDownloadPage)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorDownloadPage
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorLatestVersion)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorLatestVersion
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorDownloadLink)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorDownloadLink
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.EmulatorDownloadExtractPath)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.EmulatorDownloadExtractPath
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.CoreLocation)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.CoreLocation
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.CoreLatestVersion)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.CoreLatestVersion
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.CoreDownloadLink)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.CoreDownloadLink
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.CoreDownloadExtractPath)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.CoreDownloadExtractPath
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadLink)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadLink
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadLink2)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadLink2
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadLink3)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadLink3
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadLink4)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadLink4
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadLink5)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadLink5
+            </dd>
+            <dt class="col-sm-3">
+                @Html.DisplayNameFor(m => m.SystemConfiguration!.Emulator!.ImagePackDownloadExtractPath)
+            </dt>
+            <dd class="col-sm-9">
+                @emulator.ImagePackDownloadExtractPath
+            </dd>
+        }
+        else
+        {
+            <dt class="col-sm-3">
+                Emulator
+            </dt>
+            <dd class="col-sm-9">
+                None
+            </dd>
+        }
+    </dl>
+ 
+    <form method="post">
+        <input type="hidden" asp-for="SystemConfiguration!.Id" />
+        <input type="submit" value="Delete" class="btn btn-danger" /> |
+        <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+    </form>
+    </div>
+}
+else
+{
+    <p>System configuration not found.</p>
+}
+</div>

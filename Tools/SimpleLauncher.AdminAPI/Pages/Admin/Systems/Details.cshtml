@@ -1,0 +1,110 @@
+@page
+@model SimpleLauncher.AdminAPI.Pages.Admin.Systems.DetailsModel
+
+@{
+    ViewData["Title"] = "System Details";
+    Layout = "/Pages/Admin/Shared/_Layout.cshtml";
+}
+
+<h1>@ViewData["Title"]</h1>
+
+<div>
+    <h4>System Configuration</h4>
+    <hr />
+    @if (Model.SystemConfiguration is { } systemConfiguration)
+    {
+        <dl class="row">
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.SystemName)</dt>
+            <dd class="col-sm-9">@systemConfiguration.SystemName</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.Architecture)</dt>
+            <dd class="col-sm-9">@systemConfiguration.Architecture</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.SystemFolder)</dt>
+            <dd class="col-sm-9">@systemConfiguration.SystemFolder</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.SystemImageFolder)</dt>
+            <dd class="col-sm-9">@systemConfiguration.SystemImageFolder</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.SystemIsMame)</dt>
+            <dd class="col-sm-9">@systemConfiguration.SystemIsMame</dd>
+
+            <dt class="col-sm-3">@Html.DisplayNameFor(model => systemConfiguration.ExtractFileBeforeLaunch)</dt>
+            <dd class="col-sm-9">@systemConfiguration.ExtractFileBeforeLaunch</dd>
+
+            <dt class="col-sm-3">File Formats to Search</dt>
+            <dd class="col-sm-9">@(string.Join(", ", systemConfiguration.FileFormatsToSearch))</dd>
+
+            <dt class="col-sm-3">File Formats to Launch</dt>
+            <dd class="col-sm-9">@(string.Join(", ", systemConfiguration.FileFormatsToLaunch))</dd>
+
+            @if (systemConfiguration.Emulator is { } emulator)
+            {
+                <dt class="col-sm-3">Emulator Name</dt>
+                <dd class="col-sm-9">@emulator.EmulatorName</dd>
+
+                <dt class="col-sm-3">Emulator Location</dt>
+                <dd class="col-sm-9">@emulator.EmulatorLocation</dd>
+
+                <dt class="col-sm-3">Emulator Parameters</dt>
+                <dd class="col-sm-9">@emulator.EmulatorParameters</dd>
+
+                <dt class="col-sm-3">Download Page</dt>
+                <dd class="col-sm-9">@emulator.EmulatorDownloadPage</dd>
+
+                <dt class="col-sm-3">Latest Version</dt>
+                <dd class="col-sm-9">@emulator.EmulatorLatestVersion</dd>
+
+                <dt class="col-sm-3">Download Link</dt>
+                <dd class="col-sm-9">@emulator.EmulatorDownloadLink</dd>
+
+                <dt class="col-sm-3">Extract Path</dt>
+                <dd class="col-sm-9">@emulator.EmulatorDownloadExtractPath</dd>
+
+                <dt class="col-sm-3">Core Location</dt>
+                <dd class="col-sm-9">@emulator.CoreLocation</dd>
+
+                <dt class="col-sm-3">Core Latest Version</dt>
+                <dd class="col-sm-9">@emulator.CoreLatestVersion</dd>
+
+                <dt class="col-sm-3">Core Download Link</dt>
+                <dd class="col-sm-9">@emulator.CoreDownloadLink</dd>
+
+                <dt class="col-sm-3">Core Extract Path</dt>
+                <dd class="col-sm-9">@emulator.CoreDownloadExtractPath</dd>
+
+                <dt class="col-sm-3">Image Pack Link</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadLink</dd>
+
+                <dt class="col-sm-3">Image Pack Link 2</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadLink2</dd>
+
+                <dt class="col-sm-3">Image Pack Link 3</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadLink3</dd>
+
+                <dt class="col-sm-3">Image Pack Link 4</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadLink4</dd>
+
+                <dt class="col-sm-3">Image Pack Link 5</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadLink5</dd>
+
+                <dt class="col-sm-3">Image Pack Extract Path</dt>
+                <dd class="col-sm-9">@emulator.ImagePackDownloadExtractPath</dd>
+            }
+            else
+            {
+                <dt class="col-sm-3">Emulator</dt>
+                <dd class="col-sm-9">None</dd>
+            }
+        </dl>
+    }
+    else
+    {
+        <p>System configuration not found.</p>
+    }
+</div>
+
+<div class="mt-3">
+    <a asp-page="./Edit" asp-route-id="@Model.SystemConfiguration?.Id" class="btn btn-primary">Edit</a>
+    <a asp-page="./Index" class="btn btn-secondary">Back to List</a>
+</div>

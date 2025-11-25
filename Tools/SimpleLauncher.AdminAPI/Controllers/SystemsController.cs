@@ -20,7 +20,7 @@ public class SystemsController : ControllerBase
     [HttpGet("{architecture}")]
     public async Task<ActionResult<IEnumerable<SystemConfigurationDto>>> GetSystemConfigurations(string architecture)
     {
-        if (!architecture.Equals("x64", StringComparison.OrdinalIgnoreCase) && !architecture.Equals("arm64", StringComparison.CurrentCultureIgnoreCase))
+        if (!architecture.Equals("x64", StringComparison.OrdinalIgnoreCase) && !architecture.Equals("arm64", StringComparison.OrdinalIgnoreCase))
         {
             return BadRequest("Invalid architecture specified. Use 'x64' or 'arm64'.");
         }
@@ -32,7 +32,7 @@ public class SystemsController : ControllerBase
             .ToListAsync();
 
         // Map to DTO to match the client's expected format
-        var dtos = configs.Select(s => new SystemConfigurationDto
+        var dtos = configs.Select(static s => new SystemConfigurationDto
         {
             SystemName = s.SystemName,
             SystemFolder = s.SystemFolder,
