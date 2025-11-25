@@ -20,20 +20,6 @@ public partial class MainWindow
         SetCheckedTheme(_settings.BaseTheme, _settings.AccentColor);
         DebugLogger.Log("Theme was set.");
 
-        // Load previous windows state
-        Width = _settings.MainWindowWidth;
-        Height = _settings.MainWindowHeight;
-        Top = _settings.MainWindowTop;
-        Left = _settings.MainWindowLeft;
-
-        if (!Enum.TryParse<WindowState>(_settings.MainWindowState, out var windowState))
-        {
-            windowState = WindowState.Normal;
-        }
-
-        WindowState = windowState;
-        DebugLogger.Log("Window state was set.");
-
         // Set the initial SelectedSystem and PlayTime
         var nosystemselected = (string)Application.Current.TryFindResource("Nosystemselected") ?? "No system selected";
         SelectedSystem = nosystemselected;

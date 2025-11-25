@@ -7,11 +7,6 @@
     <EnableGamePadNavigation>false</EnableGamePadNavigation>
     <VideoUrl>https://www.youtube.com/results?search_query=</VideoUrl>
     <InfoUrl>https://www.igdb.com/search?q=</InfoUrl>
-    <MainWindowWidth>1500</MainWindowWidth>
-    <MainWindowHeight>800</MainWindowHeight>
-    <MainWindowTop>100</MainWindowTop>
-    <MainWindowLeft>100</MainWindowLeft>
-    <MainWindowState>Normal</MainWindowState>
     <BaseTheme>Light</BaseTheme>
     <AccentColor>Blue</AccentColor>
     <Language>en</Language>
@@ -24,8 +19,8 @@
     <CustomNotificationSoundFile>click.mp3</CustomNotificationSoundFile>
     <RA_Username/>
     <RA_ApiKey/>
-    <OverlayRetroAchievementButton>true</OverlayRetroAchievementButton>
+    <OverlayRetroAchievementButton>false</OverlayRetroAchievementButton>
     <OverlayOpenVideoButton>true</OverlayOpenVideoButton>
-    <OverlayOpenInfoButton>true</OverlayOpenInfoButton>
+    <OverlayOpenInfoButton>false</OverlayOpenInfoButton>
     <SystemPlayTimes />
 </Settings>

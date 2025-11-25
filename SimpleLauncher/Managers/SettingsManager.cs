@@ -29,21 +29,14 @@ public class SettingsManager
     public bool EnableGamePadNavigation { get; set; }
     public string VideoUrl { get; set; }
     public string InfoUrl { get; set; }
-    public int MainWindowWidth { get; set; }
-    public int MainWindowHeight { get; set; }
-    public int MainWindowTop { get; set; }
-    public int MainWindowLeft { get; set; }
-    public string MainWindowState { get; set; }
     public string BaseTheme { get; set; }
     public string AccentColor { get; set; }
     public string Language { get; set; }
     public float DeadZoneX { get; set; }
     public float DeadZoneY { get; set; }
     public string ButtonAspectRatio { get; set; }
-
     public bool EnableFuzzyMatching { get; set; }
     public double FuzzyMatchingThreshold { get; set; }
-
     public const float DefaultDeadZoneX = 0.05f;
     public const float DefaultDeadZoneY = 0.02f;
     public bool EnableNotificationSound { get; set; }
@@ -108,11 +101,6 @@ public class SettingsManager
             EnableGamePadNavigation = ParseBoolSetting(settings, "EnableGamePadNavigation");
             VideoUrl = settings.Element("VideoUrl")?.Value ?? "https://www.youtube.com/results?search_query=";
             InfoUrl = settings.Element("InfoUrl")?.Value ?? "https://www.igdb.com/search?q=";
-            MainWindowWidth = (int)ValidateDimension(settings.Element("MainWindowWidth")?.Value, 900);
-            MainWindowHeight = (int)ValidateDimension(settings.Element("MainWindowHeight")?.Value, 500);
-            MainWindowTop = (int)ValidateDimension(settings.Element("MainWindowTop")?.Value, 0);
-            MainWindowLeft = (int)ValidateDimension(settings.Element("MainWindowLeft")?.Value, 0);
-            MainWindowState = settings.Element("MainWindowState")?.Value ?? "Normal";
             BaseTheme = settings.Element("BaseTheme")?.Value ?? "Light";
             AccentColor = settings.Element("AccentColor")?.Value ?? "Blue";
             Language = settings.Element("Language")?.Value ?? "en";
@@ -280,11 +268,6 @@ public class SettingsManager
         return !string.IsNullOrEmpty(value) && _validButtonAspectRatio.Contains(value) ? value : "Square";
     }
 
-    private static double ValidateDimension(string value, double defaultValue)
-    {
-        return double.TryParse(value, NumberStyles.Any, CultureInfo.InvariantCulture, out var parsed) ? parsed : defaultValue;
-    }
-
     private static bool ParseBoolSetting(XElement settings, string settingName, bool defaultValue = false)
     {
         return settingName != null && (bool.TryParse(settings.Element(settingName)?.Value, out var value) ? value : defaultValue);
@@ -299,11 +282,6 @@ public class SettingsManager
         EnableGamePadNavigation = true;
         VideoUrl = "https://www.youtube.com/results?search_query=";
         InfoUrl = "https://www.igdb.com/search?q=";
-        MainWindowWidth = 900;
-        MainWindowHeight = 500;
-        MainWindowTop = 0;
-        MainWindowLeft = 0;
-        MainWindowState = "Normal";
         BaseTheme = "Light";
         AccentColor = "Blue";
         Language = "en";
@@ -345,11 +323,6 @@ public class SettingsManager
             new XElement("EnableGamePadNavigation", EnableGamePadNavigation),
             new XElement("VideoUrl", VideoUrl),
             new XElement("InfoUrl", InfoUrl),
-            new XElement("MainWindowWidth", MainWindowWidth),
-            new XElement("MainWindowHeight", MainWindowHeight),
-            new XElement("MainWindowTop", MainWindowTop),
-            new XElement("MainWindowLeft", MainWindowLeft),
-            new XElement("MainWindowState", MainWindowState),
             new XElement("BaseTheme", BaseTheme),
             new XElement("AccentColor", AccentColor),
             new XElement("Language", Language),

@@ -549,13 +549,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
     private void SaveApplicationSettings()
     {
-        // Save application's window state
-        _settings.MainWindowWidth = (int)Width;
-        _settings.MainWindowHeight = (int)Height;
-        _settings.MainWindowTop = (int)Top;
-        _settings.MainWindowLeft = (int)Left;
-        _settings.MainWindowState = WindowState.ToString();
-
         // Save application's current state
         _settings.ThumbnailSize = _gameButtonFactory.ImageHeight;
         _settings.GamesPerPage = _filesPerPage;
