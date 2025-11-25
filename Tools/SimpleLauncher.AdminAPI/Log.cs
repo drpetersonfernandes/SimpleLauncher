@@ -1,9 +1,10 @@
 namespace SimpleLauncher.AdminAPI;
 
-public static class Log
+public static partial class Log
 {
-    public static void DatabaseSeedingError(ILogger logger, Exception ex)
-    {
-        logger.LogError(ex, "An error occurred while seeding the database");
-    }
+    [LoggerMessage(
+        EventId = 1,
+        Level = LogLevel.Error,
+        Message = "An error occurred while seeding the database")]
+    public static partial void DatabaseSeedingError(ILogger logger, Exception ex);
 }
