@@ -8,6 +8,26 @@
 
 <h1>@ViewData["Title"]</h1>
 
+<!-- Navigation Buttons -->
+<div class="d-flex justify-content-between align-items-center mb-3">
+    <div>
+        @if (Model.PreviousId.HasValue)
+        {
+            <a asp-page="./Delete" asp-route-id="@Model.PreviousId" class="btn btn-outline-primary btn-sm">
+                <i class="bi bi-chevron-left"></i> @Model.PreviousName
+            </a>
+        }
+    </div>
+    <div>
+        @if (Model.NextId.HasValue)
+        {
+            <a asp-page="./Delete" asp-route-id="@Model.NextId" class="btn btn-outline-primary btn-sm">
+                @Model.NextName <i class="bi bi-chevron-right"></i>
+            </a>
+        }
+    </div>
+</div>
+
 <h3>Are you sure you want to delete this?</h3>
 <div>
 @if (Model.SystemConfiguration is { } systemConfiguration)

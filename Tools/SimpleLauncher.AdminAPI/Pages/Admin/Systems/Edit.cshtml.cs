@@ -10,6 +10,12 @@ public class EditModel : PageModel
 {
     private readonly ApplicationDbContext _context;
 
+    // Navigation properties
+    public int? PreviousId { get; set; }
+    public int? NextId { get; set; }
+    public string? PreviousName { get; set; }
+    public string? NextName { get; set; }
+
     public EditModel(ApplicationDbContext context)
     {
         _context = context;
@@ -53,6 +59,9 @@ public class EditModel : PageModel
                                 // If no emulator exists, initialize a new one for the form with a default "None" name
                                 // This won't be saved unless the user fills in details.
                                 new EmulatorConfiguration { EmulatorName = "None" };
+
+        // Load navigation
+        await LoadNavigationAsync(id.Value);
 
         return Page();
     }
@@ -157,6 +166,29 @@ public class EditModel : PageModel
         }
 
         return RedirectToPage("./Index");
+    }
+
+    private async Task LoadNavigationAsync(int currentId)
+    {
+        var systems = await _context.SystemConfigurations
+            .OrderBy(s => s.SystemName)
+            .ThenBy(s => s.Id)
+            .Select(s => new { s.Id, s.SystemName })
+            .ToListAsync();
+
+        var currentIndex = systems.FindIndex(s => s.Id == currentId);
+
+        if (currentIndex > 0)
+        {
+            PreviousId = systems[currentIndex - 1].Id;
+            PreviousName = systems[currentIndex - 1].SystemName;
+        }
+
+        if (currentIndex >= 0 && currentIndex < systems.Count - 1)
+        {
+            NextId = systems[currentIndex + 1].Id;
+            NextName = systems[currentIndex + 1].SystemName;
+        }
     }
 
     private bool SystemConfigurationExists(int id)

@@ -31,6 +31,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseStaticFiles(); // Add this line to serve static files
+
 app.UseHttpsRedirection();
 
 app.UseAuthentication(); // Enable authentication middleware

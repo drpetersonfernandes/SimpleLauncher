@@ -12,8 +12,8 @@ a {
 }
 
 .form-control:focus {
-    border-color: #0077cc;
-    box-shadow: 0 0 0 0.2rem #0077cc;
+  border-color: #0077cc;
+  box-shadow: 0 0 0 0.2rem rgba(0, 119, 204, 0.25);
 }
 
 .btn-primary {
@@ -80,4 +80,18 @@ body {
   overflow: scroll;
   white-space: nowrap;
   line-height: 60px;
+}
+
+[data-bs-theme="dark"] {
+  a {
+    color: #66b3ff;
+  }
+
+  a:hover {
+    color: #8cc9ff;
+  }
+
+  .form-control:focus {
+    box-shadow: 0 0 0 0.2rem rgba(102, 179, 255, 0.25);
+  }
 }
