@@ -41,12 +41,41 @@ public partial class DownloadImagePackWindow : IDisposable
         ImagePacksToDisplay = new ObservableCollection<ImagePackDownloadItem>();
         ImagePacksItemsControl.ItemsSource = ImagePacksToDisplay; // Bind ItemsControl to the collection
 
-        // Load Config
-        _manager = EasyModeManager.Load();
-        PopulateSystemDropdown();
-
         // Set up event handlers
         Closed += CloseWindowRoutine;
+        Loaded += DownloadImagePackWindow_Loaded;
+    }
+
+    private async void DownloadImagePackWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await InitializeManagerAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[DownloadImagePackWindow_Loaded] Error initializing EasyModeManager.");
+        }
+    }
+
+    private async Task InitializeManagerAsync()
+    {
+        LoadingOverlay.Visibility = Visibility.Visible;
+        var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
+        LoadingMessage.Text = loadingConfiguration;
+
+        _manager = await EasyModeManager.LoadAsync();
+
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        if (_manager is not { Systems.Count: > 0 })
+        {
+            MessageBoxLibrary.ImagePackDownloaderUnavailableMessageBox();
+            SystemNameDropdown.IsEnabled = false;
+            return;
+        }
+
+        PopulateSystemDropdown();
     }
 
     /// Populates the system dropdown menu with a list of system names for which

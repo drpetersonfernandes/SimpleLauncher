@@ -3330,22 +3330,18 @@ internal static class MessageBoxLibrary
         });
     }
 
-    internal static void FirstRunWelcomeMessageBox()
+    internal static MessageBoxResult FirstRunWelcomeMessageBox()
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
+        return Application.Current.Dispatcher.Invoke(static () =>
         {
             var welcomeToSimpleLauncher = (string)Application.Current.TryFindResource("WelcomeToSimpleLauncher") ?? "Welcome to 'Simple Launcher'!";
             var noSystemsFound = (string)Application.Current.TryFindResource("NoSystemsFound") ?? "No systems were found in your configuration.";
-            var easyModeGuide = (string)Application.Current.TryFindResource("EasyModeGuide") ?? "Let's get started by adding your first system using the Easy Mode. Select a system from the dropdown and click 'Add System'.";
-            var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-
-            MessageBox.Show($"{welcomeToSimpleLauncher}\n\n" +
-                            $"{noSystemsFound}\n\n" +
-                            $"{easyModeGuide}", info, MessageBoxButton.OK, MessageBoxImage.Information);
-        }
+            var easyModeGuide = (string)Application.Current.TryFindResource("DoyouwanttoaddyourfirstsystemusingtheEasyMode") ?? "Do you want to add your first system using the Easy Mode?";
+            var welcome = (string)Application.Current.TryFindResource("Welcome") ?? "Welcome";
+            return MessageBox.Show($"{welcomeToSimpleLauncher}\n\n" +
+                                   $"{noSystemsFound}\n\n" +
+                                   $"{easyModeGuide}", welcome, MessageBoxButton.YesNo, MessageBoxImage.Question);
+        });
     }
 
     public static void Emulator1LocationRequiredMessageBox()
@@ -3369,6 +3365,16 @@ internal static class MessageBoxLibrary
     }
 
     public static void Emulator5LocationRequiredMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void ImagePackDownloaderUnavailableMessageBox()
+    {
+        throw new NotImplementedException();
+    }
+
+    public static void EasyModeUnavailableMessageBox()
     {
         throw new NotImplementedException();
     }

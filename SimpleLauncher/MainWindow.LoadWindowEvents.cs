@@ -104,21 +104,5 @@ public partial class MainWindow
             StatusBarText.Content = ""; // Clear the status bar
             StatusBarTimer.Stop(); // Stop the timer after clearing
         };
-
-        // --- First-run experience: Check if system.xml is empty ---
-        if (_systemManagers == null || _systemManagers.Count == 0)
-        {
-            // Show welcome message
-            MessageBoxLibrary.FirstRunWelcomeMessageBox();
-
-            // Open EasyModeWindow
-            var easyModeWindow = new EasyModeWindow();
-            easyModeWindow.Owner = this; // Set owner to main window
-            easyModeWindow.ShowDialog(); // Show as dialog to block main window
-
-            // After EasyModeWindow closes, reload systems and refresh UI
-            LoadOrReloadSystemManager();
-            _ = DisplaySystemSelectionScreenAsync();
-        }
     }
 }

@@ -6,7 +6,7 @@
                       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" mc:Ignorable="d"
                       Title="Simple Launcher"
                       MinWidth="1050"
-                      MinHeight="600"
+                      MinHeight="700"
                       Closing="MainWindow_Closing"
                       MouseWheel="MainWindow_MouseWheel"
                       xmlns:converters="clr-namespace:SimpleLauncher.Converters">

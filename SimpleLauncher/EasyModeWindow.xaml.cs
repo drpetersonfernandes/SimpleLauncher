@@ -206,11 +206,49 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
 
         _downloadManager.DownloadProgressChanged += DownloadManager_ProgressChanged;
 
-        // Load Config
-        _manager = EasyModeManager.Load();
-        PopulateSystemDropdown();
-
         Closed += CloseWindowRoutine;
+        Loaded += EasyModeWindow_Loaded;
+    }
+
+    private async void EasyModeWindow_Loaded(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            await InitializeManagerAsync();
+        }
+        catch (Exception ex)
+        {
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "[EasyModeWindow_Loaded] Error initializing EasyModeManager.");
+        }
+    }
+
+    private async Task InitializeManagerAsync()
+    {
+        LoadingOverlay.Visibility = Visibility.Visible;
+        var loadingConfiguration = (string)Application.Current.TryFindResource("Loadingconfiguration") ?? "Loading configuration...";
+        LoadingMessage.Text = loadingConfiguration;
+
+        _manager = await EasyModeManager.LoadAsync();
+
+        LoadingOverlay.Visibility = Visibility.Collapsed;
+
+        if (_manager is not { Systems.Count: > 0 })
+        {
+            MessageBoxLibrary.EasyModeUnavailableMessageBox();
+            SystemNameDropdown.IsEnabled = false;
+            SystemFolderTextBox.IsEnabled = false;
+            DownloadEmulatorButton.IsEnabled = false;
+            DownloadCoreButton.IsEnabled = false;
+            DownloadImagePackButton1.IsEnabled = false;
+            DownloadImagePackButton2.IsEnabled = false;
+            DownloadImagePackButton3.IsEnabled = false;
+            DownloadImagePackButton4.IsEnabled = false;
+            DownloadImagePackButton5.IsEnabled = false;
+            AddSystemButton.IsEnabled = false;
+            return;
+        }
+
+        PopulateSystemDropdown();
     }
 
     /// Populates the system dropdown with a sorted list of system names based on the configuration data.

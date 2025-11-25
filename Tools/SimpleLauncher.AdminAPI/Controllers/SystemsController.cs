@@ -27,8 +27,7 @@ public class SystemsController : ControllerBase
 
         var configs = await _context.SystemConfigurations
             .Include(static s => s.Emulator)
-            // FIX: Changed string.Equals with StringComparison to ToLower() for database translation
-            .Where(s => s.Architecture.Equals(architecture, StringComparison.OrdinalIgnoreCase))
+            .Where(s => s.Architecture.ToLower() == architecture.ToLower())
             .OrderBy(static s => s.SystemName)
             .ToListAsync();
 

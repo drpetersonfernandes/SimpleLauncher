@@ -219,6 +219,32 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
             }
         };
+
+        Loaded += (_, _) =>
+        {
+            try
+            {
+                // --- First-run experience: Check if system.xml is empty ---
+                if (_systemManagers == null || _systemManagers.Count == 0)
+                {
+                    var result = MessageBoxLibrary.FirstRunWelcomeMessageBox();
+                    if (result == MessageBoxResult.Yes)
+                    {
+                        var easyModeWindow = new EasyModeWindow();
+                        easyModeWindow.Owner = this;
+                        easyModeWindow.Show();
+
+                        LoadOrReloadSystemManager();
+                        _ = DisplaySystemSelectionScreenAsync();
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                _ = _logErrors.LogErrorAsync(ex, "Error in the Loaded event.");
+                DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
+            }
+        };
     }
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()

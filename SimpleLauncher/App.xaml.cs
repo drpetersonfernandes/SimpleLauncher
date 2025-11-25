@@ -42,6 +42,11 @@ public partial class App : IDisposable
         serviceCollection.AddHttpClient("UpdateCheckerClient");
         serviceCollection.AddHttpClient("SupportWindowClient");
         serviceCollection.AddHttpClient("RetroAchievementsClient");
+        serviceCollection.AddHttpClient("EasyModeClient", static client =>
+        {
+            // Set the base address for the EasyMode configuration API
+            client.BaseAddress = new Uri("https://www.purelogiccode.com/simplelauncheradmin/");
+        });
 
         // Register IConfiguration
         serviceCollection.AddSingleton<IConfiguration>(Configuration);
