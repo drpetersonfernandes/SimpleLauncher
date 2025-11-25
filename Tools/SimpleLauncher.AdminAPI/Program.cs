@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using SimpleLauncher.AdminAPI;
 using SimpleLauncher.AdminAPI.Data;
+using SimpleLauncher.AdminAPI.Middleware;
+using SimpleLauncher.AdminAPI.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,6 +24,12 @@ builder.Services.AddRazorPages(); // Add Razor Pages for the admin UI
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Add HttpClientFactory for making HTTP requests
+builder.Services.AddHttpClient();
+
+// Register the custom bug report service
+builder.Services.AddScoped<IBugReportService, BugReportService>();
+
 var app = builder.Build();
 
 // 2. Configure the HTTP request pipeline.
@@ -30,6 +38,9 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+// Add the global exception handler middleware early in the pipeline
+app.UseMiddleware<GlobalExceptionHandler>();
 
 app.UseStaticFiles(); // Add this line to serve static files
 
@@ -47,6 +58,8 @@ using (var scope = app.Services.CreateScope())
     var services = scope.ServiceProvider;
     try
     {
+        var context = services.GetRequiredService<ApplicationDbContext>();
+        await context.Database.MigrateAsync();
         await DbInitializer.Initialize(services);
     }
     catch (Exception ex)
@@ -57,3 +70,4 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+

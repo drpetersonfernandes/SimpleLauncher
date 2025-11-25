@@ -32,4 +32,36 @@ public static partial class Log
         Level = LogLevel.Error,
         Message = "Error importing XML")]
     public static partial void ErrorImportingXml(ILogger logger, Exception ex);
+
+    // New LoggerMessage delegates for BugReportService
+    [LoggerMessage(
+        EventId = 6,
+        Level = LogLevel.Warning,
+        Message = "Bug Report Service URL or API Key is not configured. Skipping bug report.")]
+    public static partial void BugReportServiceNotConfigured(ILogger logger);
+
+    [LoggerMessage(
+        EventId = 7,
+        Level = LogLevel.Information,
+        Message = "Successfully sent bug report. Response: {Response}")]
+    public static partial void BugReportSentSuccess(ILogger logger, string response);
+
+    [LoggerMessage(
+        EventId = 8,
+        Level = LogLevel.Error,
+        Message = "Failed to send bug report. Status Code: {StatusCode}. Response: {ErrorBody}")]
+    public static partial void BugReportSentFailure(ILogger logger, System.Net.HttpStatusCode statusCode, string errorBody);
+
+    [LoggerMessage(
+        EventId = 9,
+        Level = LogLevel.Error,
+        Message = "An exception occurred while trying to send a bug report.")]
+    public static partial void BugReportSendException(ILogger logger, Exception ex);
+
+    // New LoggerMessage delegate for GlobalExceptionHandler
+    [LoggerMessage(
+        EventId = 10,
+        Level = LogLevel.Error,
+        Message = "An unhandled exception has occurred.")]
+    public static partial void UnhandledException(ILogger logger, Exception ex);
 }
