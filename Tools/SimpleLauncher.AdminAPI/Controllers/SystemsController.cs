@@ -26,9 +26,10 @@ public class SystemsController : ControllerBase
         }
 
         var configs = await _context.SystemConfigurations
-            .Include(s => s.Emulator)
-            .Where(s => s.Architecture.Equals(architecture, StringComparison.CurrentCultureIgnoreCase))
-            .OrderBy(s => s.SystemName)
+            .Include(static s => s.Emulator)
+            // FIX: Changed string.Equals with StringComparison to ToLower() for database translation
+            .Where(s => s.Architecture.Equals(architecture, StringComparison.OrdinalIgnoreCase))
+            .OrderBy(static s => s.SystemName)
             .ToListAsync();
 
         // Map to DTO to match the client's expected format
