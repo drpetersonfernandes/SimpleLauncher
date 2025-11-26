@@ -334,11 +334,34 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         IsImagePack4Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink4);
         IsImagePack5Available = !string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink5);
 
-        // Reset download status for all components when a new system is selected.
-        // If a component has no download link, consider it "downloaded" for the purpose of enabling the "Add System" button
-        // and for disabling its own download button via binding.
-        IsEmulatorDownloaded = false; // Always assume emulator needs to be downloaded for a new selection
-        IsCoreDownloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.CoreDownloadLink);
+        // Check if Emulator file already exists on disk. If so, mark it as "downloaded".
+        var emulatorLocation = selectedSystem.Emulators?.Emulator?.EmulatorLocation;
+        if (!string.IsNullOrEmpty(emulatorLocation))
+        {
+            var resolvedEmulatorPath = PathHelper.ResolveRelativeToAppDirectory(emulatorLocation);
+            IsEmulatorDownloaded = File.Exists(resolvedEmulatorPath);
+        }
+        else
+        {
+            // If no location is defined, it can't exist, so it needs to be downloaded.
+            IsEmulatorDownloaded = false;
+        }
+
+        // Check if Core file already exists or is not needed.
+        var coreLocation = selectedSystem.Emulators?.Emulator?.CoreLocation;
+        var coreDownloadLink = selectedSystem.Emulators?.Emulator?.CoreDownloadLink;
+        if (!string.IsNullOrEmpty(coreLocation))
+        {
+            var resolvedCorePath = PathHelper.ResolveRelativeToAppDirectory(coreLocation);
+            IsCoreDownloaded = File.Exists(resolvedCorePath);
+        }
+        else
+        {
+            // If no location is defined, it's considered "ready" only if no download is offered.
+            IsCoreDownloaded = string.IsNullOrEmpty(coreDownloadLink);
+        }
+
+        // Reset download status for image packs.
         IsImagePack1Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink);
         IsImagePack2Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink2);
         IsImagePack3Downloaded = string.IsNullOrEmpty(selectedSystem.Emulators?.Emulator?.ImagePackDownloadLink3);

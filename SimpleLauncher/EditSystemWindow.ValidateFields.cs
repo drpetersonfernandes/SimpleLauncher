@@ -130,8 +130,13 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator2Location(string emulator2LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator2Location(string emulator2NameText, string emulator2LocationText, List<string> formatsToSearch)
     {
+        if (string.IsNullOrEmpty(emulator2NameText))
+        {
+            return false;
+        }
+
         // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
@@ -149,8 +154,13 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator3Location(string emulator3LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator3Location(string emulator3NameText, string emulator3LocationText, List<string> formatsToSearch)
     {
+        if (string.IsNullOrEmpty(emulator3NameText))
+        {
+            return false;
+        }
+
         // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
@@ -168,8 +178,13 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator4Location(string emulator4LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator4Location(string emulator4NameText, string emulator4LocationText, List<string> formatsToSearch)
     {
+        if (string.IsNullOrEmpty(emulator4NameText))
+        {
+            return false;
+        }
+
         // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
@@ -187,8 +202,13 @@ public partial class EditSystemWindow
         return false; // Validation passed
     }
 
-    private static bool ValidateEmulator5Location(string emulator5LocationText, List<string> formatsToSearch)
+    private static bool ValidateEmulator5Location(string emulator5NameText, string emulator5LocationText, List<string> formatsToSearch)
     {
+        if (string.IsNullOrEmpty(emulator5NameText))
+        {
+            return false;
+        }
+
         // If formatsToSearch contains bat, exe, or lnk, the emulator path is not required.
         var requiresEmulatorPath = !formatsToSearch.Any(static f =>
             f.Equals("bat", StringComparison.OrdinalIgnoreCase) ||
