@@ -9,116 +9,135 @@
                       MinHeight="500"
                       WindowStartupLocation="CenterScreen">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Disabled">
-            <Grid Margin="10">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                    <RowDefinition Height="Auto" />
-                </Grid.RowDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" /> <!-- Header -->
+            <RowDefinition Height="*" />    <!-- Main Content -->
+            <RowDefinition Height="Auto" /> <!-- Footer -->
+        </Grid.RowDefinitions>
 
-                <GroupBox Grid.Row="0" Header="{DynamicResource PleaseselectanImagePack}" Margin="10" Padding="0">
+        <!-- 1. Header Section -->
+        <StackPanel Grid.Row="0" Margin="20,20,20,10">
+            <TextBlock Text="{DynamicResource DownloadImagePack}" FontSize="24" FontWeight="Light" Margin="0,0,0,10" />
+            <TextBlock Text="Download high-quality artwork for your systems." TextWrapping="Wrap" Opacity="0.7" />
+        </StackPanel>
+
+        <!-- 2. Main Content -->
+        <Grid Grid.Row="1" Margin="20,10,20,10">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*" />
+                <ColumnDefinition Width="20" /> <!-- Spacer -->
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- Left Column: Selection & Info -->
+            <StackPanel Grid.Column="0">
+                <controls:MetroHeader Header="{DynamicResource PleaseselectanImagePack}" Margin="0,0,0,20">
                     <ComboBox x:Name="SystemNameDropdown"
                               HorizontalAlignment="Stretch"
-                              Margin="10"
-                              SelectionChanged="SystemNameDropdown_SelectionChanged" />
-                </GroupBox>
+                              Margin="0,5,0,0"
+                              SelectionChanged="SystemNameDropdown_SelectionChanged"
+                              controls:TextBoxHelper.Watermark="Select a system..." />
+                </controls:MetroHeader>
 
-                <GroupBox Grid.Row="2" Header="{DynamicResource InstallImagePack}" Margin="10" Padding="0">
-                    <ItemsControl x:Name="ImagePacksItemsControl" Margin="10">
-                        <ItemsControl.ItemsPanel>
-                            <ItemsPanelTemplate>
-                                <WrapPanel Orientation="Horizontal" HorizontalAlignment="Center" />
-                            </ItemsPanelTemplate>
-                        </ItemsControl.ItemsPanel>
-                        <ItemsControl.ItemTemplate>
-                            <DataTemplate>
-                                <Button Content="{Binding DisplayName}"
-                                        HorizontalAlignment="Center"
-                                        VerticalAlignment="Center"
-                                        Padding="5"
-                                        Click="DownloadImagePackButton_Click"
-                                        IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
-                                        Margin="5" d:DataContext="{d:DesignInstance }" />
-                            </DataTemplate>
-                        </ItemsControl.ItemTemplate>
-                    </ItemsControl>
-                </GroupBox>
+                <!-- Resources Links -->
+                <StackPanel Margin="0,20,0,0">
+                    <TextBlock Text="Resources:" FontWeight="SemiBold" Margin="0,0,0,10" />
+                    <TextBlock Text="{DynamicResource IncasetheImagePackisnotavailable}"
+                               TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,10" />
 
-                <!-- Adjusted Grid.Row for ProgressBar and subsequent elements -->
-                <GroupBox Grid.Row="7" Header="{DynamicResource ProgressBar}" Margin="10" Padding="0">
-                    <StackPanel>
-                        <Grid Margin="10" HorizontalAlignment="Stretch">
-                            <ProgressBar x:Name="DownloadProgressBar"
-                                         HorizontalAlignment="Stretch"
-                                         Height="29" />
-                            <TextBlock
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Text="{DynamicResource DownloadProgress}" />
-                        </Grid>
+                    <TextBlock Margin="0,0,0,5">
+                        <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate">
+                            Libretro Thumbnails (GitHub)
+                        </Hyperlink>
+                    </TextBlock>
+                    <TextBlock>
+                        <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">
+                            EmuMovies Files
+                        </Hyperlink>
+                    </TextBlock>
+                </StackPanel>
+            </StackPanel>
 
+            <!-- Right Column: Download Actions -->
+            <ScrollViewer Grid.Column="2" VerticalScrollBarVisibility="Auto">
+                <StackPanel>
+                    <controls:MetroHeader Header="{DynamicResource InstallImagePack}" Margin="0,0,0,10" />
+
+                    <Border BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" BorderThickness="1" CornerRadius="3" Padding="10">
+                        <ItemsControl x:Name="ImagePacksItemsControl">
+                            <ItemsControl.ItemsPanel>
+                                <ItemsPanelTemplate>
+                                    <WrapPanel Orientation="Horizontal" HorizontalAlignment="Left" />
+                                </ItemsPanelTemplate>
+                            </ItemsControl.ItemsPanel>
+                            <ItemsControl.ItemTemplate>
+                                <DataTemplate>
+                                    <Button Content="{Binding DisplayName}"
+                                            Width="140" Height="40"
+                                            Margin="5"
+                                            Click="DownloadImagePackButton_Click"
+                                            IsEnabled="{Binding IsDownloaded, Converter={StaticResource InverseBooleanConverter}}"
+                                            Style="{DynamicResource MahApps.Styles.Button.Square.Accent}"
+                                            d:DataContext="{d:DesignInstance }" />
+                                </DataTemplate>
+                            </ItemsControl.ItemTemplate>
+                        </ItemsControl>
+                    </Border>
+
+                    <TextBlock Text="Select an image pack to begin downloading and extracting to your system folder."
+                               TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="5,10,5,0" FontStyle="Italic" />
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+
+        <!-- 3. Footer: Progress -->
+        <Border Grid.Row="2" BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" BorderThickness="0,1,0,0" Background="{DynamicResource MahApps.Brushes.Gray10}" Padding="20">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="*" />
+                    <ColumnDefinition Width="Auto" />
+                </Grid.ColumnDefinitions>
+
+                <!-- Progress Info -->
+                <Grid Grid.Column="0" Margin="0,0,20,0">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <Grid>
+                        <ProgressBar x:Name="DownloadProgressBar" Height="20" />
+                        <TextBlock Text="{DynamicResource DownloadProgress}"
+                                   HorizontalAlignment="Center" VerticalAlignment="Center"
+                                   Foreground="{DynamicResource MahApps.Brushes.Text}"
+                                   FontSize="10" />
+                    </Grid>
+
+                    <DockPanel Grid.Row="1" Margin="0,5,0,0">
                         <TextBlock x:Name="StatusTextBlock"
-                                   Margin="10"
-                                   TextWrapping="Wrap" />
+                                   TextWrapping="Wrap"
+                                   VerticalAlignment="Center"
+                                   FontWeight="SemiBold" />
+                    </DockPanel>
+                </Grid>
 
-                        <Button x:Name="StopDownloadButton"
-                                Content="{DynamicResource StopDownload}"
-                                HorizontalAlignment="Center"
-                                VerticalAlignment="Center"
-                                Padding="5"
-                                Margin="10"
-                                Click="StopDownloadButton_Click"
-                                IsEnabled="False" />
-                    </StackPanel>
-                </GroupBox>
-
-                <TextBlock Grid.Row="8"
-                           Margin="10,10,10,0"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           TextWrapping="Wrap"
-                           Text="{DynamicResource IncasetheImagePackisnotavailable}" />
-
-                <TextBlock Grid.Row="9"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Margin="10,10,10,0">
-                    <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails"
-                               RequestNavigate="Hyperlink_RequestNavigate">
-                        https://github.com/libretro-thumbnails/libretro-thumbnails
-                    </Hyperlink>
-                </TextBlock>
-
-                <TextBlock Grid.Row="10"
-                           VerticalAlignment="Center"
-                           HorizontalAlignment="Left"
-                           Margin="10,10,10,20">
-                    <Hyperlink NavigateUri="https://emumovies.com/files/" RequestNavigate="Hyperlink_RequestNavigate">https://emumovies.com/files/</Hyperlink>
-                </TextBlock>
-
+                <!-- Stop Button -->
+                <Button Grid.Column="1" x:Name="StopDownloadButton"
+                        Content="{DynamicResource StopDownload}"
+                        Click="StopDownloadButton_Click"
+                        IsEnabled="False"
+                        Style="{DynamicResource MahApps.Styles.Button.Square}"
+                        Padding="20,10" />
             </Grid>
-        </ScrollViewer>
+        </Border>
 
-        <!-- Loading Overlay for extraction -->
-        <Grid x:Name="LoadingOverlay" Background="#7F000000" Visibility="Collapsed">
+        <!-- Loading Overlay (Unchanged) -->
+        <Grid x:Name="LoadingOverlay" Grid.Row="0" Grid.RowSpan="3" Background="#7F000000" Visibility="Collapsed">
             <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                 <controls:ProgressRing IsActive="True" Width="60" Height="60" />
-                <TextBlock x:Name="LoadingMessage" Text="Extracting..." Foreground="White" Margin="0,10,0,0" FontSize="16"/>
+                <TextBlock x:Name="LoadingMessage" Text="Extracting..." Foreground="White" Margin="0,10,0,0" FontSize="16" />
             </StackPanel>
         </Grid>
     </Grid>
+
 </controls:MetroWindow>
