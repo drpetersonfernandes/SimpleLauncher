@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using SimpleLauncher.AdminAPI.Data;
@@ -18,6 +19,7 @@ public class SystemsController : ControllerBase
 
     // GET: api/Systems/x64 or api/Systems/arm64
     [HttpGet("{architecture}")]
+    [SuppressMessage("Performance", "CA1862:Use the \'StringComparison\' method overloads to perform case-insensitive string comparisons")]
     public async Task<ActionResult<IEnumerable<SystemConfigurationDto>>> GetSystemConfigurations(string architecture)
     {
         if (!architecture.Equals("x64", StringComparison.OrdinalIgnoreCase) && !architecture.Equals("arm64", StringComparison.OrdinalIgnoreCase))
