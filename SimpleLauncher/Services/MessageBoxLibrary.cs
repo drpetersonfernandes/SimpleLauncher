@@ -3346,36 +3346,92 @@ internal static class MessageBoxLibrary
 
     public static void Emulator1LocationRequiredMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("Emulator1pathisrequired") ?? "Emulator 1 path is required.";
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public static void Emulator2LocationRequiredMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("Emulator2pathisrequired") ?? "Emulator 2 path is required.";
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public static void Emulator3LocationRequiredMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("Emulator3pathisrequired") ?? "Emulator 3 path is required.";
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public static void Emulator4LocationRequiredMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("Emulator4pathisrequired") ?? "Emulator 4 path is required.";
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public static void Emulator5LocationRequiredMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("Emulator5pathisrequired") ?? "Emulator 5 path is required.";
+            var title = (string)Application.Current.TryFindResource("Warning") ?? "Warning";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Warning);
+        }
     }
 
     public static void ImagePackDownloaderUnavailableMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI") ?? "'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.";
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 
     public static void EasyModeUnavailableMessageBox()
     {
-        throw new NotImplementedException();
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI") ?? "'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.";
+            var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
     }
 }
