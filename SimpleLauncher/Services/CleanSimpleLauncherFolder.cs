@@ -41,6 +41,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "7z_x86.dll"),
         Path.Combine(AppDirectory, "whatsnew.txt"),
         Path.Combine(AppDirectory, "Updater.exe"),
+        Path.Combine(AppDirectory, "easymode.xml"),
+        Path.Combine(AppDirectory, "easymode_arm64.xml"),
 
         Path.Combine(AppDirectory, "ControlzEx.dll"),
         Path.Combine(AppDirectory, "Hardcodet.NotifyIcon.Wpf.dll"),
