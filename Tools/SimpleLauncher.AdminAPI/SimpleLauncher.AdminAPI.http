@@ -1,6 +1,0 @@
-@SimpleLauncher.AdminAPI_HostAddress = http://localhost:5070
-
-GET {{SimpleLauncher.AdminAPI_HostAddress}}
-Accept: application/json
-
-###
