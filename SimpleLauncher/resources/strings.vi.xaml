@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">Tệp đã tải xuống bị thiếu.</system:String>
     <system:String x:Key="DownloadEmulator">Tải xuống trình giả lập</system:String>
     <system:String x:Key="Downloaderror">Lỗi tải xuống.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Tải xuống artwork chất lượng cao cho các hệ thống của bạn.</system:String>
     <system:String x:Key="DownloadImagePack">Tải gói hình ảnh</system:String>
     <system:String x:Key="DownloadImagePack1">Tải xuống Gói Hình ảnh 1</system:String>
     <system:String x:Key="DownloadImagePack2">Tải xuống GóiHình ảnh 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">quá trình tải xuống.</system:String>
     <system:String x:Key="DownloadProgress">Tiến trình tải xuống</system:String>
     <system:String x:Key="Doyouwantsupport">Bạn có muốn hỗ trợ không?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Bạn có muốn thêm hệ thống đầu tiên bằng Easy Mode không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Bạn có muốn cài đặt lại 'Simple Launcher' tự động để khắc phục sự cố không?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Bạn có muốn tự động cài đặt lại 'Simple Launcher' để khắc phục sự cố không?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Bạn có muốn cài đặt lại 'Simple Launcher' để sửa chữa vấn đề không?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Bạn có muốn tìm kiếm lịch sử ROM trực tuyến không?</system:String>
     <system:String x:Key="EasyMode">Chế độ dễ</system:String>
-    <system:String x:Key="EasyModeGuide">Hãy bắt đầu bằng cách thêm hệ thống đầu tiên của bạn bằng Chế độ Dễ. Chọn một hệ thống từ danh sách thả xuống và nhấp vào 'Thêm hệ thống'.</system:String>
     <system:String x:Key="EditLinks">Chỉnh sửa liên kết</system:String>
     <system:String x:Key="EditSystem">Chỉnh sửa hệ thống</system:String>
     <system:String x:Key="EditSystemtofixit">Chỉnh sửa hệ thống để khắc phục.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Tên của trình giả lập 1 (bắt buộc)</system:String>
     <system:String x:Key="Emulator1Parameters">Tham số cho trình giả lập 1</system:String>
     <system:String x:Key="Emulator1Path">Đường dẫn Máy giả lập 1</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Đường dẫn Trình giả lập 1 là bắt buộc.</system:String>
     <system:String x:Key="Emulator2">Trình giả lập 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Tên của trình giả lập 2 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator2Parameters">Tham số cho trình giả lập 2</system:String>
     <system:String x:Key="Emulator2Path">Đường dẫn Máy giả lập 2</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Đường dẫn Trình giả lập 2 là bắt buộc.</system:String>
     <system:String x:Key="Emulator3">Trình giả lập 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Tên của trình giả lập 3 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator3Parameters">Tham số cho trình giả lập 3</system:String>
     <system:String x:Key="Emulator3Path">Đường dẫn Máy giả lập 3</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Đường dẫn Trình giả lập 3 là bắt buộc.</system:String>
     <system:String x:Key="Emulator4">Trình giả lập 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Tên của trình giả lập 4 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator4Parameters">Tham số cho trình giả lập 4</system:String>
     <system:String x:Key="Emulator4Path">Đường dẫn Máy giả lập 4</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Đường dẫn Trình giả lập 4 là bắt buộc.</system:String>
     <system:String x:Key="Emulator5">Trình giả lập 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Tên của trình giả lập 5 (có thể bắt buộc)</system:String>
     <system:String x:Key="Emulator5Parameters">Tham số cho trình giả lập 5</system:String>
     <system:String x:Key="Emulator5Path">Đường dẫn Máy giả lập 5</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Đường dẫn Trình giả lập 5 là bắt buộc.</system:String>
     <system:String x:Key="EmulatorLocation">Vị trí Trình giả lập</system:String>
     <system:String x:Key="EmulatorName">Tên Trình giả lập</system:String>
     <system:String x:Key="Emulatornameisrequired">Tên trình giả lập là bắt buộc.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Dạng danh sách</system:String>
     <system:String x:Key="Loading">Đang tải...</system:String>
     <system:String x:Key="LoadingAchievements">Đang tải thành tích...</system:String>
+    <system:String x:Key="Loadingconfiguration">Đang tải cấu hình...</system:String>
     <system:String x:Key="LoadingExtendedGameInfo">Đang tải thông tin trò chơi mở rộng...</system:String>
     <system:String x:Key="LoadingFavoriteGamesForSystem">Đang tải trò chơi yêu thích cho hệ thống...</system:String>
     <system:String x:Key="LoadingFavorites">Đang tải mục yêu thích...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Trang trước</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">Đang xử lý dữ liệu lịch sử chơi...</system:String>
     <system:String x:Key="Processingpleasewait">Đang xử lý, vui lòng đợi...</system:String>
-    <system:String x:Key="ProgressBar">Thanh tiến trình</system:String>
     <system:String x:Key="Purple">Tím</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Đặt hình ảnh bìa cho hệ thống này vào</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Đặt các tập tin ROM hoặc ISO cho hệ thống này vào</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Chỉ hiển thị trò chơi có bìa</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Chỉ hiển thị trò chơi không có bìa</system:String>
     <system:String x:Key="Sienna">Nâu đất</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' không thể truy cập Web API để tải xuống các URL đã cập nhật. Vui lòng thử lại sau.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' không thể kiểm tra dung lượng đĩa cho đường dẫn đã chỉ định. Vui lòng kiểm tra đường dẫn và thử lại.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' không thể tìm thấy ứng dụng cập nhật trên GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' không thể khởi chạy trò chơi được chọn.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">đã bị hủy.</system:String>
     <system:String x:Key="wasremovedfromfavorites">đã bị xóa khỏi mục yêu thích.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Chúng tôi cũng hỗ trợ các hệ thống yêu cầu những tệp này; tuy nhiên, bạn cần chuyển sang "Chế độ Chuyên gia" và cài đặt chúng thủ công.</system:String>
+    <system:String x:Key="Welcome">Chào mừng</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Chào mừng đến với 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Khi "Giải nén tệp trước khi khởi động" được bật, "Phần mở rộng để tìm trong thư mục hệ thống" phải bao gồm "zip", "7z" hoặc "rar".</system:String>
     <system:String x:Key="Wider">Rộng hơn</system:String>

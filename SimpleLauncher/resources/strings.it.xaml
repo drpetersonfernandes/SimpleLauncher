@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">Il file scaricato è mancante.</system:String>
     <system:String x:Key="DownloadEmulator">Scarica emulatore</system:String>
     <system:String x:Key="Downloaderror">Errore di download.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Scarica artwork di alta qualità per i tuoi sistemi.</system:String>
     <system:String x:Key="DownloadImagePack">Scarica pacchetto immagini</system:String>
     <system:String x:Key="DownloadImagePack1">Scarica Pacchetto Immagini 1</system:String>
     <system:String x:Key="DownloadImagePack2">Scarica Pacchetto Immagini 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">processo di download.</system:String>
     <system:String x:Key="DownloadProgress">Avanzamento del download</system:String>
     <system:String x:Key="Doyouwantsupport">Vuoi supporto?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Vuoi aggiungere il tuo primo sistema usando la Modalità Facile?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Vuoi reinstallare automaticamente 'Simple Launcher' per risolvere il problema?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Vuoi reinstallare 'Simple Launcher' per risolvere il problema?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Vuoi cercare online la cronologia ROM?</system:String>
     <system:String x:Key="EasyMode">Modalità facile</system:String>
-<system:String x:Key="EasyModeGuide">Iniziamo aggiungendo il tuo primo sistema usando la Modalità Facile. Seleziona un sistema dal menu a discesa e clicca su 'Aggiungi Sistema'.</system:String>
     <system:String x:Key="EditLinks">Modifica collegamenti</system:String>
     <system:String x:Key="EditSystem">Modifica sistema</system:String>
     <system:String x:Key="EditSystemtofixit">Modifica il sistema per risolverlo.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Nome emulatore 1 (obbligatorio)</system:String>
     <system:String x:Key="Emulator1Parameters">Parametri emulatore 1</system:String>
     <system:String x:Key="Emulator1Path">Percorso Emulatore 1</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Il percorso dell'Emulatore 1 è richiesto.</system:String>
     <system:String x:Key="Emulator2">Emulatore 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nome emulatore 2 (potrebbe essere obbligatorio)</system:String>
     <system:String x:Key="Emulator2Parameters">Parametri emulatore 2</system:String>
     <system:String x:Key="Emulator2Path">Percorso Emulatore 2</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Il percorso dell'Emulatore 2 è richiesto.</system:String>
     <system:String x:Key="Emulator3">Emulatore 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nome emulatore 3 (potrebbe essere obbligatorio)</system:String>
     <system:String x:Key="Emulator3Parameters">Parametri emulatore 3</system:String>
     <system:String x:Key="Emulator3Path">Percorso Emulatore 3</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Il percorso dell'Emulatore 3 è richiesto.</system:String>
     <system:String x:Key="Emulator4">Emulatore 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nome emulatore 4 (potrebbe essere obbligatorio)</system:String>
     <system:String x:Key="Emulator4Parameters">Parametri emulatore 4</system:String>
     <system:String x:Key="Emulator4Path">Percorso Emulatore 4</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Il percorso dell'Emulatore 4 è richiesto.</system:String>
     <system:String x:Key="Emulator5">Emulatore 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nome emulatore 5 (potrebbe essere obbligatorio)</system:String>
     <system:String x:Key="Emulator5Parameters">Parametri emulatore 5</system:String>
     <system:String x:Key="Emulator5Path">Percorso Emulatore 5</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Il percorso dell'Emulatore 5 è richiesto.</system:String>
     <system:String x:Key="EmulatorLocation">Posizione dell'Emulatore</system:String>
     <system:String x:Key="EmulatorName">Nome dell'Emulatore</system:String>
     <system:String x:Key="Emulatornameisrequired">Il nome dell'emulatore è obbligatorio.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Vista a elenco</system:String>
 <system:String x:Key="Loading">Caricamento...</system:String>
 <system:String x:Key="LoadingAchievements">Caricamento obiettivi...</system:String>
+    <system:String x:Key="Loadingconfiguration">Caricamento configurazione...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">Caricamento informazioni di gioco estese...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">Caricamento giochi preferiti per il sistema...</system:String>
     <system:String x:Key="LoadingFavorites">Caricamento preferiti...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Pagina Precedente</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Elaborazione dati cronologia di gioco...</system:String>
     <system:String x:Key="Processingpleasewait">Elaborazione in corso, attendere...</system:String>
-    <system:String x:Key="ProgressBar">Barra di avanzamento</system:String>
     <system:String x:Key="Purple">Viola</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Inserisci le immagini di copertina per questo sistema in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Inserisci ROM o ISO per questo sistema in</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Mostra solo giochi con copertina</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Mostra solo giochi senza copertina</system:String>
     <system:String x:Key="Sienna">Terra di Siena</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' non ha potuto accedere alla Web API per scaricare gli URL aggiornati. Per favore riprova più tardi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' non è riuscito a controllare lo spazio su disco per il percorso specificato. Controllare il percorso e riprovare.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' non è riuscito a trovare l'applicazione di aggiornamento su GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' non è riuscito ad avviare il gioco selezionato.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">è stato annullato.</system:String>
     <system:String x:Key="wasremovedfromfavorites">è stato rimosso dai preferiti.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Supportiamo anche sistemi che richiedono questi file; tuttavia, dovrai passare alla “Modalità Esperto” e installarli manualmente.</system:String>
+    <system:String x:Key="Welcome">Benvenuto</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">Benvenuto in 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Quando 'Estrai il file prima di lanciare' è attivato, l''Estensione da cercare nella cartella di sistema' deve includere 'zip', '7z' o 'rar'.</system:String>
     <system:String x:Key="Wider">Più largo</system:String>

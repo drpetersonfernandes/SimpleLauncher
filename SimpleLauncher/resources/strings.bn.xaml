@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">ডাউনলোড করা ফাইলটি অনুপস্থিত।</system:String>
     <system:String x:Key="DownloadEmulator">এমুলেটর ডাউনলোড করুন</system:String>
     <system:String x:Key="Downloaderror">ডাউনলোড করার সময় ত্রুটি।</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">আপনার সিস্টেমের জন্য উচ্চ-মানের আর্টওয়ার্ক ডাউনলোড করুন।</system:String>
     <system:String x:Key="DownloadImagePack">ছবির প্যাক ডাউনলোড</system:String>
     <system:String x:Key="DownloadImagePack1">ইমেজ প্যাক 1 ডাউনলোড করুন</system:String>
     <system:String x:Key="DownloadImagePack2">ইমেজ প্যাক 2 ডাউনলোড করুন</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">ডাউনলোড প্রসেস.</system:String>
     <system:String x:Key="DownloadProgress">ডাউনলোডের অগ্রগতি</system:String>
     <system:String x:Key="Doyouwantsupport">আপনি কি সহায়তা চান?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">আপনি কি Easy Mode ব্যবহার করে আপনার প্রথম সিস্টেম যোগ করতে চান?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher' সমস্যা সমাধানের জন্য স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">আপনি এটি ঠিক করার জন্য 'Simple Launcher' স্বয়ংক্রিয়ভাবে পুনরায় ইনস্টল করতে চান কি?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">সমস্যা ঠিক করতে আপনি কি 'Simple Launcher' পুনরায় ইনস্টল করতে চান?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">অনলাইন অনুসন্ধান করতে চান?</system:String>
     <system:String x:Key="EasyMode">সহজ মোড</system:String>
-<system:String x:Key="EasyModeGuide">সহজ মোড ব্যবহার করে আপনার প্রথম সিস্টেম যোগ করা যাক। ড্রপডাউন থেকে একটি সিস্টেম নির্বাচন করুন এবং 'সিস্টেম যোগ করুন'-এ ক্লিক করুন।</system:String>
     <system:String x:Key="EditLinks">লিঙ্ক সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystem">সিস্টেম সম্পাদনা করুন</system:String>
     <system:String x:Key="EditSystemtofixit">এটি ঠিক করার জন্য সিস্টেম সম্পাদনা করুন।</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">এমুলেটর ১ নাম (প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator1Parameters">এমুলেটর ১ প্যারামিটার</system:String>
     <system:String x:Key="Emulator1Path">ইমুলেটর ১ পথ</system:String>
+    <system:String x:Key="Emulator1pathisrequired">এমুলেটর ১ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator2">এমুলেটর ২</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">এমুলেটর ২ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator2Parameters">এমুলেটর ২ প্যারামিটার</system:String>
     <system:String x:Key="Emulator2Path">ইমুলেটর ২ পথ</system:String>
+    <system:String x:Key="Emulator2pathisrequired">এমুলেটর ২ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator3">এমুলেটর ৩</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">এমুলেটর ৩ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator3Parameters">এমুলেটর ৩ প্যারামিটার</system:String>
     <system:String x:Key="Emulator3Path">ইমুলেটর ৩ পথ</system:String>
+    <system:String x:Key="Emulator3pathisrequired">এমুলেটর ৩ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator4">এমুলেটর ৪</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">এমুলেটর ৪ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator4Parameters">এমুলেটর ৪ প্যারামিটার</system:String>
     <system:String x:Key="Emulator4Path">ইমুলেটর ৪ পথ</system:String>
+    <system:String x:Key="Emulator4pathisrequired">এমুলেটর ৪ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="Emulator5">এমুলেটর ৫</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">এমুলেটর ৫ নাম (সম্ভবত প্রয়োজনীয়)</system:String>
     <system:String x:Key="Emulator5Parameters">এমুলেটর ৫ প্যারামিটার</system:String>
     <system:String x:Key="Emulator5Path">ইমুলেটর ৫ পথ</system:String>
+    <system:String x:Key="Emulator5pathisrequired">এমুলেটর ৫ এর পাথ প্রয়োজন।</system:String>
     <system:String x:Key="EmulatorLocation">এমুলেটর অবস্থান</system:String>
     <system:String x:Key="EmulatorName">এমুলেটর নাম</system:String>
     <system:String x:Key="Emulatornameisrequired">এমুলেটারের নাম প্রয়োজন।</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">তালিকা ভিউ</system:String>
 <system:String x:Key="Loading">লোড হচ্ছে...</system:String>
 <system:String x:Key="LoadingAchievements">অ্যাচিভমেন্ট লোড করা হচ্ছে...</system:String>
+    <system:String x:Key="Loadingconfiguration">কনফিগারেশন লোড হচ্ছে...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">বিস্তারিত গেম তথ্য লোড করা হচ্ছে...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">সিস্টেমের জন্য প্রিয় গেম লোড করা হচ্ছে...</system:String>
     <system:String x:Key="LoadingFavorites">প্রিয় লোড হচ্ছে...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">পূর্ববর্তী পাতা</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">প্লে হিস্টরি ডেটা প্রসেস করা হচ্ছে...</system:String>
     <system:String x:Key="Processingpleasewait">প্রসেসিং, অনুগ্রহ করে অপেক্ষা করুন...</system:String>
-    <system:String x:Key="ProgressBar">প্রগ্রেস বার</system:String>
     <system:String x:Key="Purple">বেগুনি</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">এই সিস্টেমের জন্য কভার ইমেজ রাখুন</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">এই সিস্টেমের জন্য ROMs বা ISOs রাখুন</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">শুধুমাত্র প্রচ্ছদ সহ গেম দেখান</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">শুধুমাত্র প্রচ্ছদ ছাড়া গেম দেখান</system:String>
     <system:String x:Key="Sienna">গাঢ় তামাটে</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' Web API অ্যাক্সেস করতে পারেনি আপডেটেড URL ডাউনলোড করতে। অনুগ্রহ করে পরে আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' নির্দিষ্ট পাথের জন্য ডিস্ক স্পেস পরীক্ষা করতে পারেনি। অনুগ্রহ করে পাথটি পরীক্ষা করুন এবং আবার চেষ্টা করুন।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' গিটহাবে আপডেটার অ্যাপ্লিকেশনটি খুঁজে পায়নি।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' নির্বাচিত গেমটি চালু করতে পারেনি।</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">বাতিল করা হয়েছে।</system:String>
     <system:String x:Key="wasremovedfromfavorites">পছন্দের তালিকা থেকে সরানো হয়েছে।</system:String>
     <system:String x:Key="WeAlsoSupportSystems">আমরা সেগুলোও সমর্থন করি যারা এসব ফাইলের প্রয়োজন; তবে, আপনাকে "এক্সপার্ট মোড"-এ যেতে হবে এবং নিজে ইনস্টল করতে হবে।</system:String>
+    <system:String x:Key="Welcome">স্বাগতম</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">‘সিম্পল লঞ্চার’-এ স্বাগতম!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">যখন ‘ফাইল লঞ্চ করার আগে এক্সট্র্যাকশন’ সত্য হয়, তখন ‘সিস্টেম ফোল্ডারে অনুসন্ধানের এক্সটেনশন’ এ ‘zip’, ‘7z’, বা ‘rar’ থাকতে হবে।</system:String>
     <system:String x:Key="Wider">প্রশস্ত</system:String>

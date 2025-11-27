@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">डाउनलोड की गई फ़ाइल गुम है।</system:String>
     <system:String x:Key="DownloadEmulator">एमुलेटर डाउनलोड करें</system:String>
     <system:String x:Key="Downloaderror">डाउनलोड में त्रुटि।</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">अपने सिस्टम्स के लिए उच्च-गुणवत्ता वाले आर्टवर्क डाउनलोड करें।</system:String>
     <system:String x:Key="DownloadImagePack">इमेज पैक डाउनलोड करें</system:String>
     <system:String x:Key="DownloadImagePack1">इमेज पैक 1 डाउनलोड करें</system:String>
     <system:String x:Key="DownloadImagePack2">इमेज पैक 2 डाउनलोड करें</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">डाउनलोड प्रक्रिया।</system:String>
     <system:String x:Key="DownloadProgress">डाउनलोड प्रगति</system:String>
     <system:String x:Key="Doyouwantsupport">क्या आप सहायता चाहते हैं?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">क्या आप Easy Mode का उपयोग करके अपना पहला सिस्टम जोड़ना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः इंस्टॉल करना चाहेंगे समस्या को ठीक करने हेतु?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">क्या आप 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">क्या आप इसे ठीक करने के लिए 'Simple Launcher' को स्वचालित रूप से पुनः स्थापित करना चाहते हैं?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">क्या आप समस्या को ठीक करने के लिए 'Simple Launcher' को पुनः इंस्टॉल करना चाहते हैं?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">क्या आप रोम इतिहास को ऑनलाइन खोजने का प्रयास करना चाहेंगे?</system:String>
     <system:String x:Key="EasyMode">आसान मोड</system:String>
-<system:String x:Key="EasyModeGuide">आइए, आसान मोड का उपयोग करके अपना पहला सिस्टम जोड़ना शुरू करें। ड्रॉपडाउन से एक सिस्टम चुनें और 'सिस्टम जोड़ें' पर क्लिक करें।</system:String>
     <system:String x:Key="EditLinks">लिंक संपादित करें</system:String>
     <system:String x:Key="EditSystem">सिस्टम संपादित करें</system:String>
     <system:String x:Key="EditSystemtofixit">इसे ठीक करने के लिए सिस्टम संपादित करें।</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">एमुलेटर 1 का नाम (आवश्यक)</system:String>
     <system:String x:Key="Emulator1Parameters">एमुलेटर 1 पैरामीटर</system:String>
     <system:String x:Key="Emulator1Path">इम्यूलेटर 1 पथ</system:String>
+    <system:String x:Key="Emulator1pathisrequired">एमुलेटर 1 पथ आवश्यक है।</system:String>
     <system:String x:Key="Emulator2">एमुलेटर 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">एमुलेटर 2 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator2Parameters">एमुलेटर 2 पैरामीटर</system:String>
     <system:String x:Key="Emulator2Path">इम्यूलेटर 2 पथ</system:String>
+    <system:String x:Key="Emulator2pathisrequired">एमुलेटर 2 पथ आवश्यक है।</system:String>
     <system:String x:Key="Emulator3">एमुलेटर 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">एमुलेटर 3 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator3Parameters">एमुलेटर 3 पैरामीटर</system:String>
     <system:String x:Key="Emulator3Path">इम्यूलेटर 3 पथ</system:String>
+    <system:String x:Key="Emulator3pathisrequired">एमुलेटर 3 पथ आवश्यक है।</system:String>
     <system:String x:Key="Emulator4">एमुलेटर 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">एमुलेटर 4 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator4Parameters">एमुलेटर 4 पैरामीटर</system:String>
     <system:String x:Key="Emulator4Path">इम्यूलेटर 4 पथ</system:String>
+    <system:String x:Key="Emulator4pathisrequired">एमुलेटर 4 पथ आवश्यक है।</system:String>
     <system:String x:Key="Emulator5">एमुलेटर 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">एमुलेटर 5 का नाम (आवश्यक हो सकता है)</system:String>
     <system:String x:Key="Emulator5Parameters">एमुलेटर 5 पैरामीटर</system:String>
     <system:String x:Key="Emulator5Path">इम्यूलेटर 5 पथ</system:String>
+    <system:String x:Key="Emulator5pathisrequired">एमुलेटर 5 पथ आवश्यक है।</system:String>
     <system:String x:Key="EmulatorLocation">एमुलेटर का स्थान</system:String>
     <system:String x:Key="EmulatorName">एमुलेटर का नाम</system:String>
     <system:String x:Key="Emulatornameisrequired">एमुलेटर का नाम आवश्यक है।</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">सूची दृश्य</system:String>
 <system:String x:Key="Loading">लोड हो रहा है...</system:String>
 <system:String x:Key="LoadingAchievements">उपलब्धियां लोड कर रहा है...</system:String>
+    <system:String x:Key="Loadingconfiguration">कॉन्फ़िगरेशन लोड हो रहा है...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">विस्तारित गेम जानकारी लोड कर रहा है...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">सिस्टम के लिए पसंदीदा गेम लोड कर रहा है...</system:String>
     <system:String x:Key="LoadingFavorites">पसंदीदा लोड हो रहे हैं...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">पिछला पृष्ठ</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">प्ले हिस्ट्री डेटा प्रोसेस कर रहा है...</system:String>
     <system:String x:Key="Processingpleasewait">प्रोसेसिंग हो रही है, कृपया प्रतीक्षा करें...</system:String>
-    <system:String x:Key="ProgressBar">प्रगति पट्टी</system:String>
     <system:String x:Key="Purple">बैंगनी</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">इस सिस्टम के लिए कवर छवियां अंदर रखें</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">इस सिस्टम के लिए ROMs या ISOs अंदर रखें</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">केवल कवर वाले खेल दिखाएँ</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">केवल बिना कवर वाले खेल दिखाएँ</system:String>
     <system:String x:Key="Sienna">सिएना</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' Web API तक नहीं पहुँच सका अपडेटेड URLs डाउनलोड करने के लिए। कृपया बाद में पुनः प्रयास करें।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' निर्दिष्ट पथ के लिए डिस्क स्थान की जाँच नहीं कर सका। कृपया पथ की जाँच करें और पुनः प्रयास करें।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' को GitHub पर अपडेटर एप्लिकेशन नहीं मिला।</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' चयनित गेम को लॉन्च नहीं कर सका।</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">रद्द कर दिया गया था।</system:String>
     <system:String x:Key="wasremovedfromfavorites">पसंदीदा से हटा दिया गया।</system:String>
     <system:String x:Key="WeAlsoSupportSystems">हम उन सिस्टमों का भी समर्थन करते हैं जिन्हें इन फाइलों की आवश्यकता होती है; हालांकि, इसके लिए आपको "एक्सपर्ट मोड" पर स्विच करना होगा और उन्हें मैन्युअल रूप से इंस्टॉल करना होगा।</system:String>
+    <system:String x:Key="Welcome">स्वागत</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">'सिंपल लॉन्चर' में आपका स्वागत है!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">जब 'लॉन्च से पहले फ़ाइल एक्सट्रैक्ट करें' चालू है, 'सिस्टम फ़ोल्डर में खोजने का एक्सटेंशन' को 'zip', '7z', या 'rar' शामिल करना चाहिए।</system:String>
     <system:String x:Key="Wider">चौड़ा</system:String>

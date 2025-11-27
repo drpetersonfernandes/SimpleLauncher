@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">İndirilen dosya eksik.</system:String>
     <system:String x:Key="DownloadEmulator">Emülatörü indir</system:String>
     <system:String x:Key="Downloaderror">İndirme hatası.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Sistemleriniz için yüksek kaliteli görselleri indirin.</system:String>
     <system:String x:Key="DownloadImagePack">Görüntü Paketini İndir</system:String>
     <system:String x:Key="DownloadImagePack1">Resim Paketi 1'i İndir</system:String>
     <system:String x:Key="DownloadImagePack2">Resim Paketi 2'yi İndir</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">indirme işlemi.</system:String>
     <system:String x:Key="DownloadProgress">İndirme ilerlemesi</system:String>
     <system:String x:Key="Doyouwantsupport">Destek ister misiniz?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">İlk sisteminizi Easy Mode kullanarak eklemek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'ı otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher' uygulamasını otomatik olarak yeniden yükleyerek sorunu çözmek ister misiniz?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">'Simple Launcher' uygulamasını yeniden kurarak sorunu çözmek istiyor musunuz?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM geçmişini çevrimiçi aramak ister misiniz?</system:String>
     <system:String x:Key="EasyMode">Kolay Mod</system:String>
-    <system:String x:Key="EasyModeGuide">Kolay Modu kullanarak ilk sisteminizi ekleyerek başlayalım. Açılır listeden bir sistem seçin ve 'Sistem Ekle'ye tıklayın.</system:String>
     <system:String x:Key="EditLinks">Bağlantıları Düzenle</system:String>
     <system:String x:Key="EditSystem">Sistemi Düzenle</system:String>
     <system:String x:Key="EditSystemtofixit">Sorunu düzeltmek için sistemi düzenleyin.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Emülatör 1 adı (zorunlu)</system:String>
     <system:String x:Key="Emulator1Parameters">Emülatör 1 parametreleri</system:String>
     <system:String x:Key="Emulator1Path">Emülatör 1 Yolu</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Emülatör 1 yolu gereklidir.</system:String>
     <system:String x:Key="Emulator2">Emülatör 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Emülatör 2 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator2Parameters">Emülatör 2 parametreleri</system:String>
     <system:String x:Key="Emulator2Path">Emülatör 2 Yolu</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Emülatör 2 yolu gereklidir.</system:String>
     <system:String x:Key="Emulator3">Emülatör 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Emülatör 3 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator3Parameters">Emülatör 3 parametreleri</system:String>
     <system:String x:Key="Emulator3Path">Emülatör 3 Yolu</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Emülatör 3 yolu gereklidir.</system:String>
     <system:String x:Key="Emulator4">Emülatör 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Emülatör 4 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator4Parameters">Emülatör 4 parametreleri</system:String>
     <system:String x:Key="Emulator4Path">Emülatör 4 Yolu</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Emülatör 4 yolu gereklidir.</system:String>
     <system:String x:Key="Emulator5">Emülatör 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Emülatör 5 adı (gerekli olabilir)</system:String>
     <system:String x:Key="Emulator5Parameters">Emülatör 5 parametreleri</system:String>
     <system:String x:Key="Emulator5Path">Emülatör 5 Yolu</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Emülatör 5 yolu gereklidir.</system:String>
     <system:String x:Key="EmulatorLocation">Emülatör Konumu</system:String>
     <system:String x:Key="EmulatorName">Emülatör Adı</system:String>
     <system:String x:Key="Emulatornameisrequired">Emülatör adı gereklidir.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Liste Görünümü</system:String>
     <system:String x:Key="Loading">Yükleniyor...</system:String>
     <system:String x:Key="LoadingAchievements">Başarılar yükleniyor...</system:String>
+    <system:String x:Key="Loadingconfiguration">Yapılandırma yükleniyor...</system:String>
     <system:String x:Key="LoadingExtendedGameInfo">Genişletilmiş oyun bilgileri yükleniyor...</system:String>
     <system:String x:Key="LoadingFavoriteGamesForSystem">Sistem için favori oyunlar yükleniyor...</system:String>
     <system:String x:Key="LoadingFavorites">Favoriler yükleniyor...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Önceki Sayfa</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">Oynatma geçmişi verileri işleniyor...</system:String>
     <system:String x:Key="Processingpleasewait">İşleniyor, lütfen bekleyin...</system:String>
-    <system:String x:Key="ProgressBar">İlerleme Çubuğu</system:String>
     <system:String x:Key="Purple">Mor</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Bu sistem için kapak görsellerini şu klasöre yerleştirin:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Bu sistem için ROM'ları veya ISO dosyalarını şu klasöre yerleştirin:</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Yalnızca Kapaklı Oyunları Göster</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Yalnızca Kapaksız Oyunları Göster</system:String>
     <system:String x:Key="Sienna">Kiremit</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher', güncellenmiş URL'leri indirmek için Web API'ye erişemedi. Lütfen daha sonra tekrar deneyin.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher', belirtilen yol için disk alanını kontrol edemedi. Lütfen yolu kontrol edin ve tekrar deneyin.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' güncelleme uygulamasını GitHub'da bulamadı.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher', seçilen oyunu başlatamadı.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">iptal edildi.</system:String>
     <system:String x:Key="wasremovedfromfavorites">favorilerden kaldırıldı.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Bu dosyaları gerektiren sistemleri de destekliyoruz; ancak, "Uzman Modu"na geçip bunları manuel olarak kurmanız gerekir.</system:String>
+    <system:String x:Key="Welcome">Hoş Geldiniz</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Simple Launcher'a Hoş Geldiniz!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘Başlatmadan Önce Dosyayı Çıkar’ etkinse, ‘Sistem Klasöründe Aranacak Uzantı’ ‘zip’, ‘7z’ veya ‘rar’ içermelidir.</system:String>
     <system:String x:Key="Wider">Daha Geniş</system:String>

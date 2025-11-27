@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">File yang diunduh hilang.</system:String>
     <system:String x:Key="DownloadEmulator">Unduh Emulator</system:String>
     <system:String x:Key="Downloaderror">Kesalahan unduhan.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Unduh artwork berkualitas tinggi untuk sistem Anda.</system:String>
     <system:String x:Key="DownloadImagePack">Unduh Paket Gambar</system:String>
     <system:String x:Key="DownloadImagePack1">Unduh Paket Gambar 1</system:String>
     <system:String x:Key="DownloadImagePack2">Unduh Paket Gambar 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">proses unduhan.</system:String>
     <system:String x:Key="DownloadProgress">Progres Unduhan</system:String>
     <system:String x:Key="Doyouwantsupport">Apakah Anda ingin dukungan?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Apakah Anda ingin menambahkan sistem pertama Anda menggunakan Easy Mode?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Adakah anda ingin memasang semula 'Simple Launcher' secara automatik bagi menyelesaikan masalah ini?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' secara otomatis untuk memperbaiki ini?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Apakah Anda ingin menginstal ulang 'Simple Launcher' untuk memperbaiki masalah ini?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Apakah Anda ingin mencari riwayat ROM secara online?</system:String>
     <system:String x:Key="EasyMode">Mode Mudah</system:String>
-<system:String x:Key="EasyModeGuide">Mari mulai dengan menambahkan sistem pertama Anda menggunakan Easy Mode. Pilih sistem dari dropdown dan klik 'Add System'.</system:String>
     <system:String x:Key="EditLinks">Edit Tautan</system:String>
     <system:String x:Key="EditSystem">Edit Sistem</system:String>
     <system:String x:Key="EditSystemtofixit">Edit sistem untuk memperbaikinya.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Nama Emulator 1 (Wajib)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameter Emulator 1</system:String>
     <system:String x:Key="Emulator1Path">Jalur Emulator 1</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Path Emulator 1 diperlukan.</system:String>
     <system:String x:Key="Emulator2">Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Nama Emulator 2 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameter Emulator 2</system:String>
     <system:String x:Key="Emulator2Path">Jalur Emulator 2</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Path Emulator 2 diperlukan.</system:String>
     <system:String x:Key="Emulator3">Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Nama Emulator 3 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameter Emulator 3</system:String>
     <system:String x:Key="Emulator3Path">Jalur Emulator 3</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Path Emulator 3 diperlukan.</system:String>
     <system:String x:Key="Emulator4">Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Nama Emulator 4 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameter Emulator 4</system:String>
     <system:String x:Key="Emulator4Path">Jalur Emulator 4</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Path Emulator 4 diperlukan.</system:String>
     <system:String x:Key="Emulator5">Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Nama Emulator 5 (Mungkin Diperlukan)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameter Emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Jalur Emulator 5</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Path Emulator 5 diperlukan.</system:String>
     <system:String x:Key="EmulatorLocation">Lokasi Emulator</system:String>
     <system:String x:Key="EmulatorName">Nama Emulator</system:String>
     <system:String x:Key="Emulatornameisrequired">Nama emulator diperlukan.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Tampilan Daftar</system:String>
 <system:String x:Key="Loading">Memuat...</system:String>
 <system:String x:Key="LoadingAchievements">Memuat pencapaian...</system:String>
+    <system:String x:Key="Loadingconfiguration">Memuat konfigurasi...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">Memuat info game diperpanjang...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">Memuat game favorit untuk sistem...</system:String>
     <system:String x:Key="LoadingFavorites">Memuat favorit...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Halaman Sebelumnya</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Memproses data riwayat putar...</system:String>
     <system:String x:Key="Processingpleasewait">Memproses, harap tunggu...</system:String>
-    <system:String x:Key="ProgressBar">Bilah Progres</system:String>
     <system:String x:Key="Purple">Ungu</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Masukkan gambar sampul untuk sistem ini di dalam</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Masukkan ROM atau ISO untuk sistem ini di dalam</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Tampilkan Hanya Permainan dengan Sampul</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Tampilkan Hanya Permainan Tanpa Sampul</system:String>
     <system:String x:Key="Sienna">Coklat Tua</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' tidak dapat mengakses Web API untuk mengunduh URL yang diperbarui. Silakan coba lagi nanti.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' tidak dapat memeriksa ruang disk untuk jalur yang ditentukan. Harap periksa jalur dan coba lagi.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' tidak dapat menemukan aplikasi pembaru di GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' tidak dapat meluncurkan game yang dipilih.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">dibatalkan.</system:String>
     <system:String x:Key="wasremovedfromfavorites">telah dihapus dari favorit.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Kami juga mendukung sistem yang memerlukan file tersebut; namun, Anda perlu beralih ke "Mode Ahli" dan menginstalnya secara manual.</system:String>
+    <system:String x:Key="Welcome">Selamat Datang</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">Selamat datang di 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Jika "Ekstrak Berkas Sebelum Diluncurkan" disetel ke true, "Ekstensi untuk Dicari di Folder Sistem" harus mencakup 'zip', '7z', atau 'rar'.</system:String>
     <system:String x:Key="Wider">Lebih Lebar</system:String>

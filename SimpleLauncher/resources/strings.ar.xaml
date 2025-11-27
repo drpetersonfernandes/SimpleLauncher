@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">الملف الذي تم تنزيله مفقود.</system:String>
     <system:String x:Key="DownloadEmulator">تنزيل المحاكي</system:String>
     <system:String x:Key="Downloaderror">خطأ في التنزيل.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">تنزيل رسومات عالية الجودة لأنظمتك.</system:String>
     <system:String x:Key="DownloadImagePack">تحميل حزمة الصور</system:String>
     <system:String x:Key="DownloadImagePack1">تنزيل حزمة الصور 1</system:String>
     <system:String x:Key="DownloadImagePack2">تنزيل حزمة الصور 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">عملية التحميل.</system:String>
     <system:String x:Key="DownloadProgress">تقدم التنزيل</system:String>
     <system:String x:Key="Doyouwantsupport">هل تريد الدعم؟</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">هل تريد إضافة أول نظام لك باستخدام الوضع السهل؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لحل المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">هل ترغب في إعادة تثبيت 'Simple Launcher' تلقائيًا لإصلاح المشكلة.</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">هل تريد إعادة تثبيت 'Simple Launcher' لإصلاح المشكلة؟</system:String>
     <system:String x:Key="Doyouwanttosearchonline">هل تريد البحث عبر الإنترنت عن تاريخ روم؟</system:String>
     <system:String x:Key="EasyMode">الوضع السهل</system:String>
-<system:String x:Key="EasyModeGuide">لنبدأ بإضافة نظامك الأول باستخدام الوضع السهل. حدد نظاماً من القائمة المنسدلة وانقر على 'إضافة نظام'.</system:String>
     <system:String x:Key="EditLinks">تعديل الروابط</system:String>
     <system:String x:Key="EditSystem">تعديل النظام</system:String>
     <system:String x:Key="EditSystemtofixit">قم بتعديل النظام لإصلاحه.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">اسم المحاكي 1 (مطلوب)</system:String>
     <system:String x:Key="Emulator1Parameters">معلمات المحاكي 1</system:String>
     <system:String x:Key="Emulator1Path">مسار المحاكي 1</system:String>
+    <system:String x:Key="Emulator1pathisrequired">مسار المحاكي 1 مطلوب.</system:String>
     <system:String x:Key="Emulator2">المحاكي 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">اسم المحاكي 2 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator2Parameters">معلمات المحاكي 2</system:String>
     <system:String x:Key="Emulator2Path">مسار المحاكي 2</system:String>
+    <system:String x:Key="Emulator2pathisrequired">مسار المحاكي 2 مطلوب.</system:String>
     <system:String x:Key="Emulator3">المحاكي 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">اسم المحاكي 3 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator3Parameters">معلمات المحاكي 3</system:String>
     <system:String x:Key="Emulator3Path">مسار المحاكي 3</system:String>
+    <system:String x:Key="Emulator3pathisrequired">مسار المحاكي 3 مطلوب.</system:String>
     <system:String x:Key="Emulator4">المحاكي 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">اسم المحاكي 4 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator4Parameters">معلمات المحاكي 4</system:String>
     <system:String x:Key="Emulator4Path">مسار المحاكي 4</system:String>
+    <system:String x:Key="Emulator4pathisrequired">مسار المحاكي 4 مطلوب.</system:String>
     <system:String x:Key="Emulator5">المحاكي 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">اسم المحاكي 5 (قد يكون مطلوبًا)</system:String>
     <system:String x:Key="Emulator5Parameters">معلمات المحاكي 5</system:String>
     <system:String x:Key="Emulator5Path">مسار المحاكي 5</system:String>
+    <system:String x:Key="Emulator5pathisrequired">مسار المحاكي 5 مطلوب.</system:String>
     <system:String x:Key="EmulatorLocation">مسار المحاكي</system:String>
     <system:String x:Key="EmulatorName">اسم المحاكي</system:String>
     <system:String x:Key="Emulatornameisrequired">اسم المحاكي مطلوب.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">عرض قائمة</system:String>
 <system:String x:Key="Loading">تحميل...</system:String>
 <system:String x:Key="LoadingAchievements">تحميل الإنجازات...</system:String>
+    <system:String x:Key="Loadingconfiguration">جاري تحميل التكوين...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">تحميل معلومات اللعبة الموسعة...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">تحميل الألعاب المفضلة للنظام...</system:String>
     <system:String x:Key="LoadingFavorites">جارٍ تحميل المفضلة...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">الصفحة السابقة</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">معالجة بيانات سجل اللعب...</system:String>
     <system:String x:Key="Processingpleasewait">جاري المعالجة، يرجى الانتظار...</system:String>
-    <system:String x:Key="ProgressBar">شريط التقدم</system:String>
     <system:String x:Key="Purple">أرجواني</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">ضع صور الأغلفة لهذا النظام داخل</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">ضع ملفات ROMs أو ISOs لهذا النظام داخل</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">عرض الألعاب التي تحتوي على غلاف فقط</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">عرض الألعاب بدون غلاف</system:String>
     <system:String x:Key="Sienna">سيينا</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">تعذر على "Simple Launcher" الوصول إلى واجهة برمجة تطبيقات الويب (Web API) لتنزيل عناوين URL المحدثة. يرجى المحاولة مرة أخرى لاحقاً.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">لم يتمكن 'Simple Launcher' من التحقق من مساحة القرص للمسار المحدد. يرجى التحقق من المسار والمحاولة مرة أخرى.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">لم يتمكن 'Simple Launcher' من العثور على تطبيق التحديث على GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' لم يتمكن من تشغيل اللعبة المحددة.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">تم الإلغاء.</system:String>
     <system:String x:Key="wasremovedfromfavorites">تمت إزالته من المفضلة.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">ندعم أيضاً الأنظمة التي تتطلب تلك الملفات؛ ومع ذلك، ستحتاج إلى التبديل إلى "الوضع المتقدم" وتثبيتها يدوياً.</system:String>
+    <system:String x:Key="Welcome">مرحباً</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">مرحباً بك في 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">عندما يتم تشغيل 'استخراج الملف قبل التشغيل' على الوضع الصحيح، يجب أن يتضمن 'الامتداد المطلوب البحث عنه في مجلد النظام' أحد الامتدادات الآتية: 'zip' أو '7z' أو 'rar'.</system:String>
     <system:String x:Key="Wider">أوسع</system:String>

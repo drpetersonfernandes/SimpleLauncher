@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">Gedownload bestand ontbreekt.</system:String>
     <system:String x:Key="DownloadEmulator">Download emulator</system:String>
     <system:String x:Key="Downloaderror">Downloadfout.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Download artwork van hoge kwaliteit voor uw systemen.</system:String>
     <system:String x:Key="DownloadImagePack">Afbeeldingspakket downloaden</system:String>
     <system:String x:Key="DownloadImagePack1">Afbeeldingspakket 1 downloaden</system:String>
     <system:String x:Key="DownloadImagePack2">Afbeeldingspakket 2 downloaden</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">downloadproces.</system:String>
     <system:String x:Key="DownloadProgress">Downloadvoortgang</system:String>
     <system:String x:Key="Doyouwantsupport">Wilt u ondersteuning?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Wilt u uw eerste systeem toevoegen met behulp van de Easy Mode?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Wilt u 'Simple Launcher' automatisch opnieuw installeren om dit probleem op te lossen?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Wilt u 'Simple Launcher' opnieuw installeren om het probleem op te lossen?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Wil je online zoeken naar de ROM-geschiedenis?</system:String>
     <system:String x:Key="EasyMode">Eenvoudige modus</system:String>
-<system:String x:Key="EasyModeGuide">Laten we beginnen met het toevoegen van uw eerste systeem via de Easy Mode. Selecteer een systeem uit de dropdown en klik op 'Systeem toevoegen'.</system:String>
     <system:String x:Key="EditLinks">Links bewerken</system:String>
     <system:String x:Key="EditSystem">Systeem bewerken</system:String>
     <system:String x:Key="EditSystemtofixit">Bewerk het systeem om dit op te lossen.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Naam van emulator 1 (verplicht)</system:String>
     <system:String x:Key="Emulator1Parameters">Parameters van emulator 1</system:String>
     <system:String x:Key="Emulator1Path">Emulator 1 Pad</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Emulator 1-pad is vereist.</system:String>
     <system:String x:Key="Emulator2">Emulator 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Naam van emulator 2 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator2Parameters">Parameters van emulator 2</system:String>
     <system:String x:Key="Emulator2Path">Emulator 2 Pad</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Emulator 2-pad is vereist.</system:String>
     <system:String x:Key="Emulator3">Emulator 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Naam van emulator 3 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator3Parameters">Parameters van emulator 3</system:String>
     <system:String x:Key="Emulator3Path">Emulator 3 Pad</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Emulator 3-pad is vereist.</system:String>
     <system:String x:Key="Emulator4">Emulator 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Naam van emulator 4 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator4Parameters">Parameters van emulator 4</system:String>
     <system:String x:Key="Emulator4Path">Emulator 4 Pad</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Emulator 4-pad is vereist.</system:String>
     <system:String x:Key="Emulator5">Emulator 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Naam van emulator 5 (mogelijk vereist)</system:String>
     <system:String x:Key="Emulator5Parameters">Parameters van emulator 5</system:String>
     <system:String x:Key="Emulator5Path">Emulator 5 Pad</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Emulator 5-pad is vereist.</system:String>
     <system:String x:Key="EmulatorLocation">Locatie van de emulator</system:String>
     <system:String x:Key="EmulatorName">Naam van de emulator</system:String>
     <system:String x:Key="Emulatornameisrequired">Emulatornaam is vereist.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Lijstweergave</system:String>
 <system:String x:Key="Loading">Laden...</system:String>
 <system:String x:Key="LoadingAchievements">Prestaties laden...</system:String>
+    <system:String x:Key="Loadingconfiguration">Configuratie laden...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">Uitgebreide spelinformatie laden...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">Favoriete spellen voor systeem laden...</system:String>
     <system:String x:Key="LoadingFavorites">Favorieten laden...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Vorige pagina</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">Speelgeschiedenisgegevens verwerken...</system:String>
     <system:String x:Key="Processingpleasewait">Bezig met verwerken, even geduld...</system:String>
-    <system:String x:Key="ProgressBar">Voortgangsbalk</system:String>
     <system:String x:Key="Purple">Paars</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Plaats coverafbeeldingen voor dit systeem in</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Plaats ROMs of ISOs voor dit systeem in</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Alleen spellen met omslag weergeven</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Alleen spellen zonder omslag weergeven</system:String>
     <system:String x:Key="Sienna">Sienna</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' kon geen toegang krijgen tot de Web API om de bijgewerkte URL's te downloaden. Probeer het later opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' kon de schijfruimte voor het opgegeven pad niet controleren. Controleer het pad en probeer het opnieuw.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' kon de updater-applicatie niet vinden op GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' kon het geselecteerde spel niet starten.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">is geannuleerd.</system:String>
     <system:String x:Key="wasremovedfromfavorites">is verwijderd uit favorieten.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">We ondersteunen ook systemen die deze bestanden vereisen; hiervoor moet je echter overschakelen naar “Expertmodus” en ze handmatig installeren.</system:String>
+    <system:String x:Key="Welcome">Welkom</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">Welkom bij 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Als 'Bestand extraheren vóór starten' is ingeschakeld, moet de 'Extensie om te zoeken in de systeemmap' 'zip', '7z' of 'rar' bevatten.</system:String>
     <system:String x:Key="Wider">Breder</system:String>

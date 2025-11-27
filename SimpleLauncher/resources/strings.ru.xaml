@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">Загруженный файл отсутствует.</system:String>
     <system:String x:Key="DownloadEmulator">Скачать эмулятор</system:String>
     <system:String x:Key="Downloaderror">Ошибка загрузки.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">Загрузите высококачественные изображения для ваших систем.</system:String>
     <system:String x:Key="DownloadImagePack">Скачать пакет изображений</system:String>
     <system:String x:Key="DownloadImagePack1">Скачать пакет изображений 1</system:String>
     <system:String x:Key="DownloadImagePack2">Скачать пакет изображений 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">процесса загрузки.</system:String>
     <system:String x:Key="DownloadProgress">Прогресс загрузки</system:String>
     <system:String x:Key="Doyouwantsupport">Хотите поддержку?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Хотите добавить свою первую систему, используя Easy Mode?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">Хотите автоматически переустановить 'Simple Launcher' для решения проблемы?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">Хотите автоматически переустановить 'Simple Launcher' для устранения проблемы?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">Вы хотите переустановить 'Simple Launcher', чтобы исправить проблему?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">Хотите выполнить поиск истории ROM в интернете?</system:String>
     <system:String x:Key="EasyMode">Простой режим</system:String>
-    <system:String x:Key="EasyModeGuide">Давайте начнем с добавления вашей первой системы в простом режиме. Выберите систему из выпадающего списка и нажмите 'Добавить систему'.</system:String>
     <system:String x:Key="EditLinks">Редактировать ссылки</system:String>
     <system:String x:Key="EditSystem">Редактировать систему</system:String>
     <system:String x:Key="EditSystemtofixit">Отредактируйте систему, чтобы исправить.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">Название эмулятора 1 (обязательно)</system:String>
     <system:String x:Key="Emulator1Parameters">Параметры эмулятора 1</system:String>
     <system:String x:Key="Emulator1Path">Путь эмулятора 1</system:String>
+    <system:String x:Key="Emulator1pathisrequired">Требуется путь к Эмулятору 1.</system:String>
     <system:String x:Key="Emulator2">Эмулятор 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">Название эмулятора 2 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator2Parameters">Параметры эмулятора 2</system:String>
     <system:String x:Key="Emulator2Path">Путь эмулятора 2</system:String>
+    <system:String x:Key="Emulator2pathisrequired">Требуется путь к Эмулятору 2.</system:String>
     <system:String x:Key="Emulator3">Эмулятор 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">Название эмулятора 3 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator3Parameters">Параметры эмулятора 3</system:String>
     <system:String x:Key="Emulator3Path">Путь эмулятора 3</system:String>
+    <system:String x:Key="Emulator3pathisrequired">Требуется путь к Эмулятору 3.</system:String>
     <system:String x:Key="Emulator4">Эмулятор 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">Название эмулятора 4 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator4Parameters">Параметры эмулятора 4</system:String>
     <system:String x:Key="Emulator4Path">Путь эмулятора 4</system:String>
+    <system:String x:Key="Emulator4pathisrequired">Требуется путь к Эмулятору 4.</system:String>
     <system:String x:Key="Emulator5">Эмулятор 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">Название эмулятора 5 (возможно, требуется)</system:String>
     <system:String x:Key="Emulator5Parameters">Параметры эмулятора 5</system:String>
     <system:String x:Key="Emulator5Path">Путь эмулятора 5</system:String>
+    <system:String x:Key="Emulator5pathisrequired">Требуется путь к Эмулятору 5.</system:String>
     <system:String x:Key="EmulatorLocation">Местоположение эмулятора</system:String>
     <system:String x:Key="EmulatorName">Имя эмулятора</system:String>
     <system:String x:Key="Emulatornameisrequired">Требуется имя эмулятора.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">Списком</system:String>
     <system:String x:Key="Loading">Загрузка...</system:String>
     <system:String x:Key="LoadingAchievements">Загрузка достижений...</system:String>
+    <system:String x:Key="Loadingconfiguration">Загрузка конфигурации...</system:String>
     <system:String x:Key="LoadingExtendedGameInfo">Загрузка расширенной информации об игре...</system:String>
     <system:String x:Key="LoadingFavoriteGamesForSystem">Загрузка избранных игр для системы...</system:String>
     <system:String x:Key="LoadingFavorites">Загрузка избранного...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">Предыдущая страница</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">Обработка данных истории игр...</system:String>
     <system:String x:Key="Processingpleasewait">Обработка, пожалуйста, подождите...</system:String>
-    <system:String x:Key="ProgressBar">Индикатор выполнения</system:String>
     <system:String x:Key="Purple">Фиолетовый</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">Поместите обложки для этой системы в</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">Поместите ROM или ISO для этой системы в</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">Показать только игры с обложкой</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">Показать только игры без обложки</system:String>
     <system:String x:Key="Sienna">Охра</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' не удалось получить доступ к Web API для загрузки обновленных URL-адресов. Пожалуйста, попробуйте позже.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' не удалось проверить место на диске для указанного пути. Пожалуйста, проверьте путь и попробуйте снова.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' не удалось найти приложение обновления на GitHub.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' не удалось запустить выбранную игру.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">была отменена.</system:String>
     <system:String x:Key="wasremovedfromfavorites">удалено из избранного.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">Мы также поддерживаем системы, которым требуются эти файлы; однако вам нужно будет переключиться в "Экспертный режим" и установить их вручную.</system:String>
+    <system:String x:Key="Welcome">Добро пожаловать</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">Добро пожаловать в 'Simple Launcher'!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">Если включено «Извлечение файла перед запуском», «Расширение для поиска в системной папке» должно содержать «zip», «7z» или «rar».</system:String>
     <system:String x:Key="Wider">Шире</system:String>

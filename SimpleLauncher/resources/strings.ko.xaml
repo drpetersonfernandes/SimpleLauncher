@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">다운로드된 파일이 없습니다.</system:String>
     <system:String x:Key="DownloadEmulator">에뮬레이터 다운로드</system:String>
     <system:String x:Key="Downloaderror">다운로드 오류.</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">시스템용 고품질 아트워크를 다운로드하세요.</system:String>
     <system:String x:Key="DownloadImagePack">이미지 팩 다운로드</system:String>
     <system:String x:Key="DownloadImagePack1">이미지 팩 1 다운로드</system:String>
     <system:String x:Key="DownloadImagePack2">이미지 팩 2 다운로드</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">다운로드 프로세스.</system:String>
     <system:String x:Key="DownloadProgress">다운로드 진행</system:String>
     <system:String x:Key="Doyouwantsupport">지원을 원하십니까?</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Easy Mode를 사용하여 첫 번째 시스템을 추가하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">'Simple Launcher'를 자동으로 다시 설치하여 문제를 해결하시겠습니까?</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">문제를 해결하려면 'Simple Launcher'를 다시 설치하시겠습니까?</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM 히스토리를 온라인에서 검색하시겠습니까?</system:String>
     <system:String x:Key="EasyMode">간단 모드</system:String>
-<system:String x:Key="EasyModeGuide">쉬운 모드를 사용하여 첫 번째 시스템을 추가해 봅시다. 드롭다운에서 시스템을 선택하고 '시스템 추가'를 클릭하세요.</system:String>
     <system:String x:Key="EditLinks">링크 편집</system:String>
     <system:String x:Key="EditSystem">시스템 편집</system:String>
     <system:String x:Key="EditSystemtofixit">문제를 해결하려면 시스템을 수정하세요.</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">에뮬레이터 1 이름 (필수)</system:String>
     <system:String x:Key="Emulator1Parameters">에뮬레이터 1 매개변수</system:String>
     <system:String x:Key="Emulator1Path">에뮬레이터 1 경로</system:String>
+    <system:String x:Key="Emulator1pathisrequired">에뮬레이터 1 경로가 필요합니다.</system:String>
     <system:String x:Key="Emulator2">에뮬레이터 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">에뮬레이터 2 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator2Parameters">에뮬레이터 2 매개변수</system:String>
     <system:String x:Key="Emulator2Path">에뮬레이터 2 경로</system:String>
+    <system:String x:Key="Emulator2pathisrequired">에뮬레이터 2 경로가 필요합니다.</system:String>
     <system:String x:Key="Emulator3">에뮬레이터 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">에뮬레이터 3 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator3Parameters">에뮬레이터 3 매개변수</system:String>
     <system:String x:Key="Emulator3Path">에뮬레이터 3 경로</system:String>
+    <system:String x:Key="Emulator3pathisrequired">에뮬레이터 3 경로가 필요합니다.</system:String>
     <system:String x:Key="Emulator4">에뮬레이터 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">에뮬레이터 4 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator4Parameters">에뮬레이터 4 매개변수</system:String>
     <system:String x:Key="Emulator4Path">에뮬레이터 4 경로</system:String>
+    <system:String x:Key="Emulator4pathisrequired">에뮬레이터 4 경로가 필요합니다.</system:String>
     <system:String x:Key="Emulator5">에뮬레이터 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">에뮬레이터 5 이름 (필요할 수 있음)</system:String>
     <system:String x:Key="Emulator5Parameters">에뮬레이터 5 매개변수</system:String>
     <system:String x:Key="Emulator5Path">에뮬레이터 5 경로</system:String>
+    <system:String x:Key="Emulator5pathisrequired">에뮬레이터 5 경로가 필요합니다.</system:String>
     <system:String x:Key="EmulatorLocation">에뮬레이터 위치</system:String>
     <system:String x:Key="EmulatorName">에뮬레이터 이름</system:String>
     <system:String x:Key="Emulatornameisrequired">에뮬레이터 이름은 필수입니다.</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">리스트 보기</system:String>
 <system:String x:Key="Loading">불러오는 중...</system:String>
 <system:String x:Key="LoadingAchievements">업적 불러오는 중...</system:String>
+    <system:String x:Key="Loadingconfiguration">설정 불러오는 중...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">확장 게임 정보 불러오는 중...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">시스템용 즐겨찾는 게임 불러오는 중...</system:String>
     <system:String x:Key="LoadingFavorites">즐겨찾기 로드 중...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">이전 페이지</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">플레이 기록 데이터 처리 중...</system:String>
     <system:String x:Key="Processingpleasewait">처리 중입니다. 잠시 기다려 주세요...</system:String>
-    <system:String x:Key="ProgressBar">진행률 바</system:String>
     <system:String x:Key="Purple">보라</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">이 시스템의 커버 이미지를 다음 위치에 넣으세요:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">이 시스템의 ROM 또는 ISO를 다음 위치에 넣으세요:</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">커버 있는 게임만 보기</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">커버 없는 게임만 보기</system:String>
     <system:String x:Key="Sienna">시에나</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher'가 Web API에 액세스하여 업데이트된 URL을 다운로드할 수 없습니다. 나중에 다시 시도해 주세요.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher'가 지정된 경로의 디스크 공간을 확인할 수 없었습니다. 경로를 확인하고 다시 시도하십시오.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher'가 GitHub에서 업데이터 애플리케이션을 찾을 수 없었습니다.</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher'는 선택한 게임을 실행할 수 없었습니다.</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">취소되었습니다.</system:String>
     <system:String x:Key="wasremovedfromfavorites">즐겨찾기에서 삭제되었습니다.</system:String>
     <system:String x:Key="WeAlsoSupportSystems">이러한 파일이 필요한 시스템도 지원합니다. 그러나 "전문가 모드"로 전환하여 수동으로 설치해야 합니다.</system:String>
+    <system:String x:Key="Welcome">환영합니다</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">'Simple Launcher'에 오신 것을 환영합니다!</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">‘실행 전 파일 추출’이 활성화된 경우, ‘시스템 폴더에서 검색할 확장자’에는 ‘zip’, ‘7z’, 또는 ‘rar’이 포함되어야 합니다.</system:String>
     <system:String x:Key="Wider">넓게</system:String>

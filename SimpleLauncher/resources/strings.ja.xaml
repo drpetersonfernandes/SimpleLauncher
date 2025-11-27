@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">ダウンロードしたファイルが存在しません。</system:String>
     <system:String x:Key="DownloadEmulator">エミュレーターをダウンロード</system:String>
     <system:String x:Key="Downloaderror">ダウンロードエラー。</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">システム用の高品質アートワークをダウンロードします。</system:String>
     <system:String x:Key="DownloadImagePack">画像パックをダウンロード</system:String>
     <system:String x:Key="DownloadImagePack1">画像パック1をダウンロード</system:String>
     <system:String x:Key="DownloadImagePack2">画像パック2をダウンロード</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">ダウンロードプロセス。</system:String>
     <system:String x:Key="DownloadProgress">ダウンロード進行状況</system:String>
     <system:String x:Key="Doyouwantsupport">サポートが必要ですか？</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">Easy Modeを使用して最初のシステムを追加しますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">問題を解決するために『Simple Launcher』を自動的に再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">問題を解決するために 'Simple Launcher' を自動的に再インストールしますか？</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">問題を解決するために「Simple Launcher」を再インストールしますか？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">ROM履歴をオンラインで検索しますか？</system:String>
     <system:String x:Key="EasyMode">簡単モード</system:String>
-<system:String x:Key="EasyModeGuide">イージーモードを使って最初のシステムを追加しましょう。ドロップダウンからシステムを選択し、「システムを追加」をクリックしてください。</system:String>
     <system:String x:Key="EditLinks">リンクを編集</system:String>
     <system:String x:Key="EditSystem">システムを編集</system:String>
     <system:String x:Key="EditSystemtofixit">修正するためにシステムを編集してください。</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">エミュレーター1の名前（必須）</system:String>
     <system:String x:Key="Emulator1Parameters">エミュレーター1のパラメーター</system:String>
     <system:String x:Key="Emulator1Path">エミュレーター1のパス</system:String>
+    <system:String x:Key="Emulator1pathisrequired">エミュレータ1のパスが必要です。</system:String>
     <system:String x:Key="Emulator2">エミュレータ 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">エミュレーター2の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator2Parameters">エミュレーター2のパラメーター</system:String>
     <system:String x:Key="Emulator2Path">エミュレーター2のパス</system:String>
+        <system:String x:Key="Emulator2pathisrequired">エミュレータ2のパスが必要です。</system:String>
     <system:String x:Key="Emulator3">エミュレータ 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">エミュレーター3の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator3Parameters">エミュレーター3のパラメーター</system:String>
     <system:String x:Key="Emulator3Path">エミュレーター3のパス</system:String>
+        <system:String x:Key="Emulator3pathisrequired">エミュレータ3のパスが必要です。</system:String>
     <system:String x:Key="Emulator4">エミュレータ 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">エミュレーター4の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator4Parameters">エミュレーター4のパラメーター</system:String>
     <system:String x:Key="Emulator4Path">エミュレーター4のパス</system:String>
+        <system:String x:Key="Emulator4pathisrequired">エミュレータ4のパスが必要です。</system:String>
     <system:String x:Key="Emulator5">エミュレータ 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">エミュレーター5の名前（必要になる場合があります）</system:String>
     <system:String x:Key="Emulator5Parameters">エミュレーター5のパラメーター</system:String>
     <system:String x:Key="Emulator5Path">エミュレーター5のパス</system:String>
+        <system:String x:Key="Emulator5pathisrequired">エミュレータ5のパスが必要です。</system:String>
     <system:String x:Key="EmulatorLocation">エミュレーターの場所</system:String>
     <system:String x:Key="EmulatorName">エミュレーター名</system:String>
     <system:String x:Key="Emulatornameisrequired">エミュレーター名が必要です。</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">リストビュー</system:String>
 <system:String x:Key="Loading">読み込み中...</system:String>
 <system:String x:Key="LoadingAchievements">実績を読み込んでいます...</system:String>
+    <system:String x:Key="Loadingconfiguration">設定を読み込み中...</system:String>
 <system:String x:Key="LoadingExtendedGameInfo">拡張ゲーム情報を読み込んでいます...</system:String>
 <system:String x:Key="LoadingFavoriteGamesForSystem">システムのお気に入りゲームを読み込んでいます...</system:String>
     <system:String x:Key="LoadingFavorites">お気に入りを読み込み中...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">前のページ</system:String>
 <system:String x:Key="ProcessingPlayHistoryData">プレイ履歴データを処理中...</system:String>
     <system:String x:Key="Processingpleasewait">処理中です、しばらくお待ちください...</system:String>
-    <system:String x:Key="ProgressBar">進行バー</system:String>
     <system:String x:Key="Purple">紫</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">このシステムのカバー画像を次の場所に配置してください:</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">このシステムのROMまたはISOファイルを次の場所に配置してください:</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">カバー付きのゲームのみ表示</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">カバーなしのゲームのみ表示</system:String>
     <system:String x:Key="Sienna">シエナ</system:String>
+        <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher'はWeb APIにアクセスして更新されたURLをダウンロードできませんでした。後でもう一度お試しください。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">'Simple Launcher' は、指定されたパスのディスク容量を確認できませんでした。パスを確認して、もう一度お試しください。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">「Simple Launcher」は GitHub でアップデーターアプリケーションを見つけられませんでした。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">'Simple Launcher' は選択したゲームを起動できませんでした。</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">がキャンセルされました。</system:String>
     <system:String x:Key="wasremovedfromfavorites">お気に入りから削除されました。</system:String>
     <system:String x:Key="WeAlsoSupportSystems">これらのファイルが必要なシステムもサポートしていますが、「エキスパートモード」に切り替えて手動でインストールする必要があります。</system:String>
+    <system:String x:Key="Welcome">ようこそ</system:String>
 <system:String x:Key="WelcomeToSimpleLauncher">「シンプルランチャー」へようこそ！</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">「起動前にファイルを抽出」がオンの場合、「システムフォルダー内で検索する拡張子」には「zip」、「7z」、または「rar」を含める必要があります。</system:String>
     <system:String x:Key="Wider">横長</system:String>

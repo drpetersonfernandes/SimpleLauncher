@@ -150,6 +150,7 @@
     <system:String x:Key="Downloadedfileismissing">下載的文件丟失。</system:String>
     <system:String x:Key="DownloadEmulator">下載模擬器</system:String>
     <system:String x:Key="Downloaderror">下載錯誤。</system:String>
+    <system:String x:Key="Downloadhighqualityartwork">為您的系統下載高品質封面圖。</system:String>
     <system:String x:Key="DownloadImagePack">下載圖像包</system:String>
     <system:String x:Key="DownloadImagePack1">下載圖像套件 1</system:String>
     <system:String x:Key="DownloadImagePack2">下載圖像套件 2</system:String>
@@ -162,6 +163,7 @@
     <system:String x:Key="downloadprocess">下載過程。</system:String>
     <system:String x:Key="DownloadProgress">下載進度</system:String>
     <system:String x:Key="Doyouwantsupport">您想要支援嗎？</system:String>
+    <system:String x:Key="DoyouwanttoaddyourfirstsystemusingtheEasyMode">是否使用簡易模式添加您的第一個系統？</system:String>
     <system:String x:Key="Doyouwanttoautomaticallyreinstall">您是否希望自動重新安裝 'Simple Launcher' 以解決問題？</system:String>
     <system:String x:Key="Doyouwanttoautomaticreinstall">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
     <system:String x:Key="DoyouwanttoautomaticreinstallSimpleLauncher">是否要自動重新安裝「Simple Launcher」以解決問題？</system:String>
@@ -172,7 +174,6 @@
     <system:String x:Key="DoyouwanttoreinstallSimpleLauncher">您是否希望重新安裝 'Simple Launcher' 以修復問題？</system:String>
     <system:String x:Key="Doyouwanttosearchonline">您想在線搜尋 ROM 歷史記錄嗎？</system:String>
     <system:String x:Key="EasyMode">簡易模式</system:String>
-    <system:String x:Key="EasyModeGuide">讓我們從使用簡易模式添加您的第一個系統開始。從下拉選單中選擇一個系統，然後點擊「添加系統」。</system:String>
     <system:String x:Key="EditLinks">編輯連結</system:String>
     <system:String x:Key="EditSystem">編輯系統</system:String>
     <system:String x:Key="EditSystemtofixit">編輯系統以修復問題。</system:String>
@@ -184,22 +185,27 @@
     <system:String x:Key="Emulator1NameRequired">模擬器1名稱（必填）</system:String>
     <system:String x:Key="Emulator1Parameters">模擬器1參數</system:String>
     <system:String x:Key="Emulator1Path">模擬器1路徑</system:String>
+    <system:String x:Key="Emulator1pathisrequired">模擬器1路徑是必需的。</system:String>
     <system:String x:Key="Emulator2">模擬器 2</system:String>
     <system:String x:Key="Emulator2NameMaybeRequired">模擬器2名稱（可能需要）</system:String>
     <system:String x:Key="Emulator2Parameters">模擬器2參數</system:String>
     <system:String x:Key="Emulator2Path">模擬器2路徑</system:String>
+    <system:String x:Key="Emulator2pathisrequired">模擬器2路徑是必需的。</system:String>
     <system:String x:Key="Emulator3">模擬器 3</system:String>
     <system:String x:Key="Emulator3NameMaybeRequired">模擬器3名稱（可能需要）</system:String>
     <system:String x:Key="Emulator3Parameters">模擬器3參數</system:String>
     <system:String x:Key="Emulator3Path">模擬器3路徑</system:String>
+    <system:String x:Key="Emulator3pathisrequired">模擬器3路徑是必需的。</system:String>
     <system:String x:Key="Emulator4">模擬器 4</system:String>
     <system:String x:Key="Emulator4NameMaybeRequired">模擬器4名稱（可能需要）</system:String>
     <system:String x:Key="Emulator4Parameters">模擬器4參數</system:String>
     <system:String x:Key="Emulator4Path">模擬器4路徑</system:String>
+    <system:String x:Key="Emulator4pathisrequired">模擬器4路徑是必需的。</system:String>
     <system:String x:Key="Emulator5">模擬器 5</system:String>
     <system:String x:Key="Emulator5NameMaybeRequired">模擬器5名稱（可能需要）</system:String>
     <system:String x:Key="Emulator5Parameters">模擬器5參數</system:String>
     <system:String x:Key="Emulator5Path">模擬器5路徑</system:String>
+    <system:String x:Key="Emulator5pathisrequired">模擬器5路徑是必需的。</system:String>
     <system:String x:Key="EmulatorLocation">模擬器位置</system:String>
     <system:String x:Key="EmulatorName">模擬器名稱</system:String>
     <system:String x:Key="Emulatornameisrequired">需要模擬器名稱。</system:String>
@@ -355,6 +361,7 @@
     <system:String x:Key="ListView">列表檢視</system:String>
     <system:String x:Key="Loading">正在載入...</system:String>
     <system:String x:Key="LoadingAchievements">正在載入成就...</system:String>
+    <system:String x:Key="Loadingconfiguration">正在載入設定...</system:String>
     <system:String x:Key="LoadingExtendedGameInfo">正在載入擴展遊戲資訊...</system:String>
     <system:String x:Key="LoadingFavoriteGamesForSystem">正在載入系統的我的最愛遊戲...</system:String>
     <system:String x:Key="LoadingFavorites">正在載入收藏夾...</system:String>
@@ -495,7 +502,6 @@
     <system:String x:Key="PreviousPage">上一頁</system:String>
     <system:String x:Key="ProcessingPlayHistoryData">正在處理遊玩歷史資料...</system:String>
     <system:String x:Key="Processingpleasewait">正在處理，請稍候...</system:String>
-    <system:String x:Key="ProgressBar">進度條</system:String>
     <system:String x:Key="Purple">紫色</system:String>
     <system:String x:Key="Putcoverimagesforthissysteminside">將此系統的封面圖片放入</system:String>
     <system:String x:Key="PutROMsorISOsforthissysteminside">將此系統的ROM或ISO檔案放入</system:String>
@@ -597,6 +603,7 @@
     <system:String x:Key="ShowOnlyGamesWithCover">僅顯示有封面的遊戲</system:String>
     <system:String x:Key="ShowOnlyGamesWithoutCover">僅顯示無封面的遊戲</system:String>
     <system:String x:Key="Sienna">赭石色</system:String>
+    <system:String x:Key="SimpleLaunchercouldnotaccesstheWebAPI">'Simple Launcher' 無法存取 Web API 以下載更新的 URL。請稍後再試。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotcheckdiskspace">「Simple Launcher」無法檢查指定路徑的磁碟空間。請檢查路徑並重試。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotfindtheupdater">'Simple Launcher' 未能在 GitHub 上找到更新器應用程式。</system:String>
     <system:String x:Key="SimpleLaunchercouldnotlaunch">「Simple Launcher」無法啟動所選遊戲。</system:String>
@@ -781,6 +788,7 @@
     <system:String x:Key="wascanceled">已取消。</system:String>
     <system:String x:Key="wasremovedfromfavorites">已從收藏夾中移除。</system:String>
     <system:String x:Key="WeAlsoSupportSystems">我們也支援需要這些檔案的系統；但您需要切換到「專家模式」並手動安裝。</system:String>
+    <system:String x:Key="Welcome">歡迎</system:String>
     <system:String x:Key="WelcomeToSimpleLauncher">歡迎使用「簡易啟動器」！</system:String>
     <system:String x:Key="WhenExtractFileBeforeLaunch">當「啟動前解壓縮文件」已啟用時，「在系統文件夾中搜索的擴展名」必須包含「zip」、「7z」或「rar」。</system:String>
     <system:String x:Key="Wider">更寬</system:String>
