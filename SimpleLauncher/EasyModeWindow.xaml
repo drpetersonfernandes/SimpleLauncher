@@ -8,7 +8,7 @@
                       Title="{DynamicResource AddNewSystem}"
                       Width="900"
                       MinWidth="700"
-                      Height="630"
+                      Height="610"
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen"
                       DataContext="{Binding RelativeSource={RelativeSource Self}}">
@@ -69,7 +69,7 @@
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock Text="Resources:" FontWeight="SemiBold" Margin="0,0,0,10" />
                     <TextBlock Text="{DynamicResource IncasetheImagePackisnotavailable}"
-                               TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="0,0,0,10" />
+                               TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="0,0,0,5" />
                     <TextBlock Margin="0,0,0,5">
                         <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate">
                             Libretro Thumbnails (GitHub)

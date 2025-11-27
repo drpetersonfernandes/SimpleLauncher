@@ -43,7 +43,7 @@
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock Text="Resources:" FontWeight="SemiBold" Margin="0,0,0,10" />
                     <TextBlock Text="{DynamicResource IncasetheImagePackisnotavailable}"
-                               TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,10" />
+                               TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
 
                     <TextBlock Margin="0,0,0,5">
                         <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate">
