@@ -809,4 +809,7 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="Downloadhighqualityartwork">Download high-quality artwork for your systems.</system:String>
+    
 </ResourceDictionary>

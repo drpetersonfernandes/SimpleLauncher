@@ -23,8 +23,8 @@
         <!-- 1. Header Section -->
         <StackPanel Grid.Row="0" Margin="20,20,20,10">
             <TextBlock Text="{DynamicResource AddNewSystem}" FontSize="24" FontWeight="Light" Margin="0,0,0,10" />
-            <TextBlock Text="{DynamicResource InThisWindowYouCanDownload}" TextWrapping="Wrap" Opacity="0.7" />
-            <TextBlock Text="{DynamicResource WeAlsoSupportSystems}" TextWrapping="Wrap" Opacity="0.7" Margin="0,5,0,0" />
+            <TextBlock Text="{DynamicResource InThisWindowYouCanDownload}" TextWrapping="Wrap" FontSize="12" Opacity="0.6" />
+            <TextBlock Text="{DynamicResource WeAlsoSupportSystems}" TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,5,0,0" />
         </StackPanel>
 
         <!-- 2. Main Content (Two Columns) -->
@@ -69,7 +69,7 @@
                 <StackPanel Margin="0,20,0,0">
                     <TextBlock Text="Resources:" FontWeight="SemiBold" Margin="0,0,0,10" />
                     <TextBlock Text="{DynamicResource IncasetheImagePackisnotavailable}"
-                               TextWrapping="Wrap" FontSize="11" Opacity="0.6" Margin="0,0,0,5" />
+                               TextWrapping="Wrap" FontSize="12" Opacity="0.6" Margin="0,0,0,5" />
                     <TextBlock Margin="0,0,0,5">
                         <Hyperlink NavigateUri="https://github.com/libretro-thumbnails/libretro-thumbnails" RequestNavigate="Hyperlink_RequestNavigate">
                             Libretro Thumbnails (GitHub)
