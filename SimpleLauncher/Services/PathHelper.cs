@@ -92,10 +92,12 @@ public static class PathHelper
             var originalToken = match.Value;
             var tokenForLogic = originalToken.Trim('"', '\'');
 
-            if (ContainsGameSpecificPlaceholder(tokenForLogic) || IsKnownFlag(tokenForLogic) || (!LooksLikePath(tokenForLogic) &&
-                                                                                                 !tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
-                                                                                                 !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
-                                                                                                 !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)))
+            if (ContainsGameSpecificPlaceholder(tokenForLogic) ||
+                IsKnownFlag(tokenForLogic) ||
+                (!LooksLikePath(tokenForLogic) &&
+                 !tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                 !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                 !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)))
             {
                 return originalToken;
             }
