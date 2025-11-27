@@ -115,13 +115,13 @@
         <Style x:Key="NavImageButton3DStyle" TargetType="Button">
             <Setter Property="Template" Value="{StaticResource ImageButton3DEffectTemplate}" />
             <!-- Default values that can be overridden per button -->
-            <Setter Property="Width" Value="40" />
-            <Setter Property="Height" Value="40" />
+            <Setter Property="Width" Value="45" />
+            <Setter Property="Height" Value="45" />
             <Setter Property="HorizontalAlignment" Value="Center" />
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalContentAlignment" Value="Center" />
             <Setter Property="VerticalContentAlignment" Value="Center" />
-            <Setter Property="Margin" Value="0,5,2,5" /> <!-- Default margin -->
+            <Setter Property="Margin" Value="0,5,2,5" />
         </Style>
 
         <!-- Reusable ControlTemplate for Game Buttons with 3D Effect -->
@@ -776,7 +776,7 @@
             <!-- Left Navigation Panel -->
             <Border Grid.Column="0" Grid.Row="0" Grid.RowSpan="2"
                     VerticalAlignment="Top"
-                    Width="53"
+                    Width="57"
                     BorderThickness="1"
                     CornerRadius="5"
                     Margin="8,5,0,0"
@@ -790,63 +790,63 @@
                             Click="NavRestartButton_Click"
                             Margin="0,10,2,5"
                             AutomationProperties.Name="{DynamicResource Restart}">
-                        <Image Source="pack://application:,,,/images/refresh.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/refresh.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ToggleLightDarkMode"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleLightDarkMode}"
                             Click="NavToggleLightDarkMode_Click"
                             AutomationProperties.Name="{DynamicResource ToggleLightDarkMode}">
-                        <Image Source="pack://application:,,,/images/darkmode.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/darkmode.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="NavGlobalSearchButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource GlobalSearch}"
                             Click="NavGlobalSearchButton_Click"
                             AutomationProperties.Name="{DynamicResource GlobalSearch}">
-                        <Image Source="pack://application:,,,/images/search2.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/search2.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="NavFavoritesButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource Favorites}"
                             Click="NavFavoritesButton_Click"
                             AutomationProperties.Name="{DynamicResource Favorites}">
-                        <Image Source="pack://application:,,,/images/heart.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/heart.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="NavHistoryButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource PlayHistory}"
                             Click="NavHistoryButton_Click"
                             AutomationProperties.Name="{DynamicResource PlayHistory}">
-                        <Image Source="pack://application:,,,/images/playhistory.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/playhistory.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="NavExpertModeButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource EditSystem}"
                             Click="NavExpertModeButton_Click"
                             AutomationProperties.Name="{DynamicResource EditSystem}">
-                        <Image Source="pack://application:,,,/images/settings.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/settings.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ToggleViewMode"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleViewMode}"
                             Click="NavToggleViewMode_Click"
                             AutomationProperties.Name="{DynamicResource ToggleViewMode}">
-                        <Image Source="pack://application:,,,/images/show.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/show.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ToggleButtonAspectRatio"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ToggleButtonAspectRatio}"
                             Click="NavToggleButtonAspectRatio_Click"
                             AutomationProperties.Name="{DynamicResource ToggleButtonAspectRatio}">
-                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/aspectratio.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ZoomInButton"
                             Style="{StaticResource NavImageButton3DStyle}"
                             ToolTip="{DynamicResource ZoomIn}"
                             Click="NavZoomInButton_Click"
                             AutomationProperties.Name="{DynamicResource ZoomIn}">
-                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/zoom-in.png" Width="27" Height="27" />
                     </Button>
                     <Button x:Name="ZoomOutButton"
                             Style="{StaticResource NavImageButton3DStyle}"
@@ -854,7 +854,7 @@
                             Click="NavZoomOutButton_Click"
                             Margin="0,5,2,10"
                             AutomationProperties.Name="{DynamicResource ZoomOut}">
-                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/zoom-out.png" Width="27" Height="27" />
                     </Button>
                 </StackPanel>
             </Border>
@@ -927,8 +927,8 @@
                                 ToolTip="{DynamicResource Search}"
                                 AutomationProperties.Name="{DynamicResource Search}">
                             <Image Source="pack://application:,,,/images/search3.png"
-                                   Width="22"
-                                   Height="22" />
+                                   Width="27"
+                                   Height="27" />
                         </Button>
                     </StackPanel>
 
@@ -957,7 +957,7 @@
                         Click="NavSelectedSystemFavoriteButton_Click"
                         Margin="10,10,0,0"
                         AutomationProperties.Name="{DynamicResource SelectedSystemFavoriteButton}">
-                        <Image Source="pack://application:,,,/images/star.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/star.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         Grid.Row="1"
@@ -969,7 +969,7 @@
                         Click="NavRandomLuckGameButton_Click"
                         Margin="10,10,2,0"
                         AutomationProperties.Name="{DynamicResource FeelingLucky}">
-                        <Image Source="pack://application:,,,/images/dice.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/dice.png" Width="27" Height="27" />
                     </Button>
                     <Button
                         x:Name="SortOrderToggleButton"
@@ -982,7 +982,7 @@
                         Margin="10,10,2,0"
                         Visibility="Collapsed"
                         AutomationProperties.Name="{Binding RelativeSource={RelativeSource Self}, Path=ToolTip}"> <!-- Dynamic AutomationProperties.Name -->
-                        <Image Source="pack://application:,,,/images/sort-az.png" Width="22" Height="22" />
+                        <Image Source="pack://application:,,,/images/sort-az.png" Width="27" Height="27" />
                     </Button>
                 </Grid>
             </Border>
@@ -1128,9 +1128,9 @@
             </Grid.ColumnDefinitions>
 
             <StackPanel Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Center"
-                        Margin="5,0,0,0"
+                        Margin="10,0,0,0"
                         Orientation="Horizontal">
-                <Label x:Name="StatusBarText" Content="" />
+                <Label x:Name="StatusBarText" Content="" VerticalAlignment="Center" VerticalContentAlignment="Center"/>
             </StackPanel>
 
             <StackPanel Grid.Column="1" Orientation="Horizontal" HorizontalAlignment="Center"
@@ -1143,8 +1143,8 @@
                         Click="PrevPageButton_Click"
                         AutomationProperties.Name="{DynamicResource PreviousPage}">
                     <Image Source="pack://application:,,,/images/arrowleft.png"
-                           Height="22"
-                           Width="22" />
+                           Height="27"
+                           Width="27" />
                 </Button>
                 <Button x:Name="NextPageButton"
                         Margin="10,0,0,0"
@@ -1153,8 +1153,8 @@
                         Click="NextPageButton_Click"
                         AutomationProperties.Name="{DynamicResource NextPage}">
                     <Image Source="pack://application:,,,/images/arrowright.png"
-                           Height="22"
-                           Width="22" />
+                           Height="27"
+                           Width="27" />
                 </Button>
                 <Label
                     x:Name="TotalFilesLabel"
@@ -1175,11 +1175,11 @@
                     <Label Content="{Binding SelectedSystem}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
                 </StackPanel>
                 <!-- Playtime Info -->
-                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0"
+                <StackPanel Orientation="Horizontal" VerticalAlignment="Center" Margin="5,0,10,0"
                             AutomationProperties.Name="{DynamicResource TotalPlaytimeInfo}">
                     <Image Source="pack://application:,,,/images/playhistory.png" Width="16" Height="16" VerticalAlignment="Center" Margin="0,0,5,0" />
                     <Label Content="{DynamicResource Playtime}" VerticalAlignment="Center" Padding="0" />
-                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }" />
+                    <Label Content="{Binding PlayTime}" VerticalAlignment="Center" Padding="5,0,0,0" d:DataContext="{d:DesignInstance }"/>
                 </StackPanel>
                 <!-- Dummy usage to suppress "Resource 'SystemButtonStyle' is never used" warning -->
                 <Button Style="{StaticResource SystemButtonStyle}" Visibility="Collapsed" Width="0" Height="0" />
