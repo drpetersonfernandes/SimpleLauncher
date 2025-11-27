@@ -149,6 +149,16 @@ public partial class MainWindow
                 PlayTime = "00:00:00";
 
                 await DisplaySystemSelectionScreenAsync();
+
+                switch (_settings.ViewMode)
+                {
+                    case "GridView":
+                        Scroller.Focus();
+                        break;
+                    case "ListView":
+                        GameDataGrid.Focus();
+                        break;
+                }
             }
             catch (Exception ex)
             {

@@ -33,7 +33,7 @@ public partial class FlashOverlayWindow
         Show();
 
         // Wait for the animation to complete
-        await Task.Delay(300);
+        await Task.Delay(600);
 
         // Close the window after the flash
         Close();
