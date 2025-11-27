@@ -27,7 +27,7 @@ public class GamePadController : IDisposable
     private const float MaxThumbValue = 32767.0f;
 
     private readonly Timer _timer;
-    private Controller _xinputController;
+    private readonly Controller _xinputController;
     private Joystick _directInputController;
     private readonly IMouseSimulator _mouseSimulator;
 
@@ -100,53 +100,15 @@ public class GamePadController : IDisposable
     {
         lock (_stateLock)
         {
+            // Enforce proper disposal semantics: do not allow restarting a disposed instance.
+            // Once disposed, a new instance must be created. This prevents resource leaks and undefined behavior.
+            if (_isDisposed)
+            {
+                throw new ObjectDisposedException(nameof(GamePadController), "Cannot start a disposed GamePadController. A new instance must be created.");
+            }
+
             try
             {
-                if (_isDisposed)
-                {
-                    // Reinitialize Xbox controller
-                    _xinputController = new Controller(UserIndex.One);
-
-                    // Reinitialize DirectInput object
-                    _directInput?.Dispose(); // Dispose the old one if it exists
-                    _directInput = new DirectInput();
-
-                    // Reinitialize PlayStation controller (find the first gamepad)
-                    try
-                    {
-                        var devices = _directInput.GetDevices(DeviceType.Gamepad, DeviceEnumerationFlags.AllDevices);
-                        if (devices.Count > 0)
-                        {
-                            _directInputController?.Unacquire();
-                            _directInputController?.Dispose();
-                            _directInputController = new Joystick(_directInput, devices[0].InstanceGuid);
-                            _directInputController.Acquire();
-                            _playStationControllerGuid = devices[0].InstanceGuid; // Store the GUID
-                        }
-                        else
-                        {
-                            _directInputController?.Unacquire();
-                            _directInputController?.Dispose();
-                            _directInputController = null;
-                            _playStationControllerGuid = Guid.Empty;
-                        }
-                    }
-                    catch (Exception ex)
-                    {
-                        // Notify developer
-                        ErrorLogger?.Invoke(ex, $"Error during DirectInput controller reinitialization in Start.\n\n" +
-                                                $"Exception type: {ex.GetType().Name}\n" +
-                                                $"Exception details: {ex.Message}");
-
-                        _directInputController?.Unacquire();
-                        _directInputController?.Dispose();
-                        _directInputController = null; // Ensure it's null if setup failed
-                        _playStationControllerGuid = Guid.Empty;
-                    }
-
-                    _isDisposed = false;
-                }
-
                 _timer.Change(0, 1000 / RefreshRate);
                 IsRunning = true;
             }
@@ -535,11 +497,6 @@ public class GamePadController : IDisposable
             _directInputController?.Dispose();
             _directInputController = null;
             _playStationControllerGuid = Guid.Empty;
-
-            // If the DirectInput object itself might be corrupted, dispose of it.
-            // It will be recreated on the next reconnection attempt.
-            _directInput?.Dispose();
-            _directInput = null;
 
             // DO NOT call Stop(). Let the timer continue to run so we can try reconnecting again.
         }
