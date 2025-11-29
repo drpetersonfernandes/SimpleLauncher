@@ -246,7 +246,12 @@ public partial class GlobalSearchWindow : IDisposable
 
                                 // Final cancellation check before UI update
                                 token.ThrowIfCancellationRequested();
-                                searchResultItem.FileSizeBytes = fileInfo.Length;
+
+                                // Marshal the update to the UI thread
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    searchResultItem.FileSizeBytes = fileInfo.Length;
+                                });
                             }
                             else
                             {
@@ -254,12 +259,20 @@ public partial class GlobalSearchWindow : IDisposable
                                 var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
                                 _ = _logErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
 
-                                searchResultItem.FileSizeBytes = -2;
+                                // Marshal the update to the UI thread
+                                Application.Current.Dispatcher.Invoke(() =>
+                                {
+                                    searchResultItem.FileSizeBytes = -2;
+                                });
                             }
                         }
                         catch (OperationCanceledException)
                         {
-                            searchResultItem.FileSizeBytes = -2;
+                            // Marshal the update to the UI thread
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                searchResultItem.FileSizeBytes = -2;
+                            });
                         }
                         catch (Exception ex)
                         {
@@ -267,7 +280,11 @@ public partial class GlobalSearchWindow : IDisposable
                             var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
                             _ = _logErrors.LogErrorAsync(ex, contextMessage);
 
-                            searchResultItem.FileSizeBytes = -2;
+                            // Marshal the update to the UI thread
+                            Application.Current.Dispatcher.Invoke(() =>
+                            {
+                                searchResultItem.FileSizeBytes = -2;
+                            });
                         }
 
                         return Task.CompletedTask;
