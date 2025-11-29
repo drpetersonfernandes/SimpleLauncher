@@ -542,9 +542,20 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         _controllerCheckTimer.Start();
     }
 
-    private static void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
+    private void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
     {
-        (Application.Current.MainWindow as MainWindow)?._gamePadController.CheckAndReconnectControllers();
+        try
+        {
+            // Call CheckAndReconnectControllers on a background thread to avoid blocking UI
+            Task.Run(() =>
+            {
+                _gamePadController?.CheckAndReconnectControllers();
+            });
+        }
+        catch (Exception ex)
+        {
+            _ = _logErrors.LogErrorAsync(ex, "Error in GamePadControllerCheckTimer_Tick.");
+        }
     }
 
     private void SaveApplicationSettings()
