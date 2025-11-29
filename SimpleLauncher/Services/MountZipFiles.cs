@@ -722,8 +722,10 @@ public static class MountZipFiles
                 resolvedEmulatorFolderPath
             );
 
-            var fixedMountDriveRootForChecks = mountDriveRootForChecks.TrimEnd('\\'); // Remove '\'
-            var arguments = $"-p \"{fixedMountDriveRootForChecks}\" {resolvedParameters} ";
+            // The ScummVM -p argument expects a path to the game data.
+            // It is safer to pass the root directory explicitly (e.g., "Z:\") rather than just the drive letter ("Z:").
+            // mountDriveRootForChecks already includes the trailing backslash (e.g., "Z:\").
+            var arguments = $"-p \"{mountDriveRootForChecks}\" {resolvedParameters} ";
 
             var psiEmulator = new ProcessStartInfo
             {
