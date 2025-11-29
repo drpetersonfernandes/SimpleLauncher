@@ -2,6 +2,7 @@ using System;
 using System.Diagnostics;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using System.Runtime.InteropServices;
 using System.Threading;
 using System.Threading.Tasks;
@@ -14,15 +15,10 @@ namespace SimpleLauncher.Services;
 
 public static class MountZipFiles
 {
-    private static string _configuredMountDriveLetterOnly = "Z";
+    private static string _preferredMountDriveLetterOnly = "Z";
     private static string _zipMountExecutableName;
     private static string _zipMountExecutableRelativePath;
-
-    // Public property to get the letter ("Z")
-    private static string ConfiguredMountDriveLetter => _configuredMountDriveLetterOnly;
-
-    // Public property to get the root path ("Z:\") for directory checks
-    public static string ConfiguredMountDriveRoot => _configuredMountDriveLetterOnly + ":\\";
+    public static string ConfiguredMountDriveRoot => _preferredMountDriveLetterOnly + ":\\";
 
     public static void Configure(IConfiguration configuration)
     {
@@ -40,21 +36,20 @@ public static class MountZipFiles
         // Extract just the drive letter
         if (mountPathFromConfig.EndsWith(":\\", StringComparison.Ordinal))
         {
-            _configuredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 2);
+            _preferredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 2);
         }
         else if (mountPathFromConfig.EndsWith(':'))
         {
-            _configuredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 1);
+            _preferredMountDriveLetterOnly = mountPathFromConfig.Substring(0, mountPathFromConfig.Length - 1);
         }
         else // Assume it's just the letter or an invalid format, try to take the first char if it's a letter
         {
-            _configuredMountDriveLetterOnly = mountPathFromConfig.Length > 0 && char.IsLetter(mountPathFromConfig[0])
+            _preferredMountDriveLetterOnly = mountPathFromConfig.Length > 0 && char.IsLetter(mountPathFromConfig[0])
                 ? mountPathFromConfig[0].ToString().ToUpperInvariant()
                 : "Z";
         }
 
-        DebugLogger.Log($"[MountZipFiles] Configured MountDriveLetter (for {_zipMountExecutableName}): {_configuredMountDriveLetterOnly}");
-        DebugLogger.Log($"[MountZipFiles] Configured MountDriveRoot (for checks): {ConfiguredMountDriveRoot}");
+        DebugLogger.Log($"[MountZipFiles] Preferred MountDriveLetter (for {_zipMountExecutableName}): {_preferredMountDriveLetterOnly}");
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableName: {_zipMountExecutableName}");
         DebugLogger.Log($"[MountZipFiles] Configured ZipMountExecutableRelativePath: {_zipMountExecutableRelativePath}");
     }
@@ -69,6 +64,40 @@ public static class MountZipFiles
             Architecture.Arm64 => "SimpleZipDrive_arm64.exe",
             _ => "SimpleZipDrive.exe" // Default fallback
         };
+    }
+
+    /// <summary>
+    /// Finds an available drive letter, preferring the configured letter, then searching from Z: down to D:.
+    /// </summary>
+    /// <returns>An available character for a drive letter, or null if none are available.</returns>
+    private static char? GetAvailableDriveLetter()
+    {
+        var existingDrives = DriveInfo.GetDrives()
+            .Select(static d => char.ToUpper(d.Name[0], CultureInfo.InvariantCulture))
+            .ToHashSet();
+
+        // First, try the preferred drive letter from configuration
+        var preferredLetter = char.ToUpper(_preferredMountDriveLetterOnly[0], CultureInfo.InvariantCulture);
+        if (!existingDrives.Contains(preferredLetter))
+        {
+            DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is available.");
+            return preferredLetter;
+        }
+
+        DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Preferred drive letter {preferredLetter}: is already in use. Searching for alternative...");
+
+        // If preferred is not available, search from Z: down to D:
+        for (var letter = 'Z'; letter >= 'D'; letter--)
+        {
+            if (!existingDrives.Contains(letter))
+            {
+                DebugLogger.Log($"[MountZipFiles.GetAvailableDriveLetter] Found available drive letter: {letter}:");
+                return letter;
+            }
+        }
+
+        DebugLogger.Log("[MountZipFiles.GetAvailableDriveLetter] No available drive letters found between D: and Z:.");
+        return null;
     }
 
     public static async Task MountZipFileAndLoadEbootBinAsync(
@@ -103,9 +132,21 @@ public static class MountZipFiles
             return;
         }
 
-        // Use the letter ONLY for the mount point argument
-        var mountPathArgument = ConfiguredMountDriveLetter; // This will be "Z"
-        var mountDriveRootForChecks = ConfiguredMountDriveRoot; // This will be "Z:\" for Directory.Exists
+        // Get an available drive letter dynamically
+        var driveLetter = GetAvailableDriveLetter();
+        if (driveLetter == null)
+        {
+            const string errorMessage = "No available drive letters found to mount the ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            return;
+        }
+
+        var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant(); // SimpleZipDrive expects lowercase letter
+        var mountDriveRootForChecks = $"{driveLetter.Value}:\\"; // For Directory.Exists checks
+
+        DebugLogger.Log($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
 
         var psiMount = new ProcessStartInfo
         {
@@ -317,8 +358,21 @@ public static class MountZipFiles
             return;
         }
 
-        var mountPathArgument = ConfiguredMountDriveLetter;
-        var mountDriveRootForChecks = ConfiguredMountDriveRoot;
+        // Get an available drive letter dynamically
+        var driveLetter = GetAvailableDriveLetter();
+        if (driveLetter == null)
+        {
+            const string errorMessage = "No available drive letters found to mount the ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            return;
+        }
+
+        var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant();
+        var mountDriveRootForChecks = $"{driveLetter.Value}:\\";
+
+        DebugLogger.Log($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
 
         var psiMount = new ProcessStartInfo
         {
@@ -559,8 +613,21 @@ public static class MountZipFiles
             return;
         }
 
-        var mountPathArgument = ConfiguredMountDriveLetter;
-        var mountDriveRootForChecks = ConfiguredMountDriveRoot;
+        // Get an available drive letter dynamically
+        var driveLetter = GetAvailableDriveLetter();
+        if (driveLetter == null)
+        {
+            const string errorMessage = "No available drive letters found to mount the ZIP.";
+            DebugLogger.Log($"[MountZipFiles] Error: {errorMessage}");
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+            MessageBoxLibrary.ThereWasAnErrorMountingTheFile(logPath);
+            return;
+        }
+
+        var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant();
+        var mountDriveRootForChecks = $"{driveLetter.Value}:\\";
+
+        DebugLogger.Log($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
 
         var psiMount = new ProcessStartInfo
         {

@@ -451,7 +451,6 @@ public class GamePadController : IDisposable
                             _directInputController = new Joystick(_directInput, foundDevice.InstanceGuid);
                             _directInputController.Acquire();
                             _playStationControllerGuid = foundDevice.InstanceGuid; // Update the GUID
-
                         }
                         else
                         {
