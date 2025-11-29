@@ -352,11 +352,18 @@ public class ExtractionService : IExtractionService
         return sb.ToString();
     }
 
-    private bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath)
+    private bool VerifyNoPathTraversalInExtractedFiles(string basePath, string currentPath, HashSet<string>? visitedPaths = null)
     {
+        // Initialize the visited paths set on the first call to prevent infinite loops from symbolic links.
+        visitedPaths ??= new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+
         // Get the full path of both directories
         var fullBasePath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(basePath);
         var fullCurrentPath = PathHelper.ResolveRelativeToCurrentWorkingDirectory(currentPath);
+
+        // Cycle detection: if we've already visited this path, stop.
+        if (!visitedPaths.Add(fullCurrentPath))
+            return true; // Already processed this directory, assume it was safe.
 
         // First check if the current directory is within the base path
         if (!fullCurrentPath.StartsWith(fullBasePath, StringComparison.OrdinalIgnoreCase))
@@ -377,7 +384,7 @@ public class ExtractionService : IExtractionService
         // Recursively check all subdirectories
         foreach (var dir in Directory.GetDirectories(currentPath))
         {
-            if (!VerifyNoPathTraversalInExtractedFiles(basePath, dir))
+            if (!VerifyNoPathTraversalInExtractedFiles(basePath, dir, visitedPaths))
             {
                 return false;
             }
