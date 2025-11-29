@@ -26,7 +26,7 @@ public partial class MainWindow
         _prevPageButton.IsEnabled = false;
         _nextPageButton.IsEnabled = false;
         _currentFilter = null;
-        _activeSearchQueryOrMode = null; // Reset active search mode
+        _activeSearchQueryOrMode = null;
         SearchTextBox.Text = "";
 
         GameFileGrid.Visibility = Visibility.Visible;

@@ -703,6 +703,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                         MessageBoxLibrary.InvalidSystemConfigMessageBox();
                         SortOrderToggleButton.Visibility = Visibility.Collapsed;
 
+                        SystemComboBox.SelectedItem = null;
                         await DisplaySystemSelectionScreenAsync();
 
                         // Clear the cached list on error
