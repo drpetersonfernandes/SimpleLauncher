@@ -9,6 +9,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using System.Xml;
 using System.Xml.Serialization;
+using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Models;
@@ -23,6 +24,11 @@ public class EasyModeManager
     {
         PropertyNameCaseInsensitive = true
     };
+
+    // Session cache for API data (in-memory, per application instance)
+    private static (EasyModeManager Manager, DateTime Timestamp) _apiCache;
+    private static readonly SemaphoreSlim CacheLock = new(1, 1);
+    private const int DefaultCacheDurationMinutes = 60;
 
     [XmlElement("EasyModeSystemConfig")]
     public List<EasyModeSystemConfig> Systems { get; set; }
@@ -120,8 +126,43 @@ public class EasyModeManager
 
     private static async Task<EasyModeManager> LoadFromApiAsync()
     {
+        await CacheLock.WaitAsync().ConfigureAwait(false);
         try
         {
+            // Get cache duration from configuration (default to 60 minutes)
+            var cacheDurationMinutes = App.Configuration.GetValue("EasyModeCacheDurationMinutes", DefaultCacheDurationMinutes);
+
+            // Check if we have valid cached data
+            if (_apiCache.Manager != null &&
+                DateTime.UtcNow - _apiCache.Timestamp < TimeSpan.FromMinutes(cacheDurationMinutes))
+            {
+                DebugLogger.Log($"Returning EasyMode configuration from session cache (valid for {cacheDurationMinutes} minutes).");
+                return _apiCache.Manager;
+            }
+
+            // Cache miss or expired, fetch from API
+            DebugLogger.Log("EasyMode session cache miss or expired. Fetching from API...");
+            var manager = await FetchFromApiAsync().ConfigureAwait(false);
+
+            if (manager != null && manager.Systems?.Count > 0)
+            {
+                _apiCache = (manager, DateTime.UtcNow);
+                DebugLogger.Log("EasyMode configuration fetched from API and cached for session.");
+            }
+
+            return manager;
+        }
+        finally
+        {
+            CacheLock.Release();
+        }
+    }
+
+    private static async Task<EasyModeManager> FetchFromApiAsync()
+    {
+        try
+        {
+            DebugLogger.Log("Fetching EasyMode configuration from API...");
             var httpClientFactory = App.ServiceProvider.GetRequiredService<IHttpClientFactory>();
             var client = httpClientFactory.CreateClient("EasyModeClient");
 
