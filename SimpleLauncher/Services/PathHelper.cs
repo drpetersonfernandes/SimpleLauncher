@@ -12,8 +12,6 @@ public static class PathHelper
 {
     private const string BaseFolderPlaceholder = "%BASEFOLDER%";
 
-    // --- Parameter Resolution Logic ---
-
     private static readonly string[] GameSpecificPlaceholders =
     [
         "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
@@ -25,33 +23,6 @@ public static class PathHelper
         "-f", "--fullscreen", "/f", "-window", "-fullscreen", "--window", "-cart",
         "-L", "-g", "-rompath"
     ];
-
-    private static readonly char[] Separator = ['\\', '/'];
-
-    private static bool LooksLikePath(string text)
-    {
-        if (string.IsNullOrWhiteSpace(text)) return false;
-
-        return text.Contains('\\') || text.Contains('/') ||
-               (text.Length >= 2 && text[1] == ':') ||
-               text.EndsWith(".exe", StringComparison.OrdinalIgnoreCase) ||
-               text.EndsWith(".dll", StringComparison.OrdinalIgnoreCase) ||
-               text.Contains(".dll") ||
-               text.StartsWith("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) ||
-               text.StartsWith("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) ||
-               text.StartsWith("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase) ||
-               IsDirectoryPath(text);
-    }
-
-    private static bool IsDirectoryPath(string text)
-    {
-        var hasDrivePrefix = text.Length >= 2 && text[1] == ':';
-        var hasMultipleSegments = text.Split(Separator, StringSplitOptions.RemoveEmptyEntries).Length > 1;
-
-        return (hasDrivePrefix && hasMultipleSegments) ||
-               (text.Contains('\\') && hasMultipleSegments) ||
-               (text.Contains('/') && hasMultipleSegments);
-    }
 
     private static bool IsKnownFlag(string text)
     {
@@ -92,10 +63,10 @@ public static class PathHelper
             var originalToken = match.Value;
             var tokenForLogic = originalToken.Trim('"', '\'');
 
+            // Skip processing if it's a game-specific placeholder, a known flag, or doesn't contain our custom placeholders.
             if (ContainsGameSpecificPlaceholder(tokenForLogic) ||
                 IsKnownFlag(tokenForLogic) ||
-                (!LooksLikePath(tokenForLogic) &&
-                 !tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
+                (!tokenForLogic.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%SYSTEMFOLDER%", StringComparison.OrdinalIgnoreCase) &&
                  !tokenForLogic.Contains("%EMULATORFOLDER%", StringComparison.OrdinalIgnoreCase)))
             {
@@ -104,6 +75,7 @@ public static class PathHelper
 
             var processedToken = tokenForLogic;
 
+            // Replace custom placeholders
             if (processedToken.Contains("%BASEFOLDER%", StringComparison.OrdinalIgnoreCase))
             {
                 processedToken = processedToken.Replace("%BASEFOLDER%", SanitizePathToken(AppDomain.CurrentDomain.BaseDirectory), StringComparison.OrdinalIgnoreCase);
@@ -119,33 +91,12 @@ public static class PathHelper
                 processedToken = processedToken.Replace("%EMULATORFOLDER%", SanitizePathToken(resolvedEmulatorFolderPath), StringComparison.OrdinalIgnoreCase);
             }
 
+            // Expand environment variables
             processedToken = Environment.ExpandEnvironmentVariables(processedToken);
 
             var finalTokenValue = processedToken;
 
-            if (!processedToken.Contains(';'))
-            {
-                try
-                {
-                    if (Path.IsPathRooted(processedToken))
-                    {
-                        finalTokenValue = Path.GetFullPath(processedToken);
-                    }
-                    else
-                    {
-                        var tempResolved = ResolveRelativeToAppDirectory(processedToken);
-                        if (!string.IsNullOrEmpty(tempResolved))
-                        {
-                            finalTokenValue = tempResolved;
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Error during path canonicalization for token '{processedToken}'. Using as-is after placeholder/env var replacement: '{finalTokenValue}'.");
-                }
-            }
-
+            // Re-apply quotes if necessary
             if (originalToken.StartsWith('"') && originalToken.EndsWith('"'))
             {
                 return $"\"{finalTokenValue}\"";
@@ -156,6 +107,7 @@ public static class PathHelper
                 return $"'{finalTokenValue}'";
             }
 
+            // Add quotes if the resolved path contains spaces and wasn't originally quoted
             if (finalTokenValue.Contains(' ') && !IsQuoted(originalToken))
             {
                 return $"\"{finalTokenValue}\"";
