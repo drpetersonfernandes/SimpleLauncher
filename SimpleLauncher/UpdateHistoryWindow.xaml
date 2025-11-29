@@ -9,15 +9,14 @@
                       MinHeight="550"
                       WindowStartupLocation="CenterScreen">
     <Grid>
-        <ScrollViewer VerticalScrollBarVisibility="Auto" Margin="10">
-            <RichTextBox x:Name="HistoryTextBlock"
-                         IsReadOnly="True"
-                         Foreground="{DynamicResource MahApps.Brushes.Text}"
-                         FontFamily="Segoe UI"
-                         FontSize="14"
-                         Padding="10"
-                         BorderThickness="1"
-                         BorderBrush="{DynamicResource MahApps.Brushes.Gray7}" />
+        <ScrollViewer VerticalScrollBarVisibility="Auto" 
+                      HorizontalScrollBarVisibility="Disabled" 
+                      Margin="10">
+            <TextBlock x:Name="HistoryTextBlock"
+                       TextWrapping="Wrap"
+                       Margin="10,0,10,0"
+                       VerticalAlignment="Top"
+                       HorizontalAlignment="Stretch" />
         </ScrollViewer>
     </Grid>
 </controls:MetroWindow>

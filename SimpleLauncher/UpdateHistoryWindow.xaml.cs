@@ -4,7 +4,6 @@ using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
 using System.Windows.Documents;
-using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 
@@ -15,6 +14,7 @@ public partial class UpdateHistoryWindow
     public UpdateHistoryWindow()
     {
         InitializeComponent();
+        App.ApplyThemeToWindow(this);
         LoadWhatsNewContent();
     }
 
@@ -26,11 +26,8 @@ public partial class UpdateHistoryWindow
         {
             var markdownText = File.Exists(filePath) ? File.ReadAllText(filePath) : "# 'whatsnew.md' not found\n\nThe update history file could not be found.";
 
-            // Parse Markdown and build FlowDocument
-            var flowDocument = ParseMarkdownToFlowDocument(markdownText);
-
-            // Set the formatted document
-            HistoryTextBlock.Document = flowDocument;
+            // Parse Markdown and set as TextBlock with inlines
+            ParseMarkdownToTextBlock(markdownText);
         }
         catch (Exception ex)
         {
@@ -38,22 +35,21 @@ public partial class UpdateHistoryWindow
             const string contextMessage = "Failed to load 'whatsnew.md'.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-            HistoryTextBlock.Document.Blocks.Clear();
-            var errorParagraph = new Paragraph { Foreground = (Brush)FindResource("MahApps.Brushes.Text") };
-            errorParagraph.Inlines.Add(new Run("# Error\n\nCould not load the update history. The error has been logged."));
-            HistoryTextBlock.Document.Blocks.Add(errorParagraph);
+            HistoryTextBlock.Inlines.Clear();
+            HistoryTextBlock.Inlines.Add(new Run("Error\n\nCould not load the update history. The error has been logged."));
         }
     }
 
     /// <summary>
-    /// Parses basic Markdown (headings #/##, bold **text**, italic *text* or _text_, links [text](url)) and builds a FlowDocument.
+    /// Parses basic Markdown (headings #/##, bold **text**, italic *text* or _text_, links [text](url)) and populates the TextBlock.
     /// </summary>
     /// <param name="markdown">The Markdown text to parse.</param>
-    /// <returns>A FlowDocument with formatted content.</returns>
-    private FlowDocument ParseMarkdownToFlowDocument(string markdown)
+    private void ParseMarkdownToTextBlock(string markdown)
     {
-        var flowDocument = new FlowDocument();
+        HistoryTextBlock.Inlines.Clear();
         var lines = markdown.Split(Separator, StringSplitOptions.RemoveEmptyEntries);
+
+        var isFirstLine = true;
 
         foreach (var line in lines)
         {
@@ -61,166 +57,128 @@ public partial class UpdateHistoryWindow
 
             if (string.IsNullOrWhiteSpace(trimmedLine))
             {
-                // Add a blank paragraph for spacing
-                flowDocument.Blocks.Add(new Paragraph());
+                // Add a line break for spacing
+                HistoryTextBlock.Inlines.Add(new LineBreak());
                 continue;
             }
+
+            // Add line break before each line (except the first)
+            if (!isFirstLine)
+            {
+                HistoryTextBlock.Inlines.Add(new LineBreak());
+            }
+
+            isFirstLine = false;
 
             // Parse headings (# Heading -> Bold, larger font Paragraph)
             if (trimmedLine.StartsWith("### ", StringComparison.Ordinal))
             {
                 var headingText = trimmedLine.Substring(4).Trim();
-                var headingParagraph = new Paragraph(new Bold(new Run(headingText)))
-                {
-                    FontSize = 14, // h3 size
-                    Margin = new Thickness(0, 5, 0, 10),
-                    Foreground = (Brush)Application.Current.FindResource("MahApps.Brushes.Text")
-                };
-                flowDocument.Blocks.Add(headingParagraph);
+                var headingRun = new Run(headingText) { FontSize = 14, FontWeight = FontWeights.Bold };
+                HistoryTextBlock.Inlines.Add(new LineBreak());
+                HistoryTextBlock.Inlines.Add(headingRun);
+                HistoryTextBlock.Inlines.Add(new LineBreak());
             }
             else if (trimmedLine.StartsWith("## ", StringComparison.Ordinal))
             {
                 var headingText = trimmedLine.Substring(3).Trim();
-                var headingParagraph = new Paragraph(new Bold(new Run(headingText)))
-                {
-                    FontSize = 16, // h2 size
-                    FontWeight = FontWeights.Bold,
-                    Margin = new Thickness(0, 10, 0, 5),
-                    Foreground = (Brush)Application.Current.FindResource("MahApps.Brushes.Text")
-                };
-                flowDocument.Blocks.Add(headingParagraph);
+                var headingRun = new Run(headingText) { FontSize = 16, FontWeight = FontWeights.Bold };
+                HistoryTextBlock.Inlines.Add(new LineBreak());
+                HistoryTextBlock.Inlines.Add(headingRun);
+                HistoryTextBlock.Inlines.Add(new LineBreak());
             }
             else if (trimmedLine.StartsWith("# ", StringComparison.Ordinal))
             {
                 var headingText = trimmedLine.Substring(2).Trim();
-                var headingParagraph = new Paragraph(new Bold(new Run(headingText)))
-                {
-                    FontSize = 20, // h1 size
-                    FontWeight = FontWeights.ExtraBold,
-                    Margin = new Thickness(0, 20, 0, 10),
-                    Foreground = (Brush)Application.Current.FindResource("MahApps.Brushes.Text")
-                };
-                flowDocument.Blocks.Add(headingParagraph);
+                var headingRun = new Run(headingText) { FontSize = 20, FontWeight = FontWeights.ExtraBold };
+                HistoryTextBlock.Inlines.Add(new LineBreak());
+                HistoryTextBlock.Inlines.Add(headingRun);
+                HistoryTextBlock.Inlines.Add(new LineBreak());
             }
             else
             {
                 // Parse inline elements in the line (bold, italic, links)
-                var paragraph = ParseInlineMarkdown(line);
-                if (paragraph.Inlines.Count > 0)
-                {
-                    paragraph.Foreground = (Brush)Application.Current.FindResource("MahApps.Brushes.Text");
-                    flowDocument.Blocks.Add(paragraph);
-                }
+                ParseInlineMarkdown(line);
             }
         }
-
-        return flowDocument;
     }
 
     private static readonly char[] Separator = new[] { '\r', '\n' };
 
     /// <summary>
-    /// Parses inline Markdown in a line (bold **text**, italic *text* or _text_, links [text](url)) and returns a Paragraph with formatted Inlines.
+    /// Parses inline Markdown in a line (bold **text**, italic *text* or _text_, links [text](url)) and adds formatted Inlines to the TextBlock.
     /// </summary>
     /// <param name="line">The line of text to parse.</param>
-    /// <returns>A Paragraph with formatted Runs, Bold, Italic, and Hyperlinks.</returns>
-    private Paragraph ParseInlineMarkdown(string line)
+    private void ParseInlineMarkdown(string line)
     {
-        var paragraph = new Paragraph();
         var remainingText = line;
 
-        // Parse bold **text**
-        var boldMatch = BoldRegex().Match(remainingText);
-        while (boldMatch.Success)
+        // Combined regex to match bold, italic, and links in order
+        var combinedRegex = CombinedMarkdownRegex();
+        var matches = combinedRegex.Matches(remainingText);
+
+        var lastIndex = 0;
+
+        foreach (Match match in matches)
         {
-            // Add text before the match
-            if (boldMatch.Index > 0)
+            // Add plain text before this match
+            if (match.Index > lastIndex)
             {
-                paragraph.Inlines.Add(new Run(remainingText.Substring(0, boldMatch.Index)));
+                var plainText = remainingText.Substring(lastIndex, match.Index - lastIndex);
+                HistoryTextBlock.Inlines.Add(new Run(plainText));
             }
 
-            // Add bold text
-            var boldText = boldMatch.Groups[1].Value;
-            paragraph.Inlines.Add(new Bold(new Run(boldText)));
-
-            // Update remaining text
-            remainingText = string.Concat(boldMatch.Value.AsSpan(boldMatch.Length), remainingText.AsSpan(boldMatch.Index + boldMatch.Length));
-            boldMatch = BoldRegex().Match(remainingText);
-        }
-
-        // Parse italic *text* or _text_
-        var italicMatch = ItalicRegex().Match(remainingText);
-        while (italicMatch.Success)
-        {
-            // Add text before the match
-            if (italicMatch.Index > 0)
+            // Determine what type of match this is
+            if (match.Groups["bold"].Success)
             {
-                paragraph.Inlines.Add(new Run(remainingText.Substring(0, italicMatch.Index)));
+                // Bold text
+                var boldText = match.Groups["bold"].Value;
+                HistoryTextBlock.Inlines.Add(new Bold(new Run(boldText)));
             }
-
-            // Add italic text (standard Markdown italic rendering)
-            var italicText = italicMatch.Groups[2].Value; // Group 2 captures the inner text
-            paragraph.Inlines.Add(new Italic(new Run(italicText)));
-
-            // Update remaining text
-            remainingText = string.Concat(italicMatch.Value.AsSpan(italicMatch.Length), remainingText.AsSpan(italicMatch.Index + italicMatch.Length));
-            italicMatch = ItalicRegex().Match(remainingText);
-        }
-
-        // Parse links [text](url)
-        var linkMatch = MarkdownLinkRegex().Match(remainingText);
-        while (linkMatch.Success)
-        {
-            // Add text before the match
-            if (linkMatch.Index > 0)
+            else if (match.Groups["italic"].Success)
             {
-                paragraph.Inlines.Add(new Run(remainingText.Substring(0, linkMatch.Index)));
+                // Italic text
+                var italicText = match.Groups["italic"].Value;
+                HistoryTextBlock.Inlines.Add(new Italic(new Run(italicText)));
             }
-
-            // Add hyperlink
-            var linkText = linkMatch.Groups["text"].Value;
-            var url = linkMatch.Groups["url"].Value;
-            var hyperlink = new Hyperlink(new Run(linkText))
+            else if (match.Groups["linktext"].Success && match.Groups["url"].Success)
             {
-                NavigateUri = new Uri(url)
-            };
-            hyperlink.RequestNavigate += (sender, args) =>
-            {
-                try
+                // Link [text](url)
+                var linkText = match.Groups["linktext"].Value;
+                var url = match.Groups["url"].Value;
+                var hyperlink = new Hyperlink(new Bold(new Run(linkText)))
                 {
-                    Process.Start(new ProcessStartInfo(args.Uri.AbsoluteUri) { UseShellExecute = true });
-                }
-                catch (Exception ex)
+                    NavigateUri = new Uri(url)
+                };
+                hyperlink.RequestNavigate += (sender, args) =>
                 {
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open link: {url}");
-                }
+                    try
+                    {
+                        Process.Start(new ProcessStartInfo(args.Uri.AbsoluteUri) { UseShellExecute = true });
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Failed to open link: {url}");
+                    }
 
-                args.Handled = true;
-            };
-            paragraph.Inlines.Add(hyperlink);
+                    args.Handled = true;
+                };
+                HistoryTextBlock.Inlines.Add(hyperlink);
+            }
 
-            // Update remaining text
-            remainingText = string.Concat(linkMatch.Value.AsSpan(linkMatch.Length), remainingText.AsSpan(linkMatch.Index + linkMatch.Length));
-            linkMatch = MarkdownLinkRegex().Match(remainingText);
+            lastIndex = match.Index + match.Length;
         }
 
         // Add any remaining plain text
-        if (!string.IsNullOrEmpty(remainingText))
+        if (lastIndex < remainingText.Length)
         {
-            paragraph.Inlines.Add(new Run(remainingText));
+            var plainText = remainingText.Substring(lastIndex);
+            HistoryTextBlock.Inlines.Add(new Run(plainText));
         }
-
-        return paragraph;
     }
 
-    // Regex patterns for Markdown elements
-    [GeneratedRegex(@"\*\*(.+?)\*\*", RegexOptions.Singleline)]
-    private static partial Regex BoldRegex();
-
-    // Fixed regex for italic: *text* or _text_ (group 1: delimiter, group 2: inner text)
-    [GeneratedRegex(@"(\*|_)(.+?)\1", RegexOptions.Singleline)]
-    private static partial Regex ItalicRegex();
-
-    [GeneratedRegex(@"\[(?<text>[^\]]+?)\]\((?<url>https?://\S+?)\)", RegexOptions.Singleline)]
-    private static partial Regex MarkdownLinkRegex();
+    // Combined regex pattern for Markdown elements (bold, italic, links)
+    // Order matters: links first (most specific), then bold, then italic
+    [GeneratedRegex(@"\[(?<linktext>[^\]]+?)\]\((?<url>https?://\S+?)\)|\*\*(?<bold>.+?)\*\*|(?<delim>\*|_)(?<italic>.+?)\k<delim>", RegexOptions.Singleline)]
+    private static partial Regex CombinedMarkdownRegex();
 }
