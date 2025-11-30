@@ -27,11 +27,6 @@ public class PlaySoundEffects
         _settingsManager = settings ?? throw new ArgumentNullException(nameof(settings));
     }
 
-    public void PlayClickSound()
-    {
-        PlaySound(ClickSoundFile);
-    }
-
     public void PlayNotificationSound()
     {
         if (_settingsManager == null)

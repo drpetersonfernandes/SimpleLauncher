@@ -37,7 +37,7 @@ public static class ContextMenuFunctions
                     SystemName = systemName
                 });
 
-                playSoundEffects.PlayClickSound();
+                playSoundEffects.PlayNotificationSound();
 
                 // Save the updated favorites list using the injected instance
                 favoritesManager.SaveFavorites();
@@ -261,7 +261,7 @@ public static class ContextMenuFunctions
                 MessageBoxLibrary.AddRaLogin();
                 UpdateStatusBar.UpdateContent("Missing credentials for RetroAchievements", mainWindow);
 
-                playSoundEffects.PlayClickSound();
+                playSoundEffects.PlayNotificationSound();
 
                 // Open RetroAchievements Settings Window
                 var raSettingsWindow = new RetroAchievementsSettingsWindow(settings);

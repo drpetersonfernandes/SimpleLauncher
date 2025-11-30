@@ -294,8 +294,12 @@ public partial class PlayHistoryWindow
     {
         try
         {
-            if (PlayHistoryDataGrid.SelectedItem is not PlayHistoryItem selectedItem)
+            // Check if click was on an actual row with data
+            var clickedElement = e.OriginalSource as FrameworkElement;
+            if (clickedElement?.DataContext is not PlayHistoryItem selectedItem)
             {
+                // Click was on empty space or header, don't show context menu
+                PlayHistoryDataGrid.ContextMenu = null;
                 return;
             }
 
@@ -573,22 +577,44 @@ public partial class PlayHistoryWindow
 
     private void DeleteHistoryItemWithDelButton(object sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Delete)
+        switch (e.Key)
         {
-            return;
-        }
+            case Key.Delete:
+            {
+                // Get all selected items
+                var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
 
-        if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
-        {
-            _playSoundEffects.PlayTrashSound();
+                if (selectedItems.Count > 0)
+                {
+                    _playSoundEffects.PlayTrashSound();
 
-            _playHistoryList.Remove(selectedItem);
-            _playHistoryManager.PlayHistoryList = _playHistoryList;
-            _playHistoryManager.SavePlayHistory();
-        }
-        else
-        {
-            MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
+                    // Remove all selected items
+                    foreach (var item in selectedItems)
+                        _playHistoryList.Remove(item);
+
+                    _playHistoryManager.PlayHistoryList = _playHistoryList;
+                    _playHistoryManager.SavePlayHistory();
+                    e.Handled = true; // Prevent DataGrid from handling Delete key
+                    PreviewImage.Source = null;
+                }
+                else
+                {
+                    MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
+                }
+
+                PreviewImage.Source = null;
+                break;
+            }
+            case Key.Enter when PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem:
+                _playSoundEffects.PlayNotificationSound();
+                _ = LaunchGameFromHistoryAsync(selectedItem.FileName, selectedItem.SystemName);
+                e.Handled = true; // Prevent DataGrid from moving selection to next row
+                break;
+            case Key.Enter:
+                MessageBoxLibrary.SelectAGameToLaunchMessageBox();
+                break;
+            default:
+                return;
         }
     }
 
@@ -601,6 +627,7 @@ public partial class PlayHistoryWindow
             ? (selectedItem.FileName, selectedItem.SystemName)
             : (FileName: null, SystemName: null);
 
+        _playSoundEffects.PlayNotificationSound();
         SortByDate();
 
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
@@ -631,6 +658,8 @@ public partial class PlayHistoryWindow
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
 
+        _playSoundEffects.PlayNotificationSound();
+
         if (selectedItemIdentifier.FileName == null || selectedItemIdentifier.SystemName == null) return;
 
         {
@@ -648,14 +677,24 @@ public partial class PlayHistoryWindow
 
     private void RemoveHistoryItemButton_Click(object sender, RoutedEventArgs e)
     {
-        if (PlayHistoryDataGrid.SelectedItem is PlayHistoryItem selectedItem)
+        // Get all selected items
+        var selectedItems = PlayHistoryDataGrid.SelectedItems.Cast<PlayHistoryItem>().ToList();
+
+        if (selectedItems.Count > 0)
         {
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RemovingHistoryItem") ?? "Removing history item...", _mainWindow);
-            _playHistoryList.Remove(selectedItem);
+
+            _playSoundEffects.PlayTrashSound();
+
+            // Remove all selected items
+            foreach (var item in selectedItems)
+            {
+                _playHistoryList.Remove(item);
+            }
+
             _playHistoryManager.PlayHistoryList = _playHistoryList;
             _playHistoryManager.SavePlayHistory();
 
-            _playSoundEffects.PlayTrashSound();
             PreviewImage.Source = null;
         }
         else
@@ -663,6 +702,8 @@ public partial class PlayHistoryWindow
             // Notify the user to select a history item first
             MessageBoxLibrary.SelectAHistoryItemToRemoveMessageBox();
         }
+
+        PreviewImage.Source = null;
     }
 
     private void RemoveAllHistoryItemButton_Click(object sender, RoutedEventArgs e)
@@ -678,13 +719,14 @@ public partial class PlayHistoryWindow
 
             _playSoundEffects.PlayTrashSound();
 
-            // Clear preview image
             PreviewImage.Source = null;
         }
         else
         {
             return;
         }
+
+        PreviewImage.Source = null;
     }
 
     private async void LaunchGame_Click(object sender, RoutedEventArgs e)
@@ -700,7 +742,6 @@ public partial class PlayHistoryWindow
             {
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingGameFromHistory") ?? "Launching game from history...", _mainWindow);
-                // Notify user
                 MessageBoxLibrary.SelectAGameToLaunchMessageBox();
             }
         }
@@ -729,6 +770,8 @@ public partial class PlayHistoryWindow
         );
         _playHistoryList = sorted;
         PlayHistoryDataGrid.ItemsSource = _playHistoryList;
+
+        _playSoundEffects.PlayNotificationSound();
 
         // Restore selection based on identifier
         // Check if the identifier tuple has non-null elements

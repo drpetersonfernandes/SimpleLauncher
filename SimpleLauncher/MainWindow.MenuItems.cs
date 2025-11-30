@@ -1042,7 +1042,7 @@ public partial class MainWindow
     {
         try
         {
-            _playSoundEffects.PlayClickSound();
+            _playSoundEffects.PlayNotificationSound();
             var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors);
             soundConfigWindow.ShowDialog();
             // Settings are saved within the SoundConfigurationWindow, no need to explicitly save here.

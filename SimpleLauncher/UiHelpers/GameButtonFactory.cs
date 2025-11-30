@@ -481,7 +481,7 @@ public class GameButtonFactory(
         kebabButton.Click += (s, e) =>
         {
             e.Handled = true; // Stop the main button's click event
-            _playSoundEffects.PlayClickSound();
+            _playSoundEffects.PlayNotificationSound();
             if (contextMenu != null)
             {
                 contextMenu.PlacementTarget = kebabButton;
