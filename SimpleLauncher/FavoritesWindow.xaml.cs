@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Media;
 using Microsoft.Extensions.DependencyInjection;
 using SimpleLauncher.Interfaces;
 using SimpleLauncher.Managers;
@@ -254,7 +255,8 @@ public partial class FavoritesWindow
     {
         if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
         {
-            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
+            _playSoundEffects.PlayTrashSound();
+            RemoveFavoriteFromDatabaseAndEmptyPreviewImage(selectedFavorite);
         }
         else
         {
@@ -267,6 +269,29 @@ public partial class FavoritesWindow
     {
         try
         {
+            // --- Only show context menu when right-clicking on an actual row ---
+            var hitTestResult = VisualTreeHelper.HitTest(FavoritesDataGrid, e.GetPosition(FavoritesDataGrid));
+            if (hitTestResult?.VisualHit == null) return;
+
+            // Walk up the visual tree to find a DataGridRow
+            var visual = hitTestResult.VisualHit;
+            DataGridRow dataGridRow = null;
+            while (visual != null && visual != FavoritesDataGrid)
+            {
+                if (visual is DataGridRow row)
+                {
+                    dataGridRow = row;
+                    break;
+                }
+
+                visual = VisualTreeHelper.GetParent(visual);
+            }
+
+            if (dataGridRow == null) return; // Not clicking on a row - exit early
+
+            // Select the row that was right-clicked
+            dataGridRow.IsSelected = true;
+
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite)
             {
                 return;
@@ -289,7 +314,7 @@ public partial class FavoritesWindow
 
                 if (favoriteToRemove != null)
                 {
-                    RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
+                    RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
                 }
 
                 return;
@@ -403,7 +428,7 @@ public partial class FavoritesWindow
 
                 if (favoriteToRemove != null)
                 {
-                    RemoveFavoriteFromXmlAndEmptyPreviewImage(favoriteToRemove);
+                    RemoveFavoriteFromDatabaseAndEmptyPreviewImage(favoriteToRemove);
                 }
 
                 // Notify developer
@@ -445,7 +470,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private void RemoveFavoriteFromXmlAndEmptyPreviewImage(Favorite selectedFavorite)
+    private void RemoveFavoriteFromDatabaseAndEmptyPreviewImage(Favorite selectedFavorite)
     {
         _favoriteList.Remove(selectedFavorite);
         // Update the FavoritesManager's internal list with the cleaned local list
@@ -497,20 +522,47 @@ public partial class FavoritesWindow
         }
     }
 
-    private void DeleteFavoriteWithDelButton(object sender, KeyEventArgs e)
+    private void FavoritesDataGrid_KeyDown(object sender, KeyEventArgs e)
     {
-        if (e.Key != Key.Delete) return;
-
-        _playSoundEffects.PlayTrashSound();
-
-        if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+        try
         {
-            RemoveFavoriteFromXmlAndEmptyPreviewImage(selectedFavorite);
+            switch (e.Key)
+            {
+                case Key.Delete:
+                {
+                    _playSoundEffects.PlayTrashSound();
+
+                    if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+                    {
+                        RemoveFavoriteFromDatabaseAndEmptyPreviewImage(selectedFavorite);
+                    }
+                    else
+                    {
+                        // Notify user
+                        MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
+                    }
+
+                    break;
+                }
+                case Key.Enter:
+                {
+                    // Launch game with Enter key
+                    if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
+                    {
+                        _playSoundEffects.PlayNotificationSound();
+                        // Launch without awaiting to keep UI responsive
+                        _ = LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
+                    }
+
+                    break;
+                }
+            }
         }
-        else
+        catch (Exception ex)
         {
-            // Notify user
-            MessageBoxLibrary.SelectAFavoriteToRemoveMessageBox();
+            // Notify developer
+            const string contextMessage = "Error handling key press in FavoritesDataGrid.";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 }
