@@ -31,7 +31,6 @@ public partial class MainWindow
             try
             {
                 _currentPage--;
-
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();
@@ -74,7 +73,6 @@ public partial class MainWindow
             try
             {
                 _currentPage++;
-
                 _playSoundEffects.PlayNotificationSound();
 
                 var (sl, sq) = GetLoadGameFilesParams();

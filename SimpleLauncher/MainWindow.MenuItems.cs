@@ -344,8 +344,8 @@ public partial class MainWindow
 
     private void Support_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSupportWindow") ?? "Opening support window...", this);
+        _playSoundEffects.PlayNotificationSound();
 
         SupportWindow supportRequestWindow = new();
 
@@ -380,8 +380,8 @@ public partial class MainWindow
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
+        _playSoundEffects.PlayNotificationSound();
 
         AboutWindow aboutWindow = new();
         aboutWindow.ShowDialog();
@@ -389,6 +389,7 @@ public partial class MainWindow
 
     private void Exit_Click(object sender, RoutedEventArgs e)
     {
+        _playSoundEffects.PlayNotificationSound();
         Close();
     }
 
@@ -635,8 +636,8 @@ public partial class MainWindow
 
     private void ShowGlobalStatsWindow_Click(object sender, RoutedEventArgs e)
     {
-        _playSoundEffects.PlayNotificationSound();
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalStatistics") ?? "Opening Global Statistics...", this);
+        _playSoundEffects.PlayNotificationSound();
 
         var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
         globalStatsWindow.Show();
@@ -731,6 +732,7 @@ public partial class MainWindow
 
                 GameFileGrid.Visibility = Visibility.Visible;
                 ListViewPreviewArea.Visibility = Visibility.Collapsed;
+
                 // Notify user
                 UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ChangingViewMode") ?? "Changing view mode...", this);
 
@@ -843,9 +845,6 @@ public partial class MainWindow
 
     private void NavGlobalSearchButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningGlobalSearch") ?? "Opening Global Search...", this);
-        _playSoundEffects.PlayNotificationSound();
-
         ShowGlobalSearchWindow_Click(sender, e);
     }
 
@@ -856,17 +855,11 @@ public partial class MainWindow
 
     private void NavHistoryButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningPlayHistory") ?? "Opening Play History...", this);
-        _playSoundEffects.PlayNotificationSound();
-
         ShowPlayHistoryWindow_Click(sender, e);
     }
 
     private void NavExpertModeButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
-        _playSoundEffects.PlayNotificationSound();
-
         ExpertMode_Click(sender, e);
     }
 
@@ -875,6 +868,7 @@ public partial class MainWindow
         try
         {
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingFavoriteGamesForSystem") ?? "Loading favorite games for system...", this);
+            _playSoundEffects.PlayNotificationSound();
             await ShowSystemFavoriteGamesClickAsync();
         }
         catch (Exception ex)
@@ -889,6 +883,7 @@ public partial class MainWindow
         try
         {
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PickingARandomGame") ?? "Picking a random game...", this);
+            _playSoundEffects.PlayNotificationSound();
             await ShowSystemFeelingLuckyClickAsync(sender, e);
         }
         catch (Exception ex)

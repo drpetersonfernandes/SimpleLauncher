@@ -1233,9 +1233,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
             if (_isLoadingGames) return;
 
             _playSoundEffects.PlayNotificationSound();
-
             _mameSortOrder = _mameSortOrder == "FileName" ? "MachineDescription" : "FileName";
-
             UpdateSortOrderButtonUi();
 
             var (sl, sq) = GetLoadGameFilesParams();
