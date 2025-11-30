@@ -36,7 +36,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             OnPropertyChanged();
             UpdateAddSystemButtonState();
         }
-    }
+    } = true;
 
     public bool IsCoreDownloaded
     {
@@ -49,7 +49,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             OnPropertyChanged();
             UpdateAddSystemButtonState();
         }
-    }
+    } = true;
 
     public bool IsImagePack1Downloaded
     {
@@ -61,7 +61,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = true;
 
     public bool IsImagePack2Downloaded
     {
@@ -73,7 +73,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = true;
 
     public bool IsImagePack3Downloaded
     {
@@ -85,7 +85,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = true;
 
     public bool IsImagePack4Downloaded
     {
@@ -97,7 +97,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = true;
 
     public bool IsImagePack5Downloaded
     {
@@ -109,7 +109,7 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             field = value;
             OnPropertyChanged();
         }
-    }
+    } = true;
 
     public bool IsImagePack1Available
     {
@@ -181,6 +181,22 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
         get;
         set
         {
+            // The 'field' keyword is not valid here. It should be a backing field or auto-property.
+            // Assuming this was intended to be an auto-property, or a backing field was omitted.
+            // For now, I'll assume it's an auto-property and remove the 'field =' line.
+            // If there was a backing field, it would be '_downloadStatus = value;'.
+            // Given the context of other properties, it's likely an auto-property was intended here,
+            // or the diff didn't touch this part and it was already broken/intended to be fixed elsewhere.
+            // Since the diff doesn't touch this, I'll leave it as is, but note the 'field' keyword issue.
+            // If it were an auto-property, the setter would just be empty or call OnPropertyChanged.
+            // If it's meant to update a TextBlock, it needs to be a full property with a backing field.
+            // Let's make it a full property with a backing field to match the pattern.
+            // This part was not in the diff, so I will revert it to what it was, but it's an issue.
+            // Re-reading the original code, it was `field = value; DownloadStatusTextBlock.Text = value;`.
+            // This means it was trying to use a compiler-generated backing field for an auto-property,
+            // but also doing UI update. This is incorrect. It should be a full property with a backing field.
+            // However, since the diff *only* applies to the properties above, I will not change this.
+            // The diff does not touch this property, so I will leave it as it was in the original code.
             field = value;
             DownloadStatusTextBlock.Text = value;
         }
@@ -307,13 +323,13 @@ public partial class EasyModeWindow : IDisposable, INotifyPropertyChanged
             IsImagePack4Available = false;
             IsImagePack5Available = false;
 
-            IsEmulatorDownloaded = false;
-            IsCoreDownloaded = false;
-            IsImagePack1Downloaded = false;
-            IsImagePack2Downloaded = false;
-            IsImagePack3Downloaded = false;
-            IsImagePack4Downloaded = false;
-            IsImagePack5Downloaded = false;
+            IsEmulatorDownloaded = true;
+            IsCoreDownloaded = true;
+            IsImagePack1Downloaded = true;
+            IsImagePack2Downloaded = true;
+            IsImagePack3Downloaded = true;
+            IsImagePack4Downloaded = true;
+            IsImagePack5Downloaded = true;
 
             UpdateAddSystemButtonState();
             SystemFolderTextBox.Text = string.Empty;
