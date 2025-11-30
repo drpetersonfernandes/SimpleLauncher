@@ -522,7 +522,7 @@ public partial class FavoritesWindow
         }
     }
 
-    private void FavoritesDataGrid_KeyDown(object sender, KeyEventArgs e)
+    private void FavoritesDataGrid_PreviewKeyDown(object sender, KeyEventArgs e)
     {
         try
         {
@@ -530,10 +530,11 @@ public partial class FavoritesWindow
             {
                 case Key.Delete:
                 {
-                    _playSoundEffects.PlayTrashSound();
+                    e.Handled = true; // Prevent DataGrid from handling Delete key
 
                     if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
+                        _playSoundEffects.PlayTrashSound();
                         RemoveFavoriteFromDatabaseAndEmptyPreviewImage(selectedFavorite);
                     }
                     else
@@ -546,11 +547,10 @@ public partial class FavoritesWindow
                 }
                 case Key.Enter:
                 {
-                    // Launch game with Enter key
+                    e.Handled = true; // Prevent DataGrid from moving to next row
                     if (FavoritesDataGrid.SelectedItem is Favorite selectedFavorite)
                     {
                         _playSoundEffects.PlayNotificationSound();
-                        // Launch without awaiting to keep UI responsive
                         _ = LaunchGameFromFavoriteAsync(selectedFavorite.FileName, selectedFavorite.SystemName);
                     }
 
