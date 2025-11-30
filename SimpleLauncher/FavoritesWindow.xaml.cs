@@ -97,6 +97,13 @@ public partial class FavoritesWindow
             {
                 LoadingOverlay.Visibility = Visibility.Collapsed;
             }
+
+            // ENSURE FOCUS: After loading is complete, explicitly set focus to the window and DataGrid
+            await Dispatcher.BeginInvoke(() =>
+            {
+                Focus();
+                FavoritesDataGrid.Focus();
+            }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
         }
         catch (Exception ex)
         {
@@ -478,6 +485,7 @@ public partial class FavoritesWindow
         _favoritesManager.SaveFavorites();
 
         PreviewImage.Source = null;
+        FavoritesDataGrid.ContextMenu = null; // Clear context menu after deletion
     }
 
     private async void LaunchGameWithDoubleClick(object sender, MouseButtonEventArgs e)
@@ -507,6 +515,7 @@ public partial class FavoritesWindow
             if (FavoritesDataGrid.SelectedItem is not Favorite selectedFavorite)
             {
                 PreviewImage.Source = null; // Clear preview if nothing is selected
+                FavoritesDataGrid.ContextMenu = null; // Clear context menu when no selection
                 return;
             }
 

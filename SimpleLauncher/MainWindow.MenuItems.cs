@@ -119,7 +119,6 @@ public partial class MainWindow
             if (_isUiUpdating) return;
 
             _isUiUpdating = true;
-            // Notify user
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("ResettingUI") ?? "Resetting UI...", this);
 
             if (_isLoadingGames)
@@ -150,15 +149,19 @@ public partial class MainWindow
 
                 await DisplaySystemSelectionScreenAsync();
 
-                switch (_settings.ViewMode)
+                // DEFER FOCUS: Use Dispatcher.BeginInvoke to avoid stealing focus from child windows
+                await Dispatcher.BeginInvoke(() =>
                 {
-                    case "GridView":
-                        Scroller.Focus();
-                        break;
-                    case "ListView":
-                        GameDataGrid.Focus();
-                        break;
-                }
+                    switch (_settings.ViewMode)
+                    {
+                        case "GridView":
+                            Scroller.Focus();
+                            break;
+                        case "ListView":
+                            GameDataGrid.Focus();
+                            break;
+                    }
+                }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
             }
             catch (Exception ex)
             {
@@ -647,6 +650,7 @@ public partial class MainWindow
         ResetUi();
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        favoritesWindow.Owner = this; // Set owner for proper focus management
         favoritesWindow.Show();
     }
 
@@ -845,9 +849,6 @@ public partial class MainWindow
 
     private void NavFavoritesButton_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningFavorites") ?? "Opening Favorites...", this);
-        _playSoundEffects.PlayNotificationSound();
-
         ShowFavoritesWindow_Click(sender, e);
     }
 
