@@ -148,20 +148,6 @@ public partial class MainWindow
                 PlayTime = "00:00:00";
 
                 await DisplaySystemSelectionScreenAsync();
-
-                // DEFER FOCUS: Use Dispatcher.BeginInvoke to avoid stealing focus from child windows
-                await Dispatcher.BeginInvoke(() =>
-                {
-                    switch (_settings.ViewMode)
-                    {
-                        case "GridView":
-                            Scroller.Focus();
-                            break;
-                        case "ListView":
-                            GameDataGrid.Focus();
-                            break;
-                    }
-                }, System.Windows.Threading.DispatcherPriority.ApplicationIdle);
             }
             catch (Exception ex)
             {

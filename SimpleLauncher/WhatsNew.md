@@ -2,54 +2,67 @@
 *2025-11-16*
 ---
 
-1.  **New Features:**
-    *   **Group Files by Folder:** A new option to group multi-file MAME games into single UI entries, simplifying game lists. This is to be used with the MAME emulator when you have the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) sets of ROMs for [MAME Software List CHDs] or [MAME Software List ROMs].
-    *   **Advanced Global Search:** Enhanced global search with filtering by system, filename, MAME description, folder name, and recursive search.
-    *   **First-Run Welcome & Easy Mode Flow:** A new user experience that guides first-time users through adding their initial system via Easy Mode.
-    *   **Kebab Menu for Game Buttons:** Added a context menu button to game entries for more options.
-    *   **Configurable Status Bar:** The status bar now has a configurable timeout and provides more detailed user feedback for various operations (loading, saving, actions, etc.).
-2.  **Core Refactoring & Dependency Injection:**
-    *   Extensive refactoring to use **Dependency Injection (DI)** for services like `PlaySoundEffects`, `GameLauncher`, `GamePadController`, `UpdateChecker`, and `IExtractionService`.
-    *   `ExtractCompressedFile` was renamed to `ExtractionService`, and an `IExtractionService` interface was introduced.
-    *   `GamePadController` and `UpdateChecker` were refactored from static singletons to instance-based services.
-    *   `Dispatcher.Invoke` calls were largely replaced with `Dispatcher.InvokeAsync` for improved asynchronous UI updates.
-    *   Property backing fields in several models were updated to use the C# `field` keyword for conciseness.
-3.  **UI/UX Improvements:**
-    *   `UpdateHistoryWindow` now uses a `RichTextBox` to render basic Markdown directly, removing an external dependency.
-    *   `GroupBox` elements in `EditSystemWindow.xaml` were replaced with `Expander` controls for a more modern, collapsible UI.
-4.  **Emulator & System Updates:**
-    *   MAME, DuckStation, and shadPS4 emulator versions were updated in Easy Mode configurations.
-    *   New Ymir and NooDs emulators, as well as Gearlynx and Gearboy, were added.
-    *   Amiga model parameters and expanded MAME `rompath` examples were added to documentation.
-    *   RetroAchievements documentation was clarified.
-5.  **Robustness & Performance:**
-    *   Upgraded codebase to the recently released .NET 10.
-    *   Added cancellation token support to `PlayHistoryWindow` and `GlobalSearchWindow` background tasks.
-    *   Improved file path validation and added retry logic for transient file locks during extraction.
-    *   Updated various tool binaries (`bchunk.exe`, `GameCoverScraper.exe`, `FindRomCover.exe`, `BatchConvertIsoToXiso.exe`).
-    *   Cleanup of temporary files and folders is now handled on application startup.
-6.  **Localization:**
-    *   Many new localized strings were added to support the new UI feedback messages, actions, and features across all supported languages.
+## Release Notes
+
+### 1. New Features
+
+-   **Group Files by Folder:** A new option to group multi-file MAME games into single UI entries, simplifying game lists. This is to be used with the MAME emulator when you have the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) sets of ROMs for [MAME Software List CHDs] or [MAME Software List ROMs].
+-   **Advanced Global Search:** Enhanced global search with filtering by system, filename, MAME description, folder name, and recursive search.
+-   **First-Run Welcome & Easy Mode Flow:** A new user experience that guides first-time users through adding their initial system via Easy Mode.
+-   **Kebab Menu for Game Buttons:** Added a context menu button to game entries for more options.
+-   **Configurable Status Bar:** The status bar now has a configurable timeout and provides more detailed user feedback for various operations (loading, saving, actions, etc.).
+
+### 2. Core Refactoring & Dependency Injection
+
+-   Extensive refactoring to use **Dependency Injection (DI)** for services like `PlaySoundEffects`, `GameLauncher`, `GamePadController`, `UpdateChecker`, and `IExtractionService`.
+-   `ExtractCompressedFile` was renamed to `ExtractionService`, and an `IExtractionService` interface was introduced.
+-   `GamePadController` and `UpdateChecker` were refactored from static singletons to instance-based services.
+-   `Dispatcher.Invoke` calls were largely replaced with `Dispatcher.InvokeAsync` for improved asynchronous UI updates.
+-   Property backing fields in several models were updated to use the C# `field` keyword for conciseness.
+
+### 3. UI/UX Improvements
+
+-   `UpdateHistoryWindow` now uses a `RichTextBox` to render basic Markdown directly, removing an external dependency.
+-   `GroupBox` elements in `EditSystemWindow.xaml` were replaced with `Expander` controls for a more modern, collapsible UI.
+
+### 4. Emulator & System Updates
+
+-   MAME, DuckStation, and shadPS4 emulator versions were updated in Easy Mode configurations.
+-   New Ymir and NooDs emulators, as well as Gearlynx and Gearboy, were added.
+-   Amiga model parameters and expanded MAME `rompath` examples were added to documentation.
+-   RetroAchievements documentation was clarified.
+
+### 5. Robustness & Performance
+
+-   Upgraded codebase to the recently released `.NET 10`.
+-   Added cancellation token support to `PlayHistoryWindow` and `GlobalSearchWindow` background tasks.
+-   Improved file path validation and added retry logic for transient file locks during extraction.
+-   Updated various tool binaries (`bchunk.exe`, `GameCoverScraper.exe`, `FindRomCover.exe`, `BatchConvertIsoToXiso.exe`).
+-   Cleanup of temporary files and folders is now handled on application startup.
+
+### 6. Localization
+
+-   Many new localized strings were added to support the new UI feedback messages, actions, and features across all supported languages.
 
 # Release 4.6.0
 *2025-10-30*
 ---
 
-- Introduced tool `GameCoverScraper` to allow users to scrape cover images online.
-- Updated tool `BatchConvertToRVZ` with bug fixes.
-- Updated tool `RomValidator` to allow users to generate No-Intro compatible dat files.
-- Updated emulator configurations for multiple systems.
-- Added options to increase the number of games per page, as requested by users.
-- Added new aspect ratios for button generation.
-- Added caching for the "Feeling Lucky" feature for improved performance.
-- Enhanced `SupportWindow` with detailed error report generation and improved support request handling.
-- Replaced `HelpUserTextBlock` with `RichTextBox` for enhanced formatting and interaction.
-- Enhanced RetroAchievements integration with improved error handling for unauthorized API responses.
-- Updated MAME emulator setup and streamlined argument handling.
-- Updated documentation for multiple systems.
-- Refactored the parameters and paths validation logic.
-- Added multi-image pack download support.
-- Bug fixes.
+-   Introduced tool `GameCoverScraper` to allow users to scrape cover images online.
+-   Updated tool `BatchConvertToRVZ` with bug fixes.
+-   Updated tool `RomValidator` to allow users to generate No-Intro compatible dat files.
+-   Updated emulator configurations for multiple systems.
+-   Added options to increase the number of games per page, as requested by users.
+-   Added new aspect ratios for button generation.
+-   Added caching for the "Feeling Lucky" feature for improved performance.
+-   Enhanced `SupportWindow` with detailed error report generation and improved support request handling.
+-   Replaced `HelpUserTextBlock` with `RichTextBox` for enhanced formatting and interaction.
+-   Enhanced RetroAchievements integration with improved error handling for unauthorized API responses.
+-   Updated MAME emulator setup and streamlined argument handling.
+-   Updated documentation for multiple systems.
+-   Refactored the parameters and paths validation logic.
+-   Added multi-image pack download support.
+-   Bug fixes.
 
 # Release 4.5.0
 *2025-10-11*
@@ -69,7 +82,7 @@
 *   Updated `easymode.xml` and `easymode_arm64.xml` with the latest emulator versions and new system configurations.
 
 🏗️ **Infrastructure**
-*   Updated RomValidator and SimpleZipDrive executables for x86 and ARM64 platforms.
+*   Updated `RomValidator` and `SimpleZipDrive` executables for x86 and ARM64 platforms.
 
 🔧 **Codebase Refinements & Bug Fixes**
 
@@ -77,61 +90,61 @@
 *2025-09-29*
 ---
 
-- Improvements to error handling, parameter validation, and user experience.
-- Updated SimpleZipDrive to the latest version.
-- Updated emulator references and download links to the latest version.
-- Improved parameter validation to reduce false positives on non-path arguments.
-- Fixed double-click handling in game list mode to prevent errors on placeholder items.
+-   Improvements to error handling, parameter validation, and user experience.
+-   Updated `SimpleZipDrive` to the latest version.
+-   Updated emulator references and download links to the latest version.
+-   Improved parameter validation to reduce false positives on non-path arguments.
+-   Fixed double-click handling in game list mode to prevent errors on placeholder items.
 
 # Release 4.4.1
 *2025-09-19*
 ---
 
 ### 🔧 Bug Fixes
-- Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
-- Fix the Supermodel emulator link.
+-   Improvements to error handling, parameter validation, and user experience across the SimpleLauncher application.
+-   Fix the `Supermodel` emulator link.
 
 # Release 4.4
 *2025-09-17*
 ---
 
 ### 🖥️ Platform Support
-- Introduced support for Windows-arm64
+-   Introduced support for Windows-arm64
 
 ### 🎨 User Interface
-- Improved UI responsiveness in `PlayHistoryWindow` and `FavoritesWindow`
-- Replaced `PleaseWaitWindow` with a consistent, embedded `LoadingOverlay`
-- Added "Delete Cover Image" option in the right-click context menu
+-   Improved UI responsiveness in `PlayHistoryWindow` and `FavoritesWindow`.
+-   Replaced `PleaseWaitWindow` with a consistent, embedded `LoadingOverlay`.
+-   Added "Delete Cover Image" option in the right-click context menu.
 
 ### 🔧 Technical Improvements
-- Improved error handling and user notifications
-- Updated existing emulator versions
-- Enabled MAME description support in `FindRomCover` tool
-- Upgraded NuGet packages `MahApps.Metro` and `Microsoft.Extensions`
-- Transitioned `SettingsManager` and `FavoritesManager` to Dependency Injection (DI)
-- Improved localization resource management
+-   Improved error handling and user notifications.
+-   Updated existing emulator versions.
+-   Enabled MAME description support in `FindRomCover` tool.
+-   Upgraded NuGet packages `MahApps.Metro` and `Microsoft.Extensions`.
+-   Transitioned `SettingsManager` and `FavoritesManager` to Dependency Injection (DI).
+-   Improved localization resource management.
 
 # Release 4.3
 *2025-07-26*
 ---
 
 ### Major Feature: Multi-Folder Support
-- **Multiple System Folders:** The core logic has been refactored to allow each system to scan for games across multiple folders instead of just one.
+-   **Multiple System Folders:** The core logic has been refactored to allow each system to scan for games across multiple folders instead of just one.
 
 ### UI & UX Enhancements
-- **Improved Button Styles:** Game and system buttons now feature refined 3D styles with hover and press animations for a more dynamic user experience.
+-   **Improved Button Styles:** Game and system buttons now feature refined 3D styles with hover and press animations for a more dynamic user experience.
 
 ### Stability Improvements
-- **Improved Mounting Logic:** The on-the-fly mounting for ZIP and XISO files no longer uses fixed delays. It now uses a more robust polling mechanism that actively checks for successful mounts, improving reliability and reducing unnecessary waiting.
+-   **Improved Mounting Logic:** The on-the-fly mounting for ZIP and XISO files no longer uses fixed delays. It now uses a more robust polling mechanism that actively checks for successful mounts, improving reliability and reducing unnecessary waiting.
 
 ### Tooling
-- **New Tool Integration:** A new `RomValidator` tool has been added. This tool can compare user game files with No-Intro dat files.
+-   **New Tool Integration:** A new `RomValidator` tool has been added. This tool can compare user game files with No-Intro dat files.
 
 ### Other Enhancements
-- **Emulator Updates:** Documentation and help files have been updated with information for new emulators (Gopher64, Hades, VisualBoy Advance M, Retroarch SwanStation).
-- **Emulator Updates:** Emulators from Easy Mode have been updated to the latest versions.
-- **MAME Database Update:** The mame.dat file has been updated to MAME 0.278.
-- **History Database Update:** The history.xml file has been updated to the latest version.
+-   **Emulator Updates:** Documentation and help files have been updated with information for new emulators (`Gopher64`, `Hades`, `VisualBoy Advance M`, `Retroarch SwanStation`).
+-   **Emulator Updates:** Emulators from Easy Mode have been updated to the latest versions.
+-   **MAME Database Update:** The `mame.dat` file has been updated to MAME 0.278.
+-   **History Database Update:** The `history.xml` file has been updated to the latest version.
 
 # Release 4.2.0
 *2025-07-10*
@@ -140,10 +153,10 @@
 The most significant change is the introduction of on-the-fly file mounting, which allows users to launch games directly from compressed or disk image files without needing to manually extract them first.
 **Note:** You need to install the Dokan from [GitHub](https://github.com/dokan-dev/dokany) for ZIP and XISO file mounting.
 
-*   **ISO & ZIP Mounting for RPCS3:** The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (RPCS3). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
-*   **XISO Mounting for Cxbx-Reloaded:** Support has been added to mount Xbox ISO (`.xiso`) files for the Cxbx-Reloaded emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
-*   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (XBLA) games, searching for a specific nested file structure required to launch them.
-*   **ScummVM ZIP Mounting:** The system can now mount `.zip` files for ScummVM games and automatically launch the game.
+*   **ISO & ZIP Mounting for RPCS3:** The launcher can now mount `.iso` and `.zip` files for the PlayStation 3 emulator (`RPCS3`). It uses PowerShell for native ISO mounting and a new `SimpleZipDrive.exe` tool for ZIP files. After mounting, it automatically finds and launches the required `EBOOT.BIN` file.
+*   **XISO Mounting for Cxbx-Reloaded:** Support has been added to mount Xbox ISO (`.xiso`) files for the `Cxbx-Reloaded` emulator. This is handled by a new `MountXisoFiles` service that uses the `xbox-iso-vfs.exe` tool to create a virtual drive and launch the `default.xbe` file.
+*   **XBLA ZIP Mounting:** The system can now mount `.zip` files for Xbox Live Arcade (`XBLA`) games, searching for a specific nested file structure required to launch them.
+*   **ScummVM ZIP Mounting:** The system can now mount `.zip` files for `ScummVM` games and automatically launch the game.
 
 ### Major Refactoring & Dependency Changes
 The project's core dependencies and internal logic for handling files have been substantially overhauled to improve robustness and unify functionality.
@@ -172,7 +185,7 @@ The project's core dependencies and internal logic for handling files have been 
 *   Added Status Bar updates to show current actions (e.g., game launched).
 *   Introduced 3D button styles for navigation buttons.
 *   Updated Tray Icon messaging and functionality (including Debug Window access).
-*   Refactored Edit System Window logic and validation for better user feedback on paths.
+*   Refactored `Edit System Window` logic and validation for better user feedback on paths.
 
 # Release 4.0.1
 *2025-05-26*
@@ -250,7 +263,7 @@ This release brings significant user-interface improvements, new features for ga
 -   Added logic to check file and folder paths in the parameter field. Users will be notified if the check returns invalid.
 -   Updated the `LogError` class to use a new, more flexible API.
 -   Added a bug report feature for all the tools bundled with 'Simple Launcher'.
--   Improved the **BatchConvertToCHD** tool to better handle the deletion of original files after conversion to CHD.
+-   Improved the `BatchConvertToCHD` tool to better handle the deletion of original files after conversion to CHD.
 -   Fixed some bugs.
 
 # Release 3.11
@@ -268,7 +281,7 @@ This release brings significant user-interface improvements, new features for ga
 # Release 3.10.2
 *2025-03-03*
 ---
--   Fixed an issue in List View mode where preview images failed to load.
+-   Fixed an issue in `List View` mode where preview images failed to load.
 
 # Release 3.10.1
 *2025-03-02*
@@ -280,7 +293,7 @@ This release brings significant user-interface improvements, new features for ga
 *2025-02-23*
 ---
 -   Exposed the GamePad DeadZone variable to the user.
--   Improved the Game Button generation for the Grid View option. Now users can customize the aspect ratio of the buttons.
+-   Improved the Game Button generation for the `Grid View` option. Now users can customize the aspect ratio of the buttons.
 -   Updated the emulators to their latest releases.
 -   Updated `history.xml`, available at arcade-history.com, to the latest version.
 -   Fixed some bugs.
@@ -289,21 +302,21 @@ This release brings significant user-interface improvements, new features for ga
 # Release 3.9.1
 *2025-02-08*
 ---
--   Significantly improved the speed of the search engine in the Main Window and in the Global Search Window.
+-   Significantly improved the speed of the search engine in the `Main Window` and in the `Global Search Window`.
 -   Fixed some bugs.
 -   Enhanced methods and functions to improve efficiency and reduce errors.
 
 # Release 3.9
 *2025-02-07*
 ---
--   Enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: Xbox 360, Xbox One, Xbox Series X/S, PlayStation 4 DualShock, and PlayStation 5 DualSense.
--   Improved the text formatting of developer suggestions in the Edit Window.
+-   Enhanced support for Xbox controllers and added support for PlayStation controllers. I tested it with the following controllers: `Xbox 360`, `Xbox One`, `Xbox Series X/S`, `PlayStation 4 DualShock`, and `PlayStation 5 DualSense`.
+-   Improved the text formatting of developer suggestions in the `Edit Window`.
 -   Enhanced the translation resources: even error messages are now translated into 17 languages.
 -   Updated the emulators to their latest releases.
 -   Updated `history.xml` to the latest version.
 -   Updated `mame.xml` to the latest version (0.274).
--   Added a tool to batch convert regular ISO files to the XISO (Xbox) format.
--   Added a tool to batch convert CUE, BIN, ISO, and IMG files to the CHD (MAME) format.
+-   Added a tool to batch convert regular ISO files to the `XISO` (Xbox) format.
+-   Added a tool to batch convert CUE, BIN, ISO, and IMG files to the `CHD` (MAME) format.
 -   Added a tool to batch compress files into ZIP or 7Z archives.
 -   Fixed some bugs.
 -   Improved several methods and functions to enhance efficiency and reduce errors.
@@ -319,7 +332,7 @@ This release brings significant user-interface improvements, new features for ga
 ---
 ### Multilingual Version – A Major Update!
 -   **Experience the Application in Your Language!** We've added translations for 17 languages, making the application accessible to users worldwide. Supported languages now include: Arabic, Bengali, German, Spanish, French, Hindi, Indonesian (Malay), Italian, Japanese, Korean, Dutch, Portuguese, Russian, Turkish, Urdu, Vietnamese, Simplified Chinese, and Traditional Chinese.
--   Updated to the latest technologies: .NET Core 9 and C# 13, ensuring better performance and stability.
+-   Updated to the latest technologies: `.NET Core 9` and `C# 13`, ensuring better performance and stability.
 -   Fixed several entries in `helpuser.xml` for improved user assistance.
 -   Updated all emulators to their latest releases.
 -   Updated `mame.xml` to version 0.273.
@@ -335,25 +348,25 @@ This release brings significant user-interface improvements, new features for ga
 # Release 3.7
 *2024-12-08*
 ---
--   Added a tool to generate BAT files for Xbox 360 XBLA games.
--   Added a Helper class to help users during system edits.
--   Improved the UI in the Edit window.
--   Added support for launching Mattel Aquarius games on MAME using the frontend.
+-   Added a tool to generate `BAT files` for `Xbox 360 XBLA` games.
+-   Added a `Helper class` to help users during system edits.
+-   Improved the UI in the `Edit window`.
+-   Added support for launching `Mattel Aquarius` games on `MAME` using the frontend.
 -   Improved the code that gets the application version from GitHub.
 -   Updated the emulator version of the Easy Mode emulators to the latest version.
 -   Updated `mame.xml` to the latest version (MAME 0.272). I have also added Software List games to this list.
 -   Updated `parameters.md` and `system_model.xml`.
 -   Updated the binaries of the tool `FindRomCover` to the latest version.
--   Added image packs for Philips CD-i and Atari ST.
+-   Added image packs for `Philips CD-i` and `Atari ST`.
 -   Added a new menu item to download image packs.
--   Added Mattel Aquarius and Sharp x68000 to Easy Mode.
--   Updated the rom history database to the latest version (ver. 2.72) from [arcade-history.com](https://www.arcade-history.com/).
+-   Added `Mattel Aquarius` and `Sharp x68000` to `Easy Mode`.
+-   Updated the `rom history database` to the latest version (ver. 2.72) from [arcade-history.com](https://www.arcade-history.com/).
 -   Fixed bugs and improved exception handling in some methods.
 
 # Release 3.6.3
 *2024-11-26*
 ---
--   Changed the temp folder from within the application folder to the Windows temp folder to prevent access issues.
+-   Changed the temp folder from within the application folder to the `Windows temp folder` to prevent access issues.
 -   Implemented methods to handle the cleanup of temp files and folders.
 
 # Release 3.6.2
@@ -373,199 +386,198 @@ This release brings significant user-interface improvements, new features for ga
 ---
 -   Performed a major refactoring of the `EditSystem` class to implement better validation in the input fields of the `EditSystem` window.
 -   Improved the system validation mechanism of the `system.xml` file when 'Simple Launcher' loads.
--   Implemented in-memory download and extraction of files as a backup method in case the regular extraction method fails.
--   Added different versions of the `7z` executable for x86 and x64.
+-   Implemented `in-memory download and extraction` of files as a backup method in case the regular extraction method fails.
+-   Added different versions of the `7z` executable for `x86` and `x64`.
 -   Added code to automatically convert URL-formatted text into real links in the `RomHistory` window.
--   Improved the log class to send more debug information to the developer.
--   Added functionality to delete a game file from within the UI, available in the right-click context menu.
--   Added functionality to auto-generate image previews for the loaded games.
--   Added an image pack for Atari 8-Bit.
+-   Improved the `log class` to send more debug information to the developer.
+-   Added functionality to `delete a game file` from within the UI, available in the right-click context menu.
+-   Added functionality to `auto-generate image previews` for the loaded games.
+-   Added an image pack for `Atari 8-Bit`.
 -   Updated the emulator links to the latest version.
 -   Bug fixes.
 
 # Release 3.5.0
 *2024-11-09*
 ---
--   Added a tool to generate BAT files for Sega Model 3.
--   Added a local ROM history database using `history.xml` from [arcade-history.com](https://www.arcade-history.com/).
--   Added a new way to view the games in the main UI. Users can now choose between Grid View and List View.
--   Added a Star button to the Main Window top menu, which selects all the favorites for the selected system.
+-   Added a tool to generate `BAT files` for `Sega Model 3`.
+-   Added a `local ROM history database` using `history.xml` from [arcade-history.com](https://www.arcade-history.com/).
+-   Added a new way to view the games in the main UI. Users can now choose between `Grid View` and `List View`.
+-   Added a `Star button` to the `Main Window top menu`, which selects all the favorites for the selected system.
 -   Improved error and exception notifications in several methods for both users and developers.
 -   Added 'Sony PlayStation 3' image pack.
 -   Increased the font size for the game filenames in the `GameButtonFactory`.
--   Added Sega Model 3 to Easy Mode with an ImagePack available for this system.
+-   Added `Sega Model 3` to `Easy Mode` with an `ImagePack` available for this system.
 -   Updated emulator download links to the latest version.
 
 # Release 3.4.1
 *2024-11-03*
 ---
 -   Automatically set the `SystemImageFolder` if the user does not specify it. It will be set to `.\images\SystemName`.
--   Implemented a way to retry extraction of the downloaded file in case it is locked by antivirus software.
--   Updated the download link for the emulators to the latest version in EasyMode.
--   Added 'Sony PlayStation 3' to the EasyMode installation window.
+-   Implemented a way to retry extraction of the downloaded file in case it is locked by `antivirus software`.
+-   Updated the download link for the emulators to the latest version in `EasyMode`.
+-   Added 'Sony PlayStation 3' to the `EasyMode` installation window.
 -   Updated `mame.xml` to the latest version.
 
 # Release 3.4
 *2024-11-03*
 ---
 -   Added a new menu item called **Tools**. In it, you will find tools related to emulation.
--   Added a tool to Create Batch Files for PS3 Games.
--   Added a tool to Create Batch Files for ScummVM Games.
--   Added a tool to Create Batch Files for Windows Games.
--   Added a tool to Organize System Images.
--   Implemented code to automatically redirect the user to the Simple Launcher Wiki page if the provided parameters for emulator launch fail.
--   Implemented the automatic launch of the UpdateHistory window after an update so the user can see what is new in the release.
+-   Added a tool to `Create Batch Files for PS3 Games`.
+-   Added a tool to `Create Batch Files for ScummVM Games`.
+-   Added a tool to `Create Batch Files for Windows Games`.
+-   Added a tool to `Organize System Images`.
+-   Implemented code to automatically redirect the user to the `Simple Launcher Wiki page` if the provided parameters for emulator launch fail.
+-   Implemented the automatic launch of the `UpdateHistory` window after an update so the user can see what is new in the release.
 -   Implemented logic to automatically reinstall Simple Launcher if the required files are missing.
--   Improved the Updater application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.
--   Fixed the UpdateHistory window to wrap the text. It is better for the user.
+-   Improved the `Updater` application. It will always automatically install the latest version of Simple Launcher even if the parameters provided are invalid.
+-   Fixed the `UpdateHistory` window to wrap the text. It is better for the user.
 
 # Release 3.3.2
 *2024-10-27*
 ---
 -   Improved the field validation in the "Edit System" window to trim input values and prevent the input of empty spaces.
--   Enhanced support for Xbox 360 XBLA games in the Launcher.
+-   Enhanced support for `Xbox 360 XBLA` games in the `Launcher`.
 -   Fixed the download of the 'ares' emulator.
 -   Fixed the download of the 'Redream' emulator.
--   Fixed a bug in the 'Easy Mode' window to prevent the extraction of partially downloaded files.
--   Added Xbox 360 XBLA into `easymode.xml` and `system_model.xml`.
+-   Fixed a bug in the `Easy Mode` window to prevent the extraction of partially downloaded files.
+-   Added `Xbox 360 XBLA` into `easymode.xml` and `system_model.xml`.
 
 # Release 3.3.1
 *2024-10-24*
 ---
--   Fixed a minor issue in the `GameLauncher` class that was triggered when MAME output warning messages about the ROM. It will now only consider error messages if the emulator outputs an error code.
+-   Fixed a minor issue in the `GameLauncher` class that was triggered when `MAME` output warning messages about the ROM. It will now only consider error messages if the emulator outputs an error code.
 
 # Release 3.3.0
 *2024-10-24*
 ---
--   Added Image Packs for Amstrad CPC, Amstrad CPC GX4000, Arcade (MAME), Commodore 64, Microsoft MSX1, Microsoft MSX2, Sony PlayStation 1, Sony PlayStation 2, and Sony PSP.
--   Added a new **UpdateHistory** window that can be launched from the **About** window.
--   Added a button in the **GlobalStats** window that allows the user to save the generated report.
+-   Added `Image Packs` for `Amstrad CPC`, `Amstrad CPC GX4000`, `Arcade (MAME)`, `Commodore 64`, `Microsoft MSX1`, `Microsoft MSX2`, `Sony PlayStation 1`, `Sony PlayStation 2`, and `Sony PSP`.
+-   Added a new `UpdateHistory` window that can be launched from the `About` window.
+-   Added a button in the `GlobalStats` window that allows the user to save the generated report.
 -   Fixed an error in the `GameLauncher` class that was generating an `InvalidOperationException`.
 -   Improved the error logging in the `EditSystemEasyModeAddSystem` class.
--   Added logic to delete the favorite if the favorite file is not found.
+-   Added logic to `delete the favorite` if the favorite file is not found.
 -   Added new functionality to `Updater.exe`.
 
 # Release 3.2.0
 *2024-10-22*
 ---
--   Enabled download of ImagePacks for some systems.
--   Implemented a Tray Icon for the application.
--   Added the function to present the System Play Time for each System.
--   Made the filenames and file descriptions on each button in the Main window a little bigger.
+-   Enabled download of `ImagePacks` for some systems.
+-   Implemented a `Tray Icon` for the application.
+-   Added the function to present the `System Play Time` for each System.
+-   Made the filenames and file descriptions on each button in the `Main window` a little bigger.
 -   Updated all emulators to the latest versions.
 -   Updated the `mame.xml` file to the latest release.
--   Improved error handling in the **Easy Add System** window.
+-   Improved error handling in the `Easy Add System` window.
 -   Enhanced error handling for missing the `default.png` file.
--   Enhanced the Global Stats class and XAML.
+-   Enhanced the `Global Stats` class and `XAML`.
 -   Improved error handling throughout the application.
 -   Improved code in the `GameLauncher` and `ExtractCompressedFile` classes.
 
 # Release 3.1.0
 *2024-07-18*
 ---
--   Implemented a file check before launching a favorite game.
--   Fixed the freezing issue of the **Please Wait** window during a search in the **Main** window.
+-   Implemented a `file check` before launching a `favorite game`.
+-   Fixed the freezing issue of the `Please Wait` window during a search in the `Main` window.
 -   Capped the number of games per page at 500.
 -   Included a second log window in the update process.
--   Enhanced the global search functionality to also search within the machine description of MAME files.
+-   Enhanced the `global search` functionality to also search within the machine description of `MAME` files.
 -   Updated the emulator download links to the latest version.
 -   Fixed some random code issues.
 
 # Release 3.0.0
 *2024-07-17*
 ---
--   Implemented a theme functionality that enables users to personalize the application's appearance.
--   The user interface of the main window has been enhanced.
--   Added icons to some menu items.
--   Some images in the Edit window have been modified.
--   Created a context menu in the main user interface for the 'Remove From Favorites' option.
--   An image preview functionality has been implemented in the Favorite and Global Search windows.
+-   Implemented a `theme functionality` that enables users to personalize the application's appearance.
+-   The user interface of the `main window` has been enhanced.
+-   Added `icons` to some menu items.
+-   Some images in the `Edit window` have been modified.
+-   Created a `context menu` in the `main user interface` for the 'Remove From Favorites' option.
+-   An `image preview functionality` has been implemented in the `Favorite` and `Global Search` windows.
 -   The management of `mame.xml` and `system.xml` has been improved.
 
 # Release 2.15.1
 *2024-07-14*
 ---
--   Added a star icon to each game in the favorites' list.
--   Implemented a preview window that appears when users hover over a list item.
+-   Added a `star icon` to each game in the `favorites' list`.
+-   Implemented a `preview window` that appears when users hover over a list item.
 -   Enhanced logic for generating `favorites.xml` and `settings.xml` when missing.
--   Removed Video and Info links from the generated buttons (still accessible via right-click).
+-   Removed `Video` and `Info` links from the generated buttons (still accessible via right-click).
 
 # Release 2.15
 *2024-07-04*
 ---
--   Updated emulator versions in EasyMode.
--   Added Amstrad CPC to EasyMode.
+-   Updated emulator versions in `EasyMode`.
+-   Added `Amstrad CPC` to `EasyMode`.
 -   Updated `mame.xml` to the latest release.
 -   Updated `system_model.xml` to include Amstrad CPC.
--   Enhanced the Update Class.
--   Introduced a Cart Context Menu.
--   Improved the Global Search Window to include the System Name field.
--   Enhanced the Right-Click Context Menu for Global Search results.
--   Improved the Global Stats Window with a pie chart.
--   Fixed the default image viewer for various media types.
--   Implemented a Favorite function.
--   Added icons to the Right-Click Context Menu items.
+-   Enhanced the `Update Class`.
+-   Introduced a `Cart Context Menu`.
+-   Improved the `Global Search Window` to include the `System Name` field.
+-   Improved the `Global Stats Window` with a `pie chart`.
+-   Fixed the `default image viewer` for various media types.
+-   Implemented a `Favorite function`.
+-   Added icons to the `Right-Click Context Menu` items.
 
 # Release 2.14.4
 *2024-06-06*
 ---
--   Improved the Global Search algorithm to accept logical operators `AND` and `OR`.
--   Fixed a hidden bug in the Main Window search engine.
--   Added an option for the user to select a ROM Folder in the **Easy Mode - Add System** Window.
--   Improved the algorithm for detection of emulator parameters.
--   Removed the parameter validation requirement to save a System in the **Expert Mode** Window.
+-   Improved the `Global Search algorithm` to accept logical operators `AND` and `OR`.
+-   Fixed a hidden bug in the `Main Window search engine`.
+-   Added an option for the user to select a `ROM Folder` in the `Easy Mode - Add System` Window.
+-   Improved the algorithm for detection of `emulator parameters`.
+-   Removed the `parameter validation requirement` to save a System in the `Expert Mode` Window.
 -   Updated the emulator version and download links in `easymode.xml`.
--   Developed a mechanism to detect the version of installed emulators in the **Easy Mode - Add System** Class.
+-   Developed a mechanism to detect the version of `installed emulators` in the `Easy Mode - Add System` Class.
 
 # Release 2.14.3
 *2024-06-04*
 ---
--   Improved the automatic update mechanism and fixed a pagination bug.
+-   Improved the `automatic update mechanism` and fixed a `pagination bug`.
 
 # Release 2.14.2
 *2024-06-02*
 ---
--   Fixed the automatic update process.
+-   Fixed the `automatic update process`.
 
 # Release 2.14.1
 *2024-06-02*
 ---
--   Fixed a small bug in the About window.
+-   Fixed a small bug in the `About` window.
 
 # Release 2.14.0
 *2024-06-02*
 ---
 ### Big Update Today!
--   Added **Easy Mode** to Add a System.
--   Improved error detection of parameter values.
--   Added a **Global Search** function.
--   Added a **Global Stats** Window.
--   Added a right-click Context Menu to every generated button.
--   Implemented an auto-update feature for the application.
+-   Added `Easy Mode` to `Add a System`.
+-   Improved error detection of `parameter values`.
+-   Added a `Global Search` function.
+-   Added a `Global Stats` Window.
+-   Added a `right-click Context Menu` to every generated button.
+-   Implemented an `auto-update feature` for the application.
 -   Updated `mame.xml` to the latest version.
--   Improved extraction method.
+-   Improved `extraction method`.
 -   Fixed all bugs found.
 
 # Release 2.13.0
 *2024-05-17*
 ---
--   Implemented an experimental algorithm to check the emulator parameters.
--   Improved the extraction method that extracts files to a temporary folder.
+-   Implemented an `experimental algorithm` to check the `emulator parameters`.
+-   Improved the `extraction method` that extracts files to a temporary folder.
 -   Made minor bug fixes.
 
 # Release 2.12.1
 *2024-03-31*
 ---
--   Improved the error notification system.
--   Fixed a bug with the emulator location check.
--   Implemented code to use the MAME game description instead of the filename in the Video and Info links.
+-   Improved the `error notification system`.
+-   Fixed a bug with the `emulator location check`.
+-   Implemented code to use the `MAME game description` instead of the filename in the `Video` and `Info` links.
 -   Implemented code to handle missing `mame.xml` and `system_model.xml` files.
 
 # Release 2.12.0
 *2024-03-25*
 ---
--   Implemented basic checks for the System Folder, System Image Folder, and Emulator Location.
--   Made the exception notifications more user-friendly.
+-   Implemented basic checks for the `System Folder`, `System Image Folder`, and `Emulator Location`.
+-   Made the `exception notifications` more user-friendly.
 -   Devised a smart method for generating the `system.xml` file.
 
 # Release 2.11.2.23
@@ -576,42 +588,42 @@ This release brings significant user-interface improvements, new features for ga
 # Release 2.11.1.15
 *2024-03-19*
 ---
--   Improved mechanism to handle games without cover.
--   Enhanced error logging mechanism.
--   Implemented handling for the loading of corrupted images into the UI.
+-   Improved mechanism to handle games without `cover`.
+-   Enhanced `error logging mechanism`.
+-   Implemented handling for the loading of `corrupted images` into the `UI`.
 -   Fixed some bugs and corrected variable names.
 
 # Release 2.11.0.5
 *2024-03-17*
 ---
--   Added a Search Engine to the application.
+-   Added a `Search Engine` to the application.
 -   Updated `mame.xml` to the latest version.
 -   Improved the launch error message.
 
 # Release 2.10.0.10
 *2024-03-12*
 ---
--   Fixed the vertical scroll.
--   The app now retains the window size and state between instances.
--   Users can now use a `default.png` file from the System Image Folder.
--   Users can now see all the parameters associated with the system in the main UI.
--   Added a numeric value for pagination.
+-   Fixed the `vertical scroll`.
+-   The app now retains the `window size and state` between instances.
+-   Users can now use a `default.png` file from the `System Image Folder`.
+-   Users can now see all the `parameters` associated with the system in the `main UI`.
+-   Added a `numeric value for pagination`.
 -   Fixed some bugs.
 
 # Release 2.9.0.90
 *2024-03-10*
 ---
--   Added the option to display all games for the selected system.
--   Implemented pagination in the main UI.
--   Added an option to edit the Video Link and Info Link.
--   Added an option to back up `system.xml` from within the Edit System Window.
--   Added the option to use a custom System Image Folder.
+-   Added the option to display `all games` for the selected system.
+-   Implemented `pagination` in the `main UI`.
+-   Added an option to edit the `Video Link` and `Info Link`.
+-   Added an option to `back up system.xml` from within the `Edit System Window`.
+-   Added the option to use a `custom System Image Folder`.
 
 # Release 2.8.2.10
 *2024-03-06*
 ---
 -   Bug fix.
--   Limit Edit System Window size.
+-   Limit `Edit System Window` size.
 -   Update values in `system.xml`.
 
 # Release 2.8.1.6
@@ -624,16 +636,16 @@ This release brings significant user-interface improvements, new features for ga
 *2024-03-03*
 ---
 -   Added a new menu item called 'Edit System.'
--   Updated the method for counting files within the System Folder.
+-   Updated the method for counting files within the `System Folder`.
 -   Optimized the current code.
 
 # Release 2.7.0.1
 *2024-02-07*
 ---
--   Added intelligent toggling of the GamePadController state.
--   Fixed the implementation of GamePadController in the MainWindow.
+-   Added intelligent toggling of the `GamePadController` state.
+-   Fixed the implementation of `GamePadController` in the `MainWindow`.
 -   Added support for launching `.LNK` and `.EXE` files.
--   Added Name and Email fields to the Bug Report Window.
+-   Added `Name` and `Email` fields to the `Bug Report Window`.
 -   Other bug fixes.
 
 # Release 2.6.3.4
@@ -644,22 +656,22 @@ This release brings significant user-interface improvements, new features for ga
 # Release 2.6.2.3
 *2024-01-28*
 ---
--   Adds support for loading BAT files or treating them as games in the Emulator Frontend.
+-   Adds support for loading `BAT files` or treating them as `games` in the `Emulator Frontend`.
 
 # Release 2.6.0.1
 *2024-01-24*
 ---
 -   Fixed some code.
 -   Improved error checking for `mame.xml`, `settings.xml`, and `system.xml`.
--   Added a BugReport window.
+-   Added a `BugReport` window.
 
 # Release 2.5.0.0
 *2024-01-21*
 ---
 -   Fixed code and updated libraries.
--   Added support for JPG and JPEG image formats.
--   Added custom update notification.
--   Improved logging mechanism.
+-   Added support for `JPG` and `JPEG` image formats.
+-   Added `custom update notification`.
+-   Improved `logging mechanism`.
 -   Updated some systems in `system.xml`.
 
 # Release 2.4
@@ -667,22 +679,22 @@ This release brings significant user-interface improvements, new features for ga
 ---
 -   Updated `system.xml` to include the field `SystemIsMAME`.
 -   Added a `mame.xml` database.
--   Updated the UI to display the System Directory and the number of games.
--   Updated the parameters within the `system.xml`.
+-   Updated the `UI` to display the `System Directory` and the `number of games`.
+-   Updated the `parameters` within the `system.xml`.
 
 # Release 2.3
 *2023-12-26*
 ---
--   Added menu items for Thumbnail Size, game visibility, and GamePad support.
--   Added a `settings.xml` file to save user preferences.
+-   Added menu items for `Thumbnail Size`, `game visibility`, and `GamePad support`.
+-   Added a `settings.xml` file to save `user preferences`.
 -   Refined code for 'extract before launch' functionality.
--   Updated libraries and fixed some code.
+-   Updated `libraries` and fixed some code.
 
 # Release 2.2
 *2023-11-25*
 ---
--   Updated to .NET 8.0.
--   Fixed some code and updated libraries.
+-   Updated to `.NET 8.0`.
+-   Fixed some code and updated `libraries`.
 
 # Release 2.1
 *2023-11-02*
@@ -692,31 +704,31 @@ This release brings significant user-interface improvements, new features for ga
 # Release 2.0
 *2023-10-29*
 ---
--   Major UI improvements.
--   Revised the method for loading game files.
--   Updated the process for loading cover image files.
--   Reworked the system for selecting gaming systems and emulators.
--   Implemented a `system.xml` for system and emulator settings.
+-   Major `UI improvements`.
+-   Revised the method for loading `game files`.
+-   Updated the process for loading `cover image files`.
+-   Reworked the system for selecting `gaming systems` and `emulators`.
+-   Implemented a `system.xml` for `system and emulator settings`.
 -   Introduced 'extract before launch' functionality.
--   Implemented a click sound feature.
--   Incorporated Video and Info buttons into the UI.
--   Implemented asynchronous image loading.
--   Separated functions into distinct classes.
+-   Implemented a `click sound feature`.
+-   Incorporated `Video` and `Info` buttons into the UI.
+-   Implemented `asynchronous image loading`.
+-   Separated functions into `distinct classes`.
 
 # Release 1.3
 *2023-10-19*
 ---
--   Added Xbox controller support.
--   Added support for CSO files.
+-   Added `Xbox controller support`.
+-   Added support for `CSO files`.
 -   Improved and fixed code.
 
 # Release 1.2
 *2023-09-24*
 ---
 -   Fixed a lot of code.
--   Added Utilities and Show menus.
--   Improved UI.
--   Added support for CHD files.
+-   Added `Utilities` and `Show` menus.
+-   Improved `UI`.
+-   Added support for `CHD files`.
 
 # Release 1.1
 *2023-08-29*
