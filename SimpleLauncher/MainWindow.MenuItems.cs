@@ -662,7 +662,9 @@ public partial class MainWindow
         ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
+        playHistoryWindow.Owner = this; // Set owner for proper focus management
         playHistoryWindow.Show();
+        playHistoryWindow.Activate(); // Ensure the window gets focus and comes to foreground
     }
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
