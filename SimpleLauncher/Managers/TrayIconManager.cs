@@ -111,15 +111,21 @@ public class TrayIconManager : IDisposable
 
     private void MainWindow_StateChanged(object sender, EventArgs e)
     {
-        if (_mainWindow.WindowState != WindowState.Minimized)
+        if (_mainWindow.WindowState == WindowState.Minimized)
         {
-            return;
+            // Gamepad navigation will stop when the window is minimized to the taskbar.
+            if (_gamePadController.IsRunning)
+            {
+                _gamePadController.Stop();
+            }
         }
-
-        // Gamepad navigation will stop when the window is minimized to the taskbar.
-        if (_gamePadController.IsRunning)
+        else // Window is Normal or Maximized
         {
-            _gamePadController.Stop();
+            // Restart gamepad navigation if it's enabled and not already running.
+            if (_settings.EnableGamePadNavigation && !_gamePadController.IsRunning)
+            {
+                _gamePadController.Start();
+            }
         }
     }
 
@@ -128,11 +134,6 @@ public class TrayIconManager : IDisposable
         _mainWindow.Show();
         _mainWindow.WindowState = WindowState.Normal;
         _mainWindow.Activate();
-
-        if (_settings.EnableGamePadNavigation && !_gamePadController.IsRunning)
-        {
-            _gamePadController.Start();
-        }
     }
 
     private void OnOpenDebugWindow(object sender, RoutedEventArgs e)
