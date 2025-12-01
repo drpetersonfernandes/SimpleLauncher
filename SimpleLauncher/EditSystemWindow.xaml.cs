@@ -34,12 +34,24 @@ public partial class EditSystemWindow
         _settings = settings ?? throw new ArgumentNullException(nameof(settings));
         _playSoundEffects = playSoundEffects ?? throw new ArgumentNullException(nameof(playSoundEffects));
 
+        ApplyExpanderSettings();
+
         _ = LoadXml();
 
         Closing += EditSystem_Closing;
 
         SaveSystemButton.IsEnabled = false;
         DeleteSystemButton.IsEnabled = false;
+    }
+
+    private void ApplyExpanderSettings()
+    {
+        AdditionalFoldersExpander.IsExpanded = _settings.AdditionalSystemFoldersExpanded;
+        Emulator1Expander.IsExpanded = _settings.Emulator1Expanded;
+        Emulator2Expander.IsExpanded = _settings.Emulator2Expanded;
+        Emulator3Expander.IsExpanded = _settings.Emulator3Expanded;
+        Emulator4Expander.IsExpanded = _settings.Emulator4Expanded;
+        Emulator5Expander.IsExpanded = _settings.Emulator5Expanded;
     }
 
     private async Task LoadXml()
@@ -542,8 +554,17 @@ public partial class EditSystemWindow
         }
     }
 
-    private static void EditSystem_Closing(object sender, CancelEventArgs e)
+    private void EditSystem_Closing(object sender, CancelEventArgs e)
     {
+        // Save expander states
+        _settings.AdditionalSystemFoldersExpanded = AdditionalFoldersExpander.IsExpanded;
+        _settings.Emulator1Expanded = Emulator1Expander.IsExpanded;
+        _settings.Emulator2Expanded = Emulator2Expander.IsExpanded;
+        _settings.Emulator3Expanded = Emulator3Expander.IsExpanded;
+        _settings.Emulator4Expanded = Emulator4Expander.IsExpanded;
+        _settings.Emulator5Expanded = Emulator5Expander.IsExpanded;
+        _settings.Save();
+
         // Create a backup file
         var appFolderPath = AppDomain.CurrentDomain.BaseDirectory;
         var sourceFilePath = Path.Combine(appFolderPath, "system.xml");

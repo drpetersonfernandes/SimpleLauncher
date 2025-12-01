@@ -46,6 +46,12 @@ public class SettingsManager
     public bool OverlayRetroAchievementButton { get; set; }
     public bool OverlayOpenVideoButton { get; set; }
     public bool OverlayOpenInfoButton { get; set; }
+    public bool AdditionalSystemFoldersExpanded { get; set; }
+    public bool Emulator1Expanded { get; set; }
+    public bool Emulator2Expanded { get; set; }
+    public bool Emulator3Expanded { get; set; }
+    public bool Emulator4Expanded { get; set; }
+    public bool Emulator5Expanded { get; set; }
 
     public List<SystemPlayTime> SystemPlayTimes { get; private set; }
 
@@ -140,6 +146,13 @@ public class SettingsManager
             OverlayRetroAchievementButton = ParseBoolSetting(settings, "OverlayRetroAchievementButton", false);
             OverlayOpenVideoButton = ParseBoolSetting(settings, "OverlayOpenVideoButton", true);
             OverlayOpenInfoButton = ParseBoolSetting(settings, "OverlayOpenInfoButton", false);
+
+            AdditionalSystemFoldersExpanded = ParseBoolSetting(settings, "AdditionalSystemFoldersExpanded", true);
+            Emulator1Expanded = ParseBoolSetting(settings, "Emulator1Expanded", true);
+            Emulator2Expanded = ParseBoolSetting(settings, "Emulator2Expanded", true);
+            Emulator3Expanded = ParseBoolSetting(settings, "Emulator3Expanded", true);
+            Emulator4Expanded = ParseBoolSetting(settings, "Emulator4Expanded", true);
+            Emulator5Expanded = ParseBoolSetting(settings, "Emulator5Expanded", true);
 
             SystemPlayTimes.Clear(); // Clear existing times only after a successful load
             var systemPlayTimesElement = settings.Element("SystemPlayTimes");
@@ -297,6 +310,12 @@ public class SettingsManager
         OverlayRetroAchievementButton = false;
         OverlayOpenVideoButton = true;
         OverlayOpenInfoButton = false;
+        AdditionalSystemFoldersExpanded = true;
+        Emulator1Expanded = true;
+        Emulator2Expanded = true;
+        Emulator3Expanded = true;
+        Emulator4Expanded = true;
+        Emulator5Expanded = true;
         // Do not reset SystemPlayTimes here to allow salvaging from a corrupt file
         Save();
 
@@ -338,6 +357,12 @@ public class SettingsManager
             new XElement("OverlayRetroAchievementButton", OverlayRetroAchievementButton),
             new XElement("OverlayOpenVideoButton", OverlayOpenVideoButton),
             new XElement("OverlayOpenInfoButton", OverlayOpenInfoButton),
+            new XElement("AdditionalSystemFoldersExpanded", AdditionalSystemFoldersExpanded),
+            new XElement("Emulator1Expanded", Emulator1Expanded),
+            new XElement("Emulator2Expanded", Emulator2Expanded),
+            new XElement("Emulator3Expanded", Emulator3Expanded),
+            new XElement("Emulator4Expanded", Emulator4Expanded),
+            new XElement("Emulator5Expanded", Emulator5Expanded),
             systemPlayTimesElement
         ).Save(_filePath);
 

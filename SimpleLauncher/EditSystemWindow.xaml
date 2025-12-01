@@ -224,7 +224,7 @@
                         HorizontalAlignment="Left" />
 
                     <!-- Additional System Folders -->
-                    <Expander Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
+                    <Expander x:Name="AdditionalFoldersExpander" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="3" Header="{DynamicResource AdditionalSystemFoldersOptional}" Margin="10" IsExpanded="True">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="*" />
@@ -365,7 +365,7 @@
                     </ComboBox>
 
                     <!-- Emulator 1 -->
-                    <Expander Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
+                    <Expander x:Name="Emulator1Expander" Grid.Row="9" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator1}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -460,7 +460,7 @@
                     </Expander>
 
                     <!-- Emulator 2 -->
-                    <Expander Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True">
+                    <Expander x:Name="Emulator2Expander" Grid.Row="10" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator2}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -554,7 +554,7 @@
                     </Expander>
 
                     <!-- Emulator 3 -->
-                    <Expander Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True">
+                    <Expander x:Name="Emulator3Expander" Grid.Row="11" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator3}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -648,7 +648,7 @@
                     </Expander>
 
                     <!-- Emulator 4 -->
-                    <Expander Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True">
+                    <Expander x:Name="Emulator4Expander" Grid.Row="12" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator4}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />
@@ -742,7 +742,7 @@
                     </Expander>
 
                     <!-- Emulator 5 -->
-                    <Expander Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True">
+                    <Expander x:Name="Emulator5Expander" Grid.Row="13" Grid.Column="0" Grid.ColumnSpan="3" Margin="10" Header="{DynamicResource Emulator5}" IsExpanded="True">
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="Auto" />

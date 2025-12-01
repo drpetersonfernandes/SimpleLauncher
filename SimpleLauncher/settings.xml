@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Settings>
     <ThumbnailSize>250</ThumbnailSize>
     <GamesPerPage>200</GamesPerPage>
@@ -22,5 +22,11 @@
     <OverlayRetroAchievementButton>false</OverlayRetroAchievementButton>
     <OverlayOpenVideoButton>true</OverlayOpenVideoButton>
     <OverlayOpenInfoButton>false</OverlayOpenInfoButton>
+    <AdditionalSystemFoldersExpanded>true</AdditionalSystemFoldersExpanded>
+    <Emulator1Expanded>true</Emulator1Expanded>
+    <Emulator2Expanded>true</Emulator2Expanded>
+    <Emulator3Expanded>true</Emulator3Expanded>
+    <Emulator4Expanded>true</Emulator4Expanded>
+    <Emulator5Expanded>true</Emulator5Expanded>
     <SystemPlayTimes />
 </Settings>
