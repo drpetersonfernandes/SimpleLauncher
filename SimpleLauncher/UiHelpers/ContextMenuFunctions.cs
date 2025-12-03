@@ -253,7 +253,6 @@ public static class ContextMenuFunctions
         string tempExtractionPath = null;
         try
         {
-            // Get services from the service provider
             var settings = App.ServiceProvider.GetRequiredService<SettingsManager>();
 
             if (string.IsNullOrWhiteSpace(settings.RaApiKey) || string.IsNullOrWhiteSpace(settings.RaUsername))

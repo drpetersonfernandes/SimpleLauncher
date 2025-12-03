@@ -6,8 +6,8 @@
                       xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
                       mc:Ignorable="d"
                       Title="{DynamicResource SetFuzzyMatchingThresholdTitle}"
-                      Height="200"
-                      Width="350"
+                      Height="400"
+                      Width="500"
                       ResizeMode="NoResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="15">
@@ -15,8 +15,9 @@
             <RowDefinition Height="Auto"/> <!-- Current Threshold -->
             <RowDefinition Height="Auto"/> <!-- New Threshold Slider + Value -->
             <RowDefinition Height="Auto"/> <!-- Description/Hint -->
-            <RowDefinition Height="*"/>    <!-- Spacer -->
-            <RowDefinition Height="Auto"/> <!-- Buttons -->
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="Auto"/>
@@ -26,7 +27,7 @@
         <!-- Current Threshold -->
         <Label Grid.Row="0" Grid.Column="0" Content="{DynamicResource CurrentThresholdLabel}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,5"/>
         <!-- Display current threshold as percentage -->
-        <Label Grid.Row="0" Grid.Column="1" x:Name="CurrentThresholdLabel" VerticalAlignment="Center" Margin="0,0,0,5"/>
+        <Label Grid.Row="0" Grid.Column="1" x:Name="CurrentThresholdLabel" VerticalAlignment="Center" Margin="10"/>
 
         <!-- New Threshold Input (Slider) -->
         <Label Grid.Row="1" Grid.Column="0" Content="{DynamicResource NewThresholdLabel}" FontWeight="Bold" VerticalAlignment="Center" Margin="0,0,10,5"/>
@@ -42,16 +43,26 @@
             <!-- Display slider value as percentage -->
             <TextBlock Text="{Binding Value, ElementName=ThresholdSlider, StringFormat={}{0:P0}}"
                        VerticalAlignment="Center"
-                       Margin="10,0,0,0"/>
+                       Margin="10"/>
         </StackPanel>
 
         <!-- Description/Hint -->
-        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{DynamicResource FuzzyMatchingThresholdHintSlider}" TextWrapping="Wrap" FontStyle="Italic" Margin="0,5,0,15"/>
+        <TextBlock Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2" Text="{DynamicResource FuzzyMatchingThresholdHintSlider}" TextWrapping="Wrap" FontStyle="Italic" Margin="10"/>
+
+        <!-- Low/High Threshold Explanation -->
+        <TextBlock Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10">
+            <Run Text="{DynamicResource FuzzyMatchingLowThreshold}" FontWeight="Bold"/>
+            <Run Text="{DynamicResource FuzzyMatchingLowThresholdDescription}"/>
+        </TextBlock>
+        <TextBlock Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" TextWrapping="Wrap" Margin="10">
+            <Run Text="{DynamicResource FuzzyMatchingHighThreshold}" FontWeight="Bold"/>
+            <Run Text="{DynamicResource FuzzyMatchingHighThresholdDescription}"/>
+        </TextBlock>
 
         <!-- Buttons -->
-        <StackPanel Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <Button Content="{DynamicResource OkButtonText}" Click="OkButton_Click" Width="80" Margin="0,0,10,0"/>
-            <Button Content="{DynamicResource CancelButtonText}" IsCancel="True" Width="80"/>
+        <StackPanel Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+            <Button Content="{DynamicResource OkButtonText}" Click="OkButton_Click" Padding="10" Margin="0,0,10,0"/>
+            <Button Content="{DynamicResource CancelButtonText}" IsCancel="True" Padding="10"/>
         </StackPanel>
     </Grid>
 </controls:MetroWindow>

@@ -1024,10 +1024,10 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...", this);
+
             var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors);
             soundConfigWindow.ShowDialog();
-            // Settings are saved within the SoundConfigurationWindow, no need to explicitly save here.
-            // PlaySoundEffects will automatically use the new settings on its next call
         }
         catch (Exception ex)
         {
@@ -1039,14 +1039,15 @@ public partial class MainWindow
         }
     }
 
-    public void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
+    private void ShowRetroAchievementsSettingsWindow_Click(object sender, RoutedEventArgs e)
     {
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
+
             var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
             raSettingsWindow.ShowDialog();
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
         }
         catch (Exception ex)
         {
