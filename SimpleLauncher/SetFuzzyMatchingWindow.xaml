@@ -7,7 +7,7 @@
                       mc:Ignorable="d"
                       Title="{DynamicResource SetFuzzyMatchingThresholdTitle}"
                       Height="350"
-                      Width="480"
+                      Width="500"
                       ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
     <Grid Margin="15">

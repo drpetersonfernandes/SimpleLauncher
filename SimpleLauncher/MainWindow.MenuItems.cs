@@ -53,15 +53,15 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
 
             EasyModeWindow editSystemEasyModeAddSystemWindow = new();
+            editSystemEasyModeAddSystemWindow.Owner = this;
             editSystemEasyModeAddSystemWindow.ShowDialog();
 
             LoadOrReloadSystemManager();
 
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningEasyMode") ?? "Opening Easy Mode...", this);
-
-            ResetUi(); // To load new or edited systems into UI
+            ResetUi();
         }
         catch (Exception ex)
         {
@@ -75,15 +75,15 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
 
             EditSystemWindow editSystemWindow = new(_settings, _playSoundEffects);
+            editSystemWindow.Owner = this;
             editSystemWindow.ShowDialog();
 
             LoadOrReloadSystemManager();
 
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningExpertMode") ?? "Opening Expert Mode...", this);
-
-            ResetUi(); // To load new or edited systems into UI
+            ResetUi();
         }
         catch (Exception ex)
         {
@@ -97,13 +97,13 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", this);
 
             ResetUi();
 
             DownloadImagePackWindow downloadImagePack = new();
+            downloadImagePack.Owner = this;
             downloadImagePack.ShowDialog();
-
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningImagePackDownloader") ?? "Opening Image Pack Downloader...", this);
         }
         catch (Exception ex)
         {
@@ -334,7 +334,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
 
         SupportWindow supportRequestWindow = new();
-
+        supportRequestWindow.Owner = this;
         supportRequestWindow.ShowDialog();
     }
 
@@ -343,14 +343,13 @@ public partial class MainWindow
         try
         {
             _playSoundEffects.PlayNotificationSound();
+            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...", this);
 
             var psi = new ProcessStartInfo
             {
                 FileName = "https://www.purelogiccode.com/Donate",
                 UseShellExecute = true
             };
-            // Notify user
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningDonationPage") ?? "Opening donation page...", this);
             Process.Start(psi);
         }
         catch (Exception ex)
@@ -366,10 +365,11 @@ public partial class MainWindow
 
     private void About_Click(object sender, RoutedEventArgs e)
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
         _playSoundEffects.PlayNotificationSound();
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningAboutWindow") ?? "Opening About window...", this);
 
         AboutWindow aboutWindow = new();
+        aboutWindow.Owner = this;
         aboutWindow.ShowDialog();
     }
 
@@ -617,6 +617,7 @@ public partial class MainWindow
         ResetUi();
 
         var globalSearchWindow = new GlobalSearchWindow(_systemManagers, _machines, _mameLookup, _favoritesManager, _settings, this, _gamePadController, _gameLauncher, _playSoundEffects, _logErrors);
+        globalSearchWindow.Owner = this;
         globalSearchWindow.Show();
     }
 
@@ -626,6 +627,7 @@ public partial class MainWindow
         _playSoundEffects.PlayNotificationSound();
 
         var globalStatsWindow = new GlobalStatsWindow(_systemManagers);
+        globalStatsWindow.Owner = this;
         globalStatsWindow.Show();
     }
 
@@ -637,7 +639,7 @@ public partial class MainWindow
         ResetUi();
 
         var favoritesWindow = new FavoritesWindow(_settings, _systemManagers, _machines, _favoritesManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
-        favoritesWindow.Owner = this; // Set owner for proper focus management
+        favoritesWindow.Owner = this;
         favoritesWindow.Show();
     }
 
@@ -649,9 +651,8 @@ public partial class MainWindow
         ResetUi();
 
         var playHistoryWindow = new PlayHistoryWindow(_systemManagers, _machines, _settings, _favoritesManager, PlayHistoryManager, this, _gamePadController, _gameLauncher, _playSoundEffects);
-        playHistoryWindow.Owner = this; // Set owner for proper focus management
+        playHistoryWindow.Owner = this;
         playHistoryWindow.Show();
-        playHistoryWindow.Activate(); // Ensure the window gets focus and comes to foreground
     }
 
     private void UpdateThumbnailSizeCheckMarks(int selectedSize)
@@ -1027,6 +1028,7 @@ public partial class MainWindow
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningSoundConfigurationSettings") ?? "Opening Sound Configuration settings...", this);
 
             var soundConfigWindow = new SoundConfigurationWindow(_settings, _playSoundEffects, _logErrors);
+            soundConfigWindow.Owner = this;
             soundConfigWindow.ShowDialog();
         }
         catch (Exception ex)
@@ -1047,6 +1049,7 @@ public partial class MainWindow
             UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("OpeningRetroAchievementsSettings") ?? "Opening RetroAchievements settings...", this);
 
             var raSettingsWindow = new RetroAchievementsSettingsWindow(_settings);
+            raSettingsWindow.Owner = this;
             raSettingsWindow.ShowDialog();
         }
         catch (Exception ex)
