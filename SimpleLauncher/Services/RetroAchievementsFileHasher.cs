@@ -25,7 +25,7 @@ public static class RetroAchievementsFileHasher
     /// <summary>
     /// Calculates the MD5 hash of a file, starting from a specific offset.
     /// </summary>
-    public static async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset)
+    private static async Task<string> CalculateMd5WithOffsetAsync(string filePath, long offset)
     {
         try
         {

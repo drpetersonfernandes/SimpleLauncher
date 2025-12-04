@@ -53,7 +53,6 @@ public partial class MainWindow
 
     private async Task PopulateSystemSelectionGridAsync()
     {
-        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("PopulatingSystemSelectionGrid") ?? "Populating system selection grid...", this);
         foreach (var config in _systemManagers.OrderBy(static s => s.SystemName))
         {
             // Pass the injected _settings instance to GetSystemDisplayImagePathAsync
