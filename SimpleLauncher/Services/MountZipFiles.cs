@@ -626,6 +626,7 @@ public static class MountZipFiles
 
         var mountPathArgument = driveLetter.Value.ToString().ToLowerInvariant();
         var mountDriveRootForChecks = $"{driveLetter.Value}:\\";
+        var finalMountDriveRoot = $"{driveLetter.Value}:";
 
         DebugLogger.Log($"[MountZipFiles] Selected drive letter for mounting: {driveLetter.Value}:");
 
@@ -723,9 +724,9 @@ public static class MountZipFiles
             );
 
             // The ScummVM -p argument expects a path to the game data.
-            // It is safer to pass the root directory explicitly (e.g., "Z:\") rather than just the drive letter ("Z:").
-            // mountDriveRootForChecks already includes the trailing backslash (e.g., "Z:\").
-            var arguments = $"-p \"{mountDriveRootForChecks}\" {resolvedParameters} ";
+            // Do not pass the root directory explicitly ("Z:\").
+            // Pass just the drive letter ("Z:").
+            var arguments = $"-p \"{finalMountDriveRoot}\" {resolvedParameters} ";
 
             var psiEmulator = new ProcessStartInfo
             {
