@@ -5,7 +5,7 @@
                       Title="{DynamicResource SetGamepadDeadZone}"
                       Width="600"
                       Height="480"
-                      ResizeMode="NoResize"
+                      ResizeMode="CanResize"
                       WindowStartupLocation="CenterScreen">
     <Grid>
         <Grid.RowDefinitions>
@@ -133,14 +133,14 @@
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
                 <!-- Save Button -->
                 <Button
-                    Margin="0,10,5,10"
+                    Margin="0,20,5,10"
                     Padding="10"
                     Click="SaveDeadZoneButton_Click"
                     Content="{DynamicResource SaveDeadZone}" />
 
                 <!-- Revert Button -->
                 <Button
-                    Margin="5,10,0,10"
+                    Margin="5,20,0,10"
                     Padding="10"
                     Click="RevertDeadZoneButton_Click"
                     Content="{DynamicResource ReverttoDefaultValues}" />
