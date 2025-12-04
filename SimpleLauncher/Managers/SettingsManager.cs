@@ -365,9 +365,6 @@ public class SettingsManager
             new XElement("Emulator5Expanded", Emulator5Expanded),
             systemPlayTimesElement
         ).Save(_filePath);
-
-        // Notify user
-        Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSettings") ?? "Saving settings...", Application.Current.MainWindow as MainWindow));
     }
 
     public void UpdateSystemPlayTime(string systemName, TimeSpan playTime)
