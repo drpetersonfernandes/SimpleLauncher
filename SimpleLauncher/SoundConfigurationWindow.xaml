@@ -28,7 +28,8 @@
         <CheckBox x:Name="EnableNotificationSoundCheckBox"
                   Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="3"
                   Content="{DynamicResource EnableNotificationSound}"
-                  Margin="0,0,0,10"/>
+                  Margin="0,0,0,10"
+                  Click="EnableNotificationSoundCheckBox_Click"/>
 
         <Label Grid.Row="1" Grid.Column="0"
                Content="{DynamicResource NotificationSoundFileLabel}"

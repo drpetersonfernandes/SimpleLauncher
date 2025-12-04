@@ -45,11 +45,14 @@ public partial class SoundConfigurationWindow
 
     private void UpdateControlsState()
     {
-        var isEnabled = EnableNotificationSoundCheckBox.IsChecked == true;
-        NotificationSoundFileTextBox.IsEnabled = isEnabled;
-        ChooseSoundFileButton.IsEnabled = isEnabled;
-        PlayCurrentSoundButton.IsEnabled = isEnabled;
-        ResetToDefaultButton.IsEnabled = isEnabled;
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            var isEnabled = EnableNotificationSoundCheckBox.IsChecked == true;
+            NotificationSoundFileTextBox.IsEnabled = isEnabled;
+            ChooseSoundFileButton.IsEnabled = isEnabled;
+            PlayCurrentSoundButton.IsEnabled = isEnabled;
+            ResetToDefaultButton.IsEnabled = isEnabled;
+        });
     }
 
     private void ChooseSoundFileButton_Click(object sender, RoutedEventArgs e)
@@ -120,8 +123,8 @@ public partial class SoundConfigurationWindow
         _settings.Save();
 
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SavingSoundSettings") ?? "Saving sound settings...", Application.Current.MainWindow as MainWindow);
-
         MessageBoxLibrary.SettingsSavedSuccessfully();
+
         DialogResult = true;
         Close();
     }
