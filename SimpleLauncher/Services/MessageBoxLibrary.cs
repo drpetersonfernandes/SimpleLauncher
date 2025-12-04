@@ -2181,7 +2181,7 @@ internal static class MessageBoxLibrary
 
     internal static void InvalidOperationExceptionMessageBox(string logPath)
     {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        Application.Current.Dispatcher.Invoke(ShowMessage);
         return;
 
         void ShowMessage()
@@ -3273,7 +3273,7 @@ internal static class MessageBoxLibrary
     internal static void DoYouWantToReceiveSupportFromTheDeveloper(Exception ex = null, string contextMessage = null, GameLauncher gameLauncher = null, PlaySoundEffects playSoundEffects = null)
     {
         // Pass the parameters to the ShowMessage local function
-        Application.Current.Dispatcher.InvokeAsync(() => ShowMessage(ex, contextMessage, gameLauncher, playSoundEffects));
+        Application.Current.Dispatcher.Invoke(() => ShowMessage(ex, contextMessage, gameLauncher, playSoundEffects));
         return;
 
         // Modify ShowMessage to accept the parameters
@@ -3344,7 +3344,7 @@ internal static class MessageBoxLibrary
         });
     }
 
-    public static void Emulator1LocationRequiredMessageBox()
+    internal static void Emulator1LocationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3357,7 +3357,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Emulator2LocationRequiredMessageBox()
+    internal static void Emulator2LocationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3370,7 +3370,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Emulator3LocationRequiredMessageBox()
+    internal static void Emulator3LocationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3383,7 +3383,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Emulator4LocationRequiredMessageBox()
+    internal static void Emulator4LocationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3396,7 +3396,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void Emulator5LocationRequiredMessageBox()
+    internal static void Emulator5LocationRequiredMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3409,7 +3409,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void ImagePackDownloaderUnavailableMessageBox()
+    internal static void ImagePackDownloaderUnavailableMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3422,7 +3422,7 @@ internal static class MessageBoxLibrary
         }
     }
 
-    public static void EasyModeUnavailableMessageBox()
+    internal static void EasyModeUnavailableMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
@@ -3432,6 +3432,21 @@ internal static class MessageBoxLibrary
             var message = (string)Application.Current.TryFindResource("SimpleLaunchercouldnotaccesstheWebAPI") ?? "'Simple Launcher' could not access the Web API to download the updated URLs. Please try again later.";
             var title = (string)Application.Current.TryFindResource("Error") ?? "Error";
             MessageBox.Show(message, title, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolder()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var simpleLauncherdoesnotsupportRetroAchievementshashofSystems = (string)Application.Current.TryFindResource("simpleLauncherdoesnotsupportRetroAchievementshashofSystems") ?? "'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.";
+            var pleaseedittheSystemsettingsanddisablethe = (string)Application.Current.TryFindResource("pleaseedittheSystemsettingsanddisablethe") ?? "Please edit the system settings and disable the 'Group Files by Folder' option.";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+            MessageBox.Show($"{simpleLauncherdoesnotsupportRetroAchievementshashofSystems}\n\n" +
+                            $"{pleaseedittheSystemsettingsanddisablethe}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
 }

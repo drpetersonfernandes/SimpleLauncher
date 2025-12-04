@@ -280,6 +280,15 @@ public static class ContextMenuFunctions
             var systemName = RetroAchievementsSystemMatcher.GetBestMatchSystemName(systemManager.SystemName);
             DebugLogger.Log($"[RA Service] Resolved system name: {systemName}");
 
+            // Disable Hash calculation for systems that Group Files by Folder
+            if (systemManager.GroupByFolder)
+            {
+                MessageBoxLibrary.SimpleLauncherDoesNotSupportRaHashOfSystemGroupedByFolder();
+                DebugLogger.Log("[RA Service] 'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.");
+                DebugLogger.Log("[RA Service] Please edit the system settings and disable the 'Group Files by Folder' option.");
+                return;
+            }
+
             if (!File.Exists(filePath))
             {
                 DebugLogger.Log($"[RA Service] File not found at {filePath}");

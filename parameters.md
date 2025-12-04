@@ -4081,7 +4081,7 @@ Please use the exact Emulator Name provided above.<br>
 To use this emulator you need the use a MAME compatible set of ROMs, with the right filenames.<br>
 You can find the right set of ROMs on the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) website. I am not affiliated with PleasureDome in any way.
 
-## Sony PlayStation 1
+## Sony PlayStation 1 / PSX 1
 
 **Double-check file and folder paths when entering them in Simple Launcher.**<br>
 
@@ -4150,12 +4150,17 @@ This emulator requires a BIOS file to work properly.
 
 **Emulator Name:** MAME<br>
 **Emulator Path (Example):** C:\Emulators\MAME\mame.exe<br>
-**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sony PlayStation 1" psu<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psu<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psj<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pse<br>
-**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psa<br>
+**Emulator Parameters (Example using absolute paths):** -rompath "C:\Emulators\MAME\roms;C:\Emulators\MAME\bios;c:\ROMs\Sony PlayStation 1" psu -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psu -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psj -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" pse -cdrom<br>
+**Emulator Parameters (Example using relative paths):** -rompath "%EMULATORFOLDER%\roms;%EMULATORFOLDER%\bios;%SYSTEMFOLDER%" psa -cdrom<br>
 **Fullscreen Parameter:** -window (will load in windowed mode)<br>
+
+psu – Sony PlayStation (USA)<br>
+psj – Sony PlayStation (Japan)<br>
+pse – Sony PlayStation (Europe)<br>
+psa – Sony PlayStation (Asia-Pacific)<br>
 
 This emulator is available for Windows-x64 and Windows-arm64.<br>
 Please use the exact Emulator Name provided above.<br>

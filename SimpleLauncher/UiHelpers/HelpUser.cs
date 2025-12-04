@@ -248,6 +248,8 @@ public static partial class HelpUser
             { "Sega Genesis 32X", SegaGenesis32XDetails },
             { "Genesis 32X", SegaGenesis32XDetails },
             { "Genesis32X", SegaGenesis32XDetails },
+            { "Sega 32X", SegaGenesis32XDetails },
+            { "Sega32X", SegaGenesis32XDetails },
             { "Sega Genesis CD", SegaGenesisCdDetails },
             { "Genesis CD", SegaGenesisCdDetails },
             { "GenesisCD", SegaGenesisCdDetails },
@@ -730,7 +732,7 @@ public static partial class HelpUser
     private static string GetSystemDetails(string systemName)
     {
         // Fetch the system details from the configuration
-        var system = Manager.Systems.FirstOrDefault(s => s.SystemName.Equals(systemName, StringComparison.OrdinalIgnoreCase));
+        var system = Manager.Systems.FirstOrDefault(s => s.SystemName.Contains(systemName, StringComparison.OrdinalIgnoreCase));
 
         var nodetailsavailablefor2 = (string)Application.Current.TryFindResource("Nodetailsavailablefor") ?? "No details available for";
         return system?.SystemHelperText ?? $"{nodetailsavailablefor2} '{systemName}'.";
