@@ -14,27 +14,21 @@ public class TrayIconManager : IDisposable
     private static TaskbarIcon _taskbarIcon;
     private readonly ContextMenu _trayMenu;
     private readonly Window _mainWindow;
-    private readonly SettingsManager _settings;
-    private readonly GamePadController _gamePadController;
 
     // Updated delegate types
     private readonly RoutedEventHandler _onOpenHandler;
     private readonly RoutedEventHandler _onExitHandler;
     private readonly RoutedEventHandler _onOpenDebugWindowHandler;
-    private readonly EventHandler _mainWindowStateChangedHandler;
     private readonly RoutedEventHandler _trayMouseDoubleClickHandler;
 
     public TrayIconManager(Window mainWindow, SettingsManager settings, GamePadController gamePadController)
     {
         _mainWindow = mainWindow ?? throw new ArgumentNullException(nameof(mainWindow));
-        _settings = settings ?? throw new ArgumentNullException(nameof(settings));
-        _gamePadController = gamePadController ?? throw new ArgumentNullException(nameof(gamePadController));
 
         // Initialize delegates with correct types
         _onOpenHandler = OnOpen;
         _onExitHandler = OnExit;
         _onOpenDebugWindowHandler = OnOpenDebugWindow;
-        _mainWindowStateChangedHandler = MainWindow_StateChanged;
         _trayMouseDoubleClickHandler = OnOpen;
 
         // Create context menu
@@ -45,7 +39,6 @@ public class TrayIconManager : IDisposable
 
         // Subscribe to events using stored delegates
         _taskbarIcon.TrayMouseDoubleClick += _trayMouseDoubleClickHandler;
-        _mainWindow.StateChanged += _mainWindowStateChangedHandler;
     }
 
     private ContextMenu CreateContextMenu()
@@ -109,26 +102,6 @@ public class TrayIconManager : IDisposable
         };
     }
 
-    private void MainWindow_StateChanged(object sender, EventArgs e)
-    {
-        if (_mainWindow.WindowState == WindowState.Minimized)
-        {
-            // Gamepad navigation will stop when the window is minimized to the taskbar.
-            if (_gamePadController.IsRunning)
-            {
-                _gamePadController.Stop();
-            }
-        }
-        else // Window is Normal or Maximized
-        {
-            // Restart gamepad navigation if it's enabled and not already running.
-            if (_settings.EnableGamePadNavigation && !_gamePadController.IsRunning)
-            {
-                _gamePadController.Start();
-            }
-        }
-    }
-
     private void OnOpen(object sender, RoutedEventArgs e)
     {
         _mainWindow.Show();
@@ -182,11 +155,6 @@ public class TrayIconManager : IDisposable
         {
             _taskbarIcon.TrayMouseDoubleClick -= _trayMouseDoubleClickHandler;
             _taskbarIcon.Dispose();
-        }
-
-        if (_mainWindow != null)
-        {
-            _mainWindow.StateChanged -= _mainWindowStateChangedHandler;
         }
 
         if (_trayMenu != null)

@@ -226,14 +226,7 @@ public partial class GlobalStatsWindow
 
                     var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
 
-                    if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
-                    {
-                        if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
-                        {
-                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
-                        }
-                    }
-                    else
+                    if (!string.IsNullOrEmpty(systemFolderPath) && Directory.Exists(systemFolderPath) && systemManager.FileFormatsToSearch != null)
                     {
                         var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch).GetAwaiter().GetResult();
                         cancellationToken.ThrowIfCancellationRequested();

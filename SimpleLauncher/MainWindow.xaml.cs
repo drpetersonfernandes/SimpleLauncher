@@ -25,6 +25,7 @@ namespace SimpleLauncher;
 public partial class MainWindow : INotifyPropertyChanged, IDisposable
 {
     private bool _isUiUpdating;
+    private bool _wasControllerRunningBeforeDeactivation;
 
     // DispatcherTimer for Controller Detection
     private DispatcherTimer _controllerCheckTimer;
@@ -189,6 +190,8 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
         Loaded += MainWindow_Loaded;
         Closing += MainWindow_Closing;
+        Activated += MainWindow_Activated;
+        Deactivated += MainWindow_Deactivated;
 
         Loaded += async (_, _) =>
         {
@@ -245,6 +248,31 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 DebugLogger.Log($"Error in the Loaded event: {ex.Message}");
             }
         };
+    }
+
+    private void MainWindow_Activated(object sender, EventArgs e)
+    {
+        if (_wasControllerRunningBeforeDeactivation)
+        {
+            _gamePadController.Start();
+            DebugLogger.Log("Gamepad controller restarted on window activation.");
+        }
+
+        _wasControllerRunningBeforeDeactivation = false; // Reset flag
+    }
+
+    private void MainWindow_Deactivated(object sender, EventArgs e)
+    {
+        if (_gamePadController.IsRunning)
+        {
+            _wasControllerRunningBeforeDeactivation = true;
+            _gamePadController.Stop();
+            DebugLogger.Log("Gamepad controller temporarily stopped on window deactivation.");
+        }
+        else
+        {
+            _wasControllerRunningBeforeDeactivation = false;
+        }
     }
 
     private (string startLetter, string searchQuery) GetLoadGameFilesParams()
