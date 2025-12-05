@@ -10,6 +10,7 @@ public static class CheckForRequiredFiles
 {
     private static readonly string BaseDirectory = AppDomain.CurrentDomain.BaseDirectory;
     private static readonly string GlobalDefaultImagePath = Path.Combine(BaseDirectory, "images", "default.png");
+    private static readonly string SystemDefaultImagePath = Path.Combine(BaseDirectory, "images", "systems", "default.png");
     private static readonly string ClickSoundFile = Path.Combine(BaseDirectory, "audio", "click.mp3");
     private static readonly string NotificationSoundFile = Path.Combine(BaseDirectory, "audio", "notification.mp3");
     private static readonly string ShutterSoundFile = Path.Combine(BaseDirectory, "audio", "shutter.mp3");
@@ -23,6 +24,7 @@ public static class CheckForRequiredFiles
         var requiredFiles = new[]
         {
             GlobalDefaultImagePath,
+            SystemDefaultImagePath,
             ClickSoundFile,
             NotificationSoundFile,
             ShutterSoundFile,

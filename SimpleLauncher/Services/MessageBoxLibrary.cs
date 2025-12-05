@@ -3139,19 +3139,6 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void UpdaterIsMissingAttemptingDownload()
-    {
-        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
-        return;
-
-        static void ShowMessage()
-        {
-            var updaterexeismissing = (string)Application.Current.TryFindResource("Updaterexeismissing") ?? "'Updater.exe' is missing, 'Simple Launcher' will try to download it.";
-            var missingFile = (string)Application.Current.TryFindResource("MissingFile") ?? "Missing File";
-            MessageBox.Show(updaterexeismissing, missingFile, MessageBoxButton.OK, MessageBoxImage.Error);
-        }
-    }
-
     internal static void CouldNotFindUpdaterOnGitHub()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);

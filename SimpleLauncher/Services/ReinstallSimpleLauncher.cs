@@ -29,9 +29,6 @@ public static class ReinstallSimpleLauncher
             }
             else
             {
-                // Updater.exe is missing, attempt to download it.
-                MessageBoxLibrary.UpdaterIsMissingAttemptingDownload();
-
                 try
                 {
                     var updateChecker = App.ServiceProvider.GetRequiredService<UpdateChecker>();

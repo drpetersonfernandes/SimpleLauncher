@@ -22,6 +22,18 @@ public class SettingsManager
     private readonly HashSet<string> _validViewModes = ["GridView", "ListView"];
     private readonly HashSet<string> _validButtonAspectRatio = ["Square", "Wider", "SuperWider", "SuperWider2", "Taller", "SuperTaller", "SuperTaller2"];
 
+    private static readonly HashSet<string> KnownSettingsFields =
+    [
+        "ThumbnailSize", "GamesPerPage", "ShowGames", "ViewMode", "EnableGamePadNavigation",
+        "VideoUrl", "InfoUrl", "BaseTheme", "AccentColor", "Language", "DeadZoneX", "DeadZoneY",
+        "ButtonAspectRatio", "EnableFuzzyMatching", "FuzzyMatchingThreshold", "EnableNotificationSound",
+        "CustomNotificationSoundFile", "RA_Username", "RA_ApiKey", "OverlayRetroAchievementButton",
+        "OverlayOpenVideoButton", "OverlayOpenInfoButton", "AdditionalSystemFoldersExpanded",
+        "Emulator1Expanded", "Emulator2Expanded", "Emulator3Expanded", "Emulator4Expanded",
+        "Emulator5Expanded", "SystemPlayTimes"
+    ];
+
+
     public int ThumbnailSize { get; set; }
     public int GamesPerPage { get; set; }
     public string ShowGames { get; set; }
@@ -97,6 +109,17 @@ public class SettingsManager
                 settings = XElement.Load(reader, LoadOptions.None);
             }
 
+            // Check for and remove unrecognized fields
+            var childElementNames = settings.Elements().Select(static e => e.Name.LocalName).ToList();
+            var unrecognizedFields = childElementNames.Except(KnownSettingsFields).ToList();
+            var needsResave = unrecognizedFields.Count != 0;
+
+            if (needsResave)
+            {
+                var fieldsToRemove = string.Join(", ", unrecognizedFields);
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"Cleaning settings.xml. Removing unrecognized fields: {fieldsToRemove}");
+            }
+
             // Notify user
             Application.Current.Dispatcher.Invoke(static () => UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LoadingSettings") ?? "Loading settings...", Application.Current.MainWindow as MainWindow));
 
@@ -167,6 +190,11 @@ public class SettingsManager
                     };
                     SystemPlayTimes.Add(systemPlayTime);
                 }
+            }
+
+            if (needsResave)
+            {
+                Save();
             }
         }
         catch (XmlException ex)
