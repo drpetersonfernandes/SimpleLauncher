@@ -165,7 +165,7 @@ public partial class MainWindow
         }
     }
 
-    private void LoadOrReloadSystemManager()
+    public void LoadOrReloadSystemManager()
     {
         _systemManagers = SystemManager.LoadSystemManagers();
         var sortedSystemNames = _systemManagers.Select(static manager => manager.SystemName).OrderBy(static name => name)

@@ -69,6 +69,7 @@ public partial class App : IDisposable
         serviceCollection.AddSingleton(static _ => FavoritesManager.LoadFavorites());
         serviceCollection.AddSingleton(static _ => PlayHistoryManager.LoadPlayHistory());
         serviceCollection.AddSingleton(static _ => RetroAchievementsManager.LoadRetroAchievement());
+        serviceCollection.AddSingleton<GameScannerService>();
         serviceCollection.AddTransient<MainWindow>();
 
         ServiceProvider = serviceCollection.BuildServiceProvider();
@@ -152,6 +153,23 @@ public partial class App : IDisposable
         var mainWindow = ServiceProvider.GetRequiredService<MainWindow>();
         Current.MainWindow = mainWindow;
         mainWindow.Show();
+
+        // Start background scan for Steam/Epic games
+        var gameScanner = ServiceProvider.GetRequiredService<GameScannerService>();
+        _ = Task.Run(async () =>
+        {
+            await gameScanner.ScanForStoreGamesAsync();
+            // After scanning, if a new system was created, tell MainWindow to refresh its system list.
+            if (gameScanner.WasNewSystemCreated)
+            {
+                await Dispatcher.InvokeAsync(() =>
+                {
+                    var activeMainWindow = Current.MainWindow as MainWindow;
+                    activeMainWindow?.LoadOrReloadSystemManager();
+                    UpdateStatusBar.UpdateContent("Found new games from Steam/Epic. Refreshing system list.", activeMainWindow);
+                });
+            }
+        });
 
         // Show UpdateHistoryWindow if -whatsnew argument is present
         // This is done after ensuring we're the single instance and after initialization

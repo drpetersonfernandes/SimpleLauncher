@@ -206,6 +206,7 @@ public class GameLauncher
                             await RunBatchFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         case ".LNK":
+                        case ".URL":
                             await LaunchShortcutFileAsync(resolvedFilePath, _selectedEmulatorManager, mainWindow);
                             break;
                         case ".EXE":
@@ -421,7 +422,7 @@ public class GameLauncher
         }
     }
 
-    private async Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
+    private Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
         var psi = new ProcessStartInfo
         {
@@ -448,38 +449,14 @@ public class GameLauncher
         DebugLogger.Log("LaunchShortcutFileAsync:\n\n");
         DebugLogger.Log($"Shortcut File: {psi.FileName}");
         DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
-
         TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
         UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
 
-        using var process = new Process();
-        process.StartInfo = psi;
-
         try
         {
-            var processStarted = process.Start();
-            if (!processStarted)
-            {
-                throw new InvalidOperationException("Failed to start the shortcut process.");
-            }
-
-            // Note: With UseShellExecute = true, process.WaitForExit() might not wait for the launched application,
-            // but rather for the shell process that opened it (like explorer.exe). This is a limitation.
-            // I will keep the wait for consistency. It might return immediately.
-            await process.WaitForExitAsync();
-
-            // ExitCode might not be reliable with UseShellExecute = true
-            if (process.ExitCode != 0)
-            {
-                // Log the exit code, but don't necessarily treat it as a critical error
-                // since it might just be the shell's exit code.
-                // Notify developer
-                var errorDetail = $"Shortcut process exited with non-zero code (may be shell's code).\n" +
-                                  $"Shortcut file: {psi.FileName}\n" +
-                                  $"Exit code {process.ExitCode}\n\n" +
-                                  $"User was not notified.";
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorDetail);
-            }
+            using var process = new Process();
+            process.StartInfo = psi;
+            process.Start();
         }
         catch (Exception ex)
         {
@@ -497,6 +474,8 @@ public class GameLauncher
                 MessageBoxLibrary.ThereWasAnErrorLaunchingThisGameMessageBox(_logPath);
             }
         }
+
+        return Task.CompletedTask;
     }
 
     private async Task LaunchExecutableAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
