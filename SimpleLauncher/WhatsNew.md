@@ -1,48 +1,37 @@
 # Release 4.7.0
-*2025-11-16*
+*2025-12-05*
 ---
 
-## Release Notes
+## 🚀 New Features
+- **Group Files by Folder**: Groups multi-file MAME games (e.g., Software List CHDs/ROMs from [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html)) into single UI entries. Compatible **only with MAME**—warnings shown for non-MAME setups.
+- **Advanced Global Search**: Filter by system, filename, MAME description, folder name, and recursive search.
+- **First-Run Welcome Flow**: Guides new users to Easy Mode for quick setup.
+- **Kebab Menu**: "..." button on game entries for quick context actions.
+- **Configurable Status Bar**: Timeout (default 3s) with detailed feedback for loading/saving/actions.
 
-### 1. New Features
+## 🔧 Core Refactoring
+- **Dependency Injection (DI)**: `GameLauncher`, `GamePadController`, `UpdateChecker`, `ExtractionService`, `PlaySoundEffects`, etc., now instance-based services.
+- **ExtractionService**: Refactored from `ExtractCompressedFile` with `IExtractionService` interface; retry logic for file locks.
+- **Thread Safety**: `SemaphoreSlim` for game caches; `Dispatcher.InvokeAsync` preferred.
+- **.NET 10**: Target framework upgraded; C# 14 features.
 
--   **Group Files by Folder:** A new option to group multi-file MAME games into single UI entries, simplifying game lists. This is to be used with the MAME emulator when you have the [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html) sets of ROMs for [MAME Software List CHDs] or [MAME Software List ROMs].
--   **Advanced Global Search:** Enhanced global search with filtering by system, filename, MAME description, folder name, and recursive search.
--   **First-Run Welcome & Easy Mode Flow:** A new user experience that guides first-time users through adding their initial system via Easy Mode.
--   **Kebab Menu for Game Buttons:** Added a context menu button to game entries for more options.
--   **Configurable Status Bar:** The status bar now has a configurable timeout and provides more detailed user feedback for various operations (loading, saving, actions, etc.).
+## 🎨 UI/UX Improvements
+- **UpdateHistoryWindow**: Native Markdown rendering (no external deps).
+- **EditSystemWindow**: `GroupBox` → `Expander` (collapsible); persist states.
+- **Resizable Windows**: `SetFuzzyMatchingWindow`, `SetGamepadDeadZoneWindow`.
+- **Dark Mode Toggle**: Navigation menu icon/handler.
+- **Loading Overlays**: Consistent across windows; disable UI during ops.
 
-### 2. Core Refactoring & Dependency Injection
+## 🛠️ Tools & Emulators
+- **Updated Binaries**: tools (`bchunk.exe`, `GameCoverScraper`, `FindRomCover.exe`, `BatchConvertIsoToXiso.exe` etc.).
+- **New Emulators**: Ymir (Saturn), NooDs (DS), Gearlynx/Gearboy (Lynx).
+- **Docs**: Updated `parameters.md`/`helpuser.xml` with Amiga models, MAME `rompath` examples.
 
--   Extensive refactoring to use **Dependency Injection (DI)** for services like `PlaySoundEffects`, `GameLauncher`, `GamePadController`, `UpdateChecker`, and `IExtractionService`.
--   `ExtractCompressedFile` was renamed to `ExtractionService`, and an `IExtractionService` interface was introduced.
--   `GamePadController` and `UpdateChecker` were refactored from static singletons to instance-based services.
--   `Dispatcher.Invoke` calls were largely replaced with `Dispatcher.InvokeAsync` for improved asynchronous UI updates.
--   Property backing fields in several models were updated to use the C# `field` keyword for conciseness.
-
-### 3. UI/UX Improvements
-
--   `UpdateHistoryWindow` now uses a `RichTextBox` to render basic Markdown directly, removing an external dependency.
--   `GroupBox` elements in `EditSystemWindow.xaml` were replaced with `Expander` controls for a more modern, collapsible UI.
-
-### 4. Emulator & System Updates
-
--   MAME, DuckStation, and shadPS4 emulator versions were updated in Easy Mode configurations.
--   New Ymir and NooDs emulators, as well as Gearlynx and Gearboy, were added.
--   Amiga model parameters and expanded MAME `rompath` examples were added to documentation.
--   RetroAchievements documentation was clarified.
-
-### 5. Robustness & Performance
-
--   Upgraded codebase to the recently released `.NET 10`.
--   Added cancellation token support to `PlayHistoryWindow` and `GlobalSearchWindow` background tasks.
--   Improved file path validation and added retry logic for transient file locks during extraction.
--   Updated various tool binaries (`bchunk.exe`, `GameCoverScraper.exe`, `FindRomCover.exe`, `BatchConvertIsoToXiso.exe`).
--   Cleanup of temporary files and folders is now handled on application startup.
-
-### 6. Localization
-
--   Many new localized strings were added to support the new UI feedback messages, actions, and features across all supported languages.
+## 🛡️ Robustness & Perf
+- **Cancellation Tokens**: `GlobalSearchWindow`, `PlayHistoryWindow`.
+- **Atomic Saves**: Favorites prevent corruption via temp files.
+- **Cache Invalidation**: Clear RA cache on credential changes.
+- **Localization**: 100+ new strings (artwork, Easy Mode, errors).
 
 # Release 4.6.0
 *2025-10-30*
