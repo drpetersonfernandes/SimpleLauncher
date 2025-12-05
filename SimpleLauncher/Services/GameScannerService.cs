@@ -1,19 +1,21 @@
 using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Text.Json;
 using System.Threading;
 using System.Threading.Tasks;
+using System.Xml;
 using System.Xml.Linq;
 using Microsoft.Win32;
 using SimpleLauncher.Interfaces;
-using System.Xml;
 
 namespace SimpleLauncher.Services;
 
 /// <summary>
-/// Scans for games installed via Steam and Epic Games Launcher and integrates them into Simple Launcher.
+/// Scans for games installed via Steam, Epic, GOG, Ubisoft, EA, and Microsoft Store,
+/// integrating them into Simple Launcher.
 /// </summary>
 public class GameScannerService
 {
@@ -25,7 +27,16 @@ public class GameScannerService
         "Steamworks Common Redistributables",
         "Unreal Engine",
         "Fab UE Plugin",
-        "Quixel Bridge"
+        "Quixel Bridge",
+        "DirectX",
+        "Google Earth VR",
+        "Spacewar"
+    };
+
+    // Whitelist for Microsoft Store games to avoid adding Calculator/Photos etc.
+    private static readonly string[] MicrosoftStoreKeywords =
+    {
+        "Minecraft", "Solitaire", "Forza", "Halo", "Gears of War", "Sea of Thieves", "Flight Simulator", "Age of Empires"
     };
 
     private readonly string _windowsRomsPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "roms", "Microsoft Windows");
@@ -48,10 +59,20 @@ public class GameScannerService
         {
             WasNewSystemCreated = await EnsureWindowsSystemExistsAsync();
 
-            // Run scans in parallel
-            await Task.WhenAll(ScanSteamGamesAsync(), ScanEpicGamesAsync());
+            // Run scans in parallel where safe, or sequentially to avoid disk thrashing
+            var tasks = new List<Task>
+            {
+                ScanSteamGamesAsync(),
+                ScanEpicGamesAsync(),
+                ScanGogGamesAsync(),
+                ScanUbisoftGamesAsync(),
+                ScanEaGamesAsync(),
+                ScanMicrosoftStoreGamesAsync()
+            };
 
-            DebugLogger.Log("[GameScannerService] Steam and Epic Games scan completed.");
+            await Task.WhenAll(tasks);
+
+            DebugLogger.Log("[GameScannerService] All store game scans completed.");
         }
         catch (Exception ex)
         {
@@ -61,7 +82,6 @@ public class GameScannerService
 
     /// <summary>
     /// Ensures that a "Microsoft Windows" system is configured in system.xml.
-    /// If not present, it creates one.
     /// </summary>
     private async Task<bool> EnsureWindowsSystemExistsAsync()
     {
@@ -90,7 +110,7 @@ public class GameScannerService
 
             if (systemExists)
             {
-                return false; // System already exists, nothing to do.
+                return false; // System already exists
             }
 
             DebugLogger.Log($"[GameScannerService] '{WindowsSystemName}' system not found. Creating it now.");
@@ -126,11 +146,10 @@ public class GameScannerService
                 await xmlDoc.SaveAsync(writer, CancellationToken.None);
             }
 
-            // Create the necessary directories
             Directory.CreateDirectory(_windowsRomsPath);
             Directory.CreateDirectory(_windowsImagesPath);
 
-            DebugLogger.Log($"[GameScannerService] Successfully created and configured '{WindowsSystemName}' system.");
+            DebugLogger.Log($"[GameScannerService] Successfully created '{WindowsSystemName}' system.");
             return true;
         }
         catch (Exception ex)
@@ -140,48 +159,59 @@ public class GameScannerService
         }
     }
 
-    /// <summary>
-    /// Scans for installed Steam games and creates launchers and artwork.
-    /// </summary>
+    #region Steam
+
     private async Task ScanSteamGamesAsync()
     {
         try
         {
+            // 1. Find Steam Path (Check both 64-bit and 32-bit keys, and HKCU)
             var steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath", null) as string;
+            if (string.IsNullOrEmpty(steamPath))
+            {
+                steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", null) as string;
+            }
+
+            if (string.IsNullOrEmpty(steamPath))
+            {
+                steamPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
+            }
+
             if (string.IsNullOrEmpty(steamPath) || !Directory.Exists(steamPath))
             {
                 DebugLogger.Log("[GameScannerService] Steam installation not found.");
                 return;
             }
 
+            // 2. Identify Library Folders
+            var libraryPaths = new List<string> { Path.Combine(steamPath, "steamapps") };
             var libraryFoldersVdf = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
-            if (!File.Exists(libraryFoldersVdf))
-            {
-                DebugLogger.Log("[GameScannerService] libraryfolders.vdf not found.");
-                return;
-            }
 
-            var libraryPaths = new List<string> { Path.Combine(steamPath, "steamapps") }; // Add default library
-            try
+            if (File.Exists(libraryFoldersVdf))
             {
-                var vdfData = VdfParser.Parse(libraryFoldersVdf);
-                if (vdfData.TryGetValue("libraryfolders", out var folders) && folders is Dictionary<string, object> folderDict)
+                try
                 {
-                    foreach (var folderNode in folderDict.Values)
+                    var vdfData = VdfParser.Parse(libraryFoldersVdf);
+                    if (vdfData.TryGetValue("libraryfolders", out var folders) && folders is Dictionary<string, object> folderDict)
                     {
-                        if (folderNode is Dictionary<string, object> pathDict && pathDict.TryGetValue("path", out var pathObj) && pathObj is string path)
+                        foreach (var folderNode in folderDict.Values)
                         {
-                            libraryPaths.Add(Path.Combine(path, "steamapps"));
+                            if (folderNode is Dictionary<string, object> pathDict &&
+                                pathDict.TryGetValue("path", out var pathObj) &&
+                                pathObj is string path)
+                            {
+                                libraryPaths.Add(Path.Combine(path, "steamapps"));
+                            }
                         }
                     }
                 }
-            }
-            catch (Exception ex)
-            {
-                await _logErrors.LogErrorAsync(ex, $"Failed to parse Steam's libraryfolders.vdf file at {libraryFoldersVdf}");
-                // Continue with just the default library path
+                catch (Exception ex)
+                {
+                    await _logErrors.LogErrorAsync(ex, "Failed to parse Steam's libraryfolders.vdf. Using default path only.");
+                }
             }
 
+            // 3. Scan Manifests
             foreach (var libraryPath in libraryPaths.Distinct())
             {
                 if (!Directory.Exists(libraryPath)) continue;
@@ -197,12 +227,7 @@ public class GameScannerService
                             if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
                                 appStateDict.TryGetValue("appid", out var appIdObj) && appIdObj is string appId)
                             {
-                                // Check against the ignore list
-                                if (IgnoredGameNames.Contains(gameName))
-                                {
-                                    DebugLogger.Log($"[GameScannerService] Ignoring Steam app: {gameName}");
-                                    continue;
-                                }
+                                if (IgnoredGameNames.Contains(gameName)) continue;
 
                                 var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
                                 var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
@@ -211,19 +236,15 @@ public class GameScannerService
                                 var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
                                 await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                                // Copy artwork
-                                var artworkPath = Path.Combine(steamPath, "appcache", "librarycache", $"{appId}_library_600x900.jpg");
-                                if (File.Exists(artworkPath))
-                                {
-                                    var destArtworkPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.jpg");
-                                    File.Copy(artworkPath, destArtworkPath, true);
-                                }
+                                // Copy artwork (Try multiple variations)
+                                await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName);
                             }
                         }
                     }
                     catch (Exception ex)
                     {
-                        await _logErrors.LogErrorAsync(ex, $"Failed to process Steam manifest: {manifestFile}");
+                        // Log but continue
+                        DebugLogger.Log($"[GameScannerService] Error processing Steam manifest {manifestFile}: {ex.Message}");
                     }
                 }
             }
@@ -234,19 +255,52 @@ public class GameScannerService
         }
     }
 
-    /// <summary>
-    /// Scans for installed Epic Games and creates launchers and artwork.
-    /// </summary>
+    private Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName)
+    {
+        var destArtworkPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.jpg");
+        if (File.Exists(destArtworkPath)) return Task.CompletedTask;
+
+        var cachePath = Path.Combine(steamPath, "appcache", "librarycache");
+        if (!Directory.Exists(cachePath)) return Task.CompletedTask;
+
+        // Priority list of images to look for
+        string[] searchPatterns =
+        {
+            $"{appId}_library_600x900.jpg",
+            $"{appId}_header.jpg",
+            $"{appId}_library_hero.jpg"
+        };
+
+        foreach (var pattern in searchPatterns)
+        {
+            var sourcePath = Path.Combine(cachePath, pattern);
+            if (File.Exists(sourcePath))
+            {
+                try
+                {
+                    File.Copy(sourcePath, destArtworkPath, true);
+                    return Task.CompletedTask;
+                }
+                catch
+                {
+                    /* Ignore copy errors */
+                }
+            }
+        }
+
+        return Task.CompletedTask;
+    }
+
+    #endregion
+
+    #region Epic Games
+
     private async Task ScanEpicGamesAsync()
     {
         try
         {
             const string manifestsPath = @"C:\ProgramData\Epic\EpicGamesLauncher\Data\Manifests";
-            if (!Directory.Exists(manifestsPath))
-            {
-                DebugLogger.Log("[GameScannerService] Epic Games manifests directory not found.");
-                return;
-            }
+            if (!Directory.Exists(manifestsPath)) return;
 
             var manifestFiles = Directory.GetFiles(manifestsPath, "*.item");
             foreach (var manifestFile in manifestFiles)
@@ -257,44 +311,36 @@ public class GameScannerService
                     using var doc = JsonDocument.Parse(jsonContent);
                     var root = doc.RootElement;
 
-                    var displayName = root.GetProperty("DisplayName").GetString();
-                    var appName = root.GetProperty("AppName").GetString();
-                    var installLocation = root.GetProperty("InstallLocation").GetString();
-                    var launchExecutable = root.GetProperty("LaunchExecutable").GetString();
+                    if (!root.TryGetProperty("DisplayName", out var nameProp) ||
+                        !root.TryGetProperty("AppName", out var appNameProp)) continue;
 
-                    if (string.IsNullOrEmpty(displayName) || string.IsNullOrEmpty(appName)) continue;
+                    var displayName = nameProp.GetString();
+                    var appName = appNameProp.GetString();
 
-                    // Check against the ignore list
-                    if (IgnoredGameNames.Contains(displayName))
-                    {
-                        DebugLogger.Log($"[GameScannerService] Ignoring Epic Games app: {displayName}");
-                        continue;
-                    }
+                    if (string.IsNullOrEmpty(displayName) || IgnoredGameNames.Contains(displayName)) continue;
 
                     var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(displayName);
                     var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
 
-                    // Create .url shortcut
                     var shortcutContent = $"[InternetShortcut]\nURL=com.epicgames.launcher://apps/{appName}?action=launch&silent=true";
                     await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                    // Extract and save icon from executable
-                    if (installLocation != null)
+                    // Extract icon
+                    if (root.TryGetProperty("InstallLocation", out var installLocProp) &&
+                        root.TryGetProperty("LaunchExecutable", out var exeProp))
                     {
-                        if (launchExecutable != null)
+                        var exePath = Path.Combine(installLocProp.GetString() ?? "", exeProp.GetString() ?? "");
+                        if (File.Exists(exePath))
                         {
-                            var exePath = Path.Combine(installLocation, launchExecutable);
-                            if (File.Exists(exePath))
-                            {
-                                var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+                            var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+                            if (!File.Exists(iconPath))
                                 IconExtractor.SaveIconFromExe(exePath, iconPath);
-                            }
                         }
                     }
                 }
                 catch (Exception ex)
                 {
-                    await _logErrors.LogErrorAsync(ex, $"Failed to process Epic Games manifest: {manifestFile}");
+                    DebugLogger.Log($"[GameScannerService] Error processing Epic manifest {manifestFile}: {ex.Message}");
                 }
             }
         }
@@ -303,4 +349,258 @@ public class GameScannerService
             await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for Epic games.");
         }
     }
+
+    #endregion
+
+    #region GOG Galaxy
+
+    private async Task ScanGogGamesAsync()
+    {
+        try
+        {
+            // GOG usually stores game info in HKLM\SOFTWARE\WOW6432Node\GOG.com\Games
+            const string gogRegKey = @"SOFTWARE\WOW6432Node\GOG.com\Games";
+            using var baseKey = Registry.LocalMachine.OpenSubKey(gogRegKey);
+
+            if (baseKey == null) return;
+
+            foreach (var gameId in baseKey.GetSubKeyNames())
+            {
+                try
+                {
+                    using var gameKey = baseKey.OpenSubKey(gameId);
+                    if (gameKey == null) continue;
+
+                    var gameName = gameKey.GetValue("gameName") as string;
+                    var exePath = gameKey.GetValue("exe") as string;
+                    var workingDir = gameKey.GetValue("workingDir") as string;
+
+                    if (string.IsNullOrEmpty(gameName)) continue;
+                    if (IgnoredGameNames.Contains(gameName)) continue;
+
+                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
+                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
+
+                    // Create shortcut using Galaxy protocol
+                    var shortcutContent = $"[InternetShortcut]\nURL=goggalaxy://openGameView/{gameId}";
+                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                    // Extract icon from the actual executable if available
+                    if (!string.IsNullOrEmpty(exePath) && !string.IsNullOrEmpty(workingDir))
+                    {
+                        var fullExePath = Path.Combine(workingDir, exePath);
+                        if (File.Exists(fullExePath))
+                        {
+                            var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+                            if (!File.Exists(iconPath))
+                                IconExtractor.SaveIconFromExe(fullExePath, iconPath);
+                        }
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[GameScannerService] Error processing GOG game {gameId}: {ex.Message}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for GOG games.");
+        }
+    }
+
+    #endregion
+
+    #region Ubisoft Connect
+
+    private async Task ScanUbisoftGamesAsync()
+    {
+        try
+        {
+            const string ubiRegKey = @"SOFTWARE\WOW6432Node\Ubisoft\Launcher\Installs";
+            using var baseKey = Registry.LocalMachine.OpenSubKey(ubiRegKey);
+
+            if (baseKey == null) return;
+
+            foreach (var gameId in baseKey.GetSubKeyNames())
+            {
+                try
+                {
+                    using var gameKey = baseKey.OpenSubKey(gameId);
+                    if (gameKey == null) continue;
+
+                    var installDir = gameKey.GetValue("InstallDir") as string;
+                    if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
+
+                    // Ubisoft registry doesn't always have the "Name". We might need to infer it from the folder name.
+                    // Or check "GameExplorer" entry if it exists.
+                    var gameName = new DirectoryInfo(installDir).Name;
+
+                    // Clean up common folder suffixes
+                    gameName = gameName.Replace(" Edition", "").Trim();
+
+                    if (IgnoredGameNames.Contains(gameName)) continue;
+
+                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
+                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
+
+                    // Create shortcut using Uplay protocol
+                    var shortcutContent = $"[InternetShortcut]\nURL=uplay://launch/{gameId}/0";
+                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                    // Try to find an executable for the icon
+                    var exeFiles = Directory.GetFiles(installDir, "*.exe", SearchOption.TopDirectoryOnly);
+                    var mainExe = exeFiles.FirstOrDefault(f => f.Contains(gameName, StringComparison.OrdinalIgnoreCase)) ?? exeFiles.FirstOrDefault();
+
+                    if (mainExe != null)
+                    {
+                        var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+                        if (!File.Exists(iconPath))
+                            IconExtractor.SaveIconFromExe(mainExe, iconPath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[GameScannerService] Error processing Ubisoft game {gameId}: {ex.Message}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for Ubisoft games.");
+        }
+    }
+
+    #endregion
+
+    #region EA App
+
+    private async Task ScanEaGamesAsync()
+    {
+        try
+        {
+            const string eaRegKey = @"SOFTWARE\WOW6432Node\Electronic Arts\EA Core\Installed Games";
+            using var baseKey = Registry.LocalMachine.OpenSubKey(eaRegKey);
+
+            if (baseKey == null) return;
+
+            foreach (var contentId in baseKey.GetSubKeyNames())
+            {
+                try
+                {
+                    using var gameKey = baseKey.OpenSubKey(contentId);
+                    if (gameKey == null) continue;
+
+                    // EA usually has "Install Dir"
+                    var installDir = gameKey.GetValue("Install Dir") as string;
+                    if (string.IsNullOrEmpty(installDir) || !Directory.Exists(installDir)) continue;
+
+                    // Try to get name from directory or registry if available
+                    var gameName = new DirectoryInfo(installDir).Name;
+
+                    if (IgnoredGameNames.Contains(gameName)) continue;
+
+                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
+                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
+
+                    // EA App protocol
+                    var shortcutContent = $"[InternetShortcut]\nURL=origin2://game/launch?offerIds={contentId}";
+                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                    // Icon
+                    var exeFiles = Directory.GetFiles(installDir, "*.exe", SearchOption.TopDirectoryOnly);
+                    var mainExe = exeFiles.FirstOrDefault(f => !f.Contains("Cleanup", StringComparison.OrdinalIgnoreCase) && !f.Contains("Touchup", StringComparison.OrdinalIgnoreCase));
+
+                    if (mainExe != null)
+                    {
+                        var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+                        if (!File.Exists(iconPath))
+                            IconExtractor.SaveIconFromExe(mainExe, iconPath);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    DebugLogger.Log($"[GameScannerService] Error processing EA game {contentId}: {ex.Message}");
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for EA games.");
+        }
+    }
+
+    #endregion
+
+    #region Microsoft Store / Default Games
+
+    private async Task ScanMicrosoftStoreGamesAsync()
+    {
+        try
+        {
+            // Using PowerShell to get AppxPackages is the cleanest way without heavy API dependencies.
+            // We filter by a whitelist to avoid adding "Calculator", "Photos", etc.
+
+            const string script = "Get-StartApps | ConvertTo-Json";
+
+            var startInfo = new ProcessStartInfo
+            {
+                FileName = "powershell.exe",
+                Arguments = $"-NoProfile -ExecutionPolicy Bypass -Command \"{script}\"",
+                RedirectStandardOutput = true,
+                UseShellExecute = false,
+                CreateNoWindow = true
+            };
+
+            using var process = Process.Start(startInfo);
+            if (process == null) return;
+
+            var output = await process.StandardOutput.ReadToEndAsync();
+            await process.WaitForExitAsync();
+
+            if (string.IsNullOrWhiteSpace(output)) return;
+
+            using var doc = JsonDocument.Parse(output);
+            if (doc.RootElement.ValueKind != JsonValueKind.Array) return;
+
+            foreach (var element in doc.RootElement.EnumerateArray())
+            {
+                try
+                {
+                    var name = element.GetProperty("Name").GetString();
+                    var appId = element.GetProperty("AppID").GetString();
+
+                    if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(appId)) continue;
+
+                    // Check against whitelist
+                    var isMatch = MicrosoftStoreKeywords.Any(k => name.Contains(k, StringComparison.OrdinalIgnoreCase));
+
+                    if (!isMatch) continue;
+
+                    var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(name);
+                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
+
+                    // Create Shell:AppsFolder shortcut
+                    // Format: shell:AppsFolder\{PackageFamilyName}!{AppId}
+                    // Get-StartApps returns the AppID in the format needed for shell:AppsFolder usually.
+
+                    var shortcutContent = $"[InternetShortcut]\nURL=shell:AppsFolder\\{appId}";
+                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                    // Note: Extracting icons from UWP apps programmatically is challenging without UWP APIs.
+                    // We rely on the user or a scraper to fill in the image later, or use a default.
+                }
+                catch
+                {
+                    // Ignore individual parsing errors
+                }
+            }
+        }
+        catch (Exception ex)
+        {
+            await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for Microsoft Store games.");
+        }
+    }
+
+    #endregion
 }
