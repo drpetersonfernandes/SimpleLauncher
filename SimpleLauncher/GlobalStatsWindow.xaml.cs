@@ -164,7 +164,6 @@ public partial class GlobalStatsWindow
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
             }
 
-
             _systemStats.Add(new SystemStatsData
             {
                 SystemName = systemManager.SystemName,
