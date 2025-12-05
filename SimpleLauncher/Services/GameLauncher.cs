@@ -586,7 +586,8 @@ public class GameLauncher
         string selectedEmulatorName,
         SystemManager selectedSystemManager,
         SystemManager.Emulator selectedEmulatorManager,
-        string rawEmulatorParameters, MainWindow mainWindow,
+        string rawEmulatorParameters,
+        MainWindow mainWindow,
         GamePadController gamePadController,
         GameLauncher gameLauncher)
     {
@@ -943,7 +944,7 @@ public class GameLauncher
         return Task.CompletedTask;
     }
 
-    private Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
+    private static Task CheckForMemoryAccessViolationAsync(Process process, ProcessStartInfo psi, StringBuilder output, StringBuilder error, SystemManager.Emulator emulatorManager)
     {
         if (process.HasExited && process.ExitCode != MemoryAccessViolation)
         {

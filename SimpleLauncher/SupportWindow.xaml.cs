@@ -156,16 +156,33 @@ public partial class SupportWindow
             if (CheckIfEmailIsNullOrEmpty(emailText)) return;
             if (CheckIfSupportRequestIsNullOrEmpty(supportRequestText)) return; // Check if it's still empty after pre-filling
 
-            // Build the full message, including original error details if available
-            // The SupportTextBox.Text already contains the formatted error details if provided
-            var fullMessageBuilder = new StringBuilder();
-            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Name: {nameText}");
-            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
-            fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
+            MainContentGrid.IsEnabled = false;
+            ProgressOverlay.Visibility = Visibility.Visible;
 
-            await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
+            try
+            {
+                // Build the full message, including original error details if available
+                // The SupportTextBox.Text already contains the formatted error details if provided
+                var fullMessageBuilder = new StringBuilder();
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Name: {nameText}");
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Email: {emailText}");
+                fullMessageBuilder.AppendLine(CultureInfo.InvariantCulture, $"Support Request:\n\n{supportRequestText}"); // Use the content of the textbox directly
 
-            UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...", Application.Current.MainWindow as MainWindow);
+                await SendSupportRequestToApiAsync(fullMessageBuilder.ToString());
+
+                UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("SendingSupportRequest") ?? "Sending support request...", Application.Current.MainWindow as MainWindow);
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                const string contextMessage = "Error in the SendSupportRequest_Click method.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+            }
+            finally
+            {
+                ProgressOverlay.Visibility = Visibility.Collapsed;
+                MainContentGrid.IsEnabled = true;
+            }
         }
         catch (Exception ex)
         {

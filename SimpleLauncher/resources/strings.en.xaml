@@ -828,11 +828,11 @@
     <system:String x:Key="Lowervaluessmallerdeadzone">• Lower values = smaller dead zone = more sensitive cursor movement, but may cause drift</system:String>
     <system:String x:Key="Settingittoolowmay">• Setting it too low may cause your cursor to drift when you're not touching the stick</system:String>
     <system:String x:Key="Settingittoohighmay">• Setting it too high may make precise movements difficult</system:String>
-
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.</system:String>
     <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Please edit the system settings and disable the 'Group Files by Folder' option.</system:String>
-
     <system:String x:Key="GlobalStatsExplanation">This window calculates comprehensive statistics about your game library, including total systems, emulators, games, and matched images. Click 'Start Process' to begin the analysis.</system:String>
     <system:String x:Key="StartProcess">Start Process</system:String>
+    <system:String x:Key="SendingMessagePleaseWait">Sending message ... Please wait</system:String>
+    <system:String x:Key="CancellingPleasewait">Cancelling ... Please wait</system:String>
 
 </ResourceDictionary>
