@@ -1,7 +1,10 @@
 using System;
+using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
+using System.Threading;
 using System.Threading.Tasks;
 using System.Windows;
 using Microsoft.Extensions.DependencyInjection;
@@ -18,6 +21,10 @@ public partial class GlobalStatsWindow
     private readonly List<SystemManager> _systemManagers;
     private GlobalStatsData _globalStats;
     private List<SystemStatsData> _systemStats;
+    private CancellationTokenSource _cancellationTokenSource;
+    private bool _forceClose;
+    private readonly object _processingLock = new();
+    private bool _isProcessing;
 
     public GlobalStatsWindow(List<SystemManager> systemManagers)
     {
@@ -25,160 +32,268 @@ public partial class GlobalStatsWindow
 
         _systemManagers = systemManagers;
         App.ApplyThemeToWindow(this);
-        Loaded += GlobalStats_Loaded;
     }
 
-    private async void GlobalStats_Loaded(object sender, RoutedEventArgs e)
+    private async void StartButton_Click(object sender, RoutedEventArgs e)
     {
         try
         {
+            if (_isProcessing) return;
+
+            _isProcessing = true;
+            _forceClose = false;
+            _cancellationTokenSource = new CancellationTokenSource();
+
             try
             {
+                StartButton.Visibility = Visibility.Collapsed;
                 ProgressBar.Visibility = Visibility.Visible;
                 SaveButton.Visibility = Visibility.Collapsed;
 
-                try
+                await ProcessGlobalStatsAsync(_cancellationTokenSource.Token);
+            }
+            catch (OperationCanceledException)
+            {
+                // Operation was cancelled, just reset UI
+                // Only show message if we're not force closing
+                if (!_forceClose)
                 {
-                    // Execute the long-running operations asynchronously
-                    _systemStats = await Task.Run(PopulateSystemStatsTable);
-
-                    // Update the global stats asynchronously
-                    _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats));
-
-                    GlobalInfoTextBlock.Text = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
-                                               $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
-                                               $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
-                                               $"{TryFindResource("TotalImages") as string ?? "Total Number of Matched Images:"} {_globalStats.TotalImages:N0}\n" +
-                                               $"{TryFindResource("ApplicationFolder") as string ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
-                                               $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
-
-                    ProgressBar.Visibility = Visibility.Collapsed;
-
-                    // Ask the user if they want to save a report
-                    DoYouWantToSaveTheReportMessageBox();
-
-                    SaveButton.Visibility = Visibility.Visible;
+                    MessageBox.Show(TryFindResource("OperationCancelledMessage") as string ?? "The operation was cancelled.",
+                        TryFindResource("OperationCancelled") as string ?? "Operation Cancelled", MessageBoxButton.OK, MessageBoxImage.Information);
                 }
-                catch (Exception ex)
-                {
-                    // Notify developer
-                    const string contextMessage = "An error occurred while calculating Global Statistics.";
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
-                    // Notify user
-                    MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
-                }
-                finally
-                {
-                    // Ensure that ProgressBar is hidden even if an error occurs
-                    ProgressBar.Visibility = Visibility.Collapsed;
-                }
+                ResetUiAfterProcessing();
             }
             catch (Exception ex)
             {
                 // Notify developer
-                const string contextMessage = "Error in the GlobalStats_Loaded method.";
+                const string contextMessage = "An error occurred while calculating Global Statistics.";
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                if (!_forceClose)
+                {
+                    MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
+                }
+
+                ResetUiAfterProcessing();
             }
-
-            return;
-
-            void DoYouWantToSaveTheReportMessageBox()
+            finally
             {
-                var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
-                if (result == MessageBoxResult.Yes)
-                {
-                    SaveReport(_globalStats, _systemStats);
-                }
-                else
-                {
-                    return;
-                }
+                _isProcessing = false;
+                _cancellationTokenSource?.Dispose();
+                _cancellationTokenSource = null;
             }
         }
         catch (Exception ex)
         {
-            // Notify developer
-            const string contextMessage = "Error in the GlobalStats_Loaded method.";
+            const string contextMessage = "An error occurred while calculating Global Statistics.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
         }
     }
 
-    private async Task<List<SystemStatsData>> PopulateSystemStatsTable()
+    private async Task ProcessGlobalStatsAsync(CancellationToken cancellationToken)
     {
-        _systemStats = [];
-        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
-
-        foreach (var systemManager in _systemManagers)
+        try
         {
-            var allRomFiles = new List<string>();
+            // Execute the long-running operations asynchronously with cancellation support
+            _systemStats = await PopulateSystemStatsTable(cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
 
-            foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+            // Update the global stats asynchronously
+            _globalStats = await Task.Run(() => CalculateGlobalStats(_systemStats), cancellationToken);
+            cancellationToken.ThrowIfCancellationRequested();
+
+            await Application.Current.Dispatcher.InvokeAsync(() =>
             {
-                var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
+                // Get the explanation text and append stats to it
+                var explanation = TryFindResource("GlobalStatsExplanation") as string ?? "This window calculates comprehensive statistics about your game library.";
+                var statsText = $"{TryFindResource("TotalSystems") as string ?? "Total Number of Systems:"} {_globalStats.TotalSystems}\n" +
+                                $"{TryFindResource("TotalEmulators") as string ?? "Total Number of Emulators:"} {_globalStats.TotalEmulators}\n" +
+                                $"{TryFindResource("TotalGames") as string ?? "Total Number of Games:"} {_globalStats.TotalGames:N0}\n" +
+                                $"{TryFindResource("TotalImages") as string ?? "Total Number of Matched Images:"} {_globalStats.TotalImages:N0}\n" +
+                                $"{TryFindResource("TotalSystemsWithMissingImages") as string ?? "Total Systems with Missing Images:"} {_globalStats.TotalSystemsWithMissingImages}\n" +
+                                $"{TryFindResource("ApplicationFolder") as string ?? "Application Folder:"} {AppDomain.CurrentDomain.BaseDirectory}\n" +
+                                $"{TryFindResource("TotalDiskSize") as string ?? "Disk Size of all Games:"} {_globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n";
 
-                if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
-                {
-                    if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
-                    {
-                        // Notify developer
-                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
-                    }
-                }
-                else
-                {
-                    var filesInFolder = await GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch);
-                    allRomFiles.AddRange(filesInFolder);
-                }
-            }
+                GlobalInfoTextBlock.Text = explanation + "\n\n" + statsText;
 
-            var romFileBaseNames = new HashSet<string>(
-                allRomFiles.Select(Path.GetFileNameWithoutExtension),
-                StringComparer.OrdinalIgnoreCase);
-
-            var totalDiskSize = allRomFiles.Sum(static file => new FileInfo(file).Length);
-
-            var systemImageFolder = systemManager.SystemImageFolder;
-            // Resolve the system image path using PathHelper
-            var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
-                ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName) // Default path
-                : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder); // Resolve configured path
-
-
-            var numberOfImages = 0;
-            // Check if the resolved image path is valid before proceeding
-            if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
-            {
-                // await RenameImagesToMatchRomCaseAsync(resolvedSystemImagePath, romFileBaseNames);
-
-                var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
-                    .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
-                    .Select(Path.GetFileNameWithoutExtension)
-                    .ToList();
-
-                numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
-            }
-            else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder)) // Only log if a path was actually configured
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
-            }
-
-            _systemStats.Add(new SystemStatsData
-            {
-                SystemName = systemManager.SystemName,
-                NumberOfFiles = allRomFiles.Count,
-                NumberOfImages = numberOfImages,
-                TotalDiskSize = totalDiskSize
+                ProgressBar.Visibility = Visibility.Collapsed;
+                SaveButton.Visibility = Visibility.Visible;
             });
-        }
 
+            // Ask the user if they want to save a report
+            DoYouWantToSaveTheReportMessageBox();
+        }
+        catch (OperationCanceledException)
+        {
+            throw; // Re-throw to be handled by caller
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            const string contextMessage = "An error occurred while calculating Global Statistics.";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+            // Notify user
+            MessageBoxLibrary.ErrorCalculatingStatsMessageBox();
+            throw; // Re-throw to be handled by caller
+        }
+        finally
+        {
+            lock (_processingLock)
+            {
+                _isProcessing = false;
+                if (_forceClose)
+                {
+                    Application.Current.Dispatcher.InvokeAsync(Close);
+                }
+            }
+        }
+    }
+
+    private void DoYouWantToSaveTheReportMessageBox()
+    {
+        var result = MessageBoxLibrary.WoulYouLikeToSaveAReportMessageBox();
+        if (result == MessageBoxResult.Yes)
+        {
+            SaveReport(_globalStats, _systemStats);
+        }
+    }
+
+    private void ResetUiAfterProcessing()
+    {
+        ProgressBar.Visibility = Visibility.Collapsed;
+        StartButton.Visibility = Visibility.Visible;
+        SaveButton.Visibility = Visibility.Collapsed;
+
+        // Reset the cancel button and progress ring visibility
+        GlobalCancellingOverlay.Visibility = Visibility.Collapsed;
+
+        SystemStatsDataGrid.ItemsSource = null;
+
+        // Restore the original explanation text
+        var explanation = TryFindResource("GlobalStatsExplanation") as string ?? "This window calculates comprehensive statistics about your game library, including total systems, emulators, games, and matched images. Click 'Start Process' to begin the analysis.";
+        GlobalInfoTextBlock.Text = explanation;
+    }
+
+    private async Task<List<SystemStatsData>> PopulateSystemStatsTable(CancellationToken cancellationToken)
+    {
+        // Run the entire heavy calculation on a background thread
+        var systemStats = await Task.Run(() => CalculateSystemStats(cancellationToken), cancellationToken);
+
+        cancellationToken.ThrowIfCancellationRequested();
+
+        // Once the background task is complete, update the UI on the dispatcher thread
         await Application.Current.Dispatcher.InvokeAsync(() =>
         {
-            SystemStatsDataGrid.ItemsSource = _systemStats;
+            SystemStatsDataGrid.ItemsSource = systemStats;
         });
 
-        return _systemStats;
+        return systemStats;
+    }
+
+    private List<SystemStatsData> CalculateSystemStats(CancellationToken cancellationToken)
+    {
+        // Use parallel processing to speed up calculations
+        // Use a thread-safe collection for parallel operations
+        var systemStats = new ConcurrentBag<SystemStatsData>();
+        var imageExtensionsFromSettings = GetImageExtensions.GetExtensions();
+
+        // To address the concern about HDD thrashing, we limit the degree of parallelism.
+        // A value of 2-4 is a good balance for I/O-bound tasks on a single mechanical drive.
+        // We'll use half the processor count, but cap it at 4 to be safe.
+        var maxDop = Math.Max(1, Math.Min(Environment.ProcessorCount / 2, 4));
+        var parallelOptions = new ParallelOptions
+        {
+            MaxDegreeOfParallelism = maxDop,
+            CancellationToken = cancellationToken
+        };
+
+        try
+        {
+            Parallel.ForEach(_systemManagers, parallelOptions, systemManager =>
+            {
+                // The CancellationToken is checked automatically by Parallel.ForEach,
+                // but checking it manually inside the loop can make cancellation more responsive.
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var allRomFiles = new List<string>();
+
+                foreach (var systemFolderPathRaw in systemManager.SystemFolders)
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var systemFolderPath = PathHelper.ResolveRelativeToAppDirectory(systemFolderPathRaw);
+
+                    if (string.IsNullOrEmpty(systemFolderPath) || !Directory.Exists(systemFolderPath) || systemManager.FileFormatsToSearch == null)
+                    {
+                        if (!string.IsNullOrEmpty(systemFolderPathRaw)) // Only log if a path was configured
+                        {
+                            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System folder path invalid or not found for system '{systemManager.SystemName}': '{systemFolderPathRaw}' -> '{systemFolderPath}'. Cannot count files.");
+                        }
+                    }
+                    else
+                    {
+                        var filesInFolder = GetListOfFiles.GetFilesAsync(systemFolderPath, systemManager.FileFormatsToSearch).GetAwaiter().GetResult();
+                        cancellationToken.ThrowIfCancellationRequested();
+                        allRomFiles.AddRange(filesInFolder);
+                    }
+                }
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var romFileBaseNames = new HashSet<string>(
+                    allRomFiles.Select(Path.GetFileNameWithoutExtension),
+                    StringComparer.OrdinalIgnoreCase);
+
+                var totalDiskSize = allRomFiles.Sum(static file => new FileInfo(file).Length);
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                var systemImageFolder = systemManager.SystemImageFolder;
+                var resolvedSystemImagePath = string.IsNullOrEmpty(systemImageFolder)
+                    ? Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "images", systemManager.SystemName)
+                    : PathHelper.ResolveRelativeToAppDirectory(systemImageFolder);
+
+                var numberOfImages = 0;
+                if (!string.IsNullOrEmpty(resolvedSystemImagePath) && Directory.Exists(resolvedSystemImagePath))
+                {
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    var imageFiles = Directory.EnumerateFiles(resolvedSystemImagePath, "*.*", SearchOption.TopDirectoryOnly)
+                        .Where(file => imageExtensionsFromSettings.Any(ext => file.EndsWith(ext, StringComparison.OrdinalIgnoreCase)))
+                        .Select(Path.GetFileNameWithoutExtension)
+                        .ToList();
+
+                    cancellationToken.ThrowIfCancellationRequested();
+
+                    numberOfImages = imageFiles.Count(imageBaseName => romFileBaseNames.Contains(imageBaseName));
+                }
+                else if (!string.IsNullOrEmpty(systemManager.SystemImageFolder))
+                {
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"GlobalStats: System image folder path invalid or not found for system '{systemManager.SystemName}': '{systemManager.SystemImageFolder}' -> '{resolvedSystemImagePath}'. Cannot count images.");
+                }
+
+                cancellationToken.ThrowIfCancellationRequested();
+
+                systemStats.Add(new SystemStatsData
+                {
+                    SystemName = systemManager.SystemName,
+                    NumberOfFiles = allRomFiles.Count,
+                    NumberOfImages = numberOfImages,
+                    TotalDiskSize = totalDiskSize
+                });
+            });
+        }
+        catch (OperationCanceledException)
+        {
+            // The operation was canceled, which is expected. Re-throw to be handled by the caller.
+            throw;
+        }
+
+        // Convert the ConcurrentBag to a List and sort it to ensure a consistent order in the UI.
+        return systemStats.OrderBy(static s => s.SystemName).ToList();
     }
 
     private GlobalStatsData CalculateGlobalStats(List<SystemStatsData> systemStats)
@@ -190,6 +305,7 @@ public partial class GlobalStatsWindow
             var totalGames = systemStats.Sum(static stats => stats.NumberOfFiles);
             var totalImages = systemStats.Sum(static stats => stats.NumberOfImages);
             var totalDiskSize = systemStats.Sum(static stats => stats.TotalDiskSize);
+            var totalSystemsWithMissingImages = systemStats.Count(static stats => stats.NumberOfFiles > stats.NumberOfImages);
 
             return new GlobalStatsData
             {
@@ -197,7 +313,8 @@ public partial class GlobalStatsWindow
                 TotalEmulators = totalEmulators,
                 TotalGames = totalGames,
                 TotalImages = totalImages,
-                TotalDiskSize = totalDiskSize
+                TotalDiskSize = totalDiskSize,
+                TotalSystemsWithMissingImages = totalSystemsWithMissingImages
             };
         }
         catch (Exception ex)
@@ -257,6 +374,7 @@ public partial class GlobalStatsWindow
                      $"Total Number of Emulators: {globalStats.TotalEmulators}\n" +
                      $"Total Number of Games: {globalStats.TotalGames:N0}\n" +
                      $"Total Number of Matched Images: {globalStats.TotalImages:N0}\n" +
+                     $"Total Systems with Missing Images: {globalStats.TotalSystemsWithMissingImages}\n" +
                      $"Application Folder: {AppDomain.CurrentDomain.BaseDirectory}\n" +
                      $"Disk Size of all Games: {globalStats.TotalDiskSize / (1024.0 * 1024):N2} MB\n\n";
 
@@ -277,6 +395,49 @@ public partial class GlobalStatsWindow
         {
             // Notify user
             MessageBoxLibrary.NoStatsToSaveMessageBox();
+        }
+    }
+
+    private void CancelButton_Click(object sender, RoutedEventArgs e)
+    {
+        try
+        {
+            if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+            {
+                _cancellationTokenSource.Cancel();
+                GlobalCancellingOverlay.Visibility = Visibility.Visible;
+            }
+        }
+        catch (Exception ex)
+        {
+            const string contextMessage = "An error occurred while cancelling the operation.";
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+        }
+    }
+
+    private void GlobalStatsWindow_Closing(object sender, CancelEventArgs e)
+    {
+        lock (_processingLock)
+        {
+            if (!_isProcessing) return;
+
+            e.Cancel = true;
+
+            // Show message box on UI thread
+            var result = MessageBox.Show(TryFindResource("ProcessingStillRunningMessage") as string ?? "Processing is still running. Do you want to cancel and close?",
+                TryFindResource("ConfirmClose") as string ?? "Confirm Close", MessageBoxButton.YesNo, MessageBoxImage.Question);
+
+            if (result == MessageBoxResult.Yes)
+            {
+                _forceClose = true;
+                if (_cancellationTokenSource != null && !_cancellationTokenSource.IsCancellationRequested)
+                {
+                    _cancellationTokenSource.Cancel();
+
+                    // Show cancelling UI
+                    GlobalCancellingOverlay.Visibility = Visibility.Visible;
+                }
+            }
         }
     }
 

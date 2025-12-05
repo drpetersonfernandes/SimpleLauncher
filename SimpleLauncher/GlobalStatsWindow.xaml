@@ -7,28 +7,48 @@
                       Title="{DynamicResource GlobalStats}"
                       Width="1000"
                       Height="700"
-                      WindowStartupLocation="CenterScreen">
+                      WindowStartupLocation="CenterScreen"
+                      Closing="GlobalStatsWindow_Closing">
 
     <Grid>
         <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="Auto" />
             <RowDefinition Height="*" />
             <RowDefinition Height="Auto" />
         </Grid.RowDefinitions>
 
-        <TextBlock Grid.Row="0" Margin="10,20,10,10" x:Name="GlobalInfoTextBlock" TextWrapping="Wrap" />
+        <!-- Explanation Text -->
+        <TextBlock Grid.Row="0" Margin="10,20,10,10" TextWrapping="Wrap" x:Name="GlobalInfoTextBlock">
+            <Run Text="{DynamicResource GlobalStatsExplanation}" />
+        </TextBlock>
 
-        <Grid Grid.Row="1">
-            <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10">
+        <!-- Start/Process Button -->
+        <StackPanel Grid.Row="1" Margin="10" HorizontalAlignment="Center">
+            <Button x:Name="StartButton"
+                    Width="110"
+                    Click="StartButton_Click"
+                    Content="{DynamicResource StartProcess}" />
+        </StackPanel>
+
+        <!-- Progress Area -->
+        <Grid Grid.Row="2">
+            <Border x:Name="ProgressBar" BorderBrush="Gray" Margin="10" Visibility="Collapsed">
                 <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
                     <TextBlock Text="{DynamicResource Processingpleasewait}" HorizontalAlignment="Center" Margin="20" />
                     <ProgressBar IsIndeterminate="True" Width="200" Margin="10" />
+                    <Button x:Name="CancelButton"
+                            Margin="10"
+                            HorizontalAlignment="Center"
+                            Width="110"
+                            Click="CancelButton_Click"
+                            Content="{DynamicResource Cancel}" />
                 </StackPanel>
             </Border>
         </Grid>
 
-        <ScrollViewer Grid.Row="2" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
+        <ScrollViewer Grid.Row="3" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto"
                       Margin="10">
             <DataGrid x:Name="SystemStatsDataGrid" AutoGenerateColumns="False" CanUserAddRows="False"
                       GridLinesVisibility="All" BorderThickness="1" BorderBrush="Gray"
@@ -57,7 +77,7 @@
         </ScrollViewer>
 
         <StackPanel
-            Grid.Row="3"
+            Grid.Row="4"
             Margin="10,10,10,20"
             HorizontalAlignment="Center"
             Orientation="Horizontal">
@@ -65,8 +85,28 @@
                 Width="110"
                 x:Name="SaveButton"
                 Click="SaveReport_Click"
-                Content="{DynamicResource SaveReport}" />
+                Content="{DynamicResource SaveReport}"
+                Visibility="Collapsed" />
         </StackPanel>
 
+        <!-- MODIFICATION START: Added a full-window overlay for the "Cancelling" message -->
+        <Border x:Name="GlobalCancellingOverlay"
+                Grid.Row="0"
+                Grid.RowSpan="5"
+                Background="{DynamicResource MahApps.Brushes.Overlay}"
+                Visibility="Collapsed">
+            <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+                <controls:ProgressRing IsActive="True"
+                                       Width="50"
+                                       Height="50"
+                                       Foreground="{DynamicResource MahApps.Brushes.Accent}" />
+                <TextBlock Text="Cancelling ... Please wait"
+                           FontSize="20"
+                           FontWeight="Bold"
+                           Foreground="{DynamicResource MahApps.Brushes.ThemeForeground}"
+                           Margin="0,20,0,0" />
+            </StackPanel>
+        </Border>
+        <!-- MODIFICATION END -->
     </Grid>
 </controls:MetroWindow>

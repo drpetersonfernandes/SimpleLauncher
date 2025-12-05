@@ -817,19 +817,22 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
-    
+
     <system:String x:Key="FuzzyMatchingLowThreshold">Lower threshold (70-80%):</system:String>
     <system:String x:Key="FuzzyMatchingLowThresholdDescription">Finds more matches but may include incorrect images</system:String>
     <system:String x:Key="FuzzyMatchingHighThreshold">Higher threshold (90-95%):</system:String>
     <system:String x:Key="FuzzyMatchingHighThresholdDescription">Finds fewer matches but only very similar filenames</system:String>
     <system:String x:Key="DeadZoneExplanationTitle">What is a Dead Zone?</system:String>
     <system:String x:Key="DeadZoneExplanationContent">A dead zone is the area around the center of your gamepad's thumbsticks where no movement is registered. This prevents unwanted cursor movement when the stick isn't perfectly centered due to wear or manufacturing tolerances.</system:String>
-    <system:String x:Key="Highervalueslargerdeadzone">• Higher values = larger dead zone = more stick movement needed before cursor moves</system:String>    
+    <system:String x:Key="Highervalueslargerdeadzone">• Higher values = larger dead zone = more stick movement needed before cursor moves</system:String>
     <system:String x:Key="Lowervaluessmallerdeadzone">• Lower values = smaller dead zone = more sensitive cursor movement, but may cause drift</system:String>
     <system:String x:Key="Settingittoolowmay">• Setting it too low may cause your cursor to drift when you're not touching the stick</system:String>
     <system:String x:Key="Settingittoohighmay">• Setting it too high may make precise movements difficult</system:String>
-    
+
     <system:String x:Key="simpleLauncherdoesnotsupportRetroAchievementshashofSystems">'Simple Launcher' does not support RetroAchievements hash of systems Grouped by Folder.</system:String>
     <system:String x:Key="pleaseedittheSystemsettingsanddisablethe">Please edit the system settings and disable the 'Group Files by Folder' option.</system:String>
-        
+
+    <system:String x:Key="GlobalStatsExplanation">This window calculates comprehensive statistics about your game library, including total systems, emulators, games, and matched images. Click 'Start Process' to begin the analysis.</system:String>
+    <system:String x:Key="StartProcess">Start Process</system:String>
+
 </ResourceDictionary>
