@@ -12,6 +12,9 @@ public static class PathHelper
 {
     private const string BaseFolderPlaceholder = "%BASEFOLDER%";
 
+    // Path length limit to prevent potential recursion issues or overflows
+    private const int MaxPathLength = 4096;
+
     private static readonly string[] GameSpecificPlaceholders =
     [
         "%ROM%", "%GAME%", "%ROMNAME%", "%ROMFILE%", "$rom$", "$game$", "$romname$", "$romfile$",
@@ -60,6 +63,12 @@ public static class PathHelper
 
         var resolvedParameters = pathTokenRegex.Replace(parameters, match =>
         {
+            // Ensure match is valid to prevent NRE
+            if (match is not { Success: true })
+            {
+                return string.Empty;
+            }
+
             var originalToken = match.Value;
             var tokenForLogic = originalToken.Trim('"', '\'');
 
@@ -147,7 +156,8 @@ public static class PathHelper
     /// <returns>The canonical absolute path (relative to the application base directory if the input was relative or used %BASEFOLDER%, otherwise the canonicalized original absolute path).</returns>
     public static string ResolveRelativeToAppDirectory(string path)
     {
-        if (string.IsNullOrWhiteSpace(path))
+        // Check path length to prevent infinite recursion risks or overflows
+        if (string.IsNullOrWhiteSpace(path) || path.Length > MaxPathLength)
         {
             return string.Empty;
         }

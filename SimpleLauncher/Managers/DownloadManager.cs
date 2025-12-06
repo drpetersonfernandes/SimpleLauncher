@@ -506,6 +506,11 @@ public class DownloadManager : IDisposable
             // Read and write the data in chunks
             while ((bytesRead = await contentStream.ReadAsync(buffer, cancellationToken)) > 0)
             {
+                if (IsUserCancellation)
+                {
+                    throw new TaskCanceledException();
+                }
+
                 await fileStream.WriteAsync(buffer.AsMemory(0, bytesRead), cancellationToken);
                 totalBytesRead += bytesRead;
 
