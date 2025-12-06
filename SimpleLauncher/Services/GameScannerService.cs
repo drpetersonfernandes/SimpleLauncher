@@ -295,20 +295,16 @@ public class GameScannerService
                                 var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
                                 var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
 
-                                // Construct the full path to the game's installation directory for the icon fallback
-                                // libraryPath is like "D:\SteamLibrary\steamapps", so we go up one level to get to the library root.
-                                var libraryRoot = Path.GetDirectoryName(libraryPath);
-                                if (libraryRoot != null)
-                                {
-                                    var gameInstallPath = Path.Combine(libraryRoot, "common", installDir);
+                                // Construct the full path to the game's installation directory.
+                                // libraryPath is like "D:\SteamLibrary\steamapps", and installDir is relative to the "common" folder inside it.
+                                var gameInstallPath = Path.Combine(libraryPath, "common", installDir);
 
-                                    // Create .url shortcut
-                                    var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
-                                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                                // Create .url shortcut
+                                var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
+                                await File.WriteAllTextAsync(shortcutPath, shortcutContent);
 
-                                    // Copy artwork (Try multiple variations)
-                                    await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName, gameInstallPath);
-                                }
+                                // Copy artwork (Try multiple variations)
+                                await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName, gameInstallPath);
                             }
                         }
                     }
