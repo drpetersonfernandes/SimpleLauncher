@@ -227,7 +227,25 @@ public class GameScannerService
                             }
                         }
                     }
-                    else
+
+                    // Fallback: Check if the root itself contains numeric keys with paths (some VDF parser results might flatten the structure)
+                    // or if the structure is older.
+                    foreach (var kvp in vdfData)
+                    {
+                        // Check if this KVP is actually a library definition (e.g. Key "1", Value Dict containing "path")
+                        if (kvp.Value is Dictionary<string, object> potentialLib &&
+                            potentialLib.TryGetValue("path", out var pathObj) &&
+                            pathObj is string pathStr)
+                        {
+                            if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                            {
+                                libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                DebugLogger.Log($"[GameScannerService] Found additional Steam library (root scan): {pathStr}");
+                            }
+                        }
+                    }
+
+                    if (libraryPaths.Count == 1) // Only default path found so far
                     {
                         // Fallback: try to parse as flat structure (older Steam versions)
                         foreach (var kvp in vdfData)
@@ -375,26 +393,72 @@ public class GameScannerService
         }
 
         // Try to find a suitable executable. Heuristics:
-        // 1. An exe that contains the sanitized game name.
-        // 2. Any exe that isn't an uninstaller/setup utility.
-        // 3. The first exe found.
+        // 1. Exe name contains the sanitized game name (e.g. "GameName.exe" inside "GameName").
+        // 2. Sanitized game name contains the exe name (e.g. "Pizzeria Simulator.exe" inside "Freddy Fazbear's Pizzeria Simulator").
+        // 3. The largest executable file (avoids small launchers, crash handlers, or config tools).
+        // 4. Any exe that isn't an uninstaller/setup utility.
+
         var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
-        var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase)) ??
-                      exeFiles.FirstOrDefault(f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) && !f.Contains("setup", StringComparison.OrdinalIgnoreCase)) ??
-                      exeFiles.FirstOrDefault();
+
+        var selectionMethod = "None";
+
+        // Heuristic 1: Exe contains Game Name
+        var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase));
+
+        // Heuristic 2: Game Name contains Exe Name (useful for long titles with short exes)
+        if (mainExe == null)
+        {
+            mainExe = exeFiles.FirstOrDefault(f =>
+            {
+                var name = Path.GetFileNameWithoutExtension(f);
+                return name.Length > 3 && sanitizedGameName.Contains(name, StringComparison.OrdinalIgnoreCase);
+            });
+            if (mainExe != null)
+            {
+                selectionMethod = "GameNameContainsExe";
+            }
+        }
+        else
+        {
+            selectionMethod = "ExeContainsGameName";
+        }
+
+        // Heuristic 3: Largest EXE (Fallback)
+        if (mainExe == null && exeFiles.Length > 0)
+        {
+            // Filter out obvious junk first
+            var candidates = exeFiles
+                .Where(f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) &&
+                            !f.Contains("setup", StringComparison.OrdinalIgnoreCase) &&
+                            !f.Contains("crash", StringComparison.OrdinalIgnoreCase) &&
+                            !f.Contains("unity", StringComparison.OrdinalIgnoreCase)) // UnityCrashHandler
+                .ToList();
+
+            if (candidates.Count != 0)
+            {
+                mainExe = candidates.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
+                selectionMethod = "LargestFile";
+            }
+            else
+            {
+                // Absolute fallback
+                mainExe = exeFiles.OrderByDescending(f => new FileInfo(f).Length).FirstOrDefault();
+                selectionMethod = "LargestFile_NoFilter";
+            }
+        }
 
         if (mainExe != null)
         {
             var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
             if (!File.Exists(iconPath))
             {
-                DebugLogger.Log($"[GameScannerService] Fallback: Found exe '{mainExe}'. Extracting icon to '{iconPath}'.");
+                DebugLogger.Log($"[GameScannerService] Fallback ({selectionMethod}): Selected '{Path.GetFileName(mainExe)}' for '{sanitizedGameName}'. Extracting icon...");
                 IconExtractor.SaveIconFromExe(mainExe, iconPath);
             }
         }
         else
         {
-            DebugLogger.Log($"[GameScannerService] Fallback failed: No executable found in '{gameInstallPath}'.");
+            DebugLogger.Log($"[GameScannerService] Fallback failed: No suitable executable found in '{gameInstallPath}'.");
         }
 
         return Task.CompletedTask;

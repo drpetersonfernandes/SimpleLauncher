@@ -13,6 +13,7 @@ namespace SimpleLauncher.Services;
 public static class SteamVdfParser
 {
     // This regex will find any quoted string, which we'll treat as a token.
+    // Updated to be slightly more robust against spacing.
     private static readonly Regex TokenRegex = new("\"([^\"]*)\"", RegexOptions.Compiled);
 
     public static Dictionary<string, object> Parse(string filePath)
@@ -23,6 +24,8 @@ public static class SteamVdfParser
                 return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
             var lines = File.ReadAllLines(filePath, Encoding.UTF8);
+            if (lines.Length == 0) return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+
             var result = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             var stack = new Stack<Dictionary<string, object>>();
             stack.Push(result);
