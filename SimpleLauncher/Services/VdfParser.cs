@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
@@ -11,9 +12,8 @@ namespace SimpleLauncher.Services;
 /// </summary>
 public static class VdfParser
 {
-    private static readonly Regex KeyValueRegex = new("""
-                                                      \"([^\"]+)\"\s*\"([^\"]+)\"
-                                                      """, RegexOptions.Compiled);
+    // This regex will find any quoted string, which we'll treat as a token.
+    private static readonly Regex TokenRegex = new("\"([^\"]*)\"", RegexOptions.Compiled);
 
     public static Dictionary<string, object> Parse(string filePath)
     {
@@ -22,55 +22,51 @@ public static class VdfParser
             if (!File.Exists(filePath))
                 return new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
 
-            // Specify encoding explicitly
-            var content = File.ReadAllText(filePath, Encoding.UTF8);
+            var lines = File.ReadAllLines(filePath, Encoding.UTF8);
             var result = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
             var stack = new Stack<Dictionary<string, object>>();
             stack.Push(result);
 
-            // More flexible regex that handles whitespace better
-            var tokenRegex = new Regex("""
-                                       "\s*([^"]+)\s*"
-                                       """, RegexOptions.Compiled);
-
-            using var reader = new StringReader(content);
-            while (reader.ReadLine() is { } line)
+            foreach (var line in lines)
             {
-                var trimmed = line.Trim();
-                if (string.IsNullOrEmpty(trimmed) || trimmed.StartsWith("//", StringComparison.Ordinal))
+                var trimmedLine = line.Trim();
+
+                if (trimmedLine.StartsWith("//", StringComparison.Ordinal) || string.IsNullOrEmpty(trimmedLine))
                     continue;
 
-                switch (trimmed)
+                if (trimmedLine.StartsWith('{'))
+                    continue;
+
+                if (trimmedLine.StartsWith('}'))
                 {
-                    case "{":
-                        continue;
-                    case "}":
-                    {
-                        if (stack.Count > 1) stack.Pop();
-                        continue;
-                    }
+                    if (stack.Count > 1)
+                        stack.Pop();
+                    continue;
                 }
 
-                var matches = tokenRegex.Matches(trimmed);
-                if (matches.Count >= 2)
-                {
-                    var key = matches[0].Groups[1].Value;
-                    var value = matches[1].Groups[1].Value;
+                var tokens = TokenRegex.Matches(trimmedLine)
+                    .Select(static m => m.Groups[1].Value)
+                    .ToList();
 
-                    // Check if this is a section header (next line is "{")
-                    var nextLine = reader.ReadLine();
-                    if (nextLine != null && nextLine.Trim() == "{")
-                    {
-                        var newDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
-                        stack.Peek()[key] = newDict;
-                        stack.Push(newDict);
-                    }
-                    else if (nextLine != null)
-                    {
-                        stack.Peek()[key] = value;
-                        // Push back the line we read
-                        // (In a real implementation, you'd need a more sophisticated parser)
-                    }
+                if (tokens.Count == 0)
+                    continue;
+
+                var currentDict = stack.Peek();
+
+                if (tokens.Count > 1)
+                {
+                    // It's a key-value pair, e.g., "name" "Steamworks Common Redistributables"
+                    var key = tokens[0];
+                    var value = tokens[1];
+                    currentDict[key] = value;
+                }
+                else
+                {
+                    // It's a section header, e.g., "AppState"
+                    var key = tokens[0];
+                    var newDict = new Dictionary<string, object>(StringComparer.OrdinalIgnoreCase);
+                    currentDict[key] = newDict;
+                    stack.Push(newDict);
                 }
             }
 

@@ -206,19 +206,43 @@ public class GameScannerService
                 try
                 {
                     var vdfData = VdfParser.Parse(libraryFoldersVdf);
-                    if (vdfData.TryGetValue("libraryfolders", out var folders) && folders is Dictionary<string, object> folderDict)
+
+                    // The root should contain "libraryfolders" key
+                    if (vdfData.TryGetValue("libraryfolders", out var libraryFoldersObj) &&
+                        libraryFoldersObj is Dictionary<string, object> libraryFoldersDict)
                     {
-                        foreach (var folderNode in folderDict.Values)
+                        // Each key in libraryfolders is a library index ("0", "1", etc.)
+                        foreach (var libraryKvp in libraryFoldersDict)
                         {
-                            if (folderNode is Dictionary<string, object> pathDict &&
-                                pathDict.TryGetValue("path", out var pathObj) &&
-                                pathObj is string path)
+                            if (libraryKvp.Value is Dictionary<string, object> libraryInfo &&
+                                libraryInfo.TryGetValue("path", out var pathObj) &&
+                                pathObj is string pathStr)
                             {
-                                libraryPaths.Add(Path.Combine(path, "steamapps"));
+                                // Only add if it's not the main Steam directory (already added above)
+                                if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                    DebugLogger.Log($"[GameScannerService] Found additional Steam library: {pathStr}");
+                                }
                             }
                         }
-
-                        DebugLogger.Log($"[GameScannerService] Steam library paths: {string.Join(", ", libraryPaths)}");
+                    }
+                    else
+                    {
+                        // Fallback: try to parse as flat structure (older Steam versions)
+                        foreach (var kvp in vdfData)
+                        {
+                            if (kvp.Value is Dictionary<string, object> folderInfo &&
+                                folderInfo.TryGetValue("path", out var pathObj) &&
+                                pathObj is string pathStr)
+                            {
+                                if (!string.Equals(pathStr, steamPath, StringComparison.OrdinalIgnoreCase))
+                                {
+                                    libraryPaths.Add(Path.Combine(pathStr, "steamapps"));
+                                    DebugLogger.Log($"[GameScannerService] Found additional Steam library (fallback): {pathStr}");
+                                }
+                            }
+                        }
                     }
                 }
                 catch (Exception ex)
@@ -243,20 +267,30 @@ public class GameScannerService
                         var appData = VdfParser.Parse(manifestFile);
                         if (appData.TryGetValue("AppState", out var appState) && appState is Dictionary<string, object> appStateDict)
                         {
+                            // Ensure we have the required fields: name, appid, and installdir for the fallback
                             if (appStateDict.TryGetValue("name", out var nameObj) && nameObj is string gameName &&
-                                appStateDict.TryGetValue("appid", out var appIdObj) && appIdObj is string appId)
+                                appStateDict.TryGetValue("appid", out var appIdObj) && appIdObj is string appId &&
+                                appStateDict.TryGetValue("installdir", out var installDirObj) && installDirObj is string installDir)
                             {
                                 if (IgnoredGameNames.Contains(gameName)) continue;
 
                                 var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(gameName);
                                 var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
 
-                                // Create .url shortcut
-                                var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
-                                await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                                // Construct the full path to the game's installation directory for the icon fallback
+                                // libraryPath is like "D:\SteamLibrary\steamapps", so we go up one level to get to the library root.
+                                var libraryRoot = Path.GetDirectoryName(libraryPath);
+                                if (libraryRoot != null)
+                                {
+                                    var gameInstallPath = Path.Combine(libraryRoot, "common", installDir);
 
-                                // Copy artwork (Try multiple variations)
-                                await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName);
+                                    // Create .url shortcut
+                                    var shortcutContent = $"[InternetShortcut]\nURL=steam://run/{appId}";
+                                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+
+                                    // Copy artwork (Try multiple variations)
+                                    await TryCopySteamArtworkAsync(steamPath, appId, sanitizedGameName, gameInstallPath);
+                                }
                             }
                         }
                     }
@@ -297,7 +331,7 @@ public class GameScannerService
         return null;
     }
 
-    private Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName)
+    private Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName, string gameInstallPath)
     {
         var destArtworkPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.jpg");
         if (File.Exists(destArtworkPath)) return Task.CompletedTask;
@@ -328,6 +362,39 @@ public class GameScannerService
                     /* Ignore copy errors */
                 }
             }
+        }
+
+        // --- FALLBACK LOGIC ---
+        // If we are here, it means no cached artwork was found. Try to get the icon from the exe.
+        DebugLogger.Log($"[GameScannerService] Steam cache art not found for '{sanitizedGameName}' (AppID: {appId}). Attempting fallback to exe icon.");
+
+        if (!Directory.Exists(gameInstallPath))
+        {
+            DebugLogger.Log($"[GameScannerService] Fallback failed: Install directory does not exist at '{gameInstallPath}'.");
+            return Task.CompletedTask;
+        }
+
+        // Try to find a suitable executable. Heuristics:
+        // 1. An exe that contains the sanitized game name.
+        // 2. Any exe that isn't an uninstaller/setup utility.
+        // 3. The first exe found.
+        var exeFiles = Directory.GetFiles(gameInstallPath, "*.exe", SearchOption.TopDirectoryOnly);
+        var mainExe = exeFiles.FirstOrDefault(f => Path.GetFileNameWithoutExtension(f).Contains(sanitizedGameName, StringComparison.OrdinalIgnoreCase)) ??
+                      exeFiles.FirstOrDefault(f => !f.Contains("unins", StringComparison.OrdinalIgnoreCase) && !f.Contains("setup", StringComparison.OrdinalIgnoreCase)) ??
+                      exeFiles.FirstOrDefault();
+
+        if (mainExe != null)
+        {
+            var iconPath = Path.Combine(_windowsImagesPath, $"{sanitizedGameName}.png");
+            if (!File.Exists(iconPath))
+            {
+                DebugLogger.Log($"[GameScannerService] Fallback: Found exe '{mainExe}'. Extracting icon to '{iconPath}'.");
+                IconExtractor.SaveIconFromExe(mainExe, iconPath);
+            }
+        }
+        else
+        {
+            DebugLogger.Log($"[GameScannerService] Fallback failed: No executable found in '{gameInstallPath}'.");
         }
 
         return Task.CompletedTask;
