@@ -352,14 +352,18 @@ public partial class UpdateChecker
                     hasEntries = true;
                     var destinationFileFullPath = Path.GetFullPath(Path.Combine(destinationPath, entry.Name));
                     if (destinationFileFullPath.StartsWith(fullDestinationPath, StringComparison.OrdinalIgnoreCase))
+                    {
                         continue;
+                    }
+                    else
+                    {
+                        var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Name}'. Aborting update.";
+                        logWindow?.Log(errorMessage);
 
-                    var errorMessage = $"Security Warning: Path traversal attempt detected for entry '{entry.Name}'. Aborting update.";
-                    logWindow?.Log(errorMessage);
-
-                    // Notify developer
-                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
-                    return false;
+                        // Notify developer
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(new SecurityException("Zip Slip vulnerability detected in update package."), errorMessage);
+                        return false;
+                    }
                 }
 
                 if (!hasEntries)

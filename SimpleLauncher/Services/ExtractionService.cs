@@ -177,12 +177,16 @@ public class ExtractionService : IExtractionService
                             var fullDestPath = PathHelper.ResolveRelativeToAppDirectory(entryDestinationPath);
 
                             if (fullDestPath.StartsWith(fullResolvedDestFolder, StringComparison.OrdinalIgnoreCase))
+                            {
                                 continue;
+                            }
+                            else
+                            {
+                                // Notify user
+                                MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
 
-                            // Notify user
-                            MessageBoxLibrary.PotentialPathManipulationDetectedMessageBox(archivePath);
-
-                            throw new SecurityException($"Potentially dangerous zip entry path: {zipEntry.Name}");
+                                throw new SecurityException($"Potentially dangerous zip entry path: {zipEntry.Name}");
+                            }
                         }
                     }
 

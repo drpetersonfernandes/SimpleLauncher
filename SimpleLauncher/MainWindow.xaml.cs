@@ -202,10 +202,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                 _ = _logErrors.LogErrorAsync(ex, "Error in the DisplaySystemSelectionScreenAsync method.");
                 DebugLogger.Log($"Error in the DisplaySystemSelectionScreenAsync method: {ex.Message}");
             }
-        };
 
-        Loaded += async (_, _) =>
-        {
             try
             {
                 await _updateChecker.SilentCheckForUpdatesAsync(this);
@@ -232,7 +229,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
                     {
                         var easyModeWindow = new EasyModeWindow();
                         easyModeWindow.Owner = this;
-                        easyModeWindow.Show();
+                        easyModeWindow.ShowDialog();
 
                         LoadOrReloadSystemManager();
                         _ = DisplaySystemSelectionScreenAsync();
@@ -692,7 +689,7 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
 
                     var selectedSystem = SystemComboBox.SelectedItem?.ToString();
                     var selectedManager = _systemManagers.FirstOrDefault(c => c.SystemName == selectedSystem);
-                    if (selectedSystem == null || selectedManager == null) // Combine null checks
+                    if (selectedSystem == null || selectedManager == null)
                     {
                         // Notify developer
                         const string errorMessage = "Selected system or its configuration is null.";

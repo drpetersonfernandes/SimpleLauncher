@@ -800,7 +800,7 @@ public partial class MainWindow
         QuitApplication.RestartApplication();
     }
 
-    public void NavRestartButton_Click(object sender, RoutedEventArgs e)
+    private void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RestartingUI") ?? "Restarting UI...", this);
         _playSoundEffects.PlayNotificationSound();
