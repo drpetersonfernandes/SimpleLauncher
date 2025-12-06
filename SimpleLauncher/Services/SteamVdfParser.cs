@@ -10,7 +10,7 @@ namespace SimpleLauncher.Services;
 /// <summary>
 /// A simple parser for Valve's KeyValue (VDF) file format.
 /// </summary>
-public static class VdfParser
+public static class SteamVdfParser
 {
     // This regex will find any quoted string, which we'll treat as a token.
     private static readonly Regex TokenRegex = new("\"([^\"]*)\"", RegexOptions.Compiled);

@@ -225,84 +225,12 @@ public partial class GlobalSearchWindow : IDisposable
                         FileNameWithExtension = Path.GetFileName(filePath),
                         FolderName = Path.GetDirectoryName(filePath)?.Split(Path.DirectorySeparatorChar).LastOrDefault(),
                         FilePath = filePath,
-                        FileSizeBytes = -1,
                         MachineName = GetMachineDescription(Path.GetFileNameWithoutExtension(filePath)),
                         SystemName = systemManager.SystemName,
                         EmulatorManager = systemManager.Emulators.FirstOrDefault(),
                         CoverImage = FindCoverImage.FindCoverImagePath(Path.GetFileNameWithoutExtension(filePath), systemManager.SystemName, systemManager, _settings)
                     };
                     results.Add(searchResultItem);
-
-                    // Track the file size calculation task
-                    var fileSizeTask = Task.Run(() =>
-                    {
-                        try
-                        {
-                            token.ThrowIfCancellationRequested();
-
-                            if (File.Exists(searchResultItem.FilePath))
-                            {
-                                var fileInfo = new FileInfo(searchResultItem.FilePath);
-
-                                // Final cancellation check before UI update
-                                token.ThrowIfCancellationRequested();
-
-                                // Marshal the update to the UI thread
-                                Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    searchResultItem.FileSizeBytes = fileInfo.Length;
-                                });
-                            }
-                            else
-                            {
-                                // Notify developer
-                                var contextMessage = $"GlobalSearch: File not found during async size calculation: {searchResultItem.FilePath}";
-                                _ = _logErrors.LogErrorAsync(new FileNotFoundException(contextMessage, searchResultItem.FilePath), contextMessage);
-
-                                // Marshal the update to the UI thread
-                                Application.Current.Dispatcher.Invoke(() =>
-                                {
-                                    searchResultItem.FileSizeBytes = -2;
-                                });
-                            }
-                        }
-                        catch (OperationCanceledException)
-                        {
-                            // Marshal the update to the UI thread
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                searchResultItem.FileSizeBytes = -2;
-                            });
-                        }
-                        catch (Exception ex)
-                        {
-                            // Notify developer
-                            var contextMessage = $"GlobalSearch: Error getting file size async for: {searchResultItem.FilePath}";
-                            _ = _logErrors.LogErrorAsync(ex, contextMessage);
-
-                            // Marshal the update to the UI thread
-                            Application.Current.Dispatcher.Invoke(() =>
-                            {
-                                searchResultItem.FileSizeBytes = -2;
-                            });
-                        }
-
-                        return Task.CompletedTask;
-                    }, token);
-
-                    // Add to tracking list and setup self-cleanup
-                    lock (_fileSizeTasksLock)
-                    {
-                        _pendingFileSizeTasks.Add(fileSizeTask);
-                    }
-
-                    _ = fileSizeTask.ContinueWith(t =>
-                    {
-                        lock (_fileSizeTasksLock)
-                        {
-                            _pendingFileSizeTasks.Remove(fileSizeTask);
-                        }
-                    }, token);
                 }
             }
         }

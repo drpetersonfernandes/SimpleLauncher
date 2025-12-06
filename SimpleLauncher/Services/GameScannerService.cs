@@ -205,7 +205,7 @@ public class GameScannerService
             {
                 try
                 {
-                    var vdfData = VdfParser.Parse(libraryFoldersVdf);
+                    var vdfData = SteamVdfParser.Parse(libraryFoldersVdf);
 
                     // The root should contain "libraryfolders" key
                     if (vdfData.TryGetValue("libraryfolders", out var libraryFoldersObj) &&
@@ -264,7 +264,7 @@ public class GameScannerService
                 {
                     try
                     {
-                        var appData = VdfParser.Parse(manifestFile);
+                        var appData = SteamVdfParser.Parse(manifestFile);
                         if (appData.TryGetValue("AppState", out var appState) && appState is Dictionary<string, object> appStateDict)
                         {
                             // Ensure we have the required fields: name, appid, and installdir for the fallback

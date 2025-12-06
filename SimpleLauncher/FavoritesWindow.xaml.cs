@@ -178,15 +178,20 @@ public partial class FavoritesWindow
         {
             var itemInList = _favoriteList.FirstOrDefault(f => f.FileName == item.FileName && f.SystemName == item.SystemName);
             if (itemInList != null)
-                _favoriteList.Remove(itemInList);
+            {
+                Application.Current.Dispatcher.Invoke(() => _favoriteList.Remove(itemInList));
+            }
         }
 
-        // Update the FavoritesManager's internal list with the cleaned local list
-        _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
-        _favoritesManager.SaveFavorites();
+        Application.Current.Dispatcher.Invoke(() =>
+        {
+            // Update the FavoritesManager's internal list with the cleaned local list
+            _favoritesManager.FavoriteList = new ObservableCollection<Favorite>(_favoriteList);
+            _favoritesManager.SaveFavorites();
 
-        // Explicitly refresh the data grid binding to ensure UI updates
-        FavoritesDataGrid.Items.Refresh();
+            // Explicitly refresh the data grid binding to ensure UI updates
+            FavoritesDataGrid.Items.Refresh();
+        });
     }
 
     private async Task CalculateFileSizeAsync()

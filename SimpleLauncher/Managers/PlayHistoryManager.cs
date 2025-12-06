@@ -247,10 +247,10 @@ public class PlayHistoryManager
                     LastPlayDate = dateStr,
                     LastPlayTime = timeStr
                 };
-                PlayHistoryList.Add(newItem);
+                Application.Current.Dispatcher.Invoke(() => PlayHistoryList.Add(newItem));
             }
 
-            SavePlayHistory();
+            Application.Current.Dispatcher.Invoke(() => SavePlayHistory());
         }
         catch (Exception ex)
         {
