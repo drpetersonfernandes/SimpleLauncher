@@ -427,24 +427,32 @@ public class GameLauncher
         var psi = new ProcessStartInfo
         {
             FileName = resolvedFilePath,
-            UseShellExecute = true // UseShellExecute=true is typical for launching .lnk
+            UseShellExecute = true // Required for launching shortcuts
         };
 
-        try
+        // Only set working directory for .lnk files, not for .url files
+        // .url files are internet shortcuts that launch protocols (steam://, shell:AppsFolder\, etc.)
+        // Setting a working directory interferes with protocol resolution and causes Win32Exception (0x80041002)
+        var extension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
+        if (extension == ".LNK")
         {
-            var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
-            if (!string.IsNullOrEmpty(workingDirectory))
+            try
             {
-                psi.WorkingDirectory = workingDirectory;
+                var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
+                if (!string.IsNullOrEmpty(workingDirectory))
+                {
+                    psi.WorkingDirectory = workingDirectory;
+                }
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
+
+                psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
             }
         }
-        catch (Exception ex)
-        {
-            // Notify developer
-            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
-
-            psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-        }
+        // For .url files, WorkingDirectory is intentionally left unset to allow proper protocol handling
 
         DebugLogger.Log("LaunchShortcutFileAsync:\n\n");
         DebugLogger.Log($"Shortcut File: {psi.FileName}");
