@@ -27,9 +27,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
     private bool _isUiUpdating;
     private bool _wasControllerRunningBeforeDeactivation;
 
-    // DispatcherTimer for Controller Detection
-    private DispatcherTimer _controllerCheckTimer;
-
     // DispatcherTimer for the status bar timer
     public DispatcherTimer StatusBarTimer { get; set; }
 
@@ -557,32 +554,6 @@ public partial class MainWindow : INotifyPropertyChanged, IDisposable
         if (isLoading)
         {
             LoadingMessage.Text = message ?? ((string)Application.Current.TryFindResource("Loading") ?? "Loading...");
-        }
-    }
-
-    private void InitializeControllerDetection()
-    {
-        _controllerCheckTimer = new DispatcherTimer
-        {
-            Interval = TimeSpan.FromSeconds(5) // Check every 5 seconds
-        };
-        _controllerCheckTimer.Tick += GamePadControllerCheckTimer_Tick;
-        _controllerCheckTimer.Start();
-    }
-
-    private void GamePadControllerCheckTimer_Tick(object sender, EventArgs e)
-    {
-        try
-        {
-            // Call CheckAndReconnectControllers on a background thread to avoid blocking UI
-            Task.Run(() =>
-            {
-                _gamePadController?.CheckAndReconnectControllers();
-            });
-        }
-        catch (Exception ex)
-        {
-            _ = _logErrors.LogErrorAsync(ex, "Error in GamePadControllerCheckTimer_Tick.");
         }
     }
 

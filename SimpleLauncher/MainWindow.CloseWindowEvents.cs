@@ -9,9 +9,6 @@ public partial class MainWindow
     {
         SaveApplicationSettings();
 
-        // Stop Controller Timer
-        StopControllerTimer();
-
         // Stop the status bar timer before closing
         if (StatusBarTimer != null)
         {
@@ -22,25 +19,10 @@ public partial class MainWindow
         Dispose();
     }
 
-    private void StopControllerTimer()
-    {
-        if (_controllerCheckTimer == null) return;
-
-        _controllerCheckTimer?.Stop();
-        _controllerCheckTimer = null;
-    }
-
     public void Dispose()
     {
         // Dispose tray icon resources
         _trayIconManager?.Dispose();
-
-        // Stop and dispose timers
-        if (_controllerCheckTimer != null)
-        {
-            _controllerCheckTimer?.Stop();
-            _controllerCheckTimer = null;
-        }
 
         // Clean up collections
         GameListItems?.Clear();

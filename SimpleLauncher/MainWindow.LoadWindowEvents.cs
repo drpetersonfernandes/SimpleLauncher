@@ -76,9 +76,6 @@ public partial class MainWindow
         _gamePadController.DeadZoneY = _settings.DeadZoneY;
         DebugLogger.Log("GamePadController dead zone settings were updated.");
 
-        InitializeControllerDetection();
-        DebugLogger.Log("Controller detection was initialized.");
-
         // Initialize the status bar timer
         StatusBarTimer = new DispatcherTimer();
 
