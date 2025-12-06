@@ -247,9 +247,13 @@ public partial class App : IDisposable
                     break;
                 default:
                     // Notify developer
-                    var errorMessage = $"Unsupported architecture for SevenZipSharp: {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
+                    var errorMessage = $"Unsupported architecture for 'Simple Launcher': {System.Runtime.InteropServices.RuntimeInformation.ProcessArchitecture}";
                     _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
 
+                    // Notify user
+                    MessageBoxLibrary.UnsupportedArchitectureMessageBox();
+
+                    Current.Shutdown();
                     return;
             }
 
@@ -265,12 +269,18 @@ public partial class App : IDisposable
                 // Notify developer
                 var errorMessage = $"Could not find the required 7-Zip library: {dllName} in {BaseDirectory}";
                 _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, errorMessage);
+
+                // Notify user
+                MessageBoxLibrary.SevenZipDllNotFoundMessageBox();
             }
         }
         catch (Exception ex)
         {
             // Notify developer
             _ = ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Failed to initialize SevenZipSharp library.");
+
+            // Notify user
+            MessageBoxLibrary.FailedToInitializeSevenZipMessageBox();
         }
     }
 

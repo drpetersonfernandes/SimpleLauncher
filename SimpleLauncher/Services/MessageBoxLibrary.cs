@@ -3436,4 +3436,71 @@ internal static class MessageBoxLibrary
                             $"{pleaseedittheSystemsettingsanddisablethe}", error, MessageBoxButton.OK, MessageBoxImage.Error);
         }
     }
+
+    internal static void UnsupportedArchitectureMessageBox()
+    {
+        Application.Current.Dispatcher.Invoke(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var simpleLauncherdoesnotsupportthecurrentprocessorarchitecture = (string)Application.Current.TryFindResource("SimpleLauncherdoesnotsupportthecurrentprocessorarchitecture") ?? "'Simple Launcher' does not support the current processor architecture. We only support 64-bit (x64) or ARM64. The application will now close.";
+            var unsupportedArchitecture = (string)Application.Current.TryFindResource("UnsupportedArchitecture") ?? "Unsupported Architecture";
+            MessageBox.Show(simpleLauncherdoesnotsupportthecurrentprocessorarchitecture, unsupportedArchitecture, MessageBoxButton.OK, MessageBoxImage.Error);
+        }
+    }
+
+    internal static void SevenZipDllNotFoundMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var the7Zdllismissingfromtheapplicationfolder = (string)Application.Current.TryFindResource("The7zdllismissingfromtheapplicationfolder") ?? "The 7z dll is missing from the application folder!";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var reinstall = MessageBox.Show($"{the7Zdllismissingfromtheapplicationfolder}\n\n" + $"{doyouwanttoreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (reinstall == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                MessageBox.Show(pleasereinstallSimpleLauncher, error, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Application.Current.Shutdown();
+            }
+        }
+    }
+
+    internal static void FailedToInitializeSevenZipMessageBox()
+    {
+        Application.Current.Dispatcher.InvokeAsync(ShowMessage);
+        return;
+
+        static void ShowMessage()
+        {
+            var anunexpectederroroccurredwhileinitializingthe7Ziplibrary = (string)Application.Current.TryFindResource("Anunexpectederroroccurredwhileinitializingthe7Ziplibrary") ?? "An unexpected error occurred while initializing the 7-Zip library.";
+            var doyouwanttoreinstallSimpleLauncher = (string)Application.Current.TryFindResource("DoyouwanttoreinstallSimpleLauncher") ?? "Do you want to reinstall 'Simple Launcher' to fix the issue?";
+            var error = (string)Application.Current.TryFindResource("Error") ?? "Error";
+
+            var reinstall = MessageBox.Show($"{anunexpectederroroccurredwhileinitializingthe7Ziplibrary}\n\n" + $"{doyouwanttoreinstallSimpleLauncher}", error, MessageBoxButton.YesNo, MessageBoxImage.Error);
+
+            if (reinstall == MessageBoxResult.Yes)
+            {
+                ReinstallSimpleLauncher.StartUpdaterAndShutdown();
+            }
+            else
+            {
+                var pleasereinstallSimpleLauncher = (string)Application.Current.TryFindResource("PleasereinstallSimpleLauncher") ?? "Please reinstall 'Simple Launcher' manually to fix the issue.";
+                MessageBox.Show(pleasereinstallSimpleLauncher, error, MessageBoxButton.OK, MessageBoxImage.Error);
+
+                Application.Current.Shutdown();
+            }
+        }
+    }
 }
