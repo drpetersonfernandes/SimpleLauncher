@@ -112,7 +112,7 @@ public partial class MainWindow
         }
     }
 
-    private async void ResetUi()
+    public async void ResetUi()
     {
         try
         {
@@ -800,7 +800,7 @@ public partial class MainWindow
         QuitApplication.RestartApplication();
     }
 
-    private void NavRestartButton_Click(object sender, RoutedEventArgs e)
+    public void NavRestartButton_Click(object sender, RoutedEventArgs e)
     {
         UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("RestartingUI") ?? "Restarting UI...", this);
         _playSoundEffects.PlayNotificationSound();

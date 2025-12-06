@@ -106,7 +106,7 @@ public class GameScannerService
             }
 
             var systemExists = xmlDoc.Root?.Elements("SystemConfig")
-                .Any(el => el.Element("SystemName")?.Value.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase) ?? false) ?? false;
+                .Any(static el => el.Element("SystemName")?.Value.Equals(WindowsSystemName, StringComparison.OrdinalIgnoreCase) ?? false) ?? false;
 
             if (systemExists)
             {
@@ -150,6 +150,7 @@ public class GameScannerService
             Directory.CreateDirectory(_windowsImagesPath);
 
             DebugLogger.Log($"[GameScannerService] Successfully created '{WindowsSystemName}' system.");
+
             return true;
         }
         catch (Exception ex)
@@ -163,18 +164,29 @@ public class GameScannerService
 
     private async Task ScanSteamGamesAsync()
     {
+        var steamPath = "";
+        var libraryPaths = new List<string>();
         try
         {
             // 1. Find Steam Path (Check both 64-bit and 32-bit keys, and HKCU)
-            var steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath", null) as string;
+            steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\WOW6432Node\Valve\Steam", "InstallPath", null) as string;
+            DebugLogger.Log($"[GameScannerService] Steam installation path (1st check): {steamPath}");
+
             if (string.IsNullOrEmpty(steamPath))
             {
                 steamPath = Registry.GetValue(@"HKEY_LOCAL_MACHINE\SOFTWARE\Valve\Steam", "InstallPath", null) as string;
+                DebugLogger.Log($"[GameScannerService] Steam installation path (2nd check): {steamPath}");
             }
 
             if (string.IsNullOrEmpty(steamPath))
             {
                 steamPath = Registry.GetValue(@"HKEY_CURRENT_USER\Software\Valve\Steam", "SteamPath", null) as string;
+                DebugLogger.Log($"[GameScannerService] Steam installation path (3rd check): {steamPath}");
+            }
+
+            if (string.IsNullOrEmpty(steamPath))
+            {
+                steamPath = GetSteamPathFromProcess();
             }
 
             if (string.IsNullOrEmpty(steamPath) || !Directory.Exists(steamPath))
@@ -184,7 +196,9 @@ public class GameScannerService
             }
 
             // 2. Identify Library Folders
-            var libraryPaths = new List<string> { Path.Combine(steamPath, "steamapps") };
+            libraryPaths = new List<string> { Path.Combine(steamPath, "steamapps") };
+            DebugLogger.Log($"[GameScannerService] Steam library path: {libraryPaths[0]}");
+
             var libraryFoldersVdf = Path.Combine(steamPath, "steamapps", "libraryfolders.vdf");
 
             if (File.Exists(libraryFoldersVdf))
@@ -203,11 +217,14 @@ public class GameScannerService
                                 libraryPaths.Add(Path.Combine(path, "steamapps"));
                             }
                         }
+
+                        DebugLogger.Log($"[GameScannerService] Steam library paths: {string.Join(", ", libraryPaths)}");
                     }
                 }
                 catch (Exception ex)
                 {
                     await _logErrors.LogErrorAsync(ex, "Failed to parse Steam's libraryfolders.vdf. Using default path only.");
+                    DebugLogger.Log($"[GameScannerService] Error parsing Steam's libraryfolders.vdf: {ex.Message}");
                 }
             }
 
@@ -217,6 +234,8 @@ public class GameScannerService
                 if (!Directory.Exists(libraryPath)) continue;
 
                 var manifestFiles = Directory.GetFiles(libraryPath, "appmanifest_*.acf");
+                DebugLogger.Log($"[GameScannerService] Found {manifestFiles.Length} Steam manifests in {libraryPath}");
+
                 foreach (var manifestFile in manifestFiles)
                 {
                     try
@@ -251,8 +270,31 @@ public class GameScannerService
         }
         catch (Exception ex)
         {
-            await _logErrors.LogErrorAsync(ex, "An error occurred while scanning for Steam games.");
+            await _logErrors.LogErrorAsync(ex, $"An error occurred while scanning for Steam games. SteamPath: {steamPath}, LibraryPaths: {string.Join(", ", libraryPaths)}");
+            DebugLogger.Log($"[GameScannerService] Steam scan failed: {ex.Message}\nStack: {ex.StackTrace}");
         }
+    }
+
+    private static string GetSteamPathFromProcess()
+    {
+        try
+        {
+            var steamProcess = Process.GetProcessesByName("steam").FirstOrDefault();
+            if (steamProcess != null)
+            {
+                var path = steamProcess.MainModule?.FileName;
+                if (!string.IsNullOrEmpty(path))
+                {
+                    return Path.GetDirectoryName(path);
+                }
+            }
+        }
+        catch
+        {
+            /* Ignore errors */
+        }
+
+        return null;
     }
 
     private Task TryCopySteamArtworkAsync(string steamPath, string appId, string sanitizedGameName)
@@ -509,7 +551,7 @@ public class GameScannerService
 
                     // Icon
                     var exeFiles = Directory.GetFiles(installDir, "*.exe", SearchOption.TopDirectoryOnly);
-                    var mainExe = exeFiles.FirstOrDefault(f => !f.Contains("Cleanup", StringComparison.OrdinalIgnoreCase) && !f.Contains("Touchup", StringComparison.OrdinalIgnoreCase));
+                    var mainExe = exeFiles.FirstOrDefault(static f => !f.Contains("Cleanup", StringComparison.OrdinalIgnoreCase) && !f.Contains("Touchup", StringComparison.OrdinalIgnoreCase));
 
                     if (mainExe != null)
                     {
@@ -578,14 +620,14 @@ public class GameScannerService
                     if (!isMatch) continue;
 
                     var sanitizedGameName = SanitizeInputSystemName.SanitizeFolderName(name);
-                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.url");
+                    // Create a .bat file instead of a .url file for reliability with shell:AppsFolder
+                    var shortcutPath = Path.Combine(_windowsRomsPath, $"{sanitizedGameName}.bat");
 
-                    // Create Shell:AppsFolder shortcut
-                    // Format: shell:AppsFolder\{PackageFamilyName}!{AppId}
-                    // Get-StartApps returns the AppID in the format needed for shell:AppsFolder usually.
-
-                    var shortcutContent = $"[InternetShortcut]\nURL=shell:AppsFolder\\{appId}";
-                    await File.WriteAllTextAsync(shortcutPath, shortcutContent);
+                    // Create a batch file that uses the 'start' command. This is the most reliable
+                    // way to launch UWP apps via their shell protocol from an external application,
+                    // avoiding the working directory issues seen with Process.Start on .url files.
+                    var batchContent = $"@echo off\r\nstart \"\" \"shell:AppsFolder\\{appId}\"";
+                    await File.WriteAllTextAsync(shortcutPath, batchContent);
 
                     // Note: Extracting icons from UWP apps programmatically is challenging without UWP APIs.
                     // We rely on the user or a scraper to fill in the image later, or use a default.

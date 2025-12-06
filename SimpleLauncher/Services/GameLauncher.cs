@@ -424,53 +424,65 @@ public class GameLauncher
 
     private Task LaunchShortcutFileAsync(string resolvedFilePath, SystemManager.Emulator selectedEmulatorManager, MainWindow mainWindow)
     {
-        var psi = new ProcessStartInfo
-        {
-            FileName = resolvedFilePath,
-            UseShellExecute = true // Required for launching shortcuts
-        };
-
-        // Only set working directory for .lnk files, not for .url files
-        // .url files are internet shortcuts that launch protocols (steam://, shell:AppsFolder\, etc.)
-        // Setting a working directory interferes with protocol resolution and causes Win32Exception (0x80041002)
-        var extension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
-        if (extension == ".LNK")
-        {
-            try
-            {
-                var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
-                if (!string.IsNullOrEmpty(workingDirectory))
-                {
-                    psi.WorkingDirectory = workingDirectory;
-                }
-            }
-            catch (Exception ex)
-            {
-                // Notify developer
-                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
-
-                psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
-            }
-        }
-        // For .url files, WorkingDirectory is intentionally left unset to allow proper protocol handling
-
-        DebugLogger.Log("LaunchShortcutFileAsync:\n\n");
-        DebugLogger.Log($"Shortcut File: {psi.FileName}");
-        DebugLogger.Log($"Working Directory: {psi.WorkingDirectory}\n");
-        TrayIconManager.ShowTrayMessage($"{psi.FileName} launched");
-        UpdateStatusBar.UpdateContent($"{psi.FileName} launched", mainWindow);
+        // Common UI updates
+        TrayIconManager.ShowTrayMessage($"{Path.GetFileName(resolvedFilePath)} launched");
+        UpdateStatusBar.UpdateContent($"{Path.GetFileName(resolvedFilePath)} launched", mainWindow);
 
         try
         {
-            using var process = new Process();
-            process.StartInfo = psi;
-            process.Start();
+            var extension = Path.GetExtension(resolvedFilePath).ToUpperInvariant();
+
+            if (extension == ".URL")
+            {
+                // For .URL files (especially shell:AppsFolder), use the simplest ProcessStartInfo configuration.
+                // This is equivalent to using the Windows Run dialog and avoids all WorkingDirectory issues
+                // by letting the shell handle the protocol entirely.
+                DebugLogger.Log("LaunchShortcutFileAsync (.URL):\n\n");
+                DebugLogger.Log($"Shortcut File: {resolvedFilePath}");
+                DebugLogger.Log("Using shell-only execution to handle protocol.\n");
+
+                Process.Start(new ProcessStartInfo(resolvedFilePath) { UseShellExecute = true });
+            }
+            else // Assumes .LNK or other shell-executable files that might need a working directory
+            {
+                var psi = new ProcessStartInfo
+                {
+                    FileName = resolvedFilePath,
+                    UseShellExecute = true
+                };
+
+                // Only set working directory for .lnk files, as they often require it.
+                if (extension == ".LNK")
+                {
+                    try
+                    {
+                        var workingDirectory = Path.GetDirectoryName(resolvedFilePath);
+                        if (!string.IsNullOrEmpty(workingDirectory))
+                        {
+                            psi.WorkingDirectory = workingDirectory;
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, $"Could not get workingDirectory for shortcut file: '{resolvedFilePath}'. Using default.");
+                        psi.WorkingDirectory = AppDomain.CurrentDomain.BaseDirectory;
+                    }
+                }
+
+                DebugLogger.Log("LaunchShortcutFileAsync (.LNK):\n\n");
+                DebugLogger.Log($"Shortcut File: {psi.FileName}");
+                DebugLogger.Log($"Working Directory: {(psi.WorkingDirectory)}\n");
+
+                using var process = new Process();
+                process.StartInfo = psi;
+                process.Start();
+            }
         }
         catch (Exception ex)
         {
-            // Notify developer
+            // Centralized error handling for both cases
             var errorDetail = $"Exception launching the shortcut file.\n" +
-                              $"Shortcut file: {psi.FileName}\n" +
+                              $"Shortcut file: {resolvedFilePath}\n" +
                               $"Exception: {ex.Message}";
             var userNotified = selectedEmulatorManager.ReceiveANotificationOnEmulatorError ? "User was notified." : "User was not notified.";
             var contextMessage = $"{errorDetail}\n{userNotified}";
