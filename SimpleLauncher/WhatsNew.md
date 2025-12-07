@@ -1,9 +1,10 @@
 # Release 4.7.0
-*2025-12-05*
+*2025-12-07*
 ---
 
 ## 🚀 New Features
 - **Group Files by Folder**: Groups multi-file MAME games (e.g., Software List CHDs/ROMs from [PleasureDome](https://pleasuredome.github.io/pleasuredome/index.html)) into single UI entries. Compatible **only with MAME**—warnings shown for non-MAME setups.
+- **New Tool RetroGameCoverDownloader**: New tool to help users get cover art for their games.
 - **Advanced Global Search**: Filter by system, filename, MAME description, folder name, and recursive search.
 - **First-Run Welcome Flow**: Guides new users to Easy Mode for quick setup.
 - **Kebab Menu**: "..." button on game entries for quick context actions.
