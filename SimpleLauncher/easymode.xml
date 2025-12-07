@@ -604,11 +604,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Vice</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64-r45800\bin\x64sc.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64\bin\x64sc.exe</EmulatorLocation>
                 <EmulatorParameters>-autostart</EmulatorParameters>
-                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/index.html#download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>3.9</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/r45800/GTK3VICE-3.9-win64-r45800.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/VICE-Team/svn-mirror/releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>3.9.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/3.9.0/GTK3VICE-3.9-win64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>
@@ -641,11 +641,11 @@
         <Emulators>
             <Emulator>
                 <EmulatorName>Vice</EmulatorName>
-                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64-r45800\bin\x128.exe</EmulatorLocation>
+                <EmulatorLocation>%BASEFOLDER%\emulators\Vice\GTK3VICE-3.9-win64\bin\x64sc.exe</EmulatorLocation>
                 <EmulatorParameters>-autostart</EmulatorParameters>
-                <EmulatorDownloadPage>https://vice-emu.sourceforge.io/index.html#download</EmulatorDownloadPage>
-                <EmulatorLatestVersion>3.9</EmulatorLatestVersion>
-                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/r45800/GTK3VICE-3.9-win64-r45800.zip</EmulatorDownloadLink>
+                <EmulatorDownloadPage>https://github.com/VICE-Team/svn-mirror/releases</EmulatorDownloadPage>
+                <EmulatorLatestVersion>3.9.0</EmulatorLatestVersion>
+                <EmulatorDownloadLink>https://github.com/VICE-Team/svn-mirror/releases/download/3.9.0/GTK3VICE-3.9-win64.zip</EmulatorDownloadLink>
                 <EmulatorDownloadExtractPath>%BASEFOLDER%\emulators\Vice\</EmulatorDownloadExtractPath>
 
                 <CoreLocation/>

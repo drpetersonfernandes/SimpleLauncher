@@ -724,6 +724,12 @@
     <None Update="tools\BatchConvertIsoToXiso\bchunk.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Update="tools\RetroGameCoverDownloader\RetroGameCoverDownloader_arm64.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
   </ItemGroup>
   <ItemGroup>
     <Resource Include="images\logo2.png">
@@ -894,6 +900,8 @@
     <Resource Include="images\gamecoverscraper.png" />
     <None Remove="images\darkmode.png" />
     <Resource Include="images\darkmode.png" />
+    <None Remove="images\retrogamecoverdownloader.png" />
+    <Resource Include="images\retrogamecoverdownloader.png" />
   </ItemGroup>
     <ItemGroup>
     <Content Include="settings.xml" />

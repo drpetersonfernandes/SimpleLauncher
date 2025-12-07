@@ -27,13 +27,12 @@ public class LaunchTools : ILaunchTools
             const string contextMessage = "Tool path cannot be null or empty.";
             _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, contextMessage);
 
-            // Notify user (using a generic message for tool not found)
+            // Notify user
             MessageBoxLibrary.SelectedToolNotFoundMessageBox();
 
             return;
         }
 
-        // Check if the tool executable exists
         if (!File.Exists(toolPath))
         {
             // Notify developer
@@ -222,7 +221,7 @@ public class LaunchTools : ILaunchTools
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+                MessageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
             }
             catch (Exception ex)
             {
@@ -408,18 +407,6 @@ public class LaunchTools : ILaunchTools
         }
     }
 
-    public void BatchVerifyChdFiles()
-    {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCHDFiles", "BatchVerifyCHDFiles.exe");
-        LaunchExternalTool(toolPath);
-    }
-
-    public void BatchVerifyCompressedFiles()
-    {
-        var toolPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "BatchVerifyCompressedFiles", "BatchVerifyCompressedFiles.exe");
-        LaunchExternalTool(toolPath);
-    }
-
     public void CreateBatchFilesForScummVmGames()
     {
         try
@@ -587,8 +574,7 @@ public class LaunchTools : ILaunchTools
                 _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
 
                 // Notify user
-                // Reusing FindRomCoverLaunchWasCanceledByUserMessageBox for now, consider creating a specific one if needed.
-                MessageBoxLibrary.FindRomCoverLaunchWasCanceledByUserMessageBox();
+                MessageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
             }
             catch (Exception ex)
             {
@@ -606,6 +592,95 @@ public class LaunchTools : ILaunchTools
 
             // Notify user
             MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("GameCoverScraper", _logPath);
+        }
+    }
+
+    public void RetroGameCoverDownloader(string selectedImageFolder, string selectedRomFolder)
+    {
+        try
+        {
+            var architecture = RuntimeInformation.ProcessArchitecture;
+            string executablePath;
+
+            switch (architecture)
+            {
+                case Architecture.X64:
+                    executablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader.exe");
+                    break;
+                case Architecture.Arm64:
+                    executablePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader_arm64.exe");
+                    break;
+                default:
+                    MessageBoxLibrary.LaunchToolInformation($"This application is not available for {architecture}");
+                    return;
+            }
+
+            var arguments = string.Empty;
+            string workingDirectory = null;
+
+            // Resolve the selected image and rom folders
+            string absoluteImageFolder = null;
+            if (!string.IsNullOrEmpty(selectedImageFolder))
+            {
+                absoluteImageFolder = PathHelper.ResolveRelativeToAppDirectory(selectedImageFolder);
+            }
+
+            string absoluteRomFolder = null;
+            if (!string.IsNullOrEmpty(selectedRomFolder))
+            {
+                absoluteRomFolder = PathHelper.ResolveRelativeToAppDirectory(selectedRomFolder);
+            }
+
+            // Check if both resolved paths are valid
+            if (!string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(absoluteRomFolder))
+            {
+                arguments = $"\"{absoluteImageFolder}\" \"{absoluteRomFolder}\"";
+                workingDirectory = Path.GetDirectoryName(executablePath); // Set working directory to the tool's directory
+            }
+            else
+            {
+                if (string.IsNullOrEmpty(absoluteImageFolder) && !string.IsNullOrEmpty(selectedImageFolder))
+                {
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"RetroGameCoverDownloader: Could not resolve image folder path: '{selectedImageFolder}'");
+                }
+
+                if (string.IsNullOrEmpty(absoluteRomFolder) && !string.IsNullOrEmpty(selectedRomFolder))
+                {
+                    // Notify developer
+                    _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(null, $"RetroGameCoverDownloader: Could not resolve ROM folder path: '{selectedRomFolder}'");
+                }
+            }
+
+            try
+            {
+                LaunchExternalTool(executablePath, arguments, workingDirectory);
+            }
+            catch (Win32Exception ex) when (ex.NativeErrorCode == 1223)
+            {
+                // Notify developer
+                const string contextMessage = "The operation was canceled by the user while trying to launch RetroGameCoverDownloader.";
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, contextMessage);
+
+                // Notify user
+                MessageBoxLibrary.ToolLaunchWasCanceledByUserMessageBox();
+            }
+            catch (Exception ex)
+            {
+                // Notify developer
+                _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching RetroGameCoverDownloader");
+
+                // Notify user
+                MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RetroGameCoverDownloader", _logPath);
+            }
+        }
+        catch (Exception ex)
+        {
+            // Notify developer
+            _ = App.ServiceProvider.GetRequiredService<ILogErrors>().LogErrorAsync(ex, "Error launching RetroGameCoverDownloader");
+
+            // Notify user
+            MessageBoxLibrary.ThereWasAnErrorLaunchingTheToolMessageBox("RetroGameCoverDownloader", _logPath);
         }
     }
 }

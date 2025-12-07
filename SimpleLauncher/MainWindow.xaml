@@ -723,6 +723,11 @@
                         <Image Source="pack://application:,,,/images/gamecoverscraper.png" Width="16" Height="16" />
                     </MenuItem.Icon>
                 </MenuItem>
+                <MenuItem Click="RetroGameCoverDownloader_Click" Header="RetroGameCoverDownloader">
+                    <MenuItem.Icon>
+                        <Image Source="pack://application:,,,/images/retrogamecoverdownloader.png" Width="16" Height="16" />
+                    </MenuItem.Icon>
+                </MenuItem>
                 <MenuItem Click="RomValidator_Click" Header="RomValidator">
                     <MenuItem.Icon>
                         <Image Source="pack://application:,,,/images/tools.png" Width="16" Height="16" />

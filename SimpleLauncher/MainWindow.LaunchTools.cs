@@ -92,4 +92,12 @@ public partial class MainWindow
         ResetUi();
         _launchTools.GameCoverScraper(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
     }
+
+    private void RetroGameCoverDownloader_Click(object sender, RoutedEventArgs e)
+    {
+        UpdateStatusBar.UpdateContent((string)Application.Current.TryFindResource("LaunchingTool") ?? "Launching tool...", this);
+        _playSoundEffects.PlayNotificationSound();
+        ResetUi();
+        _launchTools.RetroGameCoverDownloader(_selectedImageFolder, _selectedRomFolders?.FirstOrDefault());
+    }
 }

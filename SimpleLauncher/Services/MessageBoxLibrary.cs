@@ -732,16 +732,16 @@ internal static class MessageBoxLibrary
         }
     }
 
-    internal static void FindRomCoverLaunchWasCanceledByUserMessageBox()
+    internal static void ToolLaunchWasCanceledByUserMessageBox()
     {
         Application.Current.Dispatcher.InvokeAsync(ShowMessage);
         return;
 
         static void ShowMessage()
         {
-            var thelaunchofFindRomCoverexewascanceled = (string)Application.Current.TryFindResource("ThelaunchofFindRomCoverexewascanceled") ?? "The launch of 'FindRomCover.exe' was canceled by the user.";
+            var thelaunchoftheselectedtoolwascanceledbytheuser = (string)Application.Current.TryFindResource("thelaunchoftheselectedtoolwascanceledbytheuser") ?? "The launch of the selected tool was canceled by the user.";
             var info = (string)Application.Current.TryFindResource("Info") ?? "Info";
-            MessageBox.Show(thelaunchofFindRomCoverexewascanceled, info, MessageBoxButton.OK, MessageBoxImage.Information);
+            MessageBox.Show(thelaunchoftheselectedtoolwascanceledbytheuser, info, MessageBoxButton.OK, MessageBoxImage.Information);
         }
     }
 
