@@ -166,7 +166,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover_arm64.exe"),
         Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator_arm64.exe"),
-        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive_arm64.exe")
+        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive_arm64.exe"),
+        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader_arm64.exe")
     ];
 
     private static readonly string[] FilesToDeleteIfCurrentArchitectureIsArm64 =
@@ -185,7 +186,8 @@ public static class CleanSimpleLauncherFolder
         Path.Combine(AppDirectory, "tools", "CreateBatchFilesForXbox360XBLAGames", "CreateBatchFilesForXbox360XBLAGames.exe"),
         Path.Combine(AppDirectory, "tools", "FindRomCover", "FindRomCover.exe"),
         Path.Combine(AppDirectory, "tools", "RomValidator", "RomValidator.exe"),
-        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive.exe")
+        Path.Combine(AppDirectory, "tools", "SimpleZipDrive", "SimpleZipDrive.exe"),
+        Path.Combine(AppDirectory, "tools", "RetroGameCoverDownloader", "RetroGameCoverDownloader.exe")
     ];
 
     private static readonly string[] DirectoriesToDeleteIfCurrentArchitectureIsX64 =
