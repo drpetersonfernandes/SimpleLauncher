@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Le lancement de l'outil sélectionné a été annulé par l'utilisateur.</system:String>
+
     <system:String x:Key="1000000games">Tous les jeux</system:String>
     <system:String x:Key="10000games">10000 jeux</system:String>
     <system:String x:Key="1000games">1000 jeux</system:String>
@@ -701,7 +703,6 @@
     <system:String x:Key="Thegamewilllaunchnow">Le jeu va se lancer maintenant.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">L'image peut être corrompue ou inaccessible.</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Le pack d'images a été extrait avec succès dans le dossier</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Le lancement de 'FindRomCover.exe' a été annulé par l'utilisateur.</system:String>
     <system:String x:Key="Theme">Thème</system:String>
     <system:String x:Key="Thename">Le nom</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Une mise à jour logicielle est disponible.</system:String>

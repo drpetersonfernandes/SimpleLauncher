@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Seçilen aracın başlatılması kullanıcı tarafından iptal edildi.</system:String>
+
     <system:String x:Key="1000000games">Tüm oyunlar</system:String>
     <system:String x:Key="10000games">10000 oyun</system:String>
     <system:String x:Key="1000games">1000 oyun</system:String>
@@ -701,7 +703,6 @@
     <system:String x:Key="Thegamewilllaunchnow">Oyun şimdi başlatılacak.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Resim bozulmuş veya erişilemez durumda olabilir.</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Resim paketi başarıyla klasöre çıkarıldı</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' başlatma işlemi kullanıcı tarafından iptal edildi.</system:String>
     <system:String x:Key="Theme">Tema</system:String>
     <system:String x:Key="Thename">Adı</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Yeni bir yazılım güncellemesi mevcut.</system:String>

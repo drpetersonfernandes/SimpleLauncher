@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">चयनित टूल का प्रक्षेपण उपयोगकर्ता द्वारा रद्द कर दिया गया।</system:String>
+
     <system:String x:Key="1000000games">सभी गेम</system:String>
     <system:String x:Key="10000games">10000 गेम</system:String>
     <system:String x:Key="1000games">1000 गेम</system:String>
@@ -701,7 +703,6 @@
     <system:String x:Key="Thegamewilllaunchnow">खेल अब शुरू होगा।</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">इमेज भ्रष्ट हो सकती है या अप्राप्य है।</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">इमेज पैक सफलतापूर्वक फ़ोल्डर में निकाला गया</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">उपयोगकर्ता द्वारा 'FindRomCover.exe' का लॉन्च रद्द कर दिया गया।</system:String>
     <system:String x:Key="Theme">थीम</system:String>
     <system:String x:Key="Thename">नाम</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">एक सॉफ़्टवेयर अपडेट उपलब्ध है।</system:String>

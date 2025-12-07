@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">Việc khởi chạy công cụ đã chọn đã bị người dùng hủy.</system:String>
+
     <system:String x:Key="1000000games">Tất cả trò chơi</system:String>
     <system:String x:Key="10000games">10000 trò chơi</system:String>
     <system:String x:Key="1000games">1000 trò chơi</system:String>
@@ -701,7 +703,6 @@
     <system:String x:Key="Thegamewilllaunchnow">Trò chơi sẽ được khởi động ngay bây giờ.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">Hình ảnh có thể bị hỏng hoặc không thể truy cập được.</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">Gói hình ảnh đã được giải nén thành công vào thư mục</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">Việc khởi chạy 'FindRomCover.exe' đã bị người dùng hủy.</system:String>
     <system:String x:Key="Theme">Giao diện</system:String>
     <system:String x:Key="Thename">Tên</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">Có một bản cập nhật phần mềm khả dụng.</system:String>

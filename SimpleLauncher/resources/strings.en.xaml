@@ -701,7 +701,6 @@
     <system:String x:Key="Thegamewilllaunchnow">The game will launch now.</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">The image may be corrupted or inaccessible.</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">The image pack was successfully extracted into the folder</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">The launch of 'FindRomCover.exe' was canceled by the user.</system:String>
     <system:String x:Key="Theme">Theme</system:String>
     <system:String x:Key="Thename">The name</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">There is a software update available.</system:String>
@@ -840,4 +839,6 @@
     <system:String x:Key="ZoomingIn">Zooming in...</system:String>
     <system:String x:Key="ZoomingOut">Zooming out...</system:String>
     <system:String x:Key="ZoomOut">Zoom Out</system:String>
+    
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">The launch of the selected tool was canceled by the user.</system:String>
 </ResourceDictionary>

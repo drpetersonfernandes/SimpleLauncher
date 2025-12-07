@@ -1,6 +1,8 @@
 <ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
                     xmlns:system="clr-namespace:System;assembly=System.Runtime">
+    <system:String x:Key="thelaunchoftheselectedtoolwascanceledbytheuser">所選工具的啟動已被使用者取消。</system:String>
+
     <system:String x:Key="1000000games">所有遊戲</system:String>
     <system:String x:Key="10000games">10000 個遊戲</system:String>
     <system:String x:Key="1000games">1000 個遊戲</system:String>
@@ -701,7 +703,6 @@
     <system:String x:Key="Thegamewilllaunchnow">遊戲即將啟動。</system:String>
     <system:String x:Key="Theimagemaybecorruptedorinaccessible">圖像可能已損壞或無法存取。</system:String>
     <system:String x:Key="Theimagepackwassuccessfullyextractedintothefolder">映像包已成功解壓至資料夾中</system:String>
-    <system:String x:Key="ThelaunchofFindRomCoverexewascanceled">'FindRomCover.exe' 的啟動已被使用者取消。</system:String>
     <system:String x:Key="Theme">主題</system:String>
     <system:String x:Key="Thename">名稱</system:String>
     <system:String x:Key="Thereisasoftwareupdateavailable">有軟體更新可用。</system:String>
